@@ -23,7 +23,7 @@ def test_TitleMap_Exists():
     assert not x_titlemap.inx_knot
 
 
-def test_titlemap_shop_ReturnsObj_scenario0_NoParameters():
+def test_titlemap_shop_ReturnsObj_Scenario0_NoParameters():
     # ESTABLISH / WHEN
     x_titlemap = titlemap_shop()
 
@@ -36,7 +36,7 @@ def test_titlemap_shop_ReturnsObj_scenario0_NoParameters():
     assert x_titlemap.inx_knot == default_knot_if_None()
 
 
-def test_titlemap_shop_ReturnsObj_scenario1_WithParameters():
+def test_titlemap_shop_ReturnsObj_Scenario1_WithParameters():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
@@ -66,7 +66,7 @@ def test_titlemap_shop_ReturnsObj_scenario1_WithParameters():
     assert x_titlemap.inx_knot == colon_inx_knot
 
 
-def test_titlemap_shop_ReturnsObj_scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
+def test_titlemap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"

@@ -1,6 +1,7 @@
 {
   "Anaday": {"init_chapter": "ch14"}, 
   "moment": {"init_chapter": "ch07"}, 
+  "EpochFormula": {"init_chapter": "ch16"}, 
   "translate_category": {"init_chapter": "ch16"}, 
   "translate_epoch": {"init_chapter": "ch16"}, 
   "inx_time": {"init_chapter": "ch16"}, 
@@ -171,6 +172,7 @@
   "fact_upper": {"init_chapter": "ch05"}, 
   "factheirs": {"init_chapter": "ch05"}, 
   "factunits": {"init_chapter": "ch05"}, 
+  "epoch_length_min": {"init_chapter": "ch14", "note": "Total number of minutes in a Epoch. Calculated by number of minutes in C400_leap times Epoch's c400_number"}, 
   "finance": {"init_chapter": "ch22"}, 
   "financial": {"init_chapter": "ch22"}, 
   "five": {"init_chapter": "ch14"}, 

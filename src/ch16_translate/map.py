@@ -40,7 +40,7 @@ class set_label_Exception(Exception):
 class MapCore:
     face_name: FaceName = None
     spark_num: SparkInt = None
-    otx2inx: dict = None
+    otx2inx: dict[str, str] = None
     unknown_str: str = None
     otx_knot: KnotTerm = None
     inx_knot: KnotTerm = None

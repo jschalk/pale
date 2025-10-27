@@ -39,14 +39,14 @@ from src.ch01_py.dict_toolbox import (
 from src.ch01_py.test._util.ch01_examples import CommonExampleStrs as wx
 
 
-def test_get_1_if_None():
+def test_get_1_if_None_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_1_if_None(None) == 1
     assert get_1_if_None(2) == 2
     assert get_1_if_None(-3) == -3
 
 
-def test_get_empty_str_if_None():
+def test_get_empty_str_if_None_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_empty_str_if_None(None) == ""
     assert get_empty_str_if_None(2) == "2"
@@ -54,7 +54,7 @@ def test_get_empty_str_if_None():
     assert get_empty_str_if_None("Fay") == "Fay"
 
 
-def test_get_0_if_None():
+def test_get_0_if_None_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_0_if_None(None) == 0
     assert get_0_if_None(2) == 2

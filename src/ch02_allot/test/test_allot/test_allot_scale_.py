@@ -96,7 +96,7 @@ def test_create_missing_distribution_list_ReturnsObj_Scenario05():
     assert missing_scale_list == [-10, -10, -10, -5]
 
 
-def test_allot_missing_scale_DistributesTheMissingScale_scenario00():
+def test_allot_missing_scale_DistributesTheMissingScale_Scenario00():
     # ESTABLISH
     before_ledger = {}
     x_missing_scale = 10
@@ -117,7 +117,7 @@ def test_allot_missing_scale_DistributesTheMissingScale_scenario00():
     assert gen_ledger == after_ledger
 
 
-def test_allot_missing_scale_DistributesTheMissingScale_scenario01():
+def test_allot_missing_scale_DistributesTheMissingScale_Scenario01():
     # ESTABLISH
     bob_before_allot = 1000
     sue_before_allot = 900
@@ -153,7 +153,7 @@ def test_allot_missing_scale_DistributesTheMissingScale_scenario01():
     assert gen_ledger == after_ledger
 
 
-def test_allot_missing_scale_DistributesTheMissingScale_scenario02():
+def test_allot_missing_scale_DistributesTheMissingScale_Scenario02():
     # ESTABLISH
     bob_before_allot = 1000
     sue_before_allot = 900

@@ -398,7 +398,7 @@ def test_TranslateUnit_Exists():
     assert not x_translateunit.face_name
 
 
-def test_translateunit_shop_ReturnsObj_scenario0():
+def test_translateunit_shop_ReturnsObj_Scenario0():
     # ESTABLISH
     sue_str = "Sue"
 
@@ -433,7 +433,7 @@ def test_translateunit_shop_ReturnsObj_scenario0():
     assert sue_translateunit.ropemap.inx_knot == default_knot_if_None()
 
 
-def test_translateunit_shop_ReturnsObj_scenario1():
+def test_translateunit_shop_ReturnsObj_Scenario1():
     # ESTABLISH
     sue_str = "Sue"
     five_spark_num = 5
@@ -487,7 +487,7 @@ def test_translateunit_shop_ReturnsObj_scenario1():
     assert sue_translateunit.ropemap.inx_knot == colon_inx_knot
 
 
-def test_translateunit_shop_ReturnsObj_scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
+def test_translateunit_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"

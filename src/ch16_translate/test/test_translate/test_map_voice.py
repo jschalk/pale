@@ -24,7 +24,7 @@ def test_NameMap_Exists():
     assert not x_namemap.inx_knot
 
 
-def test_namemap_shop_ReturnsObj_scenario0():
+def test_namemap_shop_ReturnsObj_Scenario0():
     # ESTABLISH / WHEN
     x_namemap = namemap_shop()
 
@@ -37,7 +37,7 @@ def test_namemap_shop_ReturnsObj_scenario0():
     assert x_namemap.inx_knot == default_knot_if_None()
 
 
-def test_namemap_shop_ReturnsObj_scenario1_WithParameters():
+def test_namemap_shop_ReturnsObj_Scenario1_WithParameters():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
@@ -67,7 +67,7 @@ def test_namemap_shop_ReturnsObj_scenario1_WithParameters():
     assert x_namemap.inx_knot == colon_inx_knot
 
 
-def test_namemap_shop_ReturnsObj_scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
+def test_namemap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"

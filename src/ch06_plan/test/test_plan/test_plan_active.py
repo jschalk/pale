@@ -330,7 +330,7 @@ def test_PlanUnit_get_reasonunit_ReturnsObj():
     assert x_reasonunit.reason_context == dirty_str
 
 
-def test_PlanUnit_get_reasonheir_ReturnsObj():
+def test_PlanUnit_get_reasonheir_ReturnsObj_Scenario0():
     # ESTABLISH
     clean_str = "clean"
     clean_plan = planunit_shop(clean_str)
@@ -347,7 +347,7 @@ def test_PlanUnit_get_reasonheir_ReturnsObj():
     assert z_reasonheir.reason_context == dirty_str
 
 
-def test_PlanUnit_get_reasonheir_ReturnsNone():
+def test_PlanUnit_get_reasonheir_ReturnsObj_Scenario1_belief_plan_IsEmpty():
     # ESTABLISH
     clean_str = "clean"
     clean_plan = planunit_shop(clean_str)
@@ -364,7 +364,7 @@ def test_PlanUnit_get_reasonheir_ReturnsNone():
     assert reason_heir_test6 is None
 
 
-def test_PlanUnit_set_plan_active_SetsNullactive_hxToNonEmpty():
+def test_PlanUnit_set_plan_active_SetsAttr_Scenario0_plan_active_hx_ToNonEmpty():
     # ESTABLISH
     clean_str = "clean"
     clean_plan = planunit_shop(clean_str)
@@ -376,7 +376,7 @@ def test_PlanUnit_set_plan_active_SetsNullactive_hxToNonEmpty():
     assert clean_plan.plan_active_hx == {3: True}
 
 
-def test_PlanUnit_set_plan_active_IfFullactive_hxResetToTrue():
+def test_PlanUnit_set_plan_active_SetAttr_Scenario1_plan_active_hx_ResetToTrue():
     # ESTABLISH
     clean_str = "clean"
     clean_plan = planunit_shop(clean_str)
@@ -435,7 +435,7 @@ def test_PlanUnit_factunit_exists_ReturnsObj():
 #     assert clean_plan.plan_active_hx == {0: False}
 
 
-def test_PlanUnit_record_plan_active_hx_Sets_plan_active_hx():
+def test_PlanUnit_record_plan_active_hx_SetsAttr_plan_active_hx():
     # ESTABLISH
     clean_str = "clean"
     clean_plan = planunit_shop(clean_str)
@@ -472,7 +472,7 @@ def test_PlanUnit_record_plan_active_hx_Sets_plan_active_hx():
     assert clean_plan.plan_active_hx == {0: False}
 
 
-def test_PlanUnit_set_laborunit_empty_if_None():
+def test_PlanUnit_set_laborunit_empty_if_None_SetsAttr():
     # ESTABLISH
     run_str = "run"
     run_plan = planunit_shop(run_str)

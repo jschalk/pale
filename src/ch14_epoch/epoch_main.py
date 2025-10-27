@@ -148,8 +148,8 @@ def create_week_planunits(x_weekdays_list) -> dict[str, PlanUnit]:
 
 
 def new_epoch_planunit(epoch_label: EpochLabel, c400_number: int) -> PlanUnit:
-    epoch_length = c400_number * get_c400_constants().c400_leap_length
-    return planunit_shop(epoch_label, begin=0, close=epoch_length)
+    epoch_length_min = c400_number * get_c400_constants().c400_leap_length
+    return planunit_shop(epoch_label, begin=0, close=epoch_length_min)
 
 
 def get_epoch_rope(
