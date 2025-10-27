@@ -67,6 +67,7 @@ from src.ch16_translate.translate_config import (
     get_translate_NameTerm_args,
     get_translate_RopeTerm_args,
     get_translate_TitleTerm_args,
+    get_translateable_term_class_types,
 )
 from src.ch16_translate.translate_main import (
     default_knot_if_None,
@@ -423,7 +424,8 @@ def etl_sound_raw_tables_to_sound_agg_tables(cursor: sqlite3_Cursor):
 
 def insert_translate_sound_agg_into_translate_core_raw_table(cursor: sqlite3_Cursor):
     for dimen in get_quick_translates_column_ref():
-        cursor.execute(create_insert_into_translate_core_raw_sqlstr(dimen))
+        if dimen != "translate_epoch":
+            cursor.execute(create_insert_into_translate_core_raw_sqlstr(dimen))
 
 
 def insert_translate_core_agg_to_translate_core_vld_table(cursor: sqlite3_Cursor):
@@ -476,7 +478,8 @@ def insert_translate_sound_agg_tables_to_translate_sound_vld_table(
     cursor: sqlite3_Cursor,
 ):
     for dimen in get_quick_translates_column_ref():
-        cursor.execute(create_insert_translate_sound_vld_table_sqlstr(dimen))
+        if dimen != "translate_epoch":
+            cursor.execute(create_insert_translate_sound_vld_table_sqlstr(dimen))
 
 
 def set_moment_belief_sound_agg_knot_errors(cursor: sqlite3_Cursor):
@@ -572,22 +575,25 @@ def set_all_heard_raw_inx_columns(cursor: sqlite3_Cursor):
 
 
 def get_all_heard_raw_otx_columns(cursor: sqlite3_Cursor) -> set[tuple[str, str]]:
-    otx_columns = set()
+    """Returns tuple of all columns ending in 'otx'. Tuple: (TableName, ColumnName)"""
+
+    otx_tble_columns = set()
     for heard_raw_tablename in get_insert_into_heard_raw_sqlstrs().keys():
         for columnname in get_table_columns(cursor, heard_raw_tablename):
             if columnname[-3:] in {"otx"}:
-                otx_columns.add((heard_raw_tablename, columnname))
-    return otx_columns
+                otx_tble_columns.add((heard_raw_tablename, columnname))
+    return otx_tble_columns
 
 
+# TODO create tests for this allow Epoch time to be added
 def set_heard_raw_inx_column(
     cursor: sqlite3_Cursor,
     heard_raw_tablename: str,
     column_without_otx: str,
     arg_class_type: str,
 ):
-    if arg_class_type in {"NameTerm", "TitleTerm", "LabelTerm", "RopeTerm"}:
-        translate_type_abbv = ""
+    if arg_class_type in get_translateable_term_class_types():
+        translate_type_abbv = None
         if arg_class_type == "NameTerm":
             translate_type_abbv = "name"
         elif arg_class_type == "TitleTerm":
@@ -600,10 +606,10 @@ def set_heard_raw_inx_column(
             translate_type_abbv, heard_raw_tablename, column_without_otx
         )
         cursor.execute(update_calc_inx_sqlstr)
-        update_empty_inx_sqlstr = create_update_heard_raw_empty_inx_col_sqlstr(
-            heard_raw_tablename, column_without_otx
-        )
-        cursor.execute(update_empty_inx_sqlstr)
+    update_empty_inx_sqlstr = create_update_heard_raw_empty_inx_col_sqlstr(
+        heard_raw_tablename, column_without_otx
+    )
+    cursor.execute(update_empty_inx_sqlstr)
 
 
 def etl_heard_raw_tables_to_heard_agg_tables(cursor: sqlite3_Cursor):

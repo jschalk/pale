@@ -91,14 +91,14 @@ def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
             kw.unknown_str,
         }
     x_config = get_idea_config_dict().get(x_dimen)
-    columns = set(x_config.get("jkeys").keys())
-    columns.update(set(x_config.get("jvalues").keys()))
+    columns = set(x_config.get(kw.jkeys).keys())
+    columns.update(set(x_config.get(kw.jvalues).keys()))
     return columns
 
 
 def get_del_dimen_columns_set(x_dimen: str) -> list[str]:
     x_config = get_idea_config_dict().get(x_dimen)
-    columns_set = set(x_config.get("jkeys").keys())
+    columns_set = set(x_config.get(kw.jkeys).keys())
     columns_list = get_default_sorted_list(columns_set)
     columns_list[-1] = get_delete_key_name(columns_list[-1])
     return set(columns_list)
@@ -139,9 +139,9 @@ def create_moment_sound_vld_table_sqlstr(x_dimen):
 def create_translate_sound_vld_table_sqlstr(x_dimen):
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
     columns = get_all_dimen_columns_set(x_dimen)
-    columns.remove(kw.otx_knot)
-    columns.remove(kw.inx_knot)
-    columns.remove(kw.unknown_str)
+    columns.discard(kw.otx_knot)
+    columns.discard(kw.inx_knot)
+    columns.discard(kw.unknown_str)
     columns = get_default_sorted_list(columns)
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
@@ -318,13 +318,13 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateCoreDimensTranslate(
     expected_s_vld_sqlstr = create_translate_core_vld_table_sqlstr(x_dimen)
 
     abbv7 = get_dimen_abbv7(x_dimen)
-    # print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
-    # print(f'CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR= """{expected_s_agg_sqlstr}"""')
-    # print(f'CREATE_{abbv7.upper()}_SOUND_VLD_SQLSTR= """{expected_s_vld_sqlstr}"""')
+    print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
+    print(f'CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR= """{expected_s_agg_sqlstr}"""')
+    print(f'CREATE_{abbv7.upper()}_SOUND_VLD_SQLSTR= """{expected_s_vld_sqlstr}"""')
 
-    print(f'"{s_raw_tablename}": CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR,')
-    print(f'"{s_agg_tablename}": CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR,')
-    print(f'"{s_vld_tablename}": CREATE_{abbv7.upper()}_SOUND_VLD_SQLSTR,')
+    # print(f'"{s_raw_tablename}": CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR,')
+    # print(f'"{s_agg_tablename}": CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR,')
+    # print(f'"{s_vld_tablename}": CREATE_{abbv7.upper()}_SOUND_VLD_SQLSTR,')
     assert expected_s_raw_sqlstr == create_table_sqlstrs.get(s_raw_tablename)
     assert expected_s_agg_sqlstr == create_table_sqlstrs.get(s_agg_tablename)
     assert expected_s_vld_sqlstr == create_table_sqlstrs.get(s_vld_tablename)
@@ -566,7 +566,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         assert db_table_exists(cursor, trlcore_s_agg_table)
         assert db_table_exists(cursor, trlcore_s_vld_table)
         cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
-        assert cursor.fetchone()[0] == 150
+        assert cursor.fetchone()[0] == 153
 
 
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen():
@@ -585,7 +585,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         # THEN
         x_tablename = prime_tbl(dimen, "s", "raw")
         dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get("jkeys").keys())
+        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
         exclude_cols = {kw.idea_number, kw.error_message}
         expected_update_sqlstr = create_update_inconsistency_error_query(
             cursor,
@@ -634,7 +634,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         # THEN
         x_tablename = prime_tbl(dimen, "s", "raw")
         dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get("jkeys").keys())
+        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
         exclude_cols = {
             kw.idea_number,
             kw.spark_num,
@@ -685,7 +685,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         # THEN
         x_tablename = prime_tbl(dimen, "s", "raw", "put")
         dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get("jkeys").keys())
+        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
         exclude_cols = {kw.idea_number, kw.error_message}
         expected_update_sqlstr = create_update_inconsistency_error_query(
             cursor,
@@ -735,7 +735,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_TranslateDimen():
         raw_tablename = prime_tbl(dimen, "s", "raw")
         agg_tablename = prime_tbl(dimen, "s", "agg")
         dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get("jkeys").keys())
+        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
         exclude_cols = {kw.idea_number, kw.error_message}
         expected_insert_sqlstr = create_table2table_agg_insert_query(
             cursor,
@@ -774,7 +774,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario1_MomentDimen():
         raw_tablename = prime_tbl(dimen, "s", "raw")
         agg_tablename = prime_tbl(dimen, "s", "agg")
         dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get("jkeys").keys())
+        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
         dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
         exclude_cols = {
             kw.idea_number,
@@ -804,7 +804,7 @@ GROUP BY spark_num, face_name, moment_label, cumulative_minute
 
 
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_BeliefDimen():
-    # sourcery skip: extract-method
+    # sourcery skip: extract-duplicate-method, extract-method
     # ESTABLISH
     dimen = kw.belief_plan_awardunit
     with sqlite3_connect(":memory:") as conn:
@@ -818,7 +818,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_BeliefDimen():
         put_raw_tablename = prime_tbl(dimen, "s", "raw", "put")
         put_agg_tablename = prime_tbl(dimen, "s", "agg", "put")
         put_dimen_config = get_idea_config_dict().get(dimen)
-        put_dimen_focus_columns = set(put_dimen_config.get("jkeys").keys())
+        put_dimen_focus_columns = set(put_dimen_config.get(kw.jkeys).keys())
         put_exclude_cols = {kw.idea_number, kw.error_message}
         put_expected_insert_sqlstr = create_table2table_agg_insert_query(
             cursor,
@@ -844,7 +844,7 @@ GROUP BY spark_num, face_name, moment_label, belief_name, plan_rope, awardee_tit
         # del
         del_raw_tablename = prime_tbl(dimen, "s", "raw", "del")
         del_agg_tablename = prime_tbl(dimen, "s", "agg", "del")
-        del_dimen_focus_columns = set(put_dimen_config.get("jkeys").keys())
+        del_dimen_focus_columns = set(put_dimen_config.get(kw.jkeys).keys())
         del_dimen_focus_columns = get_default_sorted_list(del_dimen_focus_columns)
         last_element = del_dimen_focus_columns.pop(-1)
         del_dimen_focus_columns.append(f"{last_element}_ERASE")

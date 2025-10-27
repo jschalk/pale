@@ -136,6 +136,7 @@ def get_translate_args_class_types() -> dict[str, str]:
 def get_quick_translates_column_ref() -> dict[str, set[str]]:
     """for each translate_config dimen contains the associated columns"""
     return {
+        "translate_epoch": {"inx_time", "otx_time"},
         "translate_title": {
             "inx_title",
             "otx_title",
@@ -168,27 +169,38 @@ def get_quick_translates_column_ref() -> dict[str, set[str]]:
 
 
 def translateable_class_types() -> set:
+    return {"NameTerm", "TitleTerm", "LabelTerm", "RopeTerm", "EpochTime"}
+
+
+def get_translateable_term_class_types() -> set:
     return {"NameTerm", "TitleTerm", "LabelTerm", "RopeTerm"}
+
+
+def get_translateable_number_class_types() -> set:
+    return {"EpochTime"}
 
 
 def get_translateable_args() -> set:
     return {
-        "voice_name",
         "awardee_title",
+        "belief_name",
+        "bud_time",
+        "epoch_label",
         "face_name",
         "fact_context",
-        "moment_label",
         "fact_state",
         "group_title",
         "healer_name",
         "hour_label",
-        "plan_rope",
+        "moment_label",
         "month_label",
-        "belief_name",
-        "reason_state",
-        "reason_context",
         "party_title",
-        "epoch_label",
+        "plan_rope",
+        "offi_time",
+        "reason_context",
+        "reason_state",
+        "tran_time",
+        "voice_name",
         "weekday_label",
     }
 

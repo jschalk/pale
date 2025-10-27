@@ -25,7 +25,7 @@ def test_etl_heard_raw_tables_to_moment_ote1_agg_SetsTableAttr():
         create_sound_and_heard_tables(cursor)
         momentbud_h_raw_table = create_prime_tablename(kw.moment_budunit, "h", "raw")
         insert_raw_sqlstr = f"""
-INSERT INTO {momentbud_h_raw_table} ({kw.spark_num}, {kw.moment_label}_inx, {kw.belief_name}_inx, {kw.bud_time})
+INSERT INTO {momentbud_h_raw_table} ({kw.spark_num}, {kw.moment_label}_inx, {kw.belief_name}_inx, {kw.bud_time}_inx)
 VALUES
   ({spark3}, '{amy23_str}', '{bob_str}', {epochtime55})
 , ({spark3}, '{amy23_str}', '{bob_str}', {epochtime55})

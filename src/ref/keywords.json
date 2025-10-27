@@ -1,5 +1,10 @@
 {
   "Anaday": {"init_chapter": "ch14"}, 
+  "moment": {"init_chapter": "ch07"}, 
+  "translate_category": {"init_chapter": "ch16"}, 
+  "translate_epoch": {"init_chapter": "ch16"}, 
+  "inx_time": {"init_chapter": "ch16"}, 
+  "otx_time": {"init_chapter": "ch16"}, 
   "Baileyday": {"init_chapter": "ch14"}, 
   "BeliefName": {"init_chapter": "ch07", "semantic_type": "str"}, 
   "CRUD_command": {"init_chapter": "ch08", "semantic_type": "str"}, 

@@ -1,18 +1,27 @@
 {
+  "translate_epoch": {
+    "jkeys": {"otx_time": {}}, 
+    "jvalues": {"inx_time": {}},
+    "translate_category": "number"
+  }, 
   "translate_label": {
     "jkeys": {"otx_label": {}}, 
-    "jvalues": {"inx_knot": {}, "inx_label": {}, "otx_knot": {}, "unknown_str": {}}
+    "jvalues": {"inx_knot": {}, "inx_label": {}, "otx_knot": {}, "unknown_str": {}},
+    "translate_category": "term"
   }, 
   "translate_name": {
     "jkeys": {"otx_name": {}}, 
-    "jvalues": {"inx_knot": {}, "inx_name": {}, "otx_knot": {}, "unknown_str": {}}
+    "jvalues": {"inx_knot": {}, "inx_name": {}, "otx_knot": {}, "unknown_str": {}},
+    "translate_category": "term"
   }, 
   "translate_rope": {
     "jkeys": {"otx_rope": {}}, 
-    "jvalues": {"inx_knot": {}, "inx_rope": {}, "otx_knot": {}, "unknown_str": {}}
+    "jvalues": {"inx_knot": {}, "inx_rope": {}, "otx_knot": {}, "unknown_str": {}},
+    "translate_category": "term"
   }, 
   "translate_title": {
     "jkeys": {"otx_title": {}}, 
-    "jvalues": {"inx_knot": {}, "inx_title": {}, "otx_knot": {}, "unknown_str": {}}
+    "jvalues": {"inx_knot": {}, "inx_title": {}, "otx_knot": {}, "unknown_str": {}},
+    "translate_category": "term"
   }
 }

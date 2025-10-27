@@ -24,11 +24,14 @@ from src.ch16_translate.translate_config import (
     default_unknown_str_if_None,
     find_set_otx_inx_args,
     get_translate_args_class_types,
+    get_translate_config_dict,
     get_translate_LabelTerm_args,
     get_translate_NameTerm_args,
     get_translate_RopeTerm_args,
     get_translate_TitleTerm_args,
     get_translateable_args,
+    get_translateable_number_class_types,
+    get_translateable_term_class_types,
     translateable_class_types,
 )
 from src.ch16_translate.translate_main import TranslateUnit, translateunit_shop
@@ -146,8 +149,9 @@ def test_translateable_class_types_ReturnsObj():
     x_translateable_class_types = translateable_class_types()
 
     # THEN
-    assert len(x_translateable_class_types) == 4
+    assert len(x_translateable_class_types) == 5
     assert x_translateable_class_types == {
+        kw.EpochTime,
         kw.NameTerm,
         kw.TitleTerm,
         kw.LabelTerm,
@@ -156,8 +160,37 @@ def test_translateable_class_types_ReturnsObj():
     print(f"{set(get_atom_args_class_types().values())=}")
     all_atom_class_types = set(get_atom_args_class_types().values())
     all_atom_class_types.add(kw.LabelTerm)
+    all_atom_class_types.add(kw.EpochTime)
     x_cL_tyep = set(all_atom_class_types) & (x_translateable_class_types)
     assert x_cL_tyep == x_translateable_class_types
+
+
+def test_get_translateable_number_class_types_ReturnsObj():
+    # ESTABLISH / WHEN
+    x_number_class_types = get_translateable_number_class_types()
+
+    # THEN
+    assert len(x_number_class_types) == 1
+    assert x_number_class_types == {kw.EpochTime}
+    assert x_number_class_types.issubset(translateable_class_types())
+
+
+def test_get_translateable_term_class_types_ReturnsObj():
+    # ESTABLISH / WHEN
+    x_term_class_types = get_translateable_term_class_types()
+
+    # THEN
+    assert len(x_term_class_types) == 4
+    assert x_term_class_types == {
+        kw.NameTerm,
+        kw.TitleTerm,
+        kw.LabelTerm,
+        kw.RopeTerm,
+    }
+    assert x_term_class_types.issubset(translateable_class_types())
+    assert x_term_class_types.isdisjoint(get_translateable_number_class_types())
+    number_class_types = get_translateable_number_class_types()
+    assert x_term_class_types.intersection(number_class_types) == set()
 
 
 def test_get_translateable_args_ReturnsObj():
@@ -173,24 +206,27 @@ def test_get_translateable_args_ReturnsObj():
     }
     assert get_translateable_args() == static_get_translateable_args
 
-    assert len(get_translateable_args()) == 17
+    assert len(get_translateable_args()) == 20
     assert get_translateable_args() == {
-        kw.voice_name,
         kw.awardee_title,
-        kw.reason_context,
+        kw.belief_name,
+        kw.bud_time,
+        kw.epoch_label,
         kw.face_name,
         kw.fact_context,
-        kw.moment_label,
         kw.fact_state,
         kw.group_title,
         kw.healer_name,
         kw.hour_label,
+        kw.moment_label,
         kw.month_label,
-        kw.reason_state,
-        kw.belief_name,
+        kw.offi_time,
         kw.plan_rope,
         kw.party_title,
-        kw.epoch_label,
+        kw.reason_context,
+        kw.reason_state,
+        kw.tran_time,
+        kw.voice_name,
         kw.weekday_label,
     }
 

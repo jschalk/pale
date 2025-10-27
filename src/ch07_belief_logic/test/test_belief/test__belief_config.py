@@ -301,8 +301,8 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     #                     f"""    assert g_sqlitetype(config, {dimem}, {level2_key[0:2]}, "{level3_key}") == "{x_sqlite_datatype}" """
     #                 )
 
-    jk = "jkeys"
-    jv = "jvalues"
+    jk = kw.jkeys
+    jv = kw.jvalues
     blfunit = kw.beliefunit
     blfvoce = kw.belief_voiceunit
     blrmemb = kw.belief_voice_membership
@@ -732,7 +732,7 @@ def test_get_belief_config_dict_ReturnsObj_EachArgHasOneClassType():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     for belief_calc_dimen, dimen_dict in belief_config_dict.items():
         for dimen_key, args_dict in dimen_dict.items():
-            if dimen_key in {"jkeys", "jvalues"}:
+            if dimen_key in {kw.jkeys, kw.jvalues}:
                 for x_arg, arg_dict in args_dict.items():
                     arg_type = arg_dict.get(kw.class_type)
                     if all_args.get(x_arg) is None:
@@ -753,7 +753,7 @@ def test_get_belief_config_dict_ReturnsObj_EachArgHasOne_sqlite_datatype():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     for belief_calc_dimen, dimen_dict in belief_config_dict.items():
         for dimen_key, args_dict in dimen_dict.items():
-            if dimen_key in {"jkeys", "jvalues"}:
+            if dimen_key in {kw.jkeys, kw.jvalues}:
                 for x_arg, arg_dict in args_dict.items():
                     arg_type = arg_dict.get(kw.sqlite_datatype)
                     if all_args.get(x_arg) is None:
@@ -785,7 +785,7 @@ def test_get_belief_calc_args_type_dict_ReturnsObj():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     for belief_calc_dimen, dimen_dict in belief_config_dict.items():
         for dimen_key, args_dict in dimen_dict.items():
-            if dimen_key in {"jkeys", "jvalues"}:
+            if dimen_key in {kw.jkeys, kw.jvalues}:
                 for x_arg, arg_dict in args_dict.items():
                     arg_type = arg_dict.get(kw.class_type)
                     if all_args.get(x_arg) is None:
