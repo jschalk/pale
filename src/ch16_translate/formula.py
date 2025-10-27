@@ -35,11 +35,11 @@ class EpochFormula:
     spark_num: SparkInt = None
     otx_time: EpochTime = None
     inx_time: EpochTime = None
-    epoch_length_min: EpochTime = None
+    time_modulus: EpochTime = None
 
     def get_inx_value(self, otx_value: EpochTime) -> EpochTime:
         difference = get_0_if_None(self.inx_time) - get_0_if_None(self.otx_time)
-        return (otx_value + difference) % self.epoch_length_min
+        return (otx_value + difference) % self.time_modulus
 
     def to_dict(self) -> dict:
         """Returns seralizable dictionary"""
@@ -56,20 +56,20 @@ def epochformula_shop(
     spark_num: SparkInt = None,
     otx_time: EpochTime = None,
     inx_time: EpochTime = None,
-    epoch_length_min: EpochTime = None,
+    time_modulus: EpochTime = None,
 ):
-    if epoch_length_min is None:
-        epoch_length_min = 1472657760
+    if time_modulus is None:
+        time_modulus = 1472657760
     if otx_time:
-        otx_time = get_0_if_None(otx_time) % epoch_length_min
+        otx_time = get_0_if_None(otx_time) % time_modulus
     if inx_time:
-        inx_time = get_0_if_None(inx_time) % epoch_length_min
+        inx_time = get_0_if_None(inx_time) % time_modulus
     return EpochFormula(
         face_name=face_name,
         spark_num=get_0_if_None(spark_num),
         otx_time=otx_time,
         inx_time=inx_time,
-        epoch_length_min=epoch_length_min,
+        time_modulus=time_modulus,
     )
 
 
@@ -87,7 +87,7 @@ class inherit_epochformulaException(Exception):
 
 
 def inherit_epochformula(new: EpochFormula, old: EpochFormula):
-    if new.epoch_length_min != old.epoch_length_min or new.face_name != old.face_name:
+    if new.time_modulus != old.time_modulus or new.face_name != old.face_name:
         exception_str = "Core attrs in conflict"
         raise inherit_epochformulaException(exception_str)
     if old.spark_num >= new.spark_num:

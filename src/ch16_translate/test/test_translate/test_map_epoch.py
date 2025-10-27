@@ -21,13 +21,13 @@ def test_EpochFormula_Exists():
     assert not x_epochformula.otx_time
     assert not x_epochformula.inx_time
     assert not x_epochformula.inx_time
-    assert not x_epochformula.epoch_length_min
+    assert not x_epochformula.time_modulus
     assert set(x_epochformula.__dict__.keys()) == {
         kw.face_name,
         kw.spark_num,
         kw.otx_time,
         kw.inx_time,
-        kw.epoch_length_min,
+        kw.time_modulus,
     }
 
 
@@ -47,8 +47,8 @@ def test_epochformula_shop_ReturnsObj_Scenario0():
     default_epoch_config = get_default_epoch_config_dict()
     default_c400_number = default_epoch_config.get(kw.c400_number)
     c400_length_constant = get_c400_constants().c400_leap_length
-    default_epoch_length_min = default_c400_number * c400_length_constant
-    assert x_epochformula.epoch_length_min == default_epoch_length_min
+    default_time_modulus = default_c400_number * c400_length_constant
+    assert x_epochformula.time_modulus == default_time_modulus
 
 
 def test_epochformula_shop_ReturnsObj_Scenario1_WithParameters():
@@ -56,7 +56,7 @@ def test_epochformula_shop_ReturnsObj_Scenario1_WithParameters():
     bob_str = "Bob"
     bob_otx_time = 11
     bob_inx_time = 19
-    bob_epoch_length_min = 500
+    bob_time_modulus = 500
     spark2 = 2
 
     # WHEN
@@ -65,7 +65,7 @@ def test_epochformula_shop_ReturnsObj_Scenario1_WithParameters():
         spark_num=spark2,
         otx_time=bob_otx_time,
         inx_time=bob_inx_time,
-        epoch_length_min=bob_epoch_length_min,
+        time_modulus=bob_time_modulus,
     )
 
     # THEN
@@ -73,7 +73,7 @@ def test_epochformula_shop_ReturnsObj_Scenario1_WithParameters():
     assert x_epochformula.spark_num == spark2
     assert x_epochformula.otx_time == bob_otx_time
     assert x_epochformula.inx_time == bob_inx_time
-    assert x_epochformula.epoch_length_min == bob_epoch_length_min
+    assert x_epochformula.time_modulus == bob_time_modulus
 
 
 def test_epochformula_shop_ReturnsObj_Scenario2_WithParametersModolarMath():
@@ -81,7 +81,7 @@ def test_epochformula_shop_ReturnsObj_Scenario2_WithParametersModolarMath():
     bob_str = "Bob"
     bob_otx_time = 611
     bob_inx_time = 619
-    bob_epoch_length_min = 500
+    bob_time_modulus = 500
     spark2 = 2
 
     # WHEN
@@ -90,20 +90,20 @@ def test_epochformula_shop_ReturnsObj_Scenario2_WithParametersModolarMath():
         spark_num=spark2,
         otx_time=bob_otx_time,
         inx_time=bob_inx_time,
-        epoch_length_min=bob_epoch_length_min,
+        time_modulus=bob_time_modulus,
     )
 
     # THEN
     assert x_epochformula.face_name == bob_str
     assert x_epochformula.spark_num == spark2
     assert x_epochformula.otx_time != bob_otx_time
-    assert x_epochformula.otx_time == bob_otx_time % bob_epoch_length_min
+    assert x_epochformula.otx_time == bob_otx_time % bob_time_modulus
     assert x_epochformula.inx_time != bob_inx_time
-    assert x_epochformula.inx_time == bob_inx_time % bob_epoch_length_min
-    assert x_epochformula.epoch_length_min == bob_epoch_length_min
+    assert x_epochformula.inx_time == bob_inx_time % bob_time_modulus
+    assert x_epochformula.time_modulus == bob_time_modulus
 
 
-def test_epochformula_shop_ReturnsObj_Scenario3_WithParametersGreaterThan_epoch_length_min():
+def test_epochformula_shop_ReturnsObj_Scenario3_WithParametersGreaterThan_time_modulus():
     # ESTABLISH
     bob_str = "Bob"
     bob_otx_time = 11
@@ -182,15 +182,15 @@ def test_EpochFormula_get_inx_value_ReturnsObj_Scenario1_ParametersGiven():
     assert inx_value == 13
 
 
-def test_EpochFormula_get_inx_value_ReturnsObj_Scenario2_GreaterThan_epoch_length_min():
+def test_EpochFormula_get_inx_value_ReturnsObj_Scenario2_GreaterThan_time_modulus():
     # ESTABLISH
     bob_str = "Bob"
     six_int = 6
     bob_otx_time = 11
     bob_inx_time = 18
-    bob_epoch_length_min = 500
+    bob_time_modulus = 500
     bob_epochformula = epochformula_shop(
-        bob_str, None, bob_otx_time, bob_inx_time, bob_epoch_length_min
+        bob_str, None, bob_otx_time, bob_inx_time, bob_time_modulus
     )
 
     # WHEN
@@ -200,7 +200,7 @@ def test_EpochFormula_get_inx_value_ReturnsObj_Scenario2_GreaterThan_epoch_lengt
     # THEN
     assert inx_value
     assert inx_value != x_int + (bob_inx_time - bob_otx_time)
-    assert inx_value == (x_int + (bob_inx_time - bob_otx_time)) % bob_epoch_length_min
+    assert inx_value == (x_int + (bob_inx_time - bob_otx_time)) % bob_time_modulus
     assert inx_value == 5
 
 
@@ -285,8 +285,8 @@ def test_inherit_epochformula_ReturnsObj_Scenario2_RaiseErrorWhenDifferent_otx_k
     sue_str = "Sue"
     sue0_epoch_min = 555
     sue1_epoch_min = 655
-    old_epochformula = epochformula_shop(sue_str, 0, epoch_length_min=sue0_epoch_min)
-    new_epochformula = epochformula_shop(sue_str, 1, epoch_length_min=sue1_epoch_min)
+    old_epochformula = epochformula_shop(sue_str, 0, time_modulus=sue0_epoch_min)
+    new_epochformula = epochformula_shop(sue_str, 1, time_modulus=sue1_epoch_min)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
