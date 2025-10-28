@@ -58,5 +58,5 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
 
     # THEN
     assert os_path_exists(kpi001_csv_path)
-    expected_csv_str = "moment_label,belief_name,funds,fund_rank,pledges_count\n"
+    expected_csv_str = f"{kw.moment_label},{kw.belief_name},{kw.bnet_funds},{kw.fund_rank},{kw.pledges_count}\n"
     assert open(kpi001_csv_path).read() == expected_csv_str

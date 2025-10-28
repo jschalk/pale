@@ -266,7 +266,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[183] == kw.keeps_buildable
     assert table_sorting_priority[184] == kw.all_voice_debt
     assert table_sorting_priority[185] == kw.tree_traverse_count
-    assert table_sorting_priority[186] == "funds"
+    assert table_sorting_priority[186] == kw.bnet_funds
     assert table_sorting_priority[187] == kw.fund_rank
     assert table_sorting_priority[188] == kw.pledges_count
 
@@ -287,7 +287,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     all_args.add(kw.translate_spark_num)
     all_args.add(kw.error_message)
     all_args.add(kw.world_name)
-    all_args.add("funds")  # kpi columns
+    all_args.add(kw.bnet_funds)  # kpi columns
     all_args.add(kw.fund_rank)  # kpi columns
     all_args.add(kw.pledges_count)  # kpi columns
     assert all_args == set(table_sorting_priority)

@@ -224,7 +224,7 @@ def get_idea_elements_sort_order() -> list[str]:
         "keeps_buildable",
         "all_voice_debt",
         "tree_traverse_count",
-        "funds",
+        "bnet_funds",
         "fund_rank",
         "pledges_count",
     ]
@@ -428,7 +428,7 @@ def get_idea_sqlite_types() -> dict[str, str]:
         "rational": "INTEGER",
         "sum_healerunit_plans_fund_total": "REAL",
         "tree_traverse_count": "INTEGER",
-        "funds": "REAL",
+        "bnet_funds": "REAL",
         "fund_rank": "INTEGER",
         "pledges_count": "INTEGER",
     }
