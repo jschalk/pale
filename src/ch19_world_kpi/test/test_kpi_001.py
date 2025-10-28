@@ -41,8 +41,8 @@ VALUES
             kw.moment_label,
             kw.belief_name,
             "funds",
-            "fund_rank",
-            "pledges_count",
+            kw.fund_rank,
+            kw.pledges_count,
         ]
         assert get_row_count(cursor, moment_kpi001_voice_nets_tablename)
         select_sqlstr = f"""

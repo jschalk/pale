@@ -150,7 +150,7 @@ def create_translate_core_raw_table_sqlstr(x_dimen):
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.remove(kw.spark_num)
-    columns.add("source_dimen")
+    columns.add(kw.source_dimen)
     columns.add(kw.error_message)
     columns = get_default_sorted_list(columns)
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
@@ -242,7 +242,7 @@ def create_belief_heard_put_raw_table_sqlstr(x_dimen: str) -> str:
     columns = set()
     columns = get_all_dimen_columns_set(x_dimen)
     columns = find_set_otx_inx_args(columns)
-    columns.add("translate_spark_num")
+    columns.add(kw.translate_spark_num)
     columns = get_default_sorted_list(columns)
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
@@ -258,7 +258,7 @@ def create_belief_heard_del_raw_table_sqlstr(x_dimen: str) -> str:
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw", "del")
     columns = get_del_dimen_columns_set(x_dimen)
     columns = find_set_otx_inx_args(columns)
-    columns.add("translate_spark_num")
+    columns.add(kw.translate_spark_num)
     columns = get_default_sorted_list(columns)
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
@@ -1124,8 +1124,8 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
             v_del_raw_cols = set(get_table_columns(cursor, v_del_raw_tablename))
             v_put_cols = find_set_otx_inx_args(v_put_raw_cols)
             v_del_cols = find_set_otx_inx_args(v_del_raw_cols)
-            v_put_cols.remove("translate_spark_num")
-            v_del_cols.remove("translate_spark_num")
+            v_put_cols.remove(kw.translate_spark_num)
+            v_del_cols.remove(kw.translate_spark_num)
             v_put_cols = {col for col in v_put_cols if col[-3:] != "inx"}
             v_del_cols = {col for col in v_del_cols if col[-3:] != "inx"}
             v_put_raw_tbl = v_put_raw_tablename

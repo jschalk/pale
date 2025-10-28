@@ -156,6 +156,10 @@
   "duration": {"init_chapter": "ch14"}, 
   "epoch": {"init_chapter": "ch12"}, 
   "epoch_label": {"init_chapter": "ch14"}, 
+  "source_dimen": {"init_chapter": "ch17"}, 
+  "translate_spark_num": {"init_chapter": "ch17"}, 
+  "fund_rank": {"init_chapter": "ch17"}, 
+  "pledges_count": {"init_chapter": "ch17"}, 
   "error_message": {"init_chapter": "ch17"}, 
   "every_xdays": {
     "init_chapter": "ch14", 

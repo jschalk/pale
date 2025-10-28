@@ -82,8 +82,8 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     # all the suffix otx/inx columns are only used in one table
     assert table_sorting_priority[0] == kw.world_name
     assert table_sorting_priority[1] == kw.idea_number
-    assert table_sorting_priority[2] == "source_dimen"
-    assert table_sorting_priority[3] == "translate_spark_num"
+    assert table_sorting_priority[2] == kw.source_dimen
+    assert table_sorting_priority[3] == kw.translate_spark_num
     assert table_sorting_priority[4] == kw.spark_num
     assert table_sorting_priority[5] == kw.face_name
     assert table_sorting_priority[6] == f"{kw.face_name}_otx"
@@ -267,8 +267,8 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[184] == kw.all_voice_debt
     assert table_sorting_priority[185] == kw.tree_traverse_count
     assert table_sorting_priority[186] == "funds"
-    assert table_sorting_priority[187] == "fund_rank"
-    assert table_sorting_priority[188] == "pledges_count"
+    assert table_sorting_priority[187] == kw.fund_rank
+    assert table_sorting_priority[188] == kw.pledges_count
 
     assert len(table_sorting_priority) == 189
     all_args = copy_copy(atom_args)
@@ -283,13 +283,13 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     all_args.add(kw.idea_number)
     all_args.add(kw.spark_num)
     all_args.add(kw.face_name)
-    all_args.add("source_dimen")
-    all_args.add("translate_spark_num")
+    all_args.add(kw.source_dimen)
+    all_args.add(kw.translate_spark_num)
     all_args.add(kw.error_message)
     all_args.add(kw.world_name)
     all_args.add("funds")  # kpi columns
-    all_args.add("fund_rank")  # kpi columns
-    all_args.add("pledges_count")  # kpi columns
+    all_args.add(kw.fund_rank)  # kpi columns
+    all_args.add(kw.pledges_count)  # kpi columns
     assert all_args == set(table_sorting_priority)
 
     x_no_underscoore_set = {x_arg.replace("_", "") for x_arg in table_sorting_priority}
@@ -311,7 +311,7 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert set(sqlite_types.keys()) == set(get_idea_elements_sort_order())
     assert sqlite_types.get(kw.idea_number) == "TEXT"
     assert sqlite_types.get(kw.face_name) == "TEXT"
-    assert sqlite_types.get("translate_spark_num") == "INTEGER"
+    assert sqlite_types.get(kw.translate_spark_num) == "INTEGER"
     assert sqlite_types.get(kw.spark_num) == "INTEGER"
     assert sqlite_types.get(kw.moment_label) == "TEXT"
     assert sqlite_types.get(kw.belief_name) == "TEXT"
