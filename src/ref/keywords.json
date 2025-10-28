@@ -165,6 +165,11 @@
     "init_chapter": "ch14", 
     "note": "Required fields for creating Epoch weekly cases."
   }, 
+  "titlemap": {"init_chapter": "ch16"}, 
+  "namemap": {"init_chapter": "ch16"}, 
+  "labelmap": {"init_chapter": "ch16"}, 
+  "ropemap": {"init_chapter": "ch16"}, 
+  "epochformula": {"init_chapter": "ch16"}, 
   "face_name": {"init_chapter": "ch09"}, 
   "fact_context": {"init_chapter": "ch05"}, 
   "fact_lower": {"init_chapter": "ch05"}, 

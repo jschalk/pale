@@ -44,6 +44,8 @@ def test_get_1_if_None_ReturnsObj():
     assert get_1_if_None(None) == 1
     assert get_1_if_None(2) == 2
     assert get_1_if_None(-3) == -3
+    x_nan = float("nan")
+    assert get_1_if_None(x_nan) == 1
 
 
 def test_get_empty_str_if_None_ReturnsObj():
@@ -52,6 +54,8 @@ def test_get_empty_str_if_None_ReturnsObj():
     assert get_empty_str_if_None(2) == "2"
     assert get_empty_str_if_None(-3) == "-3"
     assert get_empty_str_if_None("Fay") == "Fay"
+    x_nan = float("nan")
+    assert get_empty_str_if_None(x_nan) == ""
 
 
 def test_get_0_if_None_ReturnsObj():
@@ -62,6 +66,8 @@ def test_get_0_if_None_ReturnsObj():
     e7 = numpy_int64(7)
     assert str(type(get_0_if_None(e7))) != "<class 'numpy.int64'>"
     assert str(type(get_0_if_None(e7))) == "<class 'int'>"
+    x_nan = float("nan")
+    assert get_0_if_None(x_nan) == 0
 
 
 def test_add_nested_dict_if_missing_AddsToDict():

@@ -1,11 +1,13 @@
 from dataclasses import dataclass
-from src.ch01_py.dict_toolbox import get_0_if_None
+from src.ch01_py.dict_toolbox import get_0_if_None, get_None_if_nan
 from src.ch16_translate._ref.ch16_semantic_types import (
     BeliefName,
+    EpochTime,
     KnotTerm,
     SparkInt,
     default_knot_if_None,
 )
+from src.ch16_translate.formula import EpochFormula, epochformula_shop
 from src.ch16_translate.map import (
     LabelMap,
     MapCore,
@@ -46,9 +48,11 @@ class TranslateUnit:
     namemap: NameMap = None
     labelmap: LabelMap = None
     ropemap: RopeMap = None
+    epochformula: EpochFormula = None
     unknown_str: str = None  # translateunit
     otx_knot: KnotTerm = None  # translateunit
     inx_knot: KnotTerm = None  # translateunit
+    epoch_length_min: EpochTime = None  # translateunit
 
     def set_titlemap(self, x_titlemap: TitleMap):
         self._check_all_core_attrs_match(x_titlemap)
@@ -220,6 +224,7 @@ class TranslateUnit:
         x_titlemap = _get_rid_of_translate_core_keys(self.titlemap.to_dict())
         x_labelmap = _get_rid_of_translate_core_keys(self.labelmap.to_dict())
         x_ropemap = _get_rid_of_translate_core_keys(self.ropemap.to_dict())
+        x_epochformula = self.epochformula.to_dict()
 
         return {
             "face_name": self.face_name,
@@ -227,10 +232,12 @@ class TranslateUnit:
             "otx_knot": self.otx_knot,
             "inx_knot": self.inx_knot,
             "unknown_str": self.unknown_str,
+            "epoch_length_min": self.epoch_length_min,
             "namemap": x_namemap,
             "labelmap": x_labelmap,
             "titlemap": x_titlemap,
             "ropemap": x_ropemap,
+            "epochformula": x_epochformula,
         }
 
 
@@ -240,10 +247,14 @@ def translateunit_shop(
     otx_knot: KnotTerm = None,
     inx_knot: KnotTerm = None,
     unknown_str: str = None,
+    epoch_length_min: EpochTime = None,
 ) -> TranslateUnit:
     unknown_str = default_unknown_str_if_None(unknown_str)
     otx_knot = default_knot_if_None(otx_knot)
     inx_knot = default_knot_if_None(inx_knot)
+    epoch_length_min = get_None_if_nan(epoch_length_min)
+    if epoch_length_min is None:
+        epoch_length_min = 1472657760
 
     x_namemap = namemap_shop(
         face_name=face_name,
@@ -274,6 +285,10 @@ def translateunit_shop(
         unknown_str=unknown_str,
         x_labelmap=x_labelmap,
     )
+    x_epochformula = epochformula_shop(
+        face_name=face_name,
+        spark_num=spark_num,
+    )
 
     return TranslateUnit(
         face_name=face_name,
@@ -281,10 +296,12 @@ def translateunit_shop(
         unknown_str=unknown_str,
         otx_knot=otx_knot,
         inx_knot=inx_knot,
+        epoch_length_min=epoch_length_min,
         namemap=x_namemap,
         titlemap=x_titlemap,
         labelmap=x_labelmap,
         ropemap=x_ropemap,
+        epochformula=x_epochformula,
     )
 
 

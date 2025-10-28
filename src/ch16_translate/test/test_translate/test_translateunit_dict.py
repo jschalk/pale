@@ -30,14 +30,18 @@ def test_TranslateUnit_to_dict_ReturnsObj_Scenario0():
     assert sue_dict.get(kw.otx_knot) == default_knot_if_None()
     assert sue_dict.get(kw.inx_knot) == default_knot_if_None()
     assert sue_dict.get(kw.unknown_str) == default_unknown_str_if_None()
+    assert sue_dict.get(kw.epoch_length_min) == sue_translateunit.epoch_length_min
     sue_namemap = sue_translateunit.namemap.to_dict()
     sue_titlemap = sue_translateunit.titlemap.to_dict()
     sue_labelmap = sue_translateunit.labelmap.to_dict()
     sue_ropemap = sue_translateunit.ropemap.to_dict()
-    assert sue_dict.get("namemap") == _get_rid_of_translate_core_keys(sue_namemap)
-    assert sue_dict.get("titlemap") == _get_rid_of_translate_core_keys(sue_titlemap)
-    assert sue_dict.get("labelmap") == _get_rid_of_translate_core_keys(sue_labelmap)
-    assert sue_dict.get("ropemap") == _get_rid_of_translate_core_keys(sue_ropemap)
+    sue_epochformula_dict = sue_translateunit.epochformula.to_dict()
+    assert sue_dict.get(kw.namemap) == _get_rid_of_translate_core_keys(sue_namemap)
+    assert sue_dict.get(kw.titlemap) == _get_rid_of_translate_core_keys(sue_titlemap)
+    assert sue_dict.get(kw.labelmap) == _get_rid_of_translate_core_keys(sue_labelmap)
+    assert sue_dict.get(kw.ropemap) == _get_rid_of_translate_core_keys(sue_ropemap)
+    assert sue_dict.get(kw.epochformula) == sue_epochformula_dict
+    assert sue_dict.keys() == sue_translateunit.__dict__.keys()
 
 
 def test_TranslateUnit_to_dict_ReturnsObj_Scenario1():
@@ -66,10 +70,10 @@ def test_TranslateUnit_to_dict_ReturnsObj_Scenario1():
     sue_titlemap = sue_translateunit.titlemap.to_dict()
     sue_labelmap = sue_translateunit.labelmap.to_dict()
     sue_ropemap = sue_translateunit.ropemap.to_dict()
-    assert sue_dict.get("namemap") == _get_rid_of_translate_core_keys(sue_namemap)
-    assert sue_dict.get("titlemap") == _get_rid_of_translate_core_keys(sue_titlemap)
-    assert sue_dict.get("labelmap") == _get_rid_of_translate_core_keys(sue_labelmap)
-    assert sue_dict.get("ropemap") == _get_rid_of_translate_core_keys(sue_ropemap)
+    assert sue_dict.get(kw.namemap) == _get_rid_of_translate_core_keys(sue_namemap)
+    assert sue_dict.get(kw.titlemap) == _get_rid_of_translate_core_keys(sue_titlemap)
+    assert sue_dict.get(kw.labelmap) == _get_rid_of_translate_core_keys(sue_labelmap)
+    assert sue_dict.get(kw.ropemap) == _get_rid_of_translate_core_keys(sue_ropemap)
 
 
 def test_get_translateunit_from_dict_ReturnsObj():

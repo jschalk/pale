@@ -254,3 +254,7 @@ def get_translate_RopeTerm_args() -> set[str]:
         "reason_state",
         "reason_context",
     }
+
+
+def get_translate_EpochTime_args() -> set[str]:
+    return {"bud_time", "offi_time", "tran_time"}
