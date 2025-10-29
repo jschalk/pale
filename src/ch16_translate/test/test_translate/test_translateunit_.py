@@ -879,17 +879,17 @@ def test_TranslateUnit_set_label_SetsAttr_Scenario1_RopeTerm():
     assert ropemap.label_exists(sue_otx, sue_inx)
 
 
-def test_TranslateUnit_label_exists_ReturnsObj():
+def test_TranslateUnit_roadmap_label_exists_ReturnsObj():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
     zia_translateunit = translateunit_shop(zia_str)
-    sue_exists = zia_translateunit.label_exists(sue_otx, sue_inx)
+    sue_exists = zia_translateunit.roadmap_label_exists(sue_otx, sue_inx)
     assert sue_exists is False
 
     # WHEN
     zia_translateunit.set_label(sue_otx, sue_inx)
 
     # THEN
-    assert zia_translateunit.label_exists(sue_otx, sue_inx)
+    assert zia_translateunit.roadmap_label_exists(sue_otx, sue_inx)

@@ -47,7 +47,6 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
     # ESTABLISH
     excluded_functions = {
         "__str__",
-        "_get_inx_label",
         "_get_inx_value",
         "_is_inx_knot_inclusion_correct",
         "_is_otx_knot_inclusion_correct",
@@ -60,7 +59,6 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
         "get_obj_key",
         "is_empty",
         "is_valid",
-        "label_exists",
         "otx_exists",
         "otx2inx_exists",
         "reveal_inx",
@@ -87,8 +85,8 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
         if func_name_count > 1:
             # print(f"{function_name} {func_name_count=}")
             flagged_func_name_count[function_name] = func_name_count
-        uppercase_str = f"{function_name} has an incorrect uppercase character."
-        assert function_name_style_is_correct(function_name), uppercase_str
+        func_name_style_str = f"{function_name} has an incorrect uppercase character."
+        assert function_name_style_is_correct(function_name), func_name_style_str
     # print(f"{len(flagged_func_name_count)=}")
     assertion_fail_str = f"Duplicated functions found: {duplicate_func_names}"
     # print(f"{duplicate_func_names=}")

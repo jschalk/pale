@@ -113,21 +113,6 @@ def test_TranslateUnit_set_label_SetsAttr_Scenario0():
     assert labelid_labelmap.otx2inx_exists(sue_otx, sue_inx)
 
 
-def test_TranslateUnit_get_inx_label_ReturnsObj():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    assert zia_translateunit._get_inx_label(sue_otx) != sue_inx
-
-    # WHEN
-    zia_translateunit.set_label(sue_otx, sue_inx)
-
-    # THEN
-    assert zia_translateunit._get_inx_label(sue_otx) == sue_inx
-
-
 def test_TranslateUnit_del_label_ReturnsObj():
     # ESTABLISH
     zia_str = "Zia"
@@ -137,12 +122,12 @@ def test_TranslateUnit_del_label_ReturnsObj():
 
     zia_translateunit.set_label(sue_otx, sue_inx)
     zia_translateunit.set_label(zia_str, zia_str)
-    assert zia_translateunit.label_exists(sue_otx, sue_inx)
-    assert zia_translateunit.label_exists(zia_str, zia_str)
+    assert zia_translateunit.roadmap_label_exists(sue_otx, sue_inx)
+    assert zia_translateunit.roadmap_label_exists(zia_str, zia_str)
 
     # WHEN
     zia_translateunit.del_label(sue_otx)
 
     # THEN
-    assert zia_translateunit.label_exists(sue_otx, sue_inx) is False
-    assert zia_translateunit.label_exists(zia_str, zia_str)
+    assert zia_translateunit.roadmap_label_exists(sue_otx, sue_inx) is False
+    assert zia_translateunit.roadmap_label_exists(zia_str, zia_str)

@@ -117,18 +117,6 @@ class TranslateUnit:
     def get_labelmap(self) -> LabelMap:
         return self.labelmap
 
-    def set_label(self, otx_label: str, inx_label: str):
-        self.labelmap.set_otx2inx(otx_label, inx_label)
-
-    def label_exists(self, otx_label: str, inx_label: str):
-        return self.labelmap.otx2inx_exists(otx_label, inx_label)
-
-    def _get_inx_label(self, otx_label: str):
-        return self.labelmap._get_inx_value(otx_label)
-
-    def del_label(self, otx_label: str):
-        return self.labelmap.del_otx2inx(otx_label)
-
     def set_ropemap(self, x_ropemap: RopeMap):
         self._check_all_core_attrs_match(x_ropemap)
         self.ropemap = x_ropemap
@@ -224,10 +212,7 @@ class TranslateUnit:
     def set_label(self, x_otx: str, x_inx: str):
         self.ropemap.set_label(x_otx, x_inx)
 
-    def _get_inx_label(self, x_otx: str) -> str:
-        return self.ropemap._get_inx_label(x_otx)
-
-    def label_exists(self, x_otx: str, x_inx: str) -> bool:
+    def roadmap_label_exists(self, x_otx: str, x_inx: str) -> bool:
         return self.ropemap.label_exists(x_otx, x_inx)
 
     def del_label(self, x_otx: str):
