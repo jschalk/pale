@@ -4,10 +4,9 @@ from src.ch08_belief_atom.atom_config import (
     get_all_belief_dimen_delete_keys,
     get_atom_args_class_types,
 )
-from src.ch14_epoch.epoch_main import get_c400_constants, get_default_epoch_config_dict
 from src.ch15_moment.moment_config import get_moment_args_class_types
-from src.ch16_translate.formula import epochformula_shop
 from src.ch16_translate.map import (
+    epochmap_shop,
     labelmap_shop,
     namemap_shop,
     ropemap_shop,
@@ -38,7 +37,7 @@ from src.ch16_translate.translate_config import (
     translateable_class_types,
 )
 from src.ch16_translate.translate_main import TranslateUnit, translateunit_shop
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
 def test_get_translate_args_class_types_ReturnsObj():
@@ -410,11 +409,10 @@ def test_TranslateUnit_Exists():
     assert not x_translateunit.namemap
     assert not x_translateunit.labelmap
     assert not x_translateunit.ropemap
-    assert not x_translateunit.epochformula
+    assert not x_translateunit.epochmap
     assert not x_translateunit.unknown_str
     assert not x_translateunit.otx_knot
     assert not x_translateunit.inx_knot
-    assert not x_translateunit.epoch_length_min
     assert set(x_translateunit.__dict__.keys()) == {
         kw.face_name,
         kw.spark_num,
@@ -422,11 +420,10 @@ def test_TranslateUnit_Exists():
         kw.namemap,
         kw.labelmap,
         kw.ropemap,
-        kw.epochformula,
+        kw.epochmap,
         kw.unknown_str,
         kw.otx_knot,
         kw.inx_knot,
-        kw.epoch_length_min,
     }
 
 
@@ -443,16 +440,11 @@ def test_translateunit_shop_ReturnsObj_Scenario0():
     assert sue_translateunit.unknown_str == default_unknown_str_if_None()
     assert sue_translateunit.otx_knot == default_knot_if_None()
     assert sue_translateunit.inx_knot == default_knot_if_None()
-    default_epoch_config = get_default_epoch_config_dict()
-    default_c400_number = default_epoch_config.get(kw.c400_number)
-    c400_length_constant = get_c400_constants().c400_leap_length
-    default_epoch_length_min = default_c400_number * c400_length_constant
-    assert sue_translateunit.epoch_length_min == default_epoch_length_min
     assert sue_translateunit.titlemap == titlemap_shop(face_name=sue_str)
     assert sue_translateunit.namemap == namemap_shop(face_name=sue_str)
     assert sue_translateunit.labelmap == labelmap_shop(face_name=sue_str)
     assert sue_translateunit.ropemap == ropemap_shop(face_name=sue_str)
-    assert sue_translateunit.epochformula == epochformula_shop(sue_str)
+    assert sue_translateunit.epochmap == epochmap_shop(sue_str)
     assert sue_translateunit.namemap.spark_num == 0
     assert sue_translateunit.namemap.unknown_str == default_unknown_str_if_None()
     assert sue_translateunit.namemap.otx_knot == default_knot_if_None()
@@ -478,7 +470,7 @@ def test_translateunit_shop_ReturnsObj_Scenario1():
     y_uk = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
-    sue_epoch_length_min = 600
+    sue_epoch_length = 600
 
     # WHEN
     sue_translateunit = translateunit_shop(
@@ -487,7 +479,6 @@ def test_translateunit_shop_ReturnsObj_Scenario1():
         otx_knot=slash_otx_knot,
         inx_knot=colon_inx_knot,
         unknown_str=y_uk,
-        epoch_length_min=sue_epoch_length_min,
     )
 
     # THEN
@@ -495,7 +486,6 @@ def test_translateunit_shop_ReturnsObj_Scenario1():
     assert sue_translateunit.unknown_str == y_uk
     assert sue_translateunit.otx_knot == slash_otx_knot
     assert sue_translateunit.inx_knot == colon_inx_knot
-    assert sue_translateunit.epoch_length_min == sue_epoch_length_min
 
     # x_titlemap = titlemap_shop(
     #     slash_otx_knot, colon_inx_knot, {}, y_uk, sue_str, five_spark_num
@@ -545,7 +535,6 @@ def test_translateunit_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhen
         unknown_str=x_nan,
         otx_knot=x_nan,
         inx_knot=x_nan,
-        epoch_length_min=x_nan,
     )
 
     # THEN
@@ -554,7 +543,9 @@ def test_translateunit_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhen
     assert x_translateunit.unknown_str == default_unknown_str_if_None()
     assert x_translateunit.otx_knot == default_knot_if_None()
     assert x_translateunit.inx_knot == default_knot_if_None()
-    assert x_translateunit.epoch_length_min == 1472657760
+
+
+# TODO move all tests after this into another file that runs after "test_translateunit_crud_voice"
 
 
 def test_TranslateUnit_set_mapunit_SetsAttr():
@@ -664,6 +655,8 @@ def test_TranslateUnit_get_mapunit_ReturnsObj():
     assert sue_pu.get_mapunit(kw.TitleTerm) == sue_pu.titlemap
     assert sue_pu.get_mapunit(kw.LabelTerm) == sue_pu.labelmap
     assert sue_pu.get_mapunit(kw.RopeTerm) == sue_pu.ropemap
+    assert sue_pu.get_mapunit(kw.EpochTime) == sue_pu.epochmap
+    assert not sue_pu.get_mapunit("testing")
 
     assert sue_pu.get_mapunit(kw.NameTerm) != sue_pu.ropemap
     assert sue_pu.get_mapunit(kw.TitleTerm) != sue_pu.ropemap
@@ -760,7 +753,20 @@ def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario2_LabelTerm():
     assert ropemap.otx2inx_exists(sue_otx, sue_inx)
 
 
-def test_TranslateUnit_otx2inx_exists_ReturnsObj():
+def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario3_EpochTime():
+    # ESTABLISH
+    sue_translateunit = translateunit_shop(exx.sue)
+    sue_epoch_diff = 10
+    assert sue_translateunit._get_otx_epoch_diff(None) is None
+
+    # WHEN
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
+
+    # THEN
+    assert sue_translateunit._get_otx_epoch_diff(None) == sue_epoch_diff
+
+
+def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario0_LabelTerm():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
@@ -776,7 +782,23 @@ def test_TranslateUnit_otx2inx_exists_ReturnsObj():
     assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx)
 
 
-def test_TranslateUnit_get_inx_value_ReturnsObj():
+def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario1_EpochTime():
+    # ESTABLISH
+    sue_translateunit = translateunit_shop(exx.sue)
+    sue_epoch0_diff = 10
+    sue_epoch1_diff = 11
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
+
+    # WHEN
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
+
+    # THEN
+    assert sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
+
+
+def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario0_NameTerm():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
@@ -791,7 +813,20 @@ def test_TranslateUnit_get_inx_value_ReturnsObj():
     assert zia_translateunit._get_inx_value(kw.NameTerm, sue_otx) == sue_inx
 
 
-def test_TranslateUnit_del_otx2inx_ReturnsObj():
+def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario1_EpochTerm():
+    # ESTABLISH
+    sue_epoch_diff = 10
+    sue_translateunit = translateunit_shop(exx.sue)
+    assert sue_translateunit._get_inx_value(kw.EpochTime, None) != sue_epoch_diff
+
+    # WHEN
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
+
+    # THEN
+    assert sue_translateunit._get_inx_value(kw.EpochTime, None) == sue_epoch_diff
+
+
+def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario0_LabelTerm():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
@@ -809,6 +844,23 @@ def test_TranslateUnit_del_otx2inx_ReturnsObj():
     # THEN
     assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx) is False
     assert zia_translateunit.otx2inx_exists(rope_type, zia_str, zia_str)
+
+
+def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
+    # ESTABLISH
+    sue_translateunit = translateunit_shop(exx.sue)
+    sue_epoch0_diff = 10
+    sue_epoch1_diff = 11
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
+    assert sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
+
+    # WHEN
+    sue_translateunit.del_otx2inx(kw.EpochTime, None)
+
+    # THEN
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
 
 
 def test_TranslateUnit_set_label_SetsAttr_Scenario1_RopeTerm():

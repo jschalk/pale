@@ -182,8 +182,8 @@ def get_idea_elements_sort_order() -> list[str]:
         "inx_title",
         "otx_knot",
         "inx_knot",
-        "otx_time",
-        "inx_time",
+        "otx_epoch_length",
+        "inx_epoch_diff",
         "knot",
         "groupmark",
         "unknown_str",
@@ -380,8 +380,8 @@ def get_idea_sqlite_types() -> dict[str, str]:
         "inx_name": "TEXT",
         "otx_title": "TEXT",
         "inx_title": "TEXT",
-        "otx_time": "TEXT",
-        "inx_time": "TEXT",
+        "otx_epoch_length": "TEXT",
+        "inx_epoch_diff": "TEXT",
         "knot": "TEXT",
         "groupmark": "TEXT",
         "c400_number": "INTEGER",
@@ -562,6 +562,10 @@ def idea_format_00045_translate_rope_v0_0_0() -> str:
     return "idea_format_00045_translate_rope_v0_0_0"
 
 
+def idea_format_00046_translate_epoch_v0_0_0() -> str:
+    return "idea_format_00046_translate_epoch_v0_0_0"
+
+
 def idea_format_00050_delete_belief_voice_membership_v0_0_0() -> str:
     return "idea_format_00050_delete_belief_voice_membership_v0_0_0"
 
@@ -646,6 +650,7 @@ def get_idea_format_filenames() -> set[str]:
         idea_format_00043_translate_name_v0_0_0(),
         idea_format_00044_translate_label_v0_0_0(),
         idea_format_00045_translate_rope_v0_0_0(),
+        idea_format_00046_translate_epoch_v0_0_0(),
         idea_format_00050_delete_belief_voice_membership_v0_0_0(),
         idea_format_00051_delete_belief_voiceunit_v0_0_0(),
         idea_format_00052_delete_belief_plan_awardunit_v0_0_0(),
@@ -691,6 +696,7 @@ def get_idea_numbers() -> set[str]:
         "br00043",
         "br00044",
         "br00045",
+        "br00046",
         "br00050",
         "br00051",
         "br00052",
@@ -743,6 +749,7 @@ def get_idea_format_headers() -> dict[str, list[str]]:
         "otx_name,inx_name,otx_knot,inx_knot,unknown_str": idea_format_00043_translate_name_v0_0_0(),
         "otx_label,inx_label,otx_knot,inx_knot,unknown_str": idea_format_00044_translate_label_v0_0_0(),
         "otx_rope,inx_rope,otx_knot,inx_knot,unknown_str": idea_format_00045_translate_rope_v0_0_0(),
+        "otx_epoch_length,inx_epoch_diff": idea_format_00046_translate_epoch_v0_0_0(),
         "moment_label,belief_name,voice_name,group_title_ERASE": idea_format_00050_delete_belief_voice_membership_v0_0_0(),
         "moment_label,belief_name,voice_name_ERASE": idea_format_00051_delete_belief_voiceunit_v0_0_0(),
         "moment_label,belief_name,plan_rope,awardee_title_ERASE": idea_format_00052_delete_belief_plan_awardunit_v0_0_0(),
@@ -893,6 +900,7 @@ def get_idea_dimen_ref() -> dict[str, set[str]]:
             "br00116",
             "br00117",
         },
+        "translate_epoch": {"br00046"},
         "translate_title": {"br00042", "br00115"},
         "translate_name": {"br00043", "br00113"},
         "translate_rope": {"br00045", "br00117"},

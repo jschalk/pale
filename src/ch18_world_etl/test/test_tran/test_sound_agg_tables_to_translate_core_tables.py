@@ -124,8 +124,8 @@ def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable
         insert_into_clause = f"""INSERT INTO {translate_epoc_s_agg_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.otx_time}
-, {kw.inx_time}
+, {kw.otx_epoch_length}
+, {kw.inx_epoch_diff}
 )"""
         values_clause = f"""
 VALUES

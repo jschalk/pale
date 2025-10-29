@@ -148,8 +148,8 @@ def create_week_planunits(x_weekdays_list) -> dict[str, PlanUnit]:
 
 
 def new_epoch_planunit(epoch_label: EpochLabel, c400_number: int) -> PlanUnit:
-    epoch_length_min = c400_number * get_c400_constants().c400_leap_length
-    return planunit_shop(epoch_label, begin=0, close=epoch_length_min)
+    epoch_length = c400_number * get_c400_constants().c400_leap_length
+    return planunit_shop(epoch_label, begin=0, close=epoch_length)
 
 
 def get_epoch_rope(
@@ -418,8 +418,8 @@ def _hour_config(hour_num, hours_count, hour_length) -> list[str, int]:
 
 def get_min_from_dt_offset(dt: datetime, yr1_jan1_offset: int) -> int:
     ce_src = datetime(1, 1, 1, 0, 0, 0, 0)
-    min_time_difference = dt - ce_src
-    return round(min_time_difference.total_seconds() / 60) + yr1_jan1_offset
+    difference_min_dt = dt - ce_src
+    return round(difference_min_dt.total_seconds() / 60) + yr1_jan1_offset
 
 
 def get_epoch_min_from_dt(
@@ -587,6 +587,9 @@ def epoch_config_path() -> str:
 
 def get_default_epoch_config_dict() -> dict:
     return open_json(epoch_config_path())
+
+
+DEFAULT_EPOCH_LENGTH = 1472657760
 
 
 @dataclass

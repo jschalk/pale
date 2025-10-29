@@ -136,7 +136,7 @@ def get_translate_args_class_types() -> dict[str, str]:
 def get_quick_translates_column_ref() -> dict[str, set[str]]:
     """for each translate_config dimen contains the associated columns"""
     return {
-        "translate_epoch": {"inx_time", "otx_time"},
+        "translate_epoch": {"inx_epoch_diff", "otx_epoch_length"},
         "translate_title": {
             "inx_title",
             "otx_title",

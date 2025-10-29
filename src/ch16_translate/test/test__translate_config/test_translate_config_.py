@@ -50,8 +50,8 @@ def test_get_translate_config_dict_ReturnsObj():
 
 def _validate_translate_config(translate_config: dict):
     x_possible_args = {
-        kw.inx_time,
-        kw.otx_time,
+        kw.inx_epoch_diff,
+        kw.otx_epoch_length,
         kw.inx_knot,
         kw.otx_knot,
         kw.inx_title,

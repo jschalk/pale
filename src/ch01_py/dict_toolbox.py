@@ -508,3 +508,11 @@ def make_dict_safe_for_json(obj):
         return list(obj)
     else:
         return obj
+
+
+def set_modular_dict_values(x_dict: dict[int, int]) -> dict[int, int]:
+    """Given a dictionary with number keys and values"""
+    return {
+        x_key: x_value % x_key if x_key else x_value
+        for x_key, x_value in x_dict.items()
+    }

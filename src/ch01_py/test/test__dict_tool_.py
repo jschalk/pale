@@ -29,6 +29,7 @@ from src.ch01_py.dict_toolbox import (
     get_str_in_sub_dict,
     is_2d_with_unique_keys,
     set_in_nested_dict,
+    set_modular_dict_values,
     str_in_all_dict,
     str_in_all_dict_keys,
     str_in_all_dict_values,
@@ -983,3 +984,13 @@ def test_change_nested_key_Scenario4():
 
     # THEN Should not raise error, but should not modify
     assert result == original
+
+
+def test_set_modular_dict_values_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert set_modular_dict_values({}) == {}
+    assert set_modular_dict_values({5: 1, 7: 3}) == {5: 1, 7: 3}
+    assert set_modular_dict_values({500: 1}) == {500: 1}
+    assert set_modular_dict_values({500: 508}) == {500: 8}
+    assert set_modular_dict_values({1: 1}) == {1: 0}
+    assert set_modular_dict_values({None: 5}) == {None: 5}

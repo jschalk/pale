@@ -151,7 +151,7 @@ def test_riverrun_shop_ReturnsObj_Scenario1_WithoutArgs():
     assert x_riverrun.moment_mstr_dir == mstr_dir
     assert x_riverrun.moment_label == a23_str
     assert x_riverrun.belief_name == yao_str
-    assert x_riverrun.keep_rope == None
+    assert not x_riverrun.keep_rope
     assert x_riverrun.knot == default_knot_if_None()
     assert x_riverrun.keep_point_magnitude == validate_pool_num()
     assert x_riverrun.mana_grain == default_grain_num_if_None()

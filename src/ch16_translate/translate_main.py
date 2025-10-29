@@ -7,13 +7,14 @@ from src.ch16_translate._ref.ch16_semantic_types import (
     SparkInt,
     default_knot_if_None,
 )
-from src.ch16_translate.formula import EpochFormula, epochformula_shop
 from src.ch16_translate.map import (
+    EpochMap,
     LabelMap,
     MapCore,
     NameMap,
     RopeMap,
     TitleMap,
+    epochmap_shop,
     get_labelmap_from_dict,
     get_namemap_from_dict,
     get_ropemap_from_dict,
@@ -34,6 +35,10 @@ class check_attrException(Exception):
     pass
 
 
+class set_epochmapException(Exception):
+    pass
+
+
 @dataclass
 class TranslateUnit:
     """Per face object that translates any translatable str.
@@ -48,11 +53,10 @@ class TranslateUnit:
     namemap: NameMap = None
     labelmap: LabelMap = None
     ropemap: RopeMap = None
-    epochformula: EpochFormula = None
+    epochmap: EpochMap = None
     unknown_str: str = None  # translateunit
     otx_knot: KnotTerm = None  # translateunit
     inx_knot: KnotTerm = None  # translateunit
-    epoch_length_min: EpochTime = None  # translateunit
 
     def set_titlemap(self, x_titlemap: TitleMap):
         self._check_all_core_attrs_match(x_titlemap)
@@ -82,6 +86,10 @@ class TranslateUnit:
             return self.labelmap
         elif x_class_type == "RopeTerm":
             return self.ropemap
+        elif x_class_type == "EpochTime":
+            return self.epochmap
+        else:
+            return None
 
     def set_namemap(self, x_namemap: NameMap):
         self._check_all_core_attrs_match(x_namemap)
@@ -171,6 +179,8 @@ class TranslateUnit:
             self.labelmap.set_otx2inx(x_otx, x_inx)
         elif x_class_type == "RopeTerm":
             self.ropemap.set_otx2inx(x_otx, x_inx)
+        elif x_class_type == "EpochTime":
+            self.epochmap.set_otx2inx(x_otx, x_inx)
 
     def _get_inx_value(self, x_class_type: str, x_otx: str) -> str:
         """class_type: NameTerm, TitleTerm, LabelTerm, RopeTerm"""
@@ -182,6 +192,8 @@ class TranslateUnit:
             return self.labelmap._get_inx_value(x_otx)
         elif x_class_type == "RopeTerm":
             return self.ropemap._get_inx_value(x_otx)
+        elif x_class_type == "EpochTime":
+            return self.epochmap._get_inx_value(x_otx)
 
     def otx2inx_exists(self, x_class_type: str, x_otx: str, x_inx: str) -> bool:
         """class_type: NameTerm, TitleTerm, LabelTerm, RopeTerm"""
@@ -193,6 +205,8 @@ class TranslateUnit:
             return self.labelmap.otx2inx_exists(x_otx, x_inx)
         elif x_class_type == "RopeTerm":
             return self.ropemap.otx2inx_exists(x_otx, x_inx)
+        elif x_class_type == "EpochTime":
+            return self.epochmap.otx2inx_exists(x_otx, x_inx)
 
     def del_otx2inx(self, x_class_type: str, x_otx: str):
         """class_type: NameTerm, TitleTerm, LabelTerm, RopeTerm"""
@@ -204,6 +218,8 @@ class TranslateUnit:
             self.labelmap.del_otx2inx(x_otx)
         elif x_class_type == "RopeTerm":
             self.ropemap.del_otx2inx(x_otx)
+        elif x_class_type == "EpochTime":
+            self.epochmap.del_otx2inx(x_otx)
 
     def set_label(self, x_otx: str, x_inx: str):
         self.ropemap.set_label(x_otx, x_inx)
@@ -217,6 +233,24 @@ class TranslateUnit:
     def del_label(self, x_otx: str):
         self.ropemap.del_label(x_otx)
 
+    def set_epochmap(self, epochmap: EpochMap):
+        self.epochmap = epochmap
+
+    def epoch_exists(self, otx_epoch_length: EpochTime) -> bool:
+        return self.epochmap.otx_exists(otx_epoch_length)
+
+    def set_epoch(self, otx_epoch_length: EpochTime, inx_epoch_diff: EpochTime):
+        self.epochmap.set_otx2inx(otx_epoch_length, inx_epoch_diff)
+
+    def get_epochmap(self) -> EpochMap:
+        return self.epochmap
+
+    def _get_otx_epoch_diff(self, epoch_length: EpochTime) -> EpochTime:
+        return self.epochmap._get_inx_value(epoch_length)
+
+    def del_epoch(self, otx_epoch_length: EpochTime) -> EpochTime:
+        return self.epochmap.del_otx2inx(otx_epoch_length)
+
     def to_dict(self) -> dict:
         """Returns dict that is serializable to JSON."""
 
@@ -224,7 +258,7 @@ class TranslateUnit:
         x_titlemap = _get_rid_of_translate_core_keys(self.titlemap.to_dict())
         x_labelmap = _get_rid_of_translate_core_keys(self.labelmap.to_dict())
         x_ropemap = _get_rid_of_translate_core_keys(self.ropemap.to_dict())
-        x_epochformula = self.epochformula.to_dict()
+        x_epochmap = self.epochmap.to_dict()
 
         return {
             "face_name": self.face_name,
@@ -232,12 +266,11 @@ class TranslateUnit:
             "otx_knot": self.otx_knot,
             "inx_knot": self.inx_knot,
             "unknown_str": self.unknown_str,
-            "epoch_length_min": self.epoch_length_min,
             "namemap": x_namemap,
             "labelmap": x_labelmap,
             "titlemap": x_titlemap,
             "ropemap": x_ropemap,
-            "epochformula": x_epochformula,
+            "epochmap": x_epochmap,
         }
 
 
@@ -247,14 +280,10 @@ def translateunit_shop(
     otx_knot: KnotTerm = None,
     inx_knot: KnotTerm = None,
     unknown_str: str = None,
-    epoch_length_min: EpochTime = None,
 ) -> TranslateUnit:
     unknown_str = default_unknown_str_if_None(unknown_str)
     otx_knot = default_knot_if_None(otx_knot)
     inx_knot = default_knot_if_None(inx_knot)
-    epoch_length_min = get_None_if_nan(epoch_length_min)
-    if epoch_length_min is None:
-        epoch_length_min = 1472657760
 
     x_namemap = namemap_shop(
         face_name=face_name,
@@ -285,10 +314,7 @@ def translateunit_shop(
         unknown_str=unknown_str,
         x_labelmap=x_labelmap,
     )
-    x_epochformula = epochformula_shop(
-        face_name=face_name,
-        spark_num=spark_num,
-    )
+    x_epochmap = epochmap_shop(face_name, spark_num)
 
     return TranslateUnit(
         face_name=face_name,
@@ -296,12 +322,11 @@ def translateunit_shop(
         unknown_str=unknown_str,
         otx_knot=otx_knot,
         inx_knot=inx_knot,
-        epoch_length_min=epoch_length_min,
         namemap=x_namemap,
         titlemap=x_titlemap,
         labelmap=x_labelmap,
         ropemap=x_ropemap,
-        epochformula=x_epochformula,
+        epochmap=x_epochmap,
     )
 
 

@@ -112,9 +112,9 @@ def create_prime_tablename(
     return f"{tablename}_{put_del}_{stage}" if put_del else f"{tablename}_{stage}"
 
 
-CREATE_TRLEPOC_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, otx_time TEXT, inx_time TEXT, error_message TEXT)"""
-CREATE_TRLEPOC_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_agg (spark_num INTEGER, face_name TEXT, otx_time TEXT, inx_time TEXT, error_message TEXT)"""
-CREATE_TRLEPOC_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_vld (spark_num INTEGER, face_name TEXT, otx_time TEXT, inx_time TEXT)"""
+CREATE_TRLEPOC_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, otx_epoch_length TEXT, inx_epoch_diff TEXT, error_message TEXT)"""
+CREATE_TRLEPOC_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_agg (spark_num INTEGER, face_name TEXT, otx_epoch_length TEXT, inx_epoch_diff TEXT, error_message TEXT)"""
+CREATE_TRLEPOC_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_vld (spark_num INTEGER, face_name TEXT, otx_epoch_length TEXT, inx_epoch_diff TEXT)"""
 CREATE_TRLTITL_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_title_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, otx_title TEXT, inx_title TEXT, otx_knot TEXT, inx_knot TEXT, unknown_str TEXT, error_message TEXT)"""
 CREATE_TRLTITL_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_title_s_agg (spark_num INTEGER, face_name TEXT, otx_title TEXT, inx_title TEXT, otx_knot TEXT, inx_knot TEXT, unknown_str TEXT, error_message TEXT)"""
 CREATE_TRLTITL_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_title_s_vld (spark_num INTEGER, face_name TEXT, otx_title TEXT, inx_title TEXT)"""
@@ -1197,6 +1197,7 @@ def get_idea_stageble_put_dimens() -> dict[str, list[str]]:
         "br00043": [],
         "br00044": [],
         "br00045": [],
+        "br00046": [],
         "br00050": ["belief_voiceunit", "beliefunit", "momentunit"],
         "br00051": ["beliefunit", "momentunit"],
         "br00052": ["belief_planunit", "beliefunit", "momentunit"],

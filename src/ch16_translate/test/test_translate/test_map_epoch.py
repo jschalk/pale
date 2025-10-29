@@ -1,325 +1,396 @@
 from numpy import int64 as numpy_int64
 from pytest import raises as pytest_raises
-from src.ch14_epoch.epoch_main import get_c400_constants, get_default_epoch_config_dict
-from src.ch16_translate.formula import (
-    EpochFormula,
-    epochformula_shop,
-    get_epochformula_from_dict,
-    inherit_epochformula,
+from src.ch14_epoch.epoch_main import DEFAULT_EPOCH_LENGTH
+from src.ch16_translate.map import (
+    EpochMap,
+    epochmap_shop,
+    get_epochmap_from_dict,
+    inherit_epochmap,
 )
-from src.ch16_translate.translate_config import default_unknown_str_if_None
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
-def test_EpochFormula_Exists():
+def test_EpochMap_Exists():
     # ESTABLISH
-    x_epochformula = EpochFormula()
+    x_epochmap = EpochMap()
 
     # WHEN / THEN
-    assert not x_epochformula.face_name
-    assert not x_epochformula.spark_num
-    assert not x_epochformula.otx_time
-    assert not x_epochformula.inx_time
-    assert not x_epochformula.inx_time
-    assert not x_epochformula.time_modulus
-    assert set(x_epochformula.__dict__.keys()) == {
+    assert not x_epochmap.face_name
+    assert not x_epochmap.spark_num
+    assert not x_epochmap.otx2inx
+    assert set(x_epochmap.__dict__.keys()) == {
         kw.face_name,
         kw.spark_num,
-        kw.otx_time,
-        kw.inx_time,
-        kw.time_modulus,
+        kw.otx2inx,
     }
 
 
-def test_epochformula_shop_ReturnsObj_Scenario0():
+def test_EpochMap_set_all_otx2inx_SetsAttr_Scenario0():
     # ESTABLISH
-    bob_str = "Bob"
+    sue_epochmap = EpochMap(face_name=exx.sue)
+    sue_inx_epoch_diff = 19
+    sue_epoch_length = 100
+    sue_otx2inx = {sue_epoch_length: sue_inx_epoch_diff}
+    assert sue_epochmap.otx2inx != sue_otx2inx
 
     # WHEN
-    x_epochformula = epochformula_shop(bob_str)
+    sue_epochmap.set_all_otx2inx(sue_otx2inx)
 
     # THEN
-    assert x_epochformula.face_name == bob_str
-    assert x_epochformula.spark_num == 0
-    assert x_epochformula.otx_time is None
-    assert x_epochformula.inx_time is None
-
-    default_epoch_config = get_default_epoch_config_dict()
-    default_c400_number = default_epoch_config.get(kw.c400_number)
-    c400_length_constant = get_c400_constants().c400_leap_length
-    default_time_modulus = default_c400_number * c400_length_constant
-    assert x_epochformula.time_modulus == default_time_modulus
+    assert sue_epochmap.otx2inx == sue_otx2inx
 
 
-def test_epochformula_shop_ReturnsObj_Scenario1_WithParameters():
+def test_EpochMap_set_all_otx2inx_SetsAttr_Scenario1_WithParametersGreaterThan_epoch_length():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_otx_time = 11
-    bob_inx_time = 19
-    bob_time_modulus = 500
+    sue_epochmap = EpochMap(face_name=exx.sue)
+    sue_epoch_length = 500
+    sue_inx_epoch_diff = 719
+    static_sue_otx2inx = {sue_epoch_length: sue_inx_epoch_diff}
+    assert sue_epochmap.otx2inx != static_sue_otx2inx
+
+    # WHEN
+    sue_epochmap.set_all_otx2inx(static_sue_otx2inx)
+
+    # THEN
+    expected_sue_otx2inx = {sue_epoch_length: sue_inx_epoch_diff % sue_epoch_length}
+    assert sue_epochmap.otx2inx == expected_sue_otx2inx
+    assert sue_epochmap.otx2inx == {500: 219}
+
+
+def test_epochmap_shop_ReturnsObj_Scenario0():
+    # ESTABLISH
+
+    # WHEN
+    sue_epochmap = epochmap_shop(exx.sue)
+
+    # THEN
+    assert sue_epochmap.face_name == exx.sue
+    assert sue_epochmap.spark_num == 0
+    assert sue_epochmap.otx2inx == {}
+
+
+def test_epochmap_shop_ReturnsObj_Scenario1_WithParameters():
+    # ESTABLISH
+    sue_epoch_length = 500
+    sue_inx_epoch_diff = 11
     spark2 = 2
+    x_otx2inx = {sue_epoch_length: sue_inx_epoch_diff}
 
     # WHEN
-    x_epochformula = epochformula_shop(
-        face_name=bob_str,
-        spark_num=spark2,
-        otx_time=bob_otx_time,
-        inx_time=bob_inx_time,
-        time_modulus=bob_time_modulus,
-    )
+    sue_epochmap = epochmap_shop(exx.sue, spark2, otx2inx=x_otx2inx)
 
     # THEN
-    assert x_epochformula.face_name == bob_str
-    assert x_epochformula.spark_num == spark2
-    assert x_epochformula.otx_time == bob_otx_time
-    assert x_epochformula.inx_time == bob_inx_time
-    assert x_epochformula.time_modulus == bob_time_modulus
+    assert sue_epochmap.face_name == exx.sue
+    assert sue_epochmap.spark_num == spark2
+    assert sue_epochmap.otx2inx == x_otx2inx
+    assert sue_epochmap.otx2inx == {500: 11}
 
 
-def test_epochformula_shop_ReturnsObj_Scenario2_WithParametersModolarMath():
+def test_epochmap_shop_ReturnsObj_Scenario2_WithParametersGreaterThan_epoch_length():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_otx_time = 611
-    bob_inx_time = 619
-    bob_time_modulus = 500
+    sue_epoch_length = 500
+    sue_inx_epoch_diff = 719
     spark2 = 2
+    static_sue_otx2inx = {sue_epoch_length: sue_inx_epoch_diff}
 
     # WHEN
-    x_epochformula = epochformula_shop(
-        face_name=bob_str,
-        spark_num=spark2,
-        otx_time=bob_otx_time,
-        inx_time=bob_inx_time,
-        time_modulus=bob_time_modulus,
-    )
+    sue_epochmap = epochmap_shop(exx.sue, spark2, static_sue_otx2inx)
 
     # THEN
-    assert x_epochformula.face_name == bob_str
-    assert x_epochformula.spark_num == spark2
-    assert x_epochformula.otx_time != bob_otx_time
-    assert x_epochformula.otx_time == bob_otx_time % bob_time_modulus
-    assert x_epochformula.inx_time != bob_inx_time
-    assert x_epochformula.inx_time == bob_inx_time % bob_time_modulus
-    assert x_epochformula.time_modulus == bob_time_modulus
+    assert sue_epochmap.face_name == exx.sue
+    assert sue_epochmap.spark_num == spark2
+    assert sue_epochmap.otx2inx != static_sue_otx2inx
+    expected_sue_otx2inx = {sue_epoch_length: sue_inx_epoch_diff % sue_epoch_length}
+    assert sue_epochmap.otx2inx == expected_sue_otx2inx
+    assert sue_epochmap.otx2inx == {500: 219}
 
 
-def test_epochformula_shop_ReturnsObj_Scenario3_WithParametersGreaterThan_time_modulus():
+def test_epochmap_shop_ReturnsObj_Scenario3_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_otx_time = 11
-    bob_inx_time = 19
-    spark2 = 2
-
-    # WHEN
-    x_epochformula = epochformula_shop(
-        face_name=bob_str,
-        spark_num=spark2,
-        otx_time=bob_otx_time,
-        inx_time=bob_inx_time,
-    )
-
-    # THEN
-    assert x_epochformula.face_name == bob_str
-    assert x_epochformula.spark_num == spark2
-    assert x_epochformula.otx_time == bob_otx_time
-    assert x_epochformula.inx_time == bob_inx_time
-
-
-def test_epochformula_shop_ReturnsObj_Scenario4_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
-    # ESTABLISH
-    bob_str = "Bob"
     spark7 = numpy_int64(7)
-    bob_otx_time = 11
-    bob_inx_time = 19
-    x_nan = float("nan")
+    sue_epoch_length = 123
+    sue_inx_epoch_diff = 19
+    x_otx2inx = {numpy_int64(sue_epoch_length): numpy_int64(sue_inx_epoch_diff)}
 
     # WHEN
-    x_epochformula = epochformula_shop(
-        face_name=bob_str,
-        spark_num=numpy_int64(spark7),
-        otx_time=numpy_int64(bob_otx_time),
-        inx_time=numpy_int64(bob_inx_time),
-    )
+    sue_epochmap = epochmap_shop(exx.sue, numpy_int64(spark7), otx2inx=x_otx2inx)
 
     # THEN
-    assert x_epochformula.face_name == bob_str
-    assert x_epochformula.spark_num == spark7
-    assert str(type(x_epochformula.spark_num)) != "<class 'numpy.int64'>"
-    assert str(type(x_epochformula.spark_num)) == "<class 'int'>"
-    assert x_epochformula.otx_time == bob_otx_time
-    assert x_epochformula.inx_time == bob_inx_time
+    assert sue_epochmap.face_name == exx.sue
+    assert sue_epochmap.spark_num == spark7
+    assert str(type(sue_epochmap.spark_num)) != "<class 'numpy.int64'>"
+    assert str(type(sue_epochmap.spark_num)) == "<class 'int'>"
+    assert sue_epochmap.otx2inx == x_otx2inx
+    assert sue_epochmap.otx2inx == {sue_epoch_length: sue_inx_epoch_diff}
 
 
-def test_EpochFormula_get_inx_value_ReturnsObj_Scenario0_NoParametersGiven():
+def test_epochmap_shop_ReturnsObj_Scenario4_otx2inx_HasNoneKey():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_epochformula = epochformula_shop(bob_str)
+    sue_epoch_length = 123
+    sue_inx_epoch_diff = 19
+    sue_otx2inx = {sue_epoch_length: sue_inx_epoch_diff, None: sue_inx_epoch_diff}
 
     # WHEN
-    six_int = 6
-    inx_value = bob_epochformula.get_inx_value(otx_value=six_int)
+    sue_epochmap = epochmap_shop(exx.sue, None, sue_otx2inx)
 
     # THEN
-    assert inx_value
-    assert inx_value == six_int
+    assert sue_epochmap.otx2inx == sue_otx2inx
 
 
-def test_EpochFormula_get_inx_value_ReturnsObj_Scenario1_ParametersGiven():
+def test_EpochMap_set_otx2inx_SetsAttr_Scenario0_key_Exists():
     # ESTABLISH
-    bob_str = "Bob"
-    six_int = 6
-    bob_otx_time = 11
-    bob_inx_time = 18
-    bob_epochformula = epochformula_shop(bob_str, None, bob_otx_time, bob_inx_time)
+    sue_epochmap = epochmap_shop(exx.sue)
+    assert sue_epochmap.otx2inx == {}
 
     # WHEN
-    six_int = 6
-    inx_value = bob_epochformula.get_inx_value(otx_value=six_int)
+    sue_epoch_length = 123
+    sue_inx_epoch_diff = 19
+    sue_epochmap.set_otx2inx(sue_epoch_length, sue_inx_epoch_diff)
 
     # THEN
-    assert inx_value
-    assert inx_value == six_int + (bob_inx_time - bob_otx_time)
-    assert inx_value == 13
+    assert sue_epochmap.otx2inx == {sue_epoch_length: sue_inx_epoch_diff}
 
 
-def test_EpochFormula_get_inx_value_ReturnsObj_Scenario2_GreaterThan_time_modulus():
+def test_EpochMap_set_otx2inx_SetsAttr_Scenario1_key_IsNone():
     # ESTABLISH
-    bob_str = "Bob"
-    six_int = 6
-    bob_otx_time = 11
-    bob_inx_time = 18
-    bob_time_modulus = 500
-    bob_epochformula = epochformula_shop(
-        bob_str, None, bob_otx_time, bob_inx_time, bob_time_modulus
-    )
+    sue_epochmap = epochmap_shop(exx.sue)
+    assert sue_epochmap.otx2inx == {}
 
     # WHEN
-    x_int = 498
-    inx_value = bob_epochformula.get_inx_value(x_int)
+    sue_inx_epoch_diff = 19
+    sue_epochmap.set_otx2inx(None, sue_inx_epoch_diff)
 
     # THEN
-    assert inx_value
-    assert inx_value != x_int + (bob_inx_time - bob_otx_time)
-    assert inx_value == (x_int + (bob_inx_time - bob_otx_time)) % bob_time_modulus
-    assert inx_value == 5
+    assert sue_epochmap.otx2inx == {None: sue_inx_epoch_diff}
 
 
-def test_EpochFormula_to_dict_ReturnsObj():
+def test_EpochMap_set_otx2inx_SetsAttr_Scenario2_ValueIsLargerThanKey():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_otx_time = 11
-    sue_inx_time = 18
-    spark7 = 7
-    sue_epochformula = epochformula_shop(
-        face_name=sue_str,
-        spark_num=spark7,
-        otx_time=sue_otx_time,
-        inx_time=sue_inx_time,
-    )
+    sue_epochmap = epochmap_shop(exx.sue)
+    sue_inx_epoch_diff = 333
+    sue_epochmap.set_otx2inx(None, sue_inx_epoch_diff)
+    assert sue_epochmap.otx2inx == {None: sue_inx_epoch_diff}
+
+    # WHEN
+    sue_otx_epoch_length = 200
+    sue_epochmap.set_otx2inx(sue_otx_epoch_length, sue_inx_epoch_diff)
+
+    # THEN
+    assert sue_epochmap.otx2inx != {sue_otx_epoch_length: sue_inx_epoch_diff}
+    assert sue_epochmap.otx2inx == {None: 333, 200: 133}
+
+
+def test_EpochMap_get_inx_value_ReturnsObj():
+    # ESTABLISH
+    sue_epochmap = epochmap_shop(exx.sue)
+    sue_epoch_length = 123
+    sue_inx_epoch_diff = 19
+    assert sue_epochmap._get_inx_value(sue_epoch_length) != sue_inx_epoch_diff
+
+    # WHEN
+    sue_epochmap.set_otx2inx(sue_epoch_length, sue_inx_epoch_diff)
+
+    # THEN
+    assert sue_epochmap._get_inx_value(sue_epoch_length) == sue_inx_epoch_diff
+
+
+def test_EpochMap_otx2inx_exists_ReturnsObj():
+    # ESTABLISH
+    sue_epochmap = epochmap_shop(exx.sue)
+    x0_epoch_length = 660
+    x1_epoch_length = 770
+    x3_epoch_length = 880
+    x0_epoch_diff = 6
+    x1_epoch_diff = 7
+    x3_epoch_diff = 8
+    assert not sue_epochmap.otx2inx_exists(x0_epoch_length, x0_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x0_epoch_length, x1_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x1_epoch_length, x1_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x3_epoch_length, x3_epoch_diff)
+
+    # WHEN
+    sue_epochmap.set_otx2inx(x0_epoch_length, x0_epoch_diff)
+
+    # THEN
+    assert sue_epochmap.otx2inx_exists(x0_epoch_length, x0_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x0_epoch_length, x1_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x1_epoch_length, x1_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x3_epoch_length, x3_epoch_diff)
+
+    # WHEN
+    sue_epochmap.set_otx2inx(x3_epoch_length, x3_epoch_diff)
+
+    # THEN
+    assert sue_epochmap.otx2inx_exists(x0_epoch_length, x0_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x0_epoch_length, x1_epoch_diff)
+    assert not sue_epochmap.otx2inx_exists(x1_epoch_length, x1_epoch_diff)
+    assert sue_epochmap.otx2inx_exists(x3_epoch_length, x3_epoch_diff)
+
+
+def test_EpochMap_otx_exists_ReturnsObj():
+    # ESTABLISH
+    sue_epochmap = epochmap_shop(exx.sue)
+    x0_epoch_length = 660
+    x3_epoch_length = 880
+    x0_epoch_diff = 6
+    x3_epoch_diff = 8
+    assert not sue_epochmap.otx_exists(x0_epoch_length)
+    assert not sue_epochmap.otx_exists(None)
+    assert not sue_epochmap.otx_exists(x3_epoch_length)
+
+    # WHEN
+    sue_epochmap.set_otx2inx(x0_epoch_length, x0_epoch_diff)
+
+    # THEN
+    assert sue_epochmap.otx_exists(x0_epoch_length)
+    assert not sue_epochmap.otx_exists(None)
+    assert not sue_epochmap.otx_exists(x3_epoch_length)
+
+    # WHEN
+    sue_epochmap.set_otx2inx(None, x3_epoch_diff)
+
+    # THEN
+    assert sue_epochmap.otx_exists(x0_epoch_length)
+    assert sue_epochmap.otx_exists(None)
+    assert not sue_epochmap.otx_exists(x3_epoch_length)
+
+
+def test_EpochMap_del_otx2inx_SetsAttr():
+    # ESTABLISH
+    sue_epochmap = epochmap_shop(exx.sue)
+    x0_epoch_length = 660
+    x3_epoch_length = 880
+    x0_epoch_diff = 6
+    assert not sue_epochmap.otx_exists(x0_epoch_length)
+    assert not sue_epochmap.otx_exists(None)
+    assert not sue_epochmap.otx_exists(x3_epoch_length)
+    sue_epochmap.set_otx2inx(x0_epoch_length, x0_epoch_diff)
+    assert sue_epochmap.otx2inx_exists(x0_epoch_length, x0_epoch_diff)
+
+    # WHEN
+    sue_epochmap.del_otx2inx(x0_epoch_length)
+
+    # THEN
+    assert not sue_epochmap.otx2inx_exists(x0_epoch_length, x0_epoch_diff)
+
+
+def test_EpochMap_reveal_inx_ReturnsObjAndSetsAttr_voice_name():
+    # ESTABLISH
+    sue_epochmap = epochmap_shop(exx.sue)
+    x0_epoch_length = 660
+    x3_epoch_length = 880
+    x0_epoch_diff = 6
+    sue_epochmap.set_otx2inx(x0_epoch_length, x0_epoch_diff)
+    assert sue_epochmap.otx_exists(x0_epoch_length)
+    assert not sue_epochmap.otx_exists(x3_epoch_length)
+
+    # WHEN / THEN
+    x_otx_value = 22
+    assert sue_epochmap.reveal_inx(x3_epoch_length, x_otx_value) == x_otx_value
+
+    # WHEN / THEN
+    x_otx_value = 22
+    expected_x0_inx = x_otx_value + x0_epoch_diff
+    assert sue_epochmap.reveal_inx(x0_epoch_length, x_otx_value) == expected_x0_inx
+    assert sue_epochmap.reveal_inx(x0_epoch_length, x_otx_value) == 28
+
+    # WHEN / THEN
+    x_otx_value = 1000
+    expected_x0_inx = x_otx_value + x0_epoch_diff
+    expected_x0_inx = expected_x0_inx % x0_epoch_length
+    assert sue_epochmap.reveal_inx(x0_epoch_length, x_otx_value) == expected_x0_inx
+    assert sue_epochmap.reveal_inx(x0_epoch_length, x_otx_value) == 346
+
+
+def test_EpochMap_to_dict_ReturnsObj():
+    # ESTABLISH
+    sue_epochmap = epochmap_shop(exx.sue)
+    x0_epoch_length = 660
+    x0_epoch_diff = 6
+    sue_epochmap.set_otx2inx(x0_epoch_length, x0_epoch_diff)
     expected_dict = {
-        kw.face_name: sue_epochformula.face_name,
-        kw.spark_num: sue_epochformula.spark_num,
-        kw.otx_time: sue_epochformula.otx_time,
-        kw.inx_time: sue_epochformula.inx_time,
+        kw.face_name: sue_epochmap.face_name,
+        kw.spark_num: sue_epochmap.spark_num,
+        kw.otx2inx: sue_epochmap.otx2inx,
     }
 
     # WHEN / THEN
-    assert sue_epochformula.to_dict() == expected_dict
+    assert sue_epochmap.to_dict() == expected_dict
 
 
-def test_get_epochformula_from_dict_ReturnsObj():
+def test_get_epochmap_from_dict_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_otx_time = 11
-    sue_inx_time = 18
     spark7 = 7
-    sue_epochformula = epochformula_shop(
-        face_name=sue_str,
-        spark_num=spark7,
-        otx_time=sue_otx_time,
-        inx_time=sue_inx_time,
-    )
+    sue_epochmap = epochmap_shop(exx.sue, spark7)
+    x0_epoch_length = 660
+    x0_epoch_diff = 6
+    sue_epochmap.set_otx2inx(x0_epoch_length, x0_epoch_diff)
 
     # WHEN
-    gen_epochformula = get_epochformula_from_dict(sue_epochformula.to_dict())
+    gen_epochmap = get_epochmap_from_dict(sue_epochmap.to_dict())
 
     # THEN
-    assert gen_epochformula.face_name == sue_epochformula.face_name
-    assert gen_epochformula.spark_num == sue_epochformula.spark_num
-    assert gen_epochformula.spark_num == spark7
-    assert gen_epochformula.otx_time == sue_otx_time
-    assert gen_epochformula.inx_time == sue_inx_time
-    assert gen_epochformula == sue_epochformula
+    assert gen_epochmap.face_name == sue_epochmap.face_name
+    assert gen_epochmap.spark_num == sue_epochmap.spark_num
+    assert gen_epochmap.spark_num == spark7
+    assert gen_epochmap.otx2inx == {x0_epoch_length: x0_epoch_diff}
+    assert gen_epochmap == sue_epochmap
 
 
-def test_inherit_epochformula_ReturnsObj_Scenario0():
+def test_inherit_epochmap_ReturnsObj_Scenario0():
     # ESTABLISH
-    zia_str = "Zia"
-    old_epochformula = epochformula_shop(zia_str, 3)
-    new_epochformula = epochformula_shop(zia_str, 5)
+    old_epochmap = epochmap_shop(exx.sue, 3)
+    new_epochmap = epochmap_shop(exx.sue, 5)
     # WHEN
-    inherit_epochformula(new_epochformula, old_epochformula)
+    inherit_epochmap(new_epochmap, old_epochmap)
 
     # THEN
-    assert new_epochformula
-    assert new_epochformula == epochformula_shop(zia_str, 5)
+    assert new_epochmap
+    assert new_epochmap == epochmap_shop(exx.sue, 5)
 
 
-def test_inherit_epochformula_ReturnsObj_Scenario1_OldHasParameters():
+def test_inherit_epochmap_ReturnsObj_Scenario1_Inherit_otx2inx_FromOld_epochmap():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_otx_time = 45
-    zia_inx_time = 55
-    old_epochformula = epochformula_shop(zia_str, 3, zia_otx_time, zia_inx_time)
-    new_epochformula = epochformula_shop(zia_str, 5)
+    sue_otx_time = 45
+    sue_inx_time = 55
+    sue_epoch_diff = sue_otx_time - sue_inx_time
+    old_epochmap = epochmap_shop(exx.sue, 3)
+    old_epochmap.set_otx2inx(None, sue_epoch_diff)
+    assert old_epochmap.otx2inx == {None: sue_epoch_diff}
+
+    new_epochmap = epochmap_shop(exx.sue, 5)
     # WHEN
-    inherit_epochformula(new_epochformula, old_epochformula)
+    inherit_epochmap(new_epochmap, old_epochmap)
 
     # THEN
-    assert new_epochformula
-    assert new_epochformula == epochformula_shop(zia_str, 5, zia_otx_time, zia_inx_time)
+    assert new_epochmap
+    assert new_epochmap.otx2inx == {None: sue_epoch_diff}
+    assert new_epochmap == epochmap_shop(exx.sue, 5, {None: sue_epoch_diff})
 
 
-def test_inherit_epochformula_ReturnsObj_Scenario2_RaiseErrorWhenDifferent_otx_knot():
+def test_inherit_epochmap_ReturnsObj_Scenario2_RaiseErrorWhenDifferent_face_name():
     # ESTABLISH
-    sue_str = "Sue"
     sue0_epoch_min = 555
     sue1_epoch_min = 655
-    old_epochformula = epochformula_shop(sue_str, 0, time_modulus=sue0_epoch_min)
-    new_epochformula = epochformula_shop(sue_str, 1, time_modulus=sue1_epoch_min)
+    old_epochmap = epochmap_shop(exx.sue, 0, {sue0_epoch_min: 0})
+    new_epochmap = epochmap_shop(exx.bob, 1, {sue1_epoch_min: 7})
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
-        inherit_epochformula(new_epochformula, old_epochformula)
+        inherit_epochmap(new_epochmap, old_epochmap)
 
     # THEN
     assert str(excinfo.value) == "Core attrs in conflict"
 
 
-def test_inherit_epochformula_ReturnsObj_Scenario4_RaiseErrorWhenDifferent_x_face_name():
+def test_inherit_epochmap_ReturnsObj_Scenario3_RaiseErrorWhenSparkIntsOutOfOrder():
     # ESTABLISH
-    sue_str = "Sue"
-    bob_str = "Bob"
-    old_epochformula = epochformula_shop(sue_str, 0)
-    new_epochformula = epochformula_shop(bob_str, 1)
+    old_epochmap = epochmap_shop(exx.sue, 5)
+    new_epochmap = epochmap_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
-        inherit_epochformula(new_epochformula, old_epochformula)
+        inherit_epochmap(new_epochmap, old_epochmap)
 
     # THEN
-    assert str(excinfo.value) == "Core attrs in conflict"
-
-
-def test_inherit_epochformula_ReturnsObj_Scenario5_RaiseErrorWhenSparkIntsOutOfOrder():
-    # ESTABLISH
-    sue_str = "Sue"
-    old_epochformula = epochformula_shop(sue_str, 5)
-    new_epochformula = epochformula_shop(sue_str, 1)
-
-    # WHEN
-    with pytest_raises(Exception) as excinfo:
-        inherit_epochformula(new_epochformula, old_epochformula)
-
-    # THEN
-    assert str(excinfo.value) == f"older {kw.EpochFormula} is not older"
+    assert str(excinfo.value) == f"older {kw.EpochMap} is not older"

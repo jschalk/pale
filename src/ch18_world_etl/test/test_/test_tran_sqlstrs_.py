@@ -163,7 +163,7 @@ def test_get_idea_stageble_put_dimens_HasAll_idea_numbersForAll_dimens():
     idea_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) != "translate"
+        if dimen_config.get(kw.idea_category) != kw.translate
         # if dimen_config.get(kw.idea_category) == "moment"
     }
     with sqlite3_connect(":memory:") as moment_db_conn:
@@ -174,25 +174,25 @@ def test_get_idea_stageble_put_dimens_HasAll_idea_numbersForAll_dimens():
         idea_raw2dimen_count = 0
         idea_dimen_combo_checked_count = 0
         sorted_idea_numbers = sorted(get_idea_numbers())
-        expected_idea_slabelable_dimens = {i_num: [] for i_num in sorted_idea_numbers}
+        expected_idea_stagable_dimens = {i_num: [] for i_num in sorted_idea_numbers}
         for x_dimen in sorted(idea_config):
             dimen_config = idea_config.get(x_dimen)
             dimen_key_columns = set(dimen_config.get(kw.jkeys).keys())
             dimen_value_columns = set(dimen_config.get(kw.jvalues).keys())
             for idea_number in sorted_idea_numbers:
                 src_columns = get_table_columns(cursor, f"{idea_number}_raw")
-                expected_slabelable = dimen_key_columns.issubset(src_columns)
+                expected_stagable = dimen_key_columns.issubset(src_columns)
                 if idea_number == "br00036":
                     print(f"{x_dimen} {idea_number} checking... {src_columns}")
                 src_tablename = f"{idea_number}_raw"
                 gen_stablable = required_columns_exist(
                     cursor, src_tablename, dimen_key_columns
                 )
-                assert expected_slabelable == gen_stablable
+                assert expected_stagable == gen_stablable
 
                 idea_dimen_combo_checked_count += 1
                 if required_columns_exist(cursor, src_tablename, dimen_key_columns):
-                    expected_idea_slabelable_dimens.get(idea_number).append(x_dimen)
+                    expected_idea_stagable_dimens.get(idea_number).append(x_dimen)
                     idea_raw2dimen_count += 1
                     src_cols_set = set(src_columns)
                     existing_value_col = src_cols_set & (dimen_value_columns)
@@ -211,11 +211,11 @@ def test_get_idea_stageble_put_dimens_HasAll_idea_numbersForAll_dimens():
                     # check sqlstr is correct?
                     assert generated_sqlstr != ""
 
-    idea_stageble_dimen_list = sorted(list(expected_idea_slabelable_dimens))
-    print(expected_idea_slabelable_dimens)
-    assert idea_dimen_combo_checked_count == 680
+    idea_stageble_dimen_list = sorted(list(expected_idea_stagable_dimens))
+    print(expected_idea_stagable_dimens)
+    assert idea_dimen_combo_checked_count == 697
     assert idea_raw2dimen_count == 109
-    assert get_idea_stageble_put_dimens() == expected_idea_slabelable_dimens
+    assert get_idea_stageble_put_dimens() == expected_idea_stagable_dimens
 
 
 def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
@@ -226,7 +226,7 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
     idea_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) != "translate"
+        if dimen_config.get(kw.idea_category) != kw.translate
         # if dimen_config.get(kw.idea_category) == "moment"
     }
     with sqlite3_connect(":memory:") as moment_db_conn:
@@ -237,7 +237,7 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
         idea_raw2dimen_count = 0
         idea_dimen_combo_checked_count = 0
         sorted_idea_numbers = sorted(get_idea_numbers())
-        x_idea_slabelable_dimens = {i_num: [] for i_num in sorted_idea_numbers}
+        x_idea_stagable_dimens = {i_num: [] for i_num in sorted_idea_numbers}
         for x_dimen in sorted(idea_config):
             dimen_config = idea_config.get(x_dimen)
             dimen_key_columns = set(dimen_config.get(kw.jkeys).keys())
@@ -246,16 +246,16 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
             dimen_key_columns = set(dimen_key_columns)
             for idea_number in sorted_idea_numbers:
                 src_columns = get_table_columns(cursor, f"{idea_number}_raw")
-                expected_slabelable = dimen_key_columns.issubset(src_columns)
+                expected_stagable = dimen_key_columns.issubset(src_columns)
                 src_tablename = f"{idea_number}_raw"
                 gen_stablable = required_columns_exist(
                     cursor, src_tablename, dimen_key_columns
                 )
-                assert expected_slabelable == gen_stablable
+                assert expected_stagable == gen_stablable
 
                 idea_dimen_combo_checked_count += 1
                 if required_columns_exist(cursor, src_tablename, dimen_key_columns):
-                    x_idea_slabelable_dimens.get(idea_number).append(x_dimen)
+                    x_idea_stagable_dimens.get(idea_number).append(x_dimen)
                     idea_raw2dimen_count += 1
                     src_cols_set = set(src_columns)
                     # print(
@@ -272,16 +272,16 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
                     )
                     # check sqlstr is correct?
                     assert generated_sqlstr != ""
-    expected_idea_slabelable_dimens = {
-        x_idea_number: slabelable_dimens
-        for x_idea_number, slabelable_dimens in x_idea_slabelable_dimens.items()
-        if slabelable_dimens != []
+    expected_idea_stagable_dimens = {
+        x_idea_number: stagable_dimens
+        for x_idea_number, stagable_dimens in x_idea_stagable_dimens.items()
+        if stagable_dimens != []
     }
-    idea_stageble_dimen_list = sorted(list(expected_idea_slabelable_dimens))
-    print(f"{expected_idea_slabelable_dimens=}")
-    assert idea_dimen_combo_checked_count == 680
+    idea_stageble_dimen_list = sorted(list(expected_idea_stagable_dimens))
+    print(f"{expected_idea_stagable_dimens=}")
+    assert idea_dimen_combo_checked_count == 697
     assert idea_raw2dimen_count == 10
-    assert IDEA_STAGEBLE_DEL_DIMENS == expected_idea_slabelable_dimens
+    assert IDEA_STAGEBLE_DEL_DIMENS == expected_idea_stagable_dimens
 
 
 def test_CREATE_MOMENT_SPARK_TIME_AGG_SQLSTR_Exists():

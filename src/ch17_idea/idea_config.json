@@ -228,8 +228,8 @@
     "allowed_crud": "insert_one_time", 
     "build_order": 4, 
     "idea_category": "translate", 
-    "jkeys": {"face_name": {}, "otx_time": {}, "spark_num": {}}, 
-    "jvalues": {"inx_time": {}}
+    "jkeys": {"face_name": {}, "otx_epoch_length": {}, "spark_num": {}}, 
+    "jvalues": {"inx_epoch_diff": {}}
   }, 
   "translate_label": {
     "allowed_crud": "insert_one_time", 

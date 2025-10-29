@@ -224,8 +224,8 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[141] == kw.inx_title
     assert table_sorting_priority[142] == kw.otx_knot
     assert table_sorting_priority[143] == kw.inx_knot
-    assert table_sorting_priority[144] == kw.otx_time
-    assert table_sorting_priority[145] == kw.inx_time
+    assert table_sorting_priority[144] == kw.otx_epoch_length
+    assert table_sorting_priority[145] == kw.inx_epoch_diff
     assert table_sorting_priority[146] == kw.knot
     assert table_sorting_priority[147] == kw.groupmark
     assert table_sorting_priority[148] == kw.unknown_str
@@ -445,7 +445,7 @@ def test_get_idea_config_dict_ReturnsObj_IsFullyPopulated():
 
 
 def get_idea_categorys():
-    return {kw.belief, kw.moment, "translate"}
+    return {kw.belief, kw.moment, kw.translate}
 
 
 def _validate_idea_config(x_idea_config: dict):
@@ -468,7 +468,7 @@ def _validate_idea_config(x_idea_config: dict):
             sub_dimen = atom_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.moment:
             sub_dimen = moment_config_dict.get(idea_dimen)
-        elif idea_dict.get(kw.idea_category) == "translate":
+        elif idea_dict.get(kw.idea_category) == kw.translate:
             sub_dimen = translate_config_dict.get(idea_dimen)
 
         assert idea_dict.get(kw.allowed_crud) in get_allowed_curds()
@@ -518,7 +518,7 @@ def _validate_idea_config(x_idea_config: dict):
         # print(f"  {idea_jkeys_keys=}")
         assert kw.face_name in idea_jkeys_keys
         assert kw.spark_num in idea_jkeys_keys
-        if idea_dict.get(kw.idea_category) != "translate":
+        if idea_dict.get(kw.idea_category) != kw.translate:
             assert kw.moment_label in idea_jkeys_keys
         if idea_dict.get(kw.idea_category) == kw.belief:
             idea_jkeys_keys.remove(kw.moment_label)
@@ -731,6 +731,7 @@ def test_get_idea_config_dict_ReturnsObj_build_order():
     assert x_idea_config.get(kw.translate_title).get(bo) == 1
     assert x_idea_config.get(kw.translate_label).get(bo) == 2
     assert x_idea_config.get(kw.translate_rope).get(bo) == 3
+    assert x_idea_config.get(kw.translate_epoch).get(bo) == 4
     assert x_idea_config.get(kw.momentunit).get(bo) == 5
     assert x_idea_config.get(kw.moment_epoch_hour).get(bo) == 6
     assert x_idea_config.get(kw.moment_epoch_month).get(bo) == 7

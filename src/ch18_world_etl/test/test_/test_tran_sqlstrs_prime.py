@@ -280,7 +280,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateDimensCheck():
     translate_dimens_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "translate"
+        if dimen_config.get(kw.idea_category) == kw.translate
     }
 
     for x_dimen in translate_dimens_config:
