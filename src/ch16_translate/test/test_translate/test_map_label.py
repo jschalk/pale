@@ -23,7 +23,7 @@ def test_LabelMap_Exists():
     assert not x_labelmap.inx_knot
 
 
-def test_labelmap_shop_ReturnsObj_scenario0_WithoutParameters():
+def test_labelmap_shop_ReturnsObj_Scenario0_WithoutParameters():
     # ESTABLISH / WHEN
     x_labelmap = labelmap_shop()
 
@@ -36,7 +36,7 @@ def test_labelmap_shop_ReturnsObj_scenario0_WithoutParameters():
     assert x_labelmap.inx_knot == default_knot_if_None()
 
 
-def test_labelmap_shop_ReturnsObj_scenario1_WithParameters():
+def test_labelmap_shop_ReturnsObj_Scenario1_WithParameters():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
@@ -66,7 +66,7 @@ def test_labelmap_shop_ReturnsObj_scenario1_WithParameters():
     assert x_labelmap.inx_knot == colon_inx_knot
 
 
-def test_labelmap_shop_ReturnsObj_scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
+def test_labelmap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"

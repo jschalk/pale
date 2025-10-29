@@ -341,10 +341,10 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario9_adds_epoch_frame_NoWrap_monthd
 
     print(f"{monthday_case.reason_divisor=}")
     x_epoch_frame_min = 500
-    geo_5_EpochInstant = 43200
-    geo_8_EpochInstant = 47520
-    assert monthday_case.reason_lower == geo_5_EpochInstant
-    assert monthday_case.reason_upper == geo_8_EpochInstant
+    geo_5_EpochTime = 43200
+    geo_8_EpochTime = 47520
+    assert monthday_case.reason_lower == geo_5_EpochTime
+    assert monthday_case.reason_upper == geo_8_EpochTime
 
     # WHEN
     add_frame_to_caseunit(
@@ -356,10 +356,10 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario9_adds_epoch_frame_NoWrap_monthd
     )
 
     # THEN
-    assert monthday_case.reason_lower != geo_5_EpochInstant
-    assert monthday_case.reason_upper != geo_8_EpochInstant
-    assert monthday_case.reason_lower == geo_5_EpochInstant + x_epoch_frame_min
-    assert monthday_case.reason_upper == geo_8_EpochInstant + x_epoch_frame_min
+    assert monthday_case.reason_lower != geo_5_EpochTime
+    assert monthday_case.reason_upper != geo_8_EpochTime
+    assert monthday_case.reason_lower == geo_5_EpochTime + x_epoch_frame_min
+    assert monthday_case.reason_upper == geo_8_EpochTime + x_epoch_frame_min
 
 
 def test_add_frame_to_caseunit_SetsAttr_Scenario10_adds_epoch_frame_Wraps_monthday():
@@ -380,10 +380,10 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario10_adds_epoch_frame_Wraps_monthd
     monthday_case = belief_plan_reason_caseunit_get_obj(bob_belief, mop_monthday_args)
     year_plan = belief_planunit_get_obj(bob_belief, {kw.plan_rope: wx.five_year_rope})
     x_epoch_frame_min = 5000000
-    geo_5_EpochInstant = 43200
-    geo_8_EpochInstant = 47520
-    assert monthday_case.reason_lower == geo_5_EpochInstant
-    assert monthday_case.reason_upper == geo_8_EpochInstant
+    geo_5_EpochTime = 43200
+    geo_8_EpochTime = 47520
+    assert monthday_case.reason_lower == geo_5_EpochTime
+    assert monthday_case.reason_upper == geo_8_EpochTime
 
     # WHEN
     add_frame_to_caseunit(
@@ -395,16 +395,12 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario10_adds_epoch_frame_Wraps_monthd
     )
 
     # THEN
-    assert monthday_case.reason_lower != geo_5_EpochInstant
-    assert monthday_case.reason_upper != geo_8_EpochInstant
-    print(f"{(geo_5_EpochInstant + x_epoch_frame_min) % 525600=}")
-    print(f"{(geo_8_EpochInstant + x_epoch_frame_min) % 525600=}")
-    assert (
-        monthday_case.reason_lower == (geo_5_EpochInstant + x_epoch_frame_min) % 525600
-    )
-    assert (
-        monthday_case.reason_upper == (geo_8_EpochInstant + x_epoch_frame_min) % 525600
-    )
+    assert monthday_case.reason_lower != geo_5_EpochTime
+    assert monthday_case.reason_upper != geo_8_EpochTime
+    print(f"{(geo_5_EpochTime + x_epoch_frame_min) % 525600=}")
+    print(f"{(geo_8_EpochTime + x_epoch_frame_min) % 525600=}")
+    assert monthday_case.reason_lower == (geo_5_EpochTime + x_epoch_frame_min) % 525600
+    assert monthday_case.reason_upper == (geo_8_EpochTime + x_epoch_frame_min) % 525600
 
 
 def test_add_frame_to_caseunit_SetsAttr_Scenario11_adds_epoch_frame_NoWrap_monthly():
@@ -430,10 +426,10 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario11_adds_epoch_frame_NoWrap_month
 
     print(f"{geo_case.reason_divisor=}")
     x_epoch_frame_min = 500
-    geo_5_EpochInstant = 43200
-    geo_8_EpochInstant = 47520
-    assert geo_case.reason_lower == geo_5_EpochInstant
-    assert geo_case.reason_upper == geo_8_EpochInstant
+    geo_5_EpochTime = 43200
+    geo_8_EpochTime = 47520
+    assert geo_case.reason_lower == geo_5_EpochTime
+    assert geo_case.reason_upper == geo_8_EpochTime
 
     # WHEN
     add_frame_to_caseunit(
@@ -441,10 +437,10 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario11_adds_epoch_frame_NoWrap_month
     )
 
     # THEN
-    assert geo_case.reason_lower != geo_5_EpochInstant
-    assert geo_case.reason_upper != geo_8_EpochInstant
-    assert geo_case.reason_lower == geo_5_EpochInstant + x_epoch_frame_min
-    assert geo_case.reason_upper == geo_8_EpochInstant + x_epoch_frame_min
+    assert geo_case.reason_lower != geo_5_EpochTime
+    assert geo_case.reason_upper != geo_8_EpochTime
+    assert geo_case.reason_lower == geo_5_EpochTime + x_epoch_frame_min
+    assert geo_case.reason_upper == geo_8_EpochTime + x_epoch_frame_min
 
 
 def test_add_frame_to_caseunit_SetsAttr_Scenario12_adds_epoch_frame_Wraps_monthly():
@@ -468,10 +464,10 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario12_adds_epoch_frame_Wraps_monthl
     geo_case = belief_plan_reason_caseunit_get_obj(bob_belief, geo_month_args)
     year_plan = belief_planunit_get_obj(bob_belief, {kw.plan_rope: wx.five_year_rope})
     x_epoch_frame_min = 5000000
-    geo_5_EpochInstant = 43200
-    geo_8_EpochInstant = 47520
-    assert geo_case.reason_lower == geo_5_EpochInstant
-    assert geo_case.reason_upper == geo_8_EpochInstant
+    geo_5_EpochTime = 43200
+    geo_8_EpochTime = 47520
+    assert geo_case.reason_lower == geo_5_EpochTime
+    assert geo_case.reason_upper == geo_8_EpochTime
 
     # WHEN
     add_frame_to_caseunit(
@@ -479,12 +475,12 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario12_adds_epoch_frame_Wraps_monthl
     )
 
     # THEN
-    assert geo_case.reason_lower != geo_5_EpochInstant
-    assert geo_case.reason_upper != geo_8_EpochInstant
-    print(f"{(geo_5_EpochInstant + x_epoch_frame_min) % 525600=}")
-    print(f"{(geo_8_EpochInstant + x_epoch_frame_min) % 525600=}")
-    assert geo_case.reason_lower == (geo_5_EpochInstant + x_epoch_frame_min) % 525600
-    assert geo_case.reason_upper == (geo_8_EpochInstant + x_epoch_frame_min) % 525600
+    assert geo_case.reason_lower != geo_5_EpochTime
+    assert geo_case.reason_upper != geo_8_EpochTime
+    print(f"{(geo_5_EpochTime + x_epoch_frame_min) % 525600=}")
+    print(f"{(geo_8_EpochTime + x_epoch_frame_min) % 525600=}")
+    assert geo_case.reason_lower == (geo_5_EpochTime + x_epoch_frame_min) % 525600
+    assert geo_case.reason_upper == (geo_8_EpochTime + x_epoch_frame_min) % 525600
 
 
 def test_add_frame_to_caseunit_SetsAttr_Scenario13_adds_epoch_frame_NoWrap_range():
@@ -566,7 +562,7 @@ def test_add_frame_to_caseunit_SetsAttr_Scenario14_adds_epoch_frame_Wraps_range(
     assert epoch_case.reason_lower != x_range_lower_min
     assert epoch_case.reason_upper != x_range_duration
     print(
-        f"{x_range_lower_min + x_epoch_frame_min=} vs {epoch_plan.close} (epoch_length_min)"
+        f"{x_range_lower_min + x_epoch_frame_min=} vs {epoch_plan.close} (epoch_length)"
     )
     expected_lower = (x_range_lower_min + x_epoch_frame_min) % epoch_plan.close
     expected_upper = (x_range_upper_min + x_epoch_frame_min) % epoch_plan.close
@@ -593,10 +589,10 @@ def test_add_frame_to_reasonunit_SetsAttr_Scenario0_AllCaseUnitsAre_epoch():
     five_reason = belief_plan_reasonunit_get_obj(bob_belief, mop_range_args)
     epoch_plan = belief_planunit_get_obj(bob_belief, epoch_args)
     print(f"{get_range_attrs(epoch_plan)=}")
-    epoch_length_min = epoch_plan.close
+    epoch_length = epoch_plan.close
     epoch_case = belief_plan_reason_caseunit_get_obj(bob_belief, mop_range_args)
 
-    x_epoch_frame_min = epoch_length_min + 10005
+    x_epoch_frame_min = epoch_length + 10005
     x_range_upper_min = x_range_lower_min + x_range_duration
     assert epoch_case.reason_lower == x_range_lower_min
     assert epoch_case.reason_upper == x_range_upper_min
@@ -613,8 +609,8 @@ def test_add_frame_to_reasonunit_SetsAttr_Scenario0_AllCaseUnitsAre_epoch():
     # THEN
     assert epoch_case.reason_lower != x_range_lower_min
     assert epoch_case.reason_upper != x_range_duration
-    expected_lower = (x_range_lower_min + x_epoch_frame_min) % epoch_length_min
-    expected_upper = (x_range_upper_min + x_epoch_frame_min) % epoch_length_min
+    expected_lower = (x_range_lower_min + x_epoch_frame_min) % epoch_length
+    expected_upper = (x_range_upper_min + x_epoch_frame_min) % epoch_length
     assert epoch_case.reason_lower == expected_lower
     assert epoch_case.reason_upper == expected_upper
 
@@ -709,10 +705,10 @@ def test_add_frame_to_beliefunit_SetsAttrs_Scenario0_OnlyEpochFactsAndReasons():
     root_five_fact = belief_plan_factunit_get_obj(bob_belief, root_five_args)
 
     five_reason = belief_plan_reasonunit_get_obj(bob_belief, mop_range_args)
-    epoch_length_min = epoch_plan.close
+    epoch_length = epoch_plan.close
     epoch_case = belief_plan_reason_caseunit_get_obj(bob_belief, mop_range_args)
 
-    x_epoch_frame_min = epoch_length_min + 10005
+    x_epoch_frame_min = epoch_length + 10005
     x_range_upper_min = x_range_lower_min + x_range_duration
     assert epoch_case.reason_lower == x_range_lower_min
     assert epoch_case.reason_upper == x_range_upper_min

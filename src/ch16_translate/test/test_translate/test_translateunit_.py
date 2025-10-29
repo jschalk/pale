@@ -6,6 +6,7 @@ from src.ch08_belief_atom.atom_config import (
 )
 from src.ch15_moment.moment_config import get_moment_args_class_types
 from src.ch16_translate.map import (
+    epochmap_shop,
     labelmap_shop,
     namemap_shop,
     ropemap_shop,
@@ -24,15 +25,19 @@ from src.ch16_translate.translate_config import (
     default_unknown_str_if_None,
     find_set_otx_inx_args,
     get_translate_args_class_types,
+    get_translate_config_dict,
+    get_translate_EpochTime_args,
     get_translate_LabelTerm_args,
     get_translate_NameTerm_args,
     get_translate_RopeTerm_args,
     get_translate_TitleTerm_args,
     get_translateable_args,
+    get_translateable_number_class_types,
+    get_translateable_term_class_types,
     translateable_class_types,
 )
 from src.ch16_translate.translate_main import TranslateUnit, translateunit_shop
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
 def test_get_translate_args_class_types_ReturnsObj():
@@ -62,8 +67,8 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.face_name) == kw.NameTerm
     assert translate_args_class_types.get(kw.fact_context) == kw.RopeTerm
     assert translate_args_class_types.get(kw.moment_label) == kw.LabelTerm
-    assert translate_args_class_types.get(kw.fact_upper) == "float"
-    assert translate_args_class_types.get(kw.fact_lower) == "float"
+    assert translate_args_class_types.get(kw.fact_upper) == kw.ContextNum
+    assert translate_args_class_types.get(kw.fact_lower) == kw.ContextNum
     assert translate_args_class_types.get(kw.fund_grain) == "float"
     assert translate_args_class_types.get(kw.fund_pool) == "float"
     assert translate_args_class_types.get(kw.give_force) == "float"
@@ -77,11 +82,11 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.monthday_index) == "int"
     assert translate_args_class_types.get(kw.morph) == "bool"
     assert translate_args_class_types.get(kw.reason_state) == kw.RopeTerm
-    assert translate_args_class_types.get(kw.reason_upper) == "float"
+    assert translate_args_class_types.get(kw.reason_upper) == kw.ContextNum
     assert translate_args_class_types.get(kw.numor) == "int"
-    assert translate_args_class_types.get(kw.offi_time) == kw.EpochInstant
+    assert translate_args_class_types.get(kw.offi_time) == kw.EpochTime
     assert translate_args_class_types.get(kw.belief_name) == kw.NameTerm
-    assert translate_args_class_types.get(kw.reason_lower) == "float"
+    assert translate_args_class_types.get(kw.reason_lower) == kw.ContextNum
     assert translate_args_class_types.get(kw.mana_grain) == "float"
     assert translate_args_class_types.get(kw.fact_state) == kw.RopeTerm
     assert translate_args_class_types.get(kw.pledge) == "bool"
@@ -94,8 +99,8 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.take_force) == "float"
     assert translate_args_class_types.get(kw.tally) == "int"
     assert translate_args_class_types.get(kw.party_title) == kw.TitleTerm
-    assert translate_args_class_types.get(kw.bud_time) == kw.EpochInstant
-    assert translate_args_class_types.get(kw.tran_time) == kw.EpochInstant
+    assert translate_args_class_types.get(kw.bud_time) == kw.EpochTime
+    assert translate_args_class_types.get(kw.tran_time) == kw.EpochTime
     assert translate_args_class_types.get(kw.epoch_label) == kw.LabelTerm
     assert translate_args_class_types.get(kw.weekday_label) == kw.LabelTerm
     assert translate_args_class_types.get(kw.weekday_order) == "int"
@@ -146,8 +151,9 @@ def test_translateable_class_types_ReturnsObj():
     x_translateable_class_types = translateable_class_types()
 
     # THEN
-    assert len(x_translateable_class_types) == 4
+    assert len(x_translateable_class_types) == 5
     assert x_translateable_class_types == {
+        kw.EpochTime,
         kw.NameTerm,
         kw.TitleTerm,
         kw.LabelTerm,
@@ -156,8 +162,37 @@ def test_translateable_class_types_ReturnsObj():
     print(f"{set(get_atom_args_class_types().values())=}")
     all_atom_class_types = set(get_atom_args_class_types().values())
     all_atom_class_types.add(kw.LabelTerm)
+    all_atom_class_types.add(kw.EpochTime)
     x_cL_tyep = set(all_atom_class_types) & (x_translateable_class_types)
     assert x_cL_tyep == x_translateable_class_types
+
+
+def test_get_translateable_number_class_types_ReturnsObj():
+    # ESTABLISH / WHEN
+    x_number_class_types = get_translateable_number_class_types()
+
+    # THEN
+    assert len(x_number_class_types) == 1
+    assert x_number_class_types == {kw.EpochTime}
+    assert x_number_class_types.issubset(translateable_class_types())
+
+
+def test_get_translateable_term_class_types_ReturnsObj():
+    # ESTABLISH / WHEN
+    x_term_class_types = get_translateable_term_class_types()
+
+    # THEN
+    assert len(x_term_class_types) == 4
+    assert x_term_class_types == {
+        kw.NameTerm,
+        kw.TitleTerm,
+        kw.LabelTerm,
+        kw.RopeTerm,
+    }
+    assert x_term_class_types.issubset(translateable_class_types())
+    assert x_term_class_types.isdisjoint(get_translateable_number_class_types())
+    number_class_types = get_translateable_number_class_types()
+    assert x_term_class_types.intersection(number_class_types) == set()
 
 
 def test_get_translateable_args_ReturnsObj():
@@ -173,24 +208,27 @@ def test_get_translateable_args_ReturnsObj():
     }
     assert get_translateable_args() == static_get_translateable_args
 
-    assert len(get_translateable_args()) == 17
+    assert len(get_translateable_args()) == 20
     assert get_translateable_args() == {
-        kw.voice_name,
         kw.awardee_title,
-        kw.reason_context,
+        kw.belief_name,
+        kw.bud_time,
+        kw.epoch_label,
         kw.face_name,
         kw.fact_context,
-        kw.moment_label,
         kw.fact_state,
         kw.group_title,
         kw.healer_name,
         kw.hour_label,
+        kw.moment_label,
         kw.month_label,
-        kw.reason_state,
-        kw.belief_name,
+        kw.offi_time,
         kw.plan_rope,
         kw.party_title,
-        kw.epoch_label,
+        kw.reason_context,
+        kw.reason_state,
+        kw.tran_time,
+        kw.voice_name,
         kw.weekday_label,
     }
 
@@ -346,23 +384,50 @@ def test_get_translate_RopeTerm_args_ReturnsObj():
     assert translate_RopeTerm_args == expected_args
 
 
+def test_get_translate_EpochTime_args_ReturnsObj():
+    # ESTABLISH / WHEN
+    translate_EpochTime_args = get_translate_EpochTime_args()
+
+    # THEN
+    assert translate_EpochTime_args == {kw.bud_time, kw.offi_time, kw.tran_time}
+    expected_args = {
+        x_arg
+        for x_arg, class_type in get_translate_args_class_types().items()
+        if class_type == kw.EpochTime
+    }
+    assert translate_EpochTime_args == expected_args
+
+
 def test_TranslateUnit_Exists():
     # ESTABLISH
     x_translateunit = TranslateUnit()
 
     # WHEN / THEN
+    assert not x_translateunit.face_name
     assert not x_translateunit.spark_num
     assert not x_translateunit.titlemap
     assert not x_translateunit.namemap
     assert not x_translateunit.labelmap
     assert not x_translateunit.ropemap
+    assert not x_translateunit.epochmap
     assert not x_translateunit.unknown_str
     assert not x_translateunit.otx_knot
     assert not x_translateunit.inx_knot
-    assert not x_translateunit.face_name
+    assert set(x_translateunit.__dict__.keys()) == {
+        kw.face_name,
+        kw.spark_num,
+        kw.titlemap,
+        kw.namemap,
+        kw.labelmap,
+        kw.ropemap,
+        kw.epochmap,
+        kw.unknown_str,
+        kw.otx_knot,
+        kw.inx_knot,
+    }
 
 
-def test_translateunit_shop_ReturnsObj_scenario0():
+def test_translateunit_shop_ReturnsObj_Scenario0():
     # ESTABLISH
     sue_str = "Sue"
 
@@ -379,6 +444,7 @@ def test_translateunit_shop_ReturnsObj_scenario0():
     assert sue_translateunit.namemap == namemap_shop(face_name=sue_str)
     assert sue_translateunit.labelmap == labelmap_shop(face_name=sue_str)
     assert sue_translateunit.ropemap == ropemap_shop(face_name=sue_str)
+    assert sue_translateunit.epochmap == epochmap_shop(sue_str)
     assert sue_translateunit.namemap.spark_num == 0
     assert sue_translateunit.namemap.unknown_str == default_unknown_str_if_None()
     assert sue_translateunit.namemap.otx_knot == default_knot_if_None()
@@ -397,17 +463,22 @@ def test_translateunit_shop_ReturnsObj_scenario0():
     assert sue_translateunit.ropemap.inx_knot == default_knot_if_None()
 
 
-def test_translateunit_shop_ReturnsObj_scenario1():
+def test_translateunit_shop_ReturnsObj_Scenario1():
     # ESTABLISH
     sue_str = "Sue"
     five_spark_num = 5
     y_uk = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
+    sue_epoch_length = 600
 
     # WHEN
     sue_translateunit = translateunit_shop(
-        sue_str, five_spark_num, slash_otx_knot, colon_inx_knot, y_uk
+        face_name=sue_str,
+        spark_num=five_spark_num,
+        otx_knot=slash_otx_knot,
+        inx_knot=colon_inx_knot,
+        unknown_str=y_uk,
     )
 
     # THEN
@@ -451,13 +522,10 @@ def test_translateunit_shop_ReturnsObj_scenario1():
     assert sue_translateunit.ropemap.inx_knot == colon_inx_knot
 
 
-def test_translateunit_shop_ReturnsObj_scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
+def test_translateunit_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
-    xio_str = "Xio"
-    sue_str = "Sue"
     bob_str = "Bob"
     spark7 = 7
-    otx2inx = {xio_str: sue_str}
     x_nan = float("nan")
 
     # WHEN
@@ -475,6 +543,9 @@ def test_translateunit_shop_ReturnsObj_scenario2_TranslateCoreAttrAreDefaultWhen
     assert x_translateunit.unknown_str == default_unknown_str_if_None()
     assert x_translateunit.otx_knot == default_knot_if_None()
     assert x_translateunit.inx_knot == default_knot_if_None()
+
+
+# TODO move all tests after this into another file that runs after "test_translateunit_crud_voice"
 
 
 def test_TranslateUnit_set_mapunit_SetsAttr():
@@ -584,6 +655,8 @@ def test_TranslateUnit_get_mapunit_ReturnsObj():
     assert sue_pu.get_mapunit(kw.TitleTerm) == sue_pu.titlemap
     assert sue_pu.get_mapunit(kw.LabelTerm) == sue_pu.labelmap
     assert sue_pu.get_mapunit(kw.RopeTerm) == sue_pu.ropemap
+    assert sue_pu.get_mapunit(kw.EpochTime) == sue_pu.epochmap
+    assert not sue_pu.get_mapunit("testing")
 
     assert sue_pu.get_mapunit(kw.NameTerm) != sue_pu.ropemap
     assert sue_pu.get_mapunit(kw.TitleTerm) != sue_pu.ropemap
@@ -680,7 +753,20 @@ def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario2_LabelTerm():
     assert ropemap.otx2inx_exists(sue_otx, sue_inx)
 
 
-def test_TranslateUnit_otx2inx_exists_ReturnsObj():
+def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario3_EpochTime():
+    # ESTABLISH
+    sue_translateunit = translateunit_shop(exx.sue)
+    sue_epoch_diff = 10
+    assert sue_translateunit._get_otx_epoch_diff(None) is None
+
+    # WHEN
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
+
+    # THEN
+    assert sue_translateunit._get_otx_epoch_diff(None) == sue_epoch_diff
+
+
+def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario0_LabelTerm():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
@@ -696,7 +782,23 @@ def test_TranslateUnit_otx2inx_exists_ReturnsObj():
     assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx)
 
 
-def test_TranslateUnit_get_inx_value_ReturnsObj():
+def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario1_EpochTime():
+    # ESTABLISH
+    sue_translateunit = translateunit_shop(exx.sue)
+    sue_epoch0_diff = 10
+    sue_epoch1_diff = 11
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
+
+    # WHEN
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
+
+    # THEN
+    assert sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
+
+
+def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario0_NameTerm():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
@@ -711,7 +813,20 @@ def test_TranslateUnit_get_inx_value_ReturnsObj():
     assert zia_translateunit._get_inx_value(kw.NameTerm, sue_otx) == sue_inx
 
 
-def test_TranslateUnit_del_otx2inx_ReturnsObj():
+def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario1_EpochTerm():
+    # ESTABLISH
+    sue_epoch_diff = 10
+    sue_translateunit = translateunit_shop(exx.sue)
+    assert sue_translateunit._get_inx_value(kw.EpochTime, None) != sue_epoch_diff
+
+    # WHEN
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
+
+    # THEN
+    assert sue_translateunit._get_inx_value(kw.EpochTime, None) == sue_epoch_diff
+
+
+def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario0_LabelTerm():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
@@ -729,6 +844,23 @@ def test_TranslateUnit_del_otx2inx_ReturnsObj():
     # THEN
     assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx) is False
     assert zia_translateunit.otx2inx_exists(rope_type, zia_str, zia_str)
+
+
+def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
+    # ESTABLISH
+    sue_translateunit = translateunit_shop(exx.sue)
+    sue_epoch0_diff = 10
+    sue_epoch1_diff = 11
+    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
+    assert sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
+
+    # WHEN
+    sue_translateunit.del_otx2inx(kw.EpochTime, None)
+
+    # THEN
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
+    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
 
 
 def test_TranslateUnit_set_label_SetsAttr_Scenario1_RopeTerm():

@@ -344,7 +344,7 @@ def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenari0_fact_rang
     graphics_bool,
 ):
     # ESTABLISH / WHEN / THEN
-    """Check scenarios CaseUnit.active. Plotly graph can be used to identify problems."""
+    """Check Scenarios CaseUnit.active. Plotly graph can be used to identify problems."""
     # TODO refactor this test.
     # It's currently a knucklehead way of creating asserting the expected booleans and creating a graph.
     # Start with a test set, then do for loop through the test set to create the graph

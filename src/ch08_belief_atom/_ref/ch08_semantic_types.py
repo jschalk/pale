@@ -18,6 +18,7 @@ from src.ch04_rope._ref.ch04_semantic_types import (
     RopeTerm,
     default_knot_if_None,
 )
+from src.ch05_reason._ref.ch05_semantic_types import ContextNum
 from src.ch07_belief_logic._ref.ch07_semantic_types import (
     BeliefName,
     ManaGrain,
@@ -26,8 +27,4 @@ from src.ch07_belief_logic._ref.ch07_semantic_types import (
 
 
 class CRUD_command(str):
-    pass
-
-
-class EpochInstant(int):
     pass

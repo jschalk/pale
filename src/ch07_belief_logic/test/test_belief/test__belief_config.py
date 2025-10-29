@@ -99,7 +99,7 @@ def test_get_belief_config_dict_ReturnsObj_CheckAbbreviations():
     blrplan_attribute = belief_config.get(kw.belief_planunit)
     blrawar_attribute = belief_config.get(kw.belief_plan_awardunit)
     blrreas_attribute = belief_config.get(kw.belief_plan_reasonunit)
-    blrprem_attribute = belief_config.get(kw.belief_plan_reason_caseunit)
+    blrcase_attribute = belief_config.get(kw.belief_plan_reason_caseunit)
     blrlabo_attribute = belief_config.get(kw.belief_plan_partyunit)
     blrheal_attribute = belief_config.get(kw.belief_plan_healerunit)
     blrfact_attribute = belief_config.get(kw.belief_plan_factunit)
@@ -111,7 +111,7 @@ def test_get_belief_config_dict_ReturnsObj_CheckAbbreviations():
     assert blrplan_attribute.get(abbr_str) == "blrplan"
     assert blrawar_attribute.get(abbr_str) == "blrawar"
     assert blrreas_attribute.get(abbr_str) == "blrreas"
-    assert blrprem_attribute.get(abbr_str) == "blrprem"
+    assert blrcase_attribute.get(abbr_str) == "blrcase"
     assert blrlabo_attribute.get(abbr_str) == "blrlabo"
     assert blrheal_attribute.get(abbr_str) == "blrheal"
     assert blrfact_attribute.get(abbr_str) == "blrfact"
@@ -301,15 +301,15 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     #                     f"""    assert g_sqlitetype(config, {dimem}, {level2_key[0:2]}, "{level3_key}") == "{x_sqlite_datatype}" """
     #                 )
 
-    jk = "jkeys"
-    jv = "jvalues"
+    jk = kw.jkeys
+    jv = kw.jvalues
     blfunit = kw.beliefunit
     blfvoce = kw.belief_voiceunit
     blrmemb = kw.belief_voice_membership
     blrplan = kw.belief_planunit
     blrawar = kw.belief_plan_awardunit
     blrreas = kw.belief_plan_reasonunit
-    blrprem = kw.belief_plan_reason_caseunit
+    blrcase = kw.belief_plan_reason_caseunit
     blrlabo = kw.belief_plan_partyunit
     blrheal = kw.belief_plan_healerunit
     blrfact = kw.belief_plan_factunit
@@ -478,11 +478,11 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blrfact, jk, kw.plan_rope) == "TEXT"
     assert g_popcashout(cfig, blrfact, jk, kw.plan_rope) == False
 
-    assert g_class_type(cfig, blrfact, jv, kw.fact_upper) == "float"
+    assert g_class_type(cfig, blrfact, jv, kw.fact_upper) == kw.ContextNum
     assert g_sqlitetype(cfig, blrfact, jv, kw.fact_upper) == "REAL"
     assert g_popcashout(cfig, blrfact, jv, kw.fact_upper) == False
 
-    assert g_class_type(cfig, blrfact, jv, kw.fact_lower) == "float"
+    assert g_class_type(cfig, blrfact, jv, kw.fact_lower) == kw.ContextNum
     assert g_sqlitetype(cfig, blrfact, jv, kw.fact_lower) == "REAL"
     assert g_popcashout(cfig, blrfact, jv, kw.fact_lower) == False
 
@@ -498,37 +498,37 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blrheal, jk, kw.plan_rope) == "TEXT"
     assert g_popcashout(cfig, blrheal, jk, kw.plan_rope) == False
 
-    assert g_class_type(cfig, blrprem, jk, kw.reason_context) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrprem, jk, kw.reason_context) == "TEXT"
-    assert g_popcashout(cfig, blrprem, jk, kw.reason_context) == False
+    assert g_class_type(cfig, blrcase, jk, kw.reason_context) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blrcase, jk, kw.reason_context) == "TEXT"
+    assert g_popcashout(cfig, blrcase, jk, kw.reason_context) == False
 
-    assert g_class_type(cfig, blrprem, jk, kw.reason_state) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrprem, jk, kw.reason_state) == "TEXT"
-    assert g_popcashout(cfig, blrprem, jk, kw.reason_state) == False
+    assert g_class_type(cfig, blrcase, jk, kw.reason_state) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blrcase, jk, kw.reason_state) == "TEXT"
+    assert g_popcashout(cfig, blrcase, jk, kw.reason_state) == False
 
-    assert g_class_type(cfig, blrprem, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrprem, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blrprem, jk, kw.plan_rope) == False
+    assert g_class_type(cfig, blrcase, jk, kw.plan_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blrcase, jk, kw.plan_rope) == "TEXT"
+    assert g_popcashout(cfig, blrcase, jk, kw.plan_rope) == False
 
-    assert g_class_type(cfig, blrprem, jv, kw.case_active) == "int"
-    assert g_sqlitetype(cfig, blrprem, jv, kw.case_active) == "INTEGER"
-    assert g_popcashout(cfig, blrprem, jv, kw.case_active) == True
+    assert g_class_type(cfig, blrcase, jv, kw.case_active) == "int"
+    assert g_sqlitetype(cfig, blrcase, jv, kw.case_active) == "INTEGER"
+    assert g_popcashout(cfig, blrcase, jv, kw.case_active) == True
 
-    assert g_class_type(cfig, blrprem, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, blrprem, jv, kw.task) == "INTEGER"
-    assert g_popcashout(cfig, blrprem, jv, kw.task) == True
+    assert g_class_type(cfig, blrcase, jv, kw.task) == "int"
+    assert g_sqlitetype(cfig, blrcase, jv, kw.task) == "INTEGER"
+    assert g_popcashout(cfig, blrcase, jv, kw.task) == True
 
-    assert g_class_type(cfig, blrprem, jv, kw.reason_divisor) == "int"
-    assert g_sqlitetype(cfig, blrprem, jv, kw.reason_divisor) == "INTEGER"
-    assert g_popcashout(cfig, blrprem, jv, kw.reason_divisor) == False
+    assert g_class_type(cfig, blrcase, jv, kw.reason_divisor) == "int"
+    assert g_sqlitetype(cfig, blrcase, jv, kw.reason_divisor) == "INTEGER"
+    assert g_popcashout(cfig, blrcase, jv, kw.reason_divisor) == False
 
-    assert g_class_type(cfig, blrprem, jv, kw.reason_upper) == "float"
-    assert g_sqlitetype(cfig, blrprem, jv, kw.reason_upper) == "REAL"
-    assert g_popcashout(cfig, blrprem, jv, kw.reason_upper) == False
+    assert g_class_type(cfig, blrcase, jv, kw.reason_upper) == kw.ContextNum
+    assert g_sqlitetype(cfig, blrcase, jv, kw.reason_upper) == "REAL"
+    assert g_popcashout(cfig, blrcase, jv, kw.reason_upper) == False
 
-    assert g_class_type(cfig, blrprem, jv, kw.reason_lower) == "float"
-    assert g_sqlitetype(cfig, blrprem, jv, kw.reason_lower) == "REAL"
-    assert g_popcashout(cfig, blrprem, jv, kw.reason_lower) == False
+    assert g_class_type(cfig, blrcase, jv, kw.reason_lower) == kw.ContextNum
+    assert g_sqlitetype(cfig, blrcase, jv, kw.reason_lower) == "REAL"
+    assert g_popcashout(cfig, blrcase, jv, kw.reason_lower) == False
 
     assert g_class_type(cfig, blrreas, jk, kw.reason_context) == kw.RopeTerm
     assert g_sqlitetype(cfig, blrreas, jk, kw.reason_context) == "TEXT"
@@ -732,7 +732,7 @@ def test_get_belief_config_dict_ReturnsObj_EachArgHasOneClassType():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     for belief_calc_dimen, dimen_dict in belief_config_dict.items():
         for dimen_key, args_dict in dimen_dict.items():
-            if dimen_key in {"jkeys", "jvalues"}:
+            if dimen_key in {kw.jkeys, kw.jvalues}:
                 for x_arg, arg_dict in args_dict.items():
                     arg_type = arg_dict.get(kw.class_type)
                     if all_args.get(x_arg) is None:
@@ -753,7 +753,7 @@ def test_get_belief_config_dict_ReturnsObj_EachArgHasOne_sqlite_datatype():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     for belief_calc_dimen, dimen_dict in belief_config_dict.items():
         for dimen_key, args_dict in dimen_dict.items():
-            if dimen_key in {"jkeys", "jvalues"}:
+            if dimen_key in {kw.jkeys, kw.jvalues}:
                 for x_arg, arg_dict in args_dict.items():
                     arg_type = arg_dict.get(kw.sqlite_datatype)
                     if all_args.get(x_arg) is None:
@@ -785,7 +785,7 @@ def test_get_belief_calc_args_type_dict_ReturnsObj():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     for belief_calc_dimen, dimen_dict in belief_config_dict.items():
         for dimen_key, args_dict in dimen_dict.items():
-            if dimen_key in {"jkeys", "jvalues"}:
+            if dimen_key in {kw.jkeys, kw.jvalues}:
                 for x_arg, arg_dict in args_dict.items():
                     arg_type = arg_dict.get(kw.class_type)
                     if all_args.get(x_arg) is None:
@@ -829,16 +829,16 @@ def test_get_belief_calc_args_type_dict_ReturnsObj():
     assert belief_calc_args_type_dict.get(kw.give_force) == "float"
     assert belief_calc_args_type_dict.get(kw.take_force) == "float"
     assert belief_calc_args_type_dict.get(kw.reason_context) == kw.RopeTerm
-    assert belief_calc_args_type_dict.get(kw.fact_upper) == "float"
-    assert belief_calc_args_type_dict.get(kw.fact_lower) == "float"
+    assert belief_calc_args_type_dict.get(kw.fact_upper) == kw.ContextNum
+    assert belief_calc_args_type_dict.get(kw.fact_lower) == kw.ContextNum
     assert belief_calc_args_type_dict.get(kw.fact_state) == kw.RopeTerm
     assert belief_calc_args_type_dict.get(kw.healer_name) == kw.NameTerm
     assert belief_calc_args_type_dict.get(kw.reason_state) == kw.RopeTerm
     assert belief_calc_args_type_dict.get(kw.reason_active) == "int"
     assert belief_calc_args_type_dict.get(kw.task) == "int"
     assert belief_calc_args_type_dict.get(kw.reason_divisor) == "int"
-    assert belief_calc_args_type_dict.get(kw.reason_upper) == "float"
-    assert belief_calc_args_type_dict.get(kw.reason_lower) == "float"
+    assert belief_calc_args_type_dict.get(kw.reason_upper) == kw.ContextNum
+    assert belief_calc_args_type_dict.get(kw.reason_lower) == kw.ContextNum
     assert belief_calc_args_type_dict.get(kw.parent_heir_active) == "int"
     assert belief_calc_args_type_dict.get(kw.active_requisite) == "bool"
     assert belief_calc_args_type_dict.get(kw.party_title) == kw.TitleTerm

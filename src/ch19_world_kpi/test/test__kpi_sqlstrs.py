@@ -20,9 +20,9 @@ CREATE TABLE {kw.moment_kpi001_voice_nets} AS
 SELECT
   {kw.moment_voice_nets}.{kw.moment_label}
 , {kw.moment_voice_nets}.{kw.belief_name}
-, {kw.belief_net_amount} AS funds
-, RANK() OVER (ORDER BY {kw.belief_net_amount} DESC) AS fund_rank
-, IFNULL(SUM({blrplan_job}.{kw.pledge}), 0) AS pledges_count
+, {kw.belief_net_amount} AS {kw.bnet_funds}
+, RANK() OVER (ORDER BY {kw.belief_net_amount} DESC) AS {kw.fund_rank}
+, IFNULL(SUM({blrplan_job}.{kw.pledge}), 0) AS {kw.pledges_count}
 FROM {kw.moment_voice_nets}
 LEFT JOIN {blrplan_job} ON
   {blrplan_job}.{kw.moment_label} = {kw.moment_voice_nets}.{kw.moment_label}

@@ -1,3 +1,4 @@
+from src.ch01_py.dict_toolbox import get_None_if_nan
 from src.ch02_allot._ref.ch02_semantic_types import GrainNum, PoolNum, WeightNum
 from src.ch03_voice._ref.ch03_semantic_types import (
     FundGrain,
@@ -18,8 +19,7 @@ class KnotTerm(str):
 
 
 def default_knot_if_None(knot: any = None) -> str:
-    if knot != knot:  # float("nan")
-        knot = None
+    knot = get_None_if_nan(knot)
     return knot if knot is not None else ";"
 
 

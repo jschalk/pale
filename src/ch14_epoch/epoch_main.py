@@ -12,8 +12,8 @@ from src.ch06_plan.plan import (
 )
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch14_epoch._ref.ch14_semantic_types import (
-    EpochInstant,
     EpochLabel,
+    EpochTime,
     KnotTerm,
     LabelTerm,
     RopeTerm,
@@ -418,8 +418,8 @@ def _hour_config(hour_num, hours_count, hour_length) -> list[str, int]:
 
 def get_min_from_dt_offset(dt: datetime, yr1_jan1_offset: int) -> int:
     ce_src = datetime(1, 1, 1, 0, 0, 0, 0)
-    min_time_difference = dt - ce_src
-    return round(min_time_difference.total_seconds() / 60) + yr1_jan1_offset
+    difference_min_dt = dt - ce_src
+    return round(difference_min_dt.total_seconds() / 60) + yr1_jan1_offset
 
 
 def get_epoch_min_from_dt(
@@ -438,8 +438,8 @@ def get_epoch_min_difference(epoch_config0: dict, epoch_config1: dict) -> int:
 
 
 @dataclass
-class BeliefEpochInstant:
-    """Given belief, epoch_rope, and EpochInstant, returns time technology attrs
+class BeliefEpochTime:
+    """Given belief, epoch_rope, and EpochTime, returns time technology attrs
     _c400_number: count of 400 year cycles
     _c100_count: count of 100 year cycles after _c400_number years removed
     _hour
@@ -455,7 +455,7 @@ class BeliefEpochInstant:
 
     x_beliefunit: BeliefUnit = None
     epoch_label: LabelTerm = None
-    x_min: EpochInstant = None
+    x_min: EpochTime = None
     # calculated fields
     _epoch_plan: PlanUnit = None
     _weekday: str = None
@@ -573,10 +573,8 @@ class BeliefEpochInstant:
         return x_str
 
 
-def beliefEpochInstant_shop(
-    x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int
-):
-    return BeliefEpochInstant(x_beliefunit, epoch_label, x_min=x_min)
+def beliefEpochTime_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
+    return BeliefEpochTime(x_beliefunit, epoch_label, x_min=x_min)
 
 
 def epoch_config_path() -> str:
@@ -589,6 +587,9 @@ def epoch_config_path() -> str:
 
 def get_default_epoch_config_dict() -> dict:
     return open_json(epoch_config_path())
+
+
+DEFAULT_EPOCH_LENGTH = 1472657760
 
 
 @dataclass

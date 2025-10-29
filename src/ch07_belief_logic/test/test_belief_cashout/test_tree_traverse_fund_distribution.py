@@ -277,7 +277,7 @@ def test_BeliefUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
     assert sue_belief.get_plan_obj(dirty_rope).fund_ratio == 0
 
 
-def test_BeliefUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFundsToVoiceUnits_scenario0():
+def test_BeliefUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFundsToVoiceUnits_Scenario0():
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
     yao_str = "Yao"

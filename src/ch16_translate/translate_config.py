@@ -5,7 +5,7 @@ from src.ch08_belief_atom.atom_config import get_all_belief_dimen_delete_keys
 
 
 def translate_config_path() -> str:
-    "Returns path: a16_translate_logic/translate_config.json"
+    "Returns path: c16_translate/translate_config.json"
     src_dir = create_path(os_getcwd(), "src")
     chapter_dir = create_path(src_dir, "ch16_translate")
     return create_path(chapter_dir, "translate_config.json")
@@ -67,18 +67,13 @@ def get_translate_args_dimen_mapping() -> dict[str, str]:
 
 def get_translate_args_class_types() -> dict[str, str]:
     return {
-        "voice_name": "NameTerm",
-        "voice_cred_lumen": "float",
-        "voice_debt_lumen": "float",
-        "group_cred_lumen": "float",
-        "group_debt_lumen": "float",
         "active_requisite": "bool",
         "addin": "float",
         "amount": "float",
         "awardee_title": "TitleTerm",
         "begin": "float",
         "belief_name": "NameTerm",
-        "bud_time": "EpochInstant",
+        "bud_time": "EpochTime",
         "c400_number": "int",
         "celldepth": "int",
         "close": "float",
@@ -91,12 +86,14 @@ def get_translate_args_class_types() -> dict[str, str]:
         "face_name": "NameTerm",
         "fact_context": "RopeTerm",
         "fact_state": "RopeTerm",
-        "fact_upper": "float",
-        "fact_lower": "float",
+        "fact_upper": "ContextNum",
+        "fact_lower": "ContextNum",
         "fund_grain": "float",
         "fund_pool": "float",
         "give_force": "float",
         "gogo_want": "float",
+        "group_cred_lumen": "float",
+        "group_debt_lumen": "float",
         "group_title": "TitleTerm",
         "healer_name": "NameTerm",
         "hour_label": "LabelTerm",
@@ -109,24 +106,27 @@ def get_translate_args_class_types() -> dict[str, str]:
         "monthday_index": "int",
         "morph": "bool",
         "numor": "int",
-        "offi_time": "EpochInstant",
+        "offi_time": "EpochTime",
         "quota": "int",
         "party_title": "TitleTerm",
         "plan_rope": "RopeTerm",
         "pledge": "bool",
         "problem_bool": "bool",
-        "reason_state": "RopeTerm",
-        "reason_divisor": "int",
-        "reason_lower": "float",
-        "reason_upper": "float",
         "reason_context": "RopeTerm",
+        "reason_divisor": "int",
+        "reason_lower": "ContextNum",
+        "reason_upper": "ContextNum",
+        "reason_state": "RopeTerm",
         "star": "int",
         "respect_grain": "float",
         "solo": "int",
         "stop_want": "float",
         "take_force": "float",
         "tally": "int",
-        "tran_time": "EpochInstant",
+        "tran_time": "EpochTime",
+        "voice_name": "NameTerm",
+        "voice_cred_lumen": "float",
+        "voice_debt_lumen": "float",
         "weekday_label": "LabelTerm",
         "weekday_order": "int",
         "yr1_jan1_offset": "int",
@@ -136,6 +136,7 @@ def get_translate_args_class_types() -> dict[str, str]:
 def get_quick_translates_column_ref() -> dict[str, set[str]]:
     """for each translate_config dimen contains the associated columns"""
     return {
+        "translate_epoch": {"inx_epoch_diff", "otx_epoch_length"},
         "translate_title": {
             "inx_title",
             "otx_title",
@@ -168,27 +169,38 @@ def get_quick_translates_column_ref() -> dict[str, set[str]]:
 
 
 def translateable_class_types() -> set:
+    return {"NameTerm", "TitleTerm", "LabelTerm", "RopeTerm", "EpochTime"}
+
+
+def get_translateable_term_class_types() -> set:
     return {"NameTerm", "TitleTerm", "LabelTerm", "RopeTerm"}
+
+
+def get_translateable_number_class_types() -> set:
+    return {"EpochTime"}
 
 
 def get_translateable_args() -> set:
     return {
-        "voice_name",
         "awardee_title",
+        "belief_name",
+        "bud_time",
+        "epoch_label",
         "face_name",
         "fact_context",
-        "moment_label",
         "fact_state",
         "group_title",
         "healer_name",
         "hour_label",
-        "plan_rope",
+        "moment_label",
         "month_label",
-        "belief_name",
-        "reason_state",
-        "reason_context",
         "party_title",
-        "epoch_label",
+        "plan_rope",
+        "offi_time",
+        "reason_context",
+        "reason_state",
+        "tran_time",
+        "voice_name",
         "weekday_label",
     }
 
@@ -242,3 +254,7 @@ def get_translate_RopeTerm_args() -> set[str]:
         "reason_state",
         "reason_context",
     }
+
+
+def get_translate_EpochTime_args() -> set[str]:
+    return {"bud_time", "offi_time", "tran_time"}

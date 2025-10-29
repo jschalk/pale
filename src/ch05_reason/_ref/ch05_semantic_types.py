@@ -18,3 +18,9 @@ from src.ch04_rope._ref.ch04_semantic_types import (
     RopeTerm,
     default_knot_if_None,
 )
+
+
+class ContextNum(float):
+    """A numeric value that may converted to other Semantic Types by an external process driven by context."""
+
+    pass

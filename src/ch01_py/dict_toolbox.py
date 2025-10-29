@@ -14,15 +14,24 @@ def get_empty_set_if_None(x_set: set = None) -> set:
     return set() if x_set is None else x_set
 
 
+def get_None_if_nan(x_obj: any) -> any:
+    if x_obj != x_obj:  # float("nan")
+        x_obj = None
+    return x_obj
+
+
 def get_1_if_None(x_obj):
+    x_obj = get_None_if_nan(x_obj)
     return 1 if x_obj is None else x_obj
 
 
 def get_0_if_None(x_obj=None):
+    x_obj = get_None_if_nan(x_obj)
     return 0 if x_obj is None else int(x_obj)
 
 
 def get_empty_str_if_None(x_obj=None):
+    x_obj = get_None_if_nan(x_obj)
     return "" if x_obj is None else str(x_obj)
 
 
@@ -499,3 +508,11 @@ def make_dict_safe_for_json(obj):
         return list(obj)
     else:
         return obj
+
+
+def set_modular_dict_values(x_dict: dict[int, int]) -> dict[int, int]:
+    """Given a dictionary with number keys and values"""
+    return {
+        x_key: x_value % x_key if x_key else x_value
+        for x_key, x_value in x_dict.items()
+    }

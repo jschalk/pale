@@ -40,18 +40,18 @@ VALUES
         assert get_table_columns(cursor, moment_kpi001_voice_nets_tablename) == [
             kw.moment_label,
             kw.belief_name,
-            "funds",
-            "fund_rank",
-            "pledges_count",
+            kw.bnet_funds,
+            kw.fund_rank,
+            kw.pledges_count,
         ]
         assert get_row_count(cursor, moment_kpi001_voice_nets_tablename)
         select_sqlstr = f"""
         SELECT 
   {kw.moment_label}
 , {kw.belief_name}
-, funds
-, fund_rank
-, pledges_count
+, {kw.bnet_funds}
+, {kw.fund_rank}
+, {kw.pledges_count}
 FROM {moment_kpi001_voice_nets_tablename}
 """
         cursor.execute(select_sqlstr)
@@ -99,7 +99,7 @@ VALUES ('{a23_str}', '{bob_str}', '{casa_rope}', 1)
 
         # THEN
         assert get_row_count(cursor, moment_kpi001_voice_nets_tablename)
-        select_sqlstr = f"""SELECT {kw.moment_label}, {kw.belief_name}, funds, fund_rank, pledges_count FROM {moment_kpi001_voice_nets_tablename}"""
+        select_sqlstr = f"""SELECT {kw.moment_label}, {kw.belief_name}, {kw.bnet_funds}, {kw.fund_rank}, {kw.pledges_count} FROM {moment_kpi001_voice_nets_tablename}"""
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
         print(rows)

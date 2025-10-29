@@ -82,40 +82,42 @@ def get_sorted_headers_str(idea_filename):
     idea_attributes = set(x_idearef.get(kw.attributes).keys())
     idea_attributes.remove(kw.face_name)
     idea_attributes.remove(kw.spark_num)
-    print(f"{idea_attributes=}")
+    # print(f"{idea_attributes=}")
     attr_sort = get_idea_elements_sort_order()
     idea_attributes = get_default_sorted_list(idea_attributes, attr_sort)
-    print(f"{idea_attributes=}")
+    # print(f"{idea_attributes=}")
     header_str = "".join(f",{x_header}" for x_header in idea_attributes)
     return header_str[1:]
     # return create_sorted_planatenated_str(list(idea_attributes))
 
 
-def test_get_sorted_headers_str_ReturnsObj():
-    # ESTABLISH / WHEN
-    br00021_headers = get_sorted_headers_str(
-        idea_format_00021_belief_voiceunit_v0_0_0()
-    )
+def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
+    # ESTABLISH
+    file_name = idea_format_00021_belief_voiceunit_v0_0_0()
+
+    # WHEN
+    br00021_headers = get_sorted_headers_str(file_name)
+
     # THEN
-    expected_br00021_headers_str = (
-        "moment_label,belief_name,voice_name,voice_cred_lumen,voice_debt_lumen"
-    )
+    expected_br00021_headers_str = f"{kw.moment_label},{kw.belief_name},{kw.voice_name},{kw.voice_cred_lumen},{kw.voice_debt_lumen}"
     assert br00021_headers == expected_br00021_headers_str
 
+
+def test_get_sorted_headers_str_ReturnsObj_Scenario1_SingleExample():
     # ESTABLISH / WHEN
     br00019_headers = get_sorted_headers_str(idea_format_00019_planunit_v0_0_0())
 
     # THEN
     print(f"{br00019_headers=}")
-    expected_plan_headers_str = "moment_label,belief_name,plan_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want"
+    expected_plan_headers_str = f"{kw.moment_label},{kw.belief_name},{kw.plan_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
     assert br00019_headers == expected_plan_headers_str
 
 
 def check_sorted_headers_exist(idea_format_filename: str, x_headers: dict):
     # print(f"{idea_format_filename=}")
     sorted_headers = get_sorted_headers_str(idea_format_filename)
-    print(f"{idea_format_filename=} {sorted_headers=}")
-    assert x_headers.get(sorted_headers) == idea_format_filename
+    assert_str = f"{idea_format_filename=} {sorted_headers=}"
+    assert x_headers.get(sorted_headers) == idea_format_filename, assert_str
 
 
 def test_get_idea_format_headers_ReturnsObj():
@@ -128,7 +130,7 @@ def test_get_idea_format_headers_ReturnsObj():
     for x_idea_filename in sorted(list(get_idea_format_filenames())):
         check_sorted_headers_exist(x_idea_filename, x_headers)
 
-    print(f"{x_headers=}")
+    # print(f"{x_headers=}")
     assert len(x_headers) == len(get_idea_format_filenames())
     assert set(x_headers.values()) == get_idea_format_filenames()
 

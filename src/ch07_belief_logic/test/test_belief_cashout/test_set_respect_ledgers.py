@@ -48,7 +48,7 @@ def test_create_groupunits_metrics_SetsAttrScenario1():
     assert yao_groupunit.debtor_pool == 44
 
 
-def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_scenario0():
+def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario0():
     # ESTABLISH
     sue_str = "Sue"
     sue_beliefunit = beliefunit_shop(sue_str)
@@ -75,7 +75,7 @@ def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_Clears_groupunits():
     assert sue_beliefunit.groupunits == {}
 
 
-def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_scenario1():
+def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario1():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_str = "Sue"
@@ -110,7 +110,7 @@ def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_scenario1()
     assert yao_membership == groupunit_yao_membership
 
 
-def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_scenario2():
+def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario2():
     # ESTABLISH
     sue_str = "Sue"
     sue_beliefunit = beliefunit_shop(sue_str)

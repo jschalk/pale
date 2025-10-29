@@ -25,7 +25,7 @@ def test_RopeMap_Exists():
     assert not x_ropemap.labelmap
 
 
-def test_ropemap_shop_ReturnsObj_scenario0():
+def test_ropemap_shop_ReturnsObj_Scenario0():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
@@ -81,7 +81,7 @@ def test_ropemap_shop_ReturnsObj_Scenario2():
     )
 
 
-def test_ropemap_shop_ReturnsObj_scenario3_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
+def test_ropemap_shop_ReturnsObj_Scenario3_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"

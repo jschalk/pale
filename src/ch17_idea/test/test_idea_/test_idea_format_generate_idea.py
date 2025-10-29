@@ -11,6 +11,7 @@ from src.ref.keywords import Ch17Keywords as kw
 
 
 def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_str = "Sue"
     bob_str = "Bob"
@@ -128,9 +129,9 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 
 
 def test_make_beliefdelta_Arg_idea_format_00013_planunit_v0_0_0():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
     casa_str = "casa"

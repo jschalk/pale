@@ -54,7 +54,7 @@ def get_allowed_class_types() -> set[str]:
         "int",
         "LabelTerm",
         "RopeTerm",
-        "EpochInstant",
+        "ContextNum",
     }
 
 
@@ -76,8 +76,8 @@ def get_atom_args_class_types() -> dict[str, str]:
         "denom": "int",
         "reason_divisor": "int",
         "fact_context": "RopeTerm",
-        "fact_upper": "float",
-        "fact_lower": "float",
+        "fact_upper": "ContextNum",
+        "fact_lower": "ContextNum",
         "fund_grain": "float",
         "fund_pool": "float",
         "give_force": "float",
@@ -87,9 +87,9 @@ def get_atom_args_class_types() -> dict[str, str]:
         "max_tree_traverse": "int",
         "morph": "bool",
         "reason_state": "RopeTerm",
-        "reason_upper": "float",
+        "reason_upper": "ContextNum",
         "numor": "int",
-        "reason_lower": "float",
+        "reason_lower": "ContextNum",
         "mana_grain": "float",
         "fact_state": "RopeTerm",
         "pledge": "bool",

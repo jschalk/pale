@@ -29,6 +29,7 @@ from src.ch01_py.dict_toolbox import (
     get_str_in_sub_dict,
     is_2d_with_unique_keys,
     set_in_nested_dict,
+    set_modular_dict_values,
     str_in_all_dict,
     str_in_all_dict_keys,
     str_in_all_dict_values,
@@ -39,22 +40,26 @@ from src.ch01_py.dict_toolbox import (
 from src.ch01_py.test._util.ch01_examples import CommonExampleStrs as wx
 
 
-def test_get_1_if_None():
+def test_get_1_if_None_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_1_if_None(None) == 1
     assert get_1_if_None(2) == 2
     assert get_1_if_None(-3) == -3
+    x_nan = float("nan")
+    assert get_1_if_None(x_nan) == 1
 
 
-def test_get_empty_str_if_None():
+def test_get_empty_str_if_None_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_empty_str_if_None(None) == ""
     assert get_empty_str_if_None(2) == "2"
     assert get_empty_str_if_None(-3) == "-3"
     assert get_empty_str_if_None("Fay") == "Fay"
+    x_nan = float("nan")
+    assert get_empty_str_if_None(x_nan) == ""
 
 
-def test_get_0_if_None():
+def test_get_0_if_None_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_0_if_None(None) == 0
     assert get_0_if_None(2) == 2
@@ -62,6 +67,8 @@ def test_get_0_if_None():
     e7 = numpy_int64(7)
     assert str(type(get_0_if_None(e7))) != "<class 'numpy.int64'>"
     assert str(type(get_0_if_None(e7))) == "<class 'int'>"
+    x_nan = float("nan")
+    assert get_0_if_None(x_nan) == 0
 
 
 def test_add_nested_dict_if_missing_AddsToDict():
@@ -977,3 +984,13 @@ def test_change_nested_key_Scenario4():
 
     # THEN Should not raise error, but should not modify
     assert result == original
+
+
+def test_set_modular_dict_values_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert set_modular_dict_values({}) == {}
+    assert set_modular_dict_values({5: 1, 7: 3}) == {5: 1, 7: 3}
+    assert set_modular_dict_values({500: 1}) == {500: 1}
+    assert set_modular_dict_values({500: 508}) == {500: 8}
+    assert set_modular_dict_values({1: 1}) == {1: 0}
+    assert set_modular_dict_values({None: 5}) == {None: 5}

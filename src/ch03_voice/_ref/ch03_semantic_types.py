@@ -1,3 +1,4 @@
+from src.ch01_py.dict_toolbox import get_None_if_nan
 from src.ch02_allot._ref.ch02_semantic_types import GrainNum, PoolNum, WeightNum
 
 
@@ -8,8 +9,7 @@ class GroupMark(str):
 
 
 def default_groupmark_if_None(groupmark: GroupMark = None) -> GroupMark:
-    if groupmark != groupmark:  # float("nan")
-        groupmark = None
+    groupmark = get_None_if_nan(groupmark)
     return groupmark if groupmark is not None else ";"
 
 

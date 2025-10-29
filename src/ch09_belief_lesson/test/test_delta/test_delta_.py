@@ -382,7 +382,7 @@ def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_Rope_Sorted():
     #         print(f"{x_atom.dimen=}")
 
 
-def test_belief_built_from_delta_is_valid_ReturnsObjEstablishWithNoBelief_scenario1():
+def test_belief_built_from_delta_is_valid_ReturnsObjEstablishWithNoBelief_Scenario1():
     # ESTABLISH
     sue_beliefdelta = beliefdelta_shop()
 
@@ -403,7 +403,7 @@ def test_belief_built_from_delta_is_valid_ReturnsObjEstablishWithNoBelief_scenar
     assert belief_built_from_delta_is_valid(sue_beliefdelta) is False
 
 
-def test_belief_built_from_delta_is_valid_ReturnsObjEstablishWithNoBelief_scenario2():
+def test_belief_built_from_delta_is_valid_ReturnsObjEstablishWithNoBelief_Scenario2():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_beliefdelta = beliefdelta_shop()

@@ -7,7 +7,7 @@ CREATE TABLE moment_kpi001_voice_nets AS
 SELECT
   moment_voice_nets.moment_label
 , moment_voice_nets.belief_name
-, belief_net_amount AS funds
+, belief_net_amount AS bnet_funds
 , RANK() OVER (ORDER BY belief_net_amount DESC) AS fund_rank
 , IFNULL(SUM(belief_planunit_job.pledge), 0) AS pledges_count
 FROM moment_voice_nets

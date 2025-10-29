@@ -4,6 +4,7 @@ from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch14_epoch._ref.ch14_semantic_types import EpochLabel
 from src.ch14_epoch.epoch_main import (
+    DEFAULT_EPOCH_LENGTH,
     C400Constants,
     EpochUnit,
     day_length,
@@ -177,6 +178,17 @@ def test_get_default_epoch_config_dict_IsValid():
     default_config = get_default_epoch_config_dict()
     # THEN
     assert validate_epoch_config(default_config)
+
+
+def test_DEFAULT_EPOCH_LENGTH_ReturnsObj():
+    # ESTABLISH
+    default_epoch_config = get_default_epoch_config_dict()
+    default_c400_number = default_epoch_config.get(kw.c400_number)
+    c400_length_constant = get_c400_constants().c400_leap_length
+    expected_epoch_length = default_c400_number * c400_length_constant
+
+    # WHEN / THEN
+    assert DEFAULT_EPOCH_LENGTH == expected_epoch_length
 
 
 def test_is_epoch_config_valid_ReturnsObj_CheckObjsRepeat():

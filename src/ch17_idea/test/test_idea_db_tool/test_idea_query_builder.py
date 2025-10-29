@@ -29,8 +29,8 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_belief_plan_partyuni
         blrlabo_config = idea_config.get(blrlabo_cat)
         print(f"{blrlabo_cat=}")
         print(f"{blrlabo_config=}")
-        blrlabo_jkeys = blrlabo_config.get("jkeys")
-        blrlabo_jvals = blrlabo_config.get("jvalues")
+        blrlabo_jkeys = blrlabo_config.get(kw.jkeys)
+        blrlabo_jvals = blrlabo_config.get(kw.jvalues)
         blrlabo_args = set(blrlabo_jkeys.keys()).union(set(blrlabo_jvals.keys()))
         blrlabo_args = get_default_sorted_list(blrlabo_args)
         print(f"{blrlabo_jkeys=}")
@@ -44,13 +44,11 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_belief_plan_partyuni
         )
 
         # THEN
-        columns_str = (
-            "spark_num, face_name, moment_label, belief_name, plan_rope, party_title"
-        )
-        expected_sqlstr = f"""INSERT INTO {blrlabo_cat}_raw (idea_number, {columns_str})
-SELECT '{idea_number}' as idea_number, {columns_str}
+        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.plan_rope}, {kw.party_title}"
+        expected_sqlstr = f"""INSERT INTO {blrlabo_cat}_raw ({kw.idea_number}, {columns_str})
+SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
 FROM {idea_number}_raw
-WHERE spark_num IS NOT NULL AND face_name IS NOT NULL AND moment_label IS NOT NULL AND belief_name IS NOT NULL AND plan_rope IS NOT NULL AND party_title IS NOT NULL
+WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_label} IS NOT NULL AND {kw.belief_name} IS NOT NULL AND {kw.plan_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
 GROUP BY {columns_str}
 ;
 """
@@ -76,13 +74,12 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_belief_voiceunit():
             kw.voice_debt_lumen,
             kw.amount,
         ]
-        blfvoce_cat = "belief_voiceunit"
         src_table = f"{idea_number}_raw"
-        blfvoce_table = f"{blfvoce_cat}_raw"
+        blfvoce_table = f"{kw.belief_voiceunit}_raw"
         idea_config = get_idea_config_dict()
-        blfvoce_config = idea_config.get(blfvoce_cat)
-        blfvoce_jkeys = blfvoce_config.get("jkeys")
-        blfvoce_jvals = blfvoce_config.get("jvalues")
+        blfvoce_config = idea_config.get(kw.belief_voiceunit)
+        blfvoce_jkeys = blfvoce_config.get(kw.jkeys)
+        blfvoce_jvals = blfvoce_config.get(kw.jvalues)
         blfvoce_args = set(blfvoce_jkeys.keys()).union(set(blfvoce_jvals.keys()))
         print(f"{blfvoce_jkeys=}")
         print(f"{blfvoce_jvals=}")
@@ -91,12 +88,12 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_belief_voiceunit():
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, blfvoce_cat, blfvoce_jkeys
+            conn, idea_number, kw.belief_voiceunit, blfvoce_jkeys
         )
 
         # THEN
         columns_str = "spark_num, face_name, moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen"
-        expected_sqlstr = f"""INSERT INTO {blfvoce_cat}_raw (idea_number, {columns_str})
+        expected_sqlstr = f"""INSERT INTO {kw.belief_voiceunit}_raw (idea_number, {columns_str})
 SELECT '{idea_number}' as idea_number, {columns_str}
 FROM {idea_number}_raw
 WHERE spark_num IS NOT NULL AND face_name IS NOT NULL AND moment_label IS NOT NULL AND belief_name IS NOT NULL AND voice_name IS NOT NULL
@@ -125,13 +122,12 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_belief_voiceunit():
             kw.voice_cred_lumen,
             kw.amount,
         ]
-        blfvoce_cat = "belief_voiceunit"
         src_table = f"{idea_number}_raw"
-        blfvoce_table = f"{blfvoce_cat}_raw"
+        blfvoce_table = f"{kw.belief_voiceunit}_raw"
         idea_config = get_idea_config_dict()
-        blfvoce_config = idea_config.get(blfvoce_cat)
-        blfvoce_jkeys = blfvoce_config.get("jkeys")
-        blfvoce_jvals = blfvoce_config.get("jvalues")
+        blfvoce_config = idea_config.get(kw.belief_voiceunit)
+        blfvoce_jkeys = blfvoce_config.get(kw.jkeys)
+        blfvoce_jvals = blfvoce_config.get(kw.jvalues)
         blfvoce_args = set(blfvoce_jkeys.keys()).union(set(blfvoce_jvals.keys()))
         print(f"{blfvoce_jkeys=}")
         print(f"{blfvoce_jvals=}")
@@ -140,12 +136,12 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_belief_voiceunit():
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, blfvoce_cat, blfvoce_jkeys
+            conn, idea_number, kw.belief_voiceunit, blfvoce_jkeys
         )
 
         # THEN
         columns_str = "spark_num, face_name, moment_label, belief_name, voice_name, voice_cred_lumen"
-        expected_sqlstr = f"""INSERT INTO {blfvoce_cat}_raw (idea_number, {columns_str})
+        expected_sqlstr = f"""INSERT INTO {kw.belief_voiceunit}_raw (idea_number, {columns_str})
 SELECT '{idea_number}' as idea_number, {columns_str}
 FROM {idea_number}_raw
 WHERE spark_num IS NOT NULL AND face_name IS NOT NULL AND moment_label IS NOT NULL AND belief_name IS NOT NULL AND voice_name IS NOT NULL
