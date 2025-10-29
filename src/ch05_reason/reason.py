@@ -672,7 +672,6 @@ def reasonheir_shop(
     )
 
 
-# class Reasonsshop:
 def get_reasonunits_from_dict(reasons_dict: dict) -> dict[RopeTerm, ReasonUnit]:
     x_dict = {}
     for reason_dict in reasons_dict.values():
