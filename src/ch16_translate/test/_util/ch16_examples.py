@@ -181,9 +181,9 @@ def get_casa_maison_translateunit_set_by_label() -> TranslateUnit:
     sweep_inx_rope = create_rope(clean_inx_rope, sweep_str)
 
     sue_translateunit = translateunit_shop("Sue", 7)
-    sue_translateunit.set_label(otx_amy45_str, inx_amy87_str)
-    sue_translateunit.set_label(casa_otx_str, casa_inx_str)
-    sue_translateunit.set_label(clean_otx_str, clean_inx_str)
+    sue_translateunit.set_roadmap_label(otx_amy45_str, inx_amy87_str)
+    sue_translateunit.set_roadmap_label(casa_otx_str, casa_inx_str)
+    sue_translateunit.set_roadmap_label(clean_otx_str, clean_inx_str)
     return sue_translateunit
 
 

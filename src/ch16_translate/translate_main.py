@@ -209,13 +209,13 @@ class TranslateUnit:
         elif x_class_type == "EpochTime":
             self.epochmap.del_otx2inx(x_otx)
 
-    def set_label(self, x_otx: str, x_inx: str):
+    def set_roadmap_label(self, x_otx: str, x_inx: str):
         self.ropemap.set_label(x_otx, x_inx)
 
     def roadmap_label_exists(self, x_otx: str, x_inx: str) -> bool:
         return self.ropemap.label_exists(x_otx, x_inx)
 
-    def del_label(self, x_otx: str):
+    def del_roadmap_label(self, x_otx: str):
         self.ropemap.del_label(x_otx)
 
     def set_epochmap(self, epochmap: EpochMap):

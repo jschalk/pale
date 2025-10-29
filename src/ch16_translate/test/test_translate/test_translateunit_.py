@@ -863,7 +863,7 @@ def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
     assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
 
 
-def test_TranslateUnit_set_label_SetsAttr_Scenario1_RopeTerm():
+def test_TranslateUnit_set_roadmap_label_SetsAttr_Scenario1_RopeTerm():
     # ESTABLISH
     zia_str = "Zia"
     sue_otx = "Sue"
@@ -873,7 +873,7 @@ def test_TranslateUnit_set_label_SetsAttr_Scenario1_RopeTerm():
     assert ropemap.label_exists(sue_otx, sue_inx) is False
 
     # WHEN
-    zia_translateunit.set_label(sue_otx, sue_inx)
+    zia_translateunit.set_roadmap_label(sue_otx, sue_inx)
 
     # THEN
     assert ropemap.label_exists(sue_otx, sue_inx)
@@ -889,7 +889,7 @@ def test_TranslateUnit_roadmap_label_exists_ReturnsObj():
     assert sue_exists is False
 
     # WHEN
-    zia_translateunit.set_label(sue_otx, sue_inx)
+    zia_translateunit.set_roadmap_label(sue_otx, sue_inx)
 
     # THEN
     assert zia_translateunit.roadmap_label_exists(sue_otx, sue_inx)

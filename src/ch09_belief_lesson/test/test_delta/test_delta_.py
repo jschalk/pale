@@ -644,10 +644,10 @@ def test_BeliefDelta_is_empty_ReturnsObj():
     zia_beliefatom = beliefatom_shop(dimen, kw.INSERT)
     zia_beliefatom.set_arg(kw.voice_name, zia_str)
     zia_beliefatom.set_arg(kw.voice_cred_lumen, 70)
-    assert x_beliefdelta.is_empty()
+    assert x_beliefdelta.atoms_empty()
 
     # WHEN
     x_beliefdelta.set_beliefatom(zia_beliefatom)
 
     # THEN
-    assert x_beliefdelta.is_empty() is False
+    assert x_beliefdelta.atoms_empty() is False

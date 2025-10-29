@@ -51,20 +51,17 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
         "_is_inx_knot_inclusion_correct",
         "_is_otx_knot_inclusion_correct",
         "_unknown_str_in_otx2inx",  # RopeMap method overrides MapCore method
-        "del_label",
         "del_otx2inx",
         "temp_dir_setup",
         "find_replace_rope",
         "get_temp_dir",
         "get_obj_key",
-        "is_empty",
         "is_valid",
         "otx_exists",
         "otx2inx_exists",
         "reveal_inx",
         "set_all_otx2inx",  # RopeMap method overrides MapCore method
         "set_knot",
-        "set_label",
         "set_otx2inx",
         "to_dict",
     }
@@ -83,9 +80,9 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
     for function_name in sorted(all_functions.keys()):
         func_name_count = all_functions.get(function_name)
         if func_name_count > 1:
-            # print(f"{function_name} {func_name_count=}")
+            print(f"{function_name} {func_name_count=}")
             flagged_func_name_count[function_name] = func_name_count
-        func_name_style_str = f"{function_name} has an incorrect uppercase character."
+        func_name_style_str = f"Function '{function_name}' naming style error."
         assert function_name_style_is_correct(function_name), func_name_style_str
     # print(f"{len(flagged_func_name_count)=}")
     assertion_fail_str = f"Duplicated functions found: {duplicate_func_names}"
