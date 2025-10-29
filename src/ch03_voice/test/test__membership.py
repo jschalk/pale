@@ -13,7 +13,7 @@ from src.ch03_voice.group import (
     membership_shop,
     memberships_get_from_dict,
 )
-from src.ref.keywords import Ch03Keywords as kw
+from src.ref.keywords import Ch03Keywords as kw, ExampleStrs as exx
 
 
 def test_GroupCore_Exists():
@@ -94,13 +94,12 @@ def test_membership_shop_ReturnsObj():
 def test_membership_shop_ReturnsObjAttr_voice_name():
     # ESTABLISH
     swim_str = ",swim"
-    yao_str = "Yao"
 
     # WHEN
-    swim_membership = membership_shop(swim_str, voice_name=yao_str)
+    swim_membership = membership_shop(swim_str, voice_name=exx.yao)
 
     # THEN
-    assert swim_membership.voice_name == yao_str
+    assert swim_membership.voice_name == exx.yao
 
 
 def test_MemberShip_set_group_cred_lumen_SetsAttr():
@@ -211,17 +210,16 @@ def test_membership_to_dict_ReturnsObj():
     swim_str = ",swim"
     swim_group_cred_lumen = 3.0
     swim_group_debt_lumen = 5.0
-    yao_str = "Yao"
     before_swim_membership = membership_shop(
         group_title=swim_str,
         group_cred_lumen=swim_group_cred_lumen,
         group_debt_lumen=swim_group_debt_lumen,
-        voice_name=yao_str,
+        voice_name=exx.yao,
     )
     swim_membership_dict = before_swim_membership.to_dict()
 
     # WHEN
-    after_swim_membership = membership_get_from_dict(swim_membership_dict, yao_str)
+    after_swim_membership = membership_get_from_dict(swim_membership_dict, exx.yao)
 
     # THEN
     assert before_swim_membership == after_swim_membership
@@ -233,19 +231,18 @@ def test_memberships_get_from_dict_ReturnsObj():
     swim_str = ",swim"
     swim_group_cred_lumen = 3.0
     swim_group_debt_lumen = 5.0
-    yao_str = "Yao"
     before_swim_membership = membership_shop(
         group_title=swim_str,
         group_cred_lumen=swim_group_cred_lumen,
         group_debt_lumen=swim_group_debt_lumen,
-        voice_name=yao_str,
+        voice_name=exx.yao,
     )
     before_swim_memberships_objs = {swim_str: before_swim_membership}
     swim_memberships_dict = {swim_str: before_swim_membership.to_dict()}
 
     # WHEN
     after_swim_memberships_objs = memberships_get_from_dict(
-        swim_memberships_dict, yao_str
+        swim_memberships_dict, exx.yao
     )
 
     # THEN

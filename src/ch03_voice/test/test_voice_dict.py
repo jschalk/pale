@@ -4,24 +4,23 @@ from src.ch03_voice.voice import (
     voiceunit_shop,
     voiceunits_get_from_dict,
 )
-from src.ref.keywords import Ch03Keywords as kw
+from src.ref.keywords import Ch03Keywords as kw, ExampleStrs as exx
 
 
 def test_VoiceUnit_get_memberships_dict_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
     sue_group_cred_lumen = 11
     sue_group_debt_lumen = 13
     run_str = ";Run"
     run_group_cred_lumen = 17
     run_group_debt_lumen = 23
     sue_membership = membership_shop(
-        sue_str, sue_group_cred_lumen, sue_group_debt_lumen
+        exx.sue, sue_group_cred_lumen, sue_group_debt_lumen
     )
     run_membership = membership_shop(
         run_str, run_group_cred_lumen, run_group_debt_lumen
     )
-    sue_voiceunit = voiceunit_shop(sue_str)
+    sue_voiceunit = voiceunit_shop(exx.sue)
     sue_voiceunit.set_membership(sue_membership)
     sue_voiceunit.set_membership(run_membership)
 
@@ -29,12 +28,12 @@ def test_VoiceUnit_get_memberships_dict_ReturnsObj():
     sue_memberships_dict = sue_voiceunit.get_memberships_dict()
 
     # THEN
-    assert sue_memberships_dict.get(sue_str) is not None
+    assert sue_memberships_dict.get(exx.sue) is not None
     assert sue_memberships_dict.get(run_str) is not None
-    sue_membership_dict = sue_memberships_dict.get(sue_str)
+    sue_membership_dict = sue_memberships_dict.get(exx.sue)
     run_membership_dict = sue_memberships_dict.get(run_str)
     assert sue_membership_dict == {
-        kw.group_title: sue_str,
+        kw.group_title: exx.sue,
         kw.group_cred_lumen: sue_group_cred_lumen,
         kw.group_debt_lumen: sue_group_debt_lumen,
     }
@@ -47,17 +46,16 @@ def test_VoiceUnit_get_memberships_dict_ReturnsObj():
 
 def test_VoiceUnit_to_dict_ReturnsDictWithNecessaryDataForJSON():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_voiceunit = voiceunit_shop(bob_str)
+    bob_voiceunit = voiceunit_shop(exx.bob)
 
     bob_voice_cred_lumen = 13
     bob_voice_debt_lumen = 17
     bob_voiceunit.set_voice_cred_lumen(bob_voice_cred_lumen)
     bob_voiceunit.set_voice_debt_lumen(bob_voice_debt_lumen)
 
-    print(f"{bob_str}")
+    print(f"{exx.bob}")
 
-    bob_voiceunit.set_membership(membership_shop(bob_str))
+    bob_voiceunit.set_membership(membership_shop(exx.bob))
     run_str = ";Run"
     bob_voiceunit.set_membership(membership_shop(run_str))
 
@@ -69,12 +67,12 @@ def test_VoiceUnit_to_dict_ReturnsDictWithNecessaryDataForJSON():
     print(f"{bl_dict=}")
     assert x_dict is not None
     assert x_dict == {
-        kw.voice_name: bob_str,
+        kw.voice_name: exx.bob,
         kw.voice_cred_lumen: bob_voice_cred_lumen,
         kw.voice_debt_lumen: bob_voice_debt_lumen,
         kw.memberships: {
-            bob_str: {
-                kw.group_title: bob_str,
+            exx.bob: {
+                kw.group_title: exx.bob,
                 kw.group_cred_lumen: 1,
                 kw.group_debt_lumen: 1,
             },
@@ -89,8 +87,7 @@ def test_VoiceUnit_to_dict_ReturnsDictWithNecessaryDataForJSON():
 
 def test_VoiceUnit_to_dict_ReturnsDictWithAllAttrDataForJSON():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_voiceunit = voiceunit_shop(bob_str)
+    bob_voiceunit = voiceunit_shop(exx.bob)
 
     bob_voice_cred_lumen = 13
     bob_voice_debt_lumen = 17
@@ -115,11 +112,11 @@ def test_VoiceUnit_to_dict_ReturnsDictWithAllAttrDataForJSON():
     bob_voiceunit.fund_agenda_ratio_give = bob_fund_agenda_ratio_give
     bob_voiceunit.fund_agenda_ratio_take = bob_fund_agenda_ratio_take
 
-    bob_voiceunit.set_membership(membership_shop(bob_str))
+    bob_voiceunit.set_membership(membership_shop(exx.bob))
     run_str = ";Run"
     bob_voiceunit.set_membership(membership_shop(run_str))
 
-    print(f"{bob_str}")
+    print(f"{exx.bob}")
 
     # WHEN
     x_dict = bob_voiceunit.to_dict(all_attrs=True)
@@ -128,7 +125,7 @@ def test_VoiceUnit_to_dict_ReturnsDictWithAllAttrDataForJSON():
     print(f"{x_dict=}")
     assert x_dict is not None
     assert x_dict == {
-        kw.voice_name: bob_str,
+        kw.voice_name: exx.bob,
         kw.voice_cred_lumen: bob_voice_cred_lumen,
         kw.voice_debt_lumen: bob_voice_debt_lumen,
         kw.memberships: bob_voiceunit.get_memberships_dict(),
@@ -145,8 +142,7 @@ def test_VoiceUnit_to_dict_ReturnsDictWithAllAttrDataForJSON():
 
 def test_VoiceUnit_to_dict_ReturnsDictWith_irrational_voice_debt_lumen_ValuesIsZero():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_voiceunit = voiceunit_shop(bob_str)
+    bob_voiceunit = voiceunit_shop(exx.bob)
     assert bob_voiceunit.irrational_voice_debt_lumen == 0
     assert bob_voiceunit.inallocable_voice_debt_lumen == 0
 
@@ -161,8 +157,7 @@ def test_VoiceUnit_to_dict_ReturnsDictWith_irrational_voice_debt_lumen_ValuesIsZ
 
 def test_VoiceUnit_to_dict_ReturnsDictWith_irrational_voice_debt_lumen_ValuesIsNumber():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_voiceunit = voiceunit_shop(bob_str)
+    bob_voiceunit = voiceunit_shop(exx.bob)
     bob_irrational_voice_debt_lumen = 87
     bob_inallocable_voice_debt_lumen = 97
     bob_voiceunit.add_irrational_voice_debt_lumen(bob_irrational_voice_debt_lumen)
@@ -181,8 +176,7 @@ def test_VoiceUnit_to_dict_ReturnsDictWith_irrational_voice_debt_lumen_ValuesIsN
 
 def test_VoiceUnit_to_dict_ReturnsDictWith_irrational_voice_debt_lumen_ValuesIsNone():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_voiceunit = voiceunit_shop(bob_str)
+    bob_voiceunit = voiceunit_shop(exx.bob)
     bob_voiceunit.irrational_voice_debt_lumen = None
     bob_voiceunit.inallocable_voice_debt_lumen = None
 
@@ -258,14 +252,13 @@ def test_voiceunits_get_from_dict_ReturnsObj_Scenario0_With_groupmark():
 
 def test_voiceunits_get_from_dict_ReturnsObj_Scenario1_SimpleExampleWith_IncompleteData():
     # ESTABLISH
-    yao_str = "Yao"
     yao_voice_cred_lumen = 13
     yao_voice_debt_lumen = 17
     yao_irrational_voice_debt_lumen = 87
     yao_inallocable_voice_debt_lumen = 97
     yao_voiceunits_dict = {
-        yao_str: {
-            kw.voice_name: yao_str,
+        exx.yao: {
+            kw.voice_name: exx.yao,
             kw.voice_cred_lumen: yao_voice_cred_lumen,
             kw.voice_debt_lumen: yao_voice_debt_lumen,
             kw.memberships: {},
@@ -278,10 +271,10 @@ def test_voiceunits_get_from_dict_ReturnsObj_Scenario1_SimpleExampleWith_Incompl
     yao_obj_dict = voiceunits_get_from_dict(yao_voiceunits_dict)
 
     # THEN
-    assert yao_obj_dict[yao_str] is not None
-    yao_voiceunit = yao_obj_dict[yao_str]
+    assert yao_obj_dict[exx.yao] is not None
+    yao_voiceunit = yao_obj_dict[exx.yao]
 
-    assert yao_voiceunit.voice_name == yao_str
+    assert yao_voiceunit.voice_name == exx.yao
     assert yao_voiceunit.voice_cred_lumen == yao_voice_cred_lumen
     assert yao_voiceunit.voice_debt_lumen == yao_voice_debt_lumen
     assert yao_voiceunit.irrational_voice_debt_lumen == yao_irrational_voice_debt_lumen

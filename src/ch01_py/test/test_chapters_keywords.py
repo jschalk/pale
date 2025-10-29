@@ -3,9 +3,11 @@ from src.ch01_py.chapter_desc_tools import get_chapter_desc_prefix
 from src.ch01_py.file_toolbox import open_file, save_file
 from src.ch01_py.keyword_class_builder import (
     create_all_enum_keyword_classes_str,
+    create_examplestrs_class_str,
     create_keywords_enum_class_file_str,
     get_chapter_descs,
     get_cumlative_ch_keywords_dict,
+    get_example_strs_config,
     get_keywords_by_chapter,
     get_keywords_src_config,
 )
@@ -19,6 +21,17 @@ def test_get_chapter_desc_prefix_ReturnsObj():
     assert get_chapter_desc_prefix("ch99") == "ch99"
     assert get_chapter_desc_prefix("chXX") == "chXX"
     assert get_chapter_desc_prefix("cha01") != "ch02"
+
+
+def test_get_example_strs_config_ReturnsObj():
+    # ESTABLISH / WHEN
+    example_strs_config = get_example_strs_config()
+
+    # THEN
+    assert example_strs_config
+    for key_str, key_value in example_strs_config.items():
+        assert type(key_str) == type("")
+        assert type(key_value) == type("")
 
 
 def test_get_keywords_src_config_ReturnsObj():
@@ -98,23 +111,38 @@ class Ch03{key_str}words(str, Enum):
     assert file_str == expected_file_str
 
 
-def test_create_all_enum_keyword_classes_str_ReturnsObj():
-    # ESTABLISH / WHEN
-    classes_str = create_all_enum_keyword_classes_str()
+def test_create_examplestrs_class_str_ReturnsObj():
+    # ESTABLISH
+    example_strs_dict = {"bob": "Bob", "sue": "Sue", "yao": "Yao"}
+
+    # WHEN
+    x_str = create_examplestrs_class_str(example_strs_dict)
 
     # THEN
-    keywords_by_chapter = get_keywords_by_chapter(get_keywords_src_config())
-    cumlative_keywords = get_cumlative_ch_keywords_dict(keywords_by_chapter)
-    expected_classes_str = """from enum import Enum
-
-
-class ExampleStrs(str, Enum):
+    expected_str = """class ExampleStrs(str, Enum):
     bob = "Bob"
     sue = "Sue"
     yao = "Yao"
 
     def __str__(self):
-        return self.value
+        return self.value"""
+    assert x_str == expected_str
+
+
+def test_create_all_enum_keyword_classes_str_ReturnsObj():
+    # ESTABLISH
+    examples_strs = get_example_strs_config()
+
+    #  WHEN
+    classes_str = create_all_enum_keyword_classes_str()
+
+    # THEN
+    keywords_by_chapter = get_keywords_by_chapter(get_keywords_src_config())
+    cumlative_keywords = get_cumlative_ch_keywords_dict(keywords_by_chapter)
+    expected_classes_str = f"""from enum import Enum
+
+
+{create_examplestrs_class_str(examples_strs)}
 """
     for chapter_desc, chapter_dir in get_chapter_descs().items():
         ch_prefix = get_chapter_desc_prefix(chapter_desc)
@@ -122,16 +150,10 @@ class ExampleStrs(str, Enum):
         enum_class_str = create_keywords_enum_class_file_str(ch_prefix, ch_keywords)
         expected_classes_str += enum_class_str
     assert expected_classes_str == classes_str
-    two_line_spacing_str = """from enum import Enum
+    two_line_spacing_str = f"""from enum import Enum
 
 
-class ExampleStrs(str, Enum):
-    bob = "Bob"
-    sue = "Sue"
-    yao = "Yao"
-
-    def __str__(self):
-        return self.value
+{create_examplestrs_class_str(examples_strs)}
 
 
 class Ch00Key"""
