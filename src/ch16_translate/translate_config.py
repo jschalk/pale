@@ -219,7 +219,7 @@ def find_set_otx_inx_args(args: set) -> set:
     return transformed_args
 
 
-def get_translate_NameTerm_args() -> set[str]:
+def get_translate_nameterm_args() -> set[str]:
     return {
         "voice_name",
         "face_name",
@@ -228,7 +228,7 @@ def get_translate_NameTerm_args() -> set[str]:
     }
 
 
-def get_translate_TitleTerm_args() -> set[str]:
+def get_translate_titleterm_args() -> set[str]:
     return {
         "awardee_title",
         "group_title",
@@ -236,7 +236,7 @@ def get_translate_TitleTerm_args() -> set[str]:
     }
 
 
-def get_translate_LabelTerm_args() -> set[str]:
+def get_translate_labelterm_args() -> set[str]:
     return {
         "moment_label",
         "hour_label",
@@ -246,7 +246,7 @@ def get_translate_LabelTerm_args() -> set[str]:
     }
 
 
-def get_translate_RopeTerm_args() -> set[str]:
+def get_translate_ropeterm_args() -> set[str]:
     return {
         "fact_state",
         "fact_context",
@@ -256,5 +256,5 @@ def get_translate_RopeTerm_args() -> set[str]:
     }
 
 
-def get_translate_EpochTime_args() -> set[str]:
+def get_translate_epochtime_args() -> set[str]:
     return {"bud_time", "offi_time", "tran_time"}

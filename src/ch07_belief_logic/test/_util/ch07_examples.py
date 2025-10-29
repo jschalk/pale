@@ -160,7 +160,7 @@ def get_beliefunit_with_4_levels_and_2reasons_2facts() -> BeliefUnit:
     return sue_belief
 
 
-def get_beliefunit_with7amCleanTableReason() -> BeliefUnit:
+def get_beliefunit_with7am_clean_table_reason() -> BeliefUnit:
     sue_belief = get_beliefunit_with_4_levels_and_2reasons_2facts()
 
     ziet_str = "ziettech"
@@ -229,7 +229,7 @@ def get_beliefunit_with7amCleanTableReason() -> BeliefUnit:
     return sue_belief
 
 
-def get_beliefunit_1task_1CE0MinutesReason_1Fact() -> BeliefUnit:
+def get_beliefunit_1task_1ceo_minutes_reason_1fact() -> BeliefUnit:
     yao_belief = beliefunit_shop("Yao")
     hr_min_str = "hr"
     hr_min_plan = planunit_shop(hr_min_str)

@@ -234,7 +234,7 @@ def test_allot_missing_scale_ReturnsEmpty_ledger():
     )
 
 
-def test_allot_scale_v01():
+def test_allot_scale_Scenario01():
     # ESTABLISH
     x_ledger = {"obj1": 1.0, "obj2": 2.0, "obj3": 3.0}
     print(f"{x_ledger=}")
@@ -252,7 +252,7 @@ def test_allot_scale_v01():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v02():
+def test_allot_scale_Scenario02():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 1.0,
@@ -272,7 +272,7 @@ def test_allot_scale_v02():
     )
 
 
-def test_allot_scale_v03():
+def test_allot_scale_Scenario03():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 1.0,
@@ -294,7 +294,7 @@ def test_allot_scale_v03():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v04():
+def test_allot_scale_Scenario04():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 1.0,
@@ -316,7 +316,7 @@ def test_allot_scale_v04():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v05():
+def test_allot_scale_Scenario05():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 1.0,
@@ -346,7 +346,7 @@ def test_allot_scale_v05():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v06():
+def test_allot_scale_Scenario06():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 1.0,
@@ -376,7 +376,7 @@ def test_allot_scale_v06():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v07():
+def test_allot_scale_Scenario07():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 1.0,
@@ -406,7 +406,7 @@ def test_allot_scale_v07():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v08():
+def test_allot_scale_Scenario08():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 0,
@@ -443,7 +443,7 @@ def test_allot_scale_v08():
     assert sum(alloted_ledger.values()) != scale_number
 
 
-def test_allot_scale_v09():
+def test_allot_scale_Scenario09():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 0,
@@ -471,7 +471,7 @@ def test_allot_scale_v09():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v10():
+def test_allot_scale_Scenario10():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 0,
@@ -501,7 +501,7 @@ def test_allot_scale_v10():
     assert sum(alloted_ledger.values()) == scale_number
 
 
-def test_allot_scale_v11():
+def test_allot_scale_Scenario11():
     # ESTABLISH
     unalloted_ledger = {}
     print(f"{unalloted_ledger=}")
@@ -516,7 +516,7 @@ def test_allot_scale_v11():
     assert alloted_ledger == {}
 
 
-def test_allot_scale_v12():
+def test_allot_scale_Scenario12():
     # ESTABLISH
     unalloted_ledger = {
         "obj1": 1,

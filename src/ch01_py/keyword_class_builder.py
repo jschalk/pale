@@ -30,7 +30,7 @@ def get_cumlative_ch_keywords_dict(keywords_by_chapter: dict[int, set[str]]) -> 
     return cumlative_ch_keywords_dict
 
 
-def get_chXX_keyword_classes(cumlative_ch_keywords_dict: dict) -> dict[int,]:
+def get_chapter_keyword_classes(cumlative_ch_keywords_dict: dict) -> dict[int,]:
     chXX_keyword_classes = {}
     word_str = "word"
     for chapter_prefix in sorted(list(cumlative_ch_keywords_dict.keys())):

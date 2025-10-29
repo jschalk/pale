@@ -12,6 +12,7 @@ from os import walk as os_walk
 from os.path import join as os_path_join
 from pathlib import Path as pathlib_Path
 from re import compile as re_compile
+from src.ch01_py.dict_toolbox import uppercase_in_str, uppercase_is_first
 from src.ch01_py.file_toolbox import create_path, get_dir_filenames
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_desc_prefix,
@@ -20,6 +21,22 @@ from src.ch98_docs_builder.doc_builder import (
     get_func_names_and_class_bases_from_file,
 )
 from textwrap import dedent as textwrap_dedent
+
+
+def function_name_style_is_correct(function_name: str):
+    if not function_name.startswith("test") and "None" not in function_name:
+        return uppercase_in_str(function_name) is False
+    elif "scenario" in function_name:
+        return False
+    else:
+        func_lower = function_name.lower()
+        if func_lower.endswith("exists") and not function_name.endswith("Exists"):
+            return False
+        elif "returnsobj" in func_lower and "ReturnsObj" not in function_name:
+            return False
+        elif "returnobj" in func_lower:
+            return False
+        return uppercase_in_str(function_name)
 
 
 def get_imports_from_file(file_path):
@@ -373,18 +390,6 @@ def check_if_test_HasDocString_pytests_exist(
             # )
         assert pytest_for_func_exists, f"missing {expected_test_func=}"
         # print(f"{chapter_desc} {test_func_exists} {path_func}")
-
-
-def check_all_test_functions_have_proper_naming_format(all_test_function_names: set):
-    for test_function_name in sorted(list(all_test_function_names)):
-        test_function_name = str(test_function_name)
-        failed_assertion_str = f"test function {test_function_name} is not named well"
-        if test_function_name.lower().endswith("_exists"):
-            assert test_function_name.endswith("_Exists"), failed_assertion_str
-        if test_function_name.lower().find("returnsobj") > 0:
-            assert test_function_name.find("ReturnsObj") > 0, failed_assertion_str
-        assert test_function_name.lower().find("correctly") <= 0, failed_assertion_str
-        assert test_function_name.lower().find("returnobj") <= 0, failed_assertion_str
 
 
 def check_all_test_functions_are_formatted(

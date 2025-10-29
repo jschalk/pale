@@ -9,14 +9,14 @@ from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
     beliefunit_v001,
     beliefunit_v001_with_large_agenda,
-    get_beliefunit_with7amCleanTableReason,
+    get_beliefunit_with7am_clean_table_reason,
     get_beliefunit_with_4_levels,
 )
 
 
 def test_BeliefUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario0():
     # ESTABLISH
-    x_beliefunit = get_beliefunit_with7amCleanTableReason()
+    x_beliefunit = get_beliefunit_with7am_clean_table_reason()
     casa_rope = x_beliefunit.make_l1_rope("casa")
     catt_rope = x_beliefunit.make_l1_rope("cat have dinner")
     wk_rope = x_beliefunit.make_l1_rope("sem_jours")

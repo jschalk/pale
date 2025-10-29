@@ -3,13 +3,13 @@ from src.ch05_reason.reason import factheir_shop, factunit_shop
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
-    get_beliefunit_1task_1CE0MinutesReason_1Fact,
+    get_beliefunit_1task_1ceo_minutes_reason_1fact,
 )
 
 
 def test_BeliefUnit_cashout_ChangesPlanUnit_pledge_task():
     # ESTABLISH
-    yao_belief = get_beliefunit_1task_1CE0MinutesReason_1Fact()
+    yao_belief = get_beliefunit_1task_1ceo_minutes_reason_1fact()
     hr_str = "hr"
     hr_rope = yao_belief.make_l1_rope(hr_str)
 
@@ -247,7 +247,7 @@ def test_BeliefUnit_cashout_FactHeirDeletesFactUnit():
 
 def test_BeliefUnit_cashout_SetstaskAsComplete():
     # ESTABLISH
-    yao_belief = get_beliefunit_1task_1CE0MinutesReason_1Fact()
+    yao_belief = get_beliefunit_1task_1ceo_minutes_reason_1fact()
     mail_str = "obtain mail"
     assert yao_belief is not None
     assert len(yao_belief.planroot.kids[mail_str].reasonunits) == 1

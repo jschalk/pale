@@ -12,7 +12,7 @@ from src.ch01_py.file_toolbox import create_path, save_file, set_dir
 from src.ch01_py.test._util.ch01_env import get_temp_dir, temp_dir_setup
 
 
-def test_open_csv_with_types(temp_dir_setup):
+def test_open_csv_with_types_ReturnsObj(temp_dir_setup):
     """Test open_csv_with_types with various data types."""
     # ESTABLISH
     set_dir(get_temp_dir())
@@ -57,7 +57,7 @@ def test_open_csv_with_types(temp_dir_setup):
     assert generated_rows == expected_rows
 
 
-def test_export_sqlite_tables_to_csv(temp_dir_setup):
+def test_export_sqlite_tables_to_csv_CreatesFiles(temp_dir_setup):
     # ESTABLISH
     # 1. Create temporary SQLite DB
     temp_dir = get_temp_dir()
@@ -103,7 +103,7 @@ def test_export_sqlite_tables_to_csv(temp_dir_setup):
         assert reader[1] == ["ABC", "9.99"]
 
 
-def test_replace_csv_column_from_string():
+def test_replace_csv_column_from_string_ReturnsObj():
     # ESTABLISH
     csv_string = """id,name,classification
 1,Alice,pending
@@ -130,7 +130,7 @@ def test_replace_csv_column_from_string():
     assert rows[1]["name"] == "Bob"
 
 
-def test_delete_column_from_csv_string():
+def test_delete_column_from_csv_string_ReturnsObj():
     # ESTABLISH
     csv_input = """id,name,classification
 1,Alice,current

@@ -26,11 +26,11 @@ from src.ch16_translate.translate_config import (
     find_set_otx_inx_args,
     get_translate_args_class_types,
     get_translate_config_dict,
-    get_translate_EpochTime_args,
-    get_translate_LabelTerm_args,
-    get_translate_NameTerm_args,
-    get_translate_RopeTerm_args,
-    get_translate_TitleTerm_args,
+    get_translate_epochtime_args,
+    get_translate_labelterm_args,
+    get_translate_nameterm_args,
+    get_translate_ropeterm_args,
+    get_translate_titleterm_args,
     get_translateable_args,
     get_translateable_number_class_types,
     get_translateable_term_class_types,
@@ -307,9 +307,9 @@ def test_find_set_otx_inx_args_ReturnsObj_Scenario3_PartialSets():
     assert otx_inx_args == expected_otx_inx_args
 
 
-def test_get_translate_NameTerm_args_ReturnsObj():
+def test_get_translate_nameterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_NameTerm_args = get_translate_NameTerm_args()
+    translate_NameTerm_args = get_translate_nameterm_args()
 
     # THEN
     assert translate_NameTerm_args == {
@@ -326,9 +326,9 @@ def test_get_translate_NameTerm_args_ReturnsObj():
     assert translate_NameTerm_args == expected_args
 
 
-def test_get_translate_TitleTerm_args_ReturnsObj():
+def test_get_translate_titleterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_TitleTerm_args = get_translate_TitleTerm_args()
+    translate_TitleTerm_args = get_translate_titleterm_args()
 
     # THEN
     assert translate_TitleTerm_args == {
@@ -344,9 +344,9 @@ def test_get_translate_TitleTerm_args_ReturnsObj():
     assert translate_TitleTerm_args == expected_args
 
 
-def test_get_translate_LabelTerm_args_ReturnsObj():
+def test_get_translate_labelterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_LabelTerm_args = get_translate_LabelTerm_args()
+    translate_LabelTerm_args = get_translate_labelterm_args()
 
     # THEN
     assert translate_LabelTerm_args == {
@@ -364,9 +364,9 @@ def test_get_translate_LabelTerm_args_ReturnsObj():
     assert translate_LabelTerm_args == expected_args
 
 
-def test_get_translate_RopeTerm_args_ReturnsObj():
+def test_get_translate_ropeterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_RopeTerm_args = get_translate_RopeTerm_args()
+    translate_RopeTerm_args = get_translate_ropeterm_args()
 
     # THEN
     assert translate_RopeTerm_args == {
@@ -384,9 +384,9 @@ def test_get_translate_RopeTerm_args_ReturnsObj():
     assert translate_RopeTerm_args == expected_args
 
 
-def test_get_translate_EpochTime_args_ReturnsObj():
+def test_get_translate_epochtime_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_EpochTime_args = get_translate_EpochTime_args()
+    translate_EpochTime_args = get_translate_epochtime_args()
 
     # THEN
     assert translate_EpochTime_args == {kw.bud_time, kw.offi_time, kw.tran_time}

@@ -83,7 +83,7 @@ def create_idea_df(x_beliefunit: BeliefUnit, idea_name: str) -> DataFrame:
     x_idearef = get_idearef_obj(idea_name)
     x_moment_label = x_beliefunit.moment_label
     x_belief_name = x_beliefunit.belief_name
-    sorted_beliefatoms = _get_sorted_INSERT_str_beliefatoms(x_beliefdelta, x_idearef)
+    sorted_beliefatoms = _get_sorted_insert_str_beliefatoms(x_beliefdelta, x_idearef)
     d2_list = _create_d2_list(
         sorted_beliefatoms, x_idearef, x_moment_label, x_belief_name
     )
@@ -93,7 +93,7 @@ def create_idea_df(x_beliefunit: BeliefUnit, idea_name: str) -> DataFrame:
     return _sort_dataframe(x_idea, sorting_columns)
 
 
-def _get_sorted_INSERT_str_beliefatoms(
+def _get_sorted_insert_str_beliefatoms(
     x_beliefdelta: BeliefDelta, x_idearef: IdeaRef
 ) -> list[BeliefAtom]:
     dimen_set = set(x_idearef.dimens)

@@ -63,10 +63,10 @@ from src.ch15_moment.moment_main import get_default_path_momentunit
 from src.ch16_translate.translate_config import (
     get_quick_translates_column_ref,
     get_translate_args_class_types,
-    get_translate_LabelTerm_args,
-    get_translate_NameTerm_args,
-    get_translate_RopeTerm_args,
-    get_translate_TitleTerm_args,
+    get_translate_labelterm_args,
+    get_translate_nameterm_args,
+    get_translate_ropeterm_args,
+    get_translate_titleterm_args,
     get_translateable_term_class_types,
 )
 from src.ch16_translate.translate_main import (
@@ -483,10 +483,10 @@ def insert_translate_sound_agg_tables_to_translate_sound_vld_table(
 
 
 def set_moment_belief_sound_agg_knot_errors(cursor: sqlite3_Cursor):
-    translate_label_args = get_translate_LabelTerm_args()
-    translate_name_args = get_translate_NameTerm_args()
-    translate_title_args = get_translate_TitleTerm_args()
-    translate_rope_args = get_translate_RopeTerm_args()
+    translate_label_args = get_translate_labelterm_args()
+    translate_name_args = get_translate_nameterm_args()
+    translate_title_args = get_translate_titleterm_args()
+    translate_rope_args = get_translate_ropeterm_args()
     translate_args = copy_copy(translate_label_args)
     translate_args.update(translate_name_args)
     translate_args.update(translate_title_args)

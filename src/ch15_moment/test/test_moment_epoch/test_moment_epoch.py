@@ -1,11 +1,11 @@
 from src.ch14_epoch.epoch_main import epochunit_shop
 from src.ch14_epoch.test._util.ch14_examples import get_creg_config
-from src.ch15_moment.moment_epoch import get_moment_beliefEpochTime
+from src.ch15_moment.moment_epoch import get_moment_beliefepochtime
 from src.ch15_moment.moment_main import momentunit_shop
 from src.ch15_moment.test._util.ch15_env import get_temp_dir
 
 
-def test_get_moment_beliefEpochTime_ReturnsObj_Scenario0_Empty_offi_time():
+def test_get_moment_beliefepochtime_ReturnsObj_Scenario0_Empty_offi_time():
     # ESTABLISH
     fay_str = "Fay"
     fay_momentunit = momentunit_shop(fay_str, get_temp_dir())
@@ -13,7 +13,7 @@ def test_get_moment_beliefEpochTime_ReturnsObj_Scenario0_Empty_offi_time():
     assert not fay_momentunit.offi_time_max
 
     # WHEN
-    fay_beliefEpochTime = get_moment_beliefEpochTime(fay_momentunit)
+    fay_beliefEpochTime = get_moment_beliefepochtime(fay_momentunit)
 
     # THEN
     assert fay_momentunit.offi_time_max == 0
@@ -36,7 +36,7 @@ def test_get_moment_beliefEpochTime_ReturnsObj_Scenario0_Empty_offi_time():
     assert fay_beliefEpochTime._year_num == 0
 
 
-def test_get_moment_beliefEpochTime_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs():
+def test_get_moment_beliefepochtime_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs():
     # ESTABLISH
     fay_str = "Fay"
     slash_str = "/"
@@ -55,7 +55,7 @@ def test_get_moment_beliefEpochTime_ReturnsObj_Scenario1_MomentUnit_NonDefaultAt
     assert not fay_momentunit.offi_time_max
 
     # WHEN
-    fay_beliefEpochTime = get_moment_beliefEpochTime(fay_momentunit)
+    fay_beliefEpochTime = get_moment_beliefepochtime(fay_momentunit)
 
     # THEN
     assert fay_momentunit.offi_time_max == 0
@@ -77,4 +77,4 @@ def test_get_moment_beliefEpochTime_ReturnsObj_Scenario1_MomentUnit_NonDefaultAt
     assert fay_beliefEpochTime._c400_number == 0
     assert fay_beliefEpochTime._year_num == 0
     #  beliefunit_shop()
-    #  beliefEpochTime_shop()
+    #  beliefepochtime_shop()

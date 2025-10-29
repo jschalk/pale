@@ -7,7 +7,6 @@ from src.ch98_docs_builder.doc_builder import (
 )
 from src.linter.style import (
     check_all_test_functions_are_formatted,
-    check_all_test_functions_have_proper_naming_format,
     check_if_test_HasDocString_pytests_exist,
     check_if_test_ReturnsObj_pytests_exist,
     find_incorrect_imports,
@@ -122,6 +121,4 @@ def test_Chapters_path_FunctionStructureAndFormat():
                 path_funcs, chapter_desc, test_path_func_names
             )
 
-    all_test_function_names = all_test_functions.keys()
-    check_all_test_functions_have_proper_naming_format(all_test_function_names)
     check_all_test_functions_are_formatted(all_test_functions)

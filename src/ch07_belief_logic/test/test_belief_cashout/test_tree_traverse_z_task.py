@@ -8,7 +8,7 @@ from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
     beliefunit_v001,
     from_list_get_active,
-    get_beliefunit_with7amCleanTableReason,
+    get_beliefunit_with7am_clean_table_reason,
     get_beliefunit_with_4_levels_and_2reasons,
 )
 
@@ -218,7 +218,7 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
 
 def test_BeliefUnit_cashout_CalculatesRangeAttributes():
     # ESTABLISH
-    sue_beliefunit = get_beliefunit_with7amCleanTableReason()
+    sue_beliefunit = get_beliefunit_with7am_clean_table_reason()
     sue_beliefunit.cashout()
     house_str = "houseadministration"
     house_rope = sue_beliefunit.make_l1_rope(house_str)

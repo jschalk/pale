@@ -7,7 +7,7 @@ def green_str() -> str:
     return "green"
 
 
-def LightSeaGreen_str() -> str:
+def get_light_sea_green_str() -> str:
     return "LightSeaGreen"
 
 
@@ -79,7 +79,7 @@ def add_keep_river_rect(
     fig: plotly_Figure, x0, y0, x1, y1, display_str, x_color=None, point_supply=None
 ):
     if x_color is None:
-        x_color = LightSeaGreen_str()
+        x_color = get_light_sea_green_str()
     line_dict = dict(color=x_color, width=4)
     fig.add_shape(type="rect", x0=x0, y0=y0, x1=x1, y1=y1, line=line_dict)
     add_ch14rect(fig, x0, y1, display_str)
@@ -192,7 +192,7 @@ def add_needs_column(
 
 
 def add_rivercycle(fig: plotly_Figure, x0, y0, x1, y1, display_str):
-    line_dict = dict(color=LightSeaGreen_str(), width=2, dash="dot")
+    line_dict = dict(color=get_light_sea_green_str(), width=2, dash="dot")
     fig.add_shape(type="rect", x0=x0, y0=y0, x1=x1, y1=y1, line=line_dict)
     add_ch14rect(fig, x0, y1, display_str)
 
@@ -210,7 +210,7 @@ def add_keep2_rect(
     color=None,
 ):
     if color is None:
-        color = LightSeaGreen_str()
+        color = get_light_sea_green_str()
     y0 -= 0.3
     y1 += 0.3
     line_dict = dict(color=color, width=2, dash="dot")
@@ -591,7 +591,9 @@ def get_protect_structures4_fig(graphics_bool: bool) -> plotly_Figure:
         add_rect2_arrow(
             fig, need_x0 + 1.1, ry0 + 0.5, need_x0 + 2, ry0 + 0.5, red_str(), 5
         )
-        add_river_row(fig, rivercycle2_dict(), mm, 1, 4, ry0 - 3, LightSeaGreen_str())
+        add_river_row(
+            fig, rivercycle2_dict(), mm, 1, 4, ry0 - 3, get_light_sea_green_str()
+        )
 
         ry1 = m_y0 - 4
         y_mid = ry0 + (ry1 - ry0 + 1) / 2
@@ -650,7 +652,9 @@ def get_protect_structures5_fig(graphics_bool: bool) -> plotly_Figure:
             fig, need_x0 + 1.1, red_a1_x0, need_x0 + 2, red_a1_x0, red_str(), 3
         )
         need1_y0 = cycle1_y0 - 1
-        add_river_row(fig, rivercycle2_dict(), mm, 1, 4, need1_y0, LightSeaGreen_str())
+        add_river_row(
+            fig, rivercycle2_dict(), mm, 1, 4, need1_y0, get_light_sea_green_str()
+        )
 
         cycle2_y0 = cycle1_y0 - 3
         add_river_row(fig, rivercycle3_dict(), mm, 1, 4, cycle2_y0, black_str())
@@ -663,7 +667,9 @@ def get_protect_structures5_fig(graphics_bool: bool) -> plotly_Figure:
         add_rect2_arrow(
             fig, need_x0 + 1.1, red_a2_y0, need_x0 + 2, red_a2_y0, red_str(), 3
         )
-        add_river_row(fig, rivercycle4_dict(), mm, 1, 2, needy0, LightSeaGreen_str())
+        add_river_row(
+            fig, rivercycle4_dict(), mm, 1, 2, needy0, get_light_sea_green_str()
+        )
 
         cycle3_y0 = cycle2_y0 - 3
         add_river_row(fig, rivercycle4_dict(), mm, 1, 2, cycle3_y0, black_str())

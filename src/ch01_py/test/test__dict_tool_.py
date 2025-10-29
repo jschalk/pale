@@ -36,8 +36,34 @@ from src.ch01_py.dict_toolbox import (
     str_in_dict,
     str_in_dict_keys,
     str_in_dict_values,
+    uppercase_in_str,
+    uppercase_is_first,
 )
 from src.ch01_py.test._util.ch01_examples import CommonExampleStrs as wx
+
+
+def test_uppercase_in_str_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert uppercase_in_str("hello") == False
+    assert uppercase_in_str("Hello")
+    assert uppercase_in_str("HELLO")
+    assert uppercase_in_str("123abc") == False
+    assert uppercase_in_str("123ABC")
+    assert uppercase_in_str("") == False
+    assert uppercase_in_str(" ") == False
+    assert uppercase_in_str("mixed123Case")
+
+
+def test_uppercase_is_first_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert uppercase_is_first("hello") == False
+    assert uppercase_is_first("Hello")
+    assert uppercase_is_first("HELLO")
+    assert uppercase_is_first("123abc") == False
+    assert uppercase_is_first("123ABC") == False
+    assert uppercase_is_first("") == False
+    assert uppercase_is_first(" ") == False
+    assert uppercase_is_first("mixed123Case") == False
 
 
 def test_get_1_if_None_ReturnsObj():

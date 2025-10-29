@@ -585,7 +585,7 @@ def test_table_exists_ReturnsObjWhenPassedCusorObj():
         assert db_table_exists(cursor, users_tablename)
 
 
-def test_sqlite_version():
+def test_sqlite_version_IsAcceptable():
     # ESTABLISH
     # Retrieve the SQLite version
     sqlite_version = sqlite3_sqlite_version

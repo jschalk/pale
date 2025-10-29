@@ -27,7 +27,7 @@ def temp_directory():
     shutil_rmtree(test_dir)
 
 
-def test_count_dirs_files(temp_directory):
+def test_count_dirs_files_ReturnsObj_Scenario0(temp_directory):
     # ESTABLISH / WHEN / THEN
     assert count_dirs_files(temp_directory) == 5
 
@@ -41,7 +41,7 @@ def test_count_dirs_files(temp_directory):
     assert count_dirs_files(temp_directory) == 8
 
 
-def test_count_dirs_files_DoesNotCreateDir(temp_dir_setup):
+def test_count_dirs_files_ReturnsObj_Scenario1_DoesNotCreateDir(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
     sub1_dir = create_path(env_dir, "sub1")
