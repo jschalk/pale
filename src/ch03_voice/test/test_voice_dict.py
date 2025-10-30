@@ -189,25 +189,23 @@ def test_VoiceUnit_to_dict_ReturnsDictWith_irrational_voice_debt_lumen_ValuesIsN
 def test_voiceunit_get_from_dict_ReturnsObjWith_groupmark():
     # ESTABLISH
     yao_str = ",Yao"
-    slash_str = "/"
-    before_yao_voiceunit = voiceunit_shop(yao_str, groupmark=slash_str)
+    before_yao_voiceunit = voiceunit_shop(yao_str, groupmark=exx.slash)
     yao_dict = before_yao_voiceunit.to_dict()
 
     # WHEN
-    after_yao_voiceunit = voiceunit_get_from_dict(yao_dict, slash_str)
+    after_yao_voiceunit = voiceunit_get_from_dict(yao_dict, exx.slash)
 
     # THEN
     assert before_yao_voiceunit == after_yao_voiceunit
-    assert after_yao_voiceunit.groupmark == slash_str
+    assert after_yao_voiceunit.groupmark == exx.slash
 
 
 def test_voiceunit_get_from_dict_Returns_memberships():
     # ESTABLISH
     yao_str = ",Yao"
-    slash_str = "/"
-    before_yao_voiceunit = voiceunit_shop(yao_str, groupmark=slash_str)
-    ohio_str = f"{slash_str}ohio"
-    iowa_str = f"{slash_str}iowa"
+    before_yao_voiceunit = voiceunit_shop(yao_str, groupmark=exx.slash)
+    ohio_str = f"{exx.slash}ohio"
+    iowa_str = f"{exx.slash}iowa"
     ohio_group_cred_lumen = 90
     ohio_group_debt_lumen = 901
     iowa_group_cred_lumen = 902
@@ -223,28 +221,27 @@ def test_voiceunit_get_from_dict_Returns_memberships():
     yao_dict = before_yao_voiceunit.to_dict()
 
     # WHEN
-    after_yao_voiceunit = voiceunit_get_from_dict(yao_dict, slash_str)
+    after_yao_voiceunit = voiceunit_get_from_dict(yao_dict, exx.slash)
 
     # THEN
     assert before_yao_voiceunit.memberships == after_yao_voiceunit.memberships
     assert before_yao_voiceunit == after_yao_voiceunit
-    assert after_yao_voiceunit.groupmark == slash_str
+    assert after_yao_voiceunit.groupmark == exx.slash
 
 
 def test_voiceunits_get_from_dict_ReturnsObj_Scenario0_With_groupmark():
     # ESTABLISH
     yao_str = ",Yao"
-    slash_str = "/"
-    yao_voiceunit = voiceunit_shop(yao_str, groupmark=slash_str)
+    yao_voiceunit = voiceunit_shop(yao_str, groupmark=exx.slash)
     yao_dict = yao_voiceunit.to_dict()
     x_voiceunits_dict = {yao_str: yao_dict}
 
     # WHEN
-    x_voiceunits_objs = voiceunits_get_from_dict(x_voiceunits_dict, slash_str)
+    x_voiceunits_objs = voiceunits_get_from_dict(x_voiceunits_dict, exx.slash)
 
     # THEN
     assert x_voiceunits_objs.get(yao_str) == yao_voiceunit
-    assert x_voiceunits_objs.get(yao_str).groupmark == slash_str
+    assert x_voiceunits_objs.get(yao_str).groupmark == exx.slash
 
 
 def test_voiceunits_get_from_dict_ReturnsObj_Scenario1_SimpleExampleWith_IncompleteData():

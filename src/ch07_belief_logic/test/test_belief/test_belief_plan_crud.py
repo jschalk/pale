@@ -99,8 +99,7 @@ def test_BeliefUnit_set_l1_plan_SetsAttr():
 
 def test_BeliefUnit_add_plan_SetsAttr_Scenario0():
     # ESTABLISH
-    slash_str = "/"
-    bob_beliefunit = beliefunit_shop(exx.bob, knot=slash_str)
+    bob_beliefunit = beliefunit_shop(exx.bob, knot=exx.slash)
     casa_rope = bob_beliefunit.make_l1_rope("casa")
     assert not bob_beliefunit.plan_exists(casa_rope)
 
@@ -146,21 +145,19 @@ def test_BeliefUnit_add_plan_ReturnsObj():
 
 def test_BeliefUnit_set_plan_ScenarioXX_AddsPlanObjWithNonDefault_knot():
     # ESTABLISH
-    slash_str = "/"
-    assert slash_str != default_knot_if_None()
-    bob_belief = beliefunit_shop("Bob", knot=slash_str)
-    wk_str = "wk"
+    assert exx.slash != default_knot_if_None()
+    bob_belief = beliefunit_shop("Bob", knot=exx.slash)
     wed_str = "Wed"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
-    wk_rope = bob_belief.make_l1_rope(wk_str)
+    wk_rope = bob_belief.make_l1_rope(exx.wk)
     wed_rope = bob_belief.make_rope(wk_rope, wed_str)
     bob_belief.set_l1_plan(planunit_shop(exx.casa))
-    bob_belief.set_l1_plan(planunit_shop(wk_str))
+    bob_belief.set_l1_plan(planunit_shop(exx.wk))
     bob_belief.set_plan_obj(planunit_shop(wed_str), wk_rope)
     print(f"{bob_belief.planroot.kids.keys()=}")
     assert len(bob_belief.planroot.kids) == 2
     wed_plan = bob_belief.get_plan_obj(wed_rope)
-    assert wed_plan.knot == slash_str
+    assert wed_plan.knot == exx.slash
     assert wed_plan.knot == bob_belief.knot
 
     # WHEN
@@ -558,10 +555,9 @@ def test_BeliefUnit_edit_plan_attr_SetNestedPlanUnitAttr_Scenario12_reasonunit_k
     wk_rope = sue_belief.make_l1_rope("sem_jours")
     wed_rope = sue_belief.make_rope(wk_rope, "Wed")
 
-    slash_str = "/"
-    before_wk_reason = reasonunit_shop(wk_rope, knot=slash_str)
+    before_wk_reason = reasonunit_shop(wk_rope, knot=exx.slash)
     before_wk_reason.set_case(wed_rope)
-    assert before_wk_reason.knot == slash_str
+    assert before_wk_reason.knot == exx.slash
 
     # WHEN
     sue_belief.edit_plan_attr(casa_rope, reason=before_wk_reason)
@@ -569,25 +565,23 @@ def test_BeliefUnit_edit_plan_attr_SetNestedPlanUnitAttr_Scenario12_reasonunit_k
     # THEN
     casa_plan = sue_belief.get_plan_obj(casa_rope)
     wk_reasonunit = casa_plan.reasonunits.get(wk_rope)
-    assert wk_reasonunit.knot != slash_str
+    assert wk_reasonunit.knot != exx.slash
     assert wk_reasonunit.knot == sue_belief.knot
 
 
 def test_BeliefUnit_edit_plan_attr_SetNestedPlanUnitAttr_Scenario13_reason_context_knot():
     # ESTABLISH
-    slash_str = "/"
-    bob_belief = beliefunit_shop("Bob", knot=slash_str)
-    wk_str = "wk"
+    bob_belief = beliefunit_shop("Bob", knot=exx.slash)
     wed_str = "Wed"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
-    wk_rope = bob_belief.make_l1_rope(wk_str)
+    wk_rope = bob_belief.make_l1_rope(exx.wk)
     wed_rope = bob_belief.make_rope(wk_rope, wed_str)
     bob_belief.set_l1_plan(planunit_shop(exx.casa))
-    bob_belief.set_l1_plan(planunit_shop(wk_str))
+    bob_belief.set_l1_plan(planunit_shop(exx.wk))
     bob_belief.set_plan_obj(planunit_shop(wed_str), wk_rope)
     print(f"{bob_belief.planroot.kids.keys()=}")
     wed_plan = bob_belief.get_plan_obj(wed_rope)
-    assert wed_plan.knot == slash_str
+    assert wed_plan.knot == exx.slash
     assert wed_plan.knot == bob_belief.knot
 
     # WHEN
@@ -595,7 +589,7 @@ def test_BeliefUnit_edit_plan_attr_SetNestedPlanUnitAttr_Scenario13_reason_conte
 
     # THEN
     casa_plan = bob_belief.get_plan_obj(casa_rope)
-    assert casa_plan.knot == slash_str
+    assert casa_plan.knot == exx.slash
     wk_reasonunit = casa_plan.reasonunits.get(wk_rope)
     assert wk_reasonunit.knot != ","
     assert wk_reasonunit.knot == bob_belief.knot
@@ -604,10 +598,9 @@ def test_BeliefUnit_edit_plan_attr_SetNestedPlanUnitAttr_Scenario13_reason_conte
 def test_BeliefUnit_edit_plan_attr_RaisesError_SetNestedPlanUnitAttr_Scenario13_reason_context_knot():
     # ESTABLISH
     bob_belief = beliefunit_shop("Bob")
-    wk_str = "wk"
     wed_str = "Wed"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
-    wk_rope = bob_belief.make_l1_rope(wk_str)
+    wk_rope = bob_belief.make_l1_rope(exx.wk)
     incorrect_wed_rope = bob_belief.make_l1_rope(wed_str)
     assert not is_sub_rope(wk_rope, incorrect_wed_rope)
 
@@ -1037,13 +1030,12 @@ def test_BeliefUnit_set_offtrack_fund_ReturnsObj():
     assert bob_beliefunit.offtrack_fund == 0
 
     # ESTABLISH
-    wk_str = "wk"
     wed_str = "Wed"
     casa_rope = bob_beliefunit.make_l1_rope(exx.casa)
-    wk_rope = bob_beliefunit.make_l1_rope(wk_str)
+    wk_rope = bob_beliefunit.make_l1_rope(exx.wk)
     wed_rope = bob_beliefunit.make_rope(wk_rope, wed_str)
     casa_plan = planunit_shop(exx.casa, fund_onset=70, fund_cease=170)
-    wk_plan = planunit_shop(wk_str, fund_onset=70, fund_cease=75)
+    wk_plan = planunit_shop(exx.wk, fund_onset=70, fund_cease=75)
     wed_plan = planunit_shop(wed_str, fund_onset=72, fund_cease=75)
     casa_plan.parent_rope = bob_beliefunit.planroot.get_plan_rope()
     wk_plan.parent_rope = bob_beliefunit.planroot.get_plan_rope()
@@ -1090,13 +1082,12 @@ def test_BeliefUnit_allot_offtrack_fund_SetsCharUnit_fund_take_fund_give():
     assert bob_beliefunit.get_voice(exx.sue).fund_take == 0
 
     # WHEN
-    wk_str = "wk"
     wed_str = "Wed"
     casa_rope = bob_beliefunit.make_l1_rope(exx.casa)
-    wk_rope = bob_beliefunit.make_l1_rope(wk_str)
+    wk_rope = bob_beliefunit.make_l1_rope(exx.wk)
     wed_rope = bob_beliefunit.make_rope(wk_rope, wed_str)
     casa_plan = planunit_shop(exx.casa, fund_onset=70, fund_cease=170)
-    wk_plan = planunit_shop(wk_str, fund_onset=70, fund_cease=75)
+    wk_plan = planunit_shop(exx.wk, fund_onset=70, fund_cease=75)
     wed_plan = planunit_shop(wed_str, fund_onset=72, fund_cease=75)
     casa_plan.parent_rope = bob_beliefunit.planroot.get_plan_rope()
     wk_plan.parent_rope = bob_beliefunit.planroot.get_plan_rope()

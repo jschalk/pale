@@ -11,18 +11,6 @@ from src.ch07_belief_logic.belief_main import (
 )
 from src.ref.keywords import ExampleStrs as exx
 
-
-class ChExampleStrsSlashknot(str, Enum):
-    clean_str = "clean"
-    dirtyness_str = "dirtyness"
-    mop_str = "mop"
-    slash_str = "/"
-    wk_str = "wk"
-
-    def __str__(self):
-        return self.value
-
-
 # from src.ch01_py.file_toolbox import save_file
 # from src.ch07_belief_logic.test._util.ch07_env import get_belief_examples_dir as env_dir
 # from src.ch07_belief_logic.test._util.example_beliefs import beliefunit_v001, beliefunit_v002
@@ -337,9 +325,8 @@ def get_mop_with_reason_beliefunit_example1():
     situation_rope = sue_belief.make_rope(casa_rope, situation_str)
     sue_belief.set_plan_obj(planunit_shop(situation_str), casa_rope)
 
-    clean_str = "clean"
-    clean_rope = sue_belief.make_rope(situation_rope, clean_str)
-    sue_belief.set_plan_obj(planunit_shop(clean_str), situation_rope)
+    clean_rope = sue_belief.make_rope(situation_rope, exx.clean)
+    sue_belief.set_plan_obj(planunit_shop(exx.clean), situation_rope)
     sue_belief.set_plan_obj(planunit_shop("very_much"), clean_rope)
     sue_belief.set_plan_obj(planunit_shop("moderately"), clean_rope)
     sue_belief.set_plan_obj(planunit_shop("dirty"), situation_rope)

@@ -13,7 +13,6 @@ class CommonExampleStrs(str, Enum):
     casa = "casa"
     clean_str = "clean"
     dirtyness_str = "dirtyness"
-    mop_str = "mop"
     slash_str = "/"
     swim = "swim"
     wk_str = "wk"

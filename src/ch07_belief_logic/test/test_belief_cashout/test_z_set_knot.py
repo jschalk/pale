@@ -30,18 +30,17 @@ def test_belief_set_knot_RaisesErrorIfNew_knot_IsAnPlan_label():
     print(f"{zia_belief.max_tree_traverse=}")
     casa_rope = zia_belief.make_l1_rope(exx.casa)
     zia_belief.set_l1_plan(planunit_shop(exx.casa))
-    slash_str = "/"
-    casa_str = f"casa cook{slash_str}clean"
+    casa_str = f"casa cook{exx.slash}clean"
     zia_belief.set_plan_obj(planunit_shop(casa_str), parent_rope=casa_rope)
 
     # WHEN / THEN
     casa_rope = zia_belief.make_rope(casa_rope, casa_str)
     print(f"{casa_rope=}")
     with pytest_raises(Exception) as excinfo:
-        zia_belief.set_knot(slash_str)
+        zia_belief.set_knot(exx.slash)
     assert (
         str(excinfo.value)
-        == f"Cannot modify knot to '{slash_str}' because it exists an plan plan_label '{casa_rope}'"
+        == f"Cannot modify knot to '{exx.slash}' because it exists an plan plan_label '{casa_rope}'"
     )
 
 
@@ -63,14 +62,13 @@ def test_belief_set_knot_Modifies_parent_rope():
     assert cook_plan.get_plan_rope() == semicolon_cook_rope
 
     # WHEN
-    slash_str = "/"
-    zia_belief.set_knot(slash_str)
+    zia_belief.set_knot(exx.slash)
 
     # THEN
     assert cook_plan.get_plan_rope() != semicolon_cook_rope
     zia_moment_label = zia_belief.planroot.plan_label
-    slash_casa_rope = create_rope(zia_moment_label, exx.casa, knot=slash_str)
-    slash_cook_rope = create_rope(slash_casa_rope, cook_str, knot=slash_str)
+    slash_casa_rope = create_rope(zia_moment_label, exx.casa, knot=exx.slash)
+    slash_cook_rope = create_rope(slash_casa_rope, cook_str, knot=exx.slash)
     assert cook_plan.get_plan_rope() == slash_cook_rope
 
 
@@ -95,8 +93,7 @@ def test_belief_set_knot_ModifiesReasonUnit():
     assert gen_ziet_reasonunit.cases.get(semicolon_8am_rope) is not None
 
     # WHEN
-    slash_str = "/"
-    zia_belief.set_knot(slash_str)
+    zia_belief.set_knot(exx.slash)
 
     # THEN
     slash_ziet_rope = zia_belief.make_l1_rope(ziet_str)
@@ -131,8 +128,7 @@ def test_belief_set_knot_ModifiesFactUnit():
     gen_ziet_factunit = casa_plan.factunits.get(semicolon_ziet_rope)
 
     # WHEN
-    slash_str = "/"
-    zia_belief.set_knot(slash_str)
+    zia_belief.set_knot(exx.slash)
 
     # THEN
     slash_ziet_rope = zia_belief.make_l1_rope(ziet_str)

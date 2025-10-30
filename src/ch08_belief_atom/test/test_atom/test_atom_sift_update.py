@@ -225,8 +225,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reason_caseunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    clean_str = "clean"
-    clean_rope = sue_belief.make_rope(casa_rope, clean_str)
+    clean_rope = sue_belief.make_rope(casa_rope, exx.clean)
     wk_rope = sue_belief.make_l1_rope("wk")
     thur_str = "thur"
     thur_rope = sue_belief.make_rope(wk_rope, thur_str)

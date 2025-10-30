@@ -94,9 +94,7 @@ def test_belief_plan_reason_caseunit_get_obj_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    clean_str = "clean"
-    wk_str = "wk"
-    wk_rope = sue_belief.make_l1_rope(wk_str)
+    wk_rope = sue_belief.make_l1_rope(exx.wk)
     thur_rope = sue_belief.make_rope(wk_rope, "thur")
     casa_jkeys = {
         kw.plan_rope: casa_rope,
@@ -228,9 +226,7 @@ def test_belief_get_obj_ReturnsObj_belief_plan_reason_caseunit_get_obj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    clean_str = "clean"
-    wk_str = "wk"
-    wk_rope = sue_belief.make_l1_rope(wk_str)
+    wk_rope = sue_belief.make_l1_rope(exx.wk)
     thur_rope = sue_belief.make_rope(wk_rope, "thur")
     casa_jkeys = {
         kw.plan_rope: casa_rope,

@@ -1,5 +1,6 @@
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_get_plan_ranged_kids_ReturnsAllChildren():
@@ -7,9 +8,8 @@ def test_BeliefUnit_get_plan_ranged_kids_ReturnsAllChildren():
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
-    wk_str = "wk"
-    wk_rope = yao_beliefunit.make_rope(tech_rope, wk_str)
-    wk_plan = planunit_shop(wk_str, begin=0, close=10800)
+    wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
+    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
     yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
@@ -46,9 +46,8 @@ def test_BeliefUnit_get_plan_ranged_kids_ReturnsSomeChildrenScenario1():
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
-    wk_str = "wk"
-    wk_rope = yao_beliefunit.make_rope(tech_rope, wk_str)
-    wk_plan = planunit_shop(wk_str, begin=0, close=10800)
+    wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
+    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
     yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
@@ -93,9 +92,8 @@ def test_BeliefUnit_get_plan_ranged_kids_ReturnsSomeChildrenScenario2():
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
-    wk_str = "wk"
-    wk_rope = yao_beliefunit.make_rope(tech_rope, wk_str)
-    wk_plan = planunit_shop(wk_str, begin=0, close=10800)
+    wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
+    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
     yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
@@ -131,9 +129,8 @@ def test_BeliefUnit_get_plan_ranged_kids_ReturnsSomeChildrenScenario3():
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
-    wk_str = "wk"
-    wk_rope = yao_beliefunit.make_rope(tech_rope, wk_str)
-    wk_plan = planunit_shop(wk_str, begin=0, close=10800)
+    wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
+    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
     yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
@@ -163,8 +160,7 @@ def test_BeliefUnit_get_plan_ranged_kids_ReturnsSomeChildrenScenario3():
     assert len(yao_beliefunit.get_plan_ranged_kids(wk_rope, 1440)) == 1
 
     # ESTABLISH
-    wk_str = "wk"
-    wks_plan = planunit_shop(wk_str, gogo_want=0, stop_want=1440 * 5)
+    wks_plan = planunit_shop(exx.wk, gogo_want=0, stop_want=1440 * 5)
     yao_beliefunit.set_plan_obj(wks_plan, wk_rope)
 
     # WHEN

@@ -62,8 +62,7 @@ def test_get_obj_from_plan_dict_Returns_HealerUnit():
 def test_PlanUnit_to_dict_ReturnsCompleteDict():
     # ESTABLISH
     amy_str = "Amy23"
-    wk_str = "wk"
-    wk_rope = create_rope(amy_str, wk_str)
+    wk_rope = create_rope(amy_str, exx.wk)
     wed_str = "Wed"
     wed_rope = create_rope(wk_rope, wed_str)
     nation_str = "nation"
@@ -221,8 +220,7 @@ def test_PlanUnit_to_dict_ReturnsObj_DictWith_attrs_SetToTrue():
     x_laborunit = casa_plan.laborunit
     x_laborunit.add_party(party_title=exx.yao)
 
-    clean_str = "clean"
-    casa_plan.add_kid(planunit_shop(clean_str))
+    casa_plan.add_kid(planunit_shop(exx.clean))
 
     assert not casa_plan.is_expanded
     assert casa_plan.pledge

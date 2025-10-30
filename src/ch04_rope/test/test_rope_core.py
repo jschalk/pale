@@ -155,14 +155,13 @@ def test_rope_is_sub_rope_ReturnsObj_Scenario0_WhenNone_default_knot_if_None():
 
 def test_rope_is_sub_rope_ReturnsObj_Scenario1_WhenNone_default_knot_if_None():
     # ESTABLISH / WHEN
-    slash_str = "/"
-    casa_rope = f"{root_rope()}{slash_str}{exx.casa}"
+    casa_rope = f"{root_rope()}{exx.slash}{exx.casa}"
     cleaning_str = "cleaning"
-    slash_cleaning_rope = f"{casa_rope}{slash_str}{cleaning_str}"
+    slash_cleaning_rope = f"{casa_rope}{exx.slash}{cleaning_str}"
     default_cleaning_rope = f"{casa_rope}{default_knot_if_None()}{cleaning_str}"
     laundrys_str = "laundrys"
-    slash_laundrys_rope = f"{slash_cleaning_rope}{slash_str}{laundrys_str}"
-    default_laundrys_rope = f"{default_cleaning_rope}{slash_str}{laundrys_str}"
+    slash_laundrys_rope = f"{slash_cleaning_rope}{exx.slash}{laundrys_str}"
+    default_laundrys_rope = f"{default_cleaning_rope}{exx.slash}{laundrys_str}"
     print(f"{slash_cleaning_rope=}")
     print(f"{slash_laundrys_rope=}")
     print(f"{default_cleaning_rope=}")
@@ -237,17 +236,16 @@ def test_rope_get_tail_label_ReturnsLabelTermWhenNonDefaultknot():
     # ESTABLISH
     bloomers_str = "bloomers"
     roses_str = "roses"
-    slash_str = "/"
     slash_casa_rope = (
-        f"{slash_str}{get_default_first_label()}{slash_str}{exx.casa}{slash_str}"
+        f"{exx.slash}{get_default_first_label()}{exx.slash}{exx.casa}{exx.slash}"
     )
-    slash_bloomers_rope = f"{slash_casa_rope}{bloomers_str}{slash_str}"
-    slash_roses_rope = f"{slash_bloomers_rope}{roses_str}{slash_str}"
+    slash_bloomers_rope = f"{slash_casa_rope}{bloomers_str}{exx.slash}"
+    slash_roses_rope = f"{slash_bloomers_rope}{roses_str}{exx.slash}"
 
     # WHEN / THENs
-    assert get_tail_label(slash_casa_rope, slash_str) == exx.casa
-    assert get_tail_label(slash_bloomers_rope, slash_str) == bloomers_str
-    assert get_tail_label(slash_roses_rope, slash_str) == roses_str
+    assert get_tail_label(slash_casa_rope, exx.slash) == exx.casa
+    assert get_tail_label(slash_bloomers_rope, exx.slash) == bloomers_str
+    assert get_tail_label(slash_roses_rope, exx.slash) == roses_str
 
 
 def test_rope_get_first_label_from_rope_ReturnsLabelTerm():
@@ -543,8 +541,7 @@ def test_replace_knot_WhenNewknotIsFirstInRopeTermRaisesError():
 def test_validate_labelterm_Scenario0_RaisesErrorWhenNotLabelTerm():
     # ESTABLISH
     bob_str = "Bob, Tom"
-    slash_str = "/"
-    assert bob_str == validate_labelterm(bob_str, x_knot=slash_str)
+    assert bob_str == validate_labelterm(bob_str, x_knot=exx.slash)
 
     # WHEN
     comma_str = ","
@@ -560,10 +557,9 @@ def test_validate_labelterm_Scenario0_RaisesErrorWhenNotLabelTerm():
 
 def test_validate_labelterm_Scenario1_RaisesErrorWhenLabelTerm():
     # ESTABLISH
-    slash_str = "/"
-    bob_str = f"Bob{slash_str}Tom"
+    bob_str = f"Bob{exx.slash}Tom"
     assert bob_str == validate_labelterm(
-        bob_str, x_knot=slash_str, not_labelterm_required=True
+        bob_str, x_knot=exx.slash, not_labelterm_required=True
     )
 
     # WHEN
@@ -657,18 +653,17 @@ def test_all_ropes_between_ReturnsObj_Scenario1_NonDefault_knot():
     sport_str = "sport"
     run_str = "run,swim"
     lap_str = "lap"
-    slash_str = "/"
-    sport_rope = create_rope(exx.casa, sport_str, knot=slash_str)
-    run_rope = create_rope(sport_rope, run_str, knot=slash_str)
-    lap_rope = create_rope(run_rope, lap_str, knot=slash_str)
+    sport_rope = create_rope(exx.casa, sport_str, knot=exx.slash)
+    run_rope = create_rope(sport_rope, run_str, knot=exx.slash)
+    lap_rope = create_rope(run_rope, lap_str, knot=exx.slash)
 
     # WHEN / THEN
-    assert all_ropes_between(sport_rope, sport_rope, slash_str) == [sport_rope]
-    assert all_ropes_between(sport_rope, run_rope, slash_str) == [
+    assert all_ropes_between(sport_rope, sport_rope, exx.slash) == [sport_rope]
+    assert all_ropes_between(sport_rope, run_rope, exx.slash) == [
         sport_rope,
         run_rope,
     ]
-    assert all_ropes_between(sport_rope, lap_rope, slash_str) == [
+    assert all_ropes_between(sport_rope, lap_rope, exx.slash) == [
         sport_rope,
         run_rope,
         lap_rope,

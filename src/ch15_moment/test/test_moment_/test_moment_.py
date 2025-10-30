@@ -115,7 +115,6 @@ def test_momentunit_shop_ReturnsMomentUnitWith_moments_dir(temp_dir_setup):
 def test_momentunit_shop_ReturnsMomentUnitWith_knot(temp_dir_setup):
     # ESTABLISH
     a23_str = "amy23"
-    slash_str = "/"
     x_fund_grain = 7.0
     x_respect_grain = 9
     x_mana_grain = 3
@@ -127,7 +126,7 @@ def test_momentunit_shop_ReturnsMomentUnitWith_knot(temp_dir_setup):
         moment_label=a23_str,
         moment_mstr_dir=get_temp_dir(),
         offi_times=a45_offi_times,
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
         mana_grain=x_mana_grain,
@@ -135,7 +134,7 @@ def test_momentunit_shop_ReturnsMomentUnitWith_knot(temp_dir_setup):
     )
 
     # THEN
-    assert a23_moment.knot == slash_str
+    assert a23_moment.knot == exx.slash
     assert a23_moment.fund_grain == x_fund_grain
     assert a23_moment.respect_grain == x_respect_grain
     assert a23_moment.mana_grain == x_mana_grain
@@ -193,14 +192,13 @@ def test_MomentUnit_create_empty_belief_from_moment_ReturnsObj_Scenario0(
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    slash_str = "/"
     x_fund_grain = 4
     x_respect_grain = 5
     x_mana_grain = 6
     a23_moment = momentunit_shop(
         a23_str,
         moment_mstr_dir,
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
         mana_grain=x_mana_grain,
@@ -210,7 +208,7 @@ def test_MomentUnit_create_empty_belief_from_moment_ReturnsObj_Scenario0(
     generated_belief = a23_moment.create_empty_belief_from_moment(exx.sue)
 
     # THEN
-    assert generated_belief.knot == slash_str
+    assert generated_belief.knot == exx.slash
     assert generated_belief.fund_grain == x_fund_grain
     assert generated_belief.respect_grain == x_respect_grain
     assert generated_belief.mana_grain == x_mana_grain
@@ -243,14 +241,13 @@ def test_MomentUnit_create_gut_file_if_none_SetsDirAndFiles_Scenario2_belief_dir
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    slash_str = "/"
     x_fund_grain = 4
     x_respect_grain = 5
     x_mana_grain = 6
     a23_moment = momentunit_shop(
         a23_str,
         moment_mstr_dir,
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
         mana_grain=x_mana_grain,
@@ -267,7 +264,7 @@ def test_MomentUnit_create_gut_file_if_none_SetsDirAndFiles_Scenario2_belief_dir
     print(f"{moment_mstr_dir=}")
     assert gut_file_exists(moment_mstr_dir, a23_str, exx.sue)
     generated_gut = open_gut_file(moment_mstr_dir, a23_str, exx.sue)
-    assert generated_gut.knot == slash_str
+    assert generated_gut.knot == exx.slash
     assert generated_gut.fund_grain == x_fund_grain
     assert generated_gut.respect_grain == x_respect_grain
     assert generated_gut.mana_grain == x_mana_grain
@@ -302,13 +299,12 @@ def test_MomentUnit_create_init_job_from_guts_Scenario0_CreatesFile(
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    slash_str = "/"
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
         a23_str,
         moment_mstr_dir,
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
     )
@@ -328,13 +324,12 @@ def test_MomentUnit_create_init_job_from_guts_Scenario1_ReplacesFile(
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    slash_str = "/"
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
         a23_str,
         moment_mstr_dir,
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
     )
@@ -356,13 +351,12 @@ def test_MomentUnit_create_init_job_from_guts_Scenario2_job_Has_gut_Voices(
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    slash_str = "/"
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
         a23_str,
         moment_mstr_dir,
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
     )
@@ -385,24 +379,23 @@ def test_MomentUnit_create_init_job_from_guts_Scenario3_gut_FilesAreListenedTo(
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    slash_str = "/"
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
         a23_str,
         moment_mstr_dir,
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
     )
     a23_moment.create_init_job_from_guts(exx.sue)
 
     # create Sue gut
-    sue_gut = beliefunit_shop(exx.sue, a23_str, knot=slash_str)
+    sue_gut = beliefunit_shop(exx.sue, a23_str, knot=exx.slash)
     sue_gut.add_voiceunit(exx.bob)
     save_gut_file(moment_mstr_dir, sue_gut)
     # create Bob gut with agenda plan for Sue
-    bob_gut = beliefunit_shop(exx.bob, a23_str, knot=slash_str)
+    bob_gut = beliefunit_shop(exx.bob, a23_str, knot=exx.slash)
     bob_gut.add_voiceunit(exx.sue)
     casa_rope = bob_gut.make_l1_rope("casa")
     clean_rope = bob_gut.make_rope(casa_rope, "clean")

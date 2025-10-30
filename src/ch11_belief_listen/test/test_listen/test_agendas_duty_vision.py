@@ -17,7 +17,6 @@ from src.ch11_belief_listen.test._util.ch11_examples import (
     a23_eat_rope,
     a23_hungry_rope,
     a23_run_rope,
-    clean_str,
     cook_str,
     get_dakota_lessonfilehandler,
     get_dakota_rope,
@@ -42,7 +41,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_BeliefWhenNo_part
     yao_duty.set_voice_respect(zia_pool)
 
     zia_vision = beliefunit_shop(exx.zia, a23_str)
-    zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.yao)
@@ -80,7 +79,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Belief(
     yao_duty.set_voice_respect(zia_pool)
 
     zia_vision = beliefunit_shop(exx.zia, a23_str)
-    zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
@@ -220,7 +219,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
     )
 
     zia_vision = beliefunit_shop(exx.zia, a23_str)
-    zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
@@ -316,7 +315,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
     )
 
     zia_vision = beliefunit_shop(exx.zia, a23_str)
-    zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
@@ -377,7 +376,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToBelief_duty_AndNotBelief_v
 
     # Save Zia to visions
     zia_vision = beliefunit_shop(exx.zia, a23_str)
-    zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
@@ -443,9 +442,7 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcBeliefNotSpeakerSe
     yao_old_vision = get_example_yao_speaker()
     assert yao_old_vision.plan_exists(a23_run_rope()) is False
     assert yao_old_vision.plan_exists(a23_clean_rope()) is False
-    yao_old_vision.set_plan_obj(
-        planunit_shop(clean_str(), pledge=True), a23_casa_rope()
-    )
+    yao_old_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     save_vision_belief(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.belief_name,

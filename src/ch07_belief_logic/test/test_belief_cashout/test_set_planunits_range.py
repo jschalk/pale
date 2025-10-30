@@ -4,6 +4,7 @@ from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_with_4_levels_and_2reasons,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_set_plantree_range_attrs_SetsInitialPlan_gogo_calc_stop_calc_UnitDoesNotErrorWithEmptyBeliefUnit():
@@ -457,15 +458,14 @@ def test_BeliefUnit_set_plantree_range_attrs_SetsDescendentPlan_gogo_calc_stop_c
 
 def test_BeliefUnit_set_plantree_range_attrs_SetsDescendentPlan_When_knot_IsNonDefault():
     # ESTABLISH
-    slash_str = "/"
-    yao_belief = beliefunit_shop("Yao", knot=slash_str)
+    yao_belief = beliefunit_shop("Yao", knot=exx.slash)
     root_rope = yao_belief.planroot.get_plan_rope()
     ziet0_str = "ziet0"
     ziet0_rope = yao_belief.make_l1_rope(ziet0_str)
     ziet0_begin = 7
     ziet0_close = 31
     ziet0_plan = planunit_shop(
-        ziet0_str, begin=ziet0_begin, close=ziet0_close, knot=slash_str
+        ziet0_str, begin=ziet0_begin, close=ziet0_close, knot=exx.slash
     )
     yao_belief.set_l1_plan(ziet0_plan)
 

@@ -5,9 +5,8 @@ from src.ref.keywords import ExampleStrs as exx
 
 def get_mop_with_no_reason_beliefunit_example() -> BeliefUnit:
     bob_belief = _example_empty_bob_beliefunit()
-    mop_str = "mop"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
-    mop_rope = bob_belief.make_rope(casa_rope, mop_str)
+    mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
     bob_belief.add_plan(mop_rope, pledge=True)
     return bob_belief
 
@@ -15,14 +14,12 @@ def get_mop_with_no_reason_beliefunit_example() -> BeliefUnit:
 def get_bob_mop_reason_beliefunit_example() -> BeliefUnit:
     bob_belief = _example_empty_bob_beliefunit()
     floor_str = "floor situation"
-    clean_str = "clean"
     dirty_str = "dirty"
-    mop_str = "mop"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
     floor_rope = bob_belief.make_rope(casa_rope, floor_str)
-    clean_rope = bob_belief.make_rope(floor_rope, clean_str)
+    clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
-    mop_rope = bob_belief.make_rope(casa_rope, mop_str)
+    mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
     bob_belief.add_plan(floor_rope)
     bob_belief.add_plan(clean_rope)
     bob_belief.add_plan(dirty_rope)

@@ -18,7 +18,6 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_LessonFileHandler_default_gut_belief_ReturnsObj():
     # ESTABLISH
-    slash_str = "/"
     x_fund_pool = 9000000
     pnine_float = 0.9
     pfour_float = 0.4
@@ -26,7 +25,7 @@ def test_LessonFileHandler_default_gut_belief_ReturnsObj():
         env_dir(),
         "amy23",
         exx.sue,
-        knot=slash_str,
+        knot=exx.slash,
         fund_pool=x_fund_pool,
         fund_grain=pnine_float,
         respect_grain=pnine_float,

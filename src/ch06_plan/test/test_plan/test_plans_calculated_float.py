@@ -1,5 +1,6 @@
 from src.ch06_plan.plan import get_rangeunit_from_lineage_of_plans, planunit_shop
 from src.ch06_plan.range_toolbox import RangeUnit
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario0_EmptyList():
@@ -15,8 +16,7 @@ def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario0_EmptyList():
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario1_EmptyPlanUnit():
     # ESTABLISH
-    wk_str = "wk"
-    wk_plan = planunit_shop(wk_str)
+    wk_plan = planunit_shop(exx.wk)
     x_rangeunit = RangeUnit(3, 8)
 
     # WHEN / THEN
@@ -30,9 +30,8 @@ def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario1_EmptyPlanUnit(
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario2_1PlanUnit_addin():
     # ESTABLISH
-    wk_str = "wk"
     wk_addin = 5
-    wk_plan = planunit_shop(wk_str, addin=wk_addin)
+    wk_plan = planunit_shop(exx.wk, addin=wk_addin)
     old_gogo = 3
     old_stop = 8
     old_rangeunit = RangeUnit(old_gogo, old_stop)
@@ -51,9 +50,8 @@ def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario2_1PlanUnit_addi
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario3_2PlanUnit_addin():
     # ESTABLISH
-    wk_str = "wk"
     wk_addin = 5
-    wk_plan = planunit_shop(wk_str, addin=wk_addin)
+    wk_plan = planunit_shop(exx.wk, addin=wk_addin)
     tue_addin = 7
     tue_plan = planunit_shop("Tue", addin=tue_addin)
     old_gogo = 3
@@ -74,9 +72,8 @@ def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario3_2PlanUnit_addi
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario4_2PlanUnit_numor():
     # ESTABLISH
-    wk_str = "wk"
     wk_numor = 5
-    wk_plan = planunit_shop(wk_str, numor=wk_numor)
+    wk_plan = planunit_shop(exx.wk, numor=wk_numor)
     tue_numor = 10
     tue_plan = planunit_shop("Tue", numor=tue_numor)
     old_gogo = 3
@@ -98,9 +95,8 @@ def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario4_2PlanUnit_numo
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario5_2PlanUnit_denom():
     # ESTABLISH
-    wk_str = "wk"
     wk_denom = 5
-    wk_plan = planunit_shop(wk_str, denom=wk_denom)
+    wk_plan = planunit_shop(exx.wk, denom=wk_denom)
     tue_denom = 2
     tue_plan = planunit_shop("Tue", denom=tue_denom)
     old_gogo = 30
@@ -125,9 +121,8 @@ def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario5_2PlanUnit_deno
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario6_2PlanUnit_denom_morph():
     # ESTABLISH
-    wk_str = "wk"
     wk_denom = 50
-    wk_plan = planunit_shop(wk_str, denom=wk_denom, morph=True)
+    wk_plan = planunit_shop(exx.wk, denom=wk_denom, morph=True)
     tue_denom = 20
     tue_plan = planunit_shop("Tue", denom=tue_denom, morph=True)
     old_gogo = 175
@@ -151,9 +146,8 @@ def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario6_2PlanUnit_deno
 
 def test_get_rangeunit_from_lineage_of_plans_ReturnsObj_Scenario7_Zero():
     # ESTABLISH
-    wk_str = "wk"
     wk_denom = 50
-    wk_plan = planunit_shop(wk_str, denom=wk_denom, morph=True)
+    wk_plan = planunit_shop(exx.wk, denom=wk_denom, morph=True)
     tue_denom = 20
     tue_plan = planunit_shop("Tue", denom=tue_denom, morph=True)
     ancestor_gogo = 0

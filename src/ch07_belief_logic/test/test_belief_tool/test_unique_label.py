@@ -20,8 +20,7 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabe
     a23_str = "Amy23"
     sue_belief = beliefunit_shop("Sue", a23_str)
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    mop_str = "mop"
-    mop_rope = sue_belief.make_rope(casa_rope, mop_str)
+    mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
     sue_belief.add_plan(mop_rope)
 
     # WHEN
@@ -32,7 +31,7 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabe
     assert unique_short_ropes == {
         root_rope: a23_str,
         casa_rope: exx.casa,
-        mop_rope: mop_str,
+        mop_rope: exx.mop,
     }
 
 
@@ -41,11 +40,10 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario2_PlansWithCommonLabe
     a23_str = "Amy23"
     sue_belief = beliefunit_shop("Sue", a23_str)
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    mop_str = "mop"
-    casa_mop_rope = sue_belief.make_rope(casa_rope, mop_str)
+    casa_mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
     sports_str = "sports"
     sports_rope = sue_belief.make_l1_rope(sports_str)
-    sports_mop_rope = sue_belief.make_rope(sports_rope, mop_str)
+    sports_mop_rope = sue_belief.make_rope(sports_rope, exx.mop)
     sue_belief.add_plan(casa_mop_rope)
     sue_belief.add_plan(sports_mop_rope)
 
@@ -55,12 +53,12 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario2_PlansWithCommonLabe
     # THEN
     root_rope = sue_belief.planroot.get_plan_rope()
     knot = sue_belief.knot
-    expected_short_casa_mop = f"{exx.casa}{knot}{mop_str}"
+    expected_short_casa_mop = f"{exx.casa}{knot}{exx.mop}"
     assert unique_short_ropes.get(casa_mop_rope) == expected_short_casa_mop
     assert unique_short_ropes == {
         root_rope: a23_str,
         casa_rope: exx.casa,
         casa_mop_rope: expected_short_casa_mop,
         sports_rope: sports_str,
-        sports_mop_rope: f"{sports_str}{knot}{mop_str}",
+        sports_mop_rope: f"{sports_str}{knot}{exx.mop}",
     }

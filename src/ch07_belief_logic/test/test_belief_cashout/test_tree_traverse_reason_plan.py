@@ -282,10 +282,9 @@ def test_BeliefUnit_ReasonUnits_set_casePlanWithDenomSetsCaseDivision():
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     ziet_str = "ziet"
     ziet_rope = sue_belief.make_l1_rope(ziet_str)
-    wk_str = "wk"
-    wk_rope = sue_belief.make_rope(ziet_rope, wk_str)
+    wk_rope = sue_belief.make_rope(ziet_rope, exx.wk)
     sue_belief.set_l1_plan(planunit_shop(ziet_str, begin=100, close=2000))
-    sue_belief.set_plan_obj(planunit_shop(wk_str, denom=7), parent_rope=ziet_rope)
+    sue_belief.set_plan_obj(planunit_shop(exx.wk, denom=7), parent_rope=ziet_rope)
 
     # WHEN
     sue_belief.edit_plan_attr(

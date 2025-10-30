@@ -196,14 +196,13 @@ def test_planunit_shop_Allows_doesNotAllow_starToBeNegative():
 
 def test_planunit_shop_ReturnsObj_Given_healerunit_Parameter():
     # ESTABLISH
-    clean_str = "clean"
     x_healerunit = healerunit_shop({"Sue", "Yao"})
     x_problem_bool = True
     x_fund_grain = 88
 
     # WHEN
     x_planunit = planunit_shop(
-        clean_str,
+        exx.clean,
         healerunit=x_healerunit,
         problem_bool=x_problem_bool,
         fund_grain=x_fund_grain,
@@ -271,11 +270,10 @@ def test_PlanUnit_set_knot_SetsAttr():
     casa_plan.set_parent_rope("")
 
     # WHEN
-    slash_str = "/"
-    casa_plan.set_knot(slash_str)
+    casa_plan.set_knot(exx.slash)
 
     # THEN
-    assert casa_plan.knot == slash_str
+    assert casa_plan.knot == exx.slash
 
 
 def test_PlanUnit_get_obj_key_ReturnsObj():
@@ -294,29 +292,27 @@ def test_PlanUnit_get_obj_key_ReturnsObj():
 def test_PlanUnit_get_rope_ReturnsObj():
     # ESTABLISH
     round_str = "round_stuff"
-    slash_str = "/"
-    round_rope = create_rope("Amy23", round_str, knot=slash_str)
+    round_rope = create_rope("Amy23", round_str, knot=exx.slash)
     ball_str = "ball"
 
     # WHEN
-    ball_plan = planunit_shop(ball_str, parent_rope=round_rope, knot=slash_str)
+    ball_plan = planunit_shop(ball_str, parent_rope=round_rope, knot=exx.slash)
 
     # THEN
-    ball_rope = create_rope(round_rope, ball_str, knot=slash_str)
+    ball_rope = create_rope(round_rope, ball_str, knot=exx.slash)
     assert ball_plan.get_plan_rope() == ball_rope
 
 
 def test_PlanUnit_set_parent_rope_SetsAttr():
     # ESTABLISH
     round_str = "round_stuff"
-    slash_str = "/"
-    round_rope = create_rope("Amy23", round_str, knot=slash_str)
+    round_rope = create_rope("Amy23", round_str, knot=exx.slash)
     ball_str = "ball"
-    ball_plan = planunit_shop(ball_str, parent_rope=round_rope, knot=slash_str)
+    ball_plan = planunit_shop(ball_str, parent_rope=round_rope, knot=exx.slash)
     assert ball_plan.parent_rope == round_rope
 
     # WHEN
-    sports_rope = create_rope("Amy23", "sports", knot=slash_str)
+    sports_rope = create_rope("Amy23", "sports", knot=exx.slash)
     ball_plan.set_parent_rope(parent_rope=sports_rope)
 
     # THEN

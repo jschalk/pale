@@ -15,8 +15,7 @@ from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 
 def test_ReasonCore_Exists():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wed_str = "wed"
     wed_rope = create_rope(wk_rope, wed_str)
     wed_case = caseunit_shop(reason_state=wed_rope)
@@ -42,21 +41,19 @@ def test_ReasonCore_Exists():
 
 def test_reasoncore_shop_ReturnsAttrWith_knot():
     # ESTABLISH
-    slash_str = "/"
-    casa_rope = create_rope("Amy23", exx.casa, knot=slash_str)
+    casa_rope = create_rope("Amy23", exx.casa, knot=exx.slash)
     print(f"{casa_rope=} ")
 
     # WHEN
-    casa_reason = reasonheir_shop(casa_rope, knot=slash_str)
+    casa_reason = reasonheir_shop(casa_rope, knot=exx.slash)
 
     # THEN
-    assert casa_reason.knot == slash_str
+    assert casa_reason.knot == exx.slash
 
 
 def test_ReasonHeir_Exists():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wed_str = "wed"
     wed_rope = create_rope(wk_rope, wed_str)
     wed_case = caseunit_shop(reason_state=wed_rope)
@@ -121,8 +118,7 @@ def test_ReasonHeir_clear_SetsAttrs():
 def test_ReasonHeir_set_reason_active_Setsreason_active():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     fri_str = "fri"
     fri_rope = create_rope(wk_rope, fri_str)
     thu_str = "thur"
@@ -167,8 +163,7 @@ def test_ReasonHeir_set_reason_active_Setsreason_active():
 
 def test_ReasonHeir_set_reason_active_EmptyFactSetsreason_active():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wed_str = "wed"
     wed_rope = create_rope(wk_rope, wed_str)
     wed_case = caseunit_shop(reason_state=wed_rope)
@@ -185,8 +180,7 @@ def test_ReasonHeir_set_reason_active_EmptyFactSetsreason_active():
 
 def test_ReasonHeir_set_heir_active_SetsAttr():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasonheir_shop(reason_context=wk_rope)
     assert wk_reason.parent_heir_active is None
 
@@ -199,8 +193,7 @@ def test_ReasonHeir_set_heir_active_SetsAttr():
 
 def test_ReasonHeir_set_reason_active_BeliefTrueSets_reason_activeTrue():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasonheir_shop(reason_context=wk_rope, active_requisite=True)
     wk_reason.set_heir_active(bool_x=True)
     assert wk_reason.reason_active is None
@@ -214,8 +207,7 @@ def test_ReasonHeir_set_reason_active_BeliefTrueSets_reason_activeTrue():
 
 def test_ReasonHeir_set_reason_active_BeliefFalseSetsreason_activeTrue():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasonheir_shop(wk_rope, active_requisite=False)
     wk_reason.set_heir_active(bool_x=False)
     assert wk_reason.reason_active is None
@@ -229,8 +221,7 @@ def test_ReasonHeir_set_reason_active_BeliefFalseSetsreason_activeTrue():
 
 def test_ReasonHeir_set_reason_active_BeliefTrueSetsreason_activeFalse():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasonheir_shop(wk_rope, active_requisite=True)
     wk_reason.set_heir_active(bool_x=False)
     assert wk_reason.reason_active is None
@@ -244,8 +235,7 @@ def test_ReasonHeir_set_reason_active_BeliefTrueSetsreason_activeFalse():
 
 def test_ReasonHeir_set_reason_active_BeliefNoneSetsreason_activeFalse():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasonheir_shop(wk_rope, active_requisite=True)
     wk_reason.set_heir_active(bool_x=None)
     assert wk_reason.reason_active is None
@@ -259,8 +249,7 @@ def test_ReasonHeir_set_reason_active_BeliefNoneSetsreason_activeFalse():
 
 def test_ReasonUnit_Exists():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wed_str = "wed"
     wed_rope = create_rope(wk_rope, wed_str)
     wed_case = caseunit_shop(reason_state=wed_rope)
@@ -286,8 +275,7 @@ def test_ReasonUnit_Exists():
 
 def test_reasonunit_shop_ReturnsObj():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
 
     # WHEN
     wk_reasonunit = reasonunit_shop(wk_rope)
@@ -299,8 +287,7 @@ def test_reasonunit_shop_ReturnsObj():
 
 def test_ReasonUnit_to_dict_ReturnsDictWithSinglethu_caseequireds():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wed_str = "wed"
     wed_rope = create_rope(wk_rope, wed_str)
     wed_case = caseunit_shop(reason_state=wed_rope)
@@ -322,8 +309,7 @@ def test_ReasonUnit_to_dict_ReturnsDictWithSinglethu_caseequireds():
 
 def test_ReasonUnit_to_dict_ReturnsDictWith_active_requisite():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_active_requisite = True
     wk_reason = reasonunit_shop(
         wk_rope,
@@ -345,8 +331,7 @@ def test_ReasonUnit_to_dict_ReturnsDictWith_active_requisite():
 
 def test_ReasonUnit_to_dict_ReturnsDictWithTwoCasesReasons():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wed_str = "wed"
     wed_rope = create_rope(wk_rope, wed_str)
     thu_str = "thur"
@@ -374,8 +359,7 @@ def test_ReasonUnit_to_dict_ReturnsDictWithTwoCasesReasons():
 
 def test_get_reasonunits_from_dict_ReturnsObj():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_active_requisite = False
     wk_reasonunit = reasonunit_shop(
         wk_rope,
@@ -401,8 +385,7 @@ def test_get_reasonunits_from_dict_ReturnsObj():
 
 def test_ReasonHeir_correctSetsPledgeState():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     range_3_to_6_case = caseunit_shop(
         reason_state=wk_rope, reason_lower=3, reason_upper=6
     )
@@ -437,8 +420,7 @@ def test_ReasonHeir_correctSetsPledgeState():
 
 def test_ReasonCore_get_cases_count():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
 
     # WHEN
     wk_reason = reasoncore_shop(reason_context=wk_rope)
@@ -457,8 +439,7 @@ def test_ReasonCore_get_cases_count():
 
 def test_ReasonCore_set_case_SetsCase():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasoncore_shop(reason_context=wk_rope)
     assert wk_reason.get_cases_count() == 0
 
@@ -476,8 +457,7 @@ def test_ReasonCore_set_case_SetsCase():
 
 def test_ReasonCore_case_exists_ReturnsObj():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasoncore_shop(reason_context=wk_rope)
     assert not wk_reason.case_exists(wk_rope)
 
@@ -505,8 +485,7 @@ def test_ReasonCore_get_single_premis_ReturnsObj():
 
 def test_ReasonCore_del_case_DeletesCase():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_reason = reasoncore_shop(reason_context=wk_rope)
     wk_reason.set_case(case=wk_rope, reason_lower=3, reason_upper=6)
     assert wk_reason.get_cases_count() == 1
@@ -520,10 +499,9 @@ def test_ReasonCore_del_case_DeletesCase():
 
 def test_ReasonCore_find_replace_rope_casas():
     # ESTABLISH
-    wk_str = "wk"
     sun_str = "Sun"
     old_rope = create_rope("old_fun")
-    old_wk_rope = create_rope(old_rope, wk_str)
+    old_wk_rope = create_rope(old_rope, exx.wk)
     old_sun_rope = create_rope(old_wk_rope, sun_str)
     x_reason = reasoncore_shop(reason_context=old_wk_rope)
     x_reason.set_case(case=old_sun_rope)
@@ -538,7 +516,7 @@ def test_ReasonCore_find_replace_rope_casas():
     x_reason.find_replace_rope(old_rope=old_rope, new_rope=new_rope)
 
     # THEN
-    new_wk_rope = create_rope(new_rope, wk_str)
+    new_wk_rope = create_rope(new_rope, exx.wk)
     new_sun_rope = create_rope(new_wk_rope, sun_str)
     assert x_reason.reason_context == new_wk_rope
     assert len(x_reason.cases) == 1
@@ -550,14 +528,12 @@ def test_ReasonCore_find_replace_rope_casas():
 
 def test_ReasonCore_set_knot_SetsAttrs():
     # ESTABLISH
-    wk_str = "wk"
     sun_str = "Sun"
-    slash_str = "/"
-    slash_wk_rope = create_rope("Amy23", wk_str, knot=slash_str)
-    slash_sun_rope = create_rope(slash_wk_rope, sun_str, knot=slash_str)
-    wk_reasonunit = reasoncore_shop(slash_wk_rope, knot=slash_str)
+    slash_wk_rope = create_rope("Amy23", exx.wk, knot=exx.slash)
+    slash_sun_rope = create_rope(slash_wk_rope, sun_str, knot=exx.slash)
+    wk_reasonunit = reasoncore_shop(slash_wk_rope, knot=exx.slash)
     wk_reasonunit.set_case(slash_sun_rope)
-    assert wk_reasonunit.knot == slash_str
+    assert wk_reasonunit.knot == exx.slash
     assert wk_reasonunit.reason_context == slash_wk_rope
     assert wk_reasonunit.cases.get(slash_sun_rope).reason_state == slash_sun_rope
 
@@ -567,7 +543,7 @@ def test_ReasonCore_set_knot_SetsAttrs():
 
     # THEN
     assert wk_reasonunit.knot == colon_str
-    colon_wk_rope = create_rope("Amy23", wk_str, knot=colon_str)
+    colon_wk_rope = create_rope("Amy23", exx.wk, knot=colon_str)
     colon_sun_rope = create_rope(colon_wk_rope, sun_str, knot=colon_str)
     assert wk_reasonunit.reason_context == colon_wk_rope
     assert wk_reasonunit.cases.get(colon_sun_rope) is not None

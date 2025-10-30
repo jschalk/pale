@@ -13,7 +13,6 @@ from src.ch11_belief_listen.test._util.ch11_examples import (
     a23_eat_rope,
     a23_full_rope,
     a23_hungry_rope,
-    clean_str,
     get_example_bob_speaker,
     get_example_yao_speaker,
     get_example_zia_speaker,
@@ -93,7 +92,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
     )
 
     zia_vision = get_example_zia_speaker()
-    zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
     clean_planunit.laborunit.add_party(exx.yao)
     save_vision_belief(
@@ -393,8 +392,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     casa_rope = sue_speaker.make_l1_rope(casa_str)
 #     situation_str = "situation"
 #     situation_rope = sue_speaker.make_rope(casa_rope, situation_str)
-#     clean_str = "clean"
-#     a23_clean_rope = sue_speaker.make_rope(situation_rope, clean_str)
+#     a23_clean_rope = sue_speaker.make_rope(situation_rope, exx.clean)
 #     dirty_str = "dirty"
 #     dirty_rope = sue_speaker.make_rope(situation_rope, dirty_str)
 #     sweep_str = "sweep"
@@ -402,7 +400,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 
 #     sue_speaker.add_voiceunit(exx.yao)
 #     sue_speaker.set_voice_respect(20)
-#     sue_speaker.set_plan_obj(planunit_shop(clean_str), situation_rope)
+#     sue_speaker.set_plan_obj(planunit_shop(exx.clean), situation_rope)
 #     sue_speaker.set_plan_obj(planunit_shop(dirty_str), situation_rope)
 #     sue_speaker.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
 #     sue_speaker.edit_plan_attr(
@@ -443,8 +441,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     casa_rope = yao_duty.make_l1_rope(casa_str)
 #     situation_str = "situation"
 #     situation_rope = yao_duty.make_rope(casa_rope, situation_str)
-#     clean_str = "clean"
-#     a23_clean_rope = yao_duty.make_rope(situation_rope, clean_str)
+#     a23_clean_rope = yao_duty.make_rope(situation_rope, exx.clean)
 #     dirty_str = "dirty"
 #     dirty_rope = yao_duty.make_rope(situation_rope, dirty_str)
 #     sweep_str = "sweep"
@@ -455,7 +452,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     running_rope = yao_duty.make_rope(fridge_rope, running_str)
 
 #     yao_duty.set_plan_obj(planunit_shop(running_str), fridge_rope)
-#     yao_duty.set_plan_obj(planunit_shop(clean_str), situation_rope)
+#     yao_duty.set_plan_obj(planunit_shop(exx.clean), situation_rope)
 #     yao_duty.set_plan_obj(planunit_shop(dirty_str), situation_rope)
 #     yao_duty.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
 #     yao_duty.edit_plan_attr(

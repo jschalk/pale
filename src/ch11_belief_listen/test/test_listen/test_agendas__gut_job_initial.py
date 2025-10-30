@@ -21,7 +21,6 @@ from src.ch11_belief_listen.test._util.ch11_examples import (
     a23_cook_rope,
     a23_eat_rope,
     a23_hungry_rope,
-    clean_str,
     cook_str,
     get_example_bob_speaker,
     get_example_yao_speaker,
@@ -45,7 +44,7 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToBeliefWhenNo_par
     save_gut_file(moment_mstr_dir, yao_gut)
 
     zia_gut = beliefunit_shop(exx.zia, a23_str)
-    zia_gut.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
     save_gut_file(moment_mstr_dir, zia_gut)
@@ -76,7 +75,7 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToBelief(
     a23_str = "amy23"
     save_gut_file(moment_mstr_dir, yao_gut)
     zia_gut = beliefunit_shop(exx.zia, a23_str)
-    zia_gut.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_gut.get_plan_obj(a23_clean_rope())
@@ -174,7 +173,7 @@ def test_listen_to_agendas_create_init_job_from_guts_ProcessesIrrationalBelief(
     save_gut_file(moment_mstr_dir, yao_gut)
 
     zia_gut = beliefunit_shop(exx.zia, a23_str)
-    zia_gut.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_gut.get_plan_obj(a23_clean_rope())
@@ -250,7 +249,7 @@ def test_listen_to_agendas_create_init_job_from_guts_ProcessesMissingDebtorBelie
     save_gut_file(moment_mstr_dir, yao_gut)
 
     zia_gut = beliefunit_shop(exx.zia, a23_str)
-    zia_gut.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
+    zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_gut.get_plan_obj(a23_clean_rope())

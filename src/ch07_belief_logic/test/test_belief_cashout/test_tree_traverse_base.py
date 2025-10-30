@@ -627,10 +627,9 @@ def test_BeliefUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
 def test_BeliefUnit_cashout_Sets_planroot_factheir_With_range_factheirs():
     # ESTABLISH
     yao_belief = beliefunit_shop(exx.yao)
-    wk_str = "wk"
-    wk_rope = yao_belief.make_l1_rope(wk_str)
+    wk_rope = yao_belief.make_l1_rope(exx.wk)
     wk_addin = 10
-    wk_plan = planunit_shop(wk_str, begin=10, close=15, addin=wk_addin)
+    wk_plan = planunit_shop(exx.wk, begin=10, close=15, addin=wk_addin)
     yao_belief.set_l1_plan(wk_plan)
     tue_str = "Tue"
     tue_rope = yao_belief.make_rope(wk_rope, tue_str)
@@ -678,10 +677,9 @@ def test_BeliefUnit_cashout_Sets_planroot_factheir_With_range_factheirs():
 def test_BeliefUnit_cashout_SetsPlanUnit_factheir_With_range_factheirs():
     # ESTABLISH
     yao_belief = beliefunit_shop(exx.yao)
-    wk_str = "wk"
-    wk_rope = yao_belief.make_l1_rope(wk_str)
+    wk_rope = yao_belief.make_l1_rope(exx.wk)
     wk_addin = 10
-    wk_plan = planunit_shop(wk_str, begin=10, close=15, addin=wk_addin)
+    wk_plan = planunit_shop(exx.wk, begin=10, close=15, addin=wk_addin)
     yao_belief.set_l1_plan(wk_plan)
     tue_str = "Tue"
     tue_rope = yao_belief.make_rope(wk_rope, tue_str)

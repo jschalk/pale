@@ -320,23 +320,22 @@ def test_get_beliefunit_from_dict_ReturnsObj_knot_GroupExample():
 def test_get_beliefunit_from_dict_ReturnsObj_Scenario7_planroot_knot_IsApplied():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    slash_str = "/"
-    sue_belief = beliefunit_shop("Sue", knot=slash_str)
+    sue_belief = beliefunit_shop("Sue", knot=exx.slash)
     root_rope = sue_belief.planroot.get_plan_rope()
     hr_number_str = "hr_number"
     hr_number_rope = sue_belief.make_l1_rope(hr_number_str)
     sue_belief.add_plan(hr_number_rope)
-    assert sue_belief.knot == slash_str
-    assert sue_belief.get_plan_obj(root_rope).knot == slash_str
-    assert sue_belief.get_plan_obj(hr_number_rope).knot == slash_str
+    assert sue_belief.knot == exx.slash
+    assert sue_belief.get_plan_obj(root_rope).knot == exx.slash
+    assert sue_belief.get_plan_obj(hr_number_rope).knot == exx.slash
 
     # WHEN
     after_bob_belief = get_beliefunit_from_dict(sue_belief.to_dict())
 
     # THEN
-    assert after_bob_belief.knot == slash_str
-    assert after_bob_belief.get_plan_obj(root_rope).knot == slash_str
-    assert after_bob_belief.get_plan_obj(hr_number_rope).knot == slash_str
+    assert after_bob_belief.knot == exx.slash
+    assert after_bob_belief.get_plan_obj(root_rope).knot == exx.slash
+    assert after_bob_belief.get_plan_obj(hr_number_rope).knot == exx.slash
 
 
 def test_get_beliefunit_from_dict_ExportsBeliefUnit_star():

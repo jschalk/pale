@@ -104,8 +104,7 @@ def test_BeliefUnit_get_relevant_ropes_ReturnsReasonUnitreason_contextAndDescend
     situation_str = "cleaniness situation"
     situation_rope = x_belief.make_rope(casa_rope, situation_str)
 
-    clean_str = "clean"
-    clean_rope = x_belief.make_rope(situation_rope, clean_str)
+    clean_rope = x_belief.make_rope(situation_rope, exx.clean)
 
     very_much_str = "very_much"
     very_much_rope = x_belief.make_rope(clean_rope, very_much_str)
@@ -184,9 +183,8 @@ def test_BeliefUnit_get_inheritor_plan_list_ReturnsObj_Scenario0():
     # ESTABLISH
     yao_beliefunit = beliefunit_shop("Yao")
     tech_rope = yao_beliefunit.make_l1_rope("tech")
-    wk_str = "wk"
-    wk_rope = yao_beliefunit.make_rope(tech_rope, wk_str)
-    yao_beliefunit.set_plan_obj(planunit_shop(wk_str, begin=0, close=10800), tech_rope)
+    wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
+    yao_beliefunit.set_plan_obj(planunit_shop(exx.wk, begin=0, close=10800), tech_rope)
     mon_str = "Mon"
     mon_rope = yao_beliefunit.make_rope(wk_rope, mon_str)
     yao_beliefunit.set_plan_obj(planunit_shop(mon_str), wk_rope)

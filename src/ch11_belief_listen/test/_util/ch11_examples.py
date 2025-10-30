@@ -29,10 +29,6 @@ def full_str() -> str:
     return "full"
 
 
-def clean_str() -> str:
-    return "clean"
-
-
 def run_str() -> str:
     return "run"
 
@@ -58,7 +54,7 @@ def a23_full_rope() -> RopeTerm:
 
 
 def a23_clean_rope() -> RopeTerm:
-    return create_rope(a23_casa_rope(), clean_str())
+    return create_rope(a23_casa_rope(), exx.clean)
 
 
 def a23_run_rope() -> RopeTerm:

@@ -240,13 +240,12 @@ def test_BeliefUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
     print(f"{situation_plan.star=}")
     print("This should raise error: 'Planunit._'")
 
-    clean_str = "clean"
-    clean_rope = sue_belief.make_rope(situation_rope, clean_str)
+    clean_rope = sue_belief.make_rope(situation_rope, exx.clean)
     very_str = "very_much"
     mod_str = "moderately"
     dirty_str = "dirty"
 
-    sue_belief.set_plan_obj(planunit_shop(clean_str, star=0), situation_rope)
+    sue_belief.set_plan_obj(planunit_shop(exx.clean, star=0), situation_rope)
     sue_belief.set_plan_obj(planunit_shop(very_str), clean_rope)
     sue_belief.set_plan_obj(planunit_shop(mod_str, star=2), clean_rope)
     sue_belief.set_plan_obj(planunit_shop(dirty_str), clean_rope)

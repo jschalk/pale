@@ -85,13 +85,12 @@ def test_lessonfilehandler_shop_ReturnsObjWhenEmpty():
 
 def test_lessonfilehandler_shop_RaisesErrorIf_belief_name_Contains_knot():
     # ESTABLISH
-    slash_str = "/"
-    bob_str = f"Bob{slash_str}Sue"
+    bob_str = f"Bob{exx.slash}Sue"
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        lessonfilehandler_shop(None, None, belief_name=bob_str, knot=slash_str)
+        lessonfilehandler_shop(None, None, belief_name=bob_str, knot=exx.slash)
     assertion_fail_str = (
-        f"'{bob_str}' must be a LabelTerm. Cannot contain knot: '{slash_str}'"
+        f"'{bob_str}' must be a LabelTerm. Cannot contain knot: '{exx.slash}'"
     )
     assert str(excinfo.value) == assertion_fail_str

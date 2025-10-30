@@ -134,8 +134,7 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario4_Time_creg():
     thu_plan = sue_belief.get_plan_obj(thu_rope)
 
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    mop_str = "mop"
-    mop_rope = sue_belief.make_rope(casa_rope, mop_str)
+    mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
     sue_belief.add_plan(mop_rope, pledge=True)
     sue_belief.edit_plan_attr(
         mop_rope,

@@ -243,13 +243,12 @@ def test_PlanUnit_set_range_inheritors_factheirs_SetsAttrNoParameters():
 
 def test_PlanUnit_set_range_inheritors_factheirs_SetsAttrNewFactHeir():
     # ESTABLISH
-    wk_str = "wk"
     amy_str = "Amy23"
-    wk_rope = create_rope(amy_str, wk_str)
+    wk_rope = create_rope(amy_str, exx.wk)
     wk_reason_lower = 3
     wk_reason_upper = 7
     wk_addin = 10
-    wk_plan = planunit_shop(wk_str, parent_rope=amy_str, addin=wk_addin)
+    wk_plan = planunit_shop(exx.wk, parent_rope=amy_str, addin=wk_addin)
     wk_factheir = factheir_shop(wk_rope, wk_rope, wk_reason_lower, wk_reason_upper)
     tue_str = "Tue"
     tue_rope = create_rope(wk_rope, tue_str)
@@ -286,8 +285,7 @@ def test_PlanUnit_set_range_inheritors_factheirs_SetsAttrNewFactHeir():
 
 def test_PlanUnit_set_reasonunit_SetsAttr():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     dirty_str = "dirty"
     assert not clean_plan.reasonunits.get(dirty_str)
 
@@ -303,8 +301,7 @@ def test_PlanUnit_set_reasonunit_SetsAttr():
 
 def test_PlanUnit_reasonunit_exists_ReturnsObj():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     dirty_str = "dirty"
     assert not clean_plan.reasonunit_exists(dirty_str)
 
@@ -317,8 +314,7 @@ def test_PlanUnit_reasonunit_exists_ReturnsObj():
 
 def test_PlanUnit_get_reasonunit_ReturnsObj():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     dirty_str = "dirty"
     clean_plan.set_reasonunit(reasonunit_shop(reason_context=dirty_str))
 
@@ -332,8 +328,7 @@ def test_PlanUnit_get_reasonunit_ReturnsObj():
 
 def test_PlanUnit_get_reasonheir_ReturnsObj_Scenario0():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     dirty_str = "dirty"
     x_reasonheir = reasonheir_shop(reason_context=dirty_str)
     x_reasonheirs = {x_reasonheir.reason_context: x_reasonheir}
@@ -349,8 +344,7 @@ def test_PlanUnit_get_reasonheir_ReturnsObj_Scenario0():
 
 def test_PlanUnit_get_reasonheir_ReturnsObj_Scenario1_belief_plan_IsEmpty():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     dirty_str = "dirty"
     x_reasonheir = reasonheir_shop(dirty_str)
     x_reasonheirs = {x_reasonheir.reason_context: x_reasonheir}
@@ -366,8 +360,7 @@ def test_PlanUnit_get_reasonheir_ReturnsObj_Scenario1_belief_plan_IsEmpty():
 
 def test_PlanUnit_set_plan_active_SetsAttr_Scenario0_plan_active_hx_ToNonEmpty():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     assert clean_plan.plan_active_hx == {}
 
     # WHEN
@@ -378,8 +371,7 @@ def test_PlanUnit_set_plan_active_SetsAttr_Scenario0_plan_active_hx_ToNonEmpty()
 
 def test_PlanUnit_set_plan_active_SetAttr_Scenario1_plan_active_hx_ResetToTrue():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     clean_plan.plan_active_hx = {0: True, 4: False}
     assert clean_plan.plan_active_hx != {0: True}
     # WHEN
@@ -390,8 +382,7 @@ def test_PlanUnit_set_plan_active_SetAttr_Scenario1_plan_active_hx_ResetToTrue()
 
 def test_PlanUnit_set_factunit_SetsAttr():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     dirty_str = "dirty"
     assert not clean_plan.factunits.get(dirty_str)
 
@@ -404,8 +395,7 @@ def test_PlanUnit_set_factunit_SetsAttr():
 
 def test_PlanUnit_factunit_exists_ReturnsObj():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     dirty_str = "dirty"
     assert not clean_plan.factunit_exists(dirty_str)
 
@@ -418,8 +408,7 @@ def test_PlanUnit_factunit_exists_ReturnsObj():
 
 # def test_PlanUnit_set_plan_active_IfFullactive_hxResetToFalse():
 #     # ESTABLISH
-# clean_str = "clean"
-# clean_plan = planunit_shop(clean_str)
+# clean_plan = planunit_shop(exx.clean)
 #     clean_plan.set_reason_case(
 #         reason_context="testing1,sec",
 #         case="testing1,sec,next",
@@ -437,8 +426,7 @@ def test_PlanUnit_factunit_exists_ReturnsObj():
 
 def test_PlanUnit_record_plan_active_hx_SetsAttr_plan_active_hx():
     # ESTABLISH
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str)
+    clean_plan = planunit_shop(exx.clean)
     assert clean_plan.plan_active_hx == {}
 
     # WHEN
