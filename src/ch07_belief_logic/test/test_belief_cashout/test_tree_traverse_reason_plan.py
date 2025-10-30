@@ -70,8 +70,7 @@ def test_BeliefUnit_reasonheirs_AreInheritedTo4LevelsFromRoot():
     casa_rope = a4_belief.make_l1_rope(exx.casa)
     wk_str = "sem_jours"
     wk_rope = a4_belief.make_l1_rope(wk_str)
-    wed_str = "Wed"
-    wed_rope = a4_belief.make_rope(wk_rope, wed_str)
+    wed_rope = a4_belief.make_rope(wk_rope, exx.wed)
 
     wed_case = caseunit_shop(reason_state=wed_rope)
     wed_case.case_active = False
@@ -137,8 +136,7 @@ def test_BeliefUnit_reasonheirs_AreInheritedTo4LevelsFromLevel2():
     casa_rope = a4_belief.make_l1_rope(exx.casa)
     wk_plan_label = "sem_jours"
     wk_rope = a4_belief.make_l1_rope(wk_plan_label)
-    wed_str = "Wed"
-    wed_rope = a4_belief.make_rope(wk_rope, wed_str)
+    wed_rope = a4_belief.make_rope(wk_rope, exx.wed)
 
     wed_case = caseunit_shop(reason_state=wed_rope)
     wed_case.case_active = False
@@ -208,8 +206,7 @@ def test_BeliefUnit_ReasonUnits_set_UnCoupledMethod():
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_str = "sem_jours"
     wk_rope = sue_belief.make_l1_rope(wk_str)
-    wed_str = "Wed"
-    wed_rope = sue_belief.make_rope(wk_rope, wed_str)
+    wed_rope = sue_belief.make_rope(wk_rope, exx.wed)
 
     # WHEN
     sue_belief.edit_plan_attr(casa_rope, reason_context=wk_rope, reason_case=wed_rope)
@@ -462,8 +459,7 @@ def test_BeliefUnit_ReasonUnits_PlanUnit_active_InfluencesReasonUnit_reason_acti
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     sem_jours_str = "sem_jours"
     sem_jours_rope = sue_belief.make_l1_rope(sem_jours_str)
-    wed_str = "Wed"
-    wed_rope = sue_belief.make_rope(sem_jours_rope, wed_str)
+    wed_rope = sue_belief.make_rope(sem_jours_rope, exx.wed)
     thu_str = "Thur"
     thu_rope = sue_belief.make_rope(sem_jours_rope, thu_str)
 

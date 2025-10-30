@@ -71,14 +71,13 @@ def get_beliefunit_with_4_levels() -> BeliefUnit:
     sun_str = "Sun"
     mon_str = "Mon"
     tue_str = "Tue"
-    wed_str = "Wed"
     thu_str = "Thur"
     fri_str = "Fri"
     sat_str = "Sat"
     sue_belief.set_plan_obj(planunit_shop(sun_str, star=20), wk_rope)
     sue_belief.set_plan_obj(planunit_shop(mon_str, star=20), wk_rope)
     sue_belief.set_plan_obj(planunit_shop(tue_str, star=20), wk_rope)
-    sue_belief.set_plan_obj(planunit_shop(wed_str, star=20), wk_rope)
+    sue_belief.set_plan_obj(planunit_shop(exx.wed, star=20), wk_rope)
     sue_belief.set_plan_obj(planunit_shop(thu_str, star=30), wk_rope)
     sue_belief.set_plan_obj(planunit_shop(fri_str, star=40), wk_rope)
     sue_belief.set_plan_obj(planunit_shop(sat_str, star=50), wk_rope)
@@ -111,8 +110,7 @@ def get_beliefunit_with_4_levels_and_2reasons() -> BeliefUnit:
     sue_belief = get_beliefunit_with_4_levels()
     wk_str = "sem_jours"
     wk_rope = sue_belief.make_l1_rope(wk_str)
-    wed_str = "Wed"
-    wed_rope = sue_belief.make_rope(wk_rope, wed_str)
+    wed_rope = sue_belief.make_rope(wk_rope, exx.wed)
     wk_reason = reasonunit_shop(wk_rope)
     wk_reason.set_case(wed_rope)
 
@@ -133,8 +131,7 @@ def get_beliefunit_with_4_levels_and_2reasons_2facts() -> BeliefUnit:
     sue_belief = get_beliefunit_with_4_levels_and_2reasons()
     wk_str = "sem_jours"
     wk_rope = sue_belief.make_l1_rope(wk_str)
-    wed_str = "Wed"
-    wed_rope = sue_belief.make_rope(wk_rope, wed_str)
+    wed_rope = sue_belief.make_rope(wk_rope, exx.wed)
     nation_str = "nation"
     nation_rope = sue_belief.make_l1_rope(nation_str)
     usa_str = "USA"

@@ -16,8 +16,7 @@ from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 def test_ReasonCore_Exists():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(reason_state=wed_rope)
     cases = {wed_case.reason_state: wed_case}
 
@@ -54,8 +53,7 @@ def test_reasoncore_shop_ReturnsAttrWith_knot():
 def test_ReasonHeir_Exists():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(reason_state=wed_rope)
     cases = {wed_case.reason_state: wed_case}
 
@@ -123,8 +121,7 @@ def test_ReasonHeir_set_reason_active_Setsreason_active():
     fri_rope = create_rope(wk_rope, fri_str)
     thu_str = "thur"
     thu_rope = create_rope(wk_rope, thu_str)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_noon_str = "noon"
     wed_noon_rope = create_rope(wed_rope, wed_noon_str)
     wed_case = caseunit_shop(reason_state=wed_rope)
@@ -164,8 +161,7 @@ def test_ReasonHeir_set_reason_active_Setsreason_active():
 def test_ReasonHeir_set_reason_active_EmptyFactSetsreason_active():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(reason_state=wed_rope)
     wed_cases = {wed_case.reason_state: wed_case}
     wk_reason = reasonheir_shop(reason_context=wk_rope, cases=wed_cases)
@@ -250,8 +246,7 @@ def test_ReasonHeir_set_reason_active_BeliefNoneSetsreason_activeFalse():
 def test_ReasonUnit_Exists():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(reason_state=wed_rope)
     cases = {wed_case.reason_state: wed_case}
 
@@ -288,8 +283,7 @@ def test_reasonunit_shop_ReturnsObj():
 def test_ReasonUnit_to_dict_ReturnsDictWithSinglethu_caseequireds():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(reason_state=wed_rope)
     wed_cases = {wed_case.reason_state: wed_case}
     wk_reason = reasonunit_shop(wk_rope, cases=wed_cases)
@@ -332,8 +326,7 @@ def test_ReasonUnit_to_dict_ReturnsDictWith_active_requisite():
 def test_ReasonUnit_to_dict_ReturnsDictWithTwoCasesReasons():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     thu_str = "thur"
     thu_rope = create_rope(wk_rope, thu_str)
     wed_case = caseunit_shop(reason_state=wed_rope)

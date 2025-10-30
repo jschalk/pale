@@ -123,8 +123,7 @@ def test_belief_edit_plan_label_ModifiesPlanReasonUnitsScenario1():
     sue_belief = get_beliefunit_with_4_levels_and_2reasons_2facts()
     old_sem_jour_str = "sem_jours"
     old_sem_jour_rope = sue_belief.make_l1_rope(old_sem_jour_str)
-    wed_str = "Wed"
-    old_wed_rope = sue_belief.make_rope(old_sem_jour_rope, wed_str)
+    old_wed_rope = sue_belief.make_rope(old_sem_jour_rope, exx.wed)
     casa_plan = sue_belief.get_plan_obj(sue_belief.make_l1_rope("casa"))
     # casa_wk_reason = reasonunit_shop(sem_jour, cases={wed_case.reason_state: wed_case})
     # nation_reason = reasonunit_shop(nation, cases={usa_case.reason_state: usa_case})
@@ -136,7 +135,7 @@ def test_belief_edit_plan_label_ModifiesPlanReasonUnitsScenario1():
     assert casa_sem_jour_reason.cases.get(old_wed_rope).reason_state == old_wed_rope
     new_sem_jour_str = "jours des sem"
     new_sem_jour_rope = sue_belief.make_l1_rope(new_sem_jour_str)
-    new_wed_rope = sue_belief.make_rope(new_sem_jour_rope, wed_str)
+    new_wed_rope = sue_belief.make_rope(new_sem_jour_rope, exx.wed)
     assert casa_plan.reasonunits.get(new_sem_jour_str) is None
 
     # WHEN

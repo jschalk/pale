@@ -16,7 +16,6 @@ class CommonExampleStrs(str, Enum):
     slash_str = "/"
     swim = "swim"
     wk_str = "wk"
-    wed_str = "Wed"
 
     def __str__(self):
         return self.value

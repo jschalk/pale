@@ -325,8 +325,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario0_WhenFactUnitIsNull():
 def test_CaseUnit_set_case_active_SetsAttr_Scenario1_case_active_OfSimple():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(wed_rope)
     belief_fact = factheir_shop(wk_rope, wed_rope)
     assert wed_case.case_active is None
@@ -341,8 +340,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario1_case_active_OfSimple():
 def test_CaseUnit_set_case_active_SetsAttr_Scenario2():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_after_str = "afternoon"
     wed_after_rope = create_rope(wed_rope, wed_after_str)
     wed_after_case = caseunit_shop(wed_after_rope)
@@ -359,8 +357,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario2():
 def test_CaseUnit_set_case_active_SetsAttr_Scenario3():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_noon_str = "noon"
     wed_noon_rope = create_rope(wed_rope, wed_noon_str)
     wed_case = caseunit_shop(wed_rope)
@@ -377,8 +374,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario3():
 def test_CaseUnit_set_case_active_SetsAttr_Scenario4():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     thu_str = "thur"
     thu_rope = create_rope(wk_rope, thu_str)
     wed_case = caseunit_shop(wed_rope)
@@ -398,8 +394,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario4():
 def test_CaseUnit_set_case_active_SetsAttr_Scenario5():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_cloudy_str = "cloudy"
     wed_cloudy_rope = create_rope(wed_rope, wed_cloudy_str)
     wed_rain_str = "rainy"
@@ -535,8 +530,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario6_When_is_segregate_IsTrue():
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario7_NotNull():
     # ESTABLISH
     wk_rope = create_rope("Amy23", exx.wk)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(wed_rope)
     wed_case.case_active = True
 

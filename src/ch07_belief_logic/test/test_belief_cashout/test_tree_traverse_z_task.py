@@ -87,8 +87,7 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
     sue_beliefunit = get_beliefunit_with_4_levels_and_2reasons()
     wk_str = "sem_jours"
     wk_rope = sue_beliefunit.make_l1_rope(wk_str)
-    wed_str = "Wed"
-    wed_rope = sue_beliefunit.make_rope(wk_rope, wed_str)
+    wed_rope = sue_beliefunit.make_rope(wk_rope, exx.wed)
     nation_str = "nation"
     nation_rope = sue_beliefunit.make_l1_rope(nation_str)
     france_str = "France"

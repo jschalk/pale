@@ -63,8 +63,7 @@ def test_PlanUnit_to_dict_ReturnsCompleteDict():
     # ESTABLISH
     amy_str = "Amy23"
     wk_rope = create_rope(amy_str, exx.wk)
-    wed_str = "Wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wed_rope = create_rope(wk_rope, exx.wed)
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     usa_str = "USA"

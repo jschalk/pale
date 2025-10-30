@@ -11,7 +11,7 @@ class ExampleStrs(str, Enum):
     slash = "/"
     sue = "Sue"
     swim = "swim"
-    wed_str = "Wed"
+    wed = "Wed"
     wk = "wk"
     xio = "Xio"
     yao = "Yao"

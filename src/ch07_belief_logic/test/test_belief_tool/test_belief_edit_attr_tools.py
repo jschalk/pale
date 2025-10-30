@@ -13,10 +13,10 @@ def test_belief_plan_reason_caseunit_set_obj_SetAttr_Scenario0_Pass_reason_case(
     bob_belief = beliefunit_shop(exx.bob, knot=exx.slash)
     casa_rope = bob_belief.make_l1_rope(exx.casa)
     wk_rope = bob_belief.make_l1_rope(exx.wk)
-    wed_rope = bob_belief.make_rope(wk_rope, exx.wed_str)
+    wed_rope = bob_belief.make_rope(wk_rope, exx.wed)
     bob_belief.set_l1_plan(planunit_shop(exx.casa))
     bob_belief.set_l1_plan(planunit_shop(exx.wk))
-    bob_belief.set_plan_obj(planunit_shop(exx.wed_str), wk_rope)
+    bob_belief.set_plan_obj(planunit_shop(exx.wed), wk_rope)
     wed_jkeys = {
         kw.plan_rope: casa_rope,
         kw.reason_context: wk_rope,
