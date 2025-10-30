@@ -285,7 +285,6 @@ def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario2():
     x7_quota = 66
     sue_beliefbudhistory.add_bud(x4_bud_time, x4_quota)
     sue_beliefbudhistory.add_bud(x7_bud_time, x7_quota)
-    exx.zia = "Zia"
     zia_bud_voice_net = 887
     sue_bud_voice_net = 445
     sue_beliefbudhistory.get_bud(x7_bud_time).set_bud_voice_net(
