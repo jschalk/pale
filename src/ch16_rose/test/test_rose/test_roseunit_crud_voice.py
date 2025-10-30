@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch16_rose.map import namemap_shop
+from src.ch16_rose.map_term import namemap_shop
 from src.ch16_rose.rose_term import roseunit_shop
 from src.ref.keywords import ExampleStrs as exx
 

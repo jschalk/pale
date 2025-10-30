@@ -31,7 +31,7 @@ from src.ch01_py.file_toolbox import (
     save_file,
     set_dir,
 )
-from src.ch16_rose.map import MapCore
+from src.ch16_rose.map_term import MapCore
 from src.ch16_rose.rose_config import get_rose_args_class_types, get_roseable_args
 from src.ch16_rose.rose_term import RoseUnit, get_roseunit_from_dict
 from src.ch17_idea._ref.ch17_semantic_types import FaceName, SparkInt

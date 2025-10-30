@@ -1,5 +1,5 @@
 from src.ch04_rope.rope import create_rope, to_rope
-from src.ch16_rose.map import ropemap_shop
+from src.ch16_rose.map_term import ropemap_shop
 
 
 def test_RopeMap_reveal_inx_ReturnsObjAndSetsAttr_rope_Scenario0():

@@ -1,6 +1,6 @@
 from pandas import DataFrame
 from src.ch04_rope.rope import create_rope, default_knot_if_None, to_rope
-from src.ch16_rose.map import (
+from src.ch16_rose.map_term import (
     LabelMap,
     NameMap,
     RopeMap,
@@ -186,16 +186,16 @@ def get_casa_maison_roseunit_set_by_label() -> RoseUnit:
     return sue_roseunit
 
 
-def get_casa_maison_roseunit_set_by_epoch() -> RoseUnit:
-    spark7 = 7
-    sue13_otx_epoch_length = 113
-    sue13_inx_epoch_diff = 17
-    sue23_otx_epoch_length = 123
-    sue23_inx_epoch_diff = 31
-    sue_roseunit = roseunit_shop(exx.sue, spark7)
-    sue_roseunit.set_epoch(sue13_otx_epoch_length, sue13_inx_epoch_diff)
-    sue_roseunit.set_epoch(sue23_otx_epoch_length, sue23_inx_epoch_diff)
-    return sue_roseunit
+# def get_casa_maison_roseunit_set_by_epoch() -> RoseUnit:
+#     spark7 = 7
+#     sue13_otx_epoch_length = 113
+#     sue13_inx_epoch_diff = 17
+#     sue23_otx_epoch_length = 123
+#     sue23_inx_epoch_diff = 31
+#     sue_roseunit = roseunit_shop(exx.sue, spark7)
+#     sue_roseunit.set_epoch(sue13_otx_epoch_length, sue13_inx_epoch_diff)
+#     sue_roseunit.set_epoch(sue23_otx_epoch_length, sue23_inx_epoch_diff)
+#     return sue_roseunit
 
 
 def get_casa_maison_rope_otx_dt() -> DataFrame:

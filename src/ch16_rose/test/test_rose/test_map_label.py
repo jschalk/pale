@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch04_rope.rope import default_knot_if_None
-from src.ch16_rose.map import (
+from src.ch16_rose.map_term import (
     LabelMap,
     get_labelmap_from_dict,
     inherit_labelmap,

@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch16_rose.map import namemap_shop, ropemap_shop
+from src.ch16_rose.map_term import namemap_shop, ropemap_shop
 from src.ch16_rose.rose_term import roseunit_shop
 from src.ch16_rose.test._util.ch16_examples import (
     get_clean_ropemap,
@@ -111,7 +111,6 @@ def test_RoseUnit_get_mapunit_ReturnsObj():
     assert sue_pu.get_mapunit(kw.TitleTerm) == sue_pu.titlemap
     assert sue_pu.get_mapunit(kw.LabelTerm) == sue_pu.labelmap
     assert sue_pu.get_mapunit(kw.RopeTerm) == sue_pu.ropemap
-    assert sue_pu.get_mapunit(kw.EpochTime) == sue_pu.epochmap
     assert not sue_pu.get_mapunit("testing")
 
     assert sue_pu.get_mapunit(kw.NameTerm) != sue_pu.ropemap
@@ -206,19 +205,6 @@ def test_RoseUnit_set_otx2inx_SetsAttr_Scenario2_LabelTerm():
     assert ropemap.otx2inx_exists(sue_otx, sue_inx)
 
 
-def test_RoseUnit_set_otx2inx_SetsAttr_Scenario3_EpochTime():
-    # ESTABLISH
-    sue_roseunit = roseunit_shop(exx.sue)
-    sue_epoch_diff = 10
-    assert sue_roseunit._get_otx_epoch_diff(None) is None
-
-    # WHEN
-    sue_roseunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
-
-    # THEN
-    assert sue_roseunit._get_otx_epoch_diff(None) == sue_epoch_diff
-
-
 def test_RoseUnit_otx2inx_exists_ReturnsObj_Scenario0_LabelTerm():
     # ESTABLISH
     sue_otx = "Sue"
@@ -234,22 +220,6 @@ def test_RoseUnit_otx2inx_exists_ReturnsObj_Scenario0_LabelTerm():
     assert zia_roseunit.otx2inx_exists(rope_type, sue_otx, sue_inx)
 
 
-def test_RoseUnit_otx2inx_exists_ReturnsObj_Scenario1_EpochTime():
-    # ESTABLISH
-    sue_roseunit = roseunit_shop(exx.sue)
-    sue_epoch0_diff = 10
-    sue_epoch1_diff = 11
-    assert not sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
-
-    # WHEN
-    sue_roseunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
-
-    # THEN
-    assert sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
-
-
 def test_RoseUnit_get_inx_value_ReturnsObj_Scenario0_NameTerm():
     # ESTABLISH
     sue_otx = "Sue"
@@ -262,19 +232,6 @@ def test_RoseUnit_get_inx_value_ReturnsObj_Scenario0_NameTerm():
 
     # THEN
     assert zia_roseunit._get_inx_value(kw.NameTerm, sue_otx) == sue_inx
-
-
-def test_RoseUnit_get_inx_value_ReturnsObj_Scenario1_EpochTerm():
-    # ESTABLISH
-    sue_epoch_diff = 10
-    sue_roseunit = roseunit_shop(exx.sue)
-    assert sue_roseunit._get_inx_value(kw.EpochTime, None) != sue_epoch_diff
-
-    # WHEN
-    sue_roseunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
-
-    # THEN
-    assert sue_roseunit._get_inx_value(kw.EpochTime, None) == sue_epoch_diff
 
 
 def test_RoseUnit_del_otx2inx_ReturnsObj_Scenario0_LabelTerm():
@@ -294,23 +251,6 @@ def test_RoseUnit_del_otx2inx_ReturnsObj_Scenario0_LabelTerm():
     # THEN
     assert zia_roseunit.otx2inx_exists(rope_type, sue_otx, sue_inx) is False
     assert zia_roseunit.otx2inx_exists(rope_type, exx.zia, exx.zia)
-
-
-def test_RoseUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
-    # ESTABLISH
-    sue_roseunit = roseunit_shop(exx.sue)
-    sue_epoch0_diff = 10
-    sue_epoch1_diff = 11
-    sue_roseunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
-    assert sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
-
-    # WHEN
-    sue_roseunit.del_otx2inx(kw.EpochTime, None)
-
-    # THEN
-    assert not sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_roseunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
 
 
 def test_RoseUnit_set_roadmap_label_SetsAttr_Scenario1_RopeTerm():

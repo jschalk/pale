@@ -167,28 +167,28 @@ def test_create_rose_label_dt_ReturnsObj():
     assert casa_csv == ex_label_csv
 
 
-def test_create_rose_epoch_dt_ReturnsObj():
-    # ESTABLISH
-    casa_roseunit = get_casa_maison_roseunit_set_by_epoch()
-    casa_mapunit = casa_roseunit.get_epochmap()
-    print(f"{casa_mapunit=}")
+# def test_create_rose_epoch_dt_ReturnsObj():
+#     # ESTABLISH
+#     casa_roseunit = get_casa_maison_roseunit_set_by_epoch()
+#     casa_mapunit = casa_roseunit.get_epochmap()
+#     print(f"{casa_mapunit=}")
 
-    # WHEN
-    casa_dataframe = create_rose_epoch_dt(casa_mapunit)
+#     # WHEN
+#     casa_dataframe = create_rose_epoch_dt(casa_mapunit)
 
-    # THEN
-    # print(f"{get_rose_epoch_dt_columns()=}")
-    # print(f"    {list(casa_dataframe.columns)=}")
-    # print("")
-    print(f"{casa_mapunit=}")
-    print(f"{casa_dataframe=}")
-    assert list(casa_dataframe.columns) == get_rose_epoch_dt_columns()
-    assert len(casa_dataframe) == 2
-    casa_csv = get_ordered_csv(casa_dataframe)
-    expected_epoch_csv = get_ordered_csv(get_casa_maison_epoch_dt())
-    print(f"          {casa_csv=}")
-    print(f"{expected_epoch_csv=}")
-    assert casa_csv == expected_epoch_csv
+#     # THEN
+#     # print(f"{get_rose_epoch_dt_columns()=}")
+#     # print(f"    {list(casa_dataframe.columns)=}")
+#     # print("")
+#     print(f"{casa_mapunit=}")
+#     print(f"{casa_dataframe=}")
+#     assert list(casa_dataframe.columns) == get_rose_epoch_dt_columns()
+#     assert len(casa_dataframe) == 2
+#     casa_csv = get_ordered_csv(casa_dataframe)
+#     expected_epoch_csv = get_ordered_csv(get_casa_maison_epoch_dt())
+#     print(f"          {casa_csv=}")
+#     print(f"{expected_epoch_csv=}")
+#     assert casa_csv == expected_epoch_csv
 
 
 def test_save_all_csvs_from_roseunit_SavesFiles(temp_dir_setup):

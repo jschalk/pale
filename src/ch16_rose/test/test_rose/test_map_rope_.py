@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch04_rope.rope import create_rope, default_knot_if_None, to_rope
-from src.ch16_rose.map import (
+from src.ch16_rose.map_term import (
     RopeMap,
     get_ropemap_from_dict,
     inherit_ropemap,

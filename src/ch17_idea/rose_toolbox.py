@@ -1,8 +1,8 @@
 from os.path import exists as os_path_exists
 from pandas import DataFrame
 from src.ch01_py.file_toolbox import create_path, get_dir_file_strs, save_file
+from src.ch16_rose.map_epoch import EpochMap
 from src.ch16_rose.rose_term import (
-    EpochMap,
     LabelMap,
     NameMap,
     RopeMap,
