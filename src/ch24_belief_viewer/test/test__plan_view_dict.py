@@ -97,12 +97,11 @@ def test_get_plan_view_dict_ReturnsObj_Scenario1_laborunit():
     # laborunit
     mop_labor_dict = mop_dict.get(kw.laborunit)
     mop_partys_dict = mop_labor_dict.get("partys")
-    sue_str = "Sue"
-    mop_sue_dict = mop_partys_dict.get(sue_str)
+    mop_sue_dict = mop_partys_dict.get(exx.sue)
     mop_bob_dict = mop_partys_dict.get(exx.bob)
     mop_sue_unit_readable = mop_sue_dict.get(kw.readable)
     mop_bob_unit_readable = mop_bob_dict.get(kw.readable)
-    expected_mop_sue_unit_readable = add_small_dot(f"LaborUnit: {sue_str}")
+    expected_mop_sue_unit_readable = add_small_dot(f"LaborUnit: {exx.sue}")
     expected_mop_bob_unit_readable = add_small_dot(f"LaborUnit: {exx.bob} Solo: True")
     assert mop_sue_unit_readable == expected_mop_sue_unit_readable
     assert mop_bob_unit_readable == expected_mop_bob_unit_readable
@@ -113,12 +112,11 @@ def test_get_plan_view_dict_ReturnsObj_Scenario1_laborunit():
     # laborheir
     mop_labor_dict = mop_dict.get(kw.laborheir)
     mop_partys_dict = mop_labor_dict.get("partys")
-    sue_str = "Sue"
-    mop_sue_dict = mop_partys_dict.get(sue_str)
+    mop_sue_dict = mop_partys_dict.get(exx.sue)
     mop_bob_dict = mop_partys_dict.get(exx.bob)
     mop_sue_heir_readable = mop_sue_dict.get(kw.readable)
     mop_bob_heir_readable = mop_bob_dict.get(kw.readable)
-    expected_mop_sue_heir_readable = add_small_dot(f"LaborHeir: {sue_str}")
+    expected_mop_sue_heir_readable = add_small_dot(f"LaborHeir: {exx.sue}")
     expected_mop_bob_heir_readable = add_small_dot(f"LaborHeir: {exx.bob} Solo: True")
     assert mop_sue_heir_readable == expected_mop_sue_heir_readable
     assert mop_bob_heir_readable == expected_mop_bob_heir_readable
@@ -138,7 +136,7 @@ def test_get_plan_view_dict_ReturnsObj_Scenario2_RootPlanUnit_attrs():
     # for dict_key, value in casa_dict.items():
     #     print(f"{dict_key=} \t\t {value=}")
     # expected_laborunit_dict = {
-    #     "partys": {sue_str: {kw.party_title: sue_str, "solo": False}}
+    #     "partys": {exx.sue: {kw.party_title: exx.sue, "solo": False}}
     # }
     expected_parent_rope = add_small_dot("Root Plan parent_rope is empty str")
     assert root_plan_view_dict.get(kw.parent_rope) == expected_parent_rope
@@ -180,10 +178,9 @@ def test_get_plan_view_dict_ReturnsObj_Scenario4_PlanUnit_AwardUnits():
     awardunits_dict = casa_dict.get(kw.awardunits)
     assert len(awardunits_dict) == 2
     # print(f"{len(awardunits_dict)=}")
-    sue_str = "Sue"
-    sue_awardunit_dict = awardunits_dict.get(sue_str)
+    sue_awardunit_dict = awardunits_dict.get(exx.sue)
     bob_awardunit_dict = awardunits_dict.get(exx.bob)
-    expected_sue_readable = add_small_dot(f"{sue_str}: Take 0.8, Give 1")
+    expected_sue_readable = add_small_dot(f"{exx.sue}: Take 0.8, Give 1")
     expected_bob_readable = add_small_dot(f"{exx.bob}: Take 0.9, Give 0.7")
     # print(f"{sue_awardunit_dict.get(kw.readable)=}")
     # print(f"{bob_awardunit_dict.get(kw.readable)=}")
@@ -194,10 +191,9 @@ def test_get_plan_view_dict_ReturnsObj_Scenario4_PlanUnit_AwardUnits():
     awardheirs_dict = casa_dict.get(kw.awardheirs)
     assert len(awardheirs_dict) == 4
     # print(f"{len(awardheirs_dict)=}")
-    sue_str = "Sue"
-    sue_awardheir_dict = awardheirs_dict.get(sue_str)
+    sue_awardheir_dict = awardheirs_dict.get(exx.sue)
     bob_awardheir_dict = awardheirs_dict.get(exx.bob)
-    expected_sue_readable = f"{sue_str}: Take 0.8 (150000000), Give 1 (150000000)"
+    expected_sue_readable = f"{exx.sue}: Take 0.8 (150000000), Give 1 (150000000)"
     expected_bob_readable = f"{exx.bob}: Take 0.9 (168750000), Give 0.7 (105000000)"
     # print(f"{sue_awardheir_dict.get(kw.readable)=}")
     # print(f"{bob_awardheir_dict.get(kw.readable)=}")
@@ -208,10 +204,9 @@ def test_get_plan_view_dict_ReturnsObj_Scenario4_PlanUnit_AwardUnits():
     awardlines_dict = casa_dict.get(kw.awardlines)
     assert len(awardlines_dict) == 4
     print(f"{len(awardlines_dict)=}")
-    sue_str = "Sue"
-    sue_awardline_dict = awardlines_dict.get(sue_str)
+    sue_awardline_dict = awardlines_dict.get(exx.sue)
     bob_awardline_dict = awardlines_dict.get(exx.bob)
-    expected_sue_readable = f"{sue_str}: take_fund (150000000), give_fund (150000000)"
+    expected_sue_readable = f"{exx.sue}: take_fund (150000000), give_fund (150000000)"
     expected_bob_readable = f"{exx.bob}: take_fund (168750000), give_fund (105000000)"
     print(f"{sue_awardline_dict.get(kw.readable)=}")
     print(f"{bob_awardline_dict.get(kw.readable)=}")

@@ -418,22 +418,21 @@ def test_TranslateUnit_Exists():
 
 def test_translateunit_shop_ReturnsObj_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
 
     # WHEN
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
 
     # THEN
-    assert sue_translateunit.face_name == sue_str
+    assert sue_translateunit.face_name == exx.sue
     assert sue_translateunit.spark_num == 0
     assert sue_translateunit.unknown_str == default_unknown_str_if_None()
     assert sue_translateunit.otx_knot == default_knot_if_None()
     assert sue_translateunit.inx_knot == default_knot_if_None()
-    assert sue_translateunit.titlemap == titlemap_shop(face_name=sue_str)
-    assert sue_translateunit.namemap == namemap_shop(face_name=sue_str)
-    assert sue_translateunit.labelmap == labelmap_shop(face_name=sue_str)
-    assert sue_translateunit.ropemap == ropemap_shop(face_name=sue_str)
-    assert sue_translateunit.epochmap == epochmap_shop(sue_str)
+    assert sue_translateunit.titlemap == titlemap_shop(face_name=exx.sue)
+    assert sue_translateunit.namemap == namemap_shop(face_name=exx.sue)
+    assert sue_translateunit.labelmap == labelmap_shop(face_name=exx.sue)
+    assert sue_translateunit.ropemap == ropemap_shop(face_name=exx.sue)
+    assert sue_translateunit.epochmap == epochmap_shop(exx.sue)
     assert sue_translateunit.namemap.spark_num == 0
     assert sue_translateunit.namemap.unknown_str == default_unknown_str_if_None()
     assert sue_translateunit.namemap.otx_knot == default_knot_if_None()
@@ -454,7 +453,6 @@ def test_translateunit_shop_ReturnsObj_Scenario0():
 
 def test_translateunit_shop_ReturnsObj_Scenario1():
     # ESTABLISH
-    sue_str = "Sue"
     five_spark_num = 5
     y_uk = "UnknownTerm"
     slash_otx_knot = "/"
@@ -463,7 +461,7 @@ def test_translateunit_shop_ReturnsObj_Scenario1():
 
     # WHEN
     sue_translateunit = translateunit_shop(
-        face_name=sue_str,
+        face_name=exx.sue,
         spark_num=five_spark_num,
         otx_knot=slash_otx_knot,
         inx_knot=colon_inx_knot,
@@ -477,34 +475,34 @@ def test_translateunit_shop_ReturnsObj_Scenario1():
     assert sue_translateunit.inx_knot == colon_inx_knot
 
     # x_titlemap = titlemap_shop(
-    #     slash_otx_knot, colon_inx_knot, {}, y_uk, sue_str, five_spark_num
+    #     slash_otx_knot, colon_inx_knot, {}, y_uk, exx.sue, five_spark_num
     # )
     # x_namemap = namemap_shop(
-    #     slash_otx_knot, colon_inx_knot, {}, y_uk, sue_str, five_spark_num
+    #     slash_otx_knot, colon_inx_knot, {}, y_uk, exx.sue, five_spark_num
     # )
     # x_ropemap = ropemap_shop(
-    #     slash_otx_knot, colon_inx_knot, None, {}, y_uk, sue_str, five_spark_num
+    #     slash_otx_knot, colon_inx_knot, None, {}, y_uk, exx.sue, five_spark_num
     # )
     # assert sue_translateunit.titlemap == x_titlemap
     # assert sue_translateunit.namemap == x_namemap
     # assert sue_translateunit.ropemap == x_ropemap
 
-    assert sue_translateunit.namemap.face_name == sue_str
+    assert sue_translateunit.namemap.face_name == exx.sue
     assert sue_translateunit.namemap.spark_num == five_spark_num
     assert sue_translateunit.namemap.unknown_str == y_uk
     assert sue_translateunit.namemap.otx_knot == slash_otx_knot
     assert sue_translateunit.namemap.inx_knot == colon_inx_knot
-    assert sue_translateunit.titlemap.face_name == sue_str
+    assert sue_translateunit.titlemap.face_name == exx.sue
     assert sue_translateunit.titlemap.spark_num == five_spark_num
     assert sue_translateunit.titlemap.unknown_str == y_uk
     assert sue_translateunit.titlemap.otx_knot == slash_otx_knot
     assert sue_translateunit.titlemap.inx_knot == colon_inx_knot
-    assert sue_translateunit.labelmap.face_name == sue_str
+    assert sue_translateunit.labelmap.face_name == exx.sue
     assert sue_translateunit.labelmap.spark_num == five_spark_num
     assert sue_translateunit.labelmap.unknown_str == y_uk
     assert sue_translateunit.labelmap.otx_knot == slash_otx_knot
     assert sue_translateunit.labelmap.inx_knot == colon_inx_knot
-    assert sue_translateunit.ropemap.face_name == sue_str
+    assert sue_translateunit.ropemap.face_name == exx.sue
     assert sue_translateunit.ropemap.spark_num == five_spark_num
     assert sue_translateunit.ropemap.unknown_str == y_uk
     assert sue_translateunit.ropemap.otx_knot == slash_otx_knot

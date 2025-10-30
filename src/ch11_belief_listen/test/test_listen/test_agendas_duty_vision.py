@@ -210,11 +210,10 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
-    sue_str = "Sue"
     sue_voice_cred_lumen = 57
     sue_voice_debt_lumen = 51
     yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_duty.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_duty.set_voice_respect(yao_pool)
     yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
@@ -245,7 +244,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
         zia_vision,
     )
 
-    sue_vision = beliefunit_shop(sue_str)
+    sue_vision = beliefunit_shop(exx.sue)
     sue_vision.set_max_tree_traverse(5)
     zia_vision.add_voiceunit(yao_str, voice_debt_lumen=12)
     vacuum_str = "vacuum"
@@ -293,7 +292,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
     assert len(new_yao_vision.get_agenda_dict()) != 3
     assert len(new_yao_vision.get_agenda_dict()) == 2
     zia_voiceunit = new_yao_vision.get_voice(zia_str)
-    sue_voiceunit = new_yao_vision.get_voice(sue_str)
+    sue_voiceunit = new_yao_vision.get_voice(exx.sue)
     print(f"{sue_voiceunit.voice_debt_lumen=}")
     print(f"{sue_voiceunit.irrational_voice_debt_lumen=}")
     assert zia_voiceunit.irrational_voice_debt_lumen == 0
@@ -308,13 +307,12 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
     yao_str = "Yao"
     yao_duty = beliefunit_shop(yao_str, a23_str)
     zia_str = "Zia"
-    sue_str = "Sue"
     zia_voice_cred_lumen = 47
     sue_voice_cred_lumen = 57
     zia_voice_debt_lumen = 41
     sue_voice_debt_lumen = 51
     yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_duty.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_duty.set_voice_respect(yao_pool)
     yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
@@ -355,7 +353,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
     assert len(new_yao_vision.get_agenda_dict()) != 3
     assert len(new_yao_vision.get_agenda_dict()) == 2
     zia_voiceunit = new_yao_vision.get_voice(zia_str)
-    sue_voiceunit = new_yao_vision.get_voice(sue_str)
+    sue_voiceunit = new_yao_vision.get_voice(exx.sue)
     print(f"{sue_voiceunit.voice_debt_lumen=}")
     print(f"{sue_voiceunit.inallocable_voice_debt_lumen=}")
     assert zia_voiceunit.inallocable_voice_debt_lumen == 0

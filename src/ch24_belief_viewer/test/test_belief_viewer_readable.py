@@ -3,13 +3,12 @@ from src.ch24_belief_viewer.belief_viewer_tool import (
     get_belief_view_dict,
     get_plan_view_dict,
 )
-from src.ref.keywords import Ch24Keywords as kw
+from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 
 
 def test_get_belief_view_dict_ReturnsObj_Scenario0_Empty():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_believer = beliefunit_shop(sue_str)
+    sue_believer = beliefunit_shop(exx.sue)
     sue_believer.cashout()
 
     # WHEN

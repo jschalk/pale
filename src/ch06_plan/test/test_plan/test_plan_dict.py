@@ -9,7 +9,7 @@ from src.ch05_reason.reason import (
 )
 from src.ch06_plan.healer import healerunit_shop
 from src.ch06_plan.plan import get_obj_from_plan_dict, planunit_shop
-from src.ref.keywords import Ch06Keywords as kw
+from src.ref.keywords import Ch06Keywords as kw, ExampleStrs as exx
 
 
 def test_get_obj_from_plan_dict_ReturnsObj():
@@ -48,14 +48,13 @@ def test_get_obj_from_plan_dict_Returns_HealerUnit():
     assert get_obj_from_plan_dict({}, healerunit_key) == healerunit_shop()
 
     # WHEN
-    sue_str = "Sue"
     zia_str = "Zia"
-    healerunit_dict = {"healerunit_healer_names": [sue_str, zia_str]}
+    healerunit_dict = {"healerunit_healer_names": [exx.sue, zia_str]}
     planunit_dict = {healerunit_key: healerunit_dict}
 
     # THEN
     static_healerunit = healerunit_shop()
-    static_healerunit.set_healer_name(x_healer_name=sue_str)
+    static_healerunit.set_healer_name(x_healer_name=exx.sue)
     static_healerunit.set_healer_name(x_healer_name=zia_str)
     assert get_obj_from_plan_dict(planunit_dict, healerunit_key) is not None
     assert get_obj_from_plan_dict(planunit_dict, healerunit_key) == static_healerunit
@@ -120,10 +119,9 @@ def test_PlanUnit_to_dict_ReturnsCompleteDict():
         biker_awardee_title: biker_get_dict,
         flyer_awardee_title: flyer_get_dict,
     }
-    sue_str = "Sue"
     yao_str = "Yao"
     sue_laborunit = laborunit_shop()
-    sue_laborunit.add_party(sue_str)
+    sue_laborunit.add_party(exx.sue)
     sue_laborunit.add_party(yao_str)
     yao_healerunit = healerunit_shop({yao_str})
     casa_str = "casa"

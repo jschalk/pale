@@ -14,7 +14,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario0_Only_valid_sparks():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -50,8 +49,8 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{yao_str}', '{yao_str}', '{yao_inx}')
-, ({spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', '{exx.bob}', '{bob_inx}')
+  ({spark1}, '{exx.sue}', '{a23_str}', '{exx.bob}', '{yao_str}', '{yao_str}', '{yao_inx}')
+, ({spark1}, '{exx.sue}', '{a23_str}', '{exx.bob}', '{exx.bob}', '{exx.bob}', '{bob_inx}')
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -78,8 +77,8 @@ VALUES
 )"""
         values_clause = f"""
 VALUES
-  ({spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}')
-, ({spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
+  ({spark2}, '{exx.sue}', '{exx.sue}', '{exx.sue}', '{rdx}', '{rdx}', '{ukx}')
+, ({spark5}, '{exx.sue}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}')
 ;
 """
@@ -99,10 +98,10 @@ VALUES
         assert get_row_count(cursor, blfvoce_s_put_raw_tblname) == 2
         b117 = "br00117"
         b045 = "br00045"
-        ex_rope0 = (b117, spark1, sue_str, yao_str, yao_inx, None, None, None, None)
-        ex_rope1 = (b117, spark1, sue_str, exx.bob, bob_inx, None, None, None, None)
-        ex_rope2 = (b045, spark2, sue_str, sue_str, sue_str, rdx, rdx, ukx, None)
-        ex_rope3 = (b045, spark5, sue_str, exx.bob, bob_inx, rdx, rdx, ukx, None)
+        ex_rope0 = (b117, spark1, exx.sue, yao_str, yao_inx, None, None, None, None)
+        ex_rope1 = (b117, spark1, exx.sue, exx.bob, bob_inx, None, None, None, None)
+        ex_rope2 = (b045, spark2, exx.sue, exx.sue, exx.sue, rdx, rdx, ukx, None)
+        ex_rope3 = (b045, spark5, exx.sue, exx.bob, bob_inx, rdx, rdx, ukx, None)
         ex_rope4 = (b045, spark7, yao_str, yao_str, yao_inx, rdx, rdx, ukx, None)
         select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_raw_tablename};"""
         cursor.execute(select_agg_sqlstr)
@@ -121,6 +120,6 @@ VALUES
         print(rows)
         assert len(rows) == 2
         assert rows == [
-            (b117, 1, sue_str, a23_str, exx.bob, yao_str, None, None, None),
-            (b117, 1, sue_str, a23_str, exx.bob, exx.bob, None, None, None),
+            (b117, 1, exx.sue, a23_str, exx.bob, yao_str, None, None, None),
+            (b117, 1, exx.sue, a23_str, exx.bob, exx.bob, None, None, None),
         ]

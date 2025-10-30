@@ -1,13 +1,13 @@
 from pytest import raises as pytest_raises
 from src.ch16_translate.map import namemap_shop
 from src.ch16_translate.translate_main import translateunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_TranslateUnit_set_namemap_SetsAttr():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    x_namemap = namemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    x_namemap = namemap_shop(face_name=exx.sue)
     x_namemap.set_otx2inx("Bob", "Bob of Portland")
     assert sue_translateunit.namemap != x_namemap
 
@@ -20,11 +20,10 @@ def test_TranslateUnit_set_namemap_SetsAttr():
 
 def test_TranslateUnit_set_namemap_SetsAttrWhenAttrIs_float_nan():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     x_nan = float("nan")
     x_namemap = namemap_shop(
-        face_name=sue_str, otx_knot=x_nan, inx_knot=x_nan, unknown_str=x_nan
+        face_name=exx.sue, otx_knot=x_nan, inx_knot=x_nan, unknown_str=x_nan
     )
     x_namemap.set_otx2inx("Bob", "Bob of Portland")
     assert sue_translateunit.namemap != x_namemap
@@ -38,10 +37,9 @@ def test_TranslateUnit_set_namemap_SetsAttrWhenAttrIs_float_nan():
 
 def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_otx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_otx_knot = "/"
-    x_namemap = namemap_shop(otx_knot=slash_otx_knot, face_name=sue_str)
+    x_namemap = namemap_shop(otx_knot=slash_otx_knot, face_name=exx.sue)
     assert sue_translateunit.otx_knot != x_namemap.otx_knot
     assert sue_translateunit.namemap != x_namemap
 
@@ -54,10 +52,9 @@ def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_otx_knot_IsNotSame():
 
 def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_inx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_inx_knot = "/"
-    x_namemap = namemap_shop(inx_knot=slash_inx_knot, face_name=sue_str)
+    x_namemap = namemap_shop(inx_knot=slash_inx_knot, face_name=exx.sue)
     assert sue_translateunit.inx_knot != x_namemap.inx_knot
     assert sue_translateunit.namemap != x_namemap
 
@@ -70,10 +67,9 @@ def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_inx_knot_IsNotSame():
 
 def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_unknown_str_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     casa_unknown_str = "Unknown_casa"
-    x_namemap = namemap_shop(unknown_str=casa_unknown_str, face_name=sue_str)
+    x_namemap = namemap_shop(unknown_str=casa_unknown_str, face_name=exx.sue)
     assert sue_translateunit.unknown_str != x_namemap.unknown_str
     assert sue_translateunit.namemap != x_namemap
 
@@ -86,9 +82,8 @@ def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_unknown_str_IsNotSame()
 
 def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_face_name_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     x_namemap = namemap_shop(face_name=yao_str)
     assert sue_translateunit.face_name != x_namemap.face_name
     assert sue_translateunit.namemap != x_namemap
@@ -102,9 +97,8 @@ def test_TranslateUnit_set_namemap_RaisesErrorIf_namemap_face_name_IsNotSame():
 
 def test_TranslateUnit_get_namemap_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    static_x_namemap = namemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    static_x_namemap = namemap_shop(face_name=exx.sue)
     static_x_namemap.set_otx2inx("Bob", "Bob of Portland")
     sue_translateunit.set_namemap(static_x_namemap)
 

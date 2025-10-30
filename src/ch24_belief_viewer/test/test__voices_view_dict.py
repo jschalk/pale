@@ -8,8 +8,7 @@ from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 
 def test_get_voices_view_dict_ReturnsObj_Scenario0_Empty():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_believer = beliefunit_shop(sue_str)
+    sue_believer = beliefunit_shop(exx.sue)
     sue_believer.cashout()
 
     # WHEN
@@ -25,8 +24,7 @@ def add_readable(str: str) -> str:
 
 def test_get_voices_view_dict_ReturnsObj_Scenario1_voices():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_believer = beliefunit_shop(sue_str)
+    sue_believer = beliefunit_shop(exx.sue)
     yao_str = "Yao"
     yao_cred_lumen = 110
     yao_debt_lumen = 130
@@ -168,8 +166,7 @@ def test_get_voices_view_dict_ReturnsObj_Scenario1_voices():
 
 def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_believer = beliefunit_shop(sue_str)
+    sue_believer = beliefunit_shop(exx.sue)
     yao_str = "Yao"
     sue_believer.add_voiceunit(yao_str)
     swim_str = ";swimmers"
@@ -324,8 +321,7 @@ def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     assert yao_swim_dict.get(fund_give_readable_key) == expected_fund_give_readable
     assert yao_swim_dict.get(fund_take_readable_key) == expected_fund_take_readable
 
-    # sue_str = "Sue"
-    # sue_believer = beliefunit_shop(sue_str)
+    # sue_believer = beliefunit_shop(exx.sue)
     # yao_str = "Yao"
     # exx.bob = "Bob"
     # yao_cred_lumen = 110

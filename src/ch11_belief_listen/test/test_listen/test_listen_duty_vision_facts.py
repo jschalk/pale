@@ -393,7 +393,6 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 # def test_listen_to_facts_duty_vision_SetsFact(temp_dir_setup):
 #     # ESTABLISH
 #     yao_str = "Yao"
-#     sue_str = "Sue"
 #     sue_speaker = beliefunit_shop(yao_str)
 #     casa_str = "casa"
 #     casa_rope = sue_speaker.make_l1_rope(casa_str)
@@ -418,10 +417,10 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     sweep_plan.laborunit.add_party(yao_str)
 
 #     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
-#     save_vision_belief(sue_texas_lessonfilehandler, sue_str, sue_speaker.get_json(), True)
+#     save_vision_belief(sue_texas_lessonfilehandler, exx.sue, sue_speaker.get_json(), True)
 #     yao_duty = beliefunit_shop(yao_str)
 #     yao_duty.add_voiceunit(yao_str)
-#     yao_duty.add_voiceunit(sue_str)
+#     yao_duty.add_voiceunit(exx.sue)
 #     new_yao_vision = create_listen_basis(yao_duty)
 #     print(f"{new_yao_vision.get_plan_dict().keys()=}")
 #     # assert new_yao_vision.get_missing_fact_reason_contexts().get(situation_rope) is None

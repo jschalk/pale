@@ -67,13 +67,12 @@ def test_RiverRun_reset_need_yields_SetsAttr():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    sue_str = "Sue"
     yao_str = "Yao"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_voice_need_yield(sue_str, sue_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
     bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
     assert bob_riverrun.need_yields_is_empty() is False
 
@@ -98,16 +97,15 @@ def test_RiverRun_voice_has_need_yield_ReturnsBool():
         keep_point_magnitude=bob_mana_amount,
     )
     yao_str = "Yao"
-    sue_str = "Sue"
     zia_str = "Zia"
     yao_need_yield = 6
     bob_need_yield = 38
     sue_need_yield = 56
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_voice_need_yield(sue_str, sue_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
     bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
     assert bob_riverrun.voice_has_need_yield(exx.bob)
-    assert bob_riverrun.voice_has_need_yield(sue_str)
+    assert bob_riverrun.voice_has_need_yield(exx.sue)
     assert bob_riverrun.voice_has_need_yield(yao_str)
     assert bob_riverrun.voice_has_need_yield(zia_str) is False
 
@@ -116,7 +114,7 @@ def test_RiverRun_voice_has_need_yield_ReturnsBool():
 
     # THEN
     assert bob_riverrun.voice_has_need_yield(exx.bob) is False
-    assert bob_riverrun.voice_has_need_yield(sue_str) is False
+    assert bob_riverrun.voice_has_need_yield(exx.sue) is False
     assert bob_riverrun.voice_has_need_yield(yao_str) is False
     assert bob_riverrun.voice_has_need_yield(zia_str) is False
 
@@ -160,14 +158,13 @@ def test_RiverRun_get_voice_need_yield_ReturnsObj():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    sue_str = "Sue"
     yao_str = "Yao"
     zia_str = "Zia"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_voice_need_yield(sue_str, sue_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
     bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
     assert bob_riverrun.voice_has_need_yield(exx.bob)
     assert bob_riverrun.get_voice_need_yield(exx.bob) == bob_need_yield
@@ -197,26 +194,25 @@ def test_RiverRun_add_voice_need_yield_ReturnsObj():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    sue_str = "Sue"
     yao_str = "Yao"
     zia_str = "Zia"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_voice_need_yield(sue_str, sue_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
     bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
     assert bob_riverrun.get_voice_need_yield(exx.bob) == bob_need_yield
-    assert bob_riverrun.get_voice_need_yield(sue_str) == sue_need_yield
+    assert bob_riverrun.get_voice_need_yield(exx.sue) == sue_need_yield
     assert bob_riverrun.get_voice_need_yield(zia_str) == 0
 
     # WHEN
-    bob_riverrun.add_voice_need_yield(sue_str, 5)
+    bob_riverrun.add_voice_need_yield(exx.sue, 5)
     bob_riverrun.add_voice_need_yield(zia_str, 10)
 
     # THEN
     assert bob_riverrun.get_voice_need_yield(exx.bob) == bob_need_yield
-    assert bob_riverrun.get_voice_need_yield(sue_str) == sue_need_yield + 5
+    assert bob_riverrun.get_voice_need_yield(exx.sue) == sue_need_yield + 5
     assert bob_riverrun.get_voice_need_yield(zia_str) == 10
 
 
@@ -233,14 +229,13 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioY():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    sue_str = "Sue"
     yao_str = "Yao"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(exx.bob, 2, bob_need_yield)
-    bob_belief.add_voiceunit(sue_str, 2, sue_need_yield)
+    bob_belief.add_voiceunit(exx.sue, 2, sue_need_yield)
     bob_belief.add_voiceunit(yao_str, 2, yao_need_yield)
     bob_doctorledger = get_doctorledger(bob_belief)
     bob_riverrun.set_need_dues(bob_doctorledger)
@@ -262,14 +257,14 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioY():
     assert bob_riverrun.get_voice_need_yield(exx.bob) == 380
 
     # ESTABLISH
-    assert bob_riverrun.get_voice_need_due(sue_str) == 560
-    assert bob_riverrun.get_voice_need_yield(sue_str) == 0
+    assert bob_riverrun.get_voice_need_due(exx.sue) == 560
+    assert bob_riverrun.get_voice_need_yield(exx.sue) == 0
     # WHEN
-    excess_carer_points, need_got = bob_riverrun.levy_need_due(sue_str, 1000)
+    excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.sue, 1000)
     # THEN
     assert excess_carer_points == 440
-    assert bob_riverrun.get_voice_need_due(sue_str) == 0
-    assert bob_riverrun.get_voice_need_yield(sue_str) == 560
+    assert bob_riverrun.get_voice_need_due(exx.sue) == 0
+    assert bob_riverrun.get_voice_need_yield(exx.sue) == 560
 
     # ESTABLISH
     zia_str = "Zia"

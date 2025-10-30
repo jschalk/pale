@@ -20,14 +20,12 @@ def test_get_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHand
     bob_beliefunit = get_beliefunit_with_4_levels()
     bob_beliefunit.set_belief_name(exx.bob)
 
-    sue_str = "Sue"
-
     # WHEN
-    perspective_beliefunit = get_perspective_belief(bob_beliefunit, sue_str)
+    perspective_beliefunit = get_perspective_belief(bob_beliefunit, exx.sue)
 
     # THEN
     assert perspective_beliefunit.to_dict() != bob_beliefunit.to_dict()
-    assert perspective_beliefunit.belief_name == sue_str
+    assert perspective_beliefunit.belief_name == exx.sue
     perspective_beliefunit.set_belief_name(exx.bob)
     assert perspective_beliefunit.to_dict() == bob_beliefunit.to_dict()
 
@@ -41,15 +39,14 @@ def test_get_dw_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileH
     bob_beliefunit.set_belief_name(exx.bob)
     bob_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.bob)
     save_job_file(bob_lessonfilehandler.moment_mstr_dir, bob_beliefunit)
-    sue_str = "Sue"
 
     # WHEN
     perspective_beliefunit = get_dw_perspective_belief(
-        env_dir(), a23_str, exx.bob, sue_str
+        env_dir(), a23_str, exx.bob, exx.sue
     )
 
     # THEN
-    assert perspective_beliefunit.belief_name == sue_str
+    assert perspective_beliefunit.belief_name == exx.sue
     assert perspective_beliefunit.to_dict() != bob_beliefunit.to_dict()
     perspective_beliefunit.set_belief_name(exx.bob)
     assert perspective_beliefunit.to_dict() == bob_beliefunit.to_dict()
@@ -77,8 +74,6 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
         x_belief=yao_beliefunit,
     )
 
-    sue_str = "Sue"
-
     # WHEN
     perspective_beliefunit = rj_perspective_belief(
         moment_mstr_dir=env_dir(),
@@ -87,11 +82,11 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
         knot=default_knot_if_None(),
         healer_name=exx.bob,
         speaker_id=yao_str,
-        perspective_id=sue_str,
+        perspective_id=exx.sue,
     )
 
     # THEN
-    assert perspective_beliefunit.belief_name == sue_str
+    assert perspective_beliefunit.belief_name == exx.sue
     assert perspective_beliefunit.to_dict() != yao_beliefunit.to_dict()
     perspective_beliefunit.set_belief_name(yao_str)
     assert perspective_beliefunit.to_dict() == yao_beliefunit.to_dict()

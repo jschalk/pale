@@ -1,13 +1,13 @@
 from pytest import raises as pytest_raises
 from src.ch16_translate.map import ropemap_shop
 from src.ch16_translate.translate_main import translateunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_TranslateUnit_set_ropemap_SetsAttr():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    x_ropemap = ropemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    x_ropemap = ropemap_shop(face_name=exx.sue)
     x_ropemap.set_otx2inx("Bob", "Bob of Portland")
     assert sue_translateunit.ropemap != x_ropemap
 
@@ -20,10 +20,9 @@ def test_TranslateUnit_set_ropemap_SetsAttr():
 
 def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_otx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_otx_knot = "/"
-    x_ropemap = ropemap_shop(otx_knot=slash_otx_knot, face_name=sue_str)
+    x_ropemap = ropemap_shop(otx_knot=slash_otx_knot, face_name=exx.sue)
     assert sue_translateunit.otx_knot != x_ropemap.otx_knot
     assert sue_translateunit.ropemap != x_ropemap
 
@@ -36,10 +35,9 @@ def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_otx_knot_IsNotSame():
 
 def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_inx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_inx_knot = "/"
-    x_ropemap = ropemap_shop(inx_knot=slash_inx_knot, face_name=sue_str)
+    x_ropemap = ropemap_shop(inx_knot=slash_inx_knot, face_name=exx.sue)
     assert sue_translateunit.inx_knot != x_ropemap.inx_knot
     assert sue_translateunit.ropemap != x_ropemap
 
@@ -52,10 +50,9 @@ def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_inx_knot_IsNotSame():
 
 def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_unknown_str_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     casa_unknown_str = "Unknown_casa"
-    x_ropemap = ropemap_shop(unknown_str=casa_unknown_str, face_name=sue_str)
+    x_ropemap = ropemap_shop(unknown_str=casa_unknown_str, face_name=exx.sue)
     assert sue_translateunit.unknown_str != x_ropemap.unknown_str
     assert sue_translateunit.ropemap != x_ropemap
 
@@ -68,9 +65,8 @@ def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_unknown_str_IsNotSame()
 
 def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_face_name_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     x_ropemap = ropemap_shop(face_name=yao_str)
     assert sue_translateunit.face_name != x_ropemap.face_name
     assert sue_translateunit.ropemap != x_ropemap
@@ -84,9 +80,8 @@ def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_face_name_IsNotSame():
 
 def test_TranslateUnit_get_ropemap_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    static_x_ropemap = ropemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    static_x_ropemap = ropemap_shop(face_name=exx.sue)
     static_x_ropemap.set_otx2inx("Bob", "Bob of Portland")
     sue_translateunit.set_ropemap(static_x_ropemap)
 

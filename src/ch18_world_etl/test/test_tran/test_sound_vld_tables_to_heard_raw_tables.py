@@ -12,7 +12,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     spark1 = 1
@@ -42,9 +41,9 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PopulatesTable_Scenario0()
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_inx}', {x44_credit}, {x22_debt})
+  ({spark1}, '{exx.sue}', '{a23_str}','{yao_str}', '{yao_inx}', {x44_credit}, {x22_debt})
 , ({spark2}, '{yao_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{exx.sue}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
 , ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
@@ -72,9 +71,9 @@ FROM {blrawar_h_raw_put_tablename}
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (1, sue_str, a23_str, yao_str, yao_inx, 44.0, 22.0),
+            (1, exx.sue, a23_str, yao_str, yao_inx, 44.0, 22.0),
             (2, yao_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
-            (5, sue_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (5, exx.sue, a23_str, exx.bob, exx.bob, 55.0, 22.0),
             (7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]
 
@@ -82,7 +81,6 @@ FROM {blrawar_h_raw_put_tablename}
 def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario0_AddRowsToTable():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     spark1 = 1
@@ -110,9 +108,9 @@ def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario0_AddRowsToTable():
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_inx}', {x44_credit}, {x22_debt})
+  ({spark1}, '{exx.sue}', '{a23_str}','{yao_str}', '{yao_inx}', {x44_credit}, {x22_debt})
 , ({spark2}, '{yao_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{exx.sue}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
 , ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
@@ -139,9 +137,9 @@ FROM {blfvoce_h_raw_put_tablename}
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (1, sue_str, a23_str, yao_str, yao_inx, 44.0, 22.0),
+            (1, exx.sue, a23_str, yao_str, yao_inx, 44.0, 22.0),
             (2, yao_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
-            (5, sue_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (5, exx.sue, a23_str, exx.bob, exx.bob, 55.0, 22.0),
             (7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]
 
@@ -149,7 +147,6 @@ FROM {blfvoce_h_raw_put_tablename}
 def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario1_Populates_inx_Columns():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
     spark2 = 2
@@ -176,9 +173,9 @@ def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario1_Populates_inx_Column
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_str}', {x44_credit}, {x22_debt})
+  ({spark1}, '{exx.sue}', '{a23_str}','{yao_str}', '{yao_str}', {x44_credit}, {x22_debt})
 , ({spark2}, '{yao_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{exx.sue}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
 , ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
@@ -205,8 +202,8 @@ FROM {blfvoce_h_raw_put_tablename}
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (1, sue_str, a23_str, yao_str, yao_str, 44.0, 22.0),
+            (1, exx.sue, a23_str, yao_str, yao_str, 44.0, 22.0),
             (2, yao_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
-            (5, sue_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (5, exx.sue, a23_str, exx.bob, exx.bob, 55.0, 22.0),
             (7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]

@@ -21,28 +21,27 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     a23_str = "amy23"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, sue_str, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(env_dir(), a23_str, sue_str)
-    sue_gut_belief.add_voiceunit(sue_str)
+    sue_gut_belief = open_gut_file(env_dir(), a23_str, exx.sue)
+    sue_gut_belief.add_voiceunit(exx.sue)
     texas_str = "Texas"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
     dallas_str = "dallas"
     dallas_rope = sue_gut_belief.make_rope(texas_rope, dallas_str)
     sue_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     sue_gut_belief.set_plan_obj(planunit_shop(dallas_str), texas_rope)
-    sue_gut_belief.edit_plan_attr(texas_rope, healerunit=healerunit_shop({sue_str}))
-    sue_gut_belief.edit_plan_attr(dallas_rope, healerunit=healerunit_shop({sue_str}))
+    sue_gut_belief.edit_plan_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
+    sue_gut_belief.edit_plan_attr(dallas_rope, healerunit=healerunit_shop({exx.sue}))
     sue_gut_belief.cashout()
     assert sue_gut_belief.keeps_justified is False
     save_gut_file(env_dir(), sue_gut_belief)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        get_keep_ropes(env_dir(), moment_label=a23_str, belief_name=sue_str)
-    exception_str = f"Cannot get_keep_ropes from '{sue_str}' gut belief because 'BeliefUnit.keeps_justified' is False."
+        get_keep_ropes(env_dir(), moment_label=a23_str, belief_name=exx.sue)
+    exception_str = f"Cannot get_keep_ropes from '{exx.sue}' gut belief because 'BeliefUnit.keeps_justified' is False."
     assert str(excinfo.value) == exception_str
 
 
@@ -50,16 +49,15 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     a23_str = "amy23"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, sue_str, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(env_dir(), a23_str, sue_str)
-    sue_gut_belief.add_voiceunit(sue_str)
+    sue_gut_belief = open_gut_file(env_dir(), a23_str, exx.sue)
+    sue_gut_belief.add_voiceunit(exx.sue)
     texas_str = "Tex/as"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
     sue_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
-    sue_gut_belief.edit_plan_attr(texas_rope, healerunit=healerunit_shop({sue_str}))
+    sue_gut_belief.edit_plan_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
     sue_gut_belief.cashout()
     assert sue_gut_belief.keeps_justified
     assert sue_gut_belief.keeps_buildable is False
@@ -67,19 +65,18 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        get_keep_ropes(env_dir(), a23_str, belief_name=sue_str)
-    exception_str = f"Cannot get_keep_ropes from '{sue_str}' gut belief because 'BeliefUnit.keeps_buildable' is False."
+        get_keep_ropes(env_dir(), a23_str, belief_name=exx.sue)
+    exception_str = f"Cannot get_keep_ropes from '{exx.sue}' gut belief because 'BeliefUnit.keeps_buildable' is False."
     assert str(excinfo.value) == exception_str
 
 
 def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     # ESTABLISH
-    sue_str = "Sue"
     a23_str = "amy23"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, sue_str, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(env_dir(), a23_str, sue_str)
-    sue_gut_belief.add_voiceunit(sue_str)
+    sue_gut_belief = open_gut_file(env_dir(), a23_str, exx.sue)
+    sue_gut_belief.add_voiceunit(exx.sue)
     texas_str = "Texas"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
     sue_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
@@ -87,8 +84,8 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     elpaso_str = "el paso"
     dallas_rope = sue_gut_belief.make_rope(texas_rope, dallas_str)
     elpaso_rope = sue_gut_belief.make_rope(texas_rope, elpaso_str)
-    dallas_plan = planunit_shop(dallas_str, healerunit=healerunit_shop({sue_str}))
-    elpaso_plan = planunit_shop(elpaso_str, healerunit=healerunit_shop({sue_str}))
+    dallas_plan = planunit_shop(dallas_str, healerunit=healerunit_shop({exx.sue}))
+    elpaso_plan = planunit_shop(elpaso_str, healerunit=healerunit_shop({exx.sue}))
     sue_gut_belief.set_plan_obj(dallas_plan, texas_rope)
     sue_gut_belief.set_plan_obj(elpaso_plan, texas_rope)
     sue_gut_belief.cashout()
@@ -96,7 +93,7 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     save_gut_file(env_dir(), sue_gut_belief)
 
     # WHEN
-    sue_keep_ropes = get_keep_ropes(env_dir(), a23_str, belief_name=sue_str)
+    sue_keep_ropes = get_keep_ropes(env_dir(), a23_str, belief_name=exx.sue)
 
     # THEN
     assert len(sue_keep_ropes) == 2
@@ -107,44 +104,43 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
 def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_str = "Sue"
     a23_str = "amy23"
     mstr_dir = env_dir()
-    sue_lessonfilehandler = lessonfilehandler_shop(mstr_dir, a23_str, sue_str, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(mstr_dir, a23_str, exx.sue, None)
     save_gut_file(mstr_dir, sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(mstr_dir, a23_str, sue_str)
-    sue_gut_belief.add_voiceunit(sue_str)
+    sue_gut_belief = open_gut_file(mstr_dir, a23_str, exx.sue)
+    sue_gut_belief.add_voiceunit(exx.sue)
     sue_gut_belief.add_voiceunit(exx.bob)
     texas_str = "Texas"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
     sue_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     dallas_str = "dallas"
     dallas_rope = sue_gut_belief.make_rope(texas_rope, dallas_str)
-    dallas_plan = planunit_shop(dallas_str, healerunit=healerunit_shop({sue_str}))
+    dallas_plan = planunit_shop(dallas_str, healerunit=healerunit_shop({exx.sue}))
     sue_gut_belief.set_plan_obj(dallas_plan, texas_rope)
     elpaso_str = "el paso"
     elpaso_rope = sue_gut_belief.make_rope(texas_rope, elpaso_str)
-    elpaso_plan = planunit_shop(elpaso_str, healerunit=healerunit_shop({sue_str}))
+    elpaso_plan = planunit_shop(elpaso_str, healerunit=healerunit_shop({exx.sue}))
     sue_gut_belief.set_plan_obj(elpaso_plan, texas_rope)
     display_plantree(sue_gut_belief, mode="Keep", graphics_bool=graphics_bool)
     save_gut_file(env_dir(), sue_gut_belief)
     sue_dallas_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=dallas_rope,
         knot=None,
-        duty_belief=sue_str,
+        duty_belief=exx.sue,
     )
     sue_elpaso_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=elpaso_rope,
         knot=None,
-        duty_belief=sue_str,
+        duty_belief=exx.sue,
     )
-    sue_keep_ropes = get_keep_ropes(env_dir(), a23_str, belief_name=sue_str)
+    sue_keep_ropes = get_keep_ropes(env_dir(), a23_str, belief_name=exx.sue)
     assert os_path_exists(sue_dallas_duty_path) is False
     assert os_path_exists(sue_elpaso_duty_path) is False
 
@@ -152,7 +148,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     save_all_gut_dutys(
         moment_mstr_dir=mstr_dir,
         moment_label=a23_str,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         keep_ropes=sue_keep_ropes,
         knot=sue_lessonfilehandler.knot,
     )

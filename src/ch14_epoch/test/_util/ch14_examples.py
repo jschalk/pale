@@ -267,7 +267,7 @@ def display_creg_five_squirt_time_attrs(graphics_bool: bool):
         squirt_min = get_squirt_min_from_dt(current_datetime)
         creg_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, creg_min)
         five_EpochTime = beliefepochtime_shop(sue_belief, kw.five, five_min)
-        squirt_EpochTime = beliefepochtime_shop(sue_belief, squirt_rope, squirt_min)
+        squirt_EpochTime = beliefepochtime_shop(sue_belief, "squirt", squirt_min)
         creg_EpochTime.calc_epoch()
         five_EpochTime.calc_epoch()
         squirt_EpochTime.calc_epoch()

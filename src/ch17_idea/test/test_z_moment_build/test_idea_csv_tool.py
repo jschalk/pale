@@ -621,9 +621,8 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
     bob_belief.get_voice(yao_str).add_membership(run_str, run_credit, run_debt)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00020")
 
@@ -631,8 +630,8 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
     x_csv = add_lesson_to_br00020_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    yao_yao_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{yao_str},{yao_str},1,1\n"
-    yao_run_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{yao_str},{run_str},{run_credit},{run_debt}\n"
+    yao_yao_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{yao_str},{yao_str},1,1\n"
+    yao_run_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{yao_str},{run_str},{run_credit},{run_debt}\n"
     print(f"       {x_csv=}")
     expected_csv = f"{csv_header}{yao_run_row}{yao_yao_row}"
     print(f"{expected_csv=}")
@@ -651,9 +650,8 @@ def test_add_lesson_to_br00021_csv_ReturnsObj():
     bob_belief.add_voiceunit(yao_str, yao_credit, yao_debt)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00021")
 
@@ -662,7 +660,7 @@ def test_add_lesson_to_br00021_csv_ReturnsObj():
 
     # THEN
     yao_row = (
-        f"{sue_str},{spark7},{a23_str},{exx.bob},{yao_str},{yao_credit},{yao_debt}\n"
+        f"{exx.sue},{spark7},{a23_str},{exx.bob},{yao_str},{yao_credit},{yao_debt}\n"
     )
     assert x_csv == f"{csv_header}{yao_row}"
 
@@ -682,9 +680,8 @@ def test_add_lesson_to_br00022_csv_ReturnsObj():
     bob_belief.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00022")
     print(f"{csv_header=}")
@@ -693,7 +690,7 @@ def test_add_lesson_to_br00022_csv_ReturnsObj():
     x_csv = add_lesson_to_br00022_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    yao_award_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{casa_rope},{yao_str},{yao_give_force},{yao_take_force}\n"
+    yao_award_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{casa_rope},{yao_str},{yao_give_force},{yao_take_force}\n"
     assert x_csv == f"{csv_header}{yao_award_row}"
 
 
@@ -713,9 +710,8 @@ def test_add_lesson_to_br00023_csv_ReturnsObj():
     bob_belief.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00023")
     print(f"{csv_header=}")
@@ -724,7 +720,7 @@ def test_add_lesson_to_br00023_csv_ReturnsObj():
     x_csv = add_lesson_to_br00023_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    clean_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{a23_rope},{casa_rope},{clean_rope},{clean_fact_lower},{clean_fact_upper}\n"
+    clean_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{a23_rope},{casa_rope},{clean_rope},{clean_fact_lower},{clean_fact_upper}\n"
     expected_csv = f"{csv_header}{clean_row}"
     print(f"       {x_csv=}")
     print(f"{expected_csv=}")
@@ -744,9 +740,8 @@ def test_add_lesson_to_br00024_csv_ReturnsObj():
     casa_plan.laborunit.add_party(cleaners_str)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00024")
     print(f"{csv_header=}")
@@ -756,7 +751,7 @@ def test_add_lesson_to_br00024_csv_ReturnsObj():
 
     # THEN
     cleaners_row = (
-        f"{sue_str},{spark7},{a23_str},{exx.bob},{casa_rope},{cleaners_str}\n"
+        f"{exx.sue},{spark7},{a23_str},{exx.bob},{casa_rope},{cleaners_str}\n"
     )
     expected_csv = f"{csv_header}{cleaners_row}"
     print(f"       {x_csv=}")
@@ -777,9 +772,8 @@ def test_add_lesson_to_br00025_csv_ReturnsObj():
     casa_plan.healerunit.set_healer_name(cleaners_str)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00025")
     print(f"{csv_header=}")
@@ -789,7 +783,7 @@ def test_add_lesson_to_br00025_csv_ReturnsObj():
 
     # THEN
     cleaners_row = (
-        f"{sue_str},{spark7},{a23_str},{exx.bob},{casa_rope},{cleaners_str}\n"
+        f"{exx.sue},{spark7},{a23_str},{exx.bob},{casa_rope},{cleaners_str}\n"
     )
     assert x_csv == f"{csv_header}{cleaners_row}"
 
@@ -819,9 +813,8 @@ def test_add_lesson_to_br00026_csv_ReturnsObj():
     )
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00026")
     print(f"{csv_header=}")
@@ -830,7 +823,7 @@ def test_add_lesson_to_br00026_csv_ReturnsObj():
     x_csv = add_lesson_to_br00026_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    mop_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{mop_rope},{casa_rope},{clean_rope},{clean_reason_lower},{clean_reason_upper},{clean_reason_divisor}\n"
+    mop_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{mop_rope},{casa_rope},{clean_rope},{clean_reason_lower},{clean_reason_upper},{clean_reason_divisor}\n"
     assert x_csv == f"{csv_header}{mop_row}"
 
 
@@ -851,9 +844,8 @@ def test_add_lesson_to_br00027_csv_ReturnsObj():
     )
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00027")
     print(f"{csv_header=}")
@@ -862,7 +854,7 @@ def test_add_lesson_to_br00027_csv_ReturnsObj():
     x_csv = add_lesson_to_br00027_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    casa_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{mop_rope},{casa_rope},True\n"
+    casa_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{mop_rope},{casa_rope},True\n"
     assert x_csv == f"{csv_header}{casa_row}"
 
 
@@ -904,9 +896,8 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
     )
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00028")
     print(f"{csv_header=}")
@@ -915,11 +906,11 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
     x_csv = add_lesson_to_br00028_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    # root_row = f"{sue_str},{spark7},{a23_str},{exx.bob},,{bob_belief.moment_label},,,,,,,,,1,False,False\n"
-    # mop_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{bob_belief.moment_label},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},{casa_gogo_want},{casa_stop_want},{casa_star},{casa_pledge},{casa_problem_bool}\n"
-    mop_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{a23_rope},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},,,{casa_star},{casa_pledge},\n"
+    # root_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},,{bob_belief.moment_label},,,,,,,,,1,False,False\n"
+    # mop_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{bob_belief.moment_label},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},{casa_gogo_want},{casa_stop_want},{casa_star},{casa_pledge},{casa_problem_bool}\n"
+    mop_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{a23_rope},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},,,{casa_star},{casa_pledge},\n"
     casa_row = (
-        f"{sue_str},{spark7},{a23_str},{exx.bob},{a23_rope},casa,,,,,,,,,0,False,\n"
+        f"{exx.sue},{spark7},{a23_str},{exx.bob},{a23_rope},casa,,,,,,,,,0,False,\n"
     )
     # print(f"{mop_row=}")
     expected_csv = f"{csv_header}{casa_row}{mop_row}"
@@ -944,9 +935,8 @@ def test_add_lesson_to_br00029_csv_ReturnsObj():
     bob_belief.respect_grain = 2
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
     csv_header = x_ideas.get("br00029")
     print(f"{csv_header=}")
@@ -955,7 +945,7 @@ def test_add_lesson_to_br00029_csv_ReturnsObj():
     x_csv = add_lesson_to_br00029_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    belief_row = f"{sue_str},{spark7},{a23_str},{exx.bob},{bob_belief.credor_respect},{bob_belief.debtor_respect},{bob_belief.fund_pool},,{bob_belief.tally},{bob_belief.fund_grain},,{bob_belief.respect_grain}\n"
+    belief_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{bob_belief.credor_respect},{bob_belief.debtor_respect},{bob_belief.fund_pool},,{bob_belief.tally},{bob_belief.fund_grain},,{bob_belief.respect_grain}\n"
     assert x_csv == f"{csv_header}{belief_row}"
 
 
@@ -989,9 +979,8 @@ def test_add_lessonunit_to_stance_csv_strs_ReturnsObj():
     bob_belief.respect_grain = 2
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
-    sue_str = "Sue"
     spark7 = 7
-    sue7_lesson = lessonunit_shop(exx.bob, sue_str, a23_str, spark_num=spark7)
+    sue7_lesson = lessonunit_shop(exx.bob, exx.sue, a23_str, spark_num=spark7)
     sue7_lesson.set_beliefdelta(bob_beliefdelta)
 
     br00020_header = x_ideas.get("br00020")

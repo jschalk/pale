@@ -8,6 +8,7 @@ from src.ch01_py.file_toolbox import (
 )
 from src.ch20_world_logic.test._util.ch20_env import temp_dir_setup
 from src.ch20_world_logic.world import worldunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_sheets_input_to_clarity_mstr_Examples(temp_dir_setup, run_big_tests):

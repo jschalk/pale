@@ -64,16 +64,15 @@ def test_create_belief_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
 
     # WHEN
-    sue_dir = create_belief_dir_path(x_moment_mstr_dir, amy23_str, sue_str)
+    sue_dir = create_belief_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     amy23_dir = create_path(x_moments_dir, amy23_str)
     beliefs_dir = create_path(amy23_dir, "beliefs")
-    expected_sue_dir = create_path(beliefs_dir, sue_str)
+    expected_sue_dir = create_path(beliefs_dir, exx.sue)
     assert sue_dir == expected_sue_dir
 
 
@@ -81,16 +80,15 @@ def test_create_atoms_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
 
     # WHEN
-    atoms_dir = create_atoms_dir_path(x_moment_mstr_dir, amy23_str, sue_str)
+    atoms_dir = create_atoms_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     amy23_dir = create_path(x_moments_dir, amy23_str)
     beliefs_dir = create_path(amy23_dir, "beliefs")
-    sue_dir = create_path(beliefs_dir, sue_str)
+    sue_dir = create_path(beliefs_dir, exx.sue)
     expected_atoms_dir = create_path(sue_dir, "atoms")
     assert atoms_dir == expected_atoms_dir
 
@@ -99,16 +97,15 @@ def test_create_lessons_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
 
     # WHEN
-    lessons_dir = create_lessons_dir_path(x_moment_mstr_dir, amy23_str, sue_str)
+    lessons_dir = create_lessons_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     amy23_dir = create_path(x_moments_dir, amy23_str)
     beliefs_dir = create_path(amy23_dir, "beliefs")
-    sue_dir = create_path(beliefs_dir, sue_str)
+    sue_dir = create_path(beliefs_dir, exx.sue)
     expected_lessons_dir = create_path(sue_dir, "lessons")
     assert lessons_dir == expected_lessons_dir
 

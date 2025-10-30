@@ -40,9 +40,8 @@ def test_namemap_shop_ReturnsObj_Scenario0():
 def test_namemap_shop_ReturnsObj_Scenario1_WithParameters():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     spark7 = 7
-    otx2inx = {xio_str: sue_str}
+    otx2inx = {xio_str: exx.sue}
     x_unknown_str = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
@@ -69,9 +68,8 @@ def test_namemap_shop_ReturnsObj_Scenario1_WithParameters():
 def test_namemap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     spark7 = numpy_int64(7)
-    otx2inx = {xio_str: sue_str}
+    otx2inx = {xio_str: exx.sue}
     x_nan = float("nan")
 
     # WHEN
@@ -98,10 +96,9 @@ def test_namemap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_
 def test_NameMap_set_all_otx2inx_SetsAttr():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     zia_str = "Zia"
     x_namemap = namemap_shop()
-    x_otx2inx = {xio_str: sue_str, zia_str: zia_str}
+    x_otx2inx = {xio_str: exx.sue, zia_str: zia_str}
     assert x_namemap.otx2inx != x_otx2inx
 
     # WHEN
@@ -114,11 +111,10 @@ def test_NameMap_set_all_otx2inx_SetsAttr():
 def test_NameMap_set_all_otx2inx_RaisesErrorIf_unknown_str_IsKeyIn_otx2inx():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     zia_str = "Zia"
     x_unknown_str = "UnknownTerm"
     x_namemap = namemap_shop(None, unknown_str=x_unknown_str)
-    x_otx2inx = {xio_str: sue_str, x_unknown_str: zia_str}
+    x_otx2inx = {xio_str: exx.sue, x_unknown_str: zia_str}
     assert x_namemap.otx2inx != x_otx2inx
 
     # WHEN / THEN
@@ -131,11 +127,10 @@ def test_NameMap_set_all_otx2inx_RaisesErrorIf_unknown_str_IsKeyIn_otx2inx():
 def test_NameMap_set_all_otx2inx_DoesNotRaiseErrorIfParameterSetToTrue():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     zia_str = "Zia"
     x_unknown_str = "UnknownTerm"
     x_namemap = namemap_shop(None)
-    x_otx2inx = {xio_str: sue_str, x_unknown_str: zia_str}
+    x_otx2inx = {xio_str: exx.sue, x_unknown_str: zia_str}
     assert x_namemap.otx2inx != x_otx2inx
 
     # WHEN
@@ -148,47 +143,44 @@ def test_NameMap_set_all_otx2inx_DoesNotRaiseErrorIfParameterSetToTrue():
 def test_NameMap_set_otx2inx_SetsAttr():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     x_namemap = namemap_shop(None)
     assert x_namemap.otx2inx == {}
 
     # WHEN
-    x_namemap.set_otx2inx(xio_str, sue_str)
+    x_namemap.set_otx2inx(xio_str, exx.sue)
 
     # THEN
-    assert x_namemap.otx2inx == {xio_str: sue_str}
+    assert x_namemap.otx2inx == {xio_str: exx.sue}
 
 
 def test_NameMap_get_inx_value_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     x_namemap = namemap_shop(None)
-    assert x_namemap._get_inx_value(xio_str) != sue_str
+    assert x_namemap._get_inx_value(xio_str) != exx.sue
 
     # WHEN
-    x_namemap.set_otx2inx(xio_str, sue_str)
+    x_namemap.set_otx2inx(xio_str, exx.sue)
 
     # THEN
-    assert x_namemap._get_inx_value(xio_str) == sue_str
+    assert x_namemap._get_inx_value(xio_str) == exx.sue
 
 
 def test_NameMap_otx2inx_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     zia_str = "Zia"
     x_namemap = namemap_shop(None)
-    assert x_namemap.otx2inx_exists(xio_str, sue_str) is False
+    assert x_namemap.otx2inx_exists(xio_str, exx.sue) is False
     assert x_namemap.otx2inx_exists(xio_str, zia_str) is False
     assert x_namemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_namemap.otx2inx_exists(zia_str, zia_str) is False
 
     # WHEN
-    x_namemap.set_otx2inx(xio_str, sue_str)
+    x_namemap.set_otx2inx(xio_str, exx.sue)
 
     # THEN
-    assert x_namemap.otx2inx_exists(xio_str, sue_str)
+    assert x_namemap.otx2inx_exists(xio_str, exx.sue)
     assert x_namemap.otx2inx_exists(xio_str, zia_str) is False
     assert x_namemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_namemap.otx2inx_exists(zia_str, zia_str) is False
@@ -197,7 +189,7 @@ def test_NameMap_otx2inx_exists_ReturnsObj():
     x_namemap.set_otx2inx(zia_str, zia_str)
 
     # THEN
-    assert x_namemap.otx2inx_exists(xio_str, sue_str)
+    assert x_namemap.otx2inx_exists(xio_str, exx.sue)
     assert x_namemap.otx2inx_exists(xio_str, zia_str) is False
     assert x_namemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_namemap.otx2inx_exists(zia_str, zia_str)
@@ -206,20 +198,19 @@ def test_NameMap_otx2inx_exists_ReturnsObj():
 def test_NameMap_otx_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     zia_str = "Zia"
     x_namemap = namemap_shop(None)
     assert x_namemap.otx_exists(xio_str) is False
-    assert x_namemap.otx_exists(sue_str) is False
+    assert x_namemap.otx_exists(exx.sue) is False
     assert x_namemap.otx_exists(exx.bob) is False
     assert x_namemap.otx_exists(zia_str) is False
 
     # WHEN
-    x_namemap.set_otx2inx(xio_str, sue_str)
+    x_namemap.set_otx2inx(xio_str, exx.sue)
 
     # THEN
     assert x_namemap.otx_exists(xio_str)
-    assert x_namemap.otx_exists(sue_str) is False
+    assert x_namemap.otx_exists(exx.sue) is False
     assert x_namemap.otx_exists(exx.bob) is False
     assert x_namemap.otx_exists(zia_str) is False
 
@@ -228,7 +219,7 @@ def test_NameMap_otx_exists_ReturnsObj():
 
     # THEN
     assert x_namemap.otx_exists(xio_str)
-    assert x_namemap.otx_exists(sue_str) is False
+    assert x_namemap.otx_exists(exx.sue) is False
     assert x_namemap.otx_exists(exx.bob) is False
     assert x_namemap.otx_exists(zia_str)
 
@@ -236,26 +227,24 @@ def test_NameMap_otx_exists_ReturnsObj():
 def test_NameMap_del_otx2inx_SetsAttr():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     x_namemap = namemap_shop(None)
-    x_namemap.set_otx2inx(xio_str, sue_str)
-    assert x_namemap.otx2inx_exists(xio_str, sue_str)
+    x_namemap.set_otx2inx(xio_str, exx.sue)
+    assert x_namemap.otx2inx_exists(xio_str, exx.sue)
 
     # WHEN
     x_namemap.del_otx2inx(xio_str)
 
     # THEN
-    assert x_namemap.otx2inx_exists(xio_str, sue_str) is False
+    assert x_namemap.otx2inx_exists(xio_str, exx.sue) is False
 
 
 def test_NameMap_unknown_str_in_otx2inx_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     zia_str = "Zia"
     x_unknown_str = "UnknownTerm"
     x_namemap = namemap_shop(None, unknown_str=x_unknown_str)
-    x_namemap.set_otx2inx(xio_str, sue_str)
+    x_namemap.set_otx2inx(xio_str, exx.sue)
     assert x_namemap._unknown_str_in_otx2inx() is False
 
     # WHEN
@@ -295,14 +284,13 @@ def test_NameMap_to_dict_ReturnsObj():
     # ESTABLISH
     clean_otx = "clean"
     clean_inx = "propre"
-    sue_str = "Sue"
     spark7 = 7
     slash_otx_knot = "/"
     colon_inx_knot = ":"
     x_namemap = namemap_shop(
         otx_knot=slash_otx_knot,
         inx_knot=colon_inx_knot,
-        face_name=sue_str,
+        face_name=exx.sue,
         spark_num=spark7,
     )
     x1_rope_map_dict = {
@@ -323,7 +311,7 @@ def test_NameMap_to_dict_ReturnsObj():
         kw.inx_knot: x_namemap.inx_knot,
         kw.unknown_str: x_namemap.unknown_str,
         kw.otx2inx: {clean_otx: clean_inx},
-        kw.face_name: sue_str,
+        kw.face_name: exx.sue,
         kw.spark_num: spark7,
     }
     assert x_namemap.to_dict() == x2_rope_map_dict
@@ -331,12 +319,11 @@ def test_NameMap_to_dict_ReturnsObj():
 
 def test_get_namemap_from_dict_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
     clean_otx = "clean"
     clean_inx = "propre"
     slash_otx_knot = "/"
     spark7 = 7
-    x_namemap = namemap_shop(sue_str, spark7, otx_knot=slash_otx_knot)
+    x_namemap = namemap_shop(exx.sue, spark7, otx_knot=slash_otx_knot)
     x_namemap.set_otx2inx(clean_otx, clean_inx)
 
     # WHEN
@@ -352,7 +339,6 @@ def test_get_namemap_from_dict_ReturnsObj():
 def test_NameMap_is_inx_knot_inclusion_correct_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
-    sue_str = "Sue"
     inx_knot = "/"
     zia_otx = "Zia"
     zia_inx = f"Zia{inx_knot}"
@@ -360,7 +346,7 @@ def test_NameMap_is_inx_knot_inclusion_correct_ReturnsObj():
     assert x_namemap._is_inx_knot_inclusion_correct()
 
     # WHEN
-    x_namemap.set_otx2inx(xio_str, sue_str)
+    x_namemap.set_otx2inx(xio_str, exx.sue)
     # THEN
     assert x_namemap._is_inx_knot_inclusion_correct()
 
@@ -434,10 +420,9 @@ def test_inherit_namemap_ReturnsObj_Scenario0():
 
 def test_inherit_namemap_ReturnsObj_Scenario1_RaiseErrorWhenDifferent_otx_knot():
     # ESTABLISH
-    sue_str = "Sue"
     slash_otx_knot = "/"
-    old_namemap = namemap_shop(sue_str, 0, otx_knot=slash_otx_knot)
-    new_namemap = namemap_shop(sue_str, 1)
+    old_namemap = namemap_shop(exx.sue, 0, otx_knot=slash_otx_knot)
+    new_namemap = namemap_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -449,10 +434,9 @@ def test_inherit_namemap_ReturnsObj_Scenario1_RaiseErrorWhenDifferent_otx_knot()
 
 def test_inherit_namemap_ReturnsObj_Scenario2_RaiseErrorWhenDifferent_inx_knot():
     # ESTABLISH
-    sue_str = "Sue"
     slash_otx_knot = "/"
-    old_namemap = namemap_shop(sue_str, 0, inx_knot=slash_otx_knot)
-    new_namemap = namemap_shop(sue_str, 1)
+    old_namemap = namemap_shop(exx.sue, 0, inx_knot=slash_otx_knot)
+    new_namemap = namemap_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -464,10 +448,9 @@ def test_inherit_namemap_ReturnsObj_Scenario2_RaiseErrorWhenDifferent_inx_knot()
 
 def test_inherit_namemap_ReturnsObj_Scenario3_RaiseErrorWhenDifferent_x_unknown_str():
     # ESTABLISH
-    sue_str = "Sue"
     x_unknown_str = "UnknownTerm"
-    old_namemap = namemap_shop(sue_str, 0, unknown_str=x_unknown_str)
-    new_namemap = namemap_shop(sue_str, 1)
+    old_namemap = namemap_shop(exx.sue, 0, unknown_str=x_unknown_str)
+    new_namemap = namemap_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -479,8 +462,7 @@ def test_inherit_namemap_ReturnsObj_Scenario3_RaiseErrorWhenDifferent_x_unknown_
 
 def test_inherit_namemap_ReturnsObj_Scenario4_RaiseErrorWhenDifferent_x_face_name():
     # ESTABLISH
-    sue_str = "Sue"
-    old_namemap = namemap_shop(sue_str, 0)
+    old_namemap = namemap_shop(exx.sue, 0)
     new_namemap = namemap_shop(exx.bob, 1)
 
     # WHEN
@@ -493,9 +475,8 @@ def test_inherit_namemap_ReturnsObj_Scenario4_RaiseErrorWhenDifferent_x_face_nam
 
 def test_inherit_namemap_ReturnsObj_Scenario5_RaiseErrorWhenSparkIntsOutOfOrder():
     # ESTABLISH
-    sue_str = "Sue"
-    old_namemap = namemap_shop(sue_str, 5)
-    new_namemap = namemap_shop(sue_str, 1)
+    old_namemap = namemap_shop(exx.sue, 5)
+    new_namemap = namemap_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:

@@ -12,7 +12,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
     spark3 = 3
@@ -41,8 +40,8 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{sue_str}', '{a23_str}', '{minute_360}', '{hour6am}')
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour7am}')
+  ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_360}', '{hour6am}')
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}')
 , ('{spark3}', '{yao_str}', '{a23_str}', '{minute_420}', '{hour7am}')
 , ('{spark9}', '{yao_str}', '{a23_str}', '{minute_420}', '{hour7am}')
 ;
@@ -73,7 +72,7 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
 
         rows = cursor.fetchall()
         assert len(rows) == 3
-        sue_r = ("br00003", spark1, sue_str, None)
+        sue_r = ("br00003", spark1, exx.sue, None)
         yao3_r = ("br00003", spark3, yao_str, None)
         yao9_r = ("br00003", spark9, yao_str, None)
         print(f"{rows[0]=}")
@@ -85,7 +84,6 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
 def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario1():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
     spark3 = 3
@@ -114,8 +112,8 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{sue_str}', "{a23_str}", '{hour6am}', '{minute_360}')
-, ('{spark1}', '{sue_str}', "{a23_str}", '{hour7am}', '{minute_420}')
+  ('{spark1}', '{exx.sue}', "{a23_str}", '{hour6am}', '{minute_360}')
+, ('{spark1}', '{exx.sue}', "{a23_str}", '{hour7am}', '{minute_420}')
 , ('{spark1}', '{yao_str}', "{a23_str}", '{hour7am}', '{minute_420}')
 , ('{spark9}', '{yao_str}', "{a23_str}", '{hour7am}', '{minute_420}')
 , ('{spark3}', '{exx.bob}', "{a23_str}", '{hour7am}', '{minute_420}')
@@ -143,7 +141,7 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
         assert len(rows) == 4
         invalid_str = "invalid because of conflicting spark_num"
         bob_row = ("br00003", spark3, exx.bob, None)
-        sue_row = ("br00003", spark1, sue_str, invalid_str)
+        sue_row = ("br00003", spark1, exx.sue, invalid_str)
         yao1_row = ("br00003", spark1, yao_str, invalid_str)
         yao9_row = ("br00003", spark9, yao_str, None)
 
@@ -155,7 +153,6 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
 
 def test_etl_sparks_brick_agg_table_to_sparks_brick_valid_table_PopulatesTables_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
     spark3 = 3
@@ -180,7 +177,7 @@ def test_etl_sparks_brick_agg_table_to_sparks_brick_valid_table_PopulatesTables_
         values_clause = f"""
 VALUES
   ('br00003', {spark3}, '{exx.bob}', NULL)
-, ('br00003', {spark1}, '{sue_str}', '{invalid_str}')
+, ('br00003', {spark1}, '{exx.sue}', '{invalid_str}')
 , ('br00003', {spark1}, '{yao_str}', '{invalid_str}')
 , ('br00003', {spark9}, '{yao_str}', NULL)  
 ;
@@ -214,7 +211,6 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
 
 def test_etl_sparks_brick_agg_db_to_spark_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
     spark3 = 3
@@ -228,7 +224,7 @@ def test_etl_sparks_brick_agg_db_to_spark_dict_ReturnsObj_Scenario0():
 INSERT INTO {agg_sparks_tablename} ({kw.spark_num}, {kw.face_name}, {kw.error_message})
 VALUES     
   ('{spark3}', '{exx.bob}', NULL)
-, ('{spark1}', '{sue_str}', 'invalid because of conflicting spark_num')
+, ('{spark1}', '{exx.sue}', 'invalid because of conflicting spark_num')
 , ('{spark1}', '{yao_str}', 'invalid because of conflicting spark_num')
 , ('{spark9}', '{yao_str}', NULL)
 , ('{spark9}', '{yao_str}', NULL)

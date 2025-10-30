@@ -102,7 +102,6 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     tp55 = 55
     bob_sue_tp55_amount = 444
     with sqlite3_connect(":memory:") as conn:
@@ -113,7 +112,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
-VALUES ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
+VALUES ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -129,7 +128,7 @@ VALUES ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
     assert a23_tranunits_dict
     a23_trans_bob_dict = a23_tranunits_dict.get(exx.bob)
     assert a23_trans_bob_dict
-    a23_trans_bob_sue_dict = a23_trans_bob_dict.get(sue_str)
+    a23_trans_bob_sue_dict = a23_trans_bob_dict.get(exx.sue)
     assert a23_trans_bob_sue_dict
     assert a23_trans_bob_sue_dict.get(tp55) == bob_sue_tp55_amount
 
@@ -138,7 +137,6 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
     # ESTABLISH
     a23_str = "amy23"
     a45_str = "amy45"
-    sue_str = "Sue"
     tp55 = 55
     a23_bob_sue_tp55_amount = 444
     a45_bob_sue_tp55_amount = 800
@@ -151,8 +149,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
 VALUES
-  ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {a23_bob_sue_tp55_amount})
-, ('{a45_str}', '{exx.bob}', '{sue_str}', {tp55}, {a45_bob_sue_tp55_amount})
+  ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {a23_bob_sue_tp55_amount})
+, ('{a45_str}', '{exx.bob}', '{exx.sue}', {tp55}, {a45_bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -168,7 +166,7 @@ VALUES
     assert a23_tranunits_dict
     a23_trans_bob_dict = a23_tranunits_dict.get(exx.bob)
     assert a23_trans_bob_dict
-    a23_trans_bob_sue_dict = a23_trans_bob_dict.get(sue_str)
+    a23_trans_bob_sue_dict = a23_trans_bob_dict.get(exx.sue)
     assert a23_trans_bob_sue_dict
     assert a23_trans_bob_sue_dict == {tp55: a23_bob_sue_tp55_amount}
 
@@ -407,7 +405,6 @@ VALUES (
 def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_blfpayy():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     tp55 = 55
     bob_sue_tp55_amount = 444
     with sqlite3_connect(":memory:") as conn:
@@ -418,7 +415,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_blfp
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
-VALUES ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
+VALUES ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -431,7 +428,7 @@ VALUES ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
     assert a23_momentunit.moment_label == a23_str
     assert a23_momentunit.paybook.tranunits.get(exx.bob)
     bob_tranunit = a23_momentunit.paybook.tranunits.get(exx.bob)
-    assert bob_tranunit == {sue_str: {tp55: bob_sue_tp55_amount}}
+    assert bob_tranunit == {exx.sue: {tp55: bob_sue_tp55_amount}}
 
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario2_momentbud():

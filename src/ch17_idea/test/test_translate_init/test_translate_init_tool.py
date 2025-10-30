@@ -40,7 +40,7 @@ from src.ch17_idea.translate_toolbox import (
     init_translateunit_from_dir,
     save_all_csvs_from_translateunit,
 )
-from src.ref.keywords import Ch17Keywords as kw
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
 def test_get_translate_name_dt_columns_ReturnsObj():
@@ -401,12 +401,11 @@ def test_create_dir_valid_empty_translateunit_Sets_otx_knot_inx_knot(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     x_unknown_str = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
     sue_translateunit = translateunit_shop(
-        face_name=sue_str,
+        face_name=exx.sue,
         otx_knot=slash_otx_knot,
         inx_knot=colon_inx_knot,
         unknown_str=x_unknown_str,
@@ -432,13 +431,12 @@ def test_create_dir_valid_empty_translateunit_Returns_spark_num(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     x_unknown_str = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
     spark7 = 7
     sue_translateunit = translateunit_shop(
-        face_name=sue_str,
+        face_name=exx.sue,
         spark_num=spark7,
         otx_knot=slash_otx_knot,
         inx_knot=colon_inx_knot,
@@ -452,7 +450,7 @@ def test_create_dir_valid_empty_translateunit_Returns_spark_num(
     gen_translateunit = create_dir_valid_empty_translateunit(map_dir)
 
     # THEN
-    assert gen_translateunit.face_name == sue_str
+    assert gen_translateunit.face_name == exx.sue
     assert gen_translateunit.spark_num == spark7
     assert gen_translateunit.unknown_str == x_unknown_str
     assert gen_translateunit.otx_knot == slash_otx_knot

@@ -29,16 +29,15 @@ def test_create_keeps_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
 
     # WHEN
-    keeps_dir = create_keeps_dir_path(x_moment_mstr_dir, amy23_str, sue_str)
+    keeps_dir = create_keeps_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     amy23_dir = create_path(x_moments_dir, amy23_str)
     beliefs_dir = create_path(amy23_dir, "beliefs")
-    sue_dir = create_path(beliefs_dir, sue_str)
+    sue_dir = create_path(beliefs_dir, exx.sue)
     expected_keeps_dir = create_path(sue_dir, "keeps")
     assert keeps_dir == expected_keeps_dir
 
@@ -47,17 +46,16 @@ def test_create_keep_rope_path_ReturnsObj_Scenario0_SimpleRope():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
 
     # WHEN
     keep_casa_path = create_keep_rope_path(
-        x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
+        x_moment_mstr_dir, exx.sue, amy23_str, casa_rope, None
     )
 
     # THEN
-    keeps_dir = create_keeps_dir_path(x_moment_mstr_dir, amy23_str, sue_str)
+    keeps_dir = create_keeps_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
     keep_amy23_dir = create_path(keeps_dir, amy23_str)
     expected_keep_casa_dir = create_path(keep_amy23_dir, casa_str)
     assert keep_casa_path == expected_keep_casa_dir
@@ -65,7 +63,6 @@ def test_create_keep_rope_path_ReturnsObj_Scenario0_SimpleRope():
 
 def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation():
     # ESTABLISH
-    sue_str = "Sue"
     peru_str = "peru"
     moment_mstr_dir = get_temp_dir()
     texas_str = "texas"
@@ -81,7 +78,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     # texas_path = create_keep_rope_path(sue_lessonfilehandler, texas_rope)
     texas_path = create_keep_rope_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=peru_str,
         keep_rope=texas_rope,
         knot=None,
@@ -89,7 +86,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     # dallas_path = createdallas_path_keep_rope_path(sue_lessonfilehandler, dallas_rope)
     dallas_path = create_keep_rope_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=peru_str,
         keep_rope=dallas_rope,
         knot=None,
@@ -97,7 +94,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     # elpaso_path = create_keep_rope_path(sue_lessonfilehandler, elpaso_rope)
     elpaso_path = create_keep_rope_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=peru_str,
         keep_rope=elpaso_rope,
         knot=None,
@@ -105,14 +102,14 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     # kern_path = create_keep_rope_path(sue_lessonfilehandler, kern_rope)
     kern_path = create_keep_rope_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=peru_str,
         keep_rope=kern_rope,
         knot=None,
     )
 
     # THEN
-    keeps_dir = create_keeps_dir_path(moment_mstr_dir, peru_str, sue_str)
+    keeps_dir = create_keeps_dir_path(moment_mstr_dir, peru_str, exx.sue)
     planroot_dir = create_path(keeps_dir, peru_str)
     print(f"{kern_rope=}")
     print(f"{planroot_dir=}")
@@ -127,21 +124,21 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     diff_root_elpaso_rope = create_rope_from_labels([peru_str, texas_str, elpaso_str])
     assert texas_path == create_keep_rope_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=peru_str,
         keep_rope=diff_root_texas_rope,
         knot=None,
     )
     assert dallas_path == create_keep_rope_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=peru_str,
         keep_rope=diff_root_dallas_rope,
         knot=None,
     )
     assert elpaso_path == create_keep_rope_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=peru_str,
         keep_rope=diff_root_elpaso_rope,
         knot=None,
@@ -164,14 +161,13 @@ def test_create_keep_dutys_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
 
     # WHEN
     gen_keep_dutys_path = create_keep_dutys_path(
         moment_mstr_dir=x_moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
@@ -179,7 +175,7 @@ def test_create_keep_dutys_path_ReturnsObj() -> None:
 
     # THEN
     keep_casa_path = create_keep_rope_path(
-        x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
+        x_moment_mstr_dir, exx.sue, amy23_str, casa_rope, None
     )
     expected_keep_dutys_path = create_path(keep_casa_path, "dutys")
     assert gen_keep_dutys_path == expected_keep_dutys_path
@@ -189,14 +185,13 @@ def test_create_keep_duty_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
 
     # WHEN
     gen_keep_duty_path = create_keep_duty_path(
         moment_mstr_dir=x_moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
@@ -205,7 +200,7 @@ def test_create_keep_duty_path_ReturnsObj() -> None:
 
     # THEN
     keep_dutys_path = create_keep_dutys_path(
-        x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
+        x_moment_mstr_dir, exx.sue, amy23_str, casa_rope, None
     )
     bob_filename = get_json_filename(exx.bob)
     expected_keep_duty_path = create_path(keep_dutys_path, bob_filename)
@@ -216,14 +211,13 @@ def test_create_keep_grades_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
 
     # WHEN
     gen_keep_dutys_path = create_keep_grades_path(
         moment_mstr_dir=x_moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
@@ -231,7 +225,7 @@ def test_create_keep_grades_path_ReturnsObj() -> None:
 
     # THEN
     keep_casa_path = create_keep_rope_path(
-        x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
+        x_moment_mstr_dir, exx.sue, amy23_str, casa_rope, None
     )
     expected_keep_dutys_path = create_path(keep_casa_path, "grades")
     assert gen_keep_dutys_path == expected_keep_dutys_path
@@ -241,14 +235,13 @@ def test_create_keep_grade_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
 
     # WHEN
     gen_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
@@ -257,7 +250,7 @@ def test_create_keep_grade_path_ReturnsObj() -> None:
 
     # THEN
     keep_grades_path = create_keep_grades_path(
-        x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
+        x_moment_mstr_dir, exx.sue, amy23_str, casa_rope, None
     )
     expected_grade_path = create_path(keep_grades_path, get_json_filename(exx.bob))
     assert gen_keep_grade_path == expected_grade_path
@@ -267,14 +260,13 @@ def test_create_keep_visions_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
 
     # WHEN
     gen_keep_dutys_path = create_keep_visions_path(
         moment_mstr_dir=x_moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
@@ -282,7 +274,7 @@ def test_create_keep_visions_path_ReturnsObj() -> None:
 
     # THEN
     keep_casa_path = create_keep_rope_path(
-        x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
+        x_moment_mstr_dir, exx.sue, amy23_str, casa_rope, None
     )
     expected_keep_dutys_path = create_path(keep_casa_path, "visions")
     assert gen_keep_dutys_path == expected_keep_dutys_path
@@ -292,14 +284,13 @@ def test_create_treasury_db_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
 
     # WHEN
     gen_keep_dutys_path = create_treasury_db_path(
         moment_mstr_dir=x_moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
@@ -307,7 +298,7 @@ def test_create_treasury_db_path_ReturnsObj() -> None:
 
     # THEN
     keep_casa_path = create_keep_rope_path(
-        x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
+        x_moment_mstr_dir, exx.sue, amy23_str, casa_rope, None
     )
     expected_keep_dutys_path = create_path(keep_casa_path, "treasury.db")
     assert gen_keep_dutys_path == expected_keep_dutys_path

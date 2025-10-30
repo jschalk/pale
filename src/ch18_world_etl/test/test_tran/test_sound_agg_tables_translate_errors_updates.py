@@ -7,13 +7,12 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename,
 )
 from src.ch18_world_etl.transformers import set_moment_belief_sound_agg_knot_errors
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     colon = ":"
     bob_str = f"{colon}Bob"
@@ -29,8 +28,8 @@ def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTabl
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
   {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{yao_str}')
-, ({spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{bob_str}')
+  ({spark1}, '{exx.sue}', '{a23_str}', '{yao_str}', '{yao_str}')
+, ({spark1}, '{exx.sue}', '{a23_str}', '{yao_str}', '{bob_str}')
 ;
 """
         cursor.execute(insert_blfvoce_sqlstr)
@@ -39,7 +38,7 @@ VALUES
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
   {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES
-  ('{sue_str}', '{colon}', '{colon}', '{ukx}')
+  ('{exx.sue}', '{colon}', '{colon}', '{ukx}')
 , ('{yao_str}', '{comma}', '{comma}', '{ukx}')
 ;
 """
@@ -60,14 +59,13 @@ VALUES
         cursor.execute(select_core_raw_sqlstr)
         name_knot_str = f"Knot cannot exist in NameTerm column {kw.voice_name}"
         assert cursor.fetchall() == [
-            (spark1, sue_str, a23_str, yao_str, yao_str, None, None, None),
-            (spark1, sue_str, a23_str, yao_str, bob_str, None, None, name_knot_str),
+            (spark1, exx.sue, a23_str, yao_str, yao_str, None, None, None),
+            (spark1, exx.sue, a23_str, yao_str, bob_str, None, None, name_knot_str),
         ]
 
 
 def test_create_knot_exists_in_label_error_update_sqlstr_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     colon = ":"
     bob_str = f"{colon}Bob"
@@ -85,9 +83,9 @@ def test_create_knot_exists_in_label_error_update_sqlstr_ReturnsObj_PopulatesTab
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
   {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{yao_str}')
-, ({spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{bob_str}')
-, ({spark1}, '{sue_str}', '{a45_str}', '{yao_str}', '{bob_str}')
+  ({spark1}, '{exx.sue}', '{a23_str}', '{yao_str}', '{yao_str}')
+, ({spark1}, '{exx.sue}', '{a23_str}', '{yao_str}', '{bob_str}')
+, ({spark1}, '{exx.sue}', '{a45_str}', '{yao_str}', '{bob_str}')
 ;
 """
         cursor.execute(insert_blfvoce_sqlstr)
@@ -96,7 +94,7 @@ VALUES
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
   {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES
-  ('{sue_str}', '{colon}', '{colon}', '{ukx}')
+  ('{exx.sue}', '{colon}', '{colon}', '{ukx}')
 , ('{yao_str}', '{comma}', '{comma}', '{ukx}')
 ;
 """
@@ -117,15 +115,14 @@ VALUES
         cursor.execute(select_core_raw_sqlstr)
         label_knot_str = f"Knot cannot exist in LabelTerm column {kw.moment_label}"
         assert cursor.fetchall() == [
-            (spark1, sue_str, a23_str, yao_str, yao_str, None, None, None),
-            (spark1, sue_str, a23_str, yao_str, bob_str, None, None, None),
-            (spark1, sue_str, a45_str, yao_str, bob_str, None, None, label_knot_str),
+            (spark1, exx.sue, a23_str, yao_str, yao_str, None, None, None),
+            (spark1, exx.sue, a23_str, yao_str, bob_str, None, None, None),
+            (spark1, exx.sue, a45_str, yao_str, bob_str, None, None, label_knot_str),
         ]
 
 
 def test_set_moment_belief_sound_agg_knot_errors_PopulatesTable_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     colon = ":"
     bob_str = f"{colon}Bob"
@@ -144,9 +141,9 @@ def test_set_moment_belief_sound_agg_knot_errors_PopulatesTable_Scenario0():
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
   {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{yao_str}')
-, ({spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{bob_str}')
-, ({spark1}, '{sue_str}', '{a45_str}', '{yao_str}', '{yao_str}')
+  ({spark1}, '{exx.sue}', '{a23_str}', '{yao_str}', '{yao_str}')
+, ({spark1}, '{exx.sue}', '{a23_str}', '{yao_str}', '{bob_str}')
+, ({spark1}, '{exx.sue}', '{a45_str}', '{yao_str}', '{yao_str}')
 ;
 """
         cursor.execute(insert_blfvoce_sqlstr)
@@ -155,7 +152,7 @@ VALUES
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
   {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES
-  ('{sue_str}', '{colon}', '{colon}', '{ukx}')
+  ('{exx.sue}', '{colon}', '{colon}', '{ukx}')
 , ('{yao_str}', '{comma}', '{comma}', '{ukx}')
 ;
 """
@@ -175,7 +172,7 @@ VALUES
         rows = cursor.fetchall()
         print(f"{rows=}")
         assert rows == [
-            (spark1, sue_str, a45_str, yao_str, yao_str, None, None, label_knot_str),
-            (spark1, sue_str, a23_str, yao_str, bob_str, None, None, name_knot_str),
-            (spark1, sue_str, a23_str, yao_str, yao_str, None, None, None),
+            (spark1, exx.sue, a45_str, yao_str, yao_str, None, None, label_knot_str),
+            (spark1, exx.sue, a23_str, yao_str, bob_str, None, None, name_knot_str),
+            (spark1, exx.sue, a23_str, yao_str, yao_str, None, None, None),
         ]

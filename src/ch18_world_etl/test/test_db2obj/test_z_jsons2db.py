@@ -756,10 +756,9 @@ def test_insert_job_blrheal_CreatesTableRowsFor_blrheal_job():
     x_moment_label = 1
     x_belief_name = 2
     x_rope = 3
-    sue_str = "Sue"
     x_healerunit = healerunit_shop()
     x_healerunit.set_healer_name(exx.bob)
-    x_healerunit.set_healer_name(sue_str)
+    x_healerunit.set_healer_name(exx.sue)
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
@@ -786,7 +785,7 @@ def test_insert_job_blrheal_CreatesTableRowsFor_blrheal_job():
             str(x_moment_label),
             str(x_belief_name),
             str(x_rope),
-            sue_str,
+            exx.sue,
         )
         expected_data = [expected_row1, expected_row2]
         assert rows == expected_data
@@ -814,11 +813,10 @@ def test_insert_job_blrlabo_CreatesTableRowsFor_blrlabo_job():
     x_laborheir = laborheir_shop()
     x_laborheir.belief_name_is_labor = x__belief_name_is_labor
     bob_solo_bool = 6
-    sue_str = "Sue"
     sue_solo_bool = 7
     bob_partyheir = partyheir_shop(exx.bob, bob_solo_bool)
-    sue_partyheir = partyheir_shop(sue_str, sue_solo_bool)
-    x_laborheir.partys = {exx.bob: bob_partyheir, sue_str: sue_partyheir}
+    sue_partyheir = partyheir_shop(exx.sue, sue_solo_bool)
+    x_laborheir.partys = {exx.bob: bob_partyheir, exx.sue: sue_partyheir}
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
@@ -847,7 +845,7 @@ def test_insert_job_blrlabo_CreatesTableRowsFor_blrlabo_job():
             str(x_moment_label),
             str(x_belief_name),
             str(x_rope),
-            sue_str,
+            exx.sue,
             sue_solo_bool,
             x__belief_name_is_labor,
         )
@@ -859,10 +857,9 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     # sourcery skip: extract-method
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     run_str = ";run"
-    sue_belief = beliefunit_shop(sue_str, a23_str)
-    sue_belief.add_voiceunit(sue_str)
+    sue_belief = beliefunit_shop(exx.sue, a23_str)
+    sue_belief.add_voiceunit(exx.sue)
     sue_belief.add_voiceunit(exx.bob)
     sue_belief.get_voice(exx.bob).add_membership(run_str)
     casa_rope = sue_belief.make_l1_rope("casa")
@@ -878,7 +875,7 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     sue_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(run_str))
     sue_belief.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     casa_laborunit = laborunit_shop()
-    casa_laborunit.add_party(sue_str, True)
+    casa_laborunit.add_party(exx.sue, True)
     sue_belief.edit_plan_attr(casa_rope, laborunit=casa_laborunit)
     sue_belief.add_fact(situation_rope, clean_rope)
 

@@ -179,14 +179,13 @@ def test_create_stance0001_file_CreatesFile_Scenario0_NoMomentUnits(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     world_dir = get_temp_dir()
     output_dir = create_path(world_dir, "output")
     stance0001_path = create_stance0001_path(output_dir)
     assert os_path_exists(stance0001_path) is False
 
     # WHEN
-    create_stance0001_file(world_dir, output_dir, sue_str)
+    create_stance0001_file(world_dir, output_dir, exx.sue)
 
     # THEN
     assert os_path_exists(stance0001_path)

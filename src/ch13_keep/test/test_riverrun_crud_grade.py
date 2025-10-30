@@ -80,16 +80,15 @@ def test_RiverRun_set_all_initial_rivergrades_SetsAttr():
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     yao_str = "Yao"
-    sue_str = "Sue"
     zia_str = "Zia"
     xio_str = "Xio"
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
     x_riverrun.set_keep_patientledger(yao_str, yao_str, 1)
     x_riverrun.set_keep_patientledger(yao_str, exx.bob, 1)
     x_riverrun.set_keep_patientledger(zia_str, exx.bob, 1)
-    x_riverrun.set_keep_patientledger(xio_str, sue_str, 1)
+    x_riverrun.set_keep_patientledger(xio_str, exx.sue, 1)
     all_voices_ids = x_riverrun.get_all_keep_patientledger_voice_names()
-    assert all_voices_ids == {yao_str, exx.bob, zia_str, xio_str, sue_str}
+    assert all_voices_ids == {yao_str, exx.bob, zia_str, xio_str, exx.sue}
     assert x_riverrun.rivergrades_is_empty()
     assert x_riverrun.rivergrade_exists(yao_str) is False
     assert x_riverrun.rivergrade_exists(exx.bob) is False
@@ -111,20 +110,19 @@ def test_RiverRun_set_all_initial_rivergrades_OverWritesPrevious():
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     yao_str = "Yao"
-    sue_str = "Sue"
     zia_str = "Zia"
     xio_str = "Xio"
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
     x_riverrun.set_keep_patientledger(yao_str, yao_str, 1)
     x_riverrun.set_keep_patientledger(yao_str, exx.bob, 1)
     x_riverrun.set_keep_patientledger(zia_str, exx.bob, 1)
-    x_riverrun.set_keep_patientledger(xio_str, sue_str, 1)
+    x_riverrun.set_keep_patientledger(xio_str, exx.sue, 1)
     x_riverrun.set_all_initial_rivergrades()
     assert x_riverrun.rivergrade_exists(yao_str)
     assert x_riverrun.rivergrade_exists(exx.bob)
     assert x_riverrun.rivergrade_exists(zia_str)
     assert x_riverrun.rivergrade_exists(xio_str)
-    assert x_riverrun.rivergrade_exists(sue_str)
+    assert x_riverrun.rivergrade_exists(exx.sue)
 
     # WHEN
     x_riverrun.delete_keep_patientledgers_belief(xio_str)
@@ -135,4 +133,4 @@ def test_RiverRun_set_all_initial_rivergrades_OverWritesPrevious():
     assert x_riverrun.rivergrade_exists(exx.bob)
     assert x_riverrun.rivergrade_exists(zia_str)
     assert x_riverrun.rivergrade_exists(xio_str) is False
-    assert x_riverrun.rivergrade_exists(sue_str) is False
+    assert x_riverrun.rivergrade_exists(exx.sue) is False

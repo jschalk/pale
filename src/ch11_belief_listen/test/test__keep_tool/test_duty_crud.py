@@ -15,7 +15,6 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_save_vision_belief_SavesFile(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
     nation_str = "nation"
     nation_rope = create_rope(ch11_example_moment_label(), nation_str)
     usa_str = "USA"
@@ -28,19 +27,18 @@ def test_save_vision_belief_SavesFile(temp_dir_setup):
     bob_belief.set_belief_name(exx.bob)
     x_knot = default_knot_if_None()
     assert not vision_file_exists(
-        env_dir(), sue_str, a23_str, texas_rope, x_knot, exx.bob
+        env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob
     )
 
     # WHEN
-    save_vision_belief(env_dir(), sue_str, a23_str, texas_rope, x_knot, bob_belief)
+    save_vision_belief(env_dir(), exx.sue, a23_str, texas_rope, x_knot, bob_belief)
 
     # THEN
-    assert vision_file_exists(env_dir(), sue_str, a23_str, texas_rope, x_knot, exx.bob)
+    assert vision_file_exists(env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob)
 
 
 def test_vision_file_exists_ReturnsBool(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
     nation_str = "nation"
     nation_rope = create_rope(ch11_example_moment_label(), nation_str)
     usa_str = "USA"
@@ -53,19 +51,18 @@ def test_vision_file_exists_ReturnsBool(temp_dir_setup):
     bob_belief.set_belief_name(exx.bob)
     x_knot = default_knot_if_None()
     assert not (
-        vision_file_exists(env_dir(), sue_str, a23_str, texas_rope, x_knot, exx.bob)
+        vision_file_exists(env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob)
     )
 
     # WHEN
-    save_vision_belief(env_dir(), sue_str, a23_str, texas_rope, x_knot, bob_belief)
+    save_vision_belief(env_dir(), exx.sue, a23_str, texas_rope, x_knot, bob_belief)
 
     # THEN
-    assert vision_file_exists(env_dir(), sue_str, a23_str, texas_rope, x_knot, exx.bob)
+    assert vision_file_exists(env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob)
 
 
 def test_get_vision_belief_reason_lowersFile(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
     nation_str = "nation"
     nation_rope = create_rope(ch11_example_moment_label(), nation_str)
     usa_str = "USA"
@@ -77,11 +74,11 @@ def test_get_vision_belief_reason_lowersFile(temp_dir_setup):
     bob_belief = get_beliefunit_with_4_levels()
     bob_belief.set_belief_name(exx.bob)
     x_knot = default_knot_if_None()
-    save_vision_belief(env_dir(), sue_str, a23_str, texas_rope, x_knot, bob_belief)
+    save_vision_belief(env_dir(), exx.sue, a23_str, texas_rope, x_knot, bob_belief)
 
     # WHEN
     bob_vision = get_vision_belief(
-        env_dir(), sue_str, a23_str, texas_rope, x_knot, exx.bob
+        env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob
     )
 
     # THEN
@@ -92,7 +89,6 @@ def test_get_vision_belief_ReturnsNoneIfFileDoesNotExist(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     nation_str = "nation"
     nation_rope = create_rope(ch11_example_moment_label(), nation_str)
     usa_str = "USA"
@@ -104,7 +100,7 @@ def test_get_vision_belief_ReturnsNoneIfFileDoesNotExist(
 
     # WHEN
     bob_vision = get_vision_belief(
-        env_dir(), sue_str, a23_str, texas_rope, x_knot, exx.bob
+        env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob
     )
 
     # THEN

@@ -40,7 +40,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_create_insert_into_translate_core_raw_sqlstr_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -69,11 +68,11 @@ def test_create_insert_into_translate_core_raw_sqlstr_ReturnsObj_PopulatesTable_
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
-, ({spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}')
-, ({spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ({spark2}, '{exx.sue}', '{exx.sue}', '{exx.sue}', '{rdx}', '{rdx}', '{ukx}')
+, ({spark5}, '{exx.sue}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}')
 ;
 """
@@ -101,7 +100,6 @@ VALUES
 def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable_Scenario0_IgnoresDimen_translate_epoch():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     sue1_otx_time = 100
     sue1_inx_time = 200
@@ -127,8 +125,8 @@ def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', {sue1_otx_time}, {sue1_inx_time})
-, ({spark7}, '{sue_str}', {sue7_otx_time}, {sue7_inx_time})
+  ({spark1}, '{exx.sue}', {sue1_otx_time}, {sue1_inx_time})
+, ({spark7}, '{exx.sue}', {sue7_otx_time}, {sue7_inx_time})
 , ({spark7}, '{yao_str}', {yao7_otx_time}, {yao7_inx_time})
 ;
 """
@@ -148,7 +146,6 @@ VALUES
 def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable_Scenario1():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -177,8 +174,8 @@ def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
-, ({spark7}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
+, ({spark7}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}')
 ;
 """
@@ -200,7 +197,7 @@ VALUES
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
 , ({spark7}, '{exx.bob}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
 ;
 """
@@ -231,7 +228,6 @@ VALUES
 
 def test_update_inconsistency_translate_core_raw_table_UpdatesTable_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -265,8 +261,8 @@ def test_update_inconsistency_translate_core_raw_table_UpdatesTable_Scenario0():
         values_clause = f"""
 VALUES
   ('{translate_name_s_agg_tablename}', "{exx.bob}", "{rdx}", "{rdx}", "{ukx}", NULL)
-, ('{translate_name_s_agg_tablename}', "{sue_str}", NULL, NULL, '{rdx}', NULL)
-, ('{translate_rope_s_agg_tablename}', "{sue_str}", NULL, NULL, '{other_knot}', NULL)
+, ('{translate_name_s_agg_tablename}', "{exx.sue}", NULL, NULL, '{rdx}', NULL)
+, ('{translate_rope_s_agg_tablename}', "{exx.sue}", NULL, NULL, '{other_knot}', NULL)
 , ('{translate_rope_s_agg_tablename}', "{yao_str}", "{rdx}", "{rdx}", "{ukx}", NULL)
 ;
 """
@@ -296,7 +292,6 @@ VALUES
 
 def test_insert_translate_core_raw_to_translate_core_agg_table_PopulatesTable_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -331,8 +326,8 @@ def test_insert_translate_core_raw_to_translate_core_agg_table_PopulatesTable_Sc
         values_clause = f"""
 VALUES
   ('{translate_name_s_agg_tablename}', "{exx.bob}", "{rdx}", "{rdx}", "{ukx}", NULL)
-, ('{translate_name_s_agg_tablename}', "{sue_str}", NULL, NULL, '{rdx}', '{error_data_str}')
-, ('{translate_rope_s_agg_tablename}', "{sue_str}", NULL, NULL, '{other_knot}', '{error_data_str}')
+, ('{translate_name_s_agg_tablename}', "{exx.sue}", NULL, NULL, '{rdx}', '{error_data_str}')
+, ('{translate_rope_s_agg_tablename}', "{exx.sue}", NULL, NULL, '{other_knot}', '{error_data_str}')
 , ('{translate_rope_s_agg_tablename}', "{yao_str}", "{rdx}", "{rdx}", "{ukx}", NULL)
 ;
 """
@@ -358,7 +353,6 @@ VALUES
 
 def test_insert_translate_core_agg_to_translate_core_vld_table_PopulatesTable_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     zia_str = "zia"
     colon_knot = ":"
@@ -385,7 +379,7 @@ def test_insert_translate_core_agg_to_translate_core_vld_table_PopulatesTable_Sc
         values_clause = f"""
 VALUES
   ("{exx.bob}", "{colon_knot}", "{slash_knot}", "{unknown_str}")
-, ("{sue_str}", NULL, NULL, NULL)
+, ("{exx.sue}", NULL, NULL, NULL)
 , ("{yao_str}", NULL, '{colon_knot}', '{huh_str}')
 , ("{zia_str}", "{colon_knot}", "{colon_knot}", "{huh_str}")
 ;
@@ -408,7 +402,7 @@ VALUES
         print(f"{rows=}")
         assert rows == [
             (exx.bob, colon_knot, slash_knot, unknown_str),
-            (sue_str, default_knot, default_knot, default_unknown),
+            (exx.sue, default_knot, default_knot, default_unknown),
             (yao_str, default_knot, colon_knot, huh_str),
             (zia_str, colon_knot, colon_knot, huh_str),
         ]
@@ -417,7 +411,6 @@ VALUES
 def test_create_update_translate_sound_agg_inconsist_sqlstr_PopulatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -448,11 +441,11 @@ def test_create_update_translate_sound_agg_inconsist_sqlstr_PopulatesTable_Scena
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL)
-, ({spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}')
-, ({spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL)
+, ({spark2}, '{exx.sue}', '{exx.sue}', '{exx.sue}', '{rdx}', '{rdx}', '{ukx}')
+, ({spark5}, '{exx.sue}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}')
 ;
 """
@@ -487,18 +480,17 @@ VALUES
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (1, sue_str, yao_str, yao_inx, None, None, None, error_translate_str),
-            (1, sue_str, exx.bob, bob_inx, None, None, None, error_translate_str),
-            (1, sue_str, exx.bob, exx.bob, None, "/", None, error_translate_str),
-            (2, sue_str, sue_str, sue_str, ":", ":", "Unknown", error_translate_str),
-            (5, sue_str, exx.bob, bob_inx, ":", ":", "Unknown", error_translate_str),
+            (1, exx.sue, yao_str, yao_inx, None, None, None, error_translate_str),
+            (1, exx.sue, exx.bob, bob_inx, None, None, None, error_translate_str),
+            (1, exx.sue, exx.bob, exx.bob, None, "/", None, error_translate_str),
+            (2, exx.sue, exx.sue, exx.sue, ":", ":", "Unknown", error_translate_str),
+            (5, exx.sue, exx.bob, bob_inx, ":", ":", "Unknown", error_translate_str),
             (7, yao_str, yao_str, yao_inx, ":", ":", "Unknown", None),
         ]
 
 
 def test_update_translate_sound_agg_inconsist_errors_PopulatesTable_Scenario1():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -529,11 +521,11 @@ def test_update_translate_sound_agg_inconsist_errors_PopulatesTable_Scenario1():
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL)
-, ({spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}')
-, ({spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL)
+, ({spark2}, '{exx.sue}', '{exx.sue}', '{exx.sue}', '{rdx}', '{rdx}', '{ukx}')
+, ({spark5}, '{exx.sue}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}')
 ;
 """
@@ -564,11 +556,11 @@ VALUES
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (1, sue_str, yao_str, yao_inx, None, None, None, error_translate_str),
-            (1, sue_str, exx.bob, bob_inx, None, None, None, error_translate_str),
-            (1, sue_str, exx.bob, exx.bob, None, "/", None, error_translate_str),
-            (2, sue_str, sue_str, sue_str, ":", ":", "Unknown", error_translate_str),
-            (5, sue_str, exx.bob, bob_inx, ":", ":", "Unknown", error_translate_str),
+            (1, exx.sue, yao_str, yao_inx, None, None, None, error_translate_str),
+            (1, exx.sue, exx.bob, bob_inx, None, None, None, error_translate_str),
+            (1, exx.sue, exx.bob, exx.bob, None, "/", None, error_translate_str),
+            (2, exx.sue, exx.sue, exx.sue, ":", ":", "Unknown", error_translate_str),
+            (5, exx.sue, exx.bob, bob_inx, ":", ":", "Unknown", error_translate_str),
             (7, yao_str, yao_str, yao_inx, ":", ":", "Unknown", None),
         ]
 
@@ -1021,7 +1013,6 @@ VALUES ('{exx.bob}', '{rdx}', '{rdx}', '{ukx}');"""
 
 def test_create_insert_translate_sound_vld_table_sqlstr_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -1053,11 +1044,11 @@ def test_create_insert_translate_sound_vld_table_sqlstr_ReturnsObj_PopulatesTabl
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, '{error_translate_str}')
-, ({spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, '{error_translate_str}')
-, ({spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL, '{error_translate_str}')
-, ({spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
-, ({spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, '{error_translate_str}')
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, '{error_translate_str}')
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL, '{error_translate_str}')
+, ({spark2}, '{exx.sue}', '{exx.sue}', '{exx.sue}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
+, ({spark5}, '{exx.sue}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
 , ({spark1}, '{yao_str}', '{yao_str}', '{yao_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ({spark7}, '{exx.bob}', '{exx.bob}', '{bob_inx}', NULL, NULL, '{ukx}', NULL)
@@ -1090,7 +1081,6 @@ VALUES
 
 def test_insert_translate_sound_agg_tables_to_translate_sound_vld_table_PopulatesTable_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -1122,11 +1112,11 @@ def test_insert_translate_sound_agg_tables_to_translate_sound_vld_table_Populate
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, '{error_translate_str}')
-, ({spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, '{error_translate_str}')
-, ({spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL, '{error_translate_str}')
-, ({spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
-, ({spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, '{error_translate_str}')
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, '{error_translate_str}')
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL, '{error_translate_str}')
+, ({spark2}, '{exx.sue}', '{exx.sue}', '{exx.sue}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
+, ({spark5}, '{exx.sue}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', '{error_translate_str}')
 , ({spark1}, '{yao_str}', '{yao_str}', '{yao_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ({spark7}, '{exx.bob}', '{exx.bob}', '{bob_inx}', NULL, NULL, '{ukx}', NULL)
@@ -1157,7 +1147,6 @@ VALUES
 
 def test_etl_translate_sound_agg_tables_to_translate_sound_vld_tables_Scenario0_PopulatesTable():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -1187,11 +1176,11 @@ def test_etl_translate_sound_agg_tables_to_translate_sound_vld_tables_Scenario0_
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
-, ({spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL)
-, ({spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}')
-, ({spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
+  ({spark1}, '{exx.sue}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL)
+, ({spark1}, '{exx.sue}', '{exx.bob}', '{exx.bob}', NULL, '{other_knot}', NULL)
+, ({spark2}, '{exx.sue}', '{exx.sue}', '{exx.sue}', '{rdx}', '{rdx}', '{ukx}')
+, ({spark5}, '{exx.sue}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}')
 , ({spark1}, '{yao_str}', '{yao_str}', '{yao_str}', '{rdx}', '{rdx}', '{ukx}')
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', NULL)
 , ({spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}')

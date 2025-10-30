@@ -172,11 +172,10 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalBelief(
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
-    sue_str = "Sue"
     sue_voice_cred_lumen = 57
     sue_voice_debt_lumen = 51
     yao_gut.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_gut.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    yao_gut.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_gut.set_voice_respect(yao_pool)
     a23_str = "amy23"
@@ -193,7 +192,7 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalBelief(
     cook_planunit.laborunit.add_party(yao_str)
     save_job_file(moment_mstr_dir, zia_job)
 
-    sue_job = beliefunit_shop(sue_str, a23_str)
+    sue_job = beliefunit_shop(exx.sue, a23_str)
     sue_job.set_max_tree_traverse(5)
     zia_job.add_voiceunit(yao_str, voice_debt_lumen=12)
     vacuum_str = "vacuum"
@@ -232,7 +231,7 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalBelief(
     assert len(new_yao_job.get_agenda_dict()) != 3
     assert len(new_yao_job.get_agenda_dict()) == 2
     zia_voiceunit = new_yao_job.get_voice(zia_str)
-    sue_voiceunit = new_yao_job.get_voice(sue_str)
+    sue_voiceunit = new_yao_job.get_voice(exx.sue)
     print(f"{sue_voiceunit.voice_debt_lumen=}")
     print(f"{sue_voiceunit.irrational_voice_debt_lumen=}")
     assert zia_voiceunit.irrational_voice_debt_lumen == 0
@@ -251,13 +250,12 @@ def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorBelief(
     print(f"{os_path_exists(yao_gut_path)=}")
     yao_gut = beliefunit_shop(yao_str, a23_str)
     zia_str = "Zia"
-    sue_str = "Sue"
     zia_voice_cred_lumen = 47
     sue_voice_cred_lumen = 57
     zia_voice_debt_lumen = 41
     sue_voice_debt_lumen = 51
     yao_gut.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_gut.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    yao_gut.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_gut.set_voice_respect(yao_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
@@ -280,7 +278,7 @@ def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorBelief(
     assert len(new_yao_job.get_agenda_dict()) != 3
     assert len(new_yao_job.get_agenda_dict()) == 2
     zia_voiceunit = new_yao_job.get_voice(zia_str)
-    sue_voiceunit = new_yao_job.get_voice(sue_str)
+    sue_voiceunit = new_yao_job.get_voice(exx.sue)
     print(f"{sue_voiceunit.voice_debt_lumen=}")
     print(f"{sue_voiceunit.inallocable_voice_debt_lumen=}")
     assert zia_voiceunit.inallocable_voice_debt_lumen == 0

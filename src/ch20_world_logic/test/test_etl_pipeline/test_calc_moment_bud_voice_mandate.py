@@ -89,7 +89,6 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
     # Create MomentUnit with bob bud at time 37
     amy23_moment = momentunit_shop(a23_str, mstr_dir)
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     zia_str = "Zia"
     tp37 = 37
@@ -104,9 +103,9 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
     spark44 = 44
     spark55 = 55
     bob55_beliefspark = get_bob_mop_reason_beliefunit_example()
-    bob55_beliefspark.add_voiceunit(sue_str, 1)
-    sue44_beliefspark = beliefunit_shop(sue_str, a23_str)
-    sue44_beliefspark.set_belief_name(sue_str)
+    bob55_beliefspark.add_voiceunit(exx.sue, 1)
+    sue44_beliefspark = beliefunit_shop(exx.sue, a23_str)
+    sue44_beliefspark.set_belief_name(exx.sue)
     sue44_beliefspark.add_voiceunit(yao_str, 1)
     yao44_beliefspark = get_bob_mop_reason_beliefunit_example()
     yao44_beliefspark.set_belief_name(yao_str)
@@ -116,7 +115,7 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
     zia33_beliefspark = get_bob_mop_reason_beliefunit_example()
     zia33_beliefspark.set_belief_name(zia_str)
     bob55_path = create_beliefspark_path(mstr_dir, a23_str, exx.bob, spark55)
-    sue44_path = create_beliefspark_path(mstr_dir, a23_str, sue_str, spark44)
+    sue44_path = create_beliefspark_path(mstr_dir, a23_str, exx.sue, spark44)
     yao44_path = create_beliefspark_path(mstr_dir, a23_str, yao_str, spark44)
     zia33_path = create_beliefspark_path(mstr_dir, a23_str, zia_str, spark33)
     save_json(bob55_path, None, bob55_beliefspark.to_dict())
@@ -127,7 +126,7 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
     # Create empty ote1 file
     a23_ote1_dict = {
         exx.bob: {str(tp37): spark55},
-        sue_str: {str(tp37): spark44},
+        exx.sue: {str(tp37): spark44},
         yao_str: {str(tp37): spark44},
         zia_str: {str(tp37): spark33},
     }

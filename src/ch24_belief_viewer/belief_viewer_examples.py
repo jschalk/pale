@@ -41,15 +41,14 @@ def play_run_str() -> str:
 
 
 def get_sue_beliefunit() -> BeliefUnit:
-    sue_belief = beliefunit_shop("Sue", "accord23")
-    sue_str = "Sue"
+    sue_belief = beliefunit_shop(exx.sue, "accord23")
     sue_cred_lumen = 11
     sue_debt_lumen = 13
     bob_cred_lumen = 23
     bob_debt_lumen = 29
-    sue_belief.add_voiceunit(sue_str, sue_cred_lumen, sue_debt_lumen)
+    sue_belief.add_voiceunit(exx.sue, sue_cred_lumen, sue_debt_lumen)
     sue_belief.add_voiceunit(exx.bob, bob_cred_lumen, bob_debt_lumen)
-    sue_voice = sue_belief.get_voice(sue_str)
+    sue_voice = sue_belief.get_voice(exx.sue)
     swim_str = ";swimmers"
     team_str = ";Team Administrator"
     sue_voice.add_membership(swim_str, 77, 51)
@@ -94,7 +93,7 @@ def get_sue_beliefunit() -> BeliefUnit:
     # Add some award links
     casa_administrator_awardunit = awardunit_shop("Administrator", 0.5, 0.2)
     casa_team_awardunit = awardunit_shop(team_str, 0.3, 0.1)
-    casa_devloper_awardunit = awardunit_shop("Sue", 1, 0.8)
+    casa_devloper_awardunit = awardunit_shop(exx.sue, 1, 0.8)
     casa_jundevloper_awardunit = awardunit_shop("Bob", 0.7, 0.9)
     root_rope = sue_belief.planroot.get_plan_rope()
     sue_belief.edit_plan_attr(root_rope, awardunit=casa_administrator_awardunit)
@@ -107,7 +106,6 @@ def get_sue_beliefunit() -> BeliefUnit:
 
 def get_sue_belief_with_facts_and_reasons() -> BeliefUnit:
     sue_belief = get_sue_beliefunit()
-    sue_str = "Sue"
     casa_rope = sue_belief.make_l1_rope("casa")
     clean_rope = sue_belief.make_rope(casa_rope, "clean")
     mop_rope = sue_belief.make_rope(clean_rope, "mop")
@@ -127,7 +125,7 @@ def get_sue_belief_with_facts_and_reasons() -> BeliefUnit:
     sue_belief.add_fact(tidi_rope, dirty_rope, 4, 8)
     sue_belief.add_fact(best_rope, best_soccer_rope, 1, 7)
     mop_laborunit = laborunit_shop()
-    mop_laborunit.add_party(sue_str)
+    mop_laborunit.add_party(exx.sue)
     mop_laborunit.add_party(exx.bob, True)
     sue_belief.edit_plan_attr(mop_rope, laborunit=mop_laborunit)
     # add reasons to mop_plan, sweep_plan, play_soccer_plan, plan_swim_plan, play_run_plan

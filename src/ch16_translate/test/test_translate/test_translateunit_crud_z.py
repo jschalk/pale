@@ -14,9 +14,8 @@ from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 def test_TranslateUnit_set_mapunit_SetsAttr():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    namemap = namemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    namemap = namemap_shop(face_name=exx.sue)
     namemap.set_otx2inx("Bob", "Bob of Portland")
     assert sue_translateunit.namemap != namemap
 
@@ -29,9 +28,8 @@ def test_TranslateUnit_set_mapunit_SetsAttr():
 
 def test_TranslateUnit_set_mapunit_SetsAttr_SpecialSituation_RopeTerm():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    ropemap = ropemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    ropemap = ropemap_shop(face_name=exx.sue)
     ropemap.set_otx2inx("Bob", "Bob of Portland")
     assert sue_translateunit.ropemap != ropemap
 
@@ -44,10 +42,9 @@ def test_TranslateUnit_set_mapunit_SetsAttr_SpecialSituation_RopeTerm():
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_otx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_otx_knot = "/"
-    namemap = namemap_shop(otx_knot=slash_otx_knot, face_name=sue_str)
+    namemap = namemap_shop(otx_knot=slash_otx_knot, face_name=exx.sue)
     assert sue_translateunit.otx_knot != namemap.otx_knot
     assert sue_translateunit.namemap != namemap
 
@@ -60,10 +57,9 @@ def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_otx_knot_IsNotSame():
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_inx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_inx_knot = "/"
-    namemap = namemap_shop(inx_knot=slash_inx_knot, face_name=sue_str)
+    namemap = namemap_shop(inx_knot=slash_inx_knot, face_name=exx.sue)
     assert sue_translateunit.inx_knot != namemap.inx_knot
     assert sue_translateunit.namemap != namemap
 
@@ -76,10 +72,9 @@ def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_inx_knot_IsNotSame():
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_unknown_str_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     casa_unknown_str = "Unknown_casa"
-    namemap = namemap_shop(unknown_str=casa_unknown_str, face_name=sue_str)
+    namemap = namemap_shop(unknown_str=casa_unknown_str, face_name=exx.sue)
     assert sue_translateunit.unknown_str != namemap.unknown_str
     assert sue_translateunit.namemap != namemap
 
@@ -92,9 +87,8 @@ def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_unknown_str_IsNotSame()
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_face_name_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
     yao_str = "Yao"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     namemap = namemap_shop(face_name=yao_str)
     assert sue_translateunit.face_name != namemap.face_name
     assert sue_translateunit.namemap != namemap
@@ -108,9 +102,8 @@ def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_face_name_IsNotSame():
 
 def test_TranslateUnit_get_mapunit_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_pu = translateunit_shop(sue_str)
-    static_namemap = namemap_shop(face_name=sue_str)
+    sue_pu = translateunit_shop(exx.sue)
+    static_namemap = namemap_shop(face_name=exx.sue)
     static_namemap.set_otx2inx("Bob", "Bob of Portland")
     sue_pu.set_namemap(static_namemap)
 

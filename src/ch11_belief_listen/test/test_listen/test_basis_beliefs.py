@@ -109,7 +109,6 @@ def test_create_listen_basis_ReturnsObj():
 
 def test_get_default_job_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
     blue_str = "blue"
     slash_str = "/"
     x_fund_pool = 99000
@@ -120,7 +119,7 @@ def test_get_default_job_ReturnsObj():
     last_lesson_id = 7
     sue_max_tree_traverse = 9
     sue_beliefunit = beliefunit_shop(
-        sue_str, blue_str, slash_str, x_fund_pool, x_fund_grain, x_respect_grain
+        exx.sue, blue_str, slash_str, x_fund_pool, x_fund_grain, x_respect_grain
     )
     sue_beliefunit.set_last_lesson_id(last_lesson_id)
     sue_beliefunit.add_voiceunit(exx.bob, 3, 4)
@@ -136,7 +135,7 @@ def test_get_default_job_ReturnsObj():
     # THEN
     default_job.cashout()
     assert default_job.belief_name == sue_beliefunit.belief_name
-    assert default_job.belief_name == sue_str
+    assert default_job.belief_name == exx.sue
     assert default_job.moment_label == sue_beliefunit.moment_label
     assert default_job.moment_label == blue_str
     assert default_job.knot == slash_str

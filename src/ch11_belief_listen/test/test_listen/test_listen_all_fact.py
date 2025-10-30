@@ -56,11 +56,10 @@ def test_get_ordered_debtors_roll_ReturnsObj_InOrder():
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
-    sue_str = "Sue"
     sue_voice_cred_lumen = 57
     sue_voice_debt_lumen = 51
     yao_belief.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_belief.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    yao_belief.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_belief.set_voice_respect(yao_pool)
 
@@ -69,7 +68,7 @@ def test_get_ordered_debtors_roll_ReturnsObj_InOrder():
 
     # THEN
     zia_voice = yao_belief.get_voice(zia_str)
-    sue_voice = yao_belief.get_voice(sue_str)
+    sue_voice = yao_belief.get_voice(exx.sue)
     assert ordered_voices1[0].to_dict() == sue_voice.to_dict()
     assert ordered_voices1 == [sue_voice, zia_voice]
 
@@ -92,14 +91,13 @@ def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
     yao_belief = beliefunit_shop(yao_str)
     zia_str = "Zia"
     zia_voice_debt_lumen = 41
-    sue_str = "Sue"
     sue_voice_debt_lumen = 51
     yao_pool = 92
     yao_belief.set_voice_respect(yao_pool)
     bob_voice_debt_lumen = 75
     xio_str = "Xio"
     yao_belief.add_voiceunit(zia_str, 0, zia_voice_debt_lumen)
-    yao_belief.add_voiceunit(sue_str, 0, sue_voice_debt_lumen)
+    yao_belief.add_voiceunit(exx.sue, 0, sue_voice_debt_lumen)
     yao_belief.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
     yao_belief.add_voiceunit(yao_str, 0, 0)
     yao_belief.add_voiceunit(xio_str, 0, 0)
@@ -110,7 +108,7 @@ def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
     # THEN
     assert len(ordered_voices2) == 3
     zia_voice = yao_belief.get_voice(zia_str)
-    sue_voice = yao_belief.get_voice(sue_str)
+    sue_voice = yao_belief.get_voice(exx.sue)
     bob_voice = yao_belief.get_voice(exx.bob)
     assert ordered_voices2[0].to_dict() == bob_voice.to_dict()
     assert ordered_voices2 == [bob_voice, sue_voice, zia_voice]

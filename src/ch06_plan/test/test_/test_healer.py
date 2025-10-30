@@ -1,4 +1,5 @@
 from src.ch06_plan.healer import HealerUnit, get_healerunit_from_dict, healerunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_HealerUnit_Exists():
@@ -70,13 +71,12 @@ def test_HealerUnit_del_healer_name_Deletes_healer_names_v1():
     # ESTABLISH
     x_healerunit = healerunit_shop()
     yao_str = "Yao"
-    sue_str = "Sue"
     x_healerunit.set_healer_name(x_healer_name=yao_str)
-    x_healerunit.set_healer_name(x_healer_name=sue_str)
+    x_healerunit.set_healer_name(x_healer_name=exx.sue)
     assert len(x_healerunit._healer_names) == 2
 
     # WHEN
-    x_healerunit.del_healer_name(x_healer_name=sue_str)
+    x_healerunit.del_healer_name(x_healer_name=exx.sue)
 
     # THEN
     assert len(x_healerunit._healer_names) == 1
@@ -86,16 +86,15 @@ def test_HealerUnit_healer_name_exists_ReturnsObj():
     # ESTABLISH
     x_healerunit = healerunit_shop()
     yao_str = "Yao"
-    sue_str = "Sue"
     assert x_healerunit.healer_name_exists(yao_str) is False
-    assert x_healerunit.healer_name_exists(sue_str) is False
+    assert x_healerunit.healer_name_exists(exx.sue) is False
 
     # WHEN
     x_healerunit.set_healer_name(x_healer_name=yao_str)
 
     # THEN
     assert x_healerunit.healer_name_exists(yao_str)
-    assert x_healerunit.healer_name_exists(sue_str) is False
+    assert x_healerunit.healer_name_exists(exx.sue) is False
 
 
 def test_HealerUnit_any_healer_name_exists_ReturnsObj():
@@ -105,8 +104,7 @@ def test_HealerUnit_any_healer_name_exists_ReturnsObj():
     assert x_healerunit.any_healer_name_exists() is False
 
     # WHEN / THEN
-    sue_str = "Sue"
-    x_healerunit.set_healer_name(x_healer_name=sue_str)
+    x_healerunit.set_healer_name(x_healer_name=exx.sue)
     assert x_healerunit.any_healer_name_exists()
 
     # WHEN / THEN
@@ -119,7 +117,7 @@ def test_HealerUnit_any_healer_name_exists_ReturnsObj():
     assert x_healerunit.any_healer_name_exists()
 
     # WHEN / THEN
-    x_healerunit.del_healer_name(x_healer_name=sue_str)
+    x_healerunit.del_healer_name(x_healer_name=exx.sue)
     assert x_healerunit.any_healer_name_exists() is False
 
 
@@ -131,11 +129,10 @@ def test_get_healerunit_from_dict_ReturnsObj():
     assert get_healerunit_from_dict(empty_dict) == healerunit_shop()
 
     # WHEN / THEN
-    sue_str = "Sue"
     yao_str = "Yao"
     static_healerunit = healerunit_shop()
-    static_healerunit.set_healer_name(x_healer_name=sue_str)
+    static_healerunit.set_healer_name(x_healer_name=exx.sue)
     static_healerunit.set_healer_name(x_healer_name=yao_str)
 
-    sue_dict = {"healerunit_healer_names": [sue_str, yao_str]}
+    sue_dict = {"healerunit_healer_names": [exx.sue, yao_str]}
     assert get_healerunit_from_dict(sue_dict) == static_healerunit

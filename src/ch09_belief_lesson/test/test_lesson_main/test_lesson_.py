@@ -77,7 +77,6 @@ def test_lessonunit_shop_ReturnsObjEstablishWithEmptyArgs():
 def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
     # ESTABLISH
     bob_lesson_id = 13
-    sue_str = "Sue"
     bob_beliefdelta = get_beliefdelta_sue_example()
     bob_delta_start = 6
     bob_lessons_dir = "exampletext7"
@@ -87,7 +86,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
 
     # WHEN
     bob_lessonunit = lessonunit_shop(
-        face_name=sue_str,
+        face_name=exx.sue,
         belief_name=exx.bob,
         moment_label=amy45_str,
         _lesson_id=bob_lesson_id,
@@ -99,7 +98,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
     )
 
     # THEN
-    assert bob_lessonunit.face_name == sue_str
+    assert bob_lessonunit.face_name == exx.sue
     assert bob_lessonunit.belief_name == exx.bob
     assert bob_lessonunit.moment_label == amy45_str
     assert bob_lessonunit._lesson_id == bob_lesson_id
@@ -125,15 +124,14 @@ def test_lessonunit_shop_ReturnsObjEstablishWithSomeArgs_v1():
 def test_LessonUnit_set_face_SetsAttribute():
     # ESTABLISH
     bob_lessonunit = lessonunit_shop(belief_name=exx.bob)
-    sue_str = "Sue"
     assert bob_lessonunit.face_name is None
-    assert bob_lessonunit.face_name != sue_str
+    assert bob_lessonunit.face_name != exx.sue
 
     # WHEN
-    bob_lessonunit.set_face(sue_str)
+    bob_lessonunit.set_face(exx.sue)
 
     # THEN
-    assert bob_lessonunit.face_name == sue_str
+    assert bob_lessonunit.face_name == exx.sue
 
 
 def test_LessonUnit_del_face_SetsAttribute():
@@ -215,13 +213,12 @@ def test_LessonUnit_del_beliefdelta_SetsAttribute():
 
 def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
     # ESTABLISH
-    sue_str = "Sue"
     amy45_str = "amy45"
     amy45_e5_int = 5
     bob_lessonunit = lessonunit_shop(
         moment_label=amy45_str, belief_name=exx.bob, spark_num=amy45_e5_int
     )
-    bob_lessonunit.set_face(sue_str)
+    bob_lessonunit.set_face(exx.sue)
 
     # WHEN
     x_dict = bob_lessonunit.get_step_dict()
@@ -232,7 +229,7 @@ def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
     assert x_dict.get(kw.belief_name) is not None
     assert x_dict.get(kw.belief_name) == exx.bob
     assert x_dict.get(kw.face_name) is not None
-    assert x_dict.get(kw.face_name) == sue_str
+    assert x_dict.get(kw.face_name) == exx.sue
     assert x_dict.get(kw.spark_num) is not None
     assert x_dict.get(kw.spark_num) == amy45_e5_int
 
@@ -291,13 +288,12 @@ def test_LessonUnit_get_step_dict_ReturnsObj_delta_start():
 
 def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
     # ESTABLISH
-    sue_str = "Sue"
     amy45_str = "amy45"
     amy45_e5_int = 5
     bob_lessonunit = lessonunit_shop(
         moment_label=amy45_str, belief_name=exx.bob, spark_num=amy45_e5_int
     )
-    bob_lessonunit.set_face(sue_str)
+    bob_lessonunit.set_face(exx.sue)
 
     # WHEN
     total_dict = bob_lessonunit.get_serializable_dict()
@@ -308,7 +304,7 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
     assert total_dict.get(kw.belief_name) is not None
     assert total_dict.get(kw.belief_name) == exx.bob
     assert total_dict.get(kw.face_name) is not None
-    assert total_dict.get(kw.face_name) == sue_str
+    assert total_dict.get(kw.face_name) == exx.sue
     assert total_dict.get(kw.spark_num) is not None
     assert total_dict.get(kw.spark_num) == amy45_e5_int
     delta_str = "delta"
@@ -471,10 +467,9 @@ def test_LessonUnit_add_p_beliefatom_Sets_BeliefUnit_voiceunits():
 
 def test_LessonUnit_get_edited_belief_ReturnsObj_BeliefUnit_insert_voice():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonunit = lessonunit_shop(sue_str)
+    sue_lessonunit = lessonunit_shop(exx.sue)
 
-    before_sue_beliefunit = beliefunit_shop(sue_str)
+    before_sue_beliefunit = beliefunit_shop(exx.sue)
     yao_str = "Yao"
     zia_str = "Zia"
     before_sue_beliefunit.add_voiceunit(yao_str)
@@ -510,9 +505,8 @@ def test_LessonUnit_get_edited_belief_RaisesErrorWhenlessonAttrsAndBeliefAttrsAr
     xia_str = "Xia"
     amy23_str = "amy23"
     bob_lessonunit = lessonunit_shop(yao_str, xia_str, moment_label=amy23_str)
-    sue_str = "Sue"
     amy45_str = "amy45"
-    before_sue_beliefunit = beliefunit_shop(sue_str, moment_label=amy45_str)
+    before_sue_beliefunit = beliefunit_shop(exx.sue, moment_label=amy45_str)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:

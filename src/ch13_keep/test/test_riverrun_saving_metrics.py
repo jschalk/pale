@@ -49,7 +49,6 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     a23_str = temp_moment_label()
     texas_rope = get_nation_texas_rope()
     yao_str = "Yao"
-    sue_str = "Sue"
     yao_voice_cred_lumen = 500
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str, texas_rope)
     yao_keep_grade_path = create_keep_grade_path(
@@ -74,14 +73,14 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
         moment_label=x_riverrun.moment_label,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_belief_name=sue_str,
+        grade_belief_name=exx.sue,
     )
     assert os_path_exists(yao_keep_grade_path) is False
     assert os_path_exists(bob_keep_grade_path) is False
     assert os_path_exists(sue_keep_grade_path) is False
     x_riverrun.set_keep_patientledger(yao_str, yao_str, yao_voice_cred_lumen)
     x_riverrun.set_keep_patientledger(yao_str, exx.bob, 1)
-    x_riverrun.set_need_dues({yao_str: 1, sue_str: 1})
+    x_riverrun.set_need_dues({yao_str: 1, exx.sue: 1})
     x_riverrun.calc_metrics()
     assert os_path_exists(yao_keep_grade_path) is False
     assert os_path_exists(bob_keep_grade_path) is False
@@ -93,4 +92,4 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     # THEN
     assert os_path_exists(yao_keep_grade_path)
     assert os_path_exists(bob_keep_grade_path)
-    # assert os_path_exists(x_riverrun.grade_path(sue_str))
+    # assert os_path_exists(x_riverrun.grade_path(exx.sue))

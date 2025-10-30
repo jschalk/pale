@@ -13,7 +13,7 @@ from src.ch20_world_logic.test._util.ch20_env import (
     temp_dir_setup,
 )
 from src.ch20_world_logic.world import worldunit_shop
-from src.ref.keywords import Ch20Keywords as kw
+from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
 def test_WorldUnit_create_stances_Senario0_EmptyWorld_CreatesFile(
@@ -39,7 +39,6 @@ def test_WorldUnit_create_stances_Senario1_Add_CreatesFile(temp_dir_setup):
     fay_str = "Fay"
     output_dir = create_path(worlds_dir(), "output")
     fay_world = worldunit_shop(fay_str, worlds_dir(), output_dir)
-    sue_str = "Sue"
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
@@ -51,7 +50,7 @@ def test_WorldUnit_create_stances_Senario1_Add_CreatesFile(temp_dir_setup):
         kw.belief_name,
         kw.voice_name,
     ]
-    br00011_rows = [[spark2, sue_str, amy23_str, sue_str, sue_str]]
+    br00011_rows = [[spark2, exx.sue, amy23_str, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     fay_world.sheets_input_to_clarity_mstr()
@@ -77,7 +76,6 @@ def test_WorldUnit_create_stances_Senario2_CreatedStanceCanBeIdeasForOtherWorldU
     fay_str = "Fay"
     fay_output_dir = create_path(worlds_dir(), "Fay_output")
     fay_world = worldunit_shop(fay_str, worlds_dir(), fay_output_dir)
-    sue_str = "Sue"
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
@@ -89,7 +87,7 @@ def test_WorldUnit_create_stances_Senario2_CreatedStanceCanBeIdeasForOtherWorldU
         kw.belief_name,
         kw.voice_name,
     ]
-    br00011_rows = [[spark2, sue_str, amy23_str, sue_str, sue_str]]
+    br00011_rows = [[spark2, exx.sue, amy23_str, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     fay_world.sheets_input_to_clarity_mstr()
@@ -131,7 +129,6 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
     fay_str = "Fay"
     output_dir = create_path(worlds_dir(), "output")
     fay_world = worldunit_shop(fay_str, worlds_dir(), output_dir)
-    sue_str = "Sue"
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
@@ -143,7 +140,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
         kw.belief_name,
         kw.voice_name,
     ]
-    br00011_rows = [[spark2, sue_str, a23_str, sue_str, sue_str]]
+    br00011_rows = [[spark2, exx.sue, a23_str, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     fay_world.sheets_input_to_clarity_mstr()
@@ -164,7 +161,6 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #     fay_str = "Fay"
 #     fay_world = worldunit_shop(fay_str, worlds_dir())
 #     # delete_dir(fay_world.worlds_dir)
-#     sue_str = "Sue"
 #     spark1 = 1
 #     spark2 = 2
 #     minute_360 = 360
@@ -193,14 +189,14 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #     tp37 = 37
 #     sue_quota = 235
 #     sue_celldepth = 3
-#     br1row0 = [spark2, sue_str, amy23_str, sue_str, tp37, sue_quota, sue_celldepth]
+#     br1row0 = [spark2, exx.sue, amy23_str, exx.sue, tp37, sue_quota, sue_celldepth]
 #     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
 #     br00001_ex0_str = "example0_br00001"
 #     upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
 
-#     br3row0 = [spark1, sue_str,  minute_360, amy23_str, hour6am]
-#     br3row1 = [spark1, sue_str,  minute_420, amy23_str, hour7am]
-#     br3row2 = [spark2, sue_str, minute_420, amy23_str, hour7am]
+#     br3row0 = [spark1, exx.sue,  minute_360, amy23_str, hour6am]
+#     br3row1 = [spark1, exx.sue,  minute_420, amy23_str, hour7am]
+#     br3row2 = [spark2, exx.sue, minute_420, amy23_str, hour7am]
 #     br00003_1df = DataFrame([br3row0, br3row1], columns=br00003_columns)
 #     br00003_3df = DataFrame([br3row1, br3row0, br3row2], columns=br00003_columns)
 #     br00003_ex1_str = "example1_br00003"
@@ -214,16 +210,16 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #         kw.belief_name,
 #         kw.voice_name,
 #     ]
-#     br00011_rows = [[spark2, sue_str, amy23_str, sue_str, sue_str]]
+#     br00011_rows = [[spark2, exx.sue, amy23_str, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
 #     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
 #     mstr_dir = fay_world._moment_mstr_dir
 #     wrong_a23_moment_dir = create_path(mstr_dir, amy23_str)
 #     assert os_path_exists(wrong_a23_moment_dir) is False
 #     a23_json_path = create_moment_json_path(mstr_dir, amy23_str)
-#     a23_sue_gut_path = create_gut_path(mstr_dir, amy23_str, sue_str)
-#     a23_sue_job_path = create_job_path(mstr_dir, amy23_str, sue_str)
-#     sue37_mandate_path = bud_mandate(mstr_dir, amy23_str, sue_str, tp37)
+#     a23_sue_gut_path = create_gut_path(mstr_dir, amy23_str, exx.sue)
+#     a23_sue_job_path = create_job_path(mstr_dir, amy23_str, exx.sue)
+#     sue37_mandate_path = bud_mandate(mstr_dir, amy23_str, exx.sue, tp37)
 #     assert os_path_exists(input_file_path)
 #     assert os_path_exists(a23_json_path) is False
 #     assert os_path_exists(a23_sue_gut_path) is False

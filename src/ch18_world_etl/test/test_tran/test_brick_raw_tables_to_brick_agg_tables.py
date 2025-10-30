@@ -6,13 +6,12 @@ from src.ch18_world_etl.transformers import (
     etl_brick_raw_tables_to_brick_agg_tables,
     get_max_brick_agg_spark_num,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_brick_raw_tables_to_brick_agg_tables_PopulatesAggTable_Scenario0_GroupByWorks():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
@@ -40,9 +39,9 @@ def test_etl_brick_raw_tables_to_brick_agg_tables_PopulatesAggTable_Scenario0_Gr
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{sue_str}', '{a23_str}', '{minute_360}', '{hour6am}', NULL)
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
+  ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_360}', '{hour6am}', NULL)
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
 ;
 """
         insert_sqlstr = f"{insert_into_clause} {values_clause}"
@@ -76,8 +75,8 @@ ORDER BY {kw.spark_num}, {kw.cumulative_minute};"""
         e1 = spark1
         m_360 = minute_360
         m_420 = minute_420
-        row0 = (e1, sue_str, a23_str, m_360, hour6am)
-        row1 = (e1, sue_str, a23_str, m_420, hour7am)
+        row0 = (e1, exx.sue, a23_str, m_360, hour6am)
+        row1 = (e1, exx.sue, a23_str, m_420, hour7am)
         print(f"{rows[0]=}")
         print(f"   {row0=}")
         assert rows[0] == row0
@@ -87,7 +86,6 @@ ORDER BY {kw.spark_num}, {kw.cumulative_minute};"""
 def test_etl_brick_raw_tables_to_brick_agg_tables_PopulatesAggTable_Scenario1_GroupByOnlyNonConflictingRecords():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
@@ -117,9 +115,9 @@ def test_etl_brick_raw_tables_to_brick_agg_tables_PopulatesAggTable_Scenario1_Gr
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{sue_str}', '{a23_str}', '{minute_360}', '{hour6am}', NULL)
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour8am}', NULL)
+  ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_360}', '{hour6am}', NULL)
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour8am}', NULL)
 ;
 """
         insert_sqlstr = f"{insert_into_clause} {values_clause}"
@@ -149,7 +147,7 @@ VALUES
         assert len(rows) == 1
         e1 = spark1
         m_360 = minute_360
-        row0 = (e1, sue_str, a23_str, m_360, hour6am)
+        row0 = (e1, exx.sue, a23_str, m_360, hour6am)
         print(f"{rows[0]=}")
         print(f"   {row0=}")
         assert rows[0] == row0
@@ -158,7 +156,6 @@ VALUES
 def test_etl_brick_raw_tables_to_brick_agg_tables_PopulatesAggTable_Scenario2_GroupByExcludesRowsWith_error_message():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
@@ -188,10 +185,10 @@ def test_etl_brick_raw_tables_to_brick_agg_tables_PopulatesAggTable_Scenario2_Gr
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{sue_str}', '{a23_str}', '{minute_360}', '{hour6am}', 'some_error')
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour7am}', 'some_error')
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_480}', '{hour8am}', NULL)
+  ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_360}', '{hour6am}', 'some_error')
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}', NULL)
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}', 'some_error')
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_480}', '{hour8am}', NULL)
 ;
 """
         insert_sqlstr = f"{insert_into_clause} {values_clause}"
@@ -212,8 +209,8 @@ ORDER BY {kw.spark_num}, {kw.cumulative_minute};"""
 
         rows = cursor.fetchall()
         assert len(rows) == 2
-        row0 = (spark1, sue_str, a23_str, minute_420, hour7am)
-        row1 = (spark1, sue_str, a23_str, minute_480, hour8am)
+        row0 = (spark1, exx.sue, a23_str, minute_420, hour7am)
+        row1 = (spark1, exx.sue, a23_str, minute_480, hour8am)
         print(f"{rows[0]=}")
         print(f"   {row0=}")
         assert rows[0] == row0
@@ -241,7 +238,6 @@ def test_get_max_brick_sparks_spark_num_ReturnsObj_Scenario0_NoTables():
 def test_get_max_brick_sparks_spark_num_ReturnsObj_Scenario1_OneTable():
     # ESTABLISH
     a23_str = "amy23"
-    sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
     spark3 = 3
@@ -270,8 +266,8 @@ def test_get_max_brick_sparks_spark_num_ReturnsObj_Scenario1_OneTable():
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{sue_str}', '{a23_str}', '{minute_360}', '{hour6am}')
-, ('{spark1}', '{sue_str}', '{a23_str}', '{minute_420}', '{hour7am}')
+  ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_360}', '{hour6am}')
+, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}')
 , ('{spark3}', '{yao_str}', '{a23_str}', '{minute_420}', '{hour7am}')
 , ('{spark9}', '{yao_str}', '{a23_str}', '{minute_420}', '{hour7am}')
 ;
