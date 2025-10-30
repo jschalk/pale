@@ -70,13 +70,13 @@ def test_to_rope_ReturnsObj_WithParameter_knot():
 
 def test_create_rope_Scenario0_RaisesErrorIfKnotNotAtPostionZeroOf_parent_rope():
     # ESTABLISH
-    rose_str = "rose"
+    tulip_str = "tulip"
     semicolon_knot = ";"
-    knot_rose_rope = f"{semicolon_knot}{rose_str}"
+    knot_tulip_rope = f"{semicolon_knot}{tulip_str}"
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        create_rope("YY", rose_str, auto_add_first_knot=False) == knot_rose_rope
+        create_rope("YY", tulip_str, auto_add_first_knot=False) == knot_tulip_rope
     exception_str = (
         f"Parent rope must have knot '{semicolon_knot}' at position 0 in string"
     )
@@ -85,38 +85,38 @@ def test_create_rope_Scenario0_RaisesErrorIfKnotNotAtPostionZeroOf_parent_rope()
 
 def test_create_rope_Scenario1_DoesNotRaiseError():
     # ESTABLISH
-    rose_str = "rose"
+    tulip_str = "tulip"
 
     # WHEN / THEN
-    assert create_rope("YY", rose_str)
+    assert create_rope("YY", tulip_str)
 
 
 def test_create_rope_ReturnsObj_Scenario3():
     # ESTABLISH
-    rose_str = "rose"
+    tulip_str = "tulip"
     semicolon_knot = ";"
     assert semicolon_knot == default_knot_if_None()
-    semicolon_knot_rose_rope = f"{root_rope()}{rose_str}{semicolon_knot}"
-    print(f"{semicolon_knot_rose_rope=}")
+    semicolon_knot_tulip_rope = f"{root_rope()}{tulip_str}{semicolon_knot}"
+    print(f"{semicolon_knot_tulip_rope=}")
 
     # WHEN / THEN
-    assert create_rope(root_rope(), rose_str) == semicolon_knot_rose_rope
+    assert create_rope(root_rope(), tulip_str) == semicolon_knot_tulip_rope
 
 
 def test_create_rope_ReturnsObj_Scenario4():
     # ESTABLISH
-    rose_str = "rose"
+    tulip_str = "tulip"
     slash_knot = "/"
-    slash_knot_rose_rope = (
-        f"{slash_knot}{get_default_first_label()}{slash_knot}{rose_str}{slash_knot}"
+    slash_knot_tulip_rope = (
+        f"{slash_knot}{get_default_first_label()}{slash_knot}{tulip_str}{slash_knot}"
     )
 
     # WHEN
-    generated_rose_rope = create_rope(
-        get_default_first_label(), rose_str, knot=slash_knot
+    generated_tulip_rope = create_rope(
+        get_default_first_label(), tulip_str, knot=slash_knot
     )
     # THEN
-    assert generated_rose_rope == slash_knot_rose_rope
+    assert generated_tulip_rope == slash_knot_tulip_rope
 
 
 def test_rope_create_rope_ReturnsObj_Scenario5():
@@ -125,16 +125,16 @@ def test_rope_create_rope_ReturnsObj_Scenario5():
     casa_rope = f"{root_rope()}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}"
-    roses_str = "roses"
-    roses_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
+    tulips_str = "tulips"
+    tulips_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{tulips_str}{x_s}"
 
     # WHEN / THEN
     assert create_rope(None, get_default_first_label()) == root_rope()
     assert create_rope("", get_default_first_label()) == root_rope()
     assert create_rope(root_rope(), exx.casa) == casa_rope
     assert create_rope(casa_rope, bloomers_str) == bloomers_rope
-    assert create_rope(bloomers_rope, roses_str) == roses_rope
-    assert create_rope(roses_rope, None) == roses_rope
+    assert create_rope(bloomers_rope, tulips_str) == tulips_rope
+    assert create_rope(tulips_rope, None) == tulips_rope
 
 
 def test_rope_is_sub_rope_ReturnsObj_Scenario0_WhenNone_default_knot_if_None():
@@ -183,16 +183,18 @@ def test_rope_rebuild_rope_ReturnsRopeTerm():
     bloomers_rope = create_rope(casa_rope, bloomers_str)
     greenery_str = "greenery"
     greenery_rope = create_rope(casa_rope, greenery_str)
-    roses_str = "roses"
-    old_roses_rope = create_rope(bloomers_rope, roses_str)
-    new_roses_rope = create_rope(greenery_rope, roses_str)
+    tulips_str = "tulips"
+    old_tulips_rope = create_rope(bloomers_rope, tulips_str)
+    new_tulips_rope = create_rope(greenery_rope, tulips_str)
 
-    print(f"{rebuild_rope(old_roses_rope, bloomers_rope, greenery_rope)}")
+    print(f"{rebuild_rope(old_tulips_rope, bloomers_rope, greenery_rope)}")
 
     # WHEN / THEN
     assert rebuild_rope(bloomers_rope, bloomers_rope, bloomers_rope) == bloomers_rope
-    assert rebuild_rope(old_roses_rope, bloomers_rope, greenery_rope) == new_roses_rope
-    assert rebuild_rope(old_roses_rope, "random_str", greenery_rope) == old_roses_rope
+    assert (
+        rebuild_rope(old_tulips_rope, bloomers_rope, greenery_rope) == new_tulips_rope
+    )
+    assert rebuild_rope(old_tulips_rope, "random_str", greenery_rope) == old_tulips_rope
 
 
 def test_rope_get_all_rope_labels_ReturnsLabelTerms():
@@ -201,8 +203,8 @@ def test_rope_get_all_rope_labels_ReturnsLabelTerms():
     casa_rope = f"{root_rope()}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}"
-    roses_str = "roses"
-    roses_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
+    tulips_str = "tulips"
+    tulips_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{tulips_str}{x_s}"
 
     # WHEN / THENs
     root_list = [get_default_first_label()]
@@ -211,8 +213,8 @@ def test_rope_get_all_rope_labels_ReturnsLabelTerms():
     assert get_all_rope_labels(rope=casa_rope) == casa_list
     bloomers_list = [get_default_first_label(), exx.casa, bloomers_str]
     assert get_all_rope_labels(rope=bloomers_rope) == bloomers_list
-    roses_list = [get_default_first_label(), exx.casa, bloomers_str, roses_str]
-    assert get_all_rope_labels(rope=roses_rope) == roses_list
+    tulips_list = [get_default_first_label(), exx.casa, bloomers_str, tulips_str]
+    assert get_all_rope_labels(rope=tulips_rope) == tulips_list
 
 
 def test_rope_get_tail_label_ReturnsLabelTerm():
@@ -221,31 +223,31 @@ def test_rope_get_tail_label_ReturnsLabelTerm():
     casa_rope = f"{root_rope()}{x_s}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{x_s}{bloomers_str}{x_s}"
-    roses_str = "roses"
-    roses_rope = f"{bloomers_rope}{x_s}{roses_str}{x_s}"
+    tulips_str = "tulips"
+    tulips_rope = f"{bloomers_rope}{x_s}{tulips_str}{x_s}"
 
     # WHEN / THENs
     assert get_tail_label(rope=root_rope()) == get_default_first_label()
     assert get_tail_label(rope=casa_rope) == exx.casa
     assert get_tail_label(rope=bloomers_rope) == bloomers_str
-    assert get_tail_label(rope=roses_rope) == roses_str
+    assert get_tail_label(rope=tulips_rope) == tulips_str
     assert get_tail_label(rope="") == ""
 
 
 def test_rope_get_tail_label_ReturnsLabelTermWhenNonDefaultknot():
     # ESTABLISH
     bloomers_str = "bloomers"
-    roses_str = "roses"
+    tulips_str = "tulips"
     slash_casa_rope = (
         f"{exx.slash}{get_default_first_label()}{exx.slash}{exx.casa}{exx.slash}"
     )
     slash_bloomers_rope = f"{slash_casa_rope}{bloomers_str}{exx.slash}"
-    slash_roses_rope = f"{slash_bloomers_rope}{roses_str}{exx.slash}"
+    slash_tulips_rope = f"{slash_bloomers_rope}{tulips_str}{exx.slash}"
 
     # WHEN / THENs
     assert get_tail_label(slash_casa_rope, exx.slash) == exx.casa
     assert get_tail_label(slash_bloomers_rope, exx.slash) == bloomers_str
-    assert get_tail_label(slash_roses_rope, exx.slash) == roses_str
+    assert get_tail_label(slash_tulips_rope, exx.slash) == tulips_str
 
 
 def test_rope_get_first_label_from_rope_ReturnsLabelTerm():
@@ -253,14 +255,14 @@ def test_rope_get_first_label_from_rope_ReturnsLabelTerm():
     casa_rope = create_rope(root_rope(), exx.casa)
     bloomers_str = "bloomers"
     bloomers_rope = create_rope(casa_rope, bloomers_str)
-    roses_str = "roses"
-    roses_rope = create_rope(exx.casa, roses_str)
+    tulips_str = "tulips"
+    tulips_rope = create_rope(exx.casa, tulips_str)
 
     # WHEN / THENs
     assert get_first_label_from_rope(root_rope()) == get_default_first_label()
     assert get_first_label_from_rope(casa_rope) == get_default_first_label()
     assert get_first_label_from_rope(bloomers_rope) == get_default_first_label()
-    assert get_first_label_from_rope(roses_rope) == exx.casa
+    assert get_first_label_from_rope(tulips_rope) == exx.casa
 
 
 def test_rope_get_parent_rope_ReturnsObj_Scenario0():
@@ -270,14 +272,14 @@ def test_rope_get_parent_rope_ReturnsObj_Scenario0():
     casa_rope = f"{expected_root_rope}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{bloomers_str}{x_s}"
-    roses_str = "roses"
-    roses_rope = f"{bloomers_rope}{roses_str}{x_s}"
+    tulips_str = "tulips"
+    tulips_rope = f"{bloomers_rope}{tulips_str}{x_s}"
 
     # WHEN / THENs
     assert get_parent_rope(root_rope(), x_s) == ""
     assert get_parent_rope(casa_rope, x_s) == expected_root_rope
     assert get_parent_rope(bloomers_rope, x_s) == casa_rope
-    assert get_parent_rope(roses_rope, x_s) == bloomers_rope
+    assert get_parent_rope(tulips_rope, x_s) == bloomers_rope
 
 
 def test_rope_get_parent_rope_ReturnsObj_Scenario1():
@@ -287,14 +289,14 @@ def test_rope_get_parent_rope_ReturnsObj_Scenario1():
     casa_rope = f"{expected_root_rope}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{bloomers_str}{x_s}"
-    roses_str = "roses"
-    roses_rope = f"{bloomers_rope}{roses_str}{x_s}"
+    tulips_str = "tulips"
+    tulips_rope = f"{bloomers_rope}{tulips_str}{x_s}"
 
     # WHEN / THENs
     assert get_parent_rope(expected_root_rope, x_s) == ""
     assert get_parent_rope(casa_rope, x_s) == expected_root_rope
     assert get_parent_rope(bloomers_rope, x_s) == casa_rope
-    assert get_parent_rope(roses_rope, x_s) == bloomers_rope
+    assert get_parent_rope(tulips_rope, x_s) == bloomers_rope
 
 
 @dataclass
@@ -420,15 +422,15 @@ def test_rope_create_rope_from_labels_ReturnsObj():
     bloomers_str = "bloomers"
     bloomers_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}"
     bloomers_list = get_all_rope_labels(bloomers_rope)
-    roses_str = "roses"
-    roses_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
-    roses_list = get_all_rope_labels(roses_rope)
+    tulips_str = "tulips"
+    tulips_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{tulips_str}{x_s}"
+    tulips_list = get_all_rope_labels(tulips_rope)
 
     # WHEN / THEN
     assert root_rope() == create_rope_from_labels(root_list)
     assert casa_rope == create_rope_from_labels(casa_list)
     assert bloomers_rope == create_rope_from_labels(bloomers_list)
-    assert roses_rope == create_rope_from_labels(roses_list)
+    assert tulips_rope == create_rope_from_labels(tulips_list)
 
 
 def test_is_labelterm_ReturnsObj():

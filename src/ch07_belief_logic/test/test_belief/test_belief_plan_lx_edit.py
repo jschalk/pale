@@ -30,23 +30,23 @@ def test_BeliefUnit_find_replace_rope_Modifies_kids_Scenario1():
     old_casa_rope = yao_belief.make_l1_rope(casa_old_str)
     bloomers_str = "bloomers"
     old_bloomers_rope = yao_belief.make_rope(old_casa_rope, bloomers_str)
-    roses_str = "roses"
-    old_roses_rope = yao_belief.make_rope(old_bloomers_rope, roses_str)
+    tulips_str = "tulips"
+    old_tulips_rope = yao_belief.make_rope(old_bloomers_rope, tulips_str)
     red_str = "red"
-    old_red_rope = yao_belief.make_rope(old_roses_rope, red_str)
+    old_red_rope = yao_belief.make_rope(old_tulips_rope, red_str)
 
     yao_belief.set_l1_plan(planunit_shop(casa_old_str))
     yao_belief.set_plan_obj(planunit_shop(bloomers_str), parent_rope=old_casa_rope)
-    yao_belief.set_plan_obj(planunit_shop(roses_str), parent_rope=old_bloomers_rope)
-    yao_belief.set_plan_obj(planunit_shop(red_str), parent_rope=old_roses_rope)
-    r_plan_roses = yao_belief.get_plan_obj(old_roses_rope)
+    yao_belief.set_plan_obj(planunit_shop(tulips_str), parent_rope=old_bloomers_rope)
+    yao_belief.set_plan_obj(planunit_shop(red_str), parent_rope=old_tulips_rope)
+    r_plan_tulips = yao_belief.get_plan_obj(old_tulips_rope)
     r_plan_bloomers = yao_belief.get_plan_obj(old_bloomers_rope)
 
-    assert r_plan_bloomers.kids.get(roses_str)
-    assert r_plan_roses.parent_rope == old_bloomers_rope
-    assert r_plan_roses.kids.get(red_str)
-    r_plan_red = r_plan_roses.kids.get(red_str)
-    assert r_plan_red.parent_rope == old_roses_rope
+    assert r_plan_bloomers.kids.get(tulips_str)
+    assert r_plan_tulips.parent_rope == old_bloomers_rope
+    assert r_plan_tulips.kids.get(red_str)
+    r_plan_red = r_plan_tulips.kids.get(red_str)
+    assert r_plan_red.parent_rope == old_tulips_rope
 
     # WHEN
     new_casa_str = "casita"
@@ -58,15 +58,15 @@ def test_BeliefUnit_find_replace_rope_Modifies_kids_Scenario1():
     assert yao_belief.planroot.kids.get(casa_old_str) is None
 
     assert r_plan_bloomers.parent_rope == new_casa_rope
-    assert r_plan_bloomers.kids.get(roses_str) is not None
+    assert r_plan_bloomers.kids.get(tulips_str) is not None
 
-    r_plan_roses = r_plan_bloomers.kids.get(roses_str)
+    r_plan_tulips = r_plan_bloomers.kids.get(tulips_str)
     new_bloomers_rope = yao_belief.make_rope(new_casa_rope, bloomers_str)
-    assert r_plan_roses.parent_rope == new_bloomers_rope
-    assert r_plan_roses.kids.get(red_str) is not None
-    r_plan_red = r_plan_roses.kids.get(red_str)
-    new_roses_rope = yao_belief.make_rope(new_bloomers_rope, roses_str)
-    assert r_plan_red.parent_rope == new_roses_rope
+    assert r_plan_tulips.parent_rope == new_bloomers_rope
+    assert r_plan_tulips.kids.get(red_str) is not None
+    r_plan_red = r_plan_tulips.kids.get(red_str)
+    new_tulips_rope = yao_belief.make_rope(new_bloomers_rope, tulips_str)
+    assert r_plan_red.parent_rope == new_tulips_rope
 
 
 def test_belief_edit_plan_label_Modifies_factunits():
@@ -76,19 +76,19 @@ def test_belief_edit_plan_label_Modifies_factunits():
     casa_rope = yao_belief.make_l1_rope(exx.casa)
     bloomers_str = "bloomers"
     bloomers_rope = yao_belief.make_rope(casa_rope, bloomers_str)
-    roses_str = "roses"
-    roses_rope = yao_belief.make_rope(bloomers_rope, roses_str)
+    tulips_str = "tulips"
+    tulips_rope = yao_belief.make_rope(bloomers_rope, tulips_str)
     old_water_str = "water"
     old_water_rope = yao_belief.make_l1_rope(old_water_str)
     rain_str = "rain"
     old_rain_rope = yao_belief.make_rope(old_water_rope, rain_str)
 
     yao_belief.set_l1_plan(planunit_shop(exx.casa))
-    yao_belief.set_plan_obj(planunit_shop(roses_str), parent_rope=bloomers_rope)
+    yao_belief.set_plan_obj(planunit_shop(tulips_str), parent_rope=bloomers_rope)
     yao_belief.set_plan_obj(planunit_shop(rain_str), parent_rope=old_water_rope)
     yao_belief.add_fact(fact_context=old_water_rope, fact_state=old_rain_rope)
 
-    plan_x = yao_belief.get_plan_obj(roses_rope)
+    plan_x = yao_belief.get_plan_obj(tulips_rope)
     assert yao_belief.planroot.factunits[old_water_rope] is not None
     old_water_rain_factunit = yao_belief.planroot.factunits[old_water_rope]
     assert old_water_rain_factunit.fact_context == old_water_rope
