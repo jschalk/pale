@@ -5,7 +5,7 @@ from src.ch12_bud.bud_main import (
     budunit_shop,
     get_beliefbudhistory_from_dict,
 )
-from src.ref.keywords import Ch12Keywords as kw
+from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 
 
 def test_SparkInt_Exists():
@@ -30,14 +30,13 @@ def test_BeliefBudHistory_Exists():
 
 def test_beliefbudhistory_shop_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
 
     # WHEN
-    x_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    x_beliefbudhistory = beliefbudhistory_shop(exx.sue)
 
     # THEN
     assert x_beliefbudhistory
-    assert x_beliefbudhistory.belief_name == sue_str
+    assert x_beliefbudhistory.belief_name == exx.sue
     assert x_beliefbudhistory.buds == {}
     assert not x_beliefbudhistory._sum_budunit_quota
     assert x_beliefbudhistory._sum_voice_bud_nets == {}
@@ -139,8 +138,7 @@ def test_BeliefBudHistory_add_bud_SetsAttr_celldepth():
 
 def test_BeliefBudHistory_get_2d_array_ReturnsObj_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
 
     # WHEN
     sue_buds_2d_array = sue_beliefbudhistory.get_2d_array()
@@ -151,8 +149,7 @@ def test_BeliefBudHistory_get_2d_array_ReturnsObj_Scenario0():
 
 def test_BeliefBudHistory_get_2d_array_ReturnsObj_Scenario1():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     x4_bud_time = 4
     x4_quota = 55
     x7_bud_time = 7
@@ -165,15 +162,14 @@ def test_BeliefBudHistory_get_2d_array_ReturnsObj_Scenario1():
 
     # THEN
     assert sue_buds_2d_array == [
-        [sue_str, x4_bud_time, x4_quota],
-        [sue_str, x7_bud_time, x7_quota],
+        [exx.sue, x4_bud_time, x4_quota],
+        [exx.sue, x7_bud_time, x7_quota],
     ]
 
 
 def test_BeliefBudHistory_get_bud_times_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     x4_bud_time = 4
     x4_quota = 55
     x7_bud_time = 7
@@ -190,8 +186,7 @@ def test_BeliefBudHistory_get_bud_times_ReturnsObj():
 
 def test_BeliefBudHistory_get_headers_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     x4_bud_time = 4
     x4_quota = 55
     x7_bud_time = 7
@@ -208,8 +203,7 @@ def test_BeliefBudHistory_get_headers_ReturnsObj():
 
 def test_BeliefBudHistory_to_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     x4_bud_time = 4
     x4_quota = 55
     x7_bud_time = 7
@@ -223,7 +217,7 @@ def test_BeliefBudHistory_to_dict_ReturnsObj_Scenario0():
 
     # THEN
     assert sue_buds_dict == {
-        kw.belief_name: sue_str,
+        kw.belief_name: exx.sue,
         "buds": {
             x4_bud_time: {kw.quota: x4_quota, kw.bud_time: x4_bud_time},
             x7_bud_time: {
@@ -237,17 +231,16 @@ def test_BeliefBudHistory_to_dict_ReturnsObj_Scenario0():
 
 def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     sue_buds_dict = sue_beliefbudhistory.to_dict()
-    assert sue_buds_dict == {kw.belief_name: sue_str, "buds": {}}
+    assert sue_buds_dict == {kw.belief_name: exx.sue, "buds": {}}
 
     # WHEN
     x_beliefbudhistory = get_beliefbudhistory_from_dict(sue_buds_dict)
 
     # THEN
     assert x_beliefbudhistory
-    assert x_beliefbudhistory.belief_name == sue_str
+    assert x_beliefbudhistory.belief_name == exx.sue
     assert x_beliefbudhistory.buds == {}
     assert x_beliefbudhistory.buds == sue_beliefbudhistory.buds
     assert x_beliefbudhistory == sue_beliefbudhistory
@@ -255,8 +248,7 @@ def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario0():
 
 def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario1():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     x4_bud_time = 4
     x4_quota = 55
     x7_bud_time = 7
@@ -265,7 +257,7 @@ def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario1():
     sue_beliefbudhistory.add_bud(x7_bud_time, x7_quota)
     sue_buds_dict = sue_beliefbudhistory.to_dict()
     assert sue_buds_dict == {
-        kw.belief_name: sue_str,
+        kw.belief_name: exx.sue,
         "buds": {
             x4_bud_time: {kw.bud_time: x4_bud_time, kw.quota: x4_quota},
             x7_bud_time: {kw.bud_time: x7_bud_time, kw.quota: x7_quota},
@@ -277,7 +269,7 @@ def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario1():
 
     # THEN
     assert x_beliefbudhistory
-    assert x_beliefbudhistory.belief_name == sue_str
+    assert x_beliefbudhistory.belief_name == exx.sue
     assert x_beliefbudhistory.get_bud(x4_bud_time) != None
     assert x_beliefbudhistory.get_bud(x7_bud_time) != None
     assert x_beliefbudhistory.buds == sue_beliefbudhistory.buds
@@ -286,34 +278,33 @@ def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario1():
 
 def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario2():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     x4_bud_time = 4
     x4_quota = 55
     x7_bud_time = 7
     x7_quota = 66
     sue_beliefbudhistory.add_bud(x4_bud_time, x4_quota)
     sue_beliefbudhistory.add_bud(x7_bud_time, x7_quota)
-    zia_str = "Zia"
+    exx.zia = "Zia"
     zia_bud_voice_net = 887
     sue_bud_voice_net = 445
     sue_beliefbudhistory.get_bud(x7_bud_time).set_bud_voice_net(
-        sue_str, sue_bud_voice_net
+        exx.sue, sue_bud_voice_net
     )
     sue_beliefbudhistory.get_bud(x7_bud_time).set_bud_voice_net(
-        zia_str, zia_bud_voice_net
+        exx.zia, zia_bud_voice_net
     )
     sue_buds_dict = sue_beliefbudhistory.to_dict()
     assert sue_buds_dict == {
-        kw.belief_name: sue_str,
+        kw.belief_name: exx.sue,
         "buds": {
             x4_bud_time: {kw.bud_time: x4_bud_time, kw.quota: x4_quota},
             x7_bud_time: {
                 kw.bud_time: x7_bud_time,
                 kw.quota: x7_quota,
                 kw.bud_voice_nets: {
-                    sue_str: sue_bud_voice_net,
-                    zia_str: zia_bud_voice_net,
+                    exx.sue: sue_bud_voice_net,
+                    exx.zia: zia_bud_voice_net,
                 },
             },
         },
@@ -324,7 +315,7 @@ def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario2():
 
     # THEN
     assert x_beliefbudhistory
-    assert x_beliefbudhistory.belief_name == sue_str
+    assert x_beliefbudhistory.belief_name == exx.sue
     assert x_beliefbudhistory.get_bud(x4_bud_time) != None
     assert x_beliefbudhistory.get_bud(x7_bud_time) != None
     assert x_beliefbudhistory.get_bud(x7_bud_time)._bud_voice_nets != {}
@@ -335,37 +326,34 @@ def test_get_beliefbudhistory_from_dict_ReturnsObj_Scenario2():
 
 def test_BeliefBudHistory_get_tranbook_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefbudhistory = beliefbudhistory_shop(sue_str)
+    sue_beliefbudhistory = beliefbudhistory_shop(exx.sue)
     x4_bud_time = 4
     x4_quota = 55
     x7_bud_time = 7
     x7_quota = 66
     sue_beliefbudhistory.add_bud(x4_bud_time, x4_quota)
     sue_beliefbudhistory.add_bud(x7_bud_time, x7_quota)
-    bob_str = "Bob"
-    zia_str = "Zia"
     zia_bud_voice_net = 887
     bob_bud_voice_net = 445
     sue_beliefbudhistory.get_bud(x4_bud_time).set_bud_voice_net(
-        bob_str, bob_bud_voice_net
+        exx.bob, bob_bud_voice_net
     )
     sue_beliefbudhistory.get_bud(x7_bud_time).set_bud_voice_net(
-        zia_str, zia_bud_voice_net
+        exx.zia, zia_bud_voice_net
     )
     sue_buds_dict = sue_beliefbudhistory.to_dict()
     assert sue_buds_dict == {
-        kw.belief_name: sue_str,
+        kw.belief_name: exx.sue,
         "buds": {
             x4_bud_time: {
                 kw.bud_time: x4_bud_time,
                 kw.quota: x4_quota,
-                kw.bud_voice_nets: {bob_str: bob_bud_voice_net},
+                kw.bud_voice_nets: {exx.bob: bob_bud_voice_net},
             },
             x7_bud_time: {
                 kw.bud_time: x7_bud_time,
                 kw.quota: x7_quota,
-                kw.bud_voice_nets: {zia_str: zia_bud_voice_net},
+                kw.bud_voice_nets: {exx.zia: zia_bud_voice_net},
             },
         },
     }
@@ -377,7 +365,7 @@ def test_BeliefBudHistory_get_tranbook_ReturnsObj():
     # THEN
     assert sue_tranbook
     assert sue_tranbook.moment_label == x_moment_label
-    assert sue_tranbook.tranunit_exists(sue_str, zia_str, x7_bud_time)
-    assert sue_tranbook.tranunit_exists(sue_str, bob_str, x4_bud_time)
-    assert sue_tranbook.get_amount(sue_str, zia_str, x7_bud_time) == zia_bud_voice_net
-    assert sue_tranbook.get_amount(sue_str, bob_str, x4_bud_time) == bob_bud_voice_net
+    assert sue_tranbook.tranunit_exists(exx.sue, exx.zia, x7_bud_time)
+    assert sue_tranbook.tranunit_exists(exx.sue, exx.bob, x4_bud_time)
+    assert sue_tranbook.get_amount(exx.sue, exx.zia, x7_bud_time) == zia_bud_voice_net
+    assert sue_tranbook.get_amount(exx.sue, exx.bob, x4_bud_time) == bob_bud_voice_net

@@ -14,6 +14,7 @@ from pathlib import Path as pathlib_Path
 from re import compile as re_compile
 from src.ch01_py.dict_toolbox import uppercase_in_str, uppercase_is_first
 from src.ch01_py.file_toolbox import create_path, get_dir_filenames
+from src.ch01_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_desc_prefix,
     get_chapter_desc_str_number,
@@ -392,16 +393,24 @@ def check_if_test_HasDocString_pytests_exist(
         # print(f"{chapter_desc} {test_func_exists} {path_func}")
 
 
-def check_all_test_functions_are_formatted(
-    all_test_functions: dict[str, str],
-):
-    for test_function_str in all_test_functions.values():
+def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
+    # example_strs = get_example_strs_config()
+    # function_count = 0
+    # func_total_count = len(all_test_functions)
+
+    for function_name in sorted(all_test_functions.keys()):
+        test_function_str = all_test_functions.get(function_name)
         establish_str_exists = test_function_str.find("ESTABLISH") > -1
         when_str_exists = test_function_str.find("WHEN") > -1
         then_str_exists = test_function_str.find("THEN") > -1
-        assert (
-            establish_str_exists and when_str_exists and then_str_exists
-        ), f"'ESTABLISH'/'WHEN'/'THEN' missing from {test_function_str[:300]}"
+        fail_str = f"'ESTABLISH'/'WHEN'/'THEN' missing in '{function_name}'"
+        assert establish_str_exists and when_str_exists and then_str_exists, fail_str
+        # TODO reactive this section to clean up tests using Examples Enum class
+        # for key_str, value_str in example_strs.items():
+        #     declare_str = f"""{key_str}_str = "{value_str}"\n"""
+        #     fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
+        #     assert declare_str not in test_function_str, fail2_str
+        # function_count += 1
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")
