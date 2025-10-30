@@ -8,7 +8,7 @@ from src.ch03_voice.voice import (
     validate_nameterm,
     voiceunit_shop,
 )
-from src.ref.keywords import Ch03Keywords as kw
+from src.ref.keywords import Ch03Keywords as kw, ExampleStrs as exx
 
 
 def test_is_nameterm_ReturnsObj():
@@ -65,16 +65,15 @@ def test_validate_nameterm_Scenario1_RaisesErrorWhenNameTerm():
 
 def test_VoiceUnit_Exists():
     # ESTABLISH
-    bob_str = "Bob"
 
     # WHEN
-    bob_voiceunit = VoiceUnit(bob_str)
+    bob_voiceunit = VoiceUnit(exx.bob)
 
     # THEN
-    print(f"{bob_str}")
+    print(f"{exx.bob}")
     assert bob_voiceunit
     assert bob_voiceunit.voice_name
-    assert bob_voiceunit.voice_name == bob_str
+    assert bob_voiceunit.voice_name == exx.bob
     assert not bob_voiceunit.voice_cred_lumen
     assert not bob_voiceunit.voice_debt_lumen
     # calculated fields
@@ -116,11 +115,10 @@ def test_VoiceUnit_set_nameterm_SetsAttr():
     x_voiceunit = VoiceUnit()
 
     # WHEN
-    bob_str = "Bob"
-    x_voiceunit.set_name(bob_str)
+    x_voiceunit.set_name(exx.bob)
 
     # THEN
-    assert x_voiceunit.voice_name == bob_str
+    assert x_voiceunit.voice_name == exx.bob
 
 
 def test_VoiceUnit_set_nameterm_RaisesErrorIfParameterContains_groupmark():

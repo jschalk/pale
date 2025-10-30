@@ -31,6 +31,7 @@ from src.ch01_py.db_toolbox import (
 )
 from src.ch01_py.file_toolbox import create_path, delete_dir, set_dir
 from src.ch01_py.test._util.ch01_env import get_temp_dir, temp_dir_setup
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_sqlite_obj_str_ReturnsObj():
@@ -212,32 +213,28 @@ def test_get_groupby_select_clause_ReturnsObj_Scenario0():
 
 def test_get_groupby_select_clause_ReturnsObj_Scenario1():
     # ESTABLISH
-    fay_str = "Fay"
-    bob_str = "Bob"
-    x_groupby_columns = [fay_str, bob_str]
+    x_groupby_columns = [exx.sue, exx.bob]
     x_value_columns = []
 
     # WHEN
     x_select_clause = _get_grouping_select_clause(x_groupby_columns, x_value_columns)
 
     # THEN
-    assert x_select_clause == f"SELECT {fay_str}, {bob_str}"
+    assert x_select_clause == f"SELECT {exx.sue}, {exx.bob}"
 
 
 def test_get_groupby_select_clause_ReturnsObj_Scenario2():
     # ESTABLISH
-    fay_str = "Fay"
-    bob_str = "Bob"
     swim_str = "swim"
     run_str = "run"
-    x_groupby_columns = [fay_str, bob_str]
+    x_groupby_columns = [exx.sue, exx.bob]
     x_value_columns = [swim_str, run_str]
 
     # WHEN
     gen_select_clause = _get_grouping_select_clause(x_groupby_columns, x_value_columns)
 
     # THEN
-    example_str = f"SELECT {fay_str}, {bob_str}, MAX({swim_str}) AS {swim_str}, MAX({run_str}) AS {run_str}"
+    example_str = f"SELECT {exx.sue}, {exx.bob}, MAX({swim_str}) AS {swim_str}, MAX({run_str}) AS {run_str}"
     assert gen_select_clause == example_str
 
 
@@ -254,15 +251,13 @@ def test_get_grouping_groupby_clause_ReturnsObj_Scenario0():
 
 def test_get_grouping_groupby_clause_ReturnsObj_Scenario1():
     # ESTABLISH
-    fay_str = "Fay"
-    bob_str = "Bob"
-    x_groupby_columns = [fay_str, bob_str]
+    x_groupby_columns = [exx.sue, exx.bob]
 
     # WHEN
     x_select_clause = _get_grouping_groupby_clause(x_groupby_columns)
 
     # THEN
-    assert x_select_clause == f"GROUP BY {fay_str}, {bob_str}"
+    assert x_select_clause == f"GROUP BY {exx.sue}, {exx.bob}"
 
 
 def test_get_having_equal_value_clause_ReturnsObj_Scenario0():
@@ -294,13 +289,11 @@ def test_get_having_equal_value_clause_ReturnsObj_Scenario1():
 
 def test_get_groupby_sql_query_ReturnsObj_Scenario0():
     # ESTABLISH
-    fay_str = "Fay"
-    bob_str = "Bob"
     swim_str = "swim"
     run_str = "run"
-    x_groupby_columns = [fay_str, bob_str]
+    x_groupby_columns = [exx.sue, exx.bob]
     x_value_columns = [swim_str, run_str]
-    x_table_name = "Fayyboby"
+    x_table_name = "Sueyboby"
 
     # WHEN
     gen_select_clause = get_groupby_sql_query(
@@ -308,19 +301,17 @@ def test_get_groupby_sql_query_ReturnsObj_Scenario0():
     )
 
     # THEN
-    example_str = f"""{_get_grouping_select_clause(x_groupby_columns, x_value_columns)} FROM {x_table_name} GROUP BY {fay_str}, {bob_str}"""
+    example_str = f"""{_get_grouping_select_clause(x_groupby_columns, x_value_columns)} FROM {x_table_name} GROUP BY {exx.sue}, {exx.bob}"""
     assert gen_select_clause == example_str
 
 
 def test_get_groupby_sql_query_ReturnsObj_Scenario1_IncludeWhereClause():
     # ESTABLISH
-    fay_str = "Fay"
-    bob_str = "Bob"
     swim_str = "swim"
     run_str = "run"
-    x_groupby_columns = [fay_str, bob_str]
+    x_groupby_columns = [exx.sue, exx.bob]
     x_value_columns = [swim_str, run_str]
-    x_table_name = "Fayyboby"
+    x_table_name = "Sueyboby"
     where_clause_str = "WHERE error_holder_col IS NULL"
 
     # WHEN
@@ -329,19 +320,17 @@ def test_get_groupby_sql_query_ReturnsObj_Scenario1_IncludeWhereClause():
     )
 
     # THEN
-    example_str = f"""{_get_grouping_select_clause(x_groupby_columns, x_value_columns)} FROM {x_table_name} WHERE error_holder_col IS NULL GROUP BY {fay_str}, {bob_str}"""
+    example_str = f"""{_get_grouping_select_clause(x_groupby_columns, x_value_columns)} FROM {x_table_name} WHERE error_holder_col IS NULL GROUP BY {exx.sue}, {exx.bob}"""
     assert gen_select_clause == example_str
 
 
 def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario0():
     # ESTABLISH
-    fay_str = "Fay"
-    bob_str = "Bob"
     swim_str = "swim"
     run_str = "run"
-    x_groupby_columns = [fay_str, bob_str]
+    x_groupby_columns = [exx.sue, exx.bob]
     x_value_columns = [swim_str, run_str]
-    x_table_name = "Fayyboby"
+    x_table_name = "Sueyboby"
 
     # WHEN
     gen_select_clause = get_grouping_with_all_values_equal_sql_query(
@@ -355,13 +344,11 @@ def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario0():
 
 def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario1_IncludeWhereClause():
     # ESTABLISH
-    fay_str = "Fay"
-    bob_str = "Bob"
     swim_str = "swim"
     run_str = "run"
-    x_groupby_columns = [fay_str, bob_str]
+    x_groupby_columns = [exx.sue, exx.bob]
     x_value_columns = [swim_str, run_str]
-    x_table_name = "Fayyboby"
+    x_table_name = "Sueyboby"
     where_clause_str = "WHERE error_holder_col IS NULL"
 
     # WHEN
@@ -585,7 +572,7 @@ def test_table_exists_ReturnsObjWhenPassedCusorObj():
         assert db_table_exists(cursor, users_tablename)
 
 
-def test_sqlite_version():
+def test_sqlite_version_IsAcceptable():
     # ESTABLISH
     # Retrieve the SQLite version
     sqlite_version = sqlite3_sqlite_version

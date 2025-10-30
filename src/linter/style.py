@@ -12,7 +12,9 @@ from os import walk as os_walk
 from os.path import join as os_path_join
 from pathlib import Path as pathlib_Path
 from re import compile as re_compile
+from src.ch01_py.dict_toolbox import uppercase_in_str, uppercase_is_first
 from src.ch01_py.file_toolbox import create_path, get_dir_filenames
+from src.ch01_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_desc_prefix,
     get_chapter_desc_str_number,
@@ -20,6 +22,22 @@ from src.ch98_docs_builder.doc_builder import (
     get_func_names_and_class_bases_from_file,
 )
 from textwrap import dedent as textwrap_dedent
+
+
+def function_name_style_is_correct(function_name: str):
+    if not function_name.startswith("test") and "None" not in function_name:
+        return uppercase_in_str(function_name) is False
+    elif "scenario" in function_name:
+        return False
+    else:
+        func_lower = function_name.lower()
+        if func_lower.endswith("exists") and not function_name.endswith("Exists"):
+            return False
+        elif "returnsobj" in func_lower and "ReturnsObj" not in function_name:
+            return False
+        elif "returnobj" in func_lower:
+            return False
+        return uppercase_in_str(function_name)
 
 
 def get_imports_from_file(file_path):
@@ -375,28 +393,24 @@ def check_if_test_HasDocString_pytests_exist(
         # print(f"{chapter_desc} {test_func_exists} {path_func}")
 
 
-def check_all_test_functions_have_proper_naming_format(all_test_function_names: set):
-    for test_function_name in sorted(list(all_test_function_names)):
-        test_function_name = str(test_function_name)
-        failed_assertion_str = f"test function {test_function_name} is not named well"
-        if test_function_name.lower().endswith("_exists"):
-            assert test_function_name.endswith("_Exists"), failed_assertion_str
-        if test_function_name.lower().find("returnsobj") > 0:
-            assert test_function_name.find("ReturnsObj") > 0, failed_assertion_str
-        assert test_function_name.lower().find("correctly") <= 0, failed_assertion_str
-        assert test_function_name.lower().find("returnobj") <= 0, failed_assertion_str
+def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
+    # example_strs = get_example_strs_config()
+    # function_count = 0
+    # func_total_count = len(all_test_functions)
 
-
-def check_all_test_functions_are_formatted(
-    all_test_functions: dict[str, str],
-):
-    for test_function_str in all_test_functions.values():
+    for function_name in sorted(all_test_functions.keys()):
+        test_function_str = all_test_functions.get(function_name)
         establish_str_exists = test_function_str.find("ESTABLISH") > -1
         when_str_exists = test_function_str.find("WHEN") > -1
         then_str_exists = test_function_str.find("THEN") > -1
-        assert (
-            establish_str_exists and when_str_exists and then_str_exists
-        ), f"'ESTABLISH'/'WHEN'/'THEN' missing from {test_function_str[:300]}"
+        fail_str = f"'ESTABLISH'/'WHEN'/'THEN' missing in '{function_name}'"
+        assert establish_str_exists and when_str_exists and then_str_exists, fail_str
+        # TODO reactive this section to clean up tests using Examples Enum class
+        # for key_str, value_str in example_strs.items():
+        #     declare_str = f"""{key_str}_str = "{value_str}"\n"""
+        #     fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
+        #     assert declare_str not in test_function_str, fail2_str
+        # function_count += 1
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")

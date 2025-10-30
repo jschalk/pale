@@ -6,7 +6,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
     beliefunit_v001,
     beliefunit_v001_with_large_agenda,
     beliefunit_v002,
-    get_beliefunit_with7amCleanTableReason,
+    get_beliefunit_with7am_clean_table_reason,
     get_beliefunit_with_4_levels,
     get_beliefunit_with_4_levels_and_2reasons,
     get_beliefunit_with_4_levels_and_2reasons_2facts,
@@ -71,7 +71,7 @@ def test_BeliefUnit_get_agenda_dict_WithLargeBelief_fund():
 
 def test_BeliefUnit_get_agenda_dict_WithNo7amPlanExample():
     # ESTABLISH
-    x_belief = get_beliefunit_with7amCleanTableReason()
+    x_belief = get_beliefunit_with7am_clean_table_reason()
 
     # WHEN
     agenda_dict = x_belief.get_agenda_dict()
@@ -92,7 +92,7 @@ def test_BeliefUnit_get_agenda_dict_WithNo7amPlanExample():
 def test_BeliefUnit_get_agenda_dict_With7amPlanExample():
     # ESTABLISH
     # set facts as midevening to 8am
-    x_belief = get_beliefunit_with7amCleanTableReason()
+    x_belief = get_beliefunit_with7am_clean_table_reason()
     print(f"{len(x_belief.get_agenda_dict())=}")
     assert len(x_belief.get_agenda_dict()) == 1
     ziettech_rope = x_belief.make_l1_rope("ziettech")

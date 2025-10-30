@@ -3,12 +3,12 @@ from src.ch01_py.file_toolbox import open_json
 
 
 class CommonExampleStrs(str, Enum):
-    Bob = "Bob"
-    Sue = "Sue"
+    bob = "Bob"
+    sue = "Sue"
     SueZia = "SueZia"
-    Yao = "Yao"
-    Xio = "Xio"
-    Zia = "Zia"
+    yao = "Yao"
+    xio = "Xio"
+    zia = "Zia"
     SueAndZia = "SueAndZia"
     casa_str = "casa"
     clean_str = "clean"

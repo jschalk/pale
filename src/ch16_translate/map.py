@@ -374,9 +374,6 @@ class RopeMap:
                     inx_labelterms[x_count] = inx_label
             self.set_otx2inx(otx_rope, create_rope_from_labels(inx_labelterms))
 
-    def _get_inx_label(self, otx_label: LabelTerm) -> LabelTerm:
-        return self.labelmap.otx2inx.get(otx_label)
-
     def label_exists(self, otx_label: LabelTerm, inx_label: LabelTerm) -> bool:
         return self.labelmap.otx2inx_exists(otx_label, inx_label)
 

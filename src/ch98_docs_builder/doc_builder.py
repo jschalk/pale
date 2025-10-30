@@ -13,7 +13,10 @@ from src.ch01_py.file_toolbox import (
     save_file,
     save_json,
 )
-from src.ch01_py.keyword_class_builder import create_src_keywords_path
+from src.ch01_py.keyword_class_builder import (
+    create_src_example_strs_path,
+    create_src_keywords_path,
+)
 from src.ch04_rope._ref.ch04_doc_builder import get_ropeterm_description_md
 from src.ch17_idea._ref.ch17_doc_builder import get_brick_formats_md, get_idea_brick_mds
 
@@ -104,4 +107,6 @@ def resave_chapter_and_keyword_json_files():
             json_dir = create_path(chapter_dir, x_dir)
             save_json(json_dir, x_filename, open_json(json_dir, x_filename))
     keywords_json_path = create_src_keywords_path("src")
+    ex_strs_json_path = create_src_example_strs_path("src")
     save_json(keywords_json_path, None, open_json(keywords_json_path))
+    save_json(ex_strs_json_path, None, open_json(ex_strs_json_path))

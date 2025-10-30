@@ -152,7 +152,7 @@ class LessonUnit:
         return self._beliefdelta.get_atom_edited_belief(before_belief)
 
     def is_empty(self) -> bool:
-        return self._beliefdelta.is_empty()
+        return self._beliefdelta.atoms_empty()
 
 
 def lessonunit_shop(

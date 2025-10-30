@@ -1,15 +1,15 @@
 from pytest import raises as pytest_raises
 from src.ch03_voice.group import membership_shop
 from src.ch03_voice.voice import voiceunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_VoiceUnit_set_membership_SetsAttr_memberships():
     # ESTABLISH
     run_str = ";run"
-    yao_str = "Yao"
     run_group_cred_lumen = 66
     run_group_debt_lumen = 85
-    yao_voiceunit = voiceunit_shop(yao_str)
+    yao_voiceunit = voiceunit_shop(exx.yao)
     assert yao_voiceunit.memberships == {}
 
     # WHEN
@@ -23,7 +23,7 @@ def test_VoiceUnit_set_membership_SetsAttr_memberships():
     assert run_membership.group_title == run_str
     assert run_membership.group_cred_lumen == run_group_cred_lumen
     assert run_membership.group_debt_lumen == run_group_debt_lumen
-    assert run_membership.voice_name == yao_str
+    assert run_membership.voice_name == exx.yao
 
 
 def test_VoiceUnit_set_membership_SetsMultipleAttr():
@@ -32,7 +32,7 @@ def test_VoiceUnit_set_membership_SetsMultipleAttr():
     fly_str = ";fly"
     run_membership = membership_shop(run_str, group_cred_lumen=13, group_debt_lumen=7)
     fly_membership = membership_shop(fly_str, group_cred_lumen=23, group_debt_lumen=5)
-    yao_voiceunit = voiceunit_shop("Yao")
+    yao_voiceunit = voiceunit_shop(exx.yao)
     assert yao_voiceunit.memberships == {}
 
     # WHEN
@@ -49,9 +49,8 @@ def test_VoiceUnit_set_membership_SetsMultipleAttr():
 
 def test_VoiceUnit_set_membership_RaisesErrorIf_group_titleIsVoiceNameAndNotVoiceUnit_voice_name():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_voiceunit = voiceunit_shop(yao_str)
-    bob_str = "Bob"
+    yao_voiceunit = voiceunit_shop(exx.yao)
+    bob_str = exx.bob
     bob_membership = membership_shop(bob_str)
 
     # WHEN
@@ -60,7 +59,7 @@ def test_VoiceUnit_set_membership_RaisesErrorIf_group_titleIsVoiceNameAndNotVoic
 
     # THEN
     assertion_fail_str = (
-        f"VoiceUnit with voice_name='{yao_str}' cannot have link to '{bob_str}'."
+        f"VoiceUnit with voice_name='{exx.yao}' cannot have link to '{bob_str}'."
     )
     assert str(excinfo.value) == assertion_fail_str
 
@@ -69,7 +68,7 @@ def test_VoiceUnit_get_membership_ReturnsObj():
     # ESTABLISH
     run_str = ";run"
     fly_str = ";fly"
-    yao_voiceunit = voiceunit_shop("Yao")
+    yao_voiceunit = voiceunit_shop(exx.yao)
     yao_voiceunit.set_membership(membership_shop(run_str, 13, 7))
     yao_voiceunit.set_membership(membership_shop(fly_str, 23, 5))
 
@@ -84,7 +83,7 @@ def test_membership_exists_ReturnsObj():
     # ESTABLISH
     run_str = ";run"
     fly_str = ";fly"
-    yao_voiceunit = voiceunit_shop("Yao")
+    yao_voiceunit = voiceunit_shop(exx.yao)
     yao_voiceunit.set_membership(membership_shop(run_str, 13, 7))
     yao_voiceunit.set_membership(membership_shop(fly_str, 23, 5))
 
@@ -99,7 +98,7 @@ def test_memberships_exist_ReturnsObj():
     # ESTABLISH
     run_str = ";run"
     fly_str = ";fly"
-    yao_voiceunit = voiceunit_shop("Yao")
+    yao_voiceunit = voiceunit_shop(exx.yao)
     assert not yao_voiceunit.memberships_exist()
 
     # WHEN
@@ -133,7 +132,7 @@ def test_VoiceUnit_del_membership_SetsAttr():
         run_membership.group_title: run_membership,
         fly_membership.group_title: fly_membership,
     }
-    yao_voiceunit = voiceunit_shop("Yao")
+    yao_voiceunit = voiceunit_shop(exx.yao)
     yao_voiceunit.set_membership(run_membership)
     yao_voiceunit.set_membership(fly_membership)
     assert len(yao_voiceunit.memberships) == 2
@@ -157,7 +156,7 @@ def test_VoiceUnit_clear_memberships_SetsAttr():
         run_membership.group_title: run_membership,
         fly_membership.group_title: fly_membership,
     }
-    yao_voiceunit = voiceunit_shop("Yao")
+    yao_voiceunit = voiceunit_shop(exx.yao)
     yao_voiceunit.set_membership(run_membership)
     yao_voiceunit.set_membership(fly_membership)
     assert len(yao_voiceunit.memberships) == 2
@@ -176,7 +175,7 @@ def test_VoiceUnit_add_membership_SetsAttr():
     run_str = ";run"
     run_group_cred_lumen = 78
     run_group_debt_lumen = 99
-    yao_voiceunit = voiceunit_shop("Yao")
+    yao_voiceunit = voiceunit_shop(exx.yao)
     assert yao_voiceunit.get_membership(run_str) is None
 
     # WHEN
@@ -191,7 +190,7 @@ def test_VoiceUnit_add_membership_SetsAttr():
 
 def test_VoiceUnit_set_credor_pool_SetAttr():
     # ESTABLISH
-    bob_voiceunit = voiceunit_shop("Bob")
+    bob_voiceunit = voiceunit_shop(exx.bob)
     assert bob_voiceunit.credor_pool == 0
 
     # WHEN
@@ -204,7 +203,7 @@ def test_VoiceUnit_set_credor_pool_SetAttr():
 
 def test_VoiceUnit_set_debtor_pool_SetAttr():
     # ESTABLISH
-    bob_voiceunit = voiceunit_shop("Bob")
+    bob_voiceunit = voiceunit_shop(exx.bob)
     assert bob_voiceunit.debtor_pool == 0
 
     # WHEN
@@ -221,7 +220,7 @@ def test_VoiceUnit_set_credor_pool_Sets_memberships():
     iowa_str = ";Iowa"
     sue_group_cred_lumen = 1
     yao_group_cred_lumen = 4
-    bob_voiceunit = voiceunit_shop("Bob")
+    bob_voiceunit = voiceunit_shop(exx.bob)
     bob_voiceunit.add_membership(ohio_str, sue_group_cred_lumen)
     bob_voiceunit.add_membership(iowa_str, yao_group_cred_lumen)
     assert bob_voiceunit.credor_pool == 0
@@ -246,7 +245,7 @@ def test_VoiceUnit_set_debtor_pool_Sets_memberships():
     iowa_str = ";Iowa"
     sue_group_debt_lumen = 1
     yao_group_debt_lumen = 4
-    bob_voiceunit = voiceunit_shop("Bob")
+    bob_voiceunit = voiceunit_shop(exx.bob)
     bob_voiceunit.add_membership(ohio_str, 2, sue_group_debt_lumen)
     bob_voiceunit.add_membership(iowa_str, 2, yao_group_debt_lumen)
     assert bob_voiceunit.debtor_pool == 0

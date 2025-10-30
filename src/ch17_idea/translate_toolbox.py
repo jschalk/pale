@@ -134,7 +134,6 @@ def create_translate_rope_dt(x_map: RopeMap) -> DataFrame:
     return DataFrame(x_rows_list, columns=get_translate_rope_dt_columns())
 
 
-# TODO confirm this is tested
 def create_translate_epoch_dt(x_map: EpochMap) -> DataFrame:
     x_rows_list = [
         {

@@ -856,7 +856,7 @@ class BeliefDelta:
             x_beliefatom.set_jkey("fact_context", delete_factunit_reason_context)
             self.set_beliefatom(x_beliefatom)
 
-    def is_empty(self) -> bool:
+    def atoms_empty(self) -> bool:
         return self.beliefatoms == {}
 
     def get_ordered_beliefatoms(self, x_count: int = None) -> dict[int, BeliefAtom]:

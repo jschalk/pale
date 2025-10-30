@@ -87,7 +87,7 @@ class LaborHeir:
     partys: dict[GroupTitle, PartyHeir] = None
     belief_name_is_labor: bool = None
 
-    def is_empty(self) -> bool:
+    def partys_empty(self) -> bool:
         return self.partys == {}
 
     def set_belief_name_is_labor(
@@ -140,7 +140,7 @@ class LaborHeir:
                     _set_party_to_partys(self.partys, partyunit)
 
     def has_party(self, party_titles: set[GroupTitle]):
-        return self.is_empty() or any(gn_x in self.partys for gn_x in party_titles)
+        return self.partys_empty() or any(gn_x in self.partys for gn_x in party_titles)
 
 
 def _set_party_to_partys(partys: dict, x_party):

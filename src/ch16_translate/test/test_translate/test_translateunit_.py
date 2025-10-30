@@ -1,4 +1,3 @@
-from pytest import raises as pytest_raises
 from src.ch04_rope.rope import default_knot_if_None
 from src.ch08_belief_atom.atom_config import (
     get_all_belief_dimen_delete_keys,
@@ -12,25 +11,15 @@ from src.ch16_translate.map import (
     ropemap_shop,
     titlemap_shop,
 )
-from src.ch16_translate.test._util.ch16_examples import (
-    get_clean_labelmap,
-    get_clean_ropemap,
-    get_invalid_namemap,
-    get_invalid_ropemap,
-    get_invalid_titlemap,
-    get_suita_namemap,
-    get_swim_titlemap,
-)
 from src.ch16_translate.translate_config import (
     default_unknown_str_if_None,
     find_set_otx_inx_args,
     get_translate_args_class_types,
-    get_translate_config_dict,
-    get_translate_EpochTime_args,
-    get_translate_LabelTerm_args,
-    get_translate_NameTerm_args,
-    get_translate_RopeTerm_args,
-    get_translate_TitleTerm_args,
+    get_translate_epochtime_args,
+    get_translate_labelterm_args,
+    get_translate_nameterm_args,
+    get_translate_ropeterm_args,
+    get_translate_titleterm_args,
     get_translateable_args,
     get_translateable_number_class_types,
     get_translateable_term_class_types,
@@ -307,9 +296,9 @@ def test_find_set_otx_inx_args_ReturnsObj_Scenario3_PartialSets():
     assert otx_inx_args == expected_otx_inx_args
 
 
-def test_get_translate_NameTerm_args_ReturnsObj():
+def test_get_translate_nameterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_NameTerm_args = get_translate_NameTerm_args()
+    translate_NameTerm_args = get_translate_nameterm_args()
 
     # THEN
     assert translate_NameTerm_args == {
@@ -326,9 +315,9 @@ def test_get_translate_NameTerm_args_ReturnsObj():
     assert translate_NameTerm_args == expected_args
 
 
-def test_get_translate_TitleTerm_args_ReturnsObj():
+def test_get_translate_titleterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_TitleTerm_args = get_translate_TitleTerm_args()
+    translate_TitleTerm_args = get_translate_titleterm_args()
 
     # THEN
     assert translate_TitleTerm_args == {
@@ -344,9 +333,9 @@ def test_get_translate_TitleTerm_args_ReturnsObj():
     assert translate_TitleTerm_args == expected_args
 
 
-def test_get_translate_LabelTerm_args_ReturnsObj():
+def test_get_translate_labelterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_LabelTerm_args = get_translate_LabelTerm_args()
+    translate_LabelTerm_args = get_translate_labelterm_args()
 
     # THEN
     assert translate_LabelTerm_args == {
@@ -364,9 +353,9 @@ def test_get_translate_LabelTerm_args_ReturnsObj():
     assert translate_LabelTerm_args == expected_args
 
 
-def test_get_translate_RopeTerm_args_ReturnsObj():
+def test_get_translate_ropeterm_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_RopeTerm_args = get_translate_RopeTerm_args()
+    translate_RopeTerm_args = get_translate_ropeterm_args()
 
     # THEN
     assert translate_RopeTerm_args == {
@@ -384,9 +373,9 @@ def test_get_translate_RopeTerm_args_ReturnsObj():
     assert translate_RopeTerm_args == expected_args
 
 
-def test_get_translate_EpochTime_args_ReturnsObj():
+def test_get_translate_epochtime_args_ReturnsObj():
     # ESTABLISH / WHEN
-    translate_EpochTime_args = get_translate_EpochTime_args()
+    translate_EpochTime_args = get_translate_epochtime_args()
 
     # THEN
     assert translate_EpochTime_args == {kw.bud_time, kw.offi_time, kw.tran_time}
@@ -543,353 +532,3 @@ def test_translateunit_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhen
     assert x_translateunit.unknown_str == default_unknown_str_if_None()
     assert x_translateunit.otx_knot == default_knot_if_None()
     assert x_translateunit.inx_knot == default_knot_if_None()
-
-
-# TODO move all tests after this into another file that runs after "test_translateunit_crud_voice"
-
-
-def test_TranslateUnit_set_mapunit_SetsAttr():
-    # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    namemap = namemap_shop(face_name=sue_str)
-    namemap.set_otx2inx("Bob", "Bob of Portland")
-    assert sue_translateunit.namemap != namemap
-
-    # WHEN
-    sue_translateunit.set_namemap(namemap)
-
-    # THEN
-    assert sue_translateunit.namemap == namemap
-
-
-def test_TranslateUnit_set_mapunit_SetsAttr_SpecialSituation_RopeTerm():
-    # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    ropemap = ropemap_shop(face_name=sue_str)
-    ropemap.set_otx2inx("Bob", "Bob of Portland")
-    assert sue_translateunit.ropemap != ropemap
-
-    # WHEN
-    sue_translateunit.set_ropemap(ropemap)
-
-    # THEN
-    assert sue_translateunit.ropemap == ropemap
-
-
-def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_otx_knot_IsNotSame():
-    # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    slash_otx_knot = "/"
-    namemap = namemap_shop(otx_knot=slash_otx_knot, face_name=sue_str)
-    assert sue_translateunit.otx_knot != namemap.otx_knot
-    assert sue_translateunit.namemap != namemap
-
-    # WHEN / THEN
-    with pytest_raises(Exception) as excinfo:
-        sue_translateunit.set_namemap(namemap)
-    exception_str = f"set_mapcore Error: TranslateUnit otx_knot is '{sue_translateunit.otx_knot}', MapCore is '{slash_otx_knot}'."
-    assert str(excinfo.value) == exception_str
-
-
-def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_inx_knot_IsNotSame():
-    # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    slash_inx_knot = "/"
-    namemap = namemap_shop(inx_knot=slash_inx_knot, face_name=sue_str)
-    assert sue_translateunit.inx_knot != namemap.inx_knot
-    assert sue_translateunit.namemap != namemap
-
-    # WHEN / THEN
-    with pytest_raises(Exception) as excinfo:
-        sue_translateunit.set_namemap(namemap)
-    exception_str = f"set_mapcore Error: TranslateUnit inx_knot is '{sue_translateunit.inx_knot}', MapCore is '{slash_inx_knot}'."
-    assert str(excinfo.value) == exception_str
-
-
-def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_unknown_str_IsNotSame():
-    # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    casa_unknown_str = "Unknown_casa"
-    namemap = namemap_shop(unknown_str=casa_unknown_str, face_name=sue_str)
-    assert sue_translateunit.unknown_str != namemap.unknown_str
-    assert sue_translateunit.namemap != namemap
-
-    # WHEN / THEN
-    with pytest_raises(Exception) as excinfo:
-        sue_translateunit.set_namemap(namemap)
-    exception_str = f"set_mapcore Error: TranslateUnit unknown_str is '{sue_translateunit.unknown_str}', MapCore is '{casa_unknown_str}'."
-    assert str(excinfo.value) == exception_str
-
-
-def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_face_name_IsNotSame():
-    # ESTABLISH
-    sue_str = "Sue"
-    yao_str = "Yao"
-    sue_translateunit = translateunit_shop(sue_str)
-    namemap = namemap_shop(face_name=yao_str)
-    assert sue_translateunit.face_name != namemap.face_name
-    assert sue_translateunit.namemap != namemap
-
-    # WHEN / THEN
-    with pytest_raises(Exception) as excinfo:
-        sue_translateunit.set_namemap(namemap)
-    exception_str = f"set_mapcore Error: TranslateUnit face_name is '{sue_translateunit.face_name}', MapCore is '{yao_str}'."
-    assert str(excinfo.value) == exception_str
-
-
-def test_TranslateUnit_get_mapunit_ReturnsObj():
-    # ESTABLISH
-    sue_str = "Sue"
-    sue_pu = translateunit_shop(sue_str)
-    static_namemap = namemap_shop(face_name=sue_str)
-    static_namemap.set_otx2inx("Bob", "Bob of Portland")
-    sue_pu.set_namemap(static_namemap)
-
-    # WHEN / THEN
-    assert sue_pu.get_mapunit(kw.NameTerm) == sue_pu.namemap
-    assert sue_pu.get_mapunit(kw.TitleTerm) == sue_pu.titlemap
-    assert sue_pu.get_mapunit(kw.LabelTerm) == sue_pu.labelmap
-    assert sue_pu.get_mapunit(kw.RopeTerm) == sue_pu.ropemap
-    assert sue_pu.get_mapunit(kw.EpochTime) == sue_pu.epochmap
-    assert not sue_pu.get_mapunit("testing")
-
-    assert sue_pu.get_mapunit(kw.NameTerm) != sue_pu.ropemap
-    assert sue_pu.get_mapunit(kw.TitleTerm) != sue_pu.ropemap
-    assert sue_pu.get_mapunit(kw.LabelTerm) != sue_pu.ropemap
-
-
-def test_TranslateUnit_is_valid_ReturnsObj():
-    # ESTABLISH
-    invalid_namemap = get_invalid_namemap()
-    invalid_titlemap = get_invalid_titlemap()
-    invalid_labelmap = get_invalid_ropemap()
-    valid_namemap = get_suita_namemap()
-    valid_titlemap = get_swim_titlemap()
-    valid_labelmap = get_clean_ropemap()
-    assert valid_namemap.is_valid()
-    assert valid_titlemap.is_valid()
-    assert valid_labelmap.is_valid()
-    assert invalid_labelmap.is_valid() is False
-    assert invalid_titlemap.is_valid() is False
-    assert invalid_namemap.is_valid() is False
-
-    # WHEN / THEN
-    sue_translateunit = translateunit_shop("Sue")
-    assert sue_translateunit.is_valid()
-    sue_translateunit.set_namemap(valid_namemap)
-    sue_translateunit.set_titlemap(valid_titlemap)
-    sue_translateunit.set_ropemap(valid_labelmap)
-    assert sue_translateunit.is_valid()
-
-    # WHEN / THEN
-    sue_translateunit.set_namemap(invalid_namemap)
-    assert sue_translateunit.is_valid() is False
-    sue_translateunit.set_namemap(valid_namemap)
-    assert sue_translateunit.is_valid()
-
-    # WHEN / THEN
-    sue_translateunit.set_titlemap(invalid_titlemap)
-    assert sue_translateunit.is_valid() is False
-    sue_translateunit.set_titlemap(valid_titlemap)
-    assert sue_translateunit.is_valid()
-
-    # WHEN / THEN
-    sue_translateunit.set_ropemap(invalid_labelmap)
-    assert sue_translateunit.is_valid() is False
-    sue_translateunit.set_ropemap(valid_labelmap)
-    assert sue_translateunit.is_valid()
-
-
-def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario0_NameTerm():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    namemap = zia_translateunit.get_namemap()
-    assert namemap.otx2inx_exists(sue_otx, sue_inx) is False
-
-    # WHEN
-    zia_translateunit.set_otx2inx(kw.NameTerm, sue_otx, sue_inx)
-
-    # THEN
-    assert namemap.otx2inx_exists(sue_otx, sue_inx)
-
-
-def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario1_RopeTerm():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    ropemap = zia_translateunit.get_ropemap()
-    assert ropemap.otx2inx_exists(sue_otx, sue_inx) is False
-
-    # WHEN
-    zia_translateunit.set_otx2inx(kw.RopeTerm, sue_otx, sue_inx)
-
-    # THEN
-    assert ropemap.otx2inx_exists(sue_otx, sue_inx)
-
-
-def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario2_LabelTerm():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    ropemap = zia_translateunit.get_labelmap()
-    assert ropemap.otx2inx_exists(sue_otx, sue_inx) is False
-
-    # WHEN
-    zia_translateunit.set_otx2inx(kw.LabelTerm, sue_otx, sue_inx)
-
-    # THEN
-    assert ropemap.otx2inx_exists(sue_otx, sue_inx)
-
-
-def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario3_EpochTime():
-    # ESTABLISH
-    sue_translateunit = translateunit_shop(exx.sue)
-    sue_epoch_diff = 10
-    assert sue_translateunit._get_otx_epoch_diff(None) is None
-
-    # WHEN
-    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
-
-    # THEN
-    assert sue_translateunit._get_otx_epoch_diff(None) == sue_epoch_diff
-
-
-def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario0_LabelTerm():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    rope_type = kw.LabelTerm
-    assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx) is False
-
-    # WHEN
-    zia_translateunit.set_otx2inx(kw.LabelTerm, sue_otx, sue_inx)
-
-    # THEN
-    assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx)
-
-
-def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario1_EpochTime():
-    # ESTABLISH
-    sue_translateunit = translateunit_shop(exx.sue)
-    sue_epoch0_diff = 10
-    sue_epoch1_diff = 11
-    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
-
-    # WHEN
-    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
-
-    # THEN
-    assert sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
-
-
-def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario0_NameTerm():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    assert zia_translateunit._get_inx_value(kw.NameTerm, sue_otx) != sue_inx
-
-    # WHEN
-    zia_translateunit.set_otx2inx(kw.NameTerm, sue_otx, sue_inx)
-
-    # THEN
-    assert zia_translateunit._get_inx_value(kw.NameTerm, sue_otx) == sue_inx
-
-
-def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario1_EpochTerm():
-    # ESTABLISH
-    sue_epoch_diff = 10
-    sue_translateunit = translateunit_shop(exx.sue)
-    assert sue_translateunit._get_inx_value(kw.EpochTime, None) != sue_epoch_diff
-
-    # WHEN
-    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
-
-    # THEN
-    assert sue_translateunit._get_inx_value(kw.EpochTime, None) == sue_epoch_diff
-
-
-def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario0_LabelTerm():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    rope_type = kw.LabelTerm
-    zia_translateunit.set_otx2inx(kw.LabelTerm, sue_otx, sue_inx)
-    zia_translateunit.set_otx2inx(kw.LabelTerm, zia_str, zia_str)
-    assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx)
-    assert zia_translateunit.otx2inx_exists(rope_type, zia_str, zia_str)
-
-    # WHEN
-    zia_translateunit.del_otx2inx(rope_type, sue_otx)
-
-    # THEN
-    assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx) is False
-    assert zia_translateunit.otx2inx_exists(rope_type, zia_str, zia_str)
-
-
-def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
-    # ESTABLISH
-    sue_translateunit = translateunit_shop(exx.sue)
-    sue_epoch0_diff = 10
-    sue_epoch1_diff = 11
-    sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch0_diff)
-    assert sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
-
-    # WHEN
-    sue_translateunit.del_otx2inx(kw.EpochTime, None)
-
-    # THEN
-    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch0_diff)
-    assert not sue_translateunit.otx2inx_exists(kw.EpochTime, None, sue_epoch1_diff)
-
-
-def test_TranslateUnit_set_label_SetsAttr_Scenario1_RopeTerm():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    ropemap = zia_translateunit.get_ropemap()
-    assert ropemap.label_exists(sue_otx, sue_inx) is False
-
-    # WHEN
-    zia_translateunit.set_label(sue_otx, sue_inx)
-
-    # THEN
-    assert ropemap.label_exists(sue_otx, sue_inx)
-
-
-def test_TranslateUnit_label_exists_ReturnsObj():
-    # ESTABLISH
-    zia_str = "Zia"
-    sue_otx = "Sue"
-    sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
-    sue_exists = zia_translateunit.label_exists(sue_otx, sue_inx)
-    assert sue_exists is False
-
-    # WHEN
-    zia_translateunit.set_label(sue_otx, sue_inx)
-
-    # THEN
-    assert zia_translateunit.label_exists(sue_otx, sue_inx)

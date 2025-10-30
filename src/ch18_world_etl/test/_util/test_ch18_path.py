@@ -21,7 +21,7 @@ LAST_RUN_METRICS_JSON_FILENAME = "last_run_metrics.json"
 WORLD_DB_FILENAME = "world.db"
 
 
-def test_a18_path_constants_are_values():
+def test_a18_path_constants_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert MOMENT_OTE1_AGG_CSV_FILENAME == "moment_ote1_agg.csv"
     assert MOMENT_OTE1_AGG_JSON_FILENAME == "moment_ote1_agg.json"

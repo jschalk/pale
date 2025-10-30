@@ -1,8 +1,15 @@
 from copy import copy as copy_copy
 from enum import Enum
-from src.ch01_py._ref.ch01_path import create_src_keywords_path
+from src.ch01_py._ref.ch01_path import (
+    create_src_example_strs_path,
+    create_src_keywords_path,
+)
 from src.ch01_py.chapter_desc_tools import get_chapter_desc_prefix, get_chapter_descs
 from src.ch01_py.file_toolbox import create_path, open_json, save_file
+
+
+def get_example_strs_config() -> dict[str, dict]:
+    return open_json(create_src_example_strs_path("src"))
 
 
 def get_keywords_src_config() -> dict[str, dict]:
@@ -30,7 +37,7 @@ def get_cumlative_ch_keywords_dict(keywords_by_chapter: dict[int, set[str]]) -> 
     return cumlative_ch_keywords_dict
 
 
-def get_chXX_keyword_classes(cumlative_ch_keywords_dict: dict) -> dict[int,]:
+def get_chapter_keyword_classes(cumlative_ch_keywords_dict: dict) -> dict[int,]:
     chXX_keyword_classes = {}
     word_str = "word"
     for chapter_prefix in sorted(list(cumlative_ch_keywords_dict.keys())):
@@ -61,19 +68,25 @@ class {chXX_str}{key_str}words(str, Enum):{keywords_str}
 {dunder_str_func_str}"""
 
 
+def create_examplestrs_class_str(example_strs_dict: dict) -> str:
+    enum_attrs = ""
+    for key_str, value_str in example_strs_dict.items():
+        enum_attrs += f"""    {key_str} = "{value_str}"\n"""
+
+    return f"""class ExampleStrs(str, Enum):
+{enum_attrs}
+    def __str__(self):
+        return self.value"""
+
+
 def create_all_enum_keyword_classes_str() -> str:
+    examples_strs = get_example_strs_config()
     keywords_by_chapter = get_keywords_by_chapter(get_keywords_src_config())
     cumlative_keywords = get_cumlative_ch_keywords_dict(keywords_by_chapter)
-    import_enum_line = """from enum import Enum
+    import_enum_line = f"""from enum import Enum
 
 
-class ExampleStrs(str, Enum):
-    bob = "Bob"
-    sue = "Sue"
-    yao = "Yao"
-
-    def __str__(self):
-        return self.value
+{create_examplestrs_class_str(examples_strs)}
 """
     classes_str = copy_copy(import_enum_line)
     for chapter_desc, chapter_dir in get_chapter_descs().items():

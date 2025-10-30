@@ -6,6 +6,14 @@ from io import StringIO as io_StringIO
 from json import dumps as json_dumps, loads as json_loads
 
 
+def uppercase_in_str(x_str: str) -> bool:
+    return any(c.isupper() for c in x_str)
+
+
+def uppercase_is_first(x_str: str) -> bool:
+    return len(x_str) > 0 and x_str[0].isupper()
+
+
 def get_empty_dict_if_None(x_dict: dict = None) -> dict:
     return {} if x_dict is None else x_dict
 

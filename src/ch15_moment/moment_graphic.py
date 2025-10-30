@@ -1,11 +1,11 @@
 from plotly.graph_objects import Figure as plotly_Figure, Scatter as plotly_Scatter
 from src.ch01_py.plotly_toolbox import add_2_curve, conditional_fig_show
 from src.ch13_keep.keep_graphic import (
-    LightSeaGreen_str,
     add_keep_str,
     black_str,
     blue_str,
     darkred_str,
+    get_light_sea_green_str,
     green_str,
     purple_str,
     red_str,
@@ -16,7 +16,7 @@ def add_moment_river_rect(
     fig: plotly_Figure, x0, xw, y0, yh, display_str, x_color=None
 ):
     if x_color is None:
-        x_color = LightSeaGreen_str()
+        x_color = get_light_sea_green_str()
     x1 = x0 + xw
     y1 = y0 + yh
     line_dict = dict(color=x_color, width=4)
@@ -67,7 +67,7 @@ def add_moment__rect(
     color=None,
 ):
     if color is None:
-        color = LightSeaGreen_str()
+        color = get_light_sea_green_str()
     y0 -= 0.3
     y1 += 0.3
     x0 -= 0.3

@@ -1,7 +1,7 @@
 from pytest import raises as pytest_raises
 from src.ch02_allot.allot import default_grain_num_if_None
 from src.ch03_voice.group import GroupUnit, groupunit_shop, membership_shop
-from src.ref.keywords import Ch03Keywords as kw
+from src.ref.keywords import Ch03Keywords as kw, ExampleStrs as exx
 
 
 def test_GroupUnit_Exists():
@@ -68,13 +68,11 @@ def test_groupunit_shop_ReturnsObj_Scenario1_DefaultsPopulated():
 
 def test_GroupUnit_set_membership_SetsAttr():
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
     swim_str = ";swimmers"
     yao_swim_membership = membership_shop(swim_str)
     sue_swim_membership = membership_shop(swim_str)
-    yao_swim_membership.voice_name = yao_str
-    sue_swim_membership.voice_name = sue_str
+    yao_swim_membership.voice_name = exx.yao
+    sue_swim_membership.voice_name = exx.sue
     swimmers_groupunit = groupunit_shop(swim_str)
 
     # WHEN
@@ -92,14 +90,12 @@ def test_GroupUnit_set_membership_SetsAttr():
 def test_GroupUnit_set_membership_SetsAttr_credor_pool_debtor_pool():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
     ohio_str = ";Ohio"
     yao_ohio_membership = membership_shop(ohio_str)
     sue_ohio_membership = membership_shop(ohio_str)
-    yao_ohio_membership.voice_name = yao_str
-    yao_ohio_membership.voice_name = yao_str
-    sue_ohio_membership.voice_name = sue_str
+    yao_ohio_membership.voice_name = exx.yao
+    yao_ohio_membership.voice_name = exx.yao
+    sue_ohio_membership.voice_name = exx.sue
     yao_ohio_membership.credor_pool = 66
     sue_ohio_membership.credor_pool = 22
     yao_ohio_membership.debtor_pool = 6600
@@ -123,12 +119,11 @@ def test_GroupUnit_set_membership_SetsAttr_credor_pool_debtor_pool():
 
 def test_GroupUnit_set_membership_RaisesErrorIf_membership_group_title_IsWrong():
     # ESTABLISH
-    yao_str = "Yao"
     ohio_str = ";Ohio"
     iowa_str = ";Iowa"
     yao_ohio_membership = membership_shop(ohio_str)
-    yao_ohio_membership.voice_name = yao_str
-    yao_ohio_membership.voice_name = yao_str
+    yao_ohio_membership.voice_name = exx.yao
+    yao_ohio_membership.voice_name = exx.yao
     yao_ohio_membership.credor_pool = 66
     yao_ohio_membership.debtor_pool = 6600
     iowa_groupunit = groupunit_shop(iowa_str)

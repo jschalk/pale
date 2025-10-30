@@ -2,13 +2,13 @@ from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch14_epoch.epoch_main import (
     BeliefEpochTime,
     add_epoch_planunit,
-    beliefEpochTime_shop,
+    beliefepochtime_shop,
     get_epoch_rope,
 )
 from src.ch15_moment.moment_main import MomentUnit
 
 
-def get_moment_beliefEpochTime(momentunit: MomentUnit) -> BeliefEpochTime:
+def get_moment_beliefepochtime(momentunit: MomentUnit) -> BeliefEpochTime:
     """Returns BeliefEpochTime from MomentUnit attrs."""
     momentunit.set_offi_time_max(0)
     # create empty beliefunit
@@ -29,6 +29,6 @@ def get_moment_beliefEpochTime(momentunit: MomentUnit) -> BeliefEpochTime:
     moment_epoch_config = momentunit.epoch.to_dict()
     # create epoch plan from momentunit.epoch_config
     add_epoch_planunit(x_beliefunit, moment_epoch_config)
-    x_beliefEpochTime = beliefEpochTime_shop(x_beliefunit, moment_epoch_label, 0)
+    x_beliefEpochTime = beliefepochtime_shop(x_beliefunit, moment_epoch_label, 0)
     x_beliefEpochTime.calc_epoch()
     return x_beliefEpochTime

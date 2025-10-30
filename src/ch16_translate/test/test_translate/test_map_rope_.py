@@ -323,20 +323,6 @@ def test_RopeMap_set_label_RaisesExceptionWhen_knot_In_inx_label():
     assert str(excinfo.value) == exception_str
 
 
-def test_RopeMap_get_inx_label_ReturnsObj():
-    # ESTABLISH
-    xio_str = "Xio"
-    sue_str = "Sue"
-    x_ropemap = ropemap_shop(None)
-    assert x_ropemap._get_inx_label(xio_str) != sue_str
-
-    # WHEN
-    x_ropemap.set_label(xio_str, sue_str)
-
-    # THEN
-    assert x_ropemap._get_inx_label(xio_str) == sue_str
-
-
 def test_RopeTranslate_label_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"

@@ -37,7 +37,7 @@ def test_csv_dict_to_excel_SavesFile(temp_dir_setup):
     print("Test passed successfully.")
 
 
-def test_prettify_excel(temp_dir_setup):
+def test_prettify_excel_SetsAttrs(temp_dir_setup):
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH
     temp_dir = get_temp_dir()
@@ -87,7 +87,7 @@ def test_prettify_excel(temp_dir_setup):
         )  # default width is ~8.43
 
 
-def test_update_spark_num_in_excel_files(temp_dir_setup):
+def test_update_spark_num_in_excel_files_SetAttrs(temp_dir_setup):
     # ESTABLISH
     # Setup: Create test directory and Excel file
     temp_dir = get_temp_dir()

@@ -2,13 +2,14 @@ from importlib import import_module as importlib_import_module
 from inspect import getsource as inspect_getsource
 from src.ch01_py.file_toolbox import create_path, get_dir_file_strs, open_file
 from src.ch01_py.keyword_class_builder import (
-    get_chXX_keyword_classes,
+    get_chapter_keyword_classes,
     get_cumlative_ch_keywords_dict,
     get_keywords_by_chapter,
     get_keywords_src_config,
 )
 from src.ch98_docs_builder.doc_builder import get_chapter_desc_prefix, get_chapter_descs
 from src.linter.style import (
+    function_name_style_is_correct,
     get_all_semantic_types_from_ref_files,
     get_chapters_obj_metrics,
     get_json_files,
@@ -46,26 +47,21 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
     # ESTABLISH
     excluded_functions = {
         "__str__",
-        "_get_inx_label",
         "_get_inx_value",
         "_is_inx_knot_inclusion_correct",
         "_is_otx_knot_inclusion_correct",
         "_unknown_str_in_otx2inx",  # RopeMap method overrides MapCore method
-        "del_label",
         "del_otx2inx",
         "temp_dir_setup",
         "find_replace_rope",
         "get_temp_dir",
         "get_obj_key",
-        "is_empty",
         "is_valid",
-        "label_exists",
         "otx_exists",
         "otx2inx_exists",
         "reveal_inx",
         "set_all_otx2inx",  # RopeMap method overrides MapCore method
         "set_knot",
-        "set_label",
         "set_otx2inx",
         "to_dict",
     }
@@ -84,16 +80,18 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
     for function_name in sorted(all_functions.keys()):
         func_name_count = all_functions.get(function_name)
         if func_name_count > 1:
-            # print(f"{function_name} {func_name_count=}")
+            print(f"{function_name} {func_name_count=}")
             flagged_func_name_count[function_name] = func_name_count
-    print(f"{len(flagged_func_name_count)=}")
+        func_name_style_str = f"Function '{function_name}' naming style error."
+        assert function_name_style_is_correct(function_name), func_name_style_str
+    # print(f"{len(flagged_func_name_count)=}")
     assertion_fail_str = f"Duplicated functions found: {duplicate_func_names}"
-    print(f"{duplicate_func_names=}")
+    # print(f"{duplicate_func_names=}")
     assert not duplicate_func_names, assertion_fail_str
     # print(f"{sorted(unnecessarily_excluded_funcs.keys())=}")
     assert not unnecessarily_excluded_funcs, sorted(unnecessarily_excluded_funcs.keys())
     assert semantic_types == get_semantic_types_dict()
-    print(f"{len(all_functions)=}")
+    # print(f"{len(all_functions)=}")
     for semantic_type in sorted(list(semantic_types)):
         expected_semantic_type_exists_test_str = f"test_{semantic_type}_Exists"
         # print(expected_semantic_type_exists_test_str)
@@ -253,7 +251,7 @@ def test_Chapters_KeywordEnumClassesAreCorrectlyTested():
     keywords_by_chapter = get_keywords_by_chapter(keywords_dict)
     cumlative_ch_keywords_dict = get_cumlative_ch_keywords_dict(keywords_by_chapter)
 
-    chXX_keyword_classes = get_chXX_keyword_classes(cumlative_ch_keywords_dict)
+    chXX_keyword_classes = get_chapter_keyword_classes(cumlative_ch_keywords_dict)
     for chapter_prefix, ExpectedEnumClass in chXX_keyword_classes.items():
         chapter_ref_keywords_path = f"src.ref.keywords"
         print(f"{chapter_ref_keywords_path=}")

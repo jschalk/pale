@@ -573,7 +573,7 @@ class BeliefEpochTime:
         return x_str
 
 
-def beliefEpochTime_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
+def beliefepochtime_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
     return BeliefEpochTime(x_beliefunit, epoch_label, x_min=x_min)
 
 

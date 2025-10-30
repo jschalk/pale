@@ -3,8 +3,18 @@ from enum import Enum
 
 class ExampleStrs(str, Enum):
     bob = "Bob"
+    casa_str = "casa"
+    clean_str = "clean"
+    dirtyness_str = "dirtyness"
+    mop_str = "mop"
+    slash_str = "/"
     sue = "Sue"
+    swim = "swim"
+    wed_str = "Wed"
+    wk_str = "wk"
+    xio = "Xio"
     yao = "Yao"
+    zia = "Zia"
 
     def __str__(self):
         return self.value
