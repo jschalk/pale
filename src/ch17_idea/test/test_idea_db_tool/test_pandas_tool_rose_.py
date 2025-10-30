@@ -3,7 +3,7 @@ from pandas import DataFrame
 from pandas.testing import assert_frame_equal as pandas_assert_frame_equal
 from src.ch04_rope.rope import create_rope, to_rope
 from src.ch16_rose.map import namemap_shop
-from src.ch16_rose.rose_main import roseunit_shop
+from src.ch16_rose.rose_term import roseunit_shop
 from src.ch16_rose.test._util.ch16_examples import (
     get_casa_maison_rope_inx_dt,
     get_casa_maison_rope_otx_dt,

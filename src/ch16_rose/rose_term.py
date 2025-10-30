@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from src.ch01_py.dict_toolbox import get_0_if_None, get_None_if_nan
+from src.ch01_py.dict_toolbox import get_0_if_None
 from src.ch16_rose._ref.ch16_semantic_types import (
     BeliefName,
     EpochTime,

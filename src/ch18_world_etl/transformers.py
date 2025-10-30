@@ -69,7 +69,7 @@ from src.ch16_rose.rose_config import (
     get_rose_titleterm_args,
     get_roseable_term_class_types,
 )
-from src.ch16_rose.rose_main import default_knot_if_None, default_unknown_str_if_None
+from src.ch16_rose.rose_term import default_knot_if_None, default_unknown_str_if_None
 from src.ch17_idea.idea_config import (
     get_idea_dimen_ref,
     get_idea_format_filename,

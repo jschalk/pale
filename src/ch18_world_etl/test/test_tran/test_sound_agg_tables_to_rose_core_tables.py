@@ -1,6 +1,6 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_row_count
-from src.ch16_rose.rose_main import default_knot_if_None, default_unknown_str_if_None
+from src.ch16_rose.rose_term import default_knot_if_None, default_unknown_str_if_None
 from src.ch18_world_etl.tran_sqlstrs import (
     CREATE_TRLCORE_SOUND_AGG_SQLSTR,
     CREATE_TRLCORE_SOUND_RAW_SQLSTR,

@@ -1,6 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch01_py.file_toolbox import create_path, get_dir_file_strs
-from src.ch16_rose.rose_main import roseunit_shop
+from src.ch16_rose.rose_term import roseunit_shop
 from src.ch16_rose.test._util.ch16_examples import (
     get_casa_maison_epoch_dt,
     get_casa_maison_label_dt,

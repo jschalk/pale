@@ -1,6 +1,6 @@
 from src.ch04_rope.rope import default_knot_if_None
 from src.ch16_rose.rose_config import default_unknown_str_if_None
-from src.ch16_rose.rose_main import (
+from src.ch16_rose.rose_term import (
     _get_rid_of_rose_core_keys,
     get_roseunit_from_dict,
     roseunit_shop,

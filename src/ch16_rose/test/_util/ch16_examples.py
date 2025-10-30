@@ -11,7 +11,7 @@ from src.ch16_rose.map import (
     titlemap_shop,
 )
 from src.ch16_rose.rose_config import default_unknown_str_if_None
-from src.ch16_rose.rose_main import RoseUnit, roseunit_shop
+from src.ch16_rose.rose_term import RoseUnit, roseunit_shop
 from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 

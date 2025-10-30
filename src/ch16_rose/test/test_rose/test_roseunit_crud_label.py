@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch16_rose.map import labelmap_shop
-from src.ch16_rose.rose_main import roseunit_shop
+from src.ch16_rose.rose_term import roseunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 

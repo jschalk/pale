@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch16_rose.map import namemap_shop, ropemap_shop
-from src.ch16_rose.rose_main import roseunit_shop
+from src.ch16_rose.rose_term import roseunit_shop
 from src.ch16_rose.test._util.ch16_examples import (
     get_clean_ropemap,
     get_invalid_namemap,

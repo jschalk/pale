@@ -25,7 +25,7 @@ from src.ch16_rose.rose_config import (
     get_roseable_term_class_types,
     roseable_class_types,
 )
-from src.ch16_rose.rose_main import RoseUnit, roseunit_shop
+from src.ch16_rose.rose_term import RoseUnit, roseunit_shop
 from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 

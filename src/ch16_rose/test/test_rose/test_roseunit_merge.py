@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch16_rose.rose_main import inherit_roseunit, roseunit_shop
+from src.ch16_rose.rose_term import inherit_roseunit, roseunit_shop
 from src.ch16_rose.test._util.ch16_examples import (
     get_clean_labelmap,
     get_clean_ropemap,
