@@ -156,7 +156,7 @@ def test_upsert_sheet_AddNewSheetToExistingFile(temp_excel_file, sample_datafram
     pandas_testing_assert_frame_equal(df_new, sample_dataframe)
 
 
-def test_get_all_excel_sheet_names_ReturnsObj_Scenario0_NoTranslate(
+def test_get_all_excel_sheet_names_ReturnsObj_Scenario0_NoRose(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -181,7 +181,7 @@ def test_get_all_excel_sheet_names_ReturnsObj_Scenario0_NoTranslate(
     assert len(x_sheet_names) == 2
 
 
-def test_get_all_excel_sheet_names_ReturnsObj_Scenario1_TranslateSheetNames(
+def test_get_all_excel_sheet_names_ReturnsObj_Scenario1_RoseSheetNames(
     temp_dir_setup,
 ):
     # ESTABLISH

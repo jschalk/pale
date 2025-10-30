@@ -139,12 +139,12 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         fay_world.sheets_input_to_clarity_with_cursor(cursor)
 
         # THEN
-        # select_translate_core = f"SELECT * FROM {trlcore_sound_vld}"
+        # select_rose_core = f"SELECT * FROM {trlcore_sound_vld}"
         # select_beliefunit_put = f"SELECT * FROM {blrunit_sound_put_agg}"
         # select_blfvoce_put = f"SELECT * FROM {blfvoce_sound_put_agg}"
         # select_momentunit_put_raw = f"SELECT * FROM {momentunit_sound_raw}"
         # select_momentunit_put_agg = f"SELECT * FROM {momentunit_sound_agg}"
-        # print(f"{cursor.execute(select_translate_core).fetchall()=}")
+        # print(f"{cursor.execute(select_rose_core).fetchall()=}")
         # print(f"{cursor.execute(select_beliefunit_put).fetchall()=}")
         # print(f"{cursor.execute(select_blfvoce_put).fetchall()=}")
         # print(f"{cursor.execute(select_momentunit_put_raw).fetchall()=}")

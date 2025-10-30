@@ -60,19 +60,16 @@ from src.ch15_moment.moment_cell import (
     set_cell_trees_found_facts,
 )
 from src.ch15_moment.moment_main import get_default_path_momentunit
-from src.ch16_translate.translate_config import (
-    get_quick_translates_column_ref,
-    get_translate_args_class_types,
-    get_translate_labelterm_args,
-    get_translate_nameterm_args,
-    get_translate_ropeterm_args,
-    get_translate_titleterm_args,
-    get_translateable_term_class_types,
+from src.ch16_rose.rose_config import (
+    get_quick_roses_column_ref,
+    get_rose_args_class_types,
+    get_rose_labelterm_args,
+    get_rose_nameterm_args,
+    get_rose_ropeterm_args,
+    get_rose_titleterm_args,
+    get_roseable_term_class_types,
 )
-from src.ch16_translate.translate_main import (
-    default_knot_if_None,
-    default_unknown_str_if_None,
-)
+from src.ch16_rose.rose_main import default_knot_if_None, default_unknown_str_if_None
 from src.ch17_idea.idea_config import (
     get_idea_dimen_ref,
     get_idea_format_filename,
@@ -99,10 +96,10 @@ from src.ch18_world_etl.tran_sqlstrs import (
     CREATE_MOMENT_OTE1_AGG_SQLSTR,
     CREATE_MOMENT_VOICE_NETS_SQLSTR,
     INSERT_MOMENT_OTE1_AGG_FROM_HEARD_SQLSTR,
-    create_insert_into_translate_core_raw_sqlstr,
-    create_insert_missing_face_name_into_translate_core_vld_sqlstr,
-    create_insert_translate_core_agg_into_vld_sqlstr,
-    create_insert_translate_sound_vld_table_sqlstr,
+    create_insert_into_rose_core_raw_sqlstr,
+    create_insert_missing_face_name_into_rose_core_vld_sqlstr,
+    create_insert_rose_core_agg_into_vld_sqlstr,
+    create_insert_rose_sound_vld_table_sqlstr,
     create_job_tables,
     create_knot_exists_in_label_error_update_sqlstr,
     create_knot_exists_in_name_error_update_sqlstr,
@@ -112,7 +109,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_sound_raw_update_inconsist_error_message_sqlstr,
     create_update_heard_raw_empty_inx_col_sqlstr,
     create_update_heard_raw_existing_inx_col_sqlstr,
-    create_update_translate_sound_agg_inconsist_sqlstr,
+    create_update_rose_sound_agg_inconsist_sqlstr,
     create_update_trllabe_sound_agg_knot_error_sqlstr,
     create_update_trlname_sound_agg_knot_error_sqlstr,
     create_update_trlrope_sound_agg_knot_error_sqlstr,
@@ -349,21 +346,21 @@ def get_brick_valid_tables(cursor: sqlite3_Cursor) -> dict[str, str]:
     }
 
 
-def brick_valid_tables_to_translate_prime_raw_tables(cursor: sqlite3_Cursor):
+def brick_valid_tables_to_rose_prime_raw_tables(cursor: sqlite3_Cursor):
     brick_valid_tables = get_brick_valid_tables(cursor)
     idea_dimen_ref = {
-        translate_dimen: idea_numbers
-        for translate_dimen, idea_numbers in get_idea_dimen_ref().items()
-        if translate_dimen[:6] == "translate"
+        rose_dimen: idea_numbers
+        for rose_dimen, idea_numbers in get_idea_dimen_ref().items()
+        if rose_dimen[:6] == "rose"
     }
-    translate_raw_tables = {}
-    for translate_dimen in idea_dimen_ref:
-        idea_numbers = idea_dimen_ref.get(translate_dimen)
-        raw_tablename = f"{translate_dimen}_raw"
-        translate_raw_tables[raw_tablename] = idea_numbers
+    rose_raw_tables = {}
+    for rose_dimen in idea_dimen_ref:
+        idea_numbers = idea_dimen_ref.get(rose_dimen)
+        raw_tablename = f"{rose_dimen}_raw"
+        rose_raw_tables[raw_tablename] = idea_numbers
 
     for brick_valid_table, idea_number in brick_valid_tables.items():
-        for raw_tablename, idea_numbers in translate_raw_tables.items():
+        for raw_tablename, idea_numbers in rose_raw_tables.items():
             if idea_number in idea_numbers:
                 etl_brick_valid_table_into_old_prime_table(
                     cursor, brick_valid_table, raw_tablename, idea_number
@@ -422,24 +419,24 @@ def etl_sound_raw_tables_to_sound_agg_tables(cursor: sqlite3_Cursor):
     insert_sound_raw_selects_into_sound_agg_tables(cursor)
 
 
-def insert_translate_sound_agg_into_translate_core_raw_table(cursor: sqlite3_Cursor):
-    for dimen in get_quick_translates_column_ref():
-        if dimen != "translate_epoch":
-            cursor.execute(create_insert_into_translate_core_raw_sqlstr(dimen))
+def insert_rose_sound_agg_into_rose_core_raw_table(cursor: sqlite3_Cursor):
+    for dimen in get_quick_roses_column_ref():
+        if dimen != "rose_epoch":
+            cursor.execute(create_insert_into_rose_core_raw_sqlstr(dimen))
 
 
-def insert_translate_core_agg_to_translate_core_vld_table(cursor: sqlite3_Cursor):
+def insert_rose_core_agg_to_rose_core_vld_table(cursor: sqlite3_Cursor):
     knot = default_knot_if_None()
     unknown = default_unknown_str_if_None()
-    insert_sqlstr = create_insert_translate_core_agg_into_vld_sqlstr(knot, unknown)
+    insert_sqlstr = create_insert_rose_core_agg_into_vld_sqlstr(knot, unknown)
     cursor.execute(insert_sqlstr)
 
 
-def update_inconsistency_translate_core_raw_table(cursor: sqlite3_Cursor):
-    translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s", "raw")
+def update_inconsistency_rose_core_raw_table(cursor: sqlite3_Cursor):
+    rose_core_s_raw_tablename = create_prime_tablename("trlcore", "s", "raw")
     sqlstr = create_update_inconsistency_error_query(
         cursor,
-        x_tablename=translate_core_s_raw_tablename,
+        x_tablename=rose_core_s_raw_tablename,
         focus_columns={"face_name"},
         exclude_columns={"source_dimen"},
         error_holder_column="error_message",
@@ -449,81 +446,79 @@ def update_inconsistency_translate_core_raw_table(cursor: sqlite3_Cursor):
     cursor.execute(sqlstr)
 
 
-def insert_translate_core_raw_to_translate_core_agg_table(cursor: sqlite3_Cursor):
-    translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s", "raw")
-    translate_core_s_agg_tablename = create_prime_tablename("trlcore", "s", "agg")
+def insert_rose_core_raw_to_rose_core_agg_table(cursor: sqlite3_Cursor):
+    rose_core_s_raw_tablename = create_prime_tablename("trlcore", "s", "raw")
+    rose_core_s_agg_tablename = create_prime_tablename("trlcore", "s", "agg")
     sqlstr = f"""
-INSERT INTO {translate_core_s_agg_tablename} (face_name, otx_knot, inx_knot, unknown_str)
+INSERT INTO {rose_core_s_agg_tablename} (face_name, otx_knot, inx_knot, unknown_str)
 SELECT face_name, MAX(otx_knot), MAX(inx_knot), MAX(unknown_str)
-FROM {translate_core_s_raw_tablename}
+FROM {rose_core_s_raw_tablename}
 WHERE error_message IS NULL
 GROUP BY face_name
 """
     cursor.execute(sqlstr)
 
 
-def update_translate_sound_agg_inconsist_errors(cursor: sqlite3_Cursor):
-    for dimen in get_quick_translates_column_ref():
-        cursor.execute(create_update_translate_sound_agg_inconsist_sqlstr(dimen))
+def update_rose_sound_agg_inconsist_errors(cursor: sqlite3_Cursor):
+    for dimen in get_quick_roses_column_ref():
+        cursor.execute(create_update_rose_sound_agg_inconsist_sqlstr(dimen))
 
 
-def update_translate_sound_agg_knot_errors(cursor: sqlite3_Cursor):
+def update_rose_sound_agg_knot_errors(cursor: sqlite3_Cursor):
     cursor.execute(create_update_trllabe_sound_agg_knot_error_sqlstr())
     cursor.execute(create_update_trlrope_sound_agg_knot_error_sqlstr())
     cursor.execute(create_update_trlname_sound_agg_knot_error_sqlstr())
     cursor.execute(create_update_trltitl_sound_agg_knot_error_sqlstr())
 
 
-def insert_translate_sound_agg_tables_to_translate_sound_vld_table(
+def insert_rose_sound_agg_tables_to_rose_sound_vld_table(
     cursor: sqlite3_Cursor,
 ):
-    for dimen in get_quick_translates_column_ref():
-        if dimen != "translate_epoch":
-            cursor.execute(create_insert_translate_sound_vld_table_sqlstr(dimen))
+    for dimen in get_quick_roses_column_ref():
+        if dimen != "rose_epoch":
+            cursor.execute(create_insert_rose_sound_vld_table_sqlstr(dimen))
 
 
 def set_moment_belief_sound_agg_knot_errors(cursor: sqlite3_Cursor):
-    translate_label_args = get_translate_labelterm_args()
-    translate_name_args = get_translate_nameterm_args()
-    translate_title_args = get_translate_titleterm_args()
-    translate_rope_args = get_translate_ropeterm_args()
-    translate_args = copy_copy(translate_label_args)
-    translate_args.update(translate_name_args)
-    translate_args.update(translate_title_args)
-    translate_args.update(translate_rope_args)
-    translateable_tuples = get_moment_belief_sound_agg_translateable_columns(
-        cursor, translate_args
-    )
-    for heard_raw_tablename, translateable_columnname in translateable_tuples:
+    rose_label_args = get_rose_labelterm_args()
+    rose_name_args = get_rose_nameterm_args()
+    rose_title_args = get_rose_titleterm_args()
+    rose_rope_args = get_rose_ropeterm_args()
+    rose_args = copy_copy(rose_label_args)
+    rose_args.update(rose_name_args)
+    rose_args.update(rose_title_args)
+    rose_args.update(rose_rope_args)
+    roseable_tuples = get_moment_belief_sound_agg_roseable_columns(cursor, rose_args)
+    for heard_raw_tablename, roseable_columnname in roseable_tuples:
         error_update_sqlstr = None
-        if translateable_columnname in translate_label_args:
+        if roseable_columnname in rose_label_args:
             error_update_sqlstr = create_knot_exists_in_label_error_update_sqlstr(
-                heard_raw_tablename, translateable_columnname
+                heard_raw_tablename, roseable_columnname
             )
-        if translateable_columnname in translate_name_args:
+        if roseable_columnname in rose_name_args:
             error_update_sqlstr = create_knot_exists_in_name_error_update_sqlstr(
-                heard_raw_tablename, translateable_columnname
+                heard_raw_tablename, roseable_columnname
             )
         if error_update_sqlstr:
             cursor.execute(error_update_sqlstr)
 
 
-def get_moment_belief_sound_agg_translateable_columns(
-    cursor: sqlite3_Cursor, translate_args: set[str]
+def get_moment_belief_sound_agg_roseable_columns(
+    cursor: sqlite3_Cursor, rose_args: set[str]
 ) -> set[tuple[str, str]]:
-    translate_columns = set()
+    rose_columns = set()
     for x_tablename in get_insert_into_heard_raw_sqlstrs().keys():
         x_tablename = x_tablename.replace("_h_", "_s_")
         x_tablename = x_tablename.replace("_raw", "_agg")
         for columnname in get_table_columns(cursor, x_tablename):
-            if columnname in translate_args:
-                translate_columns.add((x_tablename, columnname))
-    return translate_columns
+            if columnname in rose_args:
+                rose_columns.add((x_tablename, columnname))
+    return rose_columns
 
 
-def populate_translate_core_vld_with_missing_face_names(cursor: sqlite3_Cursor):
+def populate_rose_core_vld_with_missing_face_names(cursor: sqlite3_Cursor):
     for agg_tablename in get_moment_belief_sound_agg_tablenames():
-        insert_sqlstr = create_insert_missing_face_name_into_translate_core_vld_sqlstr(
+        insert_sqlstr = create_insert_missing_face_name_into_rose_core_vld_sqlstr(
             default_knot=default_knot_if_None(),
             default_unknown=default_unknown_str_if_None(),
             moment_belief_sound_agg_tablename=agg_tablename,
@@ -531,17 +526,17 @@ def populate_translate_core_vld_with_missing_face_names(cursor: sqlite3_Cursor):
         cursor.execute(insert_sqlstr)
 
 
-def etl_translate_sound_agg_tables_to_translate_sound_vld_tables(
+def etl_rose_sound_agg_tables_to_rose_sound_vld_tables(
     cursor: sqlite3_Cursor,
 ):
-    insert_translate_sound_agg_into_translate_core_raw_table(cursor)
-    update_inconsistency_translate_core_raw_table(cursor)
-    insert_translate_core_raw_to_translate_core_agg_table(cursor)
-    insert_translate_core_agg_to_translate_core_vld_table(cursor)
-    populate_translate_core_vld_with_missing_face_names(cursor)
-    update_translate_sound_agg_inconsist_errors(cursor)
-    update_translate_sound_agg_knot_errors(cursor)
-    insert_translate_sound_agg_tables_to_translate_sound_vld_table(cursor)
+    insert_rose_sound_agg_into_rose_core_raw_table(cursor)
+    update_inconsistency_rose_core_raw_table(cursor)
+    insert_rose_core_raw_to_rose_core_agg_table(cursor)
+    insert_rose_core_agg_to_rose_core_vld_table(cursor)
+    populate_rose_core_vld_with_missing_face_names(cursor)
+    update_rose_sound_agg_inconsist_errors(cursor)
+    update_rose_sound_agg_knot_errors(cursor)
+    insert_rose_sound_agg_tables_to_rose_sound_vld_table(cursor)
 
 
 def etl_sound_agg_tables_to_sound_vld_tables(cursor: sqlite3_Cursor):
@@ -556,13 +551,13 @@ def etl_sound_vld_tables_to_heard_raw_tables(cursor: sqlite3_Cursor):
 
 
 def set_all_heard_raw_inx_columns(cursor: sqlite3_Cursor):
-    translate_args = get_translate_args_class_types()
+    rose_args = get_rose_args_class_types()
     for heard_raw_tablename, otx_columnname in get_all_heard_raw_otx_columns(cursor):
         columnname_without_otx = otx_columnname[:-4]
         x_arg = copy_copy(columnname_without_otx)
         if x_arg[-5:] == "ERASE":
             x_arg = x_arg[:-6]
-        arg_class_type = translate_args.get(x_arg)
+        arg_class_type = rose_args.get(x_arg)
         set_heard_raw_inx_column(
             cursor, heard_raw_tablename, columnname_without_otx, arg_class_type
         )
@@ -592,18 +587,18 @@ def set_heard_raw_inx_column(
     column_without_otx: str,
     arg_class_type: str,
 ):
-    if arg_class_type in get_translateable_term_class_types():
-        translate_type_abbv = None
+    if arg_class_type in get_roseable_term_class_types():
+        rose_type_abbv = None
         if arg_class_type == "NameTerm":
-            translate_type_abbv = "name"
+            rose_type_abbv = "name"
         elif arg_class_type == "TitleTerm":
-            translate_type_abbv = "title"
+            rose_type_abbv = "title"
         elif arg_class_type == "LabelTerm":
-            translate_type_abbv = "label"
+            rose_type_abbv = "label"
         elif arg_class_type == "RopeTerm":
-            translate_type_abbv = "rope"
+            rose_type_abbv = "rope"
         update_calc_inx_sqlstr = create_update_heard_raw_existing_inx_col_sqlstr(
-            translate_type_abbv, heard_raw_tablename, column_without_otx
+            rose_type_abbv, heard_raw_tablename, column_without_otx
         )
         cursor.execute(update_calc_inx_sqlstr)
     update_empty_inx_sqlstr = create_update_heard_raw_empty_inx_col_sqlstr(
@@ -670,10 +665,8 @@ def etl_brick_valid_table_into_old_prime_table(
     cursor.execute(insert_select_sqlstr)
 
 
-def split_excel_into_sparks_dirs(translate_file: str, face_dir: str, sheet_name: str):
-    split_excel_into_dirs(
-        translate_file, face_dir, "spark_num", "translate", sheet_name
-    )
+def split_excel_into_sparks_dirs(rose_file: str, face_dir: str, sheet_name: str):
+    split_excel_into_dirs(rose_file, face_dir, "spark_num", "rose", sheet_name)
 
 
 def get_most_recent_spark_num(

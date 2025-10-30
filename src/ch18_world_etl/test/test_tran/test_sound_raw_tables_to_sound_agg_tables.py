@@ -29,7 +29,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdat
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         cursor.execute(CREATE_TRLROPE_SOUND_RAW_SQLSTR)
-        trlrope_str = "translate_rope"
+        trlrope_str = "rose_rope"
         trlrope_s_raw_tablename = create_prime_tablename(trlrope_str, "s", "raw")
         insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
@@ -84,7 +84,7 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        trlrope_s_raw_tablename = create_prime_tablename(kw.translate_rope, "s", "raw")
+        trlrope_s_raw_tablename = create_prime_tablename(kw.rose_rope, "s", "raw")
         insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
