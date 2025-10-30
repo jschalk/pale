@@ -93,10 +93,9 @@ def test_TranslateUnit_get_titlemap_ReturnsObj():
 
 def test_TranslateUnit_set_titleterm_SetsAttr_Scenario0():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     voice_name_titlemap = zia_translateunit.get_titlemap()
     assert voice_name_titlemap.otx2inx_exists(sue_otx, sue_inx) is False
 
@@ -109,10 +108,9 @@ def test_TranslateUnit_set_titleterm_SetsAttr_Scenario0():
 
 def test_TranslateUnit_titleterm_exists_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
 
     assert zia_translateunit.titleterm_exists(sue_otx, sue_inx) is False
 
@@ -125,10 +123,9 @@ def test_TranslateUnit_titleterm_exists_ReturnsObj():
 
 def test_TranslateUnit_get_inx_title_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     assert zia_translateunit._get_inx_title(sue_otx) != sue_inx
 
     # WHEN
@@ -140,19 +137,18 @@ def test_TranslateUnit_get_inx_title_ReturnsObj():
 
 def test_TranslateUnit_del_titleterm_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
 
     zia_translateunit.set_titleterm(sue_otx, sue_inx)
-    zia_translateunit.set_titleterm(zia_str, zia_str)
+    zia_translateunit.set_titleterm(exx.zia, exx.zia)
     assert zia_translateunit.titleterm_exists(sue_otx, sue_inx)
-    assert zia_translateunit.titleterm_exists(zia_str, zia_str)
+    assert zia_translateunit.titleterm_exists(exx.zia, exx.zia)
 
     # WHEN
     zia_translateunit.del_titleterm(sue_otx)
 
     # THEN
     assert zia_translateunit.titleterm_exists(sue_otx, sue_inx) is False
-    assert zia_translateunit.titleterm_exists(zia_str, zia_str)
+    assert zia_translateunit.titleterm_exists(exx.zia, exx.zia)

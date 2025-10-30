@@ -35,14 +35,13 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_BeliefWhenNo_part
     # ESTABLISH
     a23_str = "amy23"
     yao_duty = beliefunit_shop(exx.yao, a23_str)
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_duty.set_voice_respect(zia_pool)
 
-    zia_vision = beliefunit_shop(zia_str, a23_str)
+    zia_vision = beliefunit_shop(exx.zia, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -74,14 +73,13 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Belief(
     # ESTABLISH
     a23_str = "amy23"
     yao_duty = beliefunit_shop(exx.yao, a23_str)
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_duty.set_voice_respect(zia_pool)
 
-    zia_vision = beliefunit_shop(zia_str, a23_str)
+    zia_vision = beliefunit_shop(exx.zia, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -99,7 +97,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Belief(
         zia_vision,
     )
 
-    # zia_file_path = create_path(visions_path, zia_str}.json")
+    # zia_file_path = create_path(visions_path, exx.zia}.json")
     # print(f"{os_path_exists(zia_file_path)=}")
     new_yao_vision = create_listen_basis(yao_duty)
     assert len(new_yao_vision.get_agenda_dict()) == 0
@@ -131,7 +129,6 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionBeliefWithDetailsD
     assert bob_cook_planunit != zia_cook_planunit
     assert len(zia_cook_planunit.reasonunits) == 1
     assert len(bob_cook_planunit.reasonunits) == 0
-    zia_str = zia_vision.belief_name
     sue_dakota_lessonfilehandler = get_dakota_lessonfilehandler()
     save_vision_belief(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
@@ -170,14 +167,14 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionBeliefWithDetailsD
     # THEN
     assert new_yao_job1.plan_exists(a23_cook_rope())
     new_cook_plan = new_yao_job1.get_plan_obj(a23_cook_rope())
-    zia_voiceunit = new_yao_job1.get_voice(zia_str)
+    zia_voiceunit = new_yao_job1.get_voice(exx.zia)
     bob_voiceunit = new_yao_job1.get_voice(exx.bob)
     assert zia_voiceunit.voice_debt_lumen < bob_voiceunit.voice_debt_lumen
     assert new_cook_plan.get_reasonunit(a23_eat_rope()) is None
 
     yao_zia_voice_debt_lumen = 15
     yao_bob_voice_debt_lumen = 5
-    yao_duty.add_voiceunit(zia_str, None, yao_zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, None, yao_zia_voice_debt_lumen)
     yao_duty.add_voiceunit(exx.bob, None, yao_bob_voice_debt_lumen)
     yao_duty.set_voice_respect(100)
     new_yao_job2 = create_listen_basis(yao_duty)
@@ -191,7 +188,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionBeliefWithDetailsD
     # THEN
     assert new_yao_job2.plan_exists(a23_cook_rope())
     new_cook_plan = new_yao_job2.get_plan_obj(a23_cook_rope())
-    zia_voiceunit = new_yao_job2.get_voice(zia_str)
+    zia_voiceunit = new_yao_job2.get_voice(exx.zia)
     bob_voiceunit = new_yao_job2.get_voice(exx.bob)
     assert zia_voiceunit.voice_debt_lumen > bob_voiceunit.voice_debt_lumen
     zia_eat_reasonunit = zia_cook_planunit.get_reasonunit(a23_eat_rope())
@@ -204,12 +201,11 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
     # ESTABLISH
     a23_str = "amy23"
     yao_duty = beliefunit_shop(exx.yao, a23_str)
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     sue_voice_cred_lumen = 57
     sue_voice_debt_lumen = 51
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_duty.set_voice_respect(yao_pool)
@@ -223,8 +219,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
         duty_belief=yao_duty,
     )
 
-    zia_str = "Zia"
-    zia_vision = beliefunit_shop(zia_str, a23_str)
+    zia_vision = beliefunit_shop(exx.zia, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -288,7 +283,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
     # THEN irrational belief is ignored
     assert len(new_yao_vision.get_agenda_dict()) != 3
     assert len(new_yao_vision.get_agenda_dict()) == 2
-    zia_voiceunit = new_yao_vision.get_voice(zia_str)
+    zia_voiceunit = new_yao_vision.get_voice(exx.zia)
     sue_voiceunit = new_yao_vision.get_voice(exx.sue)
     print(f"{sue_voiceunit.voice_debt_lumen=}")
     print(f"{sue_voiceunit.irrational_voice_debt_lumen=}")
@@ -302,12 +297,11 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
     # ESTABLISH
     a23_str = "amy23"
     yao_duty = beliefunit_shop(exx.yao, a23_str)
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     sue_voice_cred_lumen = 57
     zia_voice_debt_lumen = 41
     sue_voice_debt_lumen = 51
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_duty.set_voice_respect(yao_pool)
@@ -321,7 +315,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
         duty_belief=yao_duty,
     )
 
-    zia_vision = beliefunit_shop(zia_str, a23_str)
+    zia_vision = beliefunit_shop(exx.zia, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -348,7 +342,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
     # THEN irrational belief is ignored
     assert len(new_yao_vision.get_agenda_dict()) != 3
     assert len(new_yao_vision.get_agenda_dict()) == 2
-    zia_voiceunit = new_yao_vision.get_voice(zia_str)
+    zia_voiceunit = new_yao_vision.get_voice(exx.zia)
     sue_voiceunit = new_yao_vision.get_voice(exx.sue)
     print(f"{sue_voiceunit.voice_debt_lumen=}")
     print(f"{sue_voiceunit.inallocable_voice_debt_lumen=}")
@@ -365,10 +359,9 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToBelief_duty_AndNotBelief_v
     yao_voice_cred_lumen = 57
     yao_voice_debt_lumen = 51
     yao_duty.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_pool = 87
     yao_duty.set_voice_respect(yao_pool)
     # save yao without task to dutys
@@ -383,8 +376,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToBelief_duty_AndNotBelief_v
     )
 
     # Save Zia to visions
-    zia_str = "Zia"
-    zia_vision = beliefunit_shop(zia_str, a23_str)
+    zia_vision = beliefunit_shop(exx.zia, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)

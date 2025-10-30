@@ -466,13 +466,12 @@ def test_LessonUnit_get_edited_belief_ReturnsObj_BeliefUnit_insert_voice():
     sue_lessonunit = lessonunit_shop(exx.sue)
 
     before_sue_beliefunit = beliefunit_shop(exx.sue)
-    zia_str = "Zia"
     before_sue_beliefunit.add_voiceunit(exx.yao)
     assert before_sue_beliefunit.voice_exists(exx.yao)
-    assert before_sue_beliefunit.voice_exists(zia_str) is False
+    assert before_sue_beliefunit.voice_exists(exx.zia) is False
     dimen = kw.belief_voiceunit
     x_beliefatom = beliefatom_shop(dimen, kw.INSERT)
-    x_beliefatom.set_jkey(kw.voice_name, zia_str)
+    x_beliefatom.set_jkey(kw.voice_name, exx.zia)
     x_voice_cred_lumen = 55
     x_voice_debt_lumen = 66
     x_beliefatom.set_jvalue("voice_cred_lumen", x_voice_cred_lumen)
@@ -487,7 +486,7 @@ def test_LessonUnit_get_edited_belief_ReturnsObj_BeliefUnit_insert_voice():
 
     # THEN
     yao_voiceunit = after_sue_beliefunit.get_voice(exx.yao)
-    zia_voiceunit = after_sue_beliefunit.get_voice(zia_str)
+    zia_voiceunit = after_sue_beliefunit.get_voice(exx.zia)
     assert yao_voiceunit is not None
     assert zia_voiceunit is not None
     assert zia_voiceunit.voice_cred_lumen == x_voice_cred_lumen

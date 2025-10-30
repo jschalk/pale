@@ -348,7 +348,6 @@ VALUES
 
 def test_insert_translate_core_agg_to_translate_core_vld_table_PopulatesTable_Scenario0():
     # ESTABLISH
-    zia_str = "zia"
     colon_knot = ":"
     slash_knot = "/"
     other_knot = "="
@@ -375,7 +374,7 @@ VALUES
   ("{exx.bob}", "{colon_knot}", "{slash_knot}", "{unknown_str}")
 , ("{exx.sue}", NULL, NULL, NULL)
 , ("{exx.yao}", NULL, '{colon_knot}', '{huh_str}')
-, ("{zia_str}", "{colon_knot}", "{colon_knot}", "{huh_str}")
+, ("{exx.zia}", "{colon_knot}", "{colon_knot}", "{huh_str}")
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -398,7 +397,7 @@ VALUES
             (exx.bob, colon_knot, slash_knot, unknown_str),
             (exx.sue, default_knot, default_knot, default_unknown),
             (exx.yao, default_knot, colon_knot, huh_str),
-            (zia_str, colon_knot, colon_knot, huh_str),
+            (exx.zia, colon_knot, colon_knot, huh_str),
         ]
 
 

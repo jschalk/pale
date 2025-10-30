@@ -206,7 +206,6 @@ def test_RiverRun_get_all_keep_patientledger_voice_names_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
-    zia_str = "Zia"
     x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
 
     # WHEN
@@ -222,13 +221,13 @@ def test_RiverRun_get_all_keep_patientledger_voice_names_ReturnsObj():
     assert all_voices_ids == {exx.yao, exx.bob}
 
     # WHEN
-    x_riverrun.set_keep_patientledger(zia_str, exx.bob, 1)
+    x_riverrun.set_keep_patientledger(exx.zia, exx.bob, 1)
     all_voices_ids = x_riverrun.get_all_keep_patientledger_voice_names()
     # THEN
-    assert all_voices_ids == {exx.yao, exx.bob, zia_str}
+    assert all_voices_ids == {exx.yao, exx.bob, exx.zia}
 
     # WHEN
     x_riverrun.set_keep_patientledger(exx.xio, exx.sue, 1)
     all_voices_ids = x_riverrun.get_all_keep_patientledger_voice_names()
     # THEN
-    assert all_voices_ids == {exx.yao, exx.bob, zia_str, exx.xio, exx.sue}
+    assert all_voices_ids == {exx.yao, exx.bob, exx.zia, exx.xio, exx.sue}

@@ -145,8 +145,7 @@ def test_create_cell_dir_path_ReturnsObj_Scenario2_Three_bud_ancestors():
     x_moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
     tp7 = 7
-    zia_str = "Zia"
-    x_bud_ancestors = [exx.yao, exx.bob, zia_str]
+    x_bud_ancestors = [exx.yao, exx.bob, exx.zia]
 
     # WHEN
     gen_bud_celldepth_dir_path = create_cell_dir_path(
@@ -157,7 +156,7 @@ def test_create_cell_dir_path_ReturnsObj_Scenario2_Three_bud_ancestors():
     epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, a23_str, exx.sue, tp7)
     tp_yao_dir = create_path(epochtime_dir, exx.yao)
     tp_yao_bob_dir = create_path(tp_yao_dir, exx.bob)
-    expected_tp_yao_bob_zia_dir = create_path(tp_yao_bob_dir, zia_str)
+    expected_tp_yao_bob_zia_dir = create_path(tp_yao_bob_dir, exx.zia)
     assert gen_bud_celldepth_dir_path == expected_tp_yao_bob_zia_dir
 
 

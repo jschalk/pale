@@ -70,9 +70,8 @@ def a23_run_rope() -> RopeTerm:
 
 
 def get_example_zia_speaker() -> BeliefUnit:
-    zia_str = "Zia"
     a23_str = "amy23"
-    zia_speaker = beliefunit_shop(zia_str, a23_str)
+    zia_speaker = beliefunit_shop(exx.zia, a23_str)
     zia_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     zia_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
@@ -105,11 +104,10 @@ def get_example_bob_speaker() -> BeliefUnit:
 
 
 def get_example_yao_speaker() -> BeliefUnit:
-    zia_str = "Zia"
     a23_str = "amy23"
     yao_speaker = beliefunit_shop(exx.yao, a23_str)
     yao_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
-    yao_speaker.add_voiceunit(zia_str, voice_debt_lumen=36)
+    yao_speaker.add_voiceunit(exx.zia, voice_debt_lumen=36)
     yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=48)
     yao_speaker.set_voice_respect(100)
     yao_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())

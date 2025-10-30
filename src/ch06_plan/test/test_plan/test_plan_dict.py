@@ -48,14 +48,13 @@ def test_get_obj_from_plan_dict_Returns_HealerUnit():
     assert get_obj_from_plan_dict({}, healerunit_key) == healerunit_shop()
 
     # WHEN
-    zia_str = "Zia"
-    healerunit_dict = {"healerunit_healer_names": [exx.sue, zia_str]}
+    healerunit_dict = {"healerunit_healer_names": [exx.sue, exx.zia]}
     planunit_dict = {healerunit_key: healerunit_dict}
 
     # THEN
     static_healerunit = healerunit_shop()
     static_healerunit.set_healer_name(x_healer_name=exx.sue)
-    static_healerunit.set_healer_name(x_healer_name=zia_str)
+    static_healerunit.set_healer_name(x_healer_name=exx.zia)
     assert get_obj_from_plan_dict(planunit_dict, healerunit_key) is not None
     assert get_obj_from_plan_dict(planunit_dict, healerunit_key) == static_healerunit
 

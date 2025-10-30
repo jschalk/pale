@@ -103,9 +103,8 @@ def get_beliefdelta_example1() -> BeliefDelta:
     x_beliefatom.set_jvalue(kw.debtor_respect, 88)
     sue_beliefdelta.set_beliefatom(x_beliefatom)
 
-    zia_str = "Zia"
     x_beliefatom = beliefatom_shop(dimen=kw.belief_voiceunit, crud_str=kw.DELETE)
-    x_beliefatom.set_jkey(kw.voice_name, zia_str)
+    x_beliefatom.set_jkey(kw.voice_name, exx.zia)
     sue_beliefdelta.set_beliefatom(x_beliefatom)
     return sue_beliefdelta
 

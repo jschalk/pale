@@ -110,10 +110,9 @@ def test_TranslateUnit_get_namemap_ReturnsObj():
 
 def test_TranslateUnit_set_nameterm_SetsAttr_Scenario0():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     voice_name_namemap = zia_translateunit.get_namemap()
     assert voice_name_namemap.otx2inx_exists(sue_otx, sue_inx) is False
 
@@ -126,10 +125,9 @@ def test_TranslateUnit_set_nameterm_SetsAttr_Scenario0():
 
 def test_TranslateUnit_nameterm_exists_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
 
     assert zia_translateunit.nameterm_exists(sue_otx, sue_inx) is False
 
@@ -142,10 +140,9 @@ def test_TranslateUnit_nameterm_exists_ReturnsObj():
 
 def test_TranslateUnit_get_inx_name_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     assert zia_translateunit._get_inx_name(sue_otx) != sue_inx
 
     # WHEN
@@ -157,19 +154,18 @@ def test_TranslateUnit_get_inx_name_ReturnsObj():
 
 def test_TranslateUnit_del_nameterm_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
 
     zia_translateunit.set_nameterm(sue_otx, sue_inx)
-    zia_translateunit.set_nameterm(zia_str, zia_str)
+    zia_translateunit.set_nameterm(exx.zia, exx.zia)
     assert zia_translateunit.nameterm_exists(sue_otx, sue_inx)
-    assert zia_translateunit.nameterm_exists(zia_str, zia_str)
+    assert zia_translateunit.nameterm_exists(exx.zia, exx.zia)
 
     # WHEN
     zia_translateunit.del_nameterm(sue_otx)
 
     # THEN
     assert zia_translateunit.nameterm_exists(sue_otx, sue_inx) is False
-    assert zia_translateunit.nameterm_exists(zia_str, zia_str)
+    assert zia_translateunit.nameterm_exists(exx.zia, exx.zia)

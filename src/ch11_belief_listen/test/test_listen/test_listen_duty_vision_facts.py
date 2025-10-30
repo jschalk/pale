@@ -27,11 +27,10 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnit_v1(temp_dir_setup):
     # ESTABLISH
     a23_str = "amy23"
     yao_duty = beliefunit_shop(exx.yao, a23_str)
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_duty.set_voice_respect(zia_pool)
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
     save_duty_belief(
@@ -81,8 +80,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
     yao_voice_cred_lumen = 47
     yao_voice_debt_lumen = 41
     yao_pool = 87
-    zia_str = "Zia"
-    yao_duty.add_voiceunit(zia_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, yao_voice_cred_lumen, yao_voice_debt_lumen)
     yao_duty.set_voice_respect(yao_pool)
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
     save_duty_belief(
@@ -300,7 +298,6 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 ):
     # ESTABLISH
     zia_vision = get_example_zia_speaker()
-    zia_str = zia_vision.belief_name
     zia_vision.add_fact(a23_eat_rope(), a23_eat_rope())
     assert zia_vision.get_fact(a23_eat_rope()).fact_state == a23_eat_rope()
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
@@ -359,7 +356,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 
     # THEN
     assert yao_duty.get_fact(a23_eat_rope()) is None
-    zia_voiceunit = new_yao_vision1.get_voice(zia_str)
+    zia_voiceunit = new_yao_vision1.get_voice(exx.zia)
     bob_voiceunit = new_yao_vision1.get_voice(bob_str)
     assert zia_voiceunit.voice_debt_lumen < bob_voiceunit.voice_debt_lumen
     assert bob_vision.get_fact(a23_eat_rope()).fact_state == a23_hungry_rope()
@@ -369,7 +366,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
     # WHEN
     yao_zia_voice_debt_lumen = 15
     yao_bob_voice_debt_lumen = 5
-    yao_duty.add_voiceunit(zia_str, None, yao_zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, None, yao_zia_voice_debt_lumen)
     yao_duty.add_voiceunit(bob_str, None, yao_bob_voice_debt_lumen)
     yao_duty.set_voice_respect(100)
     new_yao_vision2 = create_listen_basis(yao_duty)
@@ -381,7 +378,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
     )
 
     # THEN
-    zia_voiceunit = new_yao_vision2.get_voice(zia_str)
+    zia_voiceunit = new_yao_vision2.get_voice(exx.zia)
     bob_voiceunit = new_yao_vision2.get_voice(bob_str)
     assert zia_voiceunit.voice_debt_lumen > bob_voiceunit.voice_debt_lumen
     assert bob_vision.get_fact(a23_eat_rope()).fact_state == a23_hungry_rope()

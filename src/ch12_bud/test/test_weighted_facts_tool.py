@@ -238,7 +238,6 @@ def test_get_nodes_with_weighted_facts_ReturnsObj_Scenario08_Level2ChildHasDiffe
 
 def test_get_nodes_with_weighted_facts_ReturnsObj_Scenario09_Level2ChildThreeChildFacts():
     # ESTABLISH
-    zia_str = "Zia"
     clean_fact = example_casa_clean_factunit()
     dirty_fact = example_casa_dirty_factunit()
     root_addr = ()
@@ -248,7 +247,7 @@ def test_get_nodes_with_weighted_facts_ReturnsObj_Scenario09_Level2ChildThreeChi
     bob_quota_zia = 5
     bob_yao_addr = (exx.bob, exx.yao)
     bob_sue_addr = (exx.bob, exx.sue)
-    bob_zia_addr = (exx.bob, zia_str)
+    bob_zia_addr = (exx.bob, exx.zia)
     clean_facts = {clean_fact.fact_context: clean_fact}
     dirty_facts = {dirty_fact.fact_context: dirty_fact}
     nodes_facts_dict = {
@@ -263,7 +262,7 @@ def test_get_nodes_with_weighted_facts_ReturnsObj_Scenario09_Level2ChildThreeChi
         bob_addr: {
             exx.yao: bob_quota_yao,
             exx.sue: bob_quota_sue,
-            zia_str: bob_quota_zia,
+            exx.zia: bob_quota_zia,
         },
         bob_yao_addr: {exx.yao: 1},
         bob_sue_addr: {exx.yao: 1},
@@ -292,7 +291,6 @@ def test_get_nodes_with_weighted_facts_ReturnsObj_Scenario09_Level2ChildThreeChi
 
 def test_get_nodes_with_weighted_facts_ReturnsObj_Scenario10_Level2ChildTwoChildFactsOneMissing():
     # ESTABLISH
-    zia_str = "Zia"
     clean_fact = example_casa_clean_factunit()
     dirty_fact = example_casa_dirty_factunit()
     root_addr = ()
@@ -315,7 +313,7 @@ def test_get_nodes_with_weighted_facts_ReturnsObj_Scenario10_Level2ChildTwoChild
         bob_addr: {
             exx.yao: bob_quota_yao,
             exx.sue: bob_quota_sue,
-            zia_str: bob_quota_zia,
+            exx.zia: bob_quota_zia,
         },
         bob_yao_addr: {exx.yao: 1},
         bob_sue_addr: {exx.yao: 1},

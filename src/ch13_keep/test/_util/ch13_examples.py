@@ -13,52 +13,47 @@ def get_nation_texas_rope() -> RopeTerm:
 
 
 def example_yao_patientledger() -> dict[str, float]:
-    zia_str = "Zia"
     yao_voice_cred_lumen = 7
     bob_voice_cred_lumen = 3
     zia_voice_cred_lumen = 10
     yao_belief = beliefunit_shop(exx.yao)
     yao_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
     yao_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    yao_belief.add_voiceunit(zia_str, zia_voice_cred_lumen)
+    yao_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
     return get_patientledger(yao_belief)
 
 
 def example_bob_patientledger() -> dict[str, float]:
-    zia_str = "Zia"
     yao_voice_cred_lumen = 1
     bob_voice_cred_lumen = 7
     zia_voice_cred_lumen = 42
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
     bob_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    bob_belief.add_voiceunit(zia_str, zia_voice_cred_lumen)
+    bob_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
     return get_patientledger(bob_belief)
 
 
 def example_zia_patientledger() -> dict[str, float]:
-    zia_str = "Zia"
     yao_voice_cred_lumen = 89
     bob_voice_cred_lumen = 150
     zia_voice_cred_lumen = 61
-    zia_belief = beliefunit_shop(zia_str)
+    zia_belief = beliefunit_shop(exx.zia)
     zia_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
     zia_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    zia_belief.add_voiceunit(zia_str, zia_voice_cred_lumen)
+    zia_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
     return get_patientledger(zia_belief)
 
 
 def example_yao_bob_zia_patientledgers() -> dict[BeliefName : dict[VoiceName, float]]:
-    zia_str = "Zia"
     return {
         exx.yao: example_yao_patientledger,
         exx.bob: example_bob_patientledger,
-        zia_str: example_zia_patientledger,
+        exx.zia: example_zia_patientledger,
     }
 
 
 def example_yao_bob_zia_need_dues() -> dict[VoiceName, float]:
-    zia_str = "Zia"
     yao_sum = sum(example_yao_patientledger().values())
     bob_sum = sum(example_bob_patientledger().values())
     zia_sum = sum(example_zia_patientledger().values())
@@ -66,5 +61,5 @@ def example_yao_bob_zia_need_dues() -> dict[VoiceName, float]:
     return {
         exx.yao: yao_sum - 60000,
         exx.bob: bob_sum - 500000,
-        zia_str: zia_sum - 4000,
+        exx.zia: zia_sum - 4000,
     }

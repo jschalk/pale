@@ -89,11 +89,10 @@ def run_rope() -> RopeTerm:
 
 
 def get_example_yao_belief() -> BeliefUnit:
-    zia_str = "Zia"
     yao_speaker = beliefunit_shop(exx.yao, ch11_example_moment_label())
     yao_speaker.set_plan_obj(planunit_shop(run_str()), casa_rope())
     yao_speaker.add_voiceunit(exx.yao, voice_debt_lumen=10)
-    yao_speaker.add_voiceunit(zia_str, voice_debt_lumen=30)
+    yao_speaker.add_voiceunit(exx.zia, voice_debt_lumen=30)
     yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=40)
     yao_speaker.set_voice_respect(80)
     return yao_speaker

@@ -16,30 +16,29 @@ def test_create_empty_belief_from_belief_ReturnsObj():
     mana_grain_float = 0.7
     yao_gut = beliefunit_shop(exx.yao, knot=slash_str, mana_grain=mana_grain_float)
     yao_gut.set_l1_plan(planunit_shop("Iowa"))
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_credor_pool = 87
     zia_debtor_pool = 81
-    yao_gut.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_gut.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     zia_irrational_voice_debt_lumen = 11
     zia_inallocable_voice_debt_lumen = 22
-    duty_zia_voiceunit = yao_gut.get_voice(zia_str)
+    duty_zia_voiceunit = yao_gut.get_voice(exx.zia)
     duty_zia_voiceunit.add_irrational_voice_debt_lumen(zia_irrational_voice_debt_lumen)
     duty_zia_voiceunit.add_inallocable_voice_debt_lumen(
         zia_inallocable_voice_debt_lumen
     )
-    zia_voiceunit = yao_gut.get_voice(zia_str)
+    zia_voiceunit = yao_gut.get_voice(exx.zia)
     zia_voiceunit.add_membership(f"{slash_str}swimmers")
     yao_gut.set_credor_respect(zia_credor_pool)
     yao_gut.set_debtor_respect(zia_debtor_pool)
 
     # WHEN
-    yao_empty_vision = create_empty_belief_from_belief(yao_gut, x_belief_name=zia_str)
+    yao_empty_vision = create_empty_belief_from_belief(yao_gut, x_belief_name=exx.zia)
 
     # THEN
     assert yao_empty_vision.belief_name != yao_gut.belief_name
-    assert yao_empty_vision.belief_name == zia_str
+    assert yao_empty_vision.belief_name == exx.zia
     assert yao_empty_vision.moment_label == yao_gut.moment_label
     assert yao_empty_vision.last_lesson_id is None
     assert yao_empty_vision.get_voiceunits_dict() == {}
@@ -61,20 +60,19 @@ def test_create_listen_basis_ReturnsObj():
     slash_str = "/"
     yao_duty = beliefunit_shop(exx.yao, knot=slash_str)
     yao_duty.set_l1_plan(planunit_shop("Iowa"))
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_credor_pool = 8700
     zia_debtor_pool = 8100
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     zia_irrational_voice_debt_lumen = 11
     zia_inallocable_voice_debt_lumen = 22
-    duty_zia_voiceunit = yao_duty.get_voice(zia_str)
+    duty_zia_voiceunit = yao_duty.get_voice(exx.zia)
     duty_zia_voiceunit.add_irrational_voice_debt_lumen(zia_irrational_voice_debt_lumen)
     duty_zia_voiceunit.add_inallocable_voice_debt_lumen(
         zia_inallocable_voice_debt_lumen
     )
-    zia_voiceunit = yao_duty.get_voice(zia_str)
+    zia_voiceunit = yao_duty.get_voice(exx.zia)
     zia_voiceunit.add_membership(f"{slash_str}swimmers")
     yao_duty.set_credor_respect(zia_credor_pool)
     yao_duty.set_debtor_respect(zia_debtor_pool)
@@ -96,7 +94,7 @@ def test_create_listen_basis_ReturnsObj():
     yao_basis_vision.cashout()
     assert len(yao_basis_vision._plan_dict) != len(yao_duty._plan_dict)
     assert len(yao_basis_vision._plan_dict) == 1
-    vision_zia_voiceunit = yao_basis_vision.get_voice(zia_str)
+    vision_zia_voiceunit = yao_basis_vision.get_voice(exx.zia)
     assert (
         yao_basis_vision.get_voiceunits_dict().keys()
         == yao_duty.get_voiceunits_dict().keys()

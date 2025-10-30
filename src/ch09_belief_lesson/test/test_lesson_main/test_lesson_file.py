@@ -166,13 +166,12 @@ def test_LessonUnit_save_files_SavesFiles(temp_dir_setup):
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
 
-    zia_str = "Zia"
     sue_delta_start = 4
     sue_lessonunit = lessonunit_shop(
         exx.sue, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
     )
     sue_lessonunit.set_delta_start(sue_delta_start)
-    sue_lessonunit.set_face(zia_str)
+    sue_lessonunit.set_face(exx.zia)
     sue_lessonunit.set_face(exx.yao)
     int4 = 4
     int5 = 5

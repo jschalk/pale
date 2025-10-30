@@ -90,9 +90,8 @@ def test_labelmap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven
 
 def test_LabelMap_set_all_otx2inx_SetsAttr():
     # ESTABLISH
-    zia_str = "Zia"
     x_labelmap = labelmap_shop()
-    x_otx2inx = {exx.xio: exx.sue, zia_str: zia_str}
+    x_otx2inx = {exx.xio: exx.sue, exx.zia: exx.zia}
     assert x_labelmap.otx2inx != x_otx2inx
 
     # WHEN
@@ -104,10 +103,9 @@ def test_LabelMap_set_all_otx2inx_SetsAttr():
 
 def test_LabelMap_set_all_otx2inx_RaisesErrorIf_unknown_str_IsKeyIn_otx2inx():
     # ESTABLISH
-    zia_str = "Zia"
     x_unknown_str = "UnknownLabelId"
     x_labelmap = labelmap_shop(None, unknown_str=x_unknown_str)
-    x_otx2inx = {exx.xio: exx.sue, x_unknown_str: zia_str}
+    x_otx2inx = {exx.xio: exx.sue, x_unknown_str: exx.zia}
     assert x_labelmap.otx2inx != x_otx2inx
 
     # WHEN / THEN
@@ -119,10 +117,9 @@ def test_LabelMap_set_all_otx2inx_RaisesErrorIf_unknown_str_IsKeyIn_otx2inx():
 
 def test_LabelMap_set_all_otx2inx_DoesNotRaiseErrorIfParameterSetToTrue():
     # ESTABLISH
-    zia_str = "Zia"
     x_unknown_str = "UnknownLabelId"
     x_labelmap = labelmap_shop(None)
-    x_otx2inx = {exx.xio: exx.sue, x_unknown_str: zia_str}
+    x_otx2inx = {exx.xio: exx.sue, x_unknown_str: exx.zia}
     assert x_labelmap.otx2inx != x_otx2inx
 
     # WHEN
@@ -158,40 +155,38 @@ def test_LabelMap_get_inx_value_ReturnsObj():
 
 def test_LabelMap_otx2inx_exists_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     x_labelmap = labelmap_shop(None)
     assert x_labelmap.otx2inx_exists(exx.xio, exx.sue) is False
-    assert x_labelmap.otx2inx_exists(exx.xio, zia_str) is False
+    assert x_labelmap.otx2inx_exists(exx.xio, exx.zia) is False
     assert x_labelmap.otx2inx_exists(exx.xio, exx.bob) is False
-    assert x_labelmap.otx2inx_exists(zia_str, zia_str) is False
+    assert x_labelmap.otx2inx_exists(exx.zia, exx.zia) is False
 
     # WHEN
     x_labelmap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
     assert x_labelmap.otx2inx_exists(exx.xio, exx.sue)
-    assert x_labelmap.otx2inx_exists(exx.xio, zia_str) is False
+    assert x_labelmap.otx2inx_exists(exx.xio, exx.zia) is False
     assert x_labelmap.otx2inx_exists(exx.xio, exx.bob) is False
-    assert x_labelmap.otx2inx_exists(zia_str, zia_str) is False
+    assert x_labelmap.otx2inx_exists(exx.zia, exx.zia) is False
 
     # WHEN
-    x_labelmap.set_otx2inx(zia_str, zia_str)
+    x_labelmap.set_otx2inx(exx.zia, exx.zia)
 
     # THEN
     assert x_labelmap.otx2inx_exists(exx.xio, exx.sue)
-    assert x_labelmap.otx2inx_exists(exx.xio, zia_str) is False
+    assert x_labelmap.otx2inx_exists(exx.xio, exx.zia) is False
     assert x_labelmap.otx2inx_exists(exx.xio, exx.bob) is False
-    assert x_labelmap.otx2inx_exists(zia_str, zia_str)
+    assert x_labelmap.otx2inx_exists(exx.zia, exx.zia)
 
 
 def test_LabelMap_otx_exists_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     x_labelmap = labelmap_shop(None)
     assert x_labelmap.otx_exists(exx.xio) is False
     assert x_labelmap.otx_exists(exx.sue) is False
     assert x_labelmap.otx_exists(exx.bob) is False
-    assert x_labelmap.otx_exists(zia_str) is False
+    assert x_labelmap.otx_exists(exx.zia) is False
 
     # WHEN
     x_labelmap.set_otx2inx(exx.xio, exx.sue)
@@ -200,16 +195,16 @@ def test_LabelMap_otx_exists_ReturnsObj():
     assert x_labelmap.otx_exists(exx.xio)
     assert x_labelmap.otx_exists(exx.sue) is False
     assert x_labelmap.otx_exists(exx.bob) is False
-    assert x_labelmap.otx_exists(zia_str) is False
+    assert x_labelmap.otx_exists(exx.zia) is False
 
     # WHEN
-    x_labelmap.set_otx2inx(zia_str, zia_str)
+    x_labelmap.set_otx2inx(exx.zia, exx.zia)
 
     # THEN
     assert x_labelmap.otx_exists(exx.xio)
     assert x_labelmap.otx_exists(exx.sue) is False
     assert x_labelmap.otx_exists(exx.bob) is False
-    assert x_labelmap.otx_exists(zia_str)
+    assert x_labelmap.otx_exists(exx.zia)
 
 
 def test_LabelMap_del_otx2inx_SetsAttr():
@@ -227,14 +222,13 @@ def test_LabelMap_del_otx2inx_SetsAttr():
 
 def test_LabelMap_unknown_str_in_otx2inx_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     x_unknown_str = "UnknownLabelId"
     x_labelmap = labelmap_shop(None, unknown_str=x_unknown_str)
     x_labelmap.set_otx2inx(exx.xio, exx.sue)
     assert x_labelmap._unknown_str_in_otx2inx() is False
 
     # WHEN
-    x_labelmap.set_otx2inx(zia_str, x_unknown_str)
+    x_labelmap.set_otx2inx(exx.zia, x_unknown_str)
 
     # THEN
     assert x_labelmap._unknown_str_in_otx2inx()
@@ -392,16 +386,15 @@ def test_LabelMap_is_valid_ReturnsObj():
 
 def test_inherit_labelmap_ReturnsObj_Scenario0():
     # ESTABLISH
-    zia_str = "Zia"
-    old_labelmap = labelmap_shop(zia_str, 3)
-    new_labelmap = labelmap_shop(zia_str, 5)
+    old_labelmap = labelmap_shop(exx.zia, 3)
+    new_labelmap = labelmap_shop(exx.zia, 5)
 
     # WHEN
     inherit_labelmap(new_labelmap, old_labelmap)
 
     # THEN
     assert new_labelmap
-    assert new_labelmap == labelmap_shop(zia_str, 5)
+    assert new_labelmap == labelmap_shop(exx.zia, 5)
 
 
 def test_inherit_labelmap_ReturnsObj_Scenario1_RaiseErrorWhenDifferent_otx_knot():
@@ -474,12 +467,11 @@ def test_inherit_labelmap_ReturnsObj_Scenario5_RaiseErrorWhenSparkIntsOutOfOrder
 
 def test_inherit_labelmap_ReturnsObj_Scenario6_inheritFromOld():
     # ESTABLISH
-    zia_str = "Zia"
     xio_otx = "Xio"
     xio_inx = "Xioito"
-    old_labelmap = labelmap_shop(zia_str, 3)
+    old_labelmap = labelmap_shop(exx.zia, 3)
     old_labelmap.set_otx2inx(xio_otx, xio_inx)
-    new_labelmap = labelmap_shop(zia_str, 7)
+    new_labelmap = labelmap_shop(exx.zia, 7)
     assert new_labelmap.otx2inx_exists(xio_otx, xio_inx) is False
 
     # WHEN

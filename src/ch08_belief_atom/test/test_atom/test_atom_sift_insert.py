@@ -8,14 +8,13 @@ from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voiceunit():
     # ESTABLISH
-    zia_str = "Zia"
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(zia_str)
+    sue_belief.add_voiceunit(exx.zia)
 
     bob_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
     bob_atom.set_arg(kw.voice_name, exx.bob)
     zia_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    zia_atom.set_arg(kw.voice_name, zia_str)
+    zia_atom.set_arg(kw.voice_name, exx.zia)
 
     # WHEN
     new_bob_beliefatom = sift_beliefatom(sue_belief, bob_atom)

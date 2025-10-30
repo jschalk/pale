@@ -406,14 +406,10 @@ def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty()
 
 # def test_LaborHeir_set_partys_Scenario5_LaborUnit_NotEqual_ParentLaborHeir_NonEmpty():
 #     # ESTABLISH
-#     exx.yao = "Yao"
-
-#     exx.bob = "Bob"
-#     zia_str = "Zia"
 #     yao_groupunit = groupunit_shop(exx.yao)
 #     sue_groupunit = groupunit_shop(exx.sue)
 #     bob_groupunit = groupunit_shop(exx.bob)
-#     bob_groupunit = groupunit_shop(zia_str)
+#     bob_groupunit = groupunit_shop(exx.zia)
 #     yao_groupunit.set_g_membership(membership_shop(exx.yao, voice_name=exx.yao))
 #     sue_groupunit.set_g_membership(membership_shop(exx.sue, voice_name=exx.sue))
 
@@ -426,7 +422,7 @@ def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty()
 #     swim3_groupunit = groupunit_shop(group_title=swim3_str)
 #     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=exx.yao))
 #     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=exx.sue))
-#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=zia_str))
+#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=exx.zia))
 
 #     x_groupunits = {
 #         exx.yao: yao_groupunit,

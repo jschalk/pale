@@ -216,8 +216,7 @@ def test_save_idea_csv_Arg_idea_format_00021_belief_voiceunit_v0_0_0_SaveToCSV(
     assert idea_file_str == sue1_name_example_csv
 
     # WHEN
-    zia_str = "Zia"
-    sue_beliefunit.add_voiceunit(zia_str)
+    sue_beliefunit.add_voiceunit(exx.zia)
     save_idea_csv(j1_ideaname, sue_beliefunit, idea_moments_dir(), name_filename)
 
     # THEN

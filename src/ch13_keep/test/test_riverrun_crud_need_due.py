@@ -177,7 +177,6 @@ def test_RiverRun_voice_has_need_due_ReturnsBool():
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
-    zia_str = "Zia"
     yao_voice_debt_lumen = 6
     bob_voice_debt_lumen = 38
     sue_voice_debt_lumen = 56
@@ -189,7 +188,7 @@ def test_RiverRun_voice_has_need_due_ReturnsBool():
     assert bob_riverrun.voice_has_need_due(exx.bob) is False
     assert bob_riverrun.voice_has_need_due(exx.sue) is False
     assert bob_riverrun.voice_has_need_due(exx.yao) is False
-    assert bob_riverrun.voice_has_need_due(zia_str) is False
+    assert bob_riverrun.voice_has_need_due(exx.zia) is False
 
     # WHEN
     bob_riverrun.set_need_dues(bob_doctorledger)
@@ -198,7 +197,7 @@ def test_RiverRun_voice_has_need_due_ReturnsBool():
     assert bob_riverrun.voice_has_need_due(exx.bob)
     assert bob_riverrun.voice_has_need_due(exx.sue)
     assert bob_riverrun.voice_has_need_due(exx.yao)
-    assert bob_riverrun.voice_has_need_due(zia_str) is False
+    assert bob_riverrun.voice_has_need_due(exx.zia) is False
 
 
 def test_RiverRun_delete_need_due_SetsAttr():
@@ -233,7 +232,6 @@ def test_RiverRun_get_voice_need_due_ReturnsObj():
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
-    zia_str = "Zia"
     bob_voice_debt_lumen = 38
     sue_voice_debt_lumen = 56
     yao_voice_debt_lumen = 6
@@ -244,8 +242,8 @@ def test_RiverRun_get_voice_need_due_ReturnsObj():
     bob_doctorledger = get_doctorledger(bob_belief)
     assert bob_riverrun.voice_has_need_due(exx.bob) is False
     assert bob_riverrun.get_voice_need_due(exx.bob) == 0
-    assert bob_riverrun.voice_has_need_due(zia_str) is False
-    assert bob_riverrun.get_voice_need_due(zia_str) == 0
+    assert bob_riverrun.voice_has_need_due(exx.zia) is False
+    assert bob_riverrun.get_voice_need_due(exx.zia) == 0
 
     # WHEN
     bob_riverrun.set_need_dues(bob_doctorledger)
@@ -253,8 +251,8 @@ def test_RiverRun_get_voice_need_due_ReturnsObj():
     # THEN
     assert bob_riverrun.voice_has_need_due(exx.bob)
     assert bob_riverrun.get_voice_need_due(exx.bob) == 380
-    assert bob_riverrun.voice_has_need_due(zia_str) is False
-    assert bob_riverrun.get_voice_need_due(zia_str) == 0
+    assert bob_riverrun.voice_has_need_due(exx.zia) is False
+    assert bob_riverrun.get_voice_need_due(exx.zia) == 0
 
 
 def test_RiverRun_levy_need_due_SetsAttr_ScenarioX():
@@ -301,11 +299,10 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioX():
     assert bob_riverrun.need_dues.get(exx.sue) is None
 
     # WHEN / THEN
-    zia_str = "Zia"
-    excess_carer_points, need_got = bob_riverrun.levy_need_due(zia_str, 1000)
+    excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.zia, 1000)
     assert excess_carer_points == 1000
     assert need_got == 0
-    assert bob_riverrun.get_voice_need_due(zia_str) == 0
+    assert bob_riverrun.get_voice_need_due(exx.zia) == 0
 
     # WHEN / THEN
     assert bob_riverrun.get_voice_need_due(exx.yao) == 60
