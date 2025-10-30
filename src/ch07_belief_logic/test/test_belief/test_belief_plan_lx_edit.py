@@ -4,6 +4,7 @@ from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_with_4_levels_and_2reasons_2facts,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_edit_plan_label_FailsWhenPlanDoesNotExist():
@@ -12,9 +13,8 @@ def test_BeliefUnit_edit_plan_label_FailsWhenPlanDoesNotExist():
 
     casa_str = "casa"
     casa_rope = yao_belief.make_l1_rope(casa_str)
-    swim_str = "swim"
     yao_belief.set_l1_plan(planunit_shop(casa_str))
-    yao_belief.set_plan_obj(planunit_shop(swim_str), parent_rope=casa_rope)
+    yao_belief.set_plan_obj(planunit_shop(exx.swim), parent_rope=casa_rope)
 
     # WHEN / THEN
     no_plan_rope = yao_belief.make_l1_rope("bees")
@@ -25,8 +25,7 @@ def test_BeliefUnit_edit_plan_label_FailsWhenPlanDoesNotExist():
 
 def test_BeliefUnit_find_replace_rope_Modifies_kids_Scenario1():
     # ESTABLISH Plan with kids that will be different
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
 
     old_casa_str = "casa"
     old_casa_rope = yao_belief.make_l1_rope(old_casa_str)
@@ -73,8 +72,7 @@ def test_BeliefUnit_find_replace_rope_Modifies_kids_Scenario1():
 
 def test_belief_edit_plan_label_Modifies_factunits():
     # ESTABLISH belief with factunits that will be different
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
 
     casa_str = "casa"
     casa_rope = yao_belief.make_l1_rope(casa_str)
@@ -175,11 +173,10 @@ def test_belief_set_belief_name_ModifiesBoth():
     # assert sue_belief.planroot.plan_label == mid_plan_label1
 
     # WHEN
-    bob_str = "Bob"
-    sue_belief.set_belief_name(new_belief_name=bob_str)
+    sue_belief.set_belief_name(new_belief_name=exx.bob)
 
     # THEN
-    assert sue_belief.belief_name == bob_str
+    assert sue_belief.belief_name == exx.bob
 
 
 def test_belief_edit_plan_label_RaisesErrorIfknotIsInLabel():

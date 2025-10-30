@@ -9,7 +9,7 @@ from src.ch15_moment.moment_config import (
     get_moment_dimens,
     moment_config_path,
 )
-from src.ref.keywords import Ch15Keywords as kw
+from src.ref.keywords import Ch15Keywords as kw, ExampleStrs as exx
 
 
 def test_moment_config_path_ReturnsObj_Moment() -> str:

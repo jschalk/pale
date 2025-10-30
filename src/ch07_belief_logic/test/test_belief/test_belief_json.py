@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch03_voice.labor import laborunit_shop, partyunit_shop
-from src.ch04_rope.rope import default_knot_if_None, to_rope
+from src.ch04_rope.rope import default_knot_if_None
 from src.ch05_reason.reason import factunit_shop
 from src.ch06_plan.healer import healerunit_shop
 from src.ch06_plan.plan import planunit_shop
@@ -15,7 +15,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_reason_context_ziet_example,
     get_beliefunit_x1_3levels_1reason_1facts,
 )
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_BeliefUnit_to_dict_ReturnsObj_Scenario0():
@@ -85,10 +85,9 @@ def test_BeliefUnit_to_dict_ReturnsObj_Scenario1_planroot_laborunit():
 def test_BeliefUnit_to_dict_ReturnsObj_Scenario2_With_planroot_healerunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    yao_str = "Yao"
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
     run_str = ";runners"
-    yao_voiceunit = sue_belief.get_voice(yao_str)
+    yao_voiceunit = sue_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(run_str)
     run_healerunit = healerunit_shop()
     run_healerunit.set_healer_name(x_healer_name=run_str)
@@ -106,10 +105,9 @@ def test_BeliefUnit_to_dict_ReturnsObj_Scenario2_With_planroot_healerunit():
 def test_BeliefUnit_to_dict_ReturnsObj_Scenario3_plankid_LaborUnit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    yao_str = "Yao"
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
     run_str = ";runners"
-    yao_voiceunit = sue_belief.get_voice(yao_str)
+    yao_voiceunit = sue_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(run_str)
 
     morn_str = "morning"
@@ -143,10 +141,9 @@ def test_BeliefUnit_to_dict_ReturnsObj_Scenario4_planunit_WithLevels():
     x_mana_grain = 0.3
     zia_belief.mana_grain = x_mana_grain
     override_str = "override"
-    yao_str = "Yao"
     run_str = ";runners"
-    zia_belief.add_voiceunit(yao_str)
-    yao_voiceunit = zia_belief.get_voice(yao_str)
+    zia_belief.add_voiceunit(exx.yao)
+    yao_voiceunit = zia_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(run_str)
     run_healerunit = healerunit_shop({run_str})
     root_rope = zia_belief.planroot.get_plan_rope()
@@ -294,15 +291,15 @@ def test_get_beliefunit_from_dict_ReturnsObj_knot_VoiceExample():
     # ESTABLISH
     slash_knot = "/"
     before_bob_belief = beliefunit_shop("Bob", knot=slash_knot)
-    bob_str = ",Bob"
-    before_bob_belief.add_voiceunit(bob_str)
-    assert before_bob_belief.voice_exists(bob_str)
+    bob_comma_str = ",Bob"
+    before_bob_belief.add_voiceunit(bob_comma_str)
+    assert before_bob_belief.voice_exists(bob_comma_str)
 
     # WHEN
     after_bob_belief = get_beliefunit_from_dict(before_bob_belief.to_dict())
 
     # THEN
-    after_bob_voiceunit = after_bob_belief.get_voice(bob_str)
+    after_bob_voiceunit = after_bob_belief.get_voice(bob_comma_str)
     assert after_bob_voiceunit.groupmark == slash_knot
 
 
@@ -310,17 +307,16 @@ def test_get_beliefunit_from_dict_ReturnsObj_knot_GroupExample():
     # ESTABLISH
     slash_knot = "/"
     before_bob_belief = beliefunit_shop("Bob", knot=slash_knot)
-    yao_str = "Yao"
     swim_str = f"{slash_knot}Swimmers"
-    before_bob_belief.add_voiceunit(yao_str)
-    yao_voiceunit = before_bob_belief.get_voice(yao_str)
+    before_bob_belief.add_voiceunit(exx.yao)
+    yao_voiceunit = before_bob_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(swim_str)
 
     # WHEN
     after_bob_belief = get_beliefunit_from_dict(before_bob_belief.to_dict())
 
     # THEN
-    after_yao_voiceunit = after_bob_belief.get_voice(yao_str)
+    after_yao_voiceunit = after_bob_belief.get_voice(exx.yao)
     assert after_yao_voiceunit.groupmark == slash_knot
 
 

@@ -15,7 +15,7 @@ from src.ch12_bud.test._util.ch12_examples import (
     example_casa_grimy_factunit as grimy_factunit,
     example_sky_blue_factunit as sky_blue_factunit,
 )
-from src.ref.keywords import Ch12Keywords as kw
+from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 
 
 def test_CELLNODE_QUOTA_DEFAULT_value():

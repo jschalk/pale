@@ -1,10 +1,9 @@
 from pytest import raises as pytest_raises
 from src.ch02_allot.allot import default_grain_num_if_None, validate_pool_num
 from src.ch04_rope.rope import default_knot_if_None, get_default_first_label
-from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic._ref.ch07_semantic_types import RespectNum
 from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_BeliefUnit_Exists():
@@ -76,7 +75,6 @@ def test_BeliefUnit_Exists():
 
 def test_beliefunit_shop_ReturnsObjectWithFilledFields():
     # ESTABLISH
-    sue_str = "Sue"
     iowa_str = "Iowa"
     slash_knot = "/"
     x_fund_pool = 555
@@ -86,7 +84,7 @@ def test_beliefunit_shop_ReturnsObjectWithFilledFields():
 
     # WHEN
     x_belief = beliefunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=iowa_str,
         knot=slash_knot,
         fund_pool=x_fund_pool,
@@ -97,7 +95,7 @@ def test_beliefunit_shop_ReturnsObjectWithFilledFields():
 
     # THEN
     assert x_belief
-    assert x_belief.belief_name == sue_str
+    assert x_belief.belief_name == exx.sue
     assert x_belief.moment_label == iowa_str
     assert x_belief.tally == 1
     assert x_belief.voices == {}
@@ -150,8 +148,7 @@ def test_beliefunit_shop_ReturnsObjectWithCorrectEmptyField():
 
 def test_BeliefUnit_set_max_tree_traverse_SetsInt():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(belief_name=zia_str)
+    zia_belief = beliefunit_shop(belief_name=exx.zia)
     assert zia_belief.max_tree_traverse == 3
 
     # WHEN
@@ -163,8 +160,7 @@ def test_BeliefUnit_set_max_tree_traverse_SetsInt():
 
 def test_BeliefUnit_set_max_tree_traverse_RaisesError_Scenario0():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(belief_name=zia_str)
+    zia_belief = beliefunit_shop(belief_name=exx.zia)
     assert zia_belief.max_tree_traverse == 3
     zia_tree_traverse = 1
 
@@ -179,8 +175,7 @@ def test_BeliefUnit_set_max_tree_traverse_RaisesError_Scenario0():
 
 def test_BeliefUnit_set_max_tree_traverse_RaisesError_Scenario1():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(belief_name=zia_str)
+    zia_belief = beliefunit_shop(belief_name=exx.zia)
     assert zia_belief.max_tree_traverse == 3
 
     # WHEN / THEN
@@ -197,8 +192,7 @@ def test_BeliefUnit_make_rope_ReturnsObj():
     # ESTABLISH
     a45_str = "amy45"
     slash_knot = "/"
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str, a45_str, knot=slash_knot)
+    sue_belief = beliefunit_shop(exx.sue, a45_str, knot=slash_knot)
     casa_str = "casa"
     v1_casa_rope = sue_belief.make_l1_rope(casa_str)
 
@@ -268,8 +262,7 @@ def test_BeliefUnit_set_fund_pool_SetsAttr():
 
 def test_BeliefUnit_set_fund_pool_RaisesErrorWhenArgIsNotMultiple():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(zia_str)
+    zia_belief = beliefunit_shop(exx.zia)
     x_fund_pool = 23
     zia_belief.set_fund_pool(x_fund_pool)
     assert zia_belief.fund_grain == 1
@@ -283,5 +276,5 @@ def test_BeliefUnit_set_fund_pool_RaisesErrorWhenArgIsNotMultiple():
     # THEN
     assert (
         str(excinfo.value)
-        == f"Belief '{zia_str}' cannot set fund_pool='{new_fund_pool}'. It is not divisible by fund_grain '{zia_belief.fund_grain}'"
+        == f"Belief '{exx.zia}' cannot set fund_pool='{new_fund_pool}'. It is not divisible by fund_grain '{zia_belief.fund_grain}'"
     )

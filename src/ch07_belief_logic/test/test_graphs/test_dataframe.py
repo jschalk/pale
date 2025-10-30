@@ -6,7 +6,7 @@ from src.ch07_belief_logic.belief_report import (
 from src.ch07_belief_logic.test._util.ch07_examples import (
     beliefunit_v001_with_large_agenda,
 )
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_get_belief_voiceunits_dataframe_ReturnsDataFrame():
@@ -14,14 +14,12 @@ def test_get_belief_voiceunits_dataframe_ReturnsDataFrame():
     luca_belief = beliefunit_shop()
     luca_belief.set_credor_respect(500)
     luca_belief.set_debtor_respect(400)
-    yao_str = "Yao"
     yao_voice_cred_lumen = 66
     yao_voice_debt_lumen = 77
-    luca_belief.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
-    sue_str = "Sue"
+    luca_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
     sue_voice_cred_lumen = 434
     sue_voice_debt_lumen = 323
-    luca_belief.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    luca_belief.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
 
     # WHEN
     x_df = get_belief_voiceunits_dataframe(luca_belief)

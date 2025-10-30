@@ -17,7 +17,6 @@ from src.ch01_py.file_toolbox import create_path, get_dir_filenames
 from src.ch01_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_desc_prefix,
-    get_chapter_desc_str_number,
     get_chapter_descs,
     get_func_names_and_class_bases_from_file,
 )
@@ -394,9 +393,9 @@ def check_if_test_HasDocString_pytests_exist(
 
 
 def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
-    # example_strs = get_example_strs_config()
-    # function_count = 0
-    # func_total_count = len(all_test_functions)
+    example_strs = get_example_strs_config()
+    function_count = 0
+    func_total_count = len(all_test_functions)
 
     for function_name in sorted(all_test_functions.keys()):
         test_function_str = all_test_functions.get(function_name)
@@ -406,11 +405,11 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
         fail_str = f"'ESTABLISH'/'WHEN'/'THEN' missing in '{function_name}'"
         assert establish_str_exists and when_str_exists and then_str_exists, fail_str
         # TODO reactive this section to clean up tests using Examples Enum class
-        # for key_str, value_str in example_strs.items():
-        #     declare_str = f"""{key_str}_str = "{value_str}"\n"""
-        #     fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
-        #     assert declare_str not in test_function_str, fail2_str
-        # function_count += 1
+        for key_str, value_str in example_strs.items():
+            declare_str = f"""{key_str}_str = "{value_str}"\n"""
+            fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
+            assert declare_str not in test_function_str, fail2_str
+        function_count += 1
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")

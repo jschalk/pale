@@ -1,6 +1,7 @@
 from pytest import raises as pytest_raises
 from src.ch12_bud.bud_main import tranbook_shop, tranunit_shop
 from src.ch15_moment.moment_main import momentunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_MomentUnit_set_paypurchase_SetsAttr():
@@ -8,18 +9,16 @@ def test_MomentUnit_set_paypurchase_SetsAttr():
     t6606_offi_time_max = 6606
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
     t55_amount = 37
-    sue_bob_t55_tranunit = tranunit_shop(sue_str, bob_str, t55_t, t55_amount)
-    assert x_moment.paybook.tranunit_exists(sue_str, bob_str, t55_t) is False
+    sue_bob_t55_tranunit = tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount)
+    assert x_moment.paybook.tranunit_exists(exx.sue, exx.bob, t55_t) is False
 
     # WHEN
     x_moment.set_paypurchase(sue_bob_t55_tranunit)
 
     # THEN
-    assert x_moment.paybook.tranunit_exists(sue_str, bob_str, t55_t)
+    assert x_moment.paybook.tranunit_exists(exx.sue, exx.bob, t55_t)
 
 
 def test_MomentUnit_add_paypurchase_SetsAttr():
@@ -27,17 +26,15 @@ def test_MomentUnit_add_paypurchase_SetsAttr():
     t6606_offi_time_max = 6606
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
     t55_amount = 37
-    assert x_moment.paybook.tranunit_exists(sue_str, bob_str, t55_t) is False
+    assert x_moment.paybook.tranunit_exists(exx.sue, exx.bob, t55_t) is False
 
     # WHEN
-    x_moment.add_paypurchase(sue_str, bob_str, tran_time=t55_t, amount=t55_amount)
+    x_moment.add_paypurchase(exx.sue, exx.bob, tran_time=t55_t, amount=t55_amount)
 
     # THEN
-    assert x_moment.paybook.tranunit_exists(sue_str, bob_str, t55_t)
+    assert x_moment.paybook.tranunit_exists(exx.sue, exx.bob, t55_t)
 
 
 def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterThanOrEqual_offi_time_max():
@@ -45,11 +42,9 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterTh
     t6606_offi_time_max = 6606
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
     t55_amount = 37
-    sue_bob_t55_tranunit = tranunit_shop(sue_str, bob_str, t55_t, t55_amount)
+    sue_bob_t55_tranunit = tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount)
     assert x_moment.offi_time_max == t6606_offi_time_max
     assert sue_bob_t55_tranunit.tran_time == t55_t
     assert sue_bob_t55_tranunit.tran_time < x_moment.offi_time_max
@@ -57,12 +52,12 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterTh
     # WHEN
     x_moment.set_paypurchase(sue_bob_t55_tranunit)
     # THEN
-    assert x_moment.paybook.tranunit_exists(sue_str, bob_str, t55_t)
+    assert x_moment.paybook.tranunit_exists(exx.sue, exx.bob, t55_t)
 
     # ESTABLISH
     t77_t = 7707
     t77_amount = 30
-    sue_bob_t77_tranunit = tranunit_shop(sue_str, bob_str, t77_t, t77_amount)
+    sue_bob_t77_tranunit = tranunit_shop(exx.sue, exx.bob, t77_t, t77_amount)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
@@ -71,7 +66,7 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterTh
     assert str(excinfo.value) == exception_str
 
     # WHEN / THEN
-    sue_bob_t6606 = tranunit_shop(sue_str, bob_str, t6606_offi_time_max, t77_amount)
+    sue_bob_t6606 = tranunit_shop(exx.sue, exx.bob, t6606_offi_time_max, t77_amount)
     with pytest_raises(Exception) as excinfo:
         x_moment.set_paypurchase(sue_bob_t6606)
     exception_str = f"Cannot set tranunit for tran_time={t6606_offi_time_max}, EpochTime is greater than current time={t6606_offi_time_max}"
@@ -83,15 +78,13 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhenBudUnitHas_tran_time():
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = 0
     x_moment.offi_time_max = 0
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
     t55_quota = 100
     x_moment.add_budunit("Yao", t55_t, t55_quota)
     t55_amount = 37
     t6606_offi_time_max = 6606
     x_moment.offi_time_max = t6606_offi_time_max
-    sue_bob_t55_tranunit = tranunit_shop(sue_str, bob_str, t55_t, t55_amount)
+    sue_bob_t55_tranunit = tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
@@ -104,36 +97,32 @@ def test_MomentUnit_paypurchase_exists_ReturnsObj():
     # ESTABLISH
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = 6606
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
-    assert x_moment.paypurchase_exists(sue_str, bob_str, t55_t) is False
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t) is False
 
     # WHEN
     t55_amount = 37
-    x_moment.set_paypurchase(tranunit_shop(sue_str, bob_str, t55_t, t55_amount))
+    x_moment.set_paypurchase(tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount))
 
     # THEN
-    assert x_moment.paypurchase_exists(sue_str, bob_str, t55_t)
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t)
 
 
 def test_MomentUnit_get_paypurchase_ReturnsObj():
     # ESTABLISH
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = 6606
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
     t55_amount = 37
-    x_moment.set_paypurchase(tranunit_shop(sue_str, bob_str, t55_t, t55_amount))
-    assert x_moment.paypurchase_exists(sue_str, bob_str, t55_t)
+    x_moment.set_paypurchase(tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount))
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t)
 
     # WHEN
-    sue_gen_paypurchase = x_moment.get_paypurchase(sue_str, bob_str, t55_t)
+    sue_gen_paypurchase = x_moment.get_paypurchase(exx.sue, exx.bob, t55_t)
 
     # THEN
     assert sue_gen_paypurchase
-    sue_bob_t55_tranunit = tranunit_shop(sue_str, bob_str, t55_t, t55_amount)
+    sue_bob_t55_tranunit = tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount)
     assert sue_gen_paypurchase == sue_bob_t55_tranunit
 
 
@@ -141,18 +130,16 @@ def test_MomentUnit_del_paypurchase_SetsAttr():
     # ESTABLISH
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = 6606
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
     t55_amount = 37
-    x_moment.set_paypurchase(tranunit_shop(sue_str, bob_str, t55_t, t55_amount))
-    assert x_moment.paypurchase_exists(sue_str, bob_str, t55_t)
+    x_moment.set_paypurchase(tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount))
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t)
 
     # WHEN
-    x_moment.del_paypurchase(sue_str, bob_str, t55_t)
+    x_moment.del_paypurchase(exx.sue, exx.bob, t55_t)
 
     # THEN
-    assert x_moment.paypurchase_exists(sue_str, bob_str, t55_t) is False
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t) is False
 
 
 def test_MomentUnit_set_offi_time_max_SetsAttr():
@@ -160,11 +147,9 @@ def test_MomentUnit_set_offi_time_max_SetsAttr():
     t6606_offi_time_max = 6606
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
-    sue_str = "Sue"
-    bob_str = "Bob"
     t22_t = 2202
     t22_amount = 27
-    x_moment.set_paypurchase(tranunit_shop(sue_str, bob_str, t22_t, t22_amount))
+    x_moment.set_paypurchase(tranunit_shop(exx.sue, exx.bob, t22_t, t22_amount))
     assert x_moment.offi_time_max == t6606_offi_time_max
 
     # WHEN
@@ -180,11 +165,9 @@ def test_MomentUnit_set_offi_time_max_RaisesErrorWhen_paypurchase_ExistsWithGrea
     t6606_offi_time_max = 6606
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
-    sue_str = "Sue"
-    bob_str = "Bob"
     t55_t = 5505
     t55_amount = 37
-    x_moment.set_paypurchase(tranunit_shop(sue_str, bob_str, t55_t, t55_amount))
+    x_moment.set_paypurchase(tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount))
     assert x_moment.offi_time_max == t6606_offi_time_max
 
     # WHEN / THEN
@@ -202,9 +185,6 @@ def test_MomentUnit_set_all_tranbook_SetsAttr():
     # ESTABLISH
     x_moment = momentunit_shop("amy23", None)
     x_moment.offi_time_max = 10101
-    sue_str = "Sue"
-    bob_str = "Bob"
-    yao_str = "Yao"
     t55_t = 5505
     t66_t = 6606
     t77_t = 7707
@@ -215,11 +195,11 @@ def test_MomentUnit_set_all_tranbook_SetsAttr():
     t77_amount = 70
     t88_amount = 80
     t99_amount = 90
-    t55_tranunit = tranunit_shop(sue_str, bob_str, t55_t, t55_amount)
-    t66_tranunit = tranunit_shop(yao_str, bob_str, t66_t, t66_amount)
-    t77_tranunit = tranunit_shop(yao_str, sue_str, t77_t, t77_amount)
-    t88_tranunit = tranunit_shop(sue_str, yao_str, t88_t, t88_amount)
-    t99_tranunit = tranunit_shop(bob_str, sue_str, t99_t, t99_amount)
+    t55_tranunit = tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount)
+    t66_tranunit = tranunit_shop(exx.yao, exx.bob, t66_t, t66_amount)
+    t77_tranunit = tranunit_shop(exx.yao, exx.sue, t77_t, t77_amount)
+    t88_tranunit = tranunit_shop(exx.sue, exx.yao, t88_t, t88_amount)
+    t99_tranunit = tranunit_shop(exx.bob, exx.sue, t99_t, t99_amount)
     x_moment.set_paypurchase(t55_tranunit)
     x_moment.set_paypurchase(t66_tranunit)
     x_moment.set_paypurchase(t77_tranunit)
@@ -228,36 +208,34 @@ def test_MomentUnit_set_all_tranbook_SetsAttr():
 
     x40000_tran_time = 40000
     x70000_tran_time = 70000
-    x_moment.add_budunit(sue_str, x40000_tran_time, 1)
-    x_moment.add_budunit(sue_str, x70000_tran_time, 1)
-    bob_str = "Bob"
-    zia_str = "Zia"
+    x_moment.add_budunit(exx.sue, x40000_tran_time, 1)
+    x_moment.add_budunit(exx.sue, x70000_tran_time, 1)
     zia_bud_net = 887
     bob_bud_net = 445
-    sue_x40000_bud = x_moment.get_beliefbudhistory(sue_str).get_bud(x40000_tran_time)
-    sue_x70000_bud = x_moment.get_beliefbudhistory(sue_str).get_bud(x70000_tran_time)
-    sue_x40000_bud.set_bud_voice_net(bob_str, bob_bud_net)
-    sue_x70000_bud.set_bud_voice_net(zia_str, zia_bud_net)
+    sue_x40000_bud = x_moment.get_beliefbudhistory(exx.sue).get_bud(x40000_tran_time)
+    sue_x70000_bud = x_moment.get_beliefbudhistory(exx.sue).get_bud(x70000_tran_time)
+    sue_x40000_bud.set_bud_voice_net(exx.bob, bob_bud_net)
+    sue_x70000_bud.set_bud_voice_net(exx.zia, zia_bud_net)
 
     assert x_moment.all_tranbook == tranbook_shop(x_moment.moment_label)
-    assert x_moment.paypurchase_exists(sue_str, bob_str, t55_t)
-    assert x_moment.paypurchase_exists(yao_str, bob_str, t66_t)
-    assert x_moment.paypurchase_exists(yao_str, sue_str, t77_t)
-    assert x_moment.paypurchase_exists(sue_str, yao_str, t88_t)
-    assert x_moment.paypurchase_exists(bob_str, sue_str, t99_t)
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t)
+    assert x_moment.paypurchase_exists(exx.yao, exx.bob, t66_t)
+    assert x_moment.paypurchase_exists(exx.yao, exx.sue, t77_t)
+    assert x_moment.paypurchase_exists(exx.sue, exx.yao, t88_t)
+    assert x_moment.paypurchase_exists(exx.bob, exx.sue, t99_t)
 
-    assert sue_x40000_bud.bud_voice_net_exists(bob_str)
-    assert sue_x70000_bud.bud_voice_net_exists(zia_str)
+    assert sue_x40000_bud.bud_voice_net_exists(exx.bob)
+    assert sue_x70000_bud.bud_voice_net_exists(exx.zia)
     # x_moment.add_budunit()
 
     # WHEN
     x_moment.set_all_tranbook()
 
     # THEN
-    assert x_moment.all_tranbook.tranunit_exists(sue_str, bob_str, t55_t)
-    assert x_moment.all_tranbook.tranunit_exists(yao_str, bob_str, t66_t)
-    assert x_moment.all_tranbook.tranunit_exists(yao_str, sue_str, t77_t)
-    assert x_moment.all_tranbook.tranunit_exists(sue_str, yao_str, t88_t)
-    assert x_moment.all_tranbook.tranunit_exists(bob_str, sue_str, t99_t)
-    assert x_moment.all_tranbook.tranunit_exists(sue_str, bob_str, x40000_tran_time)
-    assert x_moment.all_tranbook.tranunit_exists(sue_str, zia_str, x70000_tran_time)
+    assert x_moment.all_tranbook.tranunit_exists(exx.sue, exx.bob, t55_t)
+    assert x_moment.all_tranbook.tranunit_exists(exx.yao, exx.bob, t66_t)
+    assert x_moment.all_tranbook.tranunit_exists(exx.yao, exx.sue, t77_t)
+    assert x_moment.all_tranbook.tranunit_exists(exx.sue, exx.yao, t88_t)
+    assert x_moment.all_tranbook.tranunit_exists(exx.bob, exx.sue, t99_t)
+    assert x_moment.all_tranbook.tranunit_exists(exx.sue, exx.bob, x40000_tran_time)
+    assert x_moment.all_tranbook.tranunit_exists(exx.sue, exx.zia, x70000_tran_time)

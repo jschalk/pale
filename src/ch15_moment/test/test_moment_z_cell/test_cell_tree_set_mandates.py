@@ -8,6 +8,7 @@ from src.ch12_bud.bud_filehandler import cellunit_save_to_dir
 from src.ch12_bud.cell import cellunit_shop
 from src.ch15_moment.moment_cell import set_cell_tree_cell_mandates
 from src.ch15_moment.test._util.ch15_env import get_temp_dir, temp_dir_setup
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
@@ -17,17 +18,16 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
     mstr_dir = get_temp_dir()
     a23_str = "amy"
     tp5 = 5
-    bob_str = "Bob"
     das = []
     spark7 = 7
     # create cell file
-    bob_cell = cellunit_shop(bob_str, [], spark7, celldepth=0)
-    bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, [])
-    bob_bob_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, [bob_str])
+    bob_cell = cellunit_shop(exx.bob, [], spark7, celldepth=0)
+    bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [])
+    bob_bob_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [exx.bob])
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_bob_dir, bob_cell)
-    bob_root_mandate_path = mandate_path(mstr_dir, a23_str, bob_str, tp5, [])
-    bob_bob_mandate_path = mandate_path(mstr_dir, a23_str, bob_str, tp5, [bob_str])
+    bob_root_mandate_path = mandate_path(mstr_dir, a23_str, exx.bob, tp5, [])
+    bob_bob_mandate_path = mandate_path(mstr_dir, a23_str, exx.bob, tp5, [exx.bob])
     assert os_path_exists(bob_root_mandate_path) is False
     assert os_path_exists(bob_bob_mandate_path) is False
 
@@ -37,8 +37,8 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
     # THEN
     assert os_path_exists(bob_root_mandate_path)
     assert os_path_exists(bob_bob_mandate_path)
-    assert open_json(bob_root_mandate_path) == {bob_str: 1000}
-    assert open_json(bob_bob_mandate_path) == {bob_str: 1000}
+    assert open_json(bob_root_mandate_path) == {exx.bob: 1000}
+    assert open_json(bob_bob_mandate_path) == {exx.bob: 1000}
 
 
 # def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario1_Depth0AndOne_beliefspark_fact(
@@ -48,7 +48,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy"
 #     tp5 = 5
-#     bob_str = "Bob"
+#     exx.bob = "Bob"
 #     das = []
 #     spark7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
@@ -56,9 +56,9 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     clean_fact = example_casa_clean_factunit()
 #     clean_facts = {clean_fact.fact_context: clean_fact}
 #     bob_cell = cellunit_shop(
-#         bob_str, [], spark7, 0, beliefadjust=bob_beliefadjust, beliefspark_facts=clean_facts
+#         exx.bob, [], spark7, 0, beliefadjust=bob_beliefadjust, beliefspark_facts=clean_facts
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, [])
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [])
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
@@ -76,7 +76,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy"
 #     tp5 = 5
-#     bob_str = "Bob"
+#     exx.bob = "Bob"
 #     das = []
 #     spark7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
@@ -84,14 +84,14 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     clean_fact = example_casa_clean_factunit()
 #     clean_facts = {clean_fact.fact_context: clean_fact}
 #     bob_cell = cellunit_shop(
-#         bob_str,
+#         exx.bob,
 #         [],
 #         spark7,
 #         celldepth=0,
 #         beliefadjust=bob_beliefadjust,
 #         found_facts=clean_facts,
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, [])
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [])
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
@@ -109,23 +109,23 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy23"
 #     tp5 = 5
-#     bob_str = "Bob"
-#     sue_str = "Sue"
+#     exx.bob = "Bob"
+#     exx.sue = "Sue"
 #     bob_ancs = []
-#     bob_sue_ancs = [sue_str]
+#     bob_sue_ancs = [exx.sue]
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_without_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(sue_str, 1)
-#     bob_sue_beliefadjust = beliefunit_shop(sue_str, a23_str)
+#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
+#     bob_sue_beliefadjust = beliefunit_shop(exx.sue, a23_str)
 #     # create cell file
 #     bob_cell = cellunit_shop(
-#         bob_str, bob_ancs, spark_num=e7, celldepth=2, beliefadjust=bob_beliefadjust
+#         exx.bob, bob_ancs, spark_num=e7, celldepth=2, beliefadjust=bob_beliefadjust
 #     )
 #     bob_sue_cell = cellunit_shop(
-#         bob_str, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
+#         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_sue_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_sue_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
@@ -146,20 +146,20 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy23"
 #     tp5 = 5
-#     bob_str = "Bob"
-#     sue_str = "Sue"
+#     exx.bob = "Bob"
+#     exx.sue = "Sue"
 #     bob_ancs = []
-#     bob_sue_ancs = [sue_str]
+#     bob_sue_ancs = [exx.sue]
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(sue_str, 1)
+#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
 #     bob_sue_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_sue_beliefadjust.set_belief_name(sue_str)
+#     bob_sue_beliefadjust.set_belief_name(exx.sue)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
 #     bob_cell = cellunit_shop(
-#         bob_str,
+#         exx.bob,
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=2,
@@ -167,10 +167,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         beliefspark_facts=dirty_facts,
 #     )
 #     bob_sue_cell = cellunit_shop(
-#         bob_str, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
+#         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_sue_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_sue_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
@@ -191,43 +191,43 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy23"
 #     tp5 = 5
-#     bob_str = "Bob"
-#     sue_str = "Sue"
-#     yao_str = "Yao"
-#     zia_str = "Zia"
+#     exx.bob = "Bob"
+#     exx.sue = "Sue"
+#     exx.yao = "Yao"
+#     exx.zia = "Zia"
 #     bob_ancs = []
-#     b_sue_ancs = [sue_str]
-#     bs_yao_ancs = [sue_str, yao_str]
-#     bsy_zia_ancs = [sue_str, yao_str, zia_str]
+#     b_sue_ancs = [exx.sue]
+#     bs_yao_ancs = [exx.sue, exx.yao]
+#     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(sue_str, 1)
+#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
 #     b_sue_ba = get_bob_mop_with_reason_beliefunit_example()
-#     b_sue_ba.set_belief_name(sue_str)
-#     b_sue_ba.add_voiceunit(yao_str, 1)
+#     b_sue_ba.set_belief_name(exx.sue)
+#     b_sue_ba.add_voiceunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(yao_str)
-#     bs_yao_ba.add_voiceunit(zia_str, 1)
+#     bs_yao_ba.set_belief_name(exx.yao)
+#     bs_yao_ba.add_voiceunit(exx.zia, 1)
 #     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(zia_str)
+#     bsy_zia_ba.set_belief_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
 #     bob_cell = cellunit_shop(
-#         bob_str,
+#         exx.bob,
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=4,
 #         beliefadjust=bob_beliefadjust,
 #         beliefspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(bob_str, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
-#     bs_yao_cell = cellunit_shop(bob_str, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(bob_str, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bsy_zia_ancs)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
+#     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -254,43 +254,43 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy23"
 #     tp5 = 5
-#     bob_str = "Bob"
-#     sue_str = "Sue"
-#     yao_str = "Yao"
-#     zia_str = "Zia"
+#     exx.bob = "Bob"
+#     exx.sue = "Sue"
+#     exx.yao = "Yao"
+#     exx.zia = "Zia"
 #     bob_ancs = []
-#     b_sue_ancs = [sue_str]
-#     bs_yao_ancs = [sue_str, yao_str]
-#     bsy_zia_ancs = [sue_str, yao_str, zia_str]
+#     b_sue_ancs = [exx.sue]
+#     bs_yao_ancs = [exx.sue, exx.yao]
+#     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(sue_str, 1)
+#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
 #     b_sue_ba = get_bob_mop_with_reason_beliefunit_example()
-#     b_sue_ba.set_belief_name(sue_str)
-#     b_sue_ba.add_voiceunit(yao_str, 1)
+#     b_sue_ba.set_belief_name(exx.sue)
+#     b_sue_ba.add_voiceunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(yao_str)
-#     bs_yao_ba.add_voiceunit(zia_str, 1)
+#     bs_yao_ba.set_belief_name(exx.yao)
+#     bs_yao_ba.add_voiceunit(exx.zia, 1)
 #     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(zia_str)
+#     bsy_zia_ba.set_belief_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
 #     bob_cell = cellunit_shop(
-#         bob_str,
+#         exx.bob,
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=2,
 #         beliefadjust=bob_beliefadjust,
 #         beliefspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(bob_str, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
-#     bs_yao_cell = cellunit_shop(bob_str, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(bob_str, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bsy_zia_ancs)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
+#     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -317,46 +317,46 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy23"
 #     tp5 = 5
-#     bob_str = "Bob"
-#     sue_str = "Sue"
-#     yao_str = "Yao"
-#     zia_str = "Zia"
+#     exx.bob = "Bob"
+#     exx.sue = "Sue"
+#     exx.yao = "Yao"
+#     exx.zia = "Zia"
 #     bob_ancs = []
-#     b_sue_ancs = [sue_str]
-#     bs_yao_ancs = [sue_str, yao_str]
-#     bsy_zia_ancs = [sue_str, yao_str, zia_str]
+#     b_sue_ancs = [exx.sue]
+#     bs_yao_ancs = [exx.sue, exx.yao]
+#     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(sue_str, 1)
-#     b_sue_ba = beliefunit_shop(sue_str, a23_str)
-#     b_sue_ba.set_belief_name(sue_str)
-#     b_sue_ba.add_voiceunit(yao_str, 1)
+#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
+#     b_sue_ba = beliefunit_shop(exx.sue, a23_str)
+#     b_sue_ba.set_belief_name(exx.sue)
+#     b_sue_ba.add_voiceunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(yao_str)
-#     bs_yao_ba.add_voiceunit(zia_str, 1)
+#     bs_yao_ba.set_belief_name(exx.yao)
+#     bs_yao_ba.add_voiceunit(exx.zia, 1)
 #     clean_fact = example_casa_clean_factunit()
 #     bs_yao_ba.add_fact(clean_fact.fact_context, clean_fact.fact_state)
 #     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(zia_str)
+#     bsy_zia_ba.set_belief_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
 #     bob_cell = cellunit_shop(
-#         bob_str,
+#         exx.bob,
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=3,
 #         beliefadjust=bob_beliefadjust,
 #         beliefspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(bob_str, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
-#     bs_yao_cell = cellunit_shop(bob_str, bs_yao_ancs, e7, 0)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
+#     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0)
 #     bs_yao_cell.eval_beliefspark(bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(bob_str, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bsy_zia_ancs)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -384,46 +384,46 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     mstr_dir = get_temp_dir()
 #     a23_str = "amy23"
 #     tp5 = 5
-#     bob_str = "Bob"
-#     sue_str = "Sue"
-#     yao_str = "Yao"
-#     zia_str = "Zia"
+#     exx.bob = "Bob"
+#     exx.sue = "Sue"
+#     exx.yao = "Yao"
+#     exx.zia = "Zia"
 #     bob_ancs = []
-#     b_sue_ancs = [sue_str]
-#     bs_yao_ancs = [sue_str, yao_str]
-#     bsy_zia_ancs = [sue_str, yao_str, zia_str]
+#     b_sue_ancs = [exx.sue]
+#     bs_yao_ancs = [exx.sue, exx.yao]
+#     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(sue_str, 1)
+#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
 #     b_sue_ba = get_bob_mop_with_reason_beliefunit_example()
-#     b_sue_ba.set_belief_name(sue_str)
-#     b_sue_ba.add_voiceunit(yao_str, 1)
+#     b_sue_ba.set_belief_name(exx.sue)
+#     b_sue_ba.add_voiceunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(yao_str)
-#     bs_yao_ba.add_voiceunit(zia_str, 1)
+#     bs_yao_ba.set_belief_name(exx.yao)
+#     bs_yao_ba.add_voiceunit(exx.zia, 1)
 #     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(zia_str)
+#     bsy_zia_ba.set_belief_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
 #     bob_cell = cellunit_shop(
-#         bob_str,
+#         exx.bob,
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=4,
 #         beliefadjust=bob_beliefadjust,
 #         beliefspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(bob_str, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
-#     # bs_yao_cell = cellunit_shop(bob_str, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(bob_str, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, bob_str, tp5, bsy_zia_ancs)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
+#     # bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
-#     beliefspark_path = create_beliefspark_path(mstr_dir, a23_str, yao_str, e7)
+#     beliefspark_path = create_beliefspark_path(mstr_dir, a23_str, exx.yao, e7)
 #     save_belief_file(beliefspark_path, None, bs_yao_ba)
 #     # cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
 #     cellunit_save_to_dir(bob_sue_yao_zia_dir, bsy_zia_cell)

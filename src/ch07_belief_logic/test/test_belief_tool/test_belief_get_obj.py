@@ -11,21 +11,20 @@ from src.ch07_belief_logic.belief_tool import (
     belief_voice_membership_get_obj,
     belief_voiceunit_get_obj,
 )
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_belief_voiceunit_get_obj_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     sue_belief = beliefunit_shop("Sue")
-    jkeys = {kw.voice_name: yao_str}
-    sue_belief.add_voiceunit(yao_str)
+    jkeys = {kw.voice_name: exx.yao}
+    sue_belief.add_voiceunit(exx.yao)
 
     # WHEN
     x_obj = belief_voiceunit_get_obj(sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_voice(yao_str)
+    assert x_obj == sue_belief.get_voice(exx.yao)
 
 
 def test_belief_voice_membership_get_obj_ReturnsObj():
@@ -63,18 +62,17 @@ def test_belief_plan_awardunit_get_obj_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_str = "casa"
-    swim_str = "swim"
     casa_rope = sue_belief.make_l1_rope(casa_str)
     sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: swim_str}
+    jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: exx.swim}
     sue_belief.add_plan(casa_rope)
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(swim_str))
+    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(exx.swim))
 
     # WHEN
     x_obj = belief_plan_awardunit_get_obj(sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_awardunit(swim_str)
+    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_awardunit(exx.swim)
 
 
 def test_belief_plan_reasonunit_get_obj_ReturnsObj():
@@ -145,10 +143,9 @@ def test_belief_plan_factunit_get_obj_ReturnsObj():
 
 def test_belief_get_obj_ReturnsObj_BeliefUnit():
     # ESTABLISH
-    yao_str = "Yao"
     sue_belief = beliefunit_shop("Sue")
-    jkeys = {kw.voice_name: yao_str}
-    sue_belief.add_voiceunit(yao_str)
+    jkeys = {kw.voice_name: exx.yao}
+    sue_belief.add_voiceunit(exx.yao)
 
     # WHEN
     x_obj = belief_get_obj(kw.beliefunit, sue_belief, jkeys)
@@ -159,32 +156,30 @@ def test_belief_get_obj_ReturnsObj_BeliefUnit():
 
 def test_belief_get_obj_ReturnsObj_belief_voiceunit_get_obj():
     # ESTABLISH
-    yao_str = "Yao"
     sue_belief = beliefunit_shop("Sue")
-    jkeys = {kw.voice_name: yao_str}
-    sue_belief.add_voiceunit(yao_str)
+    jkeys = {kw.voice_name: exx.yao}
+    sue_belief.add_voiceunit(exx.yao)
 
     # WHEN
     x_obj = belief_get_obj(kw.belief_voiceunit, sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_voice(yao_str)
+    assert x_obj == sue_belief.get_voice(exx.yao)
 
 
 def test_belief_get_obj_ReturnsObj_belief_voice_membership_get_obj():
     # ESTABLISH
-    yao_str = "Yao"
     swim_str = ";swim"
     sue_belief = beliefunit_shop("Sue")
-    jkeys = {kw.voice_name: yao_str, "group_title": swim_str}
-    sue_belief.add_voiceunit(yao_str)
-    sue_belief.get_voice(yao_str).add_membership(swim_str)
+    jkeys = {kw.voice_name: exx.yao, "group_title": swim_str}
+    sue_belief.add_voiceunit(exx.yao)
+    sue_belief.get_voice(exx.yao).add_membership(swim_str)
 
     # WHEN
     x_obj = belief_get_obj(kw.belief_voice_membership, sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_voice(yao_str).get_membership(swim_str)
+    assert x_obj == sue_belief.get_voice(exx.yao).get_membership(swim_str)
 
 
 def test_belief_get_obj_ReturnsObj_belief_planunit_get_obj():
@@ -206,18 +201,17 @@ def test_belief_get_obj_ReturnsObj_belief_plan_awardunit_get_obj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_str = "casa"
-    swim_str = "swim"
     casa_rope = sue_belief.make_l1_rope(casa_str)
     sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: swim_str}
+    jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: exx.swim}
     sue_belief.add_plan(casa_rope)
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(swim_str))
+    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(exx.swim))
 
     # WHEN
     x_obj = belief_get_obj(kw.belief_plan_awardunit, sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_awardunit(swim_str)
+    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_awardunit(exx.swim)
 
 
 def test_belief_get_obj_ReturnsObj_belief_plan_reasonunit_get_obj():

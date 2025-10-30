@@ -5,6 +5,7 @@ from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_1task_1ceo_minutes_reason_1fact,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_cashout_ChangesPlanUnit_pledge_task():
@@ -102,9 +103,8 @@ def test_BeliefUnit_cashout_RaisesErrorIfNon_RangeRootHasFactUnit():
 def test_BeliefUnit_cashout_FactHeirsInherited():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
-    swim_str = "swim"
-    swim_rope = zia_belief.make_l1_rope(swim_str)
-    zia_belief.set_l1_plan(planunit_shop(swim_str))
+    swim_rope = zia_belief.make_l1_rope(exx.swim)
+    zia_belief.set_l1_plan(planunit_shop(exx.swim))
     fast_str = "fast"
     slow_str = "slow"
     fast_rope = zia_belief.make_rope(swim_rope, fast_str)
@@ -162,9 +162,8 @@ def test_BeliefUnit_cashout_FactUnitMoldsFactHeir():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
-    swim_str = "swim"
-    swim_rope = zia_belief.make_l1_rope(swim_str)
-    zia_belief.set_l1_plan(planunit_shop(swim_str))
+    swim_rope = zia_belief.make_l1_rope(exx.swim)
+    zia_belief.set_l1_plan(planunit_shop(exx.swim))
     swim_plan = zia_belief.get_plan_obj(swim_rope)
 
     fast_str = "fast"
@@ -211,9 +210,8 @@ def test_BeliefUnit_cashout_FactHeirDeletesFactUnit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    swim_str = "swim"
-    swim_rope = sue_belief.make_l1_rope(swim_str)
-    sue_belief.set_l1_plan(planunit_shop(swim_str))
+    swim_rope = sue_belief.make_l1_rope(exx.swim)
+    sue_belief.set_l1_plan(planunit_shop(exx.swim))
     fast_str = "fast"
     slow_str = "slow"
     sue_belief.set_plan_obj(planunit_shop(fast_str), parent_rope=swim_rope)

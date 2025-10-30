@@ -137,13 +137,12 @@ def test_VoiceUnit_set_nameterm_RaisesErrorIfParameterContains_groupmark():
 
 def test_voiceunit_shop_SetsAttributes():
     # ESTABLISH
-    yao_str = "Yao"
 
     # WHEN
-    yao_voiceunit = voiceunit_shop(voice_name=yao_str)
+    yao_voiceunit = voiceunit_shop(voice_name=exx.yao)
 
     # THEN
-    assert yao_voiceunit.voice_name == yao_str
+    assert yao_voiceunit.voice_name == exx.yao
     assert yao_voiceunit.voice_cred_lumen == 1
     assert yao_voiceunit.voice_debt_lumen == 1
     # calculated fields

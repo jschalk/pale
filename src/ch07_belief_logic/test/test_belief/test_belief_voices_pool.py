@@ -1,5 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_set_credor_respect_SetsAttr():
@@ -16,8 +17,7 @@ def test_BeliefUnit_set_credor_respect_SetsAttr():
 
 def test_BeliefUnit_set_credor_respect_RaisesErrorWhenArgIsNotMultiple():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(zia_str)
+    zia_belief = beliefunit_shop(exx.zia)
     x_credor_respect = 23
     zia_belief.set_credor_respect(x_credor_respect)
     assert zia_belief.respect_grain == 1
@@ -31,14 +31,13 @@ def test_BeliefUnit_set_credor_respect_RaisesErrorWhenArgIsNotMultiple():
     # THEN
     assert (
         str(excinfo.value)
-        == f"Belief '{zia_str}' cannot set credor_respect='{new_credor_respect}'. It is not divisible byrespect_grain'{zia_belief.respect_grain}'"
+        == f"Belief '{exx.zia}' cannot set credor_respect='{new_credor_respect}'. It is not divisible byrespect_grain'{zia_belief.respect_grain}'"
     )
 
 
 def test_BeliefUnit_set_debtor_respect_SetsInt():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(belief_name=zia_str)
+    zia_belief = beliefunit_shop(belief_name=exx.zia)
     zia_debtor_respect = 13
     assert zia_belief.debtor_respect != zia_debtor_respect
 
@@ -50,8 +49,7 @@ def test_BeliefUnit_set_debtor_respect_SetsInt():
 
 def test_BeliefUnit_set_debtor_respect_RaisesErrorWhenArgIsNotMultiple():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(zia_str)
+    zia_belief = beliefunit_shop(exx.zia)
     x_debtor_respect = 23
     zia_belief.set_debtor_respect(x_debtor_respect)
     assert zia_belief.respect_grain == 1
@@ -65,18 +63,16 @@ def test_BeliefUnit_set_debtor_respect_RaisesErrorWhenArgIsNotMultiple():
     # THEN
     assert (
         str(excinfo.value)
-        == f"Belief '{zia_str}' cannot set debtor_respect='{new_debtor_respect}'. It is not divisible byrespect_grain'{zia_belief.respect_grain}'"
+        == f"Belief '{exx.zia}' cannot set debtor_respect='{new_debtor_respect}'. It is not divisible byrespect_grain'{zia_belief.respect_grain}'"
     )
 
 
 def test_BeliefUnit_set_voice_respect_SetsAttrs():
     # ESTABLISH
-    zia_str = "Zia"
     old_credor_respect = 77
     old_debtor_respect = 88
     old_fund_pool = 99
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(zia_str)
+    zia_belief = beliefunit_shop(exx.zia)
     zia_belief.set_credor_respect(old_credor_respect)
     zia_belief.set_debtor_respect(old_debtor_respect)
     zia_belief.set_fund_pool(old_fund_pool)

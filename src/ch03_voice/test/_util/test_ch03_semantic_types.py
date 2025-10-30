@@ -12,16 +12,15 @@ from src.ch03_voice._ref.ch03_semantic_types import (
     VoiceName,
     default_groupmark_if_None,
 )
-from src.ref.keywords import Ch03Keywords as kw
+from src.ref.keywords import Ch03Keywords as kw, ExampleStrs as exx
 
 
 def test_NameTerm_Exists():
     # ESTABLISH
-    bob_str = "Bob"
     # WHEN
-    bob_nameterm = NameTerm(bob_str)
+    bob_nameterm = NameTerm(exx.bob)
     # THEN
-    assert bob_nameterm == bob_str
+    assert bob_nameterm == exx.bob
     doc_str = "All Name string classes should inherit from this class"
     assert inspect_getdoc(bob_nameterm) == doc_str
 
@@ -39,33 +38,30 @@ def test_NameTerm_is_name_ReturnsObj_Scenario0():
 
 def test_HealerName_Exists():
     # ESTABLISH
-    bob_str = "Bob"
     # WHEN
-    bob_healer_str = HealerName(bob_str)
+    bob_healer_str = HealerName(exx.bob)
     # THEN
-    assert bob_healer_str == bob_str
+    assert bob_healer_str == exx.bob
     doc_str = "A NameTerm used to identify a Problem's Healer"
     assert inspect_getdoc(bob_healer_str) == doc_str
 
 
 def test_VoiceName_Exists():
     # ESTABLISH
-    bob_str = "Bob"
     # WHEN
-    bob_VoiceName = VoiceName(bob_str)
+    bob_VoiceName = VoiceName(exx.bob)
     # THEN
-    assert bob_VoiceName == bob_str
+    assert bob_VoiceName == exx.bob
     doc_str = "Every VoiceName object is NameTerm, must follow NameTerm format."
     assert inspect_getdoc(bob_VoiceName) == doc_str
 
 
 def test_TitleTerm_Exists():
     # ESTABLISH
-    bob_str = "Bob"
     # WHEN
-    bob_nameterm = TitleTerm(bob_str)
+    bob_nameterm = TitleTerm(exx.bob)
     # THEN
-    assert bob_nameterm == bob_str
+    assert bob_nameterm == exx.bob
     doc_str = f"""If a TitleTerm contains SepartorTerms(s) it represents a group otherwise its a single member group of an VoiceName."""
     assert inspect_getdoc(bob_nameterm) == doc_str
 

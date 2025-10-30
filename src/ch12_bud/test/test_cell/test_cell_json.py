@@ -5,17 +5,14 @@ from src.ch12_bud.test._util.ch12_examples import (
     example_casa_dirty_factunit as dirty_factunit,
     example_sky_blue_factunit as sky_blue_factunit,
 )
-from src.ref.keywords import Ch12Keywords as kw
+from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 
 
 def test_CellUnit_to_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    yao_str = "Yao"
-    bob_str = "Bob"
-    sue_str = "Sue"
-    bob_sue_ancestors = [bob_str, sue_str]
+    bob_sue_ancestors = [exx.bob, exx.sue]
     bob_sue_spark7 = 7
-    bob_sue_bud_belief = yao_str
+    bob_sue_bud_belief = exx.yao
     bob_sue_celldepth3 = 3
     bob_sue_mana_grain2 = 2
     bob_sue_quota300 = 300
@@ -63,17 +60,14 @@ def test_CellUnit_to_dict_ReturnsObj_Scenario0():
 
 def test_CellUnit_to_dict_ReturnsObj_Scenario1_EmptyBeliefAdjust():
     # ESTABLISH
-    yao_str = "Yao"
-    bob_str = "Bob"
-    sue_str = "Sue"
-    bob_sue_ancestors = [bob_str, sue_str]
+    bob_sue_ancestors = [exx.bob, exx.sue]
     bob_sue_spark7 = 7
     bob_sue_celldepth3 = 3
     bob_sue_mana_grain2 = 2
     bob_sue_quota300 = 300
     bob_sue_mandate444 = 444
     x_cellunit = cellunit_shop(
-        yao_str,
+        exx.yao,
         bob_sue_ancestors,
         bob_sue_spark7,
         bob_sue_celldepth3,
@@ -103,11 +97,11 @@ def test_CellUnit_to_dict_ReturnsObj_Scenario1_EmptyBeliefAdjust():
     assert x_cell_dict.get(kw.ancestors) == bob_sue_ancestors
     assert x_cell_dict.get(kw.spark_num) == bob_sue_spark7
     assert x_cell_dict.get(kw.celldepth) == bob_sue_celldepth3
-    assert x_cell_dict.get(kw.bud_belief_name) == yao_str
+    assert x_cell_dict.get(kw.bud_belief_name) == exx.yao
     assert x_cell_dict.get(kw.mana_grain) == bob_sue_mana_grain2
     assert x_cell_dict.get(kw.quota) == bob_sue_quota300
     assert x_cell_dict.get(kw.mandate) == bob_sue_mandate444
-    bob_sue_belief = beliefunit_shop(sue_str)
+    bob_sue_belief = beliefunit_shop(exx.sue)
     assert x_cell_dict.get(kw.beliefadjust) == bob_sue_belief.to_dict()
     assert x_cell_dict.get(kw.beliefspark_facts) == {}
     assert x_cell_dict.get(kw.found_facts) == {}
@@ -116,12 +110,9 @@ def test_CellUnit_to_dict_ReturnsObj_Scenario1_EmptyBeliefAdjust():
 
 def test_CellUnit_to_dict_ReturnsObj_Scenario1_WithMoreParameters():
     # ESTABLISH
-    yao_str = "Yao"
-    bob_str = "Bob"
-    sue_str = "Sue"
-    bob_sue_ancestors = [bob_str, sue_str]
+    bob_sue_ancestors = [exx.bob, exx.sue]
     bob_sue_spark7 = 7
-    bob_sue_bud_belief = yao_str
+    bob_sue_bud_belief = exx.yao
     bob_sue_celldepth3 = 3
     bob_sue_mana_grain2 = 2
     bob_sue_quota300 = 300
@@ -185,24 +176,20 @@ def test_CellUnit_to_dict_ReturnsObj_Scenario1_WithMoreParameters():
 
 def test_cellunit_get_from_dict_ReturnsObj_Scenario0_NoParameters():
     # ESTABLISH
-    yao_str = "Yao"
-    x_dict = {kw.bud_belief_name: yao_str}
+    x_dict = {kw.bud_belief_name: exx.yao}
 
     # WHEN
     gen_cellunit = cellunit_get_from_dict(x_dict)
 
     # THEN
-    assert gen_cellunit == cellunit_shop(yao_str)
+    assert gen_cellunit == cellunit_shop(exx.yao)
 
 
 def test_cellunit_get_from_dict_ReturnsObj_Scenario1():
     # ESTABLISH
-    yao_str = "Yao"
-    bob_str = "Bob"
-    sue_str = "Sue"
-    bob_sue_ancestors = [bob_str, sue_str]
+    bob_sue_ancestors = [exx.bob, exx.sue]
     bob_sue_spark7 = 7
-    bob_sue_bud_belief = yao_str
+    bob_sue_bud_belief = exx.yao
     bob_sue_celldepth3 = 3
     bob_sue_mana_grain2 = 2
     bob_sue_quota300 = 300
@@ -213,7 +200,7 @@ def test_cellunit_get_from_dict_ReturnsObj_Scenario1():
     bob_sue_found_factunits = {dirty_fact.fact_context: dirty_fact}
     bob_sue_boss_factunits = {sky_blue_fact.fact_context: sky_blue_fact}
     bob_sue_belief = beliefunit_shop(bob_sue_bud_belief)
-    bob_sue_belief.add_voiceunit(sue_str)
+    bob_sue_belief.add_voiceunit(exx.sue)
     bob_sue_cellunit = cellunit_shop(
         bob_sue_bud_belief,
         bob_sue_ancestors,

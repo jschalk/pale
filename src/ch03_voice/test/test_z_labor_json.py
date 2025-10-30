@@ -5,44 +5,41 @@ from src.ch03_voice.labor import (
     partyunit_get_from_dict,
     partyunit_shop,
 )
-from src.ref.keywords import Ch03Keywords as kw
+from src.ref.keywords import Ch03Keywords as kw, ExampleStrs as exx
 
 
 def test_PartyUnit_to_dict_ReturnsObj_Scenario0_solo_IsTrue():
     # ESTABLISH
-    bob_str = "Bob"
     bob_solo_bool = True
-    x_partyunit = partyunit_shop(bob_str, solo=bob_solo_bool)
+    x_partyunit = partyunit_shop(exx.bob, solo=bob_solo_bool)
 
     # WHEN
     party_dict = x_partyunit.to_dict()
 
     # THEN
     assert party_dict
-    assert party_dict.get(kw.party_title) == bob_str
+    assert party_dict.get(kw.party_title) == exx.bob
     assert party_dict.get(kw.solo) == bob_solo_bool
     assert set(party_dict.keys()) == {kw.party_title, kw.solo}
 
 
 def test_PartyUnit_to_dict_ReturnsObj_Scenario1_solo_IsFalse():
     # ESTABLISH
-    bob_str = "Bob"
-    x_partyunit = partyunit_shop(bob_str, solo=False)
+    x_partyunit = partyunit_shop(exx.bob, solo=False)
 
     # WHEN
     party_dict = x_partyunit.to_dict()
 
     # THEN
     assert party_dict
-    assert party_dict.get(kw.party_title) == bob_str
+    assert party_dict.get(kw.party_title) == exx.bob
     assert set(party_dict.keys()) == {kw.party_title}
 
 
 def test_partyunit_get_from_dict_ReturnsObj_Scenario0_solo_KeyExists():
     # ESTABLISH
-    bob_str = "Bob"
     bob_solo_bool = True
-    expected_bob_partyunit = partyunit_shop(bob_str, solo=bob_solo_bool)
+    expected_bob_partyunit = partyunit_shop(exx.bob, solo=bob_solo_bool)
     bob_party_dict = expected_bob_partyunit.to_dict()
 
     # WHEN
@@ -54,9 +51,8 @@ def test_partyunit_get_from_dict_ReturnsObj_Scenario0_solo_KeyExists():
 
 def test_partyunit_get_from_dict_ReturnsObj_Scenario1_solo_KeyDoesNotExist():
     # ESTABLISH
-    bob_str = "Bob"
     bob_solo_bool = False
-    expected_bob_partyunit = partyunit_shop(bob_str, solo=bob_solo_bool)
+    expected_bob_partyunit = partyunit_shop(exx.bob, solo=bob_solo_bool)
     bob_party_dict = expected_bob_partyunit.to_dict()
     assert set(bob_party_dict.keys()) == {kw.party_title}
 

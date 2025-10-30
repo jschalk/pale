@@ -9,17 +9,16 @@ from src.ch07_belief_logic.belief_main import (
     beliefunit_shop,
     get_beliefunit_from_dict,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 class ChExampleStrsSlashknot(str, Enum):
-    Bob = "Bob"
     casa_str = "casa"
     clean_str = "clean"
     dirtyness_str = "dirtyness"
     mop_str = "mop"
     slash_str = "/"
     wk_str = "wk"
-    wed_str = "Wed"
 
     def __str__(self):
         return self.value
@@ -357,10 +356,9 @@ def get_mop_with_reason_beliefunit_example1():
 
 
 def get_beliefunit_laundry_example1() -> BeliefUnit:
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     cali_str = "Cali"
-    yao_belief.add_voiceunit(yao_str)
+    yao_belief.add_voiceunit(exx.yao)
     yao_belief.add_voiceunit(cali_str)
 
     casa_str = "casa"

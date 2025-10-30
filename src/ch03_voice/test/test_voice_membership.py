@@ -50,8 +50,7 @@ def test_VoiceUnit_set_membership_SetsMultipleAttr():
 def test_VoiceUnit_set_membership_RaisesErrorIf_group_titleIsVoiceNameAndNotVoiceUnit_voice_name():
     # ESTABLISH
     yao_voiceunit = voiceunit_shop(exx.yao)
-    bob_str = exx.bob
-    bob_membership = membership_shop(bob_str)
+    bob_membership = membership_shop(exx.bob)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -59,7 +58,7 @@ def test_VoiceUnit_set_membership_RaisesErrorIf_group_titleIsVoiceNameAndNotVoic
 
     # THEN
     assertion_fail_str = (
-        f"VoiceUnit with voice_name='{exx.yao}' cannot have link to '{bob_str}'."
+        f"VoiceUnit with voice_name='{exx.yao}' cannot have link to '{exx.bob}'."
     )
     assert str(excinfo.value) == assertion_fail_str
 

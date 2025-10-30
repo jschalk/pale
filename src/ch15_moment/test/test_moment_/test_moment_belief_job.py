@@ -9,6 +9,7 @@ from src.ch11_belief_listen.keep_tool import (
 )
 from src.ch15_moment.moment_main import momentunit_shop
 from src.ch15_moment.test._util.ch15_env import get_temp_dir, temp_dir_setup
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_MomentUnit_rotate_job_ReturnsObj_Scenario1(temp_dir_setup):
@@ -16,16 +17,15 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario1(temp_dir_setup):
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    sue_str = "Sue"
-    assert not job_file_exists(moment_mstr_dir, a23_str, sue_str)
-    a23_moment.create_init_job_from_guts(sue_str)
-    assert job_file_exists(moment_mstr_dir, a23_str, sue_str)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.sue)
+    a23_moment.create_init_job_from_guts(exx.sue)
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.sue)
 
     # WHEN
-    sue_job = a23_moment.rotate_job(sue_str)
+    sue_job = a23_moment.rotate_job(exx.sue)
 
     # THEN
-    example_belief = beliefunit_shop(sue_str, a23_str)
+    example_belief = beliefunit_shop(exx.sue, a23_str)
     assert sue_job.moment_label == example_belief.moment_label
     assert sue_job.belief_name == example_belief.belief_name
 
@@ -37,28 +37,24 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario2_EmptyVoicesCause_inallocable
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    sue_str = "Sue"
-    yao_str = "Yao"
-    bob_str = "Bob"
-    zia_str = "Zia"
-    init_sue_job = beliefunit_shop(sue_str, a23_str)
-    init_sue_job.add_voiceunit(yao_str)
-    init_sue_job.add_voiceunit(bob_str)
-    init_sue_job.add_voiceunit(zia_str)
+    init_sue_job = beliefunit_shop(exx.sue, a23_str)
+    init_sue_job.add_voiceunit(exx.yao)
+    init_sue_job.add_voiceunit(exx.bob)
+    init_sue_job.add_voiceunit(exx.zia)
     save_job_file(moment_mstr_dir, init_sue_job)
-    assert job_file_exists(moment_mstr_dir, a23_str, sue_str)
-    assert job_file_exists(moment_mstr_dir, a23_str, yao_str) is False
-    assert job_file_exists(moment_mstr_dir, a23_str, bob_str) is False
-    assert job_file_exists(moment_mstr_dir, a23_str, zia_str) is False
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.sue)
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.yao) is False
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.bob) is False
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.zia) is False
 
     # WHEN
-    rotated_sue_job = a23_moment.rotate_job(sue_str)
+    rotated_sue_job = a23_moment.rotate_job(exx.sue)
 
     # THEN method should wipe over job belief
-    assert rotated_sue_job.voice_exists(bob_str)
+    assert rotated_sue_job.voice_exists(exx.bob)
     assert rotated_sue_job.to_dict() != init_sue_job.to_dict()
-    assert init_sue_job.get_voice(bob_str).inallocable_voice_debt_lumen == 0
-    assert rotated_sue_job.get_voice(bob_str).inallocable_voice_debt_lumen == 1
+    assert init_sue_job.get_voice(exx.bob).inallocable_voice_debt_lumen == 0
+    assert rotated_sue_job.get_voice(exx.bob).inallocable_voice_debt_lumen == 1
 
 
 def a23_job(belief_name: str) -> BeliefUnit:
@@ -73,28 +69,25 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario3_job_ChangesFromRotation(
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    sue_str = "Sue"
-    yao_str = "Yao"
-    bob_str = "Bob"
-    init_sue_job = beliefunit_shop(sue_str, a23_str)
-    init_sue_job.add_voiceunit(yao_str)
-    init_yao_job = beliefunit_shop(yao_str, a23_str)
-    init_yao_job.add_voiceunit(bob_str)
-    init_bob_job = beliefunit_shop(bob_str, a23_str)
+    init_sue_job = beliefunit_shop(exx.sue, a23_str)
+    init_sue_job.add_voiceunit(exx.yao)
+    init_yao_job = beliefunit_shop(exx.yao, a23_str)
+    init_yao_job.add_voiceunit(exx.bob)
+    init_bob_job = beliefunit_shop(exx.bob, a23_str)
     casa_rope = init_bob_job.make_l1_rope("casa")
     clean_rope = init_bob_job.make_rope(casa_rope, "clean")
     init_bob_job.add_plan(clean_rope, pledge=True)
     save_job_file(moment_mstr_dir, init_sue_job)
     save_job_file(moment_mstr_dir, init_yao_job)
     save_job_file(moment_mstr_dir, init_bob_job)
-    assert len(a23_job(sue_str).get_agenda_dict()) == 0
-    assert len(a23_job(yao_str).get_agenda_dict()) == 0
-    assert len(a23_job(bob_str).get_agenda_dict()) == 1
+    assert len(a23_job(exx.sue).get_agenda_dict()) == 0
+    assert len(a23_job(exx.yao).get_agenda_dict()) == 0
+    assert len(a23_job(exx.bob).get_agenda_dict()) == 1
 
     # WHEN / THEN
-    assert len(a23_moment.rotate_job(sue_str).get_agenda_dict()) == 0
-    assert len(a23_moment.rotate_job(yao_str).get_agenda_dict()) == 1
-    assert len(a23_moment.rotate_job(bob_str).get_agenda_dict()) == 0
+    assert len(a23_moment.rotate_job(exx.sue).get_agenda_dict()) == 0
+    assert len(a23_moment.rotate_job(exx.yao).get_agenda_dict()) == 1
+    assert len(a23_moment.rotate_job(exx.bob).get_agenda_dict()) == 0
 
 
 def test_MomentUnit_rotate_job_ReturnsObj_Scenario4_job_SelfReferenceWorks(
@@ -104,29 +97,26 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario4_job_SelfReferenceWorks(
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    bob_str = "Bob"
-    sue_str = "Sue"
-    yao_str = "Yao"
-    init_bob_job = beliefunit_shop(bob_str, a23_str)
-    init_bob_job.add_voiceunit(bob_str)
-    init_sue_job = beliefunit_shop(sue_str, a23_str)
-    init_sue_job.add_voiceunit(yao_str)
-    init_yao_job = beliefunit_shop(yao_str, a23_str)
-    init_yao_job.add_voiceunit(bob_str)
+    init_bob_job = beliefunit_shop(exx.bob, a23_str)
+    init_bob_job.add_voiceunit(exx.bob)
+    init_sue_job = beliefunit_shop(exx.sue, a23_str)
+    init_sue_job.add_voiceunit(exx.yao)
+    init_yao_job = beliefunit_shop(exx.yao, a23_str)
+    init_yao_job.add_voiceunit(exx.bob)
     casa_rope = init_bob_job.make_l1_rope("casa")
     clean_rope = init_bob_job.make_rope(casa_rope, "clean")
     init_bob_job.add_plan(clean_rope, pledge=True)
     save_job_file(moment_mstr_dir, init_sue_job)
     save_job_file(moment_mstr_dir, init_yao_job)
     save_job_file(moment_mstr_dir, init_bob_job)
-    assert len(a23_job(bob_str).get_agenda_dict()) == 1
-    assert len(a23_job(sue_str).get_agenda_dict()) == 0
-    assert len(a23_job(yao_str).get_agenda_dict()) == 0
+    assert len(a23_job(exx.bob).get_agenda_dict()) == 1
+    assert len(a23_job(exx.sue).get_agenda_dict()) == 0
+    assert len(a23_job(exx.yao).get_agenda_dict()) == 0
 
     # WHEN / THEN
-    assert len(a23_moment.rotate_job(bob_str).get_agenda_dict()) == 1
-    assert len(a23_moment.rotate_job(sue_str).get_agenda_dict()) == 0
-    assert len(a23_moment.rotate_job(yao_str).get_agenda_dict()) == 1
+    assert len(a23_moment.rotate_job(exx.bob).get_agenda_dict()) == 1
+    assert len(a23_moment.rotate_job(exx.sue).get_agenda_dict()) == 0
+    assert len(a23_moment.rotate_job(exx.yao).get_agenda_dict()) == 1
 
 
 def test_MomentUnit_generate_all_jobs_Scenario0_init_job_IsCreated(
@@ -136,25 +126,23 @@ def test_MomentUnit_generate_all_jobs_Scenario0_init_job_IsCreated(
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    bob_str = "Bob"
-    sue_str = "Sue"
-    bob_gut = beliefunit_shop(bob_str, a23_str)
+    bob_gut = beliefunit_shop(exx.bob, a23_str)
     save_gut_file(moment_mstr_dir, bob_gut)
-    sue_dir = create_belief_dir_path(moment_mstr_dir, a23_str, sue_str)
+    sue_dir = create_belief_dir_path(moment_mstr_dir, a23_str, exx.sue)
     set_dir(sue_dir)
-    assert gut_file_exists(moment_mstr_dir, a23_str, bob_str)
-    assert gut_file_exists(moment_mstr_dir, a23_str, sue_str) is False
-    assert job_file_exists(moment_mstr_dir, a23_str, bob_str) is False
-    assert job_file_exists(moment_mstr_dir, a23_str, sue_str) is False
+    assert gut_file_exists(moment_mstr_dir, a23_str, exx.bob)
+    assert gut_file_exists(moment_mstr_dir, a23_str, exx.sue) is False
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.bob) is False
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.sue) is False
 
     # WHEN
     a23_moment.generate_all_jobs()
 
     # THEN
-    assert gut_file_exists(moment_mstr_dir, a23_str, bob_str)
-    assert gut_file_exists(moment_mstr_dir, a23_str, sue_str)
-    assert job_file_exists(moment_mstr_dir, a23_str, bob_str)
-    assert job_file_exists(moment_mstr_dir, a23_str, sue_str)
+    assert gut_file_exists(moment_mstr_dir, a23_str, exx.bob)
+    assert gut_file_exists(moment_mstr_dir, a23_str, exx.sue)
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.bob)
+    assert job_file_exists(moment_mstr_dir, a23_str, exx.sue)
 
 
 def test_MomentUnit_generate_all_jobs_Scenario1_jobs_rotated(
@@ -164,35 +152,32 @@ def test_MomentUnit_generate_all_jobs_Scenario1_jobs_rotated(
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir, job_listen_rotations=1)
-    bob_str = "Bob"
-    sue_str = "Sue"
-    yao_str = "Yao"
-    bob_gut = beliefunit_shop(bob_str, a23_str)
-    bob_gut.add_voiceunit(bob_str)
-    bob_gut.add_voiceunit(sue_str)
+    bob_gut = beliefunit_shop(exx.bob, a23_str)
+    bob_gut.add_voiceunit(exx.bob)
+    bob_gut.add_voiceunit(exx.sue)
     casa_rope = bob_gut.make_l1_rope("casa")
     clean_rope = bob_gut.make_rope(casa_rope, "clean")
     bob_gut.add_plan(clean_rope, pledge=True)
 
-    sue_gut = beliefunit_shop(sue_str, a23_str)
-    sue_gut.add_voiceunit(sue_str)
-    sue_gut.add_voiceunit(bob_str)
-    yao_gut = beliefunit_shop(yao_str, a23_str)
-    yao_gut.add_voiceunit(sue_str)
+    sue_gut = beliefunit_shop(exx.sue, a23_str)
+    sue_gut.add_voiceunit(exx.sue)
+    sue_gut.add_voiceunit(exx.bob)
+    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut.add_voiceunit(exx.sue)
     save_gut_file(moment_mstr_dir, bob_gut)
     save_gut_file(moment_mstr_dir, sue_gut)
     save_gut_file(moment_mstr_dir, yao_gut)
-    assert not job_file_exists(moment_mstr_dir, a23_str, bob_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, sue_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, yao_str)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.bob)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.sue)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.yao)
 
     # WHEN
     a23_moment.generate_all_jobs()
 
     # THEN
-    assert len(a23_job(bob_str).get_agenda_dict()) == 1
-    assert len(a23_job(sue_str).get_agenda_dict()) == 1
-    assert len(a23_job(yao_str).get_agenda_dict()) == 1
+    assert len(a23_job(exx.bob).get_agenda_dict()) == 1
+    assert len(a23_job(exx.sue).get_agenda_dict()) == 1
+    assert len(a23_job(exx.yao).get_agenda_dict()) == 1
 
 
 def test_MomentUnit_generate_all_jobs_Scenario2_jobs_rotated_InSortedOrder(
@@ -202,26 +187,22 @@ def test_MomentUnit_generate_all_jobs_Scenario2_jobs_rotated_InSortedOrder(
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir, job_listen_rotations=1)
-    bob_str = "Bob"
-    sue_str = "Sue"
-    yao_str = "Yao"
-    zia_str = "Zia"
-    bob_gut = beliefunit_shop(bob_str, a23_str)
-    bob_gut.add_voiceunit(bob_str)
-    bob_gut.add_voiceunit(sue_str)
+    bob_gut = beliefunit_shop(exx.bob, a23_str)
+    bob_gut.add_voiceunit(exx.bob)
+    bob_gut.add_voiceunit(exx.sue)
 
-    sue_gut = beliefunit_shop(sue_str, a23_str)
-    sue_gut.add_voiceunit(sue_str)
-    sue_gut.add_voiceunit(bob_str)
-    sue_gut.add_voiceunit(yao_str)
+    sue_gut = beliefunit_shop(exx.sue, a23_str)
+    sue_gut.add_voiceunit(exx.sue)
+    sue_gut.add_voiceunit(exx.bob)
+    sue_gut.add_voiceunit(exx.yao)
 
-    yao_gut = beliefunit_shop(yao_str, a23_str)
-    yao_gut.add_voiceunit(sue_str)
-    yao_gut.add_voiceunit(yao_str)
-    yao_gut.add_voiceunit(zia_str)
+    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut.add_voiceunit(exx.sue)
+    yao_gut.add_voiceunit(exx.yao)
+    yao_gut.add_voiceunit(exx.zia)
 
-    zia_gut = beliefunit_shop(zia_str, a23_str)
-    zia_gut.add_voiceunit(zia_str)
+    zia_gut = beliefunit_shop(exx.zia, a23_str)
+    zia_gut.add_voiceunit(exx.zia)
     casa_rope = zia_gut.make_l1_rope("casa")
     clean_rope = zia_gut.make_rope(casa_rope, "clean")
     zia_gut.add_plan(clean_rope, pledge=True)
@@ -229,19 +210,19 @@ def test_MomentUnit_generate_all_jobs_Scenario2_jobs_rotated_InSortedOrder(
     save_gut_file(moment_mstr_dir, sue_gut)
     save_gut_file(moment_mstr_dir, yao_gut)
     save_gut_file(moment_mstr_dir, zia_gut)
-    assert not job_file_exists(moment_mstr_dir, a23_str, bob_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, sue_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, yao_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, zia_str)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.bob)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.sue)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.yao)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.zia)
 
     # WHEN
     a23_moment.generate_all_jobs()
 
     # THEN
-    assert len(a23_job(bob_str).get_agenda_dict()) == 0
-    assert len(a23_job(sue_str).get_agenda_dict()) == 1
-    assert len(a23_job(yao_str).get_agenda_dict()) == 1
-    assert len(a23_job(zia_str).get_agenda_dict()) == 1
+    assert len(a23_job(exx.bob).get_agenda_dict()) == 0
+    assert len(a23_job(exx.sue).get_agenda_dict()) == 1
+    assert len(a23_job(exx.yao).get_agenda_dict()) == 1
+    assert len(a23_job(exx.zia).get_agenda_dict()) == 1
 
 
 def test_MomentUnit_generate_all_jobs_Scenario3_job_listen_rotation_AffectsJobs(
@@ -251,26 +232,22 @@ def test_MomentUnit_generate_all_jobs_Scenario3_job_listen_rotation_AffectsJobs(
     moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir, job_listen_rotations=1)
-    bob_str = "Bob"
-    sue_str = "Sue"
-    yao_str = "Yao"
-    zia_str = "Zia"
-    bob_gut = beliefunit_shop(bob_str, a23_str)
-    bob_gut.add_voiceunit(bob_str)
-    bob_gut.add_voiceunit(sue_str)
+    bob_gut = beliefunit_shop(exx.bob, a23_str)
+    bob_gut.add_voiceunit(exx.bob)
+    bob_gut.add_voiceunit(exx.sue)
 
-    sue_gut = beliefunit_shop(sue_str, a23_str)
-    sue_gut.add_voiceunit(sue_str)
-    sue_gut.add_voiceunit(bob_str)
-    sue_gut.add_voiceunit(yao_str)
+    sue_gut = beliefunit_shop(exx.sue, a23_str)
+    sue_gut.add_voiceunit(exx.sue)
+    sue_gut.add_voiceunit(exx.bob)
+    sue_gut.add_voiceunit(exx.yao)
 
-    yao_gut = beliefunit_shop(yao_str, a23_str)
-    yao_gut.add_voiceunit(sue_str)
-    yao_gut.add_voiceunit(yao_str)
-    yao_gut.add_voiceunit(zia_str)
+    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut.add_voiceunit(exx.sue)
+    yao_gut.add_voiceunit(exx.yao)
+    yao_gut.add_voiceunit(exx.zia)
 
-    zia_gut = beliefunit_shop(zia_str, a23_str)
-    zia_gut.add_voiceunit(zia_str)
+    zia_gut = beliefunit_shop(exx.zia, a23_str)
+    zia_gut.add_voiceunit(exx.zia)
     casa_rope = zia_gut.make_l1_rope("casa")
     clean_rope = zia_gut.make_rope(casa_rope, "clean")
     zia_gut.add_plan(clean_rope, pledge=True)
@@ -278,27 +255,27 @@ def test_MomentUnit_generate_all_jobs_Scenario3_job_listen_rotation_AffectsJobs(
     save_gut_file(moment_mstr_dir, sue_gut)
     save_gut_file(moment_mstr_dir, yao_gut)
     save_gut_file(moment_mstr_dir, zia_gut)
-    assert not job_file_exists(moment_mstr_dir, a23_str, bob_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, sue_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, yao_str)
-    assert not job_file_exists(moment_mstr_dir, a23_str, zia_str)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.bob)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.sue)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.yao)
+    assert not job_file_exists(moment_mstr_dir, a23_str, exx.zia)
     assert a23_moment.job_listen_rotations == 1
 
     # WHEN
     a23_moment.generate_all_jobs()
 
     # THEN
-    assert len(a23_job(bob_str).get_agenda_dict()) == 0
-    assert len(a23_job(sue_str).get_agenda_dict()) == 1
-    assert len(a23_job(yao_str).get_agenda_dict()) == 1
-    assert len(a23_job(zia_str).get_agenda_dict()) == 1
+    assert len(a23_job(exx.bob).get_agenda_dict()) == 0
+    assert len(a23_job(exx.sue).get_agenda_dict()) == 1
+    assert len(a23_job(exx.yao).get_agenda_dict()) == 1
+    assert len(a23_job(exx.zia).get_agenda_dict()) == 1
 
     # WHEN
     a23_moment.job_listen_rotations = 2
     a23_moment.generate_all_jobs()
 
     # THEN
-    assert len(a23_job(bob_str).get_agenda_dict()) == 1
-    assert len(a23_job(sue_str).get_agenda_dict()) == 1
-    assert len(a23_job(yao_str).get_agenda_dict()) == 1
-    assert len(a23_job(zia_str).get_agenda_dict()) == 1
+    assert len(a23_job(exx.bob).get_agenda_dict()) == 1
+    assert len(a23_job(exx.sue).get_agenda_dict()) == 1
+    assert len(a23_job(exx.yao).get_agenda_dict()) == 1
+    assert len(a23_job(exx.zia).get_agenda_dict()) == 1

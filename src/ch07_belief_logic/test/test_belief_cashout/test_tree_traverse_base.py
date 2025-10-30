@@ -8,6 +8,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_with_4_levels,
     get_beliefunit_with_4_levels_and_2reasons,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_clear_plan_dict_and_belief_obj_settle_attrs_SetsAttrs_Scenario0():
@@ -204,7 +205,6 @@ def test_BeliefUnit_cashout_NLevelSetsDescendantAttributes_2():
     mon_str = "Mon"
     tue_str = "Tue"
     vacuum_str = "vacuum"
-    sue_str = "Sue"
 
     casa_rope = sue_belief.make_l1_rope(casa_str)
     email_plan = planunit_shop(email_str, pledge=True)
@@ -212,8 +212,8 @@ def test_BeliefUnit_cashout_NLevelSetsDescendantAttributes_2():
     vacuum_plan = planunit_shop(vacuum_str, pledge=True)
     sue_belief.set_plan_obj(vacuum_plan, parent_rope=casa_rope)
 
-    sue_belief.add_voiceunit(voice_name=sue_str)
-    x_awardunit = awardunit_shop(awardee_title=sue_str)
+    sue_belief.add_voiceunit(voice_name=exx.sue)
+    x_awardunit = awardunit_shop(awardee_title=exx.sue)
 
     sue_belief.planroot.kids[casa_str].kids[email_str].set_awardunit(
         awardunit=x_awardunit
@@ -247,23 +247,18 @@ def test_BeliefUnit_cashout_NLevelSetsDescendantAttributes_2():
 
 def test_BeliefUnit_cashout_SetsPlanUnitAttr_awardunits():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str)
-    yao_str = "Yao"
-    zia_str = "Zia"
-    Xio_str = "Xio"
-    sue_belief.add_voiceunit(yao_str)
-    sue_belief.add_voiceunit(zia_str)
-    sue_belief.add_voiceunit(Xio_str)
+    sue_belief = beliefunit_shop(exx.sue)
+    sue_belief.add_voiceunit(exx.yao)
+    sue_belief.add_voiceunit(exx.zia)
+    sue_belief.add_voiceunit(exx.xio)
 
     assert len(sue_belief.voices) == 3
     assert len(sue_belief.get_voiceunit_group_titles_dict()) == 3
-    swim_str = "swim"
-    sue_belief.set_l1_plan(planunit_shop(swim_str))
-    awardunit_yao = awardunit_shop(yao_str, give_force=10)
-    awardunit_zia = awardunit_shop(zia_str, give_force=10)
-    awardunit_Xio = awardunit_shop(Xio_str, give_force=10)
-    swim_rope = sue_belief.make_l1_rope(swim_str)
+    sue_belief.set_l1_plan(planunit_shop(exx.swim))
+    awardunit_yao = awardunit_shop(exx.yao, give_force=10)
+    awardunit_zia = awardunit_shop(exx.zia, give_force=10)
+    awardunit_Xio = awardunit_shop(exx.xio, give_force=10)
+    swim_rope = sue_belief.make_l1_rope(exx.swim)
     sue_belief.edit_plan_attr(swim_rope, awardunit=awardunit_yao)
     sue_belief.edit_plan_attr(swim_rope, awardunit=awardunit_zia)
     sue_belief.edit_plan_attr(swim_rope, awardunit=awardunit_Xio)
@@ -271,7 +266,7 @@ def test_BeliefUnit_cashout_SetsPlanUnitAttr_awardunits():
     street_str = "streets"
     sue_belief.set_plan_obj(planunit_shop(street_str), parent_rope=swim_rope)
     assert sue_belief.planroot.awardunits in (None, {})
-    assert len(sue_belief.planroot.kids[swim_str].awardunits) == 3
+    assert len(sue_belief.planroot.kids[exx.swim].awardunits) == 3
 
     # WHEN
     sue_belief.cashout()
@@ -323,21 +318,17 @@ def test_BeliefUnit_cashout_TreeTraverseSetsClearsAwardLineestors():
 def test_BeliefUnit_cashout_DoesNotKeepNonRequired_awardheirs():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
-    zia_str = "Zia"
-    Xio_str = "Xio"
-    yao_belief.add_voiceunit(yao_str)
-    yao_belief.add_voiceunit(zia_str)
-    yao_belief.add_voiceunit(Xio_str)
+    yao_belief = beliefunit_shop(exx.yao)
+    yao_belief.add_voiceunit(exx.yao)
+    yao_belief.add_voiceunit(exx.zia)
+    yao_belief.add_voiceunit(exx.xio)
 
-    swim_str = "swim"
-    swim_rope = yao_belief.make_l1_rope(swim_str)
+    swim_rope = yao_belief.make_l1_rope(exx.swim)
 
-    yao_belief.set_l1_plan(planunit_shop(swim_str))
-    awardunit_yao = awardunit_shop(yao_str, give_force=10)
-    awardunit_zia = awardunit_shop(zia_str, give_force=10)
-    awardunit_Xio = awardunit_shop(Xio_str, give_force=10)
+    yao_belief.set_l1_plan(planunit_shop(exx.swim))
+    awardunit_yao = awardunit_shop(exx.yao, give_force=10)
+    awardunit_zia = awardunit_shop(exx.zia, give_force=10)
+    awardunit_Xio = awardunit_shop(exx.xio, give_force=10)
 
     swim_plan = yao_belief.get_plan_obj(swim_rope)
     yao_belief.edit_plan_attr(swim_rope, awardunit=awardunit_yao)
@@ -353,7 +344,7 @@ def test_BeliefUnit_cashout_DoesNotKeepNonRequired_awardheirs():
     # THEN
     assert len(swim_plan.awardunits) == 3
     assert len(swim_plan.awardheirs) == 3
-    yao_belief.edit_plan_attr(swim_rope, awardunit_del=yao_str)
+    yao_belief.edit_plan_attr(swim_rope, awardunit_del=exx.yao)
     assert len(swim_plan.awardunits) == 2
     assert len(swim_plan.awardheirs) == 3
 
@@ -488,9 +479,8 @@ def test_BeliefUnit_cashout_WhenPlanUnitHas_starButAll_kidsHaveZero_starAddTo_of
     casa_rope = sue_beliefunit.make_l1_rope(casa_str)
     casa_plan = planunit_shop(casa_str, star=1)
 
-    swim_str = "swimming"
-    swim_rope = sue_beliefunit.make_rope(casa_rope, swim_str)
-    swim_plan = planunit_shop(swim_str, star=8)
+    swim_rope = sue_beliefunit.make_rope(casa_rope, exx.swim)
+    swim_plan = planunit_shop(exx.swim, star=8)
 
     clean_str = "cleaning"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
@@ -521,46 +511,43 @@ def test_BeliefUnit_cashout_WhenPlanUnitHas_starButAll_kidsHaveZero_starAddTo_of
 
 def test_BeliefUnit_cashout_CreatesNewGroupUnits_Scenario0():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
-    zia_str = "Zia"
+    yao_belief = beliefunit_shop(exx.yao)
     yao_voice_cred_lumen = 3
     yao_voice_debt_lumen = 2
     zia_voice_cred_lumen = 4
     zia_voice_debt_lumen = 5
-    yao_belief.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
-    yao_belief.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    yao_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     root_rope = yao_belief.planroot.get_plan_rope()
     x_planroot = yao_belief.get_plan_obj(root_rope)
-    x_planroot.set_awardunit(awardunit_shop(yao_str))
-    x_planroot.set_awardunit(awardunit_shop(zia_str))
-    xio_str = "Xio"
-    x_planroot.set_awardunit(awardunit_shop(xio_str))
+    x_planroot.set_awardunit(awardunit_shop(exx.yao))
+    x_planroot.set_awardunit(awardunit_shop(exx.zia))
+    x_planroot.set_awardunit(awardunit_shop(exx.xio))
     assert len(yao_belief.get_voiceunit_group_titles_dict()) == 2
-    assert not yao_belief.groupunit_exists(yao_str)
-    assert not yao_belief.groupunit_exists(zia_str)
-    assert not yao_belief.groupunit_exists(xio_str)
+    assert not yao_belief.groupunit_exists(exx.yao)
+    assert not yao_belief.groupunit_exists(exx.zia)
+    assert not yao_belief.groupunit_exists(exx.xio)
 
     # WHEN
     yao_belief.cashout()
 
     # THEN
-    assert yao_belief.groupunit_exists(yao_str)
-    assert yao_belief.groupunit_exists(zia_str)
-    assert yao_belief.groupunit_exists(xio_str)
+    assert yao_belief.groupunit_exists(exx.yao)
+    assert yao_belief.groupunit_exists(exx.zia)
+    assert yao_belief.groupunit_exists(exx.xio)
     assert len(yao_belief.get_voiceunit_group_titles_dict()) == 2
     assert len(yao_belief.get_voiceunit_group_titles_dict()) != len(
         yao_belief.groupunits
     )
     assert len(yao_belief.groupunits) == 3
-    xio_groupunit = yao_belief.get_groupunit(xio_str)
-    xio_symmerty_groupunit = yao_belief.create_symmetry_groupunit(xio_str)
+    xio_groupunit = yao_belief.get_groupunit(exx.xio)
+    xio_symmerty_groupunit = yao_belief.create_symmetry_groupunit(exx.xio)
     assert xio_groupunit.memberships.keys() == xio_symmerty_groupunit.memberships.keys()
-    assert xio_groupunit.group_membership_exists(yao_str)
-    assert xio_groupunit.group_membership_exists(zia_str)
-    assert not xio_groupunit.group_membership_exists(xio_str)
-    yao_membership = xio_groupunit.get_voice_membership(yao_str)
-    zia_membership = xio_groupunit.get_voice_membership(zia_str)
+    assert xio_groupunit.group_membership_exists(exx.yao)
+    assert xio_groupunit.group_membership_exists(exx.zia)
+    assert not xio_groupunit.group_membership_exists(exx.xio)
+    yao_membership = xio_groupunit.get_voice_membership(exx.yao)
+    zia_membership = xio_groupunit.get_voice_membership(exx.zia)
     assert yao_membership.group_cred_lumen == yao_voice_cred_lumen
     assert zia_membership.group_cred_lumen == zia_voice_cred_lumen
     assert yao_membership.group_debt_lumen == yao_voice_debt_lumen
@@ -569,63 +556,55 @@ def test_BeliefUnit_cashout_CreatesNewGroupUnits_Scenario0():
 
 def test_BeliefUnit_cashout_CreatesNewGroupUnits_Scenario1():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
-    swim_str = "swim"
-    swim_rope = yao_belief.make_l1_rope(swim_str)
-    yao_belief.set_l1_plan(planunit_shop(swim_str))
-    zia_str = "Zia"
-    yao_belief.add_voiceunit(yao_str)
-    yao_belief.add_voiceunit(zia_str)
+    yao_belief = beliefunit_shop(exx.yao)
+    swim_rope = yao_belief.make_l1_rope(exx.swim)
+    yao_belief.set_l1_plan(planunit_shop(exx.swim))
+    yao_belief.add_voiceunit(exx.yao)
+    yao_belief.add_voiceunit(exx.zia)
     swim_plan = yao_belief.get_plan_obj(swim_rope)
-    swim_plan.set_awardunit(awardunit_shop(yao_str))
-    swim_plan.set_awardunit(awardunit_shop(zia_str))
-    xio_str = "Xio"
-    swim_plan.set_awardunit(awardunit_shop(xio_str))
+    swim_plan.set_awardunit(awardunit_shop(exx.yao))
+    swim_plan.set_awardunit(awardunit_shop(exx.zia))
+    swim_plan.set_awardunit(awardunit_shop(exx.xio))
     assert len(yao_belief.get_voiceunit_group_titles_dict()) == 2
-    assert not yao_belief.groupunit_exists(yao_str)
-    assert not yao_belief.groupunit_exists(zia_str)
-    assert not yao_belief.groupunit_exists(xio_str)
+    assert not yao_belief.groupunit_exists(exx.yao)
+    assert not yao_belief.groupunit_exists(exx.zia)
+    assert not yao_belief.groupunit_exists(exx.xio)
 
     # WHEN
     yao_belief.cashout()
 
     # THEN
-    assert yao_belief.groupunit_exists(yao_str)
-    assert yao_belief.groupunit_exists(zia_str)
-    assert yao_belief.groupunit_exists(xio_str)
+    assert yao_belief.groupunit_exists(exx.yao)
+    assert yao_belief.groupunit_exists(exx.zia)
+    assert yao_belief.groupunit_exists(exx.xio)
     assert len(yao_belief.get_voiceunit_group_titles_dict()) == 2
     assert len(yao_belief.get_voiceunit_group_titles_dict()) != len(
         yao_belief.groupunits
     )
     assert len(yao_belief.groupunits) == 3
-    xio_groupunit = yao_belief.get_groupunit(xio_str)
-    xio_symmerty_groupunit = yao_belief.create_symmetry_groupunit(xio_str)
+    xio_groupunit = yao_belief.get_groupunit(exx.xio)
+    xio_symmerty_groupunit = yao_belief.create_symmetry_groupunit(exx.xio)
     assert xio_groupunit.memberships.keys() == xio_symmerty_groupunit.memberships.keys()
-    assert xio_groupunit.group_membership_exists(yao_str)
-    assert xio_groupunit.group_membership_exists(zia_str)
-    assert not xio_groupunit.group_membership_exists(xio_str)
+    assert xio_groupunit.group_membership_exists(exx.yao)
+    assert xio_groupunit.group_membership_exists(exx.zia)
+    assert not xio_groupunit.group_membership_exists(exx.xio)
 
 
 def test_BeliefUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
-    swim_str = "swim"
-    swim_rope = yao_belief.make_l1_rope(swim_str)
-    yao_belief.set_l1_plan(planunit_shop(swim_str))
-    zia_str = "Zia"
-    yao_belief.add_voiceunit(yao_str)
-    yao_belief.add_voiceunit(zia_str)
+    yao_belief = beliefunit_shop(exx.yao)
+    swim_rope = yao_belief.make_l1_rope(exx.swim)
+    yao_belief.set_l1_plan(planunit_shop(exx.swim))
+    yao_belief.add_voiceunit(exx.yao)
+    yao_belief.add_voiceunit(exx.zia)
     swim_plan = yao_belief.get_plan_obj(swim_rope)
-    swim_plan.set_awardunit(awardunit_shop(yao_str))
-    swim_plan.set_awardunit(awardunit_shop(zia_str))
-    xio_str = "Xio"
-    swim_plan.set_awardunit(awardunit_shop(xio_str))
+    swim_plan.set_awardunit(awardunit_shop(exx.yao))
+    swim_plan.set_awardunit(awardunit_shop(exx.zia))
+    swim_plan.set_awardunit(awardunit_shop(exx.xio))
     yao_belief.cashout()
-    assert yao_belief.groupunit_exists(yao_str)
-    assert yao_belief.groupunit_exists(zia_str)
-    assert yao_belief.groupunit_exists(xio_str)
+    assert yao_belief.groupunit_exists(exx.yao)
+    assert yao_belief.groupunit_exists(exx.zia)
+    assert yao_belief.groupunit_exists(exx.xio)
     assert len(yao_belief.get_voiceunit_group_titles_dict()) == 2
     assert len(yao_belief.get_voiceunit_group_titles_dict()) != len(
         yao_belief.groupunits
@@ -636,7 +615,7 @@ def test_BeliefUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
 
     # THEN
     assert len(symmerty_group_titles) == 1
-    assert symmerty_group_titles == {xio_str}
+    assert symmerty_group_titles == {exx.xio}
 
     # ESTABLISH
     run_str = ";Run"
@@ -650,13 +629,12 @@ def test_BeliefUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
 
     # THEN
     assert len(symmerty_group_titles) == 2
-    assert symmerty_group_titles == {xio_str, run_str}
+    assert symmerty_group_titles == {exx.xio, run_str}
 
 
 def test_BeliefUnit_cashout_Sets_planroot_factheir_With_range_factheirs():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     wk_str = "wk"
     wk_rope = yao_belief.make_l1_rope(wk_str)
     wk_addin = 10
@@ -707,8 +685,7 @@ def test_BeliefUnit_cashout_Sets_planroot_factheir_With_range_factheirs():
 
 def test_BeliefUnit_cashout_SetsPlanUnit_factheir_With_range_factheirs():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     wk_str = "wk"
     wk_rope = yao_belief.make_l1_rope(wk_str)
     wk_addin = 10

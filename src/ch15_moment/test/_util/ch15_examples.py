@@ -6,6 +6,7 @@ from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
 from src.ch09_belief_lesson.lesson_filehandler import open_gut_file, save_gut_file
 from src.ch15_moment.moment_main import MomentUnit, momentunit_shop
 from src.ch15_moment.test._util.ch15_env import get_temp_dir
+from src.ref.keywords import ExampleStrs as exx
 
 
 def create_example_moment2() -> MomentUnit:
@@ -13,15 +14,13 @@ def create_example_moment2() -> MomentUnit:
     x_moment_mstr_dir = get_temp_dir()
     a45_str = "amy45"
     amy_moment = momentunit_shop(a45_str, x_moment_mstr_dir)
-    yao_str = "Yao"
     wei_str = "Wei"
-    zia_str = "Zia"
-    amy_moment.create_init_job_from_guts(yao_str)
+    amy_moment.create_init_job_from_guts(exx.yao)
     amy_moment.create_init_job_from_guts(wei_str)
-    amy_moment.create_init_job_from_guts(zia_str)
-    yao_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, yao_str)
+    amy_moment.create_init_job_from_guts(exx.zia)
+    yao_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, exx.yao)
     wei_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, wei_str)
-    zia_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, zia_str)
+    zia_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, exx.zia)
 
     yao_gut_belief.set_credor_respect(101)
     wei_gut_belief.set_credor_respect(75)
@@ -30,14 +29,14 @@ def create_example_moment2() -> MomentUnit:
     wei_gut_belief.set_debtor_respect(750)
     zia_gut_belief.set_debtor_respect(500)
 
-    yao_gut_belief.add_voiceunit(yao_str, 34, 600)
-    yao_gut_belief.add_voiceunit(zia_str, 57, 300)
+    yao_gut_belief.add_voiceunit(exx.yao, 34, 600)
+    yao_gut_belief.add_voiceunit(exx.zia, 57, 300)
     yao_gut_belief.add_voiceunit(wei_str, 10, 100)
-    wei_gut_belief.add_voiceunit(yao_str, 37, 100)
+    wei_gut_belief.add_voiceunit(exx.yao, 37, 100)
     wei_gut_belief.add_voiceunit(wei_str, 11, 400)
-    wei_gut_belief.add_voiceunit(zia_str, 27, 250)
-    zia_gut_belief.add_voiceunit(yao_str, 14, 100)
-    zia_gut_belief.add_voiceunit(zia_str, 38, 400)
+    wei_gut_belief.add_voiceunit(exx.zia, 27, 250)
+    zia_gut_belief.add_voiceunit(exx.yao, 14, 100)
+    zia_gut_belief.add_voiceunit(exx.zia, 38, 400)
     texas_str = "Texas"
     texas_rope = yao_gut_belief.make_l1_rope(texas_str)
     yao_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
@@ -45,11 +44,11 @@ def create_example_moment2() -> MomentUnit:
     zia_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     dallas_str = "dallas"
     dallas_rope = yao_gut_belief.make_rope(texas_rope, dallas_str)
-    dallas_healerunit = healerunit_shop({yao_str, zia_str})
+    dallas_healerunit = healerunit_shop({exx.yao, exx.zia})
     dallas_plan = planunit_shop(dallas_str, healerunit=dallas_healerunit)
     elpaso_str = "el paso"
     elpaso_rope = yao_gut_belief.make_rope(texas_rope, elpaso_str)
-    elpaso_healerunit = healerunit_shop({yao_str})
+    elpaso_healerunit = healerunit_shop({exx.yao})
     elpaso_plan = planunit_shop(elpaso_str, healerunit=elpaso_healerunit)
 
     yao_gut_belief.set_plan_obj(dallas_plan, texas_rope)
@@ -61,9 +60,9 @@ def create_example_moment2() -> MomentUnit:
     save_gut_file(x_moment_mstr_dir, yao_gut_belief)
     save_gut_file(x_moment_mstr_dir, wei_gut_belief)
     save_gut_file(x_moment_mstr_dir, zia_gut_belief)
-    amy_moment._set_all_healer_dutys(yao_str)
+    amy_moment._set_all_healer_dutys(exx.yao)
     amy_moment._set_all_healer_dutys(wei_str)
-    amy_moment._set_all_healer_dutys(zia_str)
+    amy_moment._set_all_healer_dutys(exx.zia)
 
     return amy_moment
 
@@ -73,15 +72,13 @@ def create_example_moment3() -> MomentUnit:
     a45_str = "amy45"
     x_moment_mstr_dir = get_temp_dir()
     amy_moment = momentunit_shop(a45_str, x_moment_mstr_dir)
-    yao_str = "Yao"
     wei_str = "Wei"
-    zia_str = "Zia"
-    amy_moment.create_init_job_from_guts(yao_str)
+    amy_moment.create_init_job_from_guts(exx.yao)
     amy_moment.create_init_job_from_guts(wei_str)
-    amy_moment.create_init_job_from_guts(zia_str)
-    yao_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, yao_str)
+    amy_moment.create_init_job_from_guts(exx.zia)
+    yao_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, exx.yao)
     wei_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, wei_str)
-    zia_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, zia_str)
+    zia_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, exx.zia)
 
     casa_str = "casa"
     casa_rope = yao_gut_belief.make_l1_rope(casa_str)
@@ -116,15 +113,13 @@ def create_example_moment4() -> MomentUnit:
     x_moment_mstr_dir = get_temp_dir()
     a45_str = "amy45"
     amy_moment = momentunit_shop(a45_str, x_moment_mstr_dir)
-    yao_str = "Yao"
     wei_str = "Wei"
-    zia_str = "Zia"
-    amy_moment.create_init_job_from_guts(yao_str)
+    amy_moment.create_init_job_from_guts(exx.yao)
     amy_moment.create_init_job_from_guts(wei_str)
-    amy_moment.create_init_job_from_guts(zia_str)
-    yao_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, yao_str)
+    amy_moment.create_init_job_from_guts(exx.zia)
+    yao_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, exx.yao)
     wei_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, wei_str)
-    zia_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, zia_str)
+    zia_gut_belief = open_gut_file(x_moment_mstr_dir, a45_str, exx.zia)
 
     casa_str = "casa"
     casa_rope = yao_gut_belief.make_l1_rope(casa_str)
@@ -154,14 +149,14 @@ def create_example_moment4() -> MomentUnit:
     wei_gut_belief.set_debtor_respect(750)
     zia_gut_belief.set_debtor_respect(500)
 
-    yao_gut_belief.add_voiceunit(yao_str, 34, 600)
-    yao_gut_belief.add_voiceunit(zia_str, 57, 300)
+    yao_gut_belief.add_voiceunit(exx.yao, 34, 600)
+    yao_gut_belief.add_voiceunit(exx.zia, 57, 300)
     yao_gut_belief.add_voiceunit(wei_str, 10, 100)
-    wei_gut_belief.add_voiceunit(yao_str, 37, 100)
+    wei_gut_belief.add_voiceunit(exx.yao, 37, 100)
     wei_gut_belief.add_voiceunit(wei_str, 11, 400)
-    wei_gut_belief.add_voiceunit(zia_str, 27, 250)
-    zia_gut_belief.add_voiceunit(yao_str, 14, 100)
-    zia_gut_belief.add_voiceunit(zia_str, 38, 400)
+    wei_gut_belief.add_voiceunit(exx.zia, 27, 250)
+    zia_gut_belief.add_voiceunit(exx.yao, 14, 100)
+    zia_gut_belief.add_voiceunit(exx.zia, 38, 400)
 
     texas_str = "Texas"
     yao_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))

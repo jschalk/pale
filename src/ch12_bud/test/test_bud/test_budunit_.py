@@ -6,7 +6,7 @@ from src.ch12_bud.bud_main import (
     budunit_shop,
     get_budunit_from_dict,
 )
-from src.ref.keywords import Ch12Keywords as kw
+from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 
 
 def test_DEFAULT_CELLDEPTH():
@@ -75,54 +75,50 @@ def test_BudUnit_set_bud_voice_net_SetsAttr():
     assert yao_budunit._bud_voice_nets == {}
 
     # WHEN
-    sue_str = "Sue"
     sue_bud_voice_net = -44
-    yao_budunit.set_bud_voice_net(sue_str, sue_bud_voice_net)
+    yao_budunit.set_bud_voice_net(exx.sue, sue_bud_voice_net)
 
     # THEN
     assert yao_budunit._bud_voice_nets != {}
-    assert yao_budunit._bud_voice_nets.get(sue_str) == sue_bud_voice_net
+    assert yao_budunit._bud_voice_nets.get(exx.sue) == sue_bud_voice_net
 
 
 def test_BudUnit_bud_voice_net_exists_ReturnsObj():
     # ESTABLISH
     yao_budunit = budunit_shop("Yao", 33)
-    sue_str = "Sue"
     sue_bud_voice_net = -44
-    assert yao_budunit.bud_voice_net_exists(sue_str) is False
+    assert yao_budunit.bud_voice_net_exists(exx.sue) is False
 
     # WHEN
-    yao_budunit.set_bud_voice_net(sue_str, sue_bud_voice_net)
+    yao_budunit.set_bud_voice_net(exx.sue, sue_bud_voice_net)
 
     # THEN
-    assert yao_budunit.bud_voice_net_exists(sue_str)
+    assert yao_budunit.bud_voice_net_exists(exx.sue)
 
 
 def test_BudUnit_get_bud_voice_net_ReturnsObj():
     # ESTABLISH
     yao_budunit = budunit_shop("Yao", 33)
-    sue_str = "Sue"
     sue_bud_voice_net = -44
-    yao_budunit.set_bud_voice_net(sue_str, sue_bud_voice_net)
+    yao_budunit.set_bud_voice_net(exx.sue, sue_bud_voice_net)
 
     # WHEN / THEN
-    assert yao_budunit.get_bud_voice_net(sue_str)
-    assert yao_budunit.get_bud_voice_net(sue_str) == sue_bud_voice_net
+    assert yao_budunit.get_bud_voice_net(exx.sue)
+    assert yao_budunit.get_bud_voice_net(exx.sue) == sue_bud_voice_net
 
 
 def test_BudUnit_del_bud_voice_net_SetsAttr():
     # ESTABLISH
     yao_budunit = budunit_shop("Yao", 33)
-    sue_str = "Sue"
     sue_bud_voice_net = -44
-    yao_budunit.set_bud_voice_net(sue_str, sue_bud_voice_net)
-    assert yao_budunit.bud_voice_net_exists(sue_str)
+    yao_budunit.set_bud_voice_net(exx.sue, sue_bud_voice_net)
+    assert yao_budunit.bud_voice_net_exists(exx.sue)
 
     # WHEN
-    yao_budunit.del_bud_voice_net(sue_str)
+    yao_budunit.del_bud_voice_net(exx.sue)
 
     # THEN
-    assert yao_budunit.bud_voice_net_exists(sue_str) is False
+    assert yao_budunit.bud_voice_net_exists(exx.sue) is False
 
 
 def test_BudUnit_to_dict_ReturnsObj():

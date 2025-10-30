@@ -15,7 +15,7 @@ from src.ch07_belief_logic.belief_tool import (
     belief_voiceunit_exists,
     beliefunit_exists,
 )
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_beliefunit_exists_ReturnsObj():
@@ -26,16 +26,15 @@ def test_beliefunit_exists_ReturnsObj():
 
 def test_belief_voiceunit_exists_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     sue_belief = beliefunit_shop("Sue")
-    jkeys = {kw.voice_name: yao_str}
+    jkeys = {kw.voice_name: exx.yao}
 
     # WHEN / THEN
     assert not belief_voiceunit_exists(None, {})
     assert not belief_voiceunit_exists(sue_belief, jkeys)
 
     # WHEN
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
 
     # THEN
     assert belief_voiceunit_exists(sue_belief, jkeys)
@@ -44,28 +43,27 @@ def test_belief_voiceunit_exists_ReturnsObj():
 def test_belief_voice_membership_exists_ReturnsObj():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    yao_str = "Yao"
     swim_str = ";swim"
     sue_belief = beliefunit_shop("Sue")
-    jkeys = {kw.voice_name: yao_str, kw.group_title: swim_str}
+    jkeys = {kw.voice_name: exx.yao, kw.group_title: swim_str}
 
     # WHEN / THEN
     assert not belief_voice_membership_exists(None, {})
     assert not belief_voice_membership_exists(sue_belief, jkeys)
 
     # WHEN
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
     # THEN
     assert not belief_voice_membership_exists(sue_belief, jkeys)
 
     # WHEN
-    yao_plan = sue_belief.get_voice(yao_str)
+    yao_plan = sue_belief.get_voice(exx.yao)
     yao_plan.add_membership(";run")
     # THEN
     assert not belief_voice_membership_exists(sue_belief, jkeys)
 
     # WHEN
-    yao_plan = sue_belief.get_voice(yao_str)
+    yao_plan = sue_belief.get_voice(exx.yao)
     yao_plan.add_membership(swim_str)
     # THEN
     assert belief_voice_membership_exists(sue_belief, jkeys)
@@ -120,11 +118,10 @@ def test_belief_plan_awardunit_exists_ReturnsObj():
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
-    swim_str = "Swim"
     root_rope = sue_belief.planroot.get_plan_rope()
-    root_jkeys = {kw.plan_rope: root_rope, kw.awardee_title: swim_str}
-    casa_jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: swim_str}
-    clean_jkeys = {kw.plan_rope: clean_rope, kw.awardee_title: swim_str}
+    root_jkeys = {kw.plan_rope: root_rope, kw.awardee_title: exx.swim}
+    casa_jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: exx.swim}
+    clean_jkeys = {kw.plan_rope: clean_rope, kw.awardee_title: exx.swim}
 
     # WHEN / THEN
     assert not belief_plan_awardunit_exists(None, {})
@@ -134,7 +131,7 @@ def test_belief_plan_awardunit_exists_ReturnsObj():
     assert not belief_plan_awardunit_exists(sue_belief, clean_jkeys)
 
     # WHEN
-    sue_belief.planroot.set_awardunit(awardunit_shop(swim_str))
+    sue_belief.planroot.set_awardunit(awardunit_shop(exx.swim))
 
     # THEN
     assert not belief_plan_awardunit_exists(sue_belief, {})
@@ -238,10 +235,9 @@ def test_belief_plan_partyunit_exists_ReturnsObj():
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
-    swim_str = "Swim"
-    root_jkeys = {kw.plan_rope: root_rope, kw.party_title: swim_str}
-    casa_jkeys = {kw.plan_rope: casa_rope, kw.party_title: swim_str}
-    clean_jkeys = {kw.plan_rope: clean_rope, kw.party_title: swim_str}
+    root_jkeys = {kw.plan_rope: root_rope, kw.party_title: exx.swim}
+    casa_jkeys = {kw.plan_rope: casa_rope, kw.party_title: exx.swim}
+    clean_jkeys = {kw.plan_rope: clean_rope, kw.party_title: exx.swim}
 
     # WHEN / THEN
     assert not belief_plan_partyunit_exists(None, {})
@@ -251,7 +247,7 @@ def test_belief_plan_partyunit_exists_ReturnsObj():
     assert not belief_plan_partyunit_exists(sue_belief, clean_jkeys)
 
     # WHEN
-    sue_belief.planroot.laborunit.add_party(swim_str)
+    sue_belief.planroot.laborunit.add_party(exx.swim)
 
     # THEN
     assert not belief_plan_partyunit_exists(sue_belief, {})
@@ -268,10 +264,9 @@ def test_belief_plan_healerunit_exists_ReturnsObj():
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
-    swim_str = "Swim"
-    root_jkeys = {kw.plan_rope: root_rope, kw.healer_name: swim_str}
-    casa_jkeys = {kw.plan_rope: casa_rope, kw.healer_name: swim_str}
-    clean_jkeys = {kw.plan_rope: clean_rope, kw.healer_name: swim_str}
+    root_jkeys = {kw.plan_rope: root_rope, kw.healer_name: exx.swim}
+    casa_jkeys = {kw.plan_rope: casa_rope, kw.healer_name: exx.swim}
+    clean_jkeys = {kw.plan_rope: clean_rope, kw.healer_name: exx.swim}
 
     # WHEN / THEN
     assert not belief_plan_healerunit_exists(None, {})
@@ -281,7 +276,7 @@ def test_belief_plan_healerunit_exists_ReturnsObj():
     assert not belief_plan_healerunit_exists(sue_belief, clean_jkeys)
 
     # WHEN
-    sue_belief.planroot.healerunit.set_healer_name(swim_str)
+    sue_belief.planroot.healerunit.set_healer_name(exx.swim)
 
     # THEN
     assert not belief_plan_healerunit_exists(sue_belief, {})
@@ -330,16 +325,15 @@ def test_belief_attr_exists_ReturnsObj_beliefunit():
 
 def test_belief_attr_exists_ReturnsObj_belief_voiceunit():
     # ESTABLISH
-    yao_str = "Yao"
     sue_belief = beliefunit_shop("Sue")
-    x_jkeys = {kw.voice_name: yao_str}
+    x_jkeys = {kw.voice_name: exx.yao}
 
     # WHEN / THEN
     assert not belief_attr_exists(kw.belief_voiceunit, None, {})
     assert not belief_attr_exists(kw.belief_voiceunit, sue_belief, x_jkeys)
 
     # WHEN
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
 
     # THEN
     assert belief_attr_exists(kw.belief_voiceunit, sue_belief, x_jkeys)
@@ -347,10 +341,9 @@ def test_belief_attr_exists_ReturnsObj_belief_voiceunit():
 
 def test_belief_attr_exists_ReturnsObj_belief_voice_membership():
     # ESTABLISH
-    yao_str = "Yao"
     swim_str = ";swim"
     sue_belief = beliefunit_shop("Sue")
-    x_jkeys = {kw.voice_name: yao_str, kw.group_title: swim_str}
+    x_jkeys = {kw.voice_name: exx.yao, kw.group_title: swim_str}
     x_dimen = kw.belief_voice_membership
 
     # WHEN / THEN
@@ -358,18 +351,18 @@ def test_belief_attr_exists_ReturnsObj_belief_voice_membership():
     assert not belief_attr_exists(x_dimen, sue_belief, x_jkeys)
 
     # WHEN
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
     # THEN
     assert not belief_attr_exists(x_dimen, sue_belief, x_jkeys)
 
     # WHEN
-    yao_plan = sue_belief.get_voice(yao_str)
+    yao_plan = sue_belief.get_voice(exx.yao)
     yao_plan.add_membership(";run")
     # THEN
     assert not belief_attr_exists(x_dimen, sue_belief, x_jkeys)
 
     # WHEN
-    yao_plan = sue_belief.get_voice(yao_str)
+    yao_plan = sue_belief.get_voice(exx.yao)
     yao_plan.add_membership(swim_str)
     # THEN
     assert belief_attr_exists(x_dimen, sue_belief, x_jkeys)
@@ -425,11 +418,10 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_awardunit():
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
-    swim_str = "Swim"
     x_dimen = kw.belief_plan_awardunit
-    root_jkeys = {kw.plan_rope: root_rope, kw.awardee_title: swim_str}
-    casa_jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: swim_str}
-    clean_jkeys = {kw.plan_rope: clean_rope, kw.awardee_title: swim_str}
+    root_jkeys = {kw.plan_rope: root_rope, kw.awardee_title: exx.swim}
+    casa_jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: exx.swim}
+    clean_jkeys = {kw.plan_rope: clean_rope, kw.awardee_title: exx.swim}
 
     # WHEN / THEN
     assert not belief_attr_exists(x_dimen, None, {})
@@ -439,7 +431,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_awardunit():
     assert not belief_attr_exists(x_dimen, sue_belief, clean_jkeys)
 
     # WHEN
-    sue_belief.planroot.set_awardunit(awardunit_shop(swim_str))
+    sue_belief.planroot.set_awardunit(awardunit_shop(exx.swim))
 
     # THEN
     assert not belief_attr_exists(x_dimen, sue_belief, {})
@@ -542,11 +534,10 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_partyunit():
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
-    swim_str = "Swim"
     x_dimen = kw.belief_plan_partyunit
-    root_jkeys = {kw.plan_rope: root_rope, kw.party_title: swim_str}
-    casa_jkeys = {kw.plan_rope: casa_rope, kw.party_title: swim_str}
-    clean_jkeys = {kw.plan_rope: clean_rope, kw.party_title: swim_str}
+    root_jkeys = {kw.plan_rope: root_rope, kw.party_title: exx.swim}
+    casa_jkeys = {kw.plan_rope: casa_rope, kw.party_title: exx.swim}
+    clean_jkeys = {kw.plan_rope: clean_rope, kw.party_title: exx.swim}
 
     # WHEN / THEN
     assert not belief_attr_exists(x_dimen, None, {})
@@ -556,7 +547,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_partyunit():
     assert not belief_attr_exists(x_dimen, sue_belief, clean_jkeys)
 
     # WHEN
-    sue_belief.planroot.laborunit.add_party(swim_str)
+    sue_belief.planroot.laborunit.add_party(exx.swim)
 
     # THEN
     assert not belief_attr_exists(x_dimen, sue_belief, {})
@@ -573,11 +564,10 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_healerunit():
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
-    swim_str = "Swim"
     x_dimen = kw.belief_plan_healerunit
-    root_jkeys = {kw.plan_rope: root_rope, kw.healer_name: swim_str}
-    casa_jkeys = {kw.plan_rope: casa_rope, kw.healer_name: swim_str}
-    clean_jkeys = {kw.plan_rope: clean_rope, kw.healer_name: swim_str}
+    root_jkeys = {kw.plan_rope: root_rope, kw.healer_name: exx.swim}
+    casa_jkeys = {kw.plan_rope: casa_rope, kw.healer_name: exx.swim}
+    clean_jkeys = {kw.plan_rope: clean_rope, kw.healer_name: exx.swim}
 
     # WHEN / THEN
     assert not belief_attr_exists(x_dimen, None, {})
@@ -587,7 +577,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_healerunit():
     assert not belief_attr_exists(x_dimen, sue_belief, clean_jkeys)
 
     # WHEN
-    sue_belief.planroot.healerunit.set_healer_name(swim_str)
+    sue_belief.planroot.healerunit.set_healer_name(exx.swim)
 
     # THEN
     assert not belief_attr_exists(x_dimen, sue_belief, {})
