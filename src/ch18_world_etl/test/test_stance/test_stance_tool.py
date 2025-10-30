@@ -95,7 +95,6 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
     temp_dir_setup,
 ):
     # ESTABLISH database with translate data
-    yao_str = "Yao"
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -198,7 +197,6 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
     temp_dir_setup,
 ):
     # ESTABLISH database with translate data
-    yao_str = "Yao"
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -245,7 +243,7 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
     assert os_path_exists(stance0001_path) is False
 
     # WHEN
-    create_stance0001_file(world_dir, output_dir, yao_str, False)
+    create_stance0001_file(world_dir, output_dir, exx.yao, False)
 
     # THEN
     assert os_path_exists(stance0001_path)

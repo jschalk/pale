@@ -280,22 +280,21 @@ def test_add_belief_to_br00020_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    yao_str = "Yao"
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
-    bob_belief.add_voiceunit(yao_str)
+    bob_belief.add_voiceunit(exx.yao)
     run_str = ";Run"
     run_credit = 33
     run_debt = 55
-    bob_belief.get_voice(yao_str).add_membership(run_str, run_credit, run_debt)
+    bob_belief.get_voice(exx.yao).add_membership(run_str, run_credit, run_debt)
     csv_header = x_ideas.get("br00020")
 
     # WHEN
     x_csv = add_belief_to_br00020_csv(csv_header, bob_belief, csv_delimiter)
 
     # THEN
-    yao_yao_row = f",,{a23_str},{exx.bob},{yao_str},{yao_str},1,1\n"
-    yao_run_row = f",,{a23_str},{exx.bob},{yao_str},{run_str},{run_credit},{run_debt}\n"
+    yao_yao_row = f",,{a23_str},{exx.bob},{exx.yao},{exx.yao},1,1\n"
+    yao_run_row = f",,{a23_str},{exx.bob},{exx.yao},{run_str},{run_credit},{run_debt}\n"
     print(f"{x_csv=}")
     print(f"{yao_run_row=}")
     assert x_csv == f"{csv_header}{yao_yao_row}{yao_run_row}"
@@ -305,19 +304,18 @@ def test_add_belief_to_br00021_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    yao_str = "Yao"
     yao_credit = 33
     yao_debt = 55
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
-    bob_belief.add_voiceunit(yao_str, yao_credit, yao_debt)
+    bob_belief.add_voiceunit(exx.yao, yao_credit, yao_debt)
     csv_header = x_ideas.get("br00021")
 
     # WHEN
     x_csv = add_belief_to_br00021_csv(csv_header, bob_belief, csv_delimiter)
 
     # THEN
-    yao_row = f",,{a23_str},{exx.bob},{yao_str},{yao_credit},{yao_debt}\n"
+    yao_row = f",,{a23_str},{exx.bob},{exx.yao},{yao_credit},{yao_debt}\n"
     assert x_csv == f"{csv_header}{yao_row}"
 
 
@@ -328,10 +326,9 @@ def test_add_belief_to_br00022_csv_ReturnsObj():
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
     casa_rope = bob_belief.make_l1_rope("casa")
-    yao_str = "Yao"
     yao_give_force = 55
     yao_take_force = 77
-    casa_awardunit = awardunit_shop(yao_str, yao_give_force, yao_take_force)
+    casa_awardunit = awardunit_shop(exx.yao, yao_give_force, yao_take_force)
     bob_belief.add_plan(casa_rope)
     bob_belief.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
     csv_header = x_ideas.get("br00022")
@@ -342,7 +339,7 @@ def test_add_belief_to_br00022_csv_ReturnsObj():
     x_csv = add_belief_to_br00022_csv(csv_header, bob_belief, csv_delimiter)
 
     # THEN
-    yao_award_row = f",,{a23_str},{exx.bob},{casa_rope},{yao_str},{yao_give_force},{yao_take_force}\n"
+    yao_award_row = f",,{a23_str},{exx.bob},{casa_rope},{exx.yao},{yao_give_force},{yao_take_force}\n"
     assert x_csv == f"{csv_header}{yao_award_row}"
 
 
@@ -562,10 +559,9 @@ def test_add_beliefunit_to_stance_csv_strs_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    yao_str = "Yao"
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
-    bob_belief.add_voiceunit(yao_str)
+    bob_belief.add_voiceunit(exx.yao)
     mop_rope = bob_belief.make_l1_rope("mop")
     casa_rope = bob_belief.make_l1_rope("casa")
     clean_rope = bob_belief.make_rope(casa_rope, "clean")
@@ -576,7 +572,7 @@ def test_add_beliefunit_to_stance_csv_strs_ReturnsObj():
         mop_rope, reason_context=casa_rope, reason_case=clean_rope
     )
     bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(yao_str))
+    bob_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
     bob_belief.add_fact(casa_rope, clean_rope)
 
     br00020_header = x_ideas.get("br00020")
@@ -611,14 +607,13 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    yao_str = "Yao"
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
-    bob_belief.add_voiceunit(yao_str)
+    bob_belief.add_voiceunit(exx.yao)
     run_str = ";Run"
     run_credit = 33
     run_debt = 55
-    bob_belief.get_voice(yao_str).add_membership(run_str, run_credit, run_debt)
+    bob_belief.get_voice(exx.yao).add_membership(run_str, run_credit, run_debt)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
     spark7 = 7
@@ -630,8 +625,8 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
     x_csv = add_lesson_to_br00020_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    yao_yao_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{yao_str},{yao_str},1,1\n"
-    yao_run_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{yao_str},{run_str},{run_credit},{run_debt}\n"
+    yao_yao_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{exx.yao},{exx.yao},1,1\n"
+    yao_run_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{exx.yao},{run_str},{run_credit},{run_debt}\n"
     print(f"       {x_csv=}")
     expected_csv = f"{csv_header}{yao_run_row}{yao_yao_row}"
     print(f"{expected_csv=}")
@@ -642,12 +637,11 @@ def test_add_lesson_to_br00021_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    yao_str = "Yao"
     yao_credit = 33
     yao_debt = 55
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
-    bob_belief.add_voiceunit(yao_str, yao_credit, yao_debt)
+    bob_belief.add_voiceunit(exx.yao, yao_credit, yao_debt)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
     spark7 = 7
@@ -660,7 +654,7 @@ def test_add_lesson_to_br00021_csv_ReturnsObj():
 
     # THEN
     yao_row = (
-        f"{exx.sue},{spark7},{a23_str},{exx.bob},{yao_str},{yao_credit},{yao_debt}\n"
+        f"{exx.sue},{spark7},{a23_str},{exx.bob},{exx.yao},{yao_credit},{yao_debt}\n"
     )
     assert x_csv == f"{csv_header}{yao_row}"
 
@@ -672,10 +666,9 @@ def test_add_lesson_to_br00022_csv_ReturnsObj():
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
     casa_rope = bob_belief.make_l1_rope("casa")
-    yao_str = "Yao"
     yao_give_force = 55
     yao_take_force = 77
-    casa_awardunit = awardunit_shop(yao_str, yao_give_force, yao_take_force)
+    casa_awardunit = awardunit_shop(exx.yao, yao_give_force, yao_take_force)
     bob_belief.add_plan(casa_rope)
     bob_belief.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
     bob_beliefdelta = beliefdelta_shop()
@@ -690,7 +683,7 @@ def test_add_lesson_to_br00022_csv_ReturnsObj():
     x_csv = add_lesson_to_br00022_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    yao_award_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{casa_rope},{yao_str},{yao_give_force},{yao_take_force}\n"
+    yao_award_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{casa_rope},{exx.yao},{yao_give_force},{yao_take_force}\n"
     assert x_csv == f"{csv_header}{yao_award_row}"
 
 
@@ -953,10 +946,9 @@ def test_add_lessonunit_to_stance_csv_strs_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    yao_str = "Yao"
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
-    bob_belief.add_voiceunit(yao_str)
+    bob_belief.add_voiceunit(exx.yao)
     mop_rope = bob_belief.make_l1_rope("mop")
     casa_rope = bob_belief.make_l1_rope("casa")
     clean_rope = bob_belief.make_rope(casa_rope, "clean")
@@ -967,7 +959,7 @@ def test_add_lessonunit_to_stance_csv_strs_ReturnsObj():
         mop_rope, reason_context=casa_rope, reason_case=clean_rope
     )
     bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(yao_str))
+    bob_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
     bob_belief.add_fact(casa_rope, clean_rope)
     bob_belief.credor_respect = 444
     bob_belief.debtor_respect = 556

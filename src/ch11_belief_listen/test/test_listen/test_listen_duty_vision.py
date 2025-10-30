@@ -89,11 +89,10 @@ def run_rope() -> RopeTerm:
 
 
 def get_example_yao_belief() -> BeliefUnit:
-    yao_str = "Yao"
     zia_str = "Zia"
-    yao_speaker = beliefunit_shop(yao_str, ch11_example_moment_label())
+    yao_speaker = beliefunit_shop(exx.yao, ch11_example_moment_label())
     yao_speaker.set_plan_obj(planunit_shop(run_str()), casa_rope())
-    yao_speaker.add_voiceunit(yao_str, voice_debt_lumen=10)
+    yao_speaker.add_voiceunit(exx.yao, voice_debt_lumen=10)
     yao_speaker.add_voiceunit(zia_str, voice_debt_lumen=30)
     yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=40)
     yao_speaker.set_voice_respect(80)
@@ -101,7 +100,6 @@ def get_example_yao_belief() -> BeliefUnit:
 
 
 def get_example_yao_vision1_speaker() -> BeliefUnit:
-    yao_str = "Yao"
     yao_speaker = get_example_yao_belief()
     yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_voice_respect(40)
@@ -109,14 +107,13 @@ def get_example_yao_vision1_speaker() -> BeliefUnit:
     yao_speaker.set_plan_obj(planunit_shop(hungry_str()), eat_rope())
     yao_speaker.set_plan_obj(planunit_shop(full_str()), eat_rope())
     cook_planunit = yao_speaker.get_plan_obj(cook_rope())
-    cook_planunit.laborunit.add_party(yao_str)
+    cook_planunit.laborunit.add_party(exx.yao)
     yao_speaker.edit_reason(cook_rope(), eat_rope(), hungry_rope())
     yao_speaker.add_fact(eat_rope(), hungry_rope())
     return yao_speaker
 
 
 def get_example_yao_vision2_speaker() -> BeliefUnit:
-    yao_str = "Yao"
     yao_speaker = get_example_yao_belief()
     yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_voice_respect(30)
@@ -124,7 +121,7 @@ def get_example_yao_vision2_speaker() -> BeliefUnit:
     yao_speaker.set_plan_obj(planunit_shop(hungry_str()), eat_rope())
     yao_speaker.set_plan_obj(planunit_shop(full_str()), eat_rope())
     cook_planunit = yao_speaker.get_plan_obj(cook_rope())
-    cook_planunit.laborunit.add_party(yao_str)
+    cook_planunit.laborunit.add_party(exx.yao)
     yao_speaker.edit_reason(cook_rope(), eat_rope(), hungry_rope())
     yao_speaker.add_fact(eat_rope(), hungry_rope())
 
@@ -277,7 +274,6 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
     assert len(yao_gut0._keep_dict) == 3
     # print(f"{yao_gut0._plan_dict.keys()=}")
 
-    yao_str = yao_gut0.belief_name
     yao_vision1 = get_example_yao_vision1_speaker()
     yao_vision2 = get_example_yao_vision2_speaker()
     yao_vision3 = get_example_yao_vision3_speaker()
@@ -285,8 +281,8 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
     yao_ohio_lessonfilehandler = get_yao_ohio_lessonfilehandler()
     zia_utah_lessonfilehandler = get_zia_utah_lessonfilehandler()
     # delete_dir(yao_iowa_lessonfilehandler.beliefs_dir())
-    assert gut_file_exists(moment_mstr_dir, moment_label, yao_str) is False
-    assert job_file_exists(moment_mstr_dir, moment_label, yao_str) is False
+    assert gut_file_exists(moment_mstr_dir, moment_label, exx.yao) is False
+    assert job_file_exists(moment_mstr_dir, moment_label, exx.yao) is False
     assert (
         vision_file_exists(
             yao_iowa_lessonfilehandler.moment_mstr_dir,
@@ -294,7 +290,7 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
             yao_iowa_lessonfilehandler.moment_label,
             get_iowa_rope(),
             yao_iowa_lessonfilehandler.knot,
-            yao_str,
+            exx.yao,
         )
         is False
     )
@@ -305,7 +301,7 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
             yao_ohio_lessonfilehandler.moment_label,
             get_ohio_rope(),
             yao_ohio_lessonfilehandler.knot,
-            yao_str,
+            exx.yao,
         )
         is False
     )
@@ -316,14 +312,14 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
             zia_utah_lessonfilehandler.moment_label,
             get_utah_rope(),
             zia_utah_lessonfilehandler.knot,
-            yao_str,
+            exx.yao,
         )
         is False
     )
 
     print(f"{yao_gut0.get_fact(get_location_rope())=}")
     save_gut_file(env_dir(), yao_gut0)
-    assert gut_file_exists(moment_mstr_dir, moment_label, yao_str)
+    assert gut_file_exists(moment_mstr_dir, moment_label, exx.yao)
     assert (
         vision_file_exists(
             yao_iowa_lessonfilehandler.moment_mstr_dir,
@@ -331,7 +327,7 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
             yao_iowa_lessonfilehandler.moment_label,
             get_iowa_rope(),
             yao_iowa_lessonfilehandler.knot,
-            yao_str,
+            exx.yao,
         )
         is False
     )
@@ -342,7 +338,7 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
             yao_ohio_lessonfilehandler.moment_label,
             get_ohio_rope(),
             yao_ohio_lessonfilehandler.knot,
-            yao_str,
+            exx.yao,
         )
         is False
     )
@@ -353,19 +349,19 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
             zia_utah_lessonfilehandler.moment_label,
             get_utah_rope(),
             zia_utah_lessonfilehandler.knot,
-            yao_str,
+            exx.yao,
         )
         is False
     )
     # WHEN / THEN
-    assert job_file_exists(moment_mstr_dir, moment_label, yao_str) is False
+    assert job_file_exists(moment_mstr_dir, moment_label, exx.yao) is False
     listen_to_belief_visions(yao_iowa_lessonfilehandler, get_iowa_rope())
-    assert job_file_exists(moment_mstr_dir, moment_label, yao_str)
+    assert job_file_exists(moment_mstr_dir, moment_label, exx.yao)
 
-    yao_job = open_job_file(moment_mstr_dir, moment_label, yao_str)
+    yao_job = open_job_file(moment_mstr_dir, moment_label, exx.yao)
     yao_job.cashout()
     assert yao_job.voices.keys() == yao_gut0.voices.keys()
-    assert yao_job.get_voice(yao_str).irrational_voice_debt_lumen == 0
+    assert yao_job.get_voice(exx.yao).irrational_voice_debt_lumen == 0
     yao_job_voices = yao_job.to_dict().get(kw.voices)
     yao_gut0_voices = yao_gut0.to_dict().get(kw.voices)
     yao_job_bob = yao_job_voices.get("Bob")
@@ -394,8 +390,7 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
 
 def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
     # ESTABLISH
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str)
+    yao_duty = beliefunit_shop(exx.yao)
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
     save_duty_belief(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
@@ -413,14 +408,14 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
             sue_texas_lessonfilehandler.moment_label,
             get_texas_rope(),
             sue_texas_lessonfilehandler.knot,
-            yao_str,
+            exx.yao,
         )
         is False
     )
 
     # WHEN
     create_vision_file_from_duty_file(
-        sue_texas_lessonfilehandler, yao_str, get_texas_rope()
+        sue_texas_lessonfilehandler, exx.yao, get_texas_rope()
     )
 
     # THEN
@@ -430,7 +425,7 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
         sue_texas_lessonfilehandler.moment_label,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
-        yao_str,
+        exx.yao,
     )
     yao_vision = get_vision_belief(
         sue_texas_lessonfilehandler.moment_mstr_dir,
@@ -438,8 +433,8 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
         sue_texas_lessonfilehandler.moment_label,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
-        yao_str,
+        exx.yao,
     )
     assert yao_vision.belief_name is not None
-    assert yao_vision.belief_name == yao_str
+    assert yao_vision.belief_name == exx.yao
     assert yao_vision.to_dict() == yao_duty.to_dict()

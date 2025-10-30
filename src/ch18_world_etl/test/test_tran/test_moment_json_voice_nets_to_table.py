@@ -17,7 +17,6 @@ def test_insert_tranunit_voices_net_PopulatesDatabase():
     # ESTABLISH
     a23_str = "amy23"
     a23_tranbook = tranbook_shop(a23_str)
-    yao_str = "Yao"
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -25,10 +24,10 @@ def test_insert_tranunit_voices_net_PopulatesDatabase():
     t66_yao_amount = -66
     t77_tran_time = 7707
     t77_yao_amount = -77
-    a23_tranbook.add_tranunit(exx.sue, yao_str, t55_tran_time, t55_yao_amount)
-    a23_tranbook.add_tranunit(exx.sue, yao_str, t66_tran_time, t66_yao_amount)
+    a23_tranbook.add_tranunit(exx.sue, exx.yao, t55_tran_time, t55_yao_amount)
+    a23_tranbook.add_tranunit(exx.sue, exx.yao, t66_tran_time, t66_yao_amount)
     a23_tranbook.add_tranunit(exx.sue, exx.bob, t55_tran_time, t55_bob_amount)
-    a23_tranbook.add_tranunit(yao_str, yao_str, t77_tran_time, t77_yao_amount)
+    a23_tranbook.add_tranunit(exx.yao, exx.yao, t77_tran_time, t77_yao_amount)
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         moment_voice_nets_tablename = kw.moment_voice_nets
@@ -45,7 +44,7 @@ def test_insert_tranunit_voices_net_PopulatesDatabase():
         rows = cursor.fetchall()
         assert rows == [
             (a23_str, exx.bob, t55_bob_amount),
-            (a23_str, yao_str, t55_yao_amount + t66_yao_amount + t77_yao_amount),
+            (a23_str, exx.yao, t55_yao_amount + t66_yao_amount + t77_yao_amount),
         ]
 
 
@@ -56,7 +55,6 @@ def test_etl_moment_json_voice_nets_to_moment_voice_nets_table_PopulatesDatabase
     a23_str = "amy23"
     mstr_dir = get_temp_dir()
     a23_moment = momentunit_shop(a23_str, mstr_dir)
-    yao_str = "Yao"
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -64,10 +62,10 @@ def test_etl_moment_json_voice_nets_to_moment_voice_nets_table_PopulatesDatabase
     t66_yao_amount = -66
     t77_tran_time = 7707
     t77_yao_amount = -77
-    a23_moment.add_paypurchase(exx.sue, yao_str, t55_tran_time, t55_yao_amount)
-    a23_moment.add_paypurchase(exx.sue, yao_str, t66_tran_time, t66_yao_amount)
+    a23_moment.add_paypurchase(exx.sue, exx.yao, t55_tran_time, t55_yao_amount)
+    a23_moment.add_paypurchase(exx.sue, exx.yao, t66_tran_time, t66_yao_amount)
     a23_moment.add_paypurchase(exx.sue, exx.bob, t55_tran_time, t55_bob_amount)
-    a23_moment.add_paypurchase(yao_str, yao_str, t77_tran_time, t77_yao_amount)
+    a23_moment.add_paypurchase(exx.yao, exx.yao, t77_tran_time, t77_yao_amount)
     a23_json_path = create_moment_json_path(mstr_dir, a23_str)
     save_json(a23_json_path, None, a23_moment.to_dict())
 
@@ -86,5 +84,5 @@ def test_etl_moment_json_voice_nets_to_moment_voice_nets_table_PopulatesDatabase
         rows = cursor.fetchall()
         assert rows == [
             (a23_str, exx.bob, t55_bob_amount),
-            (a23_str, yao_str, t55_yao_amount + t66_yao_amount + t77_yao_amount),
+            (a23_str, exx.yao, t55_yao_amount + t66_yao_amount + t77_yao_amount),
         ]

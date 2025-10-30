@@ -11,14 +11,13 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_get_patientledger_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     yao_voice_cred_lumen = 8
     bob_voice_cred_lumen = 48
     sue_voice_cred_lumen = 66
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     yao_belief.add_voiceunit(exx.bob, yao_voice_cred_lumen)
     yao_belief.add_voiceunit(exx.sue, bob_voice_cred_lumen)
-    yao_belief.add_voiceunit(yao_str, sue_voice_cred_lumen)
+    yao_belief.add_voiceunit(exx.yao, sue_voice_cred_lumen)
 
     # WHEN
     yao_patientledger = get_patientledger(yao_belief)
@@ -27,19 +26,18 @@ def test_get_patientledger_ReturnsObj():
     assert len(yao_patientledger) == 3
     assert yao_patientledger.get(exx.bob) == yao_voice_cred_lumen
     assert yao_patientledger.get(exx.sue) == bob_voice_cred_lumen
-    assert yao_patientledger.get(yao_str) == sue_voice_cred_lumen
+    assert yao_patientledger.get(exx.yao) == sue_voice_cred_lumen
 
 
 def test_get_patientledger_ReturnsObjWithNoEmpty_voice_cred_lumen():
     # ESTABLISH
-    yao_str = "Yao"
     yao_voice_cred_lumen = 8
     bob_voice_cred_lumen = 0
     sue_voice_cred_lumen = 66
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     yao_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
     yao_belief.add_voiceunit(exx.sue, sue_voice_cred_lumen)
-    yao_belief.add_voiceunit(yao_str, yao_voice_cred_lumen)
+    yao_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
 
     # WHEN
     yao_patientledger = get_patientledger(yao_belief)
@@ -47,20 +45,19 @@ def test_get_patientledger_ReturnsObjWithNoEmpty_voice_cred_lumen():
     # THEN
     assert yao_patientledger.get(exx.bob) is None
     assert yao_patientledger.get(exx.sue) == sue_voice_cred_lumen
-    assert yao_patientledger.get(yao_str) == yao_voice_cred_lumen
+    assert yao_patientledger.get(exx.yao) == yao_voice_cred_lumen
     assert len(yao_patientledger) == 2
 
 
 def test_get_doctorledger_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     yao_voice_debt_lumen = 8
     bob_voice_debt_lumen = 48
     sue_voice_debt_lumen = 66
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     yao_belief.add_voiceunit(exx.bob, 2, bob_voice_debt_lumen)
     yao_belief.add_voiceunit(exx.sue, 2, sue_voice_debt_lumen)
-    yao_belief.add_voiceunit(yao_str, 2, yao_voice_debt_lumen)
+    yao_belief.add_voiceunit(exx.yao, 2, yao_voice_debt_lumen)
 
     # WHEN
     yao_doctorledger = get_doctorledger(yao_belief)
@@ -69,19 +66,18 @@ def test_get_doctorledger_ReturnsObj():
     assert len(yao_doctorledger) == 3
     assert yao_doctorledger.get(exx.bob) == bob_voice_debt_lumen
     assert yao_doctorledger.get(exx.sue) == sue_voice_debt_lumen
-    assert yao_doctorledger.get(yao_str) == yao_voice_debt_lumen
+    assert yao_doctorledger.get(exx.yao) == yao_voice_debt_lumen
 
 
 def test_get_doctorledger_ReturnsObjWithNoEmpty_voice_debt_lumen():
     # ESTABLISH
-    yao_str = "Yao"
     yao_voice_debt_lumen = 8
     bob_voice_debt_lumen = 48
     sue_voice_debt_lumen = 0
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     yao_belief.add_voiceunit(exx.bob, 2, bob_voice_debt_lumen)
     yao_belief.add_voiceunit(exx.sue, 2, sue_voice_debt_lumen)
-    yao_belief.add_voiceunit(yao_str, 2, yao_voice_debt_lumen)
+    yao_belief.add_voiceunit(exx.yao, 2, yao_voice_debt_lumen)
 
     # WHEN
     yao_doctorledger = get_doctorledger(yao_belief)
@@ -89,54 +85,51 @@ def test_get_doctorledger_ReturnsObjWithNoEmpty_voice_debt_lumen():
     # THEN
     assert yao_doctorledger.get(exx.bob) == bob_voice_debt_lumen
     assert yao_doctorledger.get(exx.sue) is None
-    assert yao_doctorledger.get(yao_str) == yao_voice_debt_lumen
+    assert yao_doctorledger.get(exx.yao) == yao_voice_debt_lumen
     assert len(yao_doctorledger) == 2
 
 
 def test_RiverRun_set_voice_need_due_SetsAttr():
     # ESTABLISH
     mstr_dir = temp_moment_mstr_dir()
-    yao_str = "Yao"
     bob_riverrun = riverrun_shop(mstr_dir, None, exx.bob)
-    yao_str = "Yao"
-    assert bob_riverrun.need_dues.get(yao_str) is None
+    assert bob_riverrun.need_dues.get(exx.yao) is None
 
     # WHEN
     yao_need_due = 7
-    bob_riverrun.set_voice_need_due(yao_str, yao_need_due)
+    bob_riverrun.set_voice_need_due(exx.yao, yao_need_due)
 
     # THEN
-    assert bob_riverrun.need_dues.get(yao_str) == yao_need_due
+    assert bob_riverrun.need_dues.get(exx.yao) == yao_need_due
 
 
 def test_RiverRun_need_dues_unpaid_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
-    yao_str = "Yao"
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
+    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
     assert x_riverrun.need_dues_unpaid() is False
 
     # WHEN
     yao_need_due = 500
-    x_riverrun.set_voice_need_due(yao_str, yao_need_due)
+    x_riverrun.set_voice_need_due(exx.yao, yao_need_due)
     # THEN
     assert x_riverrun.need_dues_unpaid()
 
     # WHEN
-    x_riverrun.delete_need_due(yao_str)
+    x_riverrun.delete_need_due(exx.yao)
     # THEN
     assert x_riverrun.need_dues_unpaid() is False
 
     # WHEN
     bob_need_due = 300
     x_riverrun.set_voice_need_due(exx.bob, bob_need_due)
-    x_riverrun.set_voice_need_due(yao_str, yao_need_due)
+    x_riverrun.set_voice_need_due(exx.yao, yao_need_due)
     # THEN
     assert x_riverrun.need_dues_unpaid()
 
     # WHEN
-    x_riverrun.delete_need_due(yao_str)
+    x_riverrun.delete_need_due(exx.yao)
     # THEN
     assert x_riverrun.need_dues_unpaid()
 
@@ -152,14 +145,13 @@ def test_RiverRun_set_need_dues_SetsAttr():
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
-    yao_str = "Yao"
     bob_voice_debt_lumen = 38
     sue_voice_debt_lumen = 56
     yao_voice_debt_lumen = 6
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(exx.bob, 2, bob_voice_debt_lumen)
     bob_belief.add_voiceunit(exx.sue, 2, sue_voice_debt_lumen)
-    bob_belief.add_voiceunit(yao_str, 2, yao_voice_debt_lumen)
+    bob_belief.add_voiceunit(exx.yao, 2, yao_voice_debt_lumen)
     bob_doctorledger = get_doctorledger(bob_belief)
     assert bob_riverrun.need_dues_unpaid() is False
 
@@ -171,7 +163,7 @@ def test_RiverRun_set_need_dues_SetsAttr():
     bob_riverrun = bob_riverrun.need_dues
     assert bob_riverrun.get(exx.bob) == 380
     assert bob_riverrun.get(exx.sue) == 560
-    assert bob_riverrun.get(yao_str) == 60
+    assert bob_riverrun.get(exx.yao) == 60
 
 
 def test_RiverRun_voice_has_need_due_ReturnsBool():
@@ -185,7 +177,6 @@ def test_RiverRun_voice_has_need_due_ReturnsBool():
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
-    yao_str = "Yao"
     zia_str = "Zia"
     yao_voice_debt_lumen = 6
     bob_voice_debt_lumen = 38
@@ -193,11 +184,11 @@ def test_RiverRun_voice_has_need_due_ReturnsBool():
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(exx.bob, 2, bob_voice_debt_lumen)
     bob_belief.add_voiceunit(exx.sue, 2, sue_voice_debt_lumen)
-    bob_belief.add_voiceunit(yao_str, 2, yao_voice_debt_lumen)
+    bob_belief.add_voiceunit(exx.yao, 2, yao_voice_debt_lumen)
     bob_doctorledger = get_doctorledger(bob_belief)
     assert bob_riverrun.voice_has_need_due(exx.bob) is False
     assert bob_riverrun.voice_has_need_due(exx.sue) is False
-    assert bob_riverrun.voice_has_need_due(yao_str) is False
+    assert bob_riverrun.voice_has_need_due(exx.yao) is False
     assert bob_riverrun.voice_has_need_due(zia_str) is False
 
     # WHEN
@@ -206,7 +197,7 @@ def test_RiverRun_voice_has_need_due_ReturnsBool():
     # THEN
     assert bob_riverrun.voice_has_need_due(exx.bob)
     assert bob_riverrun.voice_has_need_due(exx.sue)
-    assert bob_riverrun.voice_has_need_due(yao_str)
+    assert bob_riverrun.voice_has_need_due(exx.yao)
     assert bob_riverrun.voice_has_need_due(zia_str) is False
 
 
@@ -221,15 +212,14 @@ def test_RiverRun_delete_need_due_SetsAttr():
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
-    yao_str = "Yao"
-    bob_riverrun.set_voice_need_due(yao_str, 5)
-    assert bob_riverrun.voice_has_need_due(yao_str)
+    bob_riverrun.set_voice_need_due(exx.yao, 5)
+    assert bob_riverrun.voice_has_need_due(exx.yao)
 
     # WHEN
-    bob_riverrun.delete_need_due(yao_str)
+    bob_riverrun.delete_need_due(exx.yao)
 
     # THEN
-    assert bob_riverrun.voice_has_need_due(yao_str) is False
+    assert bob_riverrun.voice_has_need_due(exx.yao) is False
 
 
 def test_RiverRun_get_voice_need_due_ReturnsObj():
@@ -243,7 +233,6 @@ def test_RiverRun_get_voice_need_due_ReturnsObj():
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
-    yao_str = "Yao"
     zia_str = "Zia"
     bob_voice_debt_lumen = 38
     sue_voice_debt_lumen = 56
@@ -251,7 +240,7 @@ def test_RiverRun_get_voice_need_due_ReturnsObj():
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(exx.bob, 2, bob_voice_debt_lumen)
     bob_belief.add_voiceunit(exx.sue, 2, sue_voice_debt_lumen)
-    bob_belief.add_voiceunit(yao_str, 2, yao_voice_debt_lumen)
+    bob_belief.add_voiceunit(exx.yao, 2, yao_voice_debt_lumen)
     bob_doctorledger = get_doctorledger(bob_belief)
     assert bob_riverrun.voice_has_need_due(exx.bob) is False
     assert bob_riverrun.get_voice_need_due(exx.bob) == 0
@@ -279,14 +268,13 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioX():
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
-    yao_str = "Yao"
     bob_voice_debt_lumen = 38
     sue_voice_debt_lumen = 56
     yao_voice_debt_lumen = 6
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(exx.bob, 2, bob_voice_debt_lumen)
     bob_belief.add_voiceunit(exx.sue, 2, sue_voice_debt_lumen)
-    bob_belief.add_voiceunit(yao_str, 2, yao_voice_debt_lumen)
+    bob_belief.add_voiceunit(exx.yao, 2, yao_voice_debt_lumen)
     bob_doctorledger = get_doctorledger(bob_belief)
     bob_riverrun.set_need_dues(bob_doctorledger)
     assert bob_riverrun.get_voice_need_due(exx.bob) == 380, 0
@@ -320,8 +308,8 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioX():
     assert bob_riverrun.get_voice_need_due(zia_str) == 0
 
     # WHEN / THEN
-    assert bob_riverrun.get_voice_need_due(yao_str) == 60
-    excess_carer_points, need_got = bob_riverrun.levy_need_due(yao_str, 81)
+    assert bob_riverrun.get_voice_need_due(exx.yao) == 60
+    excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.yao, 81)
     assert excess_carer_points == 21
     assert need_got == 60
-    assert bob_riverrun.get_voice_need_due(yao_str) == 0
+    assert bob_riverrun.get_voice_need_due(exx.yao) == 0

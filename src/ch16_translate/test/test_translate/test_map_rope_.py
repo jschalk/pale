@@ -27,9 +27,8 @@ def test_RopeMap_Exists():
 
 def test_ropemap_shop_ReturnsObj_Scenario0():
     # ESTABLISH
-    xio_str = "Xio"
     spark7 = 7
-    otx2inx = {xio_str: exx.sue}
+    otx2inx = {exx.xio: exx.sue}
     x_unknown_str = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
@@ -81,9 +80,8 @@ def test_ropemap_shop_ReturnsObj_Scenario2():
 
 def test_ropemap_shop_ReturnsObj_Scenario3_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
-    xio_str = "Xio"
     spark7 = 7
-    otx2inx = {xio_str: exx.sue}
+    otx2inx = {exx.xio: exx.sue}
     x_nan = float("nan")
 
     # WHEN
@@ -107,10 +105,9 @@ def test_ropemap_shop_ReturnsObj_Scenario3_TranslateCoreAttrAreDefaultWhenGiven_
 
 def test_RopeMap_set_all_otx2inx_SetsAttr():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     voice_name_ropemap = ropemap_shop()
-    x_otx2inx = {xio_str: exx.sue, zia_str: zia_str}
+    x_otx2inx = {exx.xio: exx.sue, zia_str: zia_str}
     assert voice_name_ropemap.otx2inx != x_otx2inx
 
     # WHEN
@@ -122,11 +119,10 @@ def test_RopeMap_set_all_otx2inx_SetsAttr():
 
 def test_RopeMap_set_all_otx2inx_RaisesErrorIf_unknown_str_IsKeyIn_otx2inx():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     x_unknown_str = "UnknownTerm"
     voice_name_ropemap = ropemap_shop(unknown_str=x_unknown_str)
-    x_otx2inx = {xio_str: exx.sue, x_unknown_str: zia_str}
+    x_otx2inx = {exx.xio: exx.sue, x_unknown_str: zia_str}
     assert voice_name_ropemap.otx2inx != x_otx2inx
 
     # WHEN / THEN
@@ -138,11 +134,10 @@ def test_RopeMap_set_all_otx2inx_RaisesErrorIf_unknown_str_IsKeyIn_otx2inx():
 
 def test_RopeMap_set_all_otx2inx_DoesNotRaiseErrorIfParameterSetToTrue():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     x_unknown_str = "UnknownTerm"
     x_ropemap = ropemap_shop(None)
-    x_otx2inx = {xio_str: exx.sue, x_unknown_str: zia_str}
+    x_otx2inx = {exx.xio: exx.sue, x_unknown_str: zia_str}
     assert x_ropemap.otx2inx != x_otx2inx
 
     # WHEN
@@ -154,74 +149,70 @@ def test_RopeMap_set_all_otx2inx_DoesNotRaiseErrorIfParameterSetToTrue():
 
 def test_RopeMap_set_otx2inx_SetsAttr():
     # ESTABLISH
-    xio_str = "Xio"
     x_ropemap = ropemap_shop(None)
     assert x_ropemap.otx2inx == {}
 
     # WHEN
-    x_ropemap.set_otx2inx(xio_str, exx.sue)
+    x_ropemap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap.otx2inx == {xio_str: exx.sue}
+    assert x_ropemap.otx2inx == {exx.xio: exx.sue}
 
 
 def test_RopeMap_get_inx_value_ReturnsObj():
     # ESTABLISH
-    xio_str = "Xio"
     x_ropemap = ropemap_shop(None)
-    assert x_ropemap._get_inx_value(xio_str) != exx.sue
+    assert x_ropemap._get_inx_value(exx.xio) != exx.sue
 
     # WHEN
-    x_ropemap.set_otx2inx(xio_str, exx.sue)
+    x_ropemap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap._get_inx_value(xio_str) == exx.sue
+    assert x_ropemap._get_inx_value(exx.xio) == exx.sue
 
 
 def test_RopeMap_otx2inx_exists_ReturnsObj():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
-    assert x_ropemap.otx2inx_exists(xio_str, exx.sue) is False
-    assert x_ropemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_ropemap.otx2inx_exists(xio_str, exx.bob) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.sue) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, zia_str) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.bob) is False
     assert x_ropemap.otx2inx_exists(zia_str, zia_str) is False
 
     # WHEN
-    x_ropemap.set_otx2inx(xio_str, exx.sue)
+    x_ropemap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap.otx2inx_exists(xio_str, exx.sue)
-    assert x_ropemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_ropemap.otx2inx_exists(xio_str, exx.bob) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.sue)
+    assert x_ropemap.otx2inx_exists(exx.xio, zia_str) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.bob) is False
     assert x_ropemap.otx2inx_exists(zia_str, zia_str) is False
 
     # WHEN
     x_ropemap.set_otx2inx(zia_str, zia_str)
 
     # THEN
-    assert x_ropemap.otx2inx_exists(xio_str, exx.sue)
-    assert x_ropemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_ropemap.otx2inx_exists(xio_str, exx.bob) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.sue)
+    assert x_ropemap.otx2inx_exists(exx.xio, zia_str) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.bob) is False
     assert x_ropemap.otx2inx_exists(zia_str, zia_str)
 
 
 def test_RopeMap_otx_exists_ReturnsObj():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
-    assert x_ropemap.otx_exists(xio_str) is False
+    assert x_ropemap.otx_exists(exx.xio) is False
     assert x_ropemap.otx_exists(exx.sue) is False
     assert x_ropemap.otx_exists(exx.bob) is False
     assert x_ropemap.otx_exists(zia_str) is False
 
     # WHEN
-    x_ropemap.set_otx2inx(xio_str, exx.sue)
+    x_ropemap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap.otx_exists(xio_str)
+    assert x_ropemap.otx_exists(exx.xio)
     assert x_ropemap.otx_exists(exx.sue) is False
     assert x_ropemap.otx_exists(exx.bob) is False
     assert x_ropemap.otx_exists(zia_str) is False
@@ -230,7 +221,7 @@ def test_RopeMap_otx_exists_ReturnsObj():
     x_ropemap.set_otx2inx(zia_str, zia_str)
 
     # THEN
-    assert x_ropemap.otx_exists(xio_str)
+    assert x_ropemap.otx_exists(exx.xio)
     assert x_ropemap.otx_exists(exx.sue) is False
     assert x_ropemap.otx_exists(exx.bob) is False
     assert x_ropemap.otx_exists(zia_str)
@@ -238,25 +229,23 @@ def test_RopeMap_otx_exists_ReturnsObj():
 
 def test_RopeMap_del_otx2inx_SetsAttr():
     # ESTABLISH
-    xio_str = "Xio"
     x_ropemap = ropemap_shop(None)
-    x_ropemap.set_otx2inx(xio_str, exx.sue)
-    assert x_ropemap.otx2inx_exists(xio_str, exx.sue)
+    x_ropemap.set_otx2inx(exx.xio, exx.sue)
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.sue)
 
     # WHEN
-    x_ropemap.del_otx2inx(xio_str)
+    x_ropemap.del_otx2inx(exx.xio)
 
     # THEN
-    assert x_ropemap.otx2inx_exists(xio_str, exx.sue) is False
+    assert x_ropemap.otx2inx_exists(exx.xio, exx.sue) is False
 
 
 def test_RopeMap_unknown_str_in_otx2inx_ReturnsObj():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     x_unknown_str = "UnknownTerm"
     x_ropemap = ropemap_shop(unknown_str=x_unknown_str)
-    x_ropemap.set_otx2inx(xio_str, exx.sue)
+    x_ropemap.set_otx2inx(exx.xio, exx.sue)
     assert x_ropemap._unknown_str_in_otx2inx() is False
 
     # WHEN
@@ -268,15 +257,14 @@ def test_RopeMap_unknown_str_in_otx2inx_ReturnsObj():
 
 def test_RopeMap_set_label_SetsAttr():
     # ESTABLISH
-    xio_str = "Xio"
     x_ropemap = ropemap_shop(None)
     assert x_ropemap.labelmap.otx2inx == {}
 
     # WHEN
-    x_ropemap.set_label(xio_str, exx.sue)
+    x_ropemap.set_label(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap.labelmap.otx2inx == {xio_str: exx.sue}
+    assert x_ropemap.labelmap.otx2inx == {exx.xio: exx.sue}
 
 
 def test_RopeMap_set_label_RaisesExceptionWhen_knot_In_otx_label():
@@ -309,48 +297,46 @@ def test_RopeMap_set_label_RaisesExceptionWhen_knot_In_inx_label():
 
 def test_RopeTranslate_label_exists_ReturnsObj():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
-    assert x_ropemap.label_exists(xio_str, exx.sue) is False
-    assert x_ropemap.label_exists(xio_str, zia_str) is False
-    assert x_ropemap.label_exists(xio_str, exx.bob) is False
+    assert x_ropemap.label_exists(exx.xio, exx.sue) is False
+    assert x_ropemap.label_exists(exx.xio, zia_str) is False
+    assert x_ropemap.label_exists(exx.xio, exx.bob) is False
     assert x_ropemap.label_exists(zia_str, zia_str) is False
 
     # WHEN
-    x_ropemap.set_label(xio_str, exx.sue)
+    x_ropemap.set_label(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap.label_exists(xio_str, exx.sue)
-    assert x_ropemap.label_exists(xio_str, zia_str) is False
-    assert x_ropemap.label_exists(xio_str, exx.bob) is False
+    assert x_ropemap.label_exists(exx.xio, exx.sue)
+    assert x_ropemap.label_exists(exx.xio, zia_str) is False
+    assert x_ropemap.label_exists(exx.xio, exx.bob) is False
     assert x_ropemap.label_exists(zia_str, zia_str) is False
 
     # WHEN
     x_ropemap.set_label(zia_str, zia_str)
 
     # THEN
-    assert x_ropemap.label_exists(xio_str, exx.sue)
-    assert x_ropemap.label_exists(xio_str, zia_str) is False
-    assert x_ropemap.label_exists(xio_str, exx.bob) is False
+    assert x_ropemap.label_exists(exx.xio, exx.sue)
+    assert x_ropemap.label_exists(exx.xio, zia_str) is False
+    assert x_ropemap.label_exists(exx.xio, exx.bob) is False
     assert x_ropemap.label_exists(zia_str, zia_str)
 
 
 def test_RopeMap_otx_label_exists_ReturnsObj():
     # ESTABLISH
-    xio_str = "Xio"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
-    assert x_ropemap.otx_label_exists(xio_str) is False
+    assert x_ropemap.otx_label_exists(exx.xio) is False
     assert x_ropemap.otx_label_exists(exx.sue) is False
     assert x_ropemap.otx_label_exists(exx.bob) is False
     assert x_ropemap.otx_label_exists(zia_str) is False
 
     # WHEN
-    x_ropemap.set_label(xio_str, exx.sue)
+    x_ropemap.set_label(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap.otx_label_exists(xio_str)
+    assert x_ropemap.otx_label_exists(exx.xio)
     assert x_ropemap.otx_label_exists(exx.sue) is False
     assert x_ropemap.otx_label_exists(exx.bob) is False
     assert x_ropemap.otx_label_exists(zia_str) is False
@@ -359,7 +345,7 @@ def test_RopeMap_otx_label_exists_ReturnsObj():
     x_ropemap.set_label(zia_str, zia_str)
 
     # THEN
-    assert x_ropemap.otx_label_exists(xio_str)
+    assert x_ropemap.otx_label_exists(exx.xio)
     assert x_ropemap.otx_label_exists(exx.sue) is False
     assert x_ropemap.otx_label_exists(exx.bob) is False
     assert x_ropemap.otx_label_exists(zia_str)
@@ -367,16 +353,15 @@ def test_RopeMap_otx_label_exists_ReturnsObj():
 
 def test_RopeMap_del_label_SetsAttr():
     # ESTABLISH
-    xio_str = "Xio"
     x_ropemap = ropemap_shop(None)
-    x_ropemap.set_label(xio_str, exx.sue)
-    assert x_ropemap.label_exists(xio_str, exx.sue)
+    x_ropemap.set_label(exx.xio, exx.sue)
+    assert x_ropemap.label_exists(exx.xio, exx.sue)
 
     # WHEN
-    x_ropemap.del_label(xio_str)
+    x_ropemap.del_label(exx.xio)
 
     # THEN
-    assert x_ropemap.label_exists(xio_str, exx.sue) is False
+    assert x_ropemap.label_exists(exx.xio, exx.sue) is False
 
 
 def test_RopeMap_set_label_Edits_otx2inx():

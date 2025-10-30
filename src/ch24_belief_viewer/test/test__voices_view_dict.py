@@ -25,12 +25,11 @@ def add_readable(str: str) -> str:
 def test_get_voices_view_dict_ReturnsObj_Scenario1_voices():
     # ESTABLISH
     sue_believer = beliefunit_shop(exx.sue)
-    yao_str = "Yao"
     yao_cred_lumen = 110
     yao_debt_lumen = 130
     bob_cred_lumen = 230
     bob_debt_lumen = 290
-    sue_believer.add_voiceunit(yao_str, yao_cred_lumen, yao_debt_lumen)
+    sue_believer.add_voiceunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
     sue_believer.add_voiceunit(exx.bob, bob_cred_lumen, bob_debt_lumen)
     sue_believer.cashout()
 
@@ -38,8 +37,8 @@ def test_get_voices_view_dict_ReturnsObj_Scenario1_voices():
     voices_view_dict = get_voices_view_dict(sue_believer)
 
     # THEN
-    assert set(voices_view_dict.keys()) == {yao_str, exx.bob}
-    yao_voice_dict = voices_view_dict.get(yao_str)
+    assert set(voices_view_dict.keys()) == {exx.yao, exx.bob}
+    yao_voice_dict = voices_view_dict.get(exx.yao)
     voice_cred_lumen_readable_key = add_readable(kw.voice_cred_lumen)
     voice_debt_lumen_readable_key = add_readable(kw.voice_debt_lumen)
     memberships_readable_key = add_readable(kw.memberships)
@@ -87,7 +86,7 @@ def test_get_voices_view_dict_ReturnsObj_Scenario1_voices():
         fund_agenda_ratio_give_readable_key,
         fund_agenda_ratio_take_readable_key,
     }
-    ypu = sue_believer.get_voice(yao_str)
+    ypu = sue_believer.get_voice(exx.yao)
     yp_dict = yao_voice_dict
     assert ypu.voice_name == yp_dict.get(kw.voice_name)
     assert ypu.voice_cred_lumen == yp_dict.get(kw.voice_cred_lumen)
@@ -167,12 +166,11 @@ def test_get_voices_view_dict_ReturnsObj_Scenario1_voices():
 def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     # ESTABLISH
     sue_believer = beliefunit_shop(exx.sue)
-    yao_str = "Yao"
-    sue_believer.add_voiceunit(yao_str)
+    sue_believer.add_voiceunit(exx.yao)
     swim_str = ";swimmers"
     yao_swim_cred_lumen = 311
     yao_swim_debt_lumen = 313
-    yao_voiceunit = sue_believer.get_voice(yao_str)
+    yao_voiceunit = sue_believer.get_voice(exx.yao)
     yao_voiceunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
     sue_believer.cashout()
 
@@ -180,11 +178,11 @@ def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     voices_view_dict = get_voices_view_dict(sue_believer)
 
     # THEN
-    assert set(voices_view_dict.keys()) == {yao_str}
-    yao_voice_dict = voices_view_dict.get(yao_str)
+    assert set(voices_view_dict.keys()) == {exx.yao}
+    yao_voice_dict = voices_view_dict.get(exx.yao)
     assert kw.memberships in set(yao_voice_dict.keys())
     yao_memberships_dict = yao_voice_dict.get(kw.memberships)
-    assert {swim_str, yao_str} == set(yao_memberships_dict.keys())
+    assert {swim_str, exx.yao} == set(yao_memberships_dict.keys())
     yao_swim_dict = yao_memberships_dict.get(swim_str)
 
     group_title_readable_key = add_readable(kw.group_title)
@@ -322,13 +320,13 @@ def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     assert yao_swim_dict.get(fund_take_readable_key) == expected_fund_take_readable
 
     # sue_believer = beliefunit_shop(exx.sue)
-    # yao_str = "Yao"
+    # exx.yao = "Yao"
     # exx.bob = "Bob"
     # yao_cred_lumen = 110
     # yao_debt_lumen = 130
     # bob_cred_lumen = 230
     # bob_debt_lumen = 290
-    # sue_believer.add_voiceunit(yao_str, yao_cred_lumen, yao_debt_lumen)
+    # sue_believer.add_voiceunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
     # sue_believer.add_voiceunit(exx.bob, bob_cred_lumen, bob_debt_lumen)
     # swim_str = ";swimmers"
     # yao_swim_cred_lumen = 311
@@ -338,9 +336,9 @@ def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     # clea_str = ";cleaners"
     # cleaners_cred_lumen = 511
     # cleaners_debt_lumen = 513
-    # yao_voiceunit = sue_believer.get_voice(yao_str)
+    # yao_voiceunit = sue_believer.get_voice(exx.yao)
     # bob_voiceunit = sue_believer.get_voice(exx.bob)
     # bob_voiceunit.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
     # yao_voiceunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
     # yao_voiceunit.add_membership(clea_str, cleaners_cred_lumen, cleaners_debt_lumen)
-    # sue_believer.get_voice(yao_str).add_membership()
+    # sue_believer.get_voice(exx.yao).add_membership()

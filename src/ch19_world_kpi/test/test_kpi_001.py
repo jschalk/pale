@@ -13,7 +13,6 @@ from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 def test_create_populate_kpi001_table_PopulatesTable_Scenario0_NoPledges():
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
     yao_voice_net = -55
     bob_voice_net = 600
 
@@ -25,7 +24,7 @@ def test_create_populate_kpi001_table_PopulatesTable_Scenario0_NoPledges():
         insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount}) 
 VALUES 
   ('{a23_str}', '{exx.bob}', {bob_voice_net})
-, ('{a23_str}', '{yao_str}', {yao_voice_net})
+, ('{a23_str}', '{exx.yao}', {yao_voice_net})
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, moment_voice_nets_tablename) == 2
@@ -58,14 +57,13 @@ FROM {moment_kpi001_voice_nets_tablename}
         print(rows)
         assert rows == [
             (a23_str, exx.bob, 600.0, 1, 0),
-            (a23_str, yao_str, -55.0, 2, 0),
+            (a23_str, exx.yao, -55.0, 2, 0),
         ]
 
 
 def test_create_populate_kpi001_table_PopulatesTable_Scenario1_1pledge():
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
     yao_voice_net = -55
     bob_voice_net = 600
     casa_rope = create_rope(a23_str, "casa")
@@ -77,7 +75,7 @@ def test_create_populate_kpi001_table_PopulatesTable_Scenario1_1pledge():
         insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount})
 VALUES
   ('{a23_str}', '{exx.bob}', {bob_voice_net})
-, ('{a23_str}', '{yao_str}', {yao_voice_net})
+, ('{a23_str}', '{exx.yao}', {yao_voice_net})
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, moment_voice_nets_tablename) == 2
@@ -103,5 +101,5 @@ VALUES ('{a23_str}', '{exx.bob}', '{casa_rope}', 1)
         print(rows)
         assert rows == [
             (a23_str, exx.bob, bob_voice_net, 1, 1),
-            (a23_str, yao_str, yao_voice_net, 2, 0),
+            (a23_str, exx.yao, yao_voice_net, 2, 0),
         ]

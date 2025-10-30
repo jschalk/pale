@@ -6,17 +6,16 @@ from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 def test_get_minimal_beliefdelta_ReturnsObjWithoutUnecessaryINSERT_belief_voiceunit():
     # ESTABLISH
-    yao_str = "Yao"
     zia_str = "Zia"
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
     sue_belief.add_voiceunit(exx.bob)
 
     voices_beliefdelta = beliefdelta_shop()
     bob_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
     bob_atom.set_arg(kw.voice_name, exx.bob)
     yao_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    yao_atom.set_arg(kw.voice_name, yao_str)
+    yao_atom.set_arg(kw.voice_name, exx.yao)
     zia_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
     zia_atom.set_arg(kw.voice_name, zia_str)
     voices_beliefdelta.set_beliefatom(bob_atom)
@@ -34,12 +33,11 @@ def test_get_minimal_beliefdelta_ReturnsObjWithoutUnecessaryINSERT_belief_voiceu
 
 def test_sift_ReturnsObjWithoutUnecessaryINSERT_belief_voice_membership():
     # ESTABLISH
-    yao_str = "Yao"
     zia_str = "Zia"
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
     sue_belief.add_voiceunit(exx.bob)
-    yao_voiceunit = sue_belief.get_voice(yao_str)
+    yao_voiceunit = sue_belief.get_voice(exx.yao)
     run_str = ";run"
     run_str = ";run"
     yao_voiceunit.add_membership(run_str)
@@ -50,7 +48,7 @@ def test_sift_ReturnsObjWithoutUnecessaryINSERT_belief_voice_membership():
     bob_run_atom.set_arg(kw.voice_name, exx.bob)
     bob_run_atom.set_arg(kw.group_title, run_str)
     yao_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
-    yao_run_atom.set_arg(kw.voice_name, yao_str)
+    yao_run_atom.set_arg(kw.voice_name, exx.yao)
     yao_run_atom.set_arg(kw.group_title, run_str)
     zia_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
     zia_run_atom.set_arg(kw.voice_name, zia_str)

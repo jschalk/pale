@@ -29,18 +29,17 @@ def test_belief_voiceunit_get_obj_ReturnsObj():
 
 def test_belief_voice_membership_get_obj_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     swim_str = ";swim"
     sue_belief = beliefunit_shop("Sue")
-    jkeys = {kw.voice_name: yao_str, "group_title": swim_str}
-    sue_belief.add_voiceunit(yao_str)
-    sue_belief.get_voice(yao_str).add_membership(swim_str)
+    jkeys = {kw.voice_name: exx.yao, "group_title": swim_str}
+    sue_belief.add_voiceunit(exx.yao)
+    sue_belief.get_voice(exx.yao).add_membership(swim_str)
 
     # WHEN
     x_obj = belief_voice_membership_get_obj(sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_voice(yao_str).get_membership(swim_str)
+    assert x_obj == sue_belief.get_voice(exx.yao).get_membership(swim_str)
 
 
 def test_belief_planunit_get_obj_ReturnsObj():

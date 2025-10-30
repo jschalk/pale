@@ -410,10 +410,10 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
             assert (
                 establish_str_exists and when_str_exists and then_str_exists
             ), fail_str
-            # declare_str = f"""{key_str}_str = "{value_str}"\n"""
-            # fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
-            # assert declare_str not in test_function_str, fail2_str
-            # function_count += 1
+            declare_str = f"""{key_str}_str = "{value_str}"\n"""
+            fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
+            assert declare_str not in test_function_str, fail2_str
+            function_count += 1
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")

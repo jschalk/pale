@@ -119,11 +119,10 @@ def test_PlanUnit_to_dict_ReturnsCompleteDict():
         biker_awardee_title: biker_get_dict,
         flyer_awardee_title: flyer_get_dict,
     }
-    yao_str = "Yao"
     sue_laborunit = laborunit_shop()
     sue_laborunit.add_party(exx.sue)
-    sue_laborunit.add_party(yao_str)
-    yao_healerunit = healerunit_shop({yao_str})
+    sue_laborunit.add_party(exx.yao)
+    yao_healerunit = healerunit_shop({exx.yao})
     casa_str = "casa"
     casa_rope = create_rope(amy_str, casa_str)
     x_problem_bool = True
@@ -221,11 +220,10 @@ def test_PlanUnit_to_dict_ReturnsObj_DictWith_attrs_SetToTrue():
     a_rope = create_rope(amy_str, a_str)
     casa_plan.set_factunit(factunit_shop(a_rope, a_rope))
 
-    yao_str = "Yao"
-    casa_plan.set_awardunit(awardunit_shop(yao_str))
+    casa_plan.set_awardunit(awardunit_shop(exx.yao))
 
     x_laborunit = casa_plan.laborunit
-    x_laborunit.add_party(party_title=yao_str)
+    x_laborunit.add_party(party_title=exx.yao)
 
     clean_str = "clean"
     casa_plan.add_kid(planunit_shop(clean_str))

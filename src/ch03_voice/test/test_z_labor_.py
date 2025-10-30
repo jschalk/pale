@@ -296,11 +296,10 @@ def test_LaborHeir_set_partys_Scenario0_LaborUnitIsEmptyAndParentLaborHeirIsEmpt
 
 def test_LaborHeir_set_partys_Scenario1_LaborUnitNotEmpty_ParentLaborHeirIsNone():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     swim_str = ",swim"
     x_laborunit = laborunit_shop()
-    x_laborunit.add_party(xio_str, xio_solo_bool)
+    x_laborunit.add_party(exx.xio, xio_solo_bool)
     x_laborunit.add_party(swim_str)
     x_laborheir = laborheir_shop()
     assert x_laborheir.partys == {}
@@ -311,7 +310,7 @@ def test_LaborHeir_set_partys_Scenario1_LaborUnitNotEmpty_ParentLaborHeirIsNone(
     # THEN
     assert x_laborheir.partys.keys() == x_laborunit.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")
@@ -321,11 +320,10 @@ def test_LaborHeir_set_partys_Scenario1_LaborUnitNotEmpty_ParentLaborHeirIsNone(
 
 def test_LaborHeir_set_partys_Scenario2_LaborUnitNotEmpty_ParentLaborHeirEmpty():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     swim_str = ",swim"
     x_laborunit = laborunit_shop()
-    x_laborunit.add_party(xio_str, xio_solo_bool)
+    x_laborunit.add_party(exx.xio, xio_solo_bool)
     x_laborunit.add_party(swim_str)
     x_laborheir = laborheir_shop()
     parent_laborheir_empty = laborheir_shop()
@@ -337,7 +335,7 @@ def test_LaborHeir_set_partys_Scenario2_LaborUnitNotEmpty_ParentLaborHeirEmpty()
     # THEN
     assert x_laborheir.partys.keys() == x_laborunit.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")
@@ -347,11 +345,10 @@ def test_LaborHeir_set_partys_Scenario2_LaborUnitNotEmpty_ParentLaborHeirEmpty()
 
 def test_LaborHeir_set_partys_Scenario3_LaborUnit_Empty_ParentLaborHeirNotEmpty():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     swim_str = ",swim"
     laborunit_swim = laborunit_shop()
-    laborunit_swim.add_party(xio_str, xio_solo_bool)
+    laborunit_swim.add_party(exx.xio, xio_solo_bool)
     laborunit_swim.add_party(swim_str, False)
     empty_laborheir = laborheir_shop()
     parent_laborheir = laborheir_shop()
@@ -368,7 +365,7 @@ def test_LaborHeir_set_partys_Scenario3_LaborUnit_Empty_ParentLaborHeirNotEmpty(
     # THEN
     assert x_laborheir.partys.keys() == parent_laborheir.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")
@@ -378,10 +375,9 @@ def test_LaborHeir_set_partys_Scenario3_LaborUnit_Empty_ParentLaborHeirNotEmpty(
 
 def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     xio_laborunit = laborunit_shop()
-    xio_laborunit.add_party(xio_str, xio_solo_bool)
+    xio_laborunit.add_party(exx.xio, xio_solo_bool)
     empty_laborheir = laborheir_shop()
     parent_laborheir = laborheir_shop()
     parent_laborheir.set_partys(empty_laborheir, xio_laborunit, groupunits=None)
@@ -400,7 +396,7 @@ def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty()
     assert x_laborheir.partys.keys() != parent_laborheir.partys.keys()
     assert x_laborheir.partys.keys() != swim_laborunit.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")

@@ -238,7 +238,6 @@ def test_get_max_brick_sparks_spark_num_ReturnsObj_Scenario0_NoTables():
 def test_get_max_brick_sparks_spark_num_ReturnsObj_Scenario1_OneTable():
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
     spark1 = 1
     spark3 = 3
     spark9 = 9
@@ -268,8 +267,8 @@ def test_get_max_brick_sparks_spark_num_ReturnsObj_Scenario1_OneTable():
 VALUES     
   ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_360}', '{hour6am}')
 , ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}')
-, ('{spark3}', '{yao_str}', '{a23_str}', '{minute_420}', '{hour7am}')
-, ('{spark9}', '{yao_str}', '{a23_str}', '{minute_420}', '{hour7am}')
+, ('{spark3}', '{exx.yao}', '{a23_str}', '{minute_420}', '{hour7am}')
+, ('{spark9}', '{exx.yao}', '{a23_str}', '{minute_420}', '{hour7am}')
 ;
 """
         insert_sqlstr = f"{insert_into_clause} {values_clause}"

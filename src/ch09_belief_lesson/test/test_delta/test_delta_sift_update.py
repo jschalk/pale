@@ -7,19 +7,18 @@ from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 # all other atom dimens are covered by test_sift_atom tests
 def test_get_minimal_beliefdelta_ReturnsObjUPDATEBeliefAtom_belief_voiceunit():
     # ESTABLISH
-    yao_str = "Yao"
     old_bob_voice_cred_lumen = 34
     new_bob_voice_cred_lumen = 7
     sue_belief = beliefunit_shop("Sue")
     sue_belief.add_voiceunit(exx.bob, old_bob_voice_cred_lumen)
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
 
     voices_beliefdelta = beliefdelta_shop()
     bob_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
     bob_atom.set_arg(kw.voice_name, exx.bob)
     bob_atom.set_arg(kw.voice_cred_lumen, new_bob_voice_cred_lumen)
     yao_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    yao_atom.set_arg(kw.voice_name, yao_str)
+    yao_atom.set_arg(kw.voice_name, exx.yao)
     voices_beliefdelta.set_beliefatom(bob_atom)
     voices_beliefdelta.set_beliefatom(yao_atom)
     assert len(voices_beliefdelta.get_sorted_beliefatoms()) == 2

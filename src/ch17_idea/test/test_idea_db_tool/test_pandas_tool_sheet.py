@@ -531,7 +531,6 @@ def test_update_all_face_name_spark_num_columns_Scenario0_UpdatesValidSheet(
     # ESTABLISH
     excel_path = create_path(idea_moment_mstr_dir(), "test_excel.xlsx")
     set_dir(idea_moment_mstr_dir())
-    yao_str = "Yao"
     spark3 = 3
     # A workbook with valid and invalid sheets
     workbook = openpyxl_Workbook()
@@ -541,12 +540,12 @@ def test_update_all_face_name_spark_num_columns_Scenario0_UpdatesValidSheet(
     ws1.title = validsheet_str
     ws1.append([kw.spark_num, kw.face_name, "other"])
     for _ in range(5):
-        ws1.append([spark3, yao_str, "value4"])
+        ws1.append([spark3, exx.yao, "value4"])
 
     ws2 = workbook.create_sheet(invalidsheet_str)
     ws2.append(["wrong", "headers", "data"])
     for _ in range(5):
-        ws2.append([spark3, yao_str, "value3"])
+        ws2.append([spark3, exx.yao, "value3"])
 
     workbook.save(excel_path)
     spark7 = 7
@@ -558,7 +557,7 @@ def test_update_all_face_name_spark_num_columns_Scenario0_UpdatesValidSheet(
     ws2 = workbook[invalidsheet_str]
     for row in range(2, ws2.max_row + 1):
         assert ws2.cell(row=row, column=1).value == spark3
-        assert ws2.cell(row=row, column=2).value == yao_str
+        assert ws2.cell(row=row, column=2).value == exx.yao
 
     # WHEN: We update the workbook
     update_all_face_name_spark_num_columns(excel_path, exx.bob, spark7)
@@ -572,7 +571,7 @@ def test_update_all_face_name_spark_num_columns_Scenario0_UpdatesValidSheet(
     ws2 = workbook["InvalidSheet"]
     for row in range(2, ws2.max_row + 1):
         assert ws2.cell(row=row, column=1).value == spark3
-        assert ws2.cell(row=row, column=2).value == yao_str
+        assert ws2.cell(row=row, column=2).value == exx.yao
 
 
 def test_update_all_face_name_spark_num_columns_Scenario1_NoMatchingSheets(

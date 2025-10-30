@@ -15,7 +15,7 @@ from src.ch17_idea.idea_db_tool import (
     translate_all_columns_dataframe,
     translate_single_column_dataframe,
 )
-from src.ref.keywords import Ch17Keywords as kw
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
 def test_get_dataframe_translateable_columns_ReturnsObj():
@@ -167,7 +167,6 @@ def test_translate_all_columns_dataframe_SetsParameterAttrs_Scenario0_VoiceName(
 def test_translate_all_columns_dataframe_SetsParameterAttrs_Scenario1_VoiceName():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    yao_str = "Yao"
     xio_otx = "Xio"
     sue_otx = "Sue"
     bob_otx = "Bob"
@@ -175,7 +174,7 @@ def test_translate_all_columns_dataframe_SetsParameterAttrs_Scenario1_VoiceName(
     xio_inx = "Xioita"
     sue_inx = "Suita"
     bob_inx = "Bobita"
-    yao_translateunit = translateunit_shop(yao_str)
+    yao_translateunit = translateunit_shop(exx.yao)
     yao_translateunit.set_otx2inx(kw.NameTerm, xio_otx, xio_inx)
     yao_translateunit.set_otx2inx(kw.NameTerm, sue_otx, sue_inx)
     yao_translateunit.set_otx2inx(kw.NameTerm, bob_otx, bob_inx)

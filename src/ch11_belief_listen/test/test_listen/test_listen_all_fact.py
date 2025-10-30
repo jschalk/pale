@@ -11,8 +11,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_get_debtors_roll_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str)
+    yao_duty = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -29,8 +28,7 @@ def test_get_debtors_roll_ReturnsObj():
 
 def test_get_debtors_roll_ReturnsObjIgnoresZero_voice_debt_lumen():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str)
+    yao_duty = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -51,8 +49,7 @@ def test_get_debtors_roll_ReturnsObjIgnoresZero_voice_debt_lumen():
 
 def test_get_ordered_debtors_roll_ReturnsObj_InOrder():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -87,20 +84,18 @@ def test_get_ordered_debtors_roll_ReturnsObj_InOrder():
 
 def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     zia_voice_debt_lumen = 41
     sue_voice_debt_lumen = 51
     yao_pool = 92
     yao_belief.set_voice_respect(yao_pool)
     bob_voice_debt_lumen = 75
-    xio_str = "Xio"
     yao_belief.add_voiceunit(zia_str, 0, zia_voice_debt_lumen)
     yao_belief.add_voiceunit(exx.sue, 0, sue_voice_debt_lumen)
     yao_belief.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
-    yao_belief.add_voiceunit(yao_str, 0, 0)
-    yao_belief.add_voiceunit(xio_str, 0, 0)
+    yao_belief.add_voiceunit(exx.yao, 0, 0)
+    yao_belief.add_voiceunit(exx.xio, 0, 0)
 
     # WHEN
     ordered_voices2 = get_ordered_debtors_roll(yao_belief)
@@ -116,8 +111,7 @@ def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
 
 def test_set_listen_to_speaker_fact_SetsFact():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_listener = beliefunit_shop(yao_str)
+    yao_listener = beliefunit_shop(exx.yao)
     casa_str = "casa"
     casa_rope = yao_listener.make_l1_rope(casa_str)
     situation_str = "situation"
@@ -129,7 +123,7 @@ def test_set_listen_to_speaker_fact_SetsFact():
     sweep_str = "sweep"
     sweep_rope = yao_listener.make_rope(casa_rope, sweep_str)
 
-    yao_listener.add_voiceunit(yao_str)
+    yao_listener.add_voiceunit(exx.yao)
     yao_listener.set_voice_respect(20)
     yao_listener.set_plan_obj(planunit_shop(clean_str), situation_rope)
     yao_listener.set_plan_obj(planunit_shop(dirty_str), situation_rope)
@@ -141,7 +135,7 @@ def test_set_listen_to_speaker_fact_SetsFact():
         yao_listener.get_missing_fact_reason_contexts().keys()
     )
 
-    yao_speaker = beliefunit_shop(yao_str)
+    yao_speaker = beliefunit_shop(exx.yao)
     yao_speaker.add_fact(situation_rope, clean_rope, create_missing_plans=True)
     assert yao_listener.get_missing_fact_reason_contexts().keys() == {situation_rope}
 
@@ -154,9 +148,8 @@ def test_set_listen_to_speaker_fact_SetsFact():
 
 def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_listener = beliefunit_shop(yao_str)
-    yao_listener.add_voiceunit(yao_str)
+    yao_listener = beliefunit_shop(exx.yao)
+    yao_listener.add_voiceunit(exx.yao)
     yao_listener.set_voice_respect(20)
     casa_str = "casa"
     casa_rope = yao_listener.make_l1_rope(casa_str)
@@ -189,7 +182,7 @@ def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
     assert yao_listener.get_fact(situation_rope).fact_state == dirty_rope
 
     # WHEN
-    yao_speaker = beliefunit_shop(yao_str)
+    yao_speaker = beliefunit_shop(exx.yao)
     yao_speaker.add_fact(situation_rope, clean_rope, create_missing_plans=True)
     yao_speaker.add_fact(fridge_rope, running_rope, create_missing_plans=True)
     missing_fact_fact_contexts = list(
@@ -207,8 +200,7 @@ def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
 
 def test_migrate_all_facts_AddsPlanUnitsAndSetsFactUnits():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_src = beliefunit_shop(yao_str)
+    yao_src = beliefunit_shop(exx.yao)
     casa_str = "casa"
     casa_rope = yao_src.make_l1_rope(casa_str)
     situation_str = "situation"
@@ -226,7 +218,7 @@ def test_migrate_all_facts_AddsPlanUnitsAndSetsFactUnits():
     snow_str = "snow"
     snow_rope = yao_src.make_rope(weather_rope, snow_str)
 
-    yao_src.add_voiceunit(yao_str)
+    yao_src.add_voiceunit(exx.yao)
     yao_src.set_voice_respect(20)
     yao_src.set_plan_obj(planunit_shop(clean_str), situation_rope)
     yao_src.set_plan_obj(planunit_shop(dirty_str), situation_rope)
@@ -239,7 +231,7 @@ def test_migrate_all_facts_AddsPlanUnitsAndSetsFactUnits():
     yao_src.add_fact(situation_rope, clean_rope)
     yao_src.cashout()
 
-    yao_dst = beliefunit_shop(yao_str)
+    yao_dst = beliefunit_shop(exx.yao)
     assert yao_dst.plan_exists(clean_rope) is False
     assert yao_dst.plan_exists(dirty_rope) is False
     assert yao_dst.plan_exists(rain_rope) is False

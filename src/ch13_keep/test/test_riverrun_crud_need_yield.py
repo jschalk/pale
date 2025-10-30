@@ -10,46 +10,43 @@ def test_RiverRun_set_voice_need_yield_SetsAttr():
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     bob_riverrun = riverrun_shop(mstr_dir, a23_str, exx.bob)
-    yao_str = "Yao"
-    assert bob_riverrun.need_yields.get(yao_str) is None
+    assert bob_riverrun.need_yields.get(exx.yao) is None
 
     # WHEN
     yao_need_yield = 7
-    bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.yao, yao_need_yield)
 
     # THEN
-    assert bob_riverrun.need_yields.get(yao_str) == yao_need_yield
+    assert bob_riverrun.need_yields.get(exx.yao) == yao_need_yield
 
 
 def test_RiverRun_need_yields_is_empty_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
-    yao_str = "Yao"
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
+    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
     assert x_riverrun.need_yields_is_empty()
 
     # WHEN
-    yao_str = "Yao"
     yao_need_yield = 500
-    x_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
+    x_riverrun.set_voice_need_yield(exx.yao, yao_need_yield)
     # THEN
     assert x_riverrun.need_yields_is_empty() is False
 
     # WHEN
-    x_riverrun.delete_need_yield(yao_str)
+    x_riverrun.delete_need_yield(exx.yao)
     # THEN
     assert x_riverrun.need_yields_is_empty()
 
     # WHEN
     bob_need_yield = 300
     x_riverrun.set_voice_need_yield(exx.yao, bob_need_yield)
-    x_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
+    x_riverrun.set_voice_need_yield(exx.yao, yao_need_yield)
     # THEN
     assert x_riverrun.need_yields_is_empty() is False
 
     # WHEN
-    x_riverrun.delete_need_yield(yao_str)
+    x_riverrun.delete_need_yield(exx.yao)
     # THEN
     assert x_riverrun.need_yields_is_empty()
 
@@ -67,13 +64,12 @@ def test_RiverRun_reset_need_yields_SetsAttr():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    yao_str = "Yao"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
     bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.yao, yao_need_yield)
     assert bob_riverrun.need_yields_is_empty() is False
 
     # WHEN
@@ -96,17 +92,16 @@ def test_RiverRun_voice_has_need_yield_ReturnsBool():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    yao_str = "Yao"
     zia_str = "Zia"
     yao_need_yield = 6
     bob_need_yield = 38
     sue_need_yield = 56
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
     bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.yao, yao_need_yield)
     assert bob_riverrun.voice_has_need_yield(exx.bob)
     assert bob_riverrun.voice_has_need_yield(exx.sue)
-    assert bob_riverrun.voice_has_need_yield(yao_str)
+    assert bob_riverrun.voice_has_need_yield(exx.yao)
     assert bob_riverrun.voice_has_need_yield(zia_str) is False
 
     # WHEN
@@ -115,7 +110,7 @@ def test_RiverRun_voice_has_need_yield_ReturnsBool():
     # THEN
     assert bob_riverrun.voice_has_need_yield(exx.bob) is False
     assert bob_riverrun.voice_has_need_yield(exx.sue) is False
-    assert bob_riverrun.voice_has_need_yield(yao_str) is False
+    assert bob_riverrun.voice_has_need_yield(exx.yao) is False
     assert bob_riverrun.voice_has_need_yield(zia_str) is False
 
 
@@ -133,15 +128,14 @@ def test_RiverRun_delete_need_yield_SetsAttr():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    yao_str = "Yao"
-    bob_riverrun.set_voice_need_yield(yao_str, 5)
-    assert bob_riverrun.voice_has_need_yield(yao_str)
+    bob_riverrun.set_voice_need_yield(exx.yao, 5)
+    assert bob_riverrun.voice_has_need_yield(exx.yao)
 
     # WHEN
-    bob_riverrun.delete_need_yield(yao_str)
+    bob_riverrun.delete_need_yield(exx.yao)
 
     # THEN
-    assert bob_riverrun.voice_has_need_yield(yao_str) is False
+    assert bob_riverrun.voice_has_need_yield(exx.yao) is False
 
 
 def test_RiverRun_get_voice_need_yield_ReturnsObj():
@@ -158,14 +152,13 @@ def test_RiverRun_get_voice_need_yield_ReturnsObj():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    yao_str = "Yao"
     zia_str = "Zia"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
     bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.yao, yao_need_yield)
     assert bob_riverrun.voice_has_need_yield(exx.bob)
     assert bob_riverrun.get_voice_need_yield(exx.bob) == bob_need_yield
     assert bob_riverrun.voice_has_need_yield(zia_str) is False
@@ -194,14 +187,13 @@ def test_RiverRun_add_voice_need_yield_ReturnsObj():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    yao_str = "Yao"
     zia_str = "Zia"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_riverrun.set_voice_need_yield(exx.bob, bob_need_yield)
     bob_riverrun.set_voice_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_voice_need_yield(yao_str, yao_need_yield)
+    bob_riverrun.set_voice_need_yield(exx.yao, yao_need_yield)
     assert bob_riverrun.get_voice_need_yield(exx.bob) == bob_need_yield
     assert bob_riverrun.get_voice_need_yield(exx.sue) == sue_need_yield
     assert bob_riverrun.get_voice_need_yield(zia_str) == 0
@@ -229,14 +221,13 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioY():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    yao_str = "Yao"
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(exx.bob, 2, bob_need_yield)
     bob_belief.add_voiceunit(exx.sue, 2, sue_need_yield)
-    bob_belief.add_voiceunit(yao_str, 2, yao_need_yield)
+    bob_belief.add_voiceunit(exx.yao, 2, yao_need_yield)
     bob_doctorledger = get_doctorledger(bob_belief)
     bob_riverrun.set_need_dues(bob_doctorledger)
     assert bob_riverrun.get_voice_need_due(exx.bob) == 380
@@ -278,24 +269,23 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioY():
     assert bob_riverrun.get_voice_need_yield(zia_str) == 0
 
     # ESTABLISH
-    assert bob_riverrun.get_voice_need_due(yao_str) == 60
-    assert bob_riverrun.get_voice_need_yield(yao_str) == 0
+    assert bob_riverrun.get_voice_need_due(exx.yao) == 60
+    assert bob_riverrun.get_voice_need_yield(exx.yao) == 0
     # WHEN
-    excess_carer_points, need_got = bob_riverrun.levy_need_due(yao_str, 81)
+    excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.yao, 81)
     # THEN
     assert excess_carer_points == 21
-    assert bob_riverrun.get_voice_need_due(yao_str) == 0
-    assert bob_riverrun.get_voice_need_yield(yao_str) == 60
+    assert bob_riverrun.get_voice_need_due(exx.yao) == 0
+    assert bob_riverrun.get_voice_need_yield(exx.yao) == 60
 
 
 def test_RiverRun_set_need_got_attrs_SetsAttrs():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
-    yao_str = "Yao"
     six_need_got = 6
     ten_need_got = 10
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
+    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
     assert x_riverrun.need_got_curr == 0
     assert x_riverrun.need_got_prev == 0
 
@@ -316,10 +306,9 @@ def test_RiverRun_need_gotten_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
-    yao_str = "Yao"
     six_need_got = 6
     ten_need_got = 10
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
+    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
     assert x_riverrun.need_got_prev == 0
     assert x_riverrun.need_got_curr == 0
     assert x_riverrun._need_gotten() is False

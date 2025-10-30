@@ -29,12 +29,11 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voiceunit():
 
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voice_membership():
     # ESTABLISH
-    yao_str = "Yao"
     run_str = ";run"
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
     sue_belief.add_voiceunit(exx.bob)
-    yao_voiceunit = sue_belief.get_voice(yao_str)
+    yao_voiceunit = sue_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(run_str)
     print(f"{yao_voiceunit.memberships.keys()=}")
 
@@ -42,7 +41,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voice_membership():
     bob_run_atom.set_arg(kw.voice_name, exx.bob)
     bob_run_atom.set_arg(kw.group_title, run_str)
     yao_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
-    yao_run_atom.set_arg(kw.voice_name, yao_str)
+    yao_run_atom.set_arg(kw.voice_name, exx.yao)
     yao_run_atom.set_arg(kw.group_title, run_str)
 
     # WHEN

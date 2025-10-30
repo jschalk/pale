@@ -12,7 +12,6 @@ from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 def test_populate_kpi_bundle_PopulatesTable_Scenario0_WithDefaultBundleID():
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
     yao_voice_net = -55
     bob_voice_net = 600
 
@@ -25,7 +24,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario0_WithDefaultBundleID():
         insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount})
 VALUES
   ('{a23_str}', '{exx.bob}', {bob_voice_net})
-, ('{a23_str}', '{yao_str}', {yao_voice_net})
+, ('{a23_str}', '{exx.yao}', {yao_voice_net})
 """
         cursor.execute(insert_sqlstr)
         assert db_table_exists(cursor, blrplan_job_tablename)
@@ -54,7 +53,6 @@ VALUES
 def test_populate_kpi_bundle_PopulatesTable_Scenario1_WithNoBundleID():
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
     yao_voice_net = -55
     bob_voice_net = 600
 
@@ -66,7 +64,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario1_WithNoBundleID():
         insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount})
 VALUES
   ('{a23_str}', '{exx.bob}', {bob_voice_net})
-, ('{a23_str}', '{yao_str}', {yao_voice_net})
+, ('{a23_str}', '{exx.yao}', {yao_voice_net})
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, moment_voice_nets_tablename) == 2

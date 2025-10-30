@@ -12,10 +12,9 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_create_empty_belief_from_belief_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     slash_str = "/"
     mana_grain_float = 0.7
-    yao_gut = beliefunit_shop(yao_str, knot=slash_str, mana_grain=mana_grain_float)
+    yao_gut = beliefunit_shop(exx.yao, knot=slash_str, mana_grain=mana_grain_float)
     yao_gut.set_l1_plan(planunit_shop("Iowa"))
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
@@ -59,9 +58,8 @@ def test_create_empty_belief_from_belief_ReturnsObj():
 
 def test_create_listen_basis_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     slash_str = "/"
-    yao_duty = beliefunit_shop(yao_str, knot=slash_str)
+    yao_duty = beliefunit_shop(exx.yao, knot=slash_str)
     yao_duty.set_l1_plan(planunit_shop("Iowa"))
     zia_str = "Zia"
     zia_voice_cred_lumen = 47

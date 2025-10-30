@@ -34,8 +34,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_BeliefWhenNo_part
 ):
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str, a23_str)
+    yao_duty = beliefunit_shop(exx.yao, a23_str)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -46,8 +45,8 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_BeliefWhenNo_part
     zia_vision = beliefunit_shop(zia_str, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
-    zia_vision.add_voiceunit(yao_str, voice_debt_lumen=12)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
+    zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.yao)
     save_vision_belief(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.belief_name,
@@ -74,8 +73,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Belief(
 ):
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str, a23_str)
+    yao_duty = beliefunit_shop(exx.yao, a23_str)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -86,12 +84,12 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Belief(
     zia_vision = beliefunit_shop(zia_str, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
-    zia_vision.add_voiceunit(yao_str, voice_debt_lumen=12)
+    zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
     cook_planunit = zia_vision.get_plan_obj(a23_cook_rope())
-    clean_planunit.laborunit.add_party(yao_str)
-    cook_planunit.laborunit.add_party(yao_str)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
+    clean_planunit.laborunit.add_party(exx.yao)
+    cook_planunit.laborunit.add_party(exx.yao)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.yao)
     save_vision_belief(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.belief_name,
@@ -205,8 +203,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
 ):
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str, a23_str)
+    yao_duty = beliefunit_shop(exx.yao, a23_str)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -216,7 +213,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
     yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_duty.set_voice_respect(yao_pool)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.yao)
     save_duty_belief(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         belief_name=yao_dakota_lessonfilehandler.belief_name,
@@ -230,11 +227,11 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
     zia_vision = beliefunit_shop(zia_str, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
-    zia_vision.add_voiceunit(yao_str, voice_debt_lumen=12)
+    zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
     cook_planunit = zia_vision.get_plan_obj(a23_cook_rope())
-    clean_planunit.laborunit.add_party(yao_str)
-    cook_planunit.laborunit.add_party(yao_str)
+    clean_planunit.laborunit.add_party(exx.yao)
+    cook_planunit.laborunit.add_party(exx.yao)
     save_vision_belief(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.belief_name,
@@ -246,12 +243,12 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalBelief(
 
     sue_vision = beliefunit_shop(exx.sue)
     sue_vision.set_max_tree_traverse(5)
-    zia_vision.add_voiceunit(yao_str, voice_debt_lumen=12)
+    zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     vacuum_str = "vacuum"
     vacuum_rope = sue_vision.make_l1_rope(vacuum_str)
     sue_vision.set_l1_plan(planunit_shop(vacuum_str, pledge=True))
     vacuum_planunit = sue_vision.get_plan_obj(vacuum_rope)
-    vacuum_planunit.laborunit.add_party(yao_str)
+    vacuum_planunit.laborunit.add_party(exx.yao)
 
     egg_str = "egg first"
     egg_rope = sue_vision.make_l1_rope(egg_str)
@@ -304,8 +301,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
 ):
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str, a23_str)
+    yao_duty = beliefunit_shop(exx.yao, a23_str)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     sue_voice_cred_lumen = 57
@@ -315,7 +311,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
     yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_duty.set_voice_respect(yao_pool)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.yao)
     save_duty_belief(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         belief_name=yao_dakota_lessonfilehandler.belief_name,
@@ -328,12 +324,12 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionBelief(
     zia_vision = beliefunit_shop(zia_str, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
-    zia_vision.add_voiceunit(yao_str, voice_debt_lumen=12)
+    zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
     cook_planunit = zia_vision.get_plan_obj(a23_cook_rope())
-    clean_planunit.laborunit.add_party(yao_str)
-    cook_planunit.laborunit.add_party(yao_str)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
+    clean_planunit.laborunit.add_party(exx.yao)
+    cook_planunit.laborunit.add_party(exx.yao)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.yao)
     save_vision_belief(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.belief_name,
@@ -365,12 +361,10 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToBelief_duty_AndNotBelief_v
 ):
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str, a23_str)
-    yao_str = "Yao"
+    yao_duty = beliefunit_shop(exx.yao, a23_str)
     yao_voice_cred_lumen = 57
     yao_voice_debt_lumen = 51
-    yao_duty.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -378,7 +372,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToBelief_duty_AndNotBelief_v
     yao_pool = 87
     yao_duty.set_voice_respect(yao_pool)
     # save yao without task to dutys
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, yao_str)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.yao)
     save_duty_belief(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         belief_name=yao_dakota_lessonfilehandler.belief_name,
@@ -393,11 +387,11 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToBelief_duty_AndNotBelief_v
     zia_vision = beliefunit_shop(zia_str, a23_str)
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     zia_vision.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
-    zia_vision.add_voiceunit(yao_str, voice_debt_lumen=12)
+    zia_vision.add_voiceunit(exx.yao, voice_debt_lumen=12)
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
     cook_planunit = zia_vision.get_plan_obj(a23_cook_rope())
-    clean_planunit.laborunit.add_party(yao_str)
-    cook_planunit.laborunit.add_party(yao_str)
+    clean_planunit.laborunit.add_party(exx.yao)
+    cook_planunit.laborunit.add_party(exx.yao)
     save_vision_belief(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.belief_name,
@@ -408,12 +402,12 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToBelief_duty_AndNotBelief_v
     )
 
     # save yao with task to visions
-    yao_old_vision = beliefunit_shop(yao_str, a23_str)
+    yao_old_vision = beliefunit_shop(exx.yao, a23_str)
     vacuum_str = "vacuum"
     vacuum_rope = yao_old_vision.make_l1_rope(vacuum_str)
     yao_old_vision.set_l1_plan(planunit_shop(vacuum_str, pledge=True))
     vacuum_planunit = yao_old_vision.get_plan_obj(vacuum_rope)
-    vacuum_planunit.laborunit.add_party(yao_str)
+    vacuum_planunit.laborunit.add_party(exx.yao)
     save_vision_belief(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.belief_name,

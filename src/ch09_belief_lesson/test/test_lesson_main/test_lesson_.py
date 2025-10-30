@@ -111,14 +111,13 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
 
 def test_lessonunit_shop_ReturnsObjEstablishWithSomeArgs_v1():
     # ESTABLISH
-    yao_str = "Yao"
 
     # WHEN
-    bob_lessonunit = lessonunit_shop(belief_name=exx.bob, face_name=yao_str)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob, face_name=exx.yao)
 
     # THEN
     assert bob_lessonunit.belief_name == exx.bob
-    assert bob_lessonunit.face_name == yao_str
+    assert bob_lessonunit.face_name == exx.yao
 
 
 def test_LessonUnit_set_face_SetsAttribute():
@@ -137,15 +136,14 @@ def test_LessonUnit_set_face_SetsAttribute():
 def test_LessonUnit_del_face_SetsAttribute():
     # ESTABLISH
     bob_lessonunit = lessonunit_shop(belief_name=exx.bob)
-    yao_str = "Yao"
-    bob_lessonunit.set_face(yao_str)
-    assert bob_lessonunit.face_name == yao_str
+    bob_lessonunit.set_face(exx.yao)
+    assert bob_lessonunit.face_name == exx.yao
 
     # WHEN
     bob_lessonunit.del_face()
 
     # THEN
-    assert bob_lessonunit.face_name != yao_str
+    assert bob_lessonunit.face_name != exx.yao
     assert bob_lessonunit.face_name is None
 
 
@@ -384,13 +382,12 @@ def test_get_lessonunit_from_dict_ReturnsObj_WithBeliefDeltaPopulated():
 
 def test_LessonUnit_get_delta_atom_numbers_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     sue_beliefdelta = get_beliefdelta_sue_example()
     x_delta_start = 7
     bob_lessonunit = lessonunit_shop(exx.bob)
     bob_lessonunit.set_beliefdelta(sue_beliefdelta)
     bob_lessonunit.set_delta_start(x_delta_start)
-    bob_lessonunit.set_face(yao_str)
+    bob_lessonunit.set_face(exx.yao)
     x_dict = bob_lessonunit.get_step_dict()
 
     # WHEN
@@ -401,14 +398,13 @@ def test_LessonUnit_get_delta_atom_numbers_ReturnsObj():
 
 def test_LessonUnit_get_deltametric_dict_ReturnsObj():
     # ESTABLISH
-    yao_str = "Yao"
     spark5_int = 5550
     sue_beliefdelta = get_beliefdelta_sue_example()
     x_delta_start = 7
     bob_lessonunit = lessonunit_shop(exx.bob)
     bob_lessonunit.set_beliefdelta(sue_beliefdelta)
     bob_lessonunit.set_delta_start(x_delta_start)
-    bob_lessonunit.set_face(yao_str)
+    bob_lessonunit.set_face(exx.yao)
     bob_lessonunit.spark_num = spark5_int
 
     # WHEN
@@ -418,7 +414,7 @@ def test_LessonUnit_get_deltametric_dict_ReturnsObj():
     assert x_dict.get(kw.belief_name) is not None
     assert x_dict.get(kw.belief_name) == exx.bob
     assert x_dict.get(kw.face_name) is not None
-    assert x_dict.get(kw.face_name) == yao_str
+    assert x_dict.get(kw.face_name) == exx.yao
     assert x_dict.get(kw.spark_num) is not None
     assert x_dict.get(kw.spark_num) == spark5_int
 
@@ -470,10 +466,9 @@ def test_LessonUnit_get_edited_belief_ReturnsObj_BeliefUnit_insert_voice():
     sue_lessonunit = lessonunit_shop(exx.sue)
 
     before_sue_beliefunit = beliefunit_shop(exx.sue)
-    yao_str = "Yao"
     zia_str = "Zia"
-    before_sue_beliefunit.add_voiceunit(yao_str)
-    assert before_sue_beliefunit.voice_exists(yao_str)
+    before_sue_beliefunit.add_voiceunit(exx.yao)
+    assert before_sue_beliefunit.voice_exists(exx.yao)
     assert before_sue_beliefunit.voice_exists(zia_str) is False
     dimen = kw.belief_voiceunit
     x_beliefatom = beliefatom_shop(dimen, kw.INSERT)
@@ -491,7 +486,7 @@ def test_LessonUnit_get_edited_belief_ReturnsObj_BeliefUnit_insert_voice():
     )
 
     # THEN
-    yao_voiceunit = after_sue_beliefunit.get_voice(yao_str)
+    yao_voiceunit = after_sue_beliefunit.get_voice(exx.yao)
     zia_voiceunit = after_sue_beliefunit.get_voice(zia_str)
     assert yao_voiceunit is not None
     assert zia_voiceunit is not None
@@ -501,10 +496,9 @@ def test_LessonUnit_get_edited_belief_ReturnsObj_BeliefUnit_insert_voice():
 
 def test_LessonUnit_get_edited_belief_RaisesErrorWhenlessonAttrsAndBeliefAttrsAreNotTheSame():
     # ESTABLISH
-    yao_str = "Yao"
     xia_str = "Xia"
     amy23_str = "amy23"
-    bob_lessonunit = lessonunit_shop(yao_str, xia_str, moment_label=amy23_str)
+    bob_lessonunit = lessonunit_shop(exx.yao, xia_str, moment_label=amy23_str)
     amy45_str = "amy45"
     before_sue_beliefunit = beliefunit_shop(exx.sue, moment_label=amy45_str)
 

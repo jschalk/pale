@@ -12,7 +12,6 @@ from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
     casa_rope = create_rope(a23_str, "casa")
     casa_pledge = 0
     casa_active = 0
@@ -32,7 +31,7 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
 )
 VALUES 
   ('{a23_str}', '{exx.bob}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
-, ('{a23_str}', '{yao_str}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
+, ('{a23_str}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, job_blrplan_tablename) == 2
@@ -58,7 +57,6 @@ VALUES
 def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
     casa_rope = create_rope(a23_str, "casa")
     casa_pledge = 0
     casa_active = 0
@@ -82,9 +80,9 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
 )
 VALUES 
   ('{a23_str}', '{exx.bob}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
-, ('{a23_str}', '{yao_str}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
+, ('{a23_str}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
 , ('{a23_str}', '{exx.bob}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_task})
-, ('{a23_str}', '{yao_str}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_task})
+, ('{a23_str}', '{exx.yao}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_task})
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, job_blrplan_tablename) == 4

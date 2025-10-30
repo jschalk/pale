@@ -11,8 +11,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_listen_to_speaker_agenda_RaisesErrorIfPoolIsNotSet():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_beliefunit = beliefunit_shop(yao_str)
+    yao_beliefunit = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     zia_beliefunit = beliefunit_shop(zia_str)
 
@@ -21,14 +20,13 @@ def test_listen_to_speaker_agenda_RaisesErrorIfPoolIsNotSet():
         listen_to_speaker_agenda(yao_beliefunit, zia_beliefunit)
 
     # THEN
-    assertion_fail_str = f"listener '{yao_str}' belief is assumed to have {zia_beliefunit.belief_name} voiceunit."
+    assertion_fail_str = f"listener '{exx.yao}' belief is assumed to have {zia_beliefunit.belief_name} voiceunit."
     assert str(excinfo.value) == assertion_fail_str
 
 
 def test_listen_to_speaker_agenda_ReturnsEqualBelief():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_beliefunit = beliefunit_shop(yao_str)
+    yao_beliefunit = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     yao_beliefunit.add_voiceunit(zia_str)
     yao_beliefunit.set_voice_respect(100)
@@ -43,21 +41,20 @@ def test_listen_to_speaker_agenda_ReturnsEqualBelief():
 
 def test_listen_to_speaker_agenda_ReturnsSingletaskBelief():
     # ESTABLISH
-    yao_str = "Yao"
-    before_yao_beliefunit = beliefunit_shop(yao_str)
+    before_yao_beliefunit = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     before_yao_beliefunit.add_voiceunit(zia_str)
     yao_voice_voice_debt_lumen = 77
     before_yao_beliefunit.set_voice_respect(yao_voice_voice_debt_lumen)
     clean_str = "clean"
     zia_clean_planunit = planunit_shop(clean_str, pledge=True)
-    zia_clean_planunit.laborunit.add_party(yao_str)
+    zia_clean_planunit.laborunit.add_party(exx.yao)
     zia_beliefunit = beliefunit_shop(zia_str)
-    zia_beliefunit.add_voiceunit(yao_str)
+    zia_beliefunit.add_voiceunit(exx.yao)
     zia_beliefunit.set_l1_plan(zia_clean_planunit)
     assert len(zia_beliefunit.get_agenda_dict()) == 0
     zia_yao_beliefunit = copy_deepcopy(zia_beliefunit)
-    zia_yao_beliefunit.set_belief_name(yao_str)
+    zia_yao_beliefunit.set_belief_name(exx.yao)
     assert len(zia_yao_beliefunit.get_agenda_dict()) == 1
     print(f"{zia_yao_beliefunit.get_agenda_dict()=}")
 
@@ -78,22 +75,21 @@ def test_listen_to_speaker_agenda_ReturnsSingletaskBelief():
 
 def test_listen_to_speaker_agenda_ReturnsLevel2taskBelief():
     # ESTABLISH
-    yao_str = "Yao"
-    before_yao_beliefunit = beliefunit_shop(yao_str)
+    before_yao_beliefunit = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     before_yao_beliefunit.add_voiceunit(zia_str)
     yao_voice_debt_lumen = 77
     before_yao_beliefunit.set_voice_respect(yao_voice_debt_lumen)
     zia_beliefunit = beliefunit_shop(zia_str)
-    zia_beliefunit.add_voiceunit(yao_str)
+    zia_beliefunit.add_voiceunit(exx.yao)
     clean_str = "clean"
     zia_clean_planunit = planunit_shop(clean_str, pledge=True)
-    zia_clean_planunit.laborunit.add_party(yao_str)
+    zia_clean_planunit.laborunit.add_party(exx.yao)
     casa_rope = zia_beliefunit.make_l1_rope("casa")
     zia_beliefunit.set_plan_obj(zia_clean_planunit, casa_rope)
     assert len(zia_beliefunit.get_agenda_dict()) == 0
     zia_yao_beliefunit = copy_deepcopy(zia_beliefunit)
-    zia_yao_beliefunit.set_belief_name(yao_str)
+    zia_yao_beliefunit.set_belief_name(exx.yao)
     assert len(zia_yao_beliefunit.get_agenda_dict()) == 1
     print(f"{zia_yao_beliefunit.get_agenda_dict()=}")
 
@@ -118,8 +114,7 @@ def test_listen_to_speaker_agenda_ReturnsLevel2taskBelief():
 
 def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
     # ESTABLISH
-    yao_str = "Yao"
-    before_yao_beliefunit = beliefunit_shop(yao_str)
+    before_yao_beliefunit = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     before_yao_beliefunit.add_voiceunit(zia_str)
     yao_voice_debt_lumen = 55
@@ -127,16 +122,16 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
 
     zia_str = "Zia"
     zia_beliefunit = beliefunit_shop(zia_str)
-    zia_beliefunit.add_voiceunit(yao_str)
+    zia_beliefunit.add_voiceunit(exx.yao)
     clean_str = "clean"
     cook_str = "cook"
     fly_str = "fly"
     yao_clean_planunit = planunit_shop(clean_str, pledge=True)
-    yao_clean_planunit.laborunit.add_party(yao_str)
+    yao_clean_planunit.laborunit.add_party(exx.yao)
     yao_cook_planunit = planunit_shop(cook_str, pledge=True)
-    yao_cook_planunit.laborunit.add_party(yao_str)
+    yao_cook_planunit.laborunit.add_party(exx.yao)
     yao_fly_planunit = planunit_shop(fly_str, pledge=True)
-    yao_fly_planunit.laborunit.add_party(yao_str)
+    yao_fly_planunit.laborunit.add_party(exx.yao)
     casa_rope = zia_beliefunit.make_l1_rope("casa")
     fly_rope = zia_beliefunit.make_l1_rope(fly_str)
     zia_beliefunit.set_plan_obj(yao_clean_planunit, casa_rope)
@@ -144,7 +139,7 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
     zia_beliefunit.set_l1_plan(yao_fly_planunit)
     assert len(zia_beliefunit.get_agenda_dict()) == 0
     zia_yao_beliefunit = copy_deepcopy(zia_beliefunit)
-    zia_yao_beliefunit.set_belief_name(yao_str)
+    zia_yao_beliefunit.set_belief_name(exx.yao)
     assert len(zia_yao_beliefunit.get_agenda_dict()) == 3
 
     # WHEN
@@ -176,29 +171,28 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
 
 def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBeliefWhereAnPlanUnitExistsInAdvance():
     # ESTABLISH
-    yao_str = "Yao"
-    before_yao_beliefunit = beliefunit_shop(yao_str)
+    before_yao_beliefunit = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     before_yao_beliefunit.add_voiceunit(zia_str)
     yao_voice_debt_lumen = 55
     before_yao_beliefunit.set_voice_respect(yao_voice_debt_lumen)
     zia_str = "Zia"
     zia_beliefunit = beliefunit_shop(zia_str)
-    zia_beliefunit.add_voiceunit(yao_str)
+    zia_beliefunit.add_voiceunit(exx.yao)
     dish_str = "dish"
     cook_str = "cook"
     fly_str = "fly"
     yao_dish_planunit = planunit_shop(dish_str, pledge=True)
-    yao_dish_planunit.laborunit.add_party(yao_str)
+    yao_dish_planunit.laborunit.add_party(exx.yao)
     yao_cook_planunit = planunit_shop(cook_str, pledge=True)
-    yao_cook_planunit.laborunit.add_party(yao_str)
+    yao_cook_planunit.laborunit.add_party(exx.yao)
     yao_fly_planunit = planunit_shop(fly_str, pledge=True)
-    yao_fly_planunit.laborunit.add_party(yao_str)
+    yao_fly_planunit.laborunit.add_party(exx.yao)
     casa_rope = zia_beliefunit.make_l1_rope("casa")
     dish_rope = zia_beliefunit.make_rope(casa_rope, dish_str)
     fly_rope = zia_beliefunit.make_l1_rope(fly_str)
     before_yao_dish_planunit = planunit_shop(dish_str, pledge=True)
-    before_yao_dish_planunit.laborunit.add_party(yao_str)
+    before_yao_dish_planunit.laborunit.add_party(exx.yao)
     before_yao_beliefunit.set_plan_obj(before_yao_dish_planunit, casa_rope)
     before_yao_beliefunit.edit_plan_attr(dish_rope, star=1000)
     zia_beliefunit.set_plan_obj(yao_dish_planunit, casa_rope)
@@ -206,7 +200,7 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBeliefWhereAnPlan
     zia_beliefunit.set_l1_plan(yao_fly_planunit)
     assert len(zia_beliefunit.get_agenda_dict()) == 0
     zia_yao_beliefunit = copy_deepcopy(zia_beliefunit)
-    zia_yao_beliefunit.set_belief_name(yao_str)
+    zia_yao_beliefunit.set_belief_name(exx.yao)
     assert len(zia_yao_beliefunit.get_agenda_dict()) == 3
 
     # WHEN
@@ -237,8 +231,7 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBeliefWhereAnPlan
 
 def test_listen_to_speaker_agenda_ProcessesIrrationalBelief():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str)
+    yao_duty = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -255,7 +248,7 @@ def test_listen_to_speaker_agenda_ProcessesIrrationalBelief():
     vacuum_rope = sue_beliefunit.make_l1_rope(vacuum_str)
     sue_beliefunit.set_l1_plan(planunit_shop(vacuum_str, pledge=True))
     vacuum_planunit = sue_beliefunit.get_plan_obj(vacuum_rope)
-    vacuum_planunit.laborunit.add_party(yao_str)
+    vacuum_planunit.laborunit.add_party(exx.yao)
 
     egg_str = "egg first"
     egg_rope = sue_beliefunit.make_l1_rope(egg_str)
@@ -282,7 +275,7 @@ def test_listen_to_speaker_agenda_ProcessesIrrationalBelief():
     assert len(sue_beliefunit.get_agenda_dict()) == 3
 
     # WHEN
-    yao_vision = create_empty_belief_from_belief(yao_duty, yao_str)
+    yao_vision = create_empty_belief_from_belief(yao_duty, exx.yao)
     yao_vision.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_vision.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_vision.set_voice_respect(yao_pool)
@@ -302,8 +295,7 @@ def test_listen_to_speaker_agenda_ProcessesIrrationalBelief():
 
 def test_listen_to_speaker_agenda_ProcessesBarrenBelief():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str)
+    yao_duty = beliefunit_shop(exx.yao)
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
@@ -316,7 +308,7 @@ def test_listen_to_speaker_agenda_ProcessesBarrenBelief():
 
     # WHEN
     sue_vision = create_empty_belief_from_belief(yao_duty, exx.sue)
-    yao_vision = create_empty_belief_from_belief(yao_duty, yao_str)
+    yao_vision = create_empty_belief_from_belief(yao_duty, exx.yao)
     yao_vision.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_vision.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_vision.set_voice_respect(yao_pool)

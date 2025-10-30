@@ -61,9 +61,8 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
     iowa_rope = create_rope(nation_rope, "Iowa")
     a23_str = "amy23"
 
-    yao_str = "Yao"
     yao_beliefunit = get_beliefunit_with_4_levels()
-    yao_beliefunit.set_belief_name(yao_str)
+    yao_beliefunit.set_belief_name(exx.yao)
 
     save_vision_belief(
         moment_mstr_dir=env_dir(),
@@ -81,12 +80,12 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
         keep_rope=iowa_rope,
         knot=default_knot_if_None(),
         healer_name=exx.bob,
-        speaker_id=yao_str,
+        speaker_id=exx.yao,
         perspective_id=exx.sue,
     )
 
     # THEN
     assert perspective_beliefunit.belief_name == exx.sue
     assert perspective_beliefunit.to_dict() != yao_beliefunit.to_dict()
-    perspective_beliefunit.set_belief_name(yao_str)
+    perspective_beliefunit.set_belief_name(exx.yao)
     assert perspective_beliefunit.to_dict() == yao_beliefunit.to_dict()

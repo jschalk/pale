@@ -167,14 +167,13 @@ def test_LessonUnit_save_files_SavesFiles(temp_dir_setup):
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
 
     zia_str = "Zia"
-    yao_str = "Yao"
     sue_delta_start = 4
     sue_lessonunit = lessonunit_shop(
         exx.sue, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
     )
     sue_lessonunit.set_delta_start(sue_delta_start)
     sue_lessonunit.set_face(zia_str)
-    sue_lessonunit.set_face(yao_str)
+    sue_lessonunit.set_face(exx.yao)
     int4 = 4
     int5 = 5
     sports_atom = get_atom_example_planunit_sports()
@@ -234,13 +233,12 @@ def test_create_lessonunit_from_files_ReturnsObj(temp_dir_setup):
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
 
-    yao_str = "Yao"
     sue_delta_start = 4
     src_sue_lessonunit = lessonunit_shop(
         exx.sue, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
     )
     src_sue_lessonunit.set_delta_start(sue_delta_start)
-    src_sue_lessonunit.set_face(yao_str)
+    src_sue_lessonunit.set_face(exx.yao)
     sports_atom = get_atom_example_planunit_sports()
     knee_atom = get_atom_example_planunit_knee()
     ball_atom = get_atom_example_planunit_ball()

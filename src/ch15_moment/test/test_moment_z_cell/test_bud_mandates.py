@@ -74,7 +74,6 @@ def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_voice_mandate_ledgers
     a23_str = "amy23"
     mstr_dir = get_temp_dir()
     amy23_moment = momentunit_shop(a23_str, mstr_dir)
-    xio_str = "Xio"
     tp37 = 37
     bud1_quota = 450
     amy23_moment.add_budunit(exx.bob, tp37, bud1_quota)
@@ -88,7 +87,7 @@ def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_voice_mandate_ledgers
     save_json(b37_cell_mandate, None, {exx.sue: 1, exx.yao: 3})
     save_json(b37_sue_cell_path, None, {exx.zia: 1, exx.sue: 3})
     save_json(b37_yao_cell_path, None, {exx.zia: 1, exx.yao: 3})
-    save_json(b37_yao_zia_cell_path, None, {xio_str: 1})
+    save_json(b37_yao_zia_cell_path, None, {exx.xio: 1})
     bob37_bud_mandate_path = bud_mandate_path(mstr_dir, a23_str, exx.bob, tp37)
     assert os_path_exists(bob37_bud_mandate_path) is False
     bob37_budunit = amy23_moment.get_budunit(exx.bob, tp37)
@@ -101,7 +100,7 @@ def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_voice_mandate_ledgers
     assert os_path_exists(bob37_bud_mandate_path)
     expected_bud_voice_nets = {
         exx.yao: 254,
-        xio_str: 84,
+        exx.xio: 84,
         exx.sue: 84,
         exx.zia: 28,
     }
@@ -112,7 +111,7 @@ def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_voice_mandate_ledgers
     assert gen_bob37_budunit._bud_voice_nets == expected_bud_voice_nets
     expected_a23_all_tranbook = tranbook_shop(a23_str)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.sue, tp37, 84)
-    expected_a23_all_tranbook.add_tranunit(exx.bob, xio_str, tp37, 84)
+    expected_a23_all_tranbook.add_tranunit(exx.bob, exx.xio, tp37, 84)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.zia, tp37, 28)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.yao, tp37, 254)
     gen_a23_momentunit.set_all_tranbook()

@@ -65,16 +65,15 @@ def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_unknown_str_IsNotSame()
 
 def test_TranslateUnit_set_ropemap_RaisesErrorIf_ropemap_face_name_IsNotSame():
     # ESTABLISH
-    yao_str = "Yao"
     sue_translateunit = translateunit_shop(exx.sue)
-    x_ropemap = ropemap_shop(face_name=yao_str)
+    x_ropemap = ropemap_shop(face_name=exx.yao)
     assert sue_translateunit.face_name != x_ropemap.face_name
     assert sue_translateunit.ropemap != x_ropemap
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         sue_translateunit.set_ropemap(x_ropemap)
-    exception_str = f"set_mapcore Error: TranslateUnit face_name is '{sue_translateunit.face_name}', MapCore is '{yao_str}'."
+    exception_str = f"set_mapcore Error: TranslateUnit face_name is '{sue_translateunit.face_name}', MapCore is '{exx.yao}'."
     assert str(excinfo.value) == exception_str
 
 

@@ -5,15 +5,15 @@ from src.ch11_belief_listen.listen_main import (
     generate_ingest_list,
     generate_perspective_agenda,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_allocate_irrational_voice_debt_lumen_SetsBeliefAttr():
     # ESTABLISH
-    yao_str = "Yao"
     zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
-    yao_belief = beliefunit_shop(yao_str)
+    yao_belief = beliefunit_shop(exx.yao)
     yao_belief.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
     zia_voiceunit = yao_belief.get_voice(zia_str)
     assert zia_voiceunit.irrational_voice_debt_lumen == 0
@@ -27,9 +27,8 @@ def test_allocate_irrational_voice_debt_lumen_SetsBeliefAttr():
 
 def test_generate_perspective_agenda_GrabsAgendatasks():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_speaker = beliefunit_shop(yao_str)
-    yao_speaker.add_voiceunit(yao_str)
+    yao_speaker = beliefunit_shop(exx.yao)
+    yao_speaker.add_voiceunit(exx.yao)
     yao_speaker.set_voice_respect(20)
     casa_str = "casa"
     casa_rope = yao_speaker.make_l1_rope(casa_str)

@@ -19,7 +19,6 @@ from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     # ESTABLISH
-    yao_str = "Yao"
     sue_voice_cred_lumen = 11
     bob_voice_cred_lumen = 13
     yao_voice_cred_lumen = 41
@@ -30,7 +29,7 @@ def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
     sue_beliefunit.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     sue_beliefunit.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
 
     # WHEN
     x_idea_name = idea_format_00021_belief_voiceunit_v0_0_0()
@@ -54,7 +53,7 @@ def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 
     assert voice_dataframe.loc[2, kw.moment_label] == amy_moment_label
     assert voice_dataframe.loc[2, kw.belief_name] == sue_beliefunit.belief_name
-    assert voice_dataframe.loc[2, kw.voice_name] == yao_str
+    assert voice_dataframe.loc[2, kw.voice_name] == exx.yao
     assert voice_dataframe.loc[2, kw.voice_debt_lumen] == yao_voice_debt_lumen
     assert voice_dataframe.loc[2, kw.voice_cred_lumen] == yao_voice_cred_lumen
 
@@ -63,12 +62,11 @@ def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 
 def test_create_idea_df_Arg_idea_format_00020_belief_voice_membership_v0_0_0():
     # ESTABLISH
-    yao_str = "Yao"
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
     sue_beliefunit.add_voiceunit(exx.sue)
     sue_beliefunit.add_voiceunit(exx.bob)
-    sue_beliefunit.add_voiceunit(yao_str)
+    sue_beliefunit.add_voiceunit(exx.yao)
     iowa_str = ";Iowa"
     sue_iowa_credit_w = 37
     bob_iowa_credit_w = 43
@@ -81,7 +79,7 @@ def test_create_idea_df_Arg_idea_format_00020_belief_voice_membership_v0_0_0():
     yao_ohio_debt_w = 67
     sue_voiceunit = sue_beliefunit.get_voice(exx.sue)
     bob_voiceunit = sue_beliefunit.get_voice(exx.bob)
-    yao_voiceunit = sue_beliefunit.get_voice(yao_str)
+    yao_voiceunit = sue_beliefunit.get_voice(exx.yao)
     sue_voiceunit.add_membership(iowa_str, sue_iowa_credit_w, sue_iowa_debt_w)
     bob_voiceunit.add_membership(iowa_str, bob_iowa_credit_w, bob_iowa_debt_w)
     yao_voiceunit.add_membership(iowa_str, yao_iowa_credit_w, yao_iowa_debt_w)
@@ -120,7 +118,7 @@ def test_create_idea_df_Arg_idea_format_00020_belief_voice_membership_v0_0_0():
 
     assert membership_dataframe.loc[7, kw.moment_label] == amy_moment_label
     assert membership_dataframe.loc[7, kw.belief_name] == sue_beliefunit.belief_name
-    assert membership_dataframe.loc[7, kw.voice_name] == yao_str
+    assert membership_dataframe.loc[7, kw.voice_name] == exx.yao
     assert membership_dataframe.loc[7, kw.group_title] == ohio_str
     assert membership_dataframe.loc[7, kw.group_cred_lumen] == yao_ohio_credit_w
     assert membership_dataframe.loc[7, kw.group_debt_lumen] == yao_ohio_debt_w
@@ -185,7 +183,6 @@ def test_save_idea_csv_Arg_idea_format_00021_belief_voiceunit_v0_0_0_SaveToCSV(
     temp_dir_setup,
 ):
     # ESTABLISH
-    yao_str = "Yao"
     sue_voice_cred_lumen = 11
     bob_voice_cred_lumen = 13
     yao_voice_cred_lumen = 41
@@ -196,7 +193,7 @@ def test_save_idea_csv_Arg_idea_format_00021_belief_voiceunit_v0_0_0_SaveToCSV(
     sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
     sue_beliefunit.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     sue_beliefunit.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
     j1_ideaname = idea_format_00021_belief_voiceunit_v0_0_0()
     name_filename = f"{exx.sue}_voice_example_00.csv"
     csv_example_path = create_path(idea_moments_dir(), name_filename)

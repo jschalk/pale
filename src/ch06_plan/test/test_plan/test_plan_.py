@@ -103,6 +103,7 @@ def test_PlanUnit_Exists():
 
 from pytest import raises as pytest_raises
 from src.ch06_plan.plan import planunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_PlanUnit_set_plan_label_Scenario0_SetsAttr():
@@ -361,8 +362,7 @@ def test_PlanUnit_add_to_descendant_pledge_count_AddsToCount():
 
 def test_PlanUnit_has_begin_close_ReturnsObj():
     # ESTABLISH
-    swim_str = "swim"
-    swim_plan = planunit_shop(swim_str)
+    swim_plan = planunit_shop(exx.swim)
     assert not swim_plan.has_begin_close()
     # WHEN
     swim_plan.begin = 9

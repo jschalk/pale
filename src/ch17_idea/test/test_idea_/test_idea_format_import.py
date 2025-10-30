@@ -8,7 +8,6 @@ from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 def test_open_csv_ReturnsObjWhenFileExists(temp_dir_setup):
     # ESTABLISH
-    yao_str = "Yao"
     sue_voice_cred_lumen = 11
     bob_voice_cred_lumen = 13
     yao_voice_cred_lumen = 41
@@ -19,7 +18,7 @@ def test_open_csv_ReturnsObjWhenFileExists(temp_dir_setup):
     sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
     sue_beliefunit.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     sue_beliefunit.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
     j1_ideaname = idea_format_00021_belief_voiceunit_v0_0_0()
     name_filename = f"{exx.sue}_voice_example_01.csv"
     save_idea_csv(j1_ideaname, sue_beliefunit, get_temp_dir(), name_filename)
@@ -45,7 +44,7 @@ def test_open_csv_ReturnsObjWhenFileExists(temp_dir_setup):
 
     assert voice_dataframe.loc[2, kw.moment_label] == amy_moment_label
     assert voice_dataframe.loc[2, kw.belief_name] == sue_beliefunit.belief_name
-    assert voice_dataframe.loc[2, kw.voice_name] == yao_str
+    assert voice_dataframe.loc[2, kw.voice_name] == exx.yao
     assert voice_dataframe.loc[2, kw.voice_cred_lumen] == yao_voice_cred_lumen
     assert voice_dataframe.loc[2, kw.voice_debt_lumen] == yao_voice_debt_lumen
 

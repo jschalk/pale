@@ -327,9 +327,8 @@ def test_LessonFileHandler_get_lessonunit_ReturnsObjWhenFilesDoesExist(
 ):
     # ESTABLISH
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
-    yao_str = "Yao"
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x0_lessonunit.set_face(yao_str)
+    x0_lessonunit.set_face(exx.yao)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
     x1_lessonunit = sue_lessonfilehandler._default_lessonunit()
     x1_lessonunit.set_face(exx.bob)
@@ -342,7 +341,7 @@ def test_LessonFileHandler_get_lessonunit_ReturnsObjWhenFilesDoesExist(
     # THEN
     assert y0_lessonunit is not None
     assert y1_lessonunit is not None
-    assert yao_str in y0_lessonunit.face_name
+    assert exx.yao in y0_lessonunit.face_name
     assert exx.bob not in y0_lessonunit.face_name
     assert exx.bob in y1_lessonunit.face_name
 
@@ -353,9 +352,8 @@ def test_LessonFileHandler_get_lessonunit_RaisesExceptionWhenFileDoesNotExist(
     # sourcery skip: extract-duplicate-method, inline-variable, move-assign-in-block
     # ESTABLISH
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
-    yao_str = "Yao"
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x0_lessonunit.set_face(yao_str)
+    x0_lessonunit.set_face(exx.yao)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
     x1_lessonunit = sue_lessonfilehandler._default_lessonunit()
     x1_lessonunit.set_face(exx.bob)
