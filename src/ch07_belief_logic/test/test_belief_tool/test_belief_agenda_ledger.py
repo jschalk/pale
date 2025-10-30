@@ -246,12 +246,11 @@ def test_get_voice_mandate_ledger_ReturnsObj_Scenario5_Zero_fund_agenda_give():
     sue_belief = beliefunit_shop("Sue")
     sue_fund_pool = 800
     sue_belief.set_fund_pool(sue_fund_pool)
-    casa_str = "casa"
     floor_str = "floor situation"
     clean_str = "clean"
     dirty_str = "dirty"
     mop_str = "mop"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     floor_rope = sue_belief.make_rope(casa_rope, floor_str)
     clean_rope = sue_belief.make_rope(floor_rope, clean_str)
     dirty_rope = sue_belief.make_rope(floor_rope, dirty_str)

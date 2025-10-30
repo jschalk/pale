@@ -59,8 +59,7 @@ def test_BeliefUnit_get_relevant_ropes_SimpleReturnsOnlyAncestors():
 def test_BeliefUnit_get_relevant_ropes_ReturnsSimpleReasonUnitreason_context():
     # ESTABLISH
     sue_belief = beliefunit_shop(belief_name="Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = sue_belief.make_rope(casa_rope, floor_str)
     floor_plan = planunit_shop(floor_str)
@@ -95,8 +94,7 @@ def test_BeliefUnit_get_relevant_ropes_ReturnsReasonUnitreason_contextAndDescend
     # ESTABLISH
     x_belief = get_mop_with_reason_beliefunit_example1()
     root_rope = x_belief.planroot.get_plan_rope()
-    casa_str = "casa"
-    casa_rope = x_belief.make_l1_rope(casa_str)
+    casa_rope = x_belief.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = x_belief.make_rope(casa_rope, floor_str)
 

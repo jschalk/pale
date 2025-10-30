@@ -12,10 +12,10 @@ from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 def test_belief_plan_reason_caseunit_set_obj_SetAttr_Scenario0_Pass_reason_case():
     # ESTABLISH
     bob_belief = beliefunit_shop(exx.bob, knot=wx.slash_str)
-    casa_rope = bob_belief.make_l1_rope(wx.casa_str)
+    casa_rope = bob_belief.make_l1_rope(exx.casa)
     wk_rope = bob_belief.make_l1_rope(wx.wk_str)
     wed_rope = bob_belief.make_rope(wk_rope, exx.wed_str)
-    bob_belief.set_l1_plan(planunit_shop(wx.casa_str))
+    bob_belief.set_l1_plan(planunit_shop(exx.casa))
     bob_belief.set_l1_plan(planunit_shop(wx.wk_str))
     bob_belief.set_plan_obj(planunit_shop(exx.wed_str), wk_rope)
     wed_jkeys = {

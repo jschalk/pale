@@ -56,8 +56,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_planunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     root_rope = sue_belief.planroot.get_plan_rope()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     sweep_str = "sweep"
@@ -94,8 +93,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_planunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_awardunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     swim_str = "Swim"
@@ -131,8 +129,7 @@ def create_xxx_swim_atom(x_rope, swim_str):
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_reasonunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     wk_rope = sue_belief.make_l1_rope("wk")
@@ -168,8 +165,7 @@ def create_wk_atom(casa_rope, wk_rope):
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_reason_caseunit_Exists():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     wk_rope = sue_belief.make_l1_rope("wk")
@@ -211,8 +207,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_reason_caseunit_Exis
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_partyunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     swim_str = "Swim"
@@ -245,8 +240,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_partyunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_healerunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     swim_str = "Swim"
@@ -279,8 +273,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_healerunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_factunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     wk_rope = sue_belief.make_l1_rope("wk")

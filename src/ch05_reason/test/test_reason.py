@@ -10,7 +10,7 @@ from src.ch05_reason.reason import (
     reasonheir_shop,
     reasonunit_shop,
 )
-from src.ref.keywords import Ch05Keywords as kw
+from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 
 
 def test_ReasonCore_Exists():
@@ -43,8 +43,7 @@ def test_ReasonCore_Exists():
 def test_reasoncore_shop_ReturnsAttrWith_knot():
     # ESTABLISH
     slash_str = "/"
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str, knot=slash_str)
+    casa_rope = create_rope("Amy23", exx.casa, knot=slash_str)
     print(f"{casa_rope=} ")
 
     # WHEN
@@ -86,8 +85,7 @@ def test_ReasonHeir_Exists():
 
 def test_reasonheir_shop_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
 
     # WHEN
     casa_reason = reasonheir_shop(casa_rope)
@@ -99,8 +97,7 @@ def test_reasonheir_shop_ReturnsObj():
 
 def test_ReasonHeir_clear_SetsAttrs():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
     email_case = caseunit_shop(reason_state=email_rope)
@@ -579,8 +576,7 @@ def test_ReasonCore_set_knot_SetsAttrs():
 
 def test_ReasonCore_get_obj_key():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
     email_case = caseunit_shop(reason_state=email_rope)

@@ -64,10 +64,9 @@ def test_BeliefUnit_get_agenda_dict_WithLargeBelief_fund():
     assert len(agenda_dict) == 2
     assert agenda_dict.get(x_belief.make_l1_rope("cat have dinner")).fund_ratio
 
-    casa_str = "casa"
-    print(f"{agenda_dict.keys()=} {x_belief.make_l1_rope(casa_str)=}")
-    print(f"{agenda_dict.get(x_belief.make_l1_rope(casa_str)).plan_label=}")
-    assert agenda_dict.get(x_belief.make_l1_rope(casa_str)).fund_ratio
+    print(f"{agenda_dict.keys()=} {x_belief.make_l1_rope(exx.casa)=}")
+    print(f"{agenda_dict.get(x_belief.make_l1_rope(exx.casa)).plan_label=}")
+    assert agenda_dict.get(x_belief.make_l1_rope(exx.casa)).fund_ratio
 
 
 def test_BeliefUnit_get_agenda_dict_WithNo7amPlanExample():
@@ -364,8 +363,7 @@ def test_get_beliefunit_from_dict_LoadsPledgeFromJSON():
     # THEN
     assert len(yao_belief.get_plan_dict()) == 252
     print(f"{len(yao_belief.get_plan_dict())=}")
-    casa_str = "casa"
-    casa_rope = yao_belief.make_l1_rope(casa_str)
+    casa_rope = yao_belief.make_l1_rope(exx.casa)
     body_str = "exercise"
     body_rope = yao_belief.make_rope(casa_rope, body_str)
     veg_str = "cook veggies every morning"
@@ -455,9 +453,8 @@ def test_BeliefUnit_set_fact_Isue116Resolved_SetstaskAsTrue():
 def test_BeliefUnit_agenda_IsSetByLaborUnit_1VoiceGroup():
     # ESTABLISH
     yao_belief = beliefunit_shop(exx.yao)
-    casa_str = "casa"
-    casa_rope = yao_belief.make_l1_rope(casa_str)
-    yao_belief.set_l1_plan(planunit_shop(casa_str, pledge=True))
+    casa_rope = yao_belief.make_l1_rope(exx.casa)
+    yao_belief.set_l1_plan(planunit_shop(exx.casa, pledge=True))
     assert len(yao_belief.get_agenda_dict()) == 1
 
     yao_belief.add_voiceunit(exx.sue)
@@ -490,9 +487,8 @@ def test_BeliefUnit_get_agenda_dict_IsSetByLaborUnit_2VoiceGroup():
     # ESTABLISH
     yao_belief = beliefunit_shop(exx.yao)
     yao_belief.add_voiceunit(exx.yao)
-    casa_str = "casa"
-    casa_rope = yao_belief.make_l1_rope(casa_str)
-    yao_belief.set_l1_plan(planunit_shop(casa_str, pledge=True))
+    casa_rope = yao_belief.make_l1_rope(exx.casa)
+    yao_belief.set_l1_plan(planunit_shop(exx.casa, pledge=True))
 
     yao_belief.add_voiceunit(exx.sue)
     sue_voiceunit = yao_belief.get_voice(exx.sue)
@@ -519,8 +515,7 @@ def test_BeliefUnit_get_agenda_dict_IsSetByLaborUnit_2VoiceGroup():
 def test_BeliefUnit_get_all_pledges_ReturnsObj():
     # ESTABLISH
     zia_belief = beliefunit_shop(exx.zia)
-    casa_str = "casa"
-    casa_rope = zia_belief.make_l1_rope(casa_str)
+    casa_rope = zia_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = zia_belief.make_rope(casa_rope, clean_str)
     sweep_str = "sweep"

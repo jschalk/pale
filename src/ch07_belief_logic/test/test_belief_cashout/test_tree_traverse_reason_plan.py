@@ -5,6 +5,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_irrational_example,
     get_beliefunit_with_4_levels,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_agenda_returned_WhenNoReasonsExist():
@@ -66,8 +67,7 @@ def test_BeliefUnit_reasonheirs_AreInheritedTo4LevelsFromRoot():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     a4_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = a4_belief.make_l1_rope(casa_str)
+    casa_rope = a4_belief.make_l1_rope(exx.casa)
     wk_str = "sem_jours"
     wk_rope = a4_belief.make_l1_rope(wk_str)
     wed_str = "Wed"
@@ -97,7 +97,7 @@ def test_BeliefUnit_reasonheirs_AreInheritedTo4LevelsFromRoot():
     a4_belief.cashout()
 
     # THEN
-    casa_plan = a4_belief.planroot.kids[casa_str]
+    casa_plan = a4_belief.planroot.kids[exx.casa]
     rla_plan = casa_plan.kids[rla_str]
     cost_plan = rla_plan.kids[cost_str]
 
@@ -134,8 +134,7 @@ def test_BeliefUnit_reasonheirs_AreInheritedTo4LevelsFromLevel2():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     a4_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = a4_belief.make_l1_rope(casa_str)
+    casa_rope = a4_belief.make_l1_rope(exx.casa)
     wk_plan_label = "sem_jours"
     wk_rope = a4_belief.make_l1_rope(wk_plan_label)
     wed_str = "Wed"
@@ -160,7 +159,7 @@ def test_BeliefUnit_reasonheirs_AreInheritedTo4LevelsFromLevel2():
     cost_rope = a4_belief.make_rope(rla_rope, cost_str)
     a4_belief.set_plan_obj(planunit_shop(cost_str), parent_rope=cost_rope)
 
-    casa_plan = a4_belief.planroot.get_kid(casa_str)
+    casa_plan = a4_belief.planroot.get_kid(exx.casa)
     rla_plan = casa_plan.get_kid(rla_str)
     cost_plan = rla_plan.get_kid(cost_str)
 
@@ -206,8 +205,7 @@ def test_BeliefUnit_reasonheirs_AreInheritedTo4LevelsFromLevel2():
 def test_BeliefUnit_ReasonUnits_set_UnCoupledMethod():
     # ESTABLISH
     sue_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_str = "sem_jours"
     wk_rope = sue_belief.make_l1_rope(wk_str)
     wed_str = "Wed"
@@ -281,8 +279,7 @@ def test_BeliefUnit_ReasonUnits_set_UnCoupledMethod():
 def test_BeliefUnit_ReasonUnits_set_casePlanWithDenomSetsCaseDivision():
     # ESTABLISH
     sue_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     ziet_str = "ziet"
     ziet_rope = sue_belief.make_l1_rope(ziet_str)
     wk_str = "wk"
@@ -403,8 +400,7 @@ def test_BeliefUnit_edit_plan_attr_beliefIsAbleToEdit_active_requisite_AnyPlanIf
     # must be 1 of 3: bool: True, bool: False, str="Set to Ignore"
     # ESTABLISH
     sue_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
 
     run_str = "run to casa"
     run_rope = sue_belief.make_l1_rope(run_str)
@@ -464,8 +460,7 @@ def test_BeliefUnit_ReasonUnits_PlanUnit_active_InfluencesReasonUnit_reason_acti
     # 2. plan(...,sem_jours,wed) exists
     # 3. plan(...,sem_jours,thur) exists
     sue_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     sem_jours_str = "sem_jours"
     sem_jours_rope = sue_belief.make_l1_rope(sem_jours_str)
     wed_str = "Wed"

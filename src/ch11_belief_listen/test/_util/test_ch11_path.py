@@ -46,8 +46,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario0_SimpleRope():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    casa_str = "casa"
-    casa_rope = create_rope(amy23_str, casa_str)
+    casa_rope = create_rope(amy23_str, exx.casa)
 
     # WHEN
     keep_casa_path = create_keep_rope_path(
@@ -57,7 +56,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario0_SimpleRope():
     # THEN
     keeps_dir = create_keeps_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
     keep_amy23_dir = create_path(keeps_dir, amy23_str)
-    expected_keep_casa_dir = create_path(keep_amy23_dir, casa_str)
+    expected_keep_casa_dir = create_path(keep_amy23_dir, exx.casa)
     assert keep_casa_path == expected_keep_casa_dir
 
 
@@ -161,8 +160,7 @@ def test_create_keep_dutys_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    casa_str = "casa"
-    casa_rope = create_rope(amy23_str, casa_str)
+    casa_rope = create_rope(amy23_str, exx.casa)
 
     # WHEN
     gen_keep_dutys_path = create_keep_dutys_path(
@@ -185,8 +183,7 @@ def test_create_keep_duty_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    casa_str = "casa"
-    casa_rope = create_rope(amy23_str, casa_str)
+    casa_rope = create_rope(amy23_str, exx.casa)
 
     # WHEN
     gen_keep_duty_path = create_keep_duty_path(
@@ -211,8 +208,7 @@ def test_create_keep_grades_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    casa_str = "casa"
-    casa_rope = create_rope(amy23_str, casa_str)
+    casa_rope = create_rope(amy23_str, exx.casa)
 
     # WHEN
     gen_keep_dutys_path = create_keep_grades_path(
@@ -235,8 +231,7 @@ def test_create_keep_grade_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    casa_str = "casa"
-    casa_rope = create_rope(amy23_str, casa_str)
+    casa_rope = create_rope(amy23_str, exx.casa)
 
     # WHEN
     gen_keep_grade_path = create_keep_grade_path(
@@ -260,8 +255,7 @@ def test_create_keep_visions_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    casa_str = "casa"
-    casa_rope = create_rope(amy23_str, casa_str)
+    casa_rope = create_rope(amy23_str, exx.casa)
 
     # WHEN
     gen_keep_dutys_path = create_keep_visions_path(
@@ -284,8 +278,7 @@ def test_create_treasury_db_path_ReturnsObj() -> None:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
-    casa_str = "casa"
-    casa_rope = create_rope(amy23_str, casa_str)
+    casa_rope = create_rope(amy23_str, exx.casa)
 
     # WHEN
     gen_keep_dutys_path = create_treasury_db_path(

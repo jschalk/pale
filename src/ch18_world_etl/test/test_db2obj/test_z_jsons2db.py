@@ -165,8 +165,7 @@ def test_insert_job_blrplan_CreatesTableRowsFor_blrplan_job():
     x_healerunit_ratio = 27.0
     x_all_voice_cred = 28
     x_all_voice_debt = 29
-    casa_str = "casa"
-    x_plan = planunit_shop(casa_str)
+    x_plan = planunit_shop(exx.casa)
     x_plan.parent_rope = x_parent_rope
     x_plan.plan_label = x_plan_label
     x_plan.begin = x_begin

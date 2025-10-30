@@ -13,7 +13,6 @@ from src.ref.keywords import ExampleStrs as exx
 
 
 class ChExampleStrsSlashknot(str, Enum):
-    casa_str = "casa"
     clean_str = "clean"
     dirtyness_str = "dirtyness"
     mop_str = "mop"
@@ -73,8 +72,7 @@ def get_beliefunit_with_4_levels() -> BeliefUnit:
     # sourcery skip: extract-duplicate-method
     a23_str = "amy23"
     sue_belief = beliefunit_shop("Sue", a23_str)
-    casa_str = "casa"
-    sue_belief.set_l1_plan(planunit_shop(casa_str, star=30, pledge=True))
+    sue_belief.set_l1_plan(planunit_shop(exx.casa, star=30, pledge=True))
     cat_str = "cat have dinner"
     sue_belief.set_l1_plan(planunit_shop(cat_str, star=30, pledge=True))
 
@@ -137,8 +135,7 @@ def get_beliefunit_with_4_levels_and_2reasons() -> BeliefUnit:
     nation_reason = reasonunit_shop(nation_rope)
     nation_reason.set_case(usa_rope)
 
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     sue_belief.edit_plan_attr(casa_rope, reason=wk_reason)
     sue_belief.edit_plan_attr(casa_rope, reason=nation_reason)
     return sue_belief
@@ -222,8 +219,7 @@ def get_beliefunit_with7am_clean_table_reason() -> BeliefUnit:
         reason_upper=clean_table_7am_reason_upper,
     )
     sue_belief.edit_plan_attr(clean_rope, reason=clean_table_7am_reason)
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     sue_belief.edit_plan_attr(casa_rope, reason=clean_table_7am_reason)
     return sue_belief
 
@@ -330,8 +326,7 @@ def get_beliefunit_irrational_example() -> BeliefUnit:
 
 def get_mop_with_reason_beliefunit_example1():
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = sue_belief.make_rope(casa_rope, floor_str)
     floor_plan = planunit_shop(floor_str, pledge=True)
@@ -361,7 +356,6 @@ def get_beliefunit_laundry_example1() -> BeliefUnit:
     yao_belief.add_voiceunit(exx.yao)
     yao_belief.add_voiceunit(cali_str)
 
-    casa_str = "casa"
     basket_str = "laundry basket situation"
     b_full_str = "full"
     b_smel_str = "smelly"
@@ -369,12 +363,12 @@ def get_beliefunit_laundry_example1() -> BeliefUnit:
     b_fine_str = "fine"
     b_half_str = "half full"
     do_laundry_str = "do_laundry"
-    casa_rope = yao_belief.make_l1_rope(casa_str)
+    casa_rope = yao_belief.make_l1_rope(exx.casa)
     basket_rope = yao_belief.make_rope(casa_rope, basket_str)
     b_full_rope = yao_belief.make_rope(basket_rope, b_full_str)
     b_smel_rope = yao_belief.make_rope(basket_rope, b_smel_str)
     laundry_task_rope = yao_belief.make_rope(casa_rope, do_laundry_str)
-    yao_belief.set_l1_plan(planunit_shop(casa_str))
+    yao_belief.set_l1_plan(planunit_shop(exx.casa))
     yao_belief.set_plan_obj(planunit_shop(basket_str), casa_rope)
     yao_belief.set_plan_obj(planunit_shop(b_full_str), basket_rope)
     yao_belief.set_plan_obj(planunit_shop(b_smel_str), basket_rope)

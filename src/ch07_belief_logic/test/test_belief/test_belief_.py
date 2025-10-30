@@ -193,11 +193,10 @@ def test_BeliefUnit_make_rope_ReturnsObj():
     a45_str = "amy45"
     slash_knot = "/"
     sue_belief = beliefunit_shop(exx.sue, a45_str, knot=slash_knot)
-    casa_str = "casa"
-    v1_casa_rope = sue_belief.make_l1_rope(casa_str)
+    v1_casa_rope = sue_belief.make_l1_rope(exx.casa)
 
     # WHEN
-    v2_casa_rope = sue_belief.make_l1_rope(casa_str)
+    v2_casa_rope = sue_belief.make_l1_rope(exx.casa)
 
     # THEN
     assert v1_casa_rope == v2_casa_rope

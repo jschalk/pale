@@ -1,8 +1,8 @@
 from pytest import raises as pytest_raises
-from src.ch04_rope.rope import create_rope, to_rope
+from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason import factunit_shop, reasonunit_shop
 from src.ch06_plan.plan import planunit_shop
-from src.ch07_belief_logic.belief_main import beliefunit_shop, get_default_first_label
+from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import get_beliefunit_with_4_levels
 from src.ref.keywords import ExampleStrs as exx
 
@@ -28,9 +28,8 @@ def test_belief_set_knot_RaisesErrorIfNew_knot_IsAnPlan_label():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia", "Texas")
     print(f"{zia_belief.max_tree_traverse=}")
-    casa_str = "casa"
-    casa_rope = zia_belief.make_l1_rope(casa_str)
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
+    casa_rope = zia_belief.make_l1_rope(exx.casa)
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
     slash_str = "/"
     casa_str = f"casa cook{slash_str}clean"
     zia_belief.set_plan_obj(planunit_shop(casa_str), parent_rope=casa_rope)
@@ -49,9 +48,8 @@ def test_belief_set_knot_RaisesErrorIfNew_knot_IsAnPlan_label():
 def test_belief_set_knot_Modifies_parent_rope():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia", "Texas")
-    casa_str = "casa"
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
-    semicolon_casa_rope = zia_belief.make_l1_rope(casa_str)
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
+    semicolon_casa_rope = zia_belief.make_l1_rope(exx.casa)
     cook_str = "cook"
     zia_belief.set_plan_obj(planunit_shop(cook_str), semicolon_casa_rope)
     semicolon_cook_rope = zia_belief.make_rope(semicolon_casa_rope, cook_str)
@@ -71,7 +69,7 @@ def test_belief_set_knot_Modifies_parent_rope():
     # THEN
     assert cook_plan.get_plan_rope() != semicolon_cook_rope
     zia_moment_label = zia_belief.planroot.plan_label
-    slash_casa_rope = create_rope(zia_moment_label, casa_str, knot=slash_str)
+    slash_casa_rope = create_rope(zia_moment_label, exx.casa, knot=slash_str)
     slash_cook_rope = create_rope(slash_casa_rope, cook_str, knot=slash_str)
     assert cook_plan.get_plan_rope() == slash_cook_rope
 
@@ -80,8 +78,7 @@ def test_belief_set_knot_ModifiesReasonUnit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia", "Texas")
-    casa_str = "casa"
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
     ziet_str = "ziet"
     semicolon_ziet_rope = zia_belief.make_l1_rope(ziet_str)
     _8am_str = "8am"
@@ -90,7 +87,7 @@ def test_belief_set_knot_ModifiesReasonUnit():
     semicolon_ziet_reasonunit = reasonunit_shop(reason_context=semicolon_ziet_rope)
     semicolon_ziet_reasonunit.set_case(semicolon_8am_rope)
 
-    semicolon_casa_rope = zia_belief.make_l1_rope(casa_str)
+    semicolon_casa_rope = zia_belief.make_l1_rope(exx.casa)
     zia_belief.edit_plan_attr(semicolon_casa_rope, reason=semicolon_ziet_reasonunit)
     casa_plan = zia_belief.get_plan_obj(semicolon_casa_rope)
     assert casa_plan.reasonunits.get(semicolon_ziet_rope) is not None
@@ -104,7 +101,7 @@ def test_belief_set_knot_ModifiesReasonUnit():
     # THEN
     slash_ziet_rope = zia_belief.make_l1_rope(ziet_str)
     slash_8am_rope = zia_belief.make_rope(slash_ziet_rope, _8am_str)
-    slash_casa_rope = zia_belief.make_l1_rope(casa_str)
+    slash_casa_rope = zia_belief.make_l1_rope(exx.casa)
     casa_plan = zia_belief.get_plan_obj(slash_casa_rope)
     slash_ziet_rope = zia_belief.make_l1_rope(ziet_str)
     slash_8am_rope = zia_belief.make_rope(slash_ziet_rope, _8am_str)
@@ -119,15 +116,14 @@ def test_belief_set_knot_ModifiesReasonUnit():
 def test_belief_set_knot_ModifiesFactUnit():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia", "Texas")
-    casa_str = "casa"
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
     ziet_str = "ziet"
     semicolon_ziet_rope = zia_belief.make_l1_rope(ziet_str)
     _8am_str = "8am"
     semicolon_8am_rope = zia_belief.make_rope(semicolon_ziet_rope, _8am_str)
     semicolon_ziet_factunit = factunit_shop(semicolon_ziet_rope, semicolon_8am_rope)
 
-    semicolon_casa_rope = zia_belief.make_l1_rope(casa_str)
+    semicolon_casa_rope = zia_belief.make_l1_rope(exx.casa)
     zia_belief.edit_plan_attr(semicolon_casa_rope, factunit=semicolon_ziet_factunit)
     casa_plan = zia_belief.get_plan_obj(semicolon_casa_rope)
     print(f"{casa_plan.factunits=} {semicolon_ziet_rope=}")
@@ -140,7 +136,7 @@ def test_belief_set_knot_ModifiesFactUnit():
 
     # THEN
     slash_ziet_rope = zia_belief.make_l1_rope(ziet_str)
-    slash_casa_rope = zia_belief.make_l1_rope(casa_str)
+    slash_casa_rope = zia_belief.make_l1_rope(exx.casa)
     casa_plan = zia_belief.get_plan_obj(slash_casa_rope)
     slash_ziet_rope = zia_belief.make_l1_rope(ziet_str)
     slash_8am_rope = zia_belief.make_rope(slash_ziet_rope, _8am_str)

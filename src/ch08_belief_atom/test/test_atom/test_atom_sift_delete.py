@@ -57,8 +57,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_DELETE_belief_planunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     root_rope = sue_belief.planroot.get_plan_rope()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     sweep_str = "sweep"
@@ -98,8 +97,7 @@ def test_sift_atom_SetsBeliefDeltaBeliefAtom_belief_planunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     root_rope = sue_belief.planroot.get_plan_rope()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     sweep_str = "sweep"
@@ -134,8 +132,7 @@ def test_sift_atom_SetsBeliefDeltaBeliefAtom_belief_plan_awardunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     swim_str = "Swim"
@@ -169,8 +166,7 @@ def test_sift_atom_SetsBeliefDeltaBeliefAtom_belief_plan_reasonunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     wk_rope = sue_belief.make_l1_rope("wk")
@@ -204,8 +200,7 @@ def test_sift_atom_SetsBeliefDeltaBeliefAtom_belief_plan_reason_caseunit_Exists(
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     wk_rope = sue_belief.make_l1_rope("wk")
@@ -248,8 +243,7 @@ def test_sift_atom_SetsBeliefDeltaBeliefAtom_belief_plan_partyunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     swim_str = "Swim"
@@ -283,8 +277,7 @@ def test_sift_atom_SetsBeliefDeltaBeliefAtom_belief_plan_healerunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     swim_str = "Swim"
@@ -318,8 +311,7 @@ def test_sift_atom_SetsBeliefDeltaBeliefAtom_belief_plan_factunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     wk_rope = sue_belief.make_l1_rope("wk")

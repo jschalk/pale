@@ -29,8 +29,7 @@ def test_generate_perspective_agenda_GrabsAgendatasks():
     yao_speaker = beliefunit_shop(exx.yao)
     yao_speaker.add_voiceunit(exx.yao)
     yao_speaker.set_voice_respect(20)
-    casa_str = "casa"
-    casa_rope = yao_speaker.make_l1_rope(casa_str)
+    casa_rope = yao_speaker.make_l1_rope(exx.casa)
     situation_str = "situation"
     situation_rope = yao_speaker.make_rope(casa_rope, situation_str)
     clean_str = "clean"

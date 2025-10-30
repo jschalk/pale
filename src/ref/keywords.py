@@ -3,7 +3,7 @@ from enum import Enum
 
 class ExampleStrs(str, Enum):
     bob = "Bob"
-    casa_str = "casa"
+    casa = "casa"
     clean_str = "clean"
     dirtyness_str = "dirtyness"
     mop_str = "mop"

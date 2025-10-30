@@ -72,8 +72,7 @@ def test_belief_voice_membership_exists_ReturnsObj():
 def test_belief_planunit_exists_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     sweep_rope = sue_belief.make_rope(clean_rope, "sweep")
@@ -113,8 +112,7 @@ def test_belief_planunit_exists_ReturnsObj():
 def test_belief_plan_awardunit_exists_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -143,8 +141,7 @@ def test_belief_plan_awardunit_exists_ReturnsObj():
 def test_belief_plan_reasonunit_exists_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -175,8 +172,7 @@ def test_belief_plan_reasonunit_exists_ReturnsObj():
 def test_belief_plan_reason_caseunit_exists_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -230,8 +226,7 @@ def test_belief_plan_reason_caseunit_exists_ReturnsObj():
 def test_belief_plan_partyunit_exists_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -259,8 +254,7 @@ def test_belief_plan_partyunit_exists_ReturnsObj():
 def test_belief_plan_healerunit_exists_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -288,8 +282,7 @@ def test_belief_plan_healerunit_exists_ReturnsObj():
 def test_belief_plan_factunit_exists_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -371,8 +364,7 @@ def test_belief_attr_exists_ReturnsObj_belief_voice_membership():
 def test_belief_attr_exists_ReturnsObj_belief_planunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     sweep_rope = sue_belief.make_rope(clean_rope, "sweep")
@@ -413,8 +405,7 @@ def test_belief_attr_exists_ReturnsObj_belief_planunit():
 def test_belief_attr_exists_ReturnsObj_belief_plan_awardunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -443,8 +434,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_awardunit():
 def test_belief_attr_exists_ReturnsObj_belief_plan_reasonunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -475,8 +465,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_reasonunit():
 def test_belief_attr_exists_ReturnsObj_belief_plan_reason_caseunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -529,8 +518,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_reason_caseunit():
 def test_belief_attr_exists_ReturnsObj_belief_plan_partyunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -559,8 +547,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_partyunit():
 def test_belief_attr_exists_ReturnsObj_belief_plan_healerunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()
@@ -589,8 +576,7 @@ def test_belief_attr_exists_ReturnsObj_belief_plan_healerunit():
 def test_belief_attr_exists_ReturnsObj_belief_plan_factunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     root_rope = sue_belief.planroot.get_plan_rope()

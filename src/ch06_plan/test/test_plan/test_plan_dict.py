@@ -122,15 +122,14 @@ def test_PlanUnit_to_dict_ReturnsCompleteDict():
     sue_laborunit.add_party(exx.sue)
     sue_laborunit.add_party(exx.yao)
     yao_healerunit = healerunit_shop({exx.yao})
-    casa_str = "casa"
-    casa_rope = create_rope(amy_str, casa_str)
+    casa_rope = create_rope(amy_str, exx.casa)
     x_problem_bool = True
     casa_plan = planunit_shop(
         parent_rope=casa_rope,
         kids=None,
         awardunits=biker_and_flyer_awardunits,
         star=30,
-        plan_label=casa_str,
+        plan_label=exx.casa,
         tree_level=1,
         reasonunits=x1_reasonunits,
         reasonheirs=x1_reasonheirs,
@@ -195,21 +194,19 @@ def test_PlanUnit_to_dict_ReturnsCompleteDict():
 
 def test_PlanUnit_to_dict_ReturnsObj_WithoutEmptyAttributes():
     # ESTABLISH
-    casa_str = "casa"
-    casa_plan = planunit_shop(casa_str)
+    casa_plan = planunit_shop(exx.casa)
 
     # WHEN
     casa_dict = casa_plan.to_dict()
 
     # THEN
     assert casa_dict is not None
-    assert casa_dict == {kw.plan_label: casa_str, kw.star: 1}
+    assert casa_dict == {kw.plan_label: exx.casa, kw.star: 1}
 
 
 def test_PlanUnit_to_dict_ReturnsObj_DictWith_attrs_SetToTrue():
     # ESTABLISH
-    casa_str = "casa"
-    casa_plan = planunit_shop(casa_str)
+    casa_plan = planunit_shop(exx.casa)
     casa_plan.is_expanded = False
     casa_plan.pledge = True
     ignore_str = "ignore"
@@ -248,8 +245,7 @@ def test_PlanUnit_to_dict_ReturnsObj_DictWith_attrs_SetToTrue():
 
 def test_PlanUnit_to_dict_ReturnsDictWithAttrsEmpty():
     # ESTABLISH
-    casa_str = "casa"
-    casa_plan = planunit_shop(casa_str)
+    casa_plan = planunit_shop(exx.casa)
     assert casa_plan.is_expanded
     assert casa_plan.pledge is False
     assert casa_plan.factunits == {}

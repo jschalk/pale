@@ -108,8 +108,7 @@ def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
 def test_set_listen_to_speaker_fact_SetsFact():
     # ESTABLISH
     yao_listener = beliefunit_shop(exx.yao)
-    casa_str = "casa"
-    casa_rope = yao_listener.make_l1_rope(casa_str)
+    casa_rope = yao_listener.make_l1_rope(exx.casa)
     situation_str = "situation"
     situation_rope = yao_listener.make_rope(casa_rope, situation_str)
     clean_str = "clean"
@@ -147,8 +146,7 @@ def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
     yao_listener = beliefunit_shop(exx.yao)
     yao_listener.add_voiceunit(exx.yao)
     yao_listener.set_voice_respect(20)
-    casa_str = "casa"
-    casa_rope = yao_listener.make_l1_rope(casa_str)
+    casa_rope = yao_listener.make_l1_rope(exx.casa)
     situation_str = "situation"
     situation_rope = yao_listener.make_rope(casa_rope, situation_str)
     clean_str = "clean"
@@ -197,8 +195,7 @@ def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
 def test_migrate_all_facts_AddsPlanUnitsAndSetsFactUnits():
     # ESTABLISH
     yao_src = beliefunit_shop(exx.yao)
-    casa_str = "casa"
-    casa_rope = yao_src.make_l1_rope(casa_str)
+    casa_rope = yao_src.make_l1_rope(exx.casa)
     situation_str = "situation"
     situation_rope = yao_src.make_rope(casa_rope, situation_str)
     clean_str = "clean"

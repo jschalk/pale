@@ -1,11 +1,7 @@
 from dataclasses import dataclass
 from platform import system as platform_system
 from pytest import raises as pytest_raises
-from src.ch04_rope._ref.ch04_semantic_types import (
-    FirstLabel,
-    LabelTerm,
-    default_knot_if_None,
-)
+from src.ch04_rope._ref.ch04_semantic_types import default_knot_if_None
 from src.ch04_rope.rope import (
     RopeTerm,
     all_ropes_between,
@@ -29,6 +25,7 @@ from src.ch04_rope.rope import (
     to_rope,
     validate_labelterm,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_get_default_first_label_ReturnsObj():
@@ -125,17 +122,16 @@ def test_create_rope_ReturnsObj_Scenario4():
 def test_rope_create_rope_ReturnsObj_Scenario5():
     # ESTABLISH
     x_s = default_knot_if_None()
-    casa_str = "casa"
-    casa_rope = f"{root_rope()}{casa_str}{x_s}"
+    casa_rope = f"{root_rope()}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
-    bloomers_rope = f"{root_rope()}{casa_str}{x_s}{bloomers_str}{x_s}"
+    bloomers_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}"
     roses_str = "roses"
-    roses_rope = f"{root_rope()}{casa_str}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
+    roses_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
 
     # WHEN / THEN
     assert create_rope(None, get_default_first_label()) == root_rope()
     assert create_rope("", get_default_first_label()) == root_rope()
-    assert create_rope(root_rope(), casa_str) == casa_rope
+    assert create_rope(root_rope(), exx.casa) == casa_rope
     assert create_rope(casa_rope, bloomers_str) == bloomers_rope
     assert create_rope(bloomers_rope, roses_str) == roses_rope
     assert create_rope(roses_rope, None) == roses_rope
@@ -143,8 +139,7 @@ def test_rope_create_rope_ReturnsObj_Scenario5():
 
 def test_rope_is_sub_rope_ReturnsObj_Scenario0_WhenNone_default_knot_if_None():
     # ESTABLISH / WHEN
-    casa_str = "casa"
-    casa_rope = f"{root_rope()}{default_knot_if_None()}{casa_str}"
+    casa_rope = f"{root_rope()}{default_knot_if_None()}{exx.casa}"
     cleaning_str = "cleaning"
     cleaning_rope = f"{casa_rope}{default_knot_if_None()}{cleaning_str}"
     laundrys_str = "laundrys"
@@ -160,9 +155,8 @@ def test_rope_is_sub_rope_ReturnsObj_Scenario0_WhenNone_default_knot_if_None():
 
 def test_rope_is_sub_rope_ReturnsObj_Scenario1_WhenNone_default_knot_if_None():
     # ESTABLISH / WHEN
-    casa_str = "casa"
     slash_str = "/"
-    casa_rope = f"{root_rope()}{slash_str}{casa_str}"
+    casa_rope = f"{root_rope()}{slash_str}{exx.casa}"
     cleaning_str = "cleaning"
     slash_cleaning_rope = f"{casa_rope}{slash_str}{cleaning_str}"
     default_cleaning_rope = f"{casa_rope}{default_knot_if_None()}{cleaning_str}"
@@ -185,8 +179,7 @@ def test_rope_is_sub_rope_ReturnsObj_Scenario1_WhenNone_default_knot_if_None():
 
 def test_rope_rebuild_rope_ReturnsRopeTerm():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope(root_rope(), casa_str)
+    casa_rope = create_rope(root_rope(), exx.casa)
     bloomers_str = "bloomers"
     bloomers_rope = create_rope(casa_rope, bloomers_str)
     greenery_str = "greenery"
@@ -206,29 +199,27 @@ def test_rope_rebuild_rope_ReturnsRopeTerm():
 def test_rope_get_all_rope_labels_ReturnsLabelTerms():
     # ESTABLISH
     x_s = default_knot_if_None()
-    casa_str = "casa"
-    casa_rope = f"{root_rope()}{casa_str}{x_s}"
+    casa_rope = f"{root_rope()}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
-    bloomers_rope = f"{root_rope()}{casa_str}{x_s}{bloomers_str}{x_s}"
+    bloomers_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}"
     roses_str = "roses"
-    roses_rope = f"{root_rope()}{casa_str}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
+    roses_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
 
     # WHEN / THENs
     root_list = [get_default_first_label()]
     assert get_all_rope_labels(rope=root_rope()) == root_list
-    casa_list = [get_default_first_label(), casa_str]
+    casa_list = [get_default_first_label(), exx.casa]
     assert get_all_rope_labels(rope=casa_rope) == casa_list
-    bloomers_list = [get_default_first_label(), casa_str, bloomers_str]
+    bloomers_list = [get_default_first_label(), exx.casa, bloomers_str]
     assert get_all_rope_labels(rope=bloomers_rope) == bloomers_list
-    roses_list = [get_default_first_label(), casa_str, bloomers_str, roses_str]
+    roses_list = [get_default_first_label(), exx.casa, bloomers_str, roses_str]
     assert get_all_rope_labels(rope=roses_rope) == roses_list
 
 
 def test_rope_get_tail_label_ReturnsLabelTerm():
     # ESTABLISH
     x_s = default_knot_if_None()
-    casa_str = "casa"
-    casa_rope = f"{root_rope()}{x_s}{casa_str}{x_s}"
+    casa_rope = f"{root_rope()}{x_s}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{x_s}{bloomers_str}{x_s}"
     roses_str = "roses"
@@ -236,7 +227,7 @@ def test_rope_get_tail_label_ReturnsLabelTerm():
 
     # WHEN / THENs
     assert get_tail_label(rope=root_rope()) == get_default_first_label()
-    assert get_tail_label(rope=casa_rope) == casa_str
+    assert get_tail_label(rope=casa_rope) == exx.casa
     assert get_tail_label(rope=bloomers_rope) == bloomers_str
     assert get_tail_label(rope=roses_rope) == roses_str
     assert get_tail_label(rope="") == ""
@@ -244,44 +235,41 @@ def test_rope_get_tail_label_ReturnsLabelTerm():
 
 def test_rope_get_tail_label_ReturnsLabelTermWhenNonDefaultknot():
     # ESTABLISH
-    casa_str = "casa"
     bloomers_str = "bloomers"
     roses_str = "roses"
     slash_str = "/"
     slash_casa_rope = (
-        f"{slash_str}{get_default_first_label()}{slash_str}{casa_str}{slash_str}"
+        f"{slash_str}{get_default_first_label()}{slash_str}{exx.casa}{slash_str}"
     )
     slash_bloomers_rope = f"{slash_casa_rope}{bloomers_str}{slash_str}"
     slash_roses_rope = f"{slash_bloomers_rope}{roses_str}{slash_str}"
 
     # WHEN / THENs
-    assert get_tail_label(slash_casa_rope, slash_str) == casa_str
+    assert get_tail_label(slash_casa_rope, slash_str) == exx.casa
     assert get_tail_label(slash_bloomers_rope, slash_str) == bloomers_str
     assert get_tail_label(slash_roses_rope, slash_str) == roses_str
 
 
 def test_rope_get_first_label_from_rope_ReturnsLabelTerm():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope(root_rope(), casa_str)
+    casa_rope = create_rope(root_rope(), exx.casa)
     bloomers_str = "bloomers"
     bloomers_rope = create_rope(casa_rope, bloomers_str)
     roses_str = "roses"
-    roses_rope = create_rope(casa_str, roses_str)
+    roses_rope = create_rope(exx.casa, roses_str)
 
     # WHEN / THENs
     assert get_first_label_from_rope(root_rope()) == get_default_first_label()
     assert get_first_label_from_rope(casa_rope) == get_default_first_label()
     assert get_first_label_from_rope(bloomers_rope) == get_default_first_label()
-    assert get_first_label_from_rope(roses_rope) == casa_str
+    assert get_first_label_from_rope(roses_rope) == exx.casa
 
 
 def test_rope_get_parent_rope_ReturnsObj_Scenario0():
     # ESTABLISH
     x_s = default_knot_if_None()
     expected_root_rope = f"{x_s}{get_default_first_label()}{x_s}"
-    casa_str = "casa"
-    casa_rope = f"{expected_root_rope}{casa_str}{x_s}"
+    casa_rope = f"{expected_root_rope}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{bloomers_str}{x_s}"
     roses_str = "roses"
@@ -298,8 +286,7 @@ def test_rope_get_parent_rope_ReturnsObj_Scenario1():
     # ESTABLISH
     x_s = "/"
     expected_root_rope = f"{x_s}{get_default_first_label()}{x_s}"
-    casa_str = "casa"
-    casa_rope = f"{expected_root_rope}{casa_str}{x_s}"
+    casa_rope = f"{expected_root_rope}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{bloomers_str}{x_s}"
     roses_str = "roses"
@@ -430,14 +417,13 @@ def test_rope_create_rope_from_labels_ReturnsObj():
     # ESTABLISH
     x_s = default_knot_if_None()
     root_list = get_all_rope_labels(root_rope())
-    casa_str = "casa"
-    casa_rope = f"{root_rope()}{casa_str}{x_s}"
+    casa_rope = f"{root_rope()}{exx.casa}{x_s}"
     casa_list = get_all_rope_labels(casa_rope)
     bloomers_str = "bloomers"
-    bloomers_rope = f"{root_rope()}{casa_str}{x_s}{bloomers_str}{x_s}"
+    bloomers_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}"
     bloomers_list = get_all_rope_labels(bloomers_rope)
     roses_str = "roses"
-    roses_rope = f"{root_rope()}{casa_str}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
+    roses_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{roses_str}{x_s}"
     roses_list = get_all_rope_labels(roses_rope)
 
     # WHEN / THEN
@@ -487,12 +473,11 @@ def test_is_heir_rope_IdentifiesHeirs():
 
 def test_replace_knot_ReturnsNewObj():
     # ESTABLISH
-    casa_str = "casa"
     first_label = get_default_first_label()
-    gen_casa_rope = create_rope(first_label, casa_str)
+    gen_casa_rope = create_rope(first_label, exx.casa)
     semicolon_knot = default_knot_if_None()
     semicolon_knot_casa_rope = (
-        f"{semicolon_knot}{first_label}{semicolon_knot}{casa_str}{semicolon_knot}"
+        f"{semicolon_knot}{first_label}{semicolon_knot}{exx.casa}{semicolon_knot}"
     )
     assert semicolon_knot == ";"
     assert gen_casa_rope == semicolon_knot_casa_rope
@@ -505,7 +490,7 @@ def test_replace_knot_ReturnsNewObj():
 
     # THEN
     slash_knot_casa_rope = (
-        f"{slash_knot}{first_label}{slash_knot}{casa_str}{slash_knot}"
+        f"{slash_knot}{first_label}{slash_knot}{exx.casa}{slash_knot}"
     )
     assert gen_casa_rope == slash_knot_casa_rope
 
@@ -650,11 +635,10 @@ def test_rope_is_valid_dir_path_ReturnsObj_Scenario2_WhereSlashNotknotEdgeSituat
 
 def test_all_ropes_between_ReturnsObj_Scenario0_Default_knot():
     # ESTABLISH
-    casa_str = "casa"
     sport_str = "sport"
     run_str = "run/swim"
     lap_str = "lap"
-    sport_rope = create_rope(casa_str, sport_str)
+    sport_rope = create_rope(exx.casa, sport_str)
     run_rope = create_rope(sport_rope, run_str)
     lap_rope = create_rope(run_rope, lap_str)
 
@@ -670,12 +654,11 @@ def test_all_ropes_between_ReturnsObj_Scenario0_Default_knot():
 
 def test_all_ropes_between_ReturnsObj_Scenario1_NonDefault_knot():
     # ESTABLISH
-    casa_str = "casa"
     sport_str = "sport"
     run_str = "run,swim"
     lap_str = "lap"
     slash_str = "/"
-    sport_rope = create_rope(casa_str, sport_str, knot=slash_str)
+    sport_rope = create_rope(exx.casa, sport_str, knot=slash_str)
     run_rope = create_rope(sport_rope, run_str, knot=slash_str)
     lap_rope = create_rope(run_rope, lap_str, knot=slash_str)
 
@@ -697,14 +680,13 @@ def test_remove_knot_ends_ReturnsObj():
     x_s = default_knot_if_None()
     root_str = "root"
     root_rode = to_rope(root_str, x_s)
-    casa_str = "casa"
-    casa_rope = f"{x_s}{root_rope()}{x_s}{casa_str}{x_s}"
+    casa_rope = f"{x_s}{root_rope()}{x_s}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
-    bloomers_rope = f"{casa_str}{x_s}{bloomers_str}{x_s}"
+    bloomers_rope = f"{exx.casa}{x_s}{bloomers_str}{x_s}"
 
     # WHEN / THENs
     assert remove_knot_ends(root_str, x_s) == root_str
     assert remove_knot_ends(root_rode, x_s) == root_str
-    assert remove_knot_ends(casa_rope, x_s) == f"{root_rope()}{x_s}{casa_str}"
-    assert remove_knot_ends(bloomers_rope, x_s) == f"{casa_str}{x_s}{bloomers_str}"
+    assert remove_knot_ends(casa_rope, x_s) == f"{root_rope()}{x_s}{exx.casa}"
+    assert remove_knot_ends(bloomers_rope, x_s) == f"{exx.casa}{x_s}{bloomers_str}"
     assert remove_knot_ends(x_rope="", knot=x_s) == ""

@@ -330,9 +330,8 @@ def get_invalid_titlemap() -> TitleMap:
 
 
 def get_invalid_ropemap() -> RopeMap:
-    casa_str = "casa"
-    casa_otx = create_rope(casa_str)
-    casa_inx = create_rope(casa_str)
+    casa_otx = create_rope(exx.casa)
+    casa_inx = create_rope(exx.casa)
     clean_str = create_rope(casa_otx, "clean")
     clean_inx = create_rope(casa_inx, "propre")
     ropemap = ropemap_shop(face_name="Sue")

@@ -41,9 +41,8 @@ def test_BeliefUnit_cashout_ChangesPlanUnit_pledge_task():
 def test_BeliefUnit_cashout_ExecutesWithRangeRootFacts():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
-    casa_str = "casa"
-    casa_rope = zia_belief.make_l1_rope(casa_str)
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
+    casa_rope = zia_belief.make_l1_rope(exx.casa)
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
     clean_str = "clean"
     clean_rope = zia_belief.make_rope(casa_rope, clean_str)
     clean_begin = -3
@@ -74,9 +73,8 @@ def test_BeliefUnit_cashout_ExecutesWithRangeRootFacts():
 def test_BeliefUnit_cashout_RaisesErrorIfNon_RangeRootHasFactUnit():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
-    casa_str = "casa"
-    casa_rope = zia_belief.make_l1_rope(casa_str)
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
+    casa_rope = zia_belief.make_l1_rope(exx.casa)
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
     clean_str = "clean"
     clean_rope = zia_belief.make_rope(casa_rope, clean_str)
     clean_begin = -3

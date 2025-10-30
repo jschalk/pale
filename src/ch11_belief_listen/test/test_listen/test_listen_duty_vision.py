@@ -22,7 +22,6 @@ from src.ch11_belief_listen.test._util.ch11_env import (
     temp_dir_setup,
 )
 from src.ch11_belief_listen.test._util.ch11_examples import (
-    casa_str,
     ch11_example_moment_label,
     clean_str,
     cook_str,
@@ -49,7 +48,7 @@ def sweep_str() -> str:
 
 
 def casa_rope() -> RopeTerm:
-    return create_rope(ch11_example_moment_label(), casa_str())
+    return create_rope(ch11_example_moment_label(), exx.casa)
 
 
 def cook_rope() -> RopeTerm:

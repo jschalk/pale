@@ -80,8 +80,7 @@ def test_BeliefUnit_clear_plan_dict_and_belief_obj_settle_attrs_SetsAttrs_Scenar
 def test_BeliefUnit_cashout_ClearsDescendantAttributes():
     # ESTABLISH
     sue_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     casa_plan = sue_belief.get_plan_obj(casa_rope)
     wk_str = "sem_jours"
     wk_rope = sue_belief.make_l1_rope(wk_str)
@@ -153,8 +152,7 @@ def test_BeliefUnit_cashout_RootOnlySetsDescendantAttributes():
 def test_BeliefUnit_cashout_NLevelSetsDescendantAttributes_1():
     # ESTABLISH
     sue_belief = get_beliefunit_with_4_levels()
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     casa_plan = sue_belief.get_plan_obj(casa_rope)
     wk_str = "sem_jours"
     wk_rope = sue_belief.make_l1_rope(wk_str)
@@ -200,13 +198,12 @@ def test_BeliefUnit_cashout_NLevelSetsDescendantAttributes_2():
     # ESTABLISH
     sue_belief = get_beliefunit_with_4_levels()
     email_str = "email"
-    casa_str = "casa"
     wk_str = "sem_jours"
     mon_str = "Mon"
     tue_str = "Tue"
     vacuum_str = "vacuum"
 
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     email_plan = planunit_shop(email_str, pledge=True)
     sue_belief.set_plan_obj(email_plan, parent_rope=casa_rope)
     vacuum_plan = planunit_shop(vacuum_str, pledge=True)
@@ -215,21 +212,21 @@ def test_BeliefUnit_cashout_NLevelSetsDescendantAttributes_2():
     sue_belief.add_voiceunit(voice_name=exx.sue)
     x_awardunit = awardunit_shop(awardee_title=exx.sue)
 
-    sue_belief.planroot.kids[casa_str].kids[email_str].set_awardunit(
+    sue_belief.planroot.kids[exx.casa].kids[email_str].set_awardunit(
         awardunit=x_awardunit
     )
-    # print(sue_belief.kids[casa_str].kids[email_str])
-    # print(sue_belief.kids[casa_str].kids[email_str].awardunit)
+    # print(sue_belief.kids[exx.casa].kids[email_str])
+    # print(sue_belief.kids[exx.casa].kids[email_str].awardunit)
 
     # WHEN
     sue_belief.cashout()
-    # print(sue_belief.kids[casa_str].kids[email_str])
-    # print(sue_belief.kids[casa_str].kids[email_str].awardunit)
+    # print(sue_belief.kids[exx.casa].kids[email_str])
+    # print(sue_belief.kids[exx.casa].kids[email_str].awardunit)
 
     # THEN
     assert sue_belief.planroot.all_voice_cred is False
     assert sue_belief.planroot.all_voice_debt is False
-    casa_plan = sue_belief.planroot.kids[casa_str]
+    casa_plan = sue_belief.planroot.kids[exx.casa]
     assert casa_plan.all_voice_cred is False
     assert casa_plan.all_voice_debt is False
     assert casa_plan.kids[email_str].all_voice_cred is False
@@ -305,14 +302,13 @@ def test_BeliefUnit_cashout_TreeTraverseSetsClearsAwardLineestors():
 
     # WHEN
     # test for level 1 and level n
-    casa_str = "casa"
-    casa_plan = sue_belief.planroot.kids[casa_str]
+    casa_plan = sue_belief.planroot.kids[exx.casa]
     casa_plan.awardlines = {1: "testtest"}
     assert casa_plan.awardlines != {}
     sue_belief.cashout()
 
     # THEN
-    assert not sue_belief.planroot.kids[casa_str].awardlines
+    assert not sue_belief.planroot.kids[exx.casa].awardlines
 
 
 def test_BeliefUnit_cashout_DoesNotKeepNonRequired_awardheirs():
@@ -408,8 +404,7 @@ def test_BeliefUnit_get_plan_dict_ReturnsObjWhenSingle():
     sue_belief = beliefunit_shop("Sue")
     texas_str = "Texas"
     sue_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
-    casa_str = "casa"
-    sue_belief.set_l1_plan(planunit_shop(casa_str))
+    sue_belief.set_l1_plan(planunit_shop(exx.casa))
 
     # WHEN
     problems_dict = sue_belief.get_plan_dict(problem=True)
@@ -451,9 +446,8 @@ def test_BeliefUnit_cashout_Resets_offtrack_kids_star_set():
 def test_BeliefUnit_cashout_WhenPlanRootHas_starButAll_kidsHaveZero_starAddTo_offtrack_kids_star_set_Scenario0():
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
-    casa_plan = planunit_shop(casa_str, star=0)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
+    casa_plan = planunit_shop(exx.casa, star=0)
     sue_beliefunit.set_l1_plan(casa_plan)
     assert sue_beliefunit.offtrack_kids_star_set == set()
 
@@ -475,9 +469,8 @@ def test_BeliefUnit_cashout_WhenPlanRootHas_starButAll_kidsHaveZero_starAddTo_of
 def test_BeliefUnit_cashout_WhenPlanUnitHas_starButAll_kidsHaveZero_starAddTo_offtrack_kids_star_set():
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
-    casa_plan = planunit_shop(casa_str, star=1)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
+    casa_plan = planunit_shop(exx.casa, star=1)
 
     swim_rope = sue_beliefunit.make_rope(casa_rope, exx.swim)
     swim_plan = planunit_shop(exx.swim, star=8)

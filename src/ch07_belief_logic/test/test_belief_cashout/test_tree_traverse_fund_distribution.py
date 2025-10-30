@@ -184,8 +184,7 @@ def test_BeliefUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario2_Differ
 def test_BeliefUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario0():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = sue_belief.make_rope(casa_rope, floor_str)
     floor_plan = planunit_shop(floor_str, pledge=True)
@@ -226,8 +225,7 @@ def test_BeliefUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario0():
 def test_BeliefUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = sue_belief.make_rope(casa_rope, floor_str)
     floor_plan = planunit_shop(floor_str, pledge=True)
@@ -282,9 +280,8 @@ def test_BeliefUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFund
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
     sue_beliefunit.add_voiceunit(exx.yao)
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
-    casa_plan = planunit_shop(casa_str, star=1)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
+    casa_plan = planunit_shop(exx.casa, star=1)
 
     swim_rope = sue_beliefunit.make_rope(casa_rope, exx.swim)
     swim_plan = planunit_shop(exx.swim, star=8)
@@ -368,8 +365,7 @@ def test_BeliefUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
     cat_plan = sue_belief.get_plan_obj(cat_rope)
     wk_rope = sue_belief.make_l1_rope(wk_str)
     wk_plan = sue_belief.get_plan_obj(wk_rope)
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     casa_plan = sue_belief.get_plan_obj(casa_rope)
     nation_rope = sue_belief.make_l1_rope(nation_str)
     nation_plan = sue_belief.get_plan_obj(nation_rope)

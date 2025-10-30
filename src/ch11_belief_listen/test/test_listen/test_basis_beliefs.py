@@ -111,7 +111,6 @@ def test_get_default_job_ReturnsObj():
     x_fund_grain = 80
     x_respect_grain = 5
     sue_voice_pool = 800
-    casa_str = "casa"
     last_lesson_id = 7
     sue_max_tree_traverse = 9
     sue_beliefunit = beliefunit_shop(
@@ -122,7 +121,7 @@ def test_get_default_job_ReturnsObj():
     bob_voiceunit = sue_beliefunit.get_voice(exx.bob)
     bob_voiceunit.add_membership(f"{slash_str}swimmers")
     sue_beliefunit.set_voice_respect(sue_voice_pool)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_max_tree_traverse(sue_max_tree_traverse)
 
     # WHEN

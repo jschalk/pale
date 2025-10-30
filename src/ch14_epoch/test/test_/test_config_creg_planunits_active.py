@@ -9,7 +9,7 @@ from src.ch14_epoch.test._util.ch14_examples import (
     get_thu,
     get_wed,
 )
-from src.ref.keywords import Ch14Keywords as kw
+from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
 
 
 def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_day_plan_Scenario0():
@@ -22,11 +22,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_day_plan_Scenario0():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # day_plan = sue_beliefunit.get_plan_obj(day_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
 
     # WHEN
@@ -46,11 +45,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_day_plan_Scenario1():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # day_plan = sue_beliefunit.get_plan_obj(day_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -80,11 +78,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_day_plan_Scenario2():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # day_plan = sue_beliefunit.get_plan_obj(day_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -113,11 +110,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_days_plan_Scenario0():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # days_plan = sue_beliefunit.get_plan_obj(days_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -149,11 +145,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_week_plan_Scenario0():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # week_plan = sue_beliefunit.get_plan_obj(week_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -183,11 +178,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_week_plan_Scenario1():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # week_plan = sue_beliefunit.get_plan_obj(week_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -217,11 +211,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_weeks_plan_Scenario0():
     print(f"{creg_plan.begin=} {creg_plan.close=}")
     # weeks_plan = sue_beliefunit.get_plan_obj(weeks_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -250,11 +243,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_year_plan_Scenario0():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # year_plan = sue_beliefunit.get_plan_obj(year_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -293,11 +285,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_year_plan_Scenario1():
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # year_plan = sue_beliefunit.get_plan_obj(year_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -328,11 +319,10 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_year_plan_Scenario2():
     creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # year_plan = sue_beliefunit.get_plan_obj(year_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -395,11 +385,10 @@ def test_BeliefUnit_add_time_creg_planunit_SyncsWeekDayAndYear_Wednesday_March1_
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # week_plan = sue_beliefunit.get_plan_obj(week_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,
@@ -522,11 +511,10 @@ def test_BeliefUnit_add_time_creg_planunit_SyncsWeekDayAndYear_Thursday_March2_2
     # creg_plan = sue_beliefunit.get_plan_obj(creg_rope)
     # week_plan = sue_beliefunit.get_plan_obj(week_rope)
     sue_beliefunit._set_plantree_range_attrs()
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     clean_str = "clean"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str))
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
     sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
     sue_beliefunit.edit_plan_attr(
         clean_rope,

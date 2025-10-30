@@ -11,9 +11,8 @@ def test_BeliefUnit_edit_plan_label_FailsWhenPlanDoesNotExist():
     # ESTABLISH
     yao_belief = beliefunit_shop("Yao")
 
-    casa_str = "casa"
-    casa_rope = yao_belief.make_l1_rope(casa_str)
-    yao_belief.set_l1_plan(planunit_shop(casa_str))
+    casa_rope = yao_belief.make_l1_rope(exx.casa)
+    yao_belief.set_l1_plan(planunit_shop(exx.casa))
     yao_belief.set_plan_obj(planunit_shop(exx.swim), parent_rope=casa_rope)
 
     # WHEN / THEN
@@ -27,8 +26,8 @@ def test_BeliefUnit_find_replace_rope_Modifies_kids_Scenario1():
     # ESTABLISH Plan with kids that will be different
     yao_belief = beliefunit_shop(exx.yao)
 
-    old_casa_str = "casa"
-    old_casa_rope = yao_belief.make_l1_rope(old_casa_str)
+    casa_old_str = "casa"
+    old_casa_rope = yao_belief.make_l1_rope(casa_old_str)
     bloomers_str = "bloomers"
     old_bloomers_rope = yao_belief.make_rope(old_casa_rope, bloomers_str)
     roses_str = "roses"
@@ -36,7 +35,7 @@ def test_BeliefUnit_find_replace_rope_Modifies_kids_Scenario1():
     red_str = "red"
     old_red_rope = yao_belief.make_rope(old_roses_rope, red_str)
 
-    yao_belief.set_l1_plan(planunit_shop(old_casa_str))
+    yao_belief.set_l1_plan(planunit_shop(casa_old_str))
     yao_belief.set_plan_obj(planunit_shop(bloomers_str), parent_rope=old_casa_rope)
     yao_belief.set_plan_obj(planunit_shop(roses_str), parent_rope=old_bloomers_rope)
     yao_belief.set_plan_obj(planunit_shop(red_str), parent_rope=old_roses_rope)
@@ -56,7 +55,7 @@ def test_BeliefUnit_find_replace_rope_Modifies_kids_Scenario1():
 
     # THEN
     assert yao_belief.planroot.kids.get(new_casa_str) is not None
-    assert yao_belief.planroot.kids.get(old_casa_str) is None
+    assert yao_belief.planroot.kids.get(casa_old_str) is None
 
     assert r_plan_bloomers.parent_rope == new_casa_rope
     assert r_plan_bloomers.kids.get(roses_str) is not None
@@ -74,8 +73,7 @@ def test_belief_edit_plan_label_Modifies_factunits():
     # ESTABLISH belief with factunits that will be different
     yao_belief = beliefunit_shop(exx.yao)
 
-    casa_str = "casa"
-    casa_rope = yao_belief.make_l1_rope(casa_str)
+    casa_rope = yao_belief.make_l1_rope(exx.casa)
     bloomers_str = "bloomers"
     bloomers_rope = yao_belief.make_rope(casa_rope, bloomers_str)
     roses_str = "roses"
@@ -85,7 +83,7 @@ def test_belief_edit_plan_label_Modifies_factunits():
     rain_str = "rain"
     old_rain_rope = yao_belief.make_rope(old_water_rope, rain_str)
 
-    yao_belief.set_l1_plan(planunit_shop(casa_str))
+    yao_belief.set_l1_plan(planunit_shop(exx.casa))
     yao_belief.set_plan_obj(planunit_shop(roses_str), parent_rope=bloomers_rope)
     yao_belief.set_plan_obj(planunit_shop(rain_str), parent_rope=old_water_rope)
     yao_belief.add_fact(fact_context=old_water_rope, fact_state=old_rain_rope)

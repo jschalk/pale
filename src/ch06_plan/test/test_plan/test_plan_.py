@@ -4,7 +4,7 @@ from src.ch03_voice.labor import laborunit_shop
 from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch06_plan.healer import healerunit_shop
 from src.ch06_plan.plan import PlanUnit, planunit_shop
-from src.ref.keywords import Ch06Keywords as kw
+from src.ref.keywords import Ch06Keywords as kw, ExampleStrs as exx
 
 
 def test_PlanUnit_Exists():
@@ -110,20 +110,18 @@ def test_PlanUnit_set_plan_label_Scenario0_SetsAttr():
     # ESTABLISH
     el_paso_str = "El Paso"
     el_paso_plan = planunit_shop(el_paso_str)
-    casa_str = "casa"
-    assert el_paso_plan.plan_label != casa_str
+    assert el_paso_plan.plan_label != exx.casa
 
     # WHEN
-    el_paso_plan.set_plan_label(casa_str)
+    el_paso_plan.set_plan_label(exx.casa)
 
     # THEN
-    assert el_paso_plan.plan_label == casa_str
+    assert el_paso_plan.plan_label == exx.casa
 
 
 def test_PlanUnit_set_plan_label_Scenario1_RaisesErrorWhen_plan_label_IsNone():
     # ESTABLISH
-    casa_str = "casa"
-    casa_plan = planunit_shop(casa_str)
+    casa_plan = planunit_shop(exx.casa)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
@@ -133,16 +131,15 @@ def test_PlanUnit_set_plan_label_Scenario1_RaisesErrorWhen_plan_label_IsNone():
 
 def test_planunit_shop_ReturnsObj_WithOneParameter():
     # ESTABLISH
-    casa_str = "casa"
 
     # WHEN
-    x_planunit = planunit_shop(casa_str)
+    x_planunit = planunit_shop(exx.casa)
 
     # THEN
     assert x_planunit
     assert x_planunit.kids == {}
     assert x_planunit.star == 1
-    assert x_planunit.plan_label == casa_str
+    assert x_planunit.plan_label == exx.casa
     assert not x_planunit.uid
     assert not x_planunit.begin
     assert not x_planunit.close
@@ -270,8 +267,7 @@ def test_PlanUnit_get_obj_key_ReturnsInfo():
 
 def test_PlanUnit_set_knot_SetsAttr():
     # ESTABLISH
-    casa_str = "casa"
-    casa_plan = planunit_shop(casa_str)
+    casa_plan = planunit_shop(exx.casa)
     casa_plan.set_parent_rope("")
 
     # WHEN

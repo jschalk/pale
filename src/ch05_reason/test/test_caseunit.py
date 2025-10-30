@@ -5,13 +5,12 @@ from src.ch05_reason.reason import (
     caseunit_shop,
     factheir_shop,
 )
-from src.ref.keywords import Ch05Keywords as kw
+from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 
 
 def test_CaseUnit_Exists():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
 
@@ -41,8 +40,7 @@ def test_CaseUnit_Exists():
 
 def test_caseunit_shop_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
 
@@ -55,8 +53,7 @@ def test_caseunit_shop_ReturnsObj():
 
 def test_CaseUnit_clear_case_active_SetAttrs():
     # WHEN
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     casaunit = caseunit_shop(casa_rope)
     # THEN
     assert casaunit.case_active is None
@@ -74,8 +71,7 @@ def test_CaseUnit_clear_case_active_SetAttrs():
 
 def test_CaseUnit_is_range_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
 
     # WHEN
     casaunit = caseunit_shop(casa_rope, reason_lower=1, reason_upper=3)
@@ -97,8 +93,7 @@ def test_CaseUnit_is_range_ReturnsObj():
 
 def test_CaseUnit_is_segregate_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
 
     # WHEN
     casaunit = caseunit_shop(casa_rope, reason_lower=1, reason_upper=3)
@@ -844,14 +839,13 @@ def test_rope_find_replace_rope_key_dict_ReturnsCasesUnit_Scenario2():
     # sourcery skip: extract-duplicate-method, inline-immediately-returned-variable, move-assign-in-block
     # ESTABLISH
     old_first_label = "El Paso"
-    casa_str = "casa"
     seasons_str = "seasons"
-    old_casa_rope = create_rope(old_first_label, casa_str)
+    old_casa_rope = create_rope(old_first_label, exx.casa)
     old_seasons_rope = create_rope(old_casa_rope, seasons_str)
     old_caseunit = caseunit_shop(old_seasons_rope)
     old_caseunits = {old_caseunit.reason_state: old_caseunit}
     new_first_label = "Austin"
-    new_casa_rope = create_rope(new_first_label, casa_str)
+    new_casa_rope = create_rope(new_first_label, exx.casa)
     new_seasons_rope = create_rope(new_casa_rope, seasons_str)
 
     # WHEN

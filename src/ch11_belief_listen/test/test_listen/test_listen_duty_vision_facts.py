@@ -390,7 +390,6 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     # ESTABLISH
 #     exx.yao = "Yao"
 #     sue_speaker = beliefunit_shop(exx.yao)
-#     casa_str = "casa"
 #     casa_rope = sue_speaker.make_l1_rope(casa_str)
 #     situation_str = "situation"
 #     situation_rope = sue_speaker.make_rope(casa_rope, situation_str)
@@ -441,7 +440,6 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     yao_duty = beliefunit_shop(exx.yao)
 #     yao_duty.add_voiceunit(exx.yao)
 #     yao_duty.set_voice_respect(20)
-#     casa_str = "casa"
 #     casa_rope = yao_duty.make_l1_rope(casa_str)
 #     situation_str = "situation"
 #     situation_rope = yao_duty.make_rope(casa_rope, situation_str)
