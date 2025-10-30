@@ -618,18 +618,17 @@ def test_BeliefUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
     assert symmerty_group_titles == {exx.xio}
 
     # ESTABLISH
-    run_str = ";Run"
-    swim_plan.set_awardunit(awardunit_shop(run_str))
-    assert not yao_belief.groupunit_exists(run_str)
+    swim_plan.set_awardunit(awardunit_shop(exx.run))
+    assert not yao_belief.groupunit_exists(exx.run)
     yao_belief.cashout()
-    assert yao_belief.groupunit_exists(run_str)
+    assert yao_belief.groupunit_exists(exx.run)
 
     # WHEN
     symmerty_group_titles = yao_belief.get_tree_traverse_generated_groupunits()
 
     # THEN
     assert len(symmerty_group_titles) == 2
-    assert symmerty_group_titles == {exx.xio, run_str}
+    assert symmerty_group_titles == {exx.xio, exx.run}
 
 
 def test_BeliefUnit_cashout_Sets_planroot_factheir_With_range_factheirs():

@@ -83,15 +83,14 @@ def test_LaborUnit_to_dict_ReturnsDictWithSingle_partyunit():
 
 def test_get_laborunit_from_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    run_str = ";runners"
     expected_laborunit = laborunit_shop()
-    expected_laborunit.add_party(run_str, True)
+    expected_laborunit.add_party(exx.run, True)
     expected_laborunit.add_party(exx.xio, False)
-    run_partyunit = expected_laborunit.get_partyunit(run_str)
+    run_partyunit = expected_laborunit.get_partyunit(exx.run)
     xio_partyunit = expected_laborunit.get_partyunit(exx.xio)
     src_laborunit_dict = {
         "partys": {
-            run_str: run_partyunit.to_dict(),
+            exx.run: run_partyunit.to_dict(),
             exx.xio: xio_partyunit.to_dict(),
         }
     }

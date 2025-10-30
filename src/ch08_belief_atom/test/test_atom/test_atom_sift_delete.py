@@ -29,20 +29,19 @@ def test_sift_atom_ReturnsObj_BeliefAtom_DELETE_belief_voiceunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_DELETE_belief_voice_membership():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    run_str = ";run"
     sue_belief = beliefunit_shop("Sue")
     sue_belief.add_voiceunit(exx.yao)
     sue_belief.add_voiceunit(exx.bob)
     yao_voiceunit = sue_belief.get_voice(exx.yao)
-    yao_voiceunit.add_membership(run_str)
+    yao_voiceunit.add_membership(exx.run)
     print(f"{yao_voiceunit.memberships.keys()=}")
 
     bob_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.DELETE)
     bob_run_atom.set_arg(kw.voice_name, exx.bob)
-    bob_run_atom.set_arg(kw.group_title, run_str)
+    bob_run_atom.set_arg(kw.group_title, exx.run)
     yao_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.DELETE)
     yao_run_atom.set_arg(kw.voice_name, exx.yao)
-    yao_run_atom.set_arg(kw.group_title, run_str)
+    yao_run_atom.set_arg(kw.group_title, exx.run)
 
     # WHEN
     new_bob_run_beliefatom = sift_beliefatom(sue_belief, bob_run_atom)

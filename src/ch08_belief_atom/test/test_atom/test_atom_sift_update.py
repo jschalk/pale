@@ -92,15 +92,14 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voiceunit():
 
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voice_membership():
     # ESTABLISH
-    run_str = ";run"
     zia_run_group_debt_lumen = 76
     sue_belief = beliefunit_shop("Sue")
     sue_belief.add_voiceunit(exx.zia)
-    sue_belief.get_voice(exx.zia).add_membership(run_str)
+    sue_belief.get_voice(exx.zia).add_membership(exx.run)
 
     zia_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
     zia_atom.set_arg(kw.voice_name, exx.zia)
-    zia_atom.set_arg(kw.group_title, run_str)
+    zia_atom.set_arg(kw.group_title, exx.run)
     zia_atom.set_arg(kw.group_debt_lumen, zia_run_group_debt_lumen)
 
     # WHEN
@@ -173,14 +172,13 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_awardunit():
     casa_str = "casa"
     casa_rope = sue_belief.make_l1_rope(casa_str)
     sue_belief.add_plan(casa_rope)
-    run_str = ";run"
     zia_run_give_force = 72
     zia_run_take_force = 76
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(run_str, 2, 3))
+    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(exx.run, 2, 3))
 
     zia_atom = beliefatom_shop(kw.belief_plan_awardunit, kw.INSERT)
     zia_atom.set_arg(kw.plan_rope, casa_rope)
-    zia_atom.set_arg(kw.awardee_title, run_str)
+    zia_atom.set_arg(kw.awardee_title, exx.run)
     zia_atom.set_arg(kw.give_force, zia_run_give_force)
     zia_atom.set_arg(kw.take_force, zia_run_take_force)
 

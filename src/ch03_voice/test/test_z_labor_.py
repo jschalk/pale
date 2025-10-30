@@ -458,7 +458,6 @@ def test_LaborUnit_get_partyunit_ReturnsObj():
     climb_str = ",climbers"
     hike_str = ",hikers"
     swim_str = ";swimmers"
-    run_str = ";runners"
 
     x_laborunit = laborunit_shop()
     x_laborunit.add_party(climb_str)
@@ -468,7 +467,7 @@ def test_LaborUnit_get_partyunit_ReturnsObj():
     # WHEN / THEN
     assert x_laborunit.get_partyunit(hike_str) is not None
     assert x_laborunit.get_partyunit(swim_str) is not None
-    assert x_laborunit.get_partyunit(run_str) is None
+    assert x_laborunit.get_partyunit(exx.run) is None
 
 
 def test_LaborHeir_party_title_in_ReturnsBoolWhen_partysNotEmpty():

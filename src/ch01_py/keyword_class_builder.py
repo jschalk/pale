@@ -70,7 +70,8 @@ class {chXX_str}{key_str}words(str, Enum):{keywords_str}
 
 def create_examplestrs_class_str(example_strs_dict: dict) -> str:
     enum_attrs = ""
-    for key_str, value_str in example_strs_dict.items():
+    for key_str in sorted(example_strs_dict.keys()):
+        value_str = example_strs_dict.get(key_str)
         enum_attrs += f"""    {key_str} = "{value_str}"\n"""
 
     return f"""class ExampleStrs(str, Enum):

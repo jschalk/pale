@@ -706,7 +706,7 @@ def test_get_nested_non_dict_keys_by_level_ReturnsObj():
 
 def test_get_nested_non_dict_keys_list_ReturnsObj():
     # ESTABLISH
-    run_str = "Run"
+    run_str = "run"
 
     #  WHEN / THEN
     assert get_nested_non_dict_keys_list({}) == []

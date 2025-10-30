@@ -495,12 +495,11 @@ def test_BeliefUnit_get_agenda_dict_IsSetByLaborUnit_2VoiceGroup():
     yao_belief.set_l1_plan(planunit_shop(casa_str, pledge=True))
 
     yao_belief.add_voiceunit(exx.sue)
-    run_str = ";runners"
     sue_voiceunit = yao_belief.get_voice(exx.sue)
-    sue_voiceunit.add_membership(run_str)
+    sue_voiceunit.add_membership(exx.run)
 
     run_laborunit = laborunit_shop()
-    run_laborunit.add_party(party_title=run_str)
+    run_laborunit.add_party(party_title=exx.run)
     assert len(yao_belief.get_agenda_dict()) == 1
 
     # WHEN
@@ -511,7 +510,7 @@ def test_BeliefUnit_get_agenda_dict_IsSetByLaborUnit_2VoiceGroup():
 
     # WHEN
     yao_voiceunit = yao_belief.get_voice(exx.yao)
-    yao_voiceunit.add_membership(run_str)
+    yao_voiceunit.add_membership(exx.run)
 
     # THEN
     assert len(yao_belief.get_agenda_dict()) == 1

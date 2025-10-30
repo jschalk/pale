@@ -7,6 +7,7 @@ class ExampleStrs(str, Enum):
     clean_str = "clean"
     dirtyness_str = "dirtyness"
     mop_str = "mop"
+    run = ";runners"
     slash_str = "/"
     sue = "Sue"
     swim = "swim"

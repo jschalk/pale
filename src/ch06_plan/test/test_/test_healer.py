@@ -4,8 +4,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_HealerUnit_Exists():
     # ESTABLISH
-    run_str = ";runners"
-    run_healer_names = {run_str}
+    run_healer_names = {exx.run}
 
     # WHEN
     x_healerunit = HealerUnit(_healer_names=run_healer_names)
@@ -17,8 +16,7 @@ def test_HealerUnit_Exists():
 
 def test_healerunit_shop_ReturnsWithCorrectAttributes_v1():
     # ESTABLISH
-    run_str = ";runners"
-    run_healer_names = {run_str}
+    run_healer_names = {exx.run}
 
     # WHEN
     x_healerunit = healerunit_shop(_healer_names=run_healer_names)

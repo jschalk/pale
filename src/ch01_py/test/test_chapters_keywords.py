@@ -113,7 +113,7 @@ class Ch03{key_str}words(str, Enum):
 
 def test_create_examplestrs_class_str_ReturnsObj():
     # ESTABLISH
-    example_strs_dict = {"bob": "Bob", "sue": "Sue", "yao": "Yao"}
+    example_strs_dict = {"sue": "Sue", "yao": "Yao", "bob": "Bob"}
 
     # WHEN
     x_str = create_examplestrs_class_str(example_strs_dict)

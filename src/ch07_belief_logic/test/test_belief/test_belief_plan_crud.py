@@ -878,21 +878,20 @@ def test_BeliefUnit__get_filtered_awardunits_plan_RemovesVoice_awardunits():
     # ESTABLISH
     example_belief = beliefunit_shop(exx.bob)
     xia_str = "Xia"
-    run_str = ";runners"
     hike_str = ";hikers"
     example_belief.add_voiceunit(xia_str)
-    example_belief.get_voice(xia_str).add_membership(run_str)
+    example_belief.get_voice(xia_str).add_membership(exx.run)
 
     sports_str = "sports"
     sports_rope = example_belief.make_l1_rope(sports_str)
     example_belief.set_l1_plan(planunit_shop(sports_str))
-    example_belief.edit_plan_attr(sports_rope, awardunit=awardunit_shop(run_str))
+    example_belief.edit_plan_attr(sports_rope, awardunit=awardunit_shop(exx.run))
     example_belief.edit_plan_attr(sports_rope, awardunit=awardunit_shop(hike_str))
     example_belief_sports_plan = example_belief.get_plan_obj(sports_rope)
     assert len(example_belief_sports_plan.awardunits) == 2
     bob_belief = beliefunit_shop(exx.bob)
     bob_belief.add_voiceunit(xia_str)
-    bob_belief.get_voice(xia_str).add_membership(run_str)
+    bob_belief.get_voice(xia_str).add_membership(exx.run)
     print(f"{example_belief_sports_plan.awardunits=}")
 
     # WHEN
@@ -900,7 +899,7 @@ def test_BeliefUnit__get_filtered_awardunits_plan_RemovesVoice_awardunits():
 
     # THEN
     assert len(cleaned_plan.awardunits) == 1
-    assert list(cleaned_plan.awardunits.keys()) == [run_str]
+    assert list(cleaned_plan.awardunits.keys()) == [exx.run]
 
 
 def test_BeliefUnit__get_filtered_awardunits_plan_RemovesGroup_awardunit():

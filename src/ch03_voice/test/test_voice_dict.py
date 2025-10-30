@@ -11,14 +11,13 @@ def test_VoiceUnit_get_memberships_dict_ReturnsObj():
     # ESTABLISH
     sue_group_cred_lumen = 11
     sue_group_debt_lumen = 13
-    run_str = ";Run"
     run_group_cred_lumen = 17
     run_group_debt_lumen = 23
     sue_membership = membership_shop(
         exx.sue, sue_group_cred_lumen, sue_group_debt_lumen
     )
     run_membership = membership_shop(
-        run_str, run_group_cred_lumen, run_group_debt_lumen
+        exx.run, run_group_cred_lumen, run_group_debt_lumen
     )
     sue_voiceunit = voiceunit_shop(exx.sue)
     sue_voiceunit.set_membership(sue_membership)
@@ -29,16 +28,16 @@ def test_VoiceUnit_get_memberships_dict_ReturnsObj():
 
     # THEN
     assert sue_memberships_dict.get(exx.sue) is not None
-    assert sue_memberships_dict.get(run_str) is not None
+    assert sue_memberships_dict.get(exx.run) is not None
     sue_membership_dict = sue_memberships_dict.get(exx.sue)
-    run_membership_dict = sue_memberships_dict.get(run_str)
+    run_membership_dict = sue_memberships_dict.get(exx.run)
     assert sue_membership_dict == {
         kw.group_title: exx.sue,
         kw.group_cred_lumen: sue_group_cred_lumen,
         kw.group_debt_lumen: sue_group_debt_lumen,
     }
     assert run_membership_dict == {
-        kw.group_title: run_str,
+        kw.group_title: exx.run,
         kw.group_cred_lumen: run_group_cred_lumen,
         kw.group_debt_lumen: run_group_debt_lumen,
     }
@@ -56,8 +55,7 @@ def test_VoiceUnit_to_dict_ReturnsDictWithNecessaryDataForJSON():
     print(f"{exx.bob}")
 
     bob_voiceunit.set_membership(membership_shop(exx.bob))
-    run_str = ";Run"
-    bob_voiceunit.set_membership(membership_shop(run_str))
+    bob_voiceunit.set_membership(membership_shop(exx.run))
 
     # WHEN
     x_dict = bob_voiceunit.to_dict()
@@ -76,8 +74,8 @@ def test_VoiceUnit_to_dict_ReturnsDictWithNecessaryDataForJSON():
                 kw.group_cred_lumen: 1,
                 kw.group_debt_lumen: 1,
             },
-            run_str: {
-                kw.group_title: run_str,
+            exx.run: {
+                kw.group_title: exx.run,
                 kw.group_cred_lumen: 1,
                 kw.group_debt_lumen: 1,
             },
@@ -113,8 +111,7 @@ def test_VoiceUnit_to_dict_ReturnsDictWithAllAttrDataForJSON():
     bob_voiceunit.fund_agenda_ratio_take = bob_fund_agenda_ratio_take
 
     bob_voiceunit.set_membership(membership_shop(exx.bob))
-    run_str = ";Run"
-    bob_voiceunit.set_membership(membership_shop(run_str))
+    bob_voiceunit.set_membership(membership_shop(exx.run))
 
     print(f"{exx.bob}")
 
