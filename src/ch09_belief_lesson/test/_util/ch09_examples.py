@@ -20,7 +20,7 @@ def get_texas_rope() -> RopeTerm:
 
 def get_atom_example_factunit_knee(first_label: LabelTerm = None) -> BeliefAtom:
     if not first_label:
-        first_label = "amy23"
+        first_label = "Amy23"
     sports_str = "sports"
     sports_rope = create_rope(first_label, sports_str)
     ball_str = "basketball"
@@ -40,7 +40,7 @@ def get_atom_example_factunit_knee(first_label: LabelTerm = None) -> BeliefAtom:
 
 def get_atom_example_planunit_sports(moment_label: MomentLabel = None) -> BeliefAtom:
     if not moment_label:
-        moment_label = "amy23"
+        moment_label = "Amy23"
     sports_str = "sports"
     sports_rope = create_rope(moment_label, sports_str)
     insert_planunit_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
@@ -50,7 +50,7 @@ def get_atom_example_planunit_sports(moment_label: MomentLabel = None) -> Belief
 
 def get_atom_example_planunit_ball(moment_label: MomentLabel = None) -> BeliefAtom:
     if not moment_label:
-        moment_label = "amy23"
+        moment_label = "Amy23"
     sports_str = "sports"
     sports_rope = create_rope(moment_label, sports_str)
     ball_str = "basketball"
@@ -62,7 +62,7 @@ def get_atom_example_planunit_ball(moment_label: MomentLabel = None) -> BeliefAt
 
 def get_atom_example_planunit_knee(moment_label: MomentLabel = None) -> BeliefAtom:
     if not moment_label:
-        moment_label = "amy23"
+        moment_label = "Amy23"
     sports_str = "sports"
     sports_rope = create_rope(moment_label, sports_str)
     knee_str = "knee"

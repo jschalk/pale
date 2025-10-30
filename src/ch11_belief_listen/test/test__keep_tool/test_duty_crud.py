@@ -21,20 +21,19 @@ def test_save_vision_belief_SavesFile(temp_dir_setup):
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
     texas_rope = create_rope(usa_rope, texas_str)
-    a23_str = "amy23"
 
     bob_belief = get_beliefunit_with_4_levels()
     bob_belief.set_belief_name(exx.bob)
     x_knot = default_knot_if_None()
     assert not vision_file_exists(
-        env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob
+        env_dir(), exx.sue, exx.a23, texas_rope, x_knot, exx.bob
     )
 
     # WHEN
-    save_vision_belief(env_dir(), exx.sue, a23_str, texas_rope, x_knot, bob_belief)
+    save_vision_belief(env_dir(), exx.sue, exx.a23, texas_rope, x_knot, bob_belief)
 
     # THEN
-    assert vision_file_exists(env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob)
+    assert vision_file_exists(env_dir(), exx.sue, exx.a23, texas_rope, x_knot, exx.bob)
 
 
 def test_vision_file_exists_ReturnsBool(temp_dir_setup):
@@ -45,20 +44,19 @@ def test_vision_file_exists_ReturnsBool(temp_dir_setup):
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
     texas_rope = create_rope(usa_rope, texas_str)
-    a23_str = "amy23"
 
     bob_belief = get_beliefunit_with_4_levels()
     bob_belief.set_belief_name(exx.bob)
     x_knot = default_knot_if_None()
     assert not (
-        vision_file_exists(env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob)
+        vision_file_exists(env_dir(), exx.sue, exx.a23, texas_rope, x_knot, exx.bob)
     )
 
     # WHEN
-    save_vision_belief(env_dir(), exx.sue, a23_str, texas_rope, x_knot, bob_belief)
+    save_vision_belief(env_dir(), exx.sue, exx.a23, texas_rope, x_knot, bob_belief)
 
     # THEN
-    assert vision_file_exists(env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob)
+    assert vision_file_exists(env_dir(), exx.sue, exx.a23, texas_rope, x_knot, exx.bob)
 
 
 def test_get_vision_belief_reason_lowersFile(temp_dir_setup):
@@ -69,16 +67,15 @@ def test_get_vision_belief_reason_lowersFile(temp_dir_setup):
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
     texas_rope = create_rope(usa_rope, texas_str)
-    a23_str = "amy23"
 
     bob_belief = get_beliefunit_with_4_levels()
     bob_belief.set_belief_name(exx.bob)
     x_knot = default_knot_if_None()
-    save_vision_belief(env_dir(), exx.sue, a23_str, texas_rope, x_knot, bob_belief)
+    save_vision_belief(env_dir(), exx.sue, exx.a23, texas_rope, x_knot, bob_belief)
 
     # WHEN
     bob_vision = get_vision_belief(
-        env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob
+        env_dir(), exx.sue, exx.a23, texas_rope, x_knot, exx.bob
     )
 
     # THEN
@@ -95,12 +92,11 @@ def test_get_vision_belief_ReturnsNoneIfFileDoesNotExist(
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
     texas_rope = create_rope(usa_rope, texas_str)
-    a23_str = "amy23"
     x_knot = default_knot_if_None()
 
     # WHEN
     bob_vision = get_vision_belief(
-        env_dir(), exx.sue, a23_str, texas_rope, x_knot, exx.bob
+        env_dir(), exx.sue, exx.a23, texas_rope, x_knot, exx.bob
     )
 
     # THEN

@@ -12,17 +12,16 @@ from src.ref.keywords import Ch15Keywords as kw, ExampleStrs as exx
 def test_create_bud_voice_mandate_ledger_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     epochtime7 = 7
 
     # WHEN
     gen_bud_path = create_bud_voice_mandate_ledger_path(
-        x_moment_mstr_dir, a23_str, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, a23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")

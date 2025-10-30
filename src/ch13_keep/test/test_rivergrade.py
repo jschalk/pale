@@ -67,7 +67,6 @@ def test_RiverGrade_Exists():
 
 def test_rivergrade_shop_ReturnsObjWithArg():
     # ESTABLISH
-    a23_str = temp_moment_label()
     x_keep_rope = None
     ten_int = 10
     x_doctor_count = 7
@@ -75,11 +74,11 @@ def test_rivergrade_shop_ReturnsObjWithArg():
 
     # WHEN
     x_rivergrade = rivergrade_shop(
-        a23_str, exx.yao, x_keep_rope, exx.bob, ten_int, x_doctor_count, x_patient_count
+        exx.a23, exx.yao, x_keep_rope, exx.bob, ten_int, x_doctor_count, x_patient_count
     )
 
     # THEN
-    assert x_rivergrade.moment_label == a23_str
+    assert x_rivergrade.moment_label == exx.a23
     assert x_rivergrade.belief_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
     assert x_rivergrade.voice_name == exx.bob
@@ -102,14 +101,13 @@ def test_rivergrade_shop_ReturnsObjWithArg():
 
 def test_rivergrade_shop_ReturnsObjWithoutArgs():
     # ESTABLISH
-    a23_str = temp_moment_label()
     x_keep_rope = None
 
     # WHEN
-    x_rivergrade = rivergrade_shop(a23_str, exx.yao, x_keep_rope, exx.bob)
+    x_rivergrade = rivergrade_shop(exx.a23, exx.yao, x_keep_rope, exx.bob)
 
     # THEN
-    assert x_rivergrade.moment_label == a23_str
+    assert x_rivergrade.moment_label == exx.a23
     assert x_rivergrade.belief_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
     assert x_rivergrade.voice_name == exx.bob
@@ -162,7 +160,6 @@ def test_RiverGrade_set_need_due_amount_SetsAttrs():
 
 def test_RiverGrade_to_dict_ReturnsObj():
     # ESTABLISH
-    a23_str = temp_moment_label()
     x_keep_rope = None
     ten_int = 10
     x_need_bill_amount = 90
@@ -180,7 +177,7 @@ def test_RiverGrade_to_dict_ReturnsObj():
     x_rewards_count = 108
     x_rewards_magnitude = 109
     x_rivergrade = rivergrade_shop(
-        a23_str, exx.yao, x_keep_rope, exx.bob, ten_int, x_doctor_count, x_patient_count
+        exx.a23, exx.yao, x_keep_rope, exx.bob, ten_int, x_doctor_count, x_patient_count
     )
     x_rivergrade.need_bill_amount = x_need_bill_amount
     x_rivergrade.care_amount = x_care_amount
@@ -201,7 +198,7 @@ def test_RiverGrade_to_dict_ReturnsObj():
     rivergrade_dict = x_rivergrade.to_dict()
 
     # THEN
-    assert rivergrade_dict.get(kw.moment_label) == a23_str
+    assert rivergrade_dict.get(kw.moment_label) == exx.a23
     assert rivergrade_dict.get(kw.healer_name) == exx.yao
     assert rivergrade_dict.get(kw.keep_rope) == x_keep_rope
     assert rivergrade_dict.get(kw.need_bill_amount) == x_need_bill_amount

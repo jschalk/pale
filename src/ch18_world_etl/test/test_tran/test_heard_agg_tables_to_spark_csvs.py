@@ -8,7 +8,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_sound_and_heard_tables,
 )
 from src.ch18_world_etl.transformers import etl_heard_agg_to_spark_belief_csvs
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_heard_agg_to_spark_belief_csvs_PopulatesBeliefPulabelTables(
@@ -20,17 +20,16 @@ def test_etl_heard_agg_to_spark_belief_csvs_PopulatesBeliefPulabelTables(
     yao_inx = "Bobby"
     spark3 = 3
     spark7 = 7
-    amy23_str = "amy23"
     yao_voice_cred_lumen5 = 5
     sue_voice_cred_lumen7 = 7
     put_agg_tablename = create_prime_tablename(kw.belief_voiceunit, "h", "agg", "put")
     put_agg_csv = f"{put_agg_tablename}.csv"
     x_moment_mstr_dir = get_temp_dir()
     a23_bob_e3_dir = create_belief_spark_dir_path(
-        x_moment_mstr_dir, amy23_str, bob_inx, spark3
+        x_moment_mstr_dir, exx.a23, bob_inx, spark3
     )
     a23_bob_e7_dir = create_belief_spark_dir_path(
-        x_moment_mstr_dir, amy23_str, bob_inx, spark7
+        x_moment_mstr_dir, exx.a23, bob_inx, spark7
     )
     a23_e3_blfvoce_put_path = create_path(a23_bob_e3_dir, put_agg_csv)
     a23_e7_blfvoce_put_path = create_path(a23_bob_e7_dir, put_agg_csv)
@@ -41,9 +40,9 @@ def test_etl_heard_agg_to_spark_belief_csvs_PopulatesBeliefPulabelTables(
         insert_raw_sqlstr = f"""
 INSERT INTO {put_agg_tablename} ({kw.spark_num},{kw.face_name},{kw.moment_label},{kw.belief_name},{kw.voice_name},{kw.voice_cred_lumen})
 VALUES
-  ({spark3},'{sue_inx}','{amy23_str}','{bob_inx}','{yao_inx}',{yao_voice_cred_lumen5})
-, ({spark7},'{sue_inx}','{amy23_str}','{bob_inx}','{yao_inx}',{yao_voice_cred_lumen5})
-, ({spark7},'{sue_inx}','{amy23_str}','{bob_inx}','{sue_inx}',{sue_voice_cred_lumen7})
+  ({spark3},'{sue_inx}','{exx.a23}','{bob_inx}','{yao_inx}',{yao_voice_cred_lumen5})
+, ({spark7},'{sue_inx}','{exx.a23}','{bob_inx}','{yao_inx}',{yao_voice_cred_lumen5})
+, ({spark7},'{sue_inx}','{exx.a23}','{bob_inx}','{sue_inx}',{sue_voice_cred_lumen7})
 ;
 """
         print(insert_raw_sqlstr)
@@ -62,11 +61,11 @@ VALUES
         print(f"{e3_put_csv=}")
         print(f"{e7_put_csv=}")
         expected_e3_put_csv = """spark_num,face_name,moment_label,belief_name,voice_name,voice_cred_lumen,voice_debt_lumen
-3,Suzy,amy23,Bobby,Bobby,5.0,
+3,Suzy,Amy23,Bobby,Bobby,5.0,
 """
         expected_e7_put_csv = """spark_num,face_name,moment_label,belief_name,voice_name,voice_cred_lumen,voice_debt_lumen
-7,Suzy,amy23,Bobby,Bobby,5.0,
-7,Suzy,amy23,Bobby,Suzy,7.0,
+7,Suzy,Amy23,Bobby,Bobby,5.0,
+7,Suzy,Amy23,Bobby,Suzy,7.0,
 """
         assert e3_put_csv == expected_e3_put_csv
         assert e7_put_csv == expected_e7_put_csv

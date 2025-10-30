@@ -15,15 +15,14 @@ from src.ch18_world_etl.transformers import (
     create_sound_and_heard_tables,
     etl_heard_agg_tables_to_moment_jsons,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_get_moment_heard_select1_sqlstrs_ReturnsObj_HasAllKeys():
     # ESTABLISH
-    a23_str = "amy23"
 
     # WHEN
-    fu2_select_sqlstrs = get_moment_heard_select1_sqlstrs(a23_str)
+    fu2_select_sqlstrs = get_moment_heard_select1_sqlstrs(exx.a23)
 
     # THEN
     assert fu2_select_sqlstrs
@@ -34,10 +33,9 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj_HasAllKeys():
 def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    a23_str = "amy23"
 
     # WHEN
-    fu2_select_sqlstrs = get_moment_heard_select1_sqlstrs(moment_label=a23_str)
+    fu2_select_sqlstrs = get_moment_heard_select1_sqlstrs(moment_label=exx.a23)
 
     # THEN
     gen_blfpayy_sqlstr = fu2_select_sqlstrs.get(kw.moment_paybook)
@@ -64,7 +62,7 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
         blfweek_h_agg = create_prime_tablename(blfweek_abbv7, "h", "agg")
         blfoffi_h_agg = create_prime_tablename(blfoffi_abbv7, "h", "agg")
         momentunit_h_agg = create_prime_tablename(momentunit_abbv7, "h", "agg")
-        where_dict = {kw.moment_label: a23_str}
+        where_dict = {kw.moment_label: exx.a23}
         blfpayy_sql = create_select_query(cursor, blfpayy_h_agg, [], where_dict, True)
         momentbud_sql = create_select_query(
             cursor, momentbud_h_agg, [], where_dict, True
@@ -103,7 +101,7 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
         assert gen_blfweek_sqlstr == blfweek_sql
         assert gen_blfoffi_sqlstr == blfoffi_sql
         assert gen_momentunit_sqlstr == momentunit_sql
-        static_example_sqlstr = f"SELECT {kw.moment_label}, {kw.epoch_label}, {kw.c400_number}, {kw.yr1_jan1_offset}, {kw.monthday_index}, {kw.fund_grain}, {kw.mana_grain}, {kw.respect_grain}, {kw.knot}, {kw.job_listen_rotations} FROM momentunit_h_agg WHERE moment_label = '{a23_str}'"
+        static_example_sqlstr = f"SELECT {kw.moment_label}, {kw.epoch_label}, {kw.c400_number}, {kw.yr1_jan1_offset}, {kw.monthday_index}, {kw.fund_grain}, {kw.mana_grain}, {kw.respect_grain}, {kw.knot}, {kw.job_listen_rotations} FROM momentunit_h_agg WHERE moment_label = '{exx.a23}'"
         assert gen_momentunit_sqlstr == static_example_sqlstr
 
 
@@ -111,7 +109,6 @@ def test_etl_heard_agg_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomen
     temp_dir_setup,
 ):
     # ESTABLISH
-    amy23_str = "amy23"
     amy45_str = "amy45"
     moment_mstr_dir = get_temp_dir()
     momentunit_h_agg_tablename = create_prime_tablename(kw.momentunit, "h", "agg")
@@ -123,14 +120,14 @@ def test_etl_heard_agg_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomen
 
         insert_raw_sqlstr = f"""
 INSERT INTO {momentunit_h_agg_tablename} ({kw.moment_label})
-VALUES ('{amy23_str}'), ('{amy45_str}')
+VALUES ('{exx.a23}'), ('{amy45_str}')
 ;
 """
         cursor.execute(insert_raw_sqlstr)
         assert get_row_count(cursor, momentunit_h_agg_tablename) == 2
         assert db_table_exists(cursor, kw.moment_spark_time_agg) is False
 
-        amy23_json_path = create_moment_json_path(moment_mstr_dir, amy23_str)
+        amy23_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
         amy45_json_path = create_moment_json_path(moment_mstr_dir, amy45_str)
         print(f"{amy23_json_path=}")
         print(f"{amy45_json_path=}")
@@ -145,5 +142,5 @@ VALUES ('{amy23_str}'), ('{amy45_str}')
     assert os_path_exists(amy45_json_path)
     amy23_moment = get_momentunit_from_dict(open_json(amy23_json_path))
     amy45_moment = get_momentunit_from_dict(open_json(amy45_json_path))
-    assert amy23_moment.moment_label == amy23_str
+    assert amy23_moment.moment_label == exx.a23
     assert amy45_moment.moment_label == amy45_str

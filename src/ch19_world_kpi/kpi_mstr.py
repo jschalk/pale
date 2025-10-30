@@ -88,4 +88,4 @@ def create_calendar_markdown_files(moment_mstr_dir: str, output_dir: str):
         )
         save_file(moment_calendar_md_path, None, x_calendarmarkdown)
 
-    # a23_calendar_md_path = create_path(output_dir, f"{a23_str}_calendar.md")
+    # a23_calendar_md_path = create_path(output_dir, f"{exx.a23}_calendar.md")

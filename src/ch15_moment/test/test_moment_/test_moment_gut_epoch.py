@@ -9,9 +9,8 @@ from src.ref.keywords import Ch15Keywords as kw, ExampleStrs as exx
 
 def test_MomentUnit_get_epoch_config_ReturnsObj_Scenario0(temp_dir_setup):
     # ESTABLISH
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
 
     # WHEN
     a23_epoch_config = a23_moment.get_epoch_config()
@@ -24,9 +23,8 @@ def test_MomentUnit_get_epoch_config_ReturnsObj_Scenario0(temp_dir_setup):
 
 def test_MomentUnit_get_epoch_config_ReturnsObj_Scenario1(temp_dir_setup):
     # ESTABLISH
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.epoch = epochunit_shop(get_five_config())
 
     # WHEN
@@ -40,11 +38,10 @@ def test_MomentUnit_get_epoch_config_ReturnsObj_Scenario1(temp_dir_setup):
 
 def test_MomentUnit_add_epoch_to_gut_SetsFile_Scenario0(temp_dir_setup):
     # ESTABLISH
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.epoch = epochunit_shop(get_five_config())
-    init_sue_gut = beliefunit_shop(exx.sue, a23_str)
+    init_sue_gut = beliefunit_shop(exx.sue, exx.a23)
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)
@@ -54,17 +51,16 @@ def test_MomentUnit_add_epoch_to_gut_SetsFile_Scenario0(temp_dir_setup):
     a23_moment.add_epoch_to_gut(exx.sue)
 
     # THEN
-    post_sue_gut = open_gut_file(moment_mstr_dir, a23_str, exx.sue)
+    post_sue_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
     assert post_sue_gut.plan_exists(five_rope)
 
 
 def test_MomentUnit_add_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     # ESTABLISH
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.epoch = epochunit_shop(get_five_config())
-    init_sue_gut = beliefunit_shop(exx.sue, a23_str)
+    init_sue_gut = beliefunit_shop(exx.sue, exx.a23)
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)
@@ -74,5 +70,5 @@ def test_MomentUnit_add_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     a23_moment.add_epoch_to_guts()
 
     # THEN
-    post_sue_gut = open_gut_file(moment_mstr_dir, a23_str, exx.sue)
+    post_sue_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
     assert post_sue_gut.plan_exists(five_rope)

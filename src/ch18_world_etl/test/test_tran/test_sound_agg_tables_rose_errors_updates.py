@@ -12,7 +12,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     colon = ":"
     bob_str = f"{colon}Bob"
     comma = ","
@@ -27,8 +26,8 @@ def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTabl
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
   {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
 VALUES
-  ({spark1}, '{exx.sue}', '{a23_str}', '{exx.yao}', '{exx.yao}')
-, ({spark1}, '{exx.sue}', '{a23_str}', '{exx.yao}', '{bob_str}')
+  ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
+, ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
 ;
 """
         cursor.execute(insert_blfvoce_sqlstr)
@@ -58,8 +57,8 @@ VALUES
         cursor.execute(select_core_raw_sqlstr)
         name_knot_str = f"Knot cannot exist in NameTerm column {kw.voice_name}"
         assert cursor.fetchall() == [
-            (spark1, exx.sue, a23_str, exx.yao, exx.yao, None, None, None),
-            (spark1, exx.sue, a23_str, exx.yao, bob_str, None, None, name_knot_str),
+            (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
+            (spark1, exx.sue, exx.a23, exx.yao, bob_str, None, None, name_knot_str),
         ]
 
 
@@ -67,7 +66,6 @@ def test_create_knot_exists_in_label_error_update_sqlstr_ReturnsObj_PopulatesTab
     # ESTABLISH
     colon = ":"
     bob_str = f"{colon}Bob"
-    a23_str = "amy23"
     a45_str = f"{colon}amy45"
     comma = ","
     ukx = "Unknown"
@@ -81,8 +79,8 @@ def test_create_knot_exists_in_label_error_update_sqlstr_ReturnsObj_PopulatesTab
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
   {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
 VALUES
-  ({spark1}, '{exx.sue}', '{a23_str}', '{exx.yao}', '{exx.yao}')
-, ({spark1}, '{exx.sue}', '{a23_str}', '{exx.yao}', '{bob_str}')
+  ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
+, ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
 , ({spark1}, '{exx.sue}', '{a45_str}', '{exx.yao}', '{bob_str}')
 ;
 """
@@ -113,8 +111,8 @@ VALUES
         cursor.execute(select_core_raw_sqlstr)
         label_knot_str = f"Knot cannot exist in LabelTerm column {kw.moment_label}"
         assert cursor.fetchall() == [
-            (spark1, exx.sue, a23_str, exx.yao, exx.yao, None, None, None),
-            (spark1, exx.sue, a23_str, exx.yao, bob_str, None, None, None),
+            (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
+            (spark1, exx.sue, exx.a23, exx.yao, bob_str, None, None, None),
             (spark1, exx.sue, a45_str, exx.yao, bob_str, None, None, label_knot_str),
         ]
 
@@ -123,7 +121,6 @@ def test_set_moment_belief_sound_agg_knot_errors_PopulatesTable_Scenario0():
     # ESTABLISH
     colon = ":"
     bob_str = f"{colon}Bob"
-    a23_str = "amy23"
     a45_str = f"{colon}amy45"
     comma = ","
     ukx = "Unknown"
@@ -138,8 +135,8 @@ def test_set_moment_belief_sound_agg_knot_errors_PopulatesTable_Scenario0():
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
   {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
 VALUES
-  ({spark1}, '{exx.sue}', '{a23_str}', '{exx.yao}', '{exx.yao}')
-, ({spark1}, '{exx.sue}', '{a23_str}', '{exx.yao}', '{bob_str}')
+  ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
+, ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
 , ({spark1}, '{exx.sue}', '{a45_str}', '{exx.yao}', '{exx.yao}')
 ;
 """
@@ -170,6 +167,6 @@ VALUES
         print(f"{rows=}")
         assert rows == [
             (spark1, exx.sue, a45_str, exx.yao, exx.yao, None, None, label_knot_str),
-            (spark1, exx.sue, a23_str, exx.yao, bob_str, None, None, name_knot_str),
-            (spark1, exx.sue, a23_str, exx.yao, exx.yao, None, None, None),
+            (spark1, exx.sue, exx.a23, exx.yao, bob_str, None, None, name_knot_str),
+            (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
         ]

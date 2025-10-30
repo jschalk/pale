@@ -11,7 +11,7 @@ from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ch18_world_etl.transformers import (
     etl_spark_lesson_json_to_spark_inherited_beliefunits,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_belief_json(
@@ -26,16 +26,15 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_belief_j
     credit44 = 44
     credit77 = 77
     credit88 = 88
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     a23_bob_e3_dir = create_belief_spark_dir_path(
-        moment_mstr_dir, a23_str, bob_inx, spark3
+        moment_mstr_dir, exx.a23, bob_inx, spark3
     )
     a23_bob_e7_dir = create_belief_spark_dir_path(
-        moment_mstr_dir, a23_str, bob_inx, spark7
+        moment_mstr_dir, exx.a23, bob_inx, spark7
     )
-    a23_bob_e3_lesson = lessonunit_shop(bob_inx, None, a23_str, spark_num=spark3)
-    a23_bob_e7_lesson = lessonunit_shop(bob_inx, None, a23_str, spark_num=spark7)
+    a23_bob_e3_lesson = lessonunit_shop(bob_inx, None, exx.a23, spark_num=spark3)
+    a23_bob_e7_lesson = lessonunit_shop(bob_inx, None, exx.a23, spark_num=spark7)
     blfvoce_dimen = kw.belief_voiceunit
     bob_jkeys = {kw.voice_name: bob_inx}
     bob_jvalues = {kw.voice_cred_lumen: credit77, kw.voice_debt_lumen: None}
@@ -48,10 +47,10 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_belief_j
     a23_bob_e7_lesson.add_p_beliefatom(blfvoce_dimen, kw.INSERT, bob_jkeys, bob_jvalues)
     a23_bob_e7_lesson.add_p_beliefatom(blfvoce_dimen, kw.INSERT, sue_jkeys, sue_jvalues)
     e3_all_lesson_path = create_spark_all_lesson_path(
-        moment_mstr_dir, a23_str, bob_inx, spark3
+        moment_mstr_dir, exx.a23, bob_inx, spark3
     )
     e7_all_lesson_path = create_spark_all_lesson_path(
-        moment_mstr_dir, a23_str, bob_inx, spark7
+        moment_mstr_dir, exx.a23, bob_inx, spark7
     )
     save_json(e3_all_lesson_path, None, a23_bob_e3_lesson.get_serializable_dict())
     save_json(e7_all_lesson_path, None, a23_bob_e7_lesson.get_serializable_dict())
@@ -69,8 +68,8 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_belief_j
     # THEN
     assert os_path_exists(e3_belief_path)
     assert os_path_exists(e7_belief_path)
-    expected_e3_bob_belief = beliefunit_shop(bob_inx, a23_str)
-    expected_e7_bob_belief = beliefunit_shop(bob_inx, a23_str)
+    expected_e3_bob_belief = beliefunit_shop(bob_inx, exx.a23)
+    expected_e7_bob_belief = beliefunit_shop(bob_inx, exx.a23)
     expected_e3_bob_belief.add_voiceunit(bob_inx, credit77)
     expected_e3_bob_belief.add_voiceunit(yao_inx, credit44)
     expected_e7_bob_belief.add_voiceunit(bob_inx, credit77)
@@ -98,10 +97,9 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_expresse
     credit44 = 44
     credit77 = 77
     credit88 = 88
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    a23_bob_e3_lesson = lessonunit_shop(bob_inx, xia_inx, a23_str, spark_num=spark3)
-    a23_bob_e7_lesson = lessonunit_shop(bob_inx, xia_inx, a23_str, spark_num=spark7)
+    a23_bob_e3_lesson = lessonunit_shop(bob_inx, xia_inx, exx.a23, spark_num=spark3)
+    a23_bob_e7_lesson = lessonunit_shop(bob_inx, xia_inx, exx.a23, spark_num=spark7)
     blfvoce_dimen = kw.belief_voiceunit
     bob_jkeys = {kw.voice_name: bob_inx}
     bob_jvalues = {kw.voice_cred_lumen: credit77}
@@ -114,10 +112,10 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_expresse
     a23_bob_e7_lesson.add_p_beliefatom(blfvoce_dimen, kw.INSERT, bob_jkeys, bob_jvalues)
     a23_bob_e7_lesson.add_p_beliefatom(blfvoce_dimen, kw.INSERT, sue_jkeys, sue_jvalues)
     a23_bob_e3_all_lesson_path = create_spark_all_lesson_path(
-        moment_mstr_dir, a23_str, bob_inx, spark3
+        moment_mstr_dir, exx.a23, bob_inx, spark3
     )
     a23_bob_e7_all_lesson_path = create_spark_all_lesson_path(
-        moment_mstr_dir, a23_str, bob_inx, spark7
+        moment_mstr_dir, exx.a23, bob_inx, spark7
     )
     save_json(
         a23_bob_e3_all_lesson_path, None, a23_bob_e3_lesson.get_serializable_dict()
@@ -126,10 +124,10 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_expresse
         a23_bob_e7_all_lesson_path, None, a23_bob_e7_lesson.get_serializable_dict()
     )
     e3_expressed_lesson_path = create_spark_expressed_lesson_path(
-        moment_mstr_dir, a23_str, bob_inx, spark3
+        moment_mstr_dir, exx.a23, bob_inx, spark3
     )
     e7_expressed_lesson_path = create_spark_expressed_lesson_path(
-        moment_mstr_dir, a23_str, bob_inx, spark7
+        moment_mstr_dir, exx.a23, bob_inx, spark7
     )
     assert os_path_exists(a23_bob_e3_all_lesson_path)
     assert os_path_exists(a23_bob_e7_all_lesson_path)
@@ -149,10 +147,10 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_expresse
         open_json(e7_expressed_lesson_path)
     )
     expected_e3_bob_lesson = lessonunit_shop(
-        bob_inx, xia_inx, a23_str, spark_num=spark3
+        bob_inx, xia_inx, exx.a23, spark_num=spark3
     )
     expected_e7_bob_lesson = lessonunit_shop(
-        bob_inx, xia_inx, a23_str, spark_num=spark7
+        bob_inx, xia_inx, exx.a23, spark_num=spark7
     )
     expected_e3_bob_lesson.add_p_beliefatom(
         blfvoce_dimen, kw.INSERT, bob_jkeys, bob_jvalues

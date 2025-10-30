@@ -6,11 +6,10 @@ from src.ref.keywords import ExampleStrs as exx
 def test_RiverRun_calc_metrics_SetsAttrsScenario01():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_voice_cred_lumen = 500
     x_keep_point_magnitude = 444
     x_riverrun = riverrun_shop(
-        mstr_dir, a23_str, exx.yao, keep_point_magnitude=x_keep_point_magnitude
+        mstr_dir, exx.a23, exx.yao, keep_point_magnitude=x_keep_point_magnitude
     )
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
     assert x_riverrun.get_voice_need_due(exx.yao) == 0
@@ -25,7 +24,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario01():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == a23_str
+    assert yao_rivergrade.moment_label == exx.a23
     assert yao_rivergrade.belief_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
@@ -48,10 +47,9 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario01():
 def test_RiverRun_calc_metrics_SetsAttrsScenario02():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_voice_cred_lumen = 500
     bob_voice_debt_lumen = 350
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
     x_riverrun.set_need_dues({exx.bob: bob_voice_debt_lumen})
     assert x_riverrun.get_voice_need_due(exx.yao) == 0
@@ -69,7 +67,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario02():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == a23_str
+    assert yao_rivergrade.moment_label == exx.a23
     assert yao_rivergrade.belief_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
@@ -92,11 +90,10 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario02():
 def test_RiverRun_calc_metrics_SetsAttrsScenario03():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_voice_cred_lumen = 500
     bob_voice_debt_lumen = 25
     sue_voice_debt_lumen = 75
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
     doctorledger = {exx.bob: bob_voice_debt_lumen, exx.sue: sue_voice_debt_lumen}
     x_riverrun.set_need_dues(doctorledger)
@@ -117,7 +114,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario03():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == a23_str
+    assert yao_rivergrade.moment_label == exx.a23
     assert yao_rivergrade.belief_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
@@ -140,12 +137,11 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario03():
 def test_RiverRun_calc_metrics_SetsAttrsScenario04():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_yao_voice_cred_lumen = 500
     yao_sue_voice_cred_lumen = 2000
     bob_voice_debt_lumen = 25
     sue_voice_debt_lumen = 75
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_yao_voice_cred_lumen)
     x_riverrun.set_keep_patientledger(exx.yao, exx.sue, yao_sue_voice_cred_lumen)
     doctorledger = {exx.bob: bob_voice_debt_lumen, exx.sue: sue_voice_debt_lumen}
@@ -188,9 +184,8 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario04():
 def test_RiverRun_calc_metrics_SetsAttrsScenario05():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_voice_cred_lumen = 500
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
     x_riverrun.set_need_dues({exx.yao: 1})
     keep_mana_amount = x_riverrun.keep_point_magnitude
@@ -208,7 +203,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario05():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == a23_str
+    assert yao_rivergrade.moment_label == exx.a23
     assert yao_rivergrade.belief_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
@@ -221,9 +216,8 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario05():
 def test_RiverRun_calc_metrics_EachTimeResets_need_yield():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_voice_cred_lumen = 500
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
     x_riverrun.set_need_dues({exx.yao: 1})
     keep_mana_amount = x_riverrun.keep_point_magnitude
@@ -242,8 +236,7 @@ def test_RiverRun_calc_metrics_EachTimeResets_need_yield():
 def test_RiverRun_calc_metrics_EndsRiverCycleLoopIfNoDifferencesBetweenCycles():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, 1)
     x_riverrun.set_need_dues({exx.bob: 1})
     keep_mana_amount = x_riverrun.keep_point_magnitude

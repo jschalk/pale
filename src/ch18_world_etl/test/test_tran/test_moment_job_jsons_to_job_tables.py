@@ -24,8 +24,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     # ESTABLISH
     m23_moment_mstr_dir = get_temp_dir()
     m23_str = "music23"
-    a23_str = "amy23"
-    sue_belief = beliefunit_shop(exx.sue, a23_str)
+    sue_belief = beliefunit_shop(exx.sue, exx.a23)
     sue_belief.add_voiceunit(exx.sue)
     sue_belief.add_voiceunit(exx.bob)
     sue_belief.get_voice(exx.bob).add_membership(exx.run)
@@ -101,19 +100,18 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     credit44 = 44
     credit77 = 77
     credit88 = 88
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    bob_job = beliefunit_shop(bob_inx, a23_str)
+    bob_job = beliefunit_shop(bob_inx, exx.a23)
     bob_job.add_voiceunit(bob_inx, credit77)
     bob_job.add_voiceunit(yao_inx, credit44)
     bob_job.add_voiceunit(bob_inx, credit77)
     bob_job.add_voiceunit(sue_inx, credit88)
     bob_job.add_voiceunit(yao_inx, credit44)
     save_job_file(moment_mstr_dir, bob_job)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
-    moment_dict = momentunit_shop(a23_str, moment_mstr_dir).to_dict()
+    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
+    moment_dict = momentunit_shop(exx.a23, moment_mstr_dir).to_dict()
     save_json(moment_json_path, None, moment_dict)
-    a23_bob_job_path = create_job_path(moment_mstr_dir, a23_str, bob_inx)
+    a23_bob_job_path = create_job_path(moment_mstr_dir, exx.a23, bob_inx)
     assert os_path_exists(moment_json_path)
     assert os_path_exists(a23_bob_job_path)
     with sqlite3_connect(":memory:") as db_conn:
@@ -130,7 +128,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
         print(rows)
         assert rows == [
             (
-                "amy23",
+                "Amy23",
                 "Bobby",
                 "Bobby",
                 77.0,
@@ -148,7 +146,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
                 0.0,
             ),
             (
-                "amy23",
+                "Amy23",
                 "Bobby",
                 "Suzy",
                 88.0,
@@ -166,7 +164,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
                 0.0,
             ),
             (
-                "amy23",
+                "Amy23",
                 "Bobby",
                 "Yaoe",
                 44.0,

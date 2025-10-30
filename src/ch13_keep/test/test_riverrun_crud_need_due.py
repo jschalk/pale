@@ -106,8 +106,7 @@ def test_RiverRun_set_voice_need_due_SetsAttr():
 def test_RiverRun_need_dues_unpaid_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     assert x_riverrun.need_dues_unpaid() is False
 
     # WHEN

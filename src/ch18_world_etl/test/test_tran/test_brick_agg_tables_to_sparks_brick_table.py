@@ -11,7 +11,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     spark1 = 1
     spark3 = 3
     spark9 = 9
@@ -39,10 +38,10 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_360}', '{hour6am}')
-, ('{spark1}', '{exx.sue}', '{a23_str}', '{minute_420}', '{hour7am}')
-, ('{spark3}', '{exx.yao}', '{a23_str}', '{minute_420}', '{hour7am}')
-, ('{spark9}', '{exx.yao}', '{a23_str}', '{minute_420}', '{hour7am}')
+  ('{spark1}', '{exx.sue}', '{exx.a23}', '{minute_360}', '{hour6am}')
+, ('{spark1}', '{exx.sue}', '{exx.a23}', '{minute_420}', '{hour7am}')
+, ('{spark3}', '{exx.yao}', '{exx.a23}', '{minute_420}', '{hour7am}')
+, ('{spark9}', '{exx.yao}', '{exx.a23}', '{minute_420}', '{hour7am}')
 ;
 """
         insert_sqlstr = f"{insert_into_clause} {values_clause}"
@@ -82,7 +81,6 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
 
 def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario1():
     # ESTABLISH
-    a23_str = "amy23"
     spark1 = 1
     spark3 = 3
     spark9 = 9
@@ -110,11 +108,11 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
 )"""
         values_clause = f"""
 VALUES     
-  ('{spark1}', '{exx.sue}', "{a23_str}", '{hour6am}', '{minute_360}')
-, ('{spark1}', '{exx.sue}', "{a23_str}", '{hour7am}', '{minute_420}')
-, ('{spark1}', '{exx.yao}', "{a23_str}", '{hour7am}', '{minute_420}')
-, ('{spark9}', '{exx.yao}', "{a23_str}", '{hour7am}', '{minute_420}')
-, ('{spark3}', '{exx.bob}', "{a23_str}", '{hour7am}', '{minute_420}')
+  ('{spark1}', '{exx.sue}', "{exx.a23}", '{hour6am}', '{minute_360}')
+, ('{spark1}', '{exx.sue}', "{exx.a23}", '{hour7am}', '{minute_420}')
+, ('{spark1}', '{exx.yao}', "{exx.a23}", '{hour7am}', '{minute_420}')
+, ('{spark9}', '{exx.yao}', "{exx.a23}", '{hour7am}', '{minute_420}')
+, ('{spark3}', '{exx.bob}', "{exx.a23}", '{hour7am}', '{minute_420}')
 ;
 """
         insert_sqlstr = f"{insert_into_clause} {values_clause}"

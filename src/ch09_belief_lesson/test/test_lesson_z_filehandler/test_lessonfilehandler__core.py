@@ -67,14 +67,13 @@ def test_lessonfilehandler_shop_ReturnsObj():
 def test_lessonfilehandler_shop_ReturnsObjWhenEmpty():
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
 
     # WHEN
-    sue_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, amy23_str, exx.sue)
+    sue_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, exx.a23, exx.sue)
 
     # THEN
     assert sue_lessonfilehandler.moment_mstr_dir == moment_mstr_dir
-    assert sue_lessonfilehandler.moment_label == amy23_str
+    assert sue_lessonfilehandler.moment_label == exx.a23
     assert sue_lessonfilehandler.belief_name == exx.sue
     assert sue_lessonfilehandler.knot == default_knot_if_None()
     assert sue_lessonfilehandler.fund_pool == validate_pool_num()

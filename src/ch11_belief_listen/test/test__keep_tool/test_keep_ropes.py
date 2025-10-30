@@ -21,10 +21,9 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    a23_str = "amy23"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.sue, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(env_dir(), a23_str, exx.sue)
+    sue_gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
     sue_gut_belief.add_voiceunit(exx.sue)
     texas_str = "Texas"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
@@ -40,7 +39,7 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        get_keep_ropes(env_dir(), moment_label=a23_str, belief_name=exx.sue)
+        get_keep_ropes(env_dir(), moment_label=exx.a23, belief_name=exx.sue)
     exception_str = f"Cannot get_keep_ropes from '{exx.sue}' gut belief because 'BeliefUnit.keeps_justified' is False."
     assert str(excinfo.value) == exception_str
 
@@ -49,10 +48,9 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    a23_str = "amy23"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.sue, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(env_dir(), a23_str, exx.sue)
+    sue_gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
     sue_gut_belief.add_voiceunit(exx.sue)
     texas_str = "Tex/as"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
@@ -65,17 +63,16 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        get_keep_ropes(env_dir(), a23_str, belief_name=exx.sue)
+        get_keep_ropes(env_dir(), exx.a23, belief_name=exx.sue)
     exception_str = f"Cannot get_keep_ropes from '{exx.sue}' gut belief because 'BeliefUnit.keeps_buildable' is False."
     assert str(excinfo.value) == exception_str
 
 
 def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     # ESTABLISH
-    a23_str = "amy23"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.sue, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(env_dir(), a23_str, exx.sue)
+    sue_gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
     sue_gut_belief.add_voiceunit(exx.sue)
     texas_str = "Texas"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
@@ -93,7 +90,7 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     save_gut_file(env_dir(), sue_gut_belief)
 
     # WHEN
-    sue_keep_ropes = get_keep_ropes(env_dir(), a23_str, belief_name=exx.sue)
+    sue_keep_ropes = get_keep_ropes(env_dir(), exx.a23, belief_name=exx.sue)
 
     # THEN
     assert len(sue_keep_ropes) == 2
@@ -104,11 +101,10 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
 def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    a23_str = "amy23"
     mstr_dir = env_dir()
-    sue_lessonfilehandler = lessonfilehandler_shop(mstr_dir, a23_str, exx.sue, None)
+    sue_lessonfilehandler = lessonfilehandler_shop(mstr_dir, exx.a23, exx.sue, None)
     save_gut_file(mstr_dir, sue_lessonfilehandler.default_gut_belief())
-    sue_gut_belief = open_gut_file(mstr_dir, a23_str, exx.sue)
+    sue_gut_belief = open_gut_file(mstr_dir, exx.a23, exx.sue)
     sue_gut_belief.add_voiceunit(exx.sue)
     sue_gut_belief.add_voiceunit(exx.bob)
     texas_str = "Texas"
@@ -127,7 +123,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     sue_dallas_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
         belief_name=exx.sue,
-        moment_label=a23_str,
+        moment_label=exx.a23,
         keep_rope=dallas_rope,
         knot=None,
         duty_belief=exx.sue,
@@ -135,19 +131,19 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     sue_elpaso_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
         belief_name=exx.sue,
-        moment_label=a23_str,
+        moment_label=exx.a23,
         keep_rope=elpaso_rope,
         knot=None,
         duty_belief=exx.sue,
     )
-    sue_keep_ropes = get_keep_ropes(env_dir(), a23_str, belief_name=exx.sue)
+    sue_keep_ropes = get_keep_ropes(env_dir(), exx.a23, belief_name=exx.sue)
     assert os_path_exists(sue_dallas_duty_path) is False
     assert os_path_exists(sue_elpaso_duty_path) is False
 
     # WHEN
     save_all_gut_dutys(
         moment_mstr_dir=mstr_dir,
-        moment_label=a23_str,
+        moment_label=exx.a23,
         belief_name=exx.sue,
         keep_ropes=sue_keep_ropes,
         knot=sue_lessonfilehandler.knot,

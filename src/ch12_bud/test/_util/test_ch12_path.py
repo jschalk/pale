@@ -29,14 +29,13 @@ from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 def test_create_buds_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
 
     # WHEN
-    buds_dir = create_buds_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
+    buds_dir = create_buds_dir_path(x_moment_mstr_dir, exx.a23, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, amy23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     expected_buds_dir = create_path(sue_dir, "buds")
@@ -46,17 +45,16 @@ def test_create_buds_dir_path_ReturnsObj():
 def test_create_bud_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
     epochtime7 = 7
 
     # WHEN
     generated_epochtime_dir = create_bud_dir_path(
-        x_moment_mstr_dir, amy23_str, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, amy23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
@@ -67,17 +65,16 @@ def test_create_bud_dir_path_ReturnsObj():
 def test_create_budunit_json_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     epochtime7 = 7
 
     # WHEN
     gen_bud_path = create_budunit_json_path(
-        x_moment_mstr_dir, a23_str, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, a23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
@@ -89,17 +86,16 @@ def test_create_budunit_json_path_ReturnsObj():
 def test_create_belieftime_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     epochtime7 = 7
 
     # WHEN
     gen_belieftime_path = create_belieftime_path(
-        x_moment_mstr_dir, a23_str, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, a23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
@@ -111,31 +107,29 @@ def test_create_belieftime_path_ReturnsObj():
 def test_create_cell_dir_path_ReturnsObj_Scenario0_No_bud_ancestors():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     tp7 = 7
 
     # WHEN
-    gen_cell_dir = create_cell_dir_path(x_moment_mstr_dir, a23_str, exx.sue, tp7, [])
+    gen_cell_dir = create_cell_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7, [])
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, a23_str, exx.sue, tp7)
+    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
     assert gen_cell_dir == epochtime_dir
 
 
 def test_create_cell_dir_path_ReturnsObj_Scenario1_One_bud_ancestors():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     tp7 = 7
     x_bud_ancestors = [exx.yao]
 
     # WHEN
     gen_cell_dir = create_cell_dir_path(
-        x_moment_mstr_dir, a23_str, exx.sue, tp7, bud_ancestors=x_bud_ancestors
+        x_moment_mstr_dir, exx.a23, exx.sue, tp7, bud_ancestors=x_bud_ancestors
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, a23_str, exx.sue, tp7)
+    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
     tp_yao_dir = create_path(epochtime_dir, exx.yao)
     assert gen_cell_dir == tp_yao_dir
 
@@ -143,17 +137,16 @@ def test_create_cell_dir_path_ReturnsObj_Scenario1_One_bud_ancestors():
 def test_create_cell_dir_path_ReturnsObj_Scenario2_Three_bud_ancestors():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     tp7 = 7
     x_bud_ancestors = [exx.yao, exx.bob, exx.zia]
 
     # WHEN
     gen_bud_celldepth_dir_path = create_cell_dir_path(
-        x_moment_mstr_dir, a23_str, exx.sue, tp7, bud_ancestors=x_bud_ancestors
+        x_moment_mstr_dir, exx.a23, exx.sue, tp7, bud_ancestors=x_bud_ancestors
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, a23_str, exx.sue, tp7)
+    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
     tp_yao_dir = create_path(epochtime_dir, exx.yao)
     tp_yao_bob_dir = create_path(tp_yao_dir, exx.bob)
     expected_tp_yao_bob_zia_dir = create_path(tp_yao_bob_dir, exx.zia)
@@ -163,17 +156,16 @@ def test_create_cell_dir_path_ReturnsObj_Scenario2_Three_bud_ancestors():
 def test_create_cell_json_path_ReturnsObj_Scenario0_Empty_bud_ancestors():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     epochtime7 = 7
 
     # WHEN
     gen_cell_json_path = create_cell_json_path(
-        x_moment_mstr_dir, a23_str, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, a23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
@@ -185,17 +177,16 @@ def test_create_cell_json_path_ReturnsObj_Scenario0_Empty_bud_ancestors():
 def test_create_cell_json_path_ReturnsObj_Scenario1_Three_bud_ancestors():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     tp7 = 7
     bud_ancestors = [exx.yao, exx.bob]
 
     # WHEN
     gen_cell_json_path = create_cell_json_path(
-        x_moment_mstr_dir, a23_str, exx.sue, tp7, bud_ancestors=bud_ancestors
+        x_moment_mstr_dir, exx.a23, exx.sue, tp7, bud_ancestors=bud_ancestors
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, a23_str, exx.sue, tp7)
+    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
     tp_yao_dir = create_path(epochtime_dir, exx.yao)
     tp_yao_bob_dir = create_path(tp_yao_dir, exx.bob)
     expected_cell_json_path = create_path(tp_yao_bob_dir, CELLNODE_FILENAME)
@@ -205,17 +196,16 @@ def test_create_cell_json_path_ReturnsObj_Scenario1_Three_bud_ancestors():
 def test_create_cell_voice_mandate_ledger_path_ReturnsObj_Scenario1_Three_bud_ancestors():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     tp7 = 7
     bud_ancestors = [exx.yao, exx.bob]
 
     # WHEN
     gen_cell_json_path = create_cell_voice_mandate_ledger_path(
-        x_moment_mstr_dir, a23_str, exx.sue, tp7, bud_ancestors=bud_ancestors
+        x_moment_mstr_dir, exx.a23, exx.sue, tp7, bud_ancestors=bud_ancestors
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, a23_str, exx.sue, tp7)
+    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
     tp_yao_dir = create_path(epochtime_dir, exx.yao)
     tp_yao_bob_dir = create_path(tp_yao_dir, exx.bob)
     expected_cell_json_path = create_path(tp_yao_bob_dir, CELL_MANDATE_FILENAME)
@@ -225,17 +215,16 @@ def test_create_cell_voice_mandate_ledger_path_ReturnsObj_Scenario1_Three_bud_an
 def test_create_belief_spark_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
     spark3 = 3
 
     # WHEN
     gen_a23_e3_dir_path = create_belief_spark_dir_path(
-        x_moment_mstr_dir, amy23_str, exx.bob, spark3
+        x_moment_mstr_dir, exx.a23, exx.bob, spark3
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_dir = create_path(x_moments_dir, amy23_str)
+    a23_dir = create_path(x_moments_dir, exx.a23)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
     a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_sparks_dir = create_path(a23_bob_dir, "sparks")
@@ -246,17 +235,16 @@ def test_create_belief_spark_dir_path_ReturnsObj():
 def test_create_beliefspark_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
     spark3 = 3
 
     # WHEN
     gen_a23_e3_belief_path = create_beliefspark_path(
-        x_moment_mstr_dir, amy23_str, exx.bob, spark3
+        x_moment_mstr_dir, exx.a23, exx.bob, spark3
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_dir = create_path(x_moments_dir, amy23_str)
+    a23_dir = create_path(x_moments_dir, exx.a23)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
     a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_sparks_dir = create_path(a23_bob_dir, "sparks")
@@ -268,17 +256,16 @@ def test_create_beliefspark_path_ReturnsObj():
 def test_create_spark_all_lesson_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
     spark3 = 3
 
     # WHEN
     gen_a23_e3_belief_path = create_spark_all_lesson_path(
-        x_moment_mstr_dir, amy23_str, exx.bob, spark3
+        x_moment_mstr_dir, exx.a23, exx.bob, spark3
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_dir = create_path(x_moments_dir, amy23_str)
+    a23_dir = create_path(x_moments_dir, exx.a23)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
     a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_sparks_dir = create_path(a23_bob_dir, "sparks")
@@ -292,17 +279,16 @@ def test_create_spark_all_lesson_path_ReturnsObj():
 def test_create_spark_expressed_lesson_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
     spark3 = 3
 
     # WHEN
     gen_a23_e3_belief_path = create_spark_expressed_lesson_path(
-        x_moment_mstr_dir, amy23_str, exx.bob, spark3
+        x_moment_mstr_dir, exx.a23, exx.bob, spark3
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_dir = create_path(x_moments_dir, amy23_str)
+    a23_dir = create_path(x_moments_dir, exx.a23)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
     a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_sparks_dir = create_path(a23_bob_dir, "sparks")

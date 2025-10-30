@@ -36,7 +36,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_create_insert_into_rose_core_raw_sqlstr_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
     rdx = ":"
@@ -93,7 +92,6 @@ VALUES
 
 def test_insert_rose_sound_agg_into_rose_core_raw_table_PopulatesTable_Scenario0_IgnoresDimen_rose_epoch():
     # ESTABLISH
-    a23_str = "amy23"
     sue1_otx_time = 100
     sue1_inx_time = 200
     sue7_otx_time = 111
@@ -136,7 +134,6 @@ VALUES
 
 def test_insert_rose_sound_agg_into_rose_core_raw_table_PopulatesTable_Scenario1():
     # ESTABLISH
-    a23_str = "amy23"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
     rdx = ":"
@@ -374,7 +371,6 @@ VALUES
 
 def test_create_update_rose_sound_agg_inconsist_sqlstr_PopulatesTable_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
     rdx = ":"

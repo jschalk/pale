@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class ExampleStrs(str, Enum):
+    a23 = "Amy23"
     bob = "Bob"
     casa = "casa"
     clean = "clean"

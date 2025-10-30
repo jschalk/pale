@@ -13,7 +13,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario0_Only_valid_sparks():
     # ESTABLISH
-    a23_str = "amy23"
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
     rdx = ":"
@@ -48,8 +47,8 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
 )"""
         values_clause = f"""
 VALUES
-  ({spark1}, '{exx.sue}', '{a23_str}', '{exx.bob}', '{exx.yao}', '{exx.yao}', '{yao_inx}')
-, ({spark1}, '{exx.sue}', '{a23_str}', '{exx.bob}', '{exx.bob}', '{exx.bob}', '{bob_inx}')
+  ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.yao}', '{exx.yao}', '{yao_inx}')
+, ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.bob}', '{exx.bob}', '{bob_inx}')
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -119,6 +118,6 @@ VALUES
         print(rows)
         assert len(rows) == 2
         assert rows == [
-            (b117, 1, exx.sue, a23_str, exx.bob, exx.yao, None, None, None),
-            (b117, 1, exx.sue, a23_str, exx.bob, exx.bob, None, None, None),
+            (b117, 1, exx.sue, exx.a23, exx.bob, exx.yao, None, None, None),
+            (b117, 1, exx.sue, exx.a23, exx.bob, exx.bob, None, None, None),
         ]

@@ -58,8 +58,7 @@ def beliefunit_v002() -> BeliefUnit:
 
 def get_beliefunit_with_4_levels() -> BeliefUnit:
     # sourcery skip: extract-duplicate-method
-    a23_str = "amy23"
-    sue_belief = beliefunit_shop("Sue", a23_str)
+    sue_belief = beliefunit_shop("Sue", exx.a23)
     sue_belief.set_l1_plan(planunit_shop(exx.casa, star=30, pledge=True))
     cat_str = "cat have dinner"
     sue_belief.set_l1_plan(planunit_shop(cat_str, star=30, pledge=True))

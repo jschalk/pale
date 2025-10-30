@@ -77,7 +77,6 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario0_RoseSheetNames(
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
-    amy23_str = "amy23"
     hour6am = "6am"
     hour7am = "7am"
     ex_filename = "Faybob.xlsx"
@@ -89,8 +88,8 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario0_RoseSheetNames(
         kw.moment_label,
         kw.hour_label,
     ]
-    row1 = [spark1, exx.sue, minute_360, amy23_str, hour6am]
-    row2 = [spark1, exx.sue, minute_420, amy23_str, hour7am]
+    row1 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
+    row2 = [spark1, exx.sue, minute_420, exx.a23, hour7am]
 
     df1 = DataFrame([row1, row2], columns=idea_columns)
     br00003_str = "example_br00003"
@@ -115,7 +114,6 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp_dir_setup):
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
-    amy23_str = "amy23"
     hour6am = "6am"
     hour7am = "7am"
     ex_filename = "Faybob.xlsx"
@@ -127,16 +125,16 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp_dir_setup):
         kw.moment_label,
         kw.hour_label,
     ]
-    row1 = [spark1, exx.sue, minute_360, amy23_str, hour6am]
-    row2 = [spark1, exx.sue, minute_420, amy23_str, hour7am]
+    row1 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
+    row2 = [spark1, exx.sue, minute_420, exx.a23, hour7am]
     incomplete_idea_columns = [
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
         kw.moment_label,
     ]
-    incom_row1 = [spark1, exx.sue, minute_360, amy23_str]
-    incom_row2 = [spark1, exx.sue, minute_420, amy23_str]
+    incom_row1 = [spark1, exx.sue, minute_360, exx.a23]
+    incom_row2 = [spark1, exx.sue, minute_420, exx.a23]
 
     df1 = DataFrame([row1, row2], columns=idea_columns)
     df2 = DataFrame([incom_row1, incom_row2], columns=incomplete_idea_columns)

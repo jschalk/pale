@@ -28,14 +28,13 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro0_BudEmpty(
 ):
     # ESTABLISH
     fay_world = worldunit_shop("Fay", worlds_dir())
-    a23_str = "amy23"
     moment_mstr_dir = fay_world._moment_mstr_dir
-    amy23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    a23_json_path = create_moment_json_path(fay_world._moment_mstr_dir, a23_str)
+    amy23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
+    a23_json_path = create_moment_json_path(fay_world._moment_mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     print(f"{a23_json_path=}")
     a23_beliefs_path = create_moment_beliefs_dir_path(
-        fay_world._moment_mstr_dir, a23_str
+        fay_world._moment_mstr_dir, exx.a23
     )
     assert count_dirs_files(a23_beliefs_path) == 0
 
@@ -52,18 +51,17 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro1_SimpleBud(
     # ESTABLISH
     fay_world = worldunit_shop("Fay", worlds_dir())
     mstr_dir = fay_world._moment_mstr_dir
-    a23_str = "amy23"
-    amy23_moment = momentunit_shop(a23_str, mstr_dir)
+    amy23_moment = momentunit_shop(exx.a23, mstr_dir)
     tp37 = 37
     bud1_quota = 450
     x_celldepth = 2
     amy23_moment.add_budunit(exx.bob, tp37, bud1_quota, celldepth=x_celldepth)
-    a23_json_path = create_moment_json_path(mstr_dir, a23_str)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     # Create empty ote1 file
-    a23_ote1_json_path = create_moment_ote1_json_path(mstr_dir, a23_str)
+    a23_ote1_json_path = create_moment_ote1_json_path(mstr_dir, exx.a23)
     save_json(a23_ote1_json_path, None, {})
-    bob37_bud_mandate_path = bud_mandate_path(mstr_dir, a23_str, exx.bob, tp37)
+    bob37_bud_mandate_path = bud_mandate_path(mstr_dir, exx.a23, exx.bob, tp37)
     assert os_path_exists(bob37_bud_mandate_path) is False
 
     # WHEN
@@ -84,16 +82,14 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
     # ESTABLISH
     fay_world = worldunit_shop("Fay", worlds_dir())
     mstr_dir = fay_world._moment_mstr_dir
-    a23_str = "amy23"
 
     # Create MomentUnit with bob bud at time 37
-    amy23_moment = momentunit_shop(a23_str, mstr_dir)
-    a23_str = "amy23"
+    amy23_moment = momentunit_shop(exx.a23, mstr_dir)
     tp37 = 37
     bud1_quota = 450
     x_celldepth = 2
     amy23_moment.add_budunit(exx.bob, tp37, bud1_quota, celldepth=x_celldepth)
-    a23_json_path = create_moment_json_path(mstr_dir, a23_str)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
 
     # Create spark time mapping belief_time_agg for time 37
@@ -102,7 +98,7 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
     spark55 = 55
     bob55_beliefspark = get_bob_mop_reason_beliefunit_example()
     bob55_beliefspark.add_voiceunit(exx.sue, 1)
-    sue44_beliefspark = beliefunit_shop(exx.sue, a23_str)
+    sue44_beliefspark = beliefunit_shop(exx.sue, exx.a23)
     sue44_beliefspark.set_belief_name(exx.sue)
     sue44_beliefspark.add_voiceunit(exx.yao, 1)
     yao44_beliefspark = get_bob_mop_reason_beliefunit_example()
@@ -112,10 +108,10 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
     yao44_beliefspark.add_fact(clean_fact.fact_context, clean_fact.fact_state)
     zia33_beliefspark = get_bob_mop_reason_beliefunit_example()
     zia33_beliefspark.set_belief_name(exx.zia)
-    bob55_path = create_beliefspark_path(mstr_dir, a23_str, exx.bob, spark55)
-    sue44_path = create_beliefspark_path(mstr_dir, a23_str, exx.sue, spark44)
-    yao44_path = create_beliefspark_path(mstr_dir, a23_str, exx.yao, spark44)
-    zia33_path = create_beliefspark_path(mstr_dir, a23_str, exx.zia, spark33)
+    bob55_path = create_beliefspark_path(mstr_dir, exx.a23, exx.bob, spark55)
+    sue44_path = create_beliefspark_path(mstr_dir, exx.a23, exx.sue, spark44)
+    yao44_path = create_beliefspark_path(mstr_dir, exx.a23, exx.yao, spark44)
+    zia33_path = create_beliefspark_path(mstr_dir, exx.a23, exx.zia, spark33)
     save_json(bob55_path, None, bob55_beliefspark.to_dict())
     save_json(sue44_path, None, sue44_beliefspark.to_dict())
     save_json(yao44_path, None, yao44_beliefspark.to_dict())
@@ -128,11 +124,11 @@ def test_WorldUnit_calc_moment_bud_voice_mandate_net_ledgers_Scenaro2_BudExists(
         exx.yao: {str(tp37): spark44},
         exx.zia: {str(tp37): spark33},
     }
-    a23_ote1_json_path = create_moment_ote1_json_path(mstr_dir, a23_str)
+    a23_ote1_json_path = create_moment_ote1_json_path(mstr_dir, exx.a23)
     save_json(a23_ote1_json_path, None, a23_ote1_dict)
 
     # create result bud_voice_mandate_ledger file
-    bob37_bud_mandate_path = bud_mandate_path(mstr_dir, a23_str, exx.bob, tp37)
+    bob37_bud_mandate_path = bud_mandate_path(mstr_dir, exx.a23, exx.bob, tp37)
     assert os_path_exists(bob37_bud_mandate_path) is False
 
     # WHEN

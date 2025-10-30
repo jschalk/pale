@@ -34,8 +34,7 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToBeliefWhenNo_par
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
@@ -43,7 +42,7 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToBeliefWhenNo_par
     yao_gut.set_voice_respect(zia_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
 
-    zia_gut = beliefunit_shop(exx.zia, a23_str)
+    zia_gut = beliefunit_shop(exx.zia, exx.a23)
     zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -65,16 +64,14 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToBelief(
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
     yao_gut.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_gut.set_voice_respect(zia_pool)
-    a23_str = "amy23"
     save_gut_file(moment_mstr_dir, yao_gut)
-    zia_gut = beliefunit_shop(exx.zia, a23_str)
+    zia_gut = beliefunit_shop(exx.zia, exx.a23)
     zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -111,7 +108,6 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToBeliefWithDetail
     assert bob_cook_planunit != zia_cook_planunit
     assert len(zia_cook_planunit.reasonunits) == 1
     assert len(bob_cook_planunit.reasonunits) == 0
-    a23_str = "amy23"
     save_gut_file(moment_mstr_dir, zia_gut)
     save_gut_file(moment_mstr_dir, bob_gut)
 
@@ -122,7 +118,7 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToBeliefWithDetail
     assert new_yao_gut1.plan_exists(a23_cook_rope()) is False
 
     # WHEN
-    yao_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, a23_str, exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, exx.a23, exx.yao)
     listen_to_agendas_create_init_job_from_guts(moment_mstr_dir, new_yao_gut1)
 
     # THEN
@@ -159,8 +155,7 @@ def test_listen_to_agendas_create_init_job_from_guts_ProcessesIrrationalBelief(
 ):  # sourcery skip: extract-duplicate-method
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     sue_voice_cred_lumen = 57
@@ -169,10 +164,9 @@ def test_listen_to_agendas_create_init_job_from_guts_ProcessesIrrationalBelief(
     yao_gut.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_gut.set_voice_respect(yao_pool)
-    a23_str = "amy23"
     save_gut_file(moment_mstr_dir, yao_gut)
 
-    zia_gut = beliefunit_shop(exx.zia, a23_str)
+    zia_gut = beliefunit_shop(exx.zia, exx.a23)
     zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -182,7 +176,7 @@ def test_listen_to_agendas_create_init_job_from_guts_ProcessesIrrationalBelief(
     cook_planunit.laborunit.add_party(exx.yao)
     save_gut_file(moment_mstr_dir, zia_gut)
 
-    sue_gut = beliefunit_shop(exx.sue, a23_str)
+    sue_gut = beliefunit_shop(exx.sue, exx.a23)
     sue_gut.set_max_tree_traverse(5)
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)
     vacuum_str = "vacuum"
@@ -233,11 +227,10 @@ def test_listen_to_agendas_create_init_job_from_guts_ProcessesMissingDebtorBelie
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut_path = create_gut_path(moment_mstr_dir, a23_str, exx.yao)
+    yao_gut_path = create_gut_path(moment_mstr_dir, exx.a23, exx.yao)
     delete_dir(yao_gut_path)  # don't know why I have to do this...
     print(f"{os_path_exists(yao_gut_path)=}")
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     sue_voice_cred_lumen = 57
     zia_voice_debt_lumen = 41
@@ -248,7 +241,7 @@ def test_listen_to_agendas_create_init_job_from_guts_ProcessesMissingDebtorBelie
     yao_gut.set_voice_respect(yao_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
 
-    zia_gut = beliefunit_shop(exx.zia, a23_str)
+    zia_gut = beliefunit_shop(exx.zia, exx.a23)
     zia_gut.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_gut.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_gut.add_voiceunit(exx.yao, voice_debt_lumen=12)

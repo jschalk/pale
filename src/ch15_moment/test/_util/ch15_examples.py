@@ -166,24 +166,21 @@ def create_example_moment4() -> MomentUnit:
 
 
 def example_casa_floor_clean_factunit() -> FactUnit:
-    a23_str = "amy23"
-    casa_rope = create_rope(a23_str, "casa")
+    casa_rope = create_rope(exx.a23, "casa")
     floor_rope = create_rope(casa_rope, "floor situation")
     clean_rope = create_rope(floor_rope, "clean")
     return factunit_shop(floor_rope, clean_rope)
 
 
 def example_casa_floor_dirty_factunit() -> FactUnit:
-    a23_str = "amy23"
-    casa_rope = create_rope(a23_str, "casa")
+    casa_rope = create_rope(exx.a23, "casa")
     floor_rope = create_rope(casa_rope, "floor situation")
     dirty_rope = create_rope(floor_rope, "dirty")
     return factunit_shop(floor_rope, dirty_rope)
 
 
 def _example_empty_bob_beliefunit() -> BeliefUnit:
-    a23_str = "amy23"
-    return beliefunit_shop("Bob", a23_str)
+    return beliefunit_shop("Bob", exx.a23)
 
 
 def get_bob_mop_without_reason_beliefunit_example() -> BeliefUnit:
@@ -229,7 +226,7 @@ def get_bob_mop_fact_clean_beliefunit_example() -> BeliefUnit:
 
 
 def get_yao_run_with_reason_beliefunit_example() -> BeliefUnit:
-    yao_belief = beliefunit_shop("Yao", "amy23")
+    yao_belief = beliefunit_shop("Yao", "Amy23")
     sport_str = "sport"
     participate_str = "participate"
     ski_str = "skiing"

@@ -19,7 +19,7 @@ from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 def test_LessonUnit_save_atom_file_SavesCorrectFile(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
@@ -48,7 +48,7 @@ def test_LessonUnit_save_atom_file_SavesCorrectFile(temp_dir_setup):
 
 def test_LessonUnit_atom_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
@@ -74,7 +74,7 @@ def test_LessonUnit_atom_file_exists_ReturnsObj(temp_dir_setup):
 
 def test_LessonUnit_open_atom_file_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
@@ -100,7 +100,7 @@ def test_LessonUnit_open_atom_file_ReturnsObj(temp_dir_setup):
 
 def test_LessonUnit_save_lesson_file_SavesCorrectFile(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_lesson_id = 2
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
@@ -135,7 +135,7 @@ def test_LessonUnit_save_lesson_file_SavesCorrectFile(temp_dir_setup):
 
 def test_LessonUnit_lesson_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
@@ -160,7 +160,7 @@ def test_LessonUnit_lesson_file_exists_ReturnsObj(temp_dir_setup):
 
 def test_LessonUnit_save_files_SavesFiles(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
@@ -194,7 +194,7 @@ def test_LessonUnit_save_files_SavesFiles(temp_dir_setup):
 
 def test_LessonUnit_create_beliefdelta_from_atom_files_SetsAttr(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
@@ -226,7 +226,7 @@ def test_LessonUnit_create_beliefdelta_from_atom_files_SetsAttr(temp_dir_setup):
 
 def test_create_lessonunit_from_files_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    x_moment_dir = create_path(moments_dir(), "amy23")
+    x_moment_dir = create_path(moments_dir(), "Amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
     sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")

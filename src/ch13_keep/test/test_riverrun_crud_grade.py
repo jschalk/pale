@@ -7,9 +7,8 @@ from src.ref.keywords import ExampleStrs as exx
 def test_RiverRun_set_initial_rivergrade_SetsAttr():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_number = 8
-    yao_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao, number=yao_number)
+    yao_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao, number=yao_number)
     x_doctor_count = 5
     x_patient_count = 8
     yao_riverrun.doctor_count = x_doctor_count
@@ -21,7 +20,7 @@ def test_RiverRun_set_initial_rivergrade_SetsAttr():
 
     # THEN
     bob_rivergrade = rivergrade_shop(
-        a23_str,
+        exx.a23,
         exx.yao,
         None,
         exx.bob,
@@ -40,9 +39,8 @@ def test_RiverRun_set_initial_rivergrade_SetsAttr():
 def test_RiverRun_rivergrades_is_empty_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_number = 8
-    yao_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao, number=yao_number)
+    yao_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao, number=yao_number)
 
     assert yao_riverrun.rivergrades_is_empty()
 
@@ -56,9 +54,8 @@ def test_RiverRun_rivergrades_is_empty_ReturnsObj():
 def test_RiverRun_rivergrade_exists_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_number = 8
-    yao_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao, yao_number)
+    yao_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao, yao_number)
     yao_riverrun.set_initial_rivergrade("Yao")
 
     assert yao_riverrun.rivergrade_exists(exx.bob) is False
@@ -75,8 +72,7 @@ def test_RiverRun_rivergrade_exists_ReturnsObj():
 def test_RiverRun_set_all_initial_rivergrades_SetsAttr():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, 1)
     x_riverrun.set_keep_patientledger(exx.yao, exx.bob, 1)
     x_riverrun.set_keep_patientledger(exx.zia, exx.bob, 1)
@@ -102,8 +98,7 @@ def test_RiverRun_set_all_initial_rivergrades_OverWritesPrevious():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, 1)
     x_riverrun.set_keep_patientledger(exx.yao, exx.bob, 1)
     x_riverrun.set_keep_patientledger(exx.zia, exx.bob, 1)

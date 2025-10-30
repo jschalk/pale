@@ -51,7 +51,7 @@ def test_ObjKeysHolder_Exists():
 def test_insert_job_blrunit_CreatesTableRowsFor_beliefunit_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_keeps_buildable = 99
     x_keeps_justified = 77
@@ -135,7 +135,7 @@ def test_insert_job_blrplan_CreatesTableRowsFor_blrplan_job():
     # for x_arg in get_default_sorted_list(x_args):
     #     print(f"""            x_{x_arg},""")
     # print("")
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = 2
     casa_rope = create_rope(x_moment_label, "casa")
     x_parent_rope = casa_rope
@@ -855,8 +855,7 @@ def test_insert_job_blrlabo_CreatesTableRowsFor_blrlabo_job():
 def test_insert_job_obj_CreatesTableRows_Scenario0():
     # sourcery skip: extract-method
     # ESTABLISH
-    a23_str = "amy23"
-    sue_belief = beliefunit_shop(exx.sue, a23_str)
+    sue_belief = beliefunit_shop(exx.sue, exx.a23)
     sue_belief.add_voiceunit(exx.sue)
     sue_belief.add_voiceunit(exx.bob)
     sue_belief.get_voice(exx.bob).add_membership(exx.run)

@@ -14,10 +14,9 @@ from src.ref.keywords import ExampleStrs as exx
 def test_RiverRun_save_rivergrade_file_SavesFile(temp_dir_setup):
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     texas_rope = get_nation_texas_rope()
     yao_voice_cred_lumen = 500
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao, texas_rope)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao, texas_rope)
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
     x_riverrun.set_need_dues({exx.yao: 1})
     x_riverrun.calc_metrics()
@@ -45,10 +44,9 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     github_error_path1 = "src\\ch13_keep\\test\\_util\\moment_mstr\\moments/moments/ex_keep04/beliefs/Yao/keeps/nation/usa/texas/grades/Yao.json"
     assert os_path_exists(github_error_path1) is False
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     texas_rope = get_nation_texas_rope()
     yao_voice_cred_lumen = 500
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao, texas_rope)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao, texas_rope)
     yao_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
         belief_name=x_riverrun.belief_name,

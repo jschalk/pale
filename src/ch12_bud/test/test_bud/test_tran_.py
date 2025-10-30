@@ -23,7 +23,6 @@ def test_TranUnit_Exists():
 
 def test_tranunit_shop_WithParametersReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
     t55_tran_time = 5505
     t55_fundnum = -45
 
@@ -51,39 +50,36 @@ def test_TranBook_Exists():
 
 def test_tranbook_shop_WithParametersReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
     x_EpochTime = 5505
     x_fundnum = -45
     x_tranunits = {exx.sue: {exx.yao: {x_EpochTime: x_fundnum}}}
 
     # WHEN
-    x_tranbook = tranbook_shop(amy23_str, x_tranunits)
+    x_tranbook = tranbook_shop(exx.a23, x_tranunits)
 
     # THEN
     assert x_tranbook
-    assert x_tranbook.moment_label == amy23_str
+    assert x_tranbook.moment_label == exx.a23
     assert x_tranbook.tranunits == x_tranunits
     assert x_tranbook._voices_net == {}
 
 
 def test_tranbook_shop_WithoutParametersReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
 
     # WHEN
-    x_tranbook = tranbook_shop(amy23_str)
+    x_tranbook = tranbook_shop(exx.a23)
 
     # THEN
     assert x_tranbook
-    assert x_tranbook.moment_label == amy23_str
+    assert x_tranbook.moment_label == exx.a23
     assert x_tranbook.tranunits == {}
     assert x_tranbook._voices_net == {}
 
 
 def test_TranBook_set_tranunit_SetsAttr():
     # ESTABLISH
-    amy23_str = "amy23"
-    x_tranbook = tranbook_shop(amy23_str)
+    x_tranbook = tranbook_shop(exx.a23)
     assert x_tranbook.tranunits == {}
 
     # WHEN
@@ -145,8 +141,7 @@ def test_TranBook_set_tranunit_SetsAttr():
 
 def test_TranBook_set_tranunit_SetsAttrWithBlocktran_time():
     # ESTABLISH
-    amy23_str = "amy23"
-    x_tranbook = tranbook_shop(amy23_str)
+    x_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     sue_yao_t55_tranunit = tranunit_shop(exx.sue, exx.yao, t55_t, t55_yao_amount)
@@ -163,8 +158,7 @@ def test_TranBook_set_tranunit_SetsAttrWithBlocktran_time():
 
 def test_TranBook_set_tranunit_SetsAttrWithBlocktran_time_RaisesError():
     # ESTABLISH
-    amy23_str = "amy23"
-    x_tranbook = tranbook_shop(amy23_str)
+    x_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     x_blocked_tran_times = {t55_t}
@@ -180,8 +174,7 @@ def test_TranBook_set_tranunit_SetsAttrWithBlocktran_time_RaisesError():
 
 def test_TranBook_set_tranunit_SetsAttrWithCurrenttran_time():
     # ESTABLISH
-    amy23_str = "amy23"
-    x_tranbook = tranbook_shop(amy23_str)
+    x_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     sue_yao_t55_tranunit = tranunit_shop(exx.sue, exx.yao, t55_t, t55_yao_amount)
@@ -198,8 +191,7 @@ def test_TranBook_set_tranunit_SetsAttrWithCurrenttran_time():
 
 def test_TranBook_set_tranunit_SetsAttrWithCurrenttran_time_RaisesError():
     # ESTABLISH
-    amy23_str = "amy23"
-    x_tranbook = tranbook_shop(amy23_str)
+    x_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     sue_yao_t55_tranunit = tranunit_shop(exx.sue, exx.yao, t55_t, t55_yao_amount)
@@ -220,8 +212,7 @@ def test_TranBook_set_tranunit_SetsAttrWithCurrenttran_time_RaisesError():
 
 def test_TranBook_add_tranunit_SetsAttr():
     # ESTABLISH
-    amy23_str = "amy23"
-    x_tranbook = tranbook_shop(amy23_str)
+    x_tranbook = tranbook_shop(exx.a23)
     assert x_tranbook.tranunits == {}
 
     # WHEN
@@ -279,8 +270,7 @@ def test_TranBook_add_tranunit_SetsAttr():
 
 def test_TranBook_tranunit_exists_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     sue_yao_t55_tranunit = tranunit_shop(exx.sue, exx.yao, t55_t, t55_yao_amount)
@@ -295,8 +285,7 @@ def test_TranBook_tranunit_exists_ReturnsObj():
 
 def test_TranBook_get_tranunit_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     amy23_tranbook.add_tranunit(exx.sue, exx.yao, t55_t, t55_yao_amount)
@@ -320,8 +309,7 @@ def test_TranBook_get_tranunit_ReturnsObj():
 
 def test_TranBook_get_amount_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     amy23_tranbook.add_tranunit(exx.sue, exx.yao, t55_t, t55_yao_amount)
@@ -336,8 +324,7 @@ def test_TranBook_get_amount_ReturnsObj():
 
 def test_TranBook_del_tranunit_SetsAttr():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     amy23_tranbook.add_tranunit(exx.sue, exx.yao, t55_t, t55_yao_amount)
@@ -352,8 +339,7 @@ def test_TranBook_del_tranunit_SetsAttr():
 
 def test_TranBook_get_tran_times_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -376,8 +362,7 @@ def test_TranBook_get_tran_times_ReturnsObj():
 
 def test_TranBook_get_beliefs_voices_net_ReturnsObj_Scenario0():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_bob_amount = 600
     amy23_tranbook.add_tranunit(exx.sue, exx.bob, t55_tran_time, t55_bob_amount)
@@ -395,8 +380,7 @@ def test_TranBook_get_beliefs_voices_net_ReturnsObj_Scenario0():
 
 def test_TranBook_get_beliefs_voices_net_ReturnsObj_Scenario1():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -424,8 +408,7 @@ def test_TranBook_get_beliefs_voices_net_ReturnsObj_Scenario1():
 
 def test_TranBook_get_voices_net_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_bob_amount = 600
     amy23_tranbook.add_tranunit(exx.sue, exx.bob, t55_tran_time, t55_bob_amount)
@@ -443,8 +426,7 @@ def test_TranBook_get_voices_net_dict_ReturnsObj_Scenario0():
 
 def test_TranBook_get_voices_net_dict_ReturnsObj_Scenario1():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -478,8 +460,7 @@ def test_TranBook_get_voices_net_dict_ReturnsObj_Scenario1():
 
 def test_TranBook_get_voices_net_array_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -513,8 +494,7 @@ def test_TranBook_get_voices_net_array_ReturnsObj():
 
 def test_TranBook_get_voices_headers_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
 
     # WHEN / THEN
     assert amy23_tranbook._get_voices_headers() == [kw.voice_name, "net_amount"]
@@ -522,8 +502,7 @@ def test_TranBook_get_voices_headers_ReturnsObj():
 
 def test_TranBook_get_voices_csv_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -558,11 +537,10 @@ def test_TranBook_get_voices_csv_ReturnsObj():
 
 def test_TranBook_to_dict_ReturnsObj():
     # ESTABLISH
-    amy23_str = "amy23"
     x_EpochTime = 5505
     x_fundnum = -45
     all_tranunits = {exx.sue: {exx.yao: {x_EpochTime: x_fundnum}}}
-    x_tranbook = tranbook_shop(amy23_str, all_tranunits)
+    x_tranbook = tranbook_shop(exx.a23, all_tranunits)
 
     # WHEN
     x_dict = x_tranbook.to_dict()
@@ -571,7 +549,7 @@ def test_TranBook_to_dict_ReturnsObj():
     tranunits_str = "tranunits"
     assert x_dict
     assert kw.moment_label in x_dict.keys()
-    assert x_dict.get(kw.moment_label) == amy23_str
+    assert x_dict.get(kw.moment_label) == exx.a23
     assert tranunits_str in x_dict.keys()
     tranunits_dict = x_dict.get(tranunits_str)
     assert tranunits_dict.get(exx.sue)
@@ -583,8 +561,7 @@ def test_TranBook_to_dict_ReturnsObj():
 
 def test_get_tranbook_from_dict_ReturnsObj_Sccenario0():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -610,15 +587,14 @@ def test_get_tranbook_from_dict_ReturnsObj_Sccenario0():
 
     # THEN
     assert generated_tranbook
-    assert generated_tranbook.moment_label == amy23_str
+    assert generated_tranbook.moment_label == exx.a23
     assert generated_tranbook.tranunits == amy23_tranbook.tranunits
     assert generated_tranbook == amy23_tranbook
 
 
 def test_get_tranbook_from_dict_ReturnsObj_Sccenario1():
     # ESTABLISH
-    amy23_str = "amy23"
-    amy23_tranbook = tranbook_shop(amy23_str)
+    amy23_tranbook = tranbook_shop(exx.a23)
     t55_tran_time = 5505
     t55_yao_amount = -55
     t55_bob_amount = 600
@@ -632,7 +608,7 @@ def test_get_tranbook_from_dict_ReturnsObj_Sccenario1():
     amy23_tranbook.add_tranunit(exx.yao, exx.yao, t77_tran_time, t77_yao_amount)
 
     str_tran_time_amy23_dict = {
-        kw.moment_label: amy23_str,
+        kw.moment_label: exx.a23,
         "tranunits": {
             exx.sue: {
                 exx.yao: {
@@ -650,6 +626,6 @@ def test_get_tranbook_from_dict_ReturnsObj_Sccenario1():
 
     # THEN
     assert generated_tranbook
-    assert generated_tranbook.moment_label == amy23_str
+    assert generated_tranbook.moment_label == exx.a23
     assert generated_tranbook.tranunits == amy23_tranbook.tranunits
     assert generated_tranbook == amy23_tranbook

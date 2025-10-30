@@ -10,6 +10,7 @@ from src.ch20_world_logic.world import (
     init_momentunits_from_dirs,
     worldunit_shop,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_WorldName_Exists():
@@ -123,14 +124,13 @@ def test_worldunit_shop_ReturnsObj_Scenario0_WithParameters(temp_dir_setup):
 
 def test_worldunit_shop_ReturnsObj_Scenario1_WithoutParameters(temp_dir_setup):
     # ESTABLISH
-    a23_str = "amy23"
 
     # WHEN
-    x_world = worldunit_shop(a23_str, worlds_dir())
+    x_world = worldunit_shop(exx.a23, worlds_dir())
 
     # THEN
     world_dir = create_path(worlds_dir(), x_world.world_name)
-    assert x_world.world_name == a23_str
+    assert x_world.world_name == exx.a23
     assert x_world.worlds_dir == worlds_dir()
     assert not x_world.output_dir
     assert x_world.world_time_reason_upper == 0
@@ -143,14 +143,13 @@ def test_worldunit_shop_ReturnsObj_Scenario2_ThirdParameterIs_output_dir(
     temp_dir_setup,
 ):
     # ESTABLISH
-    a23_str = "amy23"
     output_dir = create_path(worlds_dir(), "output")
 
     # WHEN
-    x_world = worldunit_shop(a23_str, worlds_dir(), output_dir)
+    x_world = worldunit_shop(exx.a23, worlds_dir(), output_dir)
 
     # THEN
-    assert x_world.world_name == a23_str
+    assert x_world.world_name == exx.a23
     assert x_world.worlds_dir == worlds_dir()
     assert x_world.output_dir == output_dir
 
@@ -168,7 +167,7 @@ def test_init_momentunits_from_dirs_ReturnsObj_Scenario0(temp_dir_setup):
 
 def test_WorldUnit_set_spark_SetsAttr_Scenario0(temp_dir_setup):
     # ESTABLISH
-    x_world = worldunit_shop("amy23", worlds_dir())
+    x_world = worldunit_shop("Amy23", worlds_dir())
     assert x_world._sparks == {}
 
     # WHEN
@@ -183,7 +182,7 @@ def test_WorldUnit_set_spark_SetsAttr_Scenario0(temp_dir_setup):
 
 def test_WorldUnit_spark_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    x_world = worldunit_shop("amy23", worlds_dir())
+    x_world = worldunit_shop("Amy23", worlds_dir())
     e5_spark_num = 5
     e5_face_name = "Sue"
     assert x_world.spark_exists(e5_spark_num) is False
@@ -197,7 +196,7 @@ def test_WorldUnit_spark_exists_ReturnsObj(temp_dir_setup):
 
 def test_WorldUnit_get_spark_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    x_world = worldunit_shop("amy23", worlds_dir())
+    x_world = worldunit_shop("Amy23", worlds_dir())
     e5_spark_num = 5
     e5_face_name = "Sue"
     assert x_world.get_spark(e5_spark_num) is None
@@ -211,7 +210,7 @@ def test_WorldUnit_get_spark_ReturnsObj(temp_dir_setup):
 
 def test_WorldUnit_get_world_db_path_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    a23_world = worldunit_shop("amy23", worlds_dir())
+    a23_world = worldunit_shop("Amy23", worlds_dir())
 
     # WHEN
     a23_db_path = a23_world.get_world_db_path()
@@ -222,7 +221,7 @@ def test_WorldUnit_get_world_db_path_ReturnsObj(temp_dir_setup):
 
 def test_WorldUnit_delete_world_db_DeletesFile(temp_dir_setup):
     # ESTABLISH
-    a23_world = worldunit_shop("amy23", worlds_dir())
+    a23_world = worldunit_shop("Amy23", worlds_dir())
     a23_db_path = a23_world.get_world_db_path()
     print(f"{a23_db_path=}")
     save_file(a23_db_path, None, "example_text")

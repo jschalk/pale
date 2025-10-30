@@ -100,19 +100,18 @@ def test_open_belief_file_ReturnsObj_Scenario1_FileExists():
 def test_save_arbitrary_beliefspark_SetsFile_Scenario0(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     spark5 = 5
     beliefspark_path = create_beliefspark_path(
-        moment_mstr_dir, a23_str, exx.sue, spark5
+        moment_mstr_dir, exx.a23, exx.sue, spark5
     )
     assert os_path_exists(beliefspark_path) is False
 
     # WHEN
-    save_arbitrary_beliefspark(moment_mstr_dir, a23_str, exx.sue, spark5)
+    save_arbitrary_beliefspark(moment_mstr_dir, exx.a23, exx.sue, spark5)
 
     # THEN
     assert os_path_exists(beliefspark_path)
-    expected_sue_belief = beliefunit_shop(exx.sue, a23_str)
+    expected_sue_belief = beliefunit_shop(exx.sue, exx.a23)
     assert open_belief_file(beliefspark_path).to_dict() == expected_sue_belief.to_dict()
 
 
@@ -121,12 +120,11 @@ def test_save_arbitrary_beliefspark_SetsFile_Scenario1_includes_facts(
 ):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     spark5 = 5
     beliefspark_path = create_beliefspark_path(
-        moment_mstr_dir, a23_str, exx.sue, spark5
+        moment_mstr_dir, exx.a23, exx.sue, spark5
     )
-    casa_rope = create_rope(a23_str, "casa")
+    casa_rope = create_rope(exx.a23, "casa")
     clean_rope = create_rope(casa_rope, "clean")
     clean_fact_lower = 11
     clean_fact_upper = 16
@@ -134,11 +132,11 @@ def test_save_arbitrary_beliefspark_SetsFile_Scenario1_includes_facts(
     assert os_path_exists(beliefspark_path) is False
 
     # WHEN
-    save_arbitrary_beliefspark(moment_mstr_dir, a23_str, exx.sue, spark5, facts=x_facts)
+    save_arbitrary_beliefspark(moment_mstr_dir, exx.a23, exx.sue, spark5, facts=x_facts)
 
     # THEN
     assert os_path_exists(beliefspark_path)
-    expected_sue_belief = beliefunit_shop(exx.sue, a23_str)
+    expected_sue_belief = beliefunit_shop(exx.sue, exx.a23)
     expected_sue_belief.add_fact(
         casa_rope, clean_rope, clean_fact_lower, clean_fact_upper, True
     )
@@ -153,20 +151,18 @@ def test_save_arbitrary_beliefspark_SetsFile_Scenario1_includes_facts(
 def test_get_beliefspark_obj_ReturnsObj_Scenario0_NoFile(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy"
     t3 = 3
 
     # WHEN / THEN
-    assert get_beliefspark_obj(moment_mstr_dir, a23_str, exx.sue, t3) is None
+    assert get_beliefspark_obj(moment_mstr_dir, exx.a23, exx.sue, t3) is None
 
 
 def test_get_beliefspark_obj_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy"
     t3 = 3
-    t3_json_path = create_beliefspark_path(moment_mstr_dir, a23_str, exx.sue, t3)
-    sue_belief = beliefunit_shop(exx.sue, a23_str)
+    t3_json_path = create_beliefspark_path(moment_mstr_dir, exx.a23, exx.sue, t3)
+    sue_belief = beliefunit_shop(exx.sue, exx.a23)
     casa_rope = sue_belief.make_l1_rope("casa")
     clean_rope = sue_belief.make_l1_rope("clean")
     dirty_rope = sue_belief.make_l1_rope("dirty")
@@ -174,7 +170,7 @@ def test_get_beliefspark_obj_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     save_belief_file(t3_json_path, None, sue_belief)
 
     # WHEN
-    gen_a3_beliefspark = get_beliefspark_obj(moment_mstr_dir, a23_str, exx.sue, t3)
+    gen_a3_beliefspark = get_beliefspark_obj(moment_mstr_dir, exx.a23, exx.sue, t3)
 
     # THEN
     assert gen_a3_beliefspark == sue_belief
@@ -185,9 +181,8 @@ def test_collect_belief_spark_dir_sets_ReturnsObj_Scenario0_none(
 ):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     # WHEN
-    belief_sparks_sets = collect_belief_spark_dir_sets(moment_mstr_dir, a23_str)
+    belief_sparks_sets = collect_belief_spark_dir_sets(moment_mstr_dir, exx.a23)
     # THEN
     assert belief_sparks_sets == {}
 
@@ -197,18 +192,17 @@ def test_collect_belief_spark_dir_sets_ReturnsObj_Scenario1_DirsExist(
 ):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     spark1 = 1
     spark2 = 2
-    bob1_dir = create_belief_spark_dir_path(moment_mstr_dir, a23_str, exx.bob, spark1)
-    bob2_dir = create_belief_spark_dir_path(moment_mstr_dir, a23_str, exx.bob, spark2)
+    bob1_dir = create_belief_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark1)
+    bob2_dir = create_belief_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark2)
     print(f"  {bob1_dir=}")
     print(f"  {bob2_dir=}")
     set_dir(bob1_dir)
     set_dir(bob2_dir)
 
     # WHEN
-    belief_sparks_sets = collect_belief_spark_dir_sets(moment_mstr_dir, a23_str)
+    belief_sparks_sets = collect_belief_spark_dir_sets(moment_mstr_dir, exx.a23)
 
     # THEN
     assert belief_sparks_sets == {exx.bob: {spark1, spark2}}
@@ -219,21 +213,20 @@ def test_collect_belief_spark_dir_sets_ReturnsObj_Scenario2_DirsExist(
 ):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     spark1 = 1
     spark2 = 2
     spark7 = 7
-    bob1_dir = create_belief_spark_dir_path(moment_mstr_dir, a23_str, exx.bob, spark1)
-    bob2_dir = create_belief_spark_dir_path(moment_mstr_dir, a23_str, exx.bob, spark2)
-    sue2_dir = create_belief_spark_dir_path(moment_mstr_dir, a23_str, exx.sue, spark2)
-    sue7_dir = create_belief_spark_dir_path(moment_mstr_dir, a23_str, exx.sue, spark7)
+    bob1_dir = create_belief_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark1)
+    bob2_dir = create_belief_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark2)
+    sue2_dir = create_belief_spark_dir_path(moment_mstr_dir, exx.a23, exx.sue, spark2)
+    sue7_dir = create_belief_spark_dir_path(moment_mstr_dir, exx.a23, exx.sue, spark7)
     set_dir(bob1_dir)
     set_dir(bob2_dir)
     set_dir(sue2_dir)
     set_dir(sue7_dir)
 
     # WHEN
-    belief_sparks_sets = collect_belief_spark_dir_sets(moment_mstr_dir, a23_str)
+    belief_sparks_sets = collect_belief_spark_dir_sets(moment_mstr_dir, exx.a23)
 
     # THEN
     assert belief_sparks_sets == {
@@ -343,9 +336,8 @@ def test_get_beliefs_downhill_spark_nums_ReturnsObj_Scenario4Empty_downhill_beli
 def test_cellunit_add_json_file_SetsFile_Scenario0(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time7 = 777000
-    sue7_cell_path = node_path(moment_mstr_dir, a23_str, exx.sue, time7)
+    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7)
     spark3 = 3
     das = []
     quota500 = 500
@@ -356,7 +348,7 @@ def test_cellunit_add_json_file_SetsFile_Scenario0(temp_dir_setup):
     # WHEN
     cellunit_add_json_file(
         moment_mstr_dir=moment_mstr_dir,
-        moment_label=a23_str,
+        moment_label=exx.a23,
         time_belief_name=exx.sue,
         bud_time=time7,
         quota=quota500,
@@ -383,16 +375,15 @@ def test_cellunit_add_json_file_SetsFile_Scenario1_ManyParametersEmpty(
 ):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, a23_str, exx.sue, time7, das)
+    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
     spark3 = 3
     assert os_path_exists(sue7_cell_path) is False
 
     # WHEN
     cellunit_add_json_file(
-        moment_mstr_dir, a23_str, exx.sue, time7, spark3, bud_ancestors=das
+        moment_mstr_dir, exx.a23, exx.sue, time7, spark3, bud_ancestors=das
     )
 
     # THEN
@@ -410,14 +401,13 @@ def test_cellunit_add_json_file_SetsFile_Scenario1_ManyParametersEmpty(
 def test_cellunit_get_from_dir_ReturnsObj_Scenario0_NoFileExists(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, a23_str, exx.sue, time7, das)
+    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
     spark3 = 3
     assert os_path_exists(sue7_cell_path) is False
     cell_dir = create_cell_dir_path(
-        moment_mstr_dir, a23_str, exx.sue, time7, bud_ancestors=das
+        moment_mstr_dir, exx.a23, exx.sue, time7, bud_ancestors=das
     )
 
     # WHEN / THEN
@@ -427,17 +417,16 @@ def test_cellunit_get_from_dir_ReturnsObj_Scenario0_NoFileExists(temp_dir_setup)
 def test_cellunit_get_from_dir_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, a23_str, exx.sue, time7, das)
+    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
     spark3 = 3
     assert os_path_exists(sue7_cell_path) is False
     cellunit_add_json_file(
-        moment_mstr_dir, a23_str, exx.sue, time7, spark3, bud_ancestors=das
+        moment_mstr_dir, exx.a23, exx.sue, time7, spark3, bud_ancestors=das
     )
     cell_dir = create_cell_dir_path(
-        moment_mstr_dir, a23_str, exx.sue, time7, bud_ancestors=das
+        moment_mstr_dir, exx.a23, exx.sue, time7, bud_ancestors=das
     )
 
     # WHEN
@@ -451,13 +440,12 @@ def test_cellunit_get_from_dir_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
 def test_cellunit_save_to_dir_ReturnsObj_Scenario0(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, a23_str, exx.sue, time7, das)
+    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
     spark3 = 3
     sue_cell = cellunit_shop(exx.sue, ancestors=das, spark_num=spark3)
-    cell_dir = create_cell_dir_path(moment_mstr_dir, a23_str, exx.sue, time7, das)
+    cell_dir = create_cell_dir_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
     assert os_path_exists(sue7_cell_path) is False
 
     # WHEN
@@ -474,12 +462,11 @@ def test_create_cell_voice_mandate_ledger_json_CreatesFile_Scenario0_NoCellFile(
     # ESTABLISH
     mstr_dir = get_temp_dir()
     sue_ancestors = [exx.sue]
-    a23_str = "amy23"
     tp6 = 6
     sue_voice_mandate_ledger_path = create_cell_voice_mandate_ledger_path(
-        mstr_dir, a23_str, exx.bob, tp6, sue_ancestors
+        mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors
     )
-    sue_cell_dir = create_cell_dir_path(mstr_dir, a23_str, exx.bob, tp6, sue_ancestors)
+    sue_cell_dir = create_cell_dir_path(mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors)
     assert os_path_exists(sue_voice_mandate_ledger_path) is False
 
     # WHEN
@@ -500,8 +487,7 @@ def test_create_cell_voice_mandate_ledger_json_CreatesFile_Scenario1(
     sue_mana_grain2 = 2
     sue_quota300 = 300
     sue_mandate = 444
-    a23_str = "amy23"
-    sue_belief = beliefunit_shop(exx.sue, a23_str)
+    sue_belief = beliefunit_shop(exx.sue, exx.a23)
     sue_belief.add_voiceunit(exx.sue, 3, 5)
     sue_belief.add_voiceunit(exx.yao, 7, 2)
     clean_fact = clean_factunit()
@@ -535,9 +521,9 @@ def test_create_cell_voice_mandate_ledger_json_CreatesFile_Scenario1(
     sue_cell.reason_contexts = set()
     tp6 = 6
     sue_voice_mandate_ledger_path = create_cell_voice_mandate_ledger_path(
-        mstr_dir, a23_str, exx.bob, tp6, sue_ancestors
+        mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors
     )
-    sue_cell_dir = create_cell_dir_path(mstr_dir, a23_str, exx.bob, tp6, sue_ancestors)
+    sue_cell_dir = create_cell_dir_path(mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors)
     cellunit_save_to_dir(sue_cell_dir, sue_cell)
     assert os_path_exists(sue_voice_mandate_ledger_path) is False
 
@@ -552,14 +538,13 @@ def test_create_cell_voice_mandate_ledger_json_CreatesFile_Scenario1(
 def test_save_valid_bud_file_Scenario0_SavesFile(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud = get_budunit_55_example()
     t55_bud_time = t55_bud.bud_time
-    t55_bud_path = create_budunit_json_path(mstr_dir, a23_str, exx.yao, t55_bud_time)
+    t55_bud_path = create_budunit_json_path(mstr_dir, exx.a23, exx.yao, t55_bud_time)
     assert os_path_exists(t55_bud_path) is False
 
     # WHEN
-    save_bud_file(mstr_dir, a23_str, exx.yao, t55_bud)
+    save_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud)
 
     # THEN
     assert os_path_exists(t55_bud_path)
@@ -568,12 +553,11 @@ def test_save_valid_bud_file_Scenario0_SavesFile(temp_dir_setup):
 def test_save_valid_bud_file_Scenario1_RaisesError(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     invalid_bud = get_budunit_invalid_example()
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        save_bud_file(mstr_dir, a23_str, exx.yao, invalid_bud)
+        save_bud_file(mstr_dir, exx.a23, exx.yao, invalid_bud)
     exception_str = (
         "magnitude cannot be calculated: debt_bud_voice_net=-5, cred_bud_voice_net=3"
     )
@@ -583,50 +567,46 @@ def test_save_valid_bud_file_Scenario1_RaisesError(temp_dir_setup):
 def test_bud_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud = get_budunit_55_example()
-    assert not bud_file_exists(mstr_dir, a23_str, exx.yao, t55_bud.bud_time)
+    assert not bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud.bud_time)
 
     # WHEN
-    save_bud_file(mstr_dir, a23_str, exx.yao, t55_bud)
+    save_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud)
 
     # THEN
-    assert bud_file_exists(mstr_dir, a23_str, exx.yao, t55_bud.bud_time)
+    assert bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud.bud_time)
 
 
 def test_open_bud_file_ReturnsObj_Scenario0_NoFileExists(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud = get_budunit_55_example()
     t55_bud_time = t55_bud.bud_time
-    assert not bud_file_exists(mstr_dir, a23_str, exx.yao, t55_bud_time)
+    assert not bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud_time)
 
     # WHEN / THEN
-    assert not open_bud_file(mstr_dir, a23_str, exx.yao, t55_bud_time)
+    assert not open_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud_time)
 
 
 def test_open_bud_file_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud = get_budunit_55_example()
     t55_bud_time = t55_bud.bud_time
-    save_bud_file(mstr_dir, a23_str, exx.yao, t55_bud)
-    assert bud_file_exists(mstr_dir, a23_str, exx.yao, t55_bud_time)
+    save_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud)
+    assert bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud_time)
 
     # WHEN / THEN
-    assert open_bud_file(mstr_dir, a23_str, exx.yao, t55_bud_time) == t55_bud
+    assert open_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud_time) == t55_bud
 
 
 def test_save_belieftime_file_SavesFile(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_belieftime = get_beliefunit_with_4_levels()
     t55_bud_time = 55
     t55_belieftime_path = create_belieftime_path(
-        mstr_dir, a23_str, exx.sue, t55_bud_time
+        mstr_dir, exx.a23, exx.sue, t55_bud_time
     )
     print(f"{t55_belieftime.moment_label=}")
     print(f"               {mstr_dir=}")
@@ -656,16 +636,15 @@ def test_save_belieftime_file_RaisesError(temp_dir_setup):
 def test_belieftime_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud_time = 55
-    assert belieftime_file_exists(mstr_dir, a23_str, exx.sue, t55_bud_time) is False
+    assert belieftime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time) is False
 
     # WHEN
     t55_belieftime = get_beliefunit_with_4_levels()
     save_belieftime_file(mstr_dir, t55_belieftime, t55_bud_time)
 
     # THEN
-    assert belieftime_file_exists(mstr_dir, a23_str, exx.sue, t55_bud_time)
+    assert belieftime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time)
 
 
 def test_open_belieftime_file_ReturnsObj_Scenario0_NoFileExists(
@@ -673,25 +652,23 @@ def test_open_belieftime_file_ReturnsObj_Scenario0_NoFileExists(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud_time = 55
-    assert not belieftime_file_exists(mstr_dir, a23_str, exx.sue, t55_bud_time)
+    assert not belieftime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time)
 
     # WHEN / THEN
-    assert not open_belieftime_file(mstr_dir, a23_str, exx.sue, t55_bud_time)
+    assert not open_belieftime_file(mstr_dir, exx.a23, exx.sue, t55_bud_time)
 
 
 def test_open_belieftime_file_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud_time = 55
     t55_belieftime = get_beliefunit_with_4_levels()
     save_belieftime_file(mstr_dir, t55_belieftime, t55_bud_time)
-    assert belieftime_file_exists(mstr_dir, a23_str, exx.sue, t55_bud_time)
+    assert belieftime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time)
 
     # WHEN
-    file_belieftime = open_belieftime_file(mstr_dir, a23_str, exx.sue, t55_bud_time)
+    file_belieftime = open_belieftime_file(mstr_dir, exx.a23, exx.sue, t55_bud_time)
 
     # THEN
     assert file_belieftime.to_dict() == t55_belieftime.to_dict()
@@ -700,7 +677,6 @@ def test_open_belieftime_file_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
 def test_get_epochtime_dirs_ReturnsObj_Scenario0(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     t55_bud_time = 55
     t77_bud_time = 77
     belieftime = get_beliefunit_with_4_levels()
@@ -708,7 +684,7 @@ def test_get_epochtime_dirs_ReturnsObj_Scenario0(temp_dir_setup):
     save_belieftime_file(mstr_dir, belieftime, t77_bud_time)
 
     # WHEN
-    epochtime_dirs = get_epochtime_dirs(mstr_dir, a23_str, exx.sue)
+    epochtime_dirs = get_epochtime_dirs(mstr_dir, exx.a23, exx.sue)
 
     # THEN
     assert epochtime_dirs == [t55_bud_time, t77_bud_time]

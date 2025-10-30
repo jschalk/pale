@@ -35,8 +35,7 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToBeliefWhenNo_partyunitIsSet(
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
@@ -44,7 +43,7 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToBeliefWhenNo_partyunitIsSet(
     yao_gut.set_voice_respect(zia_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
 
-    zia_job = beliefunit_shop(exx.zia, a23_str)
+    zia_job = beliefunit_shop(exx.zia, exx.a23)
     zia_job.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_job.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -64,17 +63,15 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToBeliefWhenNo_partyunitIsSet(
 def test_listen_to_agendas_jobs_into_job_AddstasksToBelief(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
     yao_gut.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_gut.set_voice_respect(zia_pool)
-    a23_str = "amy23"
     save_job_file(moment_mstr_dir, yao_gut)
 
-    zia_job = beliefunit_shop(exx.zia, a23_str)
+    zia_job = beliefunit_shop(exx.zia, exx.a23)
     zia_job.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_job.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -111,7 +108,6 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToBeliefWithDetailsDecidedBy_v
     assert bob_cook_planunit != zia_cook_planunit
     assert len(zia_cook_planunit.reasonunits) == 1
     assert len(bob_cook_planunit.reasonunits) == 0
-    a23_str = "amy23"
     save_job_file(moment_mstr_dir, zia_job)
     save_job_file(moment_mstr_dir, bob_job)
 
@@ -122,7 +118,7 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToBeliefWithDetailsDecidedBy_v
     assert new_yao_job1.plan_exists(a23_cook_rope()) is False
 
     # WHEN
-    yao_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, a23_str, exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, exx.a23, exx.yao)
     listen_to_agendas_jobs_into_job(moment_mstr_dir, new_yao_job1)
 
     # THEN
@@ -159,8 +155,7 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalBelief(
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     sue_voice_cred_lumen = 57
@@ -169,10 +164,9 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalBelief(
     yao_gut.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
     yao_pool = 92
     yao_gut.set_voice_respect(yao_pool)
-    a23_str = "amy23"
     save_gut_file(moment_mstr_dir, yao_gut)
 
-    zia_job = beliefunit_shop(exx.zia, a23_str)
+    zia_job = beliefunit_shop(exx.zia, exx.a23)
     zia_job.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_job.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -182,7 +176,7 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalBelief(
     cook_planunit.laborunit.add_party(exx.yao)
     save_job_file(moment_mstr_dir, zia_job)
 
-    sue_job = beliefunit_shop(exx.sue, a23_str)
+    sue_job = beliefunit_shop(exx.sue, exx.a23)
     sue_job.set_max_tree_traverse(5)
     zia_job.add_voiceunit(exx.yao, voice_debt_lumen=12)
     vacuum_str = "vacuum"
@@ -233,11 +227,10 @@ def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorBelief(
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut_path = create_gut_path(moment_mstr_dir, a23_str, exx.yao)
+    yao_gut_path = create_gut_path(moment_mstr_dir, exx.a23, exx.yao)
     delete_dir(yao_gut_path)  # don't know why I have to do this...
     print(f"{os_path_exists(yao_gut_path)=}")
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     sue_voice_cred_lumen = 57
     zia_voice_debt_lumen = 41
@@ -248,7 +241,7 @@ def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorBelief(
     yao_gut.set_voice_respect(yao_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
 
-    zia_job = beliefunit_shop(exx.zia, a23_str)
+    zia_job = beliefunit_shop(exx.zia, exx.a23)
     zia_job.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_job.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -278,8 +271,7 @@ def test_listen_to_agendas_jobs_into_job_ListensToBelief_gut_AndNotBelief_job(
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    a23_str = "amy23"
-    yao_gut = beliefunit_shop(exx.yao, a23_str)
+    yao_gut = beliefunit_shop(exx.yao, exx.a23)
     yao_voice_cred_lumen = 57
     yao_voice_debt_lumen = 51
     yao_gut.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
@@ -292,7 +284,7 @@ def test_listen_to_agendas_jobs_into_job_ListensToBelief_gut_AndNotBelief_job(
     save_gut_file(moment_mstr_dir, yao_gut)
 
     # Save Zia to job
-    zia_job = beliefunit_shop(exx.zia, a23_str)
+    zia_job = beliefunit_shop(exx.zia, exx.a23)
     zia_job.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_job.add_voiceunit(exx.yao, voice_debt_lumen=12)
@@ -303,7 +295,7 @@ def test_listen_to_agendas_jobs_into_job_ListensToBelief_gut_AndNotBelief_job(
     save_job_file(moment_mstr_dir, zia_job)
 
     # save yao with task to dutys
-    yao_old_job = beliefunit_shop(exx.yao, a23_str)
+    yao_old_job = beliefunit_shop(exx.yao, exx.a23)
     vacuum_str = "vacuum"
     vacuum_rope = yao_old_job.make_l1_rope(vacuum_str)
     yao_old_job.set_l1_plan(planunit_shop(vacuum_str, pledge=True))

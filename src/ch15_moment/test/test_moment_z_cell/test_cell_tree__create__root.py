@@ -26,13 +26,12 @@ def test_MomentUnit_create_buds_root_cells_Scenaro0_BudEmpty(
     temp_dir_setup,
 ):
     # ESTABLISH
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    amy23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    a23_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
+    amy23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
+    a23_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     print(f"{a23_json_path=}")
-    a23_beliefs_path = create_moment_beliefs_dir_path(moment_mstr_dir, a23_str)
+    a23_beliefs_path = create_moment_beliefs_dir_path(moment_mstr_dir, exx.a23)
     assert count_dirs_files(a23_beliefs_path) == 0
 
     # WHEN
@@ -47,14 +46,13 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # Create MomentUnit with bob bud at time 37
-    amy23_moment = momentunit_shop(a23_str, mstr_dir)
+    amy23_moment = momentunit_shop(exx.a23, mstr_dir)
     epochtime37 = 37
     bud1_quota = 450
     amy23_moment.add_budunit(exx.bob, epochtime37, bud1_quota)
-    a23_json_path = create_moment_json_path(mstr_dir, a23_str)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
@@ -65,7 +63,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
     a23_ote1_dict = {exx.bob: {str(epochtime37): spark3, str(epochtime66): spark7}}
 
     # epochtime37 cell path
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, a23_str, exx.bob, epochtime37)
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, epochtime37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN
@@ -86,14 +84,13 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoBeliefExistsIn
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # Create MomentUnit with bob bud at time 37
-    amy23_moment = momentunit_shop(a23_str, mstr_dir)
+    amy23_moment = momentunit_shop(exx.a23, mstr_dir)
     epochtime37 = 37
     bud1_quota = 450
     amy23_moment.add_budunit(exx.bob, epochtime37, bud1_quota)
-    a23_json_path = create_moment_json_path(mstr_dir, a23_str)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
@@ -103,7 +100,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoBeliefExistsIn
     epochtime40 = 40
     epochtime66 = 66
     a23_ote1_dict = {exx.bob: {str(epochtime40): spark3, str(epochtime66): spark7}}
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, a23_str, exx.bob, epochtime37)
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, epochtime37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN
@@ -125,17 +122,16 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     a23_mana_grain = 2
 
     # Create MomentUnit with bob bud at time 37
-    amy23_moment = momentunit_shop(a23_str, mstr_dir, mana_grain=a23_mana_grain)
+    amy23_moment = momentunit_shop(exx.a23, mstr_dir, mana_grain=a23_mana_grain)
     print(f"{amy23_moment.mana_grain=}")
     epochtime37 = 37
     bud1_quota = 450
     bud1_celldepth = 3
     amy23_moment.add_budunit(exx.bob, epochtime37, bud1_quota, celldepth=bud1_celldepth)
-    a23_json_path = create_moment_json_path(mstr_dir, a23_str)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
@@ -147,7 +143,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
     a23_ote1_dict = {exx.bob: {str(epochtime30): spark3, str(epochtime66): spark7}}
 
     # destination of cell json
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, a23_str, exx.bob, epochtime37)
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, epochtime37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN

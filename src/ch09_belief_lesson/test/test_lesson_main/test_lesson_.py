@@ -496,15 +496,17 @@ def test_LessonUnit_get_edited_belief_ReturnsObj_BeliefUnit_insert_voice():
 def test_LessonUnit_get_edited_belief_RaisesErrorWhenlessonAttrsAndBeliefAttrsAreNotTheSame():
     # ESTABLISH
     xia_str = "Xia"
-    amy23_str = "amy23"
-    bob_lessonunit = lessonunit_shop(exx.yao, xia_str, moment_label=amy23_str)
+    bob_lessonunit = lessonunit_shop(exx.yao, xia_str, moment_label=exx.a23)
     amy45_str = "amy45"
     before_sue_beliefunit = beliefunit_shop(exx.sue, moment_label=amy45_str)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         bob_lessonunit.get_lesson_edited_belief(before_sue_beliefunit)
-    assert str(excinfo.value) == "lesson belief conflict amy23 != amy45 or Yao != Sue"
+    assertion_failure_str = (
+        f"lesson belief conflict {exx.a23} != {amy45_str} or Yao != Sue"
+    )
+    assert str(excinfo.value) == assertion_failure_str
 
 
 def test_LessonUnit_is_empty_ReturnsObj():

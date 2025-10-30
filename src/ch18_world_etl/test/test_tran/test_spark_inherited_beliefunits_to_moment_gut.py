@@ -7,6 +7,7 @@ from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ch18_world_etl.transformers import (
     etl_spark_inherited_beliefunits_to_moment_gut,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 # create test where spark create_belief_spark_dir_path()
 # test that budunit with depth 0 is able to create
@@ -25,17 +26,16 @@ def test_etl_spark_inherited_beliefunits_to_moment_gut_SetsFiles_Scenario0(
     credit44 = 44
     credit77 = 77
     credit88 = 88
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     a23_bob_e3_dir = create_belief_spark_dir_path(
-        moment_mstr_dir, a23_str, bob_inx, spark3
+        moment_mstr_dir, exx.a23, bob_inx, spark3
     )
     a23_bob_e7_dir = create_belief_spark_dir_path(
-        moment_mstr_dir, a23_str, bob_inx, spark7
+        moment_mstr_dir, exx.a23, bob_inx, spark7
     )
     belief_filename = "belief.json"
-    e3_bob_belief = beliefunit_shop(bob_inx, a23_str)
-    e7_bob_belief = beliefunit_shop(bob_inx, a23_str)
+    e3_bob_belief = beliefunit_shop(bob_inx, exx.a23)
+    e7_bob_belief = beliefunit_shop(bob_inx, exx.a23)
     e3_bob_belief.add_voiceunit(bob_inx, credit77)
     e3_bob_belief.add_voiceunit(yao_inx, credit44)
     e7_bob_belief.add_voiceunit(bob_inx, credit77)
@@ -49,7 +49,7 @@ def test_etl_spark_inherited_beliefunits_to_moment_gut_SetsFiles_Scenario0(
     assert os_path_exists(e7_belief_path)
     print(e3_belief_path)
     print(e7_belief_path)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_str, bob_inx)
+    a23_bob_gut_path = create_gut_path(moment_mstr_dir, exx.a23, bob_inx)
     assert os_path_exists(a23_bob_gut_path) is False
 
     # WHEN
