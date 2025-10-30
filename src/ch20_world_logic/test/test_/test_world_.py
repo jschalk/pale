@@ -33,7 +33,7 @@ def test_WorldUnit_Exists():
     assert not x_world._brick_dir
     assert not x_world._moment_mstr_dir
     assert not x_world._momentunits
-    assert not x_world._translate_sparks
+    assert not x_world._rose_sparks
 
 
 def test_WorldUnit_set_input_dir_SetsDirsAndFiles(temp_dir_setup):
@@ -118,7 +118,7 @@ def test_worldunit_shop_ReturnsObj_Scenario0_WithParameters(temp_dir_setup):
     assert x_world.world_time_reason_upper == world2_time_reason_upper
     assert x_world._sparks == {}
     assert x_world._momentunits == world2_momentunits
-    assert x_world._translate_sparks == {}
+    assert x_world._rose_sparks == {}
 
 
 def test_worldunit_shop_ReturnsObj_Scenario1_WithoutParameters(temp_dir_setup):

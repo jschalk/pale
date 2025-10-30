@@ -1,0 +1,483 @@
+from os.path import exists as os_path_exists
+from src.ch01_py.file_toolbox import create_path, get_dir_file_strs
+from src.ch16_rose.rose_main import roseunit_shop
+from src.ch16_rose.test._util.ch16_examples import (
+    get_casa_maison_epoch_dt,
+    get_casa_maison_label_dt,
+    get_casa_maison_rope_otx2inx_dt,
+    get_casa_maison_roseunit_set_by_epoch,
+    get_casa_maison_roseunit_set_by_label,
+    get_casa_maison_roseunit_set_by_otx2inx,
+    get_rose_core_attrs_are_none_namemap,
+    get_slash_namemap,
+    get_sue_roseunit,
+)
+from src.ch17_idea.idea_db_tool import (
+    get_idea_elements_sort_order as sorting_columns,
+    get_ordered_csv,
+)
+from src.ch17_idea.rose_toolbox import (
+    _load_labelmap_from_csv,
+    _load_namemap_from_csv,
+    _load_ropemap_from_csv,
+    _load_titlemap_from_csv,
+    _save_rose_label_csv,
+    create_dir_valid_empty_roseunit,
+    create_rose_epoch_dt,
+    create_rose_label_dt,
+    create_rose_name_dt,
+    create_rose_rope_dt,
+    create_rose_title_dt,
+    get_rose_epoch_dt_columns,
+    get_rose_label_dt_columns,
+    get_rose_name_dt_columns,
+    get_rose_rope_dt_columns,
+    get_rose_title_dt_columns,
+    init_roseunit_from_dir,
+    save_all_csvs_from_roseunit,
+)
+from src.ch17_idea.test._util.ch17_env import (
+    idea_moments_dir as get_example_face_dir,
+    temp_dir_setup,
+)
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
+
+
+def test_get_rose_name_dt_columns_ReturnsObj():
+    # ESTABLISH / WHEN /THEN
+    assert get_rose_name_dt_columns()
+    assert len(get_rose_name_dt_columns()) == 7
+    static_list = [
+        kw.spark_num,
+        kw.face_name,
+        kw.otx_knot,
+        kw.inx_knot,
+        kw.unknown_str,
+        "otx_name",
+        "inx_name",
+    ]
+    assert get_rose_name_dt_columns() == static_list
+    assert set(get_rose_name_dt_columns()).issubset(set(sorting_columns()))
+
+
+def test_get_rose_title_dt_columns_ReturnsObj():
+    # ESTABLISH / WHEN /THEN
+    assert get_rose_title_dt_columns()
+    assert len(get_rose_title_dt_columns()) == 7
+    static_list = [
+        kw.spark_num,
+        kw.face_name,
+        kw.otx_knot,
+        kw.inx_knot,
+        kw.unknown_str,
+        kw.otx_title,
+        kw.inx_title,
+    ]
+    assert get_rose_title_dt_columns() == static_list
+    assert set(get_rose_title_dt_columns()).issubset(set(sorting_columns()))
+
+
+def test_get_rose_label_dt_columns_ReturnsObj():
+    # ESTABLISH / WHEN /THEN
+    assert get_rose_label_dt_columns()
+    assert len(get_rose_label_dt_columns()) == 7
+    static_list = [
+        kw.spark_num,
+        kw.face_name,
+        kw.otx_knot,
+        kw.inx_knot,
+        kw.unknown_str,
+        kw.otx_label,
+        kw.inx_label,
+    ]
+    assert get_rose_label_dt_columns() == static_list
+    assert set(get_rose_label_dt_columns()).issubset(set(sorting_columns()))
+
+
+def test_get_rose_rope_dt_columns_ReturnsObj():
+    # ESTABLISH / WHEN /THEN
+    assert get_rose_rope_dt_columns()
+    assert len(get_rose_rope_dt_columns()) == 7
+    static_list = [
+        kw.spark_num,
+        kw.face_name,
+        kw.otx_knot,
+        kw.inx_knot,
+        kw.unknown_str,
+        kw.otx_rope,
+        kw.inx_rope,
+    ]
+    assert get_rose_rope_dt_columns() == static_list
+    assert set(get_rose_rope_dt_columns()).issubset(set(sorting_columns()))
+
+
+def test_get_rose_epoch_dt_columns_ReturnsObj():
+    # ESTABLISH / WHEN /THEN
+    assert get_rose_epoch_dt_columns()
+    assert len(get_rose_epoch_dt_columns()) == 4
+    expected_column_list = [
+        kw.spark_num,
+        kw.face_name,
+        kw.otx_epoch_length,
+        kw.inx_epoch_diff,
+    ]
+    assert get_rose_epoch_dt_columns() == expected_column_list
+    assert set(get_rose_epoch_dt_columns()).issubset(set(sorting_columns()))
+
+
+def test_create_rose_rope_dt_ReturnsObj():
+    # ESTABLISH
+    casa_roseunit = get_casa_maison_roseunit_set_by_otx2inx()
+    casa_mapunit = casa_roseunit.get_ropemap()
+
+    # WHEN
+    casa_dataframe = create_rose_rope_dt(casa_mapunit)
+    print(f"{casa_dataframe=}")
+
+    # THEN
+    assert list(casa_dataframe.columns) == get_rose_rope_dt_columns()
+    assert len(casa_dataframe) == 4
+    casa_csv = get_ordered_csv(casa_dataframe)
+    print(f"{get_rose_rope_dt_columns()=}")
+    print(f"{casa_dataframe.columns=}")
+    print(casa_csv)
+    print(get_ordered_csv(get_casa_maison_rope_otx2inx_dt()))
+    assert casa_csv == get_ordered_csv(get_casa_maison_rope_otx2inx_dt())
+
+
+def test_create_rose_label_dt_ReturnsObj():
+    # ESTABLISH
+    casa_roseunit = get_casa_maison_roseunit_set_by_label()
+    casa_mapunit = casa_roseunit.get_labelmap()
+
+    # WHEN
+    casa_dataframe = create_rose_label_dt(casa_mapunit)
+
+    # THEN
+    # print(f"{get_rose_label_dt_columns()=}")
+    # print(f"    {list(casa_dataframe.columns)=}")
+    # print("")
+    # print(f"{casa_dataframe=}")
+    assert list(casa_dataframe.columns) == get_rose_label_dt_columns()
+    assert len(casa_dataframe) == 3
+    casa_csv = get_ordered_csv(casa_dataframe)
+    ex_label_csv = get_ordered_csv(get_casa_maison_label_dt())
+    print(f"       {casa_csv=}")
+    print(f"{ex_label_csv=}")
+    assert casa_csv == ex_label_csv
+
+
+def test_create_rose_epoch_dt_ReturnsObj():
+    # ESTABLISH
+    casa_roseunit = get_casa_maison_roseunit_set_by_epoch()
+    casa_mapunit = casa_roseunit.get_epochmap()
+    print(f"{casa_mapunit=}")
+
+    # WHEN
+    casa_dataframe = create_rose_epoch_dt(casa_mapunit)
+
+    # THEN
+    # print(f"{get_rose_epoch_dt_columns()=}")
+    # print(f"    {list(casa_dataframe.columns)=}")
+    # print("")
+    print(f"{casa_mapunit=}")
+    print(f"{casa_dataframe=}")
+    assert list(casa_dataframe.columns) == get_rose_epoch_dt_columns()
+    assert len(casa_dataframe) == 2
+    casa_csv = get_ordered_csv(casa_dataframe)
+    expected_epoch_csv = get_ordered_csv(get_casa_maison_epoch_dt())
+    print(f"          {casa_csv=}")
+    print(f"{expected_epoch_csv=}")
+    assert casa_csv == expected_epoch_csv
+
+
+def test_save_all_csvs_from_roseunit_SavesFiles(temp_dir_setup):
+    # ESTABLISH
+    sue_roseunit = get_sue_roseunit()
+    map_dir = get_example_face_dir()
+    name_filename = "name.csv"
+    title_filename = "title.csv"
+    label_filename = "label.csv"
+    rope_filename = "rope.csv"
+    name_csv_path = create_path(map_dir, name_filename)
+    group_csv_path = create_path(map_dir, title_filename)
+    label_csv_path = create_path(map_dir, label_filename)
+    rope_csv_path = create_path(map_dir, rope_filename)
+    assert os_path_exists(name_csv_path) is False
+    assert os_path_exists(group_csv_path) is False
+    assert os_path_exists(label_csv_path) is False
+    assert os_path_exists(rope_csv_path) is False
+    assert len(get_dir_file_strs(map_dir)) == 0
+
+    # WHEN
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+
+    # THEN
+    assert os_path_exists(name_csv_path)
+    assert os_path_exists(group_csv_path)
+    assert os_path_exists(label_csv_path)
+    assert os_path_exists(rope_csv_path)
+    assert len(get_dir_file_strs(map_dir)) == 4
+
+
+def test_load_namemap_from_csv_SetsAttrWhenFileExists(temp_dir_setup):
+    # ESTABLISH
+    sue_roseunit = get_sue_roseunit()
+    map_dir = get_example_face_dir()
+    name_filename = "name.csv"
+    name_csv_path = create_path(map_dir, name_filename)
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+    assert os_path_exists(name_csv_path)
+    empty_roseunit = roseunit_shop("Sue")
+    sue_namemap = empty_roseunit.get_mapunit(kw.NameTerm)
+    sue_namemap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_namemap=}")
+    assert len(sue_namemap.otx2inx) == 0
+
+    # WHEN
+    sue_namemap = _load_namemap_from_csv(map_dir, sue_namemap)
+
+    # THEN
+    assert len(sue_namemap.otx2inx) == 3
+    ex_namemap = sue_roseunit.get_mapunit(kw.NameTerm)
+    assert ex_namemap == sue_namemap
+
+
+def test_load_namemap_from_csv_DoesNotChangeWhenFileDoesNotExist(temp_dir_setup):
+    # ESTABLISH
+    map_dir = get_example_face_dir()
+    name_filename = "name.csv"
+    name_csv_path = create_path(map_dir, name_filename)
+    assert os_path_exists(name_csv_path) is False
+    empty_roseunit = roseunit_shop("Sue")
+    sue_namemap = empty_roseunit.get_mapunit(kw.NameTerm)
+    sue_namemap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_namemap=}")
+    assert len(sue_namemap.otx2inx) == 0
+
+    # WHEN
+    sue_namemap = _load_namemap_from_csv(map_dir, sue_namemap)
+
+    # THEN
+    assert len(sue_namemap.otx2inx) == 0
+
+
+def test_load_titlemap_from_csv_SetsAttrWhenFileExists(temp_dir_setup):
+    # ESTABLISH
+    sue_roseunit = get_sue_roseunit()
+    map_dir = get_example_face_dir()
+    title_filename = "title.csv"
+    group_csv_path = create_path(map_dir, title_filename)
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+    assert os_path_exists(group_csv_path)
+    empty_roseunit = roseunit_shop("Sue")
+    sue_titlemap = empty_roseunit.get_mapunit(kw.TitleTerm)
+    sue_titlemap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_titlemap=}")
+    assert len(sue_titlemap.otx2inx) == 0
+
+    # WHEN
+    sue_titlemap = _load_titlemap_from_csv(map_dir, sue_titlemap)
+
+    # THEN
+    assert len(sue_titlemap.otx2inx) == 2
+    ex_titlemap = sue_roseunit.get_mapunit(kw.TitleTerm)
+    assert ex_titlemap == sue_titlemap
+
+
+def test_load_titlemap_from_csv_DoesNotChangeWhenFileDoesNotExist(
+    temp_dir_setup,
+):
+    # ESTABLISH
+    map_dir = get_example_face_dir()
+    title_filename = "title.csv"
+    group_csv_path = create_path(map_dir, title_filename)
+    assert os_path_exists(group_csv_path) is False
+    empty_roseunit = roseunit_shop("Sue")
+    sue_titlemap = empty_roseunit.get_mapunit(kw.TitleTerm)
+    sue_titlemap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_titlemap=}")
+    assert len(sue_titlemap.otx2inx) == 0
+
+    # WHEN
+    sue_titlemap = _load_titlemap_from_csv(map_dir, sue_titlemap)
+
+    # THEN
+    assert len(sue_titlemap.otx2inx) == 0
+
+
+def test_load_labelmap_from_csv_SetsAttrWhenFileExists(temp_dir_setup):
+    # ESTABLISH
+    sue_roseunit = get_sue_roseunit()
+    map_dir = get_example_face_dir()
+    label_filename = "label.csv"
+    label_csv_path = create_path(map_dir, label_filename)
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+    assert os_path_exists(label_csv_path)
+    empty_roseunit = roseunit_shop("Sue")
+    sue_labelmap = empty_roseunit.get_mapunit(kw.LabelTerm)
+    sue_labelmap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_labelmap=}")
+    assert len(sue_labelmap.otx2inx) == 0
+
+    # WHEN
+    sue_labelmap = _load_labelmap_from_csv(map_dir, sue_labelmap)
+
+    # THEN
+    assert len(sue_labelmap.otx2inx) == 2
+    ex_labelmap = sue_roseunit.get_mapunit(kw.LabelTerm)
+    assert ex_labelmap == sue_labelmap
+
+
+def test_load_labelmap_from_csv_DoesNotChangeWhenFileDoesNotExist(
+    temp_dir_setup,
+):
+    # ESTABLISH
+    map_dir = get_example_face_dir()
+    label_filename = "label.csv"
+    label_csv_path = create_path(map_dir, label_filename)
+    assert os_path_exists(label_csv_path) is False
+    empty_roseunit = roseunit_shop("Sue")
+    sue_labelmap = empty_roseunit.get_mapunit(kw.LabelTerm)
+    sue_labelmap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_labelmap=}")
+    assert len(sue_labelmap.otx2inx) == 0
+
+    # WHEN
+    sue_labelmap = _load_labelmap_from_csv(map_dir, sue_labelmap)
+
+    # THEN
+    assert len(sue_labelmap.otx2inx) == 0
+
+
+def test_load_ropemap_from_csv_SetsAttrWhenFileExists(temp_dir_setup):
+    # ESTABLISH
+    sue_roseunit = get_sue_roseunit()
+    map_dir = get_example_face_dir()
+    rope_filename = "rope.csv"
+    rope_csv_path = create_path(map_dir, rope_filename)
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+    assert os_path_exists(rope_csv_path)
+    empty_roseunit = roseunit_shop("Sue")
+    sue_ropemap = empty_roseunit.get_mapunit(kw.RopeTerm)
+    sue_ropemap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_ropemap=}")
+    assert len(sue_ropemap.otx2inx) == 0
+
+    # WHEN
+    sue_ropemap = _load_ropemap_from_csv(map_dir, sue_ropemap)
+
+    # THEN
+    assert len(sue_ropemap.otx2inx) == 2
+    ex_ropemap = sue_roseunit.get_mapunit(kw.RopeTerm)
+    assert ex_ropemap.spark_num == sue_ropemap.spark_num
+    assert ex_ropemap.face_name == sue_ropemap.face_name
+    assert ex_ropemap.otx2inx == sue_ropemap.otx2inx
+    assert ex_ropemap.labelmap != sue_ropemap.labelmap
+
+
+def test_load_ropemap_from_csv_DoesNotChangeWhenFileDoesNotExist(
+    temp_dir_setup,
+):
+    # ESTABLISH
+    map_dir = get_example_face_dir()
+    rope_filename = "rope.csv"
+    rope_csv_path = create_path(map_dir, rope_filename)
+    assert os_path_exists(rope_csv_path) is False
+    empty_roseunit = roseunit_shop("Sue")
+    sue_ropemap = empty_roseunit.get_mapunit(kw.RopeTerm)
+    sue_ropemap.face_name = "Sue"
+    print(f"{empty_roseunit=} {sue_ropemap=}")
+    assert len(sue_ropemap.otx2inx) == 0
+
+    # WHEN
+    sue_ropemap = _load_ropemap_from_csv(map_dir, sue_ropemap)
+
+    # THEN
+    assert len(sue_ropemap.otx2inx) == 0
+
+
+def test_create_dir_valid_empty_roseunit_Sets_otx_knot_inx_knot(
+    temp_dir_setup,
+):
+    # ESTABLISH
+    x_unknown_str = "UnknownTerm"
+    slash_otx_knot = "/"
+    colon_inx_knot = ":"
+    sue_roseunit = roseunit_shop(
+        face_name=exx.sue,
+        otx_knot=slash_otx_knot,
+        inx_knot=colon_inx_knot,
+        unknown_str=x_unknown_str,
+    )
+    sue_roseunit.set_namemap(get_slash_namemap())
+    map_dir = get_example_face_dir()
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+
+    # WHEN
+    gen_roseunit = create_dir_valid_empty_roseunit(map_dir)
+
+    # # THEN
+    assert gen_roseunit.unknown_str == x_unknown_str
+    assert gen_roseunit.otx_knot == slash_otx_knot
+    assert gen_roseunit.inx_knot == colon_inx_knot
+    gen_mapunit = gen_roseunit.get_mapunit(kw.NameTerm)
+    assert gen_mapunit.unknown_str == x_unknown_str
+    assert gen_mapunit.otx_knot == slash_otx_knot
+    assert gen_mapunit.inx_knot == colon_inx_knot
+
+
+def test_create_dir_valid_empty_roseunit_Returns_spark_num(
+    temp_dir_setup,
+):
+    # ESTABLISH
+    x_unknown_str = "UnknownTerm"
+    slash_otx_knot = "/"
+    colon_inx_knot = ":"
+    spark7 = 7
+    sue_roseunit = roseunit_shop(
+        face_name=exx.sue,
+        spark_num=spark7,
+        otx_knot=slash_otx_knot,
+        inx_knot=colon_inx_knot,
+        unknown_str=x_unknown_str,
+    )
+    sue_roseunit.set_namemap(get_slash_namemap())
+    map_dir = get_example_face_dir()
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+
+    # WHEN
+    gen_roseunit = create_dir_valid_empty_roseunit(map_dir)
+
+    # THEN
+    assert gen_roseunit.face_name == exx.sue
+    assert gen_roseunit.spark_num == spark7
+    assert gen_roseunit.unknown_str == x_unknown_str
+    assert gen_roseunit.otx_knot == slash_otx_knot
+    assert gen_roseunit.inx_knot == colon_inx_knot
+    gen_mapunit = gen_roseunit.get_mapunit(kw.NameTerm)
+    assert gen_mapunit.unknown_str == x_unknown_str
+    assert gen_mapunit.otx_knot == slash_otx_knot
+    assert gen_mapunit.inx_knot == colon_inx_knot
+
+
+def test_init_roseunit_from_dir_ReturnsObj(temp_dir_setup):
+    # ESTABLISH
+    sue_roseunit = get_sue_roseunit()
+    map_dir = get_example_face_dir()
+    save_all_csvs_from_roseunit(map_dir, sue_roseunit)
+
+    # WHEN
+    gen_roseunit = init_roseunit_from_dir(map_dir)
+
+    # THEN
+    assert gen_roseunit
+    assert len(gen_roseunit.namemap.otx2inx) == 3
+
+    assert len(sue_roseunit.namemap.otx2inx) == 3
+    assert gen_roseunit.namemap == sue_roseunit.namemap
+    assert gen_roseunit.titlemap == sue_roseunit.titlemap
+    assert gen_roseunit.labelmap == sue_roseunit.labelmap
+    assert gen_roseunit.ropemap.labelmap == sue_roseunit.ropemap.labelmap
+    assert gen_roseunit.ropemap == sue_roseunit.ropemap
+    assert gen_roseunit == sue_roseunit

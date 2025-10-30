@@ -1,0 +1,10 @@
+{
+  "attributes": {
+    "face_name"       : { "otx_key": true  }, 
+    "inx_epoch_diff"  : { "otx_key": false }, 
+    "otx_epoch_length": { "otx_key": true  }, 
+    "spark_num"       : { "otx_key": true  }
+  }, 
+  "dimens": ["rose_epoch"], 
+  "idea_number": "br00046"
+}

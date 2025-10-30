@@ -8,6 +8,6 @@
     "spark_num"   : { "otx_key": true  }, 
     "voice_name"  : { "otx_key": true  }
   }, 
-  "dimens": ["translate_title", "belief_voiceunit", "beliefunit", "momentunit"], 
+  "dimens": ["rose_title", "belief_voiceunit", "beliefunit", "momentunit"], 
   "idea_number": "br00115"
 }

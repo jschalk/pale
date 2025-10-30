@@ -170,9 +170,7 @@ def replace_in_tracked_python_files(find_text, replace_text):
                 new_content = content.replace(find_text, replace_text)
                 with open(filepath, "w", encoding="utf-8") as f:
                     f.write(new_content)
-                print(
-                    f"Find '{find_text}' and replace with '{replace_text}' {filepath=}"
-                )
+                print(f"Find: '{find_text}' Replace: '{replace_text}' {filepath=}")
 
         except Exception as e:
             print(f"Error processing {filepath}: {e}")

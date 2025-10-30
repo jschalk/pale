@@ -31,12 +31,9 @@ from src.ch01_py.file_toolbox import (
     save_file,
     set_dir,
 )
-from src.ch16_translate.map import MapCore
-from src.ch16_translate.translate_config import (
-    get_translate_args_class_types,
-    get_translateable_args,
-)
-from src.ch16_translate.translate_main import TranslateUnit, get_translateunit_from_dict
+from src.ch16_rose.map import MapCore
+from src.ch16_rose.rose_config import get_rose_args_class_types, get_roseable_args
+from src.ch16_rose.rose_main import RoseUnit, get_roseunit_from_dict
 from src.ch17_idea._ref.ch17_semantic_types import FaceName, SparkInt
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
@@ -104,13 +101,11 @@ def get_relevant_columns_dataframe(
     return src_df[relevant_cols_in_order]
 
 
-def get_dataframe_translateable_columns(x_df: DataFrame) -> set[str]:
-    return {
-        x_column for x_column in x_df.columns if x_column in get_translateable_args()
-    }
+def get_dataframe_roseable_columns(x_df: DataFrame) -> set[str]:
+    return {x_column for x_column in x_df.columns if x_column in get_roseable_args()}
 
 
-def translate_single_column_dataframe(
+def rose_single_column_dataframe(
     x_df: DataFrame, x_mapunit: MapCore, column_name: str
 ) -> DataFrame:
     if column_name in x_df:
@@ -122,36 +117,36 @@ def translate_single_column_dataframe(
     return x_df
 
 
-def translate_all_columns_dataframe(x_df: DataFrame, x_translateunit: TranslateUnit):
-    if x_translateunit is None:
+def rose_all_columns_dataframe(x_df: DataFrame, x_roseunit: RoseUnit):
+    if x_roseunit is None:
         return None
 
     column_names = set(x_df.columns)
-    translateable_columns = column_names & (get_translateable_args())
-    for translateable_column in translateable_columns:
-        class_type = get_translate_args_class_types().get(translateable_column)
-        x_mapunit = x_translateunit.get_mapunit(class_type)
-        translate_single_column_dataframe(x_df, x_mapunit, translateable_column)
+    roseable_columns = column_names & (get_roseable_args())
+    for roseable_column in roseable_columns:
+        class_type = get_rose_args_class_types().get(roseable_column)
+        x_mapunit = x_roseunit.get_mapunit(class_type)
+        rose_single_column_dataframe(x_df, x_mapunit, roseable_column)
 
 
-def move_otx_csvs_to_translate_inx(face_dir: str):
+def move_otx_csvs_to_rose_inx(face_dir: str):
     otz_dir = create_path(face_dir, "otz")
     inz_dir = create_path(face_dir, "inz")
-    translate_filename = "translate.json"
-    translate_dict = open_json(face_dir, translate_filename)
-    face_translateunit = get_translateunit_from_dict(translate_dict)
+    rose_filename = "rose.json"
+    rose_dict = open_json(face_dir, rose_filename)
+    face_roseunit = get_roseunit_from_dict(rose_dict)
     otz_dir_files = get_dir_file_strs(otz_dir, delete_extensions=False)
     for x_filename in otz_dir_files.keys():
         x_df = open_csv(otz_dir, x_filename)
-        translate_all_columns_dataframe(x_df, face_translateunit)
+        rose_all_columns_dataframe(x_df, face_roseunit)
         save_dataframe_to_csv(x_df, inz_dir, x_filename)
 
 
-def _get_translate_idea_format_filenames() -> set[str]:
-    idea_numbers = set(get_idea_dimen_ref().get("translate_name"))
-    idea_numbers.update(set(get_idea_dimen_ref().get("translate_title")))
-    idea_numbers.update(set(get_idea_dimen_ref().get("translate_label")))
-    idea_numbers.update(set(get_idea_dimen_ref().get("translate_rope")))
+def _get_rose_idea_format_filenames() -> set[str]:
+    idea_numbers = set(get_idea_dimen_ref().get("rose_name"))
+    idea_numbers.update(set(get_idea_dimen_ref().get("rose_title")))
+    idea_numbers.update(set(get_idea_dimen_ref().get("rose_label")))
+    idea_numbers.update(set(get_idea_dimen_ref().get("rose_rope")))
     return {f"{idea_number}.xlsx" for idea_number in idea_numbers}
 
 

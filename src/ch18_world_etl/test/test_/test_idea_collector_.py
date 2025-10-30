@@ -68,7 +68,7 @@ def test_IdeaFileRef_get_csv_filename_ReturnsObj_Scenario1():
     assert x_ideafileref.get_csv_filename() == f"{br00003_str}.csv"
 
 
-def test_get_all_idea_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
+def test_get_all_idea_dataframes_ReturnsObj_Scenario0_RoseSheetNames(
     temp_dir_setup,
 ):
     # ESTABLISH
