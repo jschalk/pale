@@ -28,7 +28,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_collect_stance_csv_strs_ReturnsObj_Scenario0_NoMomentUnits(
@@ -36,7 +36,6 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario0_NoMomentUnits(
 ):
     # ESTABLISH
     world_dir = get_temp_dir()
-    bob_str = "Bob"
 
     # WHEN
     gen_stance_csv_strs = collect_stance_csv_strs(world_dir)
@@ -72,15 +71,14 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_BeliefUnits(
     # ESTABLISH
     world_dir = get_temp_dir()
     moment_mstr_dir = create_moment_mstr_path(world_dir)
-    bob_str = "Bob"
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
     moment_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
     save_json(moment_json_path, None, a23_moment.to_dict())
     # create belief gut file
-    bob_gut = beliefunit_shop(bob_str, a23_str)
+    bob_gut = beliefunit_shop(exx.bob, a23_str)
     bob_gut.add_voiceunit("Yao", 44, 55)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_str, bob_str)
+    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_str, exx.bob)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
 
     # WHEN
@@ -97,7 +95,6 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
     temp_dir_setup,
 ):
     # ESTABLISH database with translate data
-    yao_str = "Yao"
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -181,14 +178,13 @@ def test_create_stance0001_file_CreatesFile_Scenario0_NoMomentUnits(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     world_dir = get_temp_dir()
     output_dir = create_path(world_dir, "output")
     stance0001_path = create_stance0001_path(output_dir)
     assert os_path_exists(stance0001_path) is False
 
     # WHEN
-    create_stance0001_file(world_dir, output_dir, sue_str)
+    create_stance0001_file(world_dir, output_dir, exx.sue)
 
     # THEN
     assert os_path_exists(stance0001_path)
@@ -201,7 +197,6 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
     temp_dir_setup,
 ):
     # ESTABLISH database with translate data
-    yao_str = "Yao"
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -248,7 +243,7 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
     assert os_path_exists(stance0001_path) is False
 
     # WHEN
-    create_stance0001_file(world_dir, output_dir, yao_str, False)
+    create_stance0001_file(world_dir, output_dir, exx.yao, False)
 
     # THEN
     assert os_path_exists(stance0001_path)

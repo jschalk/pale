@@ -6,14 +6,13 @@ from src.ch16_translate.test._util.ch16_examples import (
     get_swim_titlemap,
 )
 from src.ch16_translate.translate_main import inherit_translateunit, translateunit_shop
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario0_EmptyTranslateUnits():
     # ESTABLISH
-    sue_str = "Sue"
-    old_translateunit = translateunit_shop(sue_str, 0)
-    new_translateunit = translateunit_shop(sue_str, 1)
+    old_translateunit = translateunit_shop(exx.sue, 0)
+    new_translateunit = translateunit_shop(exx.sue, 1)
 
     # WHEN
     merged_translateunit = inherit_translateunit(old_translateunit, new_translateunit)
@@ -25,10 +24,9 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario0_EmptyTranslate
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario1_RaiseErrorWhenDifferent_otx_knot():
     # ESTABLISH
-    sue_str = "Sue"
     slash_otx_knot = "/"
-    old_translateunit = translateunit_shop(sue_str, 0, otx_knot=slash_otx_knot)
-    new_translateunit = translateunit_shop(sue_str, 1)
+    old_translateunit = translateunit_shop(exx.sue, 0, otx_knot=slash_otx_knot)
+    new_translateunit = translateunit_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -40,10 +38,9 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario1_RaiseErrorWhen
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario2_RaiseErrorWhenDifferent_inx_knot():
     # ESTABLISH
-    sue_str = "Sue"
     slash_otx_knot = "/"
-    old_translateunit = translateunit_shop(sue_str, 0, inx_knot=slash_otx_knot)
-    new_translateunit = translateunit_shop(sue_str, 1)
+    old_translateunit = translateunit_shop(exx.sue, 0, inx_knot=slash_otx_knot)
+    new_translateunit = translateunit_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -55,10 +52,9 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario2_RaiseErrorWhen
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario3_RaiseErrorWhenDifferent_x_unknown_str():
     # ESTABLISH
-    sue_str = "Sue"
     x_unknown_str = "UnknownTerm"
-    old_translateunit = translateunit_shop(sue_str, 0, unknown_str=x_unknown_str)
-    new_translateunit = translateunit_shop(sue_str, 1)
+    old_translateunit = translateunit_shop(exx.sue, 0, unknown_str=x_unknown_str)
+    new_translateunit = translateunit_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -70,10 +66,8 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario3_RaiseErrorWhen
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario4_RaiseErrorWhenDifferent_x_face_name():
     # ESTABLISH
-    sue_str = "Sue"
-    bob_str = "Bob"
-    old_translateunit = translateunit_shop(sue_str, 0)
-    new_translateunit = translateunit_shop(bob_str, 1)
+    old_translateunit = translateunit_shop(exx.sue, 0)
+    new_translateunit = translateunit_shop(exx.bob, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -85,9 +79,8 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario4_RaiseErrorWhen
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario5_RaiseErrorWhenSparkIntsOutOfOrder():
     # ESTABLISH
-    sue_str = "Sue"
-    old_translateunit = translateunit_shop(sue_str, 5)
-    new_translateunit = translateunit_shop(sue_str, 1)
+    old_translateunit = translateunit_shop(exx.sue, 5)
+    new_translateunit = translateunit_shop(exx.sue, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -99,14 +92,13 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario5_RaiseErrorWhen
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario6_namemap_Inherited():
     # ESTABLISH
-    sue_str = "Sue"
     spark1 = 1
-    old_translateunit = translateunit_shop(sue_str, 0)
+    old_translateunit = translateunit_shop(exx.sue, 0)
     old_translateunit.set_namemap(get_suita_namemap())
     old_translateunit.set_titlemap(get_swim_titlemap())
     old_translateunit.set_labelmap(get_clean_labelmap())
     old_translateunit.set_ropemap(get_clean_ropemap())
-    new_translateunit = translateunit_shop(sue_str, spark1)
+    new_translateunit = translateunit_shop(exx.sue, spark1)
     assert new_translateunit.namemap != get_suita_namemap()
 
     # WHEN
@@ -131,12 +123,11 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario6_namemap_Inheri
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario7_namemap_Inherited():
     # ESTABLISH
-    sue_str = "Sue"
     spark1 = 1
-    old_translateunit = translateunit_shop(sue_str, 0)
+    old_translateunit = translateunit_shop(exx.sue, 0)
     old_translateunit.set_namemap(get_suita_namemap())
     old_translateunit.set_titlemap(get_swim_titlemap())
-    new_translateunit = translateunit_shop(sue_str, spark1)
+    new_translateunit = translateunit_shop(exx.sue, spark1)
     bob_otx = "Bob"
     bob_inx = "Bobby"
     new_translateunit.set_otx2inx(kw.NameTerm, bob_otx, bob_inx)

@@ -16,13 +16,13 @@ from src.ch11_belief_listen.keep_tool import (
 )
 from src.ch11_belief_listen.test._util.ch11_env import get_temp_dir, temp_dir_setup
 from src.ch11_belief_listen.test._util.ch11_examples import ch11_example_moment_label
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_create_keep_path_dir_if_missing_CreatesDirectory(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     nation_str = "nation"
     nation_rope = create_rope(ch11_example_moment_label(), nation_str)
     usa_str = "USA"
@@ -32,12 +32,12 @@ def test_create_keep_path_dir_if_missing_CreatesDirectory(
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     keep_path = create_keep_rope_path(
-        moment_mstr_dir, sue_str, a23_str, texas_rope, None
+        moment_mstr_dir, exx.sue, a23_str, texas_rope, None
     )
     assert os_path_exists(keep_path) is False
 
     # WHEN
-    create_keep_path_dir_if_missing(moment_mstr_dir, sue_str, a23_str, texas_rope, None)
+    create_keep_path_dir_if_missing(moment_mstr_dir, exx.sue, a23_str, texas_rope, None)
 
     # THEN
     assert os_path_exists(keep_path)
@@ -45,13 +45,12 @@ def test_create_keep_path_dir_if_missing_CreatesDirectory(
 
 def test_treasury_db_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     texas_rope = create_rope(ch11_example_moment_label(), "Texas")
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -59,7 +58,7 @@ def test_treasury_db_file_exists_ReturnsObj(temp_dir_setup):
     assert (
         treasury_db_file_exists(
             moment_mstr_dir,
-            belief_name=sue_str,
+            belief_name=exx.sue,
             moment_label=a23_str,
             keep_rope=texas_rope,
             knot=None,
@@ -73,7 +72,7 @@ def test_treasury_db_file_exists_ReturnsObj(temp_dir_setup):
     # THEN
     assert treasury_db_file_exists(
         moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -84,13 +83,12 @@ def test_create_treasury_db_file_CreatesDatabase(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     texas_rope = create_rope(a23_str, "Texas")
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -100,7 +98,7 @@ def test_create_treasury_db_file_CreatesDatabase(
     # WHEN
     create_treasury_db_file(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -114,13 +112,12 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
     temp_dir_setup,
 ):
     # ESTABLISH create keep
-    sue_str = "Sue"
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
     texas_rope = create_rope(a23_str, "Texas")
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -128,7 +125,7 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
     delete_dir(treasury_db_path)  # clear out any treasury.db file
     create_treasury_db_file(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -137,7 +134,7 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
 
     # ESTABLISH
     treasury_db_path = create_treasury_db_path(
-        moment_mstr_dir, sue_str, a23_str, texas_rope, None
+        moment_mstr_dir, exx.sue, a23_str, texas_rope, None
     )
     x_file_str = "Texas Dallas ElPaso"
     save_file(treasury_db_path, None, file_str=x_file_str, replace=True)
@@ -147,7 +144,7 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
     # WHEN
     create_treasury_db_file(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -159,7 +156,6 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
 
 def test_save_duty_belief_SavesFile(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
     nation_str = "nation"
     nation_rope = create_rope(ch11_example_moment_label(), nation_str)
     usa_str = "USA"
@@ -168,23 +164,22 @@ def test_save_duty_belief_SavesFile(temp_dir_setup):
     texas_rope = create_rope(usa_rope, texas_str)
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    bob_str = "Bob"
     bob_belief = get_beliefunit_with_4_levels()
-    bob_belief.set_belief_name(bob_str)
+    bob_belief.set_belief_name(exx.bob)
     keep_duty_path = create_keep_duty_path(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
-        duty_belief=bob_str,
+        duty_belief=exx.bob,
     )
     assert os_path_exists(keep_duty_path) is False
 
     # WHEN
     save_duty_belief(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -197,7 +192,6 @@ def test_save_duty_belief_SavesFile(temp_dir_setup):
 
 def test_get_duty_belief_reason_lowersFile(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
     nation_str = "nation"
     nation_rope = create_rope(ch11_example_moment_label(), nation_str)
     usa_str = "USA"
@@ -206,12 +200,11 @@ def test_get_duty_belief_reason_lowersFile(temp_dir_setup):
     texas_rope = create_rope(usa_rope, texas_str)
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    bob_str = "Bob"
     bob_belief = get_beliefunit_with_4_levels()
-    bob_belief.set_belief_name(bob_str)
+    bob_belief.set_belief_name(exx.bob)
     save_duty_belief(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
@@ -221,11 +214,11 @@ def test_get_duty_belief_reason_lowersFile(temp_dir_setup):
     # WHEN
     gen_bob_duty = get_duty_belief(
         moment_mstr_dir=moment_mstr_dir,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
-        duty_belief_name=bob_str,
+        duty_belief_name=exx.bob,
     )
 
     # THEN

@@ -7,7 +7,7 @@ from src.ch18_world_etl.idea_collector import (
     get_all_idea_dataframes,
 )
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_get_all_excel_ideasheets_ReturnsObj_Scenario0_SheetNames(
@@ -74,7 +74,6 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
     # ESTABLISH
     env_dir = get_temp_dir()
     x_dir = create_path(env_dir, "examples_folder")
-    sue_str = "Sue"
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
@@ -90,8 +89,8 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
         kw.moment_label,
         kw.hour_label,
     ]
-    row1 = [spark1, sue_str, minute_360, amy23_str, hour6am]
-    row2 = [spark1, sue_str, minute_420, amy23_str, hour7am]
+    row1 = [spark1, exx.sue, minute_360, amy23_str, hour6am]
+    row2 = [spark1, exx.sue, minute_420, amy23_str, hour7am]
 
     df1 = DataFrame([row1, row2], columns=idea_columns)
     br00003_str = "example_br00003"
@@ -113,7 +112,6 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
     x_dir = create_path(env_dir, "examples_folder")
-    sue_str = "Sue"
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
@@ -129,16 +127,16 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp_dir_setup):
         kw.moment_label,
         kw.hour_label,
     ]
-    row1 = [spark1, sue_str, minute_360, amy23_str, hour6am]
-    row2 = [spark1, sue_str, minute_420, amy23_str, hour7am]
+    row1 = [spark1, exx.sue, minute_360, amy23_str, hour6am]
+    row2 = [spark1, exx.sue, minute_420, amy23_str, hour7am]
     incomplete_idea_columns = [
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
         kw.moment_label,
     ]
-    incom_row1 = [spark1, sue_str, minute_360, amy23_str]
-    incom_row2 = [spark1, sue_str, minute_420, amy23_str]
+    incom_row1 = [spark1, exx.sue, minute_360, amy23_str]
+    incom_row2 = [spark1, exx.sue, minute_420, amy23_str]
 
     df1 = DataFrame([row1, row2], columns=idea_columns)
     df2 = DataFrame([incom_row1, incom_row2], columns=incomplete_idea_columns)

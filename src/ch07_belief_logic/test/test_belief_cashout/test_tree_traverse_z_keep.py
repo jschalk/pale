@@ -3,6 +3,7 @@ from src.ch06_plan.healer import healerunit_shop
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import get_beliefunit_with_4_levels
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_cashout_Sets_keeps_justified_WhenBeliefUnit_Empty():
@@ -45,9 +46,8 @@ def test_BeliefUnit_cashout_Sets_keeps_justified_WhenSinglePlanUnit_healerunit_a
 def test_BeliefUnit_cashout_Sets_keeps_justified_WhenSingleProblemAndKeep():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    yao_str = "Yao"
-    sue_belief.add_voiceunit(yao_str)
-    yao_healerunit = healerunit_shop({yao_str})
+    sue_belief.add_voiceunit(exx.yao)
+    yao_healerunit = healerunit_shop({exx.yao})
     sue_belief.set_l1_plan(
         planunit_shop("Texas", healerunit=yao_healerunit, problem_bool=True)
     )
@@ -63,9 +63,8 @@ def test_BeliefUnit_cashout_Sets_keeps_justified_WhenSingleProblemAndKeep():
 def test_BeliefUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelAboveProblem():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    yao_str = "Yao"
-    sue_belief.add_voiceunit(yao_str)
-    yao_healerunit = healerunit_shop({yao_str})
+    sue_belief.add_voiceunit(exx.yao)
+    yao_healerunit = healerunit_shop({exx.yao})
 
     texas_str = "Texas"
     texas_rope = sue_belief.make_l1_rope(texas_str)

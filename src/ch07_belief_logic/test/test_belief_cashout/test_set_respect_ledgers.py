@@ -1,12 +1,12 @@
 from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_create_groupunits_metrics_SetsAttrScenario0():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefunit = beliefunit_shop(sue_str)
+    sue_beliefunit = beliefunit_shop(exx.sue)
     sue_beliefunit.groupunits = None
-    assert sue_beliefunit.groupunits is None
+    assert not sue_beliefunit.groupunits
 
     # WHEN
     sue_beliefunit._create_groupunits_metrics()
@@ -18,15 +18,13 @@ def test_create_groupunits_metrics_SetsAttrScenario0():
 def test_create_groupunits_metrics_SetsAttrScenario1():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefunit = beliefunit_shop(sue_str)
-    yao_str = "Yao"
-    sue_beliefunit.add_voiceunit(yao_str)
-    yao_voiceunit = sue_beliefunit.get_voice(yao_str)
-    yao_voiceunit.add_membership(yao_str)
+    sue_beliefunit = beliefunit_shop(exx.sue)
+    sue_beliefunit.add_voiceunit(exx.yao)
+    yao_voiceunit = sue_beliefunit.get_voice(exx.yao)
+    yao_voiceunit.add_membership(exx.yao)
     ohio_str = ";Ohio"
     yao_voiceunit.add_membership(ohio_str)
-    yao_yao_membership = yao_voiceunit.get_membership(yao_str)
+    yao_yao_membership = yao_voiceunit.get_membership(exx.yao)
     yao_ohio_membership = yao_voiceunit.get_membership(ohio_str)
     yao_yao_membership.credor_pool = 66
     yao_yao_membership.debtor_pool = 44
@@ -39,19 +37,18 @@ def test_create_groupunits_metrics_SetsAttrScenario1():
 
     # THEN
     assert len(sue_beliefunit.groupunits) == 2
-    assert set(sue_beliefunit.groupunits.keys()) == {yao_str, ohio_str}
+    assert set(sue_beliefunit.groupunits.keys()) == {exx.yao, ohio_str}
     ohio_groupunit = sue_beliefunit.get_groupunit(ohio_str)
     assert ohio_groupunit.credor_pool == 77
     assert ohio_groupunit.debtor_pool == 88
-    yao_groupunit = sue_beliefunit.get_groupunit(yao_str)
+    yao_groupunit = sue_beliefunit.get_groupunit(exx.yao)
     assert yao_groupunit.credor_pool == 66
     assert yao_groupunit.debtor_pool == 44
 
 
 def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefunit = beliefunit_shop(sue_str)
+    sue_beliefunit = beliefunit_shop(exx.sue)
     assert sue_beliefunit.groupunits == {}
 
     # WHEN
@@ -63,8 +60,7 @@ def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario0()
 
 def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_Clears_groupunits():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefunit = beliefunit_shop(sue_str)
+    sue_beliefunit = beliefunit_shop(exx.sue)
     sue_beliefunit.groupunits = "ohio"
     assert sue_beliefunit.groupunits != {}
 
@@ -78,16 +74,14 @@ def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_Clears_groupunits():
 def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario1():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefunit = beliefunit_shop(sue_str)
-    yao_str = "Yao"
-    sue_beliefunit.add_voiceunit(yao_str)
-    yao_voiceunit = sue_beliefunit.get_voice(yao_str)
-    yao_voiceunit.add_membership(yao_str)
+    sue_beliefunit = beliefunit_shop(exx.sue)
+    sue_beliefunit.add_voiceunit(exx.yao)
+    yao_voiceunit = sue_beliefunit.get_voice(exx.yao)
+    yao_voiceunit.add_membership(exx.yao)
     assert yao_voiceunit.credor_pool == 0
     assert yao_voiceunit.debtor_pool == 0
-    assert yao_voiceunit.get_membership(yao_str).credor_pool == 0
-    assert yao_voiceunit.get_membership(yao_str).debtor_pool == 0
+    assert yao_voiceunit.get_membership(exx.yao).credor_pool == 0
+    assert yao_voiceunit.get_membership(exx.yao).debtor_pool == 0
     # assert sue_beliefunit.groupunits == {}
 
     # WHEN
@@ -98,42 +92,40 @@ def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario1()
     assert yao_voiceunit.debtor_pool != 0
     assert yao_voiceunit.credor_pool == sue_beliefunit.credor_respect
     assert yao_voiceunit.debtor_pool == sue_beliefunit.debtor_respect
-    yao_membership = yao_voiceunit.get_membership(yao_str)
+    yao_membership = yao_voiceunit.get_membership(exx.yao)
     assert yao_membership.credor_pool != 0
     assert yao_membership.debtor_pool != 0
     assert yao_membership.credor_pool == sue_beliefunit.credor_respect
     assert yao_membership.debtor_pool == sue_beliefunit.debtor_respect
     assert yao_membership.credor_pool == 1000000000
     assert yao_membership.debtor_pool == 1000000000
-    yao_groupunit = sue_beliefunit.get_groupunit(yao_str)
-    groupunit_yao_membership = yao_groupunit.get_voice_membership(yao_str)
+    yao_groupunit = sue_beliefunit.get_groupunit(exx.yao)
+    groupunit_yao_membership = yao_groupunit.get_voice_membership(exx.yao)
     assert yao_membership == groupunit_yao_membership
 
 
 def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario2():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefunit = beliefunit_shop(sue_str)
-    yao_str = "Yao"
-    sue_beliefunit.add_voiceunit(yao_str)
-    yao_voiceunit = sue_beliefunit.get_voice(yao_str)
-    yao_voiceunit.add_membership(yao_str, 1, 4)
+    sue_beliefunit = beliefunit_shop(exx.sue)
+    sue_beliefunit.add_voiceunit(exx.yao)
+    yao_voiceunit = sue_beliefunit.get_voice(exx.yao)
+    yao_voiceunit.add_membership(exx.yao, 1, 4)
     ohio_str = ";Ohio"
     yao_voiceunit.add_membership(ohio_str, 3, 1)
     assert yao_voiceunit.credor_pool == 0
     assert yao_voiceunit.debtor_pool == 0
-    assert yao_voiceunit.get_membership(yao_str).credor_pool == 0
-    assert yao_voiceunit.get_membership(yao_str).debtor_pool == 0
+    assert yao_voiceunit.get_membership(exx.yao).credor_pool == 0
+    assert yao_voiceunit.get_membership(exx.yao).debtor_pool == 0
 
     # WHEN
     sue_beliefunit._set_voiceunit_groupunit_respect_ledgers()
 
     # THEN
-    assert sue_beliefunit.get_voice(yao_str).credor_pool != 0
-    assert sue_beliefunit.get_voice(yao_str).debtor_pool != 0
-    assert yao_voiceunit.get_membership(yao_str).credor_pool != 0
-    assert yao_voiceunit.get_membership(yao_str).debtor_pool != 0
-    yao_yao_membership = yao_voiceunit.get_membership(yao_str)
+    assert sue_beliefunit.get_voice(exx.yao).credor_pool != 0
+    assert sue_beliefunit.get_voice(exx.yao).debtor_pool != 0
+    assert yao_voiceunit.get_membership(exx.yao).credor_pool != 0
+    assert yao_voiceunit.get_membership(exx.yao).debtor_pool != 0
+    yao_yao_membership = yao_voiceunit.get_membership(exx.yao)
     assert yao_yao_membership.credor_pool != 0
     assert yao_yao_membership.debtor_pool != 0
     assert yao_yao_membership.credor_pool == sue_beliefunit.credor_respect * 0.25
@@ -155,14 +147,11 @@ def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_SetsAttr_Scenario2()
 def test_BeliefUnit_set_voiceunit_groupunit_respect_ledgers_ResetVoiceUnitsAttrs():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_str = "Sue"
-    sue_beliefunit = beliefunit_shop(sue_str)
-    yao_str = "Yao"
-    zia_str = "Zia"
-    sue_beliefunit.add_voiceunit(yao_str, 55, 55)
-    sue_beliefunit.add_voiceunit(zia_str, 55, 55)
-    yao_voiceunit = sue_beliefunit.get_voice(yao_str)
-    zia_voiceunit = sue_beliefunit.get_voice(zia_str)
+    sue_beliefunit = beliefunit_shop(exx.sue)
+    sue_beliefunit.add_voiceunit(exx.yao, 55, 55)
+    sue_beliefunit.add_voiceunit(exx.zia, 55, 55)
+    yao_voiceunit = sue_beliefunit.get_voice(exx.yao)
+    zia_voiceunit = sue_beliefunit.get_voice(exx.zia)
     yao_voiceunit.add_voice_fund_give_take(0.5, 0.6, 0.1, 0.22)
     zia_voiceunit.add_voice_fund_give_take(0.2, 0.1, 0.1, 0.22)
     zia_1 = 0.8

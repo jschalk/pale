@@ -1,6 +1,6 @@
 from src.ch13_keep.rivercycle import RiverGrade, rivergrade_shop
 from src.ch13_keep.test._util.ch13_env import temp_moment_label
-from src.ref.keywords import Ch13Keywords as kw
+from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
 
 def test_RiverGrade_Exists():
@@ -8,25 +8,25 @@ def test_RiverGrade_Exists():
     x_rivergrade = RiverGrade()
 
     # THEN
-    #: Healer gut get_voice._voice_debt_lumen (SELECT need_due_amount FROM voice WHERE voice_name = bob_str)
+    #: Healer gut get_voice._voice_debt_lumen (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
     assert not x_rivergrade.moment_label
     assert not x_rivergrade.belief_name
     assert not x_rivergrade.keep_rope
     assert not x_rivergrade.voice_name
     assert not x_rivergrade.number
-    #: Healer gut get_voice._voice_debt_lumen (SELECT need_due_amount FROM voice WHERE voice_name = bob_str)
+    #: Healer gut get_voice._voice_debt_lumen (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
     assert x_rivergrade.need_bill_amount is None
-    #: Healer gut get_voice._voice_cred_lumen (SELECT care_amount FROM voice WHERE voice_name = bob_str)
+    #: Healer gut get_voice._voice_cred_lumen (SELECT care_amount FROM voice WHERE voice_name = exx.bob)
     assert x_rivergrade.care_amount is None
-    #: SELECT COUNT(*) FROM voice WHERE need_due_amount > (SELECT need_due_amount FROM voice WHERE voice_name = bob_str)
+    #: SELECT COUNT(*) FROM voice WHERE need_due_amount > (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
     assert x_rivergrade.doctor_rank_num is None
-    #: SELECT COUNT(*) FROM voice WHERE care_amount > (SELECT need_due_amount FROM voice WHERE voice_name = bob_str)
+    #: SELECT COUNT(*) FROM voice WHERE care_amount > (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
     assert x_rivergrade.patient_rank_num is None
-    #: SELECT amount_paid FROM need_ledger WHERE voice_name = bob_str
+    #: SELECT amount_paid FROM need_ledger WHERE voice_name = exx.bob
     assert x_rivergrade.need_paid_amount is None
     #: bool (if need_due_amount == need_paid_amount)
     assert x_rivergrade.need_paid_bool is None
-    #: SELECT COUNT(*) FROM voice WHERE need_paid_amount > (SELECT need_paid_amount FROM voice WHERE voice_name = bob_str)
+    #: SELECT COUNT(*) FROM voice WHERE need_paid_amount > (SELECT need_paid_amount FROM voice WHERE voice_name = exx.bob)
     assert x_rivergrade.need_paid_rank_num is None
     #: need_paid_rank_num / (SELECT COUNT(*) FROM voice WHERE need_paid_amount>0)
     assert x_rivergrade.need_paid_rank_percent is None
@@ -38,9 +38,9 @@ def test_RiverGrade_Exists():
     assert x_rivergrade.doctor_rank_percent is None
     #: patient_rank_num / SELECT COUNT(*) FROM voice WHERE care_amount > 0
     assert x_rivergrade.patient_rank_percent is None
-    # SELECT COUNT(*) FROM rewards WHERE dst_voice_name = bob_str
+    # SELECT COUNT(*) FROM rewards WHERE dst_voice_name = exx.bob
     assert x_rivergrade.rewards_count is None
-    # SELECT SUM(mana_amount) FROM rewards WHERE dst_voice_name = bob_str
+    # SELECT SUM(mana_amount) FROM rewards WHERE dst_voice_name = exx.bob
     assert x_rivergrade.rewards_magnitude is None
     assert set(x_rivergrade.__dict__.keys()) == {
         kw.moment_label,
@@ -67,8 +67,6 @@ def test_RiverGrade_Exists():
 
 def test_rivergrade_shop_ReturnsObjWithArg():
     # ESTABLISH
-    bob_str = "Bob"
-    yao_str = "Yao"
     a23_str = temp_moment_label()
     x_keep_rope = None
     ten_int = 10
@@ -77,14 +75,14 @@ def test_rivergrade_shop_ReturnsObjWithArg():
 
     # WHEN
     x_rivergrade = rivergrade_shop(
-        a23_str, yao_str, x_keep_rope, bob_str, ten_int, x_doctor_count, x_patient_count
+        a23_str, exx.yao, x_keep_rope, exx.bob, ten_int, x_doctor_count, x_patient_count
     )
 
     # THEN
     assert x_rivergrade.moment_label == a23_str
-    assert x_rivergrade.belief_name == yao_str
+    assert x_rivergrade.belief_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
-    assert x_rivergrade.voice_name == bob_str
+    assert x_rivergrade.voice_name == exx.bob
     assert x_rivergrade.number == ten_int
     assert not x_rivergrade.need_bill_amount
     assert not x_rivergrade.care_amount
@@ -104,19 +102,17 @@ def test_rivergrade_shop_ReturnsObjWithArg():
 
 def test_rivergrade_shop_ReturnsObjWithoutArgs():
     # ESTABLISH
-    bob_str = "Bob"
-    yao_str = "Yao"
     a23_str = temp_moment_label()
     x_keep_rope = None
 
     # WHEN
-    x_rivergrade = rivergrade_shop(a23_str, yao_str, x_keep_rope, bob_str)
+    x_rivergrade = rivergrade_shop(a23_str, exx.yao, x_keep_rope, exx.bob)
 
     # THEN
     assert x_rivergrade.moment_label == a23_str
-    assert x_rivergrade.belief_name == yao_str
+    assert x_rivergrade.belief_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
-    assert x_rivergrade.voice_name == bob_str
+    assert x_rivergrade.voice_name == exx.bob
     assert x_rivergrade.number == 0
     assert not x_rivergrade.need_bill_amount
     assert not x_rivergrade.care_amount
@@ -166,8 +162,6 @@ def test_RiverGrade_set_need_due_amount_SetsAttrs():
 
 def test_RiverGrade_to_dict_ReturnsObj():
     # ESTABLISH
-    bob_str = "Bob"
-    yao_str = "Yao"
     a23_str = temp_moment_label()
     x_keep_rope = None
     ten_int = 10
@@ -186,7 +180,7 @@ def test_RiverGrade_to_dict_ReturnsObj():
     x_rewards_count = 108
     x_rewards_magnitude = 109
     x_rivergrade = rivergrade_shop(
-        a23_str, yao_str, x_keep_rope, bob_str, ten_int, x_doctor_count, x_patient_count
+        a23_str, exx.yao, x_keep_rope, exx.bob, ten_int, x_doctor_count, x_patient_count
     )
     x_rivergrade.need_bill_amount = x_need_bill_amount
     x_rivergrade.care_amount = x_care_amount
@@ -208,7 +202,7 @@ def test_RiverGrade_to_dict_ReturnsObj():
 
     # THEN
     assert rivergrade_dict.get(kw.moment_label) == a23_str
-    assert rivergrade_dict.get(kw.healer_name) == yao_str
+    assert rivergrade_dict.get(kw.healer_name) == exx.yao
     assert rivergrade_dict.get(kw.keep_rope) == x_keep_rope
     assert rivergrade_dict.get(kw.need_bill_amount) == x_need_bill_amount
     assert rivergrade_dict.get(kw.care_amount) == x_care_amount

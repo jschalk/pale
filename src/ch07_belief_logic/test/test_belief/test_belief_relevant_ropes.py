@@ -6,6 +6,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_with_4_levels,
     get_mop_with_reason_beliefunit_example1,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_get_relevant_ropes_EmptyRopeTermReturnsEmpty():
@@ -143,8 +144,7 @@ def test_BeliefUnit_get_relevant_ropes_ReturnsReasonUnitreason_contextAndDescend
 
 def test_BeliefUnit_get_relevant_ropes_ReturnSimple():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_belief = beliefunit_shop(belief_name=yao_str)
+    yao_belief = beliefunit_shop(belief_name=exx.yao)
     root_rope = yao_belief.planroot.get_plan_rope()
     min_range_x_str = "a_minute_range"
     min_range_x_rope = yao_belief.make_l1_rope(min_range_x_str)

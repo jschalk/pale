@@ -8,6 +8,7 @@ from src.ch09_belief_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
 )
 from src.ch09_belief_lesson.test._util.ch09_env import get_temp_dir
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_LessonFileHandler_Exists():
@@ -31,7 +32,6 @@ def test_lessonfilehandler_shop_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = "src/ch15_moment/test/_util"
     a45_str = "amy45"
-    sue_str = "Sue"
     x_knot = "/"
     x_fund_pool = 13000
     x_fund_grain = 13
@@ -42,7 +42,7 @@ def test_lessonfilehandler_shop_ReturnsObj():
     x_lessonfilehandler = lessonfilehandler_shop(
         moment_mstr_dir=x_moment_mstr_dir,
         moment_label=a45_str,
-        belief_name=sue_str,
+        belief_name=exx.sue,
         knot=x_knot,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,
@@ -53,30 +53,29 @@ def test_lessonfilehandler_shop_ReturnsObj():
     # THEN
     assert x_lessonfilehandler.moment_mstr_dir == x_moment_mstr_dir
     assert x_lessonfilehandler.moment_label == a45_str
-    assert x_lessonfilehandler.belief_name == sue_str
+    assert x_lessonfilehandler.belief_name == exx.sue
     assert x_lessonfilehandler.knot == x_knot
     assert x_lessonfilehandler.fund_pool == x_fund_pool
     assert x_lessonfilehandler.fund_grain == x_fund_grain
     assert x_lessonfilehandler.respect_grain == x_respect_grain
     assert x_lessonfilehandler.mana_grain == x_mana_grain
-    sue_dir = create_belief_dir_path(x_moment_mstr_dir, a45_str, sue_str)
+    sue_dir = create_belief_dir_path(x_moment_mstr_dir, a45_str, exx.sue)
     assert x_lessonfilehandler.atoms_dir == create_path(sue_dir, "atoms")
     assert x_lessonfilehandler.lessons_dir == create_path(sue_dir, "lessons")
 
 
 def test_lessonfilehandler_shop_ReturnsObjWhenEmpty():
     # ESTABLISH
-    sue_str = "Sue"
     moment_mstr_dir = get_temp_dir()
     amy23_str = "amy23"
 
     # WHEN
-    sue_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, amy23_str, sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, amy23_str, exx.sue)
 
     # THEN
     assert sue_lessonfilehandler.moment_mstr_dir == moment_mstr_dir
     assert sue_lessonfilehandler.moment_label == amy23_str
-    assert sue_lessonfilehandler.belief_name == sue_str
+    assert sue_lessonfilehandler.belief_name == exx.sue
     assert sue_lessonfilehandler.knot == default_knot_if_None()
     assert sue_lessonfilehandler.fund_pool == validate_pool_num()
     assert sue_lessonfilehandler.fund_grain == default_grain_num_if_None()

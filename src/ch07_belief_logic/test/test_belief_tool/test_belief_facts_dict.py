@@ -6,13 +6,12 @@ from src.ch07_belief_logic.belief_tool import (
     get_belief_root_facts_dict,
     set_factunits_to_belief,
 )
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_get_belief_root_facts_dict_ReturnsObj_Scenario0_No_factunits():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str)
+    sue_belief = beliefunit_shop(exx.sue)
     # WHEN / THEN
     assert get_belief_root_facts_dict(sue_belief) == {}
     assert (
@@ -23,8 +22,7 @@ def test_get_belief_root_facts_dict_ReturnsObj_Scenario0_No_factunits():
 
 def test_get_belief_root_facts_dict_ReturnsObj_Scenario1_factunits_Exist():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str)
+    sue_belief = beliefunit_shop(exx.sue)
     casa_rope = sue_belief.make_l1_rope("casa")
     clean_rope = sue_belief.make_l1_rope("clean")
     dirty_rope = sue_belief.make_l1_rope("dirty")
@@ -48,8 +46,7 @@ def test_get_belief_root_facts_dict_ReturnsObj_Scenario1_factunits_Exist():
 
 def test_get_belief_root_facts_dict_ReturnsObj_Scenario2_factunits_Exist():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str)
+    sue_belief = beliefunit_shop(exx.sue)
     casa_rope = sue_belief.make_l1_rope("casa")
     clean_rope = sue_belief.make_l1_rope("clean")
     dirty_rope = sue_belief.make_l1_rope("dirty")

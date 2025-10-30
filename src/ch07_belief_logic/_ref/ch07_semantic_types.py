@@ -34,6 +34,6 @@ class BeliefName(NameTerm):
 
 
 class ManaGrain(float):
-    """Smallest Unit of Mana Num"""
+    """Smallest Unit of Mana"""
 
     pass

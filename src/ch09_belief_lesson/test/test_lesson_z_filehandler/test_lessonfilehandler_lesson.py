@@ -28,12 +28,12 @@ from src.ch09_belief_lesson.test._util.ch09_examples import (
     sue_3beliefatoms_lessonunit,
     sue_4beliefatoms_lessonunit,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_LessonFileHandler_get_max_lesson_file_number_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
 
     # WHEN / THEN
     delete_dir(sue_lessonfilehandler.lessons_dir)
@@ -56,8 +56,7 @@ def test_LessonFileHandler_get_max_lesson_file_number_ReturnsObj(temp_dir_setup)
 
 def test_LessonFileHandler_lesson_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     assert sue_lessonfilehandler.hub_lesson_file_exists(None) is False
     assert sue_lessonfilehandler.hub_lesson_file_exists(0) is False
     six_int = 6
@@ -79,8 +78,7 @@ def test_LessonFileHandler_lesson_file_exists_ReturnsObj(temp_dir_setup):
 
 def test_LessonFileHandler_save_lesson_file_SaveCorrectObj(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     two_int = 2
     six_int = 6
     two_filename = get_json_filename(two_int)
@@ -90,7 +88,7 @@ def test_LessonFileHandler_save_lesson_file_SaveCorrectObj(temp_dir_setup):
     print(f"{sue_lesson2_path=}")
     print(f"{sue_lesson6_path=}")
     sue_lessonunit = lessonunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         _lesson_id=two_int,
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
@@ -112,14 +110,13 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_atoms_dir_Is
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     x_lesson_id = 6
     six_filename = get_json_filename(x_lesson_id)
     sue_lesson0_path = create_path(sue_lessonfilehandler.lessons_dir, six_filename)
     print(f"{sue_lesson0_path=}")
     sue_lessonunit = lessonunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         _lesson_id=x_lesson_id,
         atoms_dir="src\\incorrect_directory",
         lessons_dir=sue_lessonfilehandler.lessons_dir,
@@ -138,14 +135,13 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_lessons_dir_
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     x_lesson_id = 6
     six_filename = get_json_filename(x_lesson_id)
     sue_lesson0_path = create_path(sue_lessonfilehandler.lessons_dir, six_filename)
     print(f"{sue_lesson0_path=}")
     sue_lessonunit = lessonunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         _lesson_id=x_lesson_id,
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir="src\\incorrect_directory",
@@ -164,15 +160,13 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_belief_name_
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     x_lesson_id = 6
     six_filename = get_json_filename(x_lesson_id)
     sue_lesson0_path = create_path(sue_lessonfilehandler.lessons_dir, six_filename)
     print(f"{sue_lesson0_path=}")
-    bob_str = "Bob"
     sue_lessonunit = lessonunit_shop(
-        belief_name=bob_str,
+        belief_name=exx.bob,
         _lesson_id=x_lesson_id,
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
@@ -183,7 +177,7 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_belief_name_
         sue_lessonfilehandler.save_lesson_file(
             sue_lessonunit, correct_invalid_attrs=False
         )
-    expected_exception_str = f"LessonUnit file cannot be saved because lessonunit.belief_name is incorrect: {sue_lessonunit.belief_name}. It must be {sue_str}."
+    expected_exception_str = f"LessonUnit file cannot be saved because lessonunit.belief_name is incorrect: {sue_lessonunit.belief_name}. It must be {exx.sue}."
     assert str(excinfo.value) == expected_exception_str
 
 
@@ -191,12 +185,11 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIf_replace_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     x_lesson_id = 0
     six_filename = get_json_filename(x_lesson_id)
     sue_lessonunit = lessonunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         _lesson_id=x_lesson_id,
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
@@ -221,8 +214,7 @@ def test_LessonFileHandler_validate_lessonunit_ReturnsObjWithAttributesFixed(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     two_int = 2
     two_filename = get_json_filename(two_int)
     sue_lesson2_path = create_path(sue_lessonfilehandler.lessons_dir, two_filename)
@@ -245,7 +237,7 @@ def test_LessonFileHandler_validate_lessonunit_ReturnsObjWithAttributesFixed(
         == sue_lessonfilehandler._get_next_lesson_file_number()
     )
     correct_sue_lessonunit = lessonunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         _lesson_id=sue_lessonfilehandler._get_next_lesson_file_number(),
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
@@ -257,8 +249,7 @@ def test_LessonFileHandler_save_lesson_file_SaveCorrectObj_correct_invalid_attrs
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     next_int = sue_lessonfilehandler._get_next_lesson_file_number()
     next_filename = get_json_filename(next_int)
     sue_lesson2_path = create_path(sue_lessonfilehandler.lessons_dir, next_filename)
@@ -283,15 +274,14 @@ def test_LessonFileHandler_default_lessonunit_ReturnsObjWithCorrect_lesson_id_Wh
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
 
     # WHEN
     delete_dir(sue_lessonfilehandler.lessons_dir)
     sue_lessonunit = sue_lessonfilehandler._default_lessonunit()
 
     # THEN
-    assert sue_lessonunit.belief_name == sue_str
+    assert sue_lessonunit.belief_name == exx.sue
     assert sue_lessonunit._lesson_id == init_lesson_id()
     assert sue_lessonunit._lesson_id == 0
     assert (
@@ -307,8 +297,7 @@ def test_LessonFileHandler_default_lessonunit_ReturnsObjWithCorrect_lesson_id_Wh
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     delete_dir(sue_lessonfilehandler.lessons_dir)
 
     zero_lessonunit = get_sue_lessonunit()
@@ -321,7 +310,7 @@ def test_LessonFileHandler_default_lessonunit_ReturnsObjWithCorrect_lesson_id_Wh
     sue_lessonunit = sue_lessonfilehandler._default_lessonunit()
 
     # THEN
-    assert sue_lessonunit.belief_name == sue_str
+    assert sue_lessonunit.belief_name == exx.sue
     assert sue_lessonunit._lesson_id == init_lesson_id() + 1
     assert sue_lessonunit._lesson_id == 1
     assert (
@@ -337,15 +326,12 @@ def test_LessonFileHandler_get_lessonunit_ReturnsObjWhenFilesDoesExist(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
-    yao_str = "Yao"
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x0_lessonunit.set_face(yao_str)
+    x0_lessonunit.set_face(exx.yao)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
-    bob_str = "Bob"
     x1_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x1_lessonunit.set_face(bob_str)
+    x1_lessonunit.set_face(exx.bob)
     sue_lessonfilehandler.save_lesson_file(x1_lessonunit)
 
     # WHEN
@@ -355,9 +341,9 @@ def test_LessonFileHandler_get_lessonunit_ReturnsObjWhenFilesDoesExist(
     # THEN
     assert y0_lessonunit is not None
     assert y1_lessonunit is not None
-    assert yao_str in y0_lessonunit.face_name
-    assert bob_str not in y0_lessonunit.face_name
-    assert bob_str in y1_lessonunit.face_name
+    assert exx.yao in y0_lessonunit.face_name
+    assert exx.bob not in y0_lessonunit.face_name
+    assert exx.bob in y1_lessonunit.face_name
 
 
 def test_LessonFileHandler_get_lessonunit_RaisesExceptionWhenFileDoesNotExist(
@@ -365,15 +351,12 @@ def test_LessonFileHandler_get_lessonunit_RaisesExceptionWhenFileDoesNotExist(
 ):
     # sourcery skip: extract-duplicate-method, inline-variable, move-assign-in-block
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
-    yao_str = "Yao"
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x0_lessonunit.set_face(yao_str)
+    x0_lessonunit.set_face(exx.yao)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
-    bob_str = "Bob"
     x1_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x1_lessonunit.set_face(bob_str)
+    x1_lessonunit.set_face(exx.bob)
     sue_lessonfilehandler.save_lesson_file(x1_lessonunit)
 
     # WHEN / THEN
@@ -388,11 +371,10 @@ def test_LessonFileHandler_del_lesson_file_DeleteslessonjsonAndNotBeliefAtomjson
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     six_int = 6
     sue_lessonunit = lessonunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         _lesson_id=six_int,
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
@@ -402,7 +384,7 @@ def test_LessonFileHandler_del_lesson_file_DeleteslessonjsonAndNotBeliefAtomjson
     assert sue_lessonfilehandler.hub_lesson_file_exists(six_int) is False
     assert sue_lessonfilehandler.h_atom_file_exists(zero_int) is False
 
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_lessonunit, correct_invalid_attrs=False)
 
     print(f"{get_dir_file_strs(sue_lessonfilehandler.atoms_dir)}")
@@ -421,8 +403,7 @@ def test_LessonFileHandler_save_lesson_file_CanCreateAndModify3lessonunits(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     delete_dir(sue_lessonfilehandler.lessons_dir)
     delete_dir(sue_lessonfilehandler.atoms_dir)
     set_dir(sue_lessonfilehandler.lessons_dir)
@@ -442,8 +423,7 @@ def test_LessonFileHandler_save_lesson_file_CanCreateAndModify3lessonunits(
 
 def test_LessonFileHandler_save_lesson_file_ReturnsValidObj(temp_dir_setup):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     sue2_lessonunit = sue_2beliefatoms_lessonunit()
     sue2_lessonunit.atoms_dir = create_path(sue_lessonfilehandler.atoms_dir, "swimming")
     sue2_lessonunit.lessons_dir = create_path(
@@ -469,28 +449,26 @@ def test_LessonFileHandler_create_save_lesson_file_SaveCorrectObj(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     two_int = 2
     three_int = 3
     print(f"{sue_lessonfilehandler.lesson_file_path(two_int)=}")
     print(f"{sue_lessonfilehandler.lesson_file_path(three_int)=}")
     sue_lessonunit = lessonunit_shop(
-        belief_name=sue_str,
+        belief_name=exx.sue,
         _lesson_id=two_int,
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
     )
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_lessonunit, correct_invalid_attrs=False)
     assert sue_lessonfilehandler.hub_lesson_file_exists(two_int)
     assert sue_lessonfilehandler.hub_lesson_file_exists(three_int) is False
 
     # WHEN
     before_belief = sue_lessonfilehandler.default_gut_belief()
-    bob_str = "Bob"
     after_belief = copy_deepcopy(before_belief)
-    after_belief.add_voiceunit(bob_str)
+    after_belief.add_voiceunit(exx.bob)
     sue_lessonfilehandler.create_save_lesson_file(before_belief, after_belief)
 
     # THEN
@@ -501,10 +479,9 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObjThatIsEqual(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    gut_belief = open_gut_file(env_dir(), "amy23", sue_str)
+    gut_belief = open_gut_file(env_dir(), "amy23", exx.sue)
     gut_belief.last_lesson_id is None
 
     # WHEN
@@ -518,11 +495,10 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_1beliefatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    gut_belief = open_gut_file(env_dir(), "amy23", sue_str)
+    gut_belief = open_gut_file(env_dir(), "amy23", exx.sue)
     print(f"{gut_belief.moment_label=}")
     print(f"{sue_lessonfilehandler.moment_label=}")
     sports_str = "sports"
@@ -543,11 +519,10 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_str = "Sue"
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_2beliefatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_belief())
-    gut_belief = open_gut_file(env_dir(), "amy23", sue_str)
+    gut_belief = open_gut_file(env_dir(), "amy23", exx.sue)
     print(f"{gut_belief.moment_label=}")
     sports_str = "sports"
     sports_rope = gut_belief.make_l1_rope(sports_str)

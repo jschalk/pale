@@ -21,13 +21,13 @@ def get_lessonfilehandler_base_fig() -> plotly_Figure:
 
 def get_listen_structures0_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
-        sue_str = "Sue"
         bob_str = "Bob"
-        yao_str = "Yao"
+        sue_str = "Sue"
+        exx.yao = "Yao"
         fig = get_lessonfilehandler_base_fig()
         sue_gut_str = f"{sue_str}.gut"
         sue_job_str = f"{sue_str}.job"
-        yao_job_str = f"{yao_str}.job"
+        yao_job_str = f"{exx.yao}.job"
         bob_job_str = f"{bob_str}.job"
         dir_job_str = f"jobs directory"
         dir_gut_str = f"guts directory"
@@ -63,9 +63,10 @@ def get_listen_structures0_fig(graphics_bool: bool = False) -> plotly_Figure:
 
 def get_listen_structures1_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
-        fig = get_lessonfilehandler_base_fig()
-        sue_str = "Sue"
         bob_str = "Bob"
+        sue_str = "Sue"
+        exx.yao = "Yao"
+        fig = get_lessonfilehandler_base_fig()
         sue_gut_str = f"{sue_str}.gut"
         dir_gut_str = f"guts dir"
 
@@ -127,10 +128,11 @@ def get_listen_structures1_fig(graphics_bool: bool = False) -> plotly_Figure:
 
 def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
+        bob_str = "Bob"
+        sue_str = "Sue"
+        exx.yao = "Yao"
         fig = get_lessonfilehandler_base_fig()
         fig.update_yaxes(range=[-4, 10])
-        sue_str = "Sue"
-        bob_str = "Bob"
         sue_gut_str = f"{sue_str}.gut"
         sue_job_str = f"{sue_str}.job"
         dir_job_str = f"jobs dir"
@@ -205,11 +207,12 @@ def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
 
 def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
+        bob_str = "Bob"
+        sue_str = "Sue"
+        exx.yao = "Yao"
         fig = get_lessonfilehandler_base_fig()
         fig.update_yaxes(range=[-4, 10])
-        sue_str = "Sue"
-        bob_str = "Bob"
-        yao_str = "Yao"
+        exx.yao = "Yao"
         sue_gut_str = f"{sue_str}.gut"
         sue_job_str = f"{sue_str}.job"
         dir_job_str = f"jobs dir"
@@ -236,7 +239,7 @@ def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
         sue_duty_str = f"{sue_str} duty"
         sue_vision_str = f"{sue_str} vision"
         bob_vision_str = f"{bob_str} vision"
-        yao_vision_str = f"{yao_str} vision"
+        yao_vision_str = f"{exx.yao} vision"
         d_sue1_p1 = f"Healer = {sue_str} "
         d_sue1_p2 = "Problem = problem1"
         d_sue1_p3 = "Keep = keep1"

@@ -6,7 +6,7 @@ from src.ch13_keep.rivercycle import (
     get_patientledger,
     riverbook_shop,
 )
-from src.ref.keywords import Ch13Keywords as kw
+from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
 
 def test_RiverBook_Exists():
@@ -26,70 +26,64 @@ def test_RiverBook_Exists():
 
 def test_riverbook_shop_ReturnsObj_Scenario0_mana_grain_IsNone():
     # ESTABLISH
-    bob_str = "Bob"
 
     # WHEN
-    bob_riverbook = riverbook_shop(bob_str)
+    bob_riverbook = riverbook_shop(exx.bob)
 
     # THEN
-    assert bob_riverbook.belief_name == bob_str
+    assert bob_riverbook.belief_name == exx.bob
     assert bob_riverbook.rivercares == {}
     assert bob_riverbook.mana_grain == default_grain_num_if_None()
 
 
 def test_riverbook_shop_ReturnsObj_Scenario1_mana_grain_Exists():
     # ESTABLISH
-    bob_str = "Bob"
     bob_mana_grain = 3
     assert bob_mana_grain != default_grain_num_if_None()
 
     # WHEN
-    bob_riverbook = riverbook_shop(bob_str, bob_mana_grain)
+    bob_riverbook = riverbook_shop(exx.bob, bob_mana_grain)
 
     # THEN
-    assert bob_riverbook.belief_name == bob_str
+    assert bob_riverbook.belief_name == exx.bob
     assert bob_riverbook.rivercares == {}
     assert bob_riverbook.mana_grain == bob_mana_grain
 
 
 def test_create_riverbook_ReturnsObj_Scenario0_mana_grain_IsNone():
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
-    yao_belief = beliefunit_shop(yao_str)
-    yao_belief.add_voiceunit(yao_str)
-    yao_belief.add_voiceunit(sue_str)
+    yao_belief = beliefunit_shop(exx.yao)
+    yao_belief.add_voiceunit(exx.yao)
+    yao_belief.add_voiceunit(exx.sue)
     yao_book_point_amount = 500
     yao_patientledger = get_patientledger(yao_belief)
 
     # WHEN
-    yao_riverbook = create_riverbook(yao_str, yao_patientledger, yao_book_point_amount)
+    yao_riverbook = create_riverbook(exx.yao, yao_patientledger, yao_book_point_amount)
 
     # THEN
-    assert yao_riverbook.belief_name == yao_str
-    assert yao_riverbook.rivercares == {yao_str: 250, sue_str: 250}
+    assert yao_riverbook.belief_name == exx.yao
+    assert yao_riverbook.rivercares == {exx.yao: 250, exx.sue: 250}
     assert sum(yao_riverbook.rivercares.values()) == yao_book_point_amount
     assert yao_riverbook.mana_grain == default_grain_num_if_None()
 
 
 def test_create_riverbook_ReturnsObj_Scenario0_mana_grain_ArgPassed():
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
-    yao_belief = beliefunit_shop(yao_str)
-    yao_belief.add_voiceunit(yao_str)
-    yao_belief.add_voiceunit(sue_str)
+    yao_belief = beliefunit_shop(exx.yao)
+    yao_belief.add_voiceunit(exx.yao)
+    yao_belief.add_voiceunit(exx.sue)
     yao_book_point_amount = 500
     yao_patientledger = get_patientledger(yao_belief)
     yao_mana_grain = 4
 
     # WHEN
     yao_riverbook = create_riverbook(
-        yao_str, yao_patientledger, yao_book_point_amount, yao_mana_grain
+        exx.yao, yao_patientledger, yao_book_point_amount, yao_mana_grain
     )
 
     # THEN
-    assert yao_riverbook.belief_name == yao_str
-    assert yao_riverbook.rivercares == {yao_str: 248, sue_str: 252}
+    assert yao_riverbook.belief_name == exx.yao
+    assert yao_riverbook.rivercares == {exx.yao: 248, exx.sue: 252}
     assert sum(yao_riverbook.rivercares.values()) == yao_book_point_amount
     assert yao_riverbook.mana_grain == yao_mana_grain

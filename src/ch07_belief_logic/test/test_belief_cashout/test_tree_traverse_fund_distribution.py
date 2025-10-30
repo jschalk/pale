@@ -12,6 +12,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_with7am_clean_table_reason,
     get_beliefunit_with_4_levels,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario0():
@@ -280,15 +281,13 @@ def test_BeliefUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
 def test_BeliefUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFundsToVoiceUnits_Scenario0():
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
-    yao_str = "Yao"
-    sue_beliefunit.add_voiceunit(yao_str)
+    sue_beliefunit.add_voiceunit(exx.yao)
     casa_str = "casa"
     casa_rope = sue_beliefunit.make_l1_rope(casa_str)
     casa_plan = planunit_shop(casa_str, star=1)
 
-    swim_str = "swimming"
-    swim_rope = sue_beliefunit.make_rope(casa_rope, swim_str)
-    swim_plan = planunit_shop(swim_str, star=8)
+    swim_rope = sue_beliefunit.make_rope(casa_rope, exx.swim)
+    swim_plan = planunit_shop(exx.swim, star=8)
 
     clean_str = "cleaning"
     clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
@@ -313,11 +312,11 @@ def test_BeliefUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFund
     assert sue_beliefunit.get_plan_obj(clean_rope).fund_ratio is None
     assert sue_beliefunit.get_plan_obj(sweep_rope).fund_ratio is None
     assert sue_beliefunit.get_plan_obj(vacuum_rope).fund_ratio is None
-    assert sue_beliefunit.get_groupunit(yao_str) is None
+    assert sue_beliefunit.get_groupunit(exx.yao) is None
 
     assert not sue_beliefunit.offtrack_fund
-    assert sue_beliefunit.get_voice(yao_str).fund_give == 0
-    assert sue_beliefunit.get_voice(yao_str).fund_take == 0
+    assert sue_beliefunit.get_voice(exx.yao).fund_give == 0
+    assert sue_beliefunit.get_voice(exx.yao).fund_take == 0
 
     # WHEN
     sue_beliefunit.cashout()
@@ -330,12 +329,12 @@ def test_BeliefUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFund
     assert sue_beliefunit.get_plan_obj(clean_rope).fund_ratio == clean_fund_ratio
     assert sue_beliefunit.get_plan_obj(sweep_rope).fund_ratio == 0
     assert sue_beliefunit.get_plan_obj(vacuum_rope).fund_ratio == 0
-    assert sue_beliefunit.get_groupunit(yao_str).fund_give == 0
-    assert sue_beliefunit.get_groupunit(yao_str).fund_take == 0
+    assert sue_beliefunit.get_groupunit(exx.yao).fund_give == 0
+    assert sue_beliefunit.get_groupunit(exx.yao).fund_take == 0
 
     assert sue_beliefunit.offtrack_fund == clean_fund_ratio * default_pool_num()
-    assert sue_beliefunit.get_voice(yao_str).fund_give == default_pool_num()
-    assert sue_beliefunit.get_voice(yao_str).fund_take == default_pool_num()
+    assert sue_beliefunit.get_voice(exx.yao).fund_give == default_pool_num()
+    assert sue_beliefunit.get_voice(exx.yao).fund_take == default_pool_num()
 
 
 def test_BeliefUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
@@ -344,25 +343,24 @@ def test_BeliefUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
     sue_belief.cashout()
     # plan tree has no awardunits
     assert sue_belief.planroot.awardlines == {}
-    sue_str = "Sue"
     wk_str = "sem_jours"
     nation_str = "nation"
-    sue_awardunit = awardunit_shop(awardee_title=sue_str)
-    sue_belief.add_voiceunit(voice_name=sue_str)
+    sue_awardunit = awardunit_shop(awardee_title=exx.sue)
+    sue_belief.add_voiceunit(voice_name=exx.sue)
     sue_belief.planroot.set_awardunit(awardunit=sue_awardunit)
     # plan tree has awardlines
-    assert sue_belief.planroot.awardheirs.get(sue_str) is None
+    assert sue_belief.planroot.awardheirs.get(exx.sue) is None
 
     # WHEN
     sue_belief.cashout()
 
     # THEN
-    assert sue_belief.planroot.awardheirs.get(sue_str) is not None
-    assert sue_belief.planroot.awardheirs.get(sue_str).awardee_title == sue_str
+    assert sue_belief.planroot.awardheirs.get(exx.sue) is not None
+    assert sue_belief.planroot.awardheirs.get(exx.sue).awardee_title == exx.sue
     assert sue_belief.planroot.awardlines != {}
     root_rope = to_rope(sue_belief.planroot.plan_label)
     root_plan = sue_belief.get_plan_obj(rope=root_rope)
-    sue_awardline = sue_belief.planroot.awardlines.get(sue_str)
+    sue_awardline = sue_belief.planroot.awardlines.get(exx.sue)
     print(f"{sue_awardline.fund_give=} {root_plan.fund_ratio=} ")
     print(f"  {sue_awardline.fund_take=} {root_plan.fund_ratio=} ")
     sum_x = 0
@@ -391,7 +389,7 @@ def test_BeliefUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
     #     print(f"  {kid_plan.fund_ratio=} {sum_x=} {kid_plan.get_plan_rope()=}")
     assert round(sue_awardline.fund_give, 15) == default_pool_num()
     assert round(sue_awardline.fund_take, 15) == default_pool_num()
-    x_awardline = awardline_shop(sue_str, default_pool_num(), default_pool_num())
+    x_awardline = awardline_shop(exx.sue, default_pool_num(), default_pool_num())
     assert sue_belief.planroot.awardlines == {x_awardline.awardee_title: x_awardline}
 
 
@@ -399,11 +397,10 @@ def test_BeliefUnit_cashout_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_Ro
     # ESTABLISH
     sue_belief = get_beliefunit_with_4_levels()
     sue_belief.cashout()
-    sue_str = "Sue"
-    sue_belief.add_voiceunit(sue_str)
+    sue_belief.add_voiceunit(exx.sue)
     casa_rope = sue_belief.make_l1_rope("casa")
     sue_belief.get_plan_obj(casa_rope).set_awardunit(
-        awardunit_shop(awardee_title=sue_str)
+        awardunit_shop(awardee_title=exx.sue)
     )
     assert sue_belief.planroot.awardlines == {}
 
@@ -414,7 +411,7 @@ def test_BeliefUnit_cashout_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_Ro
     assert sue_belief.planroot.awardlines != {}
     print(f"{sue_belief.planroot.awardlines=}")
     x_awardline = awardline_shop(
-        awardee_title=sue_str,
+        awardee_title=exx.sue,
         fund_give=0.230769231 * default_pool_num(),
         fund_take=0.230769231 * default_pool_num(),
     )
@@ -426,17 +423,13 @@ def test_BeliefUnit_cashout_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_Ro
 
 def test_BeliefUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_take():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str)
-    yao_str = "Yao"
-    zia_str = "Zia"
-    xio_str = "Xio"
-    sue_belief.set_voiceunit(voiceunit_shop(yao_str))
-    sue_belief.set_voiceunit(voiceunit_shop(zia_str))
-    sue_belief.set_voiceunit(voiceunit_shop(xio_str))
-    yao_awardunit = awardunit_shop(yao_str, give_force=20, take_force=6)
-    zia_awardunit = awardunit_shop(zia_str, give_force=10, take_force=1)
-    xio_awardunit = awardunit_shop(xio_str, give_force=10)
+    sue_belief = beliefunit_shop(exx.sue)
+    sue_belief.set_voiceunit(voiceunit_shop(exx.yao))
+    sue_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    sue_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
+    zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
+    xio_awardunit = awardunit_shop(exx.xio, give_force=10)
     root_rope = to_rope(sue_belief.planroot.plan_label)
     x_planroot = sue_belief.get_plan_obj(root_rope)
     x_planroot.set_awardunit(awardunit=yao_awardunit)
@@ -448,9 +441,9 @@ def test_BeliefUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     sue_belief.cashout()
 
     # THEN
-    yao_groupunit = sue_belief.get_groupunit(yao_str)
-    zia_groupunit = sue_belief.get_groupunit(zia_str)
-    xio_groupunit = sue_belief.get_groupunit(xio_str)
+    yao_groupunit = sue_belief.get_groupunit(exx.yao)
+    zia_groupunit = sue_belief.get_groupunit(exx.zia)
+    xio_groupunit = sue_belief.get_groupunit(exx.xio)
     assert yao_groupunit.fund_give == 0.5 * default_pool_num()
     assert yao_groupunit.fund_take == 0.75 * default_pool_num()
     assert zia_groupunit.fund_give == 0.25 * default_pool_num()
@@ -465,8 +458,8 @@ def test_BeliefUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     assert debt_sum1 == 1 * default_pool_num()
 
     # ESTABLISH
-    sue_belief.set_voiceunit(voiceunit_shop(sue_str))
-    sue_awardunit = awardunit_shop(sue_str, give_force=37)
+    sue_belief.set_voiceunit(voiceunit_shop(exx.sue))
+    sue_awardunit = awardunit_shop(exx.sue, give_force=37)
     x_planroot.set_awardunit(sue_awardunit)
     assert len(x_planroot.awardunits) == 4
     assert len(sue_belief.get_voiceunit_group_titles_dict()) == 4
@@ -475,10 +468,10 @@ def test_BeliefUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     sue_belief.cashout()
 
     # THEN
-    yao_groupunit = sue_belief.get_groupunit(yao_str)
-    zia_groupunit = sue_belief.get_groupunit(zia_str)
-    xio_groupunit = sue_belief.get_groupunit(xio_str)
-    sue_groupunit = sue_belief.get_groupunit(sue_str)
+    yao_groupunit = sue_belief.get_groupunit(exx.yao)
+    zia_groupunit = sue_belief.get_groupunit(exx.zia)
+    xio_groupunit = sue_belief.get_groupunit(exx.xio)
+    sue_groupunit = sue_belief.get_groupunit(exx.sue)
     assert yao_groupunit.fund_give != 0.5 * default_pool_num()
     assert yao_groupunit.fund_take != 0.75 * default_pool_num()
     assert zia_groupunit.fund_give != 0.25 * default_pool_num()
@@ -497,21 +490,16 @@ def test_BeliefUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
 
 def test_BeliefUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take():
     # ESTABLISH
-    bob_str = "Bob"
-    x_belief = beliefunit_shop(bob_str)
-    swim_str = "swim"
-    swim_rope = x_belief.make_l1_rope(swim_str)
-    x_belief.set_l1_plan(planunit_shop(swim_str))
+    x_belief = beliefunit_shop(exx.bob)
+    swim_rope = x_belief.make_l1_rope(exx.swim)
+    x_belief.set_l1_plan(planunit_shop(exx.swim))
 
-    yao_str = "Yao"
-    zia_str = "Zia"
-    xio_str = "Xio"
-    x_belief.set_voiceunit(voiceunit_shop(yao_str))
-    x_belief.set_voiceunit(voiceunit_shop(zia_str))
-    x_belief.set_voiceunit(voiceunit_shop(xio_str))
-    yao_awardunit = awardunit_shop(yao_str, give_force=20, take_force=6)
-    zia_awardunit = awardunit_shop(zia_str, give_force=10, take_force=1)
-    xio_awardunit = awardunit_shop(xio_str, give_force=10)
+    x_belief.set_voiceunit(voiceunit_shop(exx.yao))
+    x_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    x_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
+    zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
+    xio_awardunit = awardunit_shop(exx.xio, give_force=10)
     swim_plan = x_belief.get_plan_obj(swim_rope)
     swim_plan.set_awardunit(yao_awardunit)
     swim_plan.set_awardunit(zia_awardunit)
@@ -522,9 +510,9 @@ def test_BeliefUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take
     x_belief.cashout()
 
     # THEN
-    yao_groupunit = x_belief.get_groupunit(yao_str)
-    zia_groupunit = x_belief.get_groupunit(zia_str)
-    xio_groupunit = x_belief.get_groupunit(xio_str)
+    yao_groupunit = x_belief.get_groupunit(exx.yao)
+    zia_groupunit = x_belief.get_groupunit(exx.zia)
+    xio_groupunit = x_belief.get_groupunit(exx.xio)
     assert yao_groupunit.fund_give == 0.5 * default_pool_num()
     assert yao_groupunit.fund_take == 0.75 * default_pool_num()
     assert zia_groupunit.fund_give == 0.25 * default_pool_num()
@@ -543,21 +531,16 @@ def test_BeliefUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take
 
 def test_BeliefUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take():
     # ESTABLISH
-    yao_str = "Yao"
-    x_belief = beliefunit_shop(yao_str)
-    swim_str = "swim"
-    swim_rope = x_belief.make_l1_rope(swim_str)
-    x_belief.set_l1_plan(planunit_shop(swim_str))
+    x_belief = beliefunit_shop(exx.yao)
+    swim_rope = x_belief.make_l1_rope(exx.swim)
+    x_belief.set_l1_plan(planunit_shop(exx.swim))
 
-    yao_str = "Yao"
-    zia_str = "Zia"
-    xio_str = "Xio"
-    x_belief.set_voiceunit(voiceunit_shop(yao_str))
-    x_belief.set_voiceunit(voiceunit_shop(zia_str))
-    # x_belief.set_voiceunit(voiceunit_shop(xio_str))
-    yao_awardunit = awardunit_shop(yao_str, give_force=20, take_force=6)
-    zia_awardunit = awardunit_shop(zia_str, give_force=10, take_force=1)
-    xio_awardunit = awardunit_shop(xio_str, give_force=10)
+    x_belief.set_voiceunit(voiceunit_shop(exx.yao))
+    x_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    # x_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
+    zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
+    xio_awardunit = awardunit_shop(exx.xio, give_force=10)
     swim_plan = x_belief.get_plan_obj(swim_rope)
     swim_plan.set_awardunit(yao_awardunit)
     swim_plan.set_awardunit(zia_awardunit)
@@ -568,9 +551,9 @@ def test_BeliefUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take(
     x_belief.cashout()
 
     # THEN
-    yao_groupunit = x_belief.get_groupunit(yao_str)
-    zia_groupunit = x_belief.get_groupunit(zia_str)
-    xio_groupunit = x_belief.get_groupunit(xio_str)
+    yao_groupunit = x_belief.get_groupunit(exx.yao)
+    zia_groupunit = x_belief.get_groupunit(exx.zia)
+    xio_groupunit = x_belief.get_groupunit(exx.xio)
     assert len(x_belief.get_voiceunit_group_titles_dict()) != len(x_belief.groupunits)
     assert yao_groupunit.fund_give == 0.5 * default_pool_num()
     assert yao_groupunit.fund_take == 0.75 * default_pool_num()
@@ -590,21 +573,16 @@ def test_BeliefUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take(
 
 def test_BeliefUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fund_give_fund_take():
     # ESTABLISH
-    yao_str = "Yao"
-    x_belief = beliefunit_shop(yao_str)
-    swim_str = "swim"
-    swim_rope = x_belief.make_l1_rope(swim_str)
-    x_belief.set_l1_plan(planunit_shop(swim_str))
+    x_belief = beliefunit_shop(exx.yao)
+    swim_rope = x_belief.make_l1_rope(exx.swim)
+    x_belief.set_l1_plan(planunit_shop(exx.swim))
 
-    yao_str = "Yao"
-    zia_str = "Zia"
-    xio_str = "Xio"
-    x_belief.set_voiceunit(voiceunit_shop(yao_str))
-    x_belief.set_voiceunit(voiceunit_shop(zia_str))
-    x_belief.set_voiceunit(voiceunit_shop(xio_str))
-    yao_awardunit = awardunit_shop(yao_str, give_force=20, take_force=6)
-    zia_awardunit = awardunit_shop(zia_str, give_force=10, take_force=1)
-    xio_awardunit = awardunit_shop(xio_str, give_force=10)
+    x_belief.set_voiceunit(voiceunit_shop(exx.yao))
+    x_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    x_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
+    zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
+    xio_awardunit = awardunit_shop(exx.xio, give_force=10)
     swim_plan = x_belief.get_plan_obj(swim_rope)
     swim_plan.set_awardunit(yao_awardunit)
     swim_plan.set_awardunit(zia_awardunit)
@@ -619,28 +597,29 @@ def test_BeliefUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fu
     # THEN
     x_planroot = x_belief.get_plan_obj(x_belief.planroot.get_plan_rope())
     with pytest_raises(Exception) as excinfo:
-        x_planroot.awardunits[yao_str]
-    assert str(excinfo.value) == f"'{yao_str}'"
+        x_planroot.awardunits[str(exx.yao)]
+    print(f"{excinfo.value=}")
+    assert str(excinfo.value) == f"'{exx.yao}'"
     with pytest_raises(Exception) as excinfo:
-        x_planroot.awardunits[zia_str]
-    assert str(excinfo.value) == f"'{zia_str}'"
+        x_planroot.awardunits[str(exx.zia)]
+    assert str(excinfo.value) == f"'{exx.zia}'"
     with pytest_raises(Exception) as excinfo:
-        x_planroot.awardunits[xio_str]
-    assert str(excinfo.value) == f"'{xio_str}'"
+        x_planroot.awardunits[str(exx.xio)]
+    assert str(excinfo.value) == f"'{exx.xio}'"
     with pytest_raises(Exception) as excinfo:
-        x_planroot.kids["hunt"].awardheirs[yao_str]
-    assert str(excinfo.value) == f"'{yao_str}'"
+        x_planroot.kids["hunt"].awardheirs[str(exx.yao)]
+    assert str(excinfo.value) == f"'{exx.yao}'"
     with pytest_raises(Exception) as excinfo:
-        x_planroot.kids["hunt"].awardheirs[zia_str]
-    assert str(excinfo.value) == f"'{zia_str}'"
+        x_planroot.kids["hunt"].awardheirs[str(exx.zia)]
+    assert str(excinfo.value) == f"'{exx.zia}'"
     with pytest_raises(Exception) as excinfo:
-        x_planroot.kids["hunt"].awardheirs[xio_str]
-    assert str(excinfo.value) == f"'{xio_str}'"
+        x_planroot.kids["hunt"].awardheirs[str(exx.xio)]
+    assert str(excinfo.value) == f"'{exx.xio}'"
 
     # THEN
-    yao_groupunit = x_belief.get_groupunit(yao_str)
-    zia_groupunit = x_belief.get_groupunit(zia_str)
-    xio_groupunit = x_belief.get_groupunit(xio_str)
+    yao_groupunit = x_belief.get_groupunit(exx.yao)
+    zia_groupunit = x_belief.get_groupunit(exx.zia)
+    xio_groupunit = x_belief.get_groupunit(exx.xio)
     assert yao_groupunit.fund_give == 0.125 * default_pool_num()
     assert yao_groupunit.fund_take == 0.1875 * default_pool_num()
     assert zia_groupunit.fund_give == 0.0625 * default_pool_num()
@@ -659,17 +638,13 @@ def test_BeliefUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fu
 
 def test_BeliefUnit_set_awardunit_CalculatesInheritedAwardUnitBeliefFund():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str)
-    yao_str = "Yao"
-    zia_str = "Zia"
-    Xio_str = "Xio"
-    sue_belief.set_voiceunit(voiceunit_shop(yao_str))
-    sue_belief.set_voiceunit(voiceunit_shop(zia_str))
-    sue_belief.set_voiceunit(voiceunit_shop(Xio_str))
-    yao_awardunit = awardunit_shop(yao_str, give_force=20, take_force=6)
-    zia_awardunit = awardunit_shop(zia_str, give_force=10, take_force=1)
-    Xio_awardunit = awardunit_shop(Xio_str, give_force=10)
+    sue_belief = beliefunit_shop(exx.sue)
+    sue_belief.set_voiceunit(voiceunit_shop(exx.yao))
+    sue_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    sue_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
+    zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
+    Xio_awardunit = awardunit_shop(exx.xio, give_force=10)
     sue_belief.planroot.set_awardunit(yao_awardunit)
     sue_belief.planroot.set_awardunit(zia_awardunit)
     sue_belief.planroot.set_awardunit(Xio_awardunit)
@@ -683,9 +658,9 @@ def test_BeliefUnit_set_awardunit_CalculatesInheritedAwardUnitBeliefFund():
     plan_bob = plan_dict.get(sue_belief.planroot.get_plan_rope())
     assert len(plan_bob.awardheirs) == 3
 
-    bheir_yao = plan_bob.awardheirs.get(yao_str)
-    bheir_zia = plan_bob.awardheirs.get(zia_str)
-    bheir_Xio = plan_bob.awardheirs.get(Xio_str)
+    bheir_yao = plan_bob.awardheirs.get(exx.yao)
+    bheir_zia = plan_bob.awardheirs.get(exx.zia)
+    bheir_Xio = plan_bob.awardheirs.get(exx.xio)
     assert bheir_yao.fund_give == 0.5 * default_pool_num()
     assert bheir_yao.fund_take == 0.75 * default_pool_num()
     assert bheir_zia.fund_give == 0.25 * default_pool_num()
@@ -719,26 +694,23 @@ def test_BeliefUnit_set_awardunit_CalculatesInheritedAwardUnitBeliefFund():
 def test_BeliefUnit_cashout_SetsGroupLinkBeliefCredAndDebt():
     # ESTABLISH
     yao_belief = beliefunit_shop("Yao")
-    sue_str = "Sue"
-    bob_str = "Bob"
-    zia_str = "Zia"
-    yao_belief.set_voiceunit(voiceunit_shop(sue_str))
-    yao_belief.set_voiceunit(voiceunit_shop(bob_str))
-    yao_belief.set_voiceunit(voiceunit_shop(zia_str))
-    sue_awardunit = awardunit_shop(sue_str, 20, take_force=40)
-    bob_awardunit = awardunit_shop(bob_str, 10, take_force=5)
-    zia_awardunit = awardunit_shop(zia_str, 10, take_force=5)
+    yao_belief.set_voiceunit(voiceunit_shop(exx.sue))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.bob))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    sue_awardunit = awardunit_shop(exx.sue, 20, take_force=40)
+    bob_awardunit = awardunit_shop(exx.bob, 10, take_force=5)
+    zia_awardunit = awardunit_shop(exx.zia, 10, take_force=5)
     root_rope = yao_belief.planroot.get_plan_rope()
     yao_belief.edit_plan_attr(root_rope, awardunit=sue_awardunit)
     yao_belief.edit_plan_attr(root_rope, awardunit=bob_awardunit)
     yao_belief.edit_plan_attr(root_rope, awardunit=zia_awardunit)
 
-    sue_voiceunit = yao_belief.get_voice(sue_str)
-    bob_voiceunit = yao_belief.get_voice(bob_str)
-    zia_voiceunit = yao_belief.get_voice(zia_str)
-    sue_sue_membership = sue_voiceunit.get_membership(sue_str)
-    bob_bob_membership = bob_voiceunit.get_membership(bob_str)
-    zia_zia_membership = zia_voiceunit.get_membership(zia_str)
+    sue_voiceunit = yao_belief.get_voice(exx.sue)
+    bob_voiceunit = yao_belief.get_voice(exx.bob)
+    zia_voiceunit = yao_belief.get_voice(exx.zia)
+    sue_sue_membership = sue_voiceunit.get_membership(exx.sue)
+    bob_bob_membership = bob_voiceunit.get_membership(exx.bob)
+    zia_zia_membership = zia_voiceunit.get_membership(exx.zia)
     assert sue_sue_membership.fund_give is None
     assert sue_sue_membership.fund_take is None
     assert bob_bob_membership.fund_give is None
@@ -771,22 +743,21 @@ def test_BeliefUnit_cashout_SetsGroupLinkBeliefCredAndDebt():
     assert membership_debt_sum == 1.0 * default_pool_num()
 
     # ESTABLISH another pledge, check metrics are as expected
-    xio_str = "Xio"
-    yao_belief.set_voiceunit(voiceunit_shop(xio_str))
-    yao_belief.planroot.set_awardunit(awardunit_shop(xio_str, 20, take_force=13))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_belief.planroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=13))
 
     # WHEN
     yao_belief.cashout()
 
     # THEN
-    xio_groupunit = yao_belief.get_groupunit(xio_str)
-    xio_xio_membership = xio_groupunit.get_voice_membership(xio_str)
-    sue_voiceunit = yao_belief.get_voice(sue_str)
-    bob_voiceunit = yao_belief.get_voice(bob_str)
-    zia_voiceunit = yao_belief.get_voice(zia_str)
-    sue_sue_membership = sue_voiceunit.get_membership(sue_str)
-    bob_bob_membership = bob_voiceunit.get_membership(bob_str)
-    zia_zia_membership = zia_voiceunit.get_membership(zia_str)
+    xio_groupunit = yao_belief.get_groupunit(exx.xio)
+    xio_xio_membership = xio_groupunit.get_voice_membership(exx.xio)
+    sue_voiceunit = yao_belief.get_voice(exx.sue)
+    bob_voiceunit = yao_belief.get_voice(exx.bob)
+    zia_voiceunit = yao_belief.get_voice(exx.zia)
+    sue_sue_membership = sue_voiceunit.get_membership(exx.sue)
+    bob_bob_membership = bob_voiceunit.get_membership(exx.bob)
+    zia_zia_membership = zia_voiceunit.get_membership(exx.zia)
     assert sue_sue_membership.fund_give != 0.25 * default_pool_num()
     assert sue_sue_membership.fund_take != 0.8 * default_pool_num()
     assert bob_bob_membership.fund_give != 0.25 * default_pool_num()
@@ -816,25 +787,21 @@ def test_BeliefUnit_cashout_SetsGroupLinkBeliefCredAndDebt():
 def test_BeliefUnit_cashout_SetsVoiceUnitBelief_fund():
     # ESTABLISH
     yao_belief = beliefunit_shop("Yao")
-    swim_str = "swim"
-    swim_rope = yao_belief.make_l1_rope(swim_str)
-    yao_belief.set_l1_plan(planunit_shop(swim_str))
-    sue_str = "Sue"
-    bob_str = "Bob"
-    zia_str = "Zia"
-    yao_belief.set_voiceunit(voiceunit_shop(sue_str))
-    yao_belief.set_voiceunit(voiceunit_shop(bob_str))
-    yao_belief.set_voiceunit(voiceunit_shop(zia_str))
-    bl_sue = awardunit_shop(sue_str, 20, take_force=40)
-    bl_bob = awardunit_shop(bob_str, 10, take_force=5)
-    bl_zia = awardunit_shop(zia_str, 10, take_force=5)
+    swim_rope = yao_belief.make_l1_rope(exx.swim)
+    yao_belief.set_l1_plan(planunit_shop(exx.swim))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.sue))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.bob))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    bl_sue = awardunit_shop(exx.sue, 20, take_force=40)
+    bl_bob = awardunit_shop(exx.bob, 10, take_force=5)
+    bl_zia = awardunit_shop(exx.zia, 10, take_force=5)
     yao_belief.get_plan_obj(swim_rope).set_awardunit(bl_sue)
     yao_belief.get_plan_obj(swim_rope).set_awardunit(bl_bob)
     yao_belief.get_plan_obj(swim_rope).set_awardunit(bl_zia)
 
-    sue_voiceunit = yao_belief.get_voice(sue_str)
-    bob_voiceunit = yao_belief.get_voice(bob_str)
-    zia_voiceunit = yao_belief.get_voice(zia_str)
+    sue_voiceunit = yao_belief.get_voice(exx.sue)
+    bob_voiceunit = yao_belief.get_voice(exx.bob)
+    zia_voiceunit = yao_belief.get_voice(exx.zia)
 
     assert sue_voiceunit.fund_give == 0
     assert sue_voiceunit.fund_take == 0
@@ -864,13 +831,12 @@ def test_BeliefUnit_cashout_SetsVoiceUnitBelief_fund():
     )
 
     # WHEN another pledge, check metrics are as expected
-    xio_str = "Xio"
-    yao_belief.set_voiceunit(voiceunit_shop(xio_str))
-    yao_belief.planroot.set_awardunit(awardunit_shop(xio_str, 20, take_force=10))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_belief.planroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=10))
     yao_belief.cashout()
 
     # THEN
-    xio_voiceunit = yao_belief.get_voice(xio_str)
+    xio_voiceunit = yao_belief.get_voice(exx.xio)
 
     assert sue_voiceunit.fund_give != 0.5 * default_pool_num()
     assert sue_voiceunit.fund_take != 0.8 * default_pool_num()
@@ -908,18 +874,14 @@ def test_BeliefUnit_cashout_SetsVoiceUnitBelief_fund():
 def test_BeliefUnit_cashout_SetsPartGroupedLWVoiceUnitBelief_fund():
     # ESTABLISH
     yao_belief = beliefunit_shop("Yao")
-    swim_str = "swim"
-    swim_rope = yao_belief.make_l1_rope(swim_str)
-    yao_belief.set_l1_plan(planunit_shop(swim_str))
-    sue_str = "Sue"
-    bob_str = "Bob"
-    zia_str = "Zia"
-    yao_belief.set_voiceunit(voiceunit_shop(sue_str))
-    yao_belief.set_voiceunit(voiceunit_shop(bob_str))
-    yao_belief.set_voiceunit(voiceunit_shop(zia_str))
-    sue_awardunit = awardunit_shop(sue_str, 20, take_force=40)
-    bob_awardunit = awardunit_shop(bob_str, 10, take_force=5)
-    zia_awardunit = awardunit_shop(zia_str, 10, take_force=5)
+    swim_rope = yao_belief.make_l1_rope(exx.swim)
+    yao_belief.set_l1_plan(planunit_shop(exx.swim))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.sue))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.bob))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    sue_awardunit = awardunit_shop(exx.sue, 20, take_force=40)
+    bob_awardunit = awardunit_shop(exx.bob, 10, take_force=5)
+    zia_awardunit = awardunit_shop(exx.zia, 10, take_force=5)
     swim_plan = yao_belief.get_plan_obj(swim_rope)
     swim_plan.set_awardunit(sue_awardunit)
     swim_plan.set_awardunit(bob_awardunit)
@@ -933,9 +895,9 @@ def test_BeliefUnit_cashout_SetsPartGroupedLWVoiceUnitBelief_fund():
     yao_belief.cashout()
 
     # THEN
-    sue_groupunit = yao_belief.get_groupunit(sue_str)
-    bob_groupunit = yao_belief.get_groupunit(bob_str)
-    zia_groupunit = yao_belief.get_groupunit(zia_str)
+    sue_groupunit = yao_belief.get_groupunit(exx.sue)
+    bob_groupunit = yao_belief.get_groupunit(exx.bob)
+    zia_groupunit = yao_belief.get_groupunit(exx.zia)
     assert sue_groupunit.fund_give != 0.5 * default_pool_num()
     assert sue_groupunit.fund_take != 0.8 * default_pool_num()
     assert bob_groupunit.fund_give != 0.25 * default_pool_num()
@@ -951,9 +913,9 @@ def test_BeliefUnit_cashout_SetsPartGroupedLWVoiceUnitBelief_fund():
         == 0.25 * default_pool_num()
     )
 
-    sue_voiceunit = yao_belief.get_voice(sue_str)
-    bob_voiceunit = yao_belief.get_voice(bob_str)
-    zia_voiceunit = yao_belief.get_voice(zia_str)
+    sue_voiceunit = yao_belief.get_voice(exx.sue)
+    bob_voiceunit = yao_belief.get_voice(exx.bob)
+    zia_voiceunit = yao_belief.get_voice(exx.zia)
 
     assert sue_voiceunit.fund_give == 0.375 * default_pool_num()
     assert sue_voiceunit.fund_take == 0.45 * default_pool_num()
@@ -974,21 +936,16 @@ def test_BeliefUnit_cashout_SetsPartGroupedLWVoiceUnitBelief_fund():
 
 def test_BeliefUnit_cashout_CreatesNewGroupUnitAndSetsVoice_fund_give_fund_take():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_belief = beliefunit_shop(bob_str)
-    swim_str = "swim"
-    swim_rope = bob_belief.make_l1_rope(swim_str)
-    bob_belief.set_l1_plan(planunit_shop(swim_str))
+    bob_belief = beliefunit_shop(exx.bob)
+    swim_rope = bob_belief.make_l1_rope(exx.swim)
+    bob_belief.set_l1_plan(planunit_shop(exx.swim))
 
-    yao_str = "Yao"
-    zia_str = "Zia"
-    xio_str = "Xio"
-    bob_belief.set_voiceunit(voiceunit_shop(yao_str))
-    bob_belief.set_voiceunit(voiceunit_shop(zia_str))
-    # bob_belief.set_voiceunit(voiceunit_shop(xio_str))
-    yao_awardunit = awardunit_shop(yao_str, give_force=20, take_force=6)
-    zia_awardunit = awardunit_shop(zia_str, give_force=10, take_force=1)
-    xio_awardunit = awardunit_shop(xio_str, give_force=10)
+    bob_belief.set_voiceunit(voiceunit_shop(exx.yao))
+    bob_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    # bob_belief.set_voiceunit(voiceunit_shop(exx.xio))
+    yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
+    zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
+    xio_awardunit = awardunit_shop(exx.xio, give_force=10)
     swim_plan = bob_belief.get_plan_obj(swim_rope)
     swim_plan.set_awardunit(yao_awardunit)
     swim_plan.set_awardunit(zia_awardunit)
@@ -1002,9 +959,9 @@ def test_BeliefUnit_cashout_CreatesNewGroupUnitAndSetsVoice_fund_give_fund_take(
     assert len(bob_belief.get_voiceunit_group_titles_dict()) != len(
         bob_belief.groupunits
     )
-    assert not bob_belief.voice_exists(xio_str)
-    yao_voiceunit = bob_belief.get_voice(yao_str)
-    zia_voiceunit = bob_belief.get_voice(zia_str)
+    assert not bob_belief.voice_exists(exx.xio)
+    yao_voiceunit = bob_belief.get_voice(exx.yao)
+    zia_voiceunit = bob_belief.get_voice(exx.zia)
     voiceunit_fund_give_sum = yao_voiceunit.fund_give + zia_voiceunit.fund_give
     voiceunit_fund_take_sum = yao_voiceunit.fund_take + zia_voiceunit.fund_take
     assert voiceunit_fund_give_sum == default_pool_num()
@@ -1015,15 +972,12 @@ def test_BeliefUnit_cashout_SetsVoiceUnit_fund_give_fund_take():
     # ESTABLISH
     yao_belief = beliefunit_shop("Yao")
     yao_belief.set_l1_plan(planunit_shop("swim"))
-    sue_str = "Sue"
-    bob_str = "Bob"
-    zia_str = "Zia"
-    yao_belief.set_voiceunit(voiceunit_shop(sue_str, 8))
-    yao_belief.set_voiceunit(voiceunit_shop(bob_str))
-    yao_belief.set_voiceunit(voiceunit_shop(zia_str))
-    sue_voiceunit = yao_belief.get_voice(sue_str)
-    bob_voiceunit = yao_belief.get_voice(bob_str)
-    zia_voiceunit = yao_belief.get_voice(zia_str)
+    yao_belief.set_voiceunit(voiceunit_shop(exx.sue, 8))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.bob))
+    yao_belief.set_voiceunit(voiceunit_shop(exx.zia))
+    sue_voiceunit = yao_belief.get_voice(exx.sue)
+    bob_voiceunit = yao_belief.get_voice(exx.bob)
+    zia_voiceunit = yao_belief.get_voice(exx.zia)
     assert sue_voiceunit.fund_give == 0
     assert sue_voiceunit.fund_take == 0
     assert bob_voiceunit.fund_give == 0
@@ -1223,18 +1177,15 @@ def are_equal(x1: float, x2: float):
 def test_BeliefUnit_cashout_SetsAttrsWhenNoFactUnitsNoReasonUnitsEmpty_agenda_ratio_cred_debt():
     # ESTABLISH
     yao_belief = beliefunit_shop("Yao")
-    sue_str = "Sue"
-    bob_str = "Bob"
-    zia_str = "Zia"
-    sue_voiceunit = voiceunit_shop(sue_str, 0.5, voice_debt_lumen=2)
-    bob_voiceunit = voiceunit_shop(bob_str, 1.5, voice_debt_lumen=3)
-    zia_voiceunit = voiceunit_shop(zia_str, 8, voice_debt_lumen=5)
+    sue_voiceunit = voiceunit_shop(exx.sue, 0.5, voice_debt_lumen=2)
+    bob_voiceunit = voiceunit_shop(exx.bob, 1.5, voice_debt_lumen=3)
+    zia_voiceunit = voiceunit_shop(exx.zia, 8, voice_debt_lumen=5)
     yao_belief.set_voiceunit(sue_voiceunit)
     yao_belief.set_voiceunit(bob_voiceunit)
     yao_belief.set_voiceunit(zia_voiceunit)
-    sue_voice = yao_belief.get_voice(sue_str)
-    bob_voice = yao_belief.get_voice(bob_str)
-    zia_voice = yao_belief.get_voice(zia_str)
+    sue_voice = yao_belief.get_voice(exx.sue)
+    bob_voice = yao_belief.get_voice(exx.bob)
+    zia_voice = yao_belief.get_voice(exx.zia)
 
     assert not sue_voice.fund_give
     assert not sue_voice.fund_take

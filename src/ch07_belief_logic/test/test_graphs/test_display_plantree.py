@@ -13,7 +13,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_with_4_levels_and_2reasons,
     get_beliefunit_x1_3levels_1reason_1facts,
 )
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_display_plantree_Scenario0(graphics_bool):
@@ -53,14 +53,12 @@ def test_get_belief_voices_plotly_fig_DisplaysInfo(graphics_bool):
     luca_belief = beliefunit_shop()
     luca_belief.set_credor_respect(500)
     luca_belief.set_debtor_respect(400)
-    yao_str = "Yao"
     yao_voice_cred_lumen = 66
     yao_voice_debt_lumen = 77
-    luca_belief.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
-    sue_str = "Sue"
+    luca_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
     sue_voice_cred_lumen = 434
     sue_voice_debt_lumen = 323
-    luca_belief.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    luca_belief.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
 
     # WHEN
     x_fig = get_belief_voices_plotly_fig(luca_belief)

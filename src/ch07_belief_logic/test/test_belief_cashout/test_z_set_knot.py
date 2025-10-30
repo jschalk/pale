@@ -4,6 +4,7 @@ from src.ch05_reason.reason import factunit_shop, reasonunit_shop
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop, get_default_first_label
 from src.ch07_belief_logic.test._util.ch07_examples import get_beliefunit_with_4_levels
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_set_plan_SetsAttrs_Scenario0_fund_grain():
@@ -157,8 +158,7 @@ def test_BeliefUnit_set_knot_SetsAttr():
     # ESTABLISH
     a45_str = "amy45"
     slash_knot = "/"
-    sue_str = "Sue"
-    sue_belief = beliefunit_shop(sue_str, a45_str, knot=slash_knot)
+    sue_belief = beliefunit_shop(exx.sue, a45_str, knot=slash_knot)
     assert sue_belief.knot == slash_knot
 
     # WHEN

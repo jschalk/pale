@@ -15,7 +15,7 @@ from src.ch15_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ch18_world_etl.tran_sqlstrs import create_prime_tablename as prime_table
 from src.ch18_world_etl.transformers import etl_moment_job_jsons_to_job_tables
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
@@ -25,13 +25,11 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     m23_moment_mstr_dir = get_temp_dir()
     m23_str = "music23"
     a23_str = "amy23"
-    sue_str = "Sue"
-    bob_str = "Bob"
     run_str = ";run"
-    sue_belief = beliefunit_shop(sue_str, a23_str)
-    sue_belief.add_voiceunit(sue_str)
-    sue_belief.add_voiceunit(bob_str)
-    sue_belief.get_voice(bob_str).add_membership(run_str)
+    sue_belief = beliefunit_shop(exx.sue, a23_str)
+    sue_belief.add_voiceunit(exx.sue)
+    sue_belief.add_voiceunit(exx.bob)
+    sue_belief.get_voice(exx.bob).add_membership(run_str)
     casa_rope = sue_belief.make_l1_rope("casa")
     situation_rope = sue_belief.make_l1_rope(kw.reason_active)
     clean_rope = sue_belief.make_rope(situation_rope, "clean")
@@ -43,9 +41,9 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
     sue_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(run_str))
-    sue_belief.edit_plan_attr(casa_rope, healerunit=healerunit_shop({bob_str}))
+    sue_belief.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     sue_laborunit = laborunit_shop()
-    sue_laborunit.add_party(sue_str)
+    sue_laborunit.add_party(exx.sue)
     sue_belief.edit_plan_attr(casa_rope, laborunit=sue_laborunit)
     sue_belief.add_fact(situation_rope, clean_rope)
     print(f"{sue_belief.get_plan_obj(casa_rope).laborunit=}")

@@ -1,14 +1,13 @@
 from src.ch03_voice.labor import laborheir_shop, laborunit_shop
-from src.ch04_rope.rope import to_rope
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_cashout_Sets_planroot_laborheirFrom_planroot_laborunit():
     # ESTABLISH
-    sue_str = "Sue"
     sue_laborunit = laborunit_shop()
-    sue_laborunit.add_party(sue_str)
+    sue_laborunit.add_party(exx.sue)
     yao_belief = beliefunit_shop("Yao")
     root_rope = yao_belief.planroot.get_plan_rope()
     yao_belief.edit_plan_attr(root_rope, laborunit=sue_laborunit)
@@ -29,12 +28,11 @@ def test_BeliefUnit_cashout_Sets_planroot_laborheirFrom_planroot_laborunit():
 
 def test_BeliefUnit_cashout_Set_child_plan_laborheir_FromParent_laborunit():
     # ESTABLISH
-    bob_str = "Bob"
     x_laborunit = laborunit_shop()
-    bob_belief = beliefunit_shop(bob_str)
+    bob_belief = beliefunit_shop(exx.bob)
     run_str = "run"
     run_rope = bob_belief.make_l1_rope(run_str)
-    bob_belief.add_voiceunit(bob_str)
+    bob_belief.add_voiceunit(exx.bob)
     bob_belief.set_l1_plan(planunit_shop(run_str))
     bob_belief.edit_plan_attr(run_rope, laborunit=x_laborunit)
     run_plan = bob_belief.get_plan_obj(run_rope)
@@ -63,8 +61,7 @@ def test_BeliefUnit_cashout_Set_child_plan_laborheir_FromParent_laborunit():
 def test_BeliefUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario0():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    swim_str = "swimming"
-    swim_rope = sue_belief.make_l1_rope(swim_str)
+    swim_rope = sue_belief.make_l1_rope(exx.swim)
     morn_str = "morning"
     morn_rope = sue_belief.make_rope(swim_rope, morn_str)
     four_str = "fourth"
@@ -73,12 +70,11 @@ def test_BeliefUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit
     swimmers_str = ";swimmers"
     x_laborunit.add_party(party_title=swimmers_str)
 
-    yao_str = "Yao"
-    sue_belief.add_voiceunit(yao_str)
-    yao_voiceunit = sue_belief.get_voice(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
+    yao_voiceunit = sue_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(swimmers_str)
 
-    sue_belief.set_l1_plan(planunit_shop(swim_str))
+    sue_belief.set_l1_plan(planunit_shop(exx.swim))
     sue_belief.set_plan_obj(planunit_shop(morn_str), parent_rope=swim_rope)
     sue_belief.set_plan_obj(planunit_shop(four_str), parent_rope=morn_rope)
     sue_belief.edit_plan_attr(swim_rope, laborunit=x_laborunit)
@@ -104,8 +100,7 @@ def test_BeliefUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit
 def test_BeliefUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario1_solo_AttrIsPassed():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    swim_str = "swimming"
-    swim_rope = sue_belief.make_l1_rope(swim_str)
+    swim_rope = sue_belief.make_l1_rope(exx.swim)
     morn_str = "morning"
     morn_rope = sue_belief.make_rope(swim_rope, morn_str)
     four_str = "fourth"
@@ -115,12 +110,11 @@ def test_BeliefUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit
     swimmers_solo_bool = True
     swimmers_laborunit.add_party(swimmers_str, solo=swimmers_solo_bool)
 
-    yao_str = "Yao"
-    sue_belief.add_voiceunit(yao_str)
-    yao_voiceunit = sue_belief.get_voice(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
+    yao_voiceunit = sue_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(swimmers_str)
 
-    sue_belief.set_l1_plan(planunit_shop(swim_str))
+    sue_belief.set_l1_plan(planunit_shop(exx.swim))
     sue_belief.set_plan_obj(planunit_shop(morn_str), parent_rope=swim_rope)
     sue_belief.set_plan_obj(planunit_shop(four_str), parent_rope=morn_rope)
     sue_belief.edit_plan_attr(swim_rope, laborunit=swimmers_laborunit)
@@ -147,60 +141,53 @@ def test_BeliefUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit
 
 def test_BeliefUnit__get_filtered_awardunits_plan_CleansPlan_Laborunit():
     # ESTABLISH
-    sue_str = "Sue"
-    sue1_belief = beliefunit_shop(sue_str)
-    xia_str = "Xia"
-    zoa_str = "Zoa"
-    sue1_belief.add_voiceunit(xia_str)
-    sue1_belief.add_voiceunit(zoa_str)
+    sue1_belief = beliefunit_shop(exx.sue)
+    sue1_belief.add_voiceunit(exx.xio)
+    sue1_belief.add_voiceunit(exx.zia)
 
     casa_str = "casa"
     casa_rope = sue1_belief.make_l1_rope(casa_str)
-    swim_str = "swim"
-    swim_rope = sue1_belief.make_l1_rope(swim_str)
+    swim_rope = sue1_belief.make_l1_rope(exx.swim)
     root_rope = sue1_belief.planroot.get_plan_rope()
     sue1_belief.set_plan_obj(planunit_shop(casa_str), parent_rope=root_rope)
-    sue1_belief.set_plan_obj(planunit_shop(swim_str), parent_rope=root_rope)
+    sue1_belief.set_plan_obj(planunit_shop(exx.swim), parent_rope=root_rope)
     swim_laborunit = laborunit_shop()
-    swim_laborunit.add_party(party_title=xia_str)
-    swim_laborunit.add_party(party_title=zoa_str)
+    swim_laborunit.add_party(party_title=exx.xio)
+    swim_laborunit.add_party(party_title=exx.zia)
     sue1_belief.edit_plan_attr(swim_rope, laborunit=swim_laborunit)
     sue1_belief_swim_plan = sue1_belief.get_plan_obj(swim_rope)
     sue1_belief_swim_partys = sue1_belief_swim_plan.laborunit.partys
     assert len(sue1_belief_swim_partys) == 2
 
     # WHEN
-    sue2_belief = beliefunit_shop(sue_str)
-    sue2_belief.add_voiceunit(xia_str)
+    sue2_belief = beliefunit_shop(exx.sue)
+    sue2_belief.add_voiceunit(exx.xio)
     cleaned_plan = sue2_belief._get_filtered_awardunits_plan(sue1_belief_swim_plan)
 
     # THEN
     cleaned_swim_partys = cleaned_plan.laborunit.partys
     assert len(cleaned_swim_partys) == 1
-    assert list(cleaned_swim_partys) == [xia_str]
+    assert list(cleaned_swim_partys) == [exx.xio]
 
 
 def test_BeliefUnit_set_plan_CleansPlan_awardunits():
     # ESTABLISH
     sue1_belief = beliefunit_shop("Sue")
-    xia_str = "Xia"
-    zoa_str = "Zoa"
-    sue1_belief.add_voiceunit(xia_str)
-    sue1_belief.add_voiceunit(zoa_str)
+    sue1_belief.add_voiceunit(exx.xio)
+    sue1_belief.add_voiceunit(exx.zia)
 
     casa_str = "casa"
     casa_rope = sue1_belief.make_l1_rope(casa_str)
-    swim_str = "swim"
-    swim_rope = sue1_belief.make_l1_rope(swim_str)
+    swim_rope = sue1_belief.make_l1_rope(exx.swim)
     sue1_belief.set_plan_obj(
         planunit_shop(casa_str), parent_rope=sue1_belief.planroot.get_plan_rope()
     )
     sue1_belief.set_plan_obj(
-        planunit_shop(swim_str), parent_rope=sue1_belief.planroot.get_plan_rope()
+        planunit_shop(exx.swim), parent_rope=sue1_belief.planroot.get_plan_rope()
     )
     swim_laborunit = laborunit_shop()
-    swim_laborunit.add_party(party_title=xia_str)
-    swim_laborunit.add_party(party_title=zoa_str)
+    swim_laborunit.add_party(party_title=exx.xio)
+    swim_laborunit.add_party(party_title=exx.zia)
     sue1_belief.edit_plan_attr(swim_rope, laborunit=swim_laborunit)
     sue1_belief_swim_plan = sue1_belief.get_plan_obj(swim_rope)
     sue1_belief_swim_partys = sue1_belief_swim_plan.laborunit.partys
@@ -208,7 +195,7 @@ def test_BeliefUnit_set_plan_CleansPlan_awardunits():
 
     # WHEN
     sue2_belief = beliefunit_shop("Sue")
-    sue2_belief.add_voiceunit(xia_str)
+    sue2_belief.add_voiceunit(exx.xio)
     sue2_belief.set_l1_plan(
         sue1_belief_swim_plan, get_rid_of_missing_awardunits_awardee_titles=False
     )
@@ -217,4 +204,4 @@ def test_BeliefUnit_set_plan_CleansPlan_awardunits():
     sue2_belief_swim_plan = sue2_belief.get_plan_obj(swim_rope)
     sue2_belief_swim_partys = sue2_belief_swim_plan.laborunit.partys
     assert len(sue2_belief_swim_partys) == 1
-    assert list(sue2_belief_swim_partys) == [xia_str]
+    assert list(sue2_belief_swim_partys) == [exx.xio]

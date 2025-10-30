@@ -9,7 +9,7 @@ from src.ch15_moment.moment_main import (
     momentunit_shop,
 )
 from src.ch15_moment.test._util.ch15_env import get_temp_dir, temp_dir_setup
-from src.ref.keywords import Ch15Keywords as kw
+from src.ref.keywords import Ch15Keywords as kw, ExampleStrs as exx
 
 
 def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
@@ -19,10 +19,8 @@ def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
     a45_offi_times = {17, 37}
     amy_moment = momentunit_shop(a45_str, moment_mstr_dir, offi_times=a45_offi_times)
     amy_offi_time_max_int = 23
-    bob_str = "Bob"
     bob_x0_tran_time = 702
     bob_x0_quota = 33
-    sue_str = "Sue"
     sue_x4_tran_time = 404
     sue_x4_quota = 55
     sue_x7_tran_time = 505
@@ -30,12 +28,12 @@ def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
     pay_tran_time = 15
     bob_sue_amount = 30000
     amy_moment.set_offi_time_max(amy_offi_time_max_int)
-    amy_moment.add_budunit(bob_str, bob_x0_tran_time, bob_x0_quota)
-    amy_moment.add_budunit(sue_str, sue_x4_tran_time, sue_x4_quota)
-    amy_moment.add_budunit(sue_str, sue_x7_tran_time, sue_x7_quota)
+    amy_moment.add_budunit(exx.bob, bob_x0_tran_time, bob_x0_quota)
+    amy_moment.add_budunit(exx.sue, sue_x4_tran_time, sue_x4_quota)
+    amy_moment.add_budunit(exx.sue, sue_x7_tran_time, sue_x7_quota)
     amy_moment.add_paypurchase(
-        belief_name=bob_str,
-        voice_name=sue_str,
+        belief_name=exx.bob,
+        voice_name=exx.sue,
         tran_time=pay_tran_time,
         amount=bob_sue_amount,
     )
@@ -105,26 +103,24 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario0_WithParameters():
     sue_fund_grain = 0.3
     sue_respect_grain = 2
     sue_mana_grain = 3
-    bob_str = "Bob"
     bob_x0_bud_time = 702
     bob_x0_quota = 33
-    sue_str = "Sue"
     sue_x4_bud_time = 4
     sue_x4_quota = 55
     sue_x7_bud_time = 7
     sue_x7_quota = 66
     pay_tran_time = 15
     bob_sue_amount = 30000
-    amy_moment.add_budunit(bob_str, bob_x0_bud_time, bob_x0_quota)
-    amy_moment.add_budunit(sue_str, sue_x4_bud_time, sue_x4_quota)
-    amy_moment.add_budunit(sue_str, sue_x7_bud_time, sue_x7_quota)
+    amy_moment.add_budunit(exx.bob, bob_x0_bud_time, bob_x0_quota)
+    amy_moment.add_budunit(exx.sue, sue_x4_bud_time, sue_x4_quota)
+    amy_moment.add_budunit(exx.sue, sue_x7_bud_time, sue_x7_quota)
     amy_moment.knot = sue_knot
     amy_moment.fund_grain = sue_fund_grain
     amy_moment.respect_grain = sue_respect_grain
     amy_moment.mana_grain = sue_mana_grain
     amy_moment.add_paypurchase(
-        belief_name=bob_str,
-        voice_name=sue_str,
+        belief_name=exx.bob,
+        voice_name=exx.sue,
         tran_time=pay_tran_time,
         amount=bob_sue_amount,
     )
@@ -192,17 +188,15 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario2():
     sue_fund_grain = 0.3
     sue_respect_grain = 2
     sue_mana_grain = 3
-    bob_str = "Bob"
     bob_x0_bud_time = 702
     bob_x0_quota = 33
-    sue_str = "Sue"
     sue_x4_bud_time = 4
     sue_x4_quota = 55
     sue_x7_bud_time = 7
     sue_x7_quota = 66
-    amy_moment.add_budunit(bob_str, bob_x0_bud_time, bob_x0_quota)
-    amy_moment.add_budunit(sue_str, sue_x4_bud_time, sue_x4_quota)
-    amy_moment.add_budunit(sue_str, sue_x7_bud_time, sue_x7_quota)
+    amy_moment.add_budunit(exx.bob, bob_x0_bud_time, bob_x0_quota)
+    amy_moment.add_budunit(exx.sue, sue_x4_bud_time, sue_x4_quota)
+    amy_moment.add_budunit(exx.sue, sue_x7_bud_time, sue_x7_quota)
     amy_moment.knot = sue_knot
     amy_moment.fund_grain = sue_fund_grain
     amy_moment.respect_grain = sue_respect_grain

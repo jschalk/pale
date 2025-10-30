@@ -14,15 +14,14 @@ from src.ch09_belief_lesson.test._util.ch09_examples import (
     get_atom_example_planunit_knee,
     get_atom_example_planunit_sports,
 )
-from src.ref.keywords import Ch09Keywords as kw
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def test_LessonUnit_save_atom_file_SavesCorrectFile(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
     two_int = 2
     six_int = 6
@@ -32,7 +31,7 @@ def test_LessonUnit_save_atom_file_SavesCorrectFile(temp_dir_setup):
     sue_atom6_path = create_path(sue_atoms_dir, six_filename)
     print(f"{sue_atom2_path=}")
     print(f"{sue_atom6_path=}")
-    sue_lessonunit = lessonunit_shop(sue_str, atoms_dir=sue_atoms_dir)
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
     assert os_path_exists(sue_atom2_path) is False
     assert os_path_exists(sue_atom6_path) is False
 
@@ -51,8 +50,7 @@ def test_LessonUnit_atom_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
     two_int = 2
     six_int = 6
@@ -62,7 +60,7 @@ def test_LessonUnit_atom_file_exists_ReturnsObj(temp_dir_setup):
     sue_atom6_path = create_path(sue_atoms_dir, six_filename)
     print(f"{sue_atom2_path=}")
     print(f"{sue_atom6_path=}")
-    sue_lessonunit = lessonunit_shop(sue_str, atoms_dir=sue_atoms_dir)
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
     assert os_path_exists(sue_atom2_path) is False
     assert sue_lessonunit.atom_file_exists(two_int) is False
 
@@ -78,8 +76,7 @@ def test_LessonUnit_open_atom_file_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
     two_int = 2
     six_int = 6
@@ -89,7 +86,7 @@ def test_LessonUnit_open_atom_file_ReturnsObj(temp_dir_setup):
     sue_atom6_path = create_path(sue_atoms_dir, six_filename)
     print(f"{sue_atom2_path=}")
     print(f"{sue_atom6_path=}")
-    sue_lessonunit = lessonunit_shop(sue_str, atoms_dir=sue_atoms_dir)
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
     sports_atom = get_atom_example_planunit_sports()
     sue_lessonunit._save_atom_file(two_int, sports_atom)
     assert sue_lessonunit.atom_file_exists(two_int)
@@ -105,9 +102,8 @@ def test_LessonUnit_save_lesson_file_SavesCorrectFile(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
     sue_lesson_id = 2
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
     two_int = 2
     six_int = 6
@@ -118,7 +114,7 @@ def test_LessonUnit_save_lesson_file_SavesCorrectFile(temp_dir_setup):
     print(f"{sue_lesson2_path=}")
     print(f"{sue_lesson6_path=}")
     sue_lessonunit = lessonunit_shop(
-        sue_str, None, None, sue_lesson_id, lessons_dir=sue_lessons_dir
+        exx.sue, None, None, sue_lesson_id, lessons_dir=sue_lessons_dir
     )
     assert os_path_exists(sue_lesson2_path) is False
     assert os_path_exists(sue_lesson6_path) is False
@@ -132,7 +128,7 @@ def test_LessonUnit_save_lesson_file_SavesCorrectFile(temp_dir_setup):
     lesson_file_dict = open_json(sue_lessons_dir, two_filename)
     print(f"{lesson_file_dict=}")
     assert lesson_file_dict.get("delta_atom_numbers") == []
-    assert lesson_file_dict.get(kw.belief_name) == sue_str
+    assert lesson_file_dict.get(kw.belief_name) == exx.sue
     assert lesson_file_dict.get(kw.face_name) is None
     print(f"{lesson_file_dict.keys()=}")
 
@@ -141,8 +137,7 @@ def test_LessonUnit_lesson_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
     two_int = 2
     six_int = 6
@@ -152,7 +147,7 @@ def test_LessonUnit_lesson_file_exists_ReturnsObj(temp_dir_setup):
     sue_lesson6_path = create_path(sue_lessons_dir, six_filename)
     print(f"{sue_lesson2_path=}")
     print(f"{sue_lesson6_path=}")
-    sue_lessonunit = lessonunit_shop(sue_str, lessons_dir=sue_lessons_dir)
+    sue_lessonunit = lessonunit_shop(exx.sue, lessons_dir=sue_lessons_dir)
     assert os_path_exists(sue_lesson2_path) is False
     assert sue_lessonunit.lesson_file_exists() is False
 
@@ -167,20 +162,17 @@ def test_LessonUnit_save_files_SavesFiles(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
 
-    zia_str = "Zia"
-    yao_str = "Yao"
     sue_delta_start = 4
     sue_lessonunit = lessonunit_shop(
-        sue_str, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
+        exx.sue, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
     )
     sue_lessonunit.set_delta_start(sue_delta_start)
-    sue_lessonunit.set_face(zia_str)
-    sue_lessonunit.set_face(yao_str)
+    sue_lessonunit.set_face(exx.zia)
+    sue_lessonunit.set_face(exx.yao)
     int4 = 4
     int5 = 5
     sports_atom = get_atom_example_planunit_sports()
@@ -204,11 +196,10 @@ def test_LessonUnit_create_beliefdelta_from_atom_files_SetsAttr(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
 
-    sue_lessonunit = lessonunit_shop(sue_str, atoms_dir=sue_atoms_dir)
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
     int4 = 4
     int5 = 5
     int9 = 9
@@ -237,18 +228,16 @@ def test_create_lessonunit_from_files_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     x_moment_dir = create_path(moments_dir(), "amy23")
     x_beliefs_dir = create_path(x_moment_dir, "beliefs")
-    sue_str = "Sue"
-    sue_belief_dir = create_path(x_beliefs_dir, sue_str)
+    sue_belief_dir = create_path(x_beliefs_dir, exx.sue)
     sue_atoms_dir = create_path(sue_belief_dir, "atoms")
     sue_lessons_dir = create_path(sue_belief_dir, "lessons")
 
-    yao_str = "Yao"
     sue_delta_start = 4
     src_sue_lessonunit = lessonunit_shop(
-        sue_str, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
+        exx.sue, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
     )
     src_sue_lessonunit.set_delta_start(sue_delta_start)
-    src_sue_lessonunit.set_face(yao_str)
+    src_sue_lessonunit.set_face(exx.yao)
     sports_atom = get_atom_example_planunit_sports()
     knee_atom = get_atom_example_planunit_knee()
     ball_atom = get_atom_example_planunit_ball()

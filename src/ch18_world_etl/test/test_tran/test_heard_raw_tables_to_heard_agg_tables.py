@@ -9,7 +9,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     get_insert_heard_agg_sqlstrs,
 )
 from src.ch18_world_etl.transformers import etl_heard_raw_tables_to_heard_agg_tables
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_get_insert_heard_agg_sqlstrs_ReturnsObj_CheckMomentDimen():
@@ -127,9 +127,6 @@ GROUP BY {v_raw_del_columns_str}
 def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
-    sue_str = "Sue"
-    yao_str = "Yao"
     yao_inx = "Yaoito"
     spark1 = 1
     spark2 = 2
@@ -155,11 +152,11 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
 , {kw.voice_debt_lumen}
 )
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_inx}', {x44_credit}, {x22_debt})
-, ({spark2}, '{yao_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt})
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt})
+  ({spark1}, '{exx.sue}', '{a23_str}','{exx.yao}', '{yao_inx}', {x44_credit}, {x22_debt})
+, ({spark2}, '{exx.yao}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{exx.sue}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
         cursor.execute(insert_into_clause)
@@ -187,19 +184,16 @@ FROM {blfvoce_h_agg_put_tablename}
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (spark1, sue_str, a23_str, yao_str, yao_inx, 44.0, 22.0),
-            (spark2, yao_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (spark5, sue_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (spark7, bob_str, a23_str, bob_str, bob_str, 55.0, 66.0),
+            (spark1, exx.sue, a23_str, exx.yao, yao_inx, 44.0, 22.0),
+            (spark2, exx.yao, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (spark5, exx.sue, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (spark7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]
 
 
 def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
-    sue_str = "Sue"
-    yao_str = "Yao"
     yao_inx = "Yaoito"
     spark1 = 1
     spark2 = 2
@@ -225,11 +219,11 @@ def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0():
 , {kw.voice_debt_lumen}
 )
 VALUES
-  ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_inx}', {x44_credit}, {x22_debt})
-, ({spark2}, '{yao_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt})
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt})
+  ({spark1}, '{exx.sue}', '{a23_str}','{exx.yao}', '{yao_inx}', {x44_credit}, {x22_debt})
+, ({spark2}, '{exx.yao}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{exx.sue}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
         cursor.execute(insert_into_clause)
@@ -255,8 +249,8 @@ FROM {blfvoce_h_agg_put_tablename}
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (spark1, sue_str, a23_str, yao_str, yao_inx, 44.0, 22.0),
-            (spark2, yao_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (spark5, sue_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (spark7, bob_str, a23_str, bob_str, bob_str, 55.0, 66.0),
+            (spark1, exx.sue, a23_str, exx.yao, yao_inx, 44.0, 22.0),
+            (spark2, exx.yao, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (spark5, exx.sue, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (spark7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]

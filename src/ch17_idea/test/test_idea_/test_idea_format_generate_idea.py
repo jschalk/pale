@@ -7,15 +7,12 @@ from src.ch17_idea.idea_config import (
     idea_format_00021_belief_voiceunit_v0_0_0,
 )
 from src.ch17_idea.idea_main import create_idea_df, get_idearef_obj, make_beliefdelta
-from src.ref.keywords import Ch17Keywords as kw
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
 def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_str = "Sue"
-    bob_str = "Bob"
-    yao_str = "Yao"
     sue_voice_cred_lumen = 11
     bob_voice_cred_lumen = 13
     yao_voice_cred_lumen = 41
@@ -23,10 +20,10 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     bob_voice_debt_lumen = 29
     yao_voice_debt_lumen = 37
     amy_moment_label = "amy56"
-    sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
-    sue_beliefunit.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(bob_str, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
+    sue_beliefunit.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
     x_idea_name = idea_format_00021_belief_voiceunit_v0_0_0()
     voice_dataframe = create_idea_df(sue_beliefunit, x_idea_name)
     print(f"{voice_dataframe.columns=}")
@@ -38,18 +35,18 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     # THEN
     assert sue_voice_beliefdelta
     sue_beliefatom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    sue_beliefatom.set_arg(kw.voice_name, sue_str)
+    sue_beliefatom.set_arg(kw.voice_name, exx.sue)
     sue_beliefatom.set_arg(kw.voice_cred_lumen, sue_voice_cred_lumen)
     sue_beliefatom.set_arg(kw.voice_debt_lumen, sue_voice_debt_lumen)
     sue_beliefatom.set_atom_order()
     bob_beliefatom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    bob_beliefatom.set_arg(kw.voice_name, bob_str)
+    bob_beliefatom.set_arg(kw.voice_name, exx.bob)
     bob_beliefatom.set_arg(kw.voice_cred_lumen, bob_voice_cred_lumen)
     bob_beliefatom.set_arg(kw.voice_debt_lumen, bob_voice_debt_lumen)
     bob_beliefatom.set_atom_order()
     # print(f"{sue_voice_beliefdelta.get_ordered_dict()=}")
     # print(
-    #     f"{sue_voice_beliefdelta.beliefatoms.get(kw.INSERT).get(kw.belief_voiceunit).get(sue_str)=}"
+    #     f"{sue_voice_beliefdelta.beliefatoms.get(kw.INSERT).get(kw.belief_voiceunit).get(exx.sue)=}"
     # )
     print(f"{sue_beliefatom=}")
     assert sue_voice_beliefdelta.c_beliefatom_exists(sue_beliefatom)
@@ -59,14 +56,13 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 
 # def test_make_beliefdelta_Arg_idea_format_00020_belief_voice_membership_v0_0_0():
 #     # ESTABLISH
-#     sue_str = "Sue"
-#     bob_str = "Bob"
-#     yao_str = "Yao"
+#     exx.bob = "Bob"
+#     exx.yao = "Yao"
 #     amy_moment_label = "amy56"
-#     sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
-#     sue_beliefunit.add_voiceunit(sue_str)
-#     sue_beliefunit.add_voiceunit(bob_str)
-#     sue_beliefunit.add_voiceunit(yao_str)
+#     sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
+#     sue_beliefunit.add_voiceunit(exx.sue)
+#     sue_beliefunit.add_voiceunit(exx.bob)
+#     sue_beliefunit.add_voiceunit(exx.yao)
 #     iowa_str = ";Iowa"
 #     sue_iowa_group_cred_lumen = 37
 #     bob_iowa_group_cred_lumen = 43
@@ -77,9 +73,9 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 #     ohio_str = ";Ohio"
 #     yao_ohio_group_cred_lumen = 73
 #     yao_ohio_group_debt_lumen = 67
-#     sue_voiceunit = sue_beliefunit.get_voice(sue_str)
-#     bob_voiceunit = sue_beliefunit.get_voice(bob_str)
-#     yao_voiceunit = sue_beliefunit.get_voice(yao_str)
+#     sue_voiceunit = sue_beliefunit.get_voice(exx.sue)
+#     bob_voiceunit = sue_beliefunit.get_voice(exx.bob)
+#     yao_voiceunit = sue_beliefunit.get_voice(exx.yao)
 #     sue_voiceunit.add_membership(iowa_str, sue_iowa_group_cred_lumen, sue_iowa_group_debt_lumen)
 #     bob_voiceunit.add_membership(iowa_str, bob_iowa_group_cred_lumen, bob_iowa_group_debt_lumen)
 #     yao_voiceunit.add_membership(iowa_str, yao_iowa_group_cred_lumen, yao_iowa_group_debt_lumen)
@@ -104,10 +100,10 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 #     bob_iowa_beliefatom.set_arg(kw.group_title, iowa_str)
 #     yao_iowa_beliefatom.set_arg(kw.group_title, iowa_str)
 #     yao_ohio_beliefatom.set_arg(kw.group_title, ohio_str)
-#     sue_iowa_beliefatom.set_arg(kw.voice_name, sue_str)
-#     bob_iowa_beliefatom.set_arg(kw.voice_name, bob_str)
-#     yao_iowa_beliefatom.set_arg(kw.voice_name, yao_str)
-#     yao_ohio_beliefatom.set_arg(kw.voice_name, yao_str)
+#     sue_iowa_beliefatom.set_arg(kw.voice_name, exx.sue)
+#     bob_iowa_beliefatom.set_arg(kw.voice_name, exx.bob)
+#     yao_iowa_beliefatom.set_arg(kw.voice_name, exx.yao)
+#     yao_ohio_beliefatom.set_arg(kw.voice_name, exx.yao)
 #     sue_iowa_beliefatom.set_arg(kw.group_cred_lumen, sue_iowa_group_cred_lumen)
 #     bob_iowa_beliefatom.set_arg(kw.group_cred_lumen, bob_iowa_group_cred_lumen)
 #     yao_iowa_beliefatom.set_arg(kw.group_cred_lumen, yao_iowa_group_cred_lumen)
@@ -131,9 +127,8 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 def test_make_beliefdelta_Arg_idea_format_00013_planunit_v0_0_0():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_str = "Sue"
     amy_moment_label = "amy56"
-    sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
+    sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
     casa_str = "casa"
     casa_rope = sue_beliefunit.make_l1_rope(casa_str)
     casa_star = 31

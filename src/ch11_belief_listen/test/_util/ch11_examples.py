@@ -6,7 +6,7 @@ from src.ch09_belief_lesson.lesson_filehandler import (
 )
 from src.ch09_belief_lesson.test._util.ch09_examples import get_texas_rope
 from src.ch11_belief_listen.test._util.ch11_env import get_temp_dir
-from src.ref.keywords import Ch11Keywords as kw
+from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx
 
 
 def ch11_example_moment_label() -> str:
@@ -70,16 +70,14 @@ def a23_run_rope() -> RopeTerm:
 
 
 def get_example_zia_speaker() -> BeliefUnit:
-    zia_str = "Zia"
     a23_str = "amy23"
-    zia_speaker = beliefunit_shop(zia_str, a23_str)
+    zia_speaker = beliefunit_shop(exx.zia, a23_str)
     zia_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     zia_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     zia_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
-    yao_str = "Yao"
-    zia_speaker.add_voiceunit(yao_str, voice_debt_lumen=12)
+    zia_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
     cook_planunit = zia_speaker.get_plan_obj(a23_cook_rope())
-    cook_planunit.laborunit.add_party(yao_str)
+    cook_planunit.laborunit.add_party(exx.yao)
     zia_speaker.edit_plan_attr(
         a23_cook_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
@@ -89,16 +87,14 @@ def get_example_zia_speaker() -> BeliefUnit:
 
 
 def get_example_bob_speaker() -> BeliefUnit:
-    bob_str = "Bob"
     a23_str = "amy23"
-    bob_speaker = beliefunit_shop(bob_str, a23_str)
+    bob_speaker = beliefunit_shop(exx.bob, a23_str)
     bob_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     bob_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     bob_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
-    yao_str = "Yao"
-    bob_speaker.add_voiceunit(yao_str, voice_debt_lumen=12)
+    bob_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
     cook_planunit = bob_speaker.get_plan_obj(a23_cook_rope())
-    cook_planunit.laborunit.add_party(yao_str)
+    cook_planunit.laborunit.add_party(exx.yao)
     bob_speaker.edit_plan_attr(
         a23_cook_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
@@ -108,20 +104,17 @@ def get_example_bob_speaker() -> BeliefUnit:
 
 
 def get_example_yao_speaker() -> BeliefUnit:
-    yao_str = "Yao"
-    zia_str = "Zia"
-    bob_str = "Bob"
     a23_str = "amy23"
-    yao_speaker = beliefunit_shop(yao_str, a23_str)
-    yao_speaker.add_voiceunit(yao_str, voice_debt_lumen=12)
-    yao_speaker.add_voiceunit(zia_str, voice_debt_lumen=36)
-    yao_speaker.add_voiceunit(bob_str, voice_debt_lumen=48)
+    yao_speaker = beliefunit_shop(exx.yao, a23_str)
+    yao_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
+    yao_speaker.add_voiceunit(exx.zia, voice_debt_lumen=36)
+    yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=48)
     yao_speaker.set_voice_respect(100)
     yao_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     yao_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
     cook_planunit = yao_speaker.get_plan_obj(a23_cook_rope())
-    cook_planunit.laborunit.add_party(yao_str)
+    cook_planunit.laborunit.add_party(exx.yao)
     yao_speaker.edit_plan_attr(
         a23_cook_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )

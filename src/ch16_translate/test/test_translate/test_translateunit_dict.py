@@ -11,13 +11,12 @@ from src.ch16_translate.translate_main import (
     get_translateunit_from_dict,
     translateunit_shop,
 )
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
 def test_TranslateUnit_to_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
 
     # WHEN
     sue_dict = sue_translateunit.to_dict()
@@ -25,7 +24,7 @@ def test_TranslateUnit_to_dict_ReturnsObj_Scenario0():
     # THEN
     print(sue_dict)
     assert sue_dict
-    assert sue_dict.get(kw.face_name) == sue_str
+    assert sue_dict.get(kw.face_name) == exx.sue
     assert sue_dict.get(kw.spark_num) == sue_translateunit.spark_num
     assert sue_dict.get(kw.otx_knot) == default_knot_if_None()
     assert sue_dict.get(kw.inx_knot) == default_knot_if_None()
@@ -45,12 +44,11 @@ def test_TranslateUnit_to_dict_ReturnsObj_Scenario0():
 
 def test_TranslateUnit_to_dict_ReturnsObj_Scenario1():
     # ESTABLISH
-    sue_str = "Sue"
     x_unknown_str = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
     sue_translateunit = translateunit_shop(
-        sue_str, 0, slash_otx_knot, colon_inx_knot, x_unknown_str
+        exx.sue, 0, slash_otx_knot, colon_inx_knot, x_unknown_str
     )
     sue_translateunit.set_namemap(get_slash_namemap())
     sue_translateunit.set_titlemap(get_slash_titlemap())
@@ -61,7 +59,7 @@ def test_TranslateUnit_to_dict_ReturnsObj_Scenario1():
     sue_dict = sue_translateunit.to_dict()
 
     # THEN
-    assert sue_dict.get(kw.face_name) == sue_str
+    assert sue_dict.get(kw.face_name) == exx.sue
     assert sue_dict.get(kw.otx_knot) == slash_otx_knot
     assert sue_dict.get(kw.inx_knot) == colon_inx_knot
     assert sue_dict.get(kw.unknown_str) == x_unknown_str
@@ -77,13 +75,12 @@ def test_TranslateUnit_to_dict_ReturnsObj_Scenario1():
 
 def test_get_translateunit_from_dict_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
     sue_spark_num = 7
     x_unknown_str = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
     sue_translateunit = translateunit_shop(
-        sue_str,
+        exx.sue,
         sue_spark_num,
         slash_otx_knot,
         colon_inx_knot,
@@ -99,7 +96,7 @@ def test_get_translateunit_from_dict_ReturnsObj():
 
     # THEN
     assert gen_translateunit
-    assert gen_translateunit.face_name == sue_str
+    assert gen_translateunit.face_name == exx.sue
     assert gen_translateunit.spark_num == sue_spark_num
     assert gen_translateunit.otx_knot == slash_otx_knot
     assert gen_translateunit.inx_knot == colon_inx_knot

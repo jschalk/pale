@@ -3,20 +3,18 @@ from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason import factunit_shop, reasonunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch08_belief_atom.atom_main import beliefatom_shop, sift_beliefatom
-from src.ref.keywords import Ch08Keywords as kw
+from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 
 
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voiceunit():
     # ESTABLISH
-    bob_str = "Bob"
-    zia_str = "Zia"
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(zia_str)
+    sue_belief.add_voiceunit(exx.zia)
 
     bob_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    bob_atom.set_arg(kw.voice_name, bob_str)
+    bob_atom.set_arg(kw.voice_name, exx.bob)
     zia_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    zia_atom.set_arg(kw.voice_name, zia_str)
+    zia_atom.set_arg(kw.voice_name, exx.zia)
 
     # WHEN
     new_bob_beliefatom = sift_beliefatom(sue_belief, bob_atom)
@@ -30,21 +28,19 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voiceunit():
 
 def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voice_membership():
     # ESTABLISH
-    bob_str = "Bob"
-    yao_str = "Yao"
     run_str = ";run"
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(yao_str)
-    sue_belief.add_voiceunit(bob_str)
-    yao_voiceunit = sue_belief.get_voice(yao_str)
+    sue_belief.add_voiceunit(exx.yao)
+    sue_belief.add_voiceunit(exx.bob)
+    yao_voiceunit = sue_belief.get_voice(exx.yao)
     yao_voiceunit.add_membership(run_str)
     print(f"{yao_voiceunit.memberships.keys()=}")
 
     bob_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
-    bob_run_atom.set_arg(kw.voice_name, bob_str)
+    bob_run_atom.set_arg(kw.voice_name, exx.bob)
     bob_run_atom.set_arg(kw.group_title, run_str)
     yao_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
-    yao_run_atom.set_arg(kw.voice_name, yao_str)
+    yao_run_atom.set_arg(kw.voice_name, exx.yao)
     yao_run_atom.set_arg(kw.group_title, run_str)
 
     # WHEN

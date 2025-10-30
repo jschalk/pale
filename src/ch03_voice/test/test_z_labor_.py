@@ -10,7 +10,7 @@ from src.ch03_voice.labor import (
     partyheir_shop,
     partyunit_shop,
 )
-from src.ref.keywords import Ch03Keywords as kw
+from src.ref.keywords import Ch03Keywords as kw, ExampleStrs as exx
 
 
 def test_PartyUnit_Exists():
@@ -27,26 +27,24 @@ def test_PartyUnit_Exists():
 
 def test_partyunit_shop_ReturnsObj_Scenario0_WithParameters():
     # ESTABLISH
-    bob_str = "Bob"
     bob_solo_bool = True
 
     # WHEN
-    x_partyunit = partyunit_shop(bob_str, solo=bob_solo_bool)
+    x_partyunit = partyunit_shop(exx.bob, solo=bob_solo_bool)
 
     # THEN
-    assert x_partyunit.party_title == bob_str
+    assert x_partyunit.party_title == exx.bob
     assert x_partyunit.solo == bob_solo_bool
 
 
 def test_partyunit_shop_ReturnsObj_Scenario1_WithParametersNot():
     # ESTABLISH
-    bob_str = "Bob"
 
     # WHEN
-    x_partyunit = partyunit_shop(bob_str)
+    x_partyunit = partyunit_shop(exx.bob)
 
     # THEN
-    assert x_partyunit.party_title == bob_str
+    assert x_partyunit.party_title == exx.bob
     assert x_partyunit.solo is False
 
 
@@ -65,14 +63,13 @@ def test_PartyHeir_Exists():
 
 def test_partyheir_shop_ReturnsObj():
     # ESTABLISH
-    bob_str = "Bob"
     bob_solo_bool = True
 
     # WHEN
-    x_partyheir = partyheir_shop(bob_str, bob_solo_bool)
+    x_partyheir = partyheir_shop(exx.bob, bob_solo_bool)
 
     # THEN
-    assert x_partyheir.party_title == bob_str
+    assert x_partyheir.party_title == exx.bob
     assert x_partyheir.solo == bob_solo_bool
 
 
@@ -115,55 +112,50 @@ def test_LaborUnit_add_party_SetsAttr_Secnario0():
     assert len(x_laborunit.partys) == 0
 
     # WHEN
-    yao_str = "Yao"
-    x_laborunit.add_party(party_title=yao_str)
+    x_laborunit.add_party(party_title=exx.yao)
 
     # THEN
     assert len(x_laborunit.partys) == 1
-    expected_partys = {yao_str: partyunit_shop(yao_str)}
+    expected_partys = {exx.yao: partyunit_shop(exx.yao)}
     assert x_laborunit.partys == expected_partys
 
 
 def test_LaborUnit_add_party_SetsAttr_Secnario1():
     # ESTABLISH
     x_laborunit = laborunit_shop()
-    yao_str = "Yao"
     yao_solo_bool = True
     assert len(x_laborunit.partys) == 0
 
     # WHEN
-    x_laborunit.add_party(party_title=yao_str, solo=yao_solo_bool)
+    x_laborunit.add_party(party_title=exx.yao, solo=yao_solo_bool)
 
     # THEN
     assert len(x_laborunit.partys) == 1
-    expected_partys = {yao_str: partyunit_shop(yao_str, solo=yao_solo_bool)}
+    expected_partys = {exx.yao: partyunit_shop(exx.yao, solo=yao_solo_bool)}
     assert x_laborunit.partys == expected_partys
 
 
 def test_LaborUnit_partyunit_exists_ReturnsObj():
     # ESTABLISH
     x_laborunit = laborunit_shop()
-    yao_str = "Yao"
-    assert x_laborunit.partyunit_exists(yao_str) is False
+    assert x_laborunit.partyunit_exists(exx.yao) is False
 
     # WHEN
-    x_laborunit.add_party(party_title=yao_str)
+    x_laborunit.add_party(party_title=exx.yao)
 
     # THEN
-    assert x_laborunit.partyunit_exists(yao_str)
+    assert x_laborunit.partyunit_exists(exx.yao)
 
 
 def test_LaborUnit_del_partyunit_Deletes_partys_v1():
     # ESTABLISH
     x_laborunit = laborunit_shop()
-    yao_str = "Yao"
-    sue_str = "Sue"
-    x_laborunit.add_party(party_title=yao_str)
-    x_laborunit.add_party(party_title=sue_str)
+    x_laborunit.add_party(party_title=exx.yao)
+    x_laborunit.add_party(party_title=exx.sue)
     assert len(x_laborunit.partys) == 2
 
     # WHEN
-    x_laborunit.del_partyunit(party_title=sue_str)
+    x_laborunit.del_partyunit(party_title=exx.sue)
 
     # THEN
     assert len(x_laborunit.partys) == 1
@@ -215,16 +207,14 @@ def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_Emptyx_partys():
 
 def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v1():
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
-    yao_groupunit = groupunit_shop(yao_str)
-    sue_groupunit = groupunit_shop(sue_str)
-    yao_groupunit.set_g_membership(membership_shop(yao_str, voice_name=yao_str))
-    sue_groupunit.set_g_membership(membership_shop(sue_str, voice_name=sue_str))
-    x_groupunits = {yao_str: yao_groupunit, sue_str: sue_groupunit}
-    belief_name = yao_str
+    yao_groupunit = groupunit_shop(exx.yao)
+    sue_groupunit = groupunit_shop(exx.sue)
+    yao_groupunit.set_g_membership(membership_shop(exx.yao, voice_name=exx.yao))
+    sue_groupunit.set_g_membership(membership_shop(exx.sue, voice_name=exx.sue))
+    x_groupunits = {exx.yao: yao_groupunit, exx.sue: sue_groupunit}
+    belief_name = exx.yao
 
-    x_partys = {yao_str}
+    x_partys = {exx.yao}
     x_laborheir = laborheir_shop(partys=x_partys)
     assert x_laborheir.belief_name_is_labor is False
 
@@ -237,20 +227,18 @@ def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v1():
 
 def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v2():
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
-    yao_groupunit = groupunit_shop(yao_str)
-    sue_groupunit = groupunit_shop(sue_str)
-    yao_groupunit.set_g_membership(membership_shop(yao_str, voice_name=yao_str))
-    sue_groupunit.set_g_membership(membership_shop(sue_str, voice_name=sue_str))
-    x_groupunits = {yao_str: yao_groupunit, sue_str: sue_groupunit}
-    x_partys = {sue_str}
+    yao_groupunit = groupunit_shop(exx.yao)
+    sue_groupunit = groupunit_shop(exx.sue)
+    yao_groupunit.set_g_membership(membership_shop(exx.yao, voice_name=exx.yao))
+    sue_groupunit.set_g_membership(membership_shop(exx.sue, voice_name=exx.sue))
+    x_groupunits = {exx.yao: yao_groupunit, exx.sue: sue_groupunit}
+    x_partys = {exx.sue}
     x_laborheir = laborheir_shop(partys=x_partys)
-    assert yao_groupunit.get_voice_membership(yao_str) is not None
+    assert yao_groupunit.get_voice_membership(exx.yao) is not None
     assert x_laborheir.belief_name_is_labor is False
 
     # WHEN
-    x_laborheir.set_belief_name_is_labor(x_groupunits, yao_str)
+    x_laborheir.set_belief_name_is_labor(x_groupunits, exx.yao)
 
     # THEN
     assert x_laborheir.belief_name_is_labor is False
@@ -258,35 +246,32 @@ def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v2():
 
 def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v3():
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
-    bob_str = "Bob"
-    yao_groupunit = groupunit_shop(yao_str)
-    sue_groupunit = groupunit_shop(sue_str)
-    bob_groupunit = groupunit_shop(bob_str)
-    yao_groupunit.set_g_membership(membership_shop(yao_str, voice_name=yao_str))
-    sue_groupunit.set_g_membership(membership_shop(sue_str, voice_name=sue_str))
+    yao_groupunit = groupunit_shop(exx.yao)
+    sue_groupunit = groupunit_shop(exx.sue)
+    bob_groupunit = groupunit_shop(exx.bob)
+    yao_groupunit.set_g_membership(membership_shop(exx.yao, voice_name=exx.yao))
+    sue_groupunit.set_g_membership(membership_shop(exx.sue, voice_name=exx.sue))
 
     swim_str = ",swim"
     swim_groupunit = groupunit_shop(group_title=swim_str)
-    swim_groupunit.set_g_membership(membership_shop(swim_str, voice_name=yao_str))
-    swim_groupunit.set_g_membership(membership_shop(swim_str, voice_name=sue_str))
+    swim_groupunit.set_g_membership(membership_shop(swim_str, voice_name=exx.yao))
+    swim_groupunit.set_g_membership(membership_shop(swim_str, voice_name=exx.sue))
     x_groupunits = {
-        yao_str: yao_groupunit,
-        sue_str: sue_groupunit,
-        bob_str: bob_groupunit,
+        exx.yao: yao_groupunit,
+        exx.sue: sue_groupunit,
+        exx.bob: bob_groupunit,
         swim_str: swim_groupunit,
     }
 
     x_partys = {swim_str}
     x_laborheir = laborheir_shop(partys=x_partys)
     assert x_laborheir.belief_name_is_labor is False
-    x_laborheir.set_belief_name_is_labor(x_groupunits, belief_name=yao_str)
+    x_laborheir.set_belief_name_is_labor(x_groupunits, belief_name=exx.yao)
     assert x_laborheir.belief_name_is_labor
 
     # WHEN
-    swim_groupunit.del_membership(yao_str)
-    x_laborheir.set_belief_name_is_labor(x_groupunits, yao_str)
+    swim_groupunit.del_membership(exx.yao)
+    x_laborheir.set_belief_name_is_labor(x_groupunits, exx.yao)
 
     # THEN
     assert x_laborheir.belief_name_is_labor is False
@@ -311,11 +296,10 @@ def test_LaborHeir_set_partys_Scenario0_LaborUnitIsEmptyAndParentLaborHeirIsEmpt
 
 def test_LaborHeir_set_partys_Scenario1_LaborUnitNotEmpty_ParentLaborHeirIsNone():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     swim_str = ",swim"
     x_laborunit = laborunit_shop()
-    x_laborunit.add_party(xio_str, xio_solo_bool)
+    x_laborunit.add_party(exx.xio, xio_solo_bool)
     x_laborunit.add_party(swim_str)
     x_laborheir = laborheir_shop()
     assert x_laborheir.partys == {}
@@ -326,7 +310,7 @@ def test_LaborHeir_set_partys_Scenario1_LaborUnitNotEmpty_ParentLaborHeirIsNone(
     # THEN
     assert x_laborheir.partys.keys() == x_laborunit.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")
@@ -336,11 +320,10 @@ def test_LaborHeir_set_partys_Scenario1_LaborUnitNotEmpty_ParentLaborHeirIsNone(
 
 def test_LaborHeir_set_partys_Scenario2_LaborUnitNotEmpty_ParentLaborHeirEmpty():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     swim_str = ",swim"
     x_laborunit = laborunit_shop()
-    x_laborunit.add_party(xio_str, xio_solo_bool)
+    x_laborunit.add_party(exx.xio, xio_solo_bool)
     x_laborunit.add_party(swim_str)
     x_laborheir = laborheir_shop()
     parent_laborheir_empty = laborheir_shop()
@@ -352,7 +335,7 @@ def test_LaborHeir_set_partys_Scenario2_LaborUnitNotEmpty_ParentLaborHeirEmpty()
     # THEN
     assert x_laborheir.partys.keys() == x_laborunit.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")
@@ -362,11 +345,10 @@ def test_LaborHeir_set_partys_Scenario2_LaborUnitNotEmpty_ParentLaborHeirEmpty()
 
 def test_LaborHeir_set_partys_Scenario3_LaborUnit_Empty_ParentLaborHeirNotEmpty():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     swim_str = ",swim"
     laborunit_swim = laborunit_shop()
-    laborunit_swim.add_party(xio_str, xio_solo_bool)
+    laborunit_swim.add_party(exx.xio, xio_solo_bool)
     laborunit_swim.add_party(swim_str, False)
     empty_laborheir = laborheir_shop()
     parent_laborheir = laborheir_shop()
@@ -383,7 +365,7 @@ def test_LaborHeir_set_partys_Scenario3_LaborUnit_Empty_ParentLaborHeirNotEmpty(
     # THEN
     assert x_laborheir.partys.keys() == parent_laborheir.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")
@@ -393,10 +375,9 @@ def test_LaborHeir_set_partys_Scenario3_LaborUnit_Empty_ParentLaborHeirNotEmpty(
 
 def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty():
     # ESTABLISH
-    xio_str = "xio"
     xio_solo_bool = True
     xio_laborunit = laborunit_shop()
-    xio_laborunit.add_party(xio_str, xio_solo_bool)
+    xio_laborunit.add_party(exx.xio, xio_solo_bool)
     empty_laborheir = laborheir_shop()
     parent_laborheir = laborheir_shop()
     parent_laborheir.set_partys(empty_laborheir, xio_laborunit, groupunits=None)
@@ -415,7 +396,7 @@ def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty()
     assert x_laborheir.partys.keys() != parent_laborheir.partys.keys()
     assert x_laborheir.partys.keys() != swim_laborunit.partys.keys()
     expected_partys = {
-        xio_str: partyheir_shop(xio_str, xio_solo_bool),
+        exx.xio: partyheir_shop(exx.xio, xio_solo_bool),
         swim_str: partyheir_shop(swim_str, False),
     }
     print(f"{x_laborheir.partys=}")
@@ -425,32 +406,28 @@ def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty()
 
 # def test_LaborHeir_set_partys_Scenario5_LaborUnit_NotEqual_ParentLaborHeir_NonEmpty():
 #     # ESTABLISH
-#     yao_str = "Yao"
-#     sue_str = "Sue"
-#     bob_str = "Bob"
-#     zia_str = "Zia"
-#     yao_groupunit = groupunit_shop(yao_str)
-#     sue_groupunit = groupunit_shop(sue_str)
-#     bob_groupunit = groupunit_shop(bob_str)
-#     bob_groupunit = groupunit_shop(zia_str)
-#     yao_groupunit.set_g_membership(membership_shop(yao_str, voice_name=yao_str))
-#     sue_groupunit.set_g_membership(membership_shop(sue_str, voice_name=sue_str))
+#     yao_groupunit = groupunit_shop(exx.yao)
+#     sue_groupunit = groupunit_shop(exx.sue)
+#     bob_groupunit = groupunit_shop(exx.bob)
+#     bob_groupunit = groupunit_shop(exx.zia)
+#     yao_groupunit.set_g_membership(membership_shop(exx.yao, voice_name=exx.yao))
+#     sue_groupunit.set_g_membership(membership_shop(exx.sue, voice_name=exx.sue))
 
 #     swim2_str = ",swim2"
 #     swim2_groupunit = groupunit_shop(group_title=swim2_str)
-#     swim2_groupunit.set_g_membership(membership_shop(swim2_str, voice_name=yao_str))
-#     swim2_groupunit.set_g_membership(membership_shop(swim2_str, voice_name=sue_str))
+#     swim2_groupunit.set_g_membership(membership_shop(swim2_str, voice_name=exx.yao))
+#     swim2_groupunit.set_g_membership(membership_shop(swim2_str, voice_name=exx.sue))
 
 #     swim3_str = ",swim3"
 #     swim3_groupunit = groupunit_shop(group_title=swim3_str)
-#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=yao_str))
-#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=sue_str))
-#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=zia_str))
+#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=exx.yao))
+#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=exx.sue))
+#     swim3_groupunit.set_g_membership(membership_shop(swim3_str, voice_name=exx.zia))
 
 #     x_groupunits = {
-#         yao_str: yao_groupunit,
-#         sue_str: sue_groupunit,
-#         bob_str: bob_groupunit,
+#         exx.yao: yao_groupunit,
+#         exx.sue: sue_groupunit,
+#         exx.bob: bob_groupunit,
 #         swim2_str: swim2_groupunit,
 #         swim3_str: swim3_groupunit,
 #     }

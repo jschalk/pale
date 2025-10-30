@@ -30,7 +30,7 @@ from src.ch14_epoch.test._util.ch14_examples import (
     get_tue,
     get_wed,
 )
-from src.ref.keywords import Ch14Keywords as kw
+from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
 
 
 def test_get_creg_config_ReturnsObj():
@@ -576,8 +576,7 @@ def test_add_epoch_planunit_SetsAttr_Scenario0():
 def test_BeliefUnit_get_agenda_dict_DoesNotReturnPledgePlansOutsideRange():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_str = "Sue"
-    sue_belief = add_time_creg_planunit(beliefunit_shop(sue_str))
+    sue_belief = add_time_creg_planunit(beliefunit_shop(exx.sue))
     clean_str = "clean"
     clean_rope = sue_belief.make_l1_rope(clean_str)
     sue_belief.set_l1_plan(planunit_shop(clean_str, pledge=True))

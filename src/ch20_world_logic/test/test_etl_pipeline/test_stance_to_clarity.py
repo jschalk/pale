@@ -11,7 +11,7 @@ from src.ch20_world_logic.test._util.ch20_env import (
     temp_dir_setup,
 )
 from src.ch20_world_logic.world import WorldUnit, worldunit_shop
-from src.ref.keywords import Ch20Keywords as kw
+from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
 def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
@@ -21,7 +21,6 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     fay_str = "Fay34"
     fay_world = worldunit_shop(fay_str, worlds_dir())
     # delete_dir(fay_world.worlds_dir)
-    sue_str = "Sue"
     sue_inx = "Suzy"
     ex_filename = "stance_Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
@@ -36,7 +35,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     a23_str = "amy2345"
     tp37 = 37
     br00113_str = "br00113"
-    br00113row0 = [sue_str, a23_str, sue_str, sue_str, sue_str, sue_inx]
+    br00113row0 = [exx.sue, a23_str, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
     upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
@@ -52,7 +51,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     tp37 = 37
     sue_quota = 235
     sue_celldepth = 3
-    br1row0 = [sue_str, a23_str, sue_str, tp37, sue_quota, sue_celldepth]
+    br1row0 = [exx.sue, a23_str, exx.sue, tp37, sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
     upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
@@ -117,7 +116,6 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
 
 
 def create_brick_agg_record(world: WorldUnit, spark_num: int):
-    sue_str = "Sue"
     minute_360 = 360
     hour6am = "6am"
     agg_br00003_tablename = f"br00003_{kw.brick_agg}"
@@ -138,7 +136,7 @@ def create_brick_agg_record(world: WorldUnit, spark_num: int):
 , {kw.cumulative_minute}
 , {kw.hour_label}
 )"""
-        values_clause = f"""VALUES ('{spark_num}', '{sue_str}', '{world.world_name}', '{minute_360}', '{hour6am}');"""
+        values_clause = f"""VALUES ('{spark_num}', '{exx.sue}', '{world.world_name}', '{minute_360}', '{hour6am}');"""
         insert_sqlstr = f"{insert_into_clause} {values_clause}"
         cursor.execute(insert_sqlstr)
     db_conn.close()
@@ -153,7 +151,6 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     spark5 = 5
     create_brick_agg_record(fay_world, spark5)
     # delete_dir(fay_world.worlds_dir)
-    sue_str = "Sue"
     sue_inx = "Suzy"
     ex_filename = "stance_Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
@@ -167,7 +164,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     ]
     a23_str = "amy2345"
     br00113_str = "br00113"
-    br00113row0 = [sue_str, a23_str, sue_str, sue_str, sue_str, sue_inx]
+    br00113row0 = [exx.sue, a23_str, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
     upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)

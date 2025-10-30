@@ -12,23 +12,21 @@ from src.ch11_belief_listen.test._util.ch11_env import (
     get_temp_dir as env_dir,
     temp_dir_setup,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_get_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandler_belief_name():
     # ESTABLISH
-    bob_str = "Bob"
     bob_beliefunit = get_beliefunit_with_4_levels()
-    bob_beliefunit.set_belief_name(bob_str)
-
-    sue_str = "Sue"
+    bob_beliefunit.set_belief_name(exx.bob)
 
     # WHEN
-    perspective_beliefunit = get_perspective_belief(bob_beliefunit, sue_str)
+    perspective_beliefunit = get_perspective_belief(bob_beliefunit, exx.sue)
 
     # THEN
     assert perspective_beliefunit.to_dict() != bob_beliefunit.to_dict()
-    assert perspective_beliefunit.belief_name == sue_str
-    perspective_beliefunit.set_belief_name(bob_str)
+    assert perspective_beliefunit.belief_name == exx.sue
+    perspective_beliefunit.set_belief_name(exx.bob)
     assert perspective_beliefunit.to_dict() == bob_beliefunit.to_dict()
 
 
@@ -36,23 +34,21 @@ def test_get_dw_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileH
     temp_dir_setup,
 ):
     # ESTABLISH
-    bob_str = "Bob"
     a23_str = "amy23"
     bob_beliefunit = get_beliefunit_with_4_levels()
-    bob_beliefunit.set_belief_name(bob_str)
-    bob_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, bob_str)
+    bob_beliefunit.set_belief_name(exx.bob)
+    bob_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.bob)
     save_job_file(bob_lessonfilehandler.moment_mstr_dir, bob_beliefunit)
-    sue_str = "Sue"
 
     # WHEN
     perspective_beliefunit = get_dw_perspective_belief(
-        env_dir(), a23_str, bob_str, sue_str
+        env_dir(), a23_str, exx.bob, exx.sue
     )
 
     # THEN
-    assert perspective_beliefunit.belief_name == sue_str
+    assert perspective_beliefunit.belief_name == exx.sue
     assert perspective_beliefunit.to_dict() != bob_beliefunit.to_dict()
-    perspective_beliefunit.set_belief_name(bob_str)
+    perspective_beliefunit.set_belief_name(exx.bob)
     assert perspective_beliefunit.to_dict() == bob_beliefunit.to_dict()
 
 
@@ -65,21 +61,17 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
     iowa_rope = create_rope(nation_rope, "Iowa")
     a23_str = "amy23"
 
-    bob_str = "Bob"
-    yao_str = "Yao"
     yao_beliefunit = get_beliefunit_with_4_levels()
-    yao_beliefunit.set_belief_name(yao_str)
+    yao_beliefunit.set_belief_name(exx.yao)
 
     save_vision_belief(
         moment_mstr_dir=env_dir(),
         moment_label=a23_str,
-        healer_name=bob_str,
+        healer_name=exx.bob,
         keep_rope=iowa_rope,
         knot=default_knot_if_None(),
         x_belief=yao_beliefunit,
     )
-
-    sue_str = "Sue"
 
     # WHEN
     perspective_beliefunit = rj_perspective_belief(
@@ -87,13 +79,13 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
         moment_label=a23_str,
         keep_rope=iowa_rope,
         knot=default_knot_if_None(),
-        healer_name=bob_str,
-        speaker_id=yao_str,
-        perspective_id=sue_str,
+        healer_name=exx.bob,
+        speaker_id=exx.yao,
+        perspective_id=exx.sue,
     )
 
     # THEN
-    assert perspective_beliefunit.belief_name == sue_str
+    assert perspective_beliefunit.belief_name == exx.sue
     assert perspective_beliefunit.to_dict() != yao_beliefunit.to_dict()
-    perspective_beliefunit.set_belief_name(yao_str)
+    perspective_beliefunit.set_belief_name(exx.yao)
     assert perspective_beliefunit.to_dict() == yao_beliefunit.to_dict()

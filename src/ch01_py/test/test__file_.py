@@ -159,9 +159,9 @@ def test_save_json_SetsFile(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
     bob_str = "bob"
-    yao_str = "Yao"
+    yao2_str = "Yao"
     x_filename = "Fay_bob.json"
-    x_dict = {"users": {bob_str: 1, yao_str: 2}}
+    x_dict = {"users": {bob_str: 1, yao2_str: 2}}
     print(f"{env_dir=} {x_filename=}")
     assert not os_path_exist(create_path(env_dir, x_filename))
 
@@ -182,9 +182,9 @@ def test_open_json_ReturnsObj(
     # ESTABLISH
     env_dir = get_temp_dir()
     bob_str = "bob"
-    yao_str = "Yao"
+    yao2_str = "Yao"
     x_filename = "Fay_bob.json"
-    x_dict = {"names": {bob_str: 1, yao_str: 2}}
+    x_dict = {"names": {bob_str: 1, yao2_str: 2}}
     print(f"{env_dir=} {x_filename=}")
     save_json(env_dir, x_filename, x_dict)
     assert os_path_exist(create_path(env_dir, x_filename))
@@ -200,9 +200,9 @@ def test_open_json_ReturnsObj(
 def test_save_file_ReplacesFileAsDefault(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
-    swim_str = "swim"
+    swim2_str = "swim"
     swim_file_ext = "txt"
-    swim_filename = f"{swim_str}.{swim_file_ext}"
+    swim_filename = f"{swim2_str}.{swim_file_ext}"
     swim_old_file_str = "swimming is good"
     swim_new_file_str = "swimming is ok"
     print(f"{env_dir=} {swim_filename=}")
@@ -224,9 +224,9 @@ def test_save_file_ReplacesFileAsDefault(temp_dir_setup):
 def test_save_file_DoesNotReplaceFile(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
-    swim_str = "swim"
+    swim2_str = "swim"
     swim_file_ext = "txt"
-    swim_filename = f"{swim_str}.{swim_file_ext}"
+    swim_filename = f"{swim2_str}.{swim_file_ext}"
     swim_old_file_str = "swimming is good"
     swim_new_file_str = "swimming is ok"
     print(f"{env_dir=} {swim_filename=}")
@@ -248,9 +248,9 @@ def test_save_file_DoesNotReplaceFile(temp_dir_setup):
 def test_save_file_DoesNotRequireSeperateFilename(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
-    swim_str = "swim"
+    swim2_str = "swim"
     swim_file_ext = "txt"
-    swim_filename = f"{swim_str}.{swim_file_ext}"
+    swim_filename = f"{swim2_str}.{swim_file_ext}"
     swim_file_str = "swimming is good"
     print(f"{env_dir=} {swim_filename=}")
     swim_file_path = create_path(env_dir, swim_filename)

@@ -14,9 +14,8 @@ from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 def test_TranslateUnit_set_mapunit_SetsAttr():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    namemap = namemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    namemap = namemap_shop(face_name=exx.sue)
     namemap.set_otx2inx("Bob", "Bob of Portland")
     assert sue_translateunit.namemap != namemap
 
@@ -29,9 +28,8 @@ def test_TranslateUnit_set_mapunit_SetsAttr():
 
 def test_TranslateUnit_set_mapunit_SetsAttr_SpecialSituation_RopeTerm():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
-    ropemap = ropemap_shop(face_name=sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    ropemap = ropemap_shop(face_name=exx.sue)
     ropemap.set_otx2inx("Bob", "Bob of Portland")
     assert sue_translateunit.ropemap != ropemap
 
@@ -44,10 +42,9 @@ def test_TranslateUnit_set_mapunit_SetsAttr_SpecialSituation_RopeTerm():
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_otx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_otx_knot = "/"
-    namemap = namemap_shop(otx_knot=slash_otx_knot, face_name=sue_str)
+    namemap = namemap_shop(otx_knot=slash_otx_knot, face_name=exx.sue)
     assert sue_translateunit.otx_knot != namemap.otx_knot
     assert sue_translateunit.namemap != namemap
 
@@ -60,10 +57,9 @@ def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_otx_knot_IsNotSame():
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_inx_knot_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     slash_inx_knot = "/"
-    namemap = namemap_shop(inx_knot=slash_inx_knot, face_name=sue_str)
+    namemap = namemap_shop(inx_knot=slash_inx_knot, face_name=exx.sue)
     assert sue_translateunit.inx_knot != namemap.inx_knot
     assert sue_translateunit.namemap != namemap
 
@@ -76,10 +72,9 @@ def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_inx_knot_IsNotSame():
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_unknown_str_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_translateunit = translateunit_shop(sue_str)
+    sue_translateunit = translateunit_shop(exx.sue)
     casa_unknown_str = "Unknown_casa"
-    namemap = namemap_shop(unknown_str=casa_unknown_str, face_name=sue_str)
+    namemap = namemap_shop(unknown_str=casa_unknown_str, face_name=exx.sue)
     assert sue_translateunit.unknown_str != namemap.unknown_str
     assert sue_translateunit.namemap != namemap
 
@@ -92,25 +87,22 @@ def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_unknown_str_IsNotSame()
 
 def test_TranslateUnit_set_mapunit_RaisesErrorIf_mapunit_face_name_IsNotSame():
     # ESTABLISH
-    sue_str = "Sue"
-    yao_str = "Yao"
-    sue_translateunit = translateunit_shop(sue_str)
-    namemap = namemap_shop(face_name=yao_str)
+    sue_translateunit = translateunit_shop(exx.sue)
+    namemap = namemap_shop(face_name=exx.yao)
     assert sue_translateunit.face_name != namemap.face_name
     assert sue_translateunit.namemap != namemap
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         sue_translateunit.set_namemap(namemap)
-    exception_str = f"set_mapcore Error: TranslateUnit face_name is '{sue_translateunit.face_name}', MapCore is '{yao_str}'."
+    exception_str = f"set_mapcore Error: TranslateUnit face_name is '{sue_translateunit.face_name}', MapCore is '{exx.yao}'."
     assert str(excinfo.value) == exception_str
 
 
 def test_TranslateUnit_get_mapunit_ReturnsObj():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_pu = translateunit_shop(sue_str)
-    static_namemap = namemap_shop(face_name=sue_str)
+    sue_pu = translateunit_shop(exx.sue)
+    static_namemap = namemap_shop(face_name=exx.sue)
     static_namemap.set_otx2inx("Bob", "Bob of Portland")
     sue_pu.set_namemap(static_namemap)
 
@@ -171,10 +163,9 @@ def test_TranslateUnit_is_valid_ReturnsObj():
 
 def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario0_NameTerm():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     namemap = zia_translateunit.get_namemap()
     assert namemap.otx2inx_exists(sue_otx, sue_inx) is False
 
@@ -187,10 +178,9 @@ def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario0_NameTerm():
 
 def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario1_RopeTerm():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     ropemap = zia_translateunit.get_ropemap()
     assert ropemap.otx2inx_exists(sue_otx, sue_inx) is False
 
@@ -203,10 +193,9 @@ def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario1_RopeTerm():
 
 def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario2_LabelTerm():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     ropemap = zia_translateunit.get_labelmap()
     assert ropemap.otx2inx_exists(sue_otx, sue_inx) is False
 
@@ -232,10 +221,9 @@ def test_TranslateUnit_set_otx2inx_SetsAttr_Scenario3_EpochTime():
 
 def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario0_LabelTerm():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     rope_type = kw.LabelTerm
     assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx) is False
 
@@ -264,10 +252,9 @@ def test_TranslateUnit_otx2inx_exists_ReturnsObj_Scenario1_EpochTime():
 
 def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario0_NameTerm():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     assert zia_translateunit._get_inx_value(kw.NameTerm, sue_otx) != sue_inx
 
     # WHEN
@@ -292,22 +279,21 @@ def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario1_EpochTerm():
 
 def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario0_LabelTerm():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     rope_type = kw.LabelTerm
     zia_translateunit.set_otx2inx(kw.LabelTerm, sue_otx, sue_inx)
-    zia_translateunit.set_otx2inx(kw.LabelTerm, zia_str, zia_str)
+    zia_translateunit.set_otx2inx(kw.LabelTerm, exx.zia, exx.zia)
     assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx)
-    assert zia_translateunit.otx2inx_exists(rope_type, zia_str, zia_str)
+    assert zia_translateunit.otx2inx_exists(rope_type, exx.zia, exx.zia)
 
     # WHEN
     zia_translateunit.del_otx2inx(rope_type, sue_otx)
 
     # THEN
     assert zia_translateunit.otx2inx_exists(rope_type, sue_otx, sue_inx) is False
-    assert zia_translateunit.otx2inx_exists(rope_type, zia_str, zia_str)
+    assert zia_translateunit.otx2inx_exists(rope_type, exx.zia, exx.zia)
 
 
 def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
@@ -329,10 +315,9 @@ def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
 
 def test_TranslateUnit_set_roadmap_label_SetsAttr_Scenario1_RopeTerm():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     ropemap = zia_translateunit.get_ropemap()
     assert ropemap.label_exists(sue_otx, sue_inx) is False
 
@@ -345,10 +330,9 @@ def test_TranslateUnit_set_roadmap_label_SetsAttr_Scenario1_RopeTerm():
 
 def test_TranslateUnit_roadmap_label_exists_ReturnsObj():
     # ESTABLISH
-    zia_str = "Zia"
     sue_otx = "Sue"
     sue_inx = "Suita"
-    zia_translateunit = translateunit_shop(zia_str)
+    zia_translateunit = translateunit_shop(exx.zia)
     sue_exists = zia_translateunit.roadmap_label_exists(sue_otx, sue_inx)
     assert sue_exists is False
 

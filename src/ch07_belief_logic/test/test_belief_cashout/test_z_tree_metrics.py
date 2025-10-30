@@ -4,6 +4,7 @@ from src.ch04_rope.rope import create_rope_from_labels
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import beliefunit_v001
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_get_tree_metrics_Exists():
@@ -64,13 +65,11 @@ def test_BeliefUnit_get_tree_set_all_plan_uids_unique():
 
 def test_BeliefUnit_set_all_plan_uids_unique_SetsUIDs():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_belief = beliefunit_shop(belief_name=zia_str)
-    swim_str = "swim"
+    zia_belief = beliefunit_shop(belief_name=exx.zia)
     sports_str = "sports"
-    zia_belief.set_l1_plan(planunit_shop(swim_str, uid=None))
+    zia_belief.set_l1_plan(planunit_shop(exx.swim, uid=None))
     zia_belief.set_l1_plan(planunit_shop(sports_str, uid=2))
-    swim_rope = zia_belief.make_l1_rope(swim_str)
+    swim_rope = zia_belief.make_l1_rope(exx.swim)
     assert zia_belief.get_plan_obj(swim_rope).uid is None
 
     # WHEN
@@ -151,33 +150,30 @@ def test_BeliefUnit_get_missing_fact_reason_contexts_ReturnsAllreason_contextsNo
 
 def test_BeliefUnit_3AdvocatesNoplanunit_shop():
     # ESTABLISH
-    yao_str = "Yao"
-    sue_str = "Sue"
-    zia_str = "Zia"
 
     zia_beliefunit = beliefunit_shop("Zia")
-    yao_voiceunit = voiceunit_shop(voice_name=yao_str)
-    sue_voiceunit = voiceunit_shop(voice_name=sue_str)
-    zia_voiceunit = voiceunit_shop(voice_name=zia_str)
+    yao_voiceunit = voiceunit_shop(voice_name=exx.yao)
+    sue_voiceunit = voiceunit_shop(voice_name=exx.sue)
+    zia_voiceunit = voiceunit_shop(voice_name=exx.zia)
     # print(f"{yao=}")
     zia_beliefunit.set_voiceunit(yao_voiceunit)
     zia_beliefunit.set_voiceunit(sue_voiceunit)
     zia_beliefunit.set_voiceunit(zia_voiceunit)
-    zia_beliefunit.planroot.set_awardunit(awardunit_shop(yao_str, give_force=10))
-    zia_beliefunit.planroot.set_awardunit(awardunit_shop(sue_str, give_force=10))
-    zia_beliefunit.planroot.set_awardunit(awardunit_shop(zia_str, give_force=10))
+    zia_beliefunit.planroot.set_awardunit(awardunit_shop(exx.yao, give_force=10))
+    zia_beliefunit.planroot.set_awardunit(awardunit_shop(exx.sue, give_force=10))
+    zia_beliefunit.planroot.set_awardunit(awardunit_shop(exx.zia, give_force=10))
 
     # WHEN
     assert zia_beliefunit.get_awardunits_metrics() is not None
     voices_metrics = zia_beliefunit.get_awardunits_metrics()
 
     # THEN
-    yao_awardunit = voices_metrics[yao_str]
-    sue_awardunit = voices_metrics[sue_str]
-    zia_awardunit = voices_metrics[zia_str]
+    yao_awardunit = voices_metrics[exx.yao]
+    sue_awardunit = voices_metrics[exx.sue]
+    zia_awardunit = voices_metrics[exx.zia]
     assert yao_awardunit.awardee_title is not None
     assert sue_awardunit.awardee_title is not None
     assert zia_awardunit.awardee_title is not None
-    assert yao_awardunit.awardee_title == yao_str
-    assert sue_awardunit.awardee_title == sue_str
-    assert zia_awardunit.awardee_title == zia_str
+    assert yao_awardunit.awardee_title == exx.yao
+    assert sue_awardunit.awardee_title == exx.sue
+    assert zia_awardunit.awardee_title == exx.zia

@@ -7,7 +7,7 @@ from src.ch07_belief_logic.belief_tool import (
     belief_plan_reasonunit_get_obj,
 )
 from src.ch08_belief_atom.atom_main import beliefatom_shop, sift_beliefatom
-from src.ref.keywords import Ch08Keywords as kw
+from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 
 
 def test_sift_atom_ReturnsNoneIfGivenBeliefAtomIsUPDATE():
@@ -71,13 +71,12 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_beliefunit():
 
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voiceunit():
     # ESTABLISH
-    zia_str = "Zia"
     zia_voice_debt_lumen = 51
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(zia_str)
+    sue_belief.add_voiceunit(exx.zia)
 
     zia_atom = beliefatom_shop(kw.belief_voiceunit, kw.INSERT)
-    zia_atom.set_arg(kw.voice_name, zia_str)
+    zia_atom.set_arg(kw.voice_name, exx.zia)
     zia_atom.set_arg(kw.voice_debt_lumen, zia_voice_debt_lumen)
 
     # WHEN
@@ -93,15 +92,14 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voiceunit():
 
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voice_membership():
     # ESTABLISH
-    zia_str = "Zia"
     run_str = ";run"
     zia_run_group_debt_lumen = 76
     sue_belief = beliefunit_shop("Sue")
-    sue_belief.add_voiceunit(zia_str)
-    sue_belief.get_voice(zia_str).add_membership(run_str)
+    sue_belief.add_voiceunit(exx.zia)
+    sue_belief.get_voice(exx.zia).add_membership(run_str)
 
     zia_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
-    zia_atom.set_arg(kw.voice_name, zia_str)
+    zia_atom.set_arg(kw.voice_name, exx.zia)
     zia_atom.set_arg(kw.group_title, run_str)
     zia_atom.set_arg(kw.group_debt_lumen, zia_run_group_debt_lumen)
 

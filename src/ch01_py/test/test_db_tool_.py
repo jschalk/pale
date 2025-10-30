@@ -225,16 +225,15 @@ def test_get_groupby_select_clause_ReturnsObj_Scenario1():
 
 def test_get_groupby_select_clause_ReturnsObj_Scenario2():
     # ESTABLISH
-    swim_str = "swim"
     run_str = "run"
     x_groupby_columns = [exx.sue, exx.bob]
-    x_value_columns = [swim_str, run_str]
+    x_value_columns = [exx.swim, run_str]
 
     # WHEN
     gen_select_clause = _get_grouping_select_clause(x_groupby_columns, x_value_columns)
 
     # THEN
-    example_str = f"SELECT {exx.sue}, {exx.bob}, MAX({swim_str}) AS {swim_str}, MAX({run_str}) AS {run_str}"
+    example_str = f"SELECT {exx.sue}, {exx.bob}, MAX({exx.swim}) AS {exx.swim}, MAX({run_str}) AS {run_str}"
     assert gen_select_clause == example_str
 
 
@@ -273,26 +272,24 @@ def test_get_having_equal_value_clause_ReturnsObj_Scenario0():
 
 def test_get_having_equal_value_clause_ReturnsObj_Scenario1():
     # ESTABLISH
-    swim_str = "swim"
     run_str = "run"
-    x_value_columns = [swim_str, run_str]
+    x_value_columns = [exx.swim, run_str]
 
     # WHEN
     gen_having_clause = _get_having_equal_value_clause(x_value_columns)
 
     # THEN
     static_having_clause = (
-        f"HAVING MIN({swim_str}) = MAX({swim_str}) AND MIN({run_str}) = MAX({run_str})"
+        f"HAVING MIN({exx.swim}) = MAX({exx.swim}) AND MIN({run_str}) = MAX({run_str})"
     )
     assert gen_having_clause == static_having_clause
 
 
 def test_get_groupby_sql_query_ReturnsObj_Scenario0():
     # ESTABLISH
-    swim_str = "swim"
     run_str = "run"
     x_groupby_columns = [exx.sue, exx.bob]
-    x_value_columns = [swim_str, run_str]
+    x_value_columns = [exx.swim, run_str]
     x_table_name = "Sueyboby"
 
     # WHEN
@@ -307,10 +304,9 @@ def test_get_groupby_sql_query_ReturnsObj_Scenario0():
 
 def test_get_groupby_sql_query_ReturnsObj_Scenario1_IncludeWhereClause():
     # ESTABLISH
-    swim_str = "swim"
     run_str = "run"
     x_groupby_columns = [exx.sue, exx.bob]
-    x_value_columns = [swim_str, run_str]
+    x_value_columns = [exx.swim, run_str]
     x_table_name = "Sueyboby"
     where_clause_str = "WHERE error_holder_col IS NULL"
 
@@ -326,10 +322,9 @@ def test_get_groupby_sql_query_ReturnsObj_Scenario1_IncludeWhereClause():
 
 def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario0():
     # ESTABLISH
-    swim_str = "swim"
     run_str = "run"
     x_groupby_columns = [exx.sue, exx.bob]
-    x_value_columns = [swim_str, run_str]
+    x_value_columns = [exx.swim, run_str]
     x_table_name = "Sueyboby"
 
     # WHEN
@@ -338,16 +333,15 @@ def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario0():
     )
 
     # THEN
-    example_str = f"""{get_groupby_sql_query(x_table_name, x_groupby_columns, x_value_columns)} HAVING MIN({swim_str}) = MAX({swim_str}) AND MIN({run_str}) = MAX({run_str})"""
+    example_str = f"""{get_groupby_sql_query(x_table_name, x_groupby_columns, x_value_columns)} HAVING MIN({exx.swim}) = MAX({exx.swim}) AND MIN({run_str}) = MAX({run_str})"""
     assert gen_select_clause == example_str
 
 
 def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario1_IncludeWhereClause():
     # ESTABLISH
-    swim_str = "swim"
     run_str = "run"
     x_groupby_columns = [exx.sue, exx.bob]
-    x_value_columns = [swim_str, run_str]
+    x_value_columns = [exx.swim, run_str]
     x_table_name = "Sueyboby"
     where_clause_str = "WHERE error_holder_col IS NULL"
 
@@ -357,7 +351,7 @@ def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario1_Inclu
     )
 
     # THEN
-    example_str = f"""{get_groupby_sql_query(x_table_name, x_groupby_columns, x_value_columns, where_clause_str)} HAVING MIN({swim_str}) = MAX({swim_str}) AND MIN({run_str}) = MAX({run_str})"""
+    example_str = f"""{get_groupby_sql_query(x_table_name, x_groupby_columns, x_value_columns, where_clause_str)} HAVING MIN({exx.swim}) = MAX({exx.swim}) AND MIN({run_str}) = MAX({run_str})"""
     assert gen_select_clause == example_str
 
 

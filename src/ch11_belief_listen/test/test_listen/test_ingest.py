@@ -5,21 +5,20 @@ from src.ch11_belief_listen.listen_main import (
     generate_ingest_list,
     generate_perspective_agenda,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_allocate_irrational_voice_debt_lumen_SetsBeliefAttr():
     # ESTABLISH
-    yao_str = "Yao"
-    zia_str = "Zia"
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
-    yao_belief = beliefunit_shop(yao_str)
-    yao_belief.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    zia_voiceunit = yao_belief.get_voice(zia_str)
+    yao_belief = beliefunit_shop(exx.yao)
+    yao_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    zia_voiceunit = yao_belief.get_voice(exx.zia)
     assert zia_voiceunit.irrational_voice_debt_lumen == 0
 
     # WHEN
-    _allocate_irrational_voice_debt_lumen(yao_belief, zia_str)
+    _allocate_irrational_voice_debt_lumen(yao_belief, exx.zia)
 
     # THEN
     assert zia_voiceunit.irrational_voice_debt_lumen == zia_voice_debt_lumen
@@ -27,9 +26,8 @@ def test_allocate_irrational_voice_debt_lumen_SetsBeliefAttr():
 
 def test_generate_perspective_agenda_GrabsAgendatasks():
     # ESTABLISH
-    yao_str = "Yao"
-    yao_speaker = beliefunit_shop(yao_str)
-    yao_speaker.add_voiceunit(yao_str)
+    yao_speaker = beliefunit_shop(exx.yao)
+    yao_speaker.add_voiceunit(exx.yao)
     yao_speaker.set_voice_respect(20)
     casa_str = "casa"
     casa_rope = yao_speaker.make_l1_rope(casa_str)
@@ -59,8 +57,7 @@ def test_generate_perspective_agenda_GrabsAgendatasks():
 
 def test_generate_ingest_list_ReturnsList_v1():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_beliefunit = beliefunit_shop(zia_str)
+    zia_beliefunit = beliefunit_shop(exx.zia)
     clean_str = "clean"
     zia_beliefunit.set_l1_plan(planunit_shop(clean_str, pledge=True))
     zia_debtor_pool = 78
@@ -84,8 +81,7 @@ def test_generate_ingest_list_ReturnsList_v1():
 
 def test_generate_ingest_list_ReturnsList_v2():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_beliefunit = beliefunit_shop(zia_str)
+    zia_beliefunit = beliefunit_shop(exx.zia)
     clean_str = "clean"
     cook_str = "cook"
     zia_beliefunit.set_l1_plan(planunit_shop(clean_str, pledge=True))
@@ -115,8 +111,7 @@ def test_generate_ingest_list_ReturnsList_v2():
 
 def test_generate_ingest_list_ReturnsList_v3():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_beliefunit = beliefunit_shop(zia_str)
+    zia_beliefunit = beliefunit_shop(exx.zia)
     clean_str = "clean"
     cook_str = "cook"
     zia_beliefunit.set_l1_plan(planunit_shop(clean_str, pledge=True))
@@ -144,8 +139,7 @@ def test_generate_ingest_list_ReturnsList_v3():
 
 def test_generate_ingest_list_ReturnsList_v4():
     # ESTABLISH
-    zia_str = "Zia"
-    zia_beliefunit = beliefunit_shop(zia_str)
+    zia_beliefunit = beliefunit_shop(exx.zia)
     clean_str = "clean"
     cook_str = "cook"
     zia_beliefunit.set_l1_plan(planunit_shop(clean_str, pledge=True))

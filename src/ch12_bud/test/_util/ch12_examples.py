@@ -11,7 +11,7 @@ from src.ch09_belief_lesson.test._util.ch09_examples import (
     get_atom_example_planunit_sports,
 )
 from src.ch12_bud.bud_main import BudUnit, budunit_shop
-from src.ref.keywords import Ch12Keywords as kw
+from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 
 A23_STR = "amy23"
 CASA_STR = "casa"

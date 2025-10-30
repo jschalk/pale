@@ -12,7 +12,7 @@ from src.ch18_world_etl._ref.ch18_path import (
     create_world_db_path,
 )
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 STANCE0001_FILENAME = "stance0001.xlsx"
 MOMENT_OTE1_AGG_CSV_FILENAME = "moment_ote1_agg.csv"
@@ -77,14 +77,13 @@ def test_create_stances_dir_path_ReturnsObj():
 def test_create_stances_belief_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    bob_str = "Bob"
 
     # WHEN
-    gen_bob_stance_dir = create_stances_belief_dir_path(x_moment_mstr_dir, bob_str)
+    gen_bob_stance_dir = create_stances_belief_dir_path(x_moment_mstr_dir, exx.bob)
 
     # THEN
     stances_dir = create_stances_dir_path(x_moment_mstr_dir)
-    expected_bob_stance_dir = create_path(stances_dir, bob_str)
+    expected_bob_stance_dir = create_path(stances_dir, exx.bob)
     assert gen_bob_stance_dir == expected_bob_stance_dir
 
 

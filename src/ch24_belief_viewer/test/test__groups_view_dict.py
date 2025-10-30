@@ -17,13 +17,12 @@ from src.ch24_belief_viewer.belief_viewer_tool import (
     get_groups_view_dict,
 )
 from src.ch24_belief_viewer.test.test__voices_view_dict import add_readable
-from src.ref.keywords import Ch24Keywords as kw
+from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 
 
 def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
     # ESTABLISH
-    sue_str = "Sue"
-    sue_believer = beliefunit_shop(sue_str)
+    sue_believer = beliefunit_shop(exx.sue)
     sue_believer.cashout()
 
     # WHEN
@@ -35,22 +34,21 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 
 # def test_get_groups_view_dict_ReturnsObj_Scenario1_groups():
 #     # ESTABLISH
-#     sue_str = "Sue"
-#     sue_believer = beliefunit_shop(sue_str)
-#     yao_str = "Yao"
+#     sue_believer = beliefunit_shop(exx.sue)
+#     exx.yao = "Yao"
 #     bob_str = "Bob"
 #     yao_cred_lumen = 110
 #     yao_debt_lumen = 130
 #     bob_cred_lumen = 230
 #     bob_debt_lumen = 290
-#     sue_believer.add_voiceunit(yao_str, yao_cred_lumen, yao_debt_lumen)
+#     sue_believer.add_voiceunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
 #     sue_believer.add_voiceunit(bob_str, bob_cred_lumen, bob_debt_lumen)
 #     swim_str = ";swimmers"
 #     bob_swim_cred_lumen = 66
 #     bob_swim_debt_lumen = 77
 #     yao_swim_cred_lumen = 88
 #     yao_swim_debt_lumen = 99
-#     yao_voice = sue_believer.get_voice(yao_str)
+#     yao_voice = sue_believer.get_voice(exx.yao)
 #     bob_voice = sue_believer.get_voice(bob_str)
 #     yao_voice.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
 #     bob_voice.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
@@ -60,7 +58,7 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     groups_view_dict = get_groups_view_dict(sue_believer)
 
 #     # THEN
-#     assert set(groups_view_dict.keys()) == {yao_str, bob_str, swim_str}
+#     assert set(groups_view_dict.keys()) == {exx.yao, bob_str, swim_str}
 
 #     swim_group_dict = groups_view_dict.get(swim_str)
 #     group_title_readable_key = add_readable(kw.group_title)
@@ -128,14 +126,13 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 
 # def test_get_groups_view_dict_ReturnsObj_Scenario2_memberships():
 #     # ESTABLISH
-#     sue_str = "Sue"
-#     sue_believer = beliefunit_shop(sue_str)
-#     yao_str = "Yao"
-#     sue_believer.add_voiceunit(yao_str)
+#     sue_believer = beliefunit_shop(exx.sue)
+#     exx.yao = "Yao"
+#     sue_believer.add_voiceunit(exx.yao)
 #     swim_str = ";swimmers"
 #     yao_swim_cred_lumen = 311
 #     yao_swim_debt_lumen = 313
-#     yao_voiceunit = sue_believer.get_voice(yao_str)
+#     yao_voiceunit = sue_believer.get_voice(exx.yao)
 #     yao_voiceunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
 #     sue_believer.cashout()
 
@@ -143,11 +140,11 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     groups_view_dict = get_groups_view_dict(sue_believer)
 
 #     # THEN
-#     assert set(groups_view_dict.keys()) == {yao_str}
-#     yao_voice_dict = groups_view_dict.get(yao_str)
+#     assert set(groups_view_dict.keys()) == {exx.yao}
+#     yao_voice_dict = groups_view_dict.get(exx.yao)
 #     assert kw.memberships in set(yao_voice_dict.keys())
 #     yao_memberships_dict = yao_voice_dict.get(kw.memberships)
-#     assert {swim_str, yao_str} == set(yao_memberships_dict.keys())
+#     assert {swim_str, exx.yao} == set(yao_memberships_dict.keys())
 #     yao_swim_dict = yao_memberships_dict.get(swim_str)
 
 #     group_title_readable_key = add_readable(kw.group_title)
@@ -263,15 +260,14 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     assert yao_swim_dict.get(fund_give_readable_key) == expected_fund_give_readable
 #     assert yao_swim_dict.get(fund_take_readable_key) == expected_fund_take_readable
 
-#     # sue_str = "Sue"
-#     # sue_believer = beliefunit_shop(sue_str)
-#     # yao_str = "Yao"
+#     # sue_believer = beliefunit_shop(exx.sue)
+#     # exx.yao = "Yao"
 #     # bob_str = "Bob"
 #     # yao_cred_lumen = 110
 #     # yao_debt_lumen = 130
 #     # bob_cred_lumen = 230
 #     # bob_debt_lumen = 290
-#     # sue_believer.add_voiceunit(yao_str, yao_cred_lumen, yao_debt_lumen)
+#     # sue_believer.add_voiceunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
 #     # sue_believer.add_voiceunit(bob_str, bob_cred_lumen, bob_debt_lumen)
 #     # swim_str = ";swimmers"
 #     # yao_swim_cred_lumen = 311
@@ -281,9 +277,9 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     # clea_str = ";cleaners"
 #     # cleaners_cred_lumen = 511
 #     # cleaners_debt_lumen = 513
-#     # yao_voiceunit = sue_believer.get_voice(yao_str)
+#     # yao_voiceunit = sue_believer.get_voice(exx.yao)
 #     # bob_voiceunit = sue_believer.get_voice(bob_str)
 #     # bob_voiceunit.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
 #     # yao_voiceunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
 #     # yao_voiceunit.add_membership(clea_str, cleaners_cred_lumen, cleaners_debt_lumen)
-#     # sue_believer.get_voice(yao_str).add_membership()
+#     # sue_believer.get_voice(exx.yao).add_membership()

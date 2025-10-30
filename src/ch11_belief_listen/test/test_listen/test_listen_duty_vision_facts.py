@@ -20,18 +20,17 @@ from src.ch11_belief_listen.test._util.ch11_examples import (
     get_texas_lessonfilehandler,
     get_texas_rope,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_listen_to_facts_duty_vision_SetsSingleFactUnit_v1(temp_dir_setup):
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str, a23_str)
-    zia_str = "Zia"
+    yao_duty = beliefunit_shop(exx.yao, a23_str)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
-    yao_duty.add_voiceunit(zia_str, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
     yao_duty.set_voice_respect(zia_pool)
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
     save_duty_belief(
@@ -77,13 +76,11 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
 ):
     # ESTABLISH
     a23_str = "amy23"
-    yao_str = "Yao"
-    yao_duty = beliefunit_shop(yao_str, a23_str)
+    yao_duty = beliefunit_shop(exx.yao, a23_str)
     yao_voice_cred_lumen = 47
     yao_voice_debt_lumen = 41
     yao_pool = 87
-    zia_str = "Zia"
-    yao_duty.add_voiceunit(zia_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, yao_voice_cred_lumen, yao_voice_debt_lumen)
     yao_duty.set_voice_respect(yao_pool)
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
     save_duty_belief(
@@ -98,7 +95,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
     zia_vision = get_example_zia_speaker()
     zia_vision.set_plan_obj(planunit_shop(clean_str(), pledge=True), a23_casa_rope())
     clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
-    clean_planunit.laborunit.add_party(yao_str)
+    clean_planunit.laborunit.add_party(exx.yao)
     save_vision_belief(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.belief_name,
@@ -301,7 +298,6 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 ):
     # ESTABLISH
     zia_vision = get_example_zia_speaker()
-    zia_str = zia_vision.belief_name
     zia_vision.add_fact(a23_eat_rope(), a23_eat_rope())
     assert zia_vision.get_fact(a23_eat_rope()).fact_state == a23_eat_rope()
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
@@ -360,7 +356,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 
     # THEN
     assert yao_duty.get_fact(a23_eat_rope()) is None
-    zia_voiceunit = new_yao_vision1.get_voice(zia_str)
+    zia_voiceunit = new_yao_vision1.get_voice(exx.zia)
     bob_voiceunit = new_yao_vision1.get_voice(bob_str)
     assert zia_voiceunit.voice_debt_lumen < bob_voiceunit.voice_debt_lumen
     assert bob_vision.get_fact(a23_eat_rope()).fact_state == a23_hungry_rope()
@@ -370,7 +366,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
     # WHEN
     yao_zia_voice_debt_lumen = 15
     yao_bob_voice_debt_lumen = 5
-    yao_duty.add_voiceunit(zia_str, None, yao_zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.zia, None, yao_zia_voice_debt_lumen)
     yao_duty.add_voiceunit(bob_str, None, yao_bob_voice_debt_lumen)
     yao_duty.set_voice_respect(100)
     new_yao_vision2 = create_listen_basis(yao_duty)
@@ -382,7 +378,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
     )
 
     # THEN
-    zia_voiceunit = new_yao_vision2.get_voice(zia_str)
+    zia_voiceunit = new_yao_vision2.get_voice(exx.zia)
     bob_voiceunit = new_yao_vision2.get_voice(bob_str)
     assert zia_voiceunit.voice_debt_lumen > bob_voiceunit.voice_debt_lumen
     assert bob_vision.get_fact(a23_eat_rope()).fact_state == a23_hungry_rope()
@@ -392,9 +388,8 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 
 # def test_listen_to_facts_duty_vision_SetsFact(temp_dir_setup):
 #     # ESTABLISH
-#     yao_str = "Yao"
-#     sue_str = "Sue"
-#     sue_speaker = beliefunit_shop(yao_str)
+#     exx.yao = "Yao"
+#     sue_speaker = beliefunit_shop(exx.yao)
 #     casa_str = "casa"
 #     casa_rope = sue_speaker.make_l1_rope(casa_str)
 #     situation_str = "situation"
@@ -406,7 +401,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     sweep_str = "sweep"
 #     sweep_rope = sue_speaker.make_rope(casa_rope, sweep_str)
 
-#     sue_speaker.add_voiceunit(yao_str)
+#     sue_speaker.add_voiceunit(exx.yao)
 #     sue_speaker.set_voice_respect(20)
 #     sue_speaker.set_plan_obj(planunit_shop(clean_str), situation_rope)
 #     sue_speaker.set_plan_obj(planunit_shop(dirty_str), situation_rope)
@@ -415,13 +410,13 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
 #     )
 #     sweep_plan = sue_speaker.get_plan_obj(sweep_rope)
-#     sweep_plan.laborunit.add_party(yao_str)
+#     sweep_plan.laborunit.add_party(exx.yao)
 
 #     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
-#     save_vision_belief(sue_texas_lessonfilehandler, sue_str, sue_speaker.get_json(), True)
-#     yao_duty = beliefunit_shop(yao_str)
-#     yao_duty.add_voiceunit(yao_str)
-#     yao_duty.add_voiceunit(sue_str)
+#     save_vision_belief(sue_texas_lessonfilehandler, exx.sue, sue_speaker.get_json(), True)
+#     yao_duty = beliefunit_shop(exx.yao)
+#     yao_duty.add_voiceunit(exx.yao)
+#     yao_duty.add_voiceunit(exx.sue)
 #     new_yao_vision = create_listen_basis(yao_duty)
 #     print(f"{new_yao_vision.get_plan_dict().keys()=}")
 #     # assert new_yao_vision.get_missing_fact_reason_contexts().get(situation_rope) is None
@@ -442,9 +437,9 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 
 # def test_listen_to_facts_duty_vision_DoesNotOverrideFact():
 #     # ESTABLISH
-#     yao_str = "Yao"
-#     yao_duty = beliefunit_shop(yao_str)
-#     yao_duty.add_voiceunit(yao_str)
+#     exx.yao = "Yao"
+#     yao_duty = beliefunit_shop(exx.yao)
+#     yao_duty.add_voiceunit(exx.yao)
 #     yao_duty.set_voice_respect(20)
 #     casa_str = "casa"
 #     casa_rope = yao_duty.make_l1_rope(casa_str)
@@ -477,7 +472,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromBeliefsSpeaker
 #     assert yao_duty.get_fact(situation_rope).fact_state == dirty_rope
 
 #     # WHEN
-#     yao_vision = beliefunit_shop(yao_str)
+#     yao_vision = beliefunit_shop(exx.yao)
 #     yao_vision.add_fact(situation_rope, a23_clean_rope, create_missing_plans=True)
 #     yao_vision.add_fact(fridge_rope, running_rope, create_missing_plans=True)
 #     missing_fact_fact_contexts = list(yao_duty.get_missing_fact_reason_contexts().keys())

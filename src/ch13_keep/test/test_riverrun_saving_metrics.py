@@ -8,6 +8,7 @@ from src.ch13_keep.test._util.ch13_env import (
     temp_moment_label,
 )
 from src.ch13_keep.test._util.ch13_examples import get_nation_texas_rope
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_RiverRun_save_rivergrade_file_SavesFile(temp_dir_setup):
@@ -15,11 +16,10 @@ def test_RiverRun_save_rivergrade_file_SavesFile(temp_dir_setup):
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     texas_rope = get_nation_texas_rope()
-    yao_str = "Yao"
     yao_voice_cred_lumen = 500
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str, texas_rope)
-    x_riverrun.set_keep_patientledger(yao_str, yao_str, yao_voice_cred_lumen)
-    x_riverrun.set_need_dues({yao_str: 1})
+    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao, texas_rope)
+    x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
+    x_riverrun.set_need_dues({exx.yao: 1})
     x_riverrun.calc_metrics()
     yao_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
@@ -27,13 +27,13 @@ def test_RiverRun_save_rivergrade_file_SavesFile(temp_dir_setup):
         moment_label=x_riverrun.moment_label,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_belief_name=yao_str,
+        grade_belief_name=exx.yao,
     )
     print(f"{yao_keep_grade_path=}")
     assert os_path_exists(yao_keep_grade_path) is False
 
     # WHEN
-    x_riverrun._save_rivergrade_file(yao_str)
+    x_riverrun._save_rivergrade_file(exx.yao)
 
     # THEN
     assert os_path_exists(yao_keep_grade_path)
@@ -47,18 +47,15 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     texas_rope = get_nation_texas_rope()
-    yao_str = "Yao"
-    bob_str = "Bob"
-    sue_str = "Sue"
     yao_voice_cred_lumen = 500
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str, texas_rope)
+    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao, texas_rope)
     yao_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
         belief_name=x_riverrun.belief_name,
         moment_label=x_riverrun.moment_label,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_belief_name=yao_str,
+        grade_belief_name=exx.yao,
     )
     bob_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
@@ -66,7 +63,7 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
         moment_label=x_riverrun.moment_label,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_belief_name=bob_str,
+        grade_belief_name=exx.bob,
     )
     sue_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
@@ -74,14 +71,14 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
         moment_label=x_riverrun.moment_label,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_belief_name=sue_str,
+        grade_belief_name=exx.sue,
     )
     assert os_path_exists(yao_keep_grade_path) is False
     assert os_path_exists(bob_keep_grade_path) is False
     assert os_path_exists(sue_keep_grade_path) is False
-    x_riverrun.set_keep_patientledger(yao_str, yao_str, yao_voice_cred_lumen)
-    x_riverrun.set_keep_patientledger(yao_str, bob_str, 1)
-    x_riverrun.set_need_dues({yao_str: 1, sue_str: 1})
+    x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
+    x_riverrun.set_keep_patientledger(exx.yao, exx.bob, 1)
+    x_riverrun.set_need_dues({exx.yao: 1, exx.sue: 1})
     x_riverrun.calc_metrics()
     assert os_path_exists(yao_keep_grade_path) is False
     assert os_path_exists(bob_keep_grade_path) is False
@@ -93,4 +90,4 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     # THEN
     assert os_path_exists(yao_keep_grade_path)
     assert os_path_exists(bob_keep_grade_path)
-    # assert os_path_exists(x_riverrun.grade_path(sue_str))
+    # assert os_path_exists(x_riverrun.grade_path(exx.sue))

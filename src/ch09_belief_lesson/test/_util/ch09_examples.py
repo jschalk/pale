@@ -3,7 +3,7 @@ from src.ch08_belief_atom.atom_main import BeliefAtom, beliefatom_shop
 from src.ch09_belief_lesson._ref.ch09_semantic_types import LabelTerm, MomentLabel
 from src.ch09_belief_lesson.delta import BeliefDelta, beliefdelta_shop
 from src.ch09_belief_lesson.lesson_main import LessonUnit, lessonunit_shop
-from src.ref.keywords import Ch09Keywords as kw
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def get_ch09_example_moment_label() -> str:
@@ -87,9 +87,8 @@ def get_beliefdelta_sue_example() -> BeliefDelta:
     sue_beliefdelta.set_beliefatom(pool_beliefatom)
 
     dimen = kw.belief_voiceunit
-    sue_str = "Sue"
     sue_beliefatom = beliefatom_shop(dimen, kw.DELETE)
-    sue_beliefatom.set_jkey(kw.voice_name, sue_str)
+    sue_beliefatom.set_jkey(kw.voice_name, exx.sue)
     sue_beliefdelta.set_beliefatom(sue_beliefatom)
     return sue_beliefdelta
 
@@ -104,9 +103,8 @@ def get_beliefdelta_example1() -> BeliefDelta:
     x_beliefatom.set_jvalue(kw.debtor_respect, 88)
     sue_beliefdelta.set_beliefatom(x_beliefatom)
 
-    zia_str = "Zia"
     x_beliefatom = beliefatom_shop(dimen=kw.belief_voiceunit, crud_str=kw.DELETE)
-    x_beliefatom.set_jkey(kw.voice_name, zia_str)
+    x_beliefatom.set_jkey(kw.voice_name, exx.zia)
     sue_beliefdelta.set_beliefatom(x_beliefatom)
     return sue_beliefdelta
 

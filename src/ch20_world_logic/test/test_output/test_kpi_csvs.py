@@ -7,7 +7,7 @@ from src.ch20_world_logic.test._util.ch20_env import (
     temp_dir_setup,
 )
 from src.ch20_world_logic.world import worldunit_shop
-from src.ref.keywords import Ch20Keywords as kw
+from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
 def test_WorldUnit_create_kpi_csvs_Senario0_EmptyWorld_CreatesFile(
@@ -33,7 +33,6 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
     fay_str = "Fay"
     output_dir = create_path(worlds_dir(), "output")
     fay_world = worldunit_shop(fay_str, worlds_dir(), output_dir)
-    sue_str = "Sue"
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
@@ -45,7 +44,7 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
         kw.belief_name,
         kw.voice_name,
     ]
-    br00011_rows = [[spark2, sue_str, amy23_str, sue_str, sue_str]]
+    br00011_rows = [[spark2, exx.sue, amy23_str, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     fay_world.sheets_input_to_clarity_mstr()

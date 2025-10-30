@@ -61,7 +61,6 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #     fay_str = "Fay"
 #     output_dir = create_path(worlds_dir(), "output")
 #     fay_world = shop(fay_str, worlds_dir(), output_dir)
-#     sue_str = "Sue"
 #     spark2 = 2
 #     ex_filename = "Faybob.xlsx"
 #     input_file_path = create_path(fay_world._input_dir, ex_filename)
@@ -73,7 +72,7 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #         kw.belief_name,
 #         kw.voice_name
 #     ]
-#     br00011_rows = [[spark2, sue_str, a23_str, sue_str, sue_str]]
+#     br00011_rows = [[spark2, exx.sue, a23_str, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
 #     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
 #     fay_world.sheets_input_to_clarity_mstr()
