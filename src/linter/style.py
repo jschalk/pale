@@ -393,23 +393,27 @@ def check_if_test_HasDocString_pytests_exist(
 
 
 def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
-    # example_strs = get_example_strs_config()
-    # function_count = 0
-    # func_total_count = len(all_test_functions)
+    example_strs = get_example_strs_config()
+    func_total_count = len(all_test_functions)
+    sorted_test_functions_names = sorted(all_test_functions.keys())
 
-    for function_name in sorted(all_test_functions.keys()):
-        test_function_str = all_test_functions.get(function_name)
-        establish_str_exists = test_function_str.find("ESTABLISH") > -1
-        when_str_exists = test_function_str.find("WHEN") > -1
-        then_str_exists = test_function_str.find("THEN") > -1
-        fail_str = f"'ESTABLISH'/'WHEN'/'THEN' missing in '{function_name}'"
-        assert establish_str_exists and when_str_exists and then_str_exists, fail_str
-        # # TODO reactive this section to clean up tests using Examples Enum class
-        # for key_str, value_str in example_strs.items():
-        #     declare_str = f"""{key_str}_str = "{value_str}"\n"""
-        #     fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
-        #     assert declare_str not in test_function_str, fail2_str
-        # function_count += 1
+    # TODO reactive this section to clean up tests using Examples Enum class
+    for key_str in sorted(example_strs.keys()):
+        value_str = example_strs.get(key_str)
+        function_count = 0
+        for function_name in sorted_test_functions_names:
+            test_function_str = all_test_functions.get(function_name)
+            establish_str_exists = test_function_str.find("ESTABLISH") > -1
+            when_str_exists = test_function_str.find("WHEN") > -1
+            then_str_exists = test_function_str.find("THEN") > -1
+            fail_str = f"'ESTABLISH'/'WHEN'/'THEN' missing in '{function_name}'"
+            assert (
+                establish_str_exists and when_str_exists and then_str_exists
+            ), fail_str
+            # declare_str = f"""{key_str}_str = "{value_str}"\n"""
+            # fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
+            # assert declare_str not in test_function_str, fail2_str
+            # function_count += 1
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")

@@ -6,6 +6,7 @@ from src.ch11_belief_listen.listen_main import (
     listen_to_speaker_fact,
     migrate_all_facts,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_get_debtors_roll_ReturnsObj():
@@ -73,10 +74,9 @@ def test_get_ordered_debtors_roll_ReturnsObj_InOrder():
     assert ordered_voices1 == [sue_voice, zia_voice]
 
     # ESTABLISH
-    bob_str = "Bob"
     bob_voice_debt_lumen = 75
-    yao_belief.add_voiceunit(bob_str, 0, bob_voice_debt_lumen)
-    bob_voice = yao_belief.get_voice(bob_str)
+    yao_belief.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
+    bob_voice = yao_belief.get_voice(exx.bob)
 
     # WHEN
     ordered_voices2 = get_ordered_debtors_roll(yao_belief)
@@ -96,12 +96,11 @@ def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
     sue_voice_debt_lumen = 51
     yao_pool = 92
     yao_belief.set_voice_respect(yao_pool)
-    bob_str = "Bob"
     bob_voice_debt_lumen = 75
     xio_str = "Xio"
     yao_belief.add_voiceunit(zia_str, 0, zia_voice_debt_lumen)
     yao_belief.add_voiceunit(sue_str, 0, sue_voice_debt_lumen)
-    yao_belief.add_voiceunit(bob_str, 0, bob_voice_debt_lumen)
+    yao_belief.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
     yao_belief.add_voiceunit(yao_str, 0, 0)
     yao_belief.add_voiceunit(xio_str, 0, 0)
 
@@ -112,7 +111,7 @@ def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
     assert len(ordered_voices2) == 3
     zia_voice = yao_belief.get_voice(zia_str)
     sue_voice = yao_belief.get_voice(sue_str)
-    bob_voice = yao_belief.get_voice(bob_str)
+    bob_voice = yao_belief.get_voice(exx.bob)
     assert ordered_voices2[0].to_dict() == bob_voice.to_dict()
     assert ordered_voices2 == [bob_voice, sue_voice, zia_voice]
 

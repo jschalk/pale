@@ -16,6 +16,7 @@ from src.ch11_belief_listen.keep_tool import (
 )
 from src.ch11_belief_listen.test._util.ch11_env import get_temp_dir, temp_dir_setup
 from src.ch11_belief_listen.test._util.ch11_examples import ch11_example_moment_label
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_create_keep_path_dir_if_missing_CreatesDirectory(
@@ -168,16 +169,15 @@ def test_save_duty_belief_SavesFile(temp_dir_setup):
     texas_rope = create_rope(usa_rope, texas_str)
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    bob_str = "Bob"
     bob_belief = get_beliefunit_with_4_levels()
-    bob_belief.set_belief_name(bob_str)
+    bob_belief.set_belief_name(exx.bob)
     keep_duty_path = create_keep_duty_path(
         moment_mstr_dir=moment_mstr_dir,
         belief_name=sue_str,
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
-        duty_belief=bob_str,
+        duty_belief=exx.bob,
     )
     assert os_path_exists(keep_duty_path) is False
 
@@ -206,9 +206,8 @@ def test_get_duty_belief_reason_lowersFile(temp_dir_setup):
     texas_rope = create_rope(usa_rope, texas_str)
     a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    bob_str = "Bob"
     bob_belief = get_beliefunit_with_4_levels()
-    bob_belief.set_belief_name(bob_str)
+    bob_belief.set_belief_name(exx.bob)
     save_duty_belief(
         moment_mstr_dir=moment_mstr_dir,
         belief_name=sue_str,
@@ -225,7 +224,7 @@ def test_get_duty_belief_reason_lowersFile(temp_dir_setup):
         moment_label=a23_str,
         keep_rope=texas_rope,
         knot=None,
-        duty_belief_name=bob_str,
+        duty_belief_name=exx.bob,
     )
 
     # THEN

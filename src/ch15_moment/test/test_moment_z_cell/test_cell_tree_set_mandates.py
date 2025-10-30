@@ -110,7 +110,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     a23_str = "amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
-#     exx.sue = "Sue"
+
 #     bob_ancs = []
 #     bob_sue_ancs = [exx.sue]
 #     e7 = 7
@@ -147,7 +147,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     a23_str = "amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
-#     exx.sue = "Sue"
+
 #     bob_ancs = []
 #     bob_sue_ancs = [exx.sue]
 #     e7 = 7
@@ -192,7 +192,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     a23_str = "amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
-#     exx.sue = "Sue"
+
 #     exx.yao = "Yao"
 #     exx.zia = "Zia"
 #     bob_ancs = []
@@ -255,7 +255,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     a23_str = "amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
-#     exx.sue = "Sue"
+
 #     exx.yao = "Yao"
 #     exx.zia = "Zia"
 #     bob_ancs = []
@@ -318,7 +318,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     a23_str = "amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
-#     exx.sue = "Sue"
+
 #     exx.yao = "Yao"
 #     exx.zia = "Zia"
 #     bob_ancs = []
@@ -385,7 +385,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     a23_str = "amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
-#     exx.sue = "Sue"
+
 #     exx.yao = "Yao"
 #     exx.zia = "Zia"
 #     bob_ancs = []

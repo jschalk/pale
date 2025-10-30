@@ -13,6 +13,7 @@ from src.ch09_belief_lesson.test._util.ch09_env import (
     temp_dir_setup,
 )
 from src.ch09_belief_lesson.test._util.ch09_examples import sue_2beliefatoms_lessonunit
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_LessonFileHandler_default_gut_belief_ReturnsObj():
@@ -127,8 +128,7 @@ def test_LessonFileHandler_create_initial_lesson_files_from_gut_SavesOnlyLessonF
     sue_str = "Sue"
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "amy23", sue_str)
     sue_gut_belief = sue_lessonfilehandler.default_gut_belief()
-    bob_str = "Bob"
-    sue_gut_belief.add_voiceunit(bob_str)
+    sue_gut_belief.add_voiceunit(exx.bob)
     assert gut_file_exists(env_dir(), "amy23", sue_str) is False
     save_gut_file(env_dir(), sue_gut_belief)
     assert gut_file_exists(env_dir(), "amy23", sue_str)
@@ -212,8 +212,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
     )
     sue_lessonfilehandler.initialize_lesson_gut_files()
     sue_gut_belief = open_gut_file(env_dir(), "amy23", sue_str)
-    bob_str = "Bob"
-    sue_gut_belief.add_voiceunit(bob_str)
+    sue_gut_belief.add_voiceunit(exx.bob)
     save_gut_file(env_dir(), sue_gut_belief)
     assert gut_file_exists(env_dir(), "amy23", sue_str)
     init_lesson_file_path = create_path(
@@ -229,7 +228,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
     assert sue_gut_belief.moment_label == "amy23"
     assert sue_gut_belief.belief_name == sue_str
     assert sue_gut_belief.respect_grain == seven_int
-    assert sue_gut_belief.voice_exists(bob_str)
+    assert sue_gut_belief.voice_exists(exx.bob)
     assert os_path_exists(init_lesson_file_path)
 
 

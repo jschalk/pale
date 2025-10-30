@@ -6,7 +6,7 @@ from src.ch13_keep.test._util.ch13_examples import (
     example_yao_bob_zia_need_dues,
     example_yao_bob_zia_patientledgers,
 )
-from src.ref.keywords import Ch13Keywords as kw
+from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
 
 def test_RiverRun_Exists():
@@ -190,19 +190,18 @@ def test_RiverRun_delete_keep_patientledgers_belief_SetsAttr():
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     yao_str = "Yao"
-    bob_str = "Bob"
     sue_str = "Sue"
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
     x_riverrun.set_keep_patientledger(yao_str, yao_str, 1)
-    x_riverrun.set_keep_patientledger(bob_str, bob_str, 1)
-    x_riverrun.set_keep_patientledger(bob_str, sue_str, 1)
+    x_riverrun.set_keep_patientledger(exx.bob, exx.bob, 1)
+    x_riverrun.set_keep_patientledger(exx.bob, sue_str, 1)
     assert x_riverrun.keep_patientledgers == {
         yao_str: {yao_str: 1},
-        bob_str: {bob_str: 1, sue_str: 1},
+        exx.bob: {exx.bob: 1, sue_str: 1},
     }
 
     # WHEN
-    x_riverrun.delete_keep_patientledgers_belief(bob_str)
+    x_riverrun.delete_keep_patientledgers_belief(exx.bob)
 
     # THEN
     assert x_riverrun.keep_patientledgers == {yao_str: {yao_str: 1}}
@@ -213,7 +212,6 @@ def test_RiverRun_get_all_keep_patientledger_voice_names_ReturnsObj():
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     yao_str = "Yao"
-    bob_str = "Bob"
     sue_str = "Sue"
     zia_str = "Zia"
     xio_str = "Xio"
@@ -226,19 +224,19 @@ def test_RiverRun_get_all_keep_patientledger_voice_names_ReturnsObj():
 
     # WHEN
     x_riverrun.set_keep_patientledger(yao_str, yao_str, 1)
-    x_riverrun.set_keep_patientledger(yao_str, bob_str, 1)
+    x_riverrun.set_keep_patientledger(yao_str, exx.bob, 1)
     all_voices_ids = x_riverrun.get_all_keep_patientledger_voice_names()
     # THEN
-    assert all_voices_ids == {yao_str, bob_str}
+    assert all_voices_ids == {yao_str, exx.bob}
 
     # WHEN
-    x_riverrun.set_keep_patientledger(zia_str, bob_str, 1)
+    x_riverrun.set_keep_patientledger(zia_str, exx.bob, 1)
     all_voices_ids = x_riverrun.get_all_keep_patientledger_voice_names()
     # THEN
-    assert all_voices_ids == {yao_str, bob_str, zia_str}
+    assert all_voices_ids == {yao_str, exx.bob, zia_str}
 
     # WHEN
     x_riverrun.set_keep_patientledger(xio_str, sue_str, 1)
     all_voices_ids = x_riverrun.get_all_keep_patientledger_voice_names()
     # THEN
-    assert all_voices_ids == {yao_str, bob_str, zia_str, xio_str, sue_str}
+    assert all_voices_ids == {yao_str, exx.bob, zia_str, xio_str, sue_str}

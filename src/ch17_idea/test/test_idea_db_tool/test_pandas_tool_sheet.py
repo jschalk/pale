@@ -25,7 +25,7 @@ from src.ch17_idea.test._util.ch17_env import (
     idea_moment_mstr_dir,
     temp_dir_setup,
 )
-from src.ref.keywords import Ch17Keywords as kw
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
 def test_append_df_to_excel_CreatesSheet(temp_dir_setup):
@@ -549,27 +549,26 @@ def test_update_all_face_name_spark_num_columns_Scenario0_UpdatesValidSheet(
         ws2.append([spark3, yao_str, "value3"])
 
     workbook.save(excel_path)
-    bob_str = "Bob"
     spark7 = 7
     workbook = openpyxl_load_workbook(excel_path)
     ws1 = workbook[validsheet_str]
     for row in range(2, ws1.max_row + 1):
         assert ws1.cell(row=row, column=1).value != spark7
-        assert ws1.cell(row=row, column=2).value != bob_str
+        assert ws1.cell(row=row, column=2).value != exx.bob
     ws2 = workbook[invalidsheet_str]
     for row in range(2, ws2.max_row + 1):
         assert ws2.cell(row=row, column=1).value == spark3
         assert ws2.cell(row=row, column=2).value == yao_str
 
     # WHEN: We update the workbook
-    update_all_face_name_spark_num_columns(excel_path, bob_str, spark7)
+    update_all_face_name_spark_num_columns(excel_path, exx.bob, spark7)
 
     # THEN: Only the valid sheet should be updated
     workbook = openpyxl_load_workbook(excel_path)
     ws1 = workbook[validsheet_str]
     for row in range(2, ws1.max_row + 1):
         assert ws1.cell(row=row, column=1).value == spark7
-        assert ws1.cell(row=row, column=2).value == bob_str
+        assert ws1.cell(row=row, column=2).value == exx.bob
     ws2 = workbook["InvalidSheet"]
     for row in range(2, ws2.max_row + 1):
         assert ws2.cell(row=row, column=1).value == spark3

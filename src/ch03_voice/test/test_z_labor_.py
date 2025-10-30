@@ -411,7 +411,7 @@ def test_LaborHeir_set_partys_Scenario4_LaborUnitEqualParentLaborHeir_NonEmpty()
 # def test_LaborHeir_set_partys_Scenario5_LaborUnit_NotEqual_ParentLaborHeir_NonEmpty():
 #     # ESTABLISH
 #     exx.yao = "Yao"
-#     exx.sue = "Sue"
+
 #     exx.bob = "Bob"
 #     zia_str = "Zia"
 #     yao_groupunit = groupunit_shop(exx.yao)

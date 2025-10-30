@@ -13,7 +13,7 @@ from src.ch09_belief_lesson._ref.ch09_path import (
     create_moment_json_path,
 )
 from src.ch09_belief_lesson.test._util.ch09_env import get_temp_dir
-from src.ref.keywords import Ch09Keywords as kw
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def test_create_moment_dir_path_ReturnsObj():
@@ -117,18 +117,17 @@ def test_create_gut_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    bob_str = "Bob"
 
     # WHEN
-    gen_a23_e3_belief_path = create_gut_path(x_moment_mstr_dir, a23_str, bob_str)
+    gen_a23_e3_belief_path = create_gut_path(x_moment_mstr_dir, a23_str, exx.bob)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     a23_dir = create_path(x_moments_dir, a23_str)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
-    a23_bob_dir = create_path(a23_beliefs_dir, bob_str)
+    a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_bob_gut_dir = create_path(a23_bob_dir, kw.gut)
-    expected_a23_bob_gut_json_path = create_path(a23_bob_gut_dir, f"{bob_str}.json")
+    expected_a23_bob_gut_json_path = create_path(a23_bob_gut_dir, f"{exx.bob}.json")
     # belief_filename = "belief.json"
     # expected_a23_e3_belief_path = create_path(a23_bob_e3_dir, belief_filename)
     assert gen_a23_e3_belief_path == expected_a23_bob_gut_json_path
@@ -138,18 +137,17 @@ def test_create_job_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     a23_str = "amy23"
-    bob_str = "Bob"
 
     # WHEN
-    gen_a23_e3_belief_path = create_job_path(x_moment_mstr_dir, a23_str, bob_str)
+    gen_a23_e3_belief_path = create_job_path(x_moment_mstr_dir, a23_str, exx.bob)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     a23_dir = create_path(x_moments_dir, a23_str)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
-    a23_bob_dir = create_path(a23_beliefs_dir, bob_str)
+    a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_bob_job_dir = create_path(a23_bob_dir, kw.job)
-    expected_a23_bob_job_json_path = create_path(a23_bob_job_dir, f"{bob_str}.json")
+    expected_a23_bob_job_json_path = create_path(a23_bob_job_dir, f"{exx.bob}.json")
     # belief_filename = "belief.json"
     # expected_a23_e3_belief_path = create_path(a23_bob_e3_dir, belief_filename)
     assert gen_a23_e3_belief_path == expected_a23_bob_job_json_path

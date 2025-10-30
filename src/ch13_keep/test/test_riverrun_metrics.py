@@ -1,5 +1,6 @@
 from src.ch13_keep.riverrun import riverrun_shop
 from src.ch13_keep.test._util.ch13_env import get_temp_dir, temp_moment_label
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_RiverRun_calc_metrics_SetsAttrsScenario01():
@@ -51,21 +52,20 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario02():
     a23_str = temp_moment_label()
     yao_str = "Yao"
     yao_voice_cred_lumen = 500
-    bob_str = "Bob"
     bob_voice_debt_lumen = 350
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
     x_riverrun.set_keep_patientledger(yao_str, yao_str, yao_voice_cred_lumen)
-    x_riverrun.set_need_dues({bob_str: bob_voice_debt_lumen})
+    x_riverrun.set_need_dues({exx.bob: bob_voice_debt_lumen})
     assert x_riverrun.get_voice_need_due(yao_str) == 0
     keep_mana_amount = x_riverrun.keep_point_magnitude
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount
 
     # WHEN
     x_riverrun.calc_metrics()
 
     # THEN
     assert x_riverrun.get_voice_need_due(yao_str) == 0
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount
     assert x_riverrun.cycle_count == 1
     assert x_riverrun.doctor_count == 1
     assert x_riverrun.patient_count == 1
@@ -97,17 +97,16 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario03():
     a23_str = temp_moment_label()
     yao_str = "Yao"
     yao_voice_cred_lumen = 500
-    bob_str = "Bob"
     bob_voice_debt_lumen = 25
     sue_str = "Sue"
     sue_voice_debt_lumen = 75
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
     x_riverrun.set_keep_patientledger(yao_str, yao_str, yao_voice_cred_lumen)
-    doctorledger = {bob_str: bob_voice_debt_lumen, sue_str: sue_voice_debt_lumen}
+    doctorledger = {exx.bob: bob_voice_debt_lumen, sue_str: sue_voice_debt_lumen}
     x_riverrun.set_need_dues(doctorledger)
     assert x_riverrun.get_voice_need_due(yao_str) == 0
     keep_mana_amount = x_riverrun.keep_point_magnitude
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount * 0.25
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount * 0.25
     assert x_riverrun.get_voice_need_due(sue_str) == keep_mana_amount * 0.75
 
     # WHEN
@@ -115,7 +114,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario03():
 
     # THEN
     assert x_riverrun.get_voice_need_due(yao_str) == 0
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount * 0.25
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount * 0.25
     assert x_riverrun.get_voice_need_due(sue_str) == keep_mana_amount * 0.75
     assert x_riverrun.cycle_count == 1
     assert x_riverrun.doctor_count == 2
@@ -149,18 +148,17 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario04():
     yao_str = "Yao"
     yao_yao_voice_cred_lumen = 500
     yao_sue_voice_cred_lumen = 2000
-    bob_str = "Bob"
     bob_voice_debt_lumen = 25
     sue_str = "Sue"
     sue_voice_debt_lumen = 75
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
     x_riverrun.set_keep_patientledger(yao_str, yao_str, yao_yao_voice_cred_lumen)
     x_riverrun.set_keep_patientledger(yao_str, sue_str, yao_sue_voice_cred_lumen)
-    doctorledger = {bob_str: bob_voice_debt_lumen, sue_str: sue_voice_debt_lumen}
+    doctorledger = {exx.bob: bob_voice_debt_lumen, sue_str: sue_voice_debt_lumen}
     x_riverrun.set_need_dues(doctorledger)
     assert x_riverrun.get_voice_need_due(yao_str) == 0
     keep_mana_amount = x_riverrun.keep_point_magnitude
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount * 0.25
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount * 0.25
     assert x_riverrun.get_voice_need_due(sue_str) == keep_mana_amount * 0.75
 
     # WHEN
@@ -168,7 +166,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario04():
 
     # THEN
     assert x_riverrun.get_voice_need_due(yao_str) == 0
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount * 0.25
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount * 0.25
     assert x_riverrun.get_voice_need_due(sue_str) == 0
     assert x_riverrun.get_voice_need_yield(sue_str) == keep_mana_amount * 0.75
     assert x_riverrun.cycle_count == 2
@@ -255,12 +253,11 @@ def test_RiverRun_calc_metrics_EndsRiverCycleLoopIfNoDifferencesBetweenCycles():
     a23_str = temp_moment_label()
     yao_str = "Yao"
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
-    bob_str = "Bob"
     x_riverrun.set_keep_patientledger(yao_str, yao_str, 1)
-    x_riverrun.set_need_dues({bob_str: 1})
+    x_riverrun.set_need_dues({exx.bob: 1})
     keep_mana_amount = x_riverrun.keep_point_magnitude
     assert x_riverrun.get_voice_need_due(yao_str) == 0
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount
     assert x_riverrun.cycle_count == 0
     assert x_riverrun.cycle_carees_prev == set()
     assert x_riverrun.cycle_carees_curr == set()
@@ -272,5 +269,5 @@ def test_RiverRun_calc_metrics_EndsRiverCycleLoopIfNoDifferencesBetweenCycles():
     assert x_riverrun.cycle_carees_prev == {yao_str}
     assert x_riverrun.cycle_carees_curr == {yao_str}
     assert x_riverrun.get_voice_need_due(yao_str) == 0
-    assert x_riverrun.get_voice_need_due(bob_str) == keep_mana_amount
+    assert x_riverrun.get_voice_need_due(exx.bob) == keep_mana_amount
     assert x_riverrun.cycle_count == 1

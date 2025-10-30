@@ -513,13 +513,12 @@ def test_translateunit_shop_ReturnsObj_Scenario1():
 
 def test_translateunit_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven_float_nan():
     # ESTABLISH
-    bob_str = "Bob"
     spark7 = 7
     x_nan = float("nan")
 
     # WHEN
     x_translateunit = translateunit_shop(
-        face_name=bob_str,
+        face_name=exx.bob,
         spark_num=spark7,
         unknown_str=x_nan,
         otx_knot=x_nan,
@@ -527,7 +526,7 @@ def test_translateunit_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhen
     )
 
     # THEN
-    assert x_translateunit.face_name == bob_str
+    assert x_translateunit.face_name == exx.bob
     assert x_translateunit.spark_num == spark7
     assert x_translateunit.unknown_str == default_unknown_str_if_None()
     assert x_translateunit.otx_knot == default_knot_if_None()

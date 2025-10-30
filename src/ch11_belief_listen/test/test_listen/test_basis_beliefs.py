@@ -7,6 +7,7 @@ from src.ch11_belief_listen.basis_beliefs import (
     create_listen_basis,
     get_default_job,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_create_empty_belief_from_belief_ReturnsObj():
@@ -116,15 +117,14 @@ def test_get_default_job_ReturnsObj():
     x_respect_grain = 5
     sue_voice_pool = 800
     casa_str = "casa"
-    bob_str = "Bob"
     last_lesson_id = 7
     sue_max_tree_traverse = 9
     sue_beliefunit = beliefunit_shop(
         sue_str, blue_str, slash_str, x_fund_pool, x_fund_grain, x_respect_grain
     )
     sue_beliefunit.set_last_lesson_id(last_lesson_id)
-    sue_beliefunit.add_voiceunit(bob_str, 3, 4)
-    bob_voiceunit = sue_beliefunit.get_voice(bob_str)
+    sue_beliefunit.add_voiceunit(exx.bob, 3, 4)
+    bob_voiceunit = sue_beliefunit.get_voice(exx.bob)
     bob_voiceunit.add_membership(f"{slash_str}swimmers")
     sue_beliefunit.set_voice_respect(sue_voice_pool)
     sue_beliefunit.set_l1_plan(planunit_shop(casa_str))

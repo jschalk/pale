@@ -6,14 +6,13 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename,
 )
 from src.ch19_world_kpi.kpi_mstr import populate_kpi_bundle
-from src.ref.keywords import Ch19Keywords as kw
+from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
 def test_populate_kpi_bundle_PopulatesTable_Scenario0_WithDefaultBundleID():
     # ESTABLISH
     a23_str = "amy23"
     yao_str = "Yao"
-    bob_str = "Bob"
     yao_voice_net = -55
     bob_voice_net = 600
 
@@ -25,7 +24,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario0_WithDefaultBundleID():
         blrplan_job_tablename = create_prime_tablename("BLRPLAN", "job", None)
         insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount})
 VALUES
-  ('{a23_str}', '{bob_str}', {bob_voice_net})
+  ('{a23_str}', '{exx.bob}', {bob_voice_net})
 , ('{a23_str}', '{yao_str}', {yao_voice_net})
 """
         cursor.execute(insert_sqlstr)
@@ -56,7 +55,6 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario1_WithNoBundleID():
     # ESTABLISH
     a23_str = "amy23"
     yao_str = "Yao"
-    bob_str = "Bob"
     yao_voice_net = -55
     bob_voice_net = 600
 
@@ -67,7 +65,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario1_WithNoBundleID():
         moment_voice_nets_tablename = kw.moment_voice_nets
         insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount})
 VALUES
-  ('{a23_str}', '{bob_str}', {bob_voice_net})
+  ('{a23_str}', '{exx.bob}', {bob_voice_net})
 , ('{a23_str}', '{yao_str}', {yao_voice_net})
 """
         cursor.execute(insert_sqlstr)

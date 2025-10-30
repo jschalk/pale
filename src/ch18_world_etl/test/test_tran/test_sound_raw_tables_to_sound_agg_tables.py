@@ -11,13 +11,12 @@ from src.ch18_world_etl.transformers import (
     insert_sound_raw_selects_into_sound_agg_tables,
     set_sound_raw_tables_error_message,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
@@ -51,10 +50,10 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdat
         values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{bob_str}', '{bob_inx}', NULL, NULL, NULL, NULL)
-, ('{b077}', {spark1}, '{sue_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, NULL)
+, ('{b077}', {spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL, NULL)
 , ('{b045}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
-, ('{b045}', {spark5}, '{sue_str}', '{bob_str}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
+, ('{b045}', {spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ('{b045}', {spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 ;
 """
@@ -75,7 +74,6 @@ VALUES
 def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
@@ -108,10 +106,10 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0():
         values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{bob_str}', '{bob_inx}', NULL, NULL, NULL, NULL)
-, ('{b077}', {spark1}, '{sue_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, NULL)
+, ('{b077}', {spark1}, '{sue_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL, NULL)
 , ('{b045}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
-, ('{b045}', {spark5}, '{sue_str}', '{bob_str}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
+, ('{b045}', {spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ('{b045}', {spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 ;
 """
@@ -132,7 +130,6 @@ VALUES
 def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_belief_raw_del():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
@@ -164,9 +161,9 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_belief_raw_de
         values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_inx}')
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_inx}')
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_inx}')
-, ('{b077}', {spark1}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_str}')
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}','{exx.bob}', '{bob_inx}')
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}','{exx.bob}', '{bob_inx}')
+, ('{b077}', {spark1}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}')
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -195,7 +192,6 @@ VALUES
 def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
@@ -229,11 +225,11 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
         values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, '{inconsistent_data_str}')
-, ('{b117}', {spark1}, '{sue_str}', '{bob_str}', '{bob_inx}', NULL, NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, NULL)
 , ('{b117}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ('{b117}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ('{b045}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
-, ('{b045}', {spark5}, '{sue_str}', '{bob_str}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', '{inconsistent_data_str}')
+, ('{b045}', {spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', '{inconsistent_data_str}')
 , ('{b045}', {spark7}, '{yao_str}', '{yao_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', '{inconsistent_data_str}')
 ;
 """
@@ -252,11 +248,11 @@ VALUES
 )"""
         values_clause = f"""
 VALUES
-  ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{yao_str}', NULL, NULL, '{inconsistent_data_str}')
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
-, ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
+  ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{yao_str}', NULL, NULL, '{inconsistent_data_str}')
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
 , ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{yao_str}', NULL, NULL, NULL)
 ;
 """
@@ -281,7 +277,7 @@ VALUES
         print(rows)
         assert len(rows) == 2
         assert rows == [
-            (spark1, sue_str, bob_str, bob_inx, None, None, None, None),
+            (spark1, sue_str, exx.bob, bob_inx, None, None, None, None),
             (spark2, sue_str, sue_str, sue_str, rdx, rdx, ukx, None),
         ]
 
@@ -291,7 +287,7 @@ VALUES
         print(rows)
         assert len(rows) == 2
         assert rows == [
-            (spark1, sue_str, a23_str, bob_str, bob_str, None, None, None),
+            (spark1, sue_str, a23_str, exx.bob, exx.bob, None, None, None),
             (spark1, sue_str, a23_str, yao_str, yao_str, None, None, None),
         ]
 
@@ -299,7 +295,6 @@ VALUES
 def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario1_del_table():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
@@ -329,11 +324,11 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
 )"""
         values_clause = f"""
 VALUES
-  ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{yao_str}')
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}')
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}')
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}')
-, ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}')
+  ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{yao_str}')
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}')
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}')
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}')
+, ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}')
 , ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{yao_str}')
 ;
 """
@@ -353,8 +348,8 @@ VALUES
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (spark1, sue_str, a23_str, bob_str, bob_str, None),
-            (spark1, sue_str, a23_str, bob_str, yao_str, None),
+            (spark1, sue_str, a23_str, exx.bob, exx.bob, None),
+            (spark1, sue_str, a23_str, exx.bob, yao_str, None),
             (spark1, sue_str, a23_str, yao_str, yao_str, None),
         ]
 
@@ -362,7 +357,6 @@ VALUES
 def test_etl_sound_raw_tables_to_sound_agg_tables_PopulatesValidTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao_inx = "Yaoito"
@@ -397,12 +391,12 @@ def test_etl_sound_raw_tables_to_sound_agg_tables_PopulatesValidTable_Scenario0(
 VALUES
   ('{b117}', {spark1}, '{sue_str}', '{yao_str}', '{yao_inx}', NULL, NULL, NULL, NULL)
 , ('{b117}', {spark1}, '{sue_str}', '{yao_str}', '{yao_str}', NULL, NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{bob_str}', '{bob_inx}', NULL, NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, NULL)
 , ('{b117}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ('{b117}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
 , ('{b045}', {spark2}, '{sue_str}', '{sue_str}', '{sue_str}', '{rdx}', '{rdx}', '{ukx}', NULL)
-, ('{b045}', {spark5}, '{sue_str}', '{bob_str}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
-, ('{b045}', {spark7}, '{yao_str}', '{bob_str}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
+, ('{b045}', {spark5}, '{sue_str}', '{exx.bob}', '{bob_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
+, ('{b045}', {spark7}, '{yao_str}', '{exx.bob}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -420,12 +414,12 @@ VALUES
 )"""
         values_clause = f"""
 VALUES
-  ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{yao_str}', NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
-, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
-, ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{bob_str}', '{bob_str}', NULL, NULL, NULL)
+  ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{yao_str}', NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ('{b117}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
+, ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
 , ('{b020}', {spark1}, '{sue_str}', '{a23_str}', '{yao_str}', '{yao_str}', NULL, NULL, NULL)
 ;
 """
@@ -449,10 +443,10 @@ VALUES
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (spark1, sue_str, bob_str, bob_inx, None, None, None, None),
+            (spark1, sue_str, exx.bob, bob_inx, None, None, None, None),
             (spark2, sue_str, sue_str, sue_str, rdx, rdx, ukx, None),
-            (spark5, sue_str, bob_str, bob_inx, rdx, rdx, ukx, None),
-            (spark7, yao_str, bob_str, yao_inx, rdx, rdx, ukx, None),
+            (spark5, sue_str, exx.bob, bob_inx, rdx, rdx, ukx, None),
+            (spark7, yao_str, exx.bob, yao_inx, rdx, rdx, ukx, None),
         ]
 
         select_agg_sqlstr = f"""SELECT * FROM {blfvoce_s_put_agg_tblname};"""
@@ -460,7 +454,7 @@ VALUES
         rows = cursor.fetchall()
         print(rows)
         assert rows == [
-            (spark1, sue_str, a23_str, bob_str, bob_str, None, None, None),
-            (spark1, sue_str, a23_str, bob_str, yao_str, None, None, None),
+            (spark1, sue_str, a23_str, exx.bob, exx.bob, None, None, None),
+            (spark1, sue_str, a23_str, exx.bob, yao_str, None, None, None),
             (spark1, sue_str, a23_str, yao_str, yao_str, None, None, None),
         ]

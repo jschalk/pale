@@ -5,6 +5,7 @@ from src.ch07_belief_logic.belief_tool import belief_plan_reason_caseunit_set_ob
 from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_irrational_example,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def best_sport_str() -> str:
@@ -42,18 +43,17 @@ def play_run_str() -> str:
 def get_sue_beliefunit() -> BeliefUnit:
     sue_belief = beliefunit_shop("Sue", "accord23")
     sue_str = "Sue"
-    bob_str = "Bob"
     sue_cred_lumen = 11
     sue_debt_lumen = 13
     bob_cred_lumen = 23
     bob_debt_lumen = 29
     sue_belief.add_voiceunit(sue_str, sue_cred_lumen, sue_debt_lumen)
-    sue_belief.add_voiceunit(bob_str, bob_cred_lumen, bob_debt_lumen)
+    sue_belief.add_voiceunit(exx.bob, bob_cred_lumen, bob_debt_lumen)
     sue_voice = sue_belief.get_voice(sue_str)
     swim_str = ";swimmers"
     team_str = ";Team Administrator"
     sue_voice.add_membership(swim_str, 77, 51)
-    bob_voice = sue_belief.get_voice(bob_str)
+    bob_voice = sue_belief.get_voice(exx.bob)
     bob_voice.add_membership(swim_str, 12, 37)
     bob_voice.add_membership(team_str, 51, 91)
 
@@ -108,7 +108,6 @@ def get_sue_beliefunit() -> BeliefUnit:
 def get_sue_belief_with_facts_and_reasons() -> BeliefUnit:
     sue_belief = get_sue_beliefunit()
     sue_str = "Sue"
-    bob_str = "Bob"
     casa_rope = sue_belief.make_l1_rope("casa")
     clean_rope = sue_belief.make_rope(casa_rope, "clean")
     mop_rope = sue_belief.make_rope(clean_rope, "mop")
@@ -129,7 +128,7 @@ def get_sue_belief_with_facts_and_reasons() -> BeliefUnit:
     sue_belief.add_fact(best_rope, best_soccer_rope, 1, 7)
     mop_laborunit = laborunit_shop()
     mop_laborunit.add_party(sue_str)
-    mop_laborunit.add_party(bob_str, True)
+    mop_laborunit.add_party(exx.bob, True)
     sue_belief.edit_plan_attr(mop_rope, laborunit=mop_laborunit)
     # add reasons to mop_plan, sweep_plan, play_soccer_plan, plan_swim_plan, play_run_plan
     x_plan = "plan_rope"

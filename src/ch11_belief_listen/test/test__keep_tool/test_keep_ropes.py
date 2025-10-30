@@ -14,6 +14,7 @@ from src.ch11_belief_listen.test._util.ch11_env import (
     get_temp_dir as env_dir,
     temp_dir_setup,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
@@ -113,8 +114,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     save_gut_file(mstr_dir, sue_lessonfilehandler.default_gut_belief())
     sue_gut_belief = open_gut_file(mstr_dir, a23_str, sue_str)
     sue_gut_belief.add_voiceunit(sue_str)
-    bob_str = "Bob"
-    sue_gut_belief.add_voiceunit(bob_str)
+    sue_gut_belief.add_voiceunit(exx.bob)
     texas_str = "Texas"
     texas_rope = sue_gut_belief.make_l1_rope(texas_str)
     sue_gut_belief.set_l1_plan(planunit_shop(texas_str, problem_bool=True))

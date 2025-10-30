@@ -8,7 +8,7 @@ from src.ch16_translate.map import (
     ropemap_shop,
 )
 from src.ch16_translate.translate_config import default_unknown_str_if_None
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
 def test_RopeMap_Exists():
@@ -29,7 +29,6 @@ def test_ropemap_shop_ReturnsObj_Scenario0():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     spark7 = 7
     otx2inx = {xio_str: sue_str}
     x_unknown_str = "UnknownTerm"
@@ -38,7 +37,7 @@ def test_ropemap_shop_ReturnsObj_Scenario0():
 
     # WHEN
     e7_ropemap = ropemap_shop(
-        face_name=bob_str,
+        face_name=exx.bob,
         spark_num=spark7,
         otx2inx=otx2inx,
         unknown_str=x_unknown_str,
@@ -47,14 +46,14 @@ def test_ropemap_shop_ReturnsObj_Scenario0():
     )
 
     # THEN
-    assert e7_ropemap.face_name == bob_str
+    assert e7_ropemap.face_name == exx.bob
     assert e7_ropemap.spark_num == spark7
     assert e7_ropemap.otx2inx == otx2inx
     assert e7_ropemap.unknown_str == x_unknown_str
     assert e7_ropemap.otx_knot == slash_otx_knot
     assert e7_ropemap.inx_knot == colon_inx_knot
     assert e7_ropemap.labelmap == labelmap_shop(
-        face_name=bob_str,
+        face_name=exx.bob,
         spark_num=spark7,
         unknown_str=x_unknown_str,
         otx_knot=slash_otx_knot,
@@ -85,14 +84,13 @@ def test_ropemap_shop_ReturnsObj_Scenario3_TranslateCoreAttrAreDefaultWhenGiven_
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     spark7 = 7
     otx2inx = {xio_str: sue_str}
     x_nan = float("nan")
 
     # WHEN
     x_ropemap = ropemap_shop(
-        face_name=bob_str,
+        face_name=exx.bob,
         spark_num=spark7,
         otx2inx=otx2inx,
         unknown_str=x_nan,
@@ -101,7 +99,7 @@ def test_ropemap_shop_ReturnsObj_Scenario3_TranslateCoreAttrAreDefaultWhenGiven_
     )
 
     # THEN
-    assert x_ropemap.face_name == bob_str
+    assert x_ropemap.face_name == exx.bob
     assert x_ropemap.spark_num == spark7
     assert x_ropemap.otx2inx == otx2inx
     assert x_ropemap.unknown_str == default_unknown_str_if_None()
@@ -191,12 +189,11 @@ def test_RopeMap_otx2inx_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
     assert x_ropemap.otx2inx_exists(xio_str, sue_str) is False
     assert x_ropemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_ropemap.otx2inx_exists(xio_str, bob_str) is False
+    assert x_ropemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_ropemap.otx2inx_exists(zia_str, zia_str) is False
 
     # WHEN
@@ -205,7 +202,7 @@ def test_RopeMap_otx2inx_exists_ReturnsObj():
     # THEN
     assert x_ropemap.otx2inx_exists(xio_str, sue_str)
     assert x_ropemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_ropemap.otx2inx_exists(xio_str, bob_str) is False
+    assert x_ropemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_ropemap.otx2inx_exists(zia_str, zia_str) is False
 
     # WHEN
@@ -214,7 +211,7 @@ def test_RopeMap_otx2inx_exists_ReturnsObj():
     # THEN
     assert x_ropemap.otx2inx_exists(xio_str, sue_str)
     assert x_ropemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_ropemap.otx2inx_exists(xio_str, bob_str) is False
+    assert x_ropemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_ropemap.otx2inx_exists(zia_str, zia_str)
 
 
@@ -222,12 +219,11 @@ def test_RopeMap_otx_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
     assert x_ropemap.otx_exists(xio_str) is False
     assert x_ropemap.otx_exists(sue_str) is False
-    assert x_ropemap.otx_exists(bob_str) is False
+    assert x_ropemap.otx_exists(exx.bob) is False
     assert x_ropemap.otx_exists(zia_str) is False
 
     # WHEN
@@ -236,7 +232,7 @@ def test_RopeMap_otx_exists_ReturnsObj():
     # THEN
     assert x_ropemap.otx_exists(xio_str)
     assert x_ropemap.otx_exists(sue_str) is False
-    assert x_ropemap.otx_exists(bob_str) is False
+    assert x_ropemap.otx_exists(exx.bob) is False
     assert x_ropemap.otx_exists(zia_str) is False
 
     # WHEN
@@ -245,7 +241,7 @@ def test_RopeMap_otx_exists_ReturnsObj():
     # THEN
     assert x_ropemap.otx_exists(xio_str)
     assert x_ropemap.otx_exists(sue_str) is False
-    assert x_ropemap.otx_exists(bob_str) is False
+    assert x_ropemap.otx_exists(exx.bob) is False
     assert x_ropemap.otx_exists(zia_str)
 
 
@@ -327,12 +323,11 @@ def test_RopeTranslate_label_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
     assert x_ropemap.label_exists(xio_str, sue_str) is False
     assert x_ropemap.label_exists(xio_str, zia_str) is False
-    assert x_ropemap.label_exists(xio_str, bob_str) is False
+    assert x_ropemap.label_exists(xio_str, exx.bob) is False
     assert x_ropemap.label_exists(zia_str, zia_str) is False
 
     # WHEN
@@ -341,7 +336,7 @@ def test_RopeTranslate_label_exists_ReturnsObj():
     # THEN
     assert x_ropemap.label_exists(xio_str, sue_str)
     assert x_ropemap.label_exists(xio_str, zia_str) is False
-    assert x_ropemap.label_exists(xio_str, bob_str) is False
+    assert x_ropemap.label_exists(xio_str, exx.bob) is False
     assert x_ropemap.label_exists(zia_str, zia_str) is False
 
     # WHEN
@@ -350,7 +345,7 @@ def test_RopeTranslate_label_exists_ReturnsObj():
     # THEN
     assert x_ropemap.label_exists(xio_str, sue_str)
     assert x_ropemap.label_exists(xio_str, zia_str) is False
-    assert x_ropemap.label_exists(xio_str, bob_str) is False
+    assert x_ropemap.label_exists(xio_str, exx.bob) is False
     assert x_ropemap.label_exists(zia_str, zia_str)
 
 
@@ -358,12 +353,11 @@ def test_RopeMap_otx_label_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     zia_str = "Zia"
     x_ropemap = ropemap_shop(None)
     assert x_ropemap.otx_label_exists(xio_str) is False
     assert x_ropemap.otx_label_exists(sue_str) is False
-    assert x_ropemap.otx_label_exists(bob_str) is False
+    assert x_ropemap.otx_label_exists(exx.bob) is False
     assert x_ropemap.otx_label_exists(zia_str) is False
 
     # WHEN
@@ -372,7 +366,7 @@ def test_RopeMap_otx_label_exists_ReturnsObj():
     # THEN
     assert x_ropemap.otx_label_exists(xio_str)
     assert x_ropemap.otx_label_exists(sue_str) is False
-    assert x_ropemap.otx_label_exists(bob_str) is False
+    assert x_ropemap.otx_label_exists(exx.bob) is False
     assert x_ropemap.otx_label_exists(zia_str) is False
 
     # WHEN
@@ -381,7 +375,7 @@ def test_RopeMap_otx_label_exists_ReturnsObj():
     # THEN
     assert x_ropemap.otx_label_exists(xio_str)
     assert x_ropemap.otx_label_exists(sue_str) is False
-    assert x_ropemap.otx_label_exists(bob_str) is False
+    assert x_ropemap.otx_label_exists(exx.bob) is False
     assert x_ropemap.otx_label_exists(zia_str)
 
 
@@ -669,9 +663,8 @@ def test_inherit_ropemap_ReturnsObj_Scenario3_RaiseErrorWhenDifferent_x_unknown_
 def test_inherit_ropemap_ReturnsObj_Scenario4_RaiseErrorWhenDifferent_x_face_name():
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     old_ropemap = ropemap_shop(sue_str, 0)
-    new_ropemap = ropemap_shop(bob_str, 1)
+    new_ropemap = ropemap_shop(exx.bob, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:

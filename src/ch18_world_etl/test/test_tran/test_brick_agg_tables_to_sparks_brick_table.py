@@ -6,7 +6,7 @@ from src.ch18_world_etl.transformers import (
     etl_sparks_brick_agg_db_to_spark_dict,
     etl_sparks_brick_agg_table_to_sparks_brick_valid_table,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario0():
@@ -87,7 +87,6 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
     a23_str = "amy23"
     sue_str = "Sue"
     yao_str = "Yao"
-    bob_str = "Bob"
     spark1 = 1
     spark3 = 3
     spark9 = 9
@@ -119,7 +118,7 @@ VALUES
 , ('{spark1}', '{sue_str}', "{a23_str}", '{hour7am}', '{minute_420}')
 , ('{spark1}', '{yao_str}', "{a23_str}", '{hour7am}', '{minute_420}')
 , ('{spark9}', '{yao_str}', "{a23_str}", '{hour7am}', '{minute_420}')
-, ('{spark3}', '{bob_str}', "{a23_str}", '{hour7am}', '{minute_420}')
+, ('{spark3}', '{exx.bob}', "{a23_str}", '{hour7am}', '{minute_420}')
 ;
 """
         insert_sqlstr = f"{insert_into_clause} {values_clause}"
@@ -143,7 +142,7 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
         rows = cursor.fetchall()
         assert len(rows) == 4
         invalid_str = "invalid because of conflicting spark_num"
-        bob_row = ("br00003", spark3, bob_str, None)
+        bob_row = ("br00003", spark3, exx.bob, None)
         sue_row = ("br00003", spark1, sue_str, invalid_str)
         yao1_row = ("br00003", spark1, yao_str, invalid_str)
         yao9_row = ("br00003", spark9, yao_str, None)
@@ -158,7 +157,6 @@ def test_etl_sparks_brick_agg_table_to_sparks_brick_valid_table_PopulatesTables_
     # ESTABLISH
     sue_str = "Sue"
     yao_str = "Yao"
-    bob_str = "Bob"
     spark1 = 1
     spark3 = 3
     spark9 = 9
@@ -181,7 +179,7 @@ def test_etl_sparks_brick_agg_table_to_sparks_brick_valid_table_PopulatesTables_
         invalid_str = "invalid because of conflicting spark_num"
         values_clause = f"""
 VALUES
-  ('br00003', {spark3}, '{bob_str}', NULL)
+  ('br00003', {spark3}, '{exx.bob}', NULL)
 , ('br00003', {spark1}, '{sue_str}', '{invalid_str}')
 , ('br00003', {spark1}, '{yao_str}', '{invalid_str}')
 , ('br00003', {spark9}, '{yao_str}', NULL)  
@@ -207,7 +205,7 @@ ORDER BY {kw.spark_num}, {kw.face_name};"""
 
         rows = cursor.fetchall()
         assert len(rows) == 2
-        bob_row = (spark3, bob_str)
+        bob_row = (spark3, exx.bob)
         yao9_row = (spark9, yao_str)
 
         assert rows[0] == bob_row
@@ -218,7 +216,6 @@ def test_etl_sparks_brick_agg_db_to_spark_dict_ReturnsObj_Scenario0():
     # ESTABLISH
     sue_str = "Sue"
     yao_str = "Yao"
-    bob_str = "Bob"
     spark1 = 1
     spark3 = 3
     spark9 = 9
@@ -230,7 +227,7 @@ def test_etl_sparks_brick_agg_db_to_spark_dict_ReturnsObj_Scenario0():
         insert_into_clause = f"""
 INSERT INTO {agg_sparks_tablename} ({kw.spark_num}, {kw.face_name}, {kw.error_message})
 VALUES     
-  ('{spark3}', '{bob_str}', NULL)
+  ('{spark3}', '{exx.bob}', NULL)
 , ('{spark1}', '{sue_str}', 'invalid because of conflicting spark_num')
 , ('{spark1}', '{yao_str}', 'invalid because of conflicting spark_num')
 , ('{spark9}', '{yao_str}', NULL)
@@ -246,4 +243,4 @@ VALUES
         sparks_dict = etl_sparks_brick_agg_db_to_spark_dict(cursor)
 
         # THEN
-        assert sparks_dict == {spark3: bob_str, spark9: yao_str}
+        assert sparks_dict == {spark3: exx.bob, spark9: yao_str}

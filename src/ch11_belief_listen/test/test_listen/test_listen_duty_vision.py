@@ -33,7 +33,7 @@ from src.ch11_belief_listen.test._util.ch11_examples import (
     hungry_str,
     run_str,
 )
-from src.ref.keywords import Ch11Keywords as kw
+from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx
 
 
 def sanitation_str() -> str:
@@ -91,12 +91,11 @@ def run_rope() -> RopeTerm:
 def get_example_yao_belief() -> BeliefUnit:
     yao_str = "Yao"
     zia_str = "Zia"
-    bob_str = "Bob"
     yao_speaker = beliefunit_shop(yao_str, ch11_example_moment_label())
     yao_speaker.set_plan_obj(planunit_shop(run_str()), casa_rope())
     yao_speaker.add_voiceunit(yao_str, voice_debt_lumen=10)
     yao_speaker.add_voiceunit(zia_str, voice_debt_lumen=30)
-    yao_speaker.add_voiceunit(bob_str, voice_debt_lumen=40)
+    yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=40)
     yao_speaker.set_voice_respect(80)
     return yao_speaker
 
@@ -238,9 +237,6 @@ def get_zia_utah_lessonfilehandler() -> LessonFileHandler:
 
 def get_example_yao_gut_with_3_healers():
     yao_gut = get_example_yao_belief()
-    yao_str = yao_gut.get_voice("Yao").voice_name
-    bob_str = yao_gut.get_voice("Bob").voice_name
-    zia_str = yao_gut.get_voice("Zia").voice_name
     iowa_plan = planunit_shop(get_iowa_str(), problem_bool=True)
     ohio_plan = planunit_shop(get_ohio_str(), problem_bool=True)
     utah_plan = planunit_shop(get_utah_str(), problem_bool=True)

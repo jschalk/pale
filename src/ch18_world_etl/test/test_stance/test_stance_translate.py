@@ -11,7 +11,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_add_to_br00042_csv_ReturnsObj():
@@ -139,8 +139,6 @@ VALUES
 def test_add_to_br00044_csv_ReturnsObj():
     # ESTABLISH database with translate data
     # - [`br00044`](ideas/br00044.md): spark_num, face_name, otx_label, inx_label, otx_knot, inx_knot, unknown_str
-    bob_str = "Bob"
-    sue_str = "Sue"
     bob_otx_knot = ";"
     bob_inx_knot = "/"
     sue_otx_knot = "?"
@@ -164,8 +162,8 @@ def test_add_to_br00044_csv_ReturnsObj():
 INSERT INTO {trllabe_s_vld_tablename}
 ({kw.spark_num}, {kw.face_name}, {kw.otx_label}, {kw.inx_label})
 VALUES
-  ({spark1}, '{sue_str}', '{sue_clean_otx}', '{sue_clean_inx}')
-, ({spark7}, '{bob_str}', '{bob_clean_otx}', '{bob_clean_inx}')
+  ({spark1}, '{exx.sue}', '{sue_clean_otx}', '{sue_clean_inx}')
+, ({spark7}, '{exx.bob}', '{bob_clean_otx}', '{bob_clean_inx}')
 ;
 """
         cursor.execute(insert_trllabe_sqlstr)
@@ -175,8 +173,8 @@ VALUES
 INSERT INTO {trlcore_s_vld_tablename}
 ({kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES
-  ('{sue_str}', '{sue_otx_knot}', '{sue_inx_knot}', '{sue_unknown_str}')
-, ('{bob_str}', '{bob_otx_knot}', '{bob_inx_knot}', '{bob_unknown_str}')
+  ('{exx.sue}', '{sue_otx_knot}', '{sue_inx_knot}', '{sue_unknown_str}')
+, ('{exx.bob}', '{bob_otx_knot}', '{bob_inx_knot}', '{bob_unknown_str}')
 ;
 """
         cursor.execute(insert_trlcore_sqlstr)
@@ -192,8 +190,8 @@ VALUES
         gen_csv = add_to_br00044_csv(header_only_csv, cursor, csv_delimiter)
 
         # THEN
-        sue_row = f",{sue_str},{sue_clean_otx},{sue_clean_inx},{sue_otx_knot},{sue_inx_knot},{sue_unknown_str}\n"
-        bob_row = f",{bob_str},{bob_clean_otx},{bob_clean_inx},{bob_otx_knot},{bob_inx_knot},{bob_unknown_str}\n"
+        sue_row = f",{exx.sue},{sue_clean_otx},{sue_clean_inx},{sue_otx_knot},{sue_inx_knot},{sue_unknown_str}\n"
+        bob_row = f",{exx.bob},{bob_clean_otx},{bob_clean_inx},{bob_otx_knot},{bob_inx_knot},{bob_unknown_str}\n"
         expected_csv = f"{header_only_csv}{bob_row}{sue_row}"
         print(f"     {gen_csv=}")
         print(f"{expected_csv=}")
@@ -203,8 +201,6 @@ VALUES
 def test_add_to_br00045_csv_ReturnsObj():
     # ESTABLISH database with translate data
     # - [`br00045`](ideas/br00045.md): spark_num, face_name, otx_rope, inx_rope, otx_knot, inx_knot, unknown_str
-    bob_str = "Bob"
-    sue_str = "Sue"
     bob_otx_knot = ";"
     bob_inx_knot = "/"
     sue_otx_knot = "?"
@@ -228,8 +224,8 @@ def test_add_to_br00045_csv_ReturnsObj():
 INSERT INTO {trlrope_s_vld_tablename}
 ({kw.spark_num}, {kw.face_name}, {kw.otx_rope}, {kw.inx_rope})
 VALUES
-  ({spark1}, '{sue_str}', '{sue_clean_otx}', '{sue_clean_inx}')
-, ({spark7}, '{bob_str}', '{bob_clean_otx}', '{bob_clean_inx}')
+  ({spark1}, '{exx.sue}', '{sue_clean_otx}', '{sue_clean_inx}')
+, ({spark7}, '{exx.bob}', '{bob_clean_otx}', '{bob_clean_inx}')
 ;
 """
         cursor.execute(insert_trlrope_sqlstr)
@@ -239,8 +235,8 @@ VALUES
 INSERT INTO {trlcore_s_vld_tablename}
 ({kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES
-  ('{sue_str}', '{sue_otx_knot}', '{sue_inx_knot}', '{sue_unknown_str}')
-, ('{bob_str}', '{bob_otx_knot}', '{bob_inx_knot}', '{bob_unknown_str}')
+  ('{exx.sue}', '{sue_otx_knot}', '{sue_inx_knot}', '{sue_unknown_str}')
+, ('{exx.bob}', '{bob_otx_knot}', '{bob_inx_knot}', '{bob_unknown_str}')
 ;
 """
         cursor.execute(insert_trlcore_sqlstr)
@@ -256,8 +252,8 @@ VALUES
         gen_csv = add_to_br00045_csv(header_only_csv, cursor, csv_delimiter)
 
         # THEN
-        sue_row = f",{sue_str},{sue_clean_otx},{sue_clean_inx},{sue_otx_knot},{sue_inx_knot},{sue_unknown_str}\n"
-        bob_row = f",{bob_str},{bob_clean_otx},{bob_clean_inx},{bob_otx_knot},{bob_inx_knot},{bob_unknown_str}\n"
+        sue_row = f",{exx.sue},{sue_clean_otx},{sue_clean_inx},{sue_otx_knot},{sue_inx_knot},{sue_unknown_str}\n"
+        bob_row = f",{exx.bob},{bob_clean_otx},{bob_clean_inx},{bob_otx_knot},{bob_inx_knot},{bob_unknown_str}\n"
         expected_csv = f"{header_only_csv}{bob_row}{sue_row}"
         print(f"     {gen_csv=}")
         print(f"{expected_csv=}")
@@ -311,8 +307,6 @@ VALUES
         cursor.execute(insert_trlname_sqlstr)
 
         # insert translate_label records
-        bob_str = "Bob"
-        sue_str = "Sue"
         sue_clean_otx = "clean"
         sue_clean_inx = "limpia"
         bob_clean_otx = "very clean"
@@ -323,8 +317,8 @@ VALUES
 INSERT INTO {trllabe_s_vld_tablename}
 ({kw.spark_num}, {kw.face_name}, {kw.otx_label}, {kw.inx_label})
 VALUES
-  ({spark1}, '{sue_str}', '{sue_clean_otx}', '{sue_clean_inx}')
-, ({spark7}, '{bob_str}', '{bob_clean_otx}', '{bob_clean_inx}')
+  ({spark1}, '{exx.sue}', '{sue_clean_otx}', '{sue_clean_inx}')
+, ({spark7}, '{exx.bob}', '{bob_clean_otx}', '{bob_clean_inx}')
 ;
 """
         cursor.execute(insert_trllabe_sqlstr)
@@ -340,8 +334,8 @@ VALUES
 INSERT INTO {trlrope_s_vld_tablename}
 ({kw.spark_num}, {kw.face_name}, {kw.otx_rope}, {kw.inx_rope})
 VALUES
-  ({spark1}, '{sue_str}', '{sue_clean_otx}', '{sue_clean_inx}')
-, ({spark7}, '{bob_str}', '{bob_clean_otx}', '{bob_clean_inx}')
+  ({spark1}, '{exx.sue}', '{sue_clean_otx}', '{sue_clean_inx}')
+, ({spark7}, '{exx.bob}', '{bob_clean_otx}', '{bob_clean_inx}')
 ;
 """
         cursor.execute(insert_trlrope_sqlstr)

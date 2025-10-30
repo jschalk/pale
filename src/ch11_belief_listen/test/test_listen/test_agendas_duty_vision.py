@@ -26,6 +26,7 @@ from src.ch11_belief_listen.test._util.ch11_examples import (
     get_example_zia_speaker,
     run_str,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_BeliefWhenNo_partyunitIsSet(
@@ -133,7 +134,6 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionBeliefWithDetailsD
     assert len(zia_cook_planunit.reasonunits) == 1
     assert len(bob_cook_planunit.reasonunits) == 0
     zia_str = zia_vision.belief_name
-    bob_str = bob_vision.belief_name
     sue_dakota_lessonfilehandler = get_dakota_lessonfilehandler()
     save_vision_belief(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
@@ -173,14 +173,14 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionBeliefWithDetailsD
     assert new_yao_job1.plan_exists(a23_cook_rope())
     new_cook_plan = new_yao_job1.get_plan_obj(a23_cook_rope())
     zia_voiceunit = new_yao_job1.get_voice(zia_str)
-    bob_voiceunit = new_yao_job1.get_voice(bob_str)
+    bob_voiceunit = new_yao_job1.get_voice(exx.bob)
     assert zia_voiceunit.voice_debt_lumen < bob_voiceunit.voice_debt_lumen
     assert new_cook_plan.get_reasonunit(a23_eat_rope()) is None
 
     yao_zia_voice_debt_lumen = 15
     yao_bob_voice_debt_lumen = 5
     yao_duty.add_voiceunit(zia_str, None, yao_zia_voice_debt_lumen)
-    yao_duty.add_voiceunit(bob_str, None, yao_bob_voice_debt_lumen)
+    yao_duty.add_voiceunit(exx.bob, None, yao_bob_voice_debt_lumen)
     yao_duty.set_voice_respect(100)
     new_yao_job2 = create_listen_basis(yao_duty)
     assert new_yao_job2.plan_exists(a23_cook_rope()) is False
@@ -194,7 +194,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionBeliefWithDetailsD
     assert new_yao_job2.plan_exists(a23_cook_rope())
     new_cook_plan = new_yao_job2.get_plan_obj(a23_cook_rope())
     zia_voiceunit = new_yao_job2.get_voice(zia_str)
-    bob_voiceunit = new_yao_job2.get_voice(bob_str)
+    bob_voiceunit = new_yao_job2.get_voice(exx.bob)
     assert zia_voiceunit.voice_debt_lumen > bob_voiceunit.voice_debt_lumen
     zia_eat_reasonunit = zia_cook_planunit.get_reasonunit(a23_eat_rope())
     assert new_cook_plan.get_reasonunit(a23_eat_rope()) == zia_eat_reasonunit

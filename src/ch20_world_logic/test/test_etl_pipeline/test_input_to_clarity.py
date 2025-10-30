@@ -27,7 +27,7 @@ from src.ch20_world_logic.test._util.ch20_env import (
     temp_dir_setup,
 )
 from src.ch20_world_logic.world import worldunit_shop
-from src.ref.keywords import Ch20Keywords as kw
+from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
 def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113PopulatesTables(
@@ -361,7 +361,6 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentT
     fay_str = "Fay"
     fay_world = worldunit_shop(fay_str, worlds_dir())
     # delete_dir(fay_world.worlds_dir)
-    bob_str = "Bob"
     sue_str = "Sue"
     e3 = 3
     ex_filename = "Faybob.xlsx"
@@ -379,7 +378,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentT
     br00002_str = "br00002"
     tp37 = 37
     sue_to_bob_amount = 200
-    br00002row0 = [e3, sue_str, a23_str, sue_str, bob_str, tp37, sue_to_bob_amount]
+    br00002row0 = [e3, sue_str, a23_str, sue_str, exx.bob, tp37, sue_to_bob_amount]
     br00002_df = DataFrame([br00002row0], columns=br00002_columns)
     br00002_ex0_str = f"example0_{br00002_str}"
     upsert_sheet(input_file_path, br00002_ex0_str, br00002_df)

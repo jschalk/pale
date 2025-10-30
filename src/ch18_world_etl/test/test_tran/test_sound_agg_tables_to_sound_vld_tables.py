@@ -6,13 +6,12 @@ from src.ch18_world_etl.tran_sqlstrs import (
     get_insert_into_sound_vld_sqlstrs,
 )
 from src.ch18_world_etl.transformers import etl_sound_agg_tables_to_sound_vld_tables
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao = "Yaoito"
@@ -44,9 +43,9 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PopulatesTable_Scenario0()
         values_clause = f"""
 VALUES
   ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao}', {x44_credit}, {x22_debt})
-, ({spark2}, '{yao_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt})
+, ({spark2}, '{yao_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -75,16 +74,15 @@ FROM {blrawar_h_vld_put_tablename}
         print(rows)
         assert rows == [
             (1, sue_str, a23_str, yao_str, yao, 44.0, 22.0),
-            (2, yao_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (5, sue_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (7, bob_str, a23_str, bob_str, bob_str, 55.0, 66.0),
+            (2, yao_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (5, sue_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]
 
 
 def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario0_AddRowsToTable():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     yao = "Yaoito"
@@ -114,9 +112,9 @@ def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario0_AddRowsToTable():
         values_clause = f"""
 VALUES
   ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao}', {x44_credit}, {x22_debt})
-, ({spark2}, '{yao_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt})
+, ({spark2}, '{yao_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -143,16 +141,15 @@ FROM {blfvoce_h_vld_put_tablename}
         print(rows)
         assert rows == [
             (1, sue_str, a23_str, yao_str, yao, 44.0, 22.0),
-            (2, yao_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (5, sue_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (7, bob_str, a23_str, bob_str, bob_str, 55.0, 66.0),
+            (2, yao_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (5, sue_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]
 
 
 def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario1_Populates_Columns():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
@@ -181,9 +178,9 @@ def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario1_Populates_Columns():
         values_clause = f"""
 VALUES
   ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_str}', {x44_credit}, {x22_debt})
-, ({spark2}, '{yao_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark5}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt})
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt})
+, ({spark2}, '{yao_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark5}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt})
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -210,16 +207,15 @@ FROM {blfvoce_h_vld_put_tablename}
         print(rows)
         assert rows == [
             (1, sue_str, a23_str, yao_str, yao_str, 44.0, 22.0),
-            (2, yao_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (5, sue_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (7, bob_str, a23_str, bob_str, bob_str, 55.0, 66.0),
+            (2, yao_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (5, sue_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]
 
 
 def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario2_DoesNotSelectWhere_error_message_IsNotNull():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     yao_str = "Yao"
     spark1 = 1
@@ -249,9 +245,9 @@ def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario2_DoesNotSelectWhere_e
         values_clause = f"""
 VALUES
   ({spark1}, '{sue_str}', '{a23_str}','{yao_str}', '{yao_str}', {x44_credit}, {x22_debt}, NULL)
-, ({spark2}, '{yao_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt}, 'Data is not correct')
-, ({spark5}, '{sue_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x22_debt}, NULL)
-, ({spark7}, '{bob_str}', '{a23_str}','{bob_str}', '{bob_str}', {x55_credit}, {x66_debt}, NULL)
+, ({spark2}, '{yao_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt}, 'Data is not correct')
+, ({spark5}, '{sue_str}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x22_debt}, NULL)
+, ({spark7}, '{exx.bob}', '{a23_str}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt}, NULL)
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
@@ -278,6 +274,6 @@ FROM {blfvoce_h_vld_put_tablename}
         print(rows)
         assert rows == [
             (1, sue_str, a23_str, yao_str, yao_str, 44.0, 22.0),
-            (5, sue_str, a23_str, bob_str, bob_str, 55.0, 22.0),
-            (7, bob_str, a23_str, bob_str, bob_str, 55.0, 66.0),
+            (5, sue_str, a23_str, exx.bob, exx.bob, 55.0, 22.0),
+            (7, exx.bob, a23_str, exx.bob, exx.bob, 55.0, 66.0),
         ]

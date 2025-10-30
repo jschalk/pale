@@ -3,13 +3,12 @@ from src.ch17_idea.idea_config import idea_format_00021_belief_voiceunit_v0_0_0
 from src.ch17_idea.idea_db_tool import open_csv
 from src.ch17_idea.idea_main import get_idearef_obj, save_idea_csv
 from src.ch17_idea.test._util.ch17_env import get_temp_dir, temp_dir_setup
-from src.ref.keywords import Ch17Keywords as kw
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
 def test_open_csv_ReturnsObjWhenFileExists(temp_dir_setup):
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     yao_str = "Yao"
     sue_voice_cred_lumen = 11
     bob_voice_cred_lumen = 13
@@ -20,7 +19,7 @@ def test_open_csv_ReturnsObjWhenFileExists(temp_dir_setup):
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
     sue_beliefunit.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(bob_str, bob_voice_cred_lumen, bob_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
     sue_beliefunit.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
     j1_ideaname = idea_format_00021_belief_voiceunit_v0_0_0()
     name_filename = f"{sue_str}_voice_example_01.csv"
@@ -35,7 +34,7 @@ def test_open_csv_ReturnsObjWhenFileExists(temp_dir_setup):
     assert array_headers == voice_idearef.get_headers_list()
     assert voice_dataframe.loc[0, kw.moment_label] == amy_moment_label
     assert voice_dataframe.loc[0, kw.belief_name] == sue_beliefunit.belief_name
-    assert voice_dataframe.loc[0, kw.voice_name] == bob_str
+    assert voice_dataframe.loc[0, kw.voice_name] == exx.bob
     assert voice_dataframe.loc[0, kw.voice_cred_lumen] == bob_voice_cred_lumen
     assert voice_dataframe.loc[0, kw.voice_debt_lumen] == bob_voice_debt_lumen
 

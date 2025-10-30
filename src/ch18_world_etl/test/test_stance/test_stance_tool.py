@@ -28,7 +28,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_collect_stance_csv_strs_ReturnsObj_Scenario0_NoMomentUnits(
@@ -36,7 +36,6 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario0_NoMomentUnits(
 ):
     # ESTABLISH
     world_dir = get_temp_dir()
-    bob_str = "Bob"
 
     # WHEN
     gen_stance_csv_strs = collect_stance_csv_strs(world_dir)
@@ -72,15 +71,14 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_BeliefUnits(
     # ESTABLISH
     world_dir = get_temp_dir()
     moment_mstr_dir = create_moment_mstr_path(world_dir)
-    bob_str = "Bob"
     a23_str = "amy23"
     a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
     moment_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
     save_json(moment_json_path, None, a23_moment.to_dict())
     # create belief gut file
-    bob_gut = beliefunit_shop(bob_str, a23_str)
+    bob_gut = beliefunit_shop(exx.bob, a23_str)
     bob_gut.add_voiceunit("Yao", 44, 55)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_str, bob_str)
+    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_str, exx.bob)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
 
     # WHEN

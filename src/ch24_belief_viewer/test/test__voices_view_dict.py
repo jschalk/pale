@@ -3,7 +3,7 @@ from src.ch24_belief_viewer.belief_viewer_tool import (
     add_small_dot,
     get_voices_view_dict,
 )
-from src.ref.keywords import Ch24Keywords as kw
+from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 
 
 def test_get_voices_view_dict_ReturnsObj_Scenario0_Empty():
@@ -28,20 +28,19 @@ def test_get_voices_view_dict_ReturnsObj_Scenario1_voices():
     sue_str = "Sue"
     sue_believer = beliefunit_shop(sue_str)
     yao_str = "Yao"
-    bob_str = "Bob"
     yao_cred_lumen = 110
     yao_debt_lumen = 130
     bob_cred_lumen = 230
     bob_debt_lumen = 290
     sue_believer.add_voiceunit(yao_str, yao_cred_lumen, yao_debt_lumen)
-    sue_believer.add_voiceunit(bob_str, bob_cred_lumen, bob_debt_lumen)
+    sue_believer.add_voiceunit(exx.bob, bob_cred_lumen, bob_debt_lumen)
     sue_believer.cashout()
 
     # WHEN
     voices_view_dict = get_voices_view_dict(sue_believer)
 
     # THEN
-    assert set(voices_view_dict.keys()) == {yao_str, bob_str}
+    assert set(voices_view_dict.keys()) == {yao_str, exx.bob}
     yao_voice_dict = voices_view_dict.get(yao_str)
     voice_cred_lumen_readable_key = add_readable(kw.voice_cred_lumen)
     voice_debt_lumen_readable_key = add_readable(kw.voice_debt_lumen)
@@ -328,13 +327,13 @@ def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     # sue_str = "Sue"
     # sue_believer = beliefunit_shop(sue_str)
     # yao_str = "Yao"
-    # bob_str = "Bob"
+    # exx.bob = "Bob"
     # yao_cred_lumen = 110
     # yao_debt_lumen = 130
     # bob_cred_lumen = 230
     # bob_debt_lumen = 290
     # sue_believer.add_voiceunit(yao_str, yao_cred_lumen, yao_debt_lumen)
-    # sue_believer.add_voiceunit(bob_str, bob_cred_lumen, bob_debt_lumen)
+    # sue_believer.add_voiceunit(exx.bob, bob_cred_lumen, bob_debt_lumen)
     # swim_str = ";swimmers"
     # yao_swim_cred_lumen = 311
     # yao_swim_debt_lumen = 313
@@ -344,7 +343,7 @@ def test_get_voices_view_dict_ReturnsObj_Scenario2_memberships():
     # cleaners_cred_lumen = 511
     # cleaners_debt_lumen = 513
     # yao_voiceunit = sue_believer.get_voice(yao_str)
-    # bob_voiceunit = sue_believer.get_voice(bob_str)
+    # bob_voiceunit = sue_believer.get_voice(exx.bob)
     # bob_voiceunit.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
     # yao_voiceunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
     # yao_voiceunit.add_membership(clea_str, cleaners_cred_lumen, cleaners_debt_lumen)

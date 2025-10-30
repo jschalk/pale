@@ -19,7 +19,7 @@ from src.ch09_belief_lesson.test._util.ch09_examples import (
     get_atom_example_planunit_sports,
     get_beliefdelta_sue_example,
 )
-from src.ref.keywords import Ch09Keywords as kw
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def test_FaceName_Exists():
@@ -58,15 +58,14 @@ def test_LessonUnit_Exists():
 
 def test_lessonunit_shop_ReturnsObjEstablishWithEmptyArgs():
     # ESTABLISH
-    bob_str = "Bob"
 
     # WHEN
-    bob_lessonunit = lessonunit_shop(belief_name=bob_str)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob)
 
     # THEN
     assert not bob_lessonunit.face_name
     assert bob_lessonunit.moment_label == get_default_first_label()
-    assert bob_lessonunit.belief_name == bob_str
+    assert bob_lessonunit.belief_name == exx.bob
     assert bob_lessonunit._lesson_id == 0
     assert bob_lessonunit._beliefdelta == beliefdelta_shop()
     assert bob_lessonunit._delta_start == 0
@@ -77,7 +76,6 @@ def test_lessonunit_shop_ReturnsObjEstablishWithEmptyArgs():
 
 def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
     # ESTABLISH
-    bob_str = "Bob"
     bob_lesson_id = 13
     sue_str = "Sue"
     bob_beliefdelta = get_beliefdelta_sue_example()
@@ -90,7 +88,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
     # WHEN
     bob_lessonunit = lessonunit_shop(
         face_name=sue_str,
-        belief_name=bob_str,
+        belief_name=exx.bob,
         moment_label=amy45_str,
         _lesson_id=bob_lesson_id,
         _beliefdelta=bob_beliefdelta,
@@ -102,7 +100,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
 
     # THEN
     assert bob_lessonunit.face_name == sue_str
-    assert bob_lessonunit.belief_name == bob_str
+    assert bob_lessonunit.belief_name == exx.bob
     assert bob_lessonunit.moment_label == amy45_str
     assert bob_lessonunit._lesson_id == bob_lesson_id
     assert bob_lessonunit._beliefdelta == bob_beliefdelta
@@ -114,21 +112,19 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
 
 def test_lessonunit_shop_ReturnsObjEstablishWithSomeArgs_v1():
     # ESTABLISH
-    bob_str = "Bob"
     yao_str = "Yao"
 
     # WHEN
-    bob_lessonunit = lessonunit_shop(belief_name=bob_str, face_name=yao_str)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob, face_name=yao_str)
 
     # THEN
-    assert bob_lessonunit.belief_name == bob_str
+    assert bob_lessonunit.belief_name == exx.bob
     assert bob_lessonunit.face_name == yao_str
 
 
 def test_LessonUnit_set_face_SetsAttribute():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_lessonunit = lessonunit_shop(belief_name=bob_str)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob)
     sue_str = "Sue"
     assert bob_lessonunit.face_name is None
     assert bob_lessonunit.face_name != sue_str
@@ -142,8 +138,7 @@ def test_LessonUnit_set_face_SetsAttribute():
 
 def test_LessonUnit_del_face_SetsAttribute():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_lessonunit = lessonunit_shop(belief_name=bob_str)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob)
     yao_str = "Yao"
     bob_lessonunit.set_face(yao_str)
     assert bob_lessonunit.face_name == yao_str
@@ -158,8 +153,7 @@ def test_LessonUnit_del_face_SetsAttribute():
 
 def test_LessonUnit_set_beliefdelta_SetsAttribute():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_lessonunit = lessonunit_shop(belief_name=bob_str)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob)
     assert bob_lessonunit._beliefdelta == beliefdelta_shop()
 
     # WHEN
@@ -173,8 +167,7 @@ def test_LessonUnit_set_beliefdelta_SetsAttribute():
 
 def test_LessonUnit_set_delta_start_SetsAttribute():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_lessonunit = lessonunit_shop(bob_str)
+    bob_lessonunit = lessonunit_shop(exx.bob)
     assert bob_lessonunit._delta_start == 0
 
     # WHEN
@@ -187,9 +180,8 @@ def test_LessonUnit_set_delta_start_SetsAttribute():
 
 def test_LessonUnit_beliefatom_exists_ReturnsObj():
     # ESTABLISH
-    bob_str = "Bob"
     x_beliefdelta = beliefdelta_shop()
-    bob_lessonunit = lessonunit_shop(belief_name=bob_str)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob)
     bob_lessonunit.set_beliefdelta(x_beliefdelta)
 
     # WHEN
@@ -208,10 +200,9 @@ def test_LessonUnit_beliefatom_exists_ReturnsObj():
 
 def test_LessonUnit_del_beliefdelta_SetsAttribute():
     # ESTABLISH
-    bob_str = "Bob"
     x_beliefdelta = beliefdelta_shop()
     x_beliefdelta.set_beliefatom(get_atom_example_planunit_sports())
-    bob_lessonunit = lessonunit_shop(belief_name=bob_str, _beliefdelta=x_beliefdelta)
+    bob_lessonunit = lessonunit_shop(belief_name=exx.bob, _beliefdelta=x_beliefdelta)
     assert bob_lessonunit._beliefdelta != beliefdelta_shop()
     assert bob_lessonunit._beliefdelta == x_beliefdelta
 
@@ -224,12 +215,11 @@ def test_LessonUnit_del_beliefdelta_SetsAttribute():
 
 def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
     # ESTABLISH
-    bob_str = "Bob"
     sue_str = "Sue"
     amy45_str = "amy45"
     amy45_e5_int = 5
     bob_lessonunit = lessonunit_shop(
-        moment_label=amy45_str, belief_name=bob_str, spark_num=amy45_e5_int
+        moment_label=amy45_str, belief_name=exx.bob, spark_num=amy45_e5_int
     )
     bob_lessonunit.set_face(sue_str)
 
@@ -240,7 +230,7 @@ def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
     assert x_dict.get(kw.moment_label) is not None
     assert x_dict.get(kw.moment_label) == amy45_str
     assert x_dict.get(kw.belief_name) is not None
-    assert x_dict.get(kw.belief_name) == bob_str
+    assert x_dict.get(kw.belief_name) == exx.bob
     assert x_dict.get(kw.face_name) is not None
     assert x_dict.get(kw.face_name) == sue_str
     assert x_dict.get(kw.spark_num) is not None
@@ -254,9 +244,8 @@ def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
 
 def test_LessonUnit_get_step_dict_ReturnsObj_WithBeliefDeltaPopulated():
     # ESTABLISH
-    bob_str = "Bob"
     sue_beliefdelta = get_beliefdelta_sue_example()
-    bob_lessonunit = lessonunit_shop(bob_str, _beliefdelta=sue_beliefdelta)
+    bob_lessonunit = lessonunit_shop(exx.bob, _beliefdelta=sue_beliefdelta)
 
     # WHEN
     x_dict = bob_lessonunit.get_step_dict()
@@ -276,11 +265,10 @@ def test_LessonUnit_get_step_dict_ReturnsObj_WithBeliefDeltaPopulated():
 
 def test_LessonUnit_get_step_dict_ReturnsObj_delta_start():
     # ESTABLISH
-    bob_str = "Bob"
     sue_beliefdelta = get_beliefdelta_sue_example()
     x_delta_start = 7
     bob_lessonunit = lessonunit_shop(
-        bob_str, _beliefdelta=sue_beliefdelta, _delta_start=x_delta_start
+        exx.bob, _beliefdelta=sue_beliefdelta, _delta_start=x_delta_start
     )
 
     # WHEN
@@ -303,12 +291,11 @@ def test_LessonUnit_get_step_dict_ReturnsObj_delta_start():
 
 def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
     # ESTABLISH
-    bob_str = "Bob"
     sue_str = "Sue"
     amy45_str = "amy45"
     amy45_e5_int = 5
     bob_lessonunit = lessonunit_shop(
-        moment_label=amy45_str, belief_name=bob_str, spark_num=amy45_e5_int
+        moment_label=amy45_str, belief_name=exx.bob, spark_num=amy45_e5_int
     )
     bob_lessonunit.set_face(sue_str)
 
@@ -319,7 +306,7 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
     assert total_dict.get(kw.moment_label) is not None
     assert total_dict.get(kw.moment_label) == amy45_str
     assert total_dict.get(kw.belief_name) is not None
-    assert total_dict.get(kw.belief_name) == bob_str
+    assert total_dict.get(kw.belief_name) == exx.bob
     assert total_dict.get(kw.face_name) is not None
     assert total_dict.get(kw.face_name) == sue_str
     assert total_dict.get(kw.spark_num) is not None
@@ -330,9 +317,8 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
 
 def test_LessonUnit_get_serializable_dict_ReturnsObj_Scenario0_WithBeliefDeltaPopulated():
     # ESTABLISH
-    bob_str = "Bob"
     sue_beliefdelta = get_beliefdelta_sue_example()
-    bob_lessonunit = lessonunit_shop(bob_str, _beliefdelta=sue_beliefdelta)
+    bob_lessonunit = lessonunit_shop(exx.bob, _beliefdelta=sue_beliefdelta)
 
     # WHEN
     total_dict = bob_lessonunit.get_serializable_dict()
@@ -346,9 +332,8 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Scenario0_WithBeliefDeltaPo
 
 def test_LessonUnit_get_serializable_dict_ReturnsObj_Scenario1_WithBeliefDeltaPopulated():
     # ESTABLISH
-    bob_str = "Bob"
     sue_beliefdelta = get_beliefdelta_sue_example()
-    bob_lessonunit = lessonunit_shop(bob_str, _beliefdelta=sue_beliefdelta)
+    bob_lessonunit = lessonunit_shop(exx.bob, _beliefdelta=sue_beliefdelta)
 
     # WHEN
     generated_dict = bob_lessonunit.get_serializable_dict()
@@ -382,10 +367,9 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Scenario1_WithBeliefDeltaPo
 
 def test_get_lessonunit_from_dict_ReturnsObj_WithBeliefDeltaPopulated():
     # ESTABLISH
-    bob_str = "Bob"
     sue_beliefdelta = get_beliefdelta_sue_example()
     bob_lessonunit = lessonunit_shop(
-        bob_str, _beliefdelta=sue_beliefdelta, spark_num=778
+        exx.bob, _beliefdelta=sue_beliefdelta, spark_num=778
     )
 
     # WHEN
@@ -404,11 +388,10 @@ def test_get_lessonunit_from_dict_ReturnsObj_WithBeliefDeltaPopulated():
 
 def test_LessonUnit_get_delta_atom_numbers_ReturnsObj():
     # ESTABLISH
-    bob_str = "Bob"
     yao_str = "Yao"
     sue_beliefdelta = get_beliefdelta_sue_example()
     x_delta_start = 7
-    bob_lessonunit = lessonunit_shop(bob_str)
+    bob_lessonunit = lessonunit_shop(exx.bob)
     bob_lessonunit.set_beliefdelta(sue_beliefdelta)
     bob_lessonunit.set_delta_start(x_delta_start)
     bob_lessonunit.set_face(yao_str)
@@ -422,12 +405,11 @@ def test_LessonUnit_get_delta_atom_numbers_ReturnsObj():
 
 def test_LessonUnit_get_deltametric_dict_ReturnsObj():
     # ESTABLISH
-    bob_str = "Bob"
     yao_str = "Yao"
     spark5_int = 5550
     sue_beliefdelta = get_beliefdelta_sue_example()
     x_delta_start = 7
-    bob_lessonunit = lessonunit_shop(bob_str)
+    bob_lessonunit = lessonunit_shop(exx.bob)
     bob_lessonunit.set_beliefdelta(sue_beliefdelta)
     bob_lessonunit.set_delta_start(x_delta_start)
     bob_lessonunit.set_face(yao_str)
@@ -438,7 +420,7 @@ def test_LessonUnit_get_deltametric_dict_ReturnsObj():
 
     # THEN
     assert x_dict.get(kw.belief_name) is not None
-    assert x_dict.get(kw.belief_name) == bob_str
+    assert x_dict.get(kw.belief_name) == exx.bob
     assert x_dict.get(kw.face_name) is not None
     assert x_dict.get(kw.face_name) == yao_str
     assert x_dict.get(kw.spark_num) is not None
@@ -456,11 +438,10 @@ def test_LessonUnit_get_deltametric_dict_ReturnsObj():
 
 def test_LessonUnit_add_p_beliefatom_Sets_BeliefUnit_voiceunits():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_lessonunit = lessonunit_shop(bob_str)
+    bob_lessonunit = lessonunit_shop(exx.bob)
     bob_voice_cred_lumen = 55
     bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(bob_str, bob_voice_cred_lumen, bob_voice_debt_lumen)
+    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
     cw_str = kw.voice_cred_lumen
     dw_str = kw.voice_debt_lumen
     print(f"{bob_voiceunit.to_dict()=}")
@@ -483,7 +464,7 @@ def test_LessonUnit_add_p_beliefatom_Sets_BeliefUnit_voiceunits():
     assert (
         bob_lessonunit._beliefdelta.beliefatoms.get(kw.INSERT)
         .get(kw.belief_voiceunit)
-        .get(bob_str)
+        .get(exx.bob)
         is not None
     )
 
@@ -541,11 +522,10 @@ def test_LessonUnit_get_edited_belief_RaisesErrorWhenlessonAttrsAndBeliefAttrsAr
 
 def test_LessonUnit_is_empty_ReturnsObj():
     # ESTABLISH
-    bob_str = "Bob"
-    bob_lessonunit = lessonunit_shop(bob_str)
+    bob_lessonunit = lessonunit_shop(exx.bob)
     bob_voice_cred_lumen = 55
     bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(bob_str, bob_voice_cred_lumen, bob_voice_debt_lumen)
+    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
     cw_str = kw.voice_cred_lumen
     dw_str = kw.voice_debt_lumen
     print(f"{bob_voiceunit.to_dict()=}")
@@ -575,7 +555,7 @@ def test_LessonUnit_is_empty_ReturnsObj():
     assert bob_lessonunit.is_empty()
 
     # Test for UPDATE_str operation
-    bob_lessonunit_update = lessonunit_shop(bob_str)
+    bob_lessonunit_update = lessonunit_shop(exx.bob)
     bob_lessonunit_update.add_p_beliefatom(
         dimen=kw.belief_voiceunit,
         crud_str=kw.UPDATE,
@@ -586,7 +566,7 @@ def test_LessonUnit_is_empty_ReturnsObj():
     assert bob_lessonunit_update.is_empty() is False
 
     # Test for DELETE_str operation
-    bob_lessonunit_delete = lessonunit_shop(bob_str)
+    bob_lessonunit_delete = lessonunit_shop(exx.bob)
     bob_lessonunit_delete.add_p_beliefatom(
         dimen=kw.belief_voiceunit,
         crud_str=kw.DELETE,

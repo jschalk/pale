@@ -4,6 +4,7 @@ from src.ch13_keep.test._util.ch13_env import (
     temp_moment_label,
     temp_moment_mstr_dir,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_RiverRun_levy_need_dues_Molds_cycleledger_Scenario01():
@@ -34,29 +35,28 @@ def test_RiverRun_levy_need_dues_Molds_cycleledger_Scenario02():
     mstr_dir = get_temp_dir()
     a23_str = temp_moment_label()
     yao_str = "Yao"
-    bob_str = "Bob"
     yao_need_due = 222
     bob_need_due = 127
     x_riverrun = riverrun_shop(mstr_dir, a23_str, yao_str)
     x_riverrun.set_voice_need_due(yao_str, yao_need_due)
-    x_riverrun.set_voice_need_due(bob_str, bob_need_due)
+    x_riverrun.set_voice_need_due(exx.bob, bob_need_due)
 
     yao_paid = 500
     bob_paid = 100
-    x_cycleledger = {yao_str: yao_paid, bob_str: bob_paid}
+    x_cycleledger = {yao_str: yao_paid, exx.bob: bob_paid}
     assert x_riverrun.get_voice_need_due(yao_str) == yao_need_due
-    assert x_riverrun.get_voice_need_due(bob_str) == bob_need_due
+    assert x_riverrun.get_voice_need_due(exx.bob) == bob_need_due
     assert x_cycleledger.get(yao_str) == yao_paid
-    assert x_cycleledger.get(bob_str) == bob_paid
+    assert x_cycleledger.get(exx.bob) == bob_paid
 
     # WHEN
     y_cycleledger, need_got = x_riverrun.levy_need_dues(x_cycleledger)
 
     # THEN
     assert x_riverrun.get_voice_need_due(yao_str) == 0
-    assert x_riverrun.get_voice_need_due(bob_str) == 27
+    assert x_riverrun.get_voice_need_due(exx.bob) == 27
     assert y_cycleledger.get(yao_str) == yao_paid - yao_need_due
-    assert y_cycleledger.get(bob_str) is None
+    assert y_cycleledger.get(exx.bob) is None
     assert need_got == 322
 
 

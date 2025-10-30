@@ -6,7 +6,7 @@ from src.ch16_translate.test._util.ch16_examples import (
     get_swim_titlemap,
 )
 from src.ch16_translate.translate_main import inherit_translateunit, translateunit_shop
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario0_EmptyTranslateUnits():
@@ -71,9 +71,8 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario3_RaiseErrorWhen
 def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario4_RaiseErrorWhenDifferent_x_face_name():
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     old_translateunit = translateunit_shop(sue_str, 0)
-    new_translateunit = translateunit_shop(bob_str, 1)
+    new_translateunit = translateunit_shop(exx.bob, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:

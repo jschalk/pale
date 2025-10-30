@@ -6,7 +6,7 @@ from src.ch09_belief_lesson.lesson_filehandler import (
 )
 from src.ch09_belief_lesson.test._util.ch09_examples import get_texas_rope
 from src.ch11_belief_listen.test._util.ch11_env import get_temp_dir
-from src.ref.keywords import Ch11Keywords as kw
+from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx
 
 
 def ch11_example_moment_label() -> str:
@@ -89,9 +89,8 @@ def get_example_zia_speaker() -> BeliefUnit:
 
 
 def get_example_bob_speaker() -> BeliefUnit:
-    bob_str = "Bob"
     a23_str = "amy23"
-    bob_speaker = beliefunit_shop(bob_str, a23_str)
+    bob_speaker = beliefunit_shop(exx.bob, a23_str)
     bob_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     bob_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     bob_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
@@ -110,12 +109,11 @@ def get_example_bob_speaker() -> BeliefUnit:
 def get_example_yao_speaker() -> BeliefUnit:
     yao_str = "Yao"
     zia_str = "Zia"
-    bob_str = "Bob"
     a23_str = "amy23"
     yao_speaker = beliefunit_shop(yao_str, a23_str)
     yao_speaker.add_voiceunit(yao_str, voice_debt_lumen=12)
     yao_speaker.add_voiceunit(zia_str, voice_debt_lumen=36)
-    yao_speaker.add_voiceunit(bob_str, voice_debt_lumen=48)
+    yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=48)
     yao_speaker.set_voice_respect(100)
     yao_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())

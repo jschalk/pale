@@ -5,7 +5,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename,
     create_sound_and_heard_tables,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scenario0():
@@ -102,7 +102,6 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     tp55 = 55
     bob_sue_tp55_amount = 444
@@ -114,7 +113,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
-VALUES ('{a23_str}', '{bob_str}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
+VALUES ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -128,7 +127,7 @@ VALUES ('{a23_str}', '{bob_str}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
     assert a23_paybook_dict.get(kw.moment_label) == a23_str
     a23_tranunits_dict = a23_paybook_dict.get("tranunits")
     assert a23_tranunits_dict
-    a23_trans_bob_dict = a23_tranunits_dict.get(bob_str)
+    a23_trans_bob_dict = a23_tranunits_dict.get(exx.bob)
     assert a23_trans_bob_dict
     a23_trans_bob_sue_dict = a23_trans_bob_dict.get(sue_str)
     assert a23_trans_bob_sue_dict
@@ -139,7 +138,6 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
     # ESTABLISH
     a23_str = "amy23"
     a45_str = "amy45"
-    bob_str = "Bob"
     sue_str = "Sue"
     tp55 = 55
     a23_bob_sue_tp55_amount = 444
@@ -153,8 +151,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
 VALUES
-  ('{a23_str}', '{bob_str}', '{sue_str}', {tp55}, {a23_bob_sue_tp55_amount})
-, ('{a45_str}', '{bob_str}', '{sue_str}', {tp55}, {a45_bob_sue_tp55_amount})
+  ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {a23_bob_sue_tp55_amount})
+, ('{a45_str}', '{exx.bob}', '{sue_str}', {tp55}, {a45_bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -168,7 +166,7 @@ VALUES
     assert a23_paybook_dict.get(kw.moment_label) == a23_str
     a23_tranunits_dict = a23_paybook_dict.get("tranunits")
     assert a23_tranunits_dict
-    a23_trans_bob_dict = a23_tranunits_dict.get(bob_str)
+    a23_trans_bob_dict = a23_tranunits_dict.get(exx.bob)
     assert a23_trans_bob_dict
     a23_trans_bob_sue_dict = a23_trans_bob_dict.get(sue_str)
     assert a23_trans_bob_sue_dict
@@ -178,7 +176,6 @@ VALUES
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentbud_Attrs_Scenario0():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     tp55 = 55
     bob_tp55_quota = 444
     bob_tp55_celldepth = 3
@@ -190,7 +187,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentbud_Attrs_Scena
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_agg_tablename} (moment_label, belief_name, bud_time, quota, celldepth)
-VALUES ('{a23_str}', '{bob_str}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
+VALUES ('{a23_str}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -202,7 +199,7 @@ VALUES ('{a23_str}', '{bob_str}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth}
     a23_beliefbudhistory_dict = a23_dict.get("beliefbudhistorys")
     print(f"{a23_beliefbudhistory_dict=}")
     assert a23_beliefbudhistory_dict
-    a23_beliefbudhistory_bob_dict = a23_beliefbudhistory_dict.get(bob_str)
+    a23_beliefbudhistory_bob_dict = a23_beliefbudhistory_dict.get(exx.bob)
     assert a23_beliefbudhistory_bob_dict
     a23_bob_buds_dict = a23_beliefbudhistory_bob_dict.get("buds")
     assert a23_bob_buds_dict
@@ -410,7 +407,6 @@ VALUES (
 def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_blfpayy():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     sue_str = "Sue"
     tp55 = 55
     bob_sue_tp55_amount = 444
@@ -422,7 +418,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_blfp
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
-VALUES ('{a23_str}', '{bob_str}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
+VALUES ('{a23_str}', '{exx.bob}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -433,15 +429,14 @@ VALUES ('{a23_str}', '{bob_str}', '{sue_str}', {tp55}, {bob_sue_tp55_amount})
 
     # THEN
     assert a23_momentunit.moment_label == a23_str
-    assert a23_momentunit.paybook.tranunits.get(bob_str)
-    bob_tranunit = a23_momentunit.paybook.tranunits.get(bob_str)
+    assert a23_momentunit.paybook.tranunits.get(exx.bob)
+    bob_tranunit = a23_momentunit.paybook.tranunits.get(exx.bob)
     assert bob_tranunit == {sue_str: {tp55: bob_sue_tp55_amount}}
 
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario2_momentbud():
     # ESTABLISH
     a23_str = "amy23"
-    bob_str = "Bob"
     tp55 = 55
     bob_tp55_quota = 444
     bob_tp55_celldepth = 3
@@ -453,7 +448,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario2_mome
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_agg_tablename} (moment_label, belief_name, bud_time, quota, celldepth)
-VALUES ('{a23_str}', '{bob_str}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
+VALUES ('{a23_str}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
@@ -463,7 +458,7 @@ VALUES ('{a23_str}', '{bob_str}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth}
     a23_momentunit = get_momentunit_from_dict(a23_dict)
 
     # THEN
-    a23_bob_beliefbudhistory = a23_momentunit.get_beliefbudhistory(bob_str)
+    a23_bob_beliefbudhistory = a23_momentunit.get_beliefbudhistory(exx.bob)
     print(f"{a23_bob_beliefbudhistory=}")
     assert a23_bob_beliefbudhistory
     a23_bob_55_bud = a23_bob_beliefbudhistory.get_bud(tp55)

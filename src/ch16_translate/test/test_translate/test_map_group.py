@@ -7,7 +7,7 @@ from src.ch16_translate.map import (
     titlemap_shop,
 )
 from src.ch16_translate.translate_config import default_unknown_str_if_None
-from src.ref.keywords import Ch16Keywords as kw
+from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
 def test_TitleMap_Exists():
@@ -40,7 +40,6 @@ def test_titlemap_shop_ReturnsObj_Scenario1_WithParameters():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     spark7 = 7
     otx2inx = {xio_str: sue_str}
     x_unknown_str = "UnknownTerm"
@@ -49,7 +48,7 @@ def test_titlemap_shop_ReturnsObj_Scenario1_WithParameters():
 
     # WHEN
     x_titlemap = titlemap_shop(
-        face_name=bob_str,
+        face_name=exx.bob,
         spark_num=spark7,
         otx2inx=otx2inx,
         unknown_str=x_unknown_str,
@@ -58,7 +57,7 @@ def test_titlemap_shop_ReturnsObj_Scenario1_WithParameters():
     )
 
     # THEN
-    assert x_titlemap.face_name == bob_str
+    assert x_titlemap.face_name == exx.bob
     assert x_titlemap.spark_num == spark7
     assert x_titlemap.otx2inx == otx2inx
     assert x_titlemap.unknown_str == x_unknown_str
@@ -70,14 +69,13 @@ def test_titlemap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     spark7 = 7
     otx2inx = {xio_str: sue_str}
     x_nan = float("nan")
 
     # WHEN
     x_titlemap = titlemap_shop(
-        face_name=bob_str,
+        face_name=exx.bob,
         spark_num=spark7,
         otx2inx=otx2inx,
         unknown_str=x_nan,
@@ -86,7 +84,7 @@ def test_titlemap_shop_ReturnsObj_Scenario2_TranslateCoreAttrAreDefaultWhenGiven
     )
 
     # THEN
-    assert x_titlemap.face_name == bob_str
+    assert x_titlemap.face_name == exx.bob
     assert x_titlemap.spark_num == spark7
     assert x_titlemap.otx2inx == otx2inx
     assert x_titlemap.unknown_str == default_unknown_str_if_None()
@@ -176,12 +174,11 @@ def test_TitleMap_otx2inx_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     zia_str = "Zia"
     x_titlemap = titlemap_shop(None)
     assert x_titlemap.otx2inx_exists(xio_str, sue_str) is False
     assert x_titlemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_titlemap.otx2inx_exists(xio_str, bob_str) is False
+    assert x_titlemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_titlemap.otx2inx_exists(zia_str, zia_str) is False
 
     # WHEN
@@ -190,7 +187,7 @@ def test_TitleMap_otx2inx_exists_ReturnsObj():
     # THEN
     assert x_titlemap.otx2inx_exists(xio_str, sue_str)
     assert x_titlemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_titlemap.otx2inx_exists(xio_str, bob_str) is False
+    assert x_titlemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_titlemap.otx2inx_exists(zia_str, zia_str) is False
 
     # WHEN
@@ -199,7 +196,7 @@ def test_TitleMap_otx2inx_exists_ReturnsObj():
     # THEN
     assert x_titlemap.otx2inx_exists(xio_str, sue_str)
     assert x_titlemap.otx2inx_exists(xio_str, zia_str) is False
-    assert x_titlemap.otx2inx_exists(xio_str, bob_str) is False
+    assert x_titlemap.otx2inx_exists(xio_str, exx.bob) is False
     assert x_titlemap.otx2inx_exists(zia_str, zia_str)
 
 
@@ -207,12 +204,11 @@ def test_TitleMap_otx_exists_ReturnsObj():
     # ESTABLISH
     xio_str = "Xio"
     sue_str = "Sue"
-    bob_str = "Bob"
     zia_str = "Zia"
     x_titlemap = titlemap_shop(None)
     assert x_titlemap.otx_exists(xio_str) is False
     assert x_titlemap.otx_exists(sue_str) is False
-    assert x_titlemap.otx_exists(bob_str) is False
+    assert x_titlemap.otx_exists(exx.bob) is False
     assert x_titlemap.otx_exists(zia_str) is False
 
     # WHEN
@@ -221,7 +217,7 @@ def test_TitleMap_otx_exists_ReturnsObj():
     # THEN
     assert x_titlemap.otx_exists(xio_str)
     assert x_titlemap.otx_exists(sue_str) is False
-    assert x_titlemap.otx_exists(bob_str) is False
+    assert x_titlemap.otx_exists(exx.bob) is False
     assert x_titlemap.otx_exists(zia_str) is False
 
     # WHEN
@@ -230,7 +226,7 @@ def test_TitleMap_otx_exists_ReturnsObj():
     # THEN
     assert x_titlemap.otx_exists(xio_str)
     assert x_titlemap.otx_exists(sue_str) is False
-    assert x_titlemap.otx_exists(bob_str) is False
+    assert x_titlemap.otx_exists(exx.bob) is False
     assert x_titlemap.otx_exists(zia_str)
 
 
@@ -473,9 +469,8 @@ def test_inherit_titlemap_ReturnsObj_Scenario3_RaiseErrorWhenDifferent_x_unknown
 def test_inherit_titlemap_ReturnsObj_Scenario4_RaiseErrorWhenDifferent_x_face_name():
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     old_titlemap = titlemap_shop(sue_str, 0)
-    new_titlemap = titlemap_shop(bob_str, 1)
+    new_titlemap = titlemap_shop(exx.bob, 1)
 
     # WHEN
     with pytest_raises(Exception) as excinfo:

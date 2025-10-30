@@ -15,7 +15,7 @@ from src.ch11_belief_listen._ref.ch11_path import (
     treasury_filename,
 )
 from src.ch11_belief_listen.test._util.ch11_env import get_temp_dir
-from src.ref.keywords import Ch11Keywords as kw
+from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx
 
 LINUX_OS = platform_system() == "Linux"
 
@@ -150,13 +150,12 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
 
 def test_create_keep_rope_path_RaisesError_Scenarion2_keep_rope_DoesNotExist():
     # ESTABLISH
-    bob_str = "Bob"
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        create_keep_rope_path("dir", bob_str, "amy23", None, None)
+        create_keep_rope_path("dir", exx.bob, "amy23", None, None)
     assertion_fail_str = (
-        f"'{bob_str}' cannot save to keep_path because it does not have keep_rope."
+        f"'{exx.bob}' cannot save to keep_path because it does not have keep_rope."
     )
     assert str(excinfo.value) == assertion_fail_str
 
@@ -193,7 +192,6 @@ def test_create_keep_duty_path_ReturnsObj() -> None:
     sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
-    bob_str = "Bob"
 
     # WHEN
     gen_keep_duty_path = create_keep_duty_path(
@@ -202,14 +200,14 @@ def test_create_keep_duty_path_ReturnsObj() -> None:
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
-        duty_belief=bob_str,
+        duty_belief=exx.bob,
     )
 
     # THEN
     keep_dutys_path = create_keep_dutys_path(
         x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
     )
-    bob_filename = get_json_filename(bob_str)
+    bob_filename = get_json_filename(exx.bob)
     expected_keep_duty_path = create_path(keep_dutys_path, bob_filename)
     assert gen_keep_duty_path == expected_keep_duty_path
 
@@ -246,7 +244,6 @@ def test_create_keep_grade_path_ReturnsObj() -> None:
     sue_str = "Sue"
     casa_str = "casa"
     casa_rope = create_rope(amy23_str, casa_str)
-    bob_str = "Bob"
 
     # WHEN
     gen_keep_grade_path = create_keep_grade_path(
@@ -255,14 +252,14 @@ def test_create_keep_grade_path_ReturnsObj() -> None:
         moment_label=amy23_str,
         keep_rope=casa_rope,
         knot=None,
-        grade_belief_name=bob_str,
+        grade_belief_name=exx.bob,
     )
 
     # THEN
     keep_grades_path = create_keep_grades_path(
         x_moment_mstr_dir, sue_str, amy23_str, casa_rope, None
     )
-    expected_grade_path = create_path(keep_grades_path, get_json_filename(bob_str))
+    expected_grade_path = create_path(keep_grades_path, get_json_filename(exx.bob))
     assert gen_keep_grade_path == expected_grade_path
 
 

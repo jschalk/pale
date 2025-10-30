@@ -6,7 +6,7 @@ from src.ch04_rope._ref.ch04_semantic_types import (
     RopeTerm,
     default_knot_if_None,
 )
-from src.ref.keywords import Ch04Keywords as kw
+from src.ref.keywords import Ch04Keywords as kw, ExampleStrs as exx
 
 
 def test_KnotTerm_Exists():
@@ -25,7 +25,6 @@ def test_default_knot_if_None_ReturnsObj():
     semicolon_str = ";"
     slash_str = "/"
     colon_str = ":"
-    bob_str = "Bob"
 
     # WHEN / THEN
     assert default_knot_if_None() == semicolon_str
@@ -34,7 +33,7 @@ def test_default_knot_if_None_ReturnsObj():
     assert default_knot_if_None(x_nan) == semicolon_str
     assert default_knot_if_None(slash_str) == slash_str
     assert default_knot_if_None(colon_str) == colon_str
-    assert default_knot_if_None(bob_str) == bob_str
+    assert default_knot_if_None(exx.bob) == exx.bob
 
 
 def test_LabelTerm_Exists():

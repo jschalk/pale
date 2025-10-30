@@ -28,6 +28,7 @@ from src.ch09_belief_lesson.test._util.ch09_examples import (
     sue_3beliefatoms_lessonunit,
     sue_4beliefatoms_lessonunit,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_LessonFileHandler_get_max_lesson_file_number_ReturnsObj(temp_dir_setup):
@@ -170,9 +171,8 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_belief_name_
     six_filename = get_json_filename(x_lesson_id)
     sue_lesson0_path = create_path(sue_lessonfilehandler.lessons_dir, six_filename)
     print(f"{sue_lesson0_path=}")
-    bob_str = "Bob"
     sue_lessonunit = lessonunit_shop(
-        belief_name=bob_str,
+        belief_name=exx.bob,
         _lesson_id=x_lesson_id,
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
@@ -343,9 +343,8 @@ def test_LessonFileHandler_get_lessonunit_ReturnsObjWhenFilesDoesExist(
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
     x0_lessonunit.set_face(yao_str)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
-    bob_str = "Bob"
     x1_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x1_lessonunit.set_face(bob_str)
+    x1_lessonunit.set_face(exx.bob)
     sue_lessonfilehandler.save_lesson_file(x1_lessonunit)
 
     # WHEN
@@ -356,8 +355,8 @@ def test_LessonFileHandler_get_lessonunit_ReturnsObjWhenFilesDoesExist(
     assert y0_lessonunit is not None
     assert y1_lessonunit is not None
     assert yao_str in y0_lessonunit.face_name
-    assert bob_str not in y0_lessonunit.face_name
-    assert bob_str in y1_lessonunit.face_name
+    assert exx.bob not in y0_lessonunit.face_name
+    assert exx.bob in y1_lessonunit.face_name
 
 
 def test_LessonFileHandler_get_lessonunit_RaisesExceptionWhenFileDoesNotExist(
@@ -371,9 +370,8 @@ def test_LessonFileHandler_get_lessonunit_RaisesExceptionWhenFileDoesNotExist(
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
     x0_lessonunit.set_face(yao_str)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
-    bob_str = "Bob"
     x1_lessonunit = sue_lessonfilehandler._default_lessonunit()
-    x1_lessonunit.set_face(bob_str)
+    x1_lessonunit.set_face(exx.bob)
     sue_lessonfilehandler.save_lesson_file(x1_lessonunit)
 
     # WHEN / THEN
@@ -488,9 +486,8 @@ def test_LessonFileHandler_create_save_lesson_file_SaveCorrectObj(
 
     # WHEN
     before_belief = sue_lessonfilehandler.default_gut_belief()
-    bob_str = "Bob"
     after_belief = copy_deepcopy(before_belief)
-    after_belief.add_voiceunit(bob_str)
+    after_belief.add_voiceunit(exx.bob)
     sue_lessonfilehandler.create_save_lesson_file(before_belief, after_belief)
 
     # THEN

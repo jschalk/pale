@@ -14,13 +14,12 @@ from src.ch17_idea.idea_config import (
 )
 from src.ch17_idea.idea_main import create_idea_df, get_idearef_obj, save_idea_csv
 from src.ch17_idea.test._util.ch17_env import idea_moments_dir, temp_dir_setup
-from src.ref.keywords import Ch17Keywords as kw
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
 def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     yao_str = "Yao"
     sue_voice_cred_lumen = 11
     bob_voice_cred_lumen = 13
@@ -31,7 +30,7 @@ def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
     sue_beliefunit.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(bob_str, bob_voice_cred_lumen, bob_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
     sue_beliefunit.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
 
     # WHEN
@@ -44,7 +43,7 @@ def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
     assert array_headers == voice_idearef.get_headers_list()
     assert voice_dataframe.loc[0, kw.moment_label] == amy_moment_label
     assert voice_dataframe.loc[0, kw.belief_name] == sue_beliefunit.belief_name
-    assert voice_dataframe.loc[0, kw.voice_name] == bob_str
+    assert voice_dataframe.loc[0, kw.voice_name] == exx.bob
     assert voice_dataframe.loc[0, kw.voice_debt_lumen] == bob_voice_debt_lumen
     assert voice_dataframe.loc[0, kw.voice_cred_lumen] == bob_voice_cred_lumen
 
@@ -66,12 +65,11 @@ def test_create_idea_df_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 def test_create_idea_df_Arg_idea_format_00020_belief_voice_membership_v0_0_0():
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     yao_str = "Yao"
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
     sue_beliefunit.add_voiceunit(sue_str)
-    sue_beliefunit.add_voiceunit(bob_str)
+    sue_beliefunit.add_voiceunit(exx.bob)
     sue_beliefunit.add_voiceunit(yao_str)
     iowa_str = ";Iowa"
     sue_iowa_credit_w = 37
@@ -84,7 +82,7 @@ def test_create_idea_df_Arg_idea_format_00020_belief_voice_membership_v0_0_0():
     yao_ohio_credit_w = 73
     yao_ohio_debt_w = 67
     sue_voiceunit = sue_beliefunit.get_voice(sue_str)
-    bob_voiceunit = sue_beliefunit.get_voice(bob_str)
+    bob_voiceunit = sue_beliefunit.get_voice(exx.bob)
     yao_voiceunit = sue_beliefunit.get_voice(yao_str)
     sue_voiceunit.add_membership(iowa_str, sue_iowa_credit_w, sue_iowa_debt_w)
     bob_voiceunit.add_membership(iowa_str, bob_iowa_credit_w, bob_iowa_debt_w)
@@ -103,7 +101,7 @@ def test_create_idea_df_Arg_idea_format_00020_belief_voice_membership_v0_0_0():
     assert array_headers == voice_idearef.get_headers_list()
     assert membership_dataframe.loc[0, kw.moment_label] == amy_moment_label
     assert membership_dataframe.loc[0, kw.belief_name] == sue_beliefunit.belief_name
-    assert membership_dataframe.loc[0, kw.voice_name] == bob_str
+    assert membership_dataframe.loc[0, kw.voice_name] == exx.bob
     assert membership_dataframe.loc[0, kw.group_title] == iowa_str
     assert membership_dataframe.loc[0, kw.group_cred_lumen] == bob_iowa_credit_w
     assert membership_dataframe.loc[0, kw.group_debt_lumen] == bob_iowa_debt_w
@@ -191,7 +189,6 @@ def test_save_idea_csv_Arg_idea_format_00021_belief_voiceunit_v0_0_0_SaveToCSV(
 ):
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     yao_str = "Yao"
     sue_voice_cred_lumen = 11
     bob_voice_cred_lumen = 13
@@ -202,7 +199,7 @@ def test_save_idea_csv_Arg_idea_format_00021_belief_voiceunit_v0_0_0_SaveToCSV(
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
     sue_beliefunit.add_voiceunit(sue_str, sue_voice_cred_lumen, sue_voice_debt_lumen)
-    sue_beliefunit.add_voiceunit(bob_str, bob_voice_cred_lumen, bob_voice_debt_lumen)
+    sue_beliefunit.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
     sue_beliefunit.add_voiceunit(yao_str, yao_voice_cred_lumen, yao_voice_debt_lumen)
     j1_ideaname = idea_format_00021_belief_voiceunit_v0_0_0()
     name_filename = f"{sue_str}_voice_example_00.csv"
@@ -246,7 +243,6 @@ def test_save_idea_csv_Arg_idea_format_00013_planunit_v0_0_0(
 ):
     # ESTABLISH
     sue_str = "Sue"
-    bob_str = "Bob"
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(sue_str, amy_moment_label)
     casa_str = "casa"
