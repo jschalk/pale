@@ -101,7 +101,6 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
     sue_inx = "Suzy"
     spark1 = 1
     spark7 = 7
-    slash_str = "/"
     colon_str = ":"
     sue_unknown_str = "SueUnknown"
     bob_unknown_str = "BobUnknown"
@@ -130,8 +129,8 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename}
         ({kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
         VALUES
-          ('{sue_otx}', '{slash_str}', '{colon_str}', '{sue_unknown_str}')
-        , ('{bob_otx}', '{slash_str}', '{colon_str}', '{bob_unknown_str}')
+          ('{sue_otx}', '{exx.slash}', '{colon_str}', '{sue_unknown_str}')
+        , ('{bob_otx}', '{exx.slash}', '{colon_str}', '{bob_unknown_str}')
         ;
         """
         cursor.execute(insert_trlcore_sqlstr)
@@ -159,8 +158,8 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
         "spark_num,face_name,otx_title,inx_title,otx_knot,inx_knot,unknown_str\n"
     )
     expected_br00043_csv = f"""spark_num,face_name,otx_name,inx_name,otx_knot,inx_knot,unknown_str
-,{bob_otx},{bob_otx},{bob_inx},{slash_str},{colon_str},{bob_unknown_str}
-,{sue_otx},{sue_otx},{sue_inx},{slash_str},{colon_str},{sue_unknown_str}
+,{bob_otx},{bob_otx},{bob_inx},{exx.slash},{colon_str},{bob_unknown_str}
+,{sue_otx},{sue_otx},{sue_inx},{exx.slash},{colon_str},{sue_unknown_str}
 """
     expected_br00044_csv = (
         "spark_num,face_name,otx_label,inx_label,otx_knot,inx_knot,unknown_str\n"
@@ -203,7 +202,6 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
     sue_inx = "Suzy"
     spark1 = 1
     spark7 = 7
-    slash_str = "/"
     colon_str = ":"
     sue_unknown_str = "SueUnknown"
     bob_unknown_str = "BobUnknown"
@@ -232,8 +230,8 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename}
         ({kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
         VALUES
-          ('{sue_otx}', '{slash_str}', '{colon_str}', '{sue_unknown_str}')
-        , ('{bob_otx}', '{slash_str}', '{colon_str}', '{bob_unknown_str}')
+          ('{sue_otx}', '{exx.slash}', '{colon_str}', '{sue_unknown_str}')
+        , ('{bob_otx}', '{exx.slash}', '{colon_str}', '{bob_unknown_str}')
         ;
         """
         cursor.execute(insert_trlcore_sqlstr)

@@ -13,10 +13,6 @@ def ch11_example_moment_label() -> str:
     return "Buzz"
 
 
-def casa_str() -> str:
-    return "casa"
-
-
 def cook_str() -> str:
     return "cook"
 
@@ -33,16 +29,12 @@ def full_str() -> str:
     return "full"
 
 
-def clean_str() -> str:
-    return "clean"
-
-
 def run_str() -> str:
     return "run"
 
 
 def a23_casa_rope() -> RopeTerm:
-    return create_rope("amy23", casa_str())
+    return create_rope("amy23", exx.casa)
 
 
 def a23_cook_rope() -> RopeTerm:
@@ -62,7 +54,7 @@ def a23_full_rope() -> RopeTerm:
 
 
 def a23_clean_rope() -> RopeTerm:
-    return create_rope(a23_casa_rope(), clean_str())
+    return create_rope(a23_casa_rope(), exx.clean)
 
 
 def a23_run_rope() -> RopeTerm:
@@ -143,8 +135,7 @@ def get_dakota_lessonfilehandler() -> LessonFileHandler:
 def get_fund_breakdown_belief() -> BeliefUnit:
     sue_belief = beliefunit_shop(belief_name="Sue")
 
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     cat_str = "cat situation"
     cat_rope = sue_belief.make_rope(casa_rope, cat_str)
     hun_n_str = "not hungry"
@@ -153,7 +144,7 @@ def get_fund_breakdown_belief() -> BeliefUnit:
     clean_rope = sue_belief.make_rope(casa_rope, clean_str)
     sweep_str = "sweep floor"
     dish_str = "clean dishes"
-    sue_belief.set_l1_plan(planunit_shop(casa_str, star=30))
+    sue_belief.set_l1_plan(planunit_shop(exx.casa, star=30))
     sue_belief.set_plan_obj(planunit_shop(cat_str, star=30), casa_rope)
     sue_belief.set_plan_obj(planunit_shop(hun_n_str, star=30), cat_rope)
     sue_belief.set_plan_obj(planunit_shop(hun_y_str, star=30), cat_rope)

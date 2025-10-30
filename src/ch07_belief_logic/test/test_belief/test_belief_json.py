@@ -86,11 +86,10 @@ def test_BeliefUnit_to_dict_ReturnsObj_Scenario2_With_planroot_healerunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief.add_voiceunit(exx.yao)
-    run_str = ";runners"
     yao_voiceunit = sue_belief.get_voice(exx.yao)
-    yao_voiceunit.add_membership(run_str)
+    yao_voiceunit.add_membership(exx.run)
     run_healerunit = healerunit_shop()
-    run_healerunit.set_healer_name(x_healer_name=run_str)
+    run_healerunit.set_healer_name(x_healer_name=exx.run)
     root_rope = sue_belief.planroot.get_plan_rope()
     sue_belief.edit_plan_attr(root_rope, healerunit=run_healerunit)
 
@@ -106,15 +105,14 @@ def test_BeliefUnit_to_dict_ReturnsObj_Scenario3_plankid_LaborUnit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief.add_voiceunit(exx.yao)
-    run_str = ";runners"
     yao_voiceunit = sue_belief.get_voice(exx.yao)
-    yao_voiceunit.add_membership(run_str)
+    yao_voiceunit.add_membership(exx.run)
 
     morn_str = "morning"
     morn_rope = sue_belief.make_l1_rope(morn_str)
     sue_belief.set_l1_plan(planunit_shop(morn_str))
     x_laborunit = laborunit_shop()
-    x_laborunit.add_party(party_title=run_str)
+    x_laborunit.add_party(party_title=exx.run)
     sue_belief.edit_plan_attr(morn_rope, laborunit=x_laborunit)
 
     # WHEN
@@ -124,8 +122,8 @@ def test_BeliefUnit_to_dict_ReturnsObj_Scenario3_plankid_LaborUnit():
     # THEN
     labor_dict_x = planroot_dict[kw.kids][morn_str][kw.laborunit]
     assert labor_dict_x == x_laborunit.to_dict()
-    run_partyunit = partyunit_shop(run_str)
-    assert labor_dict_x == {"partys": {run_str: run_partyunit.to_dict()}}
+    run_partyunit = partyunit_shop(exx.run)
+    assert labor_dict_x == {"partys": {exx.run: run_partyunit.to_dict()}}
 
 
 def test_BeliefUnit_to_dict_ReturnsObj_Scenario4_planunit_WithLevels():
@@ -141,11 +139,10 @@ def test_BeliefUnit_to_dict_ReturnsObj_Scenario4_planunit_WithLevels():
     x_mana_grain = 0.3
     zia_belief.mana_grain = x_mana_grain
     override_str = "override"
-    run_str = ";runners"
     zia_belief.add_voiceunit(exx.yao)
     yao_voiceunit = zia_belief.get_voice(exx.yao)
-    yao_voiceunit.add_membership(run_str)
-    run_healerunit = healerunit_shop({run_str})
+    yao_voiceunit.add_membership(exx.run)
+    run_healerunit = healerunit_shop({exx.run})
     root_rope = zia_belief.planroot.get_plan_rope()
     zia_belief.edit_plan_attr(root_rope, healerunit=run_healerunit)
     zia_belief.edit_plan_attr(root_rope, problem_bool=True)
@@ -323,24 +320,22 @@ def test_get_beliefunit_from_dict_ReturnsObj_knot_GroupExample():
 def test_get_beliefunit_from_dict_ReturnsObj_Scenario7_planroot_knot_IsApplied():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    slash_str = "/"
-    run_str = "runners"
-    sue_belief = beliefunit_shop("Sue", knot=slash_str)
+    sue_belief = beliefunit_shop("Sue", knot=exx.slash)
     root_rope = sue_belief.planroot.get_plan_rope()
     hr_number_str = "hr_number"
     hr_number_rope = sue_belief.make_l1_rope(hr_number_str)
     sue_belief.add_plan(hr_number_rope)
-    assert sue_belief.knot == slash_str
-    assert sue_belief.get_plan_obj(root_rope).knot == slash_str
-    assert sue_belief.get_plan_obj(hr_number_rope).knot == slash_str
+    assert sue_belief.knot == exx.slash
+    assert sue_belief.get_plan_obj(root_rope).knot == exx.slash
+    assert sue_belief.get_plan_obj(hr_number_rope).knot == exx.slash
 
     # WHEN
     after_bob_belief = get_beliefunit_from_dict(sue_belief.to_dict())
 
     # THEN
-    assert after_bob_belief.knot == slash_str
-    assert after_bob_belief.get_plan_obj(root_rope).knot == slash_str
-    assert after_bob_belief.get_plan_obj(hr_number_rope).knot == slash_str
+    assert after_bob_belief.knot == exx.slash
+    assert after_bob_belief.get_plan_obj(root_rope).knot == exx.slash
+    assert after_bob_belief.get_plan_obj(hr_number_rope).knot == exx.slash
 
 
 def test_get_beliefunit_from_dict_ExportsBeliefUnit_star():

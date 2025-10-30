@@ -82,8 +82,7 @@ def test_get_belief_agenda_plotly_fig_DisplaysInfo(graphics_bool):
 def test_BeliefUnit_fund_flow(graphics_bool):
     # ESTABLISH
     sue_belief = beliefunit_shop(belief_name="Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     cat_str = "cat situation"
     cat_rope = sue_belief.make_rope(casa_rope, cat_str)
     hun_n_str = "not hungry"

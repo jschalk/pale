@@ -283,10 +283,9 @@ def test_add_belief_to_br00020_csv_ReturnsObj():
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
     bob_belief.add_voiceunit(exx.yao)
-    run_str = ";Run"
     run_credit = 33
     run_debt = 55
-    bob_belief.get_voice(exx.yao).add_membership(run_str, run_credit, run_debt)
+    bob_belief.get_voice(exx.yao).add_membership(exx.run, run_credit, run_debt)
     csv_header = x_ideas.get("br00020")
 
     # WHEN
@@ -294,7 +293,7 @@ def test_add_belief_to_br00020_csv_ReturnsObj():
 
     # THEN
     yao_yao_row = f",,{a23_str},{exx.bob},{exx.yao},{exx.yao},1,1\n"
-    yao_run_row = f",,{a23_str},{exx.bob},{exx.yao},{run_str},{run_credit},{run_debt}\n"
+    yao_run_row = f",,{a23_str},{exx.bob},{exx.yao},{exx.run},{run_credit},{run_debt}\n"
     print(f"{x_csv=}")
     print(f"{yao_run_row=}")
     assert x_csv == f"{csv_header}{yao_yao_row}{yao_run_row}"
@@ -610,10 +609,9 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
     a23_str = "amy23"
     bob_belief = beliefunit_shop(exx.bob, a23_str)
     bob_belief.add_voiceunit(exx.yao)
-    run_str = ";Run"
     run_credit = 33
     run_debt = 55
-    bob_belief.get_voice(exx.yao).add_membership(run_str, run_credit, run_debt)
+    bob_belief.get_voice(exx.yao).add_membership(exx.run, run_credit, run_debt)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
     spark7 = 7
@@ -626,7 +624,7 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
 
     # THEN
     yao_yao_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{exx.yao},{exx.yao},1,1\n"
-    yao_run_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{exx.yao},{run_str},{run_credit},{run_debt}\n"
+    yao_run_row = f"{exx.sue},{spark7},{a23_str},{exx.bob},{exx.yao},{exx.run},{run_credit},{run_debt}\n"
     print(f"       {x_csv=}")
     expected_csv = f"{csv_header}{yao_run_row}{yao_yao_row}"
     print(f"{expected_csv=}")

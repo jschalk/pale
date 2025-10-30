@@ -22,9 +22,7 @@ from src.ch11_belief_listen.test._util.ch11_env import (
     temp_dir_setup,
 )
 from src.ch11_belief_listen.test._util.ch11_examples import (
-    casa_str,
     ch11_example_moment_label,
-    clean_str,
     cook_str,
     eat_str,
     full_str,
@@ -49,7 +47,7 @@ def sweep_str() -> str:
 
 
 def casa_rope() -> RopeTerm:
-    return create_rope(ch11_example_moment_label(), casa_str())
+    return create_rope(ch11_example_moment_label(), exx.casa)
 
 
 def cook_rope() -> RopeTerm:
@@ -73,7 +71,7 @@ def sanitation_rope() -> RopeTerm:
 
 
 def clean_rope() -> RopeTerm:
-    return create_rope(sanitation_rope(), clean_str())
+    return create_rope(sanitation_rope(), exx.clean)
 
 
 def dirty_rope() -> RopeTerm:
@@ -126,7 +124,7 @@ def get_example_yao_vision2_speaker() -> BeliefUnit:
 
     yao_speaker.set_plan_obj(planunit_shop(sweep_str(), pledge=True), casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(dirty_str()), sanitation_rope())
-    yao_speaker.set_plan_obj(planunit_shop(clean_str()), sanitation_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.clean), sanitation_rope())
     yao_speaker.edit_reason(sweep_rope(), sanitation_rope(), dirty_rope())
     yao_speaker.add_fact(sweep_rope(), dirty_rope())
     return yao_speaker
@@ -138,7 +136,7 @@ def get_example_yao_vision3_speaker() -> BeliefUnit:
     yao_speaker.set_voice_respect(10)
     yao_speaker.set_plan_obj(planunit_shop(sweep_str(), pledge=True), casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(dirty_str()), sanitation_rope())
-    yao_speaker.set_plan_obj(planunit_shop(clean_str()), sanitation_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.clean), sanitation_rope())
     yao_speaker.edit_reason(sweep_rope(), sanitation_rope(), dirty_rope())
     yao_speaker.add_fact(sweep_rope(), dirty_rope())
     return yao_speaker

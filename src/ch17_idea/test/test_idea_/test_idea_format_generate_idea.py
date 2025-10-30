@@ -129,13 +129,11 @@ def test_make_beliefdelta_Arg_idea_format_00013_planunit_v0_0_0():
     # ESTABLISH
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     casa_star = 31
-    sue_beliefunit.set_l1_plan(planunit_shop(casa_str, star=casa_star))
-    clean_str = "clean"
-    clean_rope = sue_beliefunit.make_rope(casa_rope, clean_str)
-    sue_beliefunit.set_plan_obj(planunit_shop(clean_str, pledge=True), casa_rope)
+    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa, star=casa_star))
+    clean_rope = sue_beliefunit.make_rope(casa_rope, exx.clean)
+    sue_beliefunit.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
     x_idea_name = idea_format_00013_planunit_v0_0_0()
     planunit_dataframe = create_idea_df(sue_beliefunit, x_idea_name)
     planunit_csv = planunit_dataframe.to_csv(index=False)

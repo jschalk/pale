@@ -24,8 +24,7 @@ def test_BeliefUnit_cashout_Sets_active_WhenFactSaysNo():
 
     # for plan in sue_beliefunit._plan_dict.values():
     #     print(f"{casa_rope=} {plan.get_plan_rope()=}")
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     assert sue_beliefunit.get_plan_obj(casa_rope).plan_active is None
 
     # WHEN
@@ -47,8 +46,7 @@ def test_BeliefUnit_cashout_Sets_active_WhenFactModifies():
     wk_rope = sue_beliefunit.make_l1_rope(wk_str)
     sun_str = "Wed"
     sun_rope = sue_beliefunit.make_rope(wk_rope, sun_str)
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
 
     # WHEN
     sue_beliefunit.add_fact(fact_context=wk_rope, fact_state=sun_rope)
@@ -89,8 +87,7 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
     sue_beliefunit = get_beliefunit_with_4_levels_and_2reasons()
     wk_str = "sem_jours"
     wk_rope = sue_beliefunit.make_l1_rope(wk_str)
-    wed_str = "Wed"
-    wed_rope = sue_beliefunit.make_rope(wk_rope, wed_str)
+    wed_rope = sue_beliefunit.make_rope(wk_rope, exx.wed)
     nation_str = "nation"
     nation_rope = sue_beliefunit.make_l1_rope(nation_str)
     france_str = "France"
@@ -98,8 +95,7 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
     sue_beliefunit.add_fact(fact_context=wk_rope, fact_state=wed_rope)
     sue_beliefunit.add_fact(fact_context=nation_rope, fact_state=france_rope)
 
-    casa_str = "casa"
-    casa_rope = sue_beliefunit.make_l1_rope(casa_str)
+    casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     casa_plan = sue_beliefunit.get_plan_obj(casa_rope)
     print(f"{sue_beliefunit.belief_name=} {len(casa_plan.reasonunits)=}")
     # print(f"{casa_plan.reasonunits=}")
@@ -158,7 +154,7 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
     assert casa_plan.parent_rope == sue_beliefunit.planroot.get_plan_rope()
     assert casa_plan.kids == {}
     assert casa_plan.star == 30
-    assert casa_plan.plan_label == casa_str
+    assert casa_plan.plan_label == exx.casa
     assert casa_plan.tree_level == 1
     assert casa_plan.plan_active
     assert casa_plan.pledge
@@ -443,8 +439,7 @@ def test_BeliefUnit_cashout_OptionWeekJoursReturnsObj_beliefunit_v001():
     assert gen_wk_reasonheir.cases == mt_reasonheir.cases
     assert gen_wk_reasonheir == mt_reasonheir
 
-    casa_str = "casa"
-    casa_rope = yao_beliefunit.make_l1_rope(casa_str)
+    casa_rope = yao_beliefunit.make_l1_rope(exx.casa)
     bird_str = "say hi to birds"
     bird_rope = yao_beliefunit.make_rope(casa_rope, bird_str)
     assert from_list_get_active(bird_rope, plan_dict) is False
@@ -607,8 +602,7 @@ def test_BeliefUnit_cashout_EveryTwoMonthReturnsObj_beliefunit_v001():
     plan_dict = yao_beliefunit.get_plan_dict()
     print(f"{len(plan_dict)=}")
 
-    casa_str = "casa"
-    casa_rope = yao_beliefunit.make_l1_rope(casa_str)
+    casa_rope = yao_beliefunit.make_l1_rope(exx.casa)
     clean_str = "cleaning"
     clean_rope = yao_beliefunit.make_rope(casa_rope, clean_str)
     mat_plan_label = "deep clean play mat"

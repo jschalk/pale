@@ -226,10 +226,7 @@ def add_ch_keyword_count(keywords_ch_counts: dict, keyword: str, chapter_prefix:
 def test_Chapters_FirstLevelFilesDoNotImportKeywords():
     """Test that checks no str function is created before it is needed or after the term is used."""
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
-
-    # ESTABLISH
-
-    # WHEN / THEN
+    # ESTABLISH / WHEN
     # all_file_count = 0
     for chapter_desc, chapter_dir in get_chapter_descs().items():
         chapter_prefix = get_chapter_desc_prefix(chapter_desc)
@@ -242,7 +239,10 @@ def test_Chapters_FirstLevelFilesDoNotImportKeywords():
             file_path = create_path(chapter_dir, filename)
             file_str = open_file(file_path)
             print(f"{file_path=}")
+            # THEN
             assert "Keywords" not in file_str, f"Keywords reference in {file_path}"
+            failure_example_str = f"ExampleStrs reference in {file_path}"
+            assert "ExampleStrs " not in file_str, failure_example_str
 
 
 def test_Chapters_KeywordEnumClassesAreCorrectlyTested():

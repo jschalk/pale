@@ -26,8 +26,7 @@ def test_is_nameterm_ReturnsObj():
 def test_validate_nameterm_Scenario0_RaisesErrorWhenNotNameTerm():
     # ESTABLISH
     bob_str = "Bob, Tom"
-    slash_str = "/"
-    assert bob_str == validate_nameterm(bob_str, x_groupmark=slash_str)
+    assert bob_str == validate_nameterm(bob_str, x_groupmark=exx.slash)
 
     # WHEN
     comma_str = ","
@@ -43,10 +42,9 @@ def test_validate_nameterm_Scenario0_RaisesErrorWhenNotNameTerm():
 
 def test_validate_nameterm_Scenario1_RaisesErrorWhenNameTerm():
     # ESTABLISH
-    slash_str = "/"
-    bob_str = f"Bob{slash_str}Tom"
+    bob_str = f"Bob{exx.slash}Tom"
     assert bob_str == validate_nameterm(
-        bob_str, x_groupmark=slash_str, not_nameterm_required=True
+        bob_str, x_groupmark=exx.slash, not_nameterm_required=True
     )
 
     # WHEN
@@ -123,15 +121,14 @@ def test_VoiceUnit_set_nameterm_SetsAttr():
 
 def test_VoiceUnit_set_nameterm_RaisesErrorIfParameterContains_groupmark():
     # ESTABLISH
-    slash_str = "/"
-    texas_str = f"Texas{slash_str}Arkansas"
+    texas_str = f"Texas{exx.slash}Arkansas"
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        voiceunit_shop(voice_name=texas_str, groupmark=slash_str)
+        voiceunit_shop(voice_name=texas_str, groupmark=exx.slash)
     assert (
         str(excinfo.value)
-        == f"'{texas_str}' must be a NameTerm. Cannot contain {kw.GroupMark}: '{slash_str}'"
+        == f"'{texas_str}' must be a NameTerm. Cannot contain {kw.GroupMark}: '{exx.slash}'"
     )
 
 
@@ -163,13 +160,12 @@ def test_voiceunit_shop_SetsAttributes():
 
 def test_voiceunit_shop_SetsAttributes_groupmark():
     # ESTABLISH
-    slash_str = "/"
 
     # WHEN
-    yao_voiceunit = voiceunit_shop("Yao", groupmark=slash_str)
+    yao_voiceunit = voiceunit_shop("Yao", groupmark=exx.slash)
 
     # THEN
-    assert yao_voiceunit.groupmark == slash_str
+    assert yao_voiceunit.groupmark == exx.slash
 
 
 def test_voiceunit_shop_SetsAttributes_respect_grain():

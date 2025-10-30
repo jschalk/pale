@@ -3,6 +3,7 @@ from src.ch05_reason.reason import factunit_shop
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import get_beliefunit_with_4_levels
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_BeliefUnit_set_fact_ModifiesAttr_1():
@@ -161,10 +162,9 @@ def test_BeliefUnit_get_rangeroot_factunits_ReturnsObj_Scenario0():
     ziet_plan = planunit_shop(ziet_str, begin=0, close=140)
     sue_belief.set_l1_plan(ziet_plan)
 
-    clean_str = "clean"
-    clean_plan = planunit_shop(clean_str, pledge=True)
+    clean_plan = planunit_shop(exx.clean, pledge=True)
     sue_belief.set_l1_plan(clean_plan)
-    c_rope = sue_belief.make_l1_rope(clean_str)
+    c_rope = sue_belief.make_l1_rope(exx.clean)
     ziet_rope = sue_belief.make_l1_rope(ziet_str)
     # sue_belief.edit_plan_attr(c_rope, reason_context=ziet_rope, reason_case=ziet_rope, reason_lower=5, reason_upper=10)
 

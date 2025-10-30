@@ -13,12 +13,11 @@ from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 def test_sift_atom_ReturnsNoneIfGivenBeliefAtomIsUPDATE():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     sue_belief.add_plan(casa_rope)
     casa_atom = beliefatom_shop(kw.belief_planunit, kw.UPDATE)
     casa_atom.set_arg(kw.parent_rope, sue_belief.planroot.plan_label)
-    casa_atom.set_arg(kw.plan_label, casa_str)
+    casa_atom.set_arg(kw.plan_label, exx.casa)
     casa_atom.set_arg(kw.star, 8)
 
     # WHEN
@@ -92,15 +91,14 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voiceunit():
 
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voice_membership():
     # ESTABLISH
-    run_str = ";run"
     zia_run_group_debt_lumen = 76
     sue_belief = beliefunit_shop("Sue")
     sue_belief.add_voiceunit(exx.zia)
-    sue_belief.get_voice(exx.zia).add_membership(run_str)
+    sue_belief.get_voice(exx.zia).add_membership(exx.run)
 
     zia_atom = beliefatom_shop(kw.belief_voice_membership, kw.INSERT)
     zia_atom.set_arg(kw.voice_name, exx.zia)
-    zia_atom.set_arg(kw.group_title, run_str)
+    zia_atom.set_arg(kw.group_title, exx.run)
     zia_atom.set_arg(kw.group_debt_lumen, zia_run_group_debt_lumen)
 
     # WHEN
@@ -117,8 +115,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voice_membership():
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_planunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     sue_belief.add_plan(casa_rope)
 
     sue_addin = 23
@@ -170,17 +167,15 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_planunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_awardunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     sue_belief.add_plan(casa_rope)
-    run_str = ";run"
     zia_run_give_force = 72
     zia_run_take_force = 76
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(run_str, 2, 3))
+    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(exx.run, 2, 3))
 
     zia_atom = beliefatom_shop(kw.belief_plan_awardunit, kw.INSERT)
     zia_atom.set_arg(kw.plan_rope, casa_rope)
-    zia_atom.set_arg(kw.awardee_title, run_str)
+    zia_atom.set_arg(kw.awardee_title, exx.run)
     zia_atom.set_arg(kw.give_force, zia_run_give_force)
     zia_atom.set_arg(kw.take_force, zia_run_take_force)
 
@@ -199,9 +194,8 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_awardunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reasonunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
-    wk_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
+    wk_rope = sue_belief.make_l1_rope(exx.casa)
     sue_belief.add_plan(casa_rope)
     sue_belief.get_plan_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
 
@@ -230,10 +224,8 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reasonunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reason_caseunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
-    clean_str = "clean"
-    clean_rope = sue_belief.make_rope(casa_rope, clean_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
+    clean_rope = sue_belief.make_rope(casa_rope, exx.clean)
     wk_rope = sue_belief.make_l1_rope("wk")
     thur_str = "thur"
     thur_rope = sue_belief.make_rope(wk_rope, thur_str)
@@ -269,8 +261,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reason_caseunit():
 def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_factunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope("wk")
     sue_belief.add_plan(casa_rope)
     sue_belief.get_plan_obj(casa_rope).set_factunit(factunit_shop(wk_rope))

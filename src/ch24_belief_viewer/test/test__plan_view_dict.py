@@ -436,8 +436,7 @@ def test_get_plan_view_dict_ReturnsObj_Scenario7_PlanUnit_ReasonHeirs():
 
 def test_get_plan_view_dict_ReturnsObj_Scenario8_gogo_stop():
     # ESTABLISH
-    casa_str = "casa"
-    casa_plan = planunit_shop(casa_str)
+    casa_plan = planunit_shop(exx.casa)
     casa_gogo_want = 13
     casa_stop_want = 17
     casa_gogo_calc = 53
@@ -468,8 +467,7 @@ def test_get_plan_view_dict_ReturnsObj_Scenario8_gogo_stop():
 
 def test_get_plan_view_dict_ReturnsObj_Scenario9_numeric_range_attrs():
     # ESTABLISH
-    casa_str = "casa"
-    casa_plan = planunit_shop(casa_str)
+    casa_plan = planunit_shop(exx.casa)
     casa_addin = 11
     casa_begin = 17
     casa_close = 23

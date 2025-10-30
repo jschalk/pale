@@ -490,7 +490,6 @@ def test_RopeMap_is_valid_ReturnsObj_Scenario0_plan_label_str():
     x_inx_knot = ":"
     labelterm_ropemap = ropemap_shop(otx_knot=x_otx_knot, inx_knot=x_inx_knot)
 
-    clean_str = "clean"
     clean_inx = to_rope("propre", x_inx_knot)
     casa_otx = to_rope("casa", x_otx_knot)
     mop_otx = create_rope(casa_otx, "mop", x_otx_knot)
@@ -499,7 +498,7 @@ def test_RopeMap_is_valid_ReturnsObj_Scenario0_plan_label_str():
     assert labelterm_ropemap.is_valid()
 
     # WHEN
-    labelterm_ropemap.set_otx2inx(clean_str, clean_inx)
+    labelterm_ropemap.set_otx2inx(exx.clean, clean_inx)
     # THEN
     assert labelterm_ropemap.is_valid()
 

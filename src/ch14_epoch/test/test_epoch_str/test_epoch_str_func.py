@@ -7,13 +7,12 @@ from src.ch14_epoch.epoch_str_func import (
     get_reason_case_readable_str,
 )
 from src.ch14_epoch.test._util.ch14_examples import get_creg_config, get_thu
-from src.ref.keywords import Ch14Keywords as kw
+from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
 
 
 def test_get_reason_case_readable_str_ReturnsObj_Scenario0_Level1():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     situation_casa_str = "situation casa"
     situation_casa_rope = create_rope(casa_rope, situation_casa_str)
     situation_casa_reason = reasonunit_shop(situation_casa_rope)
@@ -35,8 +34,7 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario0_Level1():
 
 def test_get_reason_case_readable_str_ReturnsObj_Scenario1_TwoLevel_state():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     situation_casa_str = "situation"
     situation_casa_rope = create_rope(casa_rope, situation_casa_str)
     situation_casa_reason = reasonunit_shop(situation_casa_rope)
@@ -63,8 +61,7 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario1_TwoLevel_state():
 
 def test_get_reason_case_readable_str_ReturnsObj_Scenario2_CaseRange():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     situation_casa_str = "situation"
     situation_casa_rope = create_rope(casa_rope, situation_casa_str)
     situation_casa_reason = reasonunit_shop(situation_casa_rope)
@@ -95,8 +92,7 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario2_CaseRange():
 
 def test_get_reason_case_readable_str_ReturnsObj_Scenario3_CaseRangeAnd_reason_divisor():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     situation_casa_str = "situation"
     situation_casa_rope = create_rope(casa_rope, situation_casa_str)
     situation_casa_reason = reasonunit_shop(situation_casa_rope)
@@ -137,10 +133,8 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario4_Time_creg():
     thu_rope = sue_belief.make_rope(week_rope, get_thu())
     thu_plan = sue_belief.get_plan_obj(thu_rope)
 
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
-    mop_str = "mop"
-    mop_rope = sue_belief.make_rope(casa_rope, mop_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
+    mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
     sue_belief.add_plan(mop_rope, pledge=True)
     sue_belief.edit_plan_attr(
         mop_rope,
@@ -166,8 +160,7 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario4_Time_creg():
 
 def test_get_fact_state_readable_str_ReturnsObj_Scenario0_Level1():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     situation_casa_str = "situation casa"
     situation_casa_rope = create_rope(casa_rope, situation_casa_str)
     dirty_str = "dirty floors"
@@ -186,8 +179,7 @@ def test_get_fact_state_readable_str_ReturnsObj_Scenario0_Level1():
 
 def test_get_fact_state_readable_str_ReturnsObj_Scenario1_TwoLevel_state():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     situation_casa_str = "situation"
     situation_casa_rope = create_rope(casa_rope, situation_casa_str)
     situation_casa_reason = reasonunit_shop(situation_casa_rope)
@@ -210,8 +202,7 @@ def test_get_fact_state_readable_str_ReturnsObj_Scenario1_TwoLevel_state():
 
 def test_get_fact_state_readable_str_ReturnsObj_Scenario2_CaseRange():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     situation_casa_str = "situation"
     situation_casa_rope = create_rope(casa_rope, situation_casa_str)
     non_furniture_str = "non_furniture"

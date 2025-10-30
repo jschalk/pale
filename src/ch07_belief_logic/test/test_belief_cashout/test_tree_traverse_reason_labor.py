@@ -145,11 +145,10 @@ def test_BeliefUnit__get_filtered_awardunits_plan_CleansPlan_Laborunit():
     sue1_belief.add_voiceunit(exx.xio)
     sue1_belief.add_voiceunit(exx.zia)
 
-    casa_str = "casa"
-    casa_rope = sue1_belief.make_l1_rope(casa_str)
+    casa_rope = sue1_belief.make_l1_rope(exx.casa)
     swim_rope = sue1_belief.make_l1_rope(exx.swim)
     root_rope = sue1_belief.planroot.get_plan_rope()
-    sue1_belief.set_plan_obj(planunit_shop(casa_str), parent_rope=root_rope)
+    sue1_belief.set_plan_obj(planunit_shop(exx.casa), parent_rope=root_rope)
     sue1_belief.set_plan_obj(planunit_shop(exx.swim), parent_rope=root_rope)
     swim_laborunit = laborunit_shop()
     swim_laborunit.add_party(party_title=exx.xio)
@@ -176,11 +175,10 @@ def test_BeliefUnit_set_plan_CleansPlan_awardunits():
     sue1_belief.add_voiceunit(exx.xio)
     sue1_belief.add_voiceunit(exx.zia)
 
-    casa_str = "casa"
-    casa_rope = sue1_belief.make_l1_rope(casa_str)
+    casa_rope = sue1_belief.make_l1_rope(exx.casa)
     swim_rope = sue1_belief.make_l1_rope(exx.swim)
     sue1_belief.set_plan_obj(
-        planunit_shop(casa_str), parent_rope=sue1_belief.planroot.get_plan_rope()
+        planunit_shop(exx.casa), parent_rope=sue1_belief.planroot.get_plan_rope()
     )
     sue1_belief.set_plan_obj(
         planunit_shop(exx.swim), parent_rope=sue1_belief.planroot.get_plan_rope()

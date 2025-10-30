@@ -59,8 +59,7 @@ def test_BeliefUnit_get_relevant_ropes_SimpleReturnsOnlyAncestors():
 def test_BeliefUnit_get_relevant_ropes_ReturnsSimpleReasonUnitreason_context():
     # ESTABLISH
     sue_belief = beliefunit_shop(belief_name="Sue")
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = sue_belief.make_rope(casa_rope, floor_str)
     floor_plan = planunit_shop(floor_str)
@@ -95,8 +94,7 @@ def test_BeliefUnit_get_relevant_ropes_ReturnsReasonUnitreason_contextAndDescend
     # ESTABLISH
     x_belief = get_mop_with_reason_beliefunit_example1()
     root_rope = x_belief.planroot.get_plan_rope()
-    casa_str = "casa"
-    casa_rope = x_belief.make_l1_rope(casa_str)
+    casa_rope = x_belief.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = x_belief.make_rope(casa_rope, floor_str)
 
@@ -106,8 +104,7 @@ def test_BeliefUnit_get_relevant_ropes_ReturnsReasonUnitreason_contextAndDescend
     situation_str = "cleaniness situation"
     situation_rope = x_belief.make_rope(casa_rope, situation_str)
 
-    clean_str = "clean"
-    clean_rope = x_belief.make_rope(situation_rope, clean_str)
+    clean_rope = x_belief.make_rope(situation_rope, exx.clean)
 
     very_much_str = "very_much"
     very_much_rope = x_belief.make_rope(clean_rope, very_much_str)
@@ -186,9 +183,8 @@ def test_BeliefUnit_get_inheritor_plan_list_ReturnsObj_Scenario0():
     # ESTABLISH
     yao_beliefunit = beliefunit_shop("Yao")
     tech_rope = yao_beliefunit.make_l1_rope("tech")
-    wk_str = "wk"
-    wk_rope = yao_beliefunit.make_rope(tech_rope, wk_str)
-    yao_beliefunit.set_plan_obj(planunit_shop(wk_str, begin=0, close=10800), tech_rope)
+    wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
+    yao_beliefunit.set_plan_obj(planunit_shop(exx.wk, begin=0, close=10800), tech_rope)
     mon_str = "Mon"
     mon_rope = yao_beliefunit.make_rope(wk_rope, mon_str)
     yao_beliefunit.set_plan_obj(planunit_shop(mon_str), wk_rope)

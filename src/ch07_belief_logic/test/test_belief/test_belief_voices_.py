@@ -10,14 +10,13 @@ def test_BeliefUnit_set_voiceunit_SetsAttr():
     yao_voiceunit = voiceunit_shop(exx.yao)
     yao_voiceunit.add_membership(exx.yao)
     deepcopy_yao_voiceunit = copy_deepcopy(yao_voiceunit)
-    slash_str = "/"
-    bob_belief = beliefunit_shop("Bob", knot=slash_str)
+    bob_belief = beliefunit_shop("Bob", knot=exx.slash)
 
     # WHEN
     bob_belief.set_voiceunit(yao_voiceunit)
 
     # THEN
-    assert bob_belief.voices.get(exx.yao).groupmark == slash_str
+    assert bob_belief.voices.get(exx.yao).groupmark == exx.slash
     x_voices = {yao_voiceunit.voice_name: deepcopy_yao_voiceunit}
     assert bob_belief.voices != x_voices
     deepcopy_yao_voiceunit.groupmark = bob_belief.knot

@@ -10,14 +10,12 @@ class CommonExampleStrs(str, Enum):
     xio = "Xio"
     zia = "Zia"
     SueAndZia = "SueAndZia"
-    casa_str = "casa"
+    casa = "casa"
     clean_str = "clean"
     dirtyness_str = "dirtyness"
-    mop_str = "mop"
     slash_str = "/"
     swim = "swim"
     wk_str = "wk"
-    wed_str = "Wed"
 
     def __str__(self):
         return self.value

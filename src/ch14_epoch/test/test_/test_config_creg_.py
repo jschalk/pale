@@ -577,9 +577,8 @@ def test_BeliefUnit_get_agenda_dict_DoesNotReturnPledgePlansOutsideRange():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_belief = add_time_creg_planunit(beliefunit_shop(exx.sue))
-    clean_str = "clean"
-    clean_rope = sue_belief.make_l1_rope(clean_str)
-    sue_belief.set_l1_plan(planunit_shop(clean_str, pledge=True))
+    clean_rope = sue_belief.make_l1_rope(exx.clean)
+    sue_belief.set_l1_plan(planunit_shop(exx.clean, pledge=True))
     time_rope = sue_belief.make_l1_rope("time")
     cregtime_rope = sue_belief.make_rope(time_rope, kw.creg)
     day_rope = sue_belief.make_rope(cregtime_rope, "day")
@@ -717,11 +716,10 @@ def test_PlanCore_get_agenda_dict_ReturnsObj_BugFindAndFix_active_SettingError()
     sue_belief = beliefunit_shop("Sue")
     add_time_creg_planunit(sue_belief)
 
-    casa_str = "casa"
-    casa_rope = sue_belief.make_l1_rope(casa_str)
+    casa_rope = sue_belief.make_l1_rope(exx.casa)
     laundry_str = "do_laundry"
     laundry_rope = sue_belief.make_rope(casa_rope, laundry_str)
-    sue_belief.set_l1_plan(planunit_shop(casa_str))
+    sue_belief.set_l1_plan(planunit_shop(exx.casa))
     sue_belief.set_plan_obj(planunit_shop(laundry_str, pledge=True), casa_rope)
     time_rope = sue_belief.make_l1_rope("time")
     cregtime_rope = sue_belief.make_rope(time_rope, kw.creg)

@@ -43,8 +43,7 @@ def test_listen_to_speaker_agenda_ReturnsSingletaskBelief():
     before_yao_beliefunit.add_voiceunit(exx.zia)
     yao_voice_voice_debt_lumen = 77
     before_yao_beliefunit.set_voice_respect(yao_voice_voice_debt_lumen)
-    clean_str = "clean"
-    zia_clean_planunit = planunit_shop(clean_str, pledge=True)
+    zia_clean_planunit = planunit_shop(exx.clean, pledge=True)
     zia_clean_planunit.laborunit.add_party(exx.yao)
     zia_beliefunit = beliefunit_shop(exx.zia)
     zia_beliefunit.add_voiceunit(exx.yao)
@@ -61,7 +60,7 @@ def test_listen_to_speaker_agenda_ReturnsSingletaskBelief():
     )
 
     # THEN
-    clean_rope = zia_beliefunit.make_l1_rope(clean_str)
+    clean_rope = zia_beliefunit.make_l1_rope(exx.clean)
     yao_clean_planunit = after_yao_beliefunit.get_plan_obj(clean_rope)
     print(f"{yao_clean_planunit.star=}")
     assert yao_clean_planunit.star != zia_clean_planunit.star
@@ -78,8 +77,7 @@ def test_listen_to_speaker_agenda_ReturnsLevel2taskBelief():
     before_yao_beliefunit.set_voice_respect(yao_voice_debt_lumen)
     zia_beliefunit = beliefunit_shop(exx.zia)
     zia_beliefunit.add_voiceunit(exx.yao)
-    clean_str = "clean"
-    zia_clean_planunit = planunit_shop(clean_str, pledge=True)
+    zia_clean_planunit = planunit_shop(exx.clean, pledge=True)
     zia_clean_planunit.laborunit.add_party(exx.yao)
     casa_rope = zia_beliefunit.make_l1_rope("casa")
     zia_beliefunit.set_plan_obj(zia_clean_planunit, casa_rope)
@@ -95,7 +93,7 @@ def test_listen_to_speaker_agenda_ReturnsLevel2taskBelief():
     )
 
     # THEN
-    clean_rope = zia_beliefunit.make_rope(casa_rope, clean_str)
+    clean_rope = zia_beliefunit.make_rope(casa_rope, exx.clean)
     yao_clean_planunit = after_yao_beliefunit.get_plan_obj(clean_rope)
     print(f"{yao_clean_planunit.star=}")
     assert yao_clean_planunit.star != zia_clean_planunit.star
@@ -117,10 +115,9 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
 
     zia_beliefunit = beliefunit_shop(exx.zia)
     zia_beliefunit.add_voiceunit(exx.yao)
-    clean_str = "clean"
     cook_str = "cook"
     fly_str = "fly"
-    yao_clean_planunit = planunit_shop(clean_str, pledge=True)
+    yao_clean_planunit = planunit_shop(exx.clean, pledge=True)
     yao_clean_planunit.laborunit.add_party(exx.yao)
     yao_cook_planunit = planunit_shop(cook_str, pledge=True)
     yao_cook_planunit.laborunit.add_party(exx.yao)
@@ -142,7 +139,7 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
     )
 
     # THEN
-    clean_rope = zia_beliefunit.make_rope(casa_rope, clean_str)
+    clean_rope = zia_beliefunit.make_rope(casa_rope, exx.clean)
     cook_rope = zia_beliefunit.make_rope(casa_rope, cook_str)
     after_cook_planunit = after_yao_beliefunit.get_plan_obj(cook_rope)
     after_clean_planunit = after_yao_beliefunit.get_plan_obj(clean_rope)

@@ -614,7 +614,6 @@ Yao,41,37
 
 def test_is_2d_with_unique_keys_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
 
     # WHEN / THEN
     assert is_2d_with_unique_keys({})
@@ -622,33 +621,23 @@ def test_is_2d_with_unique_keys_ReturnsObj():
     assert is_2d_with_unique_keys({ex0.sue: {}, ex0.bob: {}}) is False
     assert is_2d_with_unique_keys({"swim": 155, ex0.sue: {}, ex0.bob: {}}) is False
     assert is_2d_with_unique_keys({"swim": 155, ex0.sue: {}})
-    assert is_2d_with_unique_keys({casa_str: {"clean": ex0.bob}})
-    assert is_2d_with_unique_keys({casa_str: {"clean": {ex0.bob: 13}}})
-    assert (
-        is_2d_with_unique_keys({casa_str: {"clean": {ex0.bob: 13}, "swim": {}}})
-        is False
-    )
-    assert is_2d_with_unique_keys({casa_str: {"clean": {ex0.bob: 13}}, "school": 14})
-    assert (
-        is_2d_with_unique_keys(
-            {casa_str: {"clean": {ex0.bob: 3}}, "school": {"clean": 1}}
-        )
-        is False
-    )
-    assert is_2d_with_unique_keys({casa_str: {"school": {ex0.sue: {1: {}}}}})
-    assert (
-        is_2d_with_unique_keys(
-            {casa_str: {"clean": {ex0.bob: 13}, "school": {"swim": 14}}}
-        )
-        is False
-    )
+    assert is_2d_with_unique_keys({ex0.casa: {"clean": ex0.bob}})
+    assert is_2d_with_unique_keys({ex0.casa: {"clean": {ex0.bob: 13}}})
+    x0_dict = {ex0.casa: {"clean": {ex0.bob: 13}, "swim": {}}}
+    assert not (is_2d_with_unique_keys(x0_dict))
+    assert is_2d_with_unique_keys({ex0.casa: {"clean": {ex0.bob: 13}}, "school": 14})
+    x1_dict = {ex0.casa: {"clean": {ex0.bob: 3}}, "school": {"clean": 1}}
+    assert not (is_2d_with_unique_keys(x1_dict))
+    assert is_2d_with_unique_keys({ex0.casa: {"school": {ex0.sue: {1: {}}}}})
+    x2_dict = {ex0.casa: {"clean": {ex0.bob: 13}, "school": {"swim": 14}}}
+    assert not (is_2d_with_unique_keys(x2_dict))
 
     # No duplicate keys paired to dictionarys
-    assert is_2d_with_unique_keys({casa_str: {"school": {casa_str: {1: {}}}}}) is False
+    assert is_2d_with_unique_keys({ex0.casa: {"school": {ex0.casa: {1: {}}}}}) is False
 
     # No duplicate keys off levels
-    assert is_2d_with_unique_keys({casa_str: {"school": {casa_str: {1: {}}}}}) is False
-    assert is_2d_with_unique_keys({casa_str: {"school": {casa_str: 1}}}) is False
+    assert is_2d_with_unique_keys({ex0.casa: {"school": {ex0.casa: {1: {}}}}}) is False
+    assert is_2d_with_unique_keys({ex0.casa: {"school": {ex0.casa: 1}}}) is False
 
 
 def test_get_nested_dict_keys_by_level_ReturnsObj():
@@ -660,10 +649,8 @@ def test_get_nested_dict_keys_by_level_ReturnsObj():
     x3_dict = {"swim": 155, ex0.sue: {}, ex0.bob: {}}
     assert get_nested_dict_keys_by_level(x3_dict) == {0: {ex0.sue, ex0.bob}}
     x4_dict = {"swim": 155, ex0.sue: {ex0.zia: {}}, ex0.bob: {"Yao": {}}}
-    assert get_nested_dict_keys_by_level(x4_dict) == {
-        0: {ex0.sue, ex0.bob},
-        1: {ex0.zia, "Yao"},
-    }
+    expected_x4_dict = {0: {ex0.sue, ex0.bob}, 1: {ex0.zia, "Yao"}}
+    assert get_nested_dict_keys_by_level(x4_dict) == expected_x4_dict
 
 
 def test_get_nested_keys_by_level_ReturnsObj():
@@ -678,11 +665,12 @@ def test_get_nested_keys_by_level_ReturnsObj():
     x3_dict = {ex0.swim: 155, ex0.sue: {}, ex0.bob: {}}
     assert get_nested_keys_by_level(x3_dict) == {0: {ex0.swim, ex0.sue, ex0.bob}}
     x4_dict = {ex0.swim: 155, ex0.sue: {ex0.zia: {}}, ex0.bob: {ex0.yao: {ex0.swim: 1}}}
-    assert get_nested_keys_by_level(x4_dict) == {
+    expected_x4_dict = {
         0: {ex0.sue, ex0.bob, ex0.swim},
         1: {ex0.zia, ex0.yao},
         2: {ex0.swim},
     }
+    assert get_nested_keys_by_level(x4_dict) == expected_x4_dict
 
 
 def test_get_nested_non_dict_keys_by_level_ReturnsObj():
@@ -697,16 +685,13 @@ def test_get_nested_non_dict_keys_by_level_ReturnsObj():
     x3_dict = {ex0.swim: 155, ex0.sue: {}, ex0.bob: {}}
     assert get_nested_non_dict_keys_by_level(x3_dict) == {0: {ex0.swim}}
     x4_dict = {ex0.swim: 155, ex0.sue: {ex0.zia: {}}, ex0.bob: {ex0.yao: {ex0.swim: 1}}}
-    assert get_nested_non_dict_keys_by_level(x4_dict) == {
-        0: {ex0.swim},
-        1: set(),
-        2: {ex0.swim},
-    }
+    expected_x4_dict = {0: {ex0.swim}, 1: set(), 2: {ex0.swim}}
+    assert get_nested_non_dict_keys_by_level(x4_dict) == expected_x4_dict
 
 
 def test_get_nested_non_dict_keys_list_ReturnsObj():
     # ESTABLISH
-    run_str = "Run"
+    run_str = "run"
 
     #  WHEN / THEN
     assert get_nested_non_dict_keys_list({}) == []
@@ -811,13 +796,11 @@ def test_get_str_in_sub_dict_ReturnsObj():
     assert get_str_in_sub_dict("", {ex0.sue: ex0.sue}) == {ex0.sue: ex0.sue}
     assert get_str_in_sub_dict(ex0.sue, {ex0.sue: ex0.bob}) == {ex0.sue: ex0.bob}
     assert get_str_in_sub_dict(ex0.sue, {ex0.zia: ex0.bob}) == {}
-    assert get_str_in_sub_dict(ex0.sue, {ex0.SueAndZia: ex0.bob}) == {
-        ex0.SueAndZia: ex0.bob
-    }
+    x0_dict = {ex0.SueAndZia: ex0.bob}
+    assert get_str_in_sub_dict(ex0.sue, {ex0.SueAndZia: ex0.bob}) == x0_dict
     assert get_str_in_sub_dict(ex0.sue, {ex0.zia: ex0.bob}) == {}
-    assert get_str_in_sub_dict(ex0.sue, {ex0.bob: ex0.SueAndZia}) == {
-        ex0.bob: ex0.SueAndZia
-    }
+    x1_dict = {ex0.bob: ex0.SueAndZia}
+    assert get_str_in_sub_dict(ex0.sue, {ex0.bob: ex0.SueAndZia}) == x1_dict
     assert get_str_in_sub_dict(ex0.sue, {ex0.bob: ex0.zia}) == {}
 
     xio_sue_dict = {ex0.xio: ex0.xio, ex0.sue: ex0.bob}
@@ -833,14 +816,13 @@ def test_str_in_all_dict_keys_ReturnsObj():
     assert str_in_all_dict_keys("", {})
     assert str_in_all_dict_keys("", {"": ex0.sue})
     assert str_in_all_dict_keys("", {ex0.sue: ex0.sue})
-    assert str_in_all_dict_keys(ex0.sue, {ex0.bob: ex0.sue}) is False
-    assert str_in_all_dict_keys(ex0.sue, {ex0.sue: ex0.zia, ex0.bob: ex0.bob}) is False
-    assert (
+    assert not str_in_all_dict_keys(ex0.sue, {ex0.bob: ex0.sue})
+    assert not str_in_all_dict_keys(ex0.sue, {ex0.sue: ex0.zia, ex0.bob: ex0.bob})
+    assert not (
         str_in_all_dict_keys(ex0.sue, {ex0.zia: ex0.bob, ex0.SueAndZia: ex0.bob})
-        is False
     )
     assert str_in_all_dict_keys(ex0.sue, {ex0.sue: ex0.bob, ex0.SueAndZia: ""})
-    assert str_in_all_dict_keys(ex0.sue, {ex0.bob: ex0.zia}) is False
+    assert not str_in_all_dict_keys(ex0.sue, {ex0.bob: ex0.zia})
 
 
 def test_str_in_all_dict_values_ReturnsObj():
@@ -849,12 +831,9 @@ def test_str_in_all_dict_values_ReturnsObj():
     assert str_in_all_dict_values("", {"": ex0.sue})
     assert str_in_all_dict_values("", {ex0.sue: ex0.sue})
     assert str_in_all_dict_values(ex0.sue, {ex0.bob: ex0.sue})
-    assert (
-        str_in_all_dict_values(ex0.sue, {ex0.zia: ex0.sue, ex0.sue: ex0.bob}) is False
-    )
-    assert (
+    assert not (str_in_all_dict_values(ex0.sue, {ex0.zia: ex0.sue, ex0.sue: ex0.bob}))
+    assert not (
         str_in_all_dict_values(ex0.sue, {ex0.zia: ex0.sue, ex0.SueAndZia: ex0.bob})
-        is False
     )
     assert str_in_all_dict_values(ex0.sue, {ex0.zia: ex0.sue, ex0.bob: ex0.SueAndZia})
     assert str_in_all_dict_values(ex0.sue, {ex0.bob: ex0.zia}) is False
@@ -891,9 +870,8 @@ def test_get_str_not_in_sub_dict_ReturnsObj():
     suezia_sue_dict = {"SueZia": "SueZia", ex0.sue: ex0.bob}
     assert get_str_in_all_sub_dict(ex0.sue, suezia_sue_dict) == {ex0.sue: ex0.bob}
     suezia_sueandzia_dict = {"SueZia": "SueZia", ex0.SueAndZia: ex0.bob}
-    assert get_str_in_all_sub_dict(ex0.sue, suezia_sueandzia_dict) == {
-        ex0.SueAndZia: ex0.bob
-    }
+    expected_x0_dict = {ex0.SueAndZia: ex0.bob}
+    assert get_str_in_all_sub_dict(ex0.sue, suezia_sueandzia_dict) == expected_x0_dict
     suezia_bob_dict = {"SueZia": "SueZia", ex0.bob: ex0.SueAndZia}
     assert get_str_in_all_sub_dict(ex0.sue, suezia_bob_dict) == {ex0.bob: ex0.SueAndZia}
 

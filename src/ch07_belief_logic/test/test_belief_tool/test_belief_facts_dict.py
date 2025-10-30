@@ -96,16 +96,13 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario0_BeliefEmptyNoFacts():
 def test_set_factunits_to_belief_ReturnsObj_Scenario1_Belief1FactsChanged():
     # ESTABLISH
     bob_belief = beliefunit_shop("Bob", "amy23")
-    casa_str = "casa"
     floor_str = "floor situation"
-    clean_str = "clean"
     dirty_str = "dirty"
-    mop_str = "mop"
-    casa_rope = bob_belief.make_l1_rope(casa_str)
+    casa_rope = bob_belief.make_l1_rope(exx.casa)
     floor_rope = bob_belief.make_rope(casa_rope, floor_str)
-    clean_rope = bob_belief.make_rope(floor_rope, clean_str)
+    clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
-    mop_rope = bob_belief.make_rope(casa_rope, mop_str)
+    mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
     bob_belief.add_plan(floor_rope)
     bob_belief.add_plan(clean_rope)
     bob_belief.add_plan(dirty_rope)
@@ -132,16 +129,13 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario1_Belief1FactsChanged():
 def test_set_factunits_to_belief_ReturnsObj_Scenario2_FactUnit_reason_context_DoesNotExistInBelief():
     # ESTABLISH
     bob_belief = beliefunit_shop("Bob", "amy23")
-    casa_str = "casa"
     floor_str = "floor situation"
-    clean_str = "clean"
     dirty_str = "dirty"
-    mop_str = "mop"
-    casa_rope = bob_belief.make_l1_rope(casa_str)
+    casa_rope = bob_belief.make_l1_rope(exx.casa)
     floor_rope = bob_belief.make_rope(casa_rope, floor_str)
-    clean_rope = bob_belief.make_rope(floor_rope, clean_str)
+    clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
-    mop_rope = bob_belief.make_rope(casa_rope, mop_str)
+    mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
     bob_belief.add_plan(floor_rope)
     # bob_belief.add_plan(clean_rope)
     bob_belief.add_plan(dirty_rope)
@@ -169,16 +163,13 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario2_FactUnit_reason_context_Do
 def test_set_factunits_to_belief_ReturnsObj_Scenario3_FactUnit_reason_context_Withoutreason_contextNotAddedToBelief():
     # ESTABLISH
     bob_belief = beliefunit_shop("Bob", "amy23")
-    casa_str = "casa"
     floor_str = "floor situation"
-    clean_str = "clean"
     dirty_str = "dirty"
-    mop_str = "mop"
-    casa_rope = bob_belief.make_l1_rope(casa_str)
+    casa_rope = bob_belief.make_l1_rope(exx.casa)
     floor_rope = bob_belief.make_rope(casa_rope, floor_str)
-    clean_rope = bob_belief.make_rope(floor_rope, clean_str)
+    clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
-    mop_rope = bob_belief.make_rope(casa_rope, mop_str)
+    mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
     bob_belief.add_plan(floor_rope)
     # bob_belief.add_plan(clean_rope)
     bob_belief.add_plan(dirty_rope)
@@ -213,16 +204,13 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario3_FactUnit_reason_context_Wi
 def test_clear_factunits_from_belief_ReturnsObj_Scenario1_FactUnit_Exist():
     # ESTABLISH
     bob_belief = beliefunit_shop("Bob", "amy23")
-    casa_str = "casa"
     floor_str = "floor situation"
-    clean_str = "clean"
     dirty_str = "dirty"
-    mop_str = "mop"
-    casa_rope = bob_belief.make_l1_rope(casa_str)
+    casa_rope = bob_belief.make_l1_rope(exx.casa)
     floor_rope = bob_belief.make_rope(casa_rope, floor_str)
-    clean_rope = bob_belief.make_rope(floor_rope, clean_str)
+    clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
-    mop_rope = bob_belief.make_rope(casa_rope, mop_str)
+    mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
     bob_belief.add_plan(floor_rope)
     # bob_belief.add_plan(clean_rope)
     bob_belief.add_plan(dirty_rope)

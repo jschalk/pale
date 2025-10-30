@@ -11,10 +11,9 @@ def test_BeliefUnit_get_voiceunit_group_titles_dict_ReturnsObj():
     bob_belief.add_voiceunit(exx.zia)
     sue_voiceunit = bob_belief.get_voice(exx.sue)
     zia_voiceunit = bob_belief.get_voice(exx.zia)
-    run_str = ";Run"
     swim_group_str = ";Swim"
-    sue_voiceunit.add_membership(run_str)
-    zia_voiceunit.add_membership(run_str)
+    sue_voiceunit.add_membership(exx.run)
+    zia_voiceunit.add_membership(exx.run)
     zia_voiceunit.add_membership(swim_group_str)
 
     # WHEN
@@ -22,11 +21,11 @@ def test_BeliefUnit_get_voiceunit_group_titles_dict_ReturnsObj():
 
     # THEN
     print(f"{group_titles_dict=}")
-    all_group_titles = {exx.yao, exx.sue, exx.zia, run_str, swim_group_str}
+    all_group_titles = {exx.yao, exx.sue, exx.zia, exx.run, swim_group_str}
     assert set(group_titles_dict.keys()) == all_group_titles
-    assert set(group_titles_dict.keys()) != {swim_group_str, run_str}
+    assert set(group_titles_dict.keys()) != {swim_group_str, exx.run}
     assert group_titles_dict.get(swim_group_str) == {exx.zia}
-    assert group_titles_dict.get(run_str) == {exx.zia, exx.sue}
+    assert group_titles_dict.get(exx.run) == {exx.zia, exx.sue}
     assert group_titles_dict.get(exx.yao) == {exx.yao}
     assert group_titles_dict.get(exx.sue) == {exx.sue}
     assert group_titles_dict.get(exx.zia) == {exx.zia}
@@ -35,53 +34,49 @@ def test_BeliefUnit_get_voiceunit_group_titles_dict_ReturnsObj():
 def test_BeliefUnit_set_groupunit_SetsAttr_Scenario0():
     # ESTABLISH
     bob_belief = beliefunit_shop(exx.bob)
-    run_str = ";Run"
-    assert not bob_belief.groupunits.get(run_str)
+    assert not bob_belief.groupunits.get(exx.run)
 
     # WHEN
-    bob_belief.set_groupunit(groupunit_shop(run_str))
+    bob_belief.set_groupunit(groupunit_shop(exx.run))
 
     # THEN
-    assert bob_belief.groupunits.get(run_str)
+    assert bob_belief.groupunits.get(exx.run)
 
 
 def test_BeliefUnit_set_groupunit_Sets_rope_fund_grain():
     # ESTABLISH
     x_fund_grain = 5
     bob_belief = beliefunit_shop(exx.bob, fund_grain=x_fund_grain)
-    run_str = ";Run"
-    assert not bob_belief.groupunits.get(run_str)
+    assert not bob_belief.groupunits.get(exx.run)
 
     # WHEN
-    bob_belief.set_groupunit(groupunit_shop(run_str))
+    bob_belief.set_groupunit(groupunit_shop(exx.run))
 
     # THEN
-    assert bob_belief.groupunits.get(run_str).fund_grain == x_fund_grain
+    assert bob_belief.groupunits.get(exx.run).fund_grain == x_fund_grain
 
 
 def test_BeliefUnit_groupunit_exists_ReturnsObj():
     # ESTABLISH
     bob_belief = beliefunit_shop(exx.bob)
-    run_str = ";Run"
-    assert not bob_belief.groupunit_exists(run_str)
+    assert not bob_belief.groupunit_exists(exx.run)
 
     # WHEN
-    bob_belief.set_groupunit(groupunit_shop(run_str))
+    bob_belief.set_groupunit(groupunit_shop(exx.run))
 
     # THEN
-    assert bob_belief.groupunit_exists(run_str)
+    assert bob_belief.groupunit_exists(exx.run)
 
 
 def test_BeliefUnit_get_groupunit_ReturnsObj():
     # ESTABLISH
     bob_belief = beliefunit_shop(exx.bob)
-    run_str = ";Run"
-    x_run_groupunit = groupunit_shop(run_str)
+    x_run_groupunit = groupunit_shop(exx.run)
     bob_belief.set_groupunit(x_run_groupunit)
-    assert bob_belief.groupunits.get(run_str)
+    assert bob_belief.groupunits.get(exx.run)
 
     # WHEN / THEN
-    assert bob_belief.get_groupunit(run_str) == groupunit_shop(run_str)
+    assert bob_belief.get_groupunit(exx.run) == groupunit_shop(exx.run)
 
 
 def test_BeliefUnit_create_symmetry_groupunit_ReturnsObj():

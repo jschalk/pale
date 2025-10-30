@@ -41,8 +41,11 @@ def test_get_keywords_src_config_ReturnsObj():
     # THEN
     assert keywords_config
     for keyword, ref_dict in keywords_config.items():
-        assert set(ref_dict.keys()).issuperset({"init_chapter"})
-        print(f"{keyword=} {ref_dict=}")
+        # print(f"{keyword=} {ref_dict=}")
+        assert set(ref_dict.keys()).issuperset({"init_chapter"}), keyword
+    example_strs_keys = set(get_example_strs_config().keys())
+    keys_in_both = example_strs_keys.intersection(set(keywords_config.keys()))
+    assert not keys_in_both
 
 
 def test_create_keywords_enum_class_file_str_ReturnsObj_Scenario0_Empty_keyword_set():
@@ -113,7 +116,7 @@ class Ch03{key_str}words(str, Enum):
 
 def test_create_examplestrs_class_str_ReturnsObj():
     # ESTABLISH
-    example_strs_dict = {"bob": "Bob", "sue": "Sue", "yao": "Yao"}
+    example_strs_dict = {"sue": "Sue", "yao": "Yao", "bob": "Bob"}
 
     # WHEN
     x_str = create_examplestrs_class_str(example_strs_dict)
@@ -172,9 +175,7 @@ def test_SpecialTestThatBuildsKeywordEnumClasses():
         "Create and save Enum classes, fail test if there are any changes so changes can apply to next test run. "
     )
     save_file(keywords_classes_file_path, None, enum_classes_str)
-    assertion_failure_str = (
-        "Special case: keywords.py file was rebuilt, run test again."
-    )
+    assertion_failure_str = "Special case: keywords.py was changed. Run test again."
 
     # WHEN / THEN
     prev_and_curr_classes_file_are_same = enum_classes_str == current_classes_file_str

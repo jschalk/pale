@@ -7,7 +7,7 @@ from src.ch05_reason.reason import (
     get_factunit_from_tuple,
     get_factunits_from_dict,
 )
-from src.ref.keywords import Ch05Keywords as kw
+from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 
 
 def test_FactUnit_Exists():
@@ -31,8 +31,7 @@ def test_FactUnit_Exists():
 
 def test_FactUnit_DataClass_function():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
 
@@ -52,8 +51,7 @@ def test_FactUnit_DataClass_function():
 
 def test_FactUnit_set_range_null_SetsAttr_1():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_fact = factunit_shop(wk_rope, wk_rope, fact_lower=1.0, fact_upper=5.0)
     assert wk_fact.fact_lower == 1.0
     assert wk_fact.fact_upper == 5.0
@@ -104,8 +102,7 @@ def test_FactUnit_set_fact_state_to_fact_context_SetsAttr_2():
 
 def test_FactUnit_set_attr_SetsAttr_2():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_fact = factunit_shop(wk_rope, wk_rope, fact_lower=1.0, fact_upper=5.0)
 
     # WHEN
@@ -128,8 +125,7 @@ def test_FactUnit_set_attr_SetsAttr_2():
 
 def test_FactUnit_to_dict_ReturnsDict():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     x_fact_lower = 35
@@ -158,8 +154,7 @@ def test_FactUnit_to_dict_ReturnsDict():
 
 def test_FactUnit_to_dict_ReturnsPartialDict():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     sun_fact = factunit_shop(fact_context=wk_rope, fact_state=sun_rope)
@@ -179,9 +174,8 @@ def test_FactUnit_to_dict_ReturnsPartialDict():
 
 def test_FactUnit_find_replace_rope_SetsAttr():
     # ESTABLISH
-    wk_str = "wk"
     old_rope = create_rope("old_new")
-    old_wk_rope = create_rope(old_rope, wk_str)
+    old_wk_rope = create_rope(old_rope, exx.wk)
     sun_str = "Sun"
     old_sun_rope = create_rope(old_wk_rope, sun_str)
     sun_fact = factunit_shop(fact_context=old_wk_rope, fact_state=old_sun_rope)
@@ -194,7 +188,7 @@ def test_FactUnit_find_replace_rope_SetsAttr():
     sun_fact.find_replace_rope(old_rope=old_rope, new_rope=new_rope)
 
     # THEN
-    new_wk_rope = create_rope(new_rope, wk_str)
+    new_wk_rope = create_rope(new_rope, exx.wk)
     new_sun_rope = create_rope(new_wk_rope, sun_str)
     assert sun_fact.fact_context == new_wk_rope
     assert sun_fact.fact_state == new_sun_rope
@@ -202,8 +196,7 @@ def test_FactUnit_find_replace_rope_SetsAttr():
 
 def test_FactUnit_get_tuple_ReturnsObj_Scenario0_reason_context_fact_state_only():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     sun_fact = factunit_shop(fact_context=wk_rope, fact_state=sun_rope)
@@ -218,8 +211,7 @@ def test_FactUnit_get_tuple_ReturnsObj_Scenario0_reason_context_fact_state_only(
 
 def test_FactUnit_get_tuple_ReturnsObj_Scenario1_ValuesIn_fact_lower_fact_upper():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     sun_fact_lower = 6
@@ -236,8 +228,7 @@ def test_FactUnit_get_tuple_ReturnsObj_Scenario1_ValuesIn_fact_lower_fact_upper(
 
 def test_get_factunit_from_tuple_ReturnsObj_Scenario0_reason_context_fact_state_only():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     sun_fact = factunit_shop(fact_context=wk_rope, fact_state=sun_rope)
@@ -253,8 +244,7 @@ def test_get_factunit_from_tuple_ReturnsObj_Scenario0_reason_context_fact_state_
 
 def test_get_factunit_from_tuple_ReturnsObj_Scenario1_ValuesIn_fact_lower_fact_upper():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     sun_fact_lower = 6
@@ -352,8 +342,7 @@ def test_FactCore_get_obj_key_SetsAttr():
 
 def test_get_factunits_from_dict_BuildsObj():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     static_dict = {
@@ -376,8 +365,7 @@ def test_get_factunits_from_dict_BuildsObj():
 
 def test_get_factunits_from_dict_BuildsObjFromIncompleteDict():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     sun_str = "Sun"
     sun_rope = create_rope(wk_rope, sun_str)
     static_dict = {

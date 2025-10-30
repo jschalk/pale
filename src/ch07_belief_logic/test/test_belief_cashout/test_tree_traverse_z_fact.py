@@ -41,14 +41,12 @@ def test_BeliefUnit_cashout_ChangesPlanUnit_pledge_task():
 def test_BeliefUnit_cashout_ExecutesWithRangeRootFacts():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
-    casa_str = "casa"
-    casa_rope = zia_belief.make_l1_rope(casa_str)
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
-    clean_str = "clean"
-    clean_rope = zia_belief.make_rope(casa_rope, clean_str)
+    casa_rope = zia_belief.make_l1_rope(exx.casa)
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
+    clean_rope = zia_belief.make_rope(casa_rope, exx.clean)
     clean_begin = -3
     clean_close = 7
-    clean_plan = planunit_shop(clean_str, begin=clean_begin, close=clean_close)
+    clean_plan = planunit_shop(exx.clean, begin=clean_begin, close=clean_close)
     sweep_str = "sweep"
     sweep_gogo_want = -2
     sweep_stop_want = 1
@@ -74,14 +72,12 @@ def test_BeliefUnit_cashout_ExecutesWithRangeRootFacts():
 def test_BeliefUnit_cashout_RaisesErrorIfNon_RangeRootHasFactUnit():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
-    casa_str = "casa"
-    casa_rope = zia_belief.make_l1_rope(casa_str)
-    zia_belief.set_l1_plan(planunit_shop(casa_str))
-    clean_str = "clean"
-    clean_rope = zia_belief.make_rope(casa_rope, clean_str)
+    casa_rope = zia_belief.make_l1_rope(exx.casa)
+    zia_belief.set_l1_plan(planunit_shop(exx.casa))
+    clean_rope = zia_belief.make_rope(casa_rope, exx.clean)
     clean_begin = -3
     clean_close = 7
-    clean_plan = planunit_shop(clean_str, begin=clean_begin, close=clean_close)
+    clean_plan = planunit_shop(exx.clean, begin=clean_begin, close=clean_close)
     sweep_str = "sweep"
     sweep_rope = zia_belief.make_rope(clean_rope, sweep_str)
     sweep_plan = planunit_shop(sweep_str, addin=2)

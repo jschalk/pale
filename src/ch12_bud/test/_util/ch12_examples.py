@@ -1,15 +1,7 @@
 from enum import Enum
-from src.ch04_rope.rope import RopeTerm, create_rope, create_rope_from_labels
+from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason import FactUnit, factunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch08_belief_atom.atom_main import BeliefAtom, beliefatom_shop
-from src.ch09_belief_lesson.lesson_main import LessonUnit, lessonunit_shop
-from src.ch09_belief_lesson.test._util.ch09_examples import (
-    get_atom_example_factunit_knee,
-    get_atom_example_planunit_ball,
-    get_atom_example_planunit_knee,
-    get_atom_example_planunit_sports,
-)
 from src.ch12_bud.bud_main import BudUnit, budunit_shop
 from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 

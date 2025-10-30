@@ -23,7 +23,6 @@ def test_KnotTerm_Exists():
 def test_default_knot_if_None_ReturnsObj():
     # ESTABLISH
     semicolon_str = ";"
-    slash_str = "/"
     colon_str = ":"
 
     # WHEN / THEN
@@ -31,7 +30,7 @@ def test_default_knot_if_None_ReturnsObj():
     assert default_knot_if_None(None) == semicolon_str
     x_nan = float("nan")
     assert default_knot_if_None(x_nan) == semicolon_str
-    assert default_knot_if_None(slash_str) == slash_str
+    assert default_knot_if_None(exx.slash) == exx.slash
     assert default_knot_if_None(colon_str) == colon_str
     assert default_knot_if_None(exx.bob) == exx.bob
 
@@ -60,10 +59,9 @@ def test_LabelTerm_is_label_ReturnsObj_Scenario0():
 
 def test_LabelTerm_is_label_ReturnsObj_Scenario1():
     # ESTABLISH / WHEN / THEN
-    slash_str = "/"
-    x_labelterm = LabelTerm(f"casa{slash_str}kitchen")
+    x_labelterm = LabelTerm(f"casa{exx.slash}kitchen")
     assert x_labelterm.is_label()
-    assert x_labelterm.is_label(slash_str) is False
+    assert x_labelterm.is_label(exx.slash) is False
 
 
 def test_FirstLabel_Exists():

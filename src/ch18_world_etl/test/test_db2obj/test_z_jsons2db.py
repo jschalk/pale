@@ -165,8 +165,7 @@ def test_insert_job_blrplan_CreatesTableRowsFor_blrplan_job():
     x_healerunit_ratio = 27.0
     x_all_voice_cred = 28
     x_all_voice_debt = 29
-    casa_str = "casa"
-    x_plan = planunit_shop(casa_str)
+    x_plan = planunit_shop(exx.casa)
     x_plan.parent_rope = x_parent_rope
     x_plan.plan_label = x_plan_label
     x_plan.begin = x_begin
@@ -857,11 +856,10 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     # sourcery skip: extract-method
     # ESTABLISH
     a23_str = "amy23"
-    run_str = ";run"
     sue_belief = beliefunit_shop(exx.sue, a23_str)
     sue_belief.add_voiceunit(exx.sue)
     sue_belief.add_voiceunit(exx.bob)
-    sue_belief.get_voice(exx.bob).add_membership(run_str)
+    sue_belief.get_voice(exx.bob).add_membership(exx.run)
     casa_rope = sue_belief.make_l1_rope("casa")
     situation_rope = sue_belief.make_l1_rope(kw.reason_active)
     clean_rope = sue_belief.make_rope(situation_rope, "clean")
@@ -872,7 +870,7 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     sue_belief.edit_plan_attr(
         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
-    sue_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(run_str))
+    sue_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.run))
     sue_belief.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     casa_laborunit = laborunit_shop()
     casa_laborunit.add_party(exx.sue, True)

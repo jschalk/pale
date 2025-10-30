@@ -18,6 +18,7 @@ from src.ch17_idea.test._util.ch17_examples import (
     get_ex2_br00004_df,
     get_ex2_br00005_df,
 )
+from src.ref.keywords import ExampleStrs as exx
 
 
 # ESTABLISH a dataframe, build a moment unit
@@ -37,7 +38,6 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
     x_job_listen_rotations = 7
     x_moments_dir = create_path(idea_moments_dir(), "Fay")
     amy23_str = "amy23"
-    slash_str = "/"
 
     # WHEN
     x_momentunits = moment_build_from_df(
@@ -63,7 +63,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=slash_str,
+        knot=exx.slash,
         epoch=creg_epochunit,
         job_listen_rotations=x_job_listen_rotations,
     )
@@ -114,7 +114,6 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
     x_mana_grain = 77
     x_moments_dir = create_path(idea_moments_dir(), "Fay")
     amy23_str = "amy23"
-    slash_str = "/"
 
     # WHEN
     x_momentunits = moment_build_from_df(
@@ -138,7 +137,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=slash_str,
+        knot=exx.slash,
         epoch=creg_epochunit,
     )
     five_epochunit = epochunit_shop(get_five_config())

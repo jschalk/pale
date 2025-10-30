@@ -184,10 +184,9 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_voice_memb
     after_sue_belief.set_voiceunit(temp_zia_voiceunit, auto_set_membership=False)
     after_yao_voiceunit = after_sue_belief.get_voice(exx.yao)
     after_zia_voiceunit = after_sue_belief.get_voice(exx.zia)
-    run_str = ";runners"
     zia_run_credit_w = 77
     zia_run_debt_w = 88
-    after_zia_voiceunit.add_membership(run_str, zia_run_credit_w, zia_run_debt_w)
+    after_zia_voiceunit.add_membership(exx.run, zia_run_credit_w, zia_run_debt_w)
     print(f"{after_sue_belief.get_voiceunit_group_titles_dict()=}")
 
     # WHEN
@@ -210,10 +209,10 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_voice_memb
     print(f"\n{sue_beliefdelta.beliefatoms=}")
     # print(f"\n{zia_beliefatom=}")
 
-    x_keylist = [kw.INSERT, kw.belief_voice_membership, exx.zia, run_str]
+    x_keylist = [kw.INSERT, kw.belief_voice_membership, exx.zia, exx.run]
     run_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
     assert run_beliefatom.get_value(kw.voice_name) == exx.zia
-    assert run_beliefatom.get_value(kw.group_title) == run_str
+    assert run_beliefatom.get_value(kw.group_title) == exx.run
     assert run_beliefatom.get_value(kw.group_cred_lumen) == zia_run_credit_w
     assert run_beliefatom.get_value(kw.group_debt_lumen) == zia_run_debt_w
 
@@ -230,16 +229,15 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_voice_memb
     before_sue_belief = beliefunit_shop(exx.sue)
     before_sue_belief.add_voiceunit(exx.xio)
     before_sue_belief.add_voiceunit(exx.zia)
-    run_str = ";runners"
     before_xio_credit_w = 77
     before_xio_debt_w = 88
     before_xio_voice = before_sue_belief.get_voice(exx.xio)
-    before_xio_voice.add_membership(run_str, before_xio_credit_w, before_xio_debt_w)
+    before_xio_voice.add_membership(exx.run, before_xio_credit_w, before_xio_debt_w)
     after_sue_belief = copy_deepcopy(before_sue_belief)
     after_xio_voiceunit = after_sue_belief.get_voice(exx.xio)
     after_xio_credit_w = 55
     after_xio_debt_w = 66
-    after_xio_voiceunit.add_membership(run_str, after_xio_credit_w, after_xio_debt_w)
+    after_xio_voiceunit.add_membership(exx.run, after_xio_credit_w, after_xio_debt_w)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -252,10 +250,10 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_voice_memb
     # print(f"\n{sue_beliefdelta.beliefatoms=}")
     # print(f"\n{xio_beliefatom=}")
 
-    x_keylist = [kw.UPDATE, kw.belief_voice_membership, exx.xio, run_str]
+    x_keylist = [kw.UPDATE, kw.belief_voice_membership, exx.xio, exx.run]
     xio_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
     assert xio_beliefatom.get_value(kw.voice_name) == exx.xio
-    assert xio_beliefatom.get_value(kw.group_title) == run_str
+    assert xio_beliefatom.get_value(kw.group_title) == exx.run
     assert xio_beliefatom.get_value(kw.group_cred_lumen) == after_xio_credit_w
     assert xio_beliefatom.get_value(kw.group_debt_lumen) == after_xio_debt_w
 
@@ -272,9 +270,8 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_voice_memb
     before_xio_voiceunit = before_sue_belief.get_voice(exx.xio)
     before_zia_voiceunit = before_sue_belief.get_voice(exx.zia)
     before_bob_voiceunit = before_sue_belief.get_voice(exx.bob)
-    run_str = ";runners"
-    before_xio_voiceunit.add_membership(run_str)
-    before_zia_voiceunit.add_membership(run_str)
+    before_xio_voiceunit.add_membership(exx.run)
+    before_zia_voiceunit.add_membership(exx.run)
     fly_str = ";flyers"
     before_xio_voiceunit.add_membership(fly_str)
     before_zia_voiceunit.add_membership(fly_str)
@@ -285,14 +282,14 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_voice_memb
     after_xio_voiceunit = after_sue_belief.get_voice(exx.xio)
     after_zia_voiceunit = after_sue_belief.get_voice(exx.zia)
     after_bob_voiceunit = after_sue_belief.get_voice(exx.bob)
-    after_xio_voiceunit.delete_membership(run_str)
-    after_zia_voiceunit.delete_membership(run_str)
+    after_xio_voiceunit.delete_membership(exx.run)
+    after_zia_voiceunit.delete_membership(exx.run)
     after_bob_voiceunit.delete_membership(fly_str)
     after_group_titles_dict = after_sue_belief.get_voiceunit_group_titles_dict()
     assert len(before_group_titles_dict.get(fly_str)) == 3
-    assert len(before_group_titles_dict.get(run_str)) == 2
+    assert len(before_group_titles_dict.get(exx.run)) == 2
     assert len(after_group_titles_dict.get(fly_str)) == 2
-    assert after_group_titles_dict.get(run_str) is None
+    assert after_group_titles_dict.get(exx.run) is None
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -469,9 +466,8 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     xio_voiceunit = before_sue_au.get_voice(exx.xio)
     zia_voiceunit = before_sue_au.get_voice(exx.zia)
     bob_voiceunit = before_sue_au.get_voice(exx.bob)
-    run_str = ";runners"
-    xio_voiceunit.add_membership(run_str)
-    zia_voiceunit.add_membership(run_str)
+    xio_voiceunit.add_membership(exx.run)
+    zia_voiceunit.add_membership(exx.run)
     fly_str = ";flyers"
     xio_voiceunit.add_membership(fly_str)
     zia_voiceunit.add_membership(fly_str)
@@ -484,13 +480,13 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     disc_rope = before_sue_au.make_rope(sports_rope, disc_str)
     before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
     before_sue_au.set_plan_obj(planunit_shop(disc_str), sports_rope)
-    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(run_str))
+    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
     before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(fly_str))
-    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(run_str))
+    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(exx.run))
     before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(fly_str))
 
     after_sue_belief = copy_deepcopy(before_sue_au)
-    after_sue_belief.edit_plan_attr(disc_rope, awardunit_del=run_str)
+    after_sue_belief.edit_plan_attr(disc_rope, awardunit_del=exx.run)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -499,10 +495,10 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
 
-    x_keylist = [kw.DELETE, kw.belief_plan_awardunit, disc_rope, run_str]
+    x_keylist = [kw.DELETE, kw.belief_plan_awardunit, disc_rope, exx.run]
     run_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
     assert run_beliefatom.get_value(kw.plan_rope) == disc_rope
-    assert run_beliefatom.get_value(kw.awardee_title) == run_str
+    assert run_beliefatom.get_value(kw.awardee_title) == exx.run
 
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
@@ -516,9 +512,8 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     xio_voiceunit = before_sue_au.get_voice(exx.xio)
     zia_voiceunit = before_sue_au.get_voice(exx.zia)
     bob_voiceunit = before_sue_au.get_voice(exx.bob)
-    run_str = ";runners"
-    xio_voiceunit.add_membership(run_str)
-    zia_voiceunit.add_membership(run_str)
+    xio_voiceunit.add_membership(exx.run)
+    zia_voiceunit.add_membership(exx.run)
     fly_str = ";flyers"
     xio_voiceunit.add_membership(fly_str)
     zia_voiceunit.add_membership(fly_str)
@@ -531,13 +526,13 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     disc_rope = before_sue_au.make_rope(sports_rope, disc_str)
     before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
     before_sue_au.set_plan_obj(planunit_shop(disc_str), sports_rope)
-    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(run_str))
+    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
     before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(fly_str))
     after_sue_au = copy_deepcopy(before_sue_au)
     after_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(fly_str))
     after_run_give_force = 44
     after_run_take_force = 66
-    x_awardunit = awardunit_shop(run_str, after_run_give_force, after_run_take_force)
+    x_awardunit = awardunit_shop(exx.run, after_run_give_force, after_run_take_force)
     after_sue_au.edit_plan_attr(disc_rope, awardunit=x_awardunit)
 
     # WHEN
@@ -547,12 +542,12 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
 
-    x_keylist = [kw.INSERT, kw.belief_plan_awardunit, disc_rope, run_str]
+    x_keylist = [kw.INSERT, kw.belief_plan_awardunit, disc_rope, exx.run]
     run_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
     assert run_beliefatom.get_value(kw.plan_rope) == disc_rope
-    assert run_beliefatom.get_value(kw.awardee_title) == run_str
+    assert run_beliefatom.get_value(kw.awardee_title) == exx.run
     assert run_beliefatom.get_value(kw.plan_rope) == disc_rope
-    assert run_beliefatom.get_value(kw.awardee_title) == run_str
+    assert run_beliefatom.get_value(kw.awardee_title) == exx.run
     assert run_beliefatom.get_value(kw.give_force) == after_run_give_force
     assert run_beliefatom.get_value(kw.take_force) == after_run_take_force
 
@@ -565,15 +560,14 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     before_sue_au.add_voiceunit(exx.xio)
     before_sue_au.add_voiceunit(exx.zia)
     xio_voiceunit = before_sue_au.get_voice(exx.xio)
-    run_str = ";runners"
-    xio_voiceunit.add_membership(run_str)
+    xio_voiceunit.add_membership(exx.run)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
     before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(run_str))
-    run_awardunit = before_sue_au.get_plan_obj(ball_rope).awardunits.get(run_str)
+    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    run_awardunit = before_sue_au.get_plan_obj(ball_rope).awardunits.get(exx.run)
 
     after_sue_belief = copy_deepcopy(before_sue_au)
     after_give_force = 55
@@ -581,7 +575,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     after_sue_belief.edit_plan_attr(
         ball_rope,
         awardunit=awardunit_shop(
-            awardee_title=run_str,
+            awardee_title=exx.run,
             give_force=after_give_force,
             take_force=after_take_force,
         ),
@@ -593,10 +587,10 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
 
-    x_keylist = [kw.UPDATE, kw.belief_plan_awardunit, ball_rope, run_str]
+    x_keylist = [kw.UPDATE, kw.belief_plan_awardunit, ball_rope, exx.run]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
     assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
-    assert ball_beliefatom.get_value(kw.awardee_title) == run_str
+    assert ball_beliefatom.get_value(kw.awardee_title) == exx.run
     assert ball_beliefatom.get_value(kw.give_force) == after_give_force
     assert ball_beliefatom.get_value(kw.take_force) == after_take_force
     assert get_beliefatom_total_count(sue_beliefdelta) == 1

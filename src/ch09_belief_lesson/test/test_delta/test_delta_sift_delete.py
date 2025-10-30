@@ -39,23 +39,21 @@ def test_sift_ReturnsObjWithoutUnecessaryDELETE_belief_voice_membership():
     sue_belief.add_voiceunit(exx.yao)
     sue_belief.add_voiceunit(exx.bob)
     yao_voiceunit = sue_belief.get_voice(exx.yao)
-    run_str = ";run"
     swim_str = ";swim"
-    run_str = ";run"
-    yao_voiceunit.add_membership(run_str)
+    yao_voiceunit.add_membership(exx.run)
     yao_voiceunit.add_membership(swim_str)
     print(f"{yao_voiceunit.memberships.keys()=}")
 
     voices_beliefdelta = beliefdelta_shop()
     bob_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.DELETE)
     bob_run_atom.set_arg(kw.voice_name, exx.bob)
-    bob_run_atom.set_arg(kw.group_title, run_str)
+    bob_run_atom.set_arg(kw.group_title, exx.run)
     yao_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.DELETE)
     yao_run_atom.set_arg(kw.voice_name, exx.yao)
-    yao_run_atom.set_arg(kw.group_title, run_str)
+    yao_run_atom.set_arg(kw.group_title, exx.run)
     zia_run_atom = beliefatom_shop(kw.belief_voice_membership, kw.DELETE)
     zia_run_atom.set_arg(kw.voice_name, exx.zia)
-    zia_run_atom.set_arg(kw.group_title, run_str)
+    zia_run_atom.set_arg(kw.group_title, exx.run)
     voices_beliefdelta.set_beliefatom(bob_run_atom)
     voices_beliefdelta.set_beliefatom(yao_run_atom)
     voices_beliefdelta.set_beliefatom(zia_run_atom)

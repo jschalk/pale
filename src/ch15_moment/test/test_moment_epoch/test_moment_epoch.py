@@ -3,6 +3,7 @@ from src.ch14_epoch.test._util.ch14_examples import get_creg_config
 from src.ch15_moment.moment_epoch import get_moment_beliefepochtime
 from src.ch15_moment.moment_main import momentunit_shop
 from src.ch15_moment.test._util.ch15_env import get_temp_dir
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_get_moment_beliefepochtime_ReturnsObj_Scenario0_Empty_offi_time():
@@ -39,14 +40,13 @@ def test_get_moment_beliefepochtime_ReturnsObj_Scenario0_Empty_offi_time():
 def test_get_moment_beliefepochtime_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs():
     # ESTABLISH
     fay_str = "Fay"
-    slash_str = "/"
     fay_fund_grain = 5
     fay_respect_grain = 4
     fay_mana_grain = 7
     fay_momentunit = momentunit_shop(
         fay_str,
         get_temp_dir(),
-        knot=slash_str,
+        knot=exx.slash,
         fund_grain=fay_fund_grain,
         respect_grain=fay_respect_grain,
         mana_grain=fay_mana_grain,

@@ -5,13 +5,12 @@ from src.ch05_reason.reason import (
     caseunit_shop,
     factheir_shop,
 )
-from src.ref.keywords import Ch05Keywords as kw
+from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 
 
 def test_CaseUnit_Exists():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
 
@@ -41,8 +40,7 @@ def test_CaseUnit_Exists():
 
 def test_caseunit_shop_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
 
@@ -55,8 +53,7 @@ def test_caseunit_shop_ReturnsObj():
 
 def test_CaseUnit_clear_case_active_SetAttrs():
     # WHEN
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
     casaunit = caseunit_shop(casa_rope)
     # THEN
     assert casaunit.case_active is None
@@ -74,8 +71,7 @@ def test_CaseUnit_clear_case_active_SetAttrs():
 
 def test_CaseUnit_is_range_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
 
     # WHEN
     casaunit = caseunit_shop(casa_rope, reason_lower=1, reason_upper=3)
@@ -97,8 +93,7 @@ def test_CaseUnit_is_range_ReturnsObj():
 
 def test_CaseUnit_is_segregate_ReturnsObj():
     # ESTABLISH
-    casa_str = "casa"
-    casa_rope = create_rope("Amy23", casa_str)
+    casa_rope = create_rope("Amy23", exx.casa)
 
     # WHEN
     casaunit = caseunit_shop(casa_rope, reason_lower=1, reason_upper=3)
@@ -151,23 +146,22 @@ def test_CaseUnit_is_in_lineage_ReturnsObj_Scenario0_Default_knot():
 
 def test_CaseUnit_is_in_lineage_ReturnsObj_WithNonDefault_knot():
     # ESTABLISH
-    slash_str = "/"
-    nation_rope = create_rope("Amy23", "Nation-States", knot=slash_str)
-    usa_rope = create_rope(nation_rope, "USA", knot=slash_str)
-    texas_rope = create_rope(usa_rope, "Texas", knot=slash_str)
-    idaho_rope = create_rope(usa_rope, "Idaho", knot=slash_str)
+    nation_rope = create_rope("Amy23", "Nation-States", knot=exx.slash)
+    usa_rope = create_rope(nation_rope, "USA", knot=exx.slash)
+    texas_rope = create_rope(usa_rope, "Texas", knot=exx.slash)
+    idaho_rope = create_rope(usa_rope, "Idaho", knot=exx.slash)
 
     # WHEN
     texas_fact = factheir_shop(usa_rope, texas_rope)
 
     # THEN
-    texas_case = caseunit_shop(texas_rope, knot=slash_str)
+    texas_case = caseunit_shop(texas_rope, knot=exx.slash)
     assert texas_case.is_in_lineage(texas_fact.fact_state)
 
-    idaho_case = caseunit_shop(idaho_rope, knot=slash_str)
+    idaho_case = caseunit_shop(idaho_rope, knot=exx.slash)
     assert idaho_case.is_in_lineage(texas_fact.fact_state) is False
 
-    usa_case = caseunit_shop(usa_rope, knot=slash_str)
+    usa_case = caseunit_shop(usa_rope, knot=exx.slash)
     print(f"  {usa_case.reason_state=}")
     print(f"{texas_fact.fact_state=}")
     assert usa_case.is_in_lineage(texas_fact.fact_state)
@@ -176,12 +170,12 @@ def test_CaseUnit_is_in_lineage_ReturnsObj_WithNonDefault_knot():
     # "earth,sea"
     # "earth,seaside"
     # "earth,seaside,beach"
-    sea_rope = create_rope("earth", "sea", knot=slash_str)
-    seaside_rope = create_rope("earth", "seaside", knot=slash_str)
-    seaside_beach_rope = create_rope(seaside_rope, "beach", knot=slash_str)
+    sea_rope = create_rope("earth", "sea", knot=exx.slash)
+    seaside_rope = create_rope("earth", "seaside", knot=exx.slash)
+    seaside_beach_rope = create_rope(seaside_rope, "beach", knot=exx.slash)
 
     # WHEN
-    sea_case = caseunit_shop(sea_rope, knot=slash_str)
+    sea_case = caseunit_shop(sea_rope, knot=exx.slash)
 
     # THEN
     sea_fact = factheir_shop(sea_rope, sea_rope)
@@ -272,8 +266,7 @@ def test_CaseUnit_get_range_segregate_case_active_ReturnsObj_Scenario1_When_is_s
 
 def test_CaseUnit_is_range_or_segregate_ReturnsObj():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
 
     # WHEN / THEN
     wk_case = caseunit_shop(wk_rope)
@@ -290,8 +283,7 @@ def test_CaseUnit_is_range_or_segregate_ReturnsObj():
 
 def test_CaseUnit_get_active_ReturnsObj_Scenario0():
     # ESTABLISH / WHEN assumes fact is in lineage
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_case = caseunit_shop(wk_rope)
 
     # WHEN / THEN
@@ -304,8 +296,7 @@ def test_CaseUnit_get_active_ReturnsObj_Scenario0():
 
 def test_CaseUnit_get_active_ReturnsObj_Scenario1_ChecksIf_is_range_IsActive():
     # ESTABLISH assumes fact is in lineage
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     wk_case = caseunit_shop(wk_rope, reason_lower=3, reason_upper=7)
 
     # WHEN / THEN
@@ -317,8 +308,7 @@ def test_CaseUnit_get_active_ReturnsObj_Scenario1_ChecksIf_is_range_IsActive():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario0_WhenFactUnitIsNull():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     after_str = "afternoon"
     after_rope = create_rope(wk_rope, after_str)
     x_caseunit = caseunit_shop(after_rope)
@@ -334,10 +324,8 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario0_WhenFactUnitIsNull():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario1_case_active_OfSimple():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wk_rope = create_rope("Amy23", exx.wk)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(wed_rope)
     belief_fact = factheir_shop(wk_rope, wed_rope)
     assert wed_case.case_active is None
@@ -351,10 +339,8 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario1_case_active_OfSimple():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario2():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wk_rope = create_rope("Amy23", exx.wk)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_after_str = "afternoon"
     wed_after_rope = create_rope(wed_rope, wed_after_str)
     wed_after_case = caseunit_shop(wed_after_rope)
@@ -370,10 +356,8 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario2():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario3():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wk_rope = create_rope("Amy23", exx.wk)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_noon_str = "noon"
     wed_noon_rope = create_rope(wed_rope, wed_noon_str)
     wed_case = caseunit_shop(wed_rope)
@@ -389,10 +373,8 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario3():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario4():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wk_rope = create_rope("Amy23", exx.wk)
+    wed_rope = create_rope(wk_rope, exx.wed)
     thu_str = "thur"
     thu_rope = create_rope(wk_rope, thu_str)
     wed_case = caseunit_shop(wed_rope)
@@ -411,10 +393,8 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario4():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario5():
     # ESTABLISH
-    wk_str = "wk"
-    wk_rope = create_rope("Amy23", wk_str)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wk_rope = create_rope("Amy23", exx.wk)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_cloudy_str = "cloudy"
     wed_cloudy_rope = create_rope(wed_rope, wed_cloudy_str)
     wed_rain_str = "rainy"
@@ -549,10 +529,8 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario6_When_is_segregate_IsTrue():
 
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario7_NotNull():
     # ESTABLISH
-    wk_str = "wks"
-    wk_rope = create_rope("Amy23", wk_str)
-    wed_str = "wed"
-    wed_rope = create_rope(wk_rope, wed_str)
+    wk_rope = create_rope("Amy23", exx.wk)
+    wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(wed_rope)
     wed_case.case_active = True
 
@@ -742,8 +720,7 @@ def test_CaseUnit_get_obj_key():
 def test_CaseUnit_find_replace_rope_casas():
     # ESTABLISH
     old_root_rope = create_rope("old_rope")
-    wk_str = "wk"
-    wk_rope = create_rope(old_root_rope, wk_str)
+    wk_rope = create_rope(old_root_rope, exx.wk)
     sun_str = "Sun"
     old_sun_rope = create_rope(wk_rope, sun_str)
     sun_case = caseunit_shop(old_sun_rope)
@@ -755,15 +732,14 @@ def test_CaseUnit_find_replace_rope_casas():
     sun_case.find_replace_rope(old_rope=old_root_rope, new_rope=new_rope)
 
     # THEN
-    new_wk_rope = create_rope(new_rope, wk_str)
+    new_wk_rope = create_rope(new_rope, exx.wk)
     new_sun_rope = create_rope(new_wk_rope, sun_str)
     assert sun_case.reason_state == new_sun_rope
 
 
 def test_cases_get_from_dict_ReturnsObj_Scenario0_FromCompleteDict():
     # ESTABLISH
-    wk_str = "wks"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     static_dict = {
         wk_rope: {
             kw.reason_state: wk_rope,
@@ -784,8 +760,7 @@ def test_cases_get_from_dict_ReturnsObj_Scenario0_FromCompleteDict():
 
 def test_cases_get_from_dict_ReturnsObj_Scenario1_FromIncompleteDict():
     # ESTABLISH
-    wk_str = "wks"
-    wk_rope = create_rope("Amy23", wk_str)
+    wk_rope = create_rope("Amy23", exx.wk)
     static_dict = {wk_rope: {kw.reason_state: wk_rope}}
 
     # WHEN
@@ -799,13 +774,11 @@ def test_cases_get_from_dict_ReturnsObj_Scenario1_FromIncompleteDict():
 
 def test_CaseUnitsUnit_set_knot_SetAttrs():
     # ESTABLISH
-    wk_str = "wk"
     sun_str = "Sun"
-    slash_str = "/"
-    slash_wk_rope = create_rope("Amy23", wk_str, knot=slash_str)
-    slash_sun_rope = create_rope(slash_wk_rope, sun_str, knot=slash_str)
-    sun_caseunit = caseunit_shop(slash_sun_rope, knot=slash_str)
-    assert sun_caseunit.knot == slash_str
+    slash_wk_rope = create_rope("Amy23", exx.wk, knot=exx.slash)
+    slash_sun_rope = create_rope(slash_wk_rope, sun_str, knot=exx.slash)
+    sun_caseunit = caseunit_shop(slash_sun_rope, knot=exx.slash)
+    assert sun_caseunit.knot == exx.slash
     assert sun_caseunit.reason_state == slash_sun_rope
 
     # WHEN
@@ -814,7 +787,7 @@ def test_CaseUnitsUnit_set_knot_SetAttrs():
 
     # THEN
     assert sun_caseunit.knot == colon_str
-    colon_wk_rope = create_rope("Amy23", wk_str, knot=colon_str)
+    colon_wk_rope = create_rope("Amy23", exx.wk, knot=colon_str)
     colon_sun_rope = create_rope(colon_wk_rope, sun_str, knot=colon_str)
     assert sun_caseunit.reason_state == colon_sun_rope
 
@@ -844,14 +817,13 @@ def test_rope_find_replace_rope_key_dict_ReturnsCasesUnit_Scenario2():
     # sourcery skip: extract-duplicate-method, inline-immediately-returned-variable, move-assign-in-block
     # ESTABLISH
     old_first_label = "El Paso"
-    casa_str = "casa"
     seasons_str = "seasons"
-    old_casa_rope = create_rope(old_first_label, casa_str)
+    old_casa_rope = create_rope(old_first_label, exx.casa)
     old_seasons_rope = create_rope(old_casa_rope, seasons_str)
     old_caseunit = caseunit_shop(old_seasons_rope)
     old_caseunits = {old_caseunit.reason_state: old_caseunit}
     new_first_label = "Austin"
-    new_casa_rope = create_rope(new_first_label, casa_str)
+    new_casa_rope = create_rope(new_first_label, exx.casa)
     new_seasons_rope = create_rope(new_casa_rope, seasons_str)
 
     # WHEN

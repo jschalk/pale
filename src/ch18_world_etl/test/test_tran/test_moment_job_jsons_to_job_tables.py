@@ -25,11 +25,10 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     m23_moment_mstr_dir = get_temp_dir()
     m23_str = "music23"
     a23_str = "amy23"
-    run_str = ";run"
     sue_belief = beliefunit_shop(exx.sue, a23_str)
     sue_belief.add_voiceunit(exx.sue)
     sue_belief.add_voiceunit(exx.bob)
-    sue_belief.get_voice(exx.bob).add_membership(run_str)
+    sue_belief.get_voice(exx.bob).add_membership(exx.run)
     casa_rope = sue_belief.make_l1_rope("casa")
     situation_rope = sue_belief.make_l1_rope(kw.reason_active)
     clean_rope = sue_belief.make_rope(situation_rope, "clean")
@@ -40,7 +39,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     sue_belief.edit_plan_attr(
         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
-    sue_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(run_str))
+    sue_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.run))
     sue_belief.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     sue_laborunit = laborunit_shop()
     sue_laborunit.add_party(exx.sue)

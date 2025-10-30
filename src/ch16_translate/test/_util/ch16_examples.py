@@ -93,12 +93,11 @@ def get_suita_namemap() -> NameMap:
 
 
 # def get_invalid_rope_mapunit() -> MapUnit:
-#     clean_str = "clean"
 #     clean_inx = "propre"
 #     casa_otx = f"casa{default_knot_if_None()}"
 #     casa_inx = "casa"
 #     labelmap = mapunit_shop(kw.LabelTerm, face_name="Sue")
-#     labelmap.set_otx2inx(clean_str, clean_inx)
+#     labelmap.set_otx2inx(exx.clean, clean_inx)
 #     labelmap.set_otx2inx(casa_otx, casa_inx)
 #     return labelmap
 
@@ -330,9 +329,8 @@ def get_invalid_titlemap() -> TitleMap:
 
 
 def get_invalid_ropemap() -> RopeMap:
-    casa_str = "casa"
-    casa_otx = create_rope(casa_str)
-    casa_inx = create_rope(casa_str)
+    casa_otx = create_rope(exx.casa)
+    casa_inx = create_rope(exx.casa)
     clean_str = create_rope(casa_otx, "clean")
     clean_inx = create_rope(casa_inx, "propre")
     ropemap = ropemap_shop(face_name="Sue")
