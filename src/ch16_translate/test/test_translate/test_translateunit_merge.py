@@ -5,7 +5,7 @@ from src.ch16_translate.test._util.ch16_examples import (
     get_suita_namemap,
     get_swim_titlemap,
 )
-from src.ch16_translate.translate_term import inherit_translateunit, translateunit_shop
+from src.ch16_translate.translate_main import inherit_translateunit, translateunit_shop
 from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 

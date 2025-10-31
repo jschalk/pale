@@ -24,7 +24,7 @@ from src.ch16_translate.translate_config import (
     get_translateable_term_class_types,
     translateable_class_types,
 )
-from src.ch16_translate.translate_term import TranslateUnit, translateunit_shop
+from src.ch16_translate.translate_main import TranslateUnit, translateunit_shop
 from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 

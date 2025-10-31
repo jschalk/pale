@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch16_translate.map_term import titlemap_shop
-from src.ch16_translate.translate_term import translateunit_shop
+from src.ch16_translate.translate_main import translateunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 

@@ -10,7 +10,7 @@ from src.ch16_translate.test._util.ch16_examples import (  # get_casa_maison_tra
     get_sue_translateunit,
     get_translate_core_attrs_are_none_namemap,
 )
-from src.ch16_translate.translate_term import translateunit_shop
+from src.ch16_translate.translate_main import translateunit_shop
 from src.ch17_idea.idea_db_tool import (
     get_idea_elements_sort_order as sorting_columns,
     get_ordered_csv,
@@ -169,7 +169,7 @@ def test_create_translate_label_dt_ReturnsObj():
 # def test_create_translate_epoch_dt_ReturnsObj():
 #     # ESTABLISH
 #     casa_translateunit = get_casa_maison_translateunit_set_by_epoch()
-#     casa_mapunit = casa_translateunit.get_epochmap()
+#     casa_mapunit = casa_translateunit.get_epochcook()
 #     print(f"{casa_mapunit=}")
 
 #     # WHEN

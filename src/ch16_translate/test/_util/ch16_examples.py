@@ -11,7 +11,7 @@ from src.ch16_translate.map_term import (
     titlemap_shop,
 )
 from src.ch16_translate.translate_config import default_unknown_str_if_None
-from src.ch16_translate.translate_term import TranslateUnit, translateunit_shop
+from src.ch16_translate.translate_main import TranslateUnit, translateunit_shop
 from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 

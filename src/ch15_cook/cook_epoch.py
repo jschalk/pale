@@ -12,11 +12,11 @@ from src.ch04_rope.rope import (
     get_parent_rope,
     get_tail_label,
 )
-from src.ch16_translate._ref.ch16_semantic_types import EpochTime, FaceName, SparkInt
+from src.ch15_cook._ref.ch15_semantic_types import EpochTime, FaceName, SparkInt
 
 
 @dataclass
-class EpochMap:
+class EpochCook:
     face_name: FaceName = None
     spark_num: SparkInt = None
     # otx2inx dict key 'otx_epoch_length', key can be None is only inx_epoch_diff is given
@@ -62,35 +62,35 @@ class EpochMap:
         }
 
 
-def epochmap_shop(
+def epochcook_shop(
     face_name: FaceName,
     spark_num: SparkInt = None,
     otx2inx: dict[EpochTime, EpochTime] = None,
 ):
-    x_epochmap = EpochMap(face_name=face_name, spark_num=get_0_if_None(spark_num))
-    x_epochmap.set_all_otx2inx(otx2inx)
-    return x_epochmap
+    x_epochcook = EpochCook(face_name=face_name, spark_num=get_0_if_None(spark_num))
+    x_epochcook.set_all_otx2inx(otx2inx)
+    return x_epochcook
 
 
-def get_epochmap_from_dict(x_dict: dict) -> EpochMap:
-    return epochmap_shop(
+def get_epochcook_from_dict(x_dict: dict) -> EpochCook:
+    return epochcook_shop(
         face_name=x_dict.get("face_name"),
         spark_num=x_dict.get("spark_num"),
         otx2inx=x_dict.get("otx2inx"),
     )
 
 
-class inherit_epochmapException(Exception):
+class inherit_epochcookException(Exception):
     pass
 
 
-def inherit_epochmap(new: EpochMap, old: EpochMap):
+def inherit_epochcook(new: EpochCook, old: EpochCook):
     if new.face_name != old.face_name:
         exception_str = "Core attrs in conflict"
-        raise inherit_epochmapException(exception_str)
+        raise inherit_epochcookException(exception_str)
     if new.spark_num <= old.spark_num:
-        exception_str = "older EpochMap is not older"
-        raise inherit_epochmapException(exception_str)
+        exception_str = "older EpochCook is not older"
+        raise inherit_epochcookException(exception_str)
     for otx_epoch_length, inx_epoch_diff in old.otx2inx.items():
         if not new.otx_exists(otx_epoch_length):
             new.set_otx2inx(otx_epoch_length, inx_epoch_diff)

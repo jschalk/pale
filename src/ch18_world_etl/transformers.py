@@ -69,7 +69,7 @@ from src.ch16_translate.translate_config import (
     get_translate_titleterm_args,
     get_translateable_term_class_types,
 )
-from src.ch16_translate.translate_term import (
+from src.ch16_translate.translate_main import (
     default_knot_if_None,
     default_unknown_str_if_None,
 )

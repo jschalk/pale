@@ -1,8 +1,8 @@
 from os.path import exists as os_path_exists
 from pandas import DataFrame
 from src.ch01_py.file_toolbox import create_path, get_dir_file_strs, save_file
-from src.ch16_translate.map_epoch import EpochMap
-from src.ch16_translate.translate_term import (
+from src.ch15_cook.cook_epoch import EpochCook
+from src.ch16_translate.translate_main import (
     LabelMap,
     NameMap,
     RopeMap,
@@ -134,7 +134,7 @@ def create_translate_rope_dt(x_map: RopeMap) -> DataFrame:
     return DataFrame(x_rows_list, columns=get_translate_rope_dt_columns())
 
 
-def create_translate_epoch_dt(x_map: EpochMap) -> DataFrame:
+def create_translate_epoch_dt(x_map: EpochCook) -> DataFrame:
     x_rows_list = [
         {
             "spark_num": x_map.spark_num,

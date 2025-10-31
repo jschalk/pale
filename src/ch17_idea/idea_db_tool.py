@@ -36,7 +36,7 @@ from src.ch16_translate.translate_config import (
     get_translate_args_class_types,
     get_translateable_args,
 )
-from src.ch16_translate.translate_term import TranslateUnit, get_translateunit_from_dict
+from src.ch16_translate.translate_main import TranslateUnit, get_translateunit_from_dict
 from src.ch17_idea._ref.ch17_semantic_types import FaceName, SparkInt
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
