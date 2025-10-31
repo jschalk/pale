@@ -82,14 +82,14 @@ def string_exists_in_filepaths(root_dir: str, search_text: str) -> bool:
     return False
 
 
-def rename_files_and_folders_4times(directory: str, old_string: str, new_string: str):
-    rename_files_and_folders(directory, old_string, new_string)
-    rename_files_and_folders(directory, old_string, new_string)
-    rename_files_and_folders(directory, old_string, new_string)
-    rename_files_and_folders(directory, old_string, new_string)
+def rename_files_and_dirs_4times(directory: str, old_string: str, new_string: str):
+    rename_files_and_dirs(directory, old_string, new_string)
+    rename_files_and_dirs(directory, old_string, new_string)
+    rename_files_and_dirs(directory, old_string, new_string)
+    rename_files_and_dirs(directory, old_string, new_string)
 
 
-def rename_files_and_folders(
+def rename_files_and_dirs(
     directory: str, old_string: str, new_string: str
 ) -> list[str]:
     # new_string = new_string.lower()

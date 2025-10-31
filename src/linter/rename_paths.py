@@ -3,7 +3,7 @@ from os.path import isdir as os_path_isdir
 from src.ch01_py.file_toolbox import create_path, open_json, save_json
 from src.linter.chapter_migration_tools import (
     first_level_dirs_with_prefix,
-    rename_files_and_folders_4times,
+    rename_files_and_dirs_4times,
     string_exists_in_filepaths,
 )
 
@@ -26,7 +26,7 @@ def main():
         print(f"❌ The new string '{replace_str}' already exists in file paths.")
         return
 
-    rename_files_and_folders_4times(src_dir, find_str, replace_str)
+    rename_files_and_dirs_4times(src_dir, find_str, replace_str)
     print("✅ Replacement complete.")
 
 

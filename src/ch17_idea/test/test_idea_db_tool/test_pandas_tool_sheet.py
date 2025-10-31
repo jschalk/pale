@@ -161,7 +161,7 @@ def test_get_all_excel_sheet_names_ReturnsObj_Scenario0_NoRose(
 ):
     # ESTABLISH
     env_dir = idea_moment_mstr_dir()
-    x_dir = create_path(env_dir, "examples_folder")
+    x_dir = create_path(env_dir, "examples_dir")
     ex_filename = "Faybob.xlsx"
     ex_file_path = create_path(x_dir, ex_filename)
     df1 = DataFrame([["AAA", "BBB"]], columns=["spam", "egg"])
@@ -186,7 +186,7 @@ def test_get_all_excel_sheet_names_ReturnsObj_Scenario1_RoseSheetNames(
 ):
     # ESTABLISH
     env_dir = idea_moment_mstr_dir()
-    x_dir = create_path(env_dir, "examples_folder")
+    x_dir = create_path(env_dir, "examples_dir")
     ex_filename = "Faybob.xlsx"
     ex_file_path = create_path(x_dir, ex_filename)
     df1 = DataFrame([["AAA", "BBB"]], columns=["spam", "egg"])
@@ -213,7 +213,7 @@ def test_get_all_excel_sheet_names_ReturnsObj_Scenario1_RoseSheetNames(
 def test_sheet_exists_ReturnsObj_Scenario1(temp_dir_setup):
     # ESTABLISH
     env_dir = idea_moment_mstr_dir()
-    x_dir = create_path(env_dir, "examples_folder")
+    x_dir = create_path(env_dir, "examples_dir")
     ex_filename = "Faybob.xlsx"
     ex_file_path = create_path(x_dir, ex_filename)
     df1 = DataFrame([["AAA", "BBB"]], columns=["spam", "egg"])

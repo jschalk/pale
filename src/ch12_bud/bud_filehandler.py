@@ -56,9 +56,9 @@ def collect_belief_spark_dir_sets(
         sparks_dir = create_path(belief_dir, "sparks")
         set_dir(sparks_dir)
         belief_sparks_dirs = {
-            int(spark_num_folder)
-            for spark_num_folder in os_listdir(sparks_dir)
-            if os_path_isdir(create_path(sparks_dir, spark_num_folder))
+            int(spark_num_dir)
+            for spark_num_dir in os_listdir(sparks_dir)
+            if os_path_isdir(create_path(sparks_dir, spark_num_dir))
         }
         x_dict[belief_name] = belief_sparks_dirs
     return x_dict

@@ -115,7 +115,7 @@ class MomentUnit:
     def _get_belief_dir(self, belief_name) -> str:
         return create_path(self.beliefs_dir, belief_name)
 
-    def _get_belief_folder_names(self) -> set:
+    def _get_belief_dir_names(self) -> set:
         beliefs = get_dir_file_strs(
             self.beliefs_dir, include_dirs=True, include_files=False
         )
@@ -176,7 +176,7 @@ class MomentUnit:
         )
 
     def generate_all_jobs(self) -> None:
-        belief_names = self._get_belief_folder_names()
+        belief_names = self._get_belief_dir_names()
         for belief_name in belief_names:
             self.create_init_job_from_guts(belief_name)
 
@@ -365,7 +365,7 @@ class MomentUnit:
 
     def add_epoch_to_guts(self) -> None:
         """Adds the epoch to all gut files."""
-        belief_names = self._get_belief_folder_names()
+        belief_names = self._get_belief_dir_names()
         for belief_name in belief_names:
             self.add_epoch_to_gut(belief_name)
 

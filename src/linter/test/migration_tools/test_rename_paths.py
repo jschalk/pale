@@ -8,8 +8,8 @@ from src.ch01_py.file_toolbox import create_path, get_dir_file_strs, save_file
 from src.linter.chapter_migration_tools import (
     delete_if_empty_or_pycache_only,
     first_level_dirs_with_prefix,
-    rename_files_and_folders,
-    rename_files_and_folders_4times,
+    rename_files_and_dirs,
+    rename_files_and_dirs_4times,
 )
 from src.linter.test._util.linter_env import get_temp_dir, temp_dir_setup
 from tempfile import TemporaryDirectory as tempfile_TemporaryDirectory
@@ -89,7 +89,7 @@ def test_delete_if_empty_or_pycache_only_DeletesDir():
         assert not delete_if_empty_or_pycache_only(d5)
 
 
-def test_rename_files_and_folders_NotChangesWhenNoneNeeded(temp_dir_setup):
+def test_rename_files_and_dirs_NotChangesWhenNoneNeeded(temp_dir_setup):
     # GIVEN
     env_dir = get_temp_dir()
     dolphin_file_name = "dolphin.txt"
@@ -104,7 +104,7 @@ def test_rename_files_and_folders_NotChangesWhenNoneNeeded(temp_dir_setup):
     assert files_dict.get(lopster_file_name) == lopster_file_text
 
     # WHEN
-    rename_files_and_folders(env_dir, "Bob", "Sue")
+    rename_files_and_dirs(env_dir, "Bob", "Sue")
 
     # THEN
     files_dict = get_dir_file_strs(env_dir)
@@ -113,7 +113,7 @@ def test_rename_files_and_folders_NotChangesWhenNoneNeeded(temp_dir_setup):
     assert files_dict.get(lopster_file_name) == lopster_file_text
 
 
-def test_rename_files_and_folders_NoChangeTo_dot_git_Folders(temp_dir_setup):
+def test_rename_files_and_dirs_NoChangeTo_dot_git_Dirs(temp_dir_setup):
     # GIVEN
     temp_dir = get_temp_dir()
     dot_git_dir = create_path(temp_dir, ".git")
@@ -127,7 +127,7 @@ def test_rename_files_and_folders_NoChangeTo_dot_git_Folders(temp_dir_setup):
     assert os_path_exists(dot_git_file_path)
 
     # WHEN
-    rename_files_and_folders(temp_dir, "dol", "bob")
+    rename_files_and_dirs(temp_dir, "dol", "bob")
 
     # THEN
     assert not os_path_exists(temp_dolphin_path)
@@ -136,7 +136,7 @@ def test_rename_files_and_folders_NoChangeTo_dot_git_Folders(temp_dir_setup):
     assert os_path_exists(dot_git_file_path)
 
 
-def test_rename_files_and_folders_ChangesWhenNeeded_lowercase(temp_dir_setup):
+def test_rename_files_and_dirs_ChangesWhenNeeded_lowercase(temp_dir_setup):
     # GIVEN
     env_dir = get_temp_dir()
     dolphin_file_name = "dolphin.json"
@@ -151,7 +151,7 @@ def test_rename_files_and_folders_ChangesWhenNeeded_lowercase(temp_dir_setup):
     assert files_dict.get(lopster_file_name) == lopster_file_text
 
     # WHEN
-    rename_files_and_folders(env_dir, "dol", "bob")
+    rename_files_and_dirs(env_dir, "dol", "bob")
 
     # THEN
     files_dict = get_dir_file_strs(env_dir)
@@ -162,7 +162,7 @@ def test_rename_files_and_folders_ChangesWhenNeeded_lowercase(temp_dir_setup):
     assert files_dict.get(bobphin_file_name) == dolphin_file_text
 
 
-def test_rename_files_and_folders_NoChangesWith_lowercase_parameters(
+def test_rename_files_and_dirs_NoChangesWith_lowercase_parameters(
     temp_dir_setup,
 ):  # sourcery skip: extract-duplicate-method
     # GIVEN
@@ -179,7 +179,7 @@ def test_rename_files_and_folders_NoChangesWith_lowercase_parameters(
     assert files_dict.get(lopster_file_name) == lopster_file_text
 
     # WHEN
-    rename_files_and_folders(env_dir, "Dol", "bob")
+    rename_files_and_dirs(env_dir, "Dol", "bob")
 
     # THEN
     files_dict = get_dir_file_strs(env_dir)
@@ -190,7 +190,7 @@ def test_rename_files_and_folders_NoChangesWith_lowercase_parameters(
     assert files_dict.get(bobphin_file_name) is None
 
 
-def test_rename_files_and_folders_NoChangesWith_lowercase_filenames(
+def test_rename_files_and_dirs_NoChangesWith_lowercase_filenames(
     temp_dir_setup,
 ):  # sourcery skip: extract-duplicate-method
     # GIVEN
@@ -207,7 +207,7 @@ def test_rename_files_and_folders_NoChangesWith_lowercase_filenames(
     assert files_dict.get(lopster_file_name) == lopster_file_text
 
     # WHEN
-    rename_files_and_folders(env_dir, "dol", "bob")
+    rename_files_and_dirs(env_dir, "dol", "bob")
 
     # THEN
     files_dict = get_dir_file_strs(env_dir)
@@ -218,7 +218,7 @@ def test_rename_files_and_folders_NoChangesWith_lowercase_filenames(
     assert files_dict.get(bobphin_file_name) is None
 
 
-def test_rename_files_and_folders_ChangesWhenNeeded_directory(
+def test_rename_files_and_dirs_ChangesWhenNeeded_directory(
     temp_dir_setup,
 ):
     # GIVEN
@@ -241,7 +241,7 @@ def test_rename_files_and_folders_ChangesWhenNeeded_directory(
     assert os_path_exists(bobphin_dir) == False
 
     # WHEN
-    rename_files_and_folders_4times(env_dir, "dol", "bob")
+    rename_files_and_dirs_4times(env_dir, "dol", "bob")
 
     # THEN
     bobphin_files_dict = get_dir_file_strs(bobphin_dir)
@@ -254,7 +254,7 @@ def test_rename_files_and_folders_ChangesWhenNeeded_directory(
     assert os_path_exists(bobphin_dir)
 
 
-def test_rename_files_and_folders_ChangesWhenNeeded_delete_old_directorys(
+def test_rename_files_and_dirs_ChangesWhenNeeded_delete_old_directorys(
     temp_dir_setup,
 ):
     # GIVEN
@@ -278,7 +278,7 @@ def test_rename_files_and_folders_ChangesWhenNeeded_delete_old_directorys(
     assert os_path_exists(bobphin_dir) == False
 
     # WHEN
-    rename_files_and_folders_4times(env_dir, "dol", "bob")
+    rename_files_and_dirs_4times(env_dir, "dol", "bob")
 
     # THEN
     bobphin_files_dict = get_dir_file_strs(bobphin_dir)

@@ -13,7 +13,7 @@ from subprocess import run as subprocess_run
 
 def test_string_exists_in_filepaths(tmp_path):
     # sourcery skip: extract-duplicate-method
-    # Setup: create some files and folders
+    # Setup: create some files and dirs
     subdir = tmp_path / "project_data"
     subdir.mkdir()
     (subdir / "notes.txt").write_text("irrelevant text", encoding="utf-8")

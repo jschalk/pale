@@ -4,7 +4,7 @@ from src.ch01_py.file_toolbox import create_path, open_json, save_json
 from src.linter.chapter_migration_tools import (
     delete_if_empty_or_pycache_only,
     first_level_dirs_with_prefix,
-    rename_files_and_folders_4times,
+    rename_files_and_dirs_4times,
     replace_in_tracked_python_files,
     string_exists_in_directory,
     string_exists_in_filepaths,
@@ -49,7 +49,7 @@ def main():
     change_ref_json(src_dir, src_chxx_prefix, prefix_dir, dst_chxx_int)
     replace_in_tracked_python_files(src_chxx_prefix, replace_text=dst_chxx_prefix)
     replace_in_tracked_python_files(src_uppercase_chxx, dst_uppercase_chxx)
-    rename_files_and_folders_4times(src_dir, src_chxx_prefix, dst_chxx_prefix)
+    rename_files_and_dirs_4times(src_dir, src_chxx_prefix, dst_chxx_prefix)
     print("✅ Replacement complete.")
 
 

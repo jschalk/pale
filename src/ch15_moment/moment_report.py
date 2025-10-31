@@ -11,7 +11,7 @@ from src.ch15_moment.moment_main import MomentUnit
 
 def get_moment_guts_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
     # get list of all belief paths
-    moment_belief_names = x_moment._get_belief_folder_names()
+    moment_belief_names = x_moment._get_belief_dir_names()
     # for all beliefs get gut
     gut_dfs = []
     for belief_name in moment_belief_names:
@@ -69,7 +69,7 @@ def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 
 def get_moment_jobs_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
     # get list of all belief paths
-    moment_belief_names = x_moment._get_belief_folder_names()
+    moment_belief_names = x_moment._get_belief_dir_names()
     # for all beliefs get gut
     job_dfs = []
     for belief_name in moment_belief_names:
@@ -126,7 +126,7 @@ def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 
 def get_moment_guts_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
     # get list of all belief paths
-    moment_belief_names = x_moment._get_belief_folder_names()
+    moment_belief_names = x_moment._get_belief_dir_names()
     # for all beliefs get gut
     gut_dfs = []
     for belief_name in moment_belief_names:
@@ -187,7 +187,7 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 def get_moment_jobs_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
     # get list of all belief paths
     job_dfs = []
-    for x_belief_name in x_moment._get_belief_folder_names():
+    for x_belief_name in x_moment._get_belief_dir_names():
 
         job = open_job_file(
             x_moment.moment_mstr_dir, x_moment.moment_label, x_belief_name
