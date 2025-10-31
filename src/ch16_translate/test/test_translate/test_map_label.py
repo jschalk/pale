@@ -144,13 +144,13 @@ def test_LabelMap_set_otx2inx_SetsAttr():
 def test_LabelMap_get_inx_value_ReturnsObj():
     # ESTABLISH
     x_labelmap = labelmap_shop(None)
-    assert x_labelmap._get_inx_value(exx.xio) != exx.sue
+    assert x_labelmap.get_inx_value(exx.xio) != exx.sue
 
     # WHEN
     x_labelmap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_labelmap._get_inx_value(exx.xio) == exx.sue
+    assert x_labelmap.get_inx_value(exx.xio) == exx.sue
 
 
 def test_LabelMap_otx2inx_exists_ReturnsObj():
@@ -225,13 +225,13 @@ def test_LabelMap_unknown_str_in_otx2inx_ReturnsObj():
     x_unknown_str = "UnknownLabelId"
     x_labelmap = labelmap_shop(None, unknown_str=x_unknown_str)
     x_labelmap.set_otx2inx(exx.xio, exx.sue)
-    assert x_labelmap._unknown_str_in_otx2inx() is False
+    assert x_labelmap.unknown_str_in_otx2inx() is False
 
     # WHEN
     x_labelmap.set_otx2inx(exx.zia, x_unknown_str)
 
     # THEN
-    assert x_labelmap._unknown_str_in_otx2inx()
+    assert x_labelmap.unknown_str_in_otx2inx()
 
 
 def test_LabelMap_reveal_inx_ReturnsObjAndSetsAttr_label():
@@ -251,7 +251,7 @@ def test_LabelMap_reveal_inx_ReturnsObjAndSetsAttr_label():
     # THEN
     assert x_labelmap.otx_exists(swim_otx)
     assert x_labelmap.otx_exists(climb_otx) is False
-    assert x_labelmap._get_inx_value(swim_otx) == swim_inx
+    assert x_labelmap.get_inx_value(swim_otx) == swim_inx
 
     # WHEN
     assert x_labelmap.reveal_inx(climb_otx) is None

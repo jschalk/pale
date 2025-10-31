@@ -46,7 +46,7 @@ class MapCore:
     otx_knot: KnotTerm = None
     inx_knot: KnotTerm = None
 
-    def _unknown_str_in_otx2inx(self) -> bool:
+    def unknown_str_in_otx2inx(self) -> bool:
         return str_in_dict(self.unknown_str, self.otx2inx)
 
     def set_all_otx2inx(
@@ -75,14 +75,14 @@ class NameMap(MapCore):
     def set_otx2inx(self, otx_name: str, inx_name: str):
         self.otx2inx[otx_name] = inx_name
 
-    def _get_inx_value(self, otx_name: str) -> str:
+    def get_inx_value(self, otx_name: str) -> str:
         return self.otx2inx.get(otx_name)
 
     def otx2inx_exists(self, otx_name: str, inx_name: str) -> bool:
-        return self._get_inx_value(otx_name) == inx_name
+        return self.get_inx_value(otx_name) == inx_name
 
     def otx_exists(self, otx_name: str) -> bool:
-        return self._get_inx_value(otx_name) != None
+        return self.get_inx_value(otx_name) != None
 
     def del_otx2inx(self, otx_name: str):
         self.otx2inx.pop(otx_name)
@@ -97,7 +97,7 @@ class NameMap(MapCore):
             inx_name = inx_name.replace(otx_r_knot, inx_r_knot)
             self.set_otx2inx(otx_name, inx_name)
 
-        return self._get_inx_value(otx_name)
+        return self.get_inx_value(otx_name)
 
     def _is_inx_knot_inclusion_correct(self) -> bool:
         return not str_in_dict_values(self.inx_knot, self.otx2inx)
@@ -149,14 +149,14 @@ class TitleMap(MapCore):
     def set_otx2inx(self, otx_title: str, inx_title: str):
         self.otx2inx[otx_title] = inx_title
 
-    def _get_inx_value(self, otx_title: str) -> str:
+    def get_inx_value(self, otx_title: str) -> str:
         return self.otx2inx.get(otx_title)
 
     def otx2inx_exists(self, otx_title: str, inx_title: str) -> bool:
-        return self._get_inx_value(otx_title) == inx_title
+        return self.get_inx_value(otx_title) == inx_title
 
     def otx_exists(self, otx_title: str) -> bool:
-        return self._get_inx_value(otx_title) != None
+        return self.get_inx_value(otx_title) != None
 
     def del_otx2inx(self, otx_title: str):
         self.otx2inx.pop(otx_title)
@@ -171,7 +171,7 @@ class TitleMap(MapCore):
             inx_title = inx_title.replace(otx_r_knot, inx_r_knot)
             self.set_otx2inx(otx_title, inx_title)
 
-        return self._get_inx_value(otx_title)
+        return self.get_inx_value(otx_title)
 
     def _is_inx_knot_inclusion_correct(self):
         return str_in_all_dict_values(self.inx_knot, self.otx2inx)
@@ -223,14 +223,14 @@ class LabelMap(MapCore):
     def set_otx2inx(self, otx_label: str, inx_label: str):
         self.otx2inx[otx_label] = inx_label
 
-    def _get_inx_value(self, otx_label: str) -> str:
+    def get_inx_value(self, otx_label: str) -> str:
         return self.otx2inx.get(otx_label)
 
     def otx2inx_exists(self, otx_label: str, inx_label: str) -> bool:
-        return self._get_inx_value(otx_label) == inx_label
+        return self.get_inx_value(otx_label) == inx_label
 
     def otx_exists(self, otx_label: str) -> bool:
-        return self._get_inx_value(otx_label) != None
+        return self.get_inx_value(otx_label) != None
 
     def del_otx2inx(self, otx_label: str):
         self.otx2inx.pop(otx_label)
@@ -245,7 +245,7 @@ class LabelMap(MapCore):
             inx_label = inx_label.replace(otx_r_knot, inx_r_knot)
             self.set_otx2inx(otx_label, inx_label)
 
-        return self._get_inx_value(otx_label)
+        return self.get_inx_value(otx_label)
 
     def _is_inx_knot_inclusion_correct(self) -> bool:
         return not str_in_dict_values(self.inx_knot, self.otx2inx)
@@ -315,7 +315,7 @@ class RopeMap:
     def set_otx2inx(self, otx_rope: str, inx_rope: str):
         self.otx2inx[otx_rope] = inx_rope
 
-    def _get_inx_value(self, otx_rope: str) -> str:
+    def get_inx_value(self, otx_rope: str) -> str:
         return self.otx2inx.get(otx_rope)
 
     def reveal_inx(self, otx_rope: str, missing_add: bool = True) -> str:
@@ -324,7 +324,7 @@ class RopeMap:
             inx_rope = self._reveal_rope_inx(otx_rope)
             self.set_otx2inx(otx_rope, inx_rope)
 
-        return self._get_inx_value(otx_rope)
+        return self.get_inx_value(otx_rope)
 
     def _reveal_rope_inx(self, otx_rope) -> RopeTerm:
         otx_parent_rope = get_parent_rope(otx_rope, self.otx_knot)
@@ -335,7 +335,7 @@ class RopeMap:
         if otx_parent_rope == "":
             inx_parent_rope = ""
         else:
-            inx_parent_rope = self._get_inx_value(otx_parent_rope)
+            inx_parent_rope = self.get_inx_value(otx_parent_rope)
         return create_rope(inx_parent_rope, otx_tail, self.inx_knot)
 
     def _get_labelmap_labelterm(self, x_labelTerm: LabelTerm) -> LabelTerm:
@@ -344,10 +344,10 @@ class RopeMap:
         return x_labelTerm
 
     def otx2inx_exists(self, otx_rope: str, inx_rope: str) -> bool:
-        return self._get_inx_value(otx_rope) == inx_rope
+        return self.get_inx_value(otx_rope) == inx_rope
 
     def otx_exists(self, otx_rope: str) -> bool:
-        return self._get_inx_value(otx_rope) != None
+        return self.get_inx_value(otx_rope) != None
 
     def del_otx2inx(self, otx_rope: str):
         self.otx2inx.pop(otx_rope)
@@ -381,7 +381,7 @@ class RopeMap:
     def del_label(self, otx_label: LabelTerm) -> bool:
         self.labelmap.del_otx2inx(otx_label)
 
-    def _unknown_str_in_otx2inx(self) -> bool:
+    def unknown_str_in_otx2inx(self) -> bool:
         return str_in_dict(self.unknown_str, self.otx2inx)
 
     def all_otx_parent_ropes_exist(self) -> bool:

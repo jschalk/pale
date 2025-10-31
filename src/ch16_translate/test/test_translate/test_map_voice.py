@@ -147,13 +147,13 @@ def test_NameMap_set_otx2inx_SetsAttr():
 def test_NameMap_get_inx_value_ReturnsObj():
     # ESTABLISH
     x_namemap = namemap_shop(None)
-    assert x_namemap._get_inx_value(exx.xio) != exx.sue
+    assert x_namemap.get_inx_value(exx.xio) != exx.sue
 
     # WHEN
     x_namemap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_namemap._get_inx_value(exx.xio) == exx.sue
+    assert x_namemap.get_inx_value(exx.xio) == exx.sue
 
 
 def test_NameMap_otx2inx_exists_ReturnsObj():
@@ -228,13 +228,13 @@ def test_NameMap_unknown_str_in_otx2inx_ReturnsObj():
     x_unknown_str = "UnknownTerm"
     x_namemap = namemap_shop(None, unknown_str=x_unknown_str)
     x_namemap.set_otx2inx(exx.xio, exx.sue)
-    assert x_namemap._unknown_str_in_otx2inx() is False
+    assert x_namemap.unknown_str_in_otx2inx() is False
 
     # WHEN
     x_namemap.set_otx2inx(exx.zia, x_unknown_str)
 
     # THEN
-    assert x_namemap._unknown_str_in_otx2inx()
+    assert x_namemap.unknown_str_in_otx2inx()
 
 
 def test_NameMap_reveal_inx_ReturnsObjAndSetsAttr_voice_name():
@@ -254,7 +254,7 @@ def test_NameMap_reveal_inx_ReturnsObjAndSetsAttr_voice_name():
     # THEN
     assert x_namemap.otx_exists(swim_otx)
     assert x_namemap.otx_exists(climb_otx) is False
-    assert x_namemap._get_inx_value(swim_otx) == swim_inx
+    assert x_namemap.get_inx_value(swim_otx) == swim_inx
 
     # WHEN
     assert x_namemap.reveal_inx(climb_otx) is None

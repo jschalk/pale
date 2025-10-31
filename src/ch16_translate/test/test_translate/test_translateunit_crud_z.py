@@ -225,13 +225,13 @@ def test_TranslateUnit_get_inx_value_ReturnsObj_Scenario0_NameTerm():
     sue_otx = "Sue"
     sue_inx = "Suita"
     zia_translateunit = translateunit_shop(exx.zia)
-    assert zia_translateunit._get_inx_value(kw.NameTerm, sue_otx) != sue_inx
+    assert zia_translateunit.get_inx_value(kw.NameTerm, sue_otx) != sue_inx
 
     # WHEN
     zia_translateunit.set_otx2inx(kw.NameTerm, sue_otx, sue_inx)
 
     # THEN
-    assert zia_translateunit._get_inx_value(kw.NameTerm, sue_otx) == sue_inx
+    assert zia_translateunit.get_inx_value(kw.NameTerm, sue_otx) == sue_inx
 
 
 def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario0_LabelTerm():

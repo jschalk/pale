@@ -159,13 +159,13 @@ def test_RopeMap_set_otx2inx_SetsAttr():
 def test_RopeMap_get_inx_value_ReturnsObj():
     # ESTABLISH
     x_ropemap = ropemap_shop(None)
-    assert x_ropemap._get_inx_value(exx.xio) != exx.sue
+    assert x_ropemap.get_inx_value(exx.xio) != exx.sue
 
     # WHEN
     x_ropemap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_ropemap._get_inx_value(exx.xio) == exx.sue
+    assert x_ropemap.get_inx_value(exx.xio) == exx.sue
 
 
 def test_RopeMap_otx2inx_exists_ReturnsObj():
@@ -240,13 +240,13 @@ def test_RopeMap_unknown_str_in_otx2inx_ReturnsObj():
     x_unknown_str = "UnknownTerm"
     x_ropemap = ropemap_shop(unknown_str=x_unknown_str)
     x_ropemap.set_otx2inx(exx.xio, exx.sue)
-    assert x_ropemap._unknown_str_in_otx2inx() is False
+    assert x_ropemap.unknown_str_in_otx2inx() is False
 
     # WHEN
     x_ropemap.set_otx2inx(exx.zia, x_unknown_str)
 
     # THEN
-    assert x_ropemap._unknown_str_in_otx2inx()
+    assert x_ropemap.unknown_str_in_otx2inx()
 
 
 def test_RopeMap_set_label_SetsAttr():

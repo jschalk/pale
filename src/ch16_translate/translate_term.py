@@ -64,7 +64,7 @@ class TranslateUnit:
         return self.titlemap.otx2inx_exists(otx_title, inx_title)
 
     def _get_inx_title(self, otx_title: str):
-        return self.titlemap._get_inx_value(otx_title)
+        return self.titlemap.get_inx_value(otx_title)
 
     def del_titleterm(self, otx_title: str):
         return self.titlemap.del_otx2inx(otx_title)
@@ -95,7 +95,7 @@ class TranslateUnit:
         return self.namemap.otx2inx_exists(otx_name, inx_name)
 
     def _get_inx_name(self, otx_name: str):
-        return self.namemap._get_inx_value(otx_name)
+        return self.namemap.get_inx_value(otx_name)
 
     def del_nameterm(self, otx_name: str):
         return self.namemap.del_otx2inx(otx_name)
@@ -121,7 +121,7 @@ class TranslateUnit:
         return self.ropemap.otx2inx_exists(otx_rope, inx_rope)
 
     def _get_inx_rope(self, otx_rope: str):
-        return self.ropemap._get_inx_value(otx_rope)
+        return self.ropemap.get_inx_value(otx_rope)
 
     def del_rope(self, otx_rope: str):
         return self.ropemap.del_otx2inx(otx_rope)
@@ -158,16 +158,16 @@ class TranslateUnit:
         elif x_class_type == "RopeTerm":
             self.ropemap.set_otx2inx(x_otx, x_inx)
 
-    def _get_inx_value(self, x_class_type: str, x_otx: str) -> str:
+    def get_inx_value(self, x_class_type: str, x_otx: str) -> str:
         """class_type: NameTerm, TitleTerm, LabelTerm, RopeTerm"""
         if x_class_type == "NameTerm":
-            return self.namemap._get_inx_value(x_otx)
+            return self.namemap.get_inx_value(x_otx)
         elif x_class_type == "TitleTerm":
-            return self.titlemap._get_inx_value(x_otx)
+            return self.titlemap.get_inx_value(x_otx)
         elif x_class_type == "LabelTerm":
-            return self.labelmap._get_inx_value(x_otx)
+            return self.labelmap.get_inx_value(x_otx)
         elif x_class_type == "RopeTerm":
-            return self.ropemap._get_inx_value(x_otx)
+            return self.ropemap.get_inx_value(x_otx)
 
     def otx2inx_exists(self, x_class_type: str, x_otx: str, x_inx: str) -> bool:
         """class_type: NameTerm, TitleTerm, LabelTerm, RopeTerm"""

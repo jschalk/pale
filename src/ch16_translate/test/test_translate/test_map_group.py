@@ -144,13 +144,13 @@ def test_TitleMap_set_otx2inx_SetsAttr():
 def test_TitleMap_get_inx_value_ReturnsObj():
     # ESTABLISH
     x_titlemap = titlemap_shop(None)
-    assert x_titlemap._get_inx_value(exx.xio) != exx.sue
+    assert x_titlemap.get_inx_value(exx.xio) != exx.sue
 
     # WHEN
     x_titlemap.set_otx2inx(exx.xio, exx.sue)
 
     # THEN
-    assert x_titlemap._get_inx_value(exx.xio) == exx.sue
+    assert x_titlemap.get_inx_value(exx.xio) == exx.sue
 
 
 def test_TitleMap_otx2inx_exists_ReturnsObj():
@@ -225,13 +225,13 @@ def test_TitleMap_unknown_str_in_otx2inx_ReturnsObj():
     x_unknown_str = "UnknownTerm"
     x_titlemap = titlemap_shop(unknown_str=x_unknown_str)
     x_titlemap.set_otx2inx(exx.xio, exx.sue)
-    assert x_titlemap._unknown_str_in_otx2inx() is False
+    assert x_titlemap.unknown_str_in_otx2inx() is False
 
     # WHEN
     x_titlemap.set_otx2inx(exx.zia, x_unknown_str)
 
     # THEN
-    assert x_titlemap._unknown_str_in_otx2inx()
+    assert x_titlemap.unknown_str_in_otx2inx()
 
 
 def test_TitleMap_reveal_inx_ReturnsObjAndSetsAttr_group_title():
@@ -251,7 +251,7 @@ def test_TitleMap_reveal_inx_ReturnsObjAndSetsAttr_group_title():
     # THEN
     assert x_titlemap.otx_exists(swim_otx)
     assert x_titlemap.otx_exists(climb_otx) is False
-    assert x_titlemap._get_inx_value(swim_otx) == swim_inx
+    assert x_titlemap.get_inx_value(swim_otx) == swim_inx
 
     # WHEN
     assert x_titlemap.reveal_inx(climb_otx) is None

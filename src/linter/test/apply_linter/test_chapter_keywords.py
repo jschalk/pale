@@ -47,10 +47,10 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
     # ESTABLISH
     excluded_functions = {
         "__str__",
-        "_get_inx_value",
+        "get_inx_value",
         "_is_inx_knot_inclusion_correct",
         "_is_otx_knot_inclusion_correct",
-        "_unknown_str_in_otx2inx",  # RopeMap method overrides MapCore method
+        "unknown_str_in_otx2inx",  # RopeMap method overrides MapCore method
         "del_otx2inx",
         "temp_dir_setup",
         "find_replace_rope",

@@ -185,13 +185,13 @@ def test_EpochMap_get_inx_value_ReturnsObj():
     sue_epochmap = epochmap_shop(exx.sue)
     sue_epoch_length = 123
     sue_inx_epoch_diff = 19
-    assert sue_epochmap._get_inx_value(sue_epoch_length) != sue_inx_epoch_diff
+    assert sue_epochmap.get_inx_value(sue_epoch_length) != sue_inx_epoch_diff
 
     # WHEN
     sue_epochmap.set_otx2inx(sue_epoch_length, sue_inx_epoch_diff)
 
     # THEN
-    assert sue_epochmap._get_inx_value(sue_epoch_length) == sue_inx_epoch_diff
+    assert sue_epochmap.get_inx_value(sue_epoch_length) == sue_inx_epoch_diff
 
 
 def test_EpochMap_otx2inx_exists_ReturnsObj():

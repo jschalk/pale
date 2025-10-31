@@ -30,7 +30,7 @@ class EpochMap:
         self.otx2inx[epoch_length] = inx_epoch_diff
         self.otx2inx = set_modular_dict_values(get_empty_dict_if_None(self.otx2inx))
 
-    def _get_inx_value(self, otx_epoch_length: EpochTime) -> EpochTime:
+    def get_inx_value(self, otx_epoch_length: EpochTime) -> EpochTime:
         return self.otx2inx.get(otx_epoch_length)
 
     def otx2inx_exists(
@@ -47,7 +47,7 @@ class EpochMap:
     def reveal_inx(
         self, otx_epoch_length: EpochTime, otx_value: EpochTime
     ) -> EpochTime:
-        inx_epoch_diff = self._get_inx_value(otx_epoch_length)
+        inx_epoch_diff = self.get_inx_value(otx_epoch_length)
         if inx_epoch_diff:
             otx_value += inx_epoch_diff
         otx_value = otx_value % otx_epoch_length

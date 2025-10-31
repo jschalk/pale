@@ -134,13 +134,13 @@
 #     # ESTABLISH
 #     sue_epoch_diff = 10
 #     sue_translateunit = translateunit_shop(exx.sue)
-#     assert sue_translateunit._get_inx_value(kw.EpochTime, None) != sue_epoch_diff
+#     assert sue_translateunit.get_inx_value(kw.EpochTime, None) != sue_epoch_diff
 
 #     # WHEN
 #     sue_translateunit.set_otx2inx(kw.EpochTime, None, sue_epoch_diff)
 
 #     # THEN
-#     assert sue_translateunit._get_inx_value(kw.EpochTime, None) == sue_epoch_diff
+#     assert sue_translateunit.get_inx_value(kw.EpochTime, None) == sue_epoch_diff
 
 
 # def test_TranslateUnit_del_otx2inx_ReturnsObj_Scenario1_EpochTime():
