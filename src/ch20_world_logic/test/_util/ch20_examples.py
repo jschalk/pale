@@ -1,5 +1,5 @@
 from src.ch07_belief_logic.belief_main import BeliefUnit
-from src.ch15_moment.test._util.ch15_examples import _example_empty_bob_beliefunit
+from src.ch14_moment.test._util.ch14_examples import _example_empty_bob_beliefunit
 from src.ref.keywords import ExampleStrs as exx
 
 

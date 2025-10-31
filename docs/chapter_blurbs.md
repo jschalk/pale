@@ -13,12 +13,12 @@ What does each one do?
 - **ch07_belief_logic**: Defines a BeliefUnit as a PlanUnit and VoiceUnits capable of producing an agenda.
 - **ch08_belief_atom**: Defines BeliefAtoms: Irreducible units of change for a BeliefUnit.
 - **ch09_belief_lesson**: Defines lessons which are collections of BeliefAtoms by FaceName
-- **ch11_belief_listen**: These tools describe how one BeliefUnit listens to another.
-- **ch12_bud**: Defines BeliefBudHistory: BeliefName, BudUnits (EpochTime, quota, celldepth)
-- **ch13_keep**: Builds a simulation that describes how much credit a healer has earned.
-- **ch14_epoch**: Defines how time is handled by BeliefUnits. Allows for arbitrary time structures.
-- **ch15_moment**: Defines MomentUnits: common time tech, ledger, VoiceNames, history of BeliefUnits.
-- **ch16_rose**: Defines RoseUnit tools that rose MomentUnits into inside language.
+- **ch10_belief_listen**: These tools describe how one BeliefUnit listens to another.
+- **ch11_bud**: Defines BeliefBudHistory: BeliefName, BudUnits (EpochTime, quota, celldepth)
+- **ch12_keep**: Builds a simulation that describes how much credit a healer has earned.
+- **ch13_epoch**: Defines how time is handled by BeliefUnits. Allows for arbitrary time structures.
+- **ch14_moment**: Defines MomentUnits: common time tech, ledger, VoiceNames, history of BeliefUnits.
+- **ch16_translate**: Defines TranslateUnit tools that translate MomentUnits into inside language.
 - **ch17_idea**: Defines Idea Bricks: Spreadsheet data formats of any MomentUnit data.
 - **ch18_world_etl**: Defines the tools that use Idea Bricks to build MomentUnits.
 - **ch19_world_kpi**: Defines the analytics outcomes of completed MomentUnits.

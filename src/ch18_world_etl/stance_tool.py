@@ -5,8 +5,8 @@ from src.ch01_py.csv_toolbox import (
     replace_csv_column_from_string,
 )
 from src.ch01_py.file_toolbox import create_path, get_level1_dirs
-from src.ch12_bud.bud_filehandler import open_belief_file
-from src.ch15_moment.moment_main import get_default_path_momentunit
+from src.ch11_bud.bud_filehandler import open_belief_file
+from src.ch14_moment.moment_main import get_default_path_momentunit
 from src.ch17_idea.idea_csv_tool import (
     add_beliefunit_to_stance_csv_strs,
     add_momentunit_to_stance_csv_strs,
@@ -148,7 +148,7 @@ ORDER BY
     return x_csv
 
 
-def add_rose_rows_to_stance_csv_strs(
+def add_translate_rows_to_stance_csv_strs(
     cursor: sqlite3_Cursor, moment_csv_strs: dict[str, str], csv_delimiter: str
 ):
     br00042_csv = moment_csv_strs.get("br00042")
@@ -185,7 +185,7 @@ def collect_stance_csv_strs(world_dir: str) -> dict[str, str]:
     with sqlite3_connect(world_db_path) as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        add_rose_rows_to_stance_csv_strs(cursor, x_csv_strs, ",")
+        add_translate_rows_to_stance_csv_strs(cursor, x_csv_strs, ",")
     db_conn.close()
 
     return x_csv_strs

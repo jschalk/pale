@@ -45,7 +45,7 @@ def path_contains_subpath(full_path: str, sub_path: str):
         return False
 
 
-def test_Chapters_test_TestsAreInCorrectFolderStructure():
+def test_Chapters_test_TestsAreInCorrectDirStructure():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH / WHEN / THEN
     for chapter_desc, chapter_dir in get_chapter_descs().items():
@@ -95,7 +95,7 @@ def test_Chapters_NonTestFilesDoNotHaveStringFunctionsImports():
                     assert not str(file_import[0]).endswith("_str")
 
 
-def test_Chapters_ChapterReferenceFolder_ref_ExistsForEveryChapter():
+def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter():
     """
     Test that all string-related functions in each chapter directory are asserted and tested.
     This test performs the following checks for each chapter:

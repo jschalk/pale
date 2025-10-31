@@ -9,11 +9,11 @@ from src.ch09_belief_lesson._ref.ch09_path import (
     create_moment_json_path,
 )
 from src.ch09_belief_lesson.lesson_filehandler import open_gut_file
-from src.ch12_bud._ref.ch12_path import (
+from src.ch11_bud._ref.ch11_path import (
     create_spark_all_lesson_path,
     create_spark_expressed_lesson_path as expressed_path,
 )
-from src.ch15_moment._ref.ch15_path import (
+from src.ch14_moment._ref.ch14_path import (
     create_bud_voice_mandate_ledger_path as bud_mandate,
 )
 from src.ch17_idea.idea_db_tool import upsert_sheet
@@ -138,12 +138,12 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         fay_world.sheets_input_to_clarity_with_cursor(cursor)
 
         # THEN
-        # select_rose_core = f"SELECT * FROM {trlcore_sound_vld}"
+        # select_translate_core = f"SELECT * FROM {trlcore_sound_vld}"
         # select_beliefunit_put = f"SELECT * FROM {blrunit_sound_put_agg}"
         # select_blfvoce_put = f"SELECT * FROM {blfvoce_sound_put_agg}"
         # select_momentunit_put_raw = f"SELECT * FROM {momentunit_sound_raw}"
         # select_momentunit_put_agg = f"SELECT * FROM {momentunit_sound_agg}"
-        # print(f"{cursor.execute(select_rose_core).fetchall()=}")
+        # print(f"{cursor.execute(select_translate_core).fetchall()=}")
         # print(f"{cursor.execute(select_beliefunit_put).fetchall()=}")
         # print(f"{cursor.execute(select_blfvoce_put).fetchall()=}")
         # print(f"{cursor.execute(select_momentunit_put_raw).fetchall()=}")

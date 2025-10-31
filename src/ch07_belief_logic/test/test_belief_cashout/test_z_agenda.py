@@ -366,7 +366,7 @@ def test_get_beliefunit_from_dict_LoadsPledgeFromJSON():
     casa_rope = yao_belief.make_l1_rope(exx.casa)
     body_str = "exercise"
     body_rope = yao_belief.make_rope(casa_rope, body_str)
-    veg_str = "cook veggies every morning"
+    veg_str = "veggies every morning"
     veg_rope = yao_belief.make_rope(body_rope, veg_str)
     veg_plan = yao_belief.get_plan_obj(veg_rope)
     assert not veg_plan.plan_active

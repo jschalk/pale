@@ -25,7 +25,7 @@ from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 def test_FaceName_Exists():
     # ESTABLISH / WHEN / THEN
     assert FaceName() == ""
-    assert FaceName("cookie") == "cookie"
+    assert FaceName("cuisine") == "cuisine"
 
 
 def test_init_lesson_id_ReturnsObj():

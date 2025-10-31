@@ -224,38 +224,38 @@
       "yr1_jan1_offset": {}
     }
   }, 
-  "rose_epoch": {
+  "translate_epoch": {
     "allowed_crud": "insert_one_time", 
     "build_order": 4, 
-    "idea_category": "rose", 
+    "idea_category": "translate", 
     "jkeys": {"face_name": {}, "otx_epoch_length": {}, "spark_num": {}}, 
     "jvalues": {"inx_epoch_diff": {}}
   }, 
-  "rose_label": {
+  "translate_label": {
     "allowed_crud": "insert_one_time", 
     "build_order": 2, 
-    "idea_category": "rose", 
+    "idea_category": "translate", 
     "jkeys": {"face_name": {}, "otx_label": {}, "spark_num": {}}, 
     "jvalues": {"inx_knot": {}, "inx_label": {}, "otx_knot": {}, "unknown_str": {}}
   }, 
-  "rose_name": {
+  "translate_name": {
     "allowed_crud": "insert_one_time", 
     "build_order": 0, 
-    "idea_category": "rose", 
+    "idea_category": "translate", 
     "jkeys": {"face_name": {}, "otx_name": {}, "spark_num": {}}, 
     "jvalues": {"inx_knot": {}, "inx_name": {}, "otx_knot": {}, "unknown_str": {}}
   }, 
-  "rose_rope": {
+  "translate_rope": {
     "allowed_crud": "insert_one_time", 
     "build_order": 3, 
-    "idea_category": "rose", 
+    "idea_category": "translate", 
     "jkeys": {"face_name": {}, "otx_rope": {}, "spark_num": {}}, 
     "jvalues": {"inx_knot": {}, "inx_rope": {}, "otx_knot": {}, "unknown_str": {}}
   }, 
-  "rose_title": {
+  "translate_title": {
     "allowed_crud": "insert_one_time", 
     "build_order": 1, 
-    "idea_category": "rose", 
+    "idea_category": "translate", 
     "jkeys": {"face_name": {}, "otx_title": {}, "spark_num": {}}, 
     "jvalues": {"inx_knot": {}, "inx_title": {}, "otx_knot": {}, "unknown_str": {}}
   }

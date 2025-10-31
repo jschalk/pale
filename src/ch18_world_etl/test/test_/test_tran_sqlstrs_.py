@@ -59,12 +59,12 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     blfmont_dimen = kw.moment_epoch_month
     blfweek_dimen = kw.moment_epoch_weekday
     blfoffi_dimen = kw.moment_timeoffi
-    trlepoc_dimen = kw.rose_epoch
-    trlname_dimen = kw.rose_name
-    trllabe_dimen = kw.rose_label
-    trlrope_dimen = kw.rose_rope
-    trltitl_dimen = kw.rose_title
-    trlcore_dimen = kw.rose_core
+    trlepoc_dimen = kw.translate_epoch
+    trlname_dimen = kw.translate_name
+    trllabe_dimen = kw.translate_label
+    trlrope_dimen = kw.translate_rope
+    trltitl_dimen = kw.translate_title
+    trlcore_dimen = kw.translate_core
     raw_str = "raw"
     agg_str = "agg"
     vld_str = "vld"
@@ -163,7 +163,7 @@ def test_get_idea_stageble_put_dimens_HasAll_idea_numbersForAll_dimens():
     idea_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) != kw.rose
+        if dimen_config.get(kw.idea_category) != kw.translate
         # if dimen_config.get(kw.idea_category) == "moment"
     }
     with sqlite3_connect(":memory:") as moment_db_conn:
@@ -226,7 +226,7 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
     idea_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) != kw.rose
+        if dimen_config.get(kw.idea_category) != kw.translate
         # if dimen_config.get(kw.idea_category) == "moment"
     }
     with sqlite3_connect(":memory:") as moment_db_conn:

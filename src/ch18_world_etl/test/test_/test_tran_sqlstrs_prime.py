@@ -9,18 +9,21 @@ from src.ch01_py.db_toolbox import (
     get_table_columns,
 )
 from src.ch08_belief_atom.atom_config import get_belief_dimens, get_delete_key_name
-from src.ch15_moment.moment_config import get_moment_dimens
-from src.ch16_rose.rose_config import find_set_otx_inx_args, get_rose_dimens
+from src.ch14_moment.moment_config import get_moment_dimens
+from src.ch16_translate.translate_config import (
+    find_set_otx_inx_args,
+    get_translate_dimens,
+)
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
     get_idea_config_dict,
     get_idea_sqlite_types,
 )
 from src.ch18_world_etl.tran_sqlstrs import (
-    create_insert_into_rose_core_raw_sqlstr,
-    create_insert_missing_face_name_into_rose_core_vld_sqlstr,
-    create_insert_rose_core_agg_into_vld_sqlstr,
-    create_insert_rose_sound_vld_table_sqlstr,
+    create_insert_into_translate_core_raw_sqlstr,
+    create_insert_missing_face_name_into_translate_core_vld_sqlstr,
+    create_insert_translate_core_agg_into_vld_sqlstr,
+    create_insert_translate_sound_vld_table_sqlstr,
     create_prime_tablename as prime_tbl,
     create_sound_agg_insert_sqlstrs,
     create_sound_and_heard_tables,
@@ -79,7 +82,7 @@ BELIEF_PRIME_TABLENAMES = {
 
 
 def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
-    if x_dimen == kw.rose_core:
+    if x_dimen == kw.translate_core:
         return {
             kw.spark_num,
             kw.face_name,
@@ -101,7 +104,7 @@ def get_del_dimen_columns_set(x_dimen: str) -> list[str]:
     return set(columns_list)
 
 
-def create_rose_sound_raw_table_sqlstr(x_dimen):
+def create_translate_sound_raw_table_sqlstr(x_dimen):
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.add(kw.idea_number)
@@ -110,7 +113,7 @@ def create_rose_sound_raw_table_sqlstr(x_dimen):
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
 
-def create_rose_sound_agg_table_sqlstr(x_dimen):
+def create_translate_sound_agg_table_sqlstr(x_dimen):
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.add(kw.error_message)
@@ -133,7 +136,7 @@ def create_moment_sound_vld_table_sqlstr(x_dimen):
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
 
-def create_rose_sound_vld_table_sqlstr(x_dimen):
+def create_translate_sound_vld_table_sqlstr(x_dimen):
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.discard(kw.otx_knot)
@@ -143,7 +146,7 @@ def create_rose_sound_vld_table_sqlstr(x_dimen):
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
 
-def create_rose_core_raw_table_sqlstr(x_dimen):
+def create_translate_core_raw_table_sqlstr(x_dimen):
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.remove(kw.spark_num)
@@ -153,7 +156,7 @@ def create_rose_core_raw_table_sqlstr(x_dimen):
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
 
-def create_rose_core_agg_table_sqlstr(x_dimen):
+def create_translate_core_agg_table_sqlstr(x_dimen):
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.remove(kw.spark_num)
@@ -161,10 +164,10 @@ def create_rose_core_agg_table_sqlstr(x_dimen):
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
 
-def create_rose_core_vld_table_sqlstr(x_dimen):
+def create_translate_core_vld_table_sqlstr(x_dimen):
     agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
     vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-    sqlstr = create_rose_core_agg_table_sqlstr(x_dimen)
+    sqlstr = create_translate_core_agg_table_sqlstr(x_dimen)
     sqlstr = sqlstr.replace(agg_tablename, vld_tablename)
     return sqlstr
 
@@ -239,7 +242,7 @@ def create_belief_heard_put_raw_table_sqlstr(x_dimen: str) -> str:
     columns = set()
     columns = get_all_dimen_columns_set(x_dimen)
     columns = find_set_otx_inx_args(columns)
-    columns.add(kw.rose_spark_num)
+    columns.add(kw.translate_spark_num)
     columns = get_default_sorted_list(columns)
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
@@ -255,7 +258,7 @@ def create_belief_heard_del_raw_table_sqlstr(x_dimen: str) -> str:
     tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw", "del")
     columns = get_del_dimen_columns_set(x_dimen)
     columns = find_set_otx_inx_args(columns)
-    columns.add(kw.rose_spark_num)
+    columns.add(kw.translate_spark_num)
     columns = get_default_sorted_list(columns)
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
@@ -267,26 +270,26 @@ def create_belief_heard_del_agg_table_sqlstr(x_dimen: str) -> str:
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
 
-def test_get_prime_create_table_sqlstrs_ReturnsObj_RoseDimensCheck():
+def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateDimensCheck():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH / WHEN
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
     idea_config = get_idea_config_dict()
-    rose_dimens_config = {
+    translate_dimens_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == kw.rose
+        if dimen_config.get(kw.idea_category) == kw.translate
     }
 
-    for x_dimen in rose_dimens_config:
+    for x_dimen in translate_dimens_config:
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
         s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-        expected_s_raw_sqlstr = create_rose_sound_raw_table_sqlstr(x_dimen)
-        expected_s_agg_sqlstr = create_rose_sound_agg_table_sqlstr(x_dimen)
-        expected_s_vld_sqlstr = create_rose_sound_vld_table_sqlstr(x_dimen)
+        expected_s_raw_sqlstr = create_translate_sound_raw_table_sqlstr(x_dimen)
+        expected_s_agg_sqlstr = create_translate_sound_agg_table_sqlstr(x_dimen)
+        expected_s_vld_sqlstr = create_translate_sound_vld_table_sqlstr(x_dimen)
 
         abbv7 = get_dimen_abbv7(x_dimen)
         print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
@@ -301,18 +304,18 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_RoseDimensCheck():
         assert expected_s_vld_sqlstr == create_table_sqlstrs.get(s_vld_tablename)
 
 
-def test_get_prime_create_table_sqlstrs_ReturnsObj_RoseCoreDimensRose():
+def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateCoreDimensTranslate():
     # ESTABLISH / WHEN
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    x_dimen = kw.rose_core
+    x_dimen = kw.translate_core
     s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
     s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
     s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-    expected_s_raw_sqlstr = create_rose_core_raw_table_sqlstr(x_dimen)
-    expected_s_agg_sqlstr = create_rose_core_agg_table_sqlstr(x_dimen)
-    expected_s_vld_sqlstr = create_rose_core_vld_table_sqlstr(x_dimen)
+    expected_s_raw_sqlstr = create_translate_core_raw_table_sqlstr(x_dimen)
+    expected_s_agg_sqlstr = create_translate_core_agg_table_sqlstr(x_dimen)
+    expected_s_vld_sqlstr = create_translate_core_vld_table_sqlstr(x_dimen)
 
     abbv7 = get_dimen_abbv7(x_dimen)
     print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
@@ -347,7 +350,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckMomentDimens():
         s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
         v_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
         v_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "agg")
-        expected_s_raw_sqlstr = create_rose_sound_raw_table_sqlstr(x_dimen)
+        expected_s_raw_sqlstr = create_translate_sound_raw_table_sqlstr(x_dimen)
         expected_s_agg_sqlstr = create_moment_sound_agg_table_sqlstr(x_dimen)
         expected_s_vld_sqlstr = create_moment_sound_vld_table_sqlstr(x_dimen)
         expected_h_raw_sqlstr = create_moment_heard_raw_table_sqlstr(x_dimen)
@@ -447,15 +450,17 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_HasAllKeys():
 
     # THEN
     assert create_table_sqlstrs
-    rose_dimens_count = len(get_rose_dimens()) * 3
+    translate_dimens_count = len(get_translate_dimens()) * 3
     moment_dimens_count = len(get_moment_dimens()) * 5
     belief_dimens_count = len(get_belief_dimens()) * 10
-    print(f"{rose_dimens_count=}")
+    print(f"{translate_dimens_count=}")
     print(f"{moment_dimens_count=}")
     print(f"{belief_dimens_count=}")
-    all_dimens_count = rose_dimens_count + moment_dimens_count + belief_dimens_count
-    rose_core_count = 3
-    all_dimens_count += rose_core_count
+    all_dimens_count = (
+        translate_dimens_count + moment_dimens_count + belief_dimens_count
+    )
+    translate_core_count = 3
+    all_dimens_count += translate_core_count
     assert len(create_table_sqlstrs) == all_dimens_count
 
 
@@ -564,10 +569,10 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         assert cursor.fetchone()[0] == 153
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_RoseDimen():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = kw.rose_title
+    dimen = kw.translate_title
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -594,19 +599,19 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
 SELECT spark_num, face_name, otx_title
-FROM rose_title_s_raw
+FROM translate_title_s_raw
 GROUP BY spark_num, face_name, otx_title
 HAVING MIN(inx_title) != MAX(inx_title)
     OR MIN(otx_knot) != MAX(otx_knot)
     OR MIN(inx_knot) != MAX(inx_knot)
     OR MIN(unknown_str) != MAX(unknown_str)
 )
-UPDATE rose_title_s_raw
+UPDATE translate_title_s_raw
 SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
-WHERE inconsistency_rows.spark_num = rose_title_s_raw.spark_num
-    AND inconsistency_rows.face_name = rose_title_s_raw.face_name
-    AND inconsistency_rows.otx_title = rose_title_s_raw.otx_title
+WHERE inconsistency_rows.spark_num = translate_title_s_raw.spark_num
+    AND inconsistency_rows.face_name = translate_title_s_raw.face_name
+    AND inconsistency_rows.otx_title = translate_title_s_raw.otx_title
 ;
 """
         print(update_sqlstr)
@@ -715,10 +720,10 @@ WHERE inconsistency_rows.spark_num = belief_plan_awardunit_s_put_raw.spark_num
         assert update_sqlstr == static_example_sqlstr
 
 
-def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_RoseDimen():
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_TranslateDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = kw.rose_title
+    dimen = kw.translate_title
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -743,9 +748,9 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_RoseDimen():
         # print(expected_insert_sqlstr)
         assert update_sqlstrs[0] == expected_insert_sqlstr
 
-        static_example_sqlstr = """INSERT INTO rose_title_s_agg (spark_num, face_name, otx_title, inx_title, otx_knot, inx_knot, unknown_str)
+        static_example_sqlstr = """INSERT INTO translate_title_s_agg (spark_num, face_name, otx_title, inx_title, otx_knot, inx_knot, unknown_str)
 SELECT spark_num, face_name, otx_title, MAX(inx_title), MAX(otx_knot), MAX(inx_knot), MAX(unknown_str)
-FROM rose_title_s_raw
+FROM translate_title_s_raw
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name, otx_title
 ;
@@ -866,74 +871,74 @@ GROUP BY spark_num, face_name, moment_label, belief_name, plan_rope, awardee_tit
         assert update_sqlstrs[1] == static_example_del_sqlstr
 
 
-def test_create_insert_into_rose_core_raw_sqlstr_ReturnsObj():
+def test_create_insert_into_translate_core_raw_sqlstr_ReturnsObj():
     # ESTABLISH
-    dimen = kw.rose_rope
+    dimen = kw.translate_rope
     # WHEN
-    rope_sqlstr = create_insert_into_rose_core_raw_sqlstr(dimen)
+    rope_sqlstr = create_insert_into_translate_core_raw_sqlstr(dimen)
 
     # THEN
-    rose_s_agg_tablename = prime_tbl(dimen, "s", "agg")
-    rose_core_s_raw_tablename = prime_tbl("TRLCORE", "s", "raw")
-    expected_sqlstr = f"""INSERT INTO {rose_core_s_raw_tablename} (source_dimen, face_name, otx_knot, inx_knot, unknown_str)
-SELECT '{rose_s_agg_tablename}', face_name, otx_knot, inx_knot, unknown_str
-FROM {rose_s_agg_tablename}
+    translate_s_agg_tablename = prime_tbl(dimen, "s", "agg")
+    translate_core_s_raw_tablename = prime_tbl("TRLCORE", "s", "raw")
+    expected_sqlstr = f"""INSERT INTO {translate_core_s_raw_tablename} (source_dimen, face_name, otx_knot, inx_knot, unknown_str)
+SELECT '{translate_s_agg_tablename}', face_name, otx_knot, inx_knot, unknown_str
+FROM {translate_s_agg_tablename}
 GROUP BY face_name, otx_knot, inx_knot, unknown_str
 ;
 """
     assert rope_sqlstr == expected_sqlstr
 
 
-def test_create_insert_rose_core_agg_into_vld_sqlstr_ReturnsObj():
+def test_create_insert_translate_core_agg_into_vld_sqlstr_ReturnsObj():
     # ESTABLISH
     default_knot = "|"
     default_unknown_str = "unknown2"
 
     # WHEN
-    insert_sqlstr = create_insert_rose_core_agg_into_vld_sqlstr(
+    insert_sqlstr = create_insert_translate_core_agg_into_vld_sqlstr(
         default_knot, default_unknown_str
     )
 
     # THEN
     trlcore_dimen = "TRLCORE"
-    rose_core_s_agg_tablename = prime_tbl(trlcore_dimen, "s", "agg")
-    rose_core_s_vld_tablename = prime_tbl(trlcore_dimen, "s", "vld")
-    expected_sqlstr = f"""INSERT INTO {rose_core_s_vld_tablename} (face_name, otx_knot, inx_knot, unknown_str)
+    translate_core_s_agg_tablename = prime_tbl(trlcore_dimen, "s", "agg")
+    translate_core_s_vld_tablename = prime_tbl(trlcore_dimen, "s", "vld")
+    expected_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (face_name, otx_knot, inx_knot, unknown_str)
 SELECT
   face_name
 , IFNULL(otx_knot, '{default_knot}')
 , IFNULL(inx_knot, '{default_knot}')
 , IFNULL(unknown_str, '{default_unknown_str}')
-FROM {rose_core_s_agg_tablename}
+FROM {translate_core_s_agg_tablename}
 ;
 """
     print(expected_sqlstr)
     assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_insert_missing_face_name_into_rose_core_vld_sqlstr_ReturnsObj():
+def test_create_insert_missing_face_name_into_translate_core_vld_sqlstr_ReturnsObj():
     # ESTABLISH
     default_knot = "|"
     default_unknown_str = "unknown2"
     blfvoce_s_agg_tablename = prime_tbl(kw.belief_voiceunit, "s", "agg")
 
     # WHEN
-    insert_sqlstr = create_insert_missing_face_name_into_rose_core_vld_sqlstr(
+    insert_sqlstr = create_insert_missing_face_name_into_translate_core_vld_sqlstr(
         default_knot, default_unknown_str, blfvoce_s_agg_tablename
     )
 
     # THEN
     trlcore_dimen = "TRLCORE"
-    rose_core_s_vld_tablename = prime_tbl(trlcore_dimen, "s", "vld")
-    expected_sqlstr = f"""INSERT INTO {rose_core_s_vld_tablename} (face_name, otx_knot, inx_knot, unknown_str)
+    translate_core_s_vld_tablename = prime_tbl(trlcore_dimen, "s", "vld")
+    expected_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (face_name, otx_knot, inx_knot, unknown_str)
 SELECT
   {blfvoce_s_agg_tablename}.face_name
 , '{default_knot}'
 , '{default_knot}'
 , '{default_unknown_str}'
 FROM {blfvoce_s_agg_tablename} 
-LEFT JOIN rose_core_s_vld ON rose_core_s_vld.face_name = {blfvoce_s_agg_tablename}.face_name
-WHERE rose_core_s_vld.face_name IS NULL
+LEFT JOIN translate_core_s_vld ON translate_core_s_vld.face_name = {blfvoce_s_agg_tablename}.face_name
+WHERE translate_core_s_vld.face_name IS NULL
 GROUP BY {blfvoce_s_agg_tablename}.face_name
 ;
 """
@@ -941,19 +946,19 @@ GROUP BY {blfvoce_s_agg_tablename}.face_name
     assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_insert_rose_sound_vld_table_sqlstr_ReturnsObj_rose_rope():
+def test_create_insert_translate_sound_vld_table_sqlstr_ReturnsObj_translate_rope():
     # ESTABLISH
-    dimen = kw.rose_rope
+    dimen = kw.translate_rope
     # WHEN
-    rope_sqlstr = create_insert_rose_sound_vld_table_sqlstr(dimen)
+    rope_sqlstr = create_insert_translate_sound_vld_table_sqlstr(dimen)
 
     # THEN
-    rose_dimen_s_agg_tablename = prime_tbl(dimen, "s", "agg")
-    rose_dimen_s_vld_tablename = prime_tbl(dimen, "s", "vld")
+    translate_dimen_s_agg_tablename = prime_tbl(dimen, "s", "agg")
+    translate_dimen_s_vld_tablename = prime_tbl(dimen, "s", "vld")
     expected_rope_sqlstr = f"""
-INSERT INTO {rose_dimen_s_vld_tablename} (spark_num, face_name, otx_rope, inx_rope)
+INSERT INTO {translate_dimen_s_vld_tablename} (spark_num, face_name, otx_rope, inx_rope)
 SELECT spark_num, face_name, MAX(otx_rope), MAX(inx_rope)
-FROM {rose_dimen_s_agg_tablename}
+FROM {translate_dimen_s_agg_tablename}
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name
 ;
@@ -962,19 +967,19 @@ GROUP BY spark_num, face_name
     assert rope_sqlstr == expected_rope_sqlstr
 
 
-def test_create_insert_rose_sound_vld_table_sqlstr_ReturnsObj_rose_label():
+def test_create_insert_translate_sound_vld_table_sqlstr_ReturnsObj_translate_label():
     # ESTABLISH
-    dimen = kw.rose_label
+    dimen = kw.translate_label
     # WHEN
-    label_sqlstr = create_insert_rose_sound_vld_table_sqlstr(dimen)
+    label_sqlstr = create_insert_translate_sound_vld_table_sqlstr(dimen)
 
     # THEN
-    rose_label_s_agg_tablename = prime_tbl(dimen, "s", "agg")
-    rose_label_s_vld_tablename = prime_tbl(dimen, "s", "vld")
+    translate_label_s_agg_tablename = prime_tbl(dimen, "s", "agg")
+    translate_label_s_vld_tablename = prime_tbl(dimen, "s", "vld")
     expected_label_sqlstr = f"""
-INSERT INTO {rose_label_s_vld_tablename} (spark_num, face_name, otx_label, inx_label)
+INSERT INTO {translate_label_s_vld_tablename} (spark_num, face_name, otx_label, inx_label)
 SELECT spark_num, face_name, MAX(otx_label), MAX(inx_label)
-FROM {rose_label_s_agg_tablename}
+FROM {translate_label_s_agg_tablename}
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name
 ;
@@ -1119,8 +1124,8 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
             v_del_raw_cols = set(get_table_columns(cursor, v_del_raw_tablename))
             v_put_cols = find_set_otx_inx_args(v_put_raw_cols)
             v_del_cols = find_set_otx_inx_args(v_del_raw_cols)
-            v_put_cols.remove(kw.rose_spark_num)
-            v_del_cols.remove(kw.rose_spark_num)
+            v_put_cols.remove(kw.translate_spark_num)
+            v_del_cols.remove(kw.translate_spark_num)
             v_put_cols = {col for col in v_put_cols if col[-3:] != "inx"}
             v_del_cols = {col for col in v_del_cols if col[-3:] != "inx"}
             v_put_raw_tbl = v_put_raw_tablename

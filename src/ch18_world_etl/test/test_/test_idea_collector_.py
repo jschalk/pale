@@ -15,7 +15,7 @@ def test_get_all_excel_ideasheets_ReturnsObj_Scenario0_SheetNames(
 ):
     # ESTABLISH
     env_dir = get_temp_dir()
-    x_dir = create_path(env_dir, "examples_folder")
+    x_dir = create_path(env_dir, "examples_dir")
     ex_filename = "Faybob.xlsx"
     ex_file_path = create_path(x_dir, ex_filename)
     df1 = DataFrame([["AAA", "BBB"]], columns=["spam", "egg"])
@@ -68,12 +68,12 @@ def test_IdeaFileRef_get_csv_filename_ReturnsObj_Scenario1():
     assert x_ideafileref.get_csv_filename() == f"{br00003_str}.csv"
 
 
-def test_get_all_idea_dataframes_ReturnsObj_Scenario0_RoseSheetNames(
+def test_get_all_idea_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
     temp_dir_setup,
 ):
     # ESTABLISH
     env_dir = get_temp_dir()
-    x_dir = create_path(env_dir, "examples_folder")
+    x_dir = create_path(env_dir, "examples_dir")
     spark1 = 1
     minute_360 = 360
     minute_420 = 420
@@ -110,7 +110,7 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario0_RoseSheetNames(
 def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
-    x_dir = create_path(env_dir, "examples_folder")
+    x_dir = create_path(env_dir, "examples_dir")
     spark1 = 1
     minute_360 = 360
     minute_420 = 420

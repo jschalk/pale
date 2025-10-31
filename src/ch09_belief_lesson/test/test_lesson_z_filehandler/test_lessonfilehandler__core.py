@@ -30,7 +30,7 @@ def test_LessonFileHandler_Exists():
 
 def test_lessonfilehandler_shop_ReturnsObj():
     # ESTABLISH
-    x_moment_mstr_dir = "src/ch15_moment/test/_util"
+    x_moment_mstr_dir = get_temp_dir()
     a45_str = "amy45"
     x_knot = "/"
     x_fund_pool = 13000

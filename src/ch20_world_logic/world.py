@@ -3,8 +3,8 @@ from os.path import exists as os_path_exists
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch01_py.dict_toolbox import get_0_if_None, get_empty_set_if_None
 from src.ch01_py.file_toolbox import create_path, delete_dir, set_dir
-from src.ch12_bud.bud_main import EpochTime
-from src.ch15_moment.moment_main import MomentUnit
+from src.ch11_bud.bud_main import EpochTime
+from src.ch14_moment.moment_main import MomentUnit
 from src.ch17_idea.idea_db_tool import update_spark_num_in_excel_files
 from src.ch18_world_etl._ref.ch18_path import (
     create_moment_mstr_path,
@@ -31,7 +31,6 @@ from src.ch18_world_etl.transformers import (
     etl_moment_json_voice_nets_to_moment_voice_nets_table,
     etl_moment_ote1_agg_csvs_to_jsons,
     etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs,
-    etl_rose_sound_agg_tables_to_rose_sound_vld_tables,
     etl_set_cell_tree_cell_mandates,
     etl_set_cell_trees_decrees,
     etl_set_cell_trees_found_facts,
@@ -42,6 +41,7 @@ from src.ch18_world_etl.transformers import (
     etl_spark_inherited_beliefunits_to_moment_gut,
     etl_spark_lesson_json_to_spark_inherited_beliefunits,
     etl_sparks_brick_agg_table_to_sparks_brick_valid_table,
+    etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
     get_max_brick_agg_spark_num,
 )
 from src.ch19_world_kpi.kpi_mstr import (
@@ -69,7 +69,7 @@ class WorldUnit:
     _moment_mstr_dir: str = None
     _momentunits: set[MomentLabel] = None
     _sparks: dict[SparkInt, FaceName] = None
-    _rose_sparks: dict[FaceName, set[SparkInt]] = None
+    _translate_sparks: dict[FaceName, set[SparkInt]] = None
 
     def get_world_db_path(self) -> str:
         "Returns path: world_dir/world.db"
@@ -139,9 +139,9 @@ class WorldUnit:
         etl_sparks_brick_agg_table_to_sparks_brick_valid_table(cursor)
         etl_brick_agg_tables_to_brick_valid_tables(cursor)
         etl_brick_valid_tables_to_sound_raw_tables(cursor)
-        # sound raw to heard raw, filter through roses
+        # sound raw to heard raw, filter through translates
         etl_sound_raw_tables_to_sound_agg_tables(cursor)
-        etl_rose_sound_agg_tables_to_rose_sound_vld_tables(cursor)
+        etl_translate_sound_agg_tables_to_translate_sound_vld_tables(cursor)
         etl_sound_agg_tables_to_sound_vld_tables(cursor)
         etl_sound_vld_tables_to_heard_raw_tables(cursor)
         # heard raw to moment/belief jsons
@@ -204,7 +204,7 @@ def worldunit_shop(
         _sparks={},
         _momentunits=get_empty_set_if_None(_momentunits),
         _input_dir=input_dir,
-        _rose_sparks={},
+        _translate_sparks={},
     )
     x_worldunit._set_world_dirs()
     if not x_worldunit._input_dir:
