@@ -5,10 +5,10 @@ from src.ch18_world_etl.tran_sqlstrs import create_prime_tablename
 from src.ch18_world_etl.transformers import etl_brick_valid_tables_to_sound_raw_tables
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
-# get examples from tests from etl_brick_agg_dfs_to_rose_title_raw
-# get examples from tests from etl_brick_agg_dfs_to_rose_rope_raw
-# get examples from tests from etl_brick_agg_dfs_to_rose__raw
-# get examples from tests from etl_brick_agg_dfs_to_rose_rope_raw
+# get examples from tests from etl_brick_agg_dfs_to_translate_title_raw
+# get examples from tests from etl_brick_agg_dfs_to_translate_rope_raw
+# get examples from tests from etl_brick_agg_dfs_to_translate__raw
+# get examples from tests from etl_brick_agg_dfs_to_translate_rope_raw
 
 
 def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario0_Only_valid_sparks():

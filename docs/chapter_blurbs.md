@@ -18,7 +18,7 @@ What does each one do?
 - **ch13_keep**: Builds a simulation that describes how much credit a healer has earned.
 - **ch14_epoch**: Defines how time is handled by BeliefUnits. Allows for arbitrary time structures.
 - **ch15_moment**: Defines MomentUnits: common time tech, ledger, VoiceNames, history of BeliefUnits.
-- **ch16_rose**: Defines RoseUnit tools that rose MomentUnits into inside language.
+- **ch16_translate**: Defines TranslateUnit tools that translate MomentUnits into inside language.
 - **ch17_idea**: Defines Idea Bricks: Spreadsheet data formats of any MomentUnit data.
 - **ch18_world_etl**: Defines the tools that use Idea Bricks to build MomentUnits.
 - **ch19_world_kpi**: Defines the analytics outcomes of completed MomentUnits.

@@ -16,11 +16,11 @@ from src.ch15_moment.moment_config import (
     get_moment_config_dict,
     get_moment_dimens,
 )
-from src.ch16_rose.rose_config import (
-    get_rose_args_dimen_mapping,
-    get_rose_config_dict,
-    get_rose_dimens,
-    get_roseable_args,
+from src.ch16_translate.translate_config import (
+    get_translate_args_dimen_mapping,
+    get_translate_config_dict,
+    get_translate_dimens,
+    get_translateable_args,
 )
 from src.ch17_idea.idea_config import (
     get_allowed_curds,
@@ -53,10 +53,10 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     # print(f"{moment_args=}")
     # print(f"{moment_args.difference(set(table_sorting_priority))=}")
     assert moment_args.issubset(set(table_sorting_priority))
-    rose_args = set(get_rose_args_dimen_mapping().keys())
+    translate_args = set(get_translate_args_dimen_mapping().keys())
     # print(f"{moment_args=}")
-    # print(f"{rose_args.difference(set(table_sorting_priority))=}")
-    assert rose_args.issubset(set(table_sorting_priority))
+    # print(f"{translate_args.difference(set(table_sorting_priority))=}")
+    assert translate_args.issubset(set(table_sorting_priority))
     all_belief_dimen_delete_keys = get_all_belief_dimen_delete_keys()
     print(f"missing {all_belief_dimen_delete_keys.difference(table_sorting_priority)}")
     assert all_belief_dimen_delete_keys.issubset(table_sorting_priority)
@@ -65,25 +65,25 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     #     print(f"{belief_calc_arg=}")
     print(f"{belief_calc_args.difference(table_sorting_priority)=}")
     assert belief_calc_args.issubset(table_sorting_priority)
-    roseable_otx_cols = {f"{trl_arg}_otx" for trl_arg in get_roseable_args()}
-    roseable_inx_cols = {f"{trl_arg}_inx" for trl_arg in get_roseable_args()}
-    print(f"{roseable_otx_cols=}")
-    print(f"{roseable_inx_cols=}")
-    assert roseable_otx_cols.issubset(table_sorting_priority)
-    assert roseable_inx_cols.issubset(table_sorting_priority)
+    translateable_otx_cols = {f"{trl_arg}_otx" for trl_arg in get_translateable_args()}
+    translateable_inx_cols = {f"{trl_arg}_inx" for trl_arg in get_translateable_args()}
+    print(f"{translateable_otx_cols=}")
+    print(f"{translateable_inx_cols=}")
+    assert translateable_otx_cols.issubset(table_sorting_priority)
+    assert translateable_inx_cols.issubset(table_sorting_priority)
     x_delete_keys = all_belief_dimen_delete_keys
-    roseable_delete_otx_cols = {f"{trl_arg}_otx" for trl_arg in x_delete_keys}
-    roseable_delete_inx_cols = {f"{trl_arg}_inx" for trl_arg in x_delete_keys}
-    print(f"{roseable_delete_otx_cols=}")
-    print(f"{roseable_delete_inx_cols=}")
-    assert roseable_delete_otx_cols.issubset(table_sorting_priority)
-    assert roseable_delete_inx_cols.issubset(table_sorting_priority)
+    translateable_delete_otx_cols = {f"{trl_arg}_otx" for trl_arg in x_delete_keys}
+    translateable_delete_inx_cols = {f"{trl_arg}_inx" for trl_arg in x_delete_keys}
+    print(f"{translateable_delete_otx_cols=}")
+    print(f"{translateable_delete_inx_cols=}")
+    assert translateable_delete_otx_cols.issubset(table_sorting_priority)
+    assert translateable_delete_inx_cols.issubset(table_sorting_priority)
 
     # all the suffix otx/inx columns are only used in one table
     assert table_sorting_priority[0] == kw.world_name
     assert table_sorting_priority[1] == kw.idea_number
     assert table_sorting_priority[2] == kw.source_dimen
-    assert table_sorting_priority[3] == kw.rose_spark_num
+    assert table_sorting_priority[3] == kw.translate_spark_num
     assert table_sorting_priority[4] == kw.spark_num
     assert table_sorting_priority[5] == kw.face_name
     assert table_sorting_priority[6] == f"{kw.face_name}_otx"
@@ -274,17 +274,17 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     all_args = copy_copy(atom_args)
     all_args.update(all_belief_dimen_delete_keys)
     all_args.update(moment_args)
-    all_args.update(rose_args)
+    all_args.update(translate_args)
     all_args.update(belief_calc_args)
-    all_args.update(roseable_otx_cols)
-    all_args.update(roseable_inx_cols)
-    all_args.update(roseable_delete_otx_cols)
-    all_args.update(roseable_delete_inx_cols)
+    all_args.update(translateable_otx_cols)
+    all_args.update(translateable_inx_cols)
+    all_args.update(translateable_delete_otx_cols)
+    all_args.update(translateable_delete_inx_cols)
     all_args.add(kw.idea_number)
     all_args.add(kw.spark_num)
     all_args.add(kw.face_name)
     all_args.add(kw.source_dimen)
-    all_args.add(kw.rose_spark_num)
+    all_args.add(kw.translate_spark_num)
     all_args.add(kw.error_message)
     all_args.add(kw.world_name)
     all_args.add(kw.bnet_funds)  # kpi columns
@@ -311,7 +311,7 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert set(sqlite_types.keys()) == set(get_idea_elements_sort_order())
     assert sqlite_types.get(kw.idea_number) == "TEXT"
     assert sqlite_types.get(kw.face_name) == "TEXT"
-    assert sqlite_types.get(kw.rose_spark_num) == "INTEGER"
+    assert sqlite_types.get(kw.translate_spark_num) == "INTEGER"
     assert sqlite_types.get(kw.spark_num) == "INTEGER"
     assert sqlite_types.get(kw.moment_label) == "TEXT"
     assert sqlite_types.get(kw.belief_name) == "TEXT"
@@ -432,27 +432,27 @@ def test_get_idea_config_dict_ReturnsObj_IsFullyPopulated():
     assert kw.belief_plan_reasonunit in idea_config_dimens
     assert kw.belief_planunit in idea_config_dimens
     assert kw.beliefunit in idea_config_dimens
-    assert kw.rose_epoch in idea_config_dimens
-    assert kw.rose_name in idea_config_dimens
-    assert kw.rose_title in idea_config_dimens
-    assert kw.rose_label in idea_config_dimens
-    assert kw.rose_rope in idea_config_dimens
+    assert kw.translate_epoch in idea_config_dimens
+    assert kw.translate_name in idea_config_dimens
+    assert kw.translate_title in idea_config_dimens
+    assert kw.translate_label in idea_config_dimens
+    assert kw.translate_rope in idea_config_dimens
     assert get_belief_dimens().issubset(idea_config_dimens)
     assert get_moment_dimens().issubset(idea_config_dimens)
-    assert get_rose_dimens().issubset(idea_config_dimens)
+    assert get_translate_dimens().issubset(idea_config_dimens)
     assert len(x_idea_config) == 22
     _validate_idea_config(x_idea_config)
 
 
 def get_idea_categorys():
-    return {kw.belief, kw.moment, kw.rose}
+    return {kw.belief, kw.moment, kw.translate}
 
 
 def _validate_idea_config(x_idea_config: dict):
     # sourcery skip: low-code-quality
     atom_config_dict = get_atom_config_dict()
     moment_config_dict = get_moment_config_dict()
-    rose_config_dict = get_rose_config_dict()
+    translate_config_dict = get_translate_config_dict()
     # for every idea_format file there exists a unique idea_number with leading zeros to make 5 digits
     for idea_dimen, idea_dict in x_idea_config.items():
         # print(f"{idea_dimen=}")
@@ -468,8 +468,8 @@ def _validate_idea_config(x_idea_config: dict):
             sub_dimen = atom_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.moment:
             sub_dimen = moment_config_dict.get(idea_dimen)
-        elif idea_dict.get(kw.idea_category) == kw.rose:
-            sub_dimen = rose_config_dict.get(idea_dimen)
+        elif idea_dict.get(kw.idea_category) == kw.translate:
+            sub_dimen = translate_config_dict.get(idea_dimen)
 
         assert idea_dict.get(kw.allowed_crud) in get_allowed_curds()
 
@@ -486,11 +486,11 @@ def _validate_idea_config(x_idea_config: dict):
             kw.moment_epoch_weekday,
             kw.momentunit,
             "map_otx2inx",
-            kw.rose_epoch,
-            kw.rose_title,
-            kw.rose_name,
-            kw.rose_label,
-            kw.rose_rope,
+            kw.translate_epoch,
+            kw.translate_title,
+            kw.translate_name,
+            kw.translate_label,
+            kw.translate_rope,
         }:
             assert idea_allowed_crud == kw.insert_one_time
         elif idea_dimen in {kw.moment_budunit, kw.moment_paybook, kw.moment_timeoffi}:
@@ -518,7 +518,7 @@ def _validate_idea_config(x_idea_config: dict):
         # print(f"  {idea_jkeys_keys=}")
         assert kw.face_name in idea_jkeys_keys
         assert kw.spark_num in idea_jkeys_keys
-        if idea_dict.get(kw.idea_category) != kw.rose:
+        if idea_dict.get(kw.idea_category) != kw.translate:
             assert kw.moment_label in idea_jkeys_keys
         if idea_dict.get(kw.idea_category) == kw.belief:
             idea_jkeys_keys.remove(kw.moment_label)
@@ -593,7 +593,7 @@ def _validate_idea_format_files(idea_filenames: set[str]):
     valid_idea_dimens = set()
     valid_idea_dimens.update(get_belief_dimens())
     valid_idea_dimens.update(get_moment_dimens())
-    valid_idea_dimens.update(get_rose_dimens())
+    valid_idea_dimens.update(get_translate_dimens())
     print("get_idea_config_dict")
     config_dict = get_idea_config_dict()
 
@@ -703,10 +703,10 @@ def set_idea_config_json(dimen: str, build_order: int):
 def test_get_idea_config_dict_ReturnsObj_build_order():
     # ESTABLISH / WHEN
     bo = kw.build_order
-    # set_idea_config_json(kw.rose_name, 0)
-    # set_idea_config_json(kw.rose_title, 1)
-    # set_idea_config_json(kw.rose_label, 2)
-    # set_idea_config_json(kw.rose_rope, 3)
+    # set_idea_config_json(kw.translate_name, 0)
+    # set_idea_config_json(kw.translate_title, 1)
+    # set_idea_config_json(kw.translate_label, 2)
+    # set_idea_config_json(kw.translate_rope, 3)
     # set_idea_config_json(kw.momentunit, 5)
     # set_idea_config_json(kw.moment_epoch_hour, 6)
     # set_idea_config_json(kw.moment_epoch_month, 7)
@@ -727,11 +727,11 @@ def test_get_idea_config_dict_ReturnsObj_build_order():
     x_idea_config = get_idea_config_dict()
 
     # THEN
-    assert x_idea_config.get(kw.rose_name).get(bo) == 0
-    assert x_idea_config.get(kw.rose_title).get(bo) == 1
-    assert x_idea_config.get(kw.rose_label).get(bo) == 2
-    assert x_idea_config.get(kw.rose_rope).get(bo) == 3
-    assert x_idea_config.get(kw.rose_epoch).get(bo) == 4
+    assert x_idea_config.get(kw.translate_name).get(bo) == 0
+    assert x_idea_config.get(kw.translate_title).get(bo) == 1
+    assert x_idea_config.get(kw.translate_label).get(bo) == 2
+    assert x_idea_config.get(kw.translate_rope).get(bo) == 3
+    assert x_idea_config.get(kw.translate_epoch).get(bo) == 4
     assert x_idea_config.get(kw.momentunit).get(bo) == 5
     assert x_idea_config.get(kw.moment_epoch_hour).get(bo) == 6
     assert x_idea_config.get(kw.moment_epoch_month).get(bo) == 7

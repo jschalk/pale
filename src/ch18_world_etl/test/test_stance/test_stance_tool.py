@@ -89,10 +89,10 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_BeliefUnits(
     assert gen_stance_csv_strs == expected_stance_csv_strs
 
 
-def test_collect_stance_csv_strs_ReturnsObj_Scenario2_RoseRowsInDB(
+def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
     temp_dir_setup,
 ):
-    # ESTABLISH database with rose data
+    # ESTABLISH database with translate data
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -111,7 +111,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_RoseRowsInDB(
     with sqlite3_connect(world_db_path) as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        trlname_dimen = kw.rose_name
+        trlname_dimen = kw.translate_name
         trlname_s_vld_tablename = prime_tbl(trlname_dimen, "s", "vld")
         print(f"{trlname_s_vld_tablename=}")
         insert_trlname_sqlstr = f"""INSERT INTO {trlname_s_vld_tablename}
@@ -190,10 +190,10 @@ def test_create_stance0001_file_CreatesFile_Scenario0_NoMomentUnits(
     assert set(bob_stance0001_sheetnames) == set(stance_csv_strs.keys())
 
 
-def test_create_stance0001_file_CreatesFile_Scenario1_RoseRowsInDB(
+def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
     temp_dir_setup,
 ):
-    # ESTABLISH database with rose data
+    # ESTABLISH database with translate data
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -212,7 +212,7 @@ def test_create_stance0001_file_CreatesFile_Scenario1_RoseRowsInDB(
     with sqlite3_connect(world_db_path) as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        trlname_dimen = kw.rose_name
+        trlname_dimen = kw.translate_name
         trlname_s_vld_tablename = prime_tbl(trlname_dimen, "s", "vld")
         print(f"{trlname_s_vld_tablename=}")
         insert_trlname_sqlstr = f"""INSERT INTO {trlname_s_vld_tablename}
