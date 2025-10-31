@@ -7,8 +7,8 @@ from src.ch98_docs_builder.doc_builder import (
 )
 from src.linter.style import (
     check_all_test_functions_are_formatted,
-    check_if_test_HasDocString_pytests_exist,
-    check_if_test_ReturnsObj_pytests_exist,
+    check_path_funcs_HasDocString_TestsExist,
+    check_path_funcs_ReturnsObj_TestsExist,
     find_incorrect_imports,
     get_docstring,
     get_python_files_with_flag,
@@ -114,11 +114,7 @@ def test_Chapters_path_FunctionStructureAndFormat():
                 get_top_level_functions(pytest_path_func_path).keys()
             )
             # print(f"{chapter_desc} {test_path_func_names=}")
-            check_if_test_ReturnsObj_pytests_exist(
-                path_funcs, chapter_desc, test_path_func_names
-            )
-            check_if_test_HasDocString_pytests_exist(
-                path_funcs, chapter_desc, test_path_func_names
-            )
+            check_path_funcs_ReturnsObj_TestsExist(path_funcs, test_path_func_names)
+            check_path_funcs_HasDocString_TestsExist(path_funcs, test_path_func_names)
 
     check_all_test_functions_are_formatted(all_test_functions)

@@ -358,8 +358,8 @@ def get_docstring(file_path: str, function_name: str) -> str:
     )
 
 
-def check_if_test_ReturnsObj_pytests_exist(
-    path_funcs: set, chapter_desc: str, test_path_func_names: set[str]
+def check_path_funcs_ReturnsObj_TestsExist(
+    path_funcs: set, test_path_func_names: set[str]
 ):
     for path_func in path_funcs:
         pytest_for_func_exists = False
@@ -375,8 +375,8 @@ def check_if_test_ReturnsObj_pytests_exist(
         # print(f"{chapter_desc} {test_func_exists} {path_func}")
 
 
-def check_if_test_HasDocString_pytests_exist(
-    path_funcs: set, chapter_desc: str, test_path_func_names: set[str]
+def check_path_funcs_HasDocString_TestsExist(
+    path_funcs: set, test_path_func_names: set[str]
 ):
     for path_func in path_funcs:
         pytest_for_func_exists = False
@@ -397,7 +397,6 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
     func_total_count = len(all_test_functions)
     sorted_test_functions_names = sorted(all_test_functions.keys())
 
-    # TODO reactive this section to clean up tests using Examples Enum class
     function_count = 0
     for function_name in sorted_test_functions_names:
         test_function_str = all_test_functions.get(function_name)
@@ -411,6 +410,10 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
             declare_str = f"""{key_str}_str = "{value_str}"\n"""
             fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
             assert declare_str not in test_function_str, fail2_str
+            # TODO to further clean up tests consider removing all standalone string declarations
+            # standalone_str = f""""{value_str}\""""
+            # fail3_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{standalone_str}' with Enum class reference."
+            # assert standalone_str not in test_function_str, fail3_str
         function_count += 1
 
 
