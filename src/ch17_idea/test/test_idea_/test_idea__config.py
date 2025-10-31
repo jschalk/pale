@@ -11,7 +11,7 @@ from src.ch08_belief_atom.atom_config import (
     get_atom_config_dict,
     get_belief_dimens,
 )
-from src.ch15_moment.moment_config import (
+from src.ch14_moment.moment_config import (
     get_moment_args_dimen_mapping,
     get_moment_config_dict,
     get_moment_dimens,

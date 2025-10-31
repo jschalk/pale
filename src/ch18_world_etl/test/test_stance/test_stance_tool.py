@@ -7,7 +7,7 @@ from src.ch09_belief_lesson._ref.ch09_path import (
     create_gut_path,
     create_moment_json_path,
 )
-from src.ch15_moment.moment_main import momentunit_shop
+from src.ch14_moment.moment_main import momentunit_shop
 from src.ch17_idea.idea_csv_tool import (
     add_beliefunit_to_stance_csv_strs,
     add_momentunit_to_stance_csv_strs,

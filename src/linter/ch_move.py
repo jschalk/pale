@@ -29,6 +29,7 @@ def main():
 
     # Sanity checks
     dst_chxx_dir_prefix = create_path(src_dir, dst_chxx_prefix)
+    x_prefix_dir = ""
     for prefix_dir in first_level_dirs_with_prefix(dst_chxx_dir_prefix):
         print(f"Try to delete {prefix_dir}")
         delete_if_empty_or_pycache_only(prefix_dir)
@@ -46,7 +47,7 @@ def main():
         return
 
     # change ref json
-    change_ref_json(src_dir, src_chxx_prefix, prefix_dir, dst_chxx_int)
+    change_ref_json(src_dir, src_chxx_prefix, x_prefix_dir, dst_chxx_int)
     replace_in_tracked_python_files(src_chxx_prefix, replace_text=dst_chxx_prefix)
     replace_in_tracked_python_files(src_uppercase_chxx, dst_uppercase_chxx)
     rename_files_and_dirs_4times(src_dir, src_chxx_prefix, dst_chxx_prefix)

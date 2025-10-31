@@ -2,7 +2,7 @@ from csv import DictReader as csv_DictReader
 from datetime import datetime
 from io import StringIO as io_StringIO
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch14_epoch.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
+from src.ch13_epoch.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
 from src.ch24_belief_viewer.gcalendar import (
     create_gcalendar_csv,
     create_gcalendar_events_list,

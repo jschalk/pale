@@ -3,7 +3,7 @@ from src.ch08_belief_atom.atom_config import (
     get_all_belief_dimen_delete_keys,
     get_atom_args_class_types,
 )
-from src.ch15_moment.moment_config import get_moment_args_class_types
+from src.ch14_moment.moment_config import get_moment_args_class_types
 from src.ch16_translate.map_term import (
     labelmap_shop,
     namemap_shop,

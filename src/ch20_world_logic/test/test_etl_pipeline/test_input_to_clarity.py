@@ -9,11 +9,11 @@ from src.ch09_belief_lesson._ref.ch09_path import (
     create_moment_json_path,
 )
 from src.ch09_belief_lesson.lesson_filehandler import open_gut_file
-from src.ch12_bud._ref.ch12_path import (
+from src.ch11_bud._ref.ch11_path import (
     create_spark_all_lesson_path,
     create_spark_expressed_lesson_path as expressed_path,
 )
-from src.ch15_moment._ref.ch15_path import (
+from src.ch14_moment._ref.ch14_path import (
     create_bud_voice_mandate_ledger_path as bud_mandate,
 )
 from src.ch17_idea.idea_db_tool import upsert_sheet
