@@ -639,7 +639,7 @@ def test_BeliefUnit_get_agenda_dict_DoesNotReturnPledgePlansOutsideRange():
 
 
 def test_BeliefUnit_create_agenda_plan_CreatesAllBeliefAttributes():
-    # WHEN "I am cleaning the cookery since I'm in the flat and its 8am and its dirty and its for my family"
+    # WHEN "I am cleaning the cuisine since I'm in the flat and its 8am and its dirty and its for my family"
 
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
@@ -654,10 +654,10 @@ def test_BeliefUnit_create_agenda_plan_CreatesAllBeliefAttributes():
     print(f"{sweep_plan.get_plan_rope()=}")
     house_str = "house"
     house_rope = sue_belief.make_l1_rope(house_str)
-    cookery_room_str = "cookery room"
-    cookery_room_rope = sue_belief.make_rope(house_rope, cookery_room_str)
-    cookery_dirty_str = "dirty"
-    cookery_dirty_rope = sue_belief.make_rope(cookery_room_rope, cookery_dirty_str)
+    cuisine_room_str = "cuisine room"
+    cuisine_room_rope = sue_belief.make_rope(house_rope, cuisine_room_str)
+    cuisine_dirty_str = "dirty"
+    cuisine_dirty_rope = sue_belief.make_rope(cuisine_room_rope, cuisine_dirty_str)
 
     # create gregorian epoch
     add_time_creg_planunit(sue_belief)
@@ -669,9 +669,9 @@ def test_BeliefUnit_create_agenda_plan_CreatesAllBeliefAttributes():
     reason_lower_8am = 480
     reason_upper_8am = 480
 
-    dirty_cookery_reason = reasonunit_shop(cookery_room_rope)
-    dirty_cookery_reason.set_case(case=cookery_dirty_rope)
-    sweep_plan.set_reasonunit(reason=dirty_cookery_reason)
+    dirty_cuisine_reason = reasonunit_shop(cuisine_room_rope)
+    dirty_cuisine_reason.set_case(case=cuisine_dirty_rope)
+    sweep_plan.set_reasonunit(reason=dirty_cuisine_reason)
 
     daytime_reason = reasonunit_shop(daytime_rope)
     daytime_reason.set_case(
@@ -703,8 +703,8 @@ def test_BeliefUnit_create_agenda_plan_CreatesAllBeliefAttributes():
     assert sue_belief.get_plan_obj(sweep_rope).pledge
     assert len(sue_belief.get_plan_obj(sweep_rope).reasonunits) == 2
     assert sue_belief.get_plan_obj(clean_rope) is not None
-    assert sue_belief.get_plan_obj(cookery_room_rope) is not None
-    assert sue_belief.get_plan_obj(cookery_dirty_rope) is not None
+    assert sue_belief.get_plan_obj(cuisine_room_rope) is not None
+    assert sue_belief.get_plan_obj(cuisine_dirty_rope) is not None
     assert len(sue_belief.get_voiceunit_group_titles_dict()) == 0
     assert sue_belief.get_voiceunit_group_titles_dict().get(family_str) is None
 

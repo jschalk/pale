@@ -153,24 +153,24 @@ def test_BeliefUnit_set_plan_CreatesPlanUnitsUsedBy_reasonunits():
     sue_belief = get_beliefunit_with_4_levels()
     casa_rope = sue_belief.make_l1_rope("casa")
     cleaning_rope = sue_belief.make_rope(casa_rope, "cleaning")
-    clean_cookery_str = "clean_cookery"
-    clean_cookery_plan = planunit_shop(clean_cookery_str, star=40, pledge=True)
+    clean_cuisine_str = "clean_cuisine"
+    clean_cuisine_plan = planunit_shop(clean_cuisine_str, star=40, pledge=True)
 
     buildings_str = "buildings"
     buildings_rope = sue_belief.make_l1_rope(buildings_str)
-    cookery_room_str = "cookery"
-    cookery_room_rope = sue_belief.make_rope(buildings_rope, cookery_room_str)
-    cookery_dirty_str = "dirty"
-    cookery_dirty_rope = sue_belief.make_rope(cookery_room_rope, cookery_dirty_str)
-    cookery_reasonunit = reasonunit_shop(reason_context=cookery_room_rope)
-    cookery_reasonunit.set_case(case=cookery_dirty_rope)
-    clean_cookery_plan.set_reasonunit(cookery_reasonunit)
+    cuisine_room_str = "cuisine"
+    cuisine_room_rope = sue_belief.make_rope(buildings_rope, cuisine_room_str)
+    cuisine_dirty_str = "dirty"
+    cuisine_dirty_rope = sue_belief.make_rope(cuisine_room_rope, cuisine_dirty_str)
+    cuisine_reasonunit = reasonunit_shop(reason_context=cuisine_room_rope)
+    cuisine_reasonunit.set_case(case=cuisine_dirty_rope)
+    clean_cuisine_plan.set_reasonunit(cuisine_reasonunit)
 
     assert sue_belief.plan_exists(buildings_rope) is False
 
     # WHEN
     sue_belief.set_plan_obj(
-        clean_cookery_plan, cleaning_rope, create_missing_plans=True
+        clean_cuisine_plan, cleaning_rope, create_missing_plans=True
     )
 
     # THEN

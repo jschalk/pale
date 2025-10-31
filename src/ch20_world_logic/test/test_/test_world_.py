@@ -16,7 +16,7 @@ from src.ref.keywords import ExampleStrs as exx
 def test_WorldName_Exists():
     # ESTABLISH / WHEN / THEN
     assert WorldName() == ""
-    assert WorldName("cookie") == "cookie"
+    assert WorldName("cuisine") == "cuisine"
 
 
 def test_WorldUnit_Exists():

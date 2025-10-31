@@ -6,6 +6,7 @@ class ExampleStrs(str, Enum):
     bob = "Bob"
     casa = "casa"
     clean = "clean"
+    cuisine = "cuisine"
     dirtyness = "dirtyness"
     mop = "mop"
     run = ";runners"

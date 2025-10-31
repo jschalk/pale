@@ -1717,7 +1717,7 @@
                     "star": 1, 
                     "uid": 192
                   }, 
-                  "cookery": {"plan_label": "cookery", "star": 1, "uid": 189}, 
+                  "cuisine": {"plan_label": "cuisine", "star": 1, "uid": 189}, 
                   "dining area": {"plan_label": "dining area", "star": 1, "uid": 190}, 
                   "maintenance": {"plan_label": "maintenance", "star": 1, "uid": 187}, 
                   "nursery": {"plan_label": "nursery", "star": 1, "uid": 188}
@@ -2262,8 +2262,8 @@
                 "star": 1, 
                 "uid": 27
               }, 
-              "morning cookery clean-up": {
-                "plan_label": "morning cookery clean-up", 
+              "morning cuisine clean-up": {
+                "plan_label": "morning cuisine clean-up", 
                 "reasonunits": {
                   ";amy45;Nation-States;": {
                     "cases": {
@@ -2630,11 +2630,11 @@
                 "star": 1, 
                 "uid": 77
               }, 
-              "cook veggies every morning": {
+              "veggies every morning": {
                 "awardunits": {
                   ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1.0}
                 }, 
-                "plan_label": "cook veggies every morning", 
+                "plan_label": "veggies every morning", 
                 "pledge": true, 
                 "reasonunits": {
                   ";amy45;jour_minute;": {

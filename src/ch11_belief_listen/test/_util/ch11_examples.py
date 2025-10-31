@@ -13,10 +13,6 @@ def ch11_example_moment_label() -> str:
     return "Buzz"
 
 
-def cook_str() -> str:
-    return "cook"
-
-
 def eat_str() -> str:
     return "eat"
 
@@ -37,8 +33,8 @@ def a23_casa_rope() -> RopeTerm:
     return create_rope("Amy23", exx.casa)
 
 
-def a23_cook_rope() -> RopeTerm:
-    return create_rope(a23_casa_rope(), cook_str())
+def a23_cuisine_rope() -> RopeTerm:
+    return create_rope(a23_casa_rope(), exx.cuisine)
 
 
 def a23_eat_rope() -> RopeTerm:
@@ -63,14 +59,14 @@ def a23_run_rope() -> RopeTerm:
 
 def get_example_zia_speaker() -> BeliefUnit:
     zia_speaker = beliefunit_shop(exx.zia, exx.a23)
-    zia_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
+    zia_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     zia_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
     zia_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
-    cook_planunit = zia_speaker.get_plan_obj(a23_cook_rope())
-    cook_planunit.laborunit.add_party(exx.yao)
+    cuisine_planunit = zia_speaker.get_plan_obj(a23_cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
     zia_speaker.edit_plan_attr(
-        a23_cook_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
+        a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     zia_speaker.add_fact(a23_eat_rope(), a23_full_rope())
     zia_speaker.set_voice_respect(100)
@@ -79,14 +75,14 @@ def get_example_zia_speaker() -> BeliefUnit:
 
 def get_example_bob_speaker() -> BeliefUnit:
     bob_speaker = beliefunit_shop(exx.bob, exx.a23)
-    bob_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
+    bob_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     bob_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     bob_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
     bob_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
-    cook_planunit = bob_speaker.get_plan_obj(a23_cook_rope())
-    cook_planunit.laborunit.add_party(exx.yao)
+    cuisine_planunit = bob_speaker.get_plan_obj(a23_cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
     bob_speaker.edit_plan_attr(
-        a23_cook_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
+        a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     bob_speaker.add_fact(a23_eat_rope(), a23_hungry_rope())
     bob_speaker.set_voice_respect(100)
@@ -99,13 +95,13 @@ def get_example_yao_speaker() -> BeliefUnit:
     yao_speaker.add_voiceunit(exx.zia, voice_debt_lumen=36)
     yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=48)
     yao_speaker.set_voice_respect(100)
-    yao_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), a23_casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
     yao_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
-    cook_planunit = yao_speaker.get_plan_obj(a23_cook_rope())
-    cook_planunit.laborunit.add_party(exx.yao)
+    cuisine_planunit = yao_speaker.get_plan_obj(a23_cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
     yao_speaker.edit_plan_attr(
-        a23_cook_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
+        a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     yao_speaker.add_fact(a23_eat_rope(), a23_hungry_rope())
     return yao_speaker

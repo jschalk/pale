@@ -115,18 +115,17 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
 
     zia_beliefunit = beliefunit_shop(exx.zia)
     zia_beliefunit.add_voiceunit(exx.yao)
-    cook_str = "cook"
     fly_str = "fly"
     yao_clean_planunit = planunit_shop(exx.clean, pledge=True)
     yao_clean_planunit.laborunit.add_party(exx.yao)
-    yao_cook_planunit = planunit_shop(cook_str, pledge=True)
-    yao_cook_planunit.laborunit.add_party(exx.yao)
+    yao_cuisine_planunit = planunit_shop(exx.cuisine, pledge=True)
+    yao_cuisine_planunit.laborunit.add_party(exx.yao)
     yao_fly_planunit = planunit_shop(fly_str, pledge=True)
     yao_fly_planunit.laborunit.add_party(exx.yao)
     casa_rope = zia_beliefunit.make_l1_rope("casa")
     fly_rope = zia_beliefunit.make_l1_rope(fly_str)
     zia_beliefunit.set_plan_obj(yao_clean_planunit, casa_rope)
-    zia_beliefunit.set_plan_obj(yao_cook_planunit, casa_rope)
+    zia_beliefunit.set_plan_obj(yao_cuisine_planunit, casa_rope)
     zia_beliefunit.set_l1_plan(yao_fly_planunit)
     assert len(zia_beliefunit.get_agenda_dict()) == 0
     zia_yao_beliefunit = copy_deepcopy(zia_beliefunit)
@@ -140,17 +139,17 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBelief():
 
     # THEN
     clean_rope = zia_beliefunit.make_rope(casa_rope, exx.clean)
-    cook_rope = zia_beliefunit.make_rope(casa_rope, cook_str)
-    after_cook_planunit = after_yao_beliefunit.get_plan_obj(cook_rope)
+    cuisine_rope = zia_beliefunit.make_rope(casa_rope, exx.cuisine)
+    after_cuisine_planunit = after_yao_beliefunit.get_plan_obj(cuisine_rope)
     after_clean_planunit = after_yao_beliefunit.get_plan_obj(clean_rope)
     after_casa_planunit = after_yao_beliefunit.get_plan_obj(casa_rope)
     after_fly_planunit = after_yao_beliefunit.get_plan_obj(fly_rope)
     print(f"{after_clean_planunit.star=}")
     assert after_clean_planunit.star != yao_clean_planunit.star
     assert after_clean_planunit.star == 19
-    print(f"{after_cook_planunit.star=}")
-    assert after_cook_planunit.star != yao_cook_planunit.star
-    assert after_cook_planunit.star == 18
+    print(f"{after_cuisine_planunit.star=}")
+    assert after_cuisine_planunit.star != yao_cuisine_planunit.star
+    assert after_cuisine_planunit.star == 18
     print(f"{after_casa_planunit.star=}")
     assert after_casa_planunit.star != 1
     assert after_casa_planunit.star == 37
@@ -169,12 +168,11 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBeliefWhereAnPlan
     zia_beliefunit = beliefunit_shop(exx.zia)
     zia_beliefunit.add_voiceunit(exx.yao)
     dish_str = "dish"
-    cook_str = "cook"
     fly_str = "fly"
     yao_dish_planunit = planunit_shop(dish_str, pledge=True)
     yao_dish_planunit.laborunit.add_party(exx.yao)
-    yao_cook_planunit = planunit_shop(cook_str, pledge=True)
-    yao_cook_planunit.laborunit.add_party(exx.yao)
+    yao_cuisine_planunit = planunit_shop(exx.cuisine, pledge=True)
+    yao_cuisine_planunit.laborunit.add_party(exx.yao)
     yao_fly_planunit = planunit_shop(fly_str, pledge=True)
     yao_fly_planunit.laborunit.add_party(exx.yao)
     casa_rope = zia_beliefunit.make_l1_rope("casa")
@@ -185,7 +183,7 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBeliefWhereAnPlan
     before_yao_beliefunit.set_plan_obj(before_yao_dish_planunit, casa_rope)
     before_yao_beliefunit.edit_plan_attr(dish_rope, star=1000)
     zia_beliefunit.set_plan_obj(yao_dish_planunit, casa_rope)
-    zia_beliefunit.set_plan_obj(yao_cook_planunit, casa_rope)
+    zia_beliefunit.set_plan_obj(yao_cuisine_planunit, casa_rope)
     zia_beliefunit.set_l1_plan(yao_fly_planunit)
     assert len(zia_beliefunit.get_agenda_dict()) == 0
     zia_yao_beliefunit = copy_deepcopy(zia_beliefunit)
@@ -198,17 +196,17 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskBeliefWhereAnPlan
     )
 
     # THEN
-    cook_rope = zia_beliefunit.make_rope(casa_rope, cook_str)
-    after_cook_planunit = after_yao_beliefunit.get_plan_obj(cook_rope)
+    cuisine_rope = zia_beliefunit.make_rope(casa_rope, exx.cuisine)
+    after_cuisine_planunit = after_yao_beliefunit.get_plan_obj(cuisine_rope)
     after_dish_planunit = after_yao_beliefunit.get_plan_obj(dish_rope)
     after_casa_planunit = after_yao_beliefunit.get_plan_obj(casa_rope)
     after_fly_planunit = after_yao_beliefunit.get_plan_obj(fly_rope)
     print(f"{after_dish_planunit.star=}")
     assert after_dish_planunit.star != yao_dish_planunit.star
     assert after_dish_planunit.star == 1018
-    print(f"{after_cook_planunit.star=}")
-    assert after_cook_planunit.star != yao_cook_planunit.star
-    assert after_cook_planunit.star == 19
+    print(f"{after_cuisine_planunit.star=}")
+    assert after_cuisine_planunit.star != yao_cuisine_planunit.star
+    assert after_cuisine_planunit.star == 19
     print(f"{after_casa_planunit.star=}")
     assert after_casa_planunit.star != 1
     assert after_casa_planunit.star == 38

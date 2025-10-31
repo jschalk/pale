@@ -23,7 +23,6 @@ from src.ch11_belief_listen.test._util.ch11_env import (
 )
 from src.ch11_belief_listen.test._util.ch11_examples import (
     ch11_example_moment_label,
-    cook_str,
     eat_str,
     full_str,
     get_texas_lessonfilehandler,
@@ -50,8 +49,8 @@ def casa_rope() -> RopeTerm:
     return create_rope(ch11_example_moment_label(), exx.casa)
 
 
-def cook_rope() -> RopeTerm:
-    return create_rope(casa_rope(), cook_str())
+def cuisine_rope() -> RopeTerm:
+    return create_rope(casa_rope(), exx.cuisine)
 
 
 def eat_rope() -> RopeTerm:
@@ -100,12 +99,12 @@ def get_example_yao_vision1_speaker() -> BeliefUnit:
     yao_speaker = get_example_yao_belief()
     yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_voice_respect(40)
-    yao_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(hungry_str()), eat_rope())
     yao_speaker.set_plan_obj(planunit_shop(full_str()), eat_rope())
-    cook_planunit = yao_speaker.get_plan_obj(cook_rope())
-    cook_planunit.laborunit.add_party(exx.yao)
-    yao_speaker.edit_reason(cook_rope(), eat_rope(), hungry_rope())
+    cuisine_planunit = yao_speaker.get_plan_obj(cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
+    yao_speaker.edit_reason(cuisine_rope(), eat_rope(), hungry_rope())
     yao_speaker.add_fact(eat_rope(), hungry_rope())
     return yao_speaker
 
@@ -114,12 +113,12 @@ def get_example_yao_vision2_speaker() -> BeliefUnit:
     yao_speaker = get_example_yao_belief()
     yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_voice_respect(30)
-    yao_speaker.set_plan_obj(planunit_shop(cook_str(), pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(hungry_str()), eat_rope())
     yao_speaker.set_plan_obj(planunit_shop(full_str()), eat_rope())
-    cook_planunit = yao_speaker.get_plan_obj(cook_rope())
-    cook_planunit.laborunit.add_party(exx.yao)
-    yao_speaker.edit_reason(cook_rope(), eat_rope(), hungry_rope())
+    cuisine_planunit = yao_speaker.get_plan_obj(cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
+    yao_speaker.edit_reason(cuisine_rope(), eat_rope(), hungry_rope())
     yao_speaker.add_fact(eat_rope(), hungry_rope())
 
     yao_speaker.set_plan_obj(planunit_shop(sweep_str(), pledge=True), casa_rope())
@@ -372,7 +371,7 @@ def test_listen_to_belief_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
     assert len(yao_job._plan_dict) == 4
     print(f"{yao_job._plan_dict.keys()=}")
     print(f"{yao_job.get_planroot_factunits_dict().keys()=}")
-    assert yao_job.plan_exists(cook_rope()) is False
+    assert yao_job.plan_exists(cuisine_rope()) is False
     assert yao_job.plan_exists(clean_rope()) is False
     assert yao_job.plan_exists(run_rope()) is False
     assert yao_job.plan_exists(get_swim_rope())

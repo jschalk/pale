@@ -497,47 +497,43 @@ def test_replace_knot_ReturnsNewObj():
 
 def test_replace_knot_RaisesError():
     # ESTABLISH
-    cooker_str = "cooker/cleaner"
-    gen_cooker_rope = create_rope(root_rope(), cooker_str)
+    cleaner_str = "cuisine/cleaner"
+    gen_cleaner_rope = create_rope(root_rope(), cleaner_str)
     semicolon_knot = default_knot_if_None()
-    semicolon_knot_cooker_rope = f"{root_rope()}{cooker_str}{semicolon_knot}"
+    semicolon_knot_cleaner_rope = f"{root_rope()}{cleaner_str}{semicolon_knot}"
     assert semicolon_knot == ";"
-    assert gen_cooker_rope == semicolon_knot_cooker_rope
+    assert gen_cleaner_rope == semicolon_knot_cleaner_rope
 
     # WHEN / THEN
     slash_knot = "/"
     with pytest_raises(Exception) as excinfo:
-        gen_cooker_rope = replace_knot(
-            gen_cooker_rope,
+        gen_cleaner_rope = replace_knot(
+            gen_cleaner_rope,
             old_knot=semicolon_knot,
             new_knot=slash_knot,
         )
-    assert (
-        str(excinfo.value)
-        == f"Cannot replace_knot '{semicolon_knot}' with '{slash_knot}' because the new one exists in rope '{gen_cooker_rope}'."
-    )
+    assertion_failure_str = f"Cannot replace_knot '{semicolon_knot}' with '{slash_knot}' because the new one exists in rope '{gen_cleaner_rope}'."
+    assert str(excinfo.value) == assertion_failure_str
 
 
 def test_replace_knot_WhenNewknotIsFirstInRopeTermRaisesError():
     # ESTABLISH
-    cooker_str = "/cooker"
+    cuisine_slash_str = "/cuisine"
     cleaner_str = "cleaner"
     semicolon_knot = default_knot_if_None()
-    semicolon_knot_cooker_rope = f"{cooker_str}{semicolon_knot}{cleaner_str}"
+    semicolon_knot_cleaner_rope = f"{cuisine_slash_str}{semicolon_knot}{cleaner_str}"
     assert semicolon_knot == ";"
 
     # WHEN / THEN
     slash_knot = "/"
     with pytest_raises(Exception) as excinfo:
-        semicolon_knot_cooker_rope = replace_knot(
-            semicolon_knot_cooker_rope,
+        semicolon_knot_cleaner_rope = replace_knot(
+            semicolon_knot_cleaner_rope,
             old_knot=semicolon_knot,
             new_knot=slash_knot,
         )
-    assert (
-        str(excinfo.value)
-        == f"Cannot replace_knot '{semicolon_knot}' with '{slash_knot}' because the new one exists in rope '{semicolon_knot_cooker_rope}'."
-    )
+    assertion_failure_str = f"Cannot replace_knot '{semicolon_knot}' with '{slash_knot}' because the new one exists in rope '{semicolon_knot_cleaner_rope}'."
+    assert str(excinfo.value) == assertion_failure_str
 
 
 def test_validate_labelterm_Scenario0_RaisesErrorWhenNotLabelTerm():
@@ -551,10 +547,10 @@ def test_validate_labelterm_Scenario0_RaisesErrorWhenNotLabelTerm():
         bob_str == validate_labelterm(bob_str, x_knot=comma_str)
 
     # THEN
-    assert (
-        str(excinfo.value)
-        == f"'{bob_str}' must be a LabelTerm. Cannot contain knot: '{comma_str}'"
+    assertion_failure_str = (
+        f"'{bob_str}' must be a LabelTerm. Cannot contain knot: '{comma_str}'"
     )
+    assert str(excinfo.value) == assertion_failure_str
 
 
 def test_validate_labelterm_Scenario1_RaisesErrorWhenLabelTerm():
@@ -572,10 +568,10 @@ def test_validate_labelterm_Scenario1_RaisesErrorWhenLabelTerm():
         )
 
     # THEN
-    assert (
-        str(excinfo.value)
-        == f"'{bob_str}' must not be a LabelTerm. Must contain knot: '{comma_str}'"
+    assertion_failure_str = (
+        f"'{bob_str}' must not be a LabelTerm. Must contain knot: '{comma_str}'"
     )
+    assert str(excinfo.value) == assertion_failure_str
 
 
 def test_rope_is_valid_dir_path_ReturnsObj_Scenario0_simple_knot():
