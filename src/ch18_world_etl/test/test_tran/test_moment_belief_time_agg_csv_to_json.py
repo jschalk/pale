@@ -15,15 +15,14 @@ def test_etl_moment_ote1_agg_csvs_to_jsons_CreatesFile_Scenaro0(
     # ESTABLISH
     spark3 = 3
     spark7 = 7
-    amy23_str = "amy23"
     amy45_str = "amy45"
     epochtime55 = 55
     epochtime66 = 66
     moment_mstr_dir = get_temp_dir()
-    a23_spark_time_p = create_moment_ote1_csv_path(moment_mstr_dir, amy23_str)
+    a23_spark_time_p = create_moment_ote1_csv_path(moment_mstr_dir, exx.a23)
     a45_spark_time_p = create_moment_ote1_csv_path(moment_mstr_dir, amy45_str)
     a23_spark_time_csv = f"""{kw.moment_label},{kw.belief_name},{kw.spark_num},{kw.bud_time},{kw.error_message}
-{amy23_str},{exx.bob},{spark3},{epochtime55},
+{exx.a23},{exx.bob},{spark3},{epochtime55},
 """
     a45_spark_time_csv = f"""{kw.moment_label},{kw.belief_name},{kw.spark_num},{kw.bud_time},{kw.error_message}
 {amy45_str},{exx.sue},{spark3},{epochtime55},
@@ -33,7 +32,7 @@ def test_etl_moment_ote1_agg_csvs_to_jsons_CreatesFile_Scenaro0(
     save_file(a45_spark_time_p, None, a45_spark_time_csv)
     assert os_path_exists(a23_spark_time_p)
     assert os_path_exists(a45_spark_time_p)
-    a23_ote1_json_path = create_moment_ote1_json_path(moment_mstr_dir, amy23_str)
+    a23_ote1_json_path = create_moment_ote1_json_path(moment_mstr_dir, exx.a23)
     a45_ote1_json_path = create_moment_ote1_json_path(moment_mstr_dir, amy45_str)
     assert os_path_exists(a23_ote1_json_path) is False
     assert os_path_exists(a45_ote1_json_path) is False

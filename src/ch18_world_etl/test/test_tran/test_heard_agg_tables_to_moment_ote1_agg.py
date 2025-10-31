@@ -12,7 +12,6 @@ def test_etl_heard_raw_tables_to_moment_ote1_agg_SetsTableAttr():
     # ESTABLISH
     spark3 = 3
     spark7 = 7
-    amy23_str = "amy23"
     amy45_str = "amy45"
     amy55_str = "amy55"
     epochtime55 = 55
@@ -25,8 +24,8 @@ def test_etl_heard_raw_tables_to_moment_ote1_agg_SetsTableAttr():
         insert_raw_sqlstr = f"""
 INSERT INTO {momentbud_h_raw_table} ({kw.spark_num}, {kw.moment_label}_inx, {kw.belief_name}_inx, {kw.bud_time}_inx)
 VALUES
-  ({spark3}, '{amy23_str}', '{exx.bob}', {epochtime55})
-, ({spark3}, '{amy23_str}', '{exx.bob}', {epochtime55})
+  ({spark3}, '{exx.a23}', '{exx.bob}', {epochtime55})
+, ({spark3}, '{exx.a23}', '{exx.bob}', {epochtime55})
 , ({spark3}, '{amy45_str}', '{exx.sue}', {epochtime55})
 , ({spark7}, '{amy45_str}', '{exx.sue}', {epochtime66})
 ;
@@ -43,7 +42,7 @@ VALUES
         assert get_row_count(cursor, kw.moment_ote1_agg) == 3
         cursor.execute(f"SELECT * FROM {kw.moment_ote1_agg};")
         momentunit_agg_rows = cursor.fetchall()
-        ex_row0 = (amy23_str, exx.bob, spark3, epochtime55, None)
+        ex_row0 = (exx.a23, exx.bob, spark3, epochtime55, None)
         ex_row1 = (amy45_str, exx.sue, spark3, epochtime55, None)
         ex_row2 = (amy45_str, exx.sue, spark7, epochtime66, None)
         print(f"{momentunit_agg_rows[0]=}")

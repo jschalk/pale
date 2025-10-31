@@ -24,8 +24,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_listen_to_facts_duty_vision_SetsSingleFactUnit_v1(temp_dir_setup):
     # ESTABLISH
-    a23_str = "amy23"
-    yao_duty = beliefunit_shop(exx.yao, a23_str)
+    yao_duty = beliefunit_shop(exx.yao, exx.a23)
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_pool = 87
@@ -74,8 +73,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
     temp_dir_setup,
 ):
     # ESTABLISH
-    a23_str = "amy23"
-    yao_duty = beliefunit_shop(exx.yao, a23_str)
+    yao_duty = beliefunit_shop(exx.yao, exx.a23)
     yao_voice_cred_lumen = 47
     yao_voice_debt_lumen = 41
     yao_pool = 87

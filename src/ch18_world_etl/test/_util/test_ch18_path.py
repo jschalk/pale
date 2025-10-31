@@ -139,14 +139,13 @@ def test_create_stance0001_path_HasDocString():
 def test_create_moment_ote1_csv_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # WHEN
-    gen_a23_te_csv_path = create_moment_ote1_csv_path(x_moment_mstr_dir, a23_str)
+    gen_a23_te_csv_path = create_moment_ote1_csv_path(x_moment_mstr_dir, exx.a23)
 
     # THEN
     moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_path = create_path(moments_dir, a23_str)
+    a23_path = create_path(moments_dir, exx.a23)
     expected_a23_te_path = create_path(a23_path, MOMENT_OTE1_AGG_CSV_FILENAME)
     assert gen_a23_te_csv_path == expected_a23_te_path
 
@@ -154,14 +153,13 @@ def test_create_moment_ote1_csv_path_ReturnsObj():
 def test_create_moment_ote1_json_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # WHEN
-    gen_a23_te_csv_path = create_moment_ote1_json_path(x_moment_mstr_dir, a23_str)
+    gen_a23_te_csv_path = create_moment_ote1_json_path(x_moment_mstr_dir, exx.a23)
 
     # THEN
     moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_path = create_path(moments_dir, a23_str)
+    a23_path = create_path(moments_dir, exx.a23)
     expected_a23_te_path = create_path(a23_path, MOMENT_OTE1_AGG_JSON_FILENAME)
     assert gen_a23_te_csv_path == expected_a23_te_path
 
@@ -169,7 +167,6 @@ def test_create_moment_ote1_json_path_ReturnsObj():
 def test_create_world_db_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # WHEN
     gen_world_db_path = create_world_db_path(x_moment_mstr_dir)

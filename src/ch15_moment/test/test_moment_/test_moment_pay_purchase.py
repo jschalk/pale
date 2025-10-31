@@ -7,7 +7,7 @@ from src.ref.keywords import ExampleStrs as exx
 def test_MomentUnit_set_paypurchase_SetsAttr():
     # ESTABLISH
     t6606_offi_time_max = 6606
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
     t55_t = 5505
     t55_amount = 37
@@ -24,7 +24,7 @@ def test_MomentUnit_set_paypurchase_SetsAttr():
 def test_MomentUnit_add_paypurchase_SetsAttr():
     # ESTABLISH
     t6606_offi_time_max = 6606
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
     t55_t = 5505
     t55_amount = 37
@@ -40,7 +40,7 @@ def test_MomentUnit_add_paypurchase_SetsAttr():
 def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterThanOrEqual_offi_time_max():
     # ESTABLISH
     t6606_offi_time_max = 6606
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
     t55_t = 5505
     t55_amount = 37
@@ -75,7 +75,7 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterTh
 
 def test_MomentUnit_set_paypurchase_RaisesErrorWhenBudUnitHas_tran_time():
     # ESTABLISH
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = 0
     x_moment.offi_time_max = 0
     t55_t = 5505
@@ -95,7 +95,7 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhenBudUnitHas_tran_time():
 
 def test_MomentUnit_paypurchase_exists_ReturnsObj():
     # ESTABLISH
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = 6606
     t55_t = 5505
     assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t) is False
@@ -110,7 +110,7 @@ def test_MomentUnit_paypurchase_exists_ReturnsObj():
 
 def test_MomentUnit_get_paypurchase_ReturnsObj():
     # ESTABLISH
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = 6606
     t55_t = 5505
     t55_amount = 37
@@ -128,7 +128,7 @@ def test_MomentUnit_get_paypurchase_ReturnsObj():
 
 def test_MomentUnit_del_paypurchase_SetsAttr():
     # ESTABLISH
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = 6606
     t55_t = 5505
     t55_amount = 37
@@ -145,7 +145,7 @@ def test_MomentUnit_del_paypurchase_SetsAttr():
 def test_MomentUnit_set_offi_time_max_SetsAttr():
     # ESTABLISH
     t6606_offi_time_max = 6606
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
     t22_t = 2202
     t22_amount = 27
@@ -163,7 +163,7 @@ def test_MomentUnit_set_offi_time_max_SetsAttr():
 def test_MomentUnit_set_offi_time_max_RaisesErrorWhen_paypurchase_ExistsWithGreatertran_time():
     # ESTABLISH
     t6606_offi_time_max = 6606
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = t6606_offi_time_max
     t55_t = 5505
     t55_amount = 37
@@ -183,7 +183,7 @@ def test_MomentUnit_set_offi_time_max_RaisesErrorWhen_paypurchase_ExistsWithGrea
 
 def test_MomentUnit_set_all_tranbook_SetsAttr():
     # ESTABLISH
-    x_moment = momentunit_shop("amy23", None)
+    x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = 10101
     t55_t = 5505
     t66_t = 6606

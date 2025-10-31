@@ -51,9 +51,8 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoBeliefU
     # ESTABLISH
     world_dir = get_temp_dir()
     moment_mstr_dir = create_moment_mstr_path(world_dir)
-    a23_str = "amy23"
-    a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     save_json(moment_json_path, None, a23_moment.to_dict())
 
     # WHEN
@@ -71,14 +70,13 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_BeliefUnits(
     # ESTABLISH
     world_dir = get_temp_dir()
     moment_mstr_dir = create_moment_mstr_path(world_dir)
-    a23_str = "amy23"
-    a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     save_json(moment_json_path, None, a23_moment.to_dict())
     # create belief gut file
-    bob_gut = beliefunit_shop(exx.bob, a23_str)
+    bob_gut = beliefunit_shop(exx.bob, exx.a23)
     bob_gut.add_voiceunit("Yao", 44, 55)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_str, exx.bob)
+    a23_bob_gut_path = create_gut_path(moment_mstr_dir, exx.a23, exx.bob)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
 
     # WHEN

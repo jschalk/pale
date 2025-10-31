@@ -10,7 +10,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     a23_epoch_label = "epoch88"
     a23_c400_number = 3
     a23_yr1_jan1_offset = 7
@@ -36,7 +35,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scen
 , knot
 )
 VALUES (
-  '{a23_str}'
+  '{exx.a23}'
 , '{a23_epoch_label}'
 , {a23_c400_number}
 , {a23_yr1_jan1_offset}
@@ -50,11 +49,11 @@ VALUES (
         cursor.execute(momentunit_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     assert a23_dict
-    assert a23_dict.get(kw.moment_label) == a23_str
+    assert a23_dict.get(kw.moment_label) == exx.a23
     print(f"{a23_dict=}")
     a23_epoch_dict = a23_dict.get("epoch")
     assert a23_epoch_dict.get("epoch_label") == a23_epoch_label
@@ -70,20 +69,19 @@ VALUES (
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scenario1():
     # sourcery skip: extract-method, inline-immediately-returned-variable
     # ESTABLISH
-    a23_str = "amy23"
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     assert a23_dict
-    assert a23_dict.get(kw.moment_label) == a23_str
+    assert a23_dict.get(kw.moment_label) == exx.a23
     assert "epoch" in set(a23_dict.keys())
     assert a23_dict.get(kw.fund_grain) is None
     assert a23_dict.get(kw.mana_grain) is None
@@ -101,7 +99,6 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scen
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenario0():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    a23_str = "amy23"
     tp55 = 55
     bob_sue_tp55_amount = 444
     with sqlite3_connect(":memory:") as conn:
@@ -109,21 +106,21 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         momentpay_h_agg_tablename = create_prime_tablename("blfpayy", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
-VALUES ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
+VALUES ('{exx.a23}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     a23_paybook_dict = a23_dict.get("paybook")
     assert a23_paybook_dict
-    assert a23_paybook_dict.get(kw.moment_label) == a23_str
+    assert a23_paybook_dict.get(kw.moment_label) == exx.a23
     a23_tranunits_dict = a23_paybook_dict.get("tranunits")
     assert a23_tranunits_dict
     a23_trans_bob_dict = a23_tranunits_dict.get(exx.bob)
@@ -135,7 +132,6 @@ VALUES ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenario1():
     # ESTABLISH
-    a23_str = "amy23"
     a45_str = "amy45"
     tp55 = 55
     a23_bob_sue_tp55_amount = 444
@@ -145,23 +141,23 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfpayy_Attrs_Scenari
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         momentpay_h_agg_tablename = create_prime_tablename("blfpayy", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
 VALUES
-  ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {a23_bob_sue_tp55_amount})
+  ('{exx.a23}', '{exx.bob}', '{exx.sue}', {tp55}, {a23_bob_sue_tp55_amount})
 , ('{a45_str}', '{exx.bob}', '{exx.sue}', {tp55}, {a45_bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     a23_paybook_dict = a23_dict.get("paybook")
     assert a23_paybook_dict
-    assert a23_paybook_dict.get(kw.moment_label) == a23_str
+    assert a23_paybook_dict.get(kw.moment_label) == exx.a23
     a23_tranunits_dict = a23_paybook_dict.get("tranunits")
     assert a23_tranunits_dict
     a23_trans_bob_dict = a23_tranunits_dict.get(exx.bob)
@@ -173,7 +169,6 @@ VALUES
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentbud_Attrs_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     tp55 = 55
     bob_tp55_quota = 444
     bob_tp55_celldepth = 3
@@ -182,16 +177,16 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentbud_Attrs_Scena
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         momentbud_h_agg_tablename = create_prime_tablename("blfbudd", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_agg_tablename} (moment_label, belief_name, bud_time, quota, celldepth)
-VALUES ('{a23_str}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
+VALUES ('{exx.a23}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     a23_beliefbudhistory_dict = a23_dict.get("beliefbudhistorys")
@@ -216,7 +211,6 @@ VALUES ('{a23_str}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth}
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfhour_Attrs_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     hour3_min = 300
     hour4_min = 400
     hour3_label = "3xm"
@@ -226,18 +220,18 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfhour_Attrs_Scenari
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfhour_h_agg_tablename = create_prime_tablename("blfhour", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfhour_h_agg_tablename} (moment_label, cumulative_minute, hour_label)
 VALUES
-  ('{a23_str}', {hour3_min}, '{hour3_label}')
-, ('{a23_str}', {hour4_min}, '{hour4_label}')
+  ('{exx.a23}', {hour3_min}, '{hour3_label}')
+, ('{exx.a23}', {hour4_min}, '{hour4_label}')
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     a23_epoch_dict = a23_dict.get("epoch")
@@ -250,7 +244,6 @@ VALUES
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfmont_Attrs_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     day111_min = 111
     day222_min = 222
     month111_label = "jan111"
@@ -260,18 +253,18 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfmont_Attrs_Scenari
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfmont_h_agg_tablename = create_prime_tablename("blfmont", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfmont_h_agg_tablename} (moment_label, cumulative_day, month_label)
 VALUES
-  ('{a23_str}', {day111_min}, '{month111_label}')
-, ('{a23_str}', {day222_min}, '{month222_label}')
+  ('{exx.a23}', {day111_min}, '{month111_label}')
+, ('{exx.a23}', {day222_min}, '{month222_label}')
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     a23_epoch_dict = a23_dict.get("epoch")
@@ -285,7 +278,6 @@ VALUES
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfweek_Attrs_Scenario0():
     # ESTABLISH
-    a23_str = "amy23"
     ana_order = 1
     bee_order = 2
     ana_label = "ana_weekday"
@@ -295,18 +287,18 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfweek_Attrs_Scenari
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfweek_h_agg_tablename = create_prime_tablename("blfweek", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfweek_h_agg_tablename} (moment_label, weekday_order, weekday_label)
 VALUES
-  ('{a23_str}', {ana_order}, '{ana_label}')
-, ('{a23_str}', {bee_order}, '{bee_label}')
+  ('{exx.a23}', {ana_order}, '{ana_label}')
+, ('{exx.a23}', {bee_order}, '{bee_label}')
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     a23_epoch_dict = a23_dict.get("epoch")
@@ -318,7 +310,6 @@ VALUES
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfoffi_Attrs_Scenario0():
     # sourcery skip: extract-method
     # ESTABLISH
-    a23_str = "amy23"
     offi_time5 = 5
     offi_time7 = 7
     with sqlite3_connect(":memory:") as conn:
@@ -326,18 +317,18 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_blfoffi_Attrs_Scenari
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfoffi_h_agg_tablename = create_prime_tablename("blfoffi", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfoffi_h_agg_tablename} (moment_label, offi_time)
 VALUES
-  ('{a23_str}', {offi_time5})
-, ('{a23_str}', {offi_time7})
+  ('{exx.a23}', {offi_time5})
+, ('{exx.a23}', {offi_time7})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
 
         # WHEN
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
     a23_offi_times_config_dict = a23_dict.get("offi_times")
@@ -347,7 +338,6 @@ VALUES
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario0_momentunit():
     # ESTABLISH
-    a23_str = "amy23"
     a23_epoch_label = "epoch88"
     a23_c400_number = 3
     a23_yr1_jan1_offset = 7
@@ -373,7 +363,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario0_mome
 , knot
 )
 VALUES (
-  '{a23_str}'
+  '{exx.a23}'
 , '{a23_epoch_label}'
 , {a23_c400_number}
 , {a23_yr1_jan1_offset}
@@ -385,13 +375,13 @@ VALUES (
 )
 ;"""
         cursor.execute(momentunit_insert_sqlstr)
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # WHEN
     a23_momentunit = get_momentunit_from_dict(a23_dict)
 
     # THEN
-    assert a23_momentunit.moment_label == a23_str
+    assert a23_momentunit.moment_label == exx.a23
     assert a23_momentunit.epoch.epoch_label == a23_epoch_label
     assert a23_momentunit.epoch.c400_number == a23_c400_number
     assert a23_momentunit.epoch.yr1_jan1_offset == a23_yr1_jan1_offset
@@ -404,7 +394,6 @@ VALUES (
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_blfpayy():
     # ESTABLISH
-    a23_str = "amy23"
     tp55 = 55
     bob_sue_tp55_amount = 444
     with sqlite3_connect(":memory:") as conn:
@@ -412,20 +401,20 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_blfp
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         momentpay_h_agg_tablename = create_prime_tablename("blfpayy", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_agg_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
-VALUES ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
+VALUES ('{exx.a23}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # WHEN
     a23_momentunit = get_momentunit_from_dict(a23_dict)
 
     # THEN
-    assert a23_momentunit.moment_label == a23_str
+    assert a23_momentunit.moment_label == exx.a23
     assert a23_momentunit.paybook.tranunits.get(exx.bob)
     bob_tranunit = a23_momentunit.paybook.tranunits.get(exx.bob)
     assert bob_tranunit == {exx.sue: {tp55: bob_sue_tp55_amount}}
@@ -433,7 +422,6 @@ VALUES ('{a23_str}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario2_momentbud():
     # ESTABLISH
-    a23_str = "amy23"
     tp55 = 55
     bob_tp55_quota = 444
     bob_tp55_celldepth = 3
@@ -442,14 +430,14 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario2_mome
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         momentbud_h_agg_tablename = create_prime_tablename("blfbudd", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_agg_tablename} (moment_label, belief_name, bud_time, quota, celldepth)
-VALUES ('{a23_str}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
+VALUES ('{exx.a23}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # WHEN
     a23_momentunit = get_momentunit_from_dict(a23_dict)
@@ -466,7 +454,6 @@ VALUES ('{a23_str}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth}
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario3_blfhour():
     # ESTABLISH
-    a23_str = "amy23"
     hour3_min = 300
     hour4_min = 400
     hour3_label = "3xm"
@@ -476,16 +463,16 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario3_blfhour():
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfhour_h_agg_tablename = create_prime_tablename("blfhour", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfhour_h_agg_tablename} (moment_label, cumulative_minute, hour_label)
 VALUES
-  ('{a23_str}', {hour3_min}, '{hour3_label}')
-, ('{a23_str}', {hour4_min}, '{hour4_label}')
+  ('{exx.a23}', {hour3_min}, '{hour3_label}')
+, ('{exx.a23}', {hour4_min}, '{hour4_label}')
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # WHEN
     a23_momentunit = get_momentunit_from_dict(a23_dict)
@@ -499,7 +486,6 @@ VALUES
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario4_blfmont():
     # ESTABLISH
-    a23_str = "amy23"
     day111_min = 111
     day222_min = 222
     month111_label = "jan111"
@@ -509,16 +495,16 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario4_blfmont():
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfmont_h_agg_tablename = create_prime_tablename("blfmont", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfmont_h_agg_tablename} (moment_label, cumulative_day, month_label)
 VALUES
-  ('{a23_str}', {day111_min}, '{month111_label}')
-, ('{a23_str}', {day222_min}, '{month222_label}')
+  ('{exx.a23}', {day111_min}, '{month111_label}')
+, ('{exx.a23}', {day222_min}, '{month222_label}')
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # WHEN
     a23_momentunit = get_momentunit_from_dict(a23_dict)
@@ -532,7 +518,6 @@ VALUES
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario5_blfweek():
     # ESTABLISH
-    a23_str = "amy23"
     ana_order = 1
     bee_order = 2
     ana_label = "ana_weekday"
@@ -542,16 +527,16 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario5_blfweek():
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfweek_h_agg_tablename = create_prime_tablename("blfweek", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfweek_h_agg_tablename} (moment_label, weekday_order, weekday_label)
 VALUES
-  ('{a23_str}', {ana_order}, '{ana_label}')
-, ('{a23_str}', {bee_order}, '{bee_label}')
+  ('{exx.a23}', {ana_order}, '{ana_label}')
+, ('{exx.a23}', {bee_order}, '{bee_label}')
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # WHEN
     a23_momentunit = get_momentunit_from_dict(a23_dict)
@@ -563,7 +548,6 @@ VALUES
 def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario5_blfoffi():
     # sourcery skip: extract-method
     # ESTABLISH
-    a23_str = "amy23"
     offi_time5 = 5
     offi_time7 = 7
     with sqlite3_connect(":memory:") as conn:
@@ -571,16 +555,16 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario5_blfoffi():
         create_sound_and_heard_tables(cursor)
         momentunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
         blfoffi_h_agg_tablename = create_prime_tablename("blfoffi", "h", "agg")
-        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{a23_str}');"
+        momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_agg_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
         blfpayy_insert_sqlstr = f"""INSERT INTO {blfoffi_h_agg_tablename} (moment_label, offi_time)
 VALUES
-  ('{a23_str}', {offi_time5})
-, ('{a23_str}', {offi_time7})
+  ('{exx.a23}', {offi_time5})
+, ('{exx.a23}', {offi_time7})
 ;
 """
         cursor.execute(blfpayy_insert_sqlstr)
-        a23_dict = get_moment_dict_from_heard_tables(cursor, a23_str)
+        a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # WHEN
     a23_momentunit = get_momentunit_from_dict(a23_dict)

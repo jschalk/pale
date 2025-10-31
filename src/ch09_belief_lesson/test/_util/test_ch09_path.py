@@ -19,28 +19,26 @@ from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 def test_create_moment_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # WHEN
-    gen_a23_dir_path = create_moment_dir_path(x_moment_mstr_dir, a23_str)
+    gen_a23_dir_path = create_moment_dir_path(x_moment_mstr_dir, exx.a23)
 
     # THEN
     moments_dir = create_path(x_moment_mstr_dir, "moments")
-    expected_a23_path = create_path(moments_dir, a23_str)
+    expected_a23_path = create_path(moments_dir, exx.a23)
     assert gen_a23_dir_path == expected_a23_path
 
 
 def test_create_moment_json_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # WHEN
-    gen_a23_json_path = create_moment_json_path(x_moment_mstr_dir, a23_str)
+    gen_a23_json_path = create_moment_json_path(x_moment_mstr_dir, exx.a23)
 
     # THEN
     moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_path = create_path(moments_dir, a23_str)
+    a23_path = create_path(moments_dir, exx.a23)
     expected_a23_json_path = create_path(a23_path, MOMENT_FILENAME)
     assert gen_a23_json_path == expected_a23_json_path
 
@@ -48,14 +46,13 @@ def test_create_moment_json_path_ReturnsObj():
 def test_create_moment_beliefs_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
 
     # WHEN
-    gen_beliefs_dir = create_moment_beliefs_dir_path(x_moment_mstr_dir, amy23_str)
+    gen_beliefs_dir = create_moment_beliefs_dir_path(x_moment_mstr_dir, exx.a23)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, amy23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     expected_beliefs_dir = create_path(amy23_dir, "beliefs")
     assert gen_beliefs_dir == expected_beliefs_dir
 
@@ -63,14 +60,13 @@ def test_create_moment_beliefs_dir_path_ReturnsObj():
 def test_create_belief_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
 
     # WHEN
-    sue_dir = create_belief_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
+    sue_dir = create_belief_dir_path(x_moment_mstr_dir, exx.a23, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, amy23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     expected_sue_dir = create_path(beliefs_dir, exx.sue)
     assert sue_dir == expected_sue_dir
@@ -79,14 +75,13 @@ def test_create_belief_dir_path_ReturnsObj():
 def test_create_atoms_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
 
     # WHEN
-    atoms_dir = create_atoms_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
+    atoms_dir = create_atoms_dir_path(x_moment_mstr_dir, exx.a23, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, amy23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     expected_atoms_dir = create_path(sue_dir, "atoms")
@@ -96,14 +91,13 @@ def test_create_atoms_dir_path_ReturnsObj():
 def test_create_lessons_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    amy23_str = "amy23"
 
     # WHEN
-    lessons_dir = create_lessons_dir_path(x_moment_mstr_dir, amy23_str, exx.sue)
+    lessons_dir = create_lessons_dir_path(x_moment_mstr_dir, exx.a23, exx.sue)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, amy23_str)
+    amy23_dir = create_path(x_moments_dir, exx.a23)
     beliefs_dir = create_path(amy23_dir, "beliefs")
     sue_dir = create_path(beliefs_dir, exx.sue)
     expected_lessons_dir = create_path(sue_dir, "lessons")
@@ -113,14 +107,13 @@ def test_create_lessons_dir_path_ReturnsObj():
 def test_create_gut_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # WHEN
-    gen_a23_e3_belief_path = create_gut_path(x_moment_mstr_dir, a23_str, exx.bob)
+    gen_a23_e3_belief_path = create_gut_path(x_moment_mstr_dir, exx.a23, exx.bob)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_dir = create_path(x_moments_dir, a23_str)
+    a23_dir = create_path(x_moments_dir, exx.a23)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
     a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_bob_gut_dir = create_path(a23_bob_dir, kw.gut)
@@ -133,14 +126,13 @@ def test_create_gut_path_ReturnsObj():
 def test_create_job_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
 
     # WHEN
-    gen_a23_e3_belief_path = create_job_path(x_moment_mstr_dir, a23_str, exx.bob)
+    gen_a23_e3_belief_path = create_job_path(x_moment_mstr_dir, exx.a23, exx.bob)
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_dir = create_path(x_moments_dir, a23_str)
+    a23_dir = create_path(x_moments_dir, exx.a23)
     a23_beliefs_dir = create_path(a23_dir, "beliefs")
     a23_bob_dir = create_path(a23_beliefs_dir, exx.bob)
     a23_bob_job_dir = create_path(a23_bob_dir, kw.job)

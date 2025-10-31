@@ -50,9 +50,8 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         kw.otx_name,
         kw.inx_name,
     ]
-    a23_str = "amy23"
     br00113_str = "br00113"
-    br00113row0 = [exx.sue, e3, a23_str, exx.sue, exx.sue, exx.sue, sue_inx]
+    br00113row0 = [exx.sue, e3, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
     upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
@@ -82,13 +81,13 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     blfvoce_heard_put_raw = prime_tbl("blfvoce", "h", "raw", "put")
     blfvoce_heard_put_agg = prime_tbl("blfvoce", "h", "agg", "put")
     mstr_dir = fay_world._moment_mstr_dir
-    a23_json_path = create_moment_json_path(mstr_dir, a23_str)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     a23_e1_all_lesson_path = create_spark_all_lesson_path(
-        mstr_dir, a23_str, sue_inx, e3
+        mstr_dir, exx.a23, sue_inx, e3
     )
-    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, a23_str, sue_inx, e3)
-    a23_sue_gut_path = create_gut_path(mstr_dir, a23_str, sue_inx)
-    a23_sue_job_path = create_job_path(mstr_dir, a23_str, sue_inx)
+    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, exx.a23, sue_inx, e3)
+    a23_sue_gut_path = create_gut_path(mstr_dir, exx.a23, sue_inx)
+    a23_sue_job_path = create_job_path(mstr_dir, exx.a23, sue_inx)
     blfvoce_job = prime_tbl("blfvoce", "job", None)
     last_run_metrics_path = create_last_run_metrics_path(mstr_dir)
 
@@ -181,7 +180,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert os_path_exists(a23_e1_all_lesson_path)
         assert os_path_exists(a23_e1_expressed_lesson_path)
         assert os_path_exists(a23_sue_gut_path)
-        sue_gut = open_gut_file(mstr_dir, a23_str, sue_inx)
+        sue_gut = open_gut_file(mstr_dir, exx.a23, sue_inx)
         time_rope = sue_gut.make_l1_rope(kw.time)
         creg_rope = sue_gut.make_rope(time_rope, kw.creg)
         assert sue_gut.plan_exists(creg_rope)
@@ -214,10 +213,9 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         kw.otx_name,
         kw.inx_name,
     ]
-    a23_str = "amy23"
     tp37 = 37
     br00113_str = "br00113"
-    br00113row0 = [exx.sue, e3, a23_str, exx.sue, exx.sue, exx.sue, sue_inx]
+    br00113row0 = [exx.sue, e3, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
     upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
@@ -234,7 +232,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     tp37 = 37
     sue_quota = 235
     sue_celldepth = 3
-    br1row0 = [e3, exx.sue, a23_str, exx.sue, tp37, sue_quota, sue_celldepth]
+    br1row0 = [e3, exx.sue, exx.a23, exx.sue, tp37, sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
     upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
@@ -263,14 +261,14 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     blfvoce_heard_put_raw = prime_tbl("blfvoce", "h", "raw", "put")
     blfvoce_heard_put_agg = prime_tbl("blfvoce", "h", "agg", "put")
     mstr_dir = fay_world._moment_mstr_dir
-    a23_json_path = create_moment_json_path(mstr_dir, a23_str)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     a23_e1_all_lesson_path = create_spark_all_lesson_path(
-        mstr_dir, a23_str, sue_inx, e3
+        mstr_dir, exx.a23, sue_inx, e3
     )
-    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, a23_str, sue_inx, e3)
-    a23_sue_gut_path = create_gut_path(mstr_dir, a23_str, sue_inx)
-    a23_sue_job_path = create_job_path(mstr_dir, a23_str, sue_inx)
-    sue37_mandate_path = bud_mandate(mstr_dir, a23_str, sue_inx, tp37)
+    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, exx.a23, sue_inx, e3)
+    a23_sue_gut_path = create_gut_path(mstr_dir, exx.a23, sue_inx)
+    a23_sue_job_path = create_job_path(mstr_dir, exx.a23, sue_inx)
+    sue37_mandate_path = bud_mandate(mstr_dir, exx.a23, sue_inx, tp37)
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
@@ -371,11 +369,10 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentT
         kw.tran_time,
         kw.amount,
     ]
-    a23_str = "amy23"
     br00002_str = "br00002"
     tp37 = 37
     sue_to_bob_amount = 200
-    br00002row0 = [e3, exx.sue, a23_str, exx.sue, exx.bob, tp37, sue_to_bob_amount]
+    br00002row0 = [e3, exx.sue, exx.a23, exx.sue, exx.bob, tp37, sue_to_bob_amount]
     br00002_df = DataFrame([br00002row0], columns=br00002_columns)
     br00002_ex0_str = f"example0_{br00002_str}"
     upsert_sheet(input_file_path, br00002_ex0_str, br00002_df)
@@ -400,7 +397,6 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIde
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
-    amy23_str = "amy23"
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
@@ -408,11 +404,11 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIde
         kw.belief_name,
         kw.voice_name,
     ]
-    br00011_rows = [[spark2, exx.sue, amy23_str, exx.sue, exx.sue]]
+    br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     moment_mstr = fay_world._moment_mstr_dir
-    a23_ote1_csv_path = create_moment_ote1_csv_path(moment_mstr, amy23_str)
+    a23_ote1_csv_path = create_moment_ote1_csv_path(moment_mstr, exx.a23)
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         assert os_path_exists(a23_ote1_csv_path) is False
@@ -484,18 +480,17 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
         kw.quota,
         kw.celldepth,
     ]
-    amy23_str = "amy23"
     tp37 = 37
     sue_quota = 235
     sue_celldepth = 3
-    br1row0 = [spark2, exx.sue, amy23_str, exx.sue, tp37, sue_quota, sue_celldepth]
+    br1row0 = [spark2, exx.sue, exx.a23, exx.sue, tp37, sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
     upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
 
-    br3row0 = [spark1, exx.sue, minute_360, amy23_str, hour6am]
-    br3row1 = [spark1, exx.sue, minute_420, amy23_str, hour7am]
-    br3row2 = [spark2, exx.sue, minute_420, amy23_str, hour7am]
+    br3row0 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
+    br3row1 = [spark1, exx.sue, minute_420, exx.a23, hour7am]
+    br3row2 = [spark2, exx.sue, minute_420, exx.a23, hour7am]
     br00003_1df = DataFrame([br3row0, br3row1], columns=br00003_columns)
     br00003_3df = DataFrame([br3row1, br3row0, br3row2], columns=br00003_columns)
     br00003_ex1_str = "example1_br00003"
@@ -509,16 +504,16 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
         kw.belief_name,
         kw.voice_name,
     ]
-    br00011_rows = [[spark2, exx.sue, amy23_str, exx.sue, exx.sue]]
+    br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     mstr_dir = fay_world._moment_mstr_dir
-    wrong_a23_moment_dir = create_path(mstr_dir, amy23_str)
+    wrong_a23_moment_dir = create_path(mstr_dir, exx.a23)
     assert os_path_exists(wrong_a23_moment_dir) is False
-    a23_json_path = create_moment_json_path(mstr_dir, amy23_str)
-    a23_sue_gut_path = create_gut_path(mstr_dir, amy23_str, exx.sue)
-    a23_sue_job_path = create_job_path(mstr_dir, amy23_str, exx.sue)
-    sue37_mandate_path = bud_mandate(mstr_dir, amy23_str, exx.sue, tp37)
+    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
+    a23_sue_gut_path = create_gut_path(mstr_dir, exx.a23, exx.sue)
+    a23_sue_job_path = create_job_path(mstr_dir, exx.a23, exx.sue)
+    sue37_mandate_path = bud_mandate(mstr_dir, exx.a23, exx.sue, tp37)
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         assert os_path_exists(input_file_path)
@@ -561,10 +556,9 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         kw.otx_name,
         kw.inx_name,
     ]
-    a23_str = "amy23"
     tp37 = 37
     br00113_str = "br00113"
-    br00113row0 = [exx.sue, e3, a23_str, exx.sue, exx.sue, exx.sue, sue_inx]
+    br00113row0 = [exx.sue, e3, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
     upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
@@ -581,7 +575,7 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     tp37 = 37
     sue_quota = 235
     sue_celldepth = 3
-    br1row0 = [e3, exx.sue, a23_str, exx.sue, tp37, sue_quota, sue_celldepth]
+    br1row0 = [e3, exx.sue, exx.a23, exx.sue, tp37, sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
     upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)

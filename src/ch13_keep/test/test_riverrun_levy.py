@@ -10,9 +10,8 @@ from src.ref.keywords import ExampleStrs as exx
 def test_RiverRun_levy_need_dues_Molds_cycleledger_Scenario01():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_need_due = 222
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_voice_need_due(exx.yao, yao_need_due)
 
     yao_paid = 500
@@ -32,10 +31,9 @@ def test_RiverRun_levy_need_dues_Molds_cycleledger_Scenario01():
 def test_RiverRun_levy_need_dues_Molds_cycleledger_Scenario02():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_need_due = 222
     bob_need_due = 127
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     x_riverrun.set_voice_need_due(exx.yao, yao_need_due)
     x_riverrun.set_voice_need_due(exx.bob, bob_need_due)
 
@@ -61,8 +59,7 @@ def test_RiverRun_levy_need_dues_Molds_cycleledger_Scenario02():
 def test_RiverRun_cycle_carees_vary_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     # WHEN / THEN
     assert x_riverrun._cycle_carees_vary() is False
 
@@ -77,9 +74,8 @@ def test_RiverRun_cycle_carees_vary_ReturnsObj():
 def test_RiverRun_cycles_vary_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = temp_moment_label()
     yao_need_got = 5
-    x_riverrun = riverrun_shop(mstr_dir, a23_str, exx.yao)
+    x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     assert x_riverrun._cycle_carees_vary() is False
     assert x_riverrun._need_gotten() is False
     assert x_riverrun.cycles_vary() is False

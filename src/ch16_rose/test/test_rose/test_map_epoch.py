@@ -1,7 +1,7 @@
 from numpy import int64 as numpy_int64
 from pytest import raises as pytest_raises
 from src.ch14_epoch.epoch_main import DEFAULT_EPOCH_LENGTH
-from src.ch16_rose.map import (
+from src.ch16_rose.map_epoch import (
     EpochMap,
     epochmap_shop,
     get_epochmap_from_dict,

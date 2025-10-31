@@ -5,20 +5,18 @@ from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 def test_get_belief_unique_short_ropes_ReturnsObj_Scenario0_RootOnly():
     # ESTABLISH
-    a23_str = "Amy23"
-    sue_belief = beliefunit_shop("Sue", a23_str)
+    sue_belief = beliefunit_shop("Sue", exx.a23)
 
     # WHEN
     unique_short_ropes = get_belief_unique_short_ropes(sue_belief)
 
     # THEN
-    assert unique_short_ropes == {sue_belief.planroot.get_plan_rope(): a23_str}
+    assert unique_short_ropes == {sue_belief.planroot.get_plan_rope(): exx.a23}
 
 
 def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabels():
     # ESTABLISH
-    a23_str = "Amy23"
-    sue_belief = beliefunit_shop("Sue", a23_str)
+    sue_belief = beliefunit_shop("Sue", exx.a23)
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
     sue_belief.add_plan(mop_rope)
@@ -29,7 +27,7 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabe
     # THEN
     root_rope = sue_belief.planroot.get_plan_rope()
     assert unique_short_ropes == {
-        root_rope: a23_str,
+        root_rope: exx.a23,
         casa_rope: exx.casa,
         mop_rope: exx.mop,
     }
@@ -37,8 +35,7 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabe
 
 def test_get_belief_unique_short_ropess_ReturnsObj_Scenario2_PlansWithCommonLabels():
     # ESTABLISH
-    a23_str = "Amy23"
-    sue_belief = beliefunit_shop("Sue", a23_str)
+    sue_belief = beliefunit_shop("Sue", exx.a23)
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     casa_mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
     sports_str = "sports"
@@ -56,7 +53,7 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario2_PlansWithCommonLabe
     expected_short_casa_mop = f"{exx.casa}{knot}{exx.mop}"
     assert unique_short_ropes.get(casa_mop_rope) == expected_short_casa_mop
     assert unique_short_ropes == {
-        root_rope: a23_str,
+        root_rope: exx.a23,
         casa_rope: exx.casa,
         casa_mop_rope: expected_short_casa_mop,
         sports_rope: sports_str,

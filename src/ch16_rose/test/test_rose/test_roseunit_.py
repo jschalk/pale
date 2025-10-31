@@ -4,8 +4,7 @@ from src.ch08_belief_atom.atom_config import (
     get_atom_args_class_types,
 )
 from src.ch15_moment.moment_config import get_moment_args_class_types
-from src.ch16_rose.map import (
-    epochmap_shop,
+from src.ch16_rose.map_term import (
     labelmap_shop,
     namemap_shop,
     ropemap_shop,
@@ -25,7 +24,7 @@ from src.ch16_rose.rose_config import (
     get_roseable_term_class_types,
     roseable_class_types,
 )
-from src.ch16_rose.rose_main import RoseUnit, roseunit_shop
+from src.ch16_rose.rose_term import RoseUnit, roseunit_shop
 from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
@@ -394,7 +393,6 @@ def test_RoseUnit_Exists():
     assert not x_roseunit.namemap
     assert not x_roseunit.labelmap
     assert not x_roseunit.ropemap
-    assert not x_roseunit.epochmap
     assert not x_roseunit.unknown_str
     assert not x_roseunit.otx_knot
     assert not x_roseunit.inx_knot
@@ -405,7 +403,6 @@ def test_RoseUnit_Exists():
         kw.namemap,
         kw.labelmap,
         kw.ropemap,
-        kw.epochmap,
         kw.unknown_str,
         kw.otx_knot,
         kw.inx_knot,
@@ -428,7 +425,6 @@ def test_roseunit_shop_ReturnsObj_Scenario0():
     assert sue_roseunit.namemap == namemap_shop(face_name=exx.sue)
     assert sue_roseunit.labelmap == labelmap_shop(face_name=exx.sue)
     assert sue_roseunit.ropemap == ropemap_shop(face_name=exx.sue)
-    assert sue_roseunit.epochmap == epochmap_shop(exx.sue)
     assert sue_roseunit.namemap.spark_num == 0
     assert sue_roseunit.namemap.unknown_str == default_unknown_str_if_None()
     assert sue_roseunit.namemap.otx_knot == default_knot_if_None()
@@ -453,7 +449,6 @@ def test_roseunit_shop_ReturnsObj_Scenario1():
     y_uk = "UnknownTerm"
     slash_otx_knot = "/"
     colon_inx_knot = ":"
-    sue_epoch_length = 600
 
     # WHEN
     sue_roseunit = roseunit_shop(

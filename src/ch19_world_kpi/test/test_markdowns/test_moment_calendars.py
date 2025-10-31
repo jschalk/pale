@@ -9,6 +9,7 @@ from src.ch14_epoch.test._util.ch14_examples import (
 from src.ch15_moment.moment_main import momentunit_shop
 from src.ch19_world_kpi.kpi_mstr import create_calendar_markdown_files
 from src.ch19_world_kpi.test._util.ch19_env import get_temp_dir, temp_dir_setup
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_create_calendar_markdown_files_Senario0_NoFileIfWorldIsEmpty(
@@ -36,12 +37,11 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
     temp_dir = get_temp_dir()
     moment_mstr_dir = create_path(temp_dir, "moment_mstr")
     output_dir = create_path(temp_dir, "output")
-    a23_str = "amy23"
-    a23_moment_path = create_moment_json_path(moment_mstr_dir, a23_str)
-    a23_momentunit = momentunit_shop(a23_str, moment_mstr_dir)
+    a23_moment_path = create_moment_json_path(moment_mstr_dir, exx.a23)
+    a23_momentunit = momentunit_shop(exx.a23, moment_mstr_dir)
     assert a23_momentunit.epoch == epochunit_shop(get_creg_config())
     save_json(a23_moment_path, None, a23_momentunit.to_dict())
-    a23_calendar_md_path = create_path(output_dir, f"{a23_str}_calendar.md")
+    a23_calendar_md_path = create_path(output_dir, f"{exx.a23}_calendar.md")
     print(f"{a23_calendar_md_path=}")
     assert not os_path_exists(a23_calendar_md_path)
 
@@ -64,7 +64,7 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #     spark2 = 2
 #     ex_filename = "Faybob.xlsx"
 #     input_file_path = create_path(fay_world._input_dir, ex_filename)
-#     a23_str = "amy23"
+#     exx.a23 = "Amy23"
 #     br00011_columns = [
 #         kw.spark_num,
 #         kw.face_name,
@@ -72,12 +72,12 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #         kw.belief_name,
 #         kw.voice_name
 #     ]
-#     br00011_rows = [[spark2, exx.sue, a23_str, exx.sue, exx.sue]]
+#     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
 #     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
 #     fay_world.sheets_input_to_clarity_mstr()
 
-#     a23_calendar_md_path = create_path(output_dir, f"{a23_str}_calendar.md")
+#     a23_calendar_md_path = create_path(output_dir, f"{exx.a23}_calendar.md")
 #     print(f"      {a23_calendar_md_path=}")
 #     assert not os_path_exists(a23_calendar_md_path)
 

@@ -9,6 +9,7 @@ from src.ch09_belief_lesson._ref.ch09_path import (
 from src.ch15_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ch18_world_etl.transformers import etl_moment_guts_to_moment_jobs
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_etl_moment_guts_to_moment_jobs_SetsFiles_Scenario0(
@@ -21,20 +22,19 @@ def test_etl_moment_guts_to_moment_jobs_SetsFiles_Scenario0(
     credit44 = 44
     credit77 = 77
     credit88 = 88
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    bob_gut = beliefunit_shop(bob_inx, a23_str)
+    bob_gut = beliefunit_shop(bob_inx, exx.a23)
     bob_gut.add_voiceunit(bob_inx, credit77)
     bob_gut.add_voiceunit(yao_inx, credit44)
     bob_gut.add_voiceunit(bob_inx, credit77)
     bob_gut.add_voiceunit(sue_inx, credit88)
     bob_gut.add_voiceunit(yao_inx, credit44)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_str, bob_inx)
+    a23_bob_gut_path = create_gut_path(moment_mstr_dir, exx.a23, bob_inx)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
-    a23_bob_job_path = create_job_path(moment_mstr_dir, a23_str, bob_inx)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
+    a23_bob_job_path = create_job_path(moment_mstr_dir, exx.a23, bob_inx)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     save_json(
-        moment_json_path, None, momentunit_shop(a23_str, moment_mstr_dir).to_dict()
+        moment_json_path, None, momentunit_shop(exx.a23, moment_mstr_dir).to_dict()
     )
     assert os_path_exists(moment_json_path)
     assert os_path_exists(a23_bob_gut_path)
@@ -47,7 +47,7 @@ def test_etl_moment_guts_to_moment_jobs_SetsFiles_Scenario0(
     # THEN
     assert os_path_exists(a23_bob_job_path)
     generated_job = get_beliefunit_from_dict(open_json(a23_bob_job_path))
-    expected_job = beliefunit_shop(bob_inx, a23_str)
+    expected_job = beliefunit_shop(bob_inx, exx.a23)
     expected_job.add_voiceunit(bob_inx, credit77)
     expected_job.add_voiceunit(yao_inx, credit44)
     expected_job.add_voiceunit(bob_inx, credit77)

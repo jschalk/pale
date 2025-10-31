@@ -81,7 +81,7 @@ def test_get_belief_root_facts_dict_ReturnsObj_Scenario2_factunits_Exist():
 
 def test_set_factunits_to_belief_ReturnsObj_Scenario0_BeliefEmptyNoFacts():
     # ESTABLISH
-    yao_belief = beliefunit_shop("Yao", "amy23")
+    yao_belief = beliefunit_shop("Yao", "Amy23")
     before_yao_belief = copy_deepcopy(yao_belief)
     facts_dict = {}
     assert yao_belief.to_dict() == before_yao_belief.to_dict()
@@ -95,7 +95,7 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario0_BeliefEmptyNoFacts():
 
 def test_set_factunits_to_belief_ReturnsObj_Scenario1_Belief1FactsChanged():
     # ESTABLISH
-    bob_belief = beliefunit_shop("Bob", "amy23")
+    bob_belief = beliefunit_shop("Bob", "Amy23")
     floor_str = "floor situation"
     dirty_str = "dirty"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
@@ -128,7 +128,7 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario1_Belief1FactsChanged():
 
 def test_set_factunits_to_belief_ReturnsObj_Scenario2_FactUnit_reason_context_DoesNotExistInBelief():
     # ESTABLISH
-    bob_belief = beliefunit_shop("Bob", "amy23")
+    bob_belief = beliefunit_shop("Bob", "Amy23")
     floor_str = "floor situation"
     dirty_str = "dirty"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
@@ -162,7 +162,7 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario2_FactUnit_reason_context_Do
 
 def test_set_factunits_to_belief_ReturnsObj_Scenario3_FactUnit_reason_context_Withoutreason_contextNotAddedToBelief():
     # ESTABLISH
-    bob_belief = beliefunit_shop("Bob", "amy23")
+    bob_belief = beliefunit_shop("Bob", "Amy23")
     floor_str = "floor situation"
     dirty_str = "dirty"
     casa_rope = bob_belief.make_l1_rope(exx.casa)
@@ -203,7 +203,7 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario3_FactUnit_reason_context_Wi
 
 def test_clear_factunits_from_belief_ReturnsObj_Scenario1_FactUnit_Exist():
     # ESTABLISH
-    bob_belief = beliefunit_shop("Bob", "amy23")
+    bob_belief = beliefunit_shop("Bob", "Amy23")
     floor_str = "floor situation"
     dirty_str = "dirty"
     casa_rope = bob_belief.make_l1_rope(exx.casa)

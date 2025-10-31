@@ -16,23 +16,22 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy"
     tp5 = 5
     das = []
     spark7 = 7
     # create cell file
     bob_cell = cellunit_shop(exx.bob, [], spark7, celldepth=0)
-    bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [])
-    bob_bob_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [exx.bob])
+    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
+    bob_bob_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [exx.bob])
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_bob_dir, bob_cell)
-    bob_root_mandate_path = mandate_path(mstr_dir, a23_str, exx.bob, tp5, [])
-    bob_bob_mandate_path = mandate_path(mstr_dir, a23_str, exx.bob, tp5, [exx.bob])
+    bob_root_mandate_path = mandate_path(mstr_dir, exx.a23, exx.bob, tp5, [])
+    bob_bob_mandate_path = mandate_path(mstr_dir, exx.a23, exx.bob, tp5, [exx.bob])
     assert os_path_exists(bob_root_mandate_path) is False
     assert os_path_exists(bob_bob_mandate_path) is False
 
     # WHEN
-    set_cell_tree_cell_mandates(mstr_dir, a23_str)
+    set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
     # THEN
     assert os_path_exists(bob_root_mandate_path)
@@ -46,7 +45,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy"
+#     exx.a23 = "amy"
 #     tp5 = 5
 #     exx.bob = "Bob"
 #     das = []
@@ -58,12 +57,12 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_cell = cellunit_shop(
 #         exx.bob, [], spark7, 0, beliefadjust=bob_beliefadjust, beliefspark_facts=clean_facts
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [])
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == clean_facts
@@ -74,7 +73,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy"
+#     exx.a23 = "amy"
 #     tp5 = 5
 #     exx.bob = "Bob"
 #     das = []
@@ -91,12 +90,12 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         beliefadjust=bob_beliefadjust,
 #         found_facts=clean_facts,
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, [])
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == clean_facts
@@ -107,7 +106,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy23"
+#     exx.a23 = "Amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -116,7 +115,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_without_reason_beliefunit_example()
 #     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     bob_sue_beliefadjust = beliefunit_shop(exx.sue, a23_str)
+#     bob_sue_beliefadjust = beliefunit_shop(exx.sue, exx.a23)
 #     # create cell file
 #     bob_cell = cellunit_shop(
 #         exx.bob, bob_ancs, spark_num=e7, celldepth=2, beliefadjust=bob_beliefadjust
@@ -124,15 +123,15 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_sue_cell = cellunit_shop(
 #         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_sue_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 #     assert cellunit_get_from_dir(bob_sue_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
@@ -144,7 +143,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy23"
+#     exx.a23 = "Amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -169,15 +168,15 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_sue_cell = cellunit_shop(
 #         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_sue_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 #     assert cellunit_get_from_dir(bob_sue_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -189,7 +188,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy23"
+#     exx.a23 = "Amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -224,10 +223,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
 #     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -238,7 +237,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -252,7 +251,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy23"
+#     exx.a23 = "Amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -287,10 +286,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
 #     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -301,7 +300,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -315,7 +314,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy23"
+#     exx.a23 = "Amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -328,7 +327,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     e7 = 7
 #     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
 #     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     b_sue_ba = beliefunit_shop(exx.sue, a23_str)
+#     b_sue_ba = beliefunit_shop(exx.sue, exx.a23)
 #     b_sue_ba.set_belief_name(exx.sue)
 #     b_sue_ba.add_voiceunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
@@ -353,10 +352,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0)
 #     bs_yao_cell.eval_beliefspark(bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -367,7 +366,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -382,7 +381,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     a23_str = "amy23"
+#     exx.a23 = "Amy23"
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -417,13 +416,13 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
 #     # bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_str, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
-#     beliefspark_path = create_beliefspark_path(mstr_dir, a23_str, exx.yao, e7)
+#     beliefspark_path = create_beliefspark_path(mstr_dir, exx.a23, exx.yao, e7)
 #     save_belief_file(beliefspark_path, None, bs_yao_ba)
 #     # cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
 #     cellunit_save_to_dir(bob_sue_yao_zia_dir, bsy_zia_cell)
@@ -433,7 +432,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
 #     # WHEN
-#     set_cell_tree_cell_mandates(mstr_dir, a23_str)
+#     set_cell_tree_cell_mandates(mstr_dir, exx.a23)
 
 #     # THEN
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts

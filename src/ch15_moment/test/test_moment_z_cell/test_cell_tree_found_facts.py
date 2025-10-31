@@ -13,17 +13,16 @@ def test_set_cell_trees_found_facts_Scenario0_RootOnly_NoFacts(
 ):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time5 = 5
     das = []
-    bob5_dir = cell_dir(moment_mstr_dir, a23_str, exx.bob, time5, das)
+    bob5_dir = cell_dir(moment_mstr_dir, exx.a23, exx.bob, time5, das)
     bob5_cell = cellunit_shop(exx.bob, beliefspark_facts={})
     cellunit_save_to_dir(bob5_dir, bob5_cell)
     assert bob5_cell.get_beliefsparks_quota_ledger() == {}
     assert cellunit_get_from_dir(bob5_dir).found_facts == {}
 
     # WHEN
-    set_cell_trees_found_facts(moment_mstr_dir, a23_str)
+    set_cell_trees_found_facts(moment_mstr_dir, exx.a23)
 
     # THEN
     assert cellunit_get_from_dir(bob5_dir).found_facts == {}
@@ -34,14 +33,13 @@ def test_set_cell_trees_found_facts_Scenario1_ChildNode_NoFacts(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time5 = 5
     das = []
     das_y = [exx.yao]
     das_ys = [exx.yao, exx.sue]
-    bob5_dir = cell_dir(mstr_dir, a23_str, exx.bob, time5, das)
-    bob5_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, time5, das_y)
-    bob5_yao_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, time5, das_ys)
+    bob5_dir = cell_dir(mstr_dir, exx.a23, exx.bob, time5, das)
+    bob5_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, time5, das_y)
+    bob5_yao_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, time5, das_ys)
     cellunit_save_to_dir(bob5_dir, cellunit_shop(exx.bob, das))
     cellunit_save_to_dir(bob5_yao_dir, cellunit_shop(exx.bob, das_y))
     cellunit_save_to_dir(bob5_yao_sue_dir, cellunit_shop(exx.bob, das_ys))
@@ -51,7 +49,7 @@ def test_set_cell_trees_found_facts_Scenario1_ChildNode_NoFacts(
     assert cellunit_get_from_dir(bob5_dir).found_facts == {}
 
     # WHEN
-    set_cell_trees_found_facts(mstr_dir, a23_str)
+    set_cell_trees_found_facts(mstr_dir, exx.a23)
 
     # THEN
     assert cellunit_get_from_dir(bob5_dir).found_facts == {}
@@ -62,18 +60,17 @@ def test_set_cell_trees_found_facts_Scenario2_ChildNodeWithOneFactIsAssignedToAn
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    a23_str = "amy23"
     time5 = 5
     clean_fact = example_casa_floor_clean_factunit()
     das = []
     das_y = [exx.yao]
     das_ys = [exx.yao, exx.sue]
-    bob5_dir = cell_dir(mstr_dir, a23_str, exx.bob, time5, das)
-    bob5_yao_dir = cell_dir(mstr_dir, a23_str, exx.bob, time5, das_y)
-    bob5_yao_sue_dir = cell_dir(mstr_dir, a23_str, exx.bob, time5, das_ys)
-    bob5_beliefspark = beliefunit_shop(exx.bob, a23_str)
-    bob5_yao_beliefspark = beliefunit_shop(exx.yao, a23_str)
-    bob5_yao_sue_beliefspark = beliefunit_shop(exx.sue, a23_str)
+    bob5_dir = cell_dir(mstr_dir, exx.a23, exx.bob, time5, das)
+    bob5_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, time5, das_y)
+    bob5_yao_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, time5, das_ys)
+    bob5_beliefspark = beliefunit_shop(exx.bob, exx.a23)
+    bob5_yao_beliefspark = beliefunit_shop(exx.yao, exx.a23)
+    bob5_yao_sue_beliefspark = beliefunit_shop(exx.sue, exx.a23)
     bob5_beliefspark.add_voiceunit(exx.yao)
     bob5_yao_beliefspark.add_voiceunit(exx.sue)
     bob5_yao_sue_beliefspark.add_voiceunit(exx.bob)
@@ -102,7 +99,7 @@ def test_set_cell_trees_found_facts_Scenario2_ChildNodeWithOneFactIsAssignedToAn
     assert cellunit_get_from_dir(bob5_yao_sue_dir).found_facts == {}
 
     # WHEN
-    set_cell_trees_found_facts(mstr_dir, a23_str)
+    set_cell_trees_found_facts(mstr_dir, exx.a23)
 
     # THEN
     assert cellunit_get_from_dir(bob5_dir).found_facts == clean_facts

@@ -25,7 +25,7 @@ def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
     # for x_arg in sorted(x_args):
     #     print(f"{x_arg=}")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_keeps_buildable = True
     x_keeps_justified = False
@@ -92,7 +92,7 @@ def test_create_blrplan_metrics_insert_sqlstr_ReturnsObj():
     #     # b1_str = "}"
     #     # print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_active = 1
     x_all_voice_cred = 2
@@ -192,7 +192,7 @@ def test_create_blrreas_metrics_insert_sqlstr_ReturnsObj():
     #     b1_str = "}"
     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -255,7 +255,7 @@ def test_create_blrcase_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -322,7 +322,7 @@ def test_create_blrawar_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_rope = 1
     x_awardee_title = 2
@@ -385,7 +385,7 @@ def test_create_blrfact_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_rope = 1
     x_fact_context = 2
@@ -446,7 +446,7 @@ def test_create_blrheal_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_rope = 1
     x_healer_name = 2
@@ -501,7 +501,7 @@ def test_create_blrlabo_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_rope = 1
     x_party_title = 2
@@ -561,7 +561,7 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_voice_name = 1
     x_voice_cred_lumen = 2
@@ -640,7 +640,7 @@ def test_create_blrmemb_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_voice_name = 1
     x_group_title = 2
@@ -715,7 +715,7 @@ def test_create_blrgrou_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "amy23"
+    x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_group_title = 1
     x_credor_pool = 2

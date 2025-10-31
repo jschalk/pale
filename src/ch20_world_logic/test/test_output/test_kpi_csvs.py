@@ -36,7 +36,6 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_world._input_dir, ex_filename)
-    amy23_str = "amy23"
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
@@ -44,7 +43,7 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
         kw.belief_name,
         kw.voice_name,
     ]
-    br00011_rows = [[spark2, exx.sue, amy23_str, exx.sue, exx.sue]]
+    br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     fay_world.sheets_input_to_clarity_mstr()

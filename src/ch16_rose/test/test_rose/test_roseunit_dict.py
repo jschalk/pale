@@ -1,6 +1,6 @@
 from src.ch04_rope.rope import default_knot_if_None
 from src.ch16_rose.rose_config import default_unknown_str_if_None
-from src.ch16_rose.rose_main import (
+from src.ch16_rose.rose_term import (
     _get_rid_of_rose_core_keys,
     get_roseunit_from_dict,
     roseunit_shop,
@@ -33,12 +33,10 @@ def test_RoseUnit_to_dict_ReturnsObj_Scenario0():
     sue_titlemap = sue_roseunit.titlemap.to_dict()
     sue_labelmap = sue_roseunit.labelmap.to_dict()
     sue_ropemap = sue_roseunit.ropemap.to_dict()
-    sue_epochmap_dict = sue_roseunit.epochmap.to_dict()
     assert sue_dict.get(kw.namemap) == _get_rid_of_rose_core_keys(sue_namemap)
     assert sue_dict.get(kw.titlemap) == _get_rid_of_rose_core_keys(sue_titlemap)
     assert sue_dict.get(kw.labelmap) == _get_rid_of_rose_core_keys(sue_labelmap)
     assert sue_dict.get(kw.ropemap) == _get_rid_of_rose_core_keys(sue_ropemap)
-    assert sue_dict.get(kw.epochmap) == sue_epochmap_dict
     assert sue_dict.keys() == sue_roseunit.__dict__.keys()
 
 

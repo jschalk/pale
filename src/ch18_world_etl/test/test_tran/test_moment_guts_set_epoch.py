@@ -13,14 +13,13 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_add_moment_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     # ESTABLISH
-    a23_str = "amy23"
     moment_mstr_dir = get_temp_dir()
-    a23_moment = momentunit_shop(a23_str, moment_mstr_dir)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.epoch = epochunit_shop(get_five_config())
-    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_str)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     save_json(moment_json_path, None, a23_moment.to_dict())
     assert os_path_exists(moment_json_path)
-    init_sue_gut = beliefunit_shop(exx.sue, a23_str)
+    init_sue_gut = beliefunit_shop(exx.sue, exx.a23)
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)
@@ -30,5 +29,5 @@ def test_add_moment_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     add_moment_epoch_to_guts(moment_mstr_dir)
 
     # THEN
-    post_sue_gut = open_gut_file(moment_mstr_dir, a23_str, exx.sue)
+    post_sue_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
     assert post_sue_gut.plan_exists(five_rope)

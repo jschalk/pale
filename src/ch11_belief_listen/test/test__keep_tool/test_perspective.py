@@ -34,15 +34,14 @@ def test_get_dw_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileH
     temp_dir_setup,
 ):
     # ESTABLISH
-    a23_str = "amy23"
     bob_beliefunit = get_beliefunit_with_4_levels()
     bob_beliefunit.set_belief_name(exx.bob)
-    bob_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_str, exx.bob)
+    bob_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.bob)
     save_job_file(bob_lessonfilehandler.moment_mstr_dir, bob_beliefunit)
 
     # WHEN
     perspective_beliefunit = get_dw_perspective_belief(
-        env_dir(), a23_str, exx.bob, exx.sue
+        env_dir(), exx.a23, exx.bob, exx.sue
     )
 
     # THEN
@@ -57,16 +56,15 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
 ):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope("amy23", nation_str)
+    nation_rope = create_rope("Amy23", nation_str)
     iowa_rope = create_rope(nation_rope, "Iowa")
-    a23_str = "amy23"
 
     yao_beliefunit = get_beliefunit_with_4_levels()
     yao_beliefunit.set_belief_name(exx.yao)
 
     save_vision_belief(
         moment_mstr_dir=env_dir(),
-        moment_label=a23_str,
+        moment_label=exx.a23,
         healer_name=exx.bob,
         keep_rope=iowa_rope,
         knot=default_knot_if_None(),
@@ -76,7 +74,7 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
     # WHEN
     perspective_beliefunit = rj_perspective_belief(
         moment_mstr_dir=env_dir(),
-        moment_label=a23_str,
+        moment_label=exx.a23,
         keep_rope=iowa_rope,
         knot=default_knot_if_None(),
         healer_name=exx.bob,
