@@ -83,7 +83,6 @@ class MomentUnit:
     """
 
     # TODO extraction pipelines into standalone functions
-
     moment_label: MomentLabel = None
     moment_mstr_dir: str = None
     epoch: EpochUnit = None

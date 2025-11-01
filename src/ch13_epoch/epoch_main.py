@@ -438,7 +438,7 @@ def get_epoch_min_difference(epoch_config0: dict, epoch_config1: dict) -> int:
 
 
 @dataclass
-class BeliefEpochTime:
+class EpochHolder:
     """Given belief, epoch_rope, and EpochTime, returns time technology attrs
     _c400_number: count of 400 year cycles
     _c100_count: count of 100 year cycles after _c400_number years removed
@@ -573,8 +573,8 @@ class BeliefEpochTime:
         return x_str
 
 
-def beliefepochtime_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
-    return BeliefEpochTime(x_beliefunit, epoch_label, x_min=x_min)
+def epochholder_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
+    return EpochHolder(x_beliefunit, epoch_label, x_min=x_min)
 
 
 def epoch_config_path() -> str:

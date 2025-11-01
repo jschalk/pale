@@ -858,7 +858,7 @@ def test_add_frame_to_beliefunit_SetsAttrs_Scenario2_IgnoreNonRangeReasonsFacts(
     assert root_clean_fact.fact_upper is None
 
 
-def test_add_epoch_frame_to_beliefunit_SetsAttrs_Scenario1_IgnoreNonRangeReasonsFacts():
+def test_add_epoch_frame_to_beliefunit_SetsAttrs_Scenario0_IgnoreNonRangeReasonsFacts():
     # ESTABLISH
     bob_belief = get_bob_five_belief()
     bob_belief.add_plan(wx.clean_rope)
