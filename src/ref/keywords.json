@@ -10,7 +10,7 @@
   "Eastday": {"init_chapter": "ch13"}, 
   "Epoch": {"init_chapter": "ch11"}, 
   "EpochLabel": {"init_chapter": "ch13", "semantic_type": "str"}, 
-  "EpochForge": {"init_chapter": "ch15"}, 
+  "EpochIngress": {"init_chapter": "ch15"}, 
   "EpochTime": {"init_chapter": "ch11", "semantic_type": "int"}, 
   "Event": {"init_chapter": "ch24"}, 
   "FaceName": {"init_chapter": "ch09", "semantic_type": "str"}, 
@@ -129,8 +129,8 @@
 
   "close": {"init_chapter": "ch06"}, 
   "column_order": {"init_chapter": "ch08"}, 
-  "forge": {"init_chapter": "ch15"}, 
-  "Forge": {"init_chapter": "ch15"}, 
+  "ingress": {"init_chapter": "ch15"}, 
+  "Ingress": {"init_chapter": "ch15"}, 
   "credor_pool": {"init_chapter": "ch03"}, 
   "credor_respect": {"init_chapter": "ch07"}, 
   "creg": {"init_chapter": "ch13"}, 
@@ -179,7 +179,7 @@
     "init_chapter": "ch13", 
     "note": "Total number of minutes in a Epoch. Calculated by number of minutes in C400_leap times Epoch's c400_number"
   }, 
-  "epochforge": {"init_chapter": "ch15"}, 
+  "epochingress": {"init_chapter": "ch15"}, 
   "error_message": {"init_chapter": "ch17"}, 
   "every_xdays": {
     "init_chapter": "ch13", 
