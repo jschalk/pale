@@ -34,6 +34,16 @@ def get_moment_epochholder(momentunit: MomentUnit) -> EpochHolder:
 def add_frame_to_momentunit(momentunit: MomentUnit, epoch_frame_min: int):
     add_frame_to_paybook_tran_time(momentunit, epoch_frame_min)
     add_frame_to_budhistory_bud_time(momentunit, epoch_frame_min)
+    add_frame_to_budhistory_offi_time(momentunit, epoch_frame_min)
+
+
+def add_frame_to_budhistory_offi_time(momentunit: MomentUnit, epoch_frame_min: int):
+    epoch_length = get_epoch_length(momentunit.get_epoch_config())
+    new_offi_times = {
+        (offi_time + epoch_frame_min) % epoch_length
+        for offi_time in momentunit.offi_times
+    }
+    momentunit.offi_times = new_offi_times
 
 
 def add_frame_to_budhistory_bud_time(momentunit: MomentUnit, epoch_frame_min: int):

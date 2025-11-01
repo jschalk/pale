@@ -195,5 +195,39 @@ def test_add_frame_to_momentunit_SetsAttr_Scenario5_bud_time_ModularAddition():
     assert sue_momentunit.bud_quota_exists(exx.sue, expected_time, t55_quota)
 
 
-# def test_add_frame_to_momentunit_SetsAttr_Scenario2_offi_time():
-#     pass
+def test_add_frame_to_momentunit_SetsAttr_Scenario6_offi_time():
+    # ESTABLISH
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir())
+    epoch_frame_min = 10
+    t55_offi_time = 55
+    t65_offi_time = t55_offi_time + epoch_frame_min
+    sue_momentunit.offi_times.add(t55_offi_time)
+    assert t55_offi_time in sue_momentunit.offi_times
+    assert t65_offi_time not in sue_momentunit.offi_times
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, epoch_frame_min)
+
+    # THEN
+    assert t55_offi_time not in sue_momentunit.offi_times
+    assert t65_offi_time in sue_momentunit.offi_times
+
+
+def test_add_frame_to_momentunit_SetsAttr_Scenario7_offi_time_Set():
+    # ESTABLISH
+    creg_epochunit = epochunit_shop(get_creg_config())
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir(), creg_epochunit)
+    epoch_length = get_epoch_length(get_creg_config())
+    epoch_frame_min = 10 + epoch_length
+    t55_offi_time = 55
+    epected_offi_time = t55_offi_time + epoch_frame_min % epoch_length
+    sue_momentunit.offi_times.add(t55_offi_time)
+    assert t55_offi_time in sue_momentunit.offi_times
+    assert epected_offi_time not in sue_momentunit.offi_times
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, epoch_frame_min)
+
+    # THEN
+    assert t55_offi_time not in sue_momentunit.offi_times
+    assert epected_offi_time in sue_momentunit.offi_times
