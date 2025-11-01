@@ -170,5 +170,30 @@ def test_add_frame_to_momentunit_SetsAttr_Scenario4_bud_time():
     assert sue_momentunit.bud_quota_exists(exx.sue, t65_time, t55_quota)
 
 
+def test_add_frame_to_momentunit_SetsAttr_Scenario5_bud_time_ModularAddition():
+    # ESTABLISH
+    creg_epochunit = epochunit_shop(get_creg_config())
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir(), creg_epochunit)
+    t55_quota = 4
+    t55_time = 55
+    epoch_frame_min = 10
+    epoch_length = get_epoch_length(get_creg_config())
+    t0x_time = t55_time + epoch_frame_min + epoch_length
+    sue_bud_hx = beliefbudhistory_shop(exx.sue)
+    sue_bud_hx.add_bud(x_bud_time=t55_time, x_quota=t55_quota)
+    sue_momentunit.set_beliefbudhistory(sue_bud_hx)
+    assert sue_momentunit.bud_quota_exists(exx.sue, t55_time, t55_quota)
+    assert not sue_momentunit.bud_quota_exists(exx.sue, t0x_time, t55_quota)
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, epoch_frame_min)
+
+    # THEN
+    assert not sue_momentunit.bud_quota_exists(exx.sue, t55_time, t55_quota)
+    expected_time = t0x_time % epoch_length
+    assert t0x_time != expected_time
+    assert sue_momentunit.bud_quota_exists(exx.sue, expected_time, t55_quota)
+
+
 # def test_add_frame_to_momentunit_SetsAttr_Scenario2_offi_time():
 #     pass

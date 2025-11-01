@@ -47,7 +47,7 @@ def get_imports_from_file(file_path):
     - Followed by all imported objects from that chapter
 
     Example:
-    [['math', 'sqrt', 'pi'], ['os.path', 'join']]
+    [['pathlib', 'sqrt', 'pi'], ['os.path', 'join']]
 
     :param file_path: Path to the Python (.py) file
     :return: List of lists: [chapter, imported_obj1, imported_obj2, ...]
@@ -397,8 +397,7 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
     func_total_count = len(all_test_functions)
     sorted_test_functions_names = sorted(all_test_functions.keys())
 
-    function_count = 0
-    for function_name in sorted_test_functions_names:
+    for function_count, function_name in enumerate(sorted_test_functions_names):
         test_function_str = all_test_functions.get(function_name)
         establish_str_exists = test_function_str.find("ESTABLISH") > -1
         when_str_exists = test_function_str.find("WHEN") > -1
@@ -414,7 +413,6 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
             # standalone_str = f""""{value_str}\""""
             # fail3_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{standalone_str}' with Enum class reference."
             # assert standalone_str not in test_function_str, fail3_str
-        function_count += 1
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")

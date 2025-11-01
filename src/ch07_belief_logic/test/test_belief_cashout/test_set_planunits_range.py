@@ -28,7 +28,7 @@ def test_BeliefUnit_set_plantree_range_attrs_SetsInitialPlan_gogo_calc_stop_calc
     assert not root_plan.stop_calc
 
 
-def test_BeliefUnit_set_plantree_range_attrs_SetsInitialPlan_gogo_calc_stop_calc_DoesNotErrorWhenNoMathLabels():
+def test_BeliefUnit_set_plantree_range_attrs_SetsInitialPlan_gogo_calc_stop_calc_DoesNotErrorWhenThereAreNoRangePlans():
     # ESTABLISH
     yao_belief = get_beliefunit_with_4_levels_and_2reasons()
     root_rope = yao_belief.planroot.get_plan_rope()

@@ -14,13 +14,15 @@ from src.ch01_py.keyword_class_builder import (
 
 
 def test_get_chapter_desc_prefix_ReturnsObj():
-    # ESTABLISH / WHEN / THEN
-    assert get_chapter_desc_prefix("ch03_") == "ch03"
-    assert get_chapter_desc_prefix("ch99") == "ch99"
-    assert get_chapter_desc_prefix("ch03") == "ch03"
-    assert get_chapter_desc_prefix("ch99") == "ch99"
-    assert get_chapter_desc_prefix("chXX") == "chXX"
-    assert get_chapter_desc_prefix("cha01") != "ch02"
+    # ESTABLISH
+    ch_str = "ch"
+    # WHEN / THEN
+    assert get_chapter_desc_prefix(f"{ch_str}03_") == f"{ch_str}03"
+    assert get_chapter_desc_prefix(f"{ch_str}99") == f"{ch_str}99"
+    assert get_chapter_desc_prefix(f"{ch_str}03") == f"{ch_str}03"
+    assert get_chapter_desc_prefix(f"{ch_str}99") == f"{ch_str}99"
+    assert get_chapter_desc_prefix(f"{ch_str}XX") == f"{ch_str}XX"
+    assert get_chapter_desc_prefix(f"{ch_str}a01") != f"{ch_str}02"
 
 
 def test_get_example_strs_config_ReturnsObj():
@@ -50,11 +52,12 @@ def test_get_keywords_src_config_ReturnsObj():
 
 def test_create_keywords_enum_class_file_str_ReturnsObj_Scenario0_Empty_keyword_set():
     # ESTABLISH
-    ch03_str = "ch03"
-    ch03_keywords = {}
+    ch_str = "ch"
+    ch_03_str = f"{ch_str}03"
+    ch_03_keywords = {}
 
     # WHEN
-    file_str = create_keywords_enum_class_file_str(ch03_str, ch03_keywords)
+    file_str = create_keywords_enum_class_file_str(ch_03_str, ch_03_keywords)
 
     # THEN
     assert file_str
@@ -74,14 +77,15 @@ class Ch03{key_str}words(str, Enum):
 
 def test_create_keywords_enum_class_file_str_ReturnsObj_Scenario1_NonEmpty_keyword_set():
     # ESTABLISH
-    ch03_str = "ch03"
+    ch_str = "ch"
+    ch_03_str = f"{ch_str}03"
     keywordF = "Funny"
     keywordI = "INSET"
     keywordf = "funny"
     keywordG = "Guppies"
     keywordH = "Heath"
     keywordR = "Risto"
-    ch03_keywords = {
+    ch_03_keywords = {
         keywordF,
         keywordI,
         keywordf,
@@ -91,7 +95,7 @@ def test_create_keywords_enum_class_file_str_ReturnsObj_Scenario1_NonEmpty_keywo
     }
 
     # WHEN
-    file_str = create_keywords_enum_class_file_str(ch03_str, ch03_keywords)
+    file_str = create_keywords_enum_class_file_str(ch_03_str, ch_03_keywords)
 
     # THEN
     assert file_str
