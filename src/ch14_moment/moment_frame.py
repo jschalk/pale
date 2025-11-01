@@ -1,5 +1,5 @@
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch11_bud.bud_main import tranbook_shop
+from src.ch11_bud.bud_main import beliefbudhistory_shop, tranbook_shop
 from src.ch13_epoch.epoch_main import (
     EpochHolder,
     add_epoch_planunit,
@@ -32,6 +32,27 @@ def get_moment_epochholder(momentunit: MomentUnit) -> EpochHolder:
 
 
 def add_frame_to_momentunit(momentunit: MomentUnit, epoch_frame_min: int):
+    add_frame_to_paybook_tran_time(momentunit, epoch_frame_min)
+    add_frame_to_budhistory_bud_time(momentunit, epoch_frame_min)
+
+
+def add_frame_to_budhistory_bud_time(momentunit: MomentUnit, epoch_frame_min: int):
+    epoch_length = get_epoch_length(momentunit.get_epoch_config())
+    new_beliefbudhistorys = {}
+    for belief_name, beliefhistory in momentunit.beliefbudhistorys.items():
+        new_beliefbudhistory = beliefbudhistory_shop(belief_name)
+        for bud_time, budunit in beliefhistory.buds.items():
+            new_bud_time = bud_time + epoch_frame_min % epoch_length
+            new_beliefbudhistory.add_bud(
+                x_bud_time=new_bud_time,
+                x_quota=budunit.quota,
+                celldepth=budunit.celldepth,
+            )
+        new_beliefbudhistorys[belief_name] = new_beliefbudhistory
+    momentunit.beliefbudhistorys = new_beliefbudhistorys
+
+
+def add_frame_to_paybook_tran_time(momentunit: MomentUnit, epoch_frame_min: int):
     epoch_length = get_epoch_length(momentunit.get_epoch_config())
     new_paybook = tranbook_shop(momentunit.moment_label)
     for belief_name, voice_values in momentunit.paybook.tranunits.items():

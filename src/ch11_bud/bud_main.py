@@ -270,7 +270,7 @@ class BeliefBudHistory:
         budunit = budunit_shop(bud_time=x_bud_time, quota=x_quota, celldepth=celldepth)
         self.set_bud(budunit)
 
-    def bud_exists(self, x_bud_time: EpochTime) -> bool:
+    def bud_time_exists(self, x_bud_time: EpochTime) -> bool:
         return self.buds.get(x_bud_time) != None
 
     def get_bud(self, x_bud_time: EpochTime) -> BudUnit:

@@ -216,6 +216,18 @@ class MomentUnit:
         x_beliefbudhistory = self.get_beliefbudhistory(belief_name)
         x_beliefbudhistory.add_bud(bud_time, quota, celldepth)
 
+    def bud_quota_exists(
+        self,
+        belief_name: BeliefName,
+        bud_time: EpochTime,
+        quota: int,
+    ) -> bool:
+        beliefbudhistory = self.get_beliefbudhistory(belief_name)
+        if not beliefbudhistory:
+            return False
+        budunit = beliefbudhistory.get_bud(bud_time)
+        return budunit.quota == quota if budunit else False
+
     def get_budunit(self, belief_name: BeliefName, bud_time: EpochTime) -> BudUnit:
         if not self.get_beliefbudhistory(belief_name):
             return None

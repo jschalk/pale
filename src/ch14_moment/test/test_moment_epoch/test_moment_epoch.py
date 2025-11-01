@@ -1,3 +1,4 @@
+from src.ch11_bud.bud_main import beliefbudhistory_shop
 from src.ch13_epoch.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
     epochunit_shop,
@@ -127,8 +128,46 @@ def test_add_frame_to_momentunit_SetsAttr_Scenario2_tran_time_DifferentEpochUnit
     assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, expected_time)
 
 
-# def test_add_frame_to_momentunit_SetsAttr_Scenario1_bud_time():
-#     pass
+def test_add_frame_to_momentunit_SetsAttr_Scenario3_tran_time_NoErrorWhenUsingSameTIme():
+    # ESTABLISH
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir())
+    t55 = 55
+    t65 = 65
+    t75 = 75
+    sue_momentunit.paybook.add_tranunit(exx.sue, exx.yao, t55, 3)
+    sue_momentunit.paybook.add_tranunit(exx.sue, exx.yao, t65, 3)
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t65)
+    assert not sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t75)
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, 10)
+
+    # THEN
+    assert not sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t65)
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t75)
+
+
+def test_add_frame_to_momentunit_SetsAttr_Scenario4_bud_time():
+    # ESTABLISH
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir())
+    t55_quota = 4
+    t55_time = 55
+    epoch_frame_min = 10
+    t65_time = t55_time + epoch_frame_min
+    sue_bud_hx = beliefbudhistory_shop(exx.sue)
+    sue_bud_hx.add_bud(x_bud_time=t55_time, x_quota=t55_quota)
+    sue_momentunit.set_beliefbudhistory(sue_bud_hx)
+    assert sue_momentunit.bud_quota_exists(exx.sue, t55_time, t55_quota)
+    assert not sue_momentunit.bud_quota_exists(exx.sue, t65_time, t55_quota)
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, epoch_frame_min)
+
+    # THEN
+    assert not sue_momentunit.bud_quota_exists(exx.sue, t55_time, t55_quota)
+    assert sue_momentunit.bud_quota_exists(exx.sue, t65_time, t55_quota)
 
 
 # def test_add_frame_to_momentunit_SetsAttr_Scenario2_offi_time():
