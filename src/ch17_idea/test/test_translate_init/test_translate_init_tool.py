@@ -169,7 +169,7 @@ def test_create_translate_label_dt_ReturnsObj():
 # def test_create_translate_epoch_dt_ReturnsObj():
 #     # ESTABLISH
 #     casa_translateunit = get_casa_maison_translateunit_set_by_epoch()
-#     casa_mapunit = casa_translateunit.get_epochcook()
+#     casa_mapunit = casa_translateunit.get_epochforge()
 #     print(f"{casa_mapunit=}")
 
 #     # WHEN

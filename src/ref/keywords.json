@@ -10,7 +10,7 @@
   "Eastday": {"init_chapter": "ch13"}, 
   "Epoch": {"init_chapter": "ch11"}, 
   "EpochLabel": {"init_chapter": "ch13", "semantic_type": "str"}, 
-  "EpochCook": {"init_chapter": "ch15"}, 
+  "EpochForge": {"init_chapter": "ch15"}, 
   "EpochTime": {"init_chapter": "ch11", "semantic_type": "int"}, 
   "Event": {"init_chapter": "ch24"}, 
   "FaceName": {"init_chapter": "ch09", "semantic_type": "str"}, 
@@ -108,8 +108,8 @@
   "class_type": {"init_chapter": "ch07"}, 
   "close": {"init_chapter": "ch06"}, 
   "column_order": {"init_chapter": "ch08"}, 
-  "cook": {"init_chapter": "ch15"}, 
-  "Cook": {"init_chapter": "ch15"}, 
+  "forge": {"init_chapter": "ch15"}, 
+  "Forge": {"init_chapter": "ch15"}, 
   "credor_pool": {"init_chapter": "ch03"}, 
   "credor_respect": {"init_chapter": "ch07"}, 
   "creg": {"init_chapter": "ch13"}, 
@@ -158,7 +158,7 @@
     "init_chapter": "ch13", 
     "note": "Total number of minutes in a Epoch. Calculated by number of minutes in C400_leap times Epoch's c400_number"
   }, 
-  "epochcook": {"init_chapter": "ch15"}, 
+  "epochforge": {"init_chapter": "ch15"}, 
   "error_message": {"init_chapter": "ch17"}, 
   "every_xdays": {
     "init_chapter": "ch13", 

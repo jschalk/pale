@@ -18,7 +18,7 @@ What does each one do?
 - **ch12_keep**: Builds a simulation that describes how much credit a healer has earned.
 - **ch13_epoch**: Defines how time is handled by BeliefUnits. Allows for arbitrary time structures.
 - **ch14_moment**: Defines MomentUnits: common time tech, ledger, VoiceNames, history of BeliefUnits.
-- **ch15_cook**: Defines CookUnit tools that interpret numeric values into inside accounting.
+- **ch15_forge**: Defines ForgeUnit tools that interpret numeric values into inside accounting.
 - **ch16_translate**: Defines TranslateUnit tools that translate MomentUnits into inside language.
 - **ch17_idea**: Defines Idea Bricks: Spreadsheet data formats of any MomentUnit data.
 - **ch18_world_etl**: Defines the tools that use Idea Bricks to build MomentUnits.
