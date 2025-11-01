@@ -398,7 +398,7 @@ def test_load_ropemap_from_csv_DoesNotChangeWhenFileDoesNotExist(
 
 def test_create_dir_valid_empty_translateunit_Sets_otx_knot_inx_knot(
     temp_dir_setup,
-):
+):  # sourcery skip: extract-duplicate-method
     # ESTABLISH
     x_unknown_str = "UnknownTerm"
     slash_otx_knot = "/"
