@@ -1,8 +1,10 @@
 from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ch11_bud.bud_main import tranbook_shop
 from src.ch13_epoch.epoch_main import (
     EpochHolder,
     add_epoch_planunit,
     epochholder_shop,
+    get_epoch_length,
     get_epoch_rope,
 )
 from src.ch14_moment.moment_main import MomentUnit
@@ -27,3 +29,14 @@ def get_moment_epochholder(momentunit: MomentUnit) -> EpochHolder:
     x_epochholder = epochholder_shop(x_beliefunit, moment_epoch_label, 0)
     x_epochholder.calc_epoch()
     return x_epochholder
+
+
+def add_frame_to_momentunit(momentunit: MomentUnit, epoch_frame_min: int):
+    epoch_length = get_epoch_length(momentunit.get_epoch_config())
+    new_paybook = tranbook_shop(momentunit.moment_label)
+    for belief_name, voice_values in momentunit.paybook.tranunits.items():
+        for voice_name, trans_values in voice_values.items():
+            for tran_time, amount in trans_values.items():
+                new_tran_time = tran_time + epoch_frame_min % epoch_length
+                new_paybook.add_tranunit(belief_name, voice_name, new_tran_time, amount)
+    momentunit.paybook = new_paybook

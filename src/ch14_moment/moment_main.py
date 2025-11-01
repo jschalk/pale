@@ -292,6 +292,9 @@ class MomentUnit:
     ) -> TranUnit:
         return self.paybook.del_tranunit(src, dst, x_tran_time)
 
+    def clear_paypurchases(self):
+        self.paybook = tranbook_shop(self.moment_label)
+
     # def set_offi_time(self, offi_time: EpochTime):
     #     self.offi_time = offi_time
     #     if self.offi_time_max < self.offi_time:

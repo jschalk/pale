@@ -1,6 +1,10 @@
-from src.ch13_epoch.epoch_main import epochunit_shop
+from src.ch13_epoch.epoch_main import (
+    DEFAULT_EPOCH_LENGTH,
+    epochunit_shop,
+    get_epoch_length,
+)
 from src.ch13_epoch.test._util.ch13_examples import get_creg_config
-from src.ch14_moment.moment_epoch import get_moment_epochholder
+from src.ch14_moment.moment_frame import add_frame_to_momentunit, get_moment_epochholder
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch14_moment.test._util.ch14_env import get_temp_dir
 from src.ref.keywords import ExampleStrs as exx
@@ -70,13 +74,62 @@ def test_get_moment_epochholder_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs(
     #  epochholder_shop()
 
 
-# def test_add_frame_to_momentunit_obj_SetsAttr_Scenario0_tran_time():
+def test_add_frame_to_momentunit_SetsAttr_Scenario0_tran_time():
+    # ESTABLISH
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir())
+    t55 = 55
+    sue_momentunit.paybook.add_tranunit(exx.sue, exx.yao, t55, 3)
+    epoch_frame_min = 6
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, epoch_frame_min)
+
+    # THEN
+    assert not sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+    expected_time = t55 + epoch_frame_min
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, expected_time)
+
+
+def test_add_frame_to_momentunit_SetsAttr_Scenario1_tran_time_ModularAddition():
+    # ESTABLISH
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir())
+    t55 = 55
+    sue_momentunit.paybook.add_tranunit(exx.sue, exx.yao, t55, 3)
+    frame_min = DEFAULT_EPOCH_LENGTH + 300
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, frame_min)
+
+    # THEN
+    assert not sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+    expected_time = (t55 + frame_min) % DEFAULT_EPOCH_LENGTH
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, expected_time)
+
+
+def test_add_frame_to_momentunit_SetsAttr_Scenario2_tran_time_DifferentEpochUnit():
+    # ESTABLISH
+    creg_epochunit = epochunit_shop(get_creg_config())
+    sue_momentunit = momentunit_shop(exx.sue, get_temp_dir(), creg_epochunit)
+    t55 = 55
+    sue_momentunit.paybook.add_tranunit(exx.sue, exx.yao, t55, 3)
+    epoch_length = get_epoch_length(get_creg_config())
+    frame_min = epoch_length + 300
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+
+    # WHEN
+    add_frame_to_momentunit(sue_momentunit, frame_min)
+
+    # THEN
+    assert not sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, t55)
+    expected_time = (t55 + frame_min) % epoch_length
+    assert sue_momentunit.paybook.tranunit_exists(exx.sue, exx.yao, expected_time)
+
+
+# def test_add_frame_to_momentunit_SetsAttr_Scenario1_bud_time():
 #     pass
 
 
-# def test_add_frame_to_momentunit_obj_SetsAttr_Scenario1_bud_time():
-#     pass
-
-
-# def test_add_frame_to_momentunit_obj_SetsAttr_Scenario2_offi_time():
+# def test_add_frame_to_momentunit_SetsAttr_Scenario2_offi_time():
 #     pass

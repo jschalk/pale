@@ -159,6 +159,11 @@ def get_epoch_rope(
     return create_rope(time_rope, epoch_label, knot)
 
 
+def get_epoch_length(epoch_config: dict) -> int:
+    c400_number = epoch_config.get("c400_number")
+    return c400_number * get_c400_constants().c400_leap_length
+
+
 def add_epoch_planunit(x_beliefunit: BeliefUnit, epoch_config: dict):
     """ "Add epoch to BeliefUnit given epoch_config"""
     x_plan_label = epoch_config.get("epoch_label")
