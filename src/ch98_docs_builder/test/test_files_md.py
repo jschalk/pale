@@ -59,7 +59,7 @@ def test_save_idea_brick_mds_CreatesFiles(temp_dir_setup):
     save_idea_brick_mds(temp_dir)
 
     # THEN
-    assert count_dirs_files(temp_dir) == 42
+    assert count_dirs_files(temp_dir) == 41
 
 
 def test_save_idea_brick_formats_CreatesFile(temp_dir_setup):

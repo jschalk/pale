@@ -146,6 +146,8 @@ class WorldUnit:
         etl_sound_vld_tables_to_heard_raw_tables(cursor)
         # heard raw to moment/belief jsons
         etl_heard_raw_tables_to_heard_agg_tables(cursor)
+        # TODO add step to convert EpochTime and ContextNum in heard_agg_tables, use rules defined in Nabu chapter
+        # etl_heard_agg_nabu_updates
         etl_heard_agg_tables_to_moment_jsons(cursor, mstr_dir)
         etl_heard_agg_to_spark_belief_csvs(cursor, mstr_dir)
         etl_spark_belief_csvs_to_lesson_json(mstr_dir)

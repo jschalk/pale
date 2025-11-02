@@ -26,7 +26,6 @@
 - [`br00043`](ideas/br00043.md): spark_num, face_name, otx_name, inx_name, otx_knot, inx_knot, unknown_str
 - [`br00044`](ideas/br00044.md): spark_num, face_name, otx_label, inx_label, otx_knot, inx_knot, unknown_str
 - [`br00045`](ideas/br00045.md): spark_num, face_name, otx_rope, inx_rope, otx_knot, inx_knot, unknown_str
-- [`br00046`](ideas/br00046.md): spark_num, face_name, otx_epoch_length, inx_epoch_diff
 - [`br00050`](ideas/br00050.md): spark_num, face_name, moment_label, belief_name, voice_name, group_title_ERASE
 - [`br00051`](ideas/br00051.md): spark_num, face_name, moment_label, belief_name, voice_name_ERASE
 - [`br00052`](ideas/br00052.md): spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE

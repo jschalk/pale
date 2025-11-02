@@ -36,8 +36,7 @@ def test_get_translate_config_dict_ReturnsObj():
     assert kw.translate_title in translate_config_dimens
     assert kw.translate_label in translate_config_dimens
     assert kw.translate_rope in translate_config_dimens
-    assert kw.translate_epoch in translate_config_dimens
-    assert len(translate_config) == 5
+    assert len(translate_config) == 4
 
     _validate_translate_config(translate_config)
     translate_rope_dict = translate_config.get(kw.translate_rope)
@@ -50,8 +49,6 @@ def test_get_translate_config_dict_ReturnsObj():
 
 def _validate_translate_config(translate_config: dict):
     x_possible_args = {
-        kw.inx_epoch_diff,
-        kw.otx_epoch_length,
         kw.inx_knot,
         kw.otx_knot,
         kw.inx_title,
@@ -97,8 +94,7 @@ def test_get_translate_dimens_ReturnsObj():
     assert kw.translate_title in translate_config_dimens
     assert kw.translate_label in translate_config_dimens
     assert kw.translate_rope in translate_config_dimens
-    assert kw.translate_epoch in translate_config_dimens
-    assert len(translate_config_dimens) == 5
+    assert len(translate_config_dimens) == 4
 
 
 def test_get_translate_args_dimen_mapping_ReturnsObj():
@@ -114,7 +110,7 @@ def test_get_translate_args_dimen_mapping_ReturnsObj():
     assert x_translate_args_dimen_mapping.get(kw.inx_knot)
     inx_knot_dimens = x_translate_args_dimen_mapping.get(kw.inx_knot)
     assert len(inx_knot_dimens) == 4
-    assert len(x_translate_args_dimen_mapping) == 13
+    assert len(x_translate_args_dimen_mapping) == 11
 
 
 def _get_all_translate_config_attrs() -> dict[str, set[str]]:
@@ -134,8 +130,7 @@ def test_get_quick_translates_column_ref_ReturnsObj():
 
     # WHEN / THEN
     assert kw.translate_rope in set(get_quick_translates_column_ref().keys())
-    assert kw.translate_epoch in set(get_quick_translates_column_ref().keys())
-    assert len(get_quick_translates_column_ref().keys()) == 5
+    assert len(get_quick_translates_column_ref().keys()) == 4
     assert get_quick_translates_column_ref() == all_translate_config_attrs
 
 

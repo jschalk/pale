@@ -566,7 +566,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         assert db_table_exists(cursor, trlcore_s_agg_table)
         assert db_table_exists(cursor, trlcore_s_vld_table)
         cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
-        assert cursor.fetchone()[0] == 153
+        assert cursor.fetchone()[0] == 150
 
 
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen():

@@ -8,7 +8,6 @@ from src.ch18_world_etl.tran_sqlstrs import (
     CREATE_TRLCORE_SOUND_AGG_SQLSTR,
     CREATE_TRLCORE_SOUND_RAW_SQLSTR,
     CREATE_TRLCORE_SOUND_VLD_SQLSTR,
-    CREATE_TRLEPOC_SOUND_AGG_SQLSTR,
     CREATE_TRLLABE_SOUND_AGG_SQLSTR,
     CREATE_TRLNAME_SOUND_AGG_SQLSTR,
     CREATE_TRLROPE_SOUND_AGG_SQLSTR,
@@ -95,48 +94,48 @@ VALUES
         ]
 
 
-def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable_Scenario0_IgnoresDimen_translate_epoch():
-    # ESTABLISH
-    sue1_otx_time = 100
-    sue1_inx_time = 200
-    sue7_otx_time = 111
-    sue7_inx_time = 222
-    yao7_otx_time = 700
-    yao7_inx_time = 701
-    spark1 = 1
-    spark7 = 7
+# def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable_Scenario0_IgnoresDimen_translate_epoch():
+#     # ESTABLISH
+#     sue1_otx_time = 100
+#     sue1_inx_time = 200
+#     sue7_otx_time = 111
+#     sue7_inx_time = 222
+#     yao7_otx_time = 700
+#     yao7_inx_time = 701
+#     spark1 = 1
+#     spark7 = 7
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        cursor.execute(CREATE_TRLEPOC_SOUND_AGG_SQLSTR)
-        trlepoc_dimen = kw.translate_epoch
-        translate_epoc_s_agg_tablename = create_prime_tablename(
-            trlepoc_dimen, "s", "agg"
-        )
-        insert_into_clause = f"""INSERT INTO {translate_epoc_s_agg_tablename} (
-  {kw.spark_num}
-, {kw.face_name}
-, {kw.otx_epoch_length}
-, {kw.inx_epoch_diff}
-)"""
-        values_clause = f"""
-VALUES
-  ({spark1}, '{exx.sue}', {sue1_otx_time}, {sue1_inx_time})
-, ({spark7}, '{exx.sue}', {sue7_otx_time}, {sue7_inx_time})
-, ({spark7}, '{exx.yao}', {yao7_otx_time}, {yao7_inx_time})
-;
-"""
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        create_sound_and_heard_tables(cursor)
-        translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s", "raw")
-        assert get_row_count(cursor, translate_epoc_s_agg_tablename) == 3
-        assert get_row_count(cursor, translate_core_s_raw_tablename) == 0
+#     with sqlite3_connect(":memory:") as db_conn:
+#         cursor = db_conn.cursor()
+#         cursor.execute(CREATE_TRLEPOC_SOUND_AGG_SQLSTR)
+#         trlepoc_dimen = kw.translate_epoch
+#         translate_epoc_s_agg_tablename = create_prime_tablename(
+#             trlepoc_dimen, "s", "agg"
+#         )
+#         insert_into_clause = f"""INSERT INTO {translate_epoc_s_agg_tablename} (
+#   {kw.spark_num}
+# , {kw.face_name}
+# , {kw.otx_epoch_length}
+# , {kw.inx_epoch_diff}
+# )"""
+#         values_clause = f"""
+# VALUES
+#   ({spark1}, '{exx.sue}', {sue1_otx_time}, {sue1_inx_time})
+# , ({spark7}, '{exx.sue}', {sue7_otx_time}, {sue7_inx_time})
+# , ({spark7}, '{exx.yao}', {yao7_otx_time}, {yao7_inx_time})
+# ;
+# """
+#         cursor.execute(f"{insert_into_clause} {values_clause}")
+#         create_sound_and_heard_tables(cursor)
+#         translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s", "raw")
+#         assert get_row_count(cursor, translate_epoc_s_agg_tablename) == 3
+#         assert get_row_count(cursor, translate_core_s_raw_tablename) == 0
 
-        # WHEN
-        insert_translate_sound_agg_into_translate_core_raw_table(cursor)
+#         # WHEN
+#         insert_translate_sound_agg_into_translate_core_raw_table(cursor)
 
-        # THEN
-        assert get_row_count(cursor, translate_core_s_raw_tablename) == 0
+#         # THEN
+#         assert get_row_count(cursor, translate_core_s_raw_tablename) == 0
 
 
 def test_insert_translate_sound_agg_into_translate_core_raw_table_PopulatesTable_Scenario1():

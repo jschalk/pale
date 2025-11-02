@@ -67,7 +67,7 @@ from src.ch16_translate.translate_config import (
     get_translate_nameterm_args,
     get_translate_ropeterm_args,
     get_translate_titleterm_args,
-    get_translateable_term_class_types,
+    translateable_class_types,
 )
 from src.ch16_translate.translate_main import (
     default_knot_if_None,
@@ -592,7 +592,7 @@ def set_heard_raw_inx_column(
     column_without_otx: str,
     arg_class_type: str,
 ):
-    if arg_class_type in get_translateable_term_class_types():
+    if arg_class_type in translateable_class_types():
         translate_type_abbv = None
         if arg_class_type == "NameTerm":
             translate_type_abbv = "name"

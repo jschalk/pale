@@ -59,7 +59,6 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     blfmont_dimen = kw.moment_epoch_month
     blfweek_dimen = kw.moment_epoch_weekday
     blfoffi_dimen = kw.moment_timeoffi
-    trlepoc_dimen = kw.translate_epoch
     trlname_dimen = kw.translate_name
     trllabe_dimen = kw.translate_label
     trlrope_dimen = kw.translate_rope
@@ -90,7 +89,6 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     blfmont_s_agg_table = create_prime_tablename("blfmont", "s", agg_str)
     blfweek_s_agg_table = create_prime_tablename("blfweek", "s", agg_str)
     blfoffi_s_agg_table = create_prime_tablename("blfoffi", "s", agg_str)
-    trlepoc_s_agg_table = create_prime_tablename("trlepoc", "s", agg_str)
     trlname_s_agg_table = create_prime_tablename("trlname", "s", agg_str)
     trllabe_s_agg_table = create_prime_tablename("trllabe", "s", agg_str)
     trlrope_s_agg_table = create_prime_tablename("trlrope", "s", agg_str)
@@ -123,7 +121,6 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert blfmont_s_agg_table == f"{blfmont_dimen}_s_agg"
     assert blfweek_s_agg_table == f"{blfweek_dimen}_s_agg"
     assert blfoffi_s_agg_table == f"{blfoffi_dimen}_s_agg"
-    assert trlepoc_s_agg_table == f"{trlepoc_dimen}_s_agg"
     assert trlname_s_agg_table == f"{trlname_dimen}_s_agg"
     assert trllabe_s_agg_table == f"{trllabe_dimen}_s_agg"
     assert trlrope_s_agg_table == f"{trlrope_dimen}_s_agg"
@@ -213,7 +210,7 @@ def test_get_idea_stageble_put_dimens_HasAll_idea_numbersForAll_dimens():
 
     idea_stageble_dimen_list = sorted(list(expected_idea_stagable_dimens))
     print(expected_idea_stagable_dimens)
-    assert idea_dimen_combo_checked_count == 697
+    assert idea_dimen_combo_checked_count == 680
     assert idea_raw2dimen_count == 109
     assert get_idea_stageble_put_dimens() == expected_idea_stagable_dimens
 
@@ -279,7 +276,7 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
     }
     idea_stageble_dimen_list = sorted(list(expected_idea_stagable_dimens))
     print(f"{expected_idea_stagable_dimens=}")
-    assert idea_dimen_combo_checked_count == 697
+    assert idea_dimen_combo_checked_count == 680
     assert idea_raw2dimen_count == 10
     assert IDEA_STAGEBLE_DEL_DIMENS == expected_idea_stagable_dimens
 
@@ -373,9 +370,9 @@ FROM (
       {kw.moment_label}_inx {kw.moment_label}
     , {kw.belief_name}_inx {kw.belief_name}
     , {kw.spark_num}
-    , {kw.bud_time}_inx {kw.bud_time}
+    , {kw.bud_time}
     FROM {momentbud_h_raw_tablename}
-    GROUP BY {kw.moment_label}_inx, {kw.belief_name}_inx, {kw.spark_num}, {kw.bud_time}_inx
+    GROUP BY {kw.moment_label}_inx, {kw.belief_name}_inx, {kw.spark_num}, {kw.bud_time}
 )
 ORDER BY {kw.moment_label}, {kw.belief_name}, {kw.spark_num}, {kw.bud_time}
 ;

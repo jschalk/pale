@@ -1,7 +1,6 @@
 from os.path import exists as os_path_exists
 from pandas import DataFrame
 from src.ch01_py.file_toolbox import create_path, get_dir_file_strs, save_file
-from src.ch15_nabu.nabu_epoch import EpochNabu
 from src.ch16_translate.translate_main import (
     LabelMap,
     NameMap,
@@ -11,15 +10,6 @@ from src.ch16_translate.translate_main import (
     translateunit_shop,
 )
 from src.ch17_idea.idea_db_tool import get_ordered_csv, open_csv
-
-
-def get_translate_epoch_dt_columns() -> list[str]:
-    return [
-        "spark_num",
-        "face_name",
-        "otx_epoch_length",
-        "inx_epoch_diff",
-    ]
 
 
 def get_translate_name_dt_columns() -> list[str]:
@@ -132,19 +122,6 @@ def create_translate_rope_dt(x_map: RopeMap) -> DataFrame:
         for otx_value, inx_value in x_map.otx2inx.items()
     ]
     return DataFrame(x_rows_list, columns=get_translate_rope_dt_columns())
-
-
-def create_translate_epoch_dt(x_map: EpochNabu) -> DataFrame:
-    x_rows_list = [
-        {
-            "spark_num": x_map.spark_num,
-            "face_name": x_map.face_name,
-            "otx_epoch_length": otx_value,
-            "inx_epoch_diff": inx_value,
-        }
-        for otx_value, inx_value in x_map.otx2inx.items()
-    ]
-    return DataFrame(x_rows_list, columns=get_translate_epoch_dt_columns())
 
 
 def save_all_csvs_from_translateunit(x_dir: str, x_translateunit: TranslateUnit):

@@ -25,7 +25,6 @@ ALL_DIMEN_ABBV7 = {
     "BLRLABO",
     "BLRPLAN",
     "BLRUNIT",
-    "TRLEPOC",
     "TRLTITL",
     "TRLNAME",
     "TRLROPE",
@@ -52,7 +51,6 @@ def get_dimen_abbv7(dimen: str) -> str:
         "belief_plan_partyunit": "BLRLABO",
         "belief_planunit": "BLRPLAN",
         "beliefunit": "BLRUNIT",
-        "translate_epoch": "TRLEPOC",
         "translate_title": "TRLTITL",
         "translate_name": "TRLNAME",
         "translate_rope": "TRLROPE",
@@ -92,7 +90,6 @@ def create_prime_tablename(
         "BLRLABO": "belief_plan_partyunit",
         "BLRPLAN": "belief_planunit",
         "BLRUNIT": "beliefunit",
-        "TRLEPOC": "translate_epoch",
         "TRLTITL": "translate_title",
         "TRLNAME": "translate_name",
         "TRLROPE": "translate_rope",
@@ -112,9 +109,6 @@ def create_prime_tablename(
     return f"{tablename}_{put_del}_{stage}" if put_del else f"{tablename}_{stage}"
 
 
-CREATE_TRLEPOC_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, otx_epoch_length TEXT, inx_epoch_diff TEXT, error_message TEXT)"""
-CREATE_TRLEPOC_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_agg (spark_num INTEGER, face_name TEXT, otx_epoch_length TEXT, inx_epoch_diff TEXT, error_message TEXT)"""
-CREATE_TRLEPOC_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_epoch_s_vld (spark_num INTEGER, face_name TEXT, otx_epoch_length TEXT, inx_epoch_diff TEXT)"""
 CREATE_TRLTITL_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_title_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, otx_title TEXT, inx_title TEXT, otx_knot TEXT, inx_knot TEXT, unknown_str TEXT, error_message TEXT)"""
 CREATE_TRLTITL_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_title_s_agg (spark_num INTEGER, face_name TEXT, otx_title TEXT, inx_title TEXT, otx_knot TEXT, inx_knot TEXT, unknown_str TEXT, error_message TEXT)"""
 CREATE_TRLTITL_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_title_s_vld (spark_num INTEGER, face_name TEXT, otx_title TEXT, inx_title TEXT)"""
@@ -135,12 +129,12 @@ CREATE_TRLCORE_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_core_s
 CREATE_BLFPAYY_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL, error_message TEXT)"""
 CREATE_BLFPAYY_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL, error_message TEXT)"""
 CREATE_BLFPAYY_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL)"""
-CREATE_BLFPAYY_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, voice_name_otx TEXT, voice_name_inx TEXT, tran_time_otx INTEGER, tran_time_inx INTEGER, amount REAL, error_message TEXT)"""
+CREATE_BLFPAYY_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, voice_name_otx TEXT, voice_name_inx TEXT, tran_time INTEGER, amount REAL, error_message TEXT)"""
 CREATE_BLFPAYY_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_h_agg (moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL)"""
 CREATE_BLFBUDD_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER, error_message TEXT)"""
 CREATE_BLFBUDD_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER, error_message TEXT)"""
 CREATE_BLFBUDD_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER)"""
-CREATE_BLFBUDD_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, bud_time_otx INTEGER, bud_time_inx INTEGER, quota REAL, celldepth INTEGER, error_message TEXT)"""
+CREATE_BLFBUDD_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER, error_message TEXT)"""
 CREATE_BLFBUDD_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_h_agg (moment_label TEXT, belief_name TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER)"""
 CREATE_BLFHOUR_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_hour_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, cumulative_minute INTEGER, hour_label TEXT, error_message TEXT)"""
 CREATE_BLFHOUR_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_hour_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, cumulative_minute INTEGER, hour_label TEXT, error_message TEXT)"""
@@ -160,7 +154,7 @@ CREATE_BLFWEEK_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_wee
 CREATE_BLFOFFI_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time INTEGER, error_message TEXT)"""
 CREATE_BLFOFFI_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time INTEGER, error_message TEXT)"""
 CREATE_BLFOFFI_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time INTEGER)"""
-CREATE_BLFOFFI_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, offi_time_otx INTEGER, offi_time_inx INTEGER, error_message TEXT)"""
+CREATE_BLFOFFI_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, offi_time INTEGER, error_message TEXT)"""
 CREATE_BLFOFFI_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_h_agg (moment_label TEXT, offi_time INTEGER)"""
 CREATE_BLFUNIT_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS momentunit_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, epoch_label TEXT, c400_number INTEGER, yr1_jan1_offset INTEGER, monthday_index INTEGER, fund_grain REAL, mana_grain REAL, respect_grain REAL, knot TEXT, job_listen_rotations INTEGER, error_message TEXT)"""
 CREATE_BLFUNIT_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS momentunit_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, epoch_label TEXT, c400_number INTEGER, yr1_jan1_offset INTEGER, monthday_index INTEGER, fund_grain REAL, mana_grain REAL, respect_grain REAL, knot TEXT, job_listen_rotations INTEGER, error_message TEXT)"""
@@ -272,9 +266,6 @@ CREATE_BLRUNIT_HEARD_DEL_AGG_STR = "CREATE TABLE IF NOT EXISTS beliefunit_h_del_
 
 def get_prime_create_table_sqlstrs() -> dict[str, str]:
     return {
-        "translate_epoch_s_raw": CREATE_TRLEPOC_SOUND_RAW_SQLSTR,
-        "translate_epoch_s_agg": CREATE_TRLEPOC_SOUND_AGG_SQLSTR,
-        "translate_epoch_s_vld": CREATE_TRLEPOC_SOUND_VLD_SQLSTR,
         "translate_title_s_raw": CREATE_TRLTITL_SOUND_RAW_SQLSTR,
         "translate_title_s_agg": CREATE_TRLTITL_SOUND_AGG_SQLSTR,
         "translate_title_s_vld": CREATE_TRLTITL_SOUND_VLD_SQLSTR,
@@ -792,12 +783,12 @@ def get_insert_into_sound_vld_sqlstrs() -> dict[str, str]:
     }
 
 
-INSERT_BLFPAYY_HEARD_RAW_SQLSTR = "INSERT INTO moment_paybook_h_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, voice_name_otx, tran_time_otx, amount) SELECT spark_num, face_name, moment_label, belief_name, voice_name, tran_time, amount FROM moment_paybook_s_vld "
-INSERT_BLFBUDD_HEARD_RAW_SQLSTR = "INSERT INTO moment_budunit_h_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, bud_time_otx, quota, celldepth) SELECT spark_num, face_name, moment_label, belief_name, bud_time, quota, celldepth FROM moment_budunit_s_vld "
+INSERT_BLFPAYY_HEARD_RAW_SQLSTR = "INSERT INTO moment_paybook_h_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, voice_name_otx, tran_time, amount) SELECT spark_num, face_name, moment_label, belief_name, voice_name, tran_time, amount FROM moment_paybook_s_vld "
+INSERT_BLFBUDD_HEARD_RAW_SQLSTR = "INSERT INTO moment_budunit_h_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, bud_time, quota, celldepth) SELECT spark_num, face_name, moment_label, belief_name, bud_time, quota, celldepth FROM moment_budunit_s_vld "
 INSERT_BLFHOUR_HEARD_RAW_SQLSTR = "INSERT INTO moment_epoch_hour_h_raw (spark_num, face_name_otx, moment_label_otx, cumulative_minute, hour_label_otx) SELECT spark_num, face_name, moment_label, cumulative_minute, hour_label FROM moment_epoch_hour_s_vld "
 INSERT_BLFMONT_HEARD_RAW_SQLSTR = "INSERT INTO moment_epoch_month_h_raw (spark_num, face_name_otx, moment_label_otx, cumulative_day, month_label_otx) SELECT spark_num, face_name, moment_label, cumulative_day, month_label FROM moment_epoch_month_s_vld "
 INSERT_BLFWEEK_HEARD_RAW_SQLSTR = "INSERT INTO moment_epoch_weekday_h_raw (spark_num, face_name_otx, moment_label_otx, weekday_order, weekday_label_otx) SELECT spark_num, face_name, moment_label, weekday_order, weekday_label FROM moment_epoch_weekday_s_vld "
-INSERT_BLFOFFI_HEARD_RAW_SQLSTR = "INSERT INTO moment_timeoffi_h_raw (spark_num, face_name_otx, moment_label_otx, offi_time_otx) SELECT spark_num, face_name, moment_label, offi_time FROM moment_timeoffi_s_vld "
+INSERT_BLFOFFI_HEARD_RAW_SQLSTR = "INSERT INTO moment_timeoffi_h_raw (spark_num, face_name_otx, moment_label_otx, offi_time) SELECT spark_num, face_name, moment_label, offi_time FROM moment_timeoffi_s_vld "
 INSERT_BLFUNIT_HEARD_RAW_SQLSTR = "INSERT INTO momentunit_h_raw (spark_num, face_name_otx, moment_label_otx, epoch_label_otx, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations) SELECT spark_num, face_name, moment_label, epoch_label, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations FROM momentunit_s_vld "
 
 INSERT_BLRMEMB_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_voice_membership_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, voice_name_otx, group_title_otx, group_cred_lumen, group_debt_lumen) SELECT spark_num, face_name, moment_label, belief_name, voice_name, group_title, group_cred_lumen, group_debt_lumen FROM belief_voice_membership_s_put_vld "
@@ -905,15 +896,15 @@ WHERE {column_prefix}_inx IS NULL
 
 BLFPAYY_HEARD_AGG_INSERT_SQLSTR = """
 INSERT INTO moment_paybook_h_agg (moment_label, belief_name, voice_name, tran_time, amount)
-SELECT moment_label_inx, belief_name_inx, voice_name_inx, tran_time_inx, amount
+SELECT moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
 FROM moment_paybook_h_raw
-GROUP BY moment_label_inx, belief_name_inx, voice_name_inx, tran_time_inx, amount
+GROUP BY moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
 """
 BLFBUDD_HEARD_AGG_INSERT_SQLSTR = """
 INSERT INTO moment_budunit_h_agg (moment_label, belief_name, bud_time, quota, celldepth)
-SELECT moment_label_inx, belief_name_inx, bud_time_inx, quota, celldepth
+SELECT moment_label_inx, belief_name_inx, bud_time, quota, celldepth
 FROM moment_budunit_h_raw
-GROUP BY moment_label_inx, belief_name_inx, bud_time_inx, quota, celldepth
+GROUP BY moment_label_inx, belief_name_inx, bud_time, quota, celldepth
 """
 BLFHOUR_HEARD_AGG_INSERT_SQLSTR = """
 INSERT INTO moment_epoch_hour_h_agg (moment_label, cumulative_minute, hour_label)
@@ -935,9 +926,9 @@ GROUP BY moment_label_inx, weekday_order, weekday_label_inx
 """
 BLFOFFI_HEARD_AGG_INSERT_SQLSTR = """
 INSERT INTO moment_timeoffi_h_agg (moment_label, offi_time)
-SELECT moment_label_inx, offi_time_inx
+SELECT moment_label_inx, offi_time
 FROM moment_timeoffi_h_raw
-GROUP BY moment_label_inx, offi_time_inx
+GROUP BY moment_label_inx, offi_time
 """
 BLFUNIT_HEARD_AGG_INSERT_SQLSTR = """
 INSERT INTO momentunit_h_agg (moment_label, epoch_label, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations)
@@ -1197,7 +1188,6 @@ def get_idea_stageble_put_dimens() -> dict[str, list[str]]:
         "br00043": [],
         "br00044": [],
         "br00045": [],
-        "br00046": [],
         "br00050": ["belief_voiceunit", "beliefunit", "momentunit"],
         "br00051": ["beliefunit", "momentunit"],
         "br00052": ["belief_planunit", "beliefunit", "momentunit"],
@@ -1296,9 +1286,9 @@ FROM (
       moment_label_inx moment_label
     , belief_name_inx belief_name
     , spark_num
-    , bud_time_inx bud_time
+    , bud_time
     FROM moment_budunit_h_raw
-    GROUP BY moment_label_inx, belief_name_inx, spark_num, bud_time_inx
+    GROUP BY moment_label_inx, belief_name_inx, spark_num, bud_time
 )
 ORDER BY moment_label, belief_name, spark_num, bud_time
 ;
