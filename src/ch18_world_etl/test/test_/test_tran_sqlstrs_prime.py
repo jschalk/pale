@@ -523,15 +523,14 @@ def test_get_moment_belief_sound_agg_tablenames_ReturnsObj():
     for belief_dimen in get_belief_dimens():
         expected_sound_agg_tablenames.add(prime_tbl(belief_dimen, "s", "agg", "put"))
         expected_sound_agg_tablenames.add(prime_tbl(belief_dimen, "s", "agg", "del"))
+    for nabu_dimen in get_nabu_dimens():
+        expected_sound_agg_tablenames.add(prime_tbl(nabu_dimen, "s", "agg"))
     for moment_dimen in get_moment_dimens():
         expected_sound_agg_tablenames.add(prime_tbl(moment_dimen, "s", "agg"))
     print(sorted(list(expected_sound_agg_tablenames)))
-    assert expected_sound_agg_tablenames == moment_belief_sound_agg_tablenames
-    agg_tablenames = moment_belief_sound_agg_tablenames
-    assert len(agg_tablenames) == len(get_belief_dimens()) * 2 + len(
-        get_moment_dimens()
-    )
-    assert agg_tablenames.issubset(set(get_prime_create_table_sqlstrs().keys()))
+    assert moment_belief_sound_agg_tablenames == expected_sound_agg_tablenames
+    prime_create_tablenames = set(get_prime_create_table_sqlstrs().keys())
+    assert moment_belief_sound_agg_tablenames.issubset(prime_create_tablenames)
 
 
 def test_get_belief_heard_agg_tablenames_ReturnsObj_BeliefDimens():
@@ -720,7 +719,58 @@ WHERE inconsistency_rows.moment_label = moment_epoch_hour_s_raw.moment_label
         assert update_sqlstr == static_example_sqlstr
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario2_BeliefDimen():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario2_NabuDimen():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    dimen = "nabu_epochtime"
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+
+        # WHEN
+        update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
+            cursor, dimen
+        )
+
+        # THEN
+        x_tablename = prime_tbl(dimen, "s", "raw")
+        dimen_config = get_idea_config_dict().get(dimen)
+        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+        exclude_cols = {
+            kw.idea_number,
+            kw.spark_num,
+            kw.face_name,
+            kw.error_message,
+        }
+        expected_update_sqlstr = create_update_inconsistency_error_query(
+            cursor,
+            x_tablename,
+            dimen_focus_columns,
+            exclude_cols,
+            error_holder_column=kw.error_message,
+            error_str="Inconsistent data",
+        )
+        print(expected_update_sqlstr)
+        assert update_sqlstr == expected_update_sqlstr
+
+        static_example_sqlstr = """WITH inconsistency_rows AS (
+SELECT moment_label, otx_time
+FROM nabu_epochtime_s_raw
+GROUP BY moment_label, otx_time
+HAVING MIN(inx_time) != MAX(inx_time)
+)
+UPDATE nabu_epochtime_s_raw
+SET error_message = 'Inconsistent data'
+FROM inconsistency_rows
+WHERE inconsistency_rows.moment_label = nabu_epochtime_s_raw.moment_label
+    AND inconsistency_rows.otx_time = nabu_epochtime_s_raw.otx_time
+;
+"""
+        # print(update_sqlstr)
+        assert update_sqlstr == static_example_sqlstr
+
+
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario3_BeliefDimen():
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.belief_plan_awardunit
@@ -827,10 +877,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario1_MomentDimen():
         dimen_config = get_idea_config_dict().get(dimen)
         dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
         dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
-        exclude_cols = {
-            kw.idea_number,
-            kw.error_message,
-        }
+        exclude_cols = {kw.idea_number, kw.error_message}
         print("yeah")
         expected_insert_sqlstr = create_table2table_agg_insert_query(
             cursor,
@@ -854,7 +901,48 @@ GROUP BY spark_num, face_name, moment_label, cumulative_minute
         assert update_sqlstrs[0] == static_example_sqlstr
 
 
-def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_BeliefDimen():
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    dimen = "nabu_epochtime"
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+
+        # WHEN
+        update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor, dimen)
+
+        # THEN
+        raw_tablename = prime_tbl(dimen, "s", "raw")
+        agg_tablename = prime_tbl(dimen, "s", "agg")
+        dimen_config = get_idea_config_dict().get(dimen)
+        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+        dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
+        exclude_cols = {kw.idea_number, kw.error_message}
+        print("yeah")
+        expected_insert_sqlstr = create_table2table_agg_insert_query(
+            cursor,
+            src_table=raw_tablename,
+            dst_table=agg_tablename,
+            focus_cols=dimen_focus_columns,
+            exclude_cols=exclude_cols,
+            where_block="WHERE error_message IS NULL",
+        )
+        print(expected_insert_sqlstr)
+        assert update_sqlstrs[0] == expected_insert_sqlstr
+
+        static_example_sqlstr = """INSERT INTO nabu_epochtime_s_agg (spark_num, face_name, moment_label, otx_time, inx_time)
+SELECT spark_num, face_name, moment_label, otx_time, MAX(inx_time)
+FROM nabu_epochtime_s_raw
+WHERE error_message IS NULL
+GROUP BY spark_num, face_name, moment_label, otx_time
+;
+"""
+        print(update_sqlstrs[0])
+        assert update_sqlstrs[0] == static_example_sqlstr
+
+
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_BeliefDimen():
     # sourcery skip: extract-duplicate-method, extract-method
     # ESTABLISH
     dimen = kw.belief_plan_awardunit

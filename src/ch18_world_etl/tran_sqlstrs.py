@@ -462,6 +462,7 @@ def get_moment_belief_sound_agg_tablenames():
         "moment_epoch_weekday_s_agg",
         "moment_timeoffi_s_agg",
         "momentunit_s_agg",
+        "nabu_epochtime_s_agg",
     }
 
 
@@ -495,7 +496,7 @@ def create_all_idea_tables(conn_or_cursor: sqlite3_Connection):
 def create_sound_raw_update_inconsist_error_message_sqlstr(
     conn_or_cursor: sqlite3_Connection, dimen: str
 ) -> str:
-    if dimen.lower().startswith("moment"):
+    if dimen.lower().startswith("moment") or dimen.lower().startswith("nabu"):
         exclude_cols = {"idea_number", "spark_num", "face_name", "error_message"}
     else:
         exclude_cols = {"idea_number", "error_message"}
