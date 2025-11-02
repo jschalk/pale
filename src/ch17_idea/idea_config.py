@@ -590,6 +590,10 @@ def idea_format_00059_delete_beliefunit_v0_0_0() -> str:
     return "idea_format_00059_delete_beliefunit_v0_0_0"
 
 
+def idea_format_00070_nabu_epochtime_v0_0_0() -> str:
+    return "idea_format_00070_nabu_epochtime_v0_0_0"
+
+
 def idea_format_00113_voice_map1_v0_0_0() -> str:
     return "idea_format_00113_voice_map1_v0_0_0"
 
@@ -644,6 +648,7 @@ def get_idea_format_filenames() -> set[str]:
         idea_format_00057_delete_belief_plan_reasonunit_v0_0_0(),
         idea_format_00058_delete_belief_planunit_v0_0_0(),
         idea_format_00059_delete_beliefunit_v0_0_0(),
+        idea_format_00070_nabu_epochtime_v0_0_0(),
         idea_format_00113_voice_map1_v0_0_0(),
         idea_format_00115_group_map1_v0_0_0(),
         idea_format_00116_label_map1_v0_0_0(),
@@ -689,6 +694,7 @@ def get_idea_numbers() -> set[str]:
         "br00057",
         "br00058",
         "br00059",
+        "br00070",
         "br00113",
         "br00115",
         "br00116",
@@ -741,6 +747,7 @@ def get_idea_format_headers() -> dict[str, list[str]]:
         "moment_label,belief_name,plan_rope,reason_context_ERASE": idea_format_00057_delete_belief_plan_reasonunit_v0_0_0(),
         "moment_label,belief_name,plan_rope_ERASE": idea_format_00058_delete_belief_planunit_v0_0_0(),
         "moment_label,belief_name_ERASE": idea_format_00059_delete_beliefunit_v0_0_0(),
+        "moment_label,otx_time,inx_time": idea_format_00070_nabu_epochtime_v0_0_0(),
         "moment_label,belief_name,voice_name,otx_name,inx_name": idea_format_00113_voice_map1_v0_0_0(),
         "moment_label,belief_name,voice_name,otx_title,inx_title": idea_format_00115_group_map1_v0_0_0(),
         "moment_label,belief_name,voice_name,otx_label,inx_label": idea_format_00116_label_map1_v0_0_0(),
@@ -876,11 +883,13 @@ def get_idea_dimen_ref() -> dict[str, set[str]]:
             "br00057",
             "br00058",
             "br00059",
+            "br00070",
             "br00113",
             "br00115",
             "br00116",
             "br00117",
         },
+        "nabu_epochtime": {"br00070"},
         "translate_title": {"br00042", "br00115"},
         "translate_name": {"br00043", "br00113"},
         "translate_rope": {"br00045", "br00117"},

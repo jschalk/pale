@@ -1,7 +1,7 @@
 {
   "nabu_epochtime": {
-    "jkeys": {"otx_time": {}}, 
-    "jvalues": {"inx_time": {}, "moment_label": {}},
+    "jkeys": {"otx_time": {}, "moment_label": {}}, 
+    "jvalues": {"inx_time": {}},
     "epochtime_update": {
       "intermediary_values": {"epoch_length": {}},
       "updated_attrs": {"bud_time": {}, "offi_time": {}, "tran_time": {}},

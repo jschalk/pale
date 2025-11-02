@@ -603,6 +603,7 @@ def _validate_idea_format_files(idea_filenames: set[str]):
     valid_idea_dimens = set()
     valid_idea_dimens.update(get_belief_dimens())
     valid_idea_dimens.update(get_moment_dimens())
+    valid_idea_dimens.update(get_nabu_dimens())
     valid_idea_dimens.update(get_translate_dimens())
     print("get_idea_config_dict")
     config_dict = get_idea_config_dict()

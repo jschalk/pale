@@ -25,6 +25,7 @@ ALL_DIMEN_ABBV7 = {
     "BLRLABO",
     "BLRPLAN",
     "BLRUNIT",
+    "NBUEPCH",
     "TRLTITL",
     "TRLNAME",
     "TRLROPE",
@@ -51,6 +52,7 @@ def get_dimen_abbv7(dimen: str) -> str:
         "belief_plan_partyunit": "BLRLABO",
         "belief_planunit": "BLRPLAN",
         "beliefunit": "BLRUNIT",
+        "nabu_epochtime": "NBUEPCH",
         "translate_title": "TRLTITL",
         "translate_name": "TRLNAME",
         "translate_rope": "TRLROPE",
@@ -90,6 +92,7 @@ def create_prime_tablename(
         "BLRLABO": "belief_plan_partyunit",
         "BLRPLAN": "belief_planunit",
         "BLRUNIT": "beliefunit",
+        "NBUEPCH": "nabu_epochtime",
         "TRLTITL": "translate_title",
         "TRLNAME": "translate_name",
         "TRLROPE": "translate_rope",
@@ -125,6 +128,12 @@ CREATE_TRLLABE_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_label_
 CREATE_TRLCORE_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_core_s_raw (source_dimen TEXT, face_name TEXT, otx_knot TEXT, inx_knot TEXT, unknown_str TEXT, error_message TEXT)"""
 CREATE_TRLCORE_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_core_s_agg (face_name TEXT, otx_knot TEXT, inx_knot TEXT, unknown_str TEXT)"""
 CREATE_TRLCORE_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_core_s_vld (face_name TEXT, otx_knot TEXT, inx_knot TEXT, unknown_str TEXT)"""
+
+CREATE_NBUEPCH_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, otx_time INTEGER, inx_time INTEGER, error_message TEXT)"""
+CREATE_NBUEPCH_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, otx_time INTEGER, inx_time INTEGER, error_message TEXT)"""
+CREATE_NBUEPCH_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, otx_time INTEGER, inx_time INTEGER)"""
+CREATE_NBUEPCH_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, otx_time INTEGER, inx_time INTEGER, error_message TEXT)"""
+CREATE_NBUEPCH_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_h_agg (moment_label TEXT, otx_time INTEGER, inx_time INTEGER)"""
 
 CREATE_BLFPAYY_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL, error_message TEXT)"""
 CREATE_BLFPAYY_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL, error_message TEXT)"""
@@ -281,6 +290,11 @@ def get_prime_create_table_sqlstrs() -> dict[str, str]:
         "translate_core_s_raw": CREATE_TRLCORE_SOUND_RAW_SQLSTR,
         "translate_core_s_agg": CREATE_TRLCORE_SOUND_AGG_SQLSTR,
         "translate_core_s_vld": CREATE_TRLCORE_SOUND_VLD_SQLSTR,
+        "nabu_epochtime_s_raw": CREATE_NBUEPCH_SOUND_RAW_SQLSTR,
+        "nabu_epochtime_s_agg": CREATE_NBUEPCH_SOUND_AGG_SQLSTR,
+        "nabu_epochtime_s_vld": CREATE_NBUEPCH_SOUND_VLD_SQLSTR,
+        "nabu_epochtime_h_raw": CREATE_NBUEPCH_HEARD_RAW_SQLSTR,
+        "nabu_epochtime_h_agg": CREATE_NBUEPCH_HEARD_AGG_SQLSTR,
         "moment_paybook_s_raw": CREATE_BLFPAYY_SOUND_RAW_SQLSTR,
         "moment_paybook_s_agg": CREATE_BLFPAYY_SOUND_AGG_SQLSTR,
         "moment_paybook_s_vld": CREATE_BLFPAYY_SOUND_VLD_SQLSTR,
@@ -1203,6 +1217,7 @@ def get_idea_stageble_put_dimens() -> dict[str, list[str]]:
         "br00057": ["belief_planunit", "beliefunit", "momentunit"],
         "br00058": ["beliefunit", "momentunit"],
         "br00059": ["momentunit"],
+        "br00070": ["momentunit", "nabu_epochtime"],
         "br00113": ["belief_voiceunit", "beliefunit", "momentunit"],
         "br00115": ["belief_voiceunit", "beliefunit", "momentunit"],
         "br00116": ["belief_voiceunit", "beliefunit", "momentunit"],

@@ -36,6 +36,7 @@
 - [`br00057`](ideas/br00057.md): spark_num, face_name, moment_label, belief_name, plan_rope, reason_context_ERASE
 - [`br00058`](ideas/br00058.md): spark_num, face_name, moment_label, belief_name, plan_rope_ERASE
 - [`br00059`](ideas/br00059.md): spark_num, face_name, moment_label, belief_name_ERASE
+- [`br00070`](ideas/br00070.md): spark_num, face_name, moment_label, otx_time, inx_time
 - [`br00113`](ideas/br00113.md): spark_num, face_name, moment_label, belief_name, voice_name, otx_name, inx_name
 - [`br00115`](ideas/br00115.md): spark_num, face_name, moment_label, belief_name, voice_name, otx_title, inx_title
 - [`br00116`](ideas/br00116.md): spark_num, face_name, moment_label, belief_name, voice_name, otx_label, inx_label

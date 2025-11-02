@@ -228,8 +228,8 @@
     "allowed_crud": "insert_one_time", 
     "build_order": 2, 
     "idea_category": "nabu", 
-    "jkeys": {"face_name": {}, "otx_time": {}, "spark_num": {}}, 
-    "jvalues": {"inx_time": {}, "moment_label": {}}
+    "jkeys": {"face_name": {}, "otx_time": {}, "spark_num": {}, "moment_label": {}}, 
+    "jvalues": {"inx_time": {}}
   }, 
   "translate_label": {
     "allowed_crud": "insert_one_time", 
