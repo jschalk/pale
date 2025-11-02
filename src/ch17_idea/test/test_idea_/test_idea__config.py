@@ -16,6 +16,11 @@ from src.ch14_moment.moment_config import (
     get_moment_config_dict,
     get_moment_dimens,
 )
+from src.ch15_nabu.nabu_config import (
+    get_nabu_args,
+    get_nabu_config_dict,
+    get_nabu_dimens,
+)
 from src.ch16_translate.translate_config import (
     get_translate_args_dimen_mapping,
     get_translate_config_dict,
@@ -53,6 +58,8 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     # print(f"{moment_args=}")
     # print(f"{moment_args.difference(set(table_sorting_priority))=}")
     assert moment_args.issubset(set(table_sorting_priority))
+    nabu_args = get_nabu_args()
+    assert nabu_args.issubset(set(table_sorting_priority))
     translate_args = set(get_translate_args_dimen_mapping().keys())
     # print(f"{moment_args=}")
     # print(f"{translate_args.difference(set(table_sorting_priority))=}")
@@ -218,56 +225,59 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[135] == kw.inx_title
     assert table_sorting_priority[136] == kw.otx_knot
     assert table_sorting_priority[137] == kw.inx_knot
-    assert table_sorting_priority[138] == kw.knot
-    assert table_sorting_priority[139] == kw.groupmark
-    assert table_sorting_priority[140] == kw.unknown_str
-    assert table_sorting_priority[141] == kw.quota
-    assert table_sorting_priority[142] == kw.celldepth
-    assert table_sorting_priority[143] == kw.job_listen_rotations
-    assert table_sorting_priority[144] == kw.error_message
-    assert table_sorting_priority[145] == "belief_name_is_labor"
-    assert table_sorting_priority[146] == kw.plan_active
-    assert table_sorting_priority[147] == kw.task
-    assert table_sorting_priority[148] == kw.reason_active
-    assert table_sorting_priority[149] == kw.case_active
-    assert table_sorting_priority[150] == kw.credor_pool
-    assert table_sorting_priority[151] == kw.debtor_pool
-    assert table_sorting_priority[152] == kw.rational
-    assert table_sorting_priority[153] == kw.fund_give
-    assert table_sorting_priority[154] == kw.fund_take
-    assert table_sorting_priority[155] == kw.fund_onset
-    assert table_sorting_priority[156] == kw.fund_cease
-    assert table_sorting_priority[157] == kw.fund_ratio
-    assert table_sorting_priority[158] == kw.fund_agenda_give
-    assert table_sorting_priority[159] == kw.fund_agenda_take
-    assert table_sorting_priority[160] == kw.fund_agenda_ratio_give
-    assert table_sorting_priority[161] == kw.fund_agenda_ratio_take
-    assert table_sorting_priority[162] == kw.inallocable_voice_debt_lumen
-    assert table_sorting_priority[163] == kw.gogo_calc
-    assert table_sorting_priority[164] == kw.stop_calc
-    assert table_sorting_priority[165] == kw.tree_level
-    assert table_sorting_priority[166] == kw.range_evaluated
-    assert table_sorting_priority[167] == kw.descendant_pledge_count
-    assert table_sorting_priority[168] == kw.healerunit_ratio
-    assert table_sorting_priority[169] == kw.all_voice_cred
-    assert table_sorting_priority[170] == kw.keeps_justified
-    assert table_sorting_priority[171] == kw.offtrack_fund
-    assert table_sorting_priority[172] == kw.parent_heir_active
-    assert table_sorting_priority[173] == kw.irrational_voice_debt_lumen
-    assert table_sorting_priority[174] == kw.sum_healerunit_plans_fund_total
-    assert table_sorting_priority[175] == kw.keeps_buildable
-    assert table_sorting_priority[176] == kw.all_voice_debt
-    assert table_sorting_priority[177] == kw.tree_traverse_count
-    assert table_sorting_priority[178] == kw.bnet_funds
-    assert table_sorting_priority[179] == kw.fund_rank
-    assert table_sorting_priority[180] == kw.pledges_count
+    assert table_sorting_priority[138] == "otx_time"
+    assert table_sorting_priority[139] == "inx_time"
+    assert table_sorting_priority[140] == kw.knot
+    assert table_sorting_priority[141] == kw.groupmark
+    assert table_sorting_priority[142] == kw.unknown_str
+    assert table_sorting_priority[143] == kw.quota
+    assert table_sorting_priority[144] == kw.celldepth
+    assert table_sorting_priority[145] == kw.job_listen_rotations
+    assert table_sorting_priority[146] == kw.error_message
+    assert table_sorting_priority[147] == "belief_name_is_labor"
+    assert table_sorting_priority[148] == kw.plan_active
+    assert table_sorting_priority[149] == kw.task
+    assert table_sorting_priority[150] == kw.reason_active
+    assert table_sorting_priority[151] == kw.case_active
+    assert table_sorting_priority[152] == kw.credor_pool
+    assert table_sorting_priority[153] == kw.debtor_pool
+    assert table_sorting_priority[154] == kw.rational
+    assert table_sorting_priority[155] == kw.fund_give
+    assert table_sorting_priority[156] == kw.fund_take
+    assert table_sorting_priority[157] == kw.fund_onset
+    assert table_sorting_priority[158] == kw.fund_cease
+    assert table_sorting_priority[159] == kw.fund_ratio
+    assert table_sorting_priority[160] == kw.fund_agenda_give
+    assert table_sorting_priority[161] == kw.fund_agenda_take
+    assert table_sorting_priority[162] == kw.fund_agenda_ratio_give
+    assert table_sorting_priority[163] == kw.fund_agenda_ratio_take
+    assert table_sorting_priority[164] == kw.inallocable_voice_debt_lumen
+    assert table_sorting_priority[165] == kw.gogo_calc
+    assert table_sorting_priority[166] == kw.stop_calc
+    assert table_sorting_priority[167] == kw.tree_level
+    assert table_sorting_priority[168] == kw.range_evaluated
+    assert table_sorting_priority[169] == kw.descendant_pledge_count
+    assert table_sorting_priority[170] == kw.healerunit_ratio
+    assert table_sorting_priority[171] == kw.all_voice_cred
+    assert table_sorting_priority[172] == kw.keeps_justified
+    assert table_sorting_priority[173] == kw.offtrack_fund
+    assert table_sorting_priority[174] == kw.parent_heir_active
+    assert table_sorting_priority[175] == kw.irrational_voice_debt_lumen
+    assert table_sorting_priority[176] == kw.sum_healerunit_plans_fund_total
+    assert table_sorting_priority[177] == kw.keeps_buildable
+    assert table_sorting_priority[178] == kw.all_voice_debt
+    assert table_sorting_priority[179] == kw.tree_traverse_count
+    assert table_sorting_priority[180] == kw.bnet_funds
+    assert table_sorting_priority[181] == kw.fund_rank
+    assert table_sorting_priority[182] == kw.pledges_count
 
-    assert len(table_sorting_priority) == 181
+    assert len(table_sorting_priority) == 183
     all_args = copy_copy(atom_args)
     all_args.update(all_belief_dimen_delete_keys)
     all_args.update(moment_args)
     all_args.update(translate_args)
     all_args.update(belief_calc_args)
+    all_args.update(nabu_args)
     all_args.update(translateable_otx_cols)
     all_args.update(translateable_inx_cols)
     all_args.update(translateable_delete_otx_cols)
@@ -424,25 +434,33 @@ def test_get_idea_config_dict_ReturnsObj_IsFullyPopulated():
     assert kw.belief_plan_reasonunit in idea_config_dimens
     assert kw.belief_planunit in idea_config_dimens
     assert kw.beliefunit in idea_config_dimens
+    assert "nabu_epochtime" in idea_config_dimens
     assert kw.translate_name in idea_config_dimens
     assert kw.translate_title in idea_config_dimens
     assert kw.translate_label in idea_config_dimens
     assert kw.translate_rope in idea_config_dimens
     assert get_belief_dimens().issubset(idea_config_dimens)
     assert get_moment_dimens().issubset(idea_config_dimens)
+    assert get_nabu_dimens().issubset(idea_config_dimens)
     assert get_translate_dimens().issubset(idea_config_dimens)
-    assert len(x_idea_config) == 21
+    gen_all_dimens = get_belief_dimens()
+    gen_all_dimens.update(get_moment_dimens())
+    gen_all_dimens.update(get_nabu_dimens())
+    gen_all_dimens.update(get_translate_dimens())
+    assert gen_all_dimens == idea_config_dimens
+    assert len(x_idea_config) == 22
     _validate_idea_config(x_idea_config)
 
 
 def get_idea_categorys():
-    return {kw.belief, kw.moment, kw.translate}
+    return {kw.belief, kw.moment, kw.translate, "nabu"}
 
 
 def _validate_idea_config(x_idea_config: dict):
     # sourcery skip: low-code-quality
     atom_config_dict = get_atom_config_dict()
     moment_config_dict = get_moment_config_dict()
+    nabu_config_dict = get_nabu_config_dict()
     translate_config_dict = get_translate_config_dict()
     # for every idea_format file there exists a unique idea_number with leading zeros to make 5 digits
     for idea_dimen, idea_dict in x_idea_config.items():
@@ -459,6 +477,8 @@ def _validate_idea_config(x_idea_config: dict):
             sub_dimen = atom_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.moment:
             sub_dimen = moment_config_dict.get(idea_dimen)
+        elif idea_dict.get(kw.idea_category) == "nabu":
+            sub_dimen = nabu_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.translate:
             sub_dimen = translate_config_dict.get(idea_dimen)
 
@@ -468,15 +488,16 @@ def _validate_idea_config(x_idea_config: dict):
         INSERT_dimen = sub_dimen.get(kw.INSERT)
         DELETE_dimen = sub_dimen.get(kw.DELETE)
         idea_allowed_crud = idea_dict.get(kw.allowed_crud)
-        print(
-            f"{idea_dimen=} {UPDATE_dimen} {INSERT_dimen} {DELETE_dimen=} {idea_allowed_crud=}"
-        )
+        # print(
+        #     f"{idea_dimen=} {UPDATE_dimen} {INSERT_dimen} {DELETE_dimen=} {idea_allowed_crud=}"
+        # )
         if idea_dimen in {
             kw.moment_epoch_hour,
             kw.moment_epoch_month,
             kw.moment_epoch_weekday,
             kw.momentunit,
             "map_otx2inx",
+            "nabu_epochtime",
             kw.translate_title,
             kw.translate_name,
             kw.translate_label,
@@ -504,31 +525,30 @@ def _validate_idea_config(x_idea_config: dict):
 
         sub_jkeys_keys = set(sub_dimen.get(kw.jkeys).keys())
         idea_jkeys_keys = set(idea_dict.get(kw.jkeys).keys())
-        # print(f"    {sub_jkeys_keys=}")
+        # print(f"   {sub_jkeys_keys=}")
         # print(f"  {idea_jkeys_keys=}")
         assert kw.face_name in idea_jkeys_keys
         assert kw.spark_num in idea_jkeys_keys
-        if idea_dict.get(kw.idea_category) != kw.translate:
+        if idea_dict.get(kw.idea_category) in {kw.belief, kw.moment}:
             assert kw.moment_label in idea_jkeys_keys
         if idea_dict.get(kw.idea_category) == kw.belief:
             idea_jkeys_keys.remove(kw.moment_label)
             idea_jkeys_keys.remove(kw.belief_name)
         idea_jkeys_keys.remove(kw.face_name)
         idea_jkeys_keys.remove(kw.spark_num)
-        assert sub_jkeys_keys == idea_jkeys_keys
+        assertion_failure_str = f"{idea_dimen=} {sub_jkeys_keys=} {idea_jkeys_keys=}"
+        assert sub_jkeys_keys == idea_jkeys_keys, assertion_failure_str
 
         sub_jvalues_keys = set(sub_dimen.get(kw.jvalues).keys())
-        # print(f"  {sub_jvalues_keys=}")
-        if kw.moment_label in sub_jvalues_keys:
-            sub_jvalues_keys.remove(kw.moment_label)
+        # print(f"{idea_dimen=}")
+        # if kw.moment_label in sub_jvalues_keys:
+        #     sub_jvalues_keys.remove(kw.moment_label)
 
         idea_jvalues_dict = idea_dict.get(kw.jvalues)
         idea_jvalues_keys = set(idea_jvalues_dict.keys())
-        # print(f"  {sub_jvalues_keys=}")
+        # print(f" {sub_jvalues_keys=}")
         # print(f"{idea_jvalues_keys=}")
         assert sub_jvalues_keys == idea_jvalues_keys
-
-        assert kw.moment_label not in idea_jvalues_keys
 
         # sort_list = get_idea_elements_sort_order()
         # x_count = 0

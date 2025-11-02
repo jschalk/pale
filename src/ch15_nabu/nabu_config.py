@@ -20,3 +20,7 @@ def get_quick_nabus_column_ref():
 
 def get_nabu_dimens() -> set:
     return {"nabu_epochtime"}
+
+
+def get_nabu_args() -> set:
+    return {"otx_time", "inx_time", "moment_label"}

@@ -1,6 +1,7 @@
 from os import getcwd as os_getcwd
 from src.ch01_py.file_toolbox import create_path
 from src.ch15_nabu.nabu_config import (
+    get_nabu_args,
     get_nabu_config_dict,
     get_nabu_dimens,
     get_quick_nabus_column_ref,
@@ -69,3 +70,17 @@ def test_get_nabu_dimens_ReturnsObj():
     assert len(nabu_config_dimens) == 1
     gen_nabu_dimens = set(get_nabu_config_dict().keys())
     assert gen_nabu_dimens == get_nabu_dimens()
+
+
+def test_get_nabu_args_ReturnsObj():
+    # ESTABLISH / WHEN
+    nabu_args = get_nabu_args()
+
+    # THEN
+    expected_nabu_args = set()
+    for dimen_dict in get_nabu_config_dict().values():
+        expected_nabu_args.update(set(dimen_dict.get(kw.jkeys).keys()))
+        expected_nabu_args.update(set(dimen_dict.get(kw.jvalues).keys()))
+    print(f"{expected_nabu_args=}")
+    assert nabu_args
+    assert nabu_args == expected_nabu_args

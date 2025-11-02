@@ -224,6 +224,13 @@
       "yr1_jan1_offset": {}
     }
   }, 
+  "nabu_epochtime": {
+    "allowed_crud": "insert_one_time", 
+    "build_order": 2, 
+    "idea_category": "nabu", 
+    "jkeys": {"face_name": {}, "otx_time": {}, "spark_num": {}}, 
+    "jvalues": {"inx_time": {}, "moment_label": {}}
+  }, 
   "translate_label": {
     "allowed_crud": "insert_one_time", 
     "build_order": 2, 
