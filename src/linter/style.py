@@ -13,10 +13,11 @@ from os.path import join as os_path_join
 from pathlib import Path as pathlib_Path
 from re import compile as re_compile
 from src.ch01_py.dict_toolbox import uppercase_in_str, uppercase_is_first
-from src.ch01_py.file_toolbox import create_path, get_dir_filenames
+from src.ch01_py.file_toolbox import create_path, get_dir_filenames, open_file
 from src.ch01_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_desc_prefix,
+    get_chapter_desc_str_number,
     get_chapter_descs,
     get_func_names_and_class_bases_from_file,
 )
@@ -132,42 +133,6 @@ def get_top_level_functions(file_path) -> dict[str, str]:
     # return functions
 
 
-def check_chapter_imports_are_ordered(imports: list[list], file_path: str, desc_number):
-    previous_chapter_number = -1
-    previous_chapter_str = "a"
-    chapter_section_passed = False
-    for x_import in imports:
-        chapter_location = str(x_import[0])
-        if chapter_location.startswith("src"):
-            chapter_number = int(chapter_location[5:7])
-            if desc_number < chapter_number:
-                print(
-                    f"{desc_number} {file_path} {chapter_number=} {chapter_location=}"
-                )
-            assert desc_number >= chapter_number
-            assert chapter_section_passed is False
-            if chapter_number < previous_chapter_number:
-                print(
-                    f"{file_path} {chapter_number=} {previous_chapter_number=} {x_import=}"
-                )
-            assert chapter_number >= previous_chapter_number
-            previous_chapter_number = chapter_number
-        else:
-            chapter_section_passed = True
-            if chapter_location <= previous_chapter_str:
-                print(
-                    f"{file_path} switch {chapter_location} and {previous_chapter_str}"
-                )
-            assert chapter_location > previous_chapter_str
-            previous_chapter_str = chapter_location
-
-        if chapter_location.endswith("env"):
-            env_number = int(chapter_location[-6:-4])
-            if desc_number != env_number:
-                print(f"{desc_number} {file_path} {env_number=} {chapter_location=}")
-            assert desc_number == env_number
-
-
 def get_semantic_types_filename(chapter_desc_prefix: str) -> str:
     return f"{chapter_desc_prefix}_semantic_types.py"
 
@@ -241,6 +206,21 @@ def get_chapters_obj_metrics(excluded_functions) -> dict:
         "unnecessarily_excluded_funcs": unnecessarily_excluded_funcs,
         "semantic_types": semantic_types,
     }
+
+
+def env_file_has_required_elements(env_filepath: str):
+    file_funcs, class_bases = get_func_names_and_class_bases_from_file(env_filepath)
+    get_temp_dir_exists = "get_temp_dir" in file_funcs
+    temp_dir_setup_str = """
+@pytest_fixture()
+def temp_dir_setup():
+    env_dir = get_temp_dir()
+    delete_dir(dir=env_dir)
+    os_makedirs(env_dir)
+    yield env_dir
+    delete_dir(dir=env_dir)"""
+    temp_dir_setup_exists = temp_dir_setup_str in open_file(env_filepath)
+    return temp_dir_setup_exists and get_temp_dir_exists
 
 
 def evaluate_and_add_classes(

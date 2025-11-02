@@ -1,3 +1,4 @@
+from src.ch01_py.file_toolbox import open_json, save_json
 from src.ch11_bud.bud_main import beliefbudhistory_shop
 from src.ch13_epoch.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
@@ -7,7 +8,7 @@ from src.ch13_epoch.epoch_main import (
 from src.ch13_epoch.test._util.ch13_examples import get_creg_config
 from src.ch14_moment.moment_frame import add_frame_to_momentunit, get_moment_epochholder
 from src.ch14_moment.moment_main import momentunit_shop
-from src.ch14_moment.test._util.ch14_env import get_temp_dir
+from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import ExampleStrs as exx
 
 
@@ -231,3 +232,22 @@ def test_add_frame_to_momentunit_SetsAttr_Scenario7_offi_time_Set():
     # THEN
     assert t55_offi_time not in sue_momentunit.offi_times
     assert epected_offi_time in sue_momentunit.offi_times
+
+
+# def test_add_frame_to_moment_json_ChangesFile_Scenario0():
+#     # ESTABLISH
+#     sue_momentunit = momentunit_shop(exx.sue, get_temp_dir())
+#     t55_offi_time = 55
+#     sue_momentunit.offi_times.add(t55_offi_time)
+#     epoch_frame_min = 10
+#     epected_offi_time = t55_offi_time + epoch_frame_min
+#     save
+#     assert t55_offi_time in sue_momentunit.offi_times
+#     assert epected_offi_time not in sue_momentunit.offi_times
+
+#     # WHEN
+#     add_frame_to_momentunit(sue_momentunit, epoch_frame_min)
+
+#     # THEN
+#     assert t55_offi_time not in sue_momentunit.offi_times
+#     assert epected_offi_time in sue_momentunit.offi_times

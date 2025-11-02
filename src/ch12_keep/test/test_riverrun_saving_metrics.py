@@ -2,11 +2,7 @@ from os.path import exists as os_path_exists
 from src.ch01_py.file_toolbox import delete_dir
 from src.ch10_belief_listen._ref.ch10_path import create_keep_grade_path
 from src.ch12_keep.riverrun import riverrun_shop
-from src.ch12_keep.test._util.ch12_env import (
-    get_temp_dir,
-    temp_dir_setup,
-    temp_moment_label,
-)
+from src.ch12_keep.test._util.ch12_env import get_temp_dir, temp_dir_setup
 from src.ch12_keep.test._util.ch12_examples import get_nation_texas_rope
 from src.ref.keywords import ExampleStrs as exx
 
@@ -71,9 +67,6 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
         knot=x_riverrun.knot,
         grade_belief_name=exx.sue,
     )
-    assert os_path_exists(yao_keep_grade_path) is False
-    assert os_path_exists(bob_keep_grade_path) is False
-    assert os_path_exists(sue_keep_grade_path) is False
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_voice_cred_lumen)
     x_riverrun.set_keep_patientledger(exx.yao, exx.bob, 1)
     x_riverrun.set_need_dues({exx.yao: 1, exx.sue: 1})

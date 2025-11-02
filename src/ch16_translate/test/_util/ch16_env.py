@@ -15,5 +15,6 @@ def get_example_face_dir():
 def temp_dir_setup():
     env_dir = get_temp_dir()
     delete_dir(dir=env_dir)
+    os_makedirs(env_dir)
     yield env_dir
     delete_dir(dir=env_dir)

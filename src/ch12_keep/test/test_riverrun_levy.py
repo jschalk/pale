@@ -1,9 +1,5 @@
 from src.ch12_keep.riverrun import riverrun_shop
-from src.ch12_keep.test._util.ch12_env import (
-    get_temp_dir,
-    temp_moment_label,
-    temp_moment_mstr_dir,
-)
+from src.ch12_keep.test._util.ch12_env import get_temp_dir
 from src.ref.keywords import ExampleStrs as exx
 
 

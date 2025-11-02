@@ -1,5 +1,4 @@
 from src.ch12_keep.rivercycle import RiverGrade, rivergrade_shop
-from src.ch12_keep.test._util.ch12_env import temp_moment_label
 from src.ref.keywords import Ch12Keywords as kw, ExampleStrs as exx
 
 

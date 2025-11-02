@@ -1,6 +1,7 @@
 from os import makedirs as os_makedirs
 from pytest import fixture as pytest_fixture
 from src.ch01_py.file_toolbox import delete_dir
+from os import makedirs as os_makedirs
 
 
 def src_chapter_dir() -> str:
@@ -22,7 +23,7 @@ def idea_moments_dir() -> str:
 @pytest_fixture()
 def temp_dir_setup():
     env_dir = get_temp_dir()
-    delete_dir(env_dir)
+    delete_dir(dir=env_dir)
     os_makedirs(env_dir)
     yield env_dir
-    delete_dir(env_dir)
+    delete_dir(dir=env_dir)
