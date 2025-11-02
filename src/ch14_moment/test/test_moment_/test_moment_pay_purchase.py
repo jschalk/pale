@@ -73,7 +73,7 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterTh
     assert str(excinfo.value) == exception_str
 
 
-def test_MomentUnit_set_paypurchase_RaisesErrorWhenBudUnitHas_tran_time():
+def test_MomentUnit_set_paypurchase_RaisesErrorWhen_BudUnitHas_tran_time():
     # ESTABLISH
     x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = 0

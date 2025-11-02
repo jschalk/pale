@@ -2,6 +2,7 @@ from src.ch01_py.dict_toolbox import (
     get_1_if_None,
     get_empty_str_if_None,
     get_False_if_None,
+    modular_addition,
 )
 from src.ch04_rope.rope import is_sub_rope
 from src.ch05_reason.reason import CaseUnit, FactUnit, ReasonUnit
@@ -434,10 +435,6 @@ def set_epoch_cases_by_args_dict(
         range_lower_min=epoch_cases_args.get("range_lower_min"),
         range_duration_min=epoch_cases_args.get("range_duration"),
     )
-
-
-def modular_addition(x_int: int, y_int: int, modulus: int) -> int:
-    return (x_int + y_int) % modulus
 
 
 def add_frame_to_caseunit(

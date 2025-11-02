@@ -684,6 +684,7 @@ def get_most_recent_spark_num(
 
 
 def etl_heard_raw_tables_to_moment_ote1_agg(conn_or_cursor: sqlite3_Connection):
+    """TODO Write out why this step is necessary"""
     conn_or_cursor.execute(CREATE_MOMENT_OTE1_AGG_SQLSTR)
     conn_or_cursor.execute(INSERT_MOMENT_OTE1_AGG_FROM_HEARD_SQLSTR)
 

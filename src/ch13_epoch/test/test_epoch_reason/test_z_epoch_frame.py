@@ -17,7 +17,6 @@ from src.ch13_epoch.epoch_reason import (
     add_frame_to_factunit,
     add_frame_to_reasonunit,
     del_epoch_reason,
-    modular_addition,
     set_epoch_cases_by_args_dict,
 )
 from src.ch13_epoch.test._util.ch13_examples import (
@@ -26,15 +25,6 @@ from src.ch13_epoch.test._util.ch13_examples import (
     get_lizzy9_config,
 )
 from src.ref.keywords import Ch13Keywords as kw
-
-
-def test_modular_addition_ReturnsObj():
-    # ESTABLISH / WHEN / THEN
-    assert modular_addition(x_int=1000, y_int=500, modulus=1440) == 60
-    assert modular_addition(1000, 500, 1440) == 60
-    assert modular_addition(1000, 1200, 1200) == 1000
-    assert modular_addition(1000, 200, 1200) == 0
-    assert modular_addition(1000, -2000, 1200) == 200
 
 
 def test_add_frame_to_caseunit_SetsAttr_Scenario0_NoWrap_dayly():

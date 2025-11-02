@@ -31,13 +31,15 @@ def get_moment_epochholder(momentunit: MomentUnit) -> EpochHolder:
     return x_epochholder
 
 
-def add_frame_to_momentunit(momentunit: MomentUnit, epoch_frame_min: int):
-    add_frame_to_paybook_tran_time(momentunit, epoch_frame_min)
-    add_frame_to_budhistory_bud_time(momentunit, epoch_frame_min)
-    add_frame_to_budhistory_offi_time(momentunit, epoch_frame_min)
+def add_epoch_frame_to_momentunit(momentunit: MomentUnit, epoch_frame_min: int):
+    add_epoch_frame_to_paybook_tran_time(momentunit, epoch_frame_min)
+    add_epoch_frame_to_budhistory_bud_time(momentunit, epoch_frame_min)
+    add_epoch_frame_to_budhistory_offi_time(momentunit, epoch_frame_min)
 
 
-def add_frame_to_budhistory_offi_time(momentunit: MomentUnit, epoch_frame_min: int):
+def add_epoch_frame_to_budhistory_offi_time(
+    momentunit: MomentUnit, epoch_frame_min: int
+):
     epoch_length = get_epoch_length(momentunit.get_epoch_config())
     new_offi_times = {
         (offi_time + epoch_frame_min) % epoch_length
@@ -46,7 +48,9 @@ def add_frame_to_budhistory_offi_time(momentunit: MomentUnit, epoch_frame_min: i
     momentunit.offi_times = new_offi_times
 
 
-def add_frame_to_budhistory_bud_time(momentunit: MomentUnit, epoch_frame_min: int):
+def add_epoch_frame_to_budhistory_bud_time(
+    momentunit: MomentUnit, epoch_frame_min: int
+):
     epoch_length = get_epoch_length(momentunit.get_epoch_config())
     new_beliefbudhistorys = {}
     for belief_name, beliefhistory in momentunit.beliefbudhistorys.items():
@@ -62,7 +66,7 @@ def add_frame_to_budhistory_bud_time(momentunit: MomentUnit, epoch_frame_min: in
     momentunit.beliefbudhistorys = new_beliefbudhistorys
 
 
-def add_frame_to_paybook_tran_time(momentunit: MomentUnit, epoch_frame_min: int):
+def add_epoch_frame_to_paybook_tran_time(momentunit: MomentUnit, epoch_frame_min: int):
     epoch_length = get_epoch_length(momentunit.get_epoch_config())
     new_paybook = tranbook_shop(momentunit.moment_label)
     for belief_name, voice_values in momentunit.paybook.tranunits.items():

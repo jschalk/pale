@@ -518,6 +518,10 @@ def make_dict_safe_for_json(obj):
         return obj
 
 
+def modular_addition(x_int: int, y_int: int, modulus: int) -> int:
+    return (x_int + y_int) % modulus
+
+
 def set_modular_dict_values(x_dict: dict[int, int]) -> dict[int, int]:
     """Given a dictionary with number keys and values"""
     return {
