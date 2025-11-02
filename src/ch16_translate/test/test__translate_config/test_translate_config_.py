@@ -67,14 +67,12 @@ def _validate_translate_config(translate_config: dict):
         print(f"_validate_translate_config {translate_dimens=}")
         assert dimen_dict.get(kw.jkeys)
         assert dimen_dict.get(kw.jvalues)
-        assert dimen_dict.get(kw.translate_category)
         assert dimen_dict.get(kw.UPDATE) is None
         assert dimen_dict.get(kw.INSERT) is None
         assert dimen_dict.get(kw.DELETE) is None
         assert dimen_dict.get(kw.normal_specs) is None
-        assert len(dimen_dict) == 3
+        assert len(dimen_dict) == 2
 
-        assert dimen_dict.get(kw.translate_category) in {"number", "term"}
         translate_jkeys_keys = set(dimen_dict.get(kw.jkeys).keys())
         for jkey_key in translate_jkeys_keys:
             print(f"_validate_translate_config {translate_dimens=} {jkey_key=} ")
@@ -95,6 +93,8 @@ def test_get_translate_dimens_ReturnsObj():
     assert kw.translate_label in translate_config_dimens
     assert kw.translate_rope in translate_config_dimens
     assert len(translate_config_dimens) == 4
+    expected_config_dimen = set(get_translate_config_dict().keys())
+    assert translate_config_dimens == expected_config_dimen
 
 
 def test_get_translate_args_dimen_mapping_ReturnsObj():
