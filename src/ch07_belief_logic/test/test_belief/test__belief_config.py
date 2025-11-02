@@ -93,29 +93,29 @@ def test_get_belief_config_dict_ReturnsObj_CheckAbbreviations():
     belief_config = get_belief_config_dict()
 
     # THEN
-    blrunit_attribute = belief_config.get(kw.beliefunit)
+    blfunit_attribute = belief_config.get(kw.beliefunit)
     blfvoce_attribute = belief_config.get(kw.belief_voiceunit)
     blrmemb_attribute = belief_config.get(kw.belief_voice_membership)
-    blrplan_attribute = belief_config.get(kw.belief_planunit)
-    blrawar_attribute = belief_config.get(kw.belief_plan_awardunit)
-    blrreas_attribute = belief_config.get(kw.belief_plan_reasonunit)
-    blrcase_attribute = belief_config.get(kw.belief_plan_reason_caseunit)
-    blrlabo_attribute = belief_config.get(kw.belief_plan_partyunit)
-    blrheal_attribute = belief_config.get(kw.belief_plan_healerunit)
-    blrfact_attribute = belief_config.get(kw.belief_plan_factunit)
-    blrgrou_attribute = belief_config.get(kw.belief_groupunit)
+    blfplan_attribute = belief_config.get(kw.belief_planunit)
+    blfawar_attribute = belief_config.get(kw.belief_plan_awardunit)
+    blfreas_attribute = belief_config.get(kw.belief_plan_reasonunit)
+    blfcase_attribute = belief_config.get(kw.belief_plan_reason_caseunit)
+    blflabo_attribute = belief_config.get(kw.belief_plan_partyunit)
+    blfheal_attribute = belief_config.get(kw.belief_plan_healerunit)
+    blffact_attribute = belief_config.get(kw.belief_plan_factunit)
+    blfgrou_attribute = belief_config.get(kw.belief_groupunit)
     abbr_str = "abbreviation"
-    assert blrunit_attribute.get(abbr_str) == "blrunit"
+    assert blfunit_attribute.get(abbr_str) == "blfunit"
     assert blfvoce_attribute.get(abbr_str) == "blfvoce"
     assert blrmemb_attribute.get(abbr_str) == "blrmemb"
-    assert blrplan_attribute.get(abbr_str) == "blrplan"
-    assert blrawar_attribute.get(abbr_str) == "blrawar"
-    assert blrreas_attribute.get(abbr_str) == "blrreas"
-    assert blrcase_attribute.get(abbr_str) == "blrcase"
-    assert blrlabo_attribute.get(abbr_str) == "blrlabo"
-    assert blrheal_attribute.get(abbr_str) == "blrheal"
-    assert blrfact_attribute.get(abbr_str) == "blrfact"
-    assert blrgrou_attribute.get(abbr_str) == "blrgrou"
+    assert blfplan_attribute.get(abbr_str) == "blfplan"
+    assert blfawar_attribute.get(abbr_str) == "blfawar"
+    assert blfreas_attribute.get(abbr_str) == "blfreas"
+    assert blfcase_attribute.get(abbr_str) == "blfcase"
+    assert blflabo_attribute.get(abbr_str) == "blflabo"
+    assert blfheal_attribute.get(abbr_str) == "blfheal"
+    assert blffact_attribute.get(abbr_str) == "blffact"
+    assert blfgrou_attribute.get(abbr_str) == "blfgrou"
 
 
 def test_get_all_belief_calc_args_ReturnsObj():
@@ -303,17 +303,17 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
 
     jk = kw.jkeys
     jv = kw.jvalues
-    blfunit = kw.beliefunit
+    mmtunit = kw.beliefunit
     blfvoce = kw.belief_voiceunit
     blrmemb = kw.belief_voice_membership
-    blrplan = kw.belief_planunit
-    blrawar = kw.belief_plan_awardunit
-    blrreas = kw.belief_plan_reasonunit
-    blrcase = kw.belief_plan_reason_caseunit
-    blrlabo = kw.belief_plan_partyunit
-    blrheal = kw.belief_plan_healerunit
-    blrfact = kw.belief_plan_factunit
-    blrgrou = kw.belief_groupunit
+    blfplan = kw.belief_planunit
+    blfawar = kw.belief_plan_awardunit
+    blfreas = kw.belief_plan_reasonunit
+    blfcase = kw.belief_plan_reason_caseunit
+    blflabo = kw.belief_plan_partyunit
+    blfheal = kw.belief_plan_healerunit
+    blffact = kw.belief_plan_factunit
+    blfgrou = kw.belief_groupunit
     assert g_class_type(cfig, blrmemb, jk, kw.voice_name) == kw.NameTerm
     assert g_sqlitetype(cfig, blrmemb, jk, kw.voice_name) == "TEXT"
     assert g_popcashout(cfig, blrmemb, jk, kw.voice_name) == False
@@ -414,315 +414,315 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blfvoce, jv, kw.voice_debt_lumen) == "REAL"
     assert g_popcashout(cfig, blfvoce, jv, kw.voice_debt_lumen) == False
 
-    assert g_class_type(cfig, blrgrou, jk, kw.group_title) == "TitleTerm"
-    assert g_sqlitetype(cfig, blrgrou, jk, kw.group_title) == "TEXT"
-    assert g_popcashout(cfig, blrgrou, jk, kw.group_title) == True
-
-    assert g_class_type(cfig, blrgrou, jv, kw.debtor_pool) == "float"
-    assert g_sqlitetype(cfig, blrgrou, jv, kw.debtor_pool) == "REAL"
-    assert g_popcashout(cfig, blrgrou, jv, kw.debtor_pool) == True
-
-    assert g_class_type(cfig, blrgrou, jv, kw.credor_pool) == "float"
-    assert g_sqlitetype(cfig, blrgrou, jv, kw.credor_pool) == "REAL"
-    assert g_popcashout(cfig, blrgrou, jv, kw.credor_pool) == True
-
-    assert g_class_type(cfig, blrgrou, jv, kw.fund_give) == "float"
-    assert g_sqlitetype(cfig, blrgrou, jv, kw.fund_give) == "REAL"
-    assert g_popcashout(cfig, blrgrou, jv, kw.fund_give) == True
-
-    assert g_class_type(cfig, blrgrou, jv, kw.fund_agenda_give) == "float"
-    assert g_sqlitetype(cfig, blrgrou, jv, kw.fund_agenda_give) == "REAL"
-    assert g_popcashout(cfig, blrgrou, jv, kw.fund_agenda_give) == True
-
-    assert g_class_type(cfig, blrgrou, jv, kw.fund_agenda_take) == "float"
-    assert g_sqlitetype(cfig, blrgrou, jv, kw.fund_agenda_take) == "REAL"
-    assert g_popcashout(cfig, blrgrou, jv, kw.fund_agenda_take) == True
-
-    assert g_class_type(cfig, blrgrou, jv, kw.fund_take) == "float"
-    assert g_sqlitetype(cfig, blrgrou, jv, kw.fund_take) == "REAL"
-    assert g_popcashout(cfig, blrgrou, jv, kw.fund_take) == True
-
-    assert g_class_type(cfig, blrgrou, jv, kw.fund_grain) == "float"
-    assert g_sqlitetype(cfig, blrgrou, jv, kw.fund_grain) == "REAL"
-    assert g_popcashout(cfig, blrgrou, jv, kw.fund_grain) == True
-
-    assert g_class_type(cfig, blrawar, jk, kw.awardee_title) == kw.TitleTerm
-    assert g_sqlitetype(cfig, blrawar, jk, kw.awardee_title) == "TEXT"
-    assert g_popcashout(cfig, blrawar, jk, kw.awardee_title) == False
-
-    assert g_class_type(cfig, blrawar, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrawar, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blrawar, jk, kw.plan_rope) == False
-
-    assert g_class_type(cfig, blrawar, jv, kw.fund_give) == "float"
-    assert g_sqlitetype(cfig, blrawar, jv, kw.fund_give) == "REAL"
-    assert g_popcashout(cfig, blrawar, jv, kw.fund_give) == True
-
-    assert g_class_type(cfig, blrawar, jv, kw.fund_take) == "float"
-    assert g_sqlitetype(cfig, blrawar, jv, kw.fund_take) == "REAL"
-    assert g_popcashout(cfig, blrawar, jv, kw.fund_take) == True
-
-    assert g_class_type(cfig, blrawar, jv, kw.give_force) == "float"
-    assert g_sqlitetype(cfig, blrawar, jv, kw.give_force) == "REAL"
-    assert g_popcashout(cfig, blrawar, jv, kw.give_force) == False
-
-    assert g_class_type(cfig, blrawar, jv, kw.take_force) == "float"
-    assert g_sqlitetype(cfig, blrawar, jv, kw.take_force) == "REAL"
-    assert g_popcashout(cfig, blrawar, jv, kw.take_force) == False
-
-    assert g_class_type(cfig, blrfact, jk, kw.fact_context) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrfact, jk, kw.fact_context) == "TEXT"
-    assert g_popcashout(cfig, blrfact, jk, kw.fact_context) == False
-
-    assert g_class_type(cfig, blrfact, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrfact, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blrfact, jk, kw.plan_rope) == False
-
-    assert g_class_type(cfig, blrfact, jv, kw.fact_upper) == kw.ContextNum
-    assert g_sqlitetype(cfig, blrfact, jv, kw.fact_upper) == "REAL"
-    assert g_popcashout(cfig, blrfact, jv, kw.fact_upper) == False
-
-    assert g_class_type(cfig, blrfact, jv, kw.fact_lower) == kw.ContextNum
-    assert g_sqlitetype(cfig, blrfact, jv, kw.fact_lower) == "REAL"
-    assert g_popcashout(cfig, blrfact, jv, kw.fact_lower) == False
-
-    assert g_class_type(cfig, blrfact, jv, kw.fact_state) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrfact, jv, kw.fact_state) == "TEXT"
-    assert g_popcashout(cfig, blrfact, jv, kw.fact_state) == False
-
-    assert g_class_type(cfig, blrheal, jk, kw.healer_name) == kw.NameTerm
-    assert g_sqlitetype(cfig, blrheal, jk, kw.healer_name) == "TEXT"
-    assert g_popcashout(cfig, blrheal, jk, kw.healer_name) == False
-
-    assert g_class_type(cfig, blrheal, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrheal, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blrheal, jk, kw.plan_rope) == False
-
-    assert g_class_type(cfig, blrcase, jk, kw.reason_context) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrcase, jk, kw.reason_context) == "TEXT"
-    assert g_popcashout(cfig, blrcase, jk, kw.reason_context) == False
-
-    assert g_class_type(cfig, blrcase, jk, kw.reason_state) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrcase, jk, kw.reason_state) == "TEXT"
-    assert g_popcashout(cfig, blrcase, jk, kw.reason_state) == False
-
-    assert g_class_type(cfig, blrcase, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrcase, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blrcase, jk, kw.plan_rope) == False
-
-    assert g_class_type(cfig, blrcase, jv, kw.case_active) == "int"
-    assert g_sqlitetype(cfig, blrcase, jv, kw.case_active) == "INTEGER"
-    assert g_popcashout(cfig, blrcase, jv, kw.case_active) == True
-
-    assert g_class_type(cfig, blrcase, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, blrcase, jv, kw.task) == "INTEGER"
-    assert g_popcashout(cfig, blrcase, jv, kw.task) == True
-
-    assert g_class_type(cfig, blrcase, jv, kw.reason_divisor) == "int"
-    assert g_sqlitetype(cfig, blrcase, jv, kw.reason_divisor) == "INTEGER"
-    assert g_popcashout(cfig, blrcase, jv, kw.reason_divisor) == False
-
-    assert g_class_type(cfig, blrcase, jv, kw.reason_upper) == kw.ContextNum
-    assert g_sqlitetype(cfig, blrcase, jv, kw.reason_upper) == "REAL"
-    assert g_popcashout(cfig, blrcase, jv, kw.reason_upper) == False
-
-    assert g_class_type(cfig, blrcase, jv, kw.reason_lower) == kw.ContextNum
-    assert g_sqlitetype(cfig, blrcase, jv, kw.reason_lower) == "REAL"
-    assert g_popcashout(cfig, blrcase, jv, kw.reason_lower) == False
-
-    assert g_class_type(cfig, blrreas, jk, kw.reason_context) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrreas, jk, kw.reason_context) == "TEXT"
-    assert g_popcashout(cfig, blrreas, jk, kw.reason_context) == False
-
-    assert g_class_type(cfig, blrreas, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrreas, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blrreas, jk, kw.plan_rope) == False
-
-    assert g_class_type(cfig, blrreas, jv, kw.parent_heir_active) == "int"
-    assert g_sqlitetype(cfig, blrreas, jv, kw.parent_heir_active) == "INTEGER"
-    assert g_popcashout(cfig, blrreas, jv, kw.parent_heir_active) == True
-
-    assert g_class_type(cfig, blrreas, jv, kw.reason_active) == "int"
-    assert g_sqlitetype(cfig, blrreas, jv, kw.reason_active) == "INTEGER"
-    assert g_popcashout(cfig, blrreas, jv, kw.reason_active) == True
-
-    assert g_class_type(cfig, blrreas, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, blrreas, jv, kw.task) == "INTEGER"
-    assert g_popcashout(cfig, blrreas, jv, kw.task) == True
-
-    assert g_class_type(cfig, blrreas, jv, kw.active_requisite) == "bool"
-    assert g_sqlitetype(cfig, blrreas, jv, kw.active_requisite) == "INTEGER"
-    assert g_popcashout(cfig, blrreas, jv, kw.active_requisite) == False
-
-    assert g_class_type(cfig, blrlabo, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blrlabo, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blrlabo, jk, kw.plan_rope) == False
-
-    assert g_class_type(cfig, blrlabo, jk, kw.party_title) == kw.TitleTerm
-    assert g_sqlitetype(cfig, blrlabo, jk, kw.party_title) == "TEXT"
-    assert g_popcashout(cfig, blrlabo, jk, kw.party_title) == False
-
-    assert g_class_type(cfig, blrlabo, jv, "belief_name_is_labor") == "int"
-    assert g_sqlitetype(cfig, blrlabo, jv, "belief_name_is_labor") == "INTEGER"
-    assert g_popcashout(cfig, blrlabo, jv, "belief_name_is_labor") == True
-
-    assert g_class_type(cfig, blrplan, jv, "plan_active") == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, "plan_active") == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, "plan_active") == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.all_voice_cred) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.all_voice_cred) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.all_voice_cred) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.all_voice_debt) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.all_voice_debt) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.all_voice_debt) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.descendant_pledge_count) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.descendant_pledge_count) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.descendant_pledge_count) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.fund_cease) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.fund_cease) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.fund_cease) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.fund_grain) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.fund_grain) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.fund_grain) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.fund_onset) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.fund_onset) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.fund_onset) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.fund_ratio) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.fund_ratio) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.fund_ratio) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.gogo_calc) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.gogo_calc) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.gogo_calc) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.healerunit_ratio) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.healerunit_ratio) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.healerunit_ratio) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.tree_level) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.tree_level) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.tree_level) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.range_evaluated) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.range_evaluated) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.range_evaluated) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.stop_calc) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.stop_calc) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.stop_calc) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.task) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.task) == True
-
-    assert g_class_type(cfig, blrplan, jv, kw.addin) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.addin) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.addin) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.begin) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.begin) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.begin) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.close) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.close) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.close) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.denom) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.denom) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.denom) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.gogo_want) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.gogo_want) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.gogo_want) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.star) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.star) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.star) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.morph) == "bool"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.morph) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.morph) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.numor) == "int"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.numor) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.numor) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.pledge) == "bool"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.pledge) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.pledge) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.problem_bool) == "bool"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.problem_bool) == "INTEGER"
-    assert g_popcashout(cfig, blrplan, jv, kw.problem_bool) == False
-
-    assert g_class_type(cfig, blrplan, jv, kw.stop_want) == "float"
-    assert g_sqlitetype(cfig, blrplan, jv, kw.stop_want) == "REAL"
-    assert g_popcashout(cfig, blrplan, jv, kw.stop_want) == False
-
-    assert g_class_type(cfig, blfunit, jv, "keeps_buildable") == "int"
-    assert g_sqlitetype(cfig, blfunit, jv, "keeps_buildable") == "INTEGER"
-    assert g_popcashout(cfig, blfunit, jv, "keeps_buildable") == True
-
-    assert g_class_type(cfig, blfunit, jv, "keeps_justified") == "int"
-    assert g_sqlitetype(cfig, blfunit, jv, "keeps_justified") == "INTEGER"
-    assert g_popcashout(cfig, blfunit, jv, "keeps_justified") == True
-
-    assert g_class_type(cfig, blfunit, jv, kw.offtrack_fund) == "float"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.offtrack_fund) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.offtrack_fund) == True
-
-    assert g_class_type(cfig, blfunit, jv, kw.rational) == "bool"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.rational) == "INTEGER"
-    assert g_popcashout(cfig, blfunit, jv, kw.rational) == True
+    assert g_class_type(cfig, blfgrou, jk, kw.group_title) == "TitleTerm"
+    assert g_sqlitetype(cfig, blfgrou, jk, kw.group_title) == "TEXT"
+    assert g_popcashout(cfig, blfgrou, jk, kw.group_title) == True
+
+    assert g_class_type(cfig, blfgrou, jv, kw.debtor_pool) == "float"
+    assert g_sqlitetype(cfig, blfgrou, jv, kw.debtor_pool) == "REAL"
+    assert g_popcashout(cfig, blfgrou, jv, kw.debtor_pool) == True
+
+    assert g_class_type(cfig, blfgrou, jv, kw.credor_pool) == "float"
+    assert g_sqlitetype(cfig, blfgrou, jv, kw.credor_pool) == "REAL"
+    assert g_popcashout(cfig, blfgrou, jv, kw.credor_pool) == True
+
+    assert g_class_type(cfig, blfgrou, jv, kw.fund_give) == "float"
+    assert g_sqlitetype(cfig, blfgrou, jv, kw.fund_give) == "REAL"
+    assert g_popcashout(cfig, blfgrou, jv, kw.fund_give) == True
+
+    assert g_class_type(cfig, blfgrou, jv, kw.fund_agenda_give) == "float"
+    assert g_sqlitetype(cfig, blfgrou, jv, kw.fund_agenda_give) == "REAL"
+    assert g_popcashout(cfig, blfgrou, jv, kw.fund_agenda_give) == True
+
+    assert g_class_type(cfig, blfgrou, jv, kw.fund_agenda_take) == "float"
+    assert g_sqlitetype(cfig, blfgrou, jv, kw.fund_agenda_take) == "REAL"
+    assert g_popcashout(cfig, blfgrou, jv, kw.fund_agenda_take) == True
+
+    assert g_class_type(cfig, blfgrou, jv, kw.fund_take) == "float"
+    assert g_sqlitetype(cfig, blfgrou, jv, kw.fund_take) == "REAL"
+    assert g_popcashout(cfig, blfgrou, jv, kw.fund_take) == True
+
+    assert g_class_type(cfig, blfgrou, jv, kw.fund_grain) == "float"
+    assert g_sqlitetype(cfig, blfgrou, jv, kw.fund_grain) == "REAL"
+    assert g_popcashout(cfig, blfgrou, jv, kw.fund_grain) == True
+
+    assert g_class_type(cfig, blfawar, jk, kw.awardee_title) == kw.TitleTerm
+    assert g_sqlitetype(cfig, blfawar, jk, kw.awardee_title) == "TEXT"
+    assert g_popcashout(cfig, blfawar, jk, kw.awardee_title) == False
+
+    assert g_class_type(cfig, blfawar, jk, kw.plan_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfawar, jk, kw.plan_rope) == "TEXT"
+    assert g_popcashout(cfig, blfawar, jk, kw.plan_rope) == False
+
+    assert g_class_type(cfig, blfawar, jv, kw.fund_give) == "float"
+    assert g_sqlitetype(cfig, blfawar, jv, kw.fund_give) == "REAL"
+    assert g_popcashout(cfig, blfawar, jv, kw.fund_give) == True
+
+    assert g_class_type(cfig, blfawar, jv, kw.fund_take) == "float"
+    assert g_sqlitetype(cfig, blfawar, jv, kw.fund_take) == "REAL"
+    assert g_popcashout(cfig, blfawar, jv, kw.fund_take) == True
+
+    assert g_class_type(cfig, blfawar, jv, kw.give_force) == "float"
+    assert g_sqlitetype(cfig, blfawar, jv, kw.give_force) == "REAL"
+    assert g_popcashout(cfig, blfawar, jv, kw.give_force) == False
+
+    assert g_class_type(cfig, blfawar, jv, kw.take_force) == "float"
+    assert g_sqlitetype(cfig, blfawar, jv, kw.take_force) == "REAL"
+    assert g_popcashout(cfig, blfawar, jv, kw.take_force) == False
+
+    assert g_class_type(cfig, blffact, jk, kw.fact_context) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blffact, jk, kw.fact_context) == "TEXT"
+    assert g_popcashout(cfig, blffact, jk, kw.fact_context) == False
+
+    assert g_class_type(cfig, blffact, jk, kw.plan_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blffact, jk, kw.plan_rope) == "TEXT"
+    assert g_popcashout(cfig, blffact, jk, kw.plan_rope) == False
+
+    assert g_class_type(cfig, blffact, jv, kw.fact_upper) == kw.ContextNum
+    assert g_sqlitetype(cfig, blffact, jv, kw.fact_upper) == "REAL"
+    assert g_popcashout(cfig, blffact, jv, kw.fact_upper) == False
+
+    assert g_class_type(cfig, blffact, jv, kw.fact_lower) == kw.ContextNum
+    assert g_sqlitetype(cfig, blffact, jv, kw.fact_lower) == "REAL"
+    assert g_popcashout(cfig, blffact, jv, kw.fact_lower) == False
+
+    assert g_class_type(cfig, blffact, jv, kw.fact_state) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blffact, jv, kw.fact_state) == "TEXT"
+    assert g_popcashout(cfig, blffact, jv, kw.fact_state) == False
+
+    assert g_class_type(cfig, blfheal, jk, kw.healer_name) == kw.NameTerm
+    assert g_sqlitetype(cfig, blfheal, jk, kw.healer_name) == "TEXT"
+    assert g_popcashout(cfig, blfheal, jk, kw.healer_name) == False
+
+    assert g_class_type(cfig, blfheal, jk, kw.plan_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfheal, jk, kw.plan_rope) == "TEXT"
+    assert g_popcashout(cfig, blfheal, jk, kw.plan_rope) == False
+
+    assert g_class_type(cfig, blfcase, jk, kw.reason_context) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfcase, jk, kw.reason_context) == "TEXT"
+    assert g_popcashout(cfig, blfcase, jk, kw.reason_context) == False
+
+    assert g_class_type(cfig, blfcase, jk, kw.reason_state) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfcase, jk, kw.reason_state) == "TEXT"
+    assert g_popcashout(cfig, blfcase, jk, kw.reason_state) == False
+
+    assert g_class_type(cfig, blfcase, jk, kw.plan_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfcase, jk, kw.plan_rope) == "TEXT"
+    assert g_popcashout(cfig, blfcase, jk, kw.plan_rope) == False
+
+    assert g_class_type(cfig, blfcase, jv, kw.case_active) == "int"
+    assert g_sqlitetype(cfig, blfcase, jv, kw.case_active) == "INTEGER"
+    assert g_popcashout(cfig, blfcase, jv, kw.case_active) == True
+
+    assert g_class_type(cfig, blfcase, jv, kw.task) == "int"
+    assert g_sqlitetype(cfig, blfcase, jv, kw.task) == "INTEGER"
+    assert g_popcashout(cfig, blfcase, jv, kw.task) == True
+
+    assert g_class_type(cfig, blfcase, jv, kw.reason_divisor) == "int"
+    assert g_sqlitetype(cfig, blfcase, jv, kw.reason_divisor) == "INTEGER"
+    assert g_popcashout(cfig, blfcase, jv, kw.reason_divisor) == False
+
+    assert g_class_type(cfig, blfcase, jv, kw.reason_upper) == kw.ContextNum
+    assert g_sqlitetype(cfig, blfcase, jv, kw.reason_upper) == "REAL"
+    assert g_popcashout(cfig, blfcase, jv, kw.reason_upper) == False
+
+    assert g_class_type(cfig, blfcase, jv, kw.reason_lower) == kw.ContextNum
+    assert g_sqlitetype(cfig, blfcase, jv, kw.reason_lower) == "REAL"
+    assert g_popcashout(cfig, blfcase, jv, kw.reason_lower) == False
+
+    assert g_class_type(cfig, blfreas, jk, kw.reason_context) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfreas, jk, kw.reason_context) == "TEXT"
+    assert g_popcashout(cfig, blfreas, jk, kw.reason_context) == False
+
+    assert g_class_type(cfig, blfreas, jk, kw.plan_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfreas, jk, kw.plan_rope) == "TEXT"
+    assert g_popcashout(cfig, blfreas, jk, kw.plan_rope) == False
+
+    assert g_class_type(cfig, blfreas, jv, kw.parent_heir_active) == "int"
+    assert g_sqlitetype(cfig, blfreas, jv, kw.parent_heir_active) == "INTEGER"
+    assert g_popcashout(cfig, blfreas, jv, kw.parent_heir_active) == True
+
+    assert g_class_type(cfig, blfreas, jv, kw.reason_active) == "int"
+    assert g_sqlitetype(cfig, blfreas, jv, kw.reason_active) == "INTEGER"
+    assert g_popcashout(cfig, blfreas, jv, kw.reason_active) == True
+
+    assert g_class_type(cfig, blfreas, jv, kw.task) == "int"
+    assert g_sqlitetype(cfig, blfreas, jv, kw.task) == "INTEGER"
+    assert g_popcashout(cfig, blfreas, jv, kw.task) == True
+
+    assert g_class_type(cfig, blfreas, jv, kw.active_requisite) == "bool"
+    assert g_sqlitetype(cfig, blfreas, jv, kw.active_requisite) == "INTEGER"
+    assert g_popcashout(cfig, blfreas, jv, kw.active_requisite) == False
+
+    assert g_class_type(cfig, blflabo, jk, kw.plan_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blflabo, jk, kw.plan_rope) == "TEXT"
+    assert g_popcashout(cfig, blflabo, jk, kw.plan_rope) == False
+
+    assert g_class_type(cfig, blflabo, jk, kw.party_title) == kw.TitleTerm
+    assert g_sqlitetype(cfig, blflabo, jk, kw.party_title) == "TEXT"
+    assert g_popcashout(cfig, blflabo, jk, kw.party_title) == False
+
+    assert g_class_type(cfig, blflabo, jv, "belief_name_is_labor") == "int"
+    assert g_sqlitetype(cfig, blflabo, jv, "belief_name_is_labor") == "INTEGER"
+    assert g_popcashout(cfig, blflabo, jv, "belief_name_is_labor") == True
+
+    assert g_class_type(cfig, blfplan, jv, "plan_active") == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, "plan_active") == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, "plan_active") == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.all_voice_cred) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.all_voice_cred) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.all_voice_cred) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.all_voice_debt) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.all_voice_debt) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.all_voice_debt) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.descendant_pledge_count) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.descendant_pledge_count) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.descendant_pledge_count) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.fund_cease) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_cease) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.fund_cease) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.fund_grain) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_grain) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.fund_grain) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.fund_onset) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_onset) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.fund_onset) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.fund_ratio) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_ratio) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.fund_ratio) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.gogo_calc) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.gogo_calc) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.gogo_calc) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.healerunit_ratio) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.healerunit_ratio) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.healerunit_ratio) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.tree_level) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.tree_level) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.tree_level) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.range_evaluated) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.range_evaluated) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.range_evaluated) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.stop_calc) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.stop_calc) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.stop_calc) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.task) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.task) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.task) == True
+
+    assert g_class_type(cfig, blfplan, jv, kw.addin) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.addin) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.addin) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.begin) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.begin) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.begin) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.close) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.close) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.close) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.denom) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.denom) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.denom) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.gogo_want) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.gogo_want) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.gogo_want) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.star) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.star) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.star) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.morph) == "bool"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.morph) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.morph) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.numor) == "int"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.numor) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.numor) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.pledge) == "bool"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.pledge) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.pledge) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.problem_bool) == "bool"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.problem_bool) == "INTEGER"
+    assert g_popcashout(cfig, blfplan, jv, kw.problem_bool) == False
+
+    assert g_class_type(cfig, blfplan, jv, kw.stop_want) == "float"
+    assert g_sqlitetype(cfig, blfplan, jv, kw.stop_want) == "REAL"
+    assert g_popcashout(cfig, blfplan, jv, kw.stop_want) == False
+
+    assert g_class_type(cfig, mmtunit, jv, "keeps_buildable") == "int"
+    assert g_sqlitetype(cfig, mmtunit, jv, "keeps_buildable") == "INTEGER"
+    assert g_popcashout(cfig, mmtunit, jv, "keeps_buildable") == True
+
+    assert g_class_type(cfig, mmtunit, jv, "keeps_justified") == "int"
+    assert g_sqlitetype(cfig, mmtunit, jv, "keeps_justified") == "INTEGER"
+    assert g_popcashout(cfig, mmtunit, jv, "keeps_justified") == True
+
+    assert g_class_type(cfig, mmtunit, jv, kw.offtrack_fund) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.offtrack_fund) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.offtrack_fund) == True
+
+    assert g_class_type(cfig, mmtunit, jv, kw.rational) == "bool"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.rational) == "INTEGER"
+    assert g_popcashout(cfig, mmtunit, jv, kw.rational) == True
 
     assert (
-        g_class_type(cfig, blfunit, jv, kw.sum_healerunit_plans_fund_total) == "float"
+        g_class_type(cfig, mmtunit, jv, kw.sum_healerunit_plans_fund_total) == "float"
     )
-    assert g_sqlitetype(cfig, blfunit, jv, kw.sum_healerunit_plans_fund_total) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.sum_healerunit_plans_fund_total) == True
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.sum_healerunit_plans_fund_total) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.sum_healerunit_plans_fund_total) == True
 
-    assert g_class_type(cfig, blfunit, jv, kw.tree_traverse_count) == "int"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.tree_traverse_count) == "INTEGER"
-    assert g_popcashout(cfig, blfunit, jv, kw.tree_traverse_count) == True
+    assert g_class_type(cfig, mmtunit, jv, kw.tree_traverse_count) == "int"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.tree_traverse_count) == "INTEGER"
+    assert g_popcashout(cfig, mmtunit, jv, kw.tree_traverse_count) == True
 
-    assert g_class_type(cfig, blfunit, jv, kw.credor_respect) == "float"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.credor_respect) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.credor_respect) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.credor_respect) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.credor_respect) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.credor_respect) == False
 
-    assert g_class_type(cfig, blfunit, jv, kw.debtor_respect) == "float"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.debtor_respect) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.debtor_respect) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.debtor_respect) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.debtor_respect) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.debtor_respect) == False
 
-    assert g_class_type(cfig, blfunit, jv, kw.fund_grain) == "float"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.fund_grain) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.fund_grain) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.fund_grain) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.fund_grain) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.fund_grain) == False
 
-    assert g_class_type(cfig, blfunit, jv, kw.fund_pool) == "float"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.fund_pool) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.fund_pool) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.fund_pool) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.fund_pool) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.fund_pool) == False
 
-    assert g_class_type(cfig, blfunit, jv, kw.max_tree_traverse) == "int"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.max_tree_traverse) == "INTEGER"
-    assert g_popcashout(cfig, blfunit, jv, kw.max_tree_traverse) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.max_tree_traverse) == "int"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.max_tree_traverse) == "INTEGER"
+    assert g_popcashout(cfig, mmtunit, jv, kw.max_tree_traverse) == False
 
-    assert g_class_type(cfig, blfunit, jv, kw.mana_grain) == "float"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.mana_grain) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.mana_grain) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.mana_grain) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.mana_grain) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.mana_grain) == False
 
-    assert g_class_type(cfig, blfunit, jv, kw.respect_grain) == "float"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.respect_grain) == "REAL"
-    assert g_popcashout(cfig, blfunit, jv, kw.respect_grain) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.respect_grain) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.respect_grain) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.respect_grain) == False
 
-    assert g_class_type(cfig, blfunit, jv, kw.tally) == "int"
-    assert g_sqlitetype(cfig, blfunit, jv, kw.tally) == "INTEGER"
-    assert g_popcashout(cfig, blfunit, jv, kw.tally) == False
+    assert g_class_type(cfig, mmtunit, jv, kw.tally) == "int"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.tally) == "INTEGER"
+    assert g_popcashout(cfig, mmtunit, jv, kw.tally) == False
 
 
 def test_get_belief_config_dict_ReturnsObj_EachArgHasOneClassType():

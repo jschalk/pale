@@ -47,15 +47,15 @@ VALUES
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
         assert get_row_count(cursor, beliefavoice_s_vld_put_tablename) == 4
-        blrawar_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
-        assert get_row_count(cursor, blrawar_h_raw_put_tablename) == 0
+        blfawar_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
+        assert get_row_count(cursor, blfawar_h_raw_put_tablename) == 0
 
         # WHEN
-        sqlstr = get_insert_into_heard_raw_sqlstrs().get(blrawar_h_raw_put_tablename)
+        sqlstr = get_insert_into_heard_raw_sqlstrs().get(blfawar_h_raw_put_tablename)
         cursor.execute(sqlstr)
 
         # THEN
-        assert get_row_count(cursor, blrawar_h_raw_put_tablename) == 4
+        assert get_row_count(cursor, blfawar_h_raw_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}_otx
 , {kw.moment_label}_otx
@@ -63,7 +63,7 @@ VALUES
 , {kw.voice_name}_otx
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
-FROM {blrawar_h_raw_put_tablename}
+FROM {blfawar_h_raw_put_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()

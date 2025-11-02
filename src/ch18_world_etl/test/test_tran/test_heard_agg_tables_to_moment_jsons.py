@@ -38,68 +38,68 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
     fu2_select_sqlstrs = get_moment_heard_select1_sqlstrs(moment_label=exx.a23)
 
     # THEN
-    gen_blfpayy_sqlstr = fu2_select_sqlstrs.get(kw.moment_paybook)
+    gen_mmtpayy_sqlstr = fu2_select_sqlstrs.get(kw.moment_paybook)
     gen_momentbud_sqlstr = fu2_select_sqlstrs.get(kw.moment_budunit)
-    gen_blfhour_sqlstr = fu2_select_sqlstrs.get(kw.moment_epoch_hour)
-    gen_blfmont_sqlstr = fu2_select_sqlstrs.get(kw.moment_epoch_month)
-    gen_blfweek_sqlstr = fu2_select_sqlstrs.get(kw.moment_epoch_weekday)
-    gen_blfoffi_sqlstr = fu2_select_sqlstrs.get(kw.moment_timeoffi)
+    gen_mmthour_sqlstr = fu2_select_sqlstrs.get(kw.moment_epoch_hour)
+    gen_mmtmont_sqlstr = fu2_select_sqlstrs.get(kw.moment_epoch_month)
+    gen_mmtweek_sqlstr = fu2_select_sqlstrs.get(kw.moment_epoch_weekday)
+    gen_mmtoffi_sqlstr = fu2_select_sqlstrs.get(kw.moment_timeoffi)
     gen_momentunit_sqlstr = fu2_select_sqlstrs.get(kw.momentunit)
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfpayy_abbv7 = get_dimen_abbv7(kw.moment_paybook)
+        mmtpayy_abbv7 = get_dimen_abbv7(kw.moment_paybook)
         momentbud_abbv7 = get_dimen_abbv7(kw.moment_budunit)
-        blfhour_abbv7 = get_dimen_abbv7(kw.moment_epoch_hour)
-        blfmont_abbv7 = get_dimen_abbv7(kw.moment_epoch_month)
-        blfweek_abbv7 = get_dimen_abbv7(kw.moment_epoch_weekday)
-        blfoffi_abbv7 = get_dimen_abbv7(kw.moment_timeoffi)
+        mmthour_abbv7 = get_dimen_abbv7(kw.moment_epoch_hour)
+        mmtmont_abbv7 = get_dimen_abbv7(kw.moment_epoch_month)
+        mmtweek_abbv7 = get_dimen_abbv7(kw.moment_epoch_weekday)
+        mmtoffi_abbv7 = get_dimen_abbv7(kw.moment_timeoffi)
         momentunit_abbv7 = get_dimen_abbv7(kw.momentunit)
-        blfpayy_h_agg = create_prime_tablename(blfpayy_abbv7, "h", "agg")
+        mmtpayy_h_agg = create_prime_tablename(mmtpayy_abbv7, "h", "agg")
         momentbud_h_agg = create_prime_tablename(momentbud_abbv7, "h", "agg")
-        blfhour_h_agg = create_prime_tablename(blfhour_abbv7, "h", "agg")
-        blfmont_h_agg = create_prime_tablename(blfmont_abbv7, "h", "agg")
-        blfweek_h_agg = create_prime_tablename(blfweek_abbv7, "h", "agg")
-        blfoffi_h_agg = create_prime_tablename(blfoffi_abbv7, "h", "agg")
+        mmthour_h_agg = create_prime_tablename(mmthour_abbv7, "h", "agg")
+        mmtmont_h_agg = create_prime_tablename(mmtmont_abbv7, "h", "agg")
+        mmtweek_h_agg = create_prime_tablename(mmtweek_abbv7, "h", "agg")
+        mmtoffi_h_agg = create_prime_tablename(mmtoffi_abbv7, "h", "agg")
         momentunit_h_agg = create_prime_tablename(momentunit_abbv7, "h", "agg")
         where_dict = {kw.moment_label: exx.a23}
-        blfpayy_sql = create_select_query(cursor, blfpayy_h_agg, [], where_dict, True)
+        mmtpayy_sql = create_select_query(cursor, mmtpayy_h_agg, [], where_dict, True)
         momentbud_sql = create_select_query(
             cursor, momentbud_h_agg, [], where_dict, True
         )
-        blfhour_sql = create_select_query(cursor, blfhour_h_agg, [], where_dict, True)
-        blfmont_sql = create_select_query(cursor, blfmont_h_agg, [], where_dict, True)
-        blfweek_sql = create_select_query(cursor, blfweek_h_agg, [], where_dict, True)
-        blfoffi_sql = create_select_query(cursor, blfoffi_h_agg, [], where_dict, True)
+        mmthour_sql = create_select_query(cursor, mmthour_h_agg, [], where_dict, True)
+        mmtmont_sql = create_select_query(cursor, mmtmont_h_agg, [], where_dict, True)
+        mmtweek_sql = create_select_query(cursor, mmtweek_h_agg, [], where_dict, True)
+        mmtoffi_sql = create_select_query(cursor, mmtoffi_h_agg, [], where_dict, True)
         momentunit_sql = create_select_query(
             cursor, momentunit_h_agg, [], where_dict, True
         )
-        blfpayy_sqlstr_ref = f"{blfpayy_abbv7.upper()}_FU2_SELECT_SQLSTR"
+        mmtpayy_sqlstr_ref = f"{mmtpayy_abbv7.upper()}_FU2_SELECT_SQLSTR"
         momentbud_sqlstr_ref = f"{momentbud_abbv7.upper()}_FU2_SELECT_SQLSTR"
-        blfhour_sqlstr_ref = f"{blfhour_abbv7.upper()}_FU2_SELECT_SQLSTR"
-        blfmont_sqlstr_ref = f"{blfmont_abbv7.upper()}_FU2_SELECT_SQLSTR"
-        blfweek_sqlstr_ref = f"{blfweek_abbv7.upper()}_FU2_SELECT_SQLSTR"
-        blfoffi_sqlstr_ref = f"{blfoffi_abbv7.upper()}_FU2_SELECT_SQLSTR"
+        mmthour_sqlstr_ref = f"{mmthour_abbv7.upper()}_FU2_SELECT_SQLSTR"
+        mmtmont_sqlstr_ref = f"{mmtmont_abbv7.upper()}_FU2_SELECT_SQLSTR"
+        mmtweek_sqlstr_ref = f"{mmtweek_abbv7.upper()}_FU2_SELECT_SQLSTR"
+        mmtoffi_sqlstr_ref = f"{mmtoffi_abbv7.upper()}_FU2_SELECT_SQLSTR"
         momentunit_sqlstr_ref = f"{momentunit_abbv7.upper()}_FU2_SELECT_SQLSTR"
         qa23_str = "'amy23'"
         blank = ""
-        print(f"""{blfpayy_sqlstr_ref} = "{blfpayy_sql.replace(qa23_str, blank)}" """)
+        print(f"""{mmtpayy_sqlstr_ref} = "{mmtpayy_sql.replace(qa23_str, blank)}" """)
         print(
             f"""{momentbud_sqlstr_ref} = "{momentbud_sql.replace(qa23_str, blank)}" """
         )
-        print(f"""{blfhour_sqlstr_ref} = "{blfhour_sql.replace(qa23_str, blank)}" """)
-        print(f"""{blfmont_sqlstr_ref} = "{blfmont_sql.replace(qa23_str, blank)}" """)
-        print(f"""{blfweek_sqlstr_ref} = "{blfweek_sql.replace(qa23_str, blank)}" """)
-        print(f"""{blfoffi_sqlstr_ref} = "{blfoffi_sql.replace(qa23_str, blank)}" """)
+        print(f"""{mmthour_sqlstr_ref} = "{mmthour_sql.replace(qa23_str, blank)}" """)
+        print(f"""{mmtmont_sqlstr_ref} = "{mmtmont_sql.replace(qa23_str, blank)}" """)
+        print(f"""{mmtweek_sqlstr_ref} = "{mmtweek_sql.replace(qa23_str, blank)}" """)
+        print(f"""{mmtoffi_sqlstr_ref} = "{mmtoffi_sql.replace(qa23_str, blank)}" """)
         print(
             f"""{momentunit_sqlstr_ref} = "{momentunit_sql.replace(qa23_str, blank)}" """
         )
-        assert gen_blfpayy_sqlstr == blfpayy_sql
+        assert gen_mmtpayy_sqlstr == mmtpayy_sql
         assert gen_momentbud_sqlstr == momentbud_sql
-        assert gen_blfhour_sqlstr == blfhour_sql
-        assert gen_blfmont_sqlstr == blfmont_sql
-        assert gen_blfweek_sqlstr == blfweek_sql
-        assert gen_blfoffi_sqlstr == blfoffi_sql
+        assert gen_mmthour_sqlstr == mmthour_sql
+        assert gen_mmtmont_sqlstr == mmtmont_sql
+        assert gen_mmtweek_sqlstr == mmtweek_sql
+        assert gen_mmtoffi_sqlstr == mmtoffi_sql
         assert gen_momentunit_sqlstr == momentunit_sql
         static_example_sqlstr = f"SELECT {kw.moment_label}, {kw.epoch_label}, {kw.c400_number}, {kw.yr1_jan1_offset}, {kw.monthday_index}, {kw.fund_grain}, {kw.mana_grain}, {kw.respect_grain}, {kw.knot}, {kw.job_listen_rotations} FROM momentunit_h_agg WHERE moment_label = '{exx.a23}'"
         assert gen_momentunit_sqlstr == static_example_sqlstr

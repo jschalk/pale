@@ -1,6 +1,6 @@
 {
   "belief_groupunit": {
-    "abbreviation": "blrgrou", 
+    "abbreviation": "blfgrou", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -29,7 +29,7 @@
     }
   }, 
   "belief_plan_awardunit": {
-    "abbreviation": "blrawar", 
+    "abbreviation": "blfawar", 
     "jkeys": {
       "awardee_title": {
         "class_type": "TitleTerm", 
@@ -60,7 +60,7 @@
     }
   }, 
   "belief_plan_factunit": {
-    "abbreviation": "blrfact", 
+    "abbreviation": "blffact", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -102,7 +102,7 @@
     }
   }, 
   "belief_plan_healerunit": {
-    "abbreviation": "blrheal", 
+    "abbreviation": "blfheal", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -128,7 +128,7 @@
     "jvalues": {}
   }, 
   "belief_plan_partyunit": {
-    "abbreviation": "blrlabo", 
+    "abbreviation": "blflabo", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -161,7 +161,7 @@
     }
   }, 
   "belief_plan_reason_caseunit": {
-    "abbreviation": "blrcase", 
+    "abbreviation": "blfcase", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -210,7 +210,7 @@
     }
   }, 
   "belief_plan_reasonunit": {
-    "abbreviation": "blrreas", 
+    "abbreviation": "blfreas", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -245,7 +245,7 @@
     }
   }, 
   "belief_planunit": {
-    "abbreviation": "blrplan", 
+    "abbreviation": "blfplan", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -388,7 +388,7 @@
     }
   }, 
   "beliefunit": {
-    "abbreviation": "blrunit", 
+    "abbreviation": "blfunit", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 

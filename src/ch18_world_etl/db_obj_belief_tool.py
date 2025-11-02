@@ -95,7 +95,7 @@ VALUES (
 """
 
 
-def create_blrgrou_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blfgrou_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     group_title = values_dict.get("group_title")
@@ -124,7 +124,7 @@ VALUES (
 """
 
 
-def create_blrawar_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blfawar_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     rope = values_dict.get("plan_rope")
@@ -148,7 +148,7 @@ VALUES (
 """
 
 
-def create_blrfact_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blffact_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     rope = values_dict.get("plan_rope")
@@ -170,7 +170,7 @@ VALUES (
 """
 
 
-def create_blrheal_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blfheal_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     rope = values_dict.get("plan_rope")
@@ -186,7 +186,7 @@ VALUES (
 """
 
 
-def create_blrcase_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blfcase_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     rope = values_dict.get("plan_rope")
@@ -214,7 +214,7 @@ VALUES (
 """
 
 
-def create_blrreas_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blfreas_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     rope = values_dict.get("plan_rope")
@@ -238,7 +238,7 @@ VALUES (
 """
 
 
-def create_blrlabo_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blflabo_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     rope = values_dict.get("plan_rope")
@@ -258,7 +258,7 @@ VALUES (
 """
 
 
-def create_blrplan_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blfplan_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     rope = values_dict.get("plan_rope")
@@ -404,7 +404,7 @@ def insert_job_blfvoce(
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrgrou(
+def insert_job_blfgrou(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_groupunit: GroupUnit,
@@ -412,11 +412,11 @@ def insert_job_blrgrou(
     x_dict = copy_deepcopy(x_groupunit.__dict__)
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["belief_name"] = x_objkeysholder.belief_name
-    insert_sqlstr = create_blrgrou_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_blfgrou_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrawar(
+def insert_job_blfawar(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_awardheir: AwardHeir,
@@ -425,11 +425,11 @@ def insert_job_blrawar(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["belief_name"] = x_objkeysholder.belief_name
     x_dict["plan_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blrawar_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_blfawar_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrfact(
+def insert_job_blffact(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_factheir: FactHeir,
@@ -438,11 +438,11 @@ def insert_job_blrfact(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["belief_name"] = x_objkeysholder.belief_name
     x_dict["plan_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blrfact_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_blffact_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrheal(
+def insert_job_blfheal(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_healer: HealerUnit,
@@ -454,11 +454,11 @@ def insert_job_blrheal(
     }
     for healer_name in sorted(x_healer._healer_names):
         x_dict["healer_name"] = healer_name
-        insert_sqlstr = create_blrheal_metrics_insert_sqlstr(x_dict)
+        insert_sqlstr = create_blfheal_metrics_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrcase(
+def insert_job_blfcase(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_caseunit: CaseUnit,
@@ -468,11 +468,11 @@ def insert_job_blrcase(
     x_dict["belief_name"] = x_objkeysholder.belief_name
     x_dict["plan_rope"] = x_objkeysholder.rope
     x_dict["reason_context"] = x_objkeysholder.reason_context
-    insert_sqlstr = create_blrcase_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_blfcase_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrreas(
+def insert_job_blfreas(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_reasonheir: ReasonHeir,
@@ -481,11 +481,11 @@ def insert_job_blrreas(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["belief_name"] = x_objkeysholder.belief_name
     x_dict["plan_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blrreas_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_blfreas_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrlabo(
+def insert_job_blflabo(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_laborheir: LaborHeir,
@@ -498,21 +498,21 @@ def insert_job_blrlabo(
         partyheir = x_laborheir.partys.get(party_title)
         x_dict["party_title"] = partyheir.party_title
         x_dict["solo"] = partyheir.solo
-        insert_sqlstr = create_blrlabo_metrics_insert_sqlstr(x_dict)
+        insert_sqlstr = create_blflabo_metrics_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrplan(
+def insert_job_blfplan(
     cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_plan: PlanUnit
 ):
     x_dict = copy_deepcopy(x_plan.__dict__)
     x_dict["plan_rope"] = x_plan.get_plan_rope()
     x_dict["belief_name"] = x_objkeysholder.belief_name
-    insert_sqlstr = create_blrplan_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_blfplan_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blrunit(
+def insert_job_blfunit(
     cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_belief: BeliefUnit
 ):
     x_dict = copy_deepcopy(x_belief.__dict__)
@@ -523,21 +523,21 @@ def insert_job_blrunit(
 def insert_job_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
     job_belief.cashout()
     x_objkeysholder = ObjKeysHolder(job_belief.moment_label, job_belief.belief_name)
-    insert_job_blrunit(cursor, x_objkeysholder, job_belief)
+    insert_job_blfunit(cursor, x_objkeysholder, job_belief)
     for x_plan in job_belief.get_plan_dict().values():
         x_objkeysholder.rope = x_plan.get_plan_rope()
         healerunit = x_plan.healerunit
         laborheir = x_plan.laborheir
-        insert_job_blrplan(cursor, x_objkeysholder, x_plan)
-        insert_job_blrheal(cursor, x_objkeysholder, healerunit)
-        insert_job_blrlabo(cursor, x_objkeysholder, laborheir)
+        insert_job_blfplan(cursor, x_objkeysholder, x_plan)
+        insert_job_blfheal(cursor, x_objkeysholder, healerunit)
+        insert_job_blflabo(cursor, x_objkeysholder, laborheir)
         for x_awardheir in x_plan.awardheirs.values():
-            insert_job_blrawar(cursor, x_objkeysholder, x_awardheir)
+            insert_job_blfawar(cursor, x_objkeysholder, x_awardheir)
         for reason_context, reasonheir in x_plan.reasonheirs.items():
-            insert_job_blrreas(cursor, x_objkeysholder, reasonheir)
+            insert_job_blfreas(cursor, x_objkeysholder, reasonheir)
             x_objkeysholder.reason_context = reason_context
             for prem in reasonheir.cases.values():
-                insert_job_blrcase(cursor, x_objkeysholder, prem)
+                insert_job_blfcase(cursor, x_objkeysholder, prem)
 
     for x_voice in job_belief.voices.values():
         insert_job_blfvoce(cursor, x_objkeysholder, x_voice)
@@ -545,8 +545,8 @@ def insert_job_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
             insert_job_blrmemb(cursor, x_objkeysholder, x_membership)
 
     for x_groupunit in job_belief.groupunits.values():
-        insert_job_blrgrou(cursor, x_objkeysholder, x_groupunit)
+        insert_job_blfgrou(cursor, x_objkeysholder, x_groupunit)
 
     for x_factheir in job_belief.planroot.factheirs.values():
         x_objkeysholder.fact_rope = job_belief.planroot.get_plan_rope()
-        insert_job_blrfact(cursor, x_objkeysholder, x_factheir)
+        insert_job_blffact(cursor, x_objkeysholder, x_factheir)

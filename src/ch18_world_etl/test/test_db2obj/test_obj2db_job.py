@@ -3,16 +3,16 @@ from src.ch01_py.db_toolbox import create_insert_query
 from src.ch07_belief_logic.belief_config import get_belief_calc_dimen_args
 from src.ch18_world_etl.db_obj_belief_tool import (
     create_beliefunit_metrics_insert_sqlstr,
+    create_blfawar_metrics_insert_sqlstr,
+    create_blfcase_metrics_insert_sqlstr,
+    create_blffact_metrics_insert_sqlstr,
+    create_blfgrou_metrics_insert_sqlstr,
+    create_blfheal_metrics_insert_sqlstr,
+    create_blflabo_metrics_insert_sqlstr,
+    create_blfplan_metrics_insert_sqlstr,
+    create_blfreas_metrics_insert_sqlstr,
     create_blfvoce_metrics_insert_sqlstr,
-    create_blrawar_metrics_insert_sqlstr,
-    create_blrcase_metrics_insert_sqlstr,
-    create_blrfact_metrics_insert_sqlstr,
-    create_blrgrou_metrics_insert_sqlstr,
-    create_blrheal_metrics_insert_sqlstr,
-    create_blrlabo_metrics_insert_sqlstr,
     create_blrmemb_metrics_insert_sqlstr,
-    create_blrplan_metrics_insert_sqlstr,
-    create_blrreas_metrics_insert_sqlstr,
 )
 from src.ch18_world_etl.tran_sqlstrs import create_job_tables
 from src.ref.keywords import Ch18Keywords as kw
@@ -78,7 +78,7 @@ def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrplan_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_planunit")
@@ -154,7 +154,7 @@ def test_create_blrplan_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrplan_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blfplan_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -169,7 +169,7 @@ def test_create_blrplan_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrreas_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_plan_reasonunit")
@@ -214,7 +214,7 @@ def test_create_blrreas_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrreas_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blfreas_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -229,7 +229,7 @@ def test_create_blrreas_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrcase_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_plan_reason_caseunit")
@@ -281,7 +281,7 @@ def test_create_blrcase_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrcase_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blfcase_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -296,7 +296,7 @@ def test_create_blrcase_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrawar_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_plan_awardunit")
@@ -344,7 +344,7 @@ def test_create_blrawar_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrawar_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blfawar_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -359,7 +359,7 @@ def test_create_blrawar_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrfact_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_plan_factunit")
@@ -405,7 +405,7 @@ def test_create_blrfact_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrfact_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blffact_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -420,7 +420,7 @@ def test_create_blrfact_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrheal_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_plan_healerunit")
@@ -460,7 +460,7 @@ def test_create_blrheal_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrheal_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blfheal_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -475,7 +475,7 @@ def test_create_blrheal_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrlabo_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_plan_partyunit")
@@ -519,7 +519,7 @@ def test_create_blrlabo_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrlabo_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blflabo_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -689,7 +689,7 @@ def test_create_blrmemb_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrgrou_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_groupunit")
@@ -741,7 +741,7 @@ def test_create_blrgrou_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrgrou_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blfgrou_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr

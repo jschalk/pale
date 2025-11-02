@@ -2,7 +2,7 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import db_table_exists, get_row_count, get_table_columns
 from src.ch04_rope.rope import create_rope
 from src.ch18_world_etl.tran_sqlstrs import (
-    CREATE_JOB_BLRPLAN_SQLSTR,
+    CREATE_JOB_BLFPLAN_SQLSTR,
     create_prime_tablename,
 )
 from src.ch19_world_kpi.kpi_mstr import create_populate_kpi002_table
@@ -18,9 +18,9 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_JOB_BLRPLAN_SQLSTR)
-        job_blrplan_tablename = create_prime_tablename("BLRPLAN", "job", None)
-        insert_sqlstr = f"""INSERT INTO {job_blrplan_tablename} (
+        cursor.execute(CREATE_JOB_BLFPLAN_SQLSTR)
+        job_blfplan_tablename = create_prime_tablename("BLFPLAN", "job", None)
+        insert_sqlstr = f"""INSERT INTO {job_blfplan_tablename} (
   {kw.moment_label}
 , {kw.belief_name}
 , {kw.plan_rope}
@@ -33,7 +33,7 @@ VALUES
 , ('{exx.a23}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
 """
         cursor.execute(insert_sqlstr)
-        assert get_row_count(cursor, job_blrplan_tablename) == 2
+        assert get_row_count(cursor, job_blfplan_tablename) == 2
         moment_kpi002_belief_pledges_tablename = kw.moment_kpi002_belief_pledges
         assert not db_table_exists(cursor, moment_kpi002_belief_pledges_tablename)
 
@@ -66,9 +66,9 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_JOB_BLRPLAN_SQLSTR)
-        job_blrplan_tablename = create_prime_tablename("BLRPLAN", "job", None)
-        insert_sqlstr = f"""INSERT INTO {job_blrplan_tablename} (
+        cursor.execute(CREATE_JOB_BLFPLAN_SQLSTR)
+        job_blfplan_tablename = create_prime_tablename("BLFPLAN", "job", None)
+        insert_sqlstr = f"""INSERT INTO {job_blfplan_tablename} (
   {kw.moment_label}
 , {kw.belief_name}
 , {kw.plan_rope}
@@ -83,7 +83,7 @@ VALUES
 , ('{exx.a23}', '{exx.yao}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_task})
 """
         cursor.execute(insert_sqlstr)
-        assert get_row_count(cursor, job_blrplan_tablename) == 4
+        assert get_row_count(cursor, job_blfplan_tablename) == 4
         moment_kpi002_belief_pledges_tablename = kw.moment_kpi002_belief_pledges
         assert not db_table_exists(cursor, moment_kpi002_belief_pledges_tablename)
 

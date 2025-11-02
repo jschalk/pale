@@ -50,35 +50,35 @@ def get_moment_dict_from_sqlstrs(
         moment_dict["knot"] = knot
 
     cursor.execute(fu1_sqlstrs.get("moment_paybook"))
-    _set_moment_dict_blfpayy(cursor, moment_dict, moment_label)
+    _set_moment_dict_mmtpayy(cursor, moment_dict, moment_label)
 
     cursor.execute(fu1_sqlstrs.get("moment_budunit"))
     _set_moment_dict_momentbud(cursor, moment_dict)
 
     cursor.execute(fu1_sqlstrs.get("moment_epoch_hour"))
-    _set_moment_dict_blfhour(cursor, moment_dict)
+    _set_moment_dict_mmthour(cursor, moment_dict)
 
     cursor.execute(fu1_sqlstrs.get("moment_epoch_month"))
-    _set_moment_dict_blfmont(cursor, moment_dict)
+    _set_moment_dict_mmtmont(cursor, moment_dict)
 
     cursor.execute(fu1_sqlstrs.get("moment_epoch_weekday"))
-    _set_moment_dict_blfweek(cursor, moment_dict)
+    _set_moment_dict_mmtweek(cursor, moment_dict)
 
     cursor.execute(fu1_sqlstrs.get("moment_timeoffi"))
     _set_moment_dict_timeoffi(cursor, moment_dict)
     return moment_dict
 
 
-def _set_moment_dict_blfpayy(
+def _set_moment_dict_mmtpayy(
     cursor: sqlite3_Cursor, moment_dict: dict, x_moment_label: str
 ):
     tranunits_dict = {}
-    for blfpayy_row in cursor.fetchall():
-        row_moment_label = blfpayy_row[0]
-        row_belief_name = blfpayy_row[1]
-        row_voice_name = blfpayy_row[2]
-        row_tran_time = blfpayy_row[3]
-        row_amount = blfpayy_row[4]
+    for mmtpayy_row in cursor.fetchall():
+        row_moment_label = mmtpayy_row[0]
+        row_belief_name = mmtpayy_row[1]
+        row_voice_name = mmtpayy_row[2]
+        row_tran_time = mmtpayy_row[3]
+        row_amount = mmtpayy_row[4]
         keylist = [row_belief_name, row_voice_name, row_tran_time]
         set_in_nested_dict(tranunits_dict, keylist, row_amount)
     paybook_dict = {"moment_label": x_moment_label, "tranunits": tranunits_dict}
@@ -87,12 +87,12 @@ def _set_moment_dict_blfpayy(
 
 def _set_moment_dict_momentbud(cursor: sqlite3_Cursor, moment_dict: dict):
     beliefbudhistorys_dict = {}
-    for blfpayy_row in cursor.fetchall():
-        row_moment_label = blfpayy_row[0]
-        row_belief_name = blfpayy_row[1]
-        row_bud_time = blfpayy_row[2]
-        row_quota = blfpayy_row[3]
-        row_celldepth = blfpayy_row[4]
+    for mmtpayy_row in cursor.fetchall():
+        row_moment_label = mmtpayy_row[0]
+        row_belief_name = mmtpayy_row[1]
+        row_bud_time = mmtpayy_row[2]
+        row_quota = mmtpayy_row[3]
+        row_celldepth = mmtpayy_row[4]
         belief_keylist = [row_belief_name, "belief_name"]
         set_in_nested_dict(beliefbudhistorys_dict, belief_keylist, row_belief_name)
         keylist = [row_belief_name, "buds", row_bud_time]
@@ -105,34 +105,34 @@ def _set_moment_dict_momentbud(cursor: sqlite3_Cursor, moment_dict: dict):
     moment_dict["beliefbudhistorys"] = beliefbudhistorys_dict
 
 
-def _set_moment_dict_blfhour(cursor: sqlite3_Cursor, moment_dict: dict):
+def _set_moment_dict_mmthour(cursor: sqlite3_Cursor, moment_dict: dict):
     hours_config_list = []
-    for blfpayy_row in cursor.fetchall():
-        row_moment_label = blfpayy_row[0]
-        row_cumulative_minute = blfpayy_row[1]
-        row_hour_label = blfpayy_row[2]
+    for mmtpayy_row in cursor.fetchall():
+        row_moment_label = mmtpayy_row[0]
+        row_cumulative_minute = mmtpayy_row[1]
+        row_hour_label = mmtpayy_row[2]
         hours_config_list.append([row_hour_label, row_cumulative_minute])
     if hours_config_list:
         moment_dict["epoch"]["hours_config"] = hours_config_list
 
 
-def _set_moment_dict_blfmont(cursor: sqlite3_Cursor, moment_dict: dict):
+def _set_moment_dict_mmtmont(cursor: sqlite3_Cursor, moment_dict: dict):
     months_config_list = []
-    for blfpayy_row in cursor.fetchall():
-        row_moment_label = blfpayy_row[0]
-        row_cumulative_day = blfpayy_row[1]
-        row_month_label = blfpayy_row[2]
+    for mmtpayy_row in cursor.fetchall():
+        row_moment_label = mmtpayy_row[0]
+        row_cumulative_day = mmtpayy_row[1]
+        row_month_label = mmtpayy_row[2]
         months_config_list.append([row_month_label, row_cumulative_day])
     if months_config_list:
         moment_dict["epoch"]["months_config"] = months_config_list
 
 
-def _set_moment_dict_blfweek(cursor: sqlite3_Cursor, moment_dict: dict):
+def _set_moment_dict_mmtweek(cursor: sqlite3_Cursor, moment_dict: dict):
     weekday_dict = {}
-    for blfpayy_row in cursor.fetchall():
-        row_moment_label = blfpayy_row[0]
-        row_weekday_order = blfpayy_row[1]
-        row_weekday_label = blfpayy_row[2]
+    for mmtpayy_row in cursor.fetchall():
+        row_moment_label = mmtpayy_row[0]
+        row_weekday_order = mmtpayy_row[1]
+        row_weekday_label = mmtpayy_row[2]
         weekday_dict[row_weekday_order] = row_weekday_label
     weekday_config_list = [weekday_dict[key] for key in sorted(weekday_dict.keys())]
     if weekday_dict:
@@ -141,8 +141,8 @@ def _set_moment_dict_blfweek(cursor: sqlite3_Cursor, moment_dict: dict):
 
 def _set_moment_dict_timeoffi(cursor: sqlite3_Cursor, moment_dict: dict):
     offi_times_set = set()
-    for blfpayy_row in cursor.fetchall():
-        row_moment_label = blfpayy_row[0]
-        row_offi_time = blfpayy_row[1]
+    for mmtpayy_row in cursor.fetchall():
+        row_moment_label = mmtpayy_row[0]
+        row_offi_time = mmtpayy_row[1]
         offi_times_set.add(row_offi_time)
     moment_dict["offi_times"] = list(offi_times_set)

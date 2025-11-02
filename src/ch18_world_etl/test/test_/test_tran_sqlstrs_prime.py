@@ -43,42 +43,42 @@ BELIEF_PRIME_TABLENAMES = {
     f"{kw.belief_voice_membership}_sound_put_raw": "BLRMEMB_PUT_RAW",
     f"{kw.belief_voiceunit}_sound_put_agg": "BLFVOCE_PUT_AGG",
     f"{kw.belief_voiceunit}_sound_put_raw": "BLFVOCE_PUT_RAW",
-    f"{kw.belief_plan_awardunit}_sound_put_agg": "BLRAWAR_PUT_AGG",
-    f"{kw.belief_plan_awardunit}_sound_put_raw": "BLRAWAR_PUT_RAW",
-    f"{kw.belief_plan_factunit}_sound_put_agg": "BLRFACT_PUT_AGG",
-    f"{kw.belief_plan_factunit}_sound_put_raw": "BLRFACT_PUT_RAW",
-    f"{kw.belief_plan_healerunit}_sound_put_agg": "BLRHEAL_PUT_AGG",
-    f"{kw.belief_plan_healerunit}_sound_put_raw": "BLRHEAL_PUT_RAW",
-    f"{kw.belief_plan_reason_caseunit}_sound_put_agg": "BLRCASE_PUT_AGG",
-    f"{kw.belief_plan_reason_caseunit}_sound_put_raw": "BLRCASE_PUT_RAW",
-    f"{kw.belief_plan_reasonunit}_sound_put_agg": "BLRREAS_PUT_AGG",
-    f"{kw.belief_plan_reasonunit}_sound_put_raw": "BLRREAS_PUT_RAW",
-    f"{kw.belief_plan_partyunit}_sound_put_agg": "BLRLABO_PUT_AGG",
-    f"{kw.belief_plan_partyunit}_sound_put_raw": "BLRLABO_PUT_RAW",
-    f"{kw.belief_planunit}_sound_put_agg": "BLRPLAN_PUT_AGG",
-    f"{kw.belief_planunit}_sound_put_raw": "BLRPLAN_PUT_RAW",
-    f"{kw.beliefunit}_sound_put_agg": "BLRUNIT_PUT_AGG",
-    f"{kw.beliefunit}_sound_put_raw": "BLRUNIT_PUT_RAW",
+    f"{kw.belief_plan_awardunit}_sound_put_agg": "BLFAWAR_PUT_AGG",
+    f"{kw.belief_plan_awardunit}_sound_put_raw": "BLFAWAR_PUT_RAW",
+    f"{kw.belief_plan_factunit}_sound_put_agg": "BLFFACT_PUT_AGG",
+    f"{kw.belief_plan_factunit}_sound_put_raw": "BLFFACT_PUT_RAW",
+    f"{kw.belief_plan_healerunit}_sound_put_agg": "BLFHEAL_PUT_AGG",
+    f"{kw.belief_plan_healerunit}_sound_put_raw": "BLFHEAL_PUT_RAW",
+    f"{kw.belief_plan_reason_caseunit}_sound_put_agg": "BLFCASE_PUT_AGG",
+    f"{kw.belief_plan_reason_caseunit}_sound_put_raw": "BLFCASE_PUT_RAW",
+    f"{kw.belief_plan_reasonunit}_sound_put_agg": "BLFREAS_PUT_AGG",
+    f"{kw.belief_plan_reasonunit}_sound_put_raw": "BLFREAS_PUT_RAW",
+    f"{kw.belief_plan_partyunit}_sound_put_agg": "BLFLABO_PUT_AGG",
+    f"{kw.belief_plan_partyunit}_sound_put_raw": "BLFLABO_PUT_RAW",
+    f"{kw.belief_planunit}_sound_put_agg": "BLFPLAN_PUT_AGG",
+    f"{kw.belief_planunit}_sound_put_raw": "BLFPLAN_PUT_RAW",
+    f"{kw.beliefunit}_sound_put_agg": "BLFUNIT_PUT_AGG",
+    f"{kw.beliefunit}_sound_put_raw": "BLFUNIT_PUT_RAW",
     f"{kw.belief_voice_membership}_sound_del_agg": "BLRMEMB_DEL_AGG",
     f"{kw.belief_voice_membership}_sound_del_raw": "BLRMEMB_DEL_RAW",
     f"{kw.belief_voiceunit}_sound_del_agg": "BLFVOCE_DEL_AGG",
     f"{kw.belief_voiceunit}_sound_del_raw": "BLFVOCE_DEL_RAW",
-    f"{kw.belief_plan_awardunit}_sound_del_agg": "BLRAWAR_DEL_AGG",
-    f"{kw.belief_plan_awardunit}_sound_del_raw": "BLRAWAR_DEL_RAW",
-    f"{kw.belief_plan_factunit}_sound_del_agg": "BLRFACT_DEL_AGG",
-    f"{kw.belief_plan_factunit}_sound_del_raw": "BLRFACT_DEL_RAW",
-    f"{kw.belief_plan_healerunit}_sound_del_agg": "BLRHEAL_DEL_AGG",
-    f"{kw.belief_plan_healerunit}_sound_del_raw": "BLRHEAL_DEL_RAW",
-    f"{kw.belief_plan_reason_caseunit}_sound_del_agg": "BLRCASE_DEL_AGG",
-    f"{kw.belief_plan_reason_caseunit}_sound_del_raw": "BLRCASE_DEL_RAW",
-    f"{kw.belief_plan_reasonunit}_sound_del_agg": "BLRREAS_DEL_AGG",
-    f"{kw.belief_plan_reasonunit}_sound_del_raw": "BLRREAS_DEL_RAW",
-    f"{kw.belief_plan_partyunit}_sound_del_agg": "BLRLABO_DEL_AGG",
-    f"{kw.belief_plan_partyunit}_sound_del_raw": "BLRLABO_DEL_RAW",
-    f"{kw.belief_planunit}_sound_del_agg": "BLRPLAN_DEL_AGG",
-    f"{kw.belief_planunit}_sound_del_raw": "BLRPLAN_DEL_RAW",
-    f"{kw.beliefunit}_sound_del_agg": "BLRUNIT_DEL_AGG",
-    f"{kw.beliefunit}_sound_del_raw": "BLRUNIT_DEL_RAW",
+    f"{kw.belief_plan_awardunit}_sound_del_agg": "BLFAWAR_DEL_AGG",
+    f"{kw.belief_plan_awardunit}_sound_del_raw": "BLFAWAR_DEL_RAW",
+    f"{kw.belief_plan_factunit}_sound_del_agg": "BLFFACT_DEL_AGG",
+    f"{kw.belief_plan_factunit}_sound_del_raw": "BLFFACT_DEL_RAW",
+    f"{kw.belief_plan_healerunit}_sound_del_agg": "BLFHEAL_DEL_AGG",
+    f"{kw.belief_plan_healerunit}_sound_del_raw": "BLFHEAL_DEL_RAW",
+    f"{kw.belief_plan_reason_caseunit}_sound_del_agg": "BLFCASE_DEL_AGG",
+    f"{kw.belief_plan_reason_caseunit}_sound_del_raw": "BLFCASE_DEL_RAW",
+    f"{kw.belief_plan_reasonunit}_sound_del_agg": "BLFREAS_DEL_AGG",
+    f"{kw.belief_plan_reasonunit}_sound_del_raw": "BLFREAS_DEL_RAW",
+    f"{kw.belief_plan_partyunit}_sound_del_agg": "BLFLABO_DEL_AGG",
+    f"{kw.belief_plan_partyunit}_sound_del_raw": "BLFLABO_DEL_RAW",
+    f"{kw.belief_planunit}_sound_del_agg": "BLFPLAN_DEL_AGG",
+    f"{kw.belief_planunit}_sound_del_raw": "BLFPLAN_DEL_RAW",
+    f"{kw.beliefunit}_sound_del_agg": "BLFUNIT_DEL_AGG",
+    f"{kw.beliefunit}_sound_del_raw": "BLFUNIT_DEL_RAW",
 }
 
 
@@ -561,30 +561,30 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         vld_str = "vld"
         put_str = "put"
         del_str = "del"
-        blrunit_s_put_agg_table = prime_tbl("beliefunit", "s", agg_str, put_str)
+        blfunit_s_put_agg_table = prime_tbl("beliefunit", "s", agg_str, put_str)
         blfvoce_s_put_agg_table = prime_tbl("blfvoce", "s", agg_str, put_str)
         blrmemb_s_put_agg_table = prime_tbl("blrmemb", "s", agg_str, put_str)
-        blrfact_s_del_agg_table = prime_tbl("blrfact", "s", agg_str, del_str)
-        blrfact_s_del_vld_table = prime_tbl("blrfact", "s", vld_str, del_str)
+        blffact_s_del_agg_table = prime_tbl("blffact", "s", agg_str, del_str)
+        blffact_s_del_vld_table = prime_tbl("blffact", "s", vld_str, del_str)
         momentunit_s_agg_table = prime_tbl(kw.momentunit, "s", agg_str)
         momentunit_s_vld_table = prime_tbl(kw.momentunit, "s", vld_str)
         trltitl_s_agg_table = prime_tbl("trltitl", "s", agg_str)
-        blfhour_h_agg_table = prime_tbl("blfhour", "h", agg_str)
+        mmthour_h_agg_table = prime_tbl("mmthour", "h", agg_str)
         nbuepch_s_raw_table = prime_tbl("nbuepch", "s", raw_str)
         trltitl_s_raw_table = prime_tbl("trltitl", "s", raw_str)
         trlcore_s_raw_table = prime_tbl("trlcore", "s", raw_str)
         trlcore_s_agg_table = prime_tbl("trlcore", "s", agg_str)
         trlcore_s_vld_table = prime_tbl("trlcore", "s", vld_str)
 
-        assert not db_table_exists(cursor, blrunit_s_put_agg_table)
+        assert not db_table_exists(cursor, blfunit_s_put_agg_table)
         assert not db_table_exists(cursor, blfvoce_s_put_agg_table)
         assert not db_table_exists(cursor, blrmemb_s_put_agg_table)
-        assert not db_table_exists(cursor, blrfact_s_del_agg_table)
-        assert not db_table_exists(cursor, blrfact_s_del_vld_table)
+        assert not db_table_exists(cursor, blffact_s_del_agg_table)
+        assert not db_table_exists(cursor, blffact_s_del_vld_table)
         assert not db_table_exists(cursor, momentunit_s_agg_table)
         assert not db_table_exists(cursor, momentunit_s_vld_table)
         assert not db_table_exists(cursor, trltitl_s_agg_table)
-        assert not db_table_exists(cursor, blfhour_h_agg_table)
+        assert not db_table_exists(cursor, mmthour_h_agg_table)
         assert not db_table_exists(cursor, nbuepch_s_raw_table)
         assert not db_table_exists(cursor, trltitl_s_raw_table)
         assert not db_table_exists(cursor, trlcore_s_raw_table)
@@ -601,15 +601,15 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         # for x_row in cursor.fetchall():
         #     print(f"{x_count} {x_row[1]=}")
         #     x_count += 1
-        assert db_table_exists(cursor, blrunit_s_put_agg_table)
+        assert db_table_exists(cursor, blfunit_s_put_agg_table)
         assert db_table_exists(cursor, blfvoce_s_put_agg_table)
         assert db_table_exists(cursor, blrmemb_s_put_agg_table)
-        assert db_table_exists(cursor, blrfact_s_del_agg_table)
-        assert db_table_exists(cursor, blrfact_s_del_vld_table)
+        assert db_table_exists(cursor, blffact_s_del_agg_table)
+        assert db_table_exists(cursor, blffact_s_del_vld_table)
         assert db_table_exists(cursor, momentunit_s_agg_table)
         assert db_table_exists(cursor, momentunit_s_vld_table)
         assert db_table_exists(cursor, trltitl_s_agg_table)
-        assert db_table_exists(cursor, blfhour_h_agg_table)
+        assert db_table_exists(cursor, mmthour_h_agg_table)
         assert db_table_exists(cursor, nbuepch_s_raw_table)
         assert db_table_exists(cursor, trltitl_s_raw_table)
         assert db_table_exists(cursor, trlcore_s_raw_table)
