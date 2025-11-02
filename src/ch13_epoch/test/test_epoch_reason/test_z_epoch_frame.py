@@ -1,22 +1,19 @@
 from src.ch06_plan.test._util.ch06_examples import get_range_attrs
-from src.ch07_belief_logic.belief_main import beliefunit_shop, get_sorted_plan_list
 from src.ch07_belief_logic.belief_tool import (
+    add_frame_to_beliefunit,
+    add_frame_to_caseunit,
+    add_frame_to_factunit,
+    add_frame_to_reasonunit,
     belief_plan_factunit_exists,
     belief_plan_factunit_get_obj,
     belief_plan_reason_caseunit_exists,
     belief_plan_reason_caseunit_get_obj,
     belief_plan_reasonunit_get_obj,
     belief_planunit_get_obj,
-    get_belief_root_facts_dict,
 )
 from src.ch13_epoch.epoch_main import add_epoch_planunit
 from src.ch13_epoch.epoch_reason import (
     add_epoch_frame_to_beliefunit,
-    add_frame_to_beliefunit,
-    add_frame_to_caseunit,
-    add_frame_to_factunit,
-    add_frame_to_reasonunit,
-    del_epoch_reason,
     set_epoch_cases_by_args_dict,
 )
 from src.ch13_epoch.test._util.ch13_examples import (

@@ -1,8 +1,13 @@
-from src.ch01_py.dict_toolbox import create_csv
+from src.ch01_py.dict_toolbox import (
+    create_csv,
+    get_1_if_None,
+    get_empty_str_if_None,
+    modular_addition,
+)
 from src.ch02_allot.allot import allot_scale
 from src.ch03_voice.group import AwardUnit, MemberShip
 from src.ch03_voice.voice import VoiceUnit, calc_give_take_net
-from src.ch04_rope.rope import get_all_rope_labels, get_unique_short_ropes
+from src.ch04_rope.rope import get_unique_short_ropes, is_sub_rope
 from src.ch05_reason.reason import (
     CaseUnit,
     FactUnit,
@@ -343,3 +348,64 @@ def belief_plan_reason_caseunit_set_obj(belief: BeliefUnit, args: dict[str,]):
 def get_belief_unique_short_ropes(belief: BeliefUnit) -> dict[RopeTerm, RopeTerm]:
     """Return dict of all plan_ropes and the shortest possible term for that Plan that is unique."""
     return get_unique_short_ropes(set(belief.get_plan_dict().keys()), belief.knot)
+
+
+def add_frame_to_caseunit(
+    x_case: CaseUnit,
+    x_int: int,
+    context_plan_close: int,
+    context_plan_denom: int,
+    context_plan_morph: bool,
+):
+    """Given any case append number to caseunit reason_lower and reason_upper"""
+    modulus = x_case.reason_divisor or context_plan_close or context_plan_denom
+    if not context_plan_morph:
+        x_int //= get_1_if_None(context_plan_denom)
+    new_reason_lower = modular_addition(x_case.reason_lower, x_int, modulus)
+    new_reason_upper = modular_addition(x_case.reason_upper, x_int, modulus)
+    x_case.reason_lower = new_reason_lower
+    x_case.reason_upper = new_reason_upper
+
+
+def add_frame_to_reasonunit(
+    x_reason: ReasonUnit,
+    x_int: int,
+    context_plan_close: int,
+    context_plan_denom: int,
+    context_plan_morph: bool,
+):
+    for x_case in x_reason.cases.values():
+        if x_case.reason_lower and x_case.reason_upper:
+            add_frame_to_caseunit(
+                x_case,
+                x_int,
+                context_plan_close,
+                context_plan_denom,
+                context_plan_morph,
+            )
+
+
+def add_frame_to_factunit(x_factunit: FactUnit, x_int: int, context_plan_close: int):
+    if x_factunit.fact_lower and x_factunit.fact_upper:
+        x_lower = modular_addition(x_factunit.fact_lower, x_int, context_plan_close)
+        x_upper = modular_addition(x_factunit.fact_upper, x_int, context_plan_close)
+        x_factunit.fact_lower = x_lower
+        x_factunit.fact_upper = x_upper
+
+
+def add_frame_to_beliefunit(
+    x_belief: BeliefUnit, x_int: int, required_context_subrope: RopeTerm = None
+):
+    required_context_subrope = get_empty_str_if_None(required_context_subrope)
+    for x_plan in x_belief.get_plan_dict().values():
+        for x_reason in x_plan.reasonunits.values():
+            if is_sub_rope(x_reason.reason_context, required_context_subrope):
+                reason_context_plan = x_belief.get_plan_obj(x_reason.reason_context)
+                close = reason_context_plan.close
+                denom = reason_context_plan.denom
+                morph = reason_context_plan.morph
+                add_frame_to_reasonunit(x_reason, x_int, close, denom, morph)
+        for x_fact in x_plan.factunits.values():
+            if is_sub_rope(x_fact.fact_context, required_context_subrope):
+                fact_context_plan = x_belief.get_plan_obj(x_fact.fact_context)
+                add_frame_to_factunit(x_fact, x_int, fact_context_plan.close)

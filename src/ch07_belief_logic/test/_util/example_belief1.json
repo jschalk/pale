@@ -2629,27 +2629,6 @@
                 "star": 1, 
                 "uid": 77
               }, 
-              "veggies every morning": {
-                "awardunits": {
-                  ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1.0}
-                }, 
-                "plan_label": "veggies every morning", 
-                "pledge": true, 
-                "reasonunits": {
-                  ";amy45;jour_minute;": {
-                    "cases": {
-                      ";amy45;jour_minute;": {
-                        "reason_lower": 420, 
-                        "reason_state": ";amy45;jour_minute;", 
-                        "reason_upper": 420
-                      }
-                    }, 
-                    "reason_context": ";amy45;jour_minute;"
-                  }
-                }, 
-                "star": 1, 
-                "uid": 59
-              }, 
               "daily exercise 20min": {
                 "awardunits": {
                   ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1.0}
@@ -3019,6 +2998,27 @@
                 }, 
                 "star": 1, 
                 "uid": 73
+              }, 
+              "veggies every morning": {
+                "awardunits": {
+                  ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1.0}
+                }, 
+                "plan_label": "veggies every morning", 
+                "pledge": true, 
+                "reasonunits": {
+                  ";amy45;jour_minute;": {
+                    "cases": {
+                      ";amy45;jour_minute;": {
+                        "reason_lower": 420, 
+                        "reason_state": ";amy45;jour_minute;", 
+                        "reason_upper": 420
+                      }
+                    }, 
+                    "reason_context": ";amy45;jour_minute;"
+                  }
+                }, 
+                "star": 1, 
+                "uid": 59
               }
             }, 
             "plan_label": "exercise", 

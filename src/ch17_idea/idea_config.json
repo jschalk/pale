@@ -224,7 +224,6 @@
       "yr1_jan1_offset": {}
     }
   }, 
-
   "translate_label": {
     "allowed_crud": "insert_one_time", 
     "build_order": 2, 

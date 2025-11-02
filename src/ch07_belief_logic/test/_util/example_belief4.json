@@ -2260,26 +2260,6 @@
                 "star": 1, 
                 "uid": 77
               }, 
-              "veggies every morning": {
-                "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
-                "plan_label": "veggies every morning", 
-                "pledge": true, 
-                "reasonunits": {
-                  "A;ziet;gregziet;": {
-                    "cases": {
-                      "A;ziet;gregziet;": {
-                        "reason_divisor": 1440.0, 
-                        "reason_lower": 420.0, 
-                        "reason_state": ";A;ziet;gregziet;", 
-                        "reason_upper": 420.0
-                      }
-                    }, 
-                    "reason_context": ";A;ziet;gregziet;"
-                  }
-                }, 
-                "star": 1, 
-                "uid": 59
-              }, 
               "evening multivitamin": {
                 "plan_label": "evening multivitamin", 
                 "reasonunits": {
@@ -2622,6 +2602,26 @@
                 }, 
                 "star": 1, 
                 "uid": 73
+              }, 
+              "veggies every morning": {
+                "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
+                "plan_label": "veggies every morning", 
+                "pledge": true, 
+                "reasonunits": {
+                  "A;ziet;gregziet;": {
+                    "cases": {
+                      "A;ziet;gregziet;": {
+                        "reason_divisor": 1440.0, 
+                        "reason_lower": 420.0, 
+                        "reason_state": ";A;ziet;gregziet;", 
+                        "reason_upper": 420.0
+                      }
+                    }, 
+                    "reason_context": ";A;ziet;gregziet;"
+                  }
+                }, 
+                "star": 1, 
+                "uid": 59
               }
             }, 
             "plan_label": "exercise", 
