@@ -349,8 +349,8 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckMomentDimens():
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
         s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-        v_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
-        v_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "agg")
+        h_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
+        h_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "agg")
         expected_s_raw_sqlstr = create_translate_sound_raw_table_sqlstr(x_dimen)
         expected_s_agg_sqlstr = create_moment_sound_agg_table_sqlstr(x_dimen)
         expected_s_vld_sqlstr = create_moment_sound_vld_table_sqlstr(x_dimen)
@@ -365,13 +365,13 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckMomentDimens():
         # print(f'"{s_raw_tablename}": CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR,')
         # print(f'"{s_agg_tablename}": CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR,')
         # print(f'"{s_vld_tablename}": CREATE_{abbv7.upper()}_SOUND_VLD_SQLSTR,')
-        # print(f'"{v_raw_tablename}": CREATE_{abbv7.upper()}_HEARD_RAW_SQLSTR,')
-        # print(f'"{v_agg_tablename}": CREATE_{abbv7.upper()}_HEARD_AGG_SQLSTR,')
+        # print(f'"{h_raw_tablename}": CREATE_{abbv7.upper()}_HEARD_RAW_SQLSTR,')
+        # print(f'"{h_agg_tablename}": CREATE_{abbv7.upper()}_HEARD_AGG_SQLSTR,')
         assert expected_s_raw_sqlstr == create_table_sqlstrs.get(s_raw_tablename)
         assert expected_s_agg_sqlstr == create_table_sqlstrs.get(s_agg_tablename)
         assert expected_s_vld_sqlstr == create_table_sqlstrs.get(s_vld_tablename)
-        assert expected_h_raw_sqlstr == create_table_sqlstrs.get(v_raw_tablename)
-        assert expected_h_agg_sqlstr == create_table_sqlstrs.get(v_agg_tablename)
+        assert expected_h_raw_sqlstr == create_table_sqlstrs.get(h_raw_tablename)
+        assert expected_h_agg_sqlstr == create_table_sqlstrs.get(h_agg_tablename)
 
 
 def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckBeliefDimens():
@@ -463,8 +463,8 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckNabuDimens():
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
         s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-        v_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
-        v_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "agg")
+        h_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
+        h_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "agg")
         expected_s_raw_sqlstr = create_translate_sound_raw_table_sqlstr(x_dimen)
         expected_s_agg_sqlstr = create_moment_sound_agg_table_sqlstr(x_dimen)
         expected_s_vld_sqlstr = create_moment_sound_vld_table_sqlstr(x_dimen)
@@ -479,13 +479,13 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckNabuDimens():
         print(f'"{s_raw_tablename}": CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR,')
         print(f'"{s_agg_tablename}": CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR,')
         print(f'"{s_vld_tablename}": CREATE_{abbv7.upper()}_SOUND_VLD_SQLSTR,')
-        print(f'"{v_raw_tablename}": CREATE_{abbv7.upper()}_HEARD_RAW_SQLSTR,')
-        print(f'"{v_agg_tablename}": CREATE_{abbv7.upper()}_HEARD_AGG_SQLSTR,')
+        print(f'"{h_raw_tablename}": CREATE_{abbv7.upper()}_HEARD_RAW_SQLSTR,')
+        print(f'"{h_agg_tablename}": CREATE_{abbv7.upper()}_HEARD_AGG_SQLSTR,')
         assert expected_s_raw_sqlstr == create_table_sqlstrs.get(s_raw_tablename)
         assert expected_s_agg_sqlstr == create_table_sqlstrs.get(s_agg_tablename)
         assert expected_s_vld_sqlstr == create_table_sqlstrs.get(s_vld_tablename)
-        assert expected_h_raw_sqlstr == create_table_sqlstrs.get(v_raw_tablename)
-        assert expected_h_agg_sqlstr == create_table_sqlstrs.get(v_agg_tablename)
+        assert expected_h_raw_sqlstr == create_table_sqlstrs.get(h_raw_tablename)
+        assert expected_h_agg_sqlstr == create_table_sqlstrs.get(h_agg_tablename)
 
 
 def test_get_prime_create_table_sqlstrs_ReturnsObj_HasAllKeys():
@@ -1315,20 +1315,20 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
         for moment_dimen in moment_dimens_config:
             # print(f"{moment_dimen=}")
             s_vld_tablename = prime_tbl(moment_dimen, "s", "vld")
-            v_raw_tablename = prime_tbl(moment_dimen, "h", "raw")
+            h_raw_tablename = prime_tbl(moment_dimen, "h", "raw")
             s_cols = set(get_table_columns(cursor, s_vld_tablename))
-            v_raw_cols = get_table_columns(cursor, v_raw_tablename)
-            v_raw_cols.remove(kw.error_message)
-            v_cols = find_set_otx_inx_args(v_raw_cols)
+            h_raw_cols = get_table_columns(cursor, h_raw_tablename)
+            h_raw_cols.remove(kw.error_message)
+            v_cols = find_set_otx_inx_args(h_raw_cols)
             v_cols = {col for col in v_cols if col[-3:] != "inx"}
-            v_raw_tbl = v_raw_tablename
+            h_raw_tbl = h_raw_tablename
             s_vld_tbl = s_vld_tablename
-            v_raw_insert_sql = get_insert_sql(cursor, v_raw_tbl, v_cols)
+            h_raw_insert_sql = get_insert_sql(cursor, h_raw_tbl, v_cols)
             s_vld_select_sql = get_select_sql(cursor, s_vld_tbl, s_cols, flat_bool=True)
-            v_raw_insert_select = f"{v_raw_insert_sql} {s_vld_select_sql}"
+            h_raw_insert_select = f"{h_raw_insert_sql} {s_vld_select_sql}"
             # create_select_query(cursor=)
             abbv7 = get_dimen_abbv7(moment_dimen)
             sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_SQLSTR"
-            # print(f'{sqlstr_ref}= "{v_raw_insert_select}"')
-            print(f""""{v_raw_tablename}": {sqlstr_ref},""")
-            assert insert_h_raw_sqlstrs.get(v_raw_tbl) == v_raw_insert_select
+            # print(f'{sqlstr_ref}= "{h_raw_insert_select}"')
+            print(f""""{h_raw_tablename}": {sqlstr_ref},""")
+            assert insert_h_raw_sqlstrs.get(h_raw_tbl) == h_raw_insert_select
