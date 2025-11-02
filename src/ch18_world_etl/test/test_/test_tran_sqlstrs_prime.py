@@ -1188,15 +1188,16 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
             assert insert_s_vld_sqlstrs.get(s_del_vld_tbl) == s_del_vld_insert_select
 
 
-def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_MomentDimens():
+def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     idea_config = get_idea_config_dict()
     moment_dimens_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "moment"
+        if dimen_config.get(kw.idea_category) in {"moment", "nabu"}
     }
+    print(f"{moment_dimens_config.keys()=}")
 
     # WHEN
     insert_s_vld_sqlstrs = get_insert_into_sound_vld_sqlstrs()
@@ -1226,8 +1227,8 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_MomentDimens():
             # create_select_query(cursor=)
             abbv7 = get_dimen_abbv7(moment_dimen)
             sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_SQLSTR"
-            print(f'{sqlstr_ref}= "{s_vld_insert_select}"')
-            # print(f""""{s_vld_tablename}": {sqlstr_ref},""")
+            # print(f'{sqlstr_ref}= "{s_vld_insert_select}"')
+            print(f""""{s_vld_tablename}": {sqlstr_ref},""")
             assert insert_s_vld_sqlstrs.get(s_vld_tbl) == s_vld_insert_select
 
 
@@ -1293,14 +1294,14 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
             assert insert_h_raw_sqlstrs.get(v_del_raw_tbl) == v_del_raw_insert_select
 
 
-def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_MomentDimens():
+def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     idea_config = get_idea_config_dict()
     moment_dimens_config = {
         x_dimen: dimen_config
         for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "moment"
+        if dimen_config.get(kw.idea_category) in {"moment", "nabu"}
     }
 
     # WHEN
@@ -1328,6 +1329,6 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_MomentDimens():
             # create_select_query(cursor=)
             abbv7 = get_dimen_abbv7(moment_dimen)
             sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_SQLSTR"
-            print(f'{sqlstr_ref}= "{v_raw_insert_select}"')
-            # print(f""""{v_raw_tablename}": {sqlstr_ref},""")
+            # print(f'{sqlstr_ref}= "{v_raw_insert_select}"')
+            print(f""""{v_raw_tablename}": {sqlstr_ref},""")
             assert insert_h_raw_sqlstrs.get(v_raw_tbl) == v_raw_insert_select

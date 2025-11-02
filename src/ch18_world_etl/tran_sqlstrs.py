@@ -765,6 +765,8 @@ INSERT_MMTWEEK_SOUND_VLD_SQLSTR = "INSERT INTO moment_epoch_weekday_s_vld (spark
 INSERT_MMTOFFI_SOUND_VLD_SQLSTR = "INSERT INTO moment_timeoffi_s_vld (spark_num, face_name, moment_label, offi_time) SELECT spark_num, face_name, moment_label, offi_time FROM moment_timeoffi_s_agg WHERE error_message IS NULL"
 INSERT_MMTUNIT_SOUND_VLD_SQLSTR = "INSERT INTO momentunit_s_vld (spark_num, face_name, moment_label, epoch_label, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations) SELECT spark_num, face_name, moment_label, epoch_label, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations FROM momentunit_s_agg WHERE error_message IS NULL"
 
+INSERT_NBUEPCH_SOUND_VLD_SQLSTR = "INSERT INTO nabu_epochtime_s_vld (spark_num, face_name, moment_label, otx_time, inx_time) SELECT spark_num, face_name, moment_label, otx_time, inx_time FROM nabu_epochtime_s_agg WHERE error_message IS NULL"
+
 
 def get_insert_into_sound_vld_sqlstrs() -> dict[str, str]:
     return {
@@ -795,6 +797,7 @@ def get_insert_into_sound_vld_sqlstrs() -> dict[str, str]:
         "moment_epoch_weekday_s_vld": INSERT_MMTWEEK_SOUND_VLD_SQLSTR,
         "moment_timeoffi_s_vld": INSERT_MMTOFFI_SOUND_VLD_SQLSTR,
         "momentunit_s_vld": INSERT_MMTUNIT_SOUND_VLD_SQLSTR,
+        "nabu_epochtime_s_vld": INSERT_NBUEPCH_SOUND_VLD_SQLSTR,
     }
 
 
@@ -827,9 +830,12 @@ INSERT_BLFPLAN_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_planunit_h_del_raw (sp
 INSERT_BLFUNIT_HEARD_RAW_PUT_SQLSTR = "INSERT INTO beliefunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain) SELECT spark_num, face_name, moment_label, belief_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain FROM beliefunit_s_put_vld "
 INSERT_BLFUNIT_HEARD_RAW_DEL_SQLSTR = "INSERT INTO beliefunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name_ERASE FROM beliefunit_s_del_vld "
 
+INSERT_NBUEPCH_HEARD_RAW_SQLSTR = "INSERT INTO nabu_epochtime_h_raw (spark_num, face_name_otx, moment_label_otx, otx_time, inx_time) SELECT spark_num, face_name, moment_label, otx_time, inx_time FROM nabu_epochtime_s_vld "
+
 
 def get_insert_into_heard_raw_sqlstrs() -> dict[str, str]:
     return {
+        "nabu_epochtime_h_raw": INSERT_NBUEPCH_HEARD_RAW_SQLSTR,
         "moment_paybook_h_raw": INSERT_MMTPAYY_HEARD_RAW_SQLSTR,
         "moment_budunit_h_raw": INSERT_MMTBUDD_HEARD_RAW_SQLSTR,
         "moment_epoch_hour_h_raw": INSERT_MMTHOUR_HEARD_RAW_SQLSTR,
@@ -909,6 +915,12 @@ WHERE {column_prefix}_inx IS NULL
 """
 
 
+NBUEPCH_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO nabu_epochtime_h_agg (moment_label, otx_time, inx_time)
+SELECT moment_label_inx, otx_time, inx_time
+FROM nabu_epochtime_h_raw
+GROUP BY moment_label_inx, otx_time, inx_time
+"""
 MMTPAYY_HEARD_AGG_INSERT_SQLSTR = """
 INSERT INTO moment_paybook_h_agg (moment_label, belief_name, voice_name, tran_time, amount)
 SELECT moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
@@ -1074,15 +1086,17 @@ GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_ERASE_inx
 """
 
 
+# TODO change get_insert_heard_agg_sqlstrs moment keys
 def get_insert_heard_agg_sqlstrs() -> dict[str, str]:
     return {
-        "moment_paybook": MMTPAYY_HEARD_AGG_INSERT_SQLSTR,
-        "moment_budunit": MMTBUDD_HEARD_AGG_INSERT_SQLSTR,
-        "moment_epoch_hour": MMTHOUR_HEARD_AGG_INSERT_SQLSTR,
-        "moment_epoch_month": MMTMONT_HEARD_AGG_INSERT_SQLSTR,
-        "moment_epoch_weekday": MMTWEEK_HEARD_AGG_INSERT_SQLSTR,
-        "moment_timeoffi": MMTOFFI_HEARD_AGG_INSERT_SQLSTR,
-        "momentunit": MMTUNIT_HEARD_AGG_INSERT_SQLSTR,
+        "nabu_epochtime_h_agg": NBUEPCH_HEARD_AGG_INSERT_SQLSTR,
+        "moment_paybook_h_agg": MMTPAYY_HEARD_AGG_INSERT_SQLSTR,
+        "moment_budunit_h_agg": MMTBUDD_HEARD_AGG_INSERT_SQLSTR,
+        "moment_epoch_hour_h_agg": MMTHOUR_HEARD_AGG_INSERT_SQLSTR,
+        "moment_epoch_month_h_agg": MMTMONT_HEARD_AGG_INSERT_SQLSTR,
+        "moment_epoch_weekday_h_agg": MMTWEEK_HEARD_AGG_INSERT_SQLSTR,
+        "moment_timeoffi_h_agg": MMTOFFI_HEARD_AGG_INSERT_SQLSTR,
+        "momentunit_h_agg": MMTUNIT_HEARD_AGG_INSERT_SQLSTR,
         "belief_voice_membership_h_put_agg": INSERT_BLRMEMB_HEARD_AGG_PUT_SQLSTR,
         "belief_voice_membership_h_del_agg": INSERT_BLRMEMB_HEARD_AGG_DEL_SQLSTR,
         "belief_voiceunit_h_put_agg": INSERT_BLFVOCE_HEARD_AGG_PUT_SQLSTR,
