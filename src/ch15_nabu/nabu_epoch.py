@@ -12,11 +12,11 @@ from src.ch04_rope.rope import (
     get_parent_rope,
     get_tail_label,
 )
-from src.ch15_ingress._ref.ch15_semantic_types import EpochTime, FaceName, SparkInt
+from src.ch15_nabu._ref.ch15_semantic_types import EpochTime, FaceName, SparkInt
 
 
 @dataclass
-class EpochIngress:
+class EpochNabu:
     face_name: FaceName = None
     spark_num: SparkInt = None
     # otx2inx dict key 'otx_epoch_length', key can be None is only inx_epoch_diff is given
@@ -62,37 +62,35 @@ class EpochIngress:
         }
 
 
-def epochingress_shop(
+def epochnabu_shop(
     face_name: FaceName,
     spark_num: SparkInt = None,
     otx2inx: dict[EpochTime, EpochTime] = None,
 ):
-    x_epochingress = EpochIngress(
-        face_name=face_name, spark_num=get_0_if_None(spark_num)
-    )
-    x_epochingress.set_all_otx2inx(otx2inx)
-    return x_epochingress
+    x_epochnabu = EpochNabu(face_name=face_name, spark_num=get_0_if_None(spark_num))
+    x_epochnabu.set_all_otx2inx(otx2inx)
+    return x_epochnabu
 
 
-def get_epochingress_from_dict(x_dict: dict) -> EpochIngress:
-    return epochingress_shop(
+def get_epochnabu_from_dict(x_dict: dict) -> EpochNabu:
+    return epochnabu_shop(
         face_name=x_dict.get("face_name"),
         spark_num=x_dict.get("spark_num"),
         otx2inx=x_dict.get("otx2inx"),
     )
 
 
-class inherit_epochingressException(Exception):
+class inherit_epochnabuException(Exception):
     pass
 
 
-def inherit_epochingress(new: EpochIngress, old: EpochIngress):
+def inherit_epochnabu(new: EpochNabu, old: EpochNabu):
     if new.face_name != old.face_name:
         exception_str = "Core attrs in conflict"
-        raise inherit_epochingressException(exception_str)
+        raise inherit_epochnabuException(exception_str)
     if new.spark_num <= old.spark_num:
-        exception_str = "older EpochIngress is not older"
-        raise inherit_epochingressException(exception_str)
+        exception_str = "older EpochNabu is not older"
+        raise inherit_epochnabuException(exception_str)
     for otx_epoch_length, inx_epoch_diff in old.otx2inx.items():
         if not new.otx_exists(otx_epoch_length):
             new.set_otx2inx(otx_epoch_length, inx_epoch_diff)
