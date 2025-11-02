@@ -1240,50 +1240,6 @@ IDEA_STAGEBLE_DEL_DIMENS = {
 }
 
 
-CREATE_MOMENT_SPARK_TIME_AGG_SQLSTR = """
-CREATE TABLE IF NOT EXISTS moment_spark_time_agg (
-  moment_label TEXT
-, spark_num INTEGER
-, agg_time INTEGER
-, error_message TEXT
-)
-;
-"""
-INSERT_MOMENT_SPARK_TIME_AGG_SQLSTR = """
-INSERT INTO moment_spark_time_agg (moment_label, spark_num, agg_time)
-SELECT moment_label, spark_num, agg_time
-FROM (
-    SELECT moment_label, spark_num, tran_time as agg_time
-    FROM moment_paybook_raw
-    GROUP BY moment_label, spark_num, tran_time
-    UNION 
-    SELECT moment_label, spark_num, bud_time as agg_time
-    FROM moment_budunit_raw
-    GROUP BY moment_label, spark_num, bud_time
-)
-ORDER BY moment_label, spark_num, agg_time
-;
-"""
-UPDATE_ERROR_MESSAGE_MOMENT_SPARK_TIME_AGG_SQLSTR = """
-WITH SparkTimeOrdered AS (
-    SELECT moment_label, spark_num, agg_time,
-           LAG(agg_time) OVER (PARTITION BY moment_label ORDER BY spark_num) AS prev_agg_time
-    FROM moment_spark_time_agg
-)
-UPDATE moment_spark_time_agg
-SET error_message = CASE 
-         WHEN SparkTimeOrdered.prev_agg_time > SparkTimeOrdered.agg_time
-         THEN 'not sorted'
-         ELSE 'sorted'
-       END 
-FROM SparkTimeOrdered
-WHERE SparkTimeOrdered.spark_num = moment_spark_time_agg.spark_num
-    AND SparkTimeOrdered.moment_label = moment_spark_time_agg.moment_label
-    AND SparkTimeOrdered.agg_time = moment_spark_time_agg.agg_time
-;
-"""
-
-
 CREATE_MOMENT_OTE1_AGG_SQLSTR = """
 CREATE TABLE IF NOT EXISTS moment_ote1_agg (
   moment_label TEXT

@@ -18,12 +18,9 @@ from src.ch17_idea.idea_db_tool import (
 from src.ch18_world_etl.tran_sqlstrs import (
     ALL_DIMEN_ABBV7,
     CREATE_MOMENT_OTE1_AGG_SQLSTR,
-    CREATE_MOMENT_SPARK_TIME_AGG_SQLSTR,
     CREATE_MOMENT_VOICE_NETS_SQLSTR,
     IDEA_STAGEBLE_DEL_DIMENS,
     INSERT_MOMENT_OTE1_AGG_FROM_HEARD_SQLSTR,
-    INSERT_MOMENT_SPARK_TIME_AGG_SQLSTR,
-    UPDATE_ERROR_MESSAGE_MOMENT_SPARK_TIME_AGG_SQLSTR,
     create_all_idea_tables,
     create_prime_tablename,
     create_sound_and_heard_tables,
@@ -282,66 +279,6 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
     assert idea_dimen_combo_checked_count == 738
     assert idea_raw2dimen_count == 10
     assert IDEA_STAGEBLE_DEL_DIMENS == expected_idea_stagable_dimens
-
-
-def test_CREATE_MOMENT_SPARK_TIME_AGG_SQLSTR_Exists():
-    # ESTABLISH
-    expected_create_table_sqlstr = f"""
-CREATE TABLE IF NOT EXISTS {kw.moment_spark_time_agg} (
-  {kw.moment_label} TEXT
-, {kw.spark_num} INTEGER
-, agg_time INTEGER
-, {kw.error_message} TEXT
-)
-;
-"""
-    # WHEN / THEN
-    assert CREATE_MOMENT_SPARK_TIME_AGG_SQLSTR == expected_create_table_sqlstr
-
-
-def test_INSERT_MOMENT_SPARK_TIME_AGG_SQLSTR_Exists():
-    # ESTABLISH
-    expected_INSERT_sqlstr = f"""
-INSERT INTO {kw.moment_spark_time_agg} ({kw.moment_label}, {kw.spark_num}, agg_time)
-SELECT {kw.moment_label}, {kw.spark_num}, agg_time
-FROM (
-    SELECT {kw.moment_label}, {kw.spark_num}, {kw.tran_time} as agg_time
-    FROM moment_paybook_raw
-    GROUP BY {kw.moment_label}, {kw.spark_num}, {kw.tran_time}
-    UNION 
-    SELECT {kw.moment_label}, {kw.spark_num}, {kw.bud_time} as agg_time
-    FROM moment_budunit_raw
-    GROUP BY {kw.moment_label}, {kw.spark_num}, {kw.bud_time}
-)
-ORDER BY {kw.moment_label}, {kw.spark_num}, agg_time
-;
-"""
-    # WHEN / THEN
-    assert INSERT_MOMENT_SPARK_TIME_AGG_SQLSTR == expected_INSERT_sqlstr
-
-
-def test_UPDATE_ERROR_MESSAGE_MOMENT_SPARK_TIME_AGG_SQLSTR_Exists():
-    # ESTABLISH
-    expected_UPDATE_sqlstr = f"""
-WITH SparkTimeOrdered AS (
-    SELECT {kw.moment_label}, {kw.spark_num}, agg_time,
-           LAG(agg_time) OVER (PARTITION BY {kw.moment_label} ORDER BY {kw.spark_num}) AS prev_agg_time
-    FROM {kw.moment_spark_time_agg}
-)
-UPDATE {kw.moment_spark_time_agg}
-SET {kw.error_message} = CASE 
-         WHEN SparkTimeOrdered.prev_agg_time > SparkTimeOrdered.agg_time
-         THEN 'not sorted'
-         ELSE 'sorted'
-       END 
-FROM SparkTimeOrdered
-WHERE SparkTimeOrdered.{kw.spark_num} = {kw.moment_spark_time_agg}.{kw.spark_num}
-    AND SparkTimeOrdered.{kw.moment_label} = {kw.moment_spark_time_agg}.{kw.moment_label}
-    AND SparkTimeOrdered.agg_time = {kw.moment_spark_time_agg}.agg_time
-;
-"""
-    # WHEN / THEN
-    assert UPDATE_ERROR_MESSAGE_MOMENT_SPARK_TIME_AGG_SQLSTR == expected_UPDATE_sqlstr
 
 
 def test_CREATE_MOMENT_OTE1_AGG_SQLSTR_Exists():

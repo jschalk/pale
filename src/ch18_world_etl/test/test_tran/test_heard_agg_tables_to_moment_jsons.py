@@ -125,7 +125,6 @@ VALUES ('{exx.a23}'), ('{amy45_str}')
 """
         cursor.execute(insert_raw_sqlstr)
         assert get_row_count(cursor, momentunit_h_agg_tablename) == 2
-        assert db_table_exists(cursor, kw.moment_spark_time_agg) is False
 
         amy23_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
         amy45_json_path = create_moment_json_path(moment_mstr_dir, amy45_str)

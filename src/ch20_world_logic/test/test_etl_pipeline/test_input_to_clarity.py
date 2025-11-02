@@ -121,7 +121,6 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert not os_path_exists(a23_e1_expressed_lesson_path)
         assert not os_path_exists(a23_sue_gut_path)
         assert not os_path_exists(a23_sue_job_path)
-        assert not db_table_exists(cursor, kw.moment_spark_time_agg)
         assert not db_table_exists(cursor, kw.moment_ote1_agg)
         assert not db_table_exists(cursor, blfvoce_job)
         assert not db_table_exists(cursor, kw.moment_voice_nets)
@@ -187,7 +186,6 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert os_path_exists(a23_sue_job_path)
         assert get_row_count(cursor, blfvoce_job) == 1
         assert get_row_count(cursor, kw.moment_voice_nets) == 0
-        # assert get_row_count(cursor, kw.moment_spark_time_agg) == 0
         # assert get_row_count(cursor, moment_ote1_agg_tablename) == 0
         assert get_row_count(cursor, kw.moment_kpi001_voice_nets) == 0
         assert os_path_exists(last_run_metrics_path)
