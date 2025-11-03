@@ -50,7 +50,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
-        blrmemb_job_table = prime_table("blrmemb", kw.job, None)
+        blfmemb_job_table = prime_table("blfmemb", kw.job, None)
         blfvoce_job_table = prime_table("blfvoce", kw.job, None)
         blfgrou_job_table = prime_table("blfgrou", kw.job, None)
         blfawar_job_table = prime_table("blfawar", kw.job, None)
@@ -64,7 +64,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         assert not db_table_exists(cursor, blfunit_job_table)
         assert not db_table_exists(cursor, blfplan_job_table)
         assert not db_table_exists(cursor, blfvoce_job_table)
-        assert not db_table_exists(cursor, blrmemb_job_table)
+        assert not db_table_exists(cursor, blfmemb_job_table)
         assert not db_table_exists(cursor, blfgrou_job_table)
         assert not db_table_exists(cursor, blfawar_job_table)
         assert not db_table_exists(cursor, blffact_job_table)
@@ -80,7 +80,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         assert get_row_count(cursor, blfunit_job_table) == 1
         assert get_row_count(cursor, blfplan_job_table) == 5
         assert get_row_count(cursor, blfvoce_job_table) == 2
-        assert get_row_count(cursor, blrmemb_job_table) == 3
+        assert get_row_count(cursor, blfmemb_job_table) == 3
         assert get_row_count(cursor, blfgrou_job_table) == 3
         assert get_row_count(cursor, blfawar_job_table) == 1
         assert get_row_count(cursor, blffact_job_table) == 1

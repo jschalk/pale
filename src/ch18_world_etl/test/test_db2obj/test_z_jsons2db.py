@@ -21,11 +21,11 @@ from src.ch18_world_etl.db_obj_belief_tool import (
     insert_job_blfgrou,
     insert_job_blfheal,
     insert_job_blflabo,
+    insert_job_blfmemb,
     insert_job_blfplan,
     insert_job_blfreas,
     insert_job_blfunit,
     insert_job_blfvoce,
-    insert_job_blrmemb,
     insert_job_obj,
 )
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
@@ -395,7 +395,7 @@ def test_insert_job_blfcase_CreatesTableRowsFor_blfcase_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrmemb_CreatesTableRowsFor_blrmemb_job():
+def test_insert_job_blfmemb_CreatesTableRowsFor_blfmemb_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_voice_membership")
@@ -445,7 +445,7 @@ def test_insert_job_blrmemb_CreatesTableRowsFor_blrmemb_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
 
         # WHEN
-        insert_job_blrmemb(cursor, x_objkeysholder, x_membership)
+        insert_job_blfmemb(cursor, x_objkeysholder, x_membership)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -879,7 +879,7 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        blrmemb_job_table = f"{kw.belief_voice_membership}_job"
+        blfmemb_job_table = f"{kw.belief_voice_membership}_job"
         blfvoce_job_table = f"{kw.belief_voiceunit}_job"
         blfgrou_job_table = f"{kw.belief_groupunit}_job"
         blfawar_job_table = f"{kw.belief_plan_awardunit}_job"
@@ -893,7 +893,7 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
         assert get_row_count(cursor, blfunit_job_table) == 0
         assert get_row_count(cursor, blfplan_job_table) == 0
         assert get_row_count(cursor, blfvoce_job_table) == 0
-        assert get_row_count(cursor, blrmemb_job_table) == 0
+        assert get_row_count(cursor, blfmemb_job_table) == 0
         assert get_row_count(cursor, blfgrou_job_table) == 0
         assert get_row_count(cursor, blfawar_job_table) == 0
         assert get_row_count(cursor, blffact_job_table) == 0
@@ -909,7 +909,7 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
         assert get_row_count(cursor, blfunit_job_table) == 1
         assert get_row_count(cursor, blfplan_job_table) == 5
         assert get_row_count(cursor, blfvoce_job_table) == 2
-        assert get_row_count(cursor, blrmemb_job_table) == 3
+        assert get_row_count(cursor, blfmemb_job_table) == 3
         assert get_row_count(cursor, blfgrou_job_table) == 3
         assert get_row_count(cursor, blfawar_job_table) == 1
         assert get_row_count(cursor, blffact_job_table) == 1

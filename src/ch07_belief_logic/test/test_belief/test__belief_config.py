@@ -95,7 +95,7 @@ def test_get_belief_config_dict_ReturnsObj_CheckAbbreviations():
     # THEN
     blfunit_attribute = belief_config.get(kw.beliefunit)
     blfvoce_attribute = belief_config.get(kw.belief_voiceunit)
-    blrmemb_attribute = belief_config.get(kw.belief_voice_membership)
+    blfmemb_attribute = belief_config.get(kw.belief_voice_membership)
     blfplan_attribute = belief_config.get(kw.belief_planunit)
     blfawar_attribute = belief_config.get(kw.belief_plan_awardunit)
     blfreas_attribute = belief_config.get(kw.belief_plan_reasonunit)
@@ -107,7 +107,7 @@ def test_get_belief_config_dict_ReturnsObj_CheckAbbreviations():
     abbr_str = "abbreviation"
     assert blfunit_attribute.get(abbr_str) == "blfunit"
     assert blfvoce_attribute.get(abbr_str) == "blfvoce"
-    assert blrmemb_attribute.get(abbr_str) == "blrmemb"
+    assert blfmemb_attribute.get(abbr_str) == "blfmemb"
     assert blfplan_attribute.get(abbr_str) == "blfplan"
     assert blfawar_attribute.get(abbr_str) == "blfawar"
     assert blfreas_attribute.get(abbr_str) == "blfreas"
@@ -305,7 +305,7 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     jv = kw.jvalues
     mmtunit = kw.beliefunit
     blfvoce = kw.belief_voiceunit
-    blrmemb = kw.belief_voice_membership
+    blfmemb = kw.belief_voice_membership
     blfplan = kw.belief_planunit
     blfawar = kw.belief_plan_awardunit
     blfreas = kw.belief_plan_reasonunit
@@ -314,53 +314,53 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     blfheal = kw.belief_plan_healerunit
     blffact = kw.belief_plan_factunit
     blfgrou = kw.belief_groupunit
-    assert g_class_type(cfig, blrmemb, jk, kw.voice_name) == kw.NameTerm
-    assert g_sqlitetype(cfig, blrmemb, jk, kw.voice_name) == "TEXT"
-    assert g_popcashout(cfig, blrmemb, jk, kw.voice_name) == False
+    assert g_class_type(cfig, blfmemb, jk, kw.voice_name) == kw.NameTerm
+    assert g_sqlitetype(cfig, blfmemb, jk, kw.voice_name) == "TEXT"
+    assert g_popcashout(cfig, blfmemb, jk, kw.voice_name) == False
 
-    assert g_class_type(cfig, blrmemb, jk, kw.group_title) == kw.TitleTerm
-    assert g_sqlitetype(cfig, blrmemb, jk, kw.group_title) == "TEXT"
-    assert g_popcashout(cfig, blrmemb, jk, kw.group_title) == False
+    assert g_class_type(cfig, blfmemb, jk, kw.group_title) == kw.TitleTerm
+    assert g_sqlitetype(cfig, blfmemb, jk, kw.group_title) == "TEXT"
+    assert g_popcashout(cfig, blfmemb, jk, kw.group_title) == False
 
-    assert g_class_type(cfig, blrmemb, jv, kw.credor_pool) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.credor_pool) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.credor_pool) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.credor_pool) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.credor_pool) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.credor_pool) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.debtor_pool) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.debtor_pool) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.debtor_pool) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.debtor_pool) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.debtor_pool) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.debtor_pool) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.fund_agenda_give) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.fund_agenda_give) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.fund_agenda_give) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.fund_agenda_give) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.fund_agenda_give) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.fund_agenda_give) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.fund_agenda_ratio_give) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.fund_agenda_ratio_give) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.fund_agenda_ratio_give) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.fund_agenda_ratio_give) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.fund_agenda_ratio_give) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.fund_agenda_ratio_give) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.fund_agenda_ratio_take) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.fund_agenda_ratio_take) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.fund_agenda_ratio_take) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.fund_agenda_ratio_take) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.fund_agenda_ratio_take) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.fund_agenda_ratio_take) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.fund_agenda_take) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.fund_agenda_take) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.fund_agenda_take) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.fund_agenda_take) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.fund_agenda_take) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.fund_agenda_take) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.fund_give) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.fund_give) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.fund_give) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.fund_give) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.fund_give) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.fund_give) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.fund_take) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.fund_take) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.fund_take) == True
+    assert g_class_type(cfig, blfmemb, jv, kw.fund_take) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.fund_take) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.fund_take) == True
 
-    assert g_class_type(cfig, blrmemb, jv, kw.group_cred_lumen) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.group_cred_lumen) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.group_cred_lumen) == False
+    assert g_class_type(cfig, blfmemb, jv, kw.group_cred_lumen) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.group_cred_lumen) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.group_cred_lumen) == False
 
-    assert g_class_type(cfig, blrmemb, jv, kw.group_debt_lumen) == "float"
-    assert g_sqlitetype(cfig, blrmemb, jv, kw.group_debt_lumen) == "REAL"
-    assert g_popcashout(cfig, blrmemb, jv, kw.group_debt_lumen) == False
+    assert g_class_type(cfig, blfmemb, jv, kw.group_debt_lumen) == "float"
+    assert g_sqlitetype(cfig, blfmemb, jv, kw.group_debt_lumen) == "REAL"
+    assert g_popcashout(cfig, blfmemb, jv, kw.group_debt_lumen) == False
 
     assert g_class_type(cfig, blfvoce, jk, kw.voice_name) == kw.NameTerm
     assert g_sqlitetype(cfig, blfvoce, jk, kw.voice_name) == "TEXT"

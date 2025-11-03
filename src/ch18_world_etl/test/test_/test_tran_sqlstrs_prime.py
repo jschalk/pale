@@ -39,8 +39,8 @@ from src.ch18_world_etl.tran_sqlstrs import (
 from src.ref.keywords import Ch18Keywords as kw
 
 BELIEF_PRIME_TABLENAMES = {
-    f"{kw.belief_voice_membership}_sound_put_agg": "BLRMEMB_PUT_AGG",
-    f"{kw.belief_voice_membership}_sound_put_raw": "BLRMEMB_PUT_RAW",
+    f"{kw.belief_voice_membership}_sound_put_agg": "BLFMEMB_PUT_AGG",
+    f"{kw.belief_voice_membership}_sound_put_raw": "BLFMEMB_PUT_RAW",
     f"{kw.belief_voiceunit}_sound_put_agg": "BLFVOCE_PUT_AGG",
     f"{kw.belief_voiceunit}_sound_put_raw": "BLFVOCE_PUT_RAW",
     f"{kw.belief_plan_awardunit}_sound_put_agg": "BLFAWAR_PUT_AGG",
@@ -59,8 +59,8 @@ BELIEF_PRIME_TABLENAMES = {
     f"{kw.belief_planunit}_sound_put_raw": "BLFPLAN_PUT_RAW",
     f"{kw.beliefunit}_sound_put_agg": "BLFUNIT_PUT_AGG",
     f"{kw.beliefunit}_sound_put_raw": "BLFUNIT_PUT_RAW",
-    f"{kw.belief_voice_membership}_sound_del_agg": "BLRMEMB_DEL_AGG",
-    f"{kw.belief_voice_membership}_sound_del_raw": "BLRMEMB_DEL_RAW",
+    f"{kw.belief_voice_membership}_sound_del_agg": "BLFMEMB_DEL_AGG",
+    f"{kw.belief_voice_membership}_sound_del_raw": "BLFMEMB_DEL_RAW",
     f"{kw.belief_voiceunit}_sound_del_agg": "BLFVOCE_DEL_AGG",
     f"{kw.belief_voiceunit}_sound_del_raw": "BLFVOCE_DEL_RAW",
     f"{kw.belief_plan_awardunit}_sound_del_agg": "BLFAWAR_DEL_AGG",
@@ -563,7 +563,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         del_str = "del"
         blfunit_s_put_agg_table = prime_tbl("beliefunit", "s", agg_str, put_str)
         blfvoce_s_put_agg_table = prime_tbl("blfvoce", "s", agg_str, put_str)
-        blrmemb_s_put_agg_table = prime_tbl("blrmemb", "s", agg_str, put_str)
+        blfmemb_s_put_agg_table = prime_tbl("blfmemb", "s", agg_str, put_str)
         blffact_s_del_agg_table = prime_tbl("blffact", "s", agg_str, del_str)
         blffact_s_del_vld_table = prime_tbl("blffact", "s", vld_str, del_str)
         momentunit_s_agg_table = prime_tbl(kw.momentunit, "s", agg_str)
@@ -578,7 +578,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
 
         assert not db_table_exists(cursor, blfunit_s_put_agg_table)
         assert not db_table_exists(cursor, blfvoce_s_put_agg_table)
-        assert not db_table_exists(cursor, blrmemb_s_put_agg_table)
+        assert not db_table_exists(cursor, blfmemb_s_put_agg_table)
         assert not db_table_exists(cursor, blffact_s_del_agg_table)
         assert not db_table_exists(cursor, blffact_s_del_vld_table)
         assert not db_table_exists(cursor, momentunit_s_agg_table)
@@ -603,7 +603,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         #     x_count += 1
         assert db_table_exists(cursor, blfunit_s_put_agg_table)
         assert db_table_exists(cursor, blfvoce_s_put_agg_table)
-        assert db_table_exists(cursor, blrmemb_s_put_agg_table)
+        assert db_table_exists(cursor, blfmemb_s_put_agg_table)
         assert db_table_exists(cursor, blffact_s_del_agg_table)
         assert db_table_exists(cursor, blffact_s_del_vld_table)
         assert db_table_exists(cursor, momentunit_s_agg_table)

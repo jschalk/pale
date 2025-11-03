@@ -40,7 +40,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # ESTABLISH
     blfunit_dimen = kw.beliefunit
     blfvoce_dimen = kw.belief_voiceunit
-    blrmemb_dimen = kw.belief_voice_membership
+    blfmemb_dimen = kw.belief_voice_membership
     blfgrou_dimen = kw.belief_groupunit
     blfplan_dimen = kw.belief_planunit
     blfawar_dimen = kw.belief_plan_awardunit
@@ -71,7 +71,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # WHEN
     blfunit_s_agg_table = create_prime_tablename("beliefunit", "s", agg_str, put_str)
     blfvoce_s_agg_table = create_prime_tablename("blfvoce", "s", agg_str, put_str)
-    blrmemb_s_agg_table = create_prime_tablename("blrmemb", "s", agg_str, put_str)
+    blfmemb_s_agg_table = create_prime_tablename("blfmemb", "s", agg_str, put_str)
     blfplan_s_agg_table = create_prime_tablename("blfplan", "s", agg_str, put_str)
     blfawar_s_agg_table = create_prime_tablename("blfawar", "s", agg_str, put_str)
     blfreas_s_agg_table = create_prime_tablename("blfreas", "s", agg_str, put_str)
@@ -104,7 +104,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # THEN
     assert blfunit_s_agg_table == f"{blfunit_dimen}_s_put_agg"
     assert blfvoce_s_agg_table == f"{blfvoce_dimen}_s_put_agg"
-    assert blrmemb_s_agg_table == f"{blrmemb_dimen}_s_put_agg"
+    assert blfmemb_s_agg_table == f"{blfmemb_dimen}_s_put_agg"
     assert blfplan_s_agg_table == f"{blfplan_dimen}_s_put_agg"
     assert blfawar_s_agg_table == f"{blfawar_dimen}_s_put_agg"
     assert blfreas_s_agg_table == f"{blfreas_dimen}_s_put_agg"

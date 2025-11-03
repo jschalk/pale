@@ -316,7 +316,7 @@
     }
   }, 
   "belief_voice_membership": {
-    "abbreviation": "blrmemb", 
+    "abbreviation": "blfmemb", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 

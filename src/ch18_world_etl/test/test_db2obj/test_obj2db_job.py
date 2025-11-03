@@ -9,10 +9,10 @@ from src.ch18_world_etl.db_obj_belief_tool import (
     create_blfgrou_metrics_insert_sqlstr,
     create_blfheal_metrics_insert_sqlstr,
     create_blflabo_metrics_insert_sqlstr,
+    create_blfmemb_metrics_insert_sqlstr,
     create_blfplan_metrics_insert_sqlstr,
     create_blfreas_metrics_insert_sqlstr,
     create_blfvoce_metrics_insert_sqlstr,
-    create_blrmemb_metrics_insert_sqlstr,
 )
 from src.ch18_world_etl.tran_sqlstrs import create_job_tables
 from src.ref.keywords import Ch18Keywords as kw
@@ -614,7 +614,7 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blrmemb_metrics_insert_sqlstr_ReturnsObj():
+def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_belief_calc_dimen_args("belief_voice_membership")
@@ -674,7 +674,7 @@ def test_create_blrmemb_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blrmemb_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_blfmemb_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr

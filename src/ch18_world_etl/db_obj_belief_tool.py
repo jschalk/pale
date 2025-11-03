@@ -17,7 +17,7 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
 )
 
 
-def create_blrmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_blfmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     belief_name = values_dict.get("belief_name")
     voice_name = values_dict.get("voice_name")
@@ -380,7 +380,7 @@ class ObjKeysHolder:
     fact_rope: RopeTerm = None
 
 
-def insert_job_blrmemb(
+def insert_job_blfmemb(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_membership: MemberShip,
@@ -388,7 +388,7 @@ def insert_job_blrmemb(
     x_dict = copy_deepcopy(x_membership.__dict__)
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["belief_name"] = x_objkeysholder.belief_name
-    insert_sqlstr = create_blrmemb_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_blfmemb_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -542,7 +542,7 @@ def insert_job_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
     for x_voice in job_belief.voices.values():
         insert_job_blfvoce(cursor, x_objkeysholder, x_voice)
         for x_membership in x_voice.memberships.values():
-            insert_job_blrmemb(cursor, x_objkeysholder, x_membership)
+            insert_job_blfmemb(cursor, x_objkeysholder, x_membership)
 
     for x_groupunit in job_belief.groupunits.values():
         insert_job_blfgrou(cursor, x_objkeysholder, x_groupunit)
