@@ -173,148 +173,242 @@ def get_del_dimen_columns_set(x_dimen: str) -> list[str]:
     return set(columns_list)
 
 
-def create_translate_sound_raw_table_sqlstr(x_dimen):
-    tablename = create_prime_tablename(x_dimen, "s", "raw")
+##########################################################################3
+
+
+def get_translate_sound_raw_columns(x_dimen):
+    # tablename = create_prime_tablename(x_dimen, "s", "raw")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.add("idea_number")
     columns.add("error_message")
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+    return columns
 
 
-def create_translate_sound_agg_table_sqlstr(x_dimen):
+def get_translate_sound_agg_columns(x_dimen):
     tablename = create_prime_tablename(x_dimen, "s", "agg")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.add("error_message")
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+    return columns
 
 
-def create_moment_sound_agg_table_sqlstr(x_dimen):
-    tablename = create_prime_tablename(x_dimen, "s", "agg")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add("error_message")
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
-
-
-def create_moment_sound_vld_table_sqlstr(x_dimen):
-    tablename = create_prime_tablename(x_dimen, "s", "vld")
-    columns = get_all_dimen_columns_set(x_dimen)
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
-
-
-def create_translate_sound_vld_table_sqlstr(x_dimen):
+def get_translate_sound_vld_columns(x_dimen):
     tablename = create_prime_tablename(x_dimen, "s", "vld")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.remove("otx_knot")
     columns.remove("inx_knot")
     columns.remove("unknown_str")
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+    return columns
 
 
-def create_translate_core_raw_table_sqlstr(x_dimen):
+def get_translate_core_raw_columns(x_dimen):
     tablename = create_prime_tablename(x_dimen, "s", "raw")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.remove("spark_num")
     columns.add("source_dimen")
     columns.add("error_message")
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+    return columns
 
 
-def create_translate_core_agg_table_sqlstr(x_dimen):
+def get_translate_core_agg_columns(x_dimen):
     tablename = create_prime_tablename(x_dimen, "s", "agg")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.remove("spark_num")
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+    return columns
 
 
-def create_translate_core_vld_table_sqlstr(x_dimen):
+def get_translate_core_vld_columns(x_dimen):
     tablename = create_prime_tablename(x_dimen, "s", "vld")
     columns = get_all_dimen_columns_set(x_dimen)
     columns.remove("spark_num")
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+    return columns
 
 
-def create_moment_heard_raw_table_sqlstr(x_dimen):
+def get_moment_sound_agg_columns(x_dimen):
+    tablename = create_prime_tablename(x_dimen, "s", "agg")
+    columns = get_all_dimen_columns_set(x_dimen)
+    columns.add("error_message")
+    return columns
+
+
+def get_moment_sound_vld_columns(x_dimen):
+    tablename = create_prime_tablename(x_dimen, "s", "vld")
+    return get_all_dimen_columns_set(x_dimen)
+
+
+def get_moment_heard_raw_columns(x_dimen):
     tablename = create_prime_tablename(x_dimen, "h", "raw")
     columns = get_all_dimen_columns_set(x_dimen)
     columns = find_set_otx_inx_args(columns)
     columns.add("error_message")
+    return columns
+
+
+def get_moment_heard_vld_columns(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "h", "vld")
+    columns = get_all_dimen_columns_set(x_dimen)
+    columns.remove("spark_num")
+    columns.remove("face_name")
+    return columns
+
+
+##################################################################333
+
+
+def get_belief_columns(
+    x_dimen: str, stage0: str, stage1: str, put_del: str
+) -> set[str]:
+    columns = get_all_dimen_columns_set(x_dimen)
+    if put_del == "del":
+        columns = get_del_dimen_columns_set(x_dimen)
+
+    if (stage0, stage1, put_del) == ("s", "raw", "put"):
+        columns.add("idea_number")
+        columns.add("error_message")
+    elif (stage0, stage1, put_del) == ("s", "agg", "put"):
+        columns.add("error_message")
+    elif (stage0, stage1, put_del) == ("s", "raw", "del"):
+        columns.add("idea_number")
+    elif (stage0, stage1, put_del) == ("s", "agg", "del"):
+        columns.add("error_message")
+    elif (stage0, stage1, put_del) == ("h", "raw", "put"):
+        columns = find_set_otx_inx_args(columns)
+        columns.add("translate_spark_num")
+    elif (stage0, stage1, put_del) == ("h", "raw", "del"):
+        columns = find_set_otx_inx_args(columns)
+        columns.add("translate_spark_num")
+    # elif (stage0, stage1, put_del) == ("s", "vld", "put"):
+    #     pass
+    # elif (stage0, stage1, put_del) == ("s", "vld", "del"):
+    #     pass
+    # elif (stage0, stage1, put_del) == ("h", "vld", "put"):
+    #     pass
+    # elif (stage0, stage1, put_del) == ("h", "vld", "del"):
+    #     pass
+    return columns
+
+
+##############################################################################3
+#
+#############################################################################3
+
+
+def create_translate_sound_raw_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "raw")
+    columns = get_translate_sound_raw_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_translate_sound_agg_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "agg")
+    columns = get_translate_sound_agg_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_moment_sound_agg_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "agg")
+    columns = get_moment_sound_agg_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_moment_sound_vld_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "vld")
+    columns = get_moment_sound_vld_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_translate_sound_vld_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "vld")
+    columns = get_translate_sound_vld_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_translate_core_raw_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "raw")
+    columns = get_translate_core_raw_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_translate_core_agg_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "agg")
+    columns = get_translate_core_agg_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_translate_core_vld_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "s", "vld")
+    columns = get_translate_core_vld_columns(x_dimen)
+    return get_sorted_typed_create_table_sqlstr(tablename, columns)
+
+
+def create_moment_heard_raw_table_sqlstr(x_dimen: str):
+    tablename = create_prime_tablename(x_dimen, "h", "raw")
+    columns = get_moment_heard_raw_columns(x_dimen)
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_moment_heard_vld_table_sqlstr(x_dimen: str):
     tablename = create_prime_tablename(x_dimen, "h", "vld")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.remove("spark_num")
-    columns.remove("face_name")
+    columns = get_moment_heard_vld_columns(x_dimen)
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_sound_put_raw_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "s", "raw", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add("idea_number")
-    columns.add("error_message")
+    columns = get_belief_columns(x_dimen, "s", "raw", "put")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_sound_put_agg_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "s", "agg", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add("error_message")
+    columns = get_belief_columns(x_dimen, "s", "agg", "put")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_sound_put_vld_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "s", "vld", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
+    columns = get_belief_columns(x_dimen, "s", "vld", "put")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_sound_del_raw_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "s", "raw", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns.add("idea_number")
+    columns = get_belief_columns(x_dimen, "s", "raw", "del")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_sound_del_agg_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "s", "agg", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns.add("error_message")
+    columns = get_belief_columns(x_dimen, "s", "agg", "del")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_sound_del_vld_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "s", "vld", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
+    columns = get_belief_columns(x_dimen, "s", "vld", "del")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_heard_put_raw_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "h", "raw", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns = find_set_otx_inx_args(columns)
-    columns.add("translate_spark_num")
+    columns = get_belief_columns(x_dimen, "h", "raw", "put")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_heard_put_agg_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "h", "vld", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
+    columns = get_belief_columns(x_dimen, "h", "vld", "put")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_heard_del_raw_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "h", "raw", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns = find_set_otx_inx_args(columns)
-    columns.add("translate_spark_num")
+    columns = get_belief_columns(x_dimen, "h", "raw", "del")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_belief_heard_del_agg_table_sqlstr(x_dimen: str) -> str:
     tablename = create_prime_tablename(x_dimen, "h", "vld", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
+    columns = get_belief_columns(x_dimen, "h", "vld", "del")
     return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
