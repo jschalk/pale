@@ -21,10 +21,10 @@ from src.ch18_world_etl.transformers import (
     etl_create_bud_mandate_ledgers,
     etl_create_buds_root_cells,
     etl_create_moment_cell_trees,
-    etl_heard_agg_tables_to_moment_jsons,
-    etl_heard_agg_to_spark_belief_csvs,
-    etl_heard_raw_tables_to_heard_agg_tables,
+    etl_heard_raw_tables_to_heard_vld_tables,
     etl_heard_raw_tables_to_moment_ote1_agg,
+    etl_heard_vld_tables_to_moment_jsons,
+    etl_heard_vld_to_spark_belief_csvs,
     etl_input_dfs_to_brick_raw_tables,
     etl_moment_guts_to_moment_jobs,
     etl_moment_job_jsons_to_job_tables,
@@ -145,11 +145,11 @@ class WorldUnit:
         etl_sound_agg_tables_to_sound_vld_tables(cursor)
         etl_sound_vld_tables_to_heard_raw_tables(cursor)
         # heard raw to moment/belief jsons
-        etl_heard_raw_tables_to_heard_agg_tables(cursor)
-        # TODO add step to convert EpochTime and ContextNum in heard_agg_tables, use rules defined in Nabu chapter
-        # etl_heard_agg_nabu_updates
-        etl_heard_agg_tables_to_moment_jsons(cursor, mstr_dir)
-        etl_heard_agg_to_spark_belief_csvs(cursor, mstr_dir)
+        etl_heard_raw_tables_to_heard_vld_tables(cursor)
+        # TODO add step to convert EpochTime and ContextNum in heard_vld_tables, use rules defined in Nabu chapter
+        # etl_heard_vld_nabu_updates
+        etl_heard_vld_tables_to_moment_jsons(cursor, mstr_dir)
+        etl_heard_vld_to_spark_belief_csvs(cursor, mstr_dir)
         etl_spark_belief_csvs_to_lesson_json(mstr_dir)
         etl_spark_lesson_json_to_spark_inherited_beliefunits(mstr_dir)
         etl_spark_inherited_beliefunits_to_moment_gut(mstr_dir)

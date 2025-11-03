@@ -92,7 +92,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     trllabe_s_agg_table = create_prime_tablename("trllabe", "s", agg_str)
     trlrope_s_agg_table = create_prime_tablename("trlrope", "s", agg_str)
     trltitl_s_agg_table = create_prime_tablename("trltitl", "s", agg_str)
-    trltitl_h_agg_table = create_prime_tablename("trltitl", "h", agg_str)
+    trltitl_h_vld_table = create_prime_tablename("trltitl", "h", vld_str)
     trltitl_s_raw_table = create_prime_tablename("trltitl", "s", raw_str)
     trltitl_s_val_table = create_prime_tablename("trltitl", "s", vld_str)
     trlcore_s_raw_table = create_prime_tablename("trlcore", "s", raw_str)
@@ -125,7 +125,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert trllabe_s_agg_table == f"{trllabe_dimen}_s_agg"
     assert trlrope_s_agg_table == f"{trlrope_dimen}_s_agg"
     assert trltitl_s_agg_table == f"{trltitl_dimen}_s_agg"
-    assert trltitl_h_agg_table == f"{trltitl_dimen}_h_agg"
+    assert trltitl_h_vld_table == f"{trltitl_dimen}_h_vld"
     assert trltitl_s_raw_table == f"{trltitl_dimen}_s_raw"
     assert trltitl_s_val_table == f"{trltitl_dimen}_s_vld"
     assert trlcore_s_raw_table == f"{trlcore_dimen}_s_raw"

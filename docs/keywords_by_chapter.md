@@ -19,7 +19,7 @@
 - ch15_nabu: EpochNabu, Nabu, ch15, epochnabu, inx_epoch_diff, nabu, otx2inx, otx_epoch_length
 - ch16_translate: ch16, inx_knot, inx_label, inx_name, inx_rope, inx_title, labelmap, namemap, otx_knot, otx_label, otx_name, otx_rope, otx_title, ropemap, titlemap, translate, translate_core, translate_label, translate_name, translate_rope, translate_title, translateunit, unknown_str
 - ch17_idea: allowed_crud, attributes, bnet_funds, build_order, ch17, delete_insert, delete_insert_update, delete_update, error_message, fund_rank, idea_category, idea_number, insert_multiple, insert_one_time, insert_update, otx_key, pledges_count, source_dimen, translate_spark_num, world_name
-- ch18_world_etl: belief_net_amount, brick_agg, brick_raw, brick_valid, ch18, heard_agg, heard_raw, moment_ote1_agg, moment_voice_nets, sound_agg, sound_raw, sparks_brick_agg, sparks_brick_valid
+- ch18_world_etl: belief_net_amount, brick_agg, brick_raw, brick_valid, ch18, heard_raw, heard_vld, moment_ote1_agg, moment_voice_nets, sound_agg, sound_raw, sparks_brick_agg, sparks_brick_valid
 - ch19_world_kpi: ch19, default_kpi_bundle, moment_kpi001_voice_nets, moment_kpi002_belief_pledges
 - ch20_world_logic: WorldName, ch20
 - ch21_lobby: LobbyID, lobby_id, lobby_mstr_dir, lobbys

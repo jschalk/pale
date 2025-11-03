@@ -117,8 +117,8 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_update_trlname_sound_agg_knot_error_sqlstr,
     create_update_trlrope_sound_agg_knot_error_sqlstr,
     create_update_trltitl_sound_agg_knot_error_sqlstr,
-    get_belief_heard_agg_tablenames,
-    get_insert_heard_agg_sqlstrs,
+    get_belief_heard_vld_tablenames,
+    get_insert_heard_vld_sqlstrs,
     get_insert_into_heard_raw_sqlstrs,
     get_insert_into_sound_vld_sqlstrs,
     get_moment_belief_sound_agg_tablenames,
@@ -612,13 +612,13 @@ def set_heard_raw_inx_column(
     cursor.execute(update_empty_inx_sqlstr)
 
 
-def etl_heard_raw_tables_to_heard_agg_tables(cursor: sqlite3_Cursor):
-    for insert_heard_agg_sqlstr in get_insert_heard_agg_sqlstrs().values():
-        cursor.execute(insert_heard_agg_sqlstr)
+def etl_heard_raw_tables_to_heard_vld_tables(cursor: sqlite3_Cursor):
+    for insert_heard_vld_sqlstr in get_insert_heard_vld_sqlstrs().values():
+        cursor.execute(insert_heard_vld_sqlstr)
 
 
-def etl_heard_agg_tables_to_moment_jsons(cursor: sqlite3_Cursor, moment_mstr_dir: str):
-    select_moment_label_sqlstr = """SELECT moment_label FROM momentunit_h_agg;"""
+def etl_heard_vld_tables_to_moment_jsons(cursor: sqlite3_Cursor, moment_mstr_dir: str):
+    select_moment_label_sqlstr = """SELECT moment_label FROM momentunit_h_vld;"""
     cursor.execute(select_moment_label_sqlstr)
     for moment_label_set in cursor.fetchall():
         moment_label = moment_label_set[0]
@@ -763,11 +763,11 @@ def etl_create_bud_mandate_ledgers(moment_mstr_dir: str):
         create_bud_mandate_ledgers(moment_mstr_dir, moment_label)
 
 
-def etl_heard_agg_to_spark_belief_csvs(
+def etl_heard_vld_to_spark_belief_csvs(
     conn_or_cursor: sqlite3_Connection, moment_mstr_dir: str
 ):
     moments_dir = create_path(moment_mstr_dir, "moments")
-    for belief_table in get_belief_heard_agg_tablenames():
+    for belief_table in get_belief_heard_vld_tablenames():
         if get_row_count(conn_or_cursor, belief_table) > 0:
             save_to_split_csvs(
                 conn_or_cursor=conn_or_cursor,
@@ -810,10 +810,10 @@ def add_beliefatoms_from_csv(spark_lesson: LessonUnit, spark_dir: str):
     belief_dimens.remove("beliefunit")
     for belief_dimen in belief_dimens:
         belief_dimen_put_tablename = create_prime_tablename(
-            belief_dimen, "h", "agg", "put"
+            belief_dimen, "h", "vld", "put"
         )
         belief_dimen_del_tablename = create_prime_tablename(
-            belief_dimen, "h", "agg", "del"
+            belief_dimen, "h", "vld", "del"
         )
         belief_dimen_put_csv = f"{belief_dimen_put_tablename}.csv"
         belief_dimen_del_csv = f"{belief_dimen_del_tablename}.csv"

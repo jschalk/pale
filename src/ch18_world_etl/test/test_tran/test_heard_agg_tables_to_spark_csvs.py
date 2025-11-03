@@ -7,11 +7,11 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename,
     create_sound_and_heard_tables,
 )
-from src.ch18_world_etl.transformers import etl_heard_agg_to_spark_belief_csvs
+from src.ch18_world_etl.transformers import etl_heard_vld_to_spark_belief_csvs
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_etl_heard_agg_to_spark_belief_csvs_PopulatesBeliefPulabelTables(
+def test_etl_heard_vld_to_spark_belief_csvs_PopulatesBeliefPulabelTables(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -22,7 +22,7 @@ def test_etl_heard_agg_to_spark_belief_csvs_PopulatesBeliefPulabelTables(
     spark7 = 7
     yao_voice_cred_lumen5 = 5
     sue_voice_cred_lumen7 = 7
-    put_agg_tablename = create_prime_tablename(kw.belief_voiceunit, "h", "agg", "put")
+    put_agg_tablename = create_prime_tablename(kw.belief_voiceunit, "h", "vld", "put")
     put_agg_csv = f"{put_agg_tablename}.csv"
     x_moment_mstr_dir = get_temp_dir()
     a23_bob_e3_dir = create_belief_spark_dir_path(
@@ -51,7 +51,7 @@ VALUES
         assert os_path_exists(a23_e7_blfvoce_put_path) is False
 
         # WHEN
-        etl_heard_agg_to_spark_belief_csvs(cursor, x_moment_mstr_dir)
+        etl_heard_vld_to_spark_belief_csvs(cursor, x_moment_mstr_dir)
 
         # THEN
         assert os_path_exists(a23_e3_blfvoce_put_path)

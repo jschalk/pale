@@ -13,7 +13,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
 )
 from src.ch18_world_etl.transformers import (
     create_sound_and_heard_tables,
-    etl_heard_agg_tables_to_moment_jsons,
+    etl_heard_vld_tables_to_moment_jsons,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
@@ -55,24 +55,24 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
         mmtweek_abbv7 = get_dimen_abbv7(kw.moment_epoch_weekday)
         mmtoffi_abbv7 = get_dimen_abbv7(kw.moment_timeoffi)
         momentunit_abbv7 = get_dimen_abbv7(kw.momentunit)
-        mmtpayy_h_agg = create_prime_tablename(mmtpayy_abbv7, "h", "agg")
-        momentbud_h_agg = create_prime_tablename(momentbud_abbv7, "h", "agg")
-        mmthour_h_agg = create_prime_tablename(mmthour_abbv7, "h", "agg")
-        mmtmont_h_agg = create_prime_tablename(mmtmont_abbv7, "h", "agg")
-        mmtweek_h_agg = create_prime_tablename(mmtweek_abbv7, "h", "agg")
-        mmtoffi_h_agg = create_prime_tablename(mmtoffi_abbv7, "h", "agg")
-        momentunit_h_agg = create_prime_tablename(momentunit_abbv7, "h", "agg")
+        mmtpayy_h_vld = create_prime_tablename(mmtpayy_abbv7, "h", "vld")
+        momentbud_h_vld = create_prime_tablename(momentbud_abbv7, "h", "vld")
+        mmthour_h_vld = create_prime_tablename(mmthour_abbv7, "h", "vld")
+        mmtmont_h_vld = create_prime_tablename(mmtmont_abbv7, "h", "vld")
+        mmtweek_h_vld = create_prime_tablename(mmtweek_abbv7, "h", "vld")
+        mmtoffi_h_vld = create_prime_tablename(mmtoffi_abbv7, "h", "vld")
+        momentunit_h_vld = create_prime_tablename(momentunit_abbv7, "h", "vld")
         where_dict = {kw.moment_label: exx.a23}
-        mmtpayy_sql = create_select_query(cursor, mmtpayy_h_agg, [], where_dict, True)
+        mmtpayy_sql = create_select_query(cursor, mmtpayy_h_vld, [], where_dict, True)
         momentbud_sql = create_select_query(
-            cursor, momentbud_h_agg, [], where_dict, True
+            cursor, momentbud_h_vld, [], where_dict, True
         )
-        mmthour_sql = create_select_query(cursor, mmthour_h_agg, [], where_dict, True)
-        mmtmont_sql = create_select_query(cursor, mmtmont_h_agg, [], where_dict, True)
-        mmtweek_sql = create_select_query(cursor, mmtweek_h_agg, [], where_dict, True)
-        mmtoffi_sql = create_select_query(cursor, mmtoffi_h_agg, [], where_dict, True)
+        mmthour_sql = create_select_query(cursor, mmthour_h_vld, [], where_dict, True)
+        mmtmont_sql = create_select_query(cursor, mmtmont_h_vld, [], where_dict, True)
+        mmtweek_sql = create_select_query(cursor, mmtweek_h_vld, [], where_dict, True)
+        mmtoffi_sql = create_select_query(cursor, mmtoffi_h_vld, [], where_dict, True)
         momentunit_sql = create_select_query(
-            cursor, momentunit_h_agg, [], where_dict, True
+            cursor, momentunit_h_vld, [], where_dict, True
         )
         mmtpayy_sqlstr_ref = f"{mmtpayy_abbv7.upper()}_FU2_SELECT_SQLSTR"
         momentbud_sqlstr_ref = f"{momentbud_abbv7.upper()}_FU2_SELECT_SQLSTR"
@@ -101,30 +101,30 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
         assert gen_mmtweek_sqlstr == mmtweek_sql
         assert gen_mmtoffi_sqlstr == mmtoffi_sql
         assert gen_momentunit_sqlstr == momentunit_sql
-        static_example_sqlstr = f"SELECT {kw.moment_label}, {kw.epoch_label}, {kw.c400_number}, {kw.yr1_jan1_offset}, {kw.monthday_index}, {kw.fund_grain}, {kw.mana_grain}, {kw.respect_grain}, {kw.knot}, {kw.job_listen_rotations} FROM momentunit_h_agg WHERE moment_label = '{exx.a23}'"
+        static_example_sqlstr = f"SELECT {kw.moment_label}, {kw.epoch_label}, {kw.c400_number}, {kw.yr1_jan1_offset}, {kw.monthday_index}, {kw.fund_grain}, {kw.mana_grain}, {kw.respect_grain}, {kw.knot}, {kw.job_listen_rotations} FROM momentunit_h_vld WHERE moment_label = '{exx.a23}'"
         assert gen_momentunit_sqlstr == static_example_sqlstr
 
 
-def test_etl_heard_agg_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomentLabel(
+def test_etl_heard_vld_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomentLabel(
     temp_dir_setup,
 ):
     # ESTABLISH
     amy45_str = "amy45"
     moment_mstr_dir = get_temp_dir()
-    momentunit_h_agg_tablename = create_prime_tablename(kw.momentunit, "h", "agg")
-    print(f"{momentunit_h_agg_tablename=}")
+    momentunit_h_vld_tablename = create_prime_tablename(kw.momentunit, "h", "vld")
+    print(f"{momentunit_h_vld_tablename=}")
 
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
         create_sound_and_heard_tables(cursor)
 
         insert_raw_sqlstr = f"""
-INSERT INTO {momentunit_h_agg_tablename} ({kw.moment_label})
+INSERT INTO {momentunit_h_vld_tablename} ({kw.moment_label})
 VALUES ('{exx.a23}'), ('{amy45_str}')
 ;
 """
         cursor.execute(insert_raw_sqlstr)
-        assert get_row_count(cursor, momentunit_h_agg_tablename) == 2
+        assert get_row_count(cursor, momentunit_h_vld_tablename) == 2
 
         amy23_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
         amy45_json_path = create_moment_json_path(moment_mstr_dir, amy45_str)
@@ -134,7 +134,7 @@ VALUES ('{exx.a23}'), ('{amy45_str}')
         assert os_path_exists(amy45_json_path) is False
 
         # WHEN
-        etl_heard_agg_tables_to_moment_jsons(cursor, moment_mstr_dir)
+        etl_heard_vld_tables_to_moment_jsons(cursor, moment_mstr_dir)
 
     # THEN
     assert os_path_exists(amy23_json_path)

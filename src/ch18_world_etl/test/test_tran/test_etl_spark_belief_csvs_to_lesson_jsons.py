@@ -18,7 +18,7 @@ def test_etl_spark_belief_csvs_to_lesson_json_CreatesFiles_Scenario0_IgnoresCSV_
     sue_inx = "Suzy"
     bob_inx = "Bobby"
     spark3 = 3
-    put_agg_tablename = create_prime_tablename(kw.beliefunit, "h", "agg", "put")
+    put_agg_tablename = create_prime_tablename(kw.beliefunit, "h", "vld", "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
     moment_mstr_dir = get_temp_dir()
     # a23_bob_dir = create_path(a23_dir, bob_inx)
@@ -59,7 +59,7 @@ def test_etl_spark_belief_csvs_to_lesson_json_CreatesFiles_Scenario1(
     credit88 = 88
     debt_empty = ""
     blfvoce_str = kw.belief_voiceunit
-    put_agg_tablename = create_prime_tablename(blfvoce_str, "h", "agg", "put")
+    put_agg_tablename = create_prime_tablename(blfvoce_str, "h", "vld", "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
     moment_mstr_dir = get_temp_dir()
     # a23_bob_dir = create_path(a23_dir, bob_inx)
