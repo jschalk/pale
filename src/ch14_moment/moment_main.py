@@ -10,7 +10,7 @@ from src.ch09_belief_lesson.lesson_filehandler import (
     open_gut_file,
     save_gut_file,
 )
-from src.ch10_belief_listen.basis_beliefs import create_listen_basis
+from src.ch10_belief_listen.basis_belief import create_listen_basis
 from src.ch10_belief_listen.keep_tool import (
     create_treasury_db_file,
     open_job_file,
@@ -33,7 +33,7 @@ from src.ch11_bud.bud_main import (
     get_tranbook_from_dict,
     tranbook_shop,
 )
-from src.ch11_bud.cell import cellunit_shop
+from src.ch11_bud.cell_main import cellunit_shop
 from src.ch13_epoch.epoch_main import (
     EpochTime,
     EpochUnit,

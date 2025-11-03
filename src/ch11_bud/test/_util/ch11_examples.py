@@ -1,6 +1,6 @@
 from enum import Enum
 from src.ch04_rope.rope import create_rope
-from src.ch05_reason.reason import FactUnit, factunit_shop
+from src.ch05_reason.reason_main import FactUnit, factunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch11_bud.bud_main import BudUnit, budunit_shop
 from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx

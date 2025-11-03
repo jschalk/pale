@@ -8,7 +8,7 @@ from src.ch11_bud.bud_filehandler import (
     cellunit_save_to_dir,
     save_belief_file,
 )
-from src.ch11_bud.cell import cellunit_shop
+from src.ch11_bud.cell_main import cellunit_shop
 from src.ch14_moment.moment_cell import DecreeUnit, set_cell_trees_decrees
 from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ch14_moment.test._util.ch14_examples import (

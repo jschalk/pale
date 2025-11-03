@@ -32,7 +32,7 @@ from src.ch04_rope.rope import (
     rope_is_valid_dir_path,
     to_rope,
 )
-from src.ch05_reason.reason import FactUnit, ReasonUnit, RopeTerm, factunit_shop
+from src.ch05_reason.reason_main import FactUnit, ReasonUnit, RopeTerm, factunit_shop
 from src.ch06_plan.healer import HealerUnit
 from src.ch06_plan.plan import (
     PlanAttrHolder,
@@ -58,7 +58,7 @@ from src.ch07_belief_logic._ref.ch07_semantic_types import (
     VoiceName,
 )
 from src.ch07_belief_logic.belief_config import max_tree_traverse_default
-from src.ch07_belief_logic.tree_metrics import TreeMetrics, treemetrics_shop
+from src.ch07_belief_logic.tree_metric import TreeMetrics, treemetrics_shop
 
 
 class InvalidBeliefException(Exception):

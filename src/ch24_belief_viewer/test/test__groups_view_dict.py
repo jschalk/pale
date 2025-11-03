@@ -1,5 +1,5 @@
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch24_belief_viewer.belief_viewer_examples import (
+from src.ch24_belief_viewer.belief_viewer_example import (
     best_run_str,
     best_soccer_str,
     best_sport_str,

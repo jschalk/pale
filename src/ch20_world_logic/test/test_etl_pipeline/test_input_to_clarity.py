@@ -21,7 +21,7 @@ from src.ch18_world_etl._ref.ch18_path import (
     create_last_run_metrics_path,
     create_moment_ote1_csv_path,
 )
-from src.ch18_world_etl.etl_sqlstrs import create_prime_tablename as prime_tbl
+from src.ch18_world_etl.etl_sqlstr import create_prime_tablename as prime_tbl
 from src.ch20_world_logic.test._util.ch20_env import (
     get_temp_dir as worlds_dir,
     temp_dir_setup,

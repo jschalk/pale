@@ -9,11 +9,11 @@ from src.ch03_voice.group import (
 from src.ch03_voice.labor import laborheir_shop, laborunit_shop, partyheir_shop
 from src.ch03_voice.voice import voiceunit_shop
 from src.ch04_rope.rope import create_rope
-from src.ch05_reason.reason import caseunit_shop, factheir_shop, reasonheir_shop
+from src.ch05_reason.reason_main import caseunit_shop, factheir_shop, reasonheir_shop
 from src.ch06_plan.healer import healerunit_shop
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch18_world_etl.db_obj_belief_tool import (
+from src.ch18_world_etl.belief_db_obj_tool import (
     ObjKeysHolder,
     insert_job_blfawar,
     insert_job_blfcase,
@@ -28,7 +28,7 @@ from src.ch18_world_etl.db_obj_belief_tool import (
     insert_job_blfvoce,
     insert_job_obj,
 )
-from src.ch18_world_etl.etl_sqlstrs import create_job_tables
+from src.ch18_world_etl.etl_sqlstr import create_job_tables
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

@@ -9,7 +9,7 @@ from src.ch11_bud.bud_filehandler import (
     cellunit_save_to_dir,
     save_arbitrary_beliefspark as save_beliefspark,
 )
-from src.ch11_bud.cell import cellunit_shop
+from src.ch11_bud.cell_main import cellunit_shop
 from src.ch14_moment.moment_cell import create_cell_tree
 from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import ExampleStrs as exx

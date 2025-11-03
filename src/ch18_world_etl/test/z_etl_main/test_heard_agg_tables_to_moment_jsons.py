@@ -9,7 +9,7 @@ from src.ch18_world_etl.etl_main import (
     create_sound_and_heard_tables,
     etl_heard_vld_tables_to_moment_jsons,
 )
-from src.ch18_world_etl.etl_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename,
     get_moment_heard_select1_sqlstrs,
 )

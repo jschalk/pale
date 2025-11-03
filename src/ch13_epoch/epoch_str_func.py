@@ -5,7 +5,7 @@ from src.ch04_rope.rope import (
     get_first_label_from_rope,
     get_tail_label,
 )
-from src.ch05_reason.reason import CaseUnit, FactUnit
+from src.ch05_reason.reason_main import CaseUnit, FactUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch13_epoch.epoch_main import epochholder_shop
 

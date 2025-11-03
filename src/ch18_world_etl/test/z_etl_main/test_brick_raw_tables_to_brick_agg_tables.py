@@ -5,7 +5,7 @@ from src.ch18_world_etl.etl_main import (
     etl_brick_raw_tables_to_brick_agg_tables,
     get_max_brick_agg_spark_num,
 )
-from src.ch18_world_etl.etl_sqlstrs import create_sound_and_heard_tables
+from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 

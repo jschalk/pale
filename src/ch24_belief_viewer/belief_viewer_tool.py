@@ -2,7 +2,13 @@ import dataclasses
 from src.ch01_py.dict_toolbox import make_dict_safe_for_json
 from src.ch03_voice.group import AwardHeir, AwardLine, AwardUnit
 from src.ch03_voice.labor import PartyHeir, PartyUnit
-from src.ch05_reason.reason import CaseUnit, FactHeir, FactUnit, ReasonHeir, ReasonUnit
+from src.ch05_reason.reason_main import (
+    CaseUnit,
+    FactHeir,
+    FactUnit,
+    ReasonHeir,
+    ReasonUnit,
+)
 from src.ch06_plan.plan import PlanUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch13_epoch.epoch_str_func import (

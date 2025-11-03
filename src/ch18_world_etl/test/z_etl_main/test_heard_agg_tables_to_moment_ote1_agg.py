@@ -4,7 +4,7 @@ from src.ch18_world_etl.etl_main import (
     create_sound_and_heard_tables,
     etl_heard_raw_tables_to_moment_ote1_agg,
 )
-from src.ch18_world_etl.etl_sqlstrs import create_prime_tablename
+from src.ch18_world_etl.etl_sqlstr import create_prime_tablename
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 

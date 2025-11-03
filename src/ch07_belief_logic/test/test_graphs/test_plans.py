@@ -1,4 +1,4 @@
-from src.ch07_belief_logic.belief_graphics import (
+from src.ch07_belief_logic.belief_graphic import (
     beliefunit_graph0,
     beliefunit_graph1,
     beliefunit_graph2,

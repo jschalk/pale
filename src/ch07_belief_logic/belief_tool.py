@@ -8,7 +8,7 @@ from src.ch02_allot.allot import allot_scale
 from src.ch03_voice.group import AwardUnit, MemberShip
 from src.ch03_voice.voice import VoiceUnit, calc_give_take_net
 from src.ch04_rope.rope import get_unique_short_ropes, is_sub_rope
-from src.ch05_reason.reason import (
+from src.ch05_reason.reason_main import (
     CaseUnit,
     FactUnit,
     ReasonUnit,

@@ -1,6 +1,6 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch17_idea.idea_csv_tool import create_init_stance_idea_csv_strs
-from src.ch18_world_etl.etl_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
 )

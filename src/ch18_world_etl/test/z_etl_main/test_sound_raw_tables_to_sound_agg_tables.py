@@ -5,7 +5,7 @@ from src.ch18_world_etl.etl_main import (
     insert_sound_raw_selects_into_sound_agg_tables,
     set_sound_raw_tables_error_message,
 )
-from src.ch18_world_etl.etl_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstr import (
     CREATE_TRLROPE_SOUND_RAW_SQLSTR,
     create_prime_tablename,
     create_sound_and_heard_tables,

@@ -5,7 +5,7 @@ from src.ch13_epoch.calendar_markdown import get_calendarmarkdown_str
 from src.ch14_moment.moment_frame import get_moment_epochholder
 from src.ch14_moment.moment_main import get_default_path_momentunit
 from src.ch17_idea.idea_db_tool import save_table_to_csv
-from src.ch19_world_kpi.kpi_sqlstrs import (
+from src.ch19_world_kpi.kpi_sqlstr import (
     get_create_kpi001_sqlstr,
     get_create_kpi002_sqlstr,
 )

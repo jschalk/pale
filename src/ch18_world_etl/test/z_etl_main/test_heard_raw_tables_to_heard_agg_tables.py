@@ -4,7 +4,7 @@ from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import get_default_sorted_list, get_filtered_idea_config
 from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_vld_tables
-from src.ch18_world_etl.etl_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
     get_insert_heard_vld_sqlstrs,

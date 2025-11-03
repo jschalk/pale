@@ -3,7 +3,7 @@ from src.ch13_epoch.epoch_str_func import (
     get_fact_state_readable_str,
     get_reason_case_readable_str,
 )
-from src.ch24_belief_viewer.belief_viewer_examples import (
+from src.ch24_belief_viewer.belief_viewer_example import (
     best_run_str,
     best_soccer_str,
     best_sport_str,
