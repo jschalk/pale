@@ -31,245 +31,35 @@ from src.ch18_world_etl.etl_sqlstrs import (
     create_sound_and_heard_tables,
     create_sound_raw_update_inconsist_error_message_sqlstr,
     get_belief_heard_vld_tablenames,
-    get_dimen_abbv7,
     get_insert_into_heard_raw_sqlstrs,
     get_insert_into_sound_vld_sqlstrs,
     get_moment_belief_sound_agg_tablenames,
     get_prime_create_table_sqlstrs,
 )
+from src.ch18_world_etl.etl_table import (
+    create_belief_heard_del_agg_table_sqlstr,
+    create_belief_heard_del_raw_table_sqlstr,
+    create_belief_heard_put_agg_table_sqlstr,
+    create_belief_heard_put_raw_table_sqlstr,
+    create_belief_sound_del_agg_table_sqlstr,
+    create_belief_sound_del_raw_table_sqlstr,
+    create_belief_sound_del_vld_table_sqlstr,
+    create_belief_sound_put_agg_table_sqlstr,
+    create_belief_sound_put_raw_table_sqlstr,
+    create_belief_sound_put_vld_table_sqlstr,
+    create_moment_heard_raw_table_sqlstr,
+    create_moment_heard_vld_table_sqlstr,
+    create_moment_sound_agg_table_sqlstr,
+    create_moment_sound_vld_table_sqlstr,
+    create_translate_core_agg_table_sqlstr,
+    create_translate_core_raw_table_sqlstr,
+    create_translate_core_vld_table_sqlstr,
+    create_translate_sound_agg_table_sqlstr,
+    create_translate_sound_raw_table_sqlstr,
+    create_translate_sound_vld_table_sqlstr,
+    get_dimen_abbv7,
+)
 from src.ref.keywords import Ch18Keywords as kw
-
-BELIEF_PRIME_TABLENAMES = {
-    f"{kw.belief_voice_membership}_sound_put_agg": "BLFMEMB_PUT_AGG",
-    f"{kw.belief_voice_membership}_sound_put_raw": "BLFMEMB_PUT_RAW",
-    f"{kw.belief_voiceunit}_sound_put_agg": "BLFVOCE_PUT_AGG",
-    f"{kw.belief_voiceunit}_sound_put_raw": "BLFVOCE_PUT_RAW",
-    f"{kw.belief_plan_awardunit}_sound_put_agg": "BLFAWAR_PUT_AGG",
-    f"{kw.belief_plan_awardunit}_sound_put_raw": "BLFAWAR_PUT_RAW",
-    f"{kw.belief_plan_factunit}_sound_put_agg": "BLFFACT_PUT_AGG",
-    f"{kw.belief_plan_factunit}_sound_put_raw": "BLFFACT_PUT_RAW",
-    f"{kw.belief_plan_healerunit}_sound_put_agg": "BLFHEAL_PUT_AGG",
-    f"{kw.belief_plan_healerunit}_sound_put_raw": "BLFHEAL_PUT_RAW",
-    f"{kw.belief_plan_reason_caseunit}_sound_put_agg": "BLFCASE_PUT_AGG",
-    f"{kw.belief_plan_reason_caseunit}_sound_put_raw": "BLFCASE_PUT_RAW",
-    f"{kw.belief_plan_reasonunit}_sound_put_agg": "BLFREAS_PUT_AGG",
-    f"{kw.belief_plan_reasonunit}_sound_put_raw": "BLFREAS_PUT_RAW",
-    f"{kw.belief_plan_partyunit}_sound_put_agg": "BLFLABO_PUT_AGG",
-    f"{kw.belief_plan_partyunit}_sound_put_raw": "BLFLABO_PUT_RAW",
-    f"{kw.belief_planunit}_sound_put_agg": "BLFPLAN_PUT_AGG",
-    f"{kw.belief_planunit}_sound_put_raw": "BLFPLAN_PUT_RAW",
-    f"{kw.beliefunit}_sound_put_agg": "BLFUNIT_PUT_AGG",
-    f"{kw.beliefunit}_sound_put_raw": "BLFUNIT_PUT_RAW",
-    f"{kw.belief_voice_membership}_sound_del_agg": "BLFMEMB_DEL_AGG",
-    f"{kw.belief_voice_membership}_sound_del_raw": "BLFMEMB_DEL_RAW",
-    f"{kw.belief_voiceunit}_sound_del_agg": "BLFVOCE_DEL_AGG",
-    f"{kw.belief_voiceunit}_sound_del_raw": "BLFVOCE_DEL_RAW",
-    f"{kw.belief_plan_awardunit}_sound_del_agg": "BLFAWAR_DEL_AGG",
-    f"{kw.belief_plan_awardunit}_sound_del_raw": "BLFAWAR_DEL_RAW",
-    f"{kw.belief_plan_factunit}_sound_del_agg": "BLFFACT_DEL_AGG",
-    f"{kw.belief_plan_factunit}_sound_del_raw": "BLFFACT_DEL_RAW",
-    f"{kw.belief_plan_healerunit}_sound_del_agg": "BLFHEAL_DEL_AGG",
-    f"{kw.belief_plan_healerunit}_sound_del_raw": "BLFHEAL_DEL_RAW",
-    f"{kw.belief_plan_reason_caseunit}_sound_del_agg": "BLFCASE_DEL_AGG",
-    f"{kw.belief_plan_reason_caseunit}_sound_del_raw": "BLFCASE_DEL_RAW",
-    f"{kw.belief_plan_reasonunit}_sound_del_agg": "BLFREAS_DEL_AGG",
-    f"{kw.belief_plan_reasonunit}_sound_del_raw": "BLFREAS_DEL_RAW",
-    f"{kw.belief_plan_partyunit}_sound_del_agg": "BLFLABO_DEL_AGG",
-    f"{kw.belief_plan_partyunit}_sound_del_raw": "BLFLABO_DEL_RAW",
-    f"{kw.belief_planunit}_sound_del_agg": "BLFPLAN_DEL_AGG",
-    f"{kw.belief_planunit}_sound_del_raw": "BLFPLAN_DEL_RAW",
-    f"{kw.beliefunit}_sound_del_agg": "BLFUNIT_DEL_AGG",
-    f"{kw.beliefunit}_sound_del_raw": "BLFUNIT_DEL_RAW",
-}
-
-
-def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
-    if x_dimen == kw.translate_core:
-        return {
-            kw.spark_num,
-            kw.face_name,
-            kw.otx_knot,
-            kw.inx_knot,
-            kw.unknown_str,
-        }
-    x_config = get_idea_config_dict().get(x_dimen)
-    columns = set(x_config.get(kw.jkeys).keys())
-    columns.update(set(x_config.get(kw.jvalues).keys()))
-    return columns
-
-
-def get_del_dimen_columns_set(x_dimen: str) -> list[str]:
-    x_config = get_idea_config_dict().get(x_dimen)
-    columns_set = set(x_config.get(kw.jkeys).keys())
-    columns_list = get_default_sorted_list(columns_set)
-    columns_list[-1] = get_delete_key_name(columns_list[-1])
-    return set(columns_list)
-
-
-def create_translate_sound_raw_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add(kw.idea_number)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_translate_sound_agg_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_moment_sound_agg_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_moment_sound_vld_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_translate_sound_vld_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.discard(kw.otx_knot)
-    columns.discard(kw.inx_knot)
-    columns.discard(kw.unknown_str)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_translate_core_raw_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.remove(kw.spark_num)
-    columns.add(kw.source_dimen)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_translate_core_agg_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.remove(kw.spark_num)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_translate_core_vld_table_sqlstr(x_dimen):
-    agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
-    vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-    sqlstr = create_translate_core_agg_table_sqlstr(x_dimen)
-    sqlstr = sqlstr.replace(agg_tablename, vld_tablename)
-    return sqlstr
-
-
-def create_moment_heard_raw_table_sqlstr(x_dimen):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns = find_set_otx_inx_args(columns)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_moment_heard_vld_table_sqlstr(x_dimen: str):
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "vld")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.remove(kw.spark_num)
-    columns.remove(kw.face_name)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_sound_put_raw_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add(kw.idea_number)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_sound_put_agg_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_sound_put_vld_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_sound_del_raw_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns.add(kw.idea_number)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_sound_del_agg_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns.add(kw.error_message)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_sound_del_vld_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_heard_put_raw_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw", "put")
-    columns = set()
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns = find_set_otx_inx_args(columns)
-    columns.add(kw.translate_spark_num)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_heard_put_agg_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "vld", "put")
-    columns = get_all_dimen_columns_set(x_dimen)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_heard_del_raw_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns = find_set_otx_inx_args(columns)
-    columns.add(kw.translate_spark_num)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
-
-
-def create_belief_heard_del_agg_table_sqlstr(x_dimen: str) -> str:
-    tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "vld", "del")
-    columns = get_del_dimen_columns_set(x_dimen)
-    columns = get_default_sorted_list(columns)
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
 
 
 def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateDimensCheck():

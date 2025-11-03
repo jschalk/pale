@@ -7,9 +7,9 @@ from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_vld_tables
 from src.ch18_world_etl.etl_sqlstrs import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
-    get_dimen_abbv7,
     get_insert_heard_vld_sqlstrs,
 )
+from src.ch18_world_etl.etl_table import get_dimen_abbv7
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
