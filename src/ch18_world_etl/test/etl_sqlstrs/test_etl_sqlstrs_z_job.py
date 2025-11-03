@@ -3,7 +3,7 @@ from src.ch01_py.db_toolbox import db_table_exists, get_create_table_sqlstr
 from src.ch07_belief_logic.belief_config import get_belief_config_dict
 from src.ch17_idea.idea_config import get_idea_sqlite_types
 from src.ch17_idea.idea_db_tool import get_default_sorted_list
-from src.ch18_world_etl.etl_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstr import (
     create_job_tables,
     create_prime_tablename as prime_table,
     get_job_create_table_sqlstrs,

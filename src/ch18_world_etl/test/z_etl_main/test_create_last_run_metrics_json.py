@@ -4,7 +4,7 @@ from src.ch01_py.file_toolbox import open_json
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table
 from src.ch18_world_etl._ref.ch18_path import create_last_run_metrics_path
 from src.ch18_world_etl.etl_main import create_last_run_metrics_json
-from src.ch18_world_etl.etl_sqlstrs import create_sound_and_heard_tables
+from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir
 from src.ref.keywords import Ch18Keywords as kw
 

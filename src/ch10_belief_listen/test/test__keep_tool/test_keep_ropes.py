@@ -2,7 +2,7 @@ from os.path import exists as os_path_exists
 from pytest import raises as pytest_raises
 from src.ch06_plan.healer import healerunit_shop
 from src.ch06_plan.plan import planunit_shop
-from src.ch07_belief_logic.belief_graphics import display_plantree
+from src.ch07_belief_logic.belief_graphic import display_plantree
 from src.ch09_belief_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
     open_gut_file,

@@ -40,7 +40,7 @@ from src.ch11_bud.bud_filehandler import (
     save_belieftime_file,
     save_bud_file,
 )
-from src.ch11_bud.cell import CELLNODE_QUOTA_DEFAULT, cellunit_shop
+from src.ch11_bud.cell_main import CELLNODE_QUOTA_DEFAULT, cellunit_shop
 from src.ch11_bud.test._util.ch11_env import get_temp_dir, temp_dir_setup
 from src.ch11_bud.test._util.ch11_examples import (
     example_casa_clean_factunit as clean_factunit,

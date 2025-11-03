@@ -4,7 +4,7 @@ from src.ch01_py._ref.ch01_path import (
     create_src_example_strs_path,
     create_src_keywords_path,
 )
-from src.ch01_py.chapter_desc_tools import get_chapter_desc_prefix, get_chapter_descs
+from src.ch01_py.chapter_desc_main import get_chapter_desc_prefix, get_chapter_descs
 from src.ch01_py.file_toolbox import create_path, open_json, save_file
 
 

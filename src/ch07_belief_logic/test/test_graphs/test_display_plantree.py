@@ -1,5 +1,5 @@
 from src.ch01_py.plotly_toolbox import conditional_fig_show
-from src.ch07_belief_logic.belief_graphics import (
+from src.ch07_belief_logic.belief_graphic import (
     display_plantree,
     fund_graph0,
     get_belief_agenda_plotly_fig,

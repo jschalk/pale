@@ -8,7 +8,7 @@ from src.ch18_world_etl.etl_main import (
     etl_moment_json_voice_nets_to_moment_voice_nets_table,
     insert_tranunit_voices_net,
 )
-from src.ch18_world_etl.etl_sqlstrs import CREATE_MOMENT_VOICE_NETS_SQLSTR
+from src.ch18_world_etl.etl_sqlstr import CREATE_MOMENT_VOICE_NETS_SQLSTR
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

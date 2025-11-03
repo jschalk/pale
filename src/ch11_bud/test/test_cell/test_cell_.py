@@ -1,8 +1,8 @@
 from copy import deepcopy as copy_deepcopy
 from src.ch04_rope.rope import create_rope
-from src.ch05_reason.reason import factunit_shop
+from src.ch05_reason.reason_main import factunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch11_bud.cell import (
+from src.ch11_bud.cell_main import (
     CELLNODE_QUOTA_DEFAULT,
     CellUnit,
     cellunit_shop,

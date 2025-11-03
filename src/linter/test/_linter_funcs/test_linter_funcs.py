@@ -1,9 +1,29 @@
 from src.ch01_py.file_toolbox import create_path, save_file
 from src.linter.style import (
     env_file_has_required_elements,
+    filename_style_is_correct,
     function_name_style_is_correct,
+    get_filenames_with_wrong_style,
 )
 from src.linter.test._util.linter_env import get_temp_dir, temp_dir_setup
+
+
+def test_filename_style_is_correct_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert filename_style_is_correct("get_label.py")
+    assert not filename_style_is_correct("get_labelN.py")
+    assert not filename_style_is_correct("get_labels.py")
+    assert filename_style_is_correct("get_labels.md")
+    assert filename_style_is_correct("get_labelN.md")
+
+
+def test_filenames_style_arg_correct_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert get_filenames_with_wrong_style({"get_label.py"}) == set()
+    assert len(get_filenames_with_wrong_style({"get_labelN.py"})) == 1
+    assert len(get_filenames_with_wrong_style({"get_labels.py"})) == 1
+    assert get_filenames_with_wrong_style({"get_label.py", "style.json"}) == set()
+    assert len(get_filenames_with_wrong_style({"get_label.py", "styles.py"})) == 1
 
 
 def test_function_name_style_is_correct_ReturnsObj():

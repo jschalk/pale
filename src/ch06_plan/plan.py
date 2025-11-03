@@ -32,7 +32,7 @@ from src.ch04_rope.rope import (
     rebuild_rope,
     replace_knot,
 )
-from src.ch05_reason.reason import (
+from src.ch05_reason.reason_main import (
     FactCore,
     FactHeir,
     FactUnit,

@@ -13,7 +13,7 @@ from src.ch09_belief_lesson._ref.ch09_path import (
 from src.ch10_belief_listen.keep_tool import save_job_file
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.etl_main import etl_moment_job_jsons_to_job_tables
-from src.ch18_world_etl.etl_sqlstrs import create_prime_tablename as prime_table
+from src.ch18_world_etl.etl_sqlstr import create_prime_tablename as prime_table
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

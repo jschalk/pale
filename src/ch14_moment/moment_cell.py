@@ -4,7 +4,7 @@ from os import sep as os_sep, walk as os_walk
 from os.path import exists as os_path_exists, join as os_path_join
 from src.ch01_py.file_toolbox import create_path, get_level1_dirs, open_json, save_json
 from src.ch02_allot.allot import allot_nested_scale
-from src.ch05_reason.reason import get_dict_from_factunits
+from src.ch05_reason.reason_main import get_dict_from_factunits
 from src.ch09_belief_lesson._ref.ch09_path import create_moment_json_path
 from src.ch11_bud._ref.ch11_path import (
     CELL_MANDATE_FILENAME,
@@ -24,7 +24,7 @@ from src.ch11_bud.bud_filehandler import (
     open_belief_file,
 )
 from src.ch11_bud.bud_main import MomentLabel
-from src.ch11_bud.cell import CellUnit, cellunit_shop
+from src.ch11_bud.cell_main import CellUnit, cellunit_shop
 from src.ch11_bud.weighted_facts_tool import get_nodes_with_weighted_facts
 from src.ch13_epoch.epoch_main import EpochTime
 from src.ch14_moment._ref.ch14_path import BUD_MANDATE_FILENAME

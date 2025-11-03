@@ -5,7 +5,7 @@ from ast import (
     parse as ast_parse,
     walk as ast_walk,
 )
-from src.ch01_py.chapter_desc_tools import get_chapter_desc_prefix, get_chapter_descs
+from src.ch01_py.chapter_desc_main import get_chapter_desc_prefix, get_chapter_descs
 from src.ch01_py.file_toolbox import (
     create_path,
     get_dir_filenames,

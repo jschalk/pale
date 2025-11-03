@@ -1,6 +1,6 @@
 from pathlib import Path
 from src.ch01_py.file_toolbox import get_level1_dirs, set_dir
-from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
+from src.ch01_py.test._util.ch01_env import get_temp_dir, temp_dir_setup
 
 
 def test_get_level1_dirs_EmptyDirectory(temp_dir_setup):
@@ -29,7 +29,7 @@ def test_get_level1_dirs_NonExistentDirectory():
     assert result == expected_dirs, assert_fail_str
 
 
-def test_get_level1_dirs_ReturnsObj_Sorted():
+def test_get_level1_dirs_ReturnsObj_Sorted(temp_dir_setup):
     # ESTABLISH
     test_dir = get_temp_dir()
     # Create a temporary directory structure

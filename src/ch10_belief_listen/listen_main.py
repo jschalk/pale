@@ -6,7 +6,7 @@ from src.ch06_plan.plan import PlanUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit, VoiceUnit
 from src.ch09_belief_lesson.lesson_filehandler import LessonFileHandler, open_gut_file
 from src.ch10_belief_listen._ref.ch10_semantic_types import BeliefName, RopeTerm
-from src.ch10_belief_listen.basis_beliefs import (
+from src.ch10_belief_listen.basis_belief import (
     create_empty_belief_from_belief,
     create_listen_basis,
 )

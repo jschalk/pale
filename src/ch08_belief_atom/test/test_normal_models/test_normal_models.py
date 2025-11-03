@@ -1,6 +1,6 @@
 from sqlalchemy import inspect
 from src.ch08_belief_atom.atom_config import get_normalized_belief_table_build
-from src.ch08_belief_atom.normal_models import (
+from src.ch08_belief_atom.normal_model import (
     AwardUnitTable,
     BeliefTable,
     CaseTable,

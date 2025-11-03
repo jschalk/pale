@@ -9,11 +9,11 @@ from src.ch18_world_etl.etl_main import (
     create_sound_and_heard_tables,
     etl_heard_vld_tables_to_moment_jsons,
 )
-from src.ch18_world_etl.etl_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename,
-    get_dimen_abbv7,
     get_moment_heard_select1_sqlstrs,
 )
+from src.ch18_world_etl.etl_table import get_dimen_abbv7
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

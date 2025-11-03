@@ -1,5 +1,5 @@
 from src.ch04_rope.rope import create_rope, default_knot_if_None
-from src.ch05_reason.reason import factunit_shop, reasonunit_shop
+from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch13_epoch.epoch_main import add_epoch_planunit
 from src.ch13_epoch.epoch_str_func import (

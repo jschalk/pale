@@ -5,7 +5,7 @@ from src.ch11_bud._ref.ch11_path import (
     create_cell_voice_mandate_ledger_path as mandate_path,
 )
 from src.ch11_bud.bud_filehandler import cellunit_save_to_dir
-from src.ch11_bud.cell import cellunit_shop
+from src.ch11_bud.cell_main import cellunit_shop
 from src.ch14_moment.moment_cell import set_cell_tree_cell_mandates
 from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import ExampleStrs as exx

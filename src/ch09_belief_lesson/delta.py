@@ -9,7 +9,7 @@ from src.ch01_py.dict_toolbox import (
 )
 from src.ch03_voice.group import MemberShip
 from src.ch03_voice.voice import MemberShip, VoiceName, VoiceUnit
-from src.ch05_reason.reason import FactUnit, ReasonUnit
+from src.ch05_reason.reason_main import FactUnit, ReasonUnit
 from src.ch06_plan.plan import PlanUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
 from src.ch08_belief_atom.atom_config import CRUD_command

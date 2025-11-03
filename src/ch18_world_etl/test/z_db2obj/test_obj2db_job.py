@@ -1,7 +1,7 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import create_insert_query
 from src.ch07_belief_logic.belief_config import get_belief_calc_dimen_args
-from src.ch18_world_etl.db_obj_belief_tool import (
+from src.ch18_world_etl.belief_db_obj_tool import (
     create_beliefunit_metrics_insert_sqlstr,
     create_blfawar_metrics_insert_sqlstr,
     create_blfcase_metrics_insert_sqlstr,
@@ -14,7 +14,7 @@ from src.ch18_world_etl.db_obj_belief_tool import (
     create_blfreas_metrics_insert_sqlstr,
     create_blfvoce_metrics_insert_sqlstr,
 )
-from src.ch18_world_etl.etl_sqlstrs import create_job_tables
+from src.ch18_world_etl.etl_sqlstr import create_job_tables
 from src.ref.keywords import Ch18Keywords as kw
 
 

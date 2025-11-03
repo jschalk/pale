@@ -24,6 +24,20 @@ from src.ch98_docs_builder.doc_builder import (
 from textwrap import dedent as textwrap_dedent
 
 
+def filename_style_is_correct(filename: str) -> bool:
+    if (filename.endswith(".py") or filename.endswith(".json")) and uppercase_in_str(
+        filename
+    ):
+        return False
+    elif filename.endswith(".py") and filename.endswith("s.py"):
+        return False
+    return True
+
+
+def get_filenames_with_wrong_style(filenames: set[str]) -> set[str]:
+    return {file for file in filenames if not filename_style_is_correct(file)}
+
+
 def function_name_style_is_correct(function_name: str):
     if not function_name.startswith("test") and "None" not in function_name:
         return uppercase_in_str(function_name) is False

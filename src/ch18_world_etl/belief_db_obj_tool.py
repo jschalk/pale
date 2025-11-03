@@ -5,7 +5,7 @@ from src.ch01_py.db_toolbox import sqlite_obj_str
 from src.ch03_voice.group import AwardHeir, GroupUnit, MemberShip
 from src.ch03_voice.labor import LaborHeir
 from src.ch03_voice.voice import VoiceUnit
-from src.ch05_reason.reason import CaseUnit, FactHeir, ReasonHeir
+from src.ch05_reason.reason_main import CaseUnit, FactHeir, ReasonHeir
 from src.ch06_plan.plan import HealerUnit, PlanUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch11_bud.bud_main import MomentLabel

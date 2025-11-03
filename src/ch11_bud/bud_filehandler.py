@@ -30,7 +30,7 @@ from src.ch11_bud._ref.ch11_semantic_types import (
     SparkInt,
 )
 from src.ch11_bud.bud_main import BudUnit, get_budunit_from_dict
-from src.ch11_bud.cell import CellUnit, cellunit_get_from_dict, cellunit_shop
+from src.ch11_bud.cell_main import CellUnit, cellunit_get_from_dict, cellunit_shop
 
 
 def get_beliefspark_obj(
