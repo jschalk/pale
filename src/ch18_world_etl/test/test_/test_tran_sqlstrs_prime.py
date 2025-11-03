@@ -17,6 +17,7 @@ from src.ch16_translate.translate_config import (
 )
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
+    get_filtered_idea_config,
     get_idea_config_dict,
     get_idea_sqlite_types,
 )
@@ -277,13 +278,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateDimensCheck():
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    idea_config = get_idea_config_dict()
-    translate_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == kw.translate
-    }
-
+    translate_dimens_config = get_filtered_idea_config({kw.translate})
     for x_dimen in translate_dimens_config:
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
@@ -337,13 +332,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckMomentDimens():
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    idea_config = get_idea_config_dict()
-    moment_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "moment"
-    }
-
+    moment_dimens_config = get_filtered_idea_config({kw.moment})
     for x_dimen in moment_dimens_config:
         # print(f"{abbv7} {x_dimen} checking...")
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
@@ -451,14 +440,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckNabuDimens():
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    idea_config = get_idea_config_dict()
-    nabu_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "nabu"
-    }
-
-    for x_dimen in nabu_dimens_config:
+    for x_dimen in get_filtered_idea_config({kw.nabu}):
         print(f"{get_dimen_abbv7(x_dimen)} {x_dimen} checking...")
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
@@ -1129,12 +1111,7 @@ GROUP BY spark_num, face_name
 def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    idea_config = get_idea_config_dict()
-    belief_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "belief"
-    }
+    belief_dimens_config = get_filtered_idea_config({kw.belief})
 
     # WHEN
     insert_s_vld_sqlstrs = get_insert_into_sound_vld_sqlstrs()
@@ -1191,12 +1168,7 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
 def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    idea_config = get_idea_config_dict()
-    moment_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) in {"moment", "nabu"}
-    }
+    moment_dimens_config = get_filtered_idea_config({kw.moment, kw.nabu})
     print(f"{moment_dimens_config.keys()=}")
 
     # WHEN
@@ -1235,12 +1207,7 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    idea_config = get_idea_config_dict()
-    belief_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "belief"
-    }
+    belief_dimens_config = get_filtered_idea_config({kw.belief})
 
     # WHEN
     insert_h_raw_sqlstrs = get_insert_into_heard_raw_sqlstrs()
@@ -1297,12 +1264,7 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    idea_config = get_idea_config_dict()
-    moment_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) in {"moment", "nabu"}
-    }
+    moment_dimens_config = get_filtered_idea_config({kw.moment, kw.nabu})
 
     # WHEN
     insert_h_raw_sqlstrs = get_insert_into_heard_raw_sqlstrs()

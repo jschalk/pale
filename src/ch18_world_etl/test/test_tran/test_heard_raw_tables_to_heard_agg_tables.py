@@ -2,7 +2,7 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_row_count, get_table_columns
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
-from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
+from src.ch17_idea.idea_config import get_default_sorted_list, get_filtered_idea_config
 from src.ch18_world_etl.tran_sqlstrs import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
@@ -28,12 +28,7 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentNabuDimen():
     print(f"       {nabu_agg_tablenames=}")
     assert moment_agg_tablenames.issubset(gen_heard_vld_tablenames)
     assert nabu_agg_tablenames.issubset(gen_heard_vld_tablenames)
-    idea_config = get_idea_config_dict()
-    idea_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) in {"moment", "nabu"}
-    }
+    idea_config = get_filtered_idea_config({kw.moment, kw.nabu})
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -72,12 +67,7 @@ GROUP BY {raw_columns_str}
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimensRequired():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    idea_config = get_idea_config_dict()
-    belief_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in idea_config.items()
-        if dimen_config.get(kw.idea_category) == "belief"
-    }
+    belief_dimens_config = get_filtered_idea_config({kw.belief})
 
     # WHEN
     insert_heard_vld_sqlstrs = get_insert_heard_vld_sqlstrs()
