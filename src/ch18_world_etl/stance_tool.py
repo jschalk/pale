@@ -18,7 +18,7 @@ from src.ch18_world_etl._ref.ch18_path import (
     create_stance0001_path,
     create_world_db_path,
 )
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstrs import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
 )

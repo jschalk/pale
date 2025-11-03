@@ -202,7 +202,7 @@
   }, 
   "moment_timeoffi": {
     "allowed_crud": "insert_multiple", 
-    "build_order": 8, 
+    "build_order": 22, 
     "idea_category": "moment", 
     "jkeys": {"face_name": {}, "moment_label": {}, "offi_time": {}, "spark_num": {}}, 
     "jvalues": {}
@@ -226,7 +226,7 @@
   }, 
   "nabu_epochtime": {
     "allowed_crud": "insert_one_time", 
-    "build_order": 2, 
+    "build_order": 4, 
     "idea_category": "nabu", 
     "jkeys": {"face_name": {}, "otx_time": {}, "spark_num": {}, "moment_label": {}}, 
     "jvalues": {"inx_time": {}}

@@ -24,7 +24,7 @@ def test_get_nabu_config_dict_ReturnsObj():
     # THEN
     assert nabu_config
     nabu_config_dimens = set(nabu_config.keys())
-    assert "nabu_epochtime" in nabu_config_dimens
+    assert kw.nabu_epochtime in nabu_config_dimens
     assert len(nabu_config) == 1
 
 
@@ -66,7 +66,7 @@ def test_get_nabu_dimens_ReturnsObj():
     nabu_config_dimens = get_nabu_dimens()
 
     # THEN
-    assert "nabu_epochtime" in nabu_config_dimens
+    assert kw.nabu_epochtime in nabu_config_dimens
     assert len(nabu_config_dimens) == 1
     gen_nabu_dimens = set(get_nabu_config_dict().keys())
     assert gen_nabu_dimens == get_nabu_dimens()

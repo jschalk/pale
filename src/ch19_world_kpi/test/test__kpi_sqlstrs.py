@@ -1,4 +1,4 @@
-from src.ch18_world_etl.tran_sqlstrs import create_prime_tablename
+from src.ch18_world_etl.etl_sqlstrs import create_prime_tablename
 from src.ch19_world_kpi.kpi_sqlstrs import (
     get_create_kpi001_sqlstr,
     get_create_kpi002_sqlstr,

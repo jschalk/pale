@@ -4,8 +4,8 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_row_count
 from src.ch01_py.file_toolbox import create_path
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table, upsert_sheet
-from src.ch18_world_etl.tran_sqlstrs import create_prime_tablename
-from src.ch18_world_etl.transformers import get_max_brick_agg_spark_num
+from src.ch18_world_etl.etl_main import get_max_brick_agg_spark_num
+from src.ch18_world_etl.etl_sqlstrs import create_prime_tablename
 from src.ch20_world_logic.test._util.ch20_env import (
     get_temp_dir as worlds_dir,
     temp_dir_setup,
@@ -81,11 +81,11 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         blfvoce_sound_put_raw = create_prime_tablename("blfvoce", "s", "raw", "put")
         blfvoce_sound_put_agg = create_prime_tablename("blfvoce", "s", "agg", "put")
         momentunit_heard_raw = create_prime_tablename("momentunit", "h", "raw")
-        momentunit_heard_agg = create_prime_tablename("momentunit", "h", "agg")
+        momentunit_heard_vld = create_prime_tablename("momentunit", "h", "vld")
         blfunit_heard_put_raw = create_prime_tablename("beliefunit", "h", "raw", "put")
-        blfunit_heard_put_agg = create_prime_tablename("beliefunit", "h", "agg", "put")
+        blfunit_heard_put_agg = create_prime_tablename("beliefunit", "h", "vld", "put")
         blfvoce_heard_put_raw = create_prime_tablename("blfvoce", "h", "raw", "put")
-        blfvoce_heard_put_agg = create_prime_tablename("blfvoce", "h", "agg", "put")
+        blfvoce_heard_put_agg = create_prime_tablename("blfvoce", "h", "vld", "put")
 
         cursor = db_conn.cursor()
         assert get_row_count(cursor, br00113_raw) == 1
@@ -108,7 +108,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         assert get_row_count(cursor, momentunit_heard_raw) == 1
         assert get_row_count(cursor, blfunit_heard_put_raw) == 1
         assert get_row_count(cursor, blfvoce_heard_put_raw) == 1
-        assert get_row_count(cursor, momentunit_heard_agg) == 1
+        assert get_row_count(cursor, momentunit_heard_vld) == 1
         assert get_row_count(cursor, blfunit_heard_put_agg) == 1
         assert get_row_count(cursor, blfvoce_heard_put_agg) == 1
         assert get_row_count(cursor, kw.moment_ote1_agg) == 1

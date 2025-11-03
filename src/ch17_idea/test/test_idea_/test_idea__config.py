@@ -30,6 +30,7 @@ from src.ch16_translate.translate_config import (
 from src.ch17_idea.idea_config import (
     get_allowed_curds,
     get_default_sorted_list,
+    get_filtered_idea_config,
     get_idea_config_dict,
     get_idea_dimen_ref,
     get_idea_elements_sort_order,
@@ -410,7 +411,7 @@ def test_idea_config_path_ReturnsObj_Idea() -> str:
     assert idea_config_path() == create_path(chapter_dir, "idea_config.json")
 
 
-def test_get_idea_config_dict_ReturnsObj_IsFullyPopulated():
+def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
     # ESTABLISH / WHEN
     x_idea_config = get_idea_config_dict()
 
@@ -434,7 +435,7 @@ def test_get_idea_config_dict_ReturnsObj_IsFullyPopulated():
     assert kw.belief_plan_reasonunit in idea_config_dimens
     assert kw.belief_planunit in idea_config_dimens
     assert kw.beliefunit in idea_config_dimens
-    assert "nabu_epochtime" in idea_config_dimens
+    assert kw.nabu_epochtime in idea_config_dimens
     assert kw.translate_name in idea_config_dimens
     assert kw.translate_title in idea_config_dimens
     assert kw.translate_label in idea_config_dimens
@@ -497,7 +498,7 @@ def _validate_idea_config(x_idea_config: dict):
             kw.moment_epoch_weekday,
             kw.momentunit,
             "map_otx2inx",
-            "nabu_epochtime",
+            kw.nabu_epochtime,
             kw.translate_title,
             kw.translate_name,
             kw.translate_label,
@@ -711,7 +712,7 @@ def set_idea_config_json(dimen: str, build_order: int):
     save_json(idea_config_path(), None, x_idea_config)
 
 
-def test_get_idea_config_dict_ReturnsObj_build_order():
+def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     # ESTABLISH / WHEN
     bo = kw.build_order
     # set_idea_config_json(kw.translate_name, 0)
@@ -742,6 +743,7 @@ def test_get_idea_config_dict_ReturnsObj_build_order():
     assert x_idea_config.get(kw.translate_title).get(bo) == 1
     assert x_idea_config.get(kw.translate_label).get(bo) == 2
     assert x_idea_config.get(kw.translate_rope).get(bo) == 3
+    assert x_idea_config.get(kw.nabu_epochtime).get(bo) == 4
     assert x_idea_config.get(kw.momentunit).get(bo) == 5
     assert x_idea_config.get(kw.moment_epoch_hour).get(bo) == 6
     assert x_idea_config.get(kw.moment_epoch_month).get(bo) == 7
@@ -758,6 +760,55 @@ def test_get_idea_config_dict_ReturnsObj_build_order():
     assert x_idea_config.get(kw.beliefunit).get(bo) == 19
     assert x_idea_config.get(kw.moment_budunit).get(bo) == 20
     assert x_idea_config.get(kw.moment_paybook).get(bo) == 21
+    assert x_idea_config.get(kw.moment_timeoffi).get(bo) == 22
+    builder_order_dict = {}
+    for dimen_key, dimen_dict in x_idea_config.items():
+        dimen_builder_order = dimen_dict.get(bo)
+        assert dimen_builder_order is not None
+        print(
+            f"{dimen_key:30} build order: {dimen_builder_order:2} {sorted(builder_order_dict.keys())=}"
+        )
+        assert not builder_order_dict.get(dimen_builder_order)
+        builder_order_dict[dimen_builder_order] = dimen_key
+    print(f"{sorted(builder_order_dict.keys())=}")
+
+
+def test_get_filtered_idea_config_ReturnsObj_Scenario0_Belief():
+    # ESTABLISH / WHEN
+    belief_idea_config = get_filtered_idea_config(kw.belief)
+
+    # THEN
+    assert not belief_idea_config.get(kw.translate_name)
+    assert not belief_idea_config.get(kw.translate_title)
+    assert not belief_idea_config.get(kw.translate_label)
+    assert not belief_idea_config.get(kw.translate_rope)
+    assert not belief_idea_config.get(kw.nabu_epochtime)
+    assert not belief_idea_config.get(kw.momentunit)
+    assert not belief_idea_config.get(kw.moment_epoch_hour)
+    assert not belief_idea_config.get(kw.moment_epoch_month)
+    assert not belief_idea_config.get(kw.moment_epoch_weekday)
+    assert belief_idea_config.get(kw.belief_voice_membership)
+    assert belief_idea_config.get(kw.belief_voiceunit)
+    assert belief_idea_config.get(kw.belief_plan_awardunit)
+    assert belief_idea_config.get(kw.belief_plan_factunit)
+    assert belief_idea_config.get(kw.belief_plan_partyunit)
+    assert belief_idea_config.get(kw.belief_plan_healerunit)
+    assert belief_idea_config.get(kw.belief_plan_reason_caseunit)
+    assert belief_idea_config.get(kw.belief_plan_reasonunit)
+    assert belief_idea_config.get(kw.belief_planunit)
+    assert belief_idea_config.get(kw.beliefunit)
+    assert not belief_idea_config.get(kw.moment_budunit)
+    assert not belief_idea_config.get(kw.moment_paybook)
+    assert not belief_idea_config.get(kw.moment_timeoffi)
+
+
+def test_get_filtered_idea_config_ReturnsObj_Scenario1_CountDimens():
+    # ESTABLISH / WHEN / THEN
+    assert len(get_filtered_idea_config(idea_categorys={kw.belief})) == 10
+    assert len(get_filtered_idea_config(idea_categorys={kw.moment})) == 7
+    assert len(get_filtered_idea_config(idea_categorys={kw.nabu})) == 1
+    assert len(get_filtered_idea_config(idea_categorys={kw.translate})) == 4
+    assert len(get_filtered_idea_config({kw.nabu, kw.translate})) == 5
 
 
 def test_get_quick_ideas_column_ref_ReturnsObj():
