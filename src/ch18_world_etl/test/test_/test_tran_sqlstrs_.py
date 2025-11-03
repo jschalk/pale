@@ -16,7 +16,7 @@ from src.ch17_idea.idea_db_tool import (
     get_default_sorted_list,
     get_idea_into_dimen_raw_query,
 )
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstrs import (
     ALL_DIMEN_ABBV7,
     CREATE_MOMENT_OTE1_AGG_SQLSTR,
     CREATE_MOMENT_VOICE_NETS_SQLSTR,

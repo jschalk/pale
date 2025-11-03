@@ -7,8 +7,8 @@ from src.ch09_belief_lesson._ref.ch09_path import (
     create_moment_json_path,
 )
 from src.ch14_moment.moment_main import momentunit_shop
+from src.ch18_world_etl.etl_main import etl_moment_guts_to_moment_jobs
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ch18_world_etl.transformers import etl_moment_guts_to_moment_jobs
 from src.ref.keywords import ExampleStrs as exx
 
 

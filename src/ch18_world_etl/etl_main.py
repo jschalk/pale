@@ -94,8 +94,7 @@ from src.ch18_world_etl._ref.ch18_path import (
 from src.ch18_world_etl._ref.ch18_semantic_types import FaceName, SparkInt
 from src.ch18_world_etl.db_obj_belief_tool import insert_job_obj
 from src.ch18_world_etl.db_obj_moment_tool import get_moment_dict_from_heard_tables
-from src.ch18_world_etl.idea_collector import IdeaFileRef, get_all_idea_dataframes
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstrs import (
     CREATE_MOMENT_OTE1_AGG_SQLSTR,
     CREATE_MOMENT_VOICE_NETS_SQLSTR,
     INSERT_MOMENT_OTE1_AGG_FROM_HEARD_SQLSTR,
@@ -123,6 +122,7 @@ from src.ch18_world_etl.tran_sqlstrs import (
     get_insert_into_sound_vld_sqlstrs,
     get_moment_belief_sound_agg_tablenames,
 )
+from src.ch18_world_etl.idea_collector import IdeaFileRef, get_all_idea_dataframes
 
 
 def etl_input_dfs_to_brick_raw_tables(cursor: sqlite3_Cursor, input_dir: str):

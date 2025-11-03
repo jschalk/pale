@@ -1,12 +1,12 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_main import set_moment_belief_sound_agg_knot_errors
+from src.ch18_world_etl.etl_sqlstrs import (
     CREATE_BLFVOCE_SOUND_PUT_AGG_STR,
     CREATE_TRLCORE_SOUND_VLD_SQLSTR,
     create_knot_exists_in_label_error_update_sqlstr,
     create_knot_exists_in_name_error_update_sqlstr,
     create_prime_tablename,
 )
-from src.ch18_world_etl.transformers import set_moment_belief_sound_agg_knot_errors
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 

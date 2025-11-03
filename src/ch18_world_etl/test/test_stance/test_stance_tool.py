@@ -19,15 +19,15 @@ from src.ch18_world_etl._ref.ch18_path import (
     create_stance0001_path,
     create_world_db_path,
 )
+from src.ch18_world_etl.etl_sqlstrs import (
+    create_prime_tablename as prime_tbl,
+    create_sound_and_heard_tables,
+)
 from src.ch18_world_etl.stance_tool import (
     collect_stance_csv_strs,
     create_stance0001_file,
 )
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ch18_world_etl.tran_sqlstrs import (
-    create_prime_tablename as prime_tbl,
-    create_sound_and_heard_tables,
-)
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 

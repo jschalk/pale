@@ -14,7 +14,7 @@ from src.ch18_world_etl.db_obj_belief_tool import (
     create_blfreas_metrics_insert_sqlstr,
     create_blfvoce_metrics_insert_sqlstr,
 )
-from src.ch18_world_etl.tran_sqlstrs import create_job_tables
+from src.ch18_world_etl.etl_sqlstrs import create_job_tables
 from src.ref.keywords import Ch18Keywords as kw
 
 

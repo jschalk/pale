@@ -1,15 +1,15 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_row_count, get_table_columns
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_main import (
+    etl_sound_raw_tables_to_sound_agg_tables,
+    insert_sound_raw_selects_into_sound_agg_tables,
+    set_sound_raw_tables_error_message,
+)
+from src.ch18_world_etl.etl_sqlstrs import (
     CREATE_TRLROPE_SOUND_RAW_SQLSTR,
     create_prime_tablename,
     create_sound_and_heard_tables,
     create_sound_raw_update_inconsist_error_message_sqlstr,
-)
-from src.ch18_world_etl.transformers import (
-    etl_sound_raw_tables_to_sound_agg_tables,
-    insert_sound_raw_selects_into_sound_agg_tables,
-    set_sound_raw_tables_error_message,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

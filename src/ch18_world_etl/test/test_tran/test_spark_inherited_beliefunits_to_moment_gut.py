@@ -3,10 +3,8 @@ from src.ch01_py.file_toolbox import create_path, open_json, save_json
 from src.ch07_belief_logic.belief_main import beliefunit_shop, get_beliefunit_from_dict
 from src.ch09_belief_lesson._ref.ch09_path import create_gut_path
 from src.ch11_bud._ref.ch11_path import create_belief_spark_dir_path
+from src.ch18_world_etl.etl_main import etl_spark_inherited_beliefunits_to_moment_gut
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ch18_world_etl.transformers import (
-    etl_spark_inherited_beliefunits_to_moment_gut,
-)
 from src.ref.keywords import ExampleStrs as exx
 
 # create test where spark create_belief_spark_dir_path()

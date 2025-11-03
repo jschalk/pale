@@ -1,12 +1,12 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_table_columns
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_main import set_all_heard_raw_inx_columns
+from src.ch18_world_etl.etl_sqlstrs import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
     create_update_heard_raw_empty_inx_col_sqlstr,
     create_update_heard_raw_existing_inx_col_sqlstr,
 )
-from src.ch18_world_etl.transformers import set_all_heard_raw_inx_columns
 from src.ref.keywords import Ch18Keywords as kw
 
 

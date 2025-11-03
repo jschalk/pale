@@ -6,8 +6,8 @@ from src.ch09_belief_lesson.lesson_filehandler import open_gut_file, save_gut_fi
 from src.ch13_epoch.epoch_main import epochunit_shop
 from src.ch13_epoch.test._util.ch13_examples import get_five_config
 from src.ch14_moment.moment_main import momentunit_shop
+from src.ch18_world_etl.etl_main import add_moment_epoch_to_guts
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ch18_world_etl.transformers import add_moment_epoch_to_guts
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 

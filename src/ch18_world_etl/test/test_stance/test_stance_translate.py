@@ -1,15 +1,15 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch17_idea.idea_csv_tool import create_init_stance_idea_csv_strs
+from src.ch18_world_etl.etl_sqlstrs import (
+    create_prime_tablename as prime_tbl,
+    create_sound_and_heard_tables,
+)
 from src.ch18_world_etl.stance_tool import (
     add_to_br00042_csv,
     add_to_br00043_csv,
     add_to_br00044_csv,
     add_to_br00045_csv,
     add_translate_rows_to_stance_csv_strs,
-)
-from src.ch18_world_etl.tran_sqlstrs import (
-    create_prime_tablename as prime_tbl,
-    create_sound_and_heard_tables,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

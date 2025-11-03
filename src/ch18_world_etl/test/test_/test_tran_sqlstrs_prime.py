@@ -21,7 +21,7 @@ from src.ch17_idea.idea_config import (
     get_idea_config_dict,
     get_idea_sqlite_types,
 )
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_sqlstrs import (
     create_insert_into_translate_core_raw_sqlstr,
     create_insert_missing_face_name_into_translate_core_vld_sqlstr,
     create_insert_translate_core_agg_into_vld_sqlstr,

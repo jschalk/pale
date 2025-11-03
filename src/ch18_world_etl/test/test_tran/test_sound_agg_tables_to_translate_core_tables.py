@@ -4,7 +4,18 @@ from src.ch16_translate.translate_main import (
     default_knot_if_None,
     default_unknown_str_if_None,
 )
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_main import (
+    etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
+    insert_translate_core_agg_to_translate_core_vld_table,
+    insert_translate_core_raw_to_translate_core_agg_table,
+    insert_translate_sound_agg_into_translate_core_raw_table,
+    insert_translate_sound_agg_tables_to_translate_sound_vld_table,
+    populate_translate_core_vld_with_missing_face_names,
+    update_inconsistency_translate_core_raw_table,
+    update_translate_sound_agg_inconsist_errors,
+    update_translate_sound_agg_knot_errors,
+)
+from src.ch18_world_etl.etl_sqlstrs import (
     CREATE_TRLCORE_SOUND_AGG_SQLSTR,
     CREATE_TRLCORE_SOUND_RAW_SQLSTR,
     CREATE_TRLCORE_SOUND_VLD_SQLSTR,
@@ -21,17 +32,6 @@ from src.ch18_world_etl.tran_sqlstrs import (
     create_update_trlname_sound_agg_knot_error_sqlstr,
     create_update_trlrope_sound_agg_knot_error_sqlstr,
     create_update_trltitl_sound_agg_knot_error_sqlstr,
-)
-from src.ch18_world_etl.transformers import (
-    etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
-    insert_translate_core_agg_to_translate_core_vld_table,
-    insert_translate_core_raw_to_translate_core_agg_table,
-    insert_translate_sound_agg_into_translate_core_raw_table,
-    insert_translate_sound_agg_tables_to_translate_sound_vld_table,
-    populate_translate_core_vld_with_missing_face_names,
-    update_inconsistency_translate_core_raw_table,
-    update_translate_sound_agg_inconsist_errors,
-    update_translate_sound_agg_knot_errors,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

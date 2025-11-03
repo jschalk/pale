@@ -2,12 +2,12 @@ from os.path import exists as os_path_exists
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.file_toolbox import create_path, open_file
 from src.ch11_bud._ref.ch11_path import create_belief_spark_dir_path
-from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ch18_world_etl.tran_sqlstrs import (
+from src.ch18_world_etl.etl_main import etl_heard_vld_to_spark_belief_csvs
+from src.ch18_world_etl.etl_sqlstrs import (
     create_prime_tablename,
     create_sound_and_heard_tables,
 )
-from src.ch18_world_etl.transformers import etl_heard_vld_to_spark_belief_csvs
+from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 

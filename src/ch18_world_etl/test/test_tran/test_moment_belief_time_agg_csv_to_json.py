@@ -4,8 +4,8 @@ from src.ch18_world_etl._ref.ch18_path import (
     create_moment_ote1_csv_path,
     create_moment_ote1_json_path,
 )
+from src.ch18_world_etl.etl_main import etl_moment_ote1_agg_csvs_to_jsons
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
-from src.ch18_world_etl.transformers import etl_moment_ote1_agg_csvs_to_jsons
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 

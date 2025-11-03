@@ -28,8 +28,8 @@ from src.ch18_world_etl.db_obj_belief_tool import (
     insert_job_blfvoce,
     insert_job_obj,
 )
+from src.ch18_world_etl.etl_sqlstrs import create_job_tables
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
-from src.ch18_world_etl.tran_sqlstrs import create_job_tables
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
