@@ -19,7 +19,6 @@ from src.ch17_idea.idea_config import (
     get_default_sorted_list,
     get_filtered_idea_config,
     get_idea_config_dict,
-    get_idea_sqlite_types,
 )
 from src.ch18_world_etl.etl_sqlstr import (
     create_insert_into_translate_core_raw_sqlstr,
@@ -37,20 +36,11 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_prime_create_table_sqlstrs,
 )
 from src.ch18_world_etl.etl_table import (
-    create_belief_heard_del_agg_table_sqlstr,
-    create_belief_heard_del_raw_table_sqlstr,
-    create_belief_heard_put_agg_table_sqlstr,
-    create_belief_heard_put_raw_table_sqlstr,
-    create_belief_sound_del_agg_table_sqlstr,
-    create_belief_sound_del_raw_table_sqlstr,
-    create_belief_sound_del_vld_table_sqlstr,
-    create_belief_sound_put_agg_table_sqlstr,
-    create_belief_sound_put_raw_table_sqlstr,
-    create_belief_sound_put_vld_table_sqlstr,
     create_moment_heard_raw_table_sqlstr,
     create_moment_heard_vld_table_sqlstr,
     create_moment_sound_agg_table_sqlstr,
     create_moment_sound_vld_table_sqlstr,
+    create_prime_table_sqlstr,
     create_translate_core_agg_table_sqlstr,
     create_translate_core_raw_table_sqlstr,
     create_translate_core_vld_table_sqlstr,
@@ -178,16 +168,16 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckBeliefDimens():
         h_del_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw", "del")
         h_del_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "vld", "del")
 
-        expected_s_put_raw_sqlstr = create_belief_sound_put_raw_table_sqlstr(x_dimen)
-        expected_s_put_agg_sqlstr = create_belief_sound_put_agg_table_sqlstr(x_dimen)
-        expected_s_put_vld_sqlstr = create_belief_sound_put_vld_table_sqlstr(x_dimen)
-        expected_s_del_raw_sqlstr = create_belief_sound_del_raw_table_sqlstr(x_dimen)
-        expected_s_del_agg_sqlstr = create_belief_sound_del_agg_table_sqlstr(x_dimen)
-        expected_s_del_vld_sqlstr = create_belief_sound_del_vld_table_sqlstr(x_dimen)
-        expected_h_put_raw_sqlstr = create_belief_heard_put_raw_table_sqlstr(x_dimen)
-        expected_h_put_vld_sqlstr = create_belief_heard_put_agg_table_sqlstr(x_dimen)
-        expected_h_del_raw_sqlstr = create_belief_heard_del_raw_table_sqlstr(x_dimen)
-        expected_h_del_vld_sqlstr = create_belief_heard_del_agg_table_sqlstr(x_dimen)
+        expected_s_put_raw_sql = create_prime_table_sqlstr(x_dimen, "s", "raw", "put")
+        expected_s_put_agg_sql = create_prime_table_sqlstr(x_dimen, "s", "agg", "put")
+        expected_s_put_vld_sql = create_prime_table_sqlstr(x_dimen, "s", "vld", "put")
+        expected_s_del_raw_sql = create_prime_table_sqlstr(x_dimen, "s", "raw", "del")
+        expected_s_del_agg_sql = create_prime_table_sqlstr(x_dimen, "s", "agg", "del")
+        expected_s_del_vld_sql = create_prime_table_sqlstr(x_dimen, "s", "vld", "del")
+        expected_h_put_raw_sql = create_prime_table_sqlstr(x_dimen, "h", "raw", "put")
+        expected_h_put_vld_sql = create_prime_table_sqlstr(x_dimen, "h", "vld", "put")
+        expected_h_del_raw_sql = create_prime_table_sqlstr(x_dimen, "h", "raw", "del")
+        expected_h_del_vld_sql = create_prime_table_sqlstr(x_dimen, "h", "vld", "del")
         abbv7 = get_dimen_abbv7(x_dimen)
         # print(f"{x_dimen=} {abbv7=}")
         print("")
@@ -200,7 +190,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckBeliefDimens():
         # print(f'CREATE_{abbv7}_HEARD_PUT_RAW_STR= "{expected_h_put_raw_sqlstr}"')
         # print(f'CREATE_{abbv7}_HEARD_PUT_AGG_STR= "{expected_h_put_vld_sqlstr}"')
         # print(f'CREATE_{abbv7}_HEARD_DEL_RAW_STR= "{expected_h_del_raw_sqlstr}"')
-        # print(f'CREATE_{abbv7}_HEARD_DEL_AGG_STR= "{expected_h_del_vld_sqlstr}"')
+        # print(f'CREATE_{abbv7}_HEARD_DEL_VLD_STR= "{expected_h_del_vld_sqlstr}"')
 
         print(f'"{s_put_raw_tablename}": CREATE_{abbv7}_SOUND_PUT_RAW_STR,')
         print(f'"{s_put_agg_tablename}": CREATE_{abbv7}_SOUND_PUT_AGG_STR,')
@@ -211,17 +201,17 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckBeliefDimens():
         print(f'"{h_put_raw_tablename}": CREATE_{abbv7}_HEARD_PUT_RAW_STR,')
         print(f'"{h_put_vld_tablename}": CREATE_{abbv7}_HEARD_PUT_AGG_STR,')
         print(f'"{h_del_raw_tablename}": CREATE_{abbv7}_HEARD_DEL_RAW_STR,')
-        print(f'"{h_del_vld_tablename}": CREATE_{abbv7}_HEARD_DEL_AGG_STR,')
-        assert expected_s_put_raw_sqlstr == sqlstrs.get(s_put_raw_tablename)
-        assert expected_s_put_agg_sqlstr == sqlstrs.get(s_put_agg_tablename)
-        assert expected_s_put_vld_sqlstr == sqlstrs.get(s_put_vld_tablename)
-        assert expected_s_del_raw_sqlstr == sqlstrs.get(s_del_raw_tablename)
-        assert expected_s_del_agg_sqlstr == sqlstrs.get(s_del_agg_tablename)
-        assert expected_s_del_vld_sqlstr == sqlstrs.get(s_del_vld_tablename)
-        assert expected_h_put_raw_sqlstr == sqlstrs.get(h_put_raw_tablename)
-        assert expected_h_put_vld_sqlstr == sqlstrs.get(h_put_vld_tablename)
-        assert expected_h_del_raw_sqlstr == sqlstrs.get(h_del_raw_tablename)
-        assert expected_h_del_vld_sqlstr == sqlstrs.get(h_del_vld_tablename)
+        print(f'"{h_del_vld_tablename}": CREATE_{abbv7}_HEARD_DEL_VLD_STR,')
+        assert expected_s_put_raw_sql == sqlstrs.get(s_put_raw_tablename)
+        assert expected_s_put_agg_sql == sqlstrs.get(s_put_agg_tablename)
+        assert expected_s_put_vld_sql == sqlstrs.get(s_put_vld_tablename)
+        assert expected_s_del_raw_sql == sqlstrs.get(s_del_raw_tablename)
+        assert expected_s_del_agg_sql == sqlstrs.get(s_del_agg_tablename)
+        assert expected_s_del_vld_sql == sqlstrs.get(s_del_vld_tablename)
+        assert expected_h_put_raw_sql == sqlstrs.get(h_put_raw_tablename)
+        assert expected_h_put_vld_sql == sqlstrs.get(h_put_vld_tablename)
+        assert expected_h_del_raw_sql == sqlstrs.get(h_del_raw_tablename)
+        assert expected_h_del_vld_sql == sqlstrs.get(h_del_vld_tablename)
 
 
 def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckNabuDimens():

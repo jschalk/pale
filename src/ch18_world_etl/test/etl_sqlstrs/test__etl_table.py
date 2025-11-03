@@ -18,16 +18,6 @@ from src.ch17_idea.idea_db_tool import (
 )
 from src.ch18_world_etl.etl_table import (
     ALL_DIMEN_ABBV7,
-    create_belief_heard_del_agg_table_sqlstr,
-    create_belief_heard_del_raw_table_sqlstr,
-    create_belief_heard_put_agg_table_sqlstr,
-    create_belief_heard_put_raw_table_sqlstr,
-    create_belief_sound_del_agg_table_sqlstr,
-    create_belief_sound_del_raw_table_sqlstr,
-    create_belief_sound_del_vld_table_sqlstr,
-    create_belief_sound_put_agg_table_sqlstr,
-    create_belief_sound_put_raw_table_sqlstr,
-    create_belief_sound_put_vld_table_sqlstr,
     create_moment_heard_raw_table_sqlstr,
     create_moment_heard_vld_table_sqlstr,
     create_moment_sound_agg_table_sqlstr,
@@ -192,13 +182,4 @@ def test_get_all_dimen_columns_set_ReturnsObj_Scenario1_translate_core_Dimens():
 # def create_moment_sound_vld_table_sqlstr(x_dimen):
 # def create_moment_heard_raw_table_sqlstr(x_dimen):
 # def create_moment_heard_vld_table_sqlstr(x_dimen: str):
-# def create_belief_sound_put_raw_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_sound_put_agg_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_sound_put_vld_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_sound_del_raw_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_sound_del_agg_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_sound_del_vld_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_heard_put_raw_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_heard_put_agg_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_heard_del_raw_table_sqlstr(x_dimen: str) -> str:
-# def create_belief_heard_del_agg_table_sqlstr(x_dimen: str) -> str:
+# def create_prime_table_sqlstr(x_dimen: str) -> str:
