@@ -410,7 +410,7 @@ def test_idea_config_path_ReturnsObj_Idea() -> str:
     assert idea_config_path() == create_path(chapter_dir, "idea_config.json")
 
 
-def test_get_idea_config_dict_ReturnsObj_IsFullyPopulated():
+def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
     # ESTABLISH / WHEN
     x_idea_config = get_idea_config_dict()
 
@@ -434,7 +434,7 @@ def test_get_idea_config_dict_ReturnsObj_IsFullyPopulated():
     assert kw.belief_plan_reasonunit in idea_config_dimens
     assert kw.belief_planunit in idea_config_dimens
     assert kw.beliefunit in idea_config_dimens
-    assert "nabu_epochtime" in idea_config_dimens
+    assert kw.nabu_epochtime in idea_config_dimens
     assert kw.translate_name in idea_config_dimens
     assert kw.translate_title in idea_config_dimens
     assert kw.translate_label in idea_config_dimens
@@ -497,7 +497,7 @@ def _validate_idea_config(x_idea_config: dict):
             kw.moment_epoch_weekday,
             kw.momentunit,
             "map_otx2inx",
-            "nabu_epochtime",
+            kw.nabu_epochtime,
             kw.translate_title,
             kw.translate_name,
             kw.translate_label,
@@ -711,7 +711,7 @@ def set_idea_config_json(dimen: str, build_order: int):
     save_json(idea_config_path(), None, x_idea_config)
 
 
-def test_get_idea_config_dict_ReturnsObj_build_order():
+def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     # ESTABLISH / WHEN
     bo = kw.build_order
     # set_idea_config_json(kw.translate_name, 0)
@@ -742,6 +742,7 @@ def test_get_idea_config_dict_ReturnsObj_build_order():
     assert x_idea_config.get(kw.translate_title).get(bo) == 1
     assert x_idea_config.get(kw.translate_label).get(bo) == 2
     assert x_idea_config.get(kw.translate_rope).get(bo) == 3
+    assert x_idea_config.get(kw.nabu_epochtime).get(bo) == 4
     assert x_idea_config.get(kw.momentunit).get(bo) == 5
     assert x_idea_config.get(kw.moment_epoch_hour).get(bo) == 6
     assert x_idea_config.get(kw.moment_epoch_month).get(bo) == 7
@@ -758,6 +759,17 @@ def test_get_idea_config_dict_ReturnsObj_build_order():
     assert x_idea_config.get(kw.beliefunit).get(bo) == 19
     assert x_idea_config.get(kw.moment_budunit).get(bo) == 20
     assert x_idea_config.get(kw.moment_paybook).get(bo) == 21
+    assert x_idea_config.get(kw.moment_timeoffi).get(bo) == 22
+    builder_order_dict = {}
+    for dimen_key, dimen_dict in x_idea_config.items():
+        dimen_builder_order = dimen_dict.get(bo)
+        assert dimen_builder_order is not None
+        print(
+            f"{dimen_key:30} build order: {dimen_builder_order:2} {sorted(builder_order_dict.keys())=}"
+        )
+        assert not builder_order_dict.get(dimen_builder_order)
+        builder_order_dict[dimen_builder_order] = dimen_key
+    print(f"{sorted(builder_order_dict.keys())=}")
 
 
 def test_get_quick_ideas_column_ref_ReturnsObj():

@@ -722,7 +722,7 @@ WHERE inconsistency_rows.moment_label = moment_epoch_hour_s_raw.moment_label
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario2_NabuDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = "nabu_epochtime"
+    dimen = kw.nabu_epochtime
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -904,7 +904,7 @@ GROUP BY spark_num, face_name, moment_label, cumulative_minute
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = "nabu_epochtime"
+    dimen = kw.nabu_epochtime
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
