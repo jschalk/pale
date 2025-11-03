@@ -16,7 +16,23 @@ from src.ch17_idea.idea_db_tool import (
     get_default_sorted_list,
     get_idea_into_dimen_raw_query,
 )
-from src.ch18_world_etl.etl_table import ALL_DIMEN_ABBV7, create_prime_tablename
+from src.ch18_world_etl.etl_table import (
+    ALL_DIMEN_ABBV7,
+    create_moment_heard_raw_table_sqlstr,
+    create_moment_heard_vld_table_sqlstr,
+    create_moment_sound_agg_table_sqlstr,
+    create_moment_sound_vld_table_sqlstr,
+    create_prime_tablename,
+    create_translate_core_agg_table_sqlstr,
+    create_translate_core_raw_table_sqlstr,
+    create_translate_core_vld_table_sqlstr,
+    create_translate_sound_agg_table_sqlstr,
+    create_translate_sound_raw_table_sqlstr,
+    create_translate_sound_vld_table_sqlstr,
+    get_all_dimen_columns_set,
+    get_del_dimen_columns_set,
+    get_dimen_abbv7,
+)
 from src.ref.keywords import Ch18Keywords as kw
 
 
@@ -67,7 +83,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     blfawar_s_agg_table = create_prime_tablename("blfawar", "s", agg_str, put_str)
     blfreas_s_agg_table = create_prime_tablename("blfreas", "s", agg_str, put_str)
     blfcase_s_agg_table = create_prime_tablename("blfcase", "s", agg_str, put_str)
-    blflabo_s_agg_table = create_prime_tablename("BLFLABO", "s", agg_str, put_str)
+    blflabo_s_agg_table = create_prime_tablename("blflabo", "s", agg_str, put_str)
     blfheal_s_agg_table = create_prime_tablename("blfheal", "s", agg_str, put_str)
     blffact_s_agg_table = create_prime_tablename("blffact", "s", agg_str, put_str)
     blffact_s_del_table = create_prime_tablename("blffact", "s", agg_str, del_str)
@@ -124,3 +140,46 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert blfvoce_job_table == f"{blfvoce_dimen}_job"
     assert blfgrou_job_table == f"{blfgrou_dimen}_job"
     assert x_blfvoce_raw == "belief_voiceunit_raw"
+
+
+def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():
+    # ESTABLISH
+    for x_dimen in get_idea_config_dict().keys():
+        # WHEN
+        dimen_columns = get_all_dimen_columns_set(x_dimen)
+
+        # THEN
+        dimen_idea_config = get_idea_config_dict().get(x_dimen)
+        expected_columns = set(dimen_idea_config.get(kw.jkeys).keys())
+        expected_columns.update(set(dimen_idea_config.get(kw.jvalues).keys()))
+        assert dimen_columns == expected_columns
+
+
+def test_get_all_dimen_columns_set_ReturnsObj_Scenario1_translate_core_Dimens():
+    # ESTABLISH / WHEN
+    translate_core_columns = get_all_dimen_columns_set(kw.translate_core)
+
+    # THEN
+    expected_columns = {
+        kw.spark_num,
+        kw.face_name,
+        kw.otx_knot,
+        kw.inx_knot,
+        kw.unknown_str,
+    }
+    assert translate_core_columns == expected_columns
+
+
+# TODO create tests for these functions
+# def get_del_dimen_columns_set(x_dimen: str) -> list[str]:
+# def create_translate_sound_raw_table_sqlstr(x_dimen):
+# def create_translate_sound_agg_table_sqlstr(x_dimen):
+# def create_translate_sound_vld_table_sqlstr(x_dimen):
+# def create_translate_core_raw_table_sqlstr(x_dimen):
+# def create_translate_core_agg_table_sqlstr(x_dimen):
+# def create_translate_core_vld_table_sqlstr(x_dimen):
+# def create_moment_sound_agg_table_sqlstr(x_dimen):
+# def create_moment_sound_vld_table_sqlstr(x_dimen):
+# def create_moment_heard_raw_table_sqlstr(x_dimen):
+# def create_moment_heard_vld_table_sqlstr(x_dimen: str):
+# def create_prime_table_sqlstr(x_dimen: str) -> str:

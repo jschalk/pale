@@ -60,7 +60,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         blfreas_job_table = prime_table("blfreas", kw.job, None)
         blflabo_job_table = prime_table("blflabo", kw.job, None)
         blfplan_job_table = prime_table("blfplan", kw.job, None)
-        blfunit_job_table = prime_table("beliefunit", kw.job, None)
+        blfunit_job_table = prime_table("blfunit", kw.job, None)
         assert not db_table_exists(cursor, blfunit_job_table)
         assert not db_table_exists(cursor, blfplan_job_table)
         assert not db_table_exists(cursor, blfvoce_job_table)

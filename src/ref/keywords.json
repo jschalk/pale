@@ -173,7 +173,6 @@
   "duration": {"init_chapter": "ch13"}, 
   "epoch": {"init_chapter": "ch11"}, 
   "epoch_label": {"init_chapter": "ch13"}, 
-  "nabu_epochtime": {"init_chapter": "ch15"}, 
   "epoch_length": {
     "init_chapter": "ch13", 
     "note": "Total number of minutes in a Epoch. Calculated by number of minutes in C400_leap times Epoch's c400_number"
@@ -224,8 +223,8 @@
   "healer_name": {"init_chapter": "ch06"}, 
   "healerunit": {"init_chapter": "ch06"}, 
   "healerunit_ratio": {"init_chapter": "ch06"}, 
-  "heard_vld": {"init_chapter": "ch18"}, 
   "heard_raw": {"init_chapter": "ch18"}, 
+  "heard_vld": {"init_chapter": "ch18"}, 
   "hour": {"init_chapter": "ch13"}, 
   "hour_label": {"init_chapter": "ch14"}, 
   "hours_config": {"init_chapter": "ch13"}, 
@@ -297,6 +296,7 @@
   "months_config": {"init_chapter": "ch13"}, 
   "morph": {"init_chapter": "ch06"}, 
   "nabu": {"init_chapter": "ch15"}, 
+  "nabu_epochtime": {"init_chapter": "ch15"}, 
   "namemap": {"init_chapter": "ch16"}, 
   "need_bill_amount": {"init_chapter": "ch12"}, 
   "need_dues": {"init_chapter": "ch12"}, 
