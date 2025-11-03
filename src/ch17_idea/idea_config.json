@@ -228,7 +228,7 @@
     "allowed_crud": "insert_one_time", 
     "build_order": 4, 
     "idea_category": "nabu", 
-    "jkeys": {"face_name": {}, "otx_time": {}, "spark_num": {}, "moment_label": {}}, 
+    "jkeys": {"face_name": {}, "moment_label": {}, "otx_time": {}, "spark_num": {}}, 
     "jvalues": {"inx_time": {}}
   }, 
   "translate_label": {

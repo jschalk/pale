@@ -93,7 +93,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     blfawar_s_agg_table = create_prime_tablename("blfawar", "s", agg_str, put_str)
     blfreas_s_agg_table = create_prime_tablename("blfreas", "s", agg_str, put_str)
     blfcase_s_agg_table = create_prime_tablename("blfcase", "s", agg_str, put_str)
-    blflabo_s_agg_table = create_prime_tablename("BLFLABO", "s", agg_str, put_str)
+    blflabo_s_agg_table = create_prime_tablename("blflabo", "s", agg_str, put_str)
     blfheal_s_agg_table = create_prime_tablename("blfheal", "s", agg_str, put_str)
     blffact_s_agg_table = create_prime_tablename("blffact", "s", agg_str, put_str)
     blffact_s_del_table = create_prime_tablename("blffact", "s", agg_str, del_str)
@@ -184,12 +184,12 @@ def test_get_all_dimen_columns_set_ReturnsObj_Scenario1_translate_core_Dimens():
 # def get_del_dimen_columns_set(x_dimen: str) -> list[str]:
 # def create_translate_sound_raw_table_sqlstr(x_dimen):
 # def create_translate_sound_agg_table_sqlstr(x_dimen):
-# def create_moment_sound_agg_table_sqlstr(x_dimen):
-# def create_moment_sound_vld_table_sqlstr(x_dimen):
 # def create_translate_sound_vld_table_sqlstr(x_dimen):
 # def create_translate_core_raw_table_sqlstr(x_dimen):
 # def create_translate_core_agg_table_sqlstr(x_dimen):
 # def create_translate_core_vld_table_sqlstr(x_dimen):
+# def create_moment_sound_agg_table_sqlstr(x_dimen):
+# def create_moment_sound_vld_table_sqlstr(x_dimen):
 # def create_moment_heard_raw_table_sqlstr(x_dimen):
 # def create_moment_heard_vld_table_sqlstr(x_dimen: str):
 # def create_belief_sound_put_raw_table_sqlstr(x_dimen: str) -> str:

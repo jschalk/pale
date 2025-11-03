@@ -1,16 +1,16 @@
 {
   "nabu_epochtime": {
-    "jkeys": {"otx_time": {}, "moment_label": {}}, 
-    "jvalues": {"inx_time": {}},
     "epochtime_update": {
-      "intermediary_values": {"epoch_length": {}},
-      "updated_attrs": {"bud_time": {}, "offi_time": {}, "tran_time": {}},
-      "note": "otx_time is the only required input, inx_time and moment_label can be provided. moment_label is used to provide epoch_length and then modular math calculates changes to all updated_attrs"
+      "intermediary_values": {"epoch_length": {}}, 
+      "note": "otx_time is the only required input, inx_time and moment_label can be provided. moment_label is used to provide epoch_length and then modular math calculates changes to all updated_attrs", 
+      "updated_attrs": {"bud_time": {}, "offi_time": {}, "tran_time": {}}
     }, 
+    "jkeys": {"moment_label": {}, "otx_time": {}}, 
+    "jvalues": {"inx_time": {}}, 
     "nabu_epoch_context": {
-      "intermediary attrs": {"reason_lower": {}},
-      "updated_attrs": {"reason_lower": {}, "reason_upper": {}, "fact_lower": {}, "fact_upper": {}},
-      "note": "otx_time is the only required input, inx_time and moment_label can be provided. "
+      "intermediary attrs": {"reason_lower": {}}, 
+      "note": "otx_time is the only required input, inx_time and moment_label can be provided. ", 
+      "updated_attrs": {"fact_lower": {}, "fact_upper": {}, "reason_lower": {}, "reason_upper": {}}
     }
   }
 }
