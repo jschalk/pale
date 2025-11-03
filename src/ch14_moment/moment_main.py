@@ -83,7 +83,6 @@ class MomentUnit:
     """
 
     # TODO extraction pipelines into standalone functions
-
     moment_label: MomentLabel = None
     moment_mstr_dir: str = None
     epoch: EpochUnit = None
@@ -217,6 +216,18 @@ class MomentUnit:
         x_beliefbudhistory = self.get_beliefbudhistory(belief_name)
         x_beliefbudhistory.add_bud(bud_time, quota, celldepth)
 
+    def bud_quota_exists(
+        self,
+        belief_name: BeliefName,
+        bud_time: EpochTime,
+        quota: int,
+    ) -> bool:
+        beliefbudhistory = self.get_beliefbudhistory(belief_name)
+        if not beliefbudhistory:
+            return False
+        budunit = beliefbudhistory.get_bud(bud_time)
+        return budunit.quota == quota if budunit else False
+
     def get_budunit(self, belief_name: BeliefName, bud_time: EpochTime) -> BudUnit:
         if not self.get_beliefbudhistory(belief_name):
             return None
@@ -292,6 +303,9 @@ class MomentUnit:
         self, src: BeliefName, dst: VoiceName, x_tran_time: EpochTime
     ) -> TranUnit:
         return self.paybook.del_tranunit(src, dst, x_tran_time)
+
+    def clear_paypurchases(self):
+        self.paybook = tranbook_shop(self.moment_label)
 
     # def set_offi_time(self, offi_time: EpochTime):
     #     self.offi_time = offi_time

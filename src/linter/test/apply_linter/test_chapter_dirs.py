@@ -14,25 +14,13 @@ from src.ch98_docs_builder.doc_builder import (
 from src.linter.style import (
     check_if_chapter_keywords_by_chapter_is_sorted,
     check_keywords_by_chapter_are_not_duplicated,
+    env_file_has_required_elements,
     get_chapter_descs,
     get_func_names_and_class_bases_from_file,
     get_imports_from_file,
     get_python_files_with_flag,
     get_semantic_types_filename,
 )
-
-
-def check_env_file_has_necessary_elements(
-    env_filename: str, chapter_prefix: str, chapter_number: int
-):
-    # print(f"{env_files=}")
-    # print(f"{env_filename=}")
-    assert env_filename.endswith(f"{chapter_prefix}_env.py")
-    file_funcs, class_bases = get_func_names_and_class_bases_from_file(env_filename)
-    assertion_fail_str = f"{chapter_number=} {file_funcs}"
-    env_functions = set(file_funcs)
-    assert "temp_dir_setup" in env_functions, assertion_fail_str
-    assert "get_temp_dir" in env_functions, assertion_fail_str
 
 
 def path_contains_subpath(full_path: str, sub_path: str):
@@ -142,6 +130,23 @@ def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter():
         chapter_ref_ch_int = chapter_ref_dict.get(chapter_number_str)
         assertion_fail_str = f"{chapter_desc} expecting key {chapter_number_str} with value {chapter_desc_ch_int}"
         assert chapter_ref_ch_int == chapter_desc_ch_int, assertion_fail_str
+
+
+def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter():
+    """
+    Test that all chapter temp_dir librarys are uniform and meet requirements.
+    """
+    # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
+    # ESTABLISH / WHEN / THEN
+    for chapter_desc, chapter_dir in get_chapter_descs().items():
+        # check chapter env file
+        chapter_desc_prefix = get_chapter_desc_prefix(chapter_desc)
+        test_dir = create_path(chapter_dir, "test")
+        util_dir = create_path(test_dir, "_util")
+        chapter_env_path = create_path(util_dir, f"{chapter_desc_prefix}_env.py")
+        if os_path_exists(chapter_env_path):
+            print(f"{chapter_env_path=}")
+            assert env_file_has_required_elements(chapter_env_path)
 
 
 def test_Chapters_DoNotHaveEmptyDirectories():

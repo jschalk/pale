@@ -8,8 +8,8 @@ from src.ref.keywords import Ch19Keywords as kw
 
 def test_get_create_kpi001_sqlstr_ReturnsObj():
     # ESTABLISH
-    blrplan_str = kw.belief_planunit
-    blrplan_job = create_prime_tablename(blrplan_str, "job", None)
+    blfplan_str = kw.belief_planunit
+    blfplan_job = create_prime_tablename(blfplan_str, "job", None)
 
     # WHEN
     kpi001_sqlstr = get_create_kpi001_sqlstr()
@@ -22,11 +22,11 @@ SELECT
 , {kw.moment_voice_nets}.{kw.belief_name}
 , {kw.belief_net_amount} AS {kw.bnet_funds}
 , RANK() OVER (ORDER BY {kw.belief_net_amount} DESC) AS {kw.fund_rank}
-, IFNULL(SUM({blrplan_job}.{kw.pledge}), 0) AS {kw.pledges_count}
+, IFNULL(SUM({blfplan_job}.{kw.pledge}), 0) AS {kw.pledges_count}
 FROM {kw.moment_voice_nets}
-LEFT JOIN {blrplan_job} ON
-  {blrplan_job}.{kw.moment_label} = {kw.moment_voice_nets}.{kw.moment_label}
-  AND {blrplan_job}.{kw.belief_name} = {kw.moment_voice_nets}.{kw.belief_name}
+LEFT JOIN {blfplan_job} ON
+  {blfplan_job}.{kw.moment_label} = {kw.moment_voice_nets}.{kw.moment_label}
+  AND {blfplan_job}.{kw.belief_name} = {kw.moment_voice_nets}.{kw.belief_name}
 GROUP BY {kw.moment_voice_nets}.{kw.moment_label}, {kw.moment_voice_nets}.{kw.belief_name}
 ;
 """
@@ -35,8 +35,8 @@ GROUP BY {kw.moment_voice_nets}.{kw.moment_label}, {kw.moment_voice_nets}.{kw.be
 
 def test_get_create_kpi002_sqlstr_ReturnsObj():
     # ESTABLISH
-    blrplan_str = kw.belief_planunit
-    blrplan_job = create_prime_tablename(blrplan_str, "job", None)
+    blfplan_str = kw.belief_planunit
+    blfplan_job = create_prime_tablename(blfplan_str, "job", None)
 
     # WHEN
     kpi002_sqlstr = get_create_kpi002_sqlstr()
@@ -51,7 +51,7 @@ SELECT
 , {kw.pledge}
 , {kw.plan_active}
 , {kw.task}
-FROM {blrplan_job}
+FROM {blfplan_job}
 WHERE {kw.pledge} == 1 AND {kw.plan_active} == 1
 ;
 """

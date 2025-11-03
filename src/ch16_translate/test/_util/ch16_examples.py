@@ -11,7 +11,7 @@ from src.ch16_translate.map_term import (
     titlemap_shop,
 )
 from src.ch16_translate.translate_config import default_unknown_str_if_None
-from src.ch16_translate.translate_term import TranslateUnit, translateunit_shop
+from src.ch16_translate.translate_main import TranslateUnit, translateunit_shop
 from src.ref.keywords import Ch16Keywords as kw, ExampleStrs as exx
 
 
@@ -186,18 +186,6 @@ def get_casa_maison_translateunit_set_by_label() -> TranslateUnit:
     return sue_translateunit
 
 
-# def get_casa_maison_translateunit_set_by_epoch() -> TranslateUnit:
-#     spark7 = 7
-#     sue13_otx_epoch_length = 113
-#     sue13_inx_epoch_diff = 17
-#     sue23_otx_epoch_length = 123
-#     sue23_inx_epoch_diff = 31
-#     sue_translateunit = translateunit_shop(exx.sue, spark7)
-#     sue_translateunit.set_epoch(sue13_otx_epoch_length, sue13_inx_epoch_diff)
-#     sue_translateunit.set_epoch(sue23_otx_epoch_length, sue23_inx_epoch_diff)
-#     return sue_translateunit
-
-
 def get_casa_maison_rope_otx_dt() -> DataFrame:
     otx_amy45_str = "amy45"
     otx_amy45_rope = to_rope(otx_amy45_str)
@@ -290,20 +278,6 @@ def get_casa_maison_label_dt() -> DataFrame:
     inx_dt.loc[1] = ["Sue", e7, x_rd, x_rd, uw, casa_otx_str, casa_inx_str]
     inx_dt.loc[2] = ["Sue", e7, x_rd, x_rd, uw, clean_otx_str, clean_inx_str]
     return inx_dt
-
-
-def get_casa_maison_epoch_dt() -> DataFrame:
-    spark7 = 7
-    sue13_otx_epoch_length = 113
-    sue13_inx_epoch_diff = 17
-    sue23_otx_epoch_length = 123
-    sue23_inx_epoch_diff = 31
-
-    x_columns = [kw.face_name, kw.spark_num, kw.otx_epoch_length, kw.inx_epoch_diff]
-    x_dt = DataFrame(columns=x_columns)
-    x_dt.loc[0] = [exx.sue, spark7, sue13_otx_epoch_length, sue13_inx_epoch_diff]
-    x_dt.loc[1] = [exx.sue, spark7, sue23_otx_epoch_length, sue23_inx_epoch_diff]
-    return x_dt
 
 
 def get_invalid_namemap() -> NameMap:

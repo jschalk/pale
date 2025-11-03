@@ -28,6 +28,7 @@ from src.ch01_py.dict_toolbox import (
     get_str_in_all_sub_dict,
     get_str_in_sub_dict,
     is_2d_with_unique_keys,
+    modular_addition,
     set_in_nested_dict,
     set_modular_dict_values,
     str_in_all_dict,
@@ -999,6 +1000,15 @@ def test_change_nested_key_Scenario4():
 
     # THEN Should not raise error, but should not modify
     assert result == original
+
+
+def test_modular_addition_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert modular_addition(x_int=1000, y_int=500, modulus=1440) == 60
+    assert modular_addition(1000, 500, 1440) == 60
+    assert modular_addition(1000, 1200, 1200) == 1000
+    assert modular_addition(1000, 200, 1200) == 0
+    assert modular_addition(1000, -2000, 1200) == 200
 
 
 def test_set_modular_dict_values_ReturnsObj():

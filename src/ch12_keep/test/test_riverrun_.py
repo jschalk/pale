@@ -1,7 +1,7 @@
 from src.ch02_allot.allot import default_grain_num_if_None, validate_pool_num
 from src.ch12_keep._ref.ch12_semantic_types import default_knot_if_None
 from src.ch12_keep.riverrun import RiverRun, riverrun_shop
-from src.ch12_keep.test._util.ch12_env import get_temp_dir, temp_moment_label
+from src.ch12_keep.test._util.ch12_env import get_temp_dir
 from src.ch12_keep.test._util.ch12_examples import (
     example_yao_bob_zia_need_dues,
     example_yao_bob_zia_patientledgers,

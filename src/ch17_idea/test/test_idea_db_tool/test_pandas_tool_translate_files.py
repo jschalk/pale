@@ -11,7 +11,7 @@ from src.ch16_translate.test._util.ch16_examples import (
     get_suita_voice_name_otx_dt,
 )
 from src.ch16_translate.translate_config import get_translate_filename
-from src.ch16_translate.translate_term import translateunit_shop
+from src.ch16_translate.translate_main import translateunit_shop
 from src.ch17_idea.idea_db_tool import (
     _get_translate_idea_format_filenames,
     move_otx_csvs_to_translate_inx,
@@ -44,13 +44,13 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario0_Single
     save_json(sue_dir, get_translate_filename(), sue_translateunit.to_dict())
     sue_otx_dt = get_suita_voice_name_otx_dt()
     sue_inx_dt = get_suita_voice_name_inx_dt()
-    otz_dir = create_path(sue_dir, "otz")
-    inz_dir = create_path(sue_dir, "inz")
+    otx_dir = create_path(sue_dir, "otx")
+    inx_dir = create_path(sue_dir, "inx")
 
     example_filename = "voice_name_example.csv"
-    otx_file_path = create_path(otz_dir, example_filename)
-    inx_file_path = create_path(inz_dir, example_filename)
-    save_dataframe_to_csv(sue_otx_dt, otz_dir, example_filename)
+    otx_file_path = create_path(otx_dir, example_filename)
+    inx_file_path = create_path(inx_dir, example_filename)
+    save_dataframe_to_csv(sue_otx_dt, otx_dir, example_filename)
     assert os_path_exists(translateunit_file_path)
     assert os_path_exists(otx_file_path)
     assert os_path_exists(inx_file_path) is False
@@ -62,7 +62,7 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario0_Single
     assert os_path_exists(translateunit_file_path)
     assert os_path_exists(otx_file_path)
     assert os_path_exists(inx_file_path)
-    gen_inx_dt = open_csv(inz_dir, example_filename)
+    gen_inx_dt = open_csv(inx_dir, example_filename)
     assert gen_inx_dt.iloc[0][kw.voice_name] == bob_inx
     assert gen_inx_dt.iloc[3][kw.voice_name] == zia_otx
     assert gen_inx_dt.to_csv() != sue_otx_dt.to_csv()
@@ -108,13 +108,13 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario1_Single
     save_json(sue_dir, get_translate_filename(), sue_translateunit.to_dict())
     sue_otx_dt = get_casa_maison_rope_otx_dt()
     sue_inx_dt = get_casa_maison_rope_inx_dt()
-    otz_dir = create_path(sue_dir, "otz")
-    inz_dir = create_path(sue_dir, "inz")
+    otx_dir = create_path(sue_dir, "otx")
+    inx_dir = create_path(sue_dir, "inx")
 
     example_filename = "rope1_example.csv"
-    otx_file_path = create_path(otz_dir, example_filename)
-    inx_file_path = create_path(inz_dir, example_filename)
-    save_dataframe_to_csv(sue_otx_dt, otz_dir, example_filename)
+    otx_file_path = create_path(otx_dir, example_filename)
+    inx_file_path = create_path(inx_dir, example_filename)
+    save_dataframe_to_csv(sue_otx_dt, otx_dir, example_filename)
     assert os_path_exists(otx_file_path)
     assert os_path_exists(inx_file_path) is False
 
@@ -126,7 +126,7 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario1_Single
     assert os_path_exists(inx_file_path)
     print(f"{sue_otx_dt=} \n")
     print(f"{sue_inx_dt=} \n")
-    gen_inx_dt = open_csv(inz_dir, example_filename)
+    gen_inx_dt = open_csv(inx_dir, example_filename)
     assert gen_inx_dt.iloc[0][kw.reason_context] == inx_amy87_rope
     assert gen_inx_dt.iloc[1][kw.reason_context] == casa_inx_rope
     assert gen_inx_dt.to_csv() != sue_otx_dt.to_csv()
@@ -161,18 +161,18 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario2_TwoFil
     print(f"{sue_dir=}")
     save_json(sue_dir, get_translate_filename(), sue_translateunit.to_dict())
     sue_otx_dt = get_suita_voice_name_otx_dt()
-    otz_dir = create_path(sue_dir, "otz")
-    inz_dir = create_path(sue_dir, "inz")
+    otx_dir = create_path(sue_dir, "otx")
+    inx_dir = create_path(sue_dir, "inx")
 
     voice_name_filename = "voice_name_example.csv"
-    voice_name_otx_file_path = create_path(otz_dir, voice_name_filename)
-    voice_name_inx_file_path = create_path(inz_dir, voice_name_filename)
+    voice_name_otx_file_path = create_path(otx_dir, voice_name_filename)
+    voice_name_inx_file_path = create_path(inx_dir, voice_name_filename)
     rope1_otx_dt = get_casa_maison_rope_otx_dt()
     rope1_filename = "rope1_example.csv"
-    rope1_otx_file_path = create_path(otz_dir, rope1_filename)
-    rope1_inx_file_path = create_path(inz_dir, rope1_filename)
-    save_dataframe_to_csv(rope1_otx_dt, otz_dir, rope1_filename)
-    save_dataframe_to_csv(sue_otx_dt, otz_dir, voice_name_filename)
+    rope1_otx_file_path = create_path(otx_dir, rope1_filename)
+    rope1_inx_file_path = create_path(inx_dir, rope1_filename)
+    save_dataframe_to_csv(rope1_otx_dt, otx_dir, rope1_filename)
+    save_dataframe_to_csv(sue_otx_dt, otx_dir, voice_name_filename)
     assert os_path_exists(rope1_otx_file_path)
     assert os_path_exists(rope1_inx_file_path) is False
     assert os_path_exists(translateunit_file_path)
@@ -188,12 +188,12 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario2_TwoFil
     assert os_path_exists(translateunit_file_path)
     assert os_path_exists(voice_name_otx_file_path)
     assert os_path_exists(voice_name_inx_file_path)
-    voice_inx_dt = open_csv(inz_dir, voice_name_filename)
+    voice_inx_dt = open_csv(inx_dir, voice_name_filename)
     gen_csv = voice_inx_dt.sort_values(kw.voice_name).to_csv(index=False)
     sue_inx_dt = get_suita_voice_name_inx_dt()
     assert gen_csv == sue_inx_dt.sort_values(kw.voice_name).to_csv(index=False)
 
-    gen_rope1_inx_dt = open_csv(inz_dir, rope1_filename)
+    gen_rope1_inx_dt = open_csv(inx_dir, rope1_filename)
     rope1_inx_dt = get_casa_maison_rope_inx_dt()
     assert gen_rope1_inx_dt.to_csv() == rope1_inx_dt.to_csv()
 

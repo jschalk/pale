@@ -13,6 +13,7 @@ from src.ch13_epoch.epoch_main import (
     get_c400_constants,
     get_day_rope,
     get_default_epoch_config_dict,
+    get_epoch_length,
     get_epoch_rope,
     get_week_rope,
     get_year_rope,
@@ -189,6 +190,21 @@ def test_DEFAULT_EPOCH_LENGTH_ReturnsObj():
 
     # WHEN / THEN
     assert DEFAULT_EPOCH_LENGTH == expected_epoch_length
+
+
+def test_get_epoch_length_ReturnsObj():
+    # ESTABLISH
+    default_epoch_config = get_default_epoch_config_dict()
+
+    # WHEN
+    gen_epoch_length = get_epoch_length(default_epoch_config)
+
+    # THEN
+    default_c400_number = default_epoch_config.get(kw.c400_number)
+    c400_length_constant = get_c400_constants().c400_leap_length
+    expected_epoch_length = default_c400_number * c400_length_constant
+    assert gen_epoch_length == expected_epoch_length
+    assert gen_epoch_length == DEFAULT_EPOCH_LENGTH
 
 
 def test_is_epoch_config_valid_ReturnsObj_CheckObjsRepeat():

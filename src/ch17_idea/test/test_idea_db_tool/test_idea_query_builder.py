@@ -22,30 +22,30 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_belief_plan_partyuni
             kw.voice_name,
             kw.amount,
         ]
-        blrlabo_cat = "belief_plan_partyunit"
+        blflabo_cat = "belief_plan_partyunit"
         src_table = f"{idea_number}_raw"
-        dst_table = f"{blrlabo_cat}_raw"
+        dst_table = f"{blflabo_cat}_raw"
         idea_config = get_idea_config_dict()
-        blrlabo_config = idea_config.get(blrlabo_cat)
-        print(f"{blrlabo_cat=}")
-        print(f"{blrlabo_config=}")
-        blrlabo_jkeys = blrlabo_config.get(kw.jkeys)
-        blrlabo_jvals = blrlabo_config.get(kw.jvalues)
-        blrlabo_args = set(blrlabo_jkeys.keys()).union(set(blrlabo_jvals.keys()))
-        blrlabo_args = get_default_sorted_list(blrlabo_args)
-        print(f"{blrlabo_jkeys=}")
-        print(f"{blrlabo_jvals=}")
+        blflabo_config = idea_config.get(blflabo_cat)
+        print(f"{blflabo_cat=}")
+        print(f"{blflabo_config=}")
+        blflabo_jkeys = blflabo_config.get(kw.jkeys)
+        blflabo_jvals = blflabo_config.get(kw.jvalues)
+        blflabo_args = set(blflabo_jkeys.keys()).union(set(blflabo_jvals.keys()))
+        blflabo_args = get_default_sorted_list(blflabo_args)
+        print(f"{blflabo_jkeys=}")
+        print(f"{blflabo_jvals=}")
         create_idea_sorted_table(conn, src_table, idea_cols)
-        create_idea_sorted_table(conn, dst_table, blrlabo_args)
+        create_idea_sorted_table(conn, dst_table, blflabo_args)
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, blrlabo_cat, blrlabo_jkeys
+            conn, idea_number, blflabo_cat, blflabo_jkeys
         )
 
         # THEN
         columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.plan_rope}, {kw.party_title}"
-        expected_sqlstr = f"""INSERT INTO {blrlabo_cat}_raw ({kw.idea_number}, {columns_str})
+        expected_sqlstr = f"""INSERT INTO {blflabo_cat}_raw ({kw.idea_number}, {columns_str})
 SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
 FROM {idea_number}_raw
 WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_label} IS NOT NULL AND {kw.belief_name} IS NOT NULL AND {kw.plan_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL

@@ -224,12 +224,12 @@
       "yr1_jan1_offset": {}
     }
   }, 
-  "translate_epoch": {
+  "nabu_epochtime": {
     "allowed_crud": "insert_one_time", 
-    "build_order": 4, 
-    "idea_category": "translate", 
-    "jkeys": {"face_name": {}, "otx_epoch_length": {}, "spark_num": {}}, 
-    "jvalues": {"inx_epoch_diff": {}}
+    "build_order": 2, 
+    "idea_category": "nabu", 
+    "jkeys": {"face_name": {}, "otx_time": {}, "spark_num": {}, "moment_label": {}}, 
+    "jvalues": {"inx_time": {}}
   }, 
   "translate_label": {
     "allowed_crud": "insert_one_time", 

@@ -73,7 +73,7 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterTh
     assert str(excinfo.value) == exception_str
 
 
-def test_MomentUnit_set_paypurchase_RaisesErrorWhenBudUnitHas_tran_time():
+def test_MomentUnit_set_paypurchase_RaisesErrorWhen_BudUnitHas_tran_time():
     # ESTABLISH
     x_moment = momentunit_shop("Amy23", None)
     x_moment.offi_time_max = 0
@@ -140,6 +140,27 @@ def test_MomentUnit_del_paypurchase_SetsAttr():
 
     # THEN
     assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t) is False
+
+
+def test_MomentUnit_clear_paypurchases_SetsAttr():
+    # ESTABLISH
+    x_moment = momentunit_shop("Amy23", None)
+    x_moment.offi_time_max = 660600
+    t55_t = 5505
+    t55_amount = 37
+    t77_t = 7705
+    t77_amount = 77
+    x_moment.set_paypurchase(tranunit_shop(exx.sue, exx.bob, t55_t, t55_amount))
+    x_moment.set_paypurchase(tranunit_shop(exx.sue, exx.bob, t77_t, t77_amount))
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t)
+    assert x_moment.paypurchase_exists(exx.sue, exx.bob, t77_t)
+
+    # WHEN
+    x_moment.clear_paypurchases()
+
+    # THEN
+    assert not x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t)
+    assert not x_moment.paypurchase_exists(exx.sue, exx.bob, t77_t)
 
 
 def test_MomentUnit_set_offi_time_max_SetsAttr():

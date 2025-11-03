@@ -15,17 +15,17 @@ from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch18_world_etl.db_obj_belief_tool import (
     ObjKeysHolder,
+    insert_job_blfawar,
+    insert_job_blfcase,
+    insert_job_blffact,
+    insert_job_blfgrou,
+    insert_job_blfheal,
+    insert_job_blflabo,
+    insert_job_blfmemb,
+    insert_job_blfplan,
+    insert_job_blfreas,
+    insert_job_blfunit,
     insert_job_blfvoce,
-    insert_job_blrawar,
-    insert_job_blrcase,
-    insert_job_blrfact,
-    insert_job_blrgrou,
-    insert_job_blrheal,
-    insert_job_blrlabo,
-    insert_job_blrmemb,
-    insert_job_blrplan,
-    insert_job_blrreas,
-    insert_job_blrunit,
     insert_job_obj,
 )
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
@@ -48,7 +48,7 @@ def test_ObjKeysHolder_Exists():
     assert not x_objkeyholder.fact_rope
 
 
-def test_insert_job_blrunit_CreatesTableRowsFor_beliefunit_job():
+def test_insert_job_blfunit_CreatesTableRowsFor_beliefunit_job():
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = "Amy23"
@@ -91,7 +91,7 @@ def test_insert_job_blrunit_CreatesTableRowsFor_beliefunit_job():
         objkeysholder = ObjKeysHolder()
 
         # WHEN
-        insert_job_blrunit(cursor, objkeysholder, sue_belief)
+        insert_job_blfunit(cursor, objkeysholder, sue_belief)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -120,7 +120,7 @@ def test_insert_job_blrunit_CreatesTableRowsFor_beliefunit_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrplan_CreatesTableRowsFor_blrplan_job():
+def test_insert_job_blfplan_CreatesTableRowsFor_blfplan_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_planunit")
@@ -227,7 +227,7 @@ def test_insert_job_blrplan_CreatesTableRowsFor_blrplan_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
 
         # WHEN
-        insert_job_blrplan(cursor, x_objkeysholder, x_plan)
+        insert_job_blfplan(cursor, x_objkeysholder, x_plan)
 
         # THEN
         clean_rope = create_rope(casa_rope, "clean")
@@ -269,7 +269,7 @@ def test_insert_job_blrplan_CreatesTableRowsFor_blrplan_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrreas_CreatesTableRowsFor_blrreas_job():
+def test_insert_job_blfreas_CreatesTableRowsFor_blfreas_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_plan_reasonunit")
@@ -308,7 +308,7 @@ def test_insert_job_blrreas_CreatesTableRowsFor_blrreas_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
 
         # WHEN
-        insert_job_blrreas(cursor, x_objkeysholder, x_reasonheir)
+        insert_job_blfreas(cursor, x_objkeysholder, x_reasonheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -329,7 +329,7 @@ def test_insert_job_blrreas_CreatesTableRowsFor_blrreas_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrcase_CreatesTableRowsFor_blrcase_job():
+def test_insert_job_blfcase_CreatesTableRowsFor_blfcase_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_plan_reason_caseunit")
@@ -372,7 +372,7 @@ def test_insert_job_blrcase_CreatesTableRowsFor_blrcase_job():
         )
 
         # WHEN
-        insert_job_blrcase(cursor, x_objkeysholder, x_caseunit)
+        insert_job_blfcase(cursor, x_objkeysholder, x_caseunit)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -395,7 +395,7 @@ def test_insert_job_blrcase_CreatesTableRowsFor_blrcase_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrmemb_CreatesTableRowsFor_blrmemb_job():
+def test_insert_job_blfmemb_CreatesTableRowsFor_blfmemb_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_voice_membership")
@@ -445,7 +445,7 @@ def test_insert_job_blrmemb_CreatesTableRowsFor_blrmemb_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
 
         # WHEN
-        insert_job_blrmemb(cursor, x_objkeysholder, x_membership)
+        insert_job_blfmemb(cursor, x_objkeysholder, x_membership)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -556,7 +556,7 @@ def test_insert_job_blfvoce_CreatesTableRowsFor_blfvoce_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrgrou_CreatesTableRowsFor_blrgrou_job():
+def test_insert_job_blfgrou_CreatesTableRowsFor_blfgrou_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_groupunit")
@@ -599,7 +599,7 @@ def test_insert_job_blrgrou_CreatesTableRowsFor_blrgrou_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
 
         # WHEN
-        insert_job_blrgrou(cursor, x_objkeysholder, x_group)
+        insert_job_blfgrou(cursor, x_objkeysholder, x_group)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -622,7 +622,7 @@ def test_insert_job_blrgrou_CreatesTableRowsFor_blrgrou_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrawar_CreatesTableRowsFor_blrawar_job():
+def test_insert_job_blfawar_CreatesTableRowsFor_blfawar_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_plan_awardunit")
@@ -660,7 +660,7 @@ def test_insert_job_blrawar_CreatesTableRowsFor_blrawar_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
 
         # WHEN
-        insert_job_blrawar(cursor, x_objkeysholder, x_awardheir)
+        insert_job_blfawar(cursor, x_objkeysholder, x_awardheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -681,7 +681,7 @@ def test_insert_job_blrawar_CreatesTableRowsFor_blrawar_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrfact_CreatesTableRowsFor_blrfact_job():
+def test_insert_job_blffact_CreatesTableRowsFor_blffact_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_plan_factunit")
@@ -717,7 +717,7 @@ def test_insert_job_blrfact_CreatesTableRowsFor_blrfact_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
 
         # WHEN
-        insert_job_blrfact(cursor, x_objkeysholder, x_factheir)
+        insert_job_blffact(cursor, x_objkeysholder, x_factheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -737,7 +737,7 @@ def test_insert_job_blrfact_CreatesTableRowsFor_blrfact_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrheal_CreatesTableRowsFor_blrheal_job():
+def test_insert_job_blfheal_CreatesTableRowsFor_blfheal_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_plan_healerunit")
@@ -767,7 +767,7 @@ def test_insert_job_blrheal_CreatesTableRowsFor_blrheal_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
 
         # WHEN
-        insert_job_blrheal(cursor, x_objkeysholder, x_healerunit)
+        insert_job_blfheal(cursor, x_objkeysholder, x_healerunit)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 2
@@ -790,7 +790,7 @@ def test_insert_job_blrheal_CreatesTableRowsFor_blrheal_job():
         assert rows == expected_data
 
 
-def test_insert_job_blrlabo_CreatesTableRowsFor_blrlabo_job():
+def test_insert_job_blflabo_CreatesTableRowsFor_blflabo_job():
     # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_belief_calc_dimen_args("belief_plan_partyunit")
@@ -825,7 +825,7 @@ def test_insert_job_blrlabo_CreatesTableRowsFor_blrlabo_job():
         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
 
         # WHEN
-        insert_job_blrlabo(cursor, x_objkeysholder, x_laborheir)
+        insert_job_blflabo(cursor, x_objkeysholder, x_laborheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 2
@@ -879,41 +879,41 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        blrmemb_job_table = f"{kw.belief_voice_membership}_job"
+        blfmemb_job_table = f"{kw.belief_voice_membership}_job"
         blfvoce_job_table = f"{kw.belief_voiceunit}_job"
-        blrgrou_job_table = f"{kw.belief_groupunit}_job"
-        blrawar_job_table = f"{kw.belief_plan_awardunit}_job"
-        blrfact_job_table = f"{kw.belief_plan_factunit}_job"
-        blrheal_job_table = f"{kw.belief_plan_healerunit}_job"
-        blrcase_job_table = f"{kw.belief_plan_reason_caseunit}_job"
-        blrreas_job_table = f"{kw.belief_plan_reasonunit}_job"
-        blrlabo_job_table = f"{kw.belief_plan_partyunit}_job"
-        blrplan_job_table = f"{kw.belief_planunit}_job"
-        blrunit_job_table = f"{kw.beliefunit}_job"
-        assert get_row_count(cursor, blrunit_job_table) == 0
-        assert get_row_count(cursor, blrplan_job_table) == 0
+        blfgrou_job_table = f"{kw.belief_groupunit}_job"
+        blfawar_job_table = f"{kw.belief_plan_awardunit}_job"
+        blffact_job_table = f"{kw.belief_plan_factunit}_job"
+        blfheal_job_table = f"{kw.belief_plan_healerunit}_job"
+        blfcase_job_table = f"{kw.belief_plan_reason_caseunit}_job"
+        blfreas_job_table = f"{kw.belief_plan_reasonunit}_job"
+        blflabo_job_table = f"{kw.belief_plan_partyunit}_job"
+        blfplan_job_table = f"{kw.belief_planunit}_job"
+        blfunit_job_table = f"{kw.beliefunit}_job"
+        assert get_row_count(cursor, blfunit_job_table) == 0
+        assert get_row_count(cursor, blfplan_job_table) == 0
         assert get_row_count(cursor, blfvoce_job_table) == 0
-        assert get_row_count(cursor, blrmemb_job_table) == 0
-        assert get_row_count(cursor, blrgrou_job_table) == 0
-        assert get_row_count(cursor, blrawar_job_table) == 0
-        assert get_row_count(cursor, blrfact_job_table) == 0
-        assert get_row_count(cursor, blrheal_job_table) == 0
-        assert get_row_count(cursor, blrreas_job_table) == 0
-        assert get_row_count(cursor, blrcase_job_table) == 0
-        assert get_row_count(cursor, blrlabo_job_table) == 0
+        assert get_row_count(cursor, blfmemb_job_table) == 0
+        assert get_row_count(cursor, blfgrou_job_table) == 0
+        assert get_row_count(cursor, blfawar_job_table) == 0
+        assert get_row_count(cursor, blffact_job_table) == 0
+        assert get_row_count(cursor, blfheal_job_table) == 0
+        assert get_row_count(cursor, blfreas_job_table) == 0
+        assert get_row_count(cursor, blfcase_job_table) == 0
+        assert get_row_count(cursor, blflabo_job_table) == 0
 
         # WHEN
         insert_job_obj(cursor, sue_belief)
 
         # THEN
-        assert get_row_count(cursor, blrunit_job_table) == 1
-        assert get_row_count(cursor, blrplan_job_table) == 5
+        assert get_row_count(cursor, blfunit_job_table) == 1
+        assert get_row_count(cursor, blfplan_job_table) == 5
         assert get_row_count(cursor, blfvoce_job_table) == 2
-        assert get_row_count(cursor, blrmemb_job_table) == 3
-        assert get_row_count(cursor, blrgrou_job_table) == 3
-        assert get_row_count(cursor, blrawar_job_table) == 1
-        assert get_row_count(cursor, blrfact_job_table) == 1
-        assert get_row_count(cursor, blrheal_job_table) == 1
-        assert get_row_count(cursor, blrreas_job_table) == 1
-        assert get_row_count(cursor, blrcase_job_table) == 1
-        assert get_row_count(cursor, blrlabo_job_table) == 1
+        assert get_row_count(cursor, blfmemb_job_table) == 3
+        assert get_row_count(cursor, blfgrou_job_table) == 3
+        assert get_row_count(cursor, blfawar_job_table) == 1
+        assert get_row_count(cursor, blffact_job_table) == 1
+        assert get_row_count(cursor, blfheal_job_table) == 1
+        assert get_row_count(cursor, blfreas_job_table) == 1
+        assert get_row_count(cursor, blfcase_job_table) == 1
+        assert get_row_count(cursor, blflabo_job_table) == 1

@@ -59,18 +59,18 @@ def test_BeliefBudHistory_set_bud_SetsAttr():
     assert sue_beliefbudhistory.buds.get(t1_int) == t1_budunit
 
 
-def test_BeliefBudHistory_bud_exists_ReturnsObj():
+def test_BeliefBudHistory_bud_time_exists_ReturnsObj():
     # ESTABLISH
     sue_beliefbudhistory = beliefbudhistory_shop("Sue")
     t1_int = 145
-    assert sue_beliefbudhistory.bud_exists(t1_int) is False
+    assert sue_beliefbudhistory.bud_time_exists(t1_int) is False
 
     # WHEN
     t1_budunit = budunit_shop(t1_int, 0)
     sue_beliefbudhistory.set_bud(t1_budunit)
 
     # THEN
-    assert sue_beliefbudhistory.bud_exists(t1_int)
+    assert sue_beliefbudhistory.bud_time_exists(t1_int)
 
 
 def test_BeliefBudHistory_get_bud_ReturnsObj():
@@ -94,13 +94,13 @@ def test_BeliefBudHistory_del_bud_SetsAttr():
     t1_int = 145
     t1_stat_budunit = budunit_shop(t1_int, 0)
     sue_beliefbudhistory.set_bud(t1_stat_budunit)
-    assert sue_beliefbudhistory.bud_exists(t1_int)
+    assert sue_beliefbudhistory.bud_time_exists(t1_int)
 
     # WHEN
     sue_beliefbudhistory.del_bud(t1_int)
 
     # THEN
-    assert sue_beliefbudhistory.bud_exists(t1_int) is False
+    assert sue_beliefbudhistory.bud_time_exists(t1_int) is False
 
 
 def test_BeliefBudHistory_add_bud_SetsAttr():

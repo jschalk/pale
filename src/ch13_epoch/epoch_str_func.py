@@ -7,7 +7,7 @@ from src.ch04_rope.rope import (
 )
 from src.ch05_reason.reason import CaseUnit, FactUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit
-from src.ch13_epoch.epoch_main import beliefepochtime_shop
+from src.ch13_epoch.epoch_main import epochholder_shop
 
 
 def get_reason_case_readable_str(
@@ -69,6 +69,6 @@ def get_fact_state_readable_str(
 def get_epochtime_blurb(
     beliefunit: BeliefUnit, epoch_rope: RopeTerm, x_min: int
 ) -> str:
-    lower_btlp = beliefepochtime_shop(beliefunit, epoch_rope, x_min)
+    lower_btlp = epochholder_shop(beliefunit, epoch_rope, x_min)
     lower_btlp.calc_epoch()
     return lower_btlp.get_blurb()

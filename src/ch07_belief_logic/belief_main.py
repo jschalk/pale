@@ -1033,9 +1033,9 @@ reason_case:    {reason_case}"""
         return x_plan.get_kids_in_range(x_gogo_calc, x_stop_calc)
 
     def get_inheritor_plan_list(
-        self, math_rope: RopeTerm, inheritor_rope: RopeTerm
+        self, range_rope: RopeTerm, inheritor_rope: RopeTerm
     ) -> list[PlanUnit]:
-        plan_ropes = all_ropes_between(math_rope, inheritor_rope)
+        plan_ropes = all_ropes_between(range_rope, inheritor_rope)
         return [self.get_plan_obj(x_plan_rope) for x_plan_rope in plan_ropes]
 
     def _set_plan_dict(self):
@@ -1055,11 +1055,11 @@ reason_case:    {reason_case}"""
         exception_str = f"Error has occurred, Plan '{plan_rope}' is having gogo_calc and stop_calc set twice"
         raise gogo_calc_stop_calc_Exception(exception_str)
 
-    def _distribute_math_attrs(self, math_plan: PlanUnit):
+    def _distribute_range_attrs(self, rangeroot_plan: PlanUnit):
         """Populates BeliefUnit.range_inheritors, sets PlanUnit.gogo_calc, PlanUnit.stop_calc"""
-        single_range_plan_list = [math_plan]
-        while single_range_plan_list != []:
-            x_planunit = single_range_plan_list.pop()
+        single_rangeroot_plan_list = [rangeroot_plan]
+        while single_rangeroot_plan_list != []:
+            x_planunit = single_rangeroot_plan_list.pop()
             x_plan_rope = x_planunit.get_plan_rope()
             if x_planunit.range_evaluated:
                 self._raise_gogo_calc_stop_calc_exception(x_plan_rope)
@@ -1071,14 +1071,14 @@ reason_case:    {reason_case}"""
                 parent_plan = self.get_plan_obj(parent_rope)
                 x_planunit.gogo_calc = parent_plan.gogo_calc
                 x_planunit.stop_calc = parent_plan.stop_calc
-                self.range_inheritors[x_plan_rope] = math_plan.get_plan_rope()
+                self.range_inheritors[x_plan_rope] = rangeroot_plan.get_plan_rope()
             x_planunit._mold_gogo_calc_stop_calc()
-            single_range_plan_list.extend(iter(x_planunit.kids.values()))
+            single_rangeroot_plan_list.extend(iter(x_planunit.kids.values()))
 
     def _set_plantree_range_attrs(self):
         for x_plan in self._plan_dict.values():
             if x_plan.has_begin_close():
-                self._distribute_math_attrs(x_plan)
+                self._distribute_range_attrs(x_plan)
 
             if (
                 not x_plan.is_kidless()

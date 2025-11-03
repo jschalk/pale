@@ -44,40 +44,40 @@ def test_create_job_tables_CreatesTables():
         cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
         assert cursor.fetchone()[0] == 0
 
-        blrmemb_job_table = prime_table(kw.belief_voice_membership, kw.job, None)
+        blfmemb_job_table = prime_table(kw.belief_voice_membership, kw.job, None)
         blfvoce_job_table = prime_table(kw.belief_voiceunit, kw.job, None)
-        blrgrou_job_table = prime_table(kw.belief_groupunit, kw.job, None)
-        blrawar_job_table = prime_table(kw.belief_plan_awardunit, kw.job, None)
-        blrfact_job_table = prime_table(kw.belief_plan_factunit, kw.job, None)
-        blrheal_job_table = prime_table(kw.belief_plan_healerunit, kw.job, None)
-        blrcase_job_table = prime_table(kw.belief_plan_reason_caseunit, kw.job, None)
+        blfgrou_job_table = prime_table(kw.belief_groupunit, kw.job, None)
+        blfawar_job_table = prime_table(kw.belief_plan_awardunit, kw.job, None)
+        blffact_job_table = prime_table(kw.belief_plan_factunit, kw.job, None)
+        blfheal_job_table = prime_table(kw.belief_plan_healerunit, kw.job, None)
+        blfcase_job_table = prime_table(kw.belief_plan_reason_caseunit, kw.job, None)
         beliefares_job_table = prime_table(kw.belief_plan_reasonunit, kw.job, None)
-        blrlabo_job_table = prime_table(kw.belief_plan_partyunit, kw.job, None)
-        blrplan_job_table = prime_table(kw.belief_planunit, kw.job, None)
-        blrunit_job_table = prime_table(kw.beliefunit, kw.job, None)
-        # blrmemb_job_table = f"{kw.belief_voice_membership}_job"
+        blflabo_job_table = prime_table(kw.belief_plan_partyunit, kw.job, None)
+        blfplan_job_table = prime_table(kw.belief_planunit, kw.job, None)
+        blfunit_job_table = prime_table(kw.beliefunit, kw.job, None)
+        # blfmemb_job_table = f"{kw.belief_voice_membership}_job"
         # blfvoce_job_table = f"{kw.belief_voiceunit}_job"
-        # blrgrou_job_table = f"{kw.belief_groupunit}_job"
-        # blrawar_job_table = f"{kw.belief_plan_awardunit}_job"
-        # blrfact_job_table = f"{kw.belief_plan_factunit}_job"
-        # blrheal_job_table = f"{kw.belief_plan_healerunit}_job"
-        # blrcase_job_table = f"{kw.belief_plan_reason_caseunit}_job"
+        # blfgrou_job_table = f"{kw.belief_groupunit}_job"
+        # blfawar_job_table = f"{kw.belief_plan_awardunit}_job"
+        # blffact_job_table = f"{kw.belief_plan_factunit}_job"
+        # blfheal_job_table = f"{kw.belief_plan_healerunit}_job"
+        # blfcase_job_table = f"{kw.belief_plan_reason_caseunit}_job"
         # beliefares_job_table = f"{kw.belief_plan_reasonunit}_job"
-        # blrlabo_job_table = f"{kw.belief_plan_partyunit}_job"
-        # blrplan_job_table = f"{kw.belief_planunit}_job"
-        # blrunit_job_table = f"{kw.beliefunit}_job"
+        # blflabo_job_table = f"{kw.belief_plan_partyunit}_job"
+        # blfplan_job_table = f"{kw.belief_planunit}_job"
+        # blfunit_job_table = f"{kw.beliefunit}_job"
 
-        assert db_table_exists(cursor, blrmemb_job_table) is False
+        assert db_table_exists(cursor, blfmemb_job_table) is False
         assert db_table_exists(cursor, blfvoce_job_table) is False
-        assert db_table_exists(cursor, blrgrou_job_table) is False
-        assert db_table_exists(cursor, blrawar_job_table) is False
-        assert db_table_exists(cursor, blrfact_job_table) is False
-        assert db_table_exists(cursor, blrheal_job_table) is False
-        assert db_table_exists(cursor, blrcase_job_table) is False
+        assert db_table_exists(cursor, blfgrou_job_table) is False
+        assert db_table_exists(cursor, blfawar_job_table) is False
+        assert db_table_exists(cursor, blffact_job_table) is False
+        assert db_table_exists(cursor, blfheal_job_table) is False
+        assert db_table_exists(cursor, blfcase_job_table) is False
         assert db_table_exists(cursor, beliefares_job_table) is False
-        assert db_table_exists(cursor, blrlabo_job_table) is False
-        assert db_table_exists(cursor, blrplan_job_table) is False
-        assert db_table_exists(cursor, blrunit_job_table) is False
+        assert db_table_exists(cursor, blflabo_job_table) is False
+        assert db_table_exists(cursor, blfplan_job_table) is False
+        assert db_table_exists(cursor, blfunit_job_table) is False
 
         # WHEN
         create_job_tables(cursor)
@@ -89,16 +89,16 @@ def test_create_job_tables_CreatesTables():
         # for x_row in cursor.fetchall():
         #     print(f"{x_count} {x_row[1]=}")
         #     x_count += 1
-        assert db_table_exists(cursor, blrmemb_job_table)
+        assert db_table_exists(cursor, blfmemb_job_table)
         assert db_table_exists(cursor, blfvoce_job_table)
-        assert db_table_exists(cursor, blrgrou_job_table)
-        assert db_table_exists(cursor, blrawar_job_table)
-        assert db_table_exists(cursor, blrfact_job_table)
-        assert db_table_exists(cursor, blrheal_job_table)
-        assert db_table_exists(cursor, blrcase_job_table)
+        assert db_table_exists(cursor, blfgrou_job_table)
+        assert db_table_exists(cursor, blfawar_job_table)
+        assert db_table_exists(cursor, blffact_job_table)
+        assert db_table_exists(cursor, blfheal_job_table)
+        assert db_table_exists(cursor, blfcase_job_table)
         assert db_table_exists(cursor, beliefares_job_table)
-        assert db_table_exists(cursor, blrlabo_job_table)
-        assert db_table_exists(cursor, blrplan_job_table)
-        assert db_table_exists(cursor, blrunit_job_table)
+        assert db_table_exists(cursor, blflabo_job_table)
+        assert db_table_exists(cursor, blfplan_job_table)
+        assert db_table_exists(cursor, blfunit_job_table)
         cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
         assert cursor.fetchone()[0] == 11

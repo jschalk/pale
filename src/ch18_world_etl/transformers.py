@@ -67,9 +67,9 @@ from src.ch16_translate.translate_config import (
     get_translate_nameterm_args,
     get_translate_ropeterm_args,
     get_translate_titleterm_args,
-    get_translateable_term_class_types,
+    translateable_class_types,
 )
-from src.ch16_translate.translate_term import (
+from src.ch16_translate.translate_main import (
     default_knot_if_None,
     default_unknown_str_if_None,
 )
@@ -592,7 +592,7 @@ def set_heard_raw_inx_column(
     column_without_otx: str,
     arg_class_type: str,
 ):
-    if arg_class_type in get_translateable_term_class_types():
+    if arg_class_type in translateable_class_types():
         translate_type_abbv = None
         if arg_class_type == "NameTerm":
             translate_type_abbv = "name"
@@ -684,6 +684,7 @@ def get_most_recent_spark_num(
 
 
 def etl_heard_raw_tables_to_moment_ote1_agg(conn_or_cursor: sqlite3_Connection):
+    """TODO Write out why this step is necessary"""
     conn_or_cursor.execute(CREATE_MOMENT_OTE1_AGG_SQLSTR)
     conn_or_cursor.execute(INSERT_MOMENT_OTE1_AGG_FROM_HEARD_SQLSTR)
 

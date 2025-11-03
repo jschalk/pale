@@ -1,6 +1,6 @@
 from datetime import datetime
 from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
-from src.ch13_epoch.epoch_main import BeliefEpochTime, EpochTime, beliefepochtime_shop
+from src.ch13_epoch.epoch_main import EpochHolder, EpochTime, epochholder_shop
 from src.ch13_epoch.test._util.ch13_examples import (
     add_time_creg_planunit,
     add_time_five_planunit,
@@ -17,9 +17,9 @@ def test_EpochTime_Exists():
     assert EpochTime(8) == 8
 
 
-def test_BeliefEpochTime_Exists():
+def test_EpochHolder_Exists():
     # ESTABLISH / WHEN
-    x_EpochTime = BeliefEpochTime()
+    x_EpochTime = EpochHolder()
 
     # THEN
     assert not x_EpochTime.x_beliefunit
@@ -38,14 +38,14 @@ def test_BeliefEpochTime_Exists():
     assert not x_EpochTime._year_num
 
 
-def test_BeliefEpochTime_shop_ReturnsObj():
+def test_epochholder_shop_ReturnsObj():
     # ESTABLISH
     x_epoch_label = "Fay07"
     x_epoch_min = 890000
     sue_belief = beliefunit_shop("Sue")
 
     # WHEN
-    x_EpochTime = beliefepochtime_shop(
+    x_EpochTime = epochholder_shop(
         x_beliefunit=sue_belief,
         epoch_label=x_epoch_label,
         x_min=x_epoch_min,
@@ -57,12 +57,12 @@ def test_BeliefEpochTime_shop_ReturnsObj():
     assert x_EpochTime.x_min == x_epoch_min
 
 
-def test_BeliefEpochTime_set_epoch_plan_SetsAttr():
+def test_EpochHolder_set_epoch_plan_SetsAttr():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief = add_time_creg_planunit(sue_belief)
     sue_belief.cashout()
-    x_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, 10000000)
+    x_EpochTime = epochholder_shop(sue_belief, kw.creg, 10000000)
     assert not x_EpochTime._epoch_plan
 
     # WHEN
@@ -72,12 +72,12 @@ def test_BeliefEpochTime_set_epoch_plan_SetsAttr():
     assert x_EpochTime._epoch_plan
 
 
-def test_BeliefEpochTime_set_weekday_SetsAttr():
+def test_EpochHolder_set_weekday_SetsAttr():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief = add_time_creg_planunit(sue_belief)
     sue_belief.cashout()
-    x_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, 10001440)
+    x_EpochTime = epochholder_shop(sue_belief, kw.creg, 10001440)
     x_EpochTime._set_epoch_plan()
     assert not x_EpochTime._weekday
 
@@ -88,12 +88,12 @@ def test_BeliefEpochTime_set_weekday_SetsAttr():
     assert x_EpochTime._weekday == kw.Thursday
 
 
-def test_BeliefEpochTime_set_month_SetsAttr():
+def test_EpochHolder_set_month_SetsAttr():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief = add_time_creg_planunit(sue_belief)
     sue_belief.cashout()
-    x_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, 10060000)
+    x_EpochTime = epochholder_shop(sue_belief, kw.creg, 10060000)
     x_EpochTime._set_epoch_plan()
     assert not x_EpochTime._month
     assert not x_EpochTime._monthday
@@ -107,12 +107,12 @@ def test_BeliefEpochTime_set_month_SetsAttr():
     assert x_EpochTime._monthday == 17
 
 
-def test_BeliefEpochTime_set_hour_SetsAttr():
+def test_EpochHolder_set_hour_SetsAttr():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief = add_time_creg_planunit(sue_belief)
     sue_belief.cashout()
-    x_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, 10000001)
+    x_EpochTime = epochholder_shop(sue_belief, kw.creg, 10000001)
     x_EpochTime._set_epoch_plan()
     assert not x_EpochTime._hour
     assert not x_EpochTime._hour
@@ -126,12 +126,12 @@ def test_BeliefEpochTime_set_hour_SetsAttr():
     assert x_EpochTime._minute == 41
 
 
-def test_BeliefEpochTime_set_year_SetsAttr():
+def test_EpochHolder_set_year_SetsAttr():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief = add_time_creg_planunit(sue_belief)
     sue_belief.cashout()
-    x_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, 1030600100)
+    x_EpochTime = epochholder_shop(sue_belief, kw.creg, 1030600100)
     x_EpochTime._set_epoch_plan()
     assert not x_EpochTime._c400_number
     assert not x_EpochTime._c100_count
@@ -151,11 +151,11 @@ def test_BeliefEpochTime_set_year_SetsAttr():
     assert x_EpochTime._year_num == 1959
 
 
-def test_BeliefEpochTime_calc_epoch_SetsAttrs():
+def test_EpochHolder_calc_epoch_SetsAttrs():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief = add_time_creg_planunit(sue_belief)
-    x_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, 1030600102)
+    x_EpochTime = epochholder_shop(sue_belief, kw.creg, 1030600102)
     assert not x_EpochTime._epoch_plan
     assert not x_EpochTime._weekday
     assert not x_EpochTime._monthday
@@ -177,11 +177,11 @@ def test_BeliefEpochTime_calc_epoch_SetsAttrs():
     assert x_EpochTime._year_num
 
 
-def test_BeliefEpochTime_get_blurb_ReturnsObj():
+def test_EpochHolder_get_blurb_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     sue_belief = add_time_creg_planunit(sue_belief)
-    x_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, 1030600102)
+    x_EpochTime = epochholder_shop(sue_belief, kw.creg, 1030600102)
     x_EpochTime.calc_epoch()
     assert x_EpochTime._epoch_plan
     assert x_EpochTime._weekday
@@ -212,8 +212,8 @@ def test_calc_epoch_SetsAttrFiveEpoch(graphics_bool):
     mar1_2000_datetime = datetime(2000, 3, 1)
     creg_min = get_creg_min_from_dt(mar1_2000_datetime)
     five_min = get_five_min_from_dt(mar1_2000_datetime)
-    creg_EpochTime = beliefepochtime_shop(sue_belief, kw.creg, creg_min)
-    five_EpochTime = beliefepochtime_shop(sue_belief, kw.five, five_min)
+    creg_EpochTime = epochholder_shop(sue_belief, kw.creg, creg_min)
+    five_EpochTime = epochholder_shop(sue_belief, kw.five, five_min)
     assert not creg_EpochTime._weekday
     assert not creg_EpochTime._monthday
     assert not creg_EpochTime._month
@@ -251,7 +251,7 @@ def test_calc_epoch_SetsAttrFiveEpoch(graphics_bool):
 
 def check_creg_epoch_attr(x_belief: BeliefUnit, x_datetime: datetime):
     creg_min = get_creg_min_from_dt(x_datetime)
-    creg_EpochTime = beliefepochtime_shop(x_belief, kw.creg, creg_min)
+    creg_EpochTime = epochholder_shop(x_belief, kw.creg, creg_min)
     creg_EpochTime.calc_epoch()
     dt_hour = x_datetime.strftime("%H")
     dt_minute = x_datetime.strftime("%M")
@@ -281,7 +281,7 @@ def check_creg_epoch_attr(x_belief: BeliefUnit, x_datetime: datetime):
     assert creg_EpochTime._year_num == int(dt_year)
 
 
-def test_BeliefEpochTime_calc_epoch_SetsAttr():
+def test_EpochHolder_calc_epoch_SetsAttr():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
 

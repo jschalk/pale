@@ -1,11 +1,7 @@
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch12_keep.rivercycle import get_doctorledger, get_patientledger
 from src.ch12_keep.riverrun import riverrun_shop
-from src.ch12_keep.test._util.ch12_env import (
-    get_temp_dir,
-    temp_moment_label,
-    temp_moment_mstr_dir,
-)
+from src.ch12_keep.test._util.ch12_env import get_temp_dir
 from src.ref.keywords import ExampleStrs as exx
 
 
@@ -91,7 +87,7 @@ def test_get_doctorledger_ReturnsObjWithNoEmpty_voice_debt_lumen():
 
 def test_RiverRun_set_voice_need_due_SetsAttr():
     # ESTABLISH
-    mstr_dir = temp_moment_mstr_dir()
+    mstr_dir = get_temp_dir()
     bob_riverrun = riverrun_shop(mstr_dir, None, exx.bob)
     assert bob_riverrun.need_dues.get(exx.yao) is None
 

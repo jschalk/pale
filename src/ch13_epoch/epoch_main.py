@@ -159,6 +159,11 @@ def get_epoch_rope(
     return create_rope(time_rope, epoch_label, knot)
 
 
+def get_epoch_length(epoch_config: dict) -> int:
+    c400_number = epoch_config.get("c400_number")
+    return c400_number * get_c400_constants().c400_leap_length
+
+
 def add_epoch_planunit(x_beliefunit: BeliefUnit, epoch_config: dict):
     """ "Add epoch to BeliefUnit given epoch_config"""
     x_plan_label = epoch_config.get("epoch_label")
@@ -438,7 +443,7 @@ def get_epoch_min_difference(epoch_config0: dict, epoch_config1: dict) -> int:
 
 
 @dataclass
-class BeliefEpochTime:
+class EpochHolder:
     """Given belief, epoch_rope, and EpochTime, returns time technology attrs
     _c400_number: count of 400 year cycles
     _c100_count: count of 100 year cycles after _c400_number years removed
@@ -573,8 +578,8 @@ class BeliefEpochTime:
         return x_str
 
 
-def beliefepochtime_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
-    return BeliefEpochTime(x_beliefunit, epoch_label, x_min=x_min)
+def epochholder_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
+    return EpochHolder(x_beliefunit, epoch_label, x_min=x_min)
 
 
 def epoch_config_path() -> str:

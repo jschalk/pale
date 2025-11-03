@@ -93,6 +93,30 @@ def test_MomentUnit_add_budunit_SetsAttr():
     assert amy_moment.get_beliefbudhistory(exx.bob) == bob_beliefbudhistory
 
 
+def test_MomentUnit_bud_quota_exists_SetsAttr():
+    # ESTABLISH
+    amy45_str = "amy45"
+    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    assert amy_moment.beliefbudhistorys == {}
+    bob_x0_bud_time = 702
+    bob_x0_quota = 33
+    sue_x4_bud_time = 4
+    sue_x4_quota = 55
+    sue_x7_bud_time = 7
+    sue_x7_quota = 66
+    assert not amy_moment.bud_quota_exists(exx.bob, bob_x0_bud_time, bob_x0_quota)
+    assert not amy_moment.bud_quota_exists(exx.sue, sue_x4_bud_time, sue_x4_quota)
+    assert not amy_moment.bud_quota_exists(exx.sue, sue_x7_bud_time, sue_x7_quota)
+
+    # WHEN
+    amy_moment.add_budunit(exx.bob, bob_x0_bud_time, bob_x0_quota)
+
+    # THEN
+    assert amy_moment.bud_quota_exists(exx.bob, bob_x0_bud_time, bob_x0_quota)
+    assert not amy_moment.bud_quota_exists(exx.sue, sue_x4_bud_time, sue_x4_quota)
+    assert not amy_moment.bud_quota_exists(exx.sue, sue_x7_bud_time, sue_x7_quota)
+
+
 def test_MomentUnit_get_budunit_ReturnsObj_Scenario0_BrokerDoesNotExist():
     # ESTABLISH
     amy45_str = "amy45"

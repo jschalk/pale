@@ -50,44 +50,44 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
-        blrmemb_job_table = prime_table("blrmemb", kw.job, None)
+        blfmemb_job_table = prime_table("blfmemb", kw.job, None)
         blfvoce_job_table = prime_table("blfvoce", kw.job, None)
-        blrgrou_job_table = prime_table("blrgrou", kw.job, None)
-        blrawar_job_table = prime_table("blrawar", kw.job, None)
-        blrfact_job_table = prime_table("blrfact", kw.job, None)
-        blrheal_job_table = prime_table("blrheal", kw.job, None)
-        blrcase_job_table = prime_table("blrcase", kw.job, None)
-        blrreas_job_table = prime_table("blrreas", kw.job, None)
-        blrlabo_job_table = prime_table("blrlabo", kw.job, None)
-        blrplan_job_table = prime_table("blrplan", kw.job, None)
-        blrunit_job_table = prime_table("beliefunit", kw.job, None)
-        assert not db_table_exists(cursor, blrunit_job_table)
-        assert not db_table_exists(cursor, blrplan_job_table)
+        blfgrou_job_table = prime_table("blfgrou", kw.job, None)
+        blfawar_job_table = prime_table("blfawar", kw.job, None)
+        blffact_job_table = prime_table("blffact", kw.job, None)
+        blfheal_job_table = prime_table("blfheal", kw.job, None)
+        blfcase_job_table = prime_table("blfcase", kw.job, None)
+        blfreas_job_table = prime_table("blfreas", kw.job, None)
+        blflabo_job_table = prime_table("blflabo", kw.job, None)
+        blfplan_job_table = prime_table("blfplan", kw.job, None)
+        blfunit_job_table = prime_table("beliefunit", kw.job, None)
+        assert not db_table_exists(cursor, blfunit_job_table)
+        assert not db_table_exists(cursor, blfplan_job_table)
         assert not db_table_exists(cursor, blfvoce_job_table)
-        assert not db_table_exists(cursor, blrmemb_job_table)
-        assert not db_table_exists(cursor, blrgrou_job_table)
-        assert not db_table_exists(cursor, blrawar_job_table)
-        assert not db_table_exists(cursor, blrfact_job_table)
-        assert not db_table_exists(cursor, blrheal_job_table)
-        assert not db_table_exists(cursor, blrreas_job_table)
-        assert not db_table_exists(cursor, blrcase_job_table)
-        assert not db_table_exists(cursor, blrlabo_job_table)
+        assert not db_table_exists(cursor, blfmemb_job_table)
+        assert not db_table_exists(cursor, blfgrou_job_table)
+        assert not db_table_exists(cursor, blfawar_job_table)
+        assert not db_table_exists(cursor, blffact_job_table)
+        assert not db_table_exists(cursor, blfheal_job_table)
+        assert not db_table_exists(cursor, blfreas_job_table)
+        assert not db_table_exists(cursor, blfcase_job_table)
+        assert not db_table_exists(cursor, blflabo_job_table)
 
         # WHEN
         etl_moment_job_jsons_to_job_tables(cursor, m23_moment_mstr_dir)
 
         # THEN
-        assert get_row_count(cursor, blrunit_job_table) == 1
-        assert get_row_count(cursor, blrplan_job_table) == 5
+        assert get_row_count(cursor, blfunit_job_table) == 1
+        assert get_row_count(cursor, blfplan_job_table) == 5
         assert get_row_count(cursor, blfvoce_job_table) == 2
-        assert get_row_count(cursor, blrmemb_job_table) == 3
-        assert get_row_count(cursor, blrgrou_job_table) == 3
-        assert get_row_count(cursor, blrawar_job_table) == 1
-        assert get_row_count(cursor, blrfact_job_table) == 1
-        assert get_row_count(cursor, blrheal_job_table) == 1
-        assert get_row_count(cursor, blrreas_job_table) == 1
-        assert get_row_count(cursor, blrcase_job_table) == 1
-        assert get_row_count(cursor, blrlabo_job_table) == 1
+        assert get_row_count(cursor, blfmemb_job_table) == 3
+        assert get_row_count(cursor, blfgrou_job_table) == 3
+        assert get_row_count(cursor, blfawar_job_table) == 1
+        assert get_row_count(cursor, blffact_job_table) == 1
+        assert get_row_count(cursor, blfheal_job_table) == 1
+        assert get_row_count(cursor, blfreas_job_table) == 1
+        assert get_row_count(cursor, blfcase_job_table) == 1
+        assert get_row_count(cursor, blflabo_job_table) == 1
 
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(

@@ -36,7 +36,7 @@ from src.ch16_translate.translate_config import (
     get_translate_args_class_types,
     get_translateable_args,
 )
-from src.ch16_translate.translate_term import TranslateUnit, get_translateunit_from_dict
+from src.ch16_translate.translate_main import TranslateUnit, get_translateunit_from_dict
 from src.ch17_idea._ref.ch17_semantic_types import FaceName, SparkInt
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
@@ -135,16 +135,16 @@ def translate_all_columns_dataframe(x_df: DataFrame, x_translateunit: TranslateU
 
 
 def move_otx_csvs_to_translate_inx(face_dir: str):
-    otz_dir = create_path(face_dir, "otz")
-    inz_dir = create_path(face_dir, "inz")
+    otx_dir = create_path(face_dir, "otx")
+    inx_dir = create_path(face_dir, "inx")
     translate_filename = "translate.json"
     translate_dict = open_json(face_dir, translate_filename)
     face_translateunit = get_translateunit_from_dict(translate_dict)
-    otz_dir_files = get_dir_file_strs(otz_dir, delete_extensions=False)
-    for x_filename in otz_dir_files.keys():
-        x_df = open_csv(otz_dir, x_filename)
+    otx_dir_files = get_dir_file_strs(otx_dir, delete_extensions=False)
+    for x_filename in otx_dir_files.keys():
+        x_df = open_csv(otx_dir, x_filename)
         translate_all_columns_dataframe(x_df, face_translateunit)
-        save_dataframe_to_csv(x_df, inz_dir, x_filename)
+        save_dataframe_to_csv(x_df, inx_dir, x_filename)
 
 
 def _get_translate_idea_format_filenames() -> set[str]:
