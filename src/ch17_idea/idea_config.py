@@ -15,6 +15,14 @@ def get_idea_config_dict() -> dict:
     return open_json(idea_config_path())
 
 
+def get_filtered_idea_config(idea_categorys: set[str]) -> dict:
+    return {
+        x_dimen: dimen_config
+        for x_dimen, dimen_config in get_idea_config_dict().items()
+        if dimen_config.get("idea_category") in idea_categorys
+    }
+
+
 def get_allowed_curds() -> set[str]:
     return {
         "insert_one_time",

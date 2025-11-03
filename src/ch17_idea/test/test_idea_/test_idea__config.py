@@ -30,6 +30,7 @@ from src.ch16_translate.translate_config import (
 from src.ch17_idea.idea_config import (
     get_allowed_curds,
     get_default_sorted_list,
+    get_filtered_idea_config,
     get_idea_config_dict,
     get_idea_dimen_ref,
     get_idea_elements_sort_order,
@@ -770,6 +771,44 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
         assert not builder_order_dict.get(dimen_builder_order)
         builder_order_dict[dimen_builder_order] = dimen_key
     print(f"{sorted(builder_order_dict.keys())=}")
+
+
+def test_get_filtered_idea_config_ReturnsObj_Scenario0_Belief():
+    # ESTABLISH / WHEN
+    belief_idea_config = get_filtered_idea_config(kw.belief)
+
+    # THEN
+    assert not belief_idea_config.get(kw.translate_name)
+    assert not belief_idea_config.get(kw.translate_title)
+    assert not belief_idea_config.get(kw.translate_label)
+    assert not belief_idea_config.get(kw.translate_rope)
+    assert not belief_idea_config.get(kw.nabu_epochtime)
+    assert not belief_idea_config.get(kw.momentunit)
+    assert not belief_idea_config.get(kw.moment_epoch_hour)
+    assert not belief_idea_config.get(kw.moment_epoch_month)
+    assert not belief_idea_config.get(kw.moment_epoch_weekday)
+    assert belief_idea_config.get(kw.belief_voice_membership)
+    assert belief_idea_config.get(kw.belief_voiceunit)
+    assert belief_idea_config.get(kw.belief_plan_awardunit)
+    assert belief_idea_config.get(kw.belief_plan_factunit)
+    assert belief_idea_config.get(kw.belief_plan_partyunit)
+    assert belief_idea_config.get(kw.belief_plan_healerunit)
+    assert belief_idea_config.get(kw.belief_plan_reason_caseunit)
+    assert belief_idea_config.get(kw.belief_plan_reasonunit)
+    assert belief_idea_config.get(kw.belief_planunit)
+    assert belief_idea_config.get(kw.beliefunit)
+    assert not belief_idea_config.get(kw.moment_budunit)
+    assert not belief_idea_config.get(kw.moment_paybook)
+    assert not belief_idea_config.get(kw.moment_timeoffi)
+
+
+def test_get_filtered_idea_config_ReturnsObj_Scenario1_CountDimens():
+    # ESTABLISH / WHEN / THEN
+    assert len(get_filtered_idea_config(idea_categorys={kw.belief})) == 10
+    assert len(get_filtered_idea_config(idea_categorys={kw.moment})) == 7
+    assert len(get_filtered_idea_config(idea_categorys={kw.nabu})) == 1
+    assert len(get_filtered_idea_config(idea_categorys={kw.translate})) == 4
+    assert len(get_filtered_idea_config({kw.nabu, kw.translate})) == 5
 
 
 def test_get_quick_ideas_column_ref_ReturnsObj():
