@@ -1,4 +1,6 @@
+from copy import copy as copy_copy
 from src.ch01_py.db_toolbox import get_create_table_sqlstr
+from src.ch01_py.dict_toolbox import get_empty_set_if_None, get_from_nested_dict
 from src.ch08_belief_atom.atom_config import get_delete_key_name
 from src.ch16_translate.translate_config import find_set_otx_inx_args
 from src.ch17_idea.idea_config import (
@@ -25,7 +27,7 @@ ALL_DIMEN_ABBV7 = {
     "BLFLABO",
     "BLFPLAN",
     "BLFUNIT",
-    "NBUEPCH",
+    "NABEPOC",
     "TRLTITL",
     "TRLNAME",
     "TRLROPE",
@@ -52,7 +54,7 @@ def get_dimen_abbv7(dimen: str) -> str:
         "belief_plan_partyunit": "BLFLABO",
         "belief_planunit": "BLFPLAN",
         "beliefunit": "BLFUNIT",
-        "nabu_epochtime": "NBUEPCH",
+        "nabu_epochtime": "NABEPOC",
         "translate_title": "TRLTITL",
         "translate_name": "TRLNAME",
         "translate_rope": "TRLROPE",
@@ -92,7 +94,7 @@ def create_prime_tablename(
         "BLFLABO": "belief_plan_partyunit",
         "BLFPLAN": "belief_planunit",
         "BLFUNIT": "beliefunit",
-        "NBUEPCH": "nabu_epochtime",
+        "NABEPOC": "nabu_epochtime",
         "TRLTITL": "translate_title",
         "TRLNAME": "translate_name",
         "TRLROPE": "translate_rope",
@@ -156,9 +158,83 @@ BELIEF_PRIME_TABLENAMES = {
 }
 
 
+ETL_DIMEN_CONFIG = {
+    "translate_core": {
+        "override_columns": {"face_name", "otx_knot", "inx_knot", "unknown_str"},
+        "stages": {
+            "s": {
+                "raw": {"add": ["source_dimen", "error_message"]},
+                "agg": {},
+                "vld": {},
+            }
+        },
+    },
+    "translate": {
+        "stages": {
+            "s": {
+                "raw": {"add": ["idea_number", "error_message"]},
+                "agg": {"add": ["error_message"]},
+                "vld": {"remove": ["otx_knot", "inx_knot", "unknown_str"]},
+            }
+        }
+    },
+    "nabu": {
+        "stages": {
+            "s": {
+                "raw": {"add": ["idea_number", "error_message"]},
+                "agg": {"add": ["error_message"]},
+                "vld": {},
+            },
+            "h": {
+                "raw": {"add": ["error_message"], "set_otx_inx_args": True},
+                "agg": {},
+                "vld": {"remove": ["spark_num", "face_name"]},
+            },
+        },
+    },
+    "moment": {
+        "stages": {
+            "s": {
+                "raw": {"add": ["idea_number", "error_message"]},
+                "agg": {"add": ["error_message"]},
+                "vld": {},
+            },
+            "h": {
+                "raw": {"add": ["error_message"], "set_otx_inx_args": True},
+                "agg": {},
+                "vld": {"remove": ["spark_num", "face_name"]},
+            },
+        },
+    },
+    "belief": {
+        "stages": {
+            "s": {
+                "raw": {
+                    "put": {"add": ["idea_number", "error_message"]},
+                    "del": {"add": ["idea_number"]},
+                },
+                "agg": {
+                    "put": {"add": ["error_message"]},
+                    "del": {"add": ["error_message"]},
+                },
+                "vld": {"put": {}, "del": {}},
+            },
+            "h": {
+                "raw": {
+                    "put": {"add": ["translate_spark_num"], "set_otx_inx_args": True},
+                    "del": {"add": ["translate_spark_num"], "set_otx_inx_args": True},
+                },
+                "agg": {"put": {}, "del": {}},
+                "vld": {"put": {}, "del": {}},
+            },
+        }
+    },
+}
+
+
 def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
     if x_dimen == "translate_core":
-        return {"face_name", "otx_knot", "inx_knot", "unknown_str"}
+        return copy_copy(ETL_DIMEN_CONFIG.get("translate_core").get("override_columns"))
     x_config = get_idea_config_dict().get(x_dimen)
     columns = set(x_config.get("jkeys").keys())
     columns.update(set(x_config.get("jvalues").keys()))
@@ -173,97 +249,47 @@ def get_del_dimen_columns_set(x_dimen: str) -> set[str]:
     return set(columns_list)
 
 
-def get_trlcore_columns(x_dimen: str, stage0: str, stage1: str) -> set[str]:
+def get_prime_columns(x_dimen: str, table_keylist: list[str]) -> set[str]:
+    """Given dimen and config_keylist (ala ["s", "agg", put_del] )
+    Return list of columns for that prime table"""
     columns = get_all_dimen_columns_set(x_dimen)
-    if (stage0, stage1) == ("s", "raw"):
-        columns.update({"source_dimen", "error_message"})
-    # elif (stage0, stage1) in [("s", "agg"), ("s", "vld")]:
-    #     pass
-    return columns
-
-
-def get_translate_columns(x_dimen: str, stage0: str, stage1: str) -> set[str]:
-    columns = get_all_dimen_columns_set(x_dimen)
-    if (stage0, stage1) == ("s", "raw"):
-        columns.update({"idea_number", "error_message"})
-    elif (stage0, stage1) == ("s", "agg"):
-        columns.update({"error_message"})
-    elif (stage0, stage1) == ("s", "vld"):
-        columns -= {"otx_knot", "inx_knot", "unknown_str"}
-    return columns
-
-
-def get_moment_columns(x_dimen: str, stage0: str, stage1: str) -> set[str]:
-    columns = get_all_dimen_columns_set(x_dimen)
-    if (stage0, stage1) == ("s", "raw"):
-        columns.update({"idea_number", "error_message"})
-    elif (stage0, stage1) == ("s", "agg"):
-        columns.update({"error_message"})
-    elif (stage0, stage1) == ("h", "raw"):
-        columns = find_set_otx_inx_args(columns)
-        columns.update({"error_message"})
-    elif (stage0, stage1) == ("h", "vld"):
-        columns -= {"spark_num", "face_name"}
-    # if (stage0, stage1) == ("s", "vld"):
-    #   pass
-    return columns
-
-
-def get_belief_columns(
-    x_dimen: str, stage0: str, stage1: str, put_del: str
-) -> set[str]:
-    columns = set()
-    if put_del == "put":
-        columns = get_all_dimen_columns_set(x_dimen)
-    elif put_del == "del":
+    if table_keylist[-1] == "del":
         columns = get_del_dimen_columns_set(x_dimen)
 
-    if (stage0, stage1, put_del) == ("s", "raw", "put"):
-        columns.update({"idea_number", "error_message"})
-    elif (stage0, stage1, put_del) == ("s", "raw", "del"):
-        columns.update({"idea_number"})
-    elif (stage0, stage1) == ("s", "agg"):
-        columns.update({"error_message"})
-    elif (stage0, stage1) == ("h", "raw"):
+    if x_dimen == "translate_core":
+        idea_category = "translate_core"
+    elif x_dimen.find("translate") == 0:
+        idea_category = "translate"
+    elif x_dimen.find("nabu") == 0:
+        idea_category = "nabu"
+    elif x_dimen.find("moment") == 0:
+        idea_category = "moment"
+    elif x_dimen.find("belief") == 0:
+        idea_category = "belief"
+    config_keylist = [idea_category, "stages", *table_keylist]
+
+    otx_keylist = copy_copy(config_keylist)
+    otx_keylist.append("set_otx_inx_args")
+    if get_from_nested_dict(ETL_DIMEN_CONFIG, otx_keylist, True):
         columns = find_set_otx_inx_args(columns)
-        columns.update({"translate_spark_num"})
-    # elif (stage0, stage1, put_del) == ("s", "vld", "put"):
-    #     pass
-    # elif (stage0, stage1, put_del) == ("s", "vld", "del"):
-    #     pass
-    # elif (stage0, stage1, put_del) == ("h", "vld", "put"):
-    #     pass
-    # elif (stage0, stage1, put_del) == ("h", "vld", "del"):
-    #     pass
+
+    update_keylist = copy_copy(config_keylist)
+    update_keylist.append("add")
+    update_cols = get_from_nested_dict(ETL_DIMEN_CONFIG, update_keylist, True)
+    columns.update(get_empty_set_if_None(update_cols))
+
+    update_keylist = copy_copy(config_keylist)
+    update_keylist.append("remove")
+    remove_cols = get_from_nested_dict(ETL_DIMEN_CONFIG, update_keylist, True)
+    columns -= set(get_empty_set_if_None(remove_cols))
+
     return columns
-
-
-def create_tlr_core_prime_table_sqlstr(x_dimen: str, stage0: str, stage1: str) -> str:
-    tablename = create_prime_tablename(x_dimen, stage0, stage1)
-    columns = get_trlcore_columns(x_dimen, stage0, stage1)
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
-
-
-def create_tlr_prime_table_sqlstr(x_dimen: str, stage0: str, stage1: str) -> str:
-    tablename = create_prime_tablename(x_dimen, stage0, stage1)
-    columns = get_translate_columns(x_dimen, stage0, stage1)
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
-
-
-def create_mmt_prime_table_sqlstr(x_dimen: str, stage0: str, stage1: str) -> str:
-    tablename = create_prime_tablename(x_dimen, stage0, stage1)
-    columns = get_moment_columns(x_dimen, stage0, stage1)
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
 
 
 def create_prime_table_sqlstr(
-    x_dimen: str, stage0: str, stage1: str, put_del: str
+    x_dimen: str, stage0: str, stage1: str, put_del: str = None
 ) -> str:
     tablename = create_prime_tablename(x_dimen, stage0, stage1, put_del)
-    columns = get_belief_columns(x_dimen, stage0, stage1, put_del)
-    return get_sorted_typed_create_table_sqlstr(tablename, columns)
-
-
-def get_sorted_typed_create_table_sqlstr(tablename: str, columns: list[str]) -> str:
-    columns = get_default_sorted_list(columns)
+    table_keylist = [stage0, stage1, put_del] if put_del else [stage0, stage1]
+    columns = get_default_sorted_list(get_prime_columns(x_dimen, table_keylist))
     return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())

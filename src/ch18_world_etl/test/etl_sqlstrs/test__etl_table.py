@@ -51,7 +51,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     mmtmont_dimen = kw.moment_epoch_month
     mmtweek_dimen = kw.moment_epoch_weekday
     mmtoffi_dimen = kw.moment_timeoffi
-    nbuepch_dimen = kw.nabu_epochtime
+    nabepoc_dimen = kw.nabu_epochtime
     trlname_dimen = kw.translate_name
     trllabe_dimen = kw.translate_label
     trlrope_dimen = kw.translate_rope
@@ -82,7 +82,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     mmtmont_s_agg_table = create_prime_tablename("mmtmont", "s", agg_str)
     mmtweek_s_agg_table = create_prime_tablename("mmtweek", "s", agg_str)
     mmtoffi_s_agg_table = create_prime_tablename("mmtoffi", "s", agg_str)
-    nbuepch_s_agg_table = create_prime_tablename("nbuepch", "s", agg_str)
+    nabepoc_s_agg_table = create_prime_tablename("nabepoc", "s", agg_str)
     trlname_s_agg_table = create_prime_tablename("trlname", "s", agg_str)
     trllabe_s_agg_table = create_prime_tablename("trllabe", "s", agg_str)
     trlrope_s_agg_table = create_prime_tablename("trlrope", "s", agg_str)
@@ -115,7 +115,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert mmtmont_s_agg_table == f"{mmtmont_dimen}_s_agg"
     assert mmtweek_s_agg_table == f"{mmtweek_dimen}_s_agg"
     assert mmtoffi_s_agg_table == f"{mmtoffi_dimen}_s_agg"
-    assert nbuepch_s_agg_table == f"{nbuepch_dimen}_s_agg"
+    assert nabepoc_s_agg_table == f"{nabepoc_dimen}_s_agg"
     assert trlname_s_agg_table == f"{trlname_dimen}_s_agg"
     assert trllabe_s_agg_table == f"{trllabe_dimen}_s_agg"
     assert trlrope_s_agg_table == f"{trlrope_dimen}_s_agg"
