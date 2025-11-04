@@ -176,8 +176,7 @@ def get_del_dimen_columns_set(x_dimen: str) -> set[str]:
 def get_trlcore_columns(x_dimen: str, stage0: str, stage1: str) -> set[str]:
     columns = get_all_dimen_columns_set(x_dimen)
     if (stage0, stage1) == ("s", "raw"):
-        columns.add("source_dimen")
-        columns.add("error_message")
+        columns.update({"source_dimen", "error_message"})
     # elif (stage0, stage1) in [("s", "agg"), ("s", "vld")]:
     #     pass
     return columns
@@ -186,30 +185,25 @@ def get_trlcore_columns(x_dimen: str, stage0: str, stage1: str) -> set[str]:
 def get_translate_columns(x_dimen: str, stage0: str, stage1: str) -> set[str]:
     columns = get_all_dimen_columns_set(x_dimen)
     if (stage0, stage1) == ("s", "raw"):
-        columns.add("idea_number")
-        columns.add("error_message")
+        columns.update({"idea_number", "error_message"})
     elif (stage0, stage1) == ("s", "agg"):
-        columns.add("error_message")
+        columns.update({"error_message"})
     elif (stage0, stage1) == ("s", "vld"):
-        columns.remove("otx_knot")
-        columns.remove("inx_knot")
-        columns.remove("unknown_str")
+        columns -= {"otx_knot", "inx_knot", "unknown_str"}
     return columns
 
 
 def get_moment_columns(x_dimen: str, stage0: str, stage1: str) -> set[str]:
     columns = get_all_dimen_columns_set(x_dimen)
     if (stage0, stage1) == ("s", "raw"):
-        columns.add("idea_number")
-        columns.add("error_message")
+        columns.update({"idea_number", "error_message"})
     elif (stage0, stage1) == ("s", "agg"):
-        columns.add("error_message")
+        columns.update({"error_message"})
     elif (stage0, stage1) == ("h", "raw"):
         columns = find_set_otx_inx_args(columns)
-        columns.add("error_message")
+        columns.update({"error_message"})
     elif (stage0, stage1) == ("h", "vld"):
-        columns.remove("spark_num")
-        columns.remove("face_name")
+        columns -= {"spark_num", "face_name"}
     # if (stage0, stage1) == ("s", "vld"):
     #   pass
     return columns
@@ -225,15 +219,14 @@ def get_belief_columns(
         columns = get_del_dimen_columns_set(x_dimen)
 
     if (stage0, stage1, put_del) == ("s", "raw", "put"):
-        columns.add("idea_number")
-        columns.add("error_message")
+        columns.update({"idea_number", "error_message"})
     elif (stage0, stage1, put_del) == ("s", "raw", "del"):
-        columns.add("idea_number")
+        columns.update({"idea_number"})
     elif (stage0, stage1) == ("s", "agg"):
-        columns.add("error_message")
+        columns.update({"error_message"})
     elif (stage0, stage1) == ("h", "raw"):
         columns = find_set_otx_inx_args(columns)
-        columns.add("translate_spark_num")
+        columns.update({"translate_spark_num"})
     # elif (stage0, stage1, put_del) == ("s", "vld", "put"):
     #     pass
     # elif (stage0, stage1, put_del) == ("s", "vld", "del"):

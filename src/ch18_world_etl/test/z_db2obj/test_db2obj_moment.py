@@ -55,11 +55,11 @@ VALUES (
     assert a23_dict
     assert a23_dict.get(kw.moment_label) == exx.a23
     print(f"{a23_dict=}")
-    a23_epoch_dict = a23_dict.get("epoch")
-    assert a23_epoch_dict.get("epoch_label") == a23_epoch_label
-    assert a23_epoch_dict.get("c400_number") == a23_c400_number
-    assert a23_epoch_dict.get("yr1_jan1_offset") == a23_yr1_jan1_offset
-    assert a23_epoch_dict.get("monthday_index") == a23_monthday_index
+    a23_epoch_dict = a23_dict.get(kw.epoch)
+    assert a23_epoch_dict.get(kw.epoch_label) == a23_epoch_label
+    assert a23_epoch_dict.get(kw.c400_number) == a23_c400_number
+    assert a23_epoch_dict.get(kw.yr1_jan1_offset) == a23_yr1_jan1_offset
+    assert a23_epoch_dict.get(kw.monthday_index) == a23_monthday_index
     assert a23_dict.get(kw.fund_grain) == a23_fund_grain
     assert a23_dict.get(kw.mana_grain) == a23_mana_grain
     assert a23_dict.get(kw.respect_grain) == a23_respect_grain

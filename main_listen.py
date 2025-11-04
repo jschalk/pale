@@ -38,13 +38,13 @@ if __name__ == "__main__":
         world_id="x_world",
         worlds_dir=working_directory,
         output_dir=output_directory,
-        mud_dir=input_directory,
+        input_dir=input_directory,
     )
     print(f"{x_worldunit.worlds_dir=}")
     print(f"{x_worldunit.output_dir=}")
-    print(f"{x_worldunit._mud_dir=}")
+    print(f"{x_worldunit._input_dir=}")
     print(f"before output_dir file/dir count= {count_dirs_files(output_directory)}")
-    x_worldunit.mud_to_clarity_mstr()
+    x_worldunit.sheets_input_to_clarity_mstr()
     x_worldunit.create_stances()
     x_worldunit.create_world_kpi_csvs()
     output_db_dir = create_path(output_directory, "db")
