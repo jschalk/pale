@@ -1,6 +1,8 @@
 from copy import copy as copy_copy
+from os import getcwd as os_getcwd
 from src.ch01_py.db_toolbox import get_create_table_sqlstr
 from src.ch01_py.dict_toolbox import get_empty_set_if_None, get_from_nested_dict
+from src.ch01_py.file_toolbox import create_path, open_json
 from src.ch08_belief_atom.atom_config import get_delete_key_name
 from src.ch16_translate.translate_config import find_set_otx_inx_args
 from src.ch17_idea.idea_config import (
@@ -158,83 +160,21 @@ BELIEF_PRIME_TABLENAMES = {
 }
 
 
-ETL_DIMEN_CONFIG = {
-    "translate_core": {
-        "override_columns": {"face_name", "otx_knot", "inx_knot", "unknown_str"},
-        "stages": {
-            "s": {
-                "raw": {"add": ["source_dimen", "error_message"]},
-                "agg": {},
-                "vld": {},
-            }
-        },
-    },
-    "translate": {
-        "stages": {
-            "s": {
-                "raw": {"add": ["idea_number", "error_message"]},
-                "agg": {"add": ["error_message"]},
-                "vld": {"remove": ["otx_knot", "inx_knot", "unknown_str"]},
-            }
-        }
-    },
-    "nabu": {
-        "stages": {
-            "s": {
-                "raw": {"add": ["idea_number", "error_message"]},
-                "agg": {"add": ["error_message"]},
-                "vld": {},
-            },
-            "h": {
-                "raw": {"add": ["error_message"], "set_otx_inx_args": True},
-                "agg": {},
-                "vld": {"remove": ["spark_num", "face_name"]},
-            },
-        },
-    },
-    "moment": {
-        "stages": {
-            "s": {
-                "raw": {"add": ["idea_number", "error_message"]},
-                "agg": {"add": ["error_message"]},
-                "vld": {},
-            },
-            "h": {
-                "raw": {"add": ["error_message"], "set_otx_inx_args": True},
-                "agg": {},
-                "vld": {"remove": ["spark_num", "face_name"]},
-            },
-        },
-    },
-    "belief": {
-        "stages": {
-            "s": {
-                "raw": {
-                    "put": {"add": ["idea_number", "error_message"]},
-                    "del": {"add": ["idea_number"]},
-                },
-                "agg": {
-                    "put": {"add": ["error_message"]},
-                    "del": {"add": ["error_message"]},
-                },
-                "vld": {"put": {}, "del": {}},
-            },
-            "h": {
-                "raw": {
-                    "put": {"add": ["translate_spark_num"], "set_otx_inx_args": True},
-                    "del": {"add": ["translate_spark_num"], "set_otx_inx_args": True},
-                },
-                "agg": {"put": {}, "del": {}},
-                "vld": {"put": {}, "del": {}},
-            },
-        }
-    },
-}
+def etl_dimen_config_path() -> str:
+    "Returns path: ch18_world_etl/etl_dimen_config.json"
+    src_dir = create_path(os_getcwd(), "src")
+    chapter_dir = create_path(src_dir, "ch18_world_etl")
+    return create_path(chapter_dir, "etl_dimen_config.json")
+
+
+def etl_dimen_config_dict() -> dict:
+    return open_json(etl_dimen_config_path())
 
 
 def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
     if x_dimen == "translate_core":
-        return copy_copy(ETL_DIMEN_CONFIG.get("translate_core").get("override_columns"))
+        translate_core_dict = etl_dimen_config_dict().get("translate_core")
+        return set(translate_core_dict.get("override_columns"))
     x_config = get_idea_config_dict().get(x_dimen)
     columns = set(x_config.get("jkeys").keys())
     columns.update(set(x_config.get("jvalues").keys()))
@@ -268,19 +208,20 @@ def get_prime_columns(x_dimen: str, table_keylist: list[str]) -> set[str]:
         idea_category = "belief"
     config_keylist = [idea_category, "stages", *table_keylist]
 
+    etl_dimen_config = etl_dimen_config_dict()
     otx_keylist = copy_copy(config_keylist)
     otx_keylist.append("set_otx_inx_args")
-    if get_from_nested_dict(ETL_DIMEN_CONFIG, otx_keylist, True):
+    if get_from_nested_dict(etl_dimen_config, otx_keylist, True):
         columns = find_set_otx_inx_args(columns)
 
     update_keylist = copy_copy(config_keylist)
     update_keylist.append("add")
-    update_cols = get_from_nested_dict(ETL_DIMEN_CONFIG, update_keylist, True)
+    update_cols = get_from_nested_dict(etl_dimen_config, update_keylist, True)
     columns.update(get_empty_set_if_None(update_cols))
 
     update_keylist = copy_copy(config_keylist)
     update_keylist.append("remove")
-    remove_cols = get_from_nested_dict(ETL_DIMEN_CONFIG, update_keylist, True)
+    remove_cols = get_from_nested_dict(etl_dimen_config, update_keylist, True)
     columns -= set(get_empty_set_if_None(remove_cols))
 
     return columns

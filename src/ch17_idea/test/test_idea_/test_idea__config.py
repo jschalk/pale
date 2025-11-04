@@ -454,7 +454,7 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
 
 
 def get_idea_categorys():
-    return {kw.belief, kw.moment, kw.translate, "nabu"}
+    return {kw.belief, kw.moment, kw.translate, kw.nabu}
 
 
 def _validate_idea_config(x_idea_config: dict):
@@ -478,7 +478,7 @@ def _validate_idea_config(x_idea_config: dict):
             sub_dimen = atom_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.moment:
             sub_dimen = moment_config_dict.get(idea_dimen)
-        elif idea_dict.get(kw.idea_category) == "nabu":
+        elif idea_dict.get(kw.idea_category) == kw.nabu:
             sub_dimen = nabu_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.translate:
             sub_dimen = translate_config_dict.get(idea_dimen)

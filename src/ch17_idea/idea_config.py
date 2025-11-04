@@ -4,14 +4,13 @@ from src.ch01_py.file_toolbox import create_path, get_json_filename, open_json
 
 
 def idea_config_path() -> str:
-    "Returns path: a17_idea_logic/idea_config.json"
+    "Returns path: ch17_idea_logic/idea_config.json"
     src_dir = create_path(os_getcwd(), "src")
     chapter_dir = create_path(src_dir, "ch17_idea")
     return create_path(chapter_dir, "idea_config.json")
 
 
 def get_idea_config_dict() -> dict:
-    "Returns path: a17_idea_logic/idea_config.json"
     return open_json(idea_config_path())
 
 

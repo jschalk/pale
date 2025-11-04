@@ -1,3 +1,4 @@
+from os import getcwd as os_getcwd
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import (
     db_table_exists,
@@ -5,6 +6,7 @@ from src.ch01_py.db_toolbox import (
     get_table_columns,
     required_columns_exist,
 )
+from src.ch01_py.file_toolbox import create_path
 from src.ch08_belief_atom.atom_config import get_delete_key_name
 from src.ch17_idea.idea_config import (
     get_filtered_idea_config,
@@ -19,9 +21,33 @@ from src.ch17_idea.idea_db_tool import (
 from src.ch18_world_etl.etl_table import (
     ALL_DIMEN_ABBV7,
     create_prime_tablename,
+    etl_dimen_config_dict,
+    etl_dimen_config_path,
     get_all_dimen_columns_set,
 )
 from src.ref.keywords import Ch18Keywords as kw
+
+
+def test_etl_dimen_config_path_ReturnsObj() -> str:
+    # ESTABLISH / WHEN / THEN
+    src_dir = create_path(os_getcwd(), "src")
+    chapter_dir = create_path(src_dir, "ch18_world_etl")
+    assert etl_dimen_config_path() == create_path(chapter_dir, "etl_dimen_config.json")
+
+
+def test_get_etl_dimen_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
+    # ESTABLISH / WHEN
+    etl_dimen_config = etl_dimen_config_dict()
+
+    # THEN
+    assert etl_dimen_config
+    etl_dimen_config_dimens = set(etl_dimen_config.keys())
+    assert kw.moment in etl_dimen_config_dimens
+    assert kw.translate_core in etl_dimen_config_dimens
+    assert kw.translate in etl_dimen_config_dimens
+    assert kw.belief in etl_dimen_config_dimens
+    assert kw.nabu in etl_dimen_config_dimens
+    assert len(etl_dimen_config_dimens) == 5
 
 
 def test_ALL_DIMEN_ABBV7_has_all_dimens():
