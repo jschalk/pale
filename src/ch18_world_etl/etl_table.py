@@ -116,50 +116,6 @@ def create_prime_tablename(
     return f"{tablename}_{put_del}_{stage1}" if put_del else f"{tablename}_{stage1}"
 
 
-BELIEF_PRIME_TABLENAMES = {
-    "belief_plan_awardunit_sound_del_agg": "BLFAWAR_DEL_AGG",
-    "belief_plan_awardunit_sound_del_raw": "BLFAWAR_DEL_RAW",
-    "belief_plan_awardunit_sound_put_agg": "BLFAWAR_PUT_AGG",
-    "belief_plan_awardunit_sound_put_raw": "BLFAWAR_PUT_RAW",
-    "belief_plan_factunit_sound_del_agg": "BLFFACT_DEL_AGG",
-    "belief_plan_factunit_sound_del_raw": "BLFFACT_DEL_RAW",
-    "belief_plan_factunit_sound_put_agg": "BLFFACT_PUT_AGG",
-    "belief_plan_factunit_sound_put_raw": "BLFFACT_PUT_RAW",
-    "belief_plan_healerunit_sound_del_agg": "BLFHEAL_DEL_AGG",
-    "belief_plan_healerunit_sound_del_raw": "BLFHEAL_DEL_RAW",
-    "belief_plan_healerunit_sound_put_agg": "BLFHEAL_PUT_AGG",
-    "belief_plan_healerunit_sound_put_raw": "BLFHEAL_PUT_RAW",
-    "belief_plan_partyunit_sound_del_agg": "BLFLABO_DEL_AGG",
-    "belief_plan_partyunit_sound_del_raw": "BLFLABO_DEL_RAW",
-    "belief_plan_partyunit_sound_put_agg": "BLFLABO_PUT_AGG",
-    "belief_plan_partyunit_sound_put_raw": "BLFLABO_PUT_RAW",
-    "belief_plan_reason_caseunit_sound_del_agg": "BLFCASE_DEL_AGG",
-    "belief_plan_reason_caseunit_sound_del_raw": "BLFCASE_DEL_RAW",
-    "belief_plan_reason_caseunit_sound_put_agg": "BLFCASE_PUT_AGG",
-    "belief_plan_reason_caseunit_sound_put_raw": "BLFCASE_PUT_RAW",
-    "belief_plan_reasonunit_sound_del_agg": "BLFREAS_DEL_AGG",
-    "belief_plan_reasonunit_sound_del_raw": "BLFREAS_DEL_RAW",
-    "belief_plan_reasonunit_sound_put_agg": "BLFREAS_PUT_AGG",
-    "belief_plan_reasonunit_sound_put_raw": "BLFREAS_PUT_RAW",
-    "belief_planunit_sound_del_agg": "BLFPLAN_DEL_AGG",
-    "belief_planunit_sound_del_raw": "BLFPLAN_DEL_RAW",
-    "belief_planunit_sound_put_agg": "BLFPLAN_PUT_AGG",
-    "belief_planunit_sound_put_raw": "BLFPLAN_PUT_RAW",
-    "belief_voice_membership_sound_del_agg": "BLFMEMB_DEL_AGG",
-    "belief_voice_membership_sound_del_raw": "BLFMEMB_DEL_RAW",
-    "belief_voice_membership_sound_put_agg": "BLFMEMB_PUT_AGG",
-    "belief_voice_membership_sound_put_raw": "BLFMEMB_PUT_RAW",
-    "belief_voiceunit_sound_del_agg": "BLFVOCE_DEL_AGG",
-    "belief_voiceunit_sound_del_raw": "BLFVOCE_DEL_RAW",
-    "belief_voiceunit_sound_put_agg": "BLFVOCE_PUT_AGG",
-    "belief_voiceunit_sound_put_raw": "BLFVOCE_PUT_RAW",
-    "beliefunit_sound_del_agg": "BLFUNIT_DEL_AGG",
-    "beliefunit_sound_del_raw": "BLFUNIT_DEL_RAW",
-    "beliefunit_sound_put_agg": "BLFUNIT_PUT_AGG",
-    "beliefunit_sound_put_raw": "BLFUNIT_PUT_RAW",
-}
-
-
 def etl_dimen_config_path() -> str:
     "Returns path: ch18_world_etl/etl_dimen_config.json"
     src_dir = create_path(os_getcwd(), "src")

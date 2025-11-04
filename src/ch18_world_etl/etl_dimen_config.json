@@ -1,72 +1,65 @@
 {
-    "translate_core": {
-        "override_columns": ["face_name", "otx_knot", "inx_knot", "unknown_str"],
-        "stages": {
-            "s": {
-                "raw": {"add": ["source_dimen", "error_message"]},
-                "agg": {},
-                "vld": {}
-            }
-        }
-    },
-    "translate": {
-        "stages": {
-            "s": {
-                "raw": {"add": ["idea_number", "error_message"]},
-                "agg": {"add": ["error_message"]},
-                "vld": {"remove": ["otx_knot", "inx_knot", "unknown_str"]}
-            }
-        }
-    },
-    "nabu": {
-        "stages": {
-            "s": {
-                "raw": {"add": ["idea_number", "error_message"]},
-                "agg": {"add": ["error_message"]},
-                "vld": {}
-            },
-            "h": {
-                "raw": {"add": ["error_message"], "set_otx_inx_args": true},
-                "agg": {},
-                "vld": {"remove": ["spark_num", "face_name"]}
-            }
-        }
-    },
-    "moment": {
-        "stages": {
-            "s": {
-                "raw": {"add": ["idea_number", "error_message"]},
-                "agg": {"add": ["error_message"]},
-                "vld": {}
-            },
-            "h": {
-                "raw": {"add": ["error_message"], "set_otx_inx_args": true},
-                "agg": {},
-                "vld": {"remove": ["spark_num", "face_name"]}
-            }
-        }
-    },
-    "belief": {
-        "stages": {
-            "s": {
-                "raw": {
-                    "put": {"add": ["idea_number", "error_message"]},
-                    "del": {"add": ["idea_number"]}
-                },
-                "agg": {
-                    "put": {"add": ["error_message"]},
-                    "del": {"add": ["error_message"]}
-                },
-                "vld": {"put": {}, "del": {}}
-            },
-            "h": {
-                "raw": {
-                    "put": {"add": ["translate_spark_num"], "set_otx_inx_args": true},
-                    "del": {"add": ["translate_spark_num"], "set_otx_inx_args": true}
-                },
-                "agg": {"put": {}, "del": {}},
-                "vld": {"put": {}, "del": {}}
-            }
-        }
+  "belief": {
+    "stages": {
+      "h": {
+        "agg": {"del": {}, "put": {}}, 
+        "raw": {
+          "del": { "add": ["translate_spark_num"], "set_otx_inx_args": true }, 
+          "put": { "add": ["translate_spark_num"], "set_otx_inx_args": true }
+        }, 
+        "vld": {"del": {}, "put": {}}
+      }, 
+      "s": {
+        "agg": { "del": { "add": ["error_message"] }, "put": { "add": ["error_message"] } }, 
+        "raw": {
+          "del": { "add": ["idea_number"]                  }, 
+          "put": { "add": ["idea_number", "error_message"] }
+        }, 
+        "vld": {"del": {}, "put": {}}
+      }
     }
+  }, 
+  "moment": {
+    "stages": {
+      "h": {
+        "agg": {}, 
+        "raw": { "add": ["error_message"], "set_otx_inx_args": true }, 
+        "vld": { "remove": ["spark_num", "face_name"] }
+      }, 
+      "s": {
+        "agg": { "add": ["error_message"] }, 
+        "raw": { "add": ["idea_number", "error_message"] }, 
+        "vld": {}
+      }
+    }
+  }, 
+  "nabu": {
+    "stages": {
+      "h": {
+        "agg": {}, 
+        "raw": { "add": ["error_message"], "set_otx_inx_args": true }, 
+        "vld": { "remove": ["spark_num", "face_name"] }
+      }, 
+      "s": {
+        "agg": { "add": ["error_message"] }, 
+        "raw": { "add": ["idea_number", "error_message"] }, 
+        "vld": {}
+      }
+    }
+  }, 
+  "translate": {
+    "stages": {
+      "s": {
+        "agg": { "add": ["error_message"] }, 
+        "raw": { "add": ["idea_number", "error_message"] }, 
+        "vld": { "remove": ["otx_knot", "inx_knot", "unknown_str"] }
+      }
+    }
+  }, 
+  "translate_core": {
+    "override_columns": ["face_name", "otx_knot", "inx_knot", "unknown_str"], 
+    "stages": {
+      "s": { "agg": {}, "raw": { "add": ["source_dimen", "error_message"] }, "vld": {} }
+    }
+  }
 }

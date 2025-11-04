@@ -136,11 +136,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckBeliefDimens():
     sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    belief_dimens_config = {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in get_idea_config_dict().items()
-        if dimen_config.get(kw.idea_category) == "belief"
-    }
+    belief_dimens_config = get_filtered_idea_config({"belief"})
 
     for x_dimen in belief_dimens_config:
         # print(f"{x_dimen} checking...")
