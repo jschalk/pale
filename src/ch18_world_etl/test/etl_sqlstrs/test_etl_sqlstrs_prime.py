@@ -36,17 +36,10 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_prime_create_table_sqlstrs,
 )
 from src.ch18_world_etl.etl_table import (
-    create_moment_heard_raw_table_sqlstr,
-    create_moment_heard_vld_table_sqlstr,
-    create_moment_sound_agg_table_sqlstr,
-    create_moment_sound_vld_table_sqlstr,
+    create_mmt_prime_table_sqlstr,
     create_prime_table_sqlstr,
-    create_translate_core_agg_table_sqlstr,
-    create_translate_core_raw_table_sqlstr,
-    create_translate_core_vld_table_sqlstr,
-    create_translate_sound_agg_table_sqlstr,
-    create_translate_sound_raw_table_sqlstr,
-    create_translate_sound_vld_table_sqlstr,
+    create_tlr_core_prime_table_sqlstr,
+    create_tlr_prime_table_sqlstr,
     get_dimen_abbv7,
 )
 from src.ref.keywords import Ch18Keywords as kw
@@ -63,9 +56,9 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateDimensCheck():
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
         s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-        expected_s_raw_sqlstr = create_translate_sound_raw_table_sqlstr(x_dimen)
-        expected_s_agg_sqlstr = create_translate_sound_agg_table_sqlstr(x_dimen)
-        expected_s_vld_sqlstr = create_translate_sound_vld_table_sqlstr(x_dimen)
+        expected_s_raw_sqlstr = create_tlr_prime_table_sqlstr(x_dimen, "s", "raw")
+        expected_s_agg_sqlstr = create_tlr_prime_table_sqlstr(x_dimen, "s", "agg")
+        expected_s_vld_sqlstr = create_tlr_prime_table_sqlstr(x_dimen, "s", "vld")
 
         abbv7 = get_dimen_abbv7(x_dimen)
         print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
@@ -89,9 +82,9 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateCoreDimensTranslate(
     s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
     s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
     s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
-    expected_s_raw_sqlstr = create_translate_core_raw_table_sqlstr(x_dimen)
-    expected_s_agg_sqlstr = create_translate_core_agg_table_sqlstr(x_dimen)
-    expected_s_vld_sqlstr = create_translate_core_vld_table_sqlstr(x_dimen)
+    expected_s_raw_sqlstr = create_tlr_core_prime_table_sqlstr(x_dimen, "s", "raw")
+    expected_s_agg_sqlstr = create_tlr_core_prime_table_sqlstr(x_dimen, "s", "agg")
+    expected_s_vld_sqlstr = create_tlr_core_prime_table_sqlstr(x_dimen, "s", "vld")
 
     abbv7 = get_dimen_abbv7(x_dimen)
     print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
@@ -120,11 +113,11 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckMomentDimens():
         s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
         h_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
         h_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "vld")
-        expected_s_raw_sqlstr = create_translate_sound_raw_table_sqlstr(x_dimen)
-        expected_s_agg_sqlstr = create_moment_sound_agg_table_sqlstr(x_dimen)
-        expected_s_vld_sqlstr = create_moment_sound_vld_table_sqlstr(x_dimen)
-        expected_h_raw_sqlstr = create_moment_heard_raw_table_sqlstr(x_dimen)
-        expected_h_vld_sqlstr = create_moment_heard_vld_table_sqlstr(x_dimen)
+        expected_s_raw_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "s", "raw")
+        expected_s_agg_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "s", "agg")
+        expected_s_vld_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "s", "vld")
+        expected_h_raw_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "h", "raw")
+        expected_h_vld_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "h", "vld")
         abbv7 = get_dimen_abbv7(x_dimen)
         print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
         print(f'CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR= """{expected_s_agg_sqlstr}"""')
@@ -227,11 +220,11 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckNabuDimens():
         s_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "vld")
         h_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "raw")
         h_vld_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "h", "vld")
-        expected_s_raw_sqlstr = create_translate_sound_raw_table_sqlstr(x_dimen)
-        expected_s_agg_sqlstr = create_moment_sound_agg_table_sqlstr(x_dimen)
-        expected_s_vld_sqlstr = create_moment_sound_vld_table_sqlstr(x_dimen)
-        expected_h_raw_sqlstr = create_moment_heard_raw_table_sqlstr(x_dimen)
-        expected_h_vld_sqlstr = create_moment_heard_vld_table_sqlstr(x_dimen)
+        expected_s_raw_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "s", "raw")
+        expected_s_agg_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "s", "agg")
+        expected_s_vld_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "s", "vld")
+        expected_h_raw_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "h", "raw")
+        expected_h_vld_sqlstr = create_mmt_prime_table_sqlstr(x_dimen, "h", "vld")
         abbv7 = get_dimen_abbv7(x_dimen)
         # print(f'CREATE_{abbv7.upper()}_SOUND_RAW_SQLSTR= """{expected_s_raw_sqlstr}"""')
         # print(f'CREATE_{abbv7.upper()}_SOUND_AGG_SQLSTR= """{expected_s_agg_sqlstr}"""')
