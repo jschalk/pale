@@ -209,8 +209,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
     # ESTABLISH
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
-        assert cursor.fetchone()[0] == 0
+        assert len(get_db_tables(cursor)) == 0
         agg_str = "agg"
         raw_str = "raw"
         vld_str = "vld"
@@ -271,8 +270,6 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         assert db_table_exists(cursor, trlcore_s_agg_table)
         assert db_table_exists(cursor, trlcore_s_vld_table)
         assert len(get_db_tables(cursor)) == 182
-        cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
-        assert cursor.fetchone()[0] == 182
 
 
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen():

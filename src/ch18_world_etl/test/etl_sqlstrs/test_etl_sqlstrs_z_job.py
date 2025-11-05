@@ -1,5 +1,9 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import db_table_exists, get_create_table_sqlstr
+from src.ch01_py.db_toolbox import (
+    db_table_exists,
+    get_create_table_sqlstr,
+    get_db_tables,
+)
 from src.ch07_belief_logic.belief_config import get_belief_config_dict
 from src.ch17_idea.idea_config import get_idea_sqlite_types
 from src.ch17_idea.idea_db_tool import get_default_sorted_list
@@ -41,8 +45,7 @@ def test_create_job_tables_CreatesTables():
     # ESTABLISH
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
-        assert cursor.fetchone()[0] == 0
+        assert len(get_db_tables(cursor)) == 0
 
         blfmemb_job_table = prime_table(kw.belief_voice_membership, kw.job, None)
         blfvoce_job_table = prime_table(kw.belief_voiceunit, kw.job, None)
@@ -100,5 +103,4 @@ def test_create_job_tables_CreatesTables():
         assert db_table_exists(cursor, blflabo_job_table)
         assert db_table_exists(cursor, blfplan_job_table)
         assert db_table_exists(cursor, blfunit_job_table)
-        cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
-        assert cursor.fetchone()[0] == 11
+        assert len(get_db_tables(cursor)) == 11
