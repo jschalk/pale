@@ -37,8 +37,7 @@
     "stages": {
       "h": {
         "agg": {}, 
-        "raw": { "add": ["error_message"], "set_otx_inx_args": true }, 
-        "vld": { "remove": ["spark_num", "face_name"] }
+        "raw": { "add": ["error_message"], "set_otx_inx_args": true }
       }, 
       "s": {
         "agg": { "add": ["error_message"] }, 

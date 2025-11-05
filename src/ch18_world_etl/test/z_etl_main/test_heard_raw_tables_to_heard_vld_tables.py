@@ -13,7 +13,7 @@ from src.ch18_world_etl.etl_table import get_dimen_abbv7
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentNabuDimen():
+def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentDimen():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH / WHEN
     insert_heard_vld_sqlstrs = get_insert_heard_vld_sqlstrs()
@@ -22,13 +22,10 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentNabuDimen():
     gen_heard_vld_tablenames = set(insert_heard_vld_sqlstrs.keys())
     moment_dimes = get_moment_dimens()
     moment_agg_tablenames = {prime_tbl(dimen, "h", "vld") for dimen in moment_dimes}
-    nabu_agg_tablenames = {prime_tbl(dimen, "h", "vld") for dimen in get_nabu_dimens()}
     # print(f"{gen_heard_vld_tablenames=}")
     # print(f"     {get_moment_dimens()=}")
-    print(f"       {nabu_agg_tablenames=}")
     assert moment_agg_tablenames.issubset(gen_heard_vld_tablenames)
-    assert nabu_agg_tablenames.issubset(gen_heard_vld_tablenames)
-    idea_config = get_idea_config_dict({kw.moment, kw.nabu})
+    idea_config = get_idea_config_dict({kw.moment})
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
         create_sound_and_heard_tables(cursor)

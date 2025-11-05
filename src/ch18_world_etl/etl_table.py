@@ -209,7 +209,6 @@ def get_etl_category_stages_dict() -> dict:
         "moment_s_vld": {"idea_category": "moment", "stage0": "s", "stage1": "vld"},
         "nabu_h_agg": {"idea_category": "nabu", "stage0": "h", "stage1": "agg"},
         "nabu_h_raw": {"idea_category": "nabu", "stage0": "h", "stage1": "raw"},
-        "nabu_h_vld": {"idea_category": "nabu", "stage0": "h", "stage1": "vld"},
         "nabu_s_agg": {"idea_category": "nabu", "stage0": "s", "stage1": "agg"},
         "nabu_s_raw": {"idea_category": "nabu", "stage0": "s", "stage1": "raw"},
         "nabu_s_vld": {"idea_category": "nabu", "stage0": "s", "stage1": "vld"},

@@ -172,7 +172,6 @@ CREATE_MMTWEEK_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_wee
 CREATE_MMTWEEK_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_weekday_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, weekday_order INTEGER, weekday_label TEXT)"""
 CREATE_NABEPOC_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_h_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, otx_time INTEGER, inx_time INTEGER)"""
 CREATE_NABEPOC_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, otx_time INTEGER, inx_time INTEGER, error_message TEXT)"""
-CREATE_NABEPOC_HEARD_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_h_vld (moment_label TEXT, otx_time INTEGER, inx_time INTEGER)"""
 CREATE_NABEPOC_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, otx_time INTEGER, inx_time INTEGER, error_message TEXT)"""
 CREATE_NABEPOC_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, otx_time INTEGER, inx_time INTEGER, error_message TEXT)"""
 CREATE_NABEPOC_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS nabu_epochtime_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, otx_time INTEGER, inx_time INTEGER)"""
@@ -359,7 +358,6 @@ def get_prime_create_table_sqlstrs() -> dict[str, str]:
         "momentunit_s_vld": CREATE_MMTUNIT_SOUND_VLD_SQLSTR,
         "nabu_epochtime_h_agg": CREATE_NABEPOC_HEARD_AGG_SQLSTR,
         "nabu_epochtime_h_raw": CREATE_NABEPOC_HEARD_RAW_SQLSTR,
-        "nabu_epochtime_h_vld": CREATE_NABEPOC_HEARD_VLD_SQLSTR,
         "nabu_epochtime_s_agg": CREATE_NABEPOC_SOUND_AGG_SQLSTR,
         "nabu_epochtime_s_raw": CREATE_NABEPOC_SOUND_RAW_SQLSTR,
         "nabu_epochtime_s_vld": CREATE_NABEPOC_SOUND_VLD_SQLSTR,
@@ -863,12 +861,6 @@ WHERE {column_prefix}_inx IS NULL
 """
 
 
-NABEPOC_HEARD_VLD_INSERT_SQLSTR = """
-INSERT INTO nabu_epochtime_h_vld (moment_label, otx_time, inx_time)
-SELECT moment_label_inx, otx_time, inx_time
-FROM nabu_epochtime_h_raw
-GROUP BY moment_label_inx, otx_time, inx_time
-"""
 MMTPAYY_HEARD_VLD_INSERT_SQLSTR = """
 INSERT INTO moment_paybook_h_vld (moment_label, belief_name, voice_name, tran_time, amount)
 SELECT moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
@@ -1037,7 +1029,6 @@ GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_ERASE_inx
 # TODO change get_insert_heard_vld_sqlstrs moment keys
 def get_insert_heard_vld_sqlstrs() -> dict[str, str]:
     return {
-        "nabu_epochtime_h_vld": NABEPOC_HEARD_VLD_INSERT_SQLSTR,
         "moment_paybook_h_vld": MMTPAYY_HEARD_VLD_INSERT_SQLSTR,
         "moment_budunit_h_vld": MMTBUDD_HEARD_VLD_INSERT_SQLSTR,
         "moment_epoch_hour_h_vld": MMTHOUR_HEARD_VLD_INSERT_SQLSTR,

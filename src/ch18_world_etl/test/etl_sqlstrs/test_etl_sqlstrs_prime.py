@@ -5,6 +5,7 @@ from src.ch01_py.db_toolbox import (
     create_table2table_agg_insert_query,
     create_update_inconsistency_error_query,
     db_table_exists,
+    get_db_tables,
     get_table_columns,
 )
 from src.ch08_belief_atom.atom_config import get_belief_dimens, get_delete_key_name
@@ -148,7 +149,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_HasAllKeys():
     # THEN
     assert create_table_sqlstrs
     translate_dimens_count = len(get_translate_dimens()) * 3
-    nabu_dimens_count = len(get_nabu_dimens()) * 6
+    nabu_dimens_count = len(get_nabu_dimens()) * 5
     moment_dimens_count = len(get_moment_dimens()) * 6
     belief_dimens_count = len(get_belief_dimens()) * 12
     print(f"{translate_dimens_count=}")
@@ -269,8 +270,9 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         assert db_table_exists(cursor, trlcore_s_raw_table)
         assert db_table_exists(cursor, trlcore_s_agg_table)
         assert db_table_exists(cursor, trlcore_s_vld_table)
+        assert len(get_db_tables(cursor)) == 182
         cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
-        assert cursor.fetchone()[0] == 183
+        assert cursor.fetchone()[0] == 182
 
 
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen():
