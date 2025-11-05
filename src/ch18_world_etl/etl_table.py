@@ -127,6 +127,125 @@ def etl_dimen_config_dict() -> dict:
     return open_json(etl_dimen_config_path())
 
 
+def get_etl_category_stages_dict() -> dict:
+    return {
+        "belief_h_agg_put": {
+            "idea_category": "belief",
+            "stage0": "h",
+            "stage1": "agg",
+            "put_del": "put",
+        },
+        "belief_h_agg_del": {
+            "idea_category": "belief",
+            "stage0": "h",
+            "stage1": "agg",
+            "put_del": "del",
+        },
+        "belief_h_raw_put": {
+            "idea_category": "belief",
+            "stage0": "h",
+            "stage1": "raw",
+            "put_del": "put",
+        },
+        "belief_h_raw_del": {
+            "idea_category": "belief",
+            "stage0": "h",
+            "stage1": "raw",
+            "put_del": "del",
+        },
+        "belief_h_vld_put": {
+            "idea_category": "belief",
+            "stage0": "h",
+            "stage1": "vld",
+            "put_del": "put",
+        },
+        "belief_h_vld_del": {
+            "idea_category": "belief",
+            "stage0": "h",
+            "stage1": "vld",
+            "put_del": "del",
+        },
+        "belief_s_agg_put": {
+            "idea_category": "belief",
+            "stage0": "s",
+            "stage1": "agg",
+            "put_del": "put",
+        },
+        "belief_s_agg_del": {
+            "idea_category": "belief",
+            "stage0": "s",
+            "stage1": "agg",
+            "put_del": "del",
+        },
+        "belief_s_raw_put": {
+            "idea_category": "belief",
+            "stage0": "s",
+            "stage1": "raw",
+            "put_del": "put",
+        },
+        "belief_s_raw_del": {
+            "idea_category": "belief",
+            "stage0": "s",
+            "stage1": "raw",
+            "put_del": "del",
+        },
+        "belief_s_vld_put": {
+            "idea_category": "belief",
+            "stage0": "s",
+            "stage1": "vld",
+            "put_del": "put",
+        },
+        "belief_s_vld_del": {
+            "idea_category": "belief",
+            "stage0": "s",
+            "stage1": "vld",
+            "put_del": "del",
+        },
+        "moment_h_agg": {"idea_category": "moment", "stage0": "h", "stage1": "agg"},
+        "moment_h_raw": {"idea_category": "moment", "stage0": "h", "stage1": "raw"},
+        "moment_h_vld": {"idea_category": "moment", "stage0": "h", "stage1": "vld"},
+        "moment_s_agg": {"idea_category": "moment", "stage0": "s", "stage1": "agg"},
+        "moment_s_raw": {"idea_category": "moment", "stage0": "s", "stage1": "raw"},
+        "moment_s_vld": {"idea_category": "moment", "stage0": "s", "stage1": "vld"},
+        "nabu_h_agg": {"idea_category": "nabu", "stage0": "h", "stage1": "agg"},
+        "nabu_h_raw": {"idea_category": "nabu", "stage0": "h", "stage1": "raw"},
+        "nabu_h_vld": {"idea_category": "nabu", "stage0": "h", "stage1": "vld"},
+        "nabu_s_agg": {"idea_category": "nabu", "stage0": "s", "stage1": "agg"},
+        "nabu_s_raw": {"idea_category": "nabu", "stage0": "s", "stage1": "raw"},
+        "nabu_s_vld": {"idea_category": "nabu", "stage0": "s", "stage1": "vld"},
+        "translate_s_agg": {
+            "idea_category": "translate",
+            "stage0": "s",
+            "stage1": "agg",
+        },
+        "translate_s_raw": {
+            "idea_category": "translate",
+            "stage0": "s",
+            "stage1": "raw",
+        },
+        "translate_s_vld": {
+            "idea_category": "translate",
+            "stage0": "s",
+            "stage1": "vld",
+        },
+        "translate_core_s_agg": {
+            "idea_category": "translate_core",
+            "stage0": "s",
+            "stage1": "agg",
+        },
+        "translate_core_s_raw": {
+            "idea_category": "translate_core",
+            "stage0": "s",
+            "stage1": "raw",
+        },
+        "translate_core_s_vld": {
+            "idea_category": "translate_core",
+            "stage0": "s",
+            "stage1": "vld",
+        },
+    }
+
+
 def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
     if x_dimen == "translate_core":
         translate_core_dict = etl_dimen_config_dict().get("translate_core")

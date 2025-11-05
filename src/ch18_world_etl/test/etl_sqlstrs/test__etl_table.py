@@ -23,30 +23,9 @@ from src.ch18_world_etl.etl_table import (
     etl_dimen_config_dict,
     etl_dimen_config_path,
     get_all_dimen_columns_set,
+    get_etl_category_stages_dict,
 )
 from src.ref.keywords import Ch18Keywords as kw
-
-
-def test_etl_dimen_config_path_ReturnsObj() -> str:
-    # ESTABLISH / WHEN / THEN
-    src_dir = create_path(os_getcwd(), "src")
-    chapter_dir = create_path(src_dir, "ch18_world_etl")
-    assert etl_dimen_config_path() == create_path(chapter_dir, "etl_dimen_config.json")
-
-
-def test_get_etl_dimen_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
-    # ESTABLISH / WHEN
-    etl_dimen_config = etl_dimen_config_dict()
-
-    # THEN
-    assert etl_dimen_config
-    etl_dimen_config_dimens = set(etl_dimen_config.keys())
-    assert kw.moment in etl_dimen_config_dimens
-    assert kw.translate_core in etl_dimen_config_dimens
-    assert kw.translate in etl_dimen_config_dimens
-    assert kw.belief in etl_dimen_config_dimens
-    assert kw.nabu in etl_dimen_config_dimens
-    assert len(etl_dimen_config_dimens) == 5
 
 
 def test_ALL_DIMEN_ABBV7_has_all_dimens():
@@ -175,6 +154,71 @@ def test_get_all_dimen_columns_set_ReturnsObj_Scenario1_translate_core_Dimens():
     # THEN
     expected_columns = {kw.face_name, kw.otx_knot, kw.inx_knot, kw.unknown_str}
     assert translate_core_columns == expected_columns
+
+
+def test_etl_dimen_config_path_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    src_dir = create_path(os_getcwd(), "src")
+    chapter_dir = create_path(src_dir, "ch18_world_etl")
+    assert etl_dimen_config_path() == create_path(chapter_dir, "etl_dimen_config.json")
+
+
+def test_get_etl_dimen_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
+    # ESTABLISH / WHEN
+    etl_dimen_config = etl_dimen_config_dict()
+
+    # THEN
+    assert etl_dimen_config
+    etl_dimen_config_dimens = set(etl_dimen_config.keys())
+    assert kw.moment in etl_dimen_config_dimens
+    assert kw.translate_core in etl_dimen_config_dimens
+    assert kw.translate in etl_dimen_config_dimens
+    assert kw.belief in etl_dimen_config_dimens
+    assert kw.nabu in etl_dimen_config_dimens
+    assert len(etl_dimen_config_dimens) == 5
+
+
+def test_get_etl_category_stages_dict_ReturnsObj():
+    # sourcery skip: no-conditionals-in-tests
+    # ESTABLISH / WHEN
+    etl_category_stages_dict = get_etl_category_stages_dict()
+
+    # THEN
+    expected_dict = {}
+    expected_count = 0
+    etl_dimen_config = etl_dimen_config_dict()
+    for dimen_key, dimen_dict in etl_dimen_config.items():
+        for stage0_key, stage0_dict in dimen_dict.get("stages").items():
+            for stage1_key, stage1_dict in stage0_dict.items():
+                expected_count += 1
+                if set(stage1_dict.keys()) == {"del", "put"}:
+                    stage_key_put = f"{dimen_key}_{stage0_key}_{stage1_key}_put"
+                    stage_key_del = f"{dimen_key}_{stage0_key}_{stage1_key}_del"
+                    # print(f"{expected_count} {stage_key_put=}")
+                    expected_count += 1
+                    expected_dict[stage_key_put] = {
+                        kw.idea_category: dimen_key,
+                        "stage0": stage0_key,
+                        "stage1": stage1_key,
+                        "put_del": "put",
+                    }
+                    expected_dict[stage_key_del] = {
+                        kw.idea_category: dimen_key,
+                        "stage0": stage0_key,
+                        "stage1": stage1_key,
+                        "put_del": "del",
+                    }
+                    # print(f"{expected_count} {stage_key_del=}")
+                else:
+                    stage_key = f"{dimen_key}_{stage0_key}_{stage1_key}"
+                    expected_dict[stage_key] = {
+                        kw.idea_category: dimen_key,
+                        "stage0": stage0_key,
+                        "stage1": stage1_key,
+                    }
+                    # print(f"{expected_count} {stage_key=} ")
+    # print(expected_dict)
+    assert etl_category_stages_dict == expected_dict
 
 
 # TODO create tests for these functions
