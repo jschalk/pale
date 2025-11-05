@@ -7,7 +7,6 @@ from src.ch01_py.db_toolbox import (
 )
 from src.ch08_belief_atom.atom_config import get_delete_key_name
 from src.ch17_idea.idea_config import (
-    get_filtered_idea_config,
     get_idea_config_dict,
     get_idea_numbers,
     get_idea_sqlite_types,
@@ -50,7 +49,7 @@ def test_get_idea_stageble_put_dimens_HasAll_idea_numbersForAll_dimens():
     # sourcery skip: extract-method, no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH / WHEN
     # THEN
-    idea_config = get_filtered_idea_config({kw.belief, kw.moment, kw.nabu})
+    idea_config = get_idea_config_dict({kw.belief, kw.moment, kw.nabu})
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
         create_all_idea_tables(cursor)
@@ -107,7 +106,7 @@ def test_IDEA_STAGEBLE_DEL_DIMENS_HasAll_idea_numbersForAll_dimens():
     # sourcery skip: extract-method, no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH / WHEN
     # THEN
-    idea_config = get_filtered_idea_config({kw.belief, kw.moment, kw.nabu})
+    idea_config = get_idea_config_dict({kw.belief, kw.moment, kw.nabu})
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
         create_all_idea_tables(cursor)

@@ -9,7 +9,6 @@ from src.ch01_py.db_toolbox import (
 from src.ch01_py.file_toolbox import create_path
 from src.ch08_belief_atom.atom_config import get_delete_key_name
 from src.ch17_idea.idea_config import (
-    get_filtered_idea_config,
     get_idea_config_dict,
     get_idea_numbers,
     get_idea_sqlite_types,

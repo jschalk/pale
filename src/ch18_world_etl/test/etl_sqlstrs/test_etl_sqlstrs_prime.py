@@ -15,11 +15,7 @@ from src.ch16_translate.translate_config import (
     find_set_otx_inx_args,
     get_translate_dimens,
 )
-from src.ch17_idea.idea_config import (
-    get_default_sorted_list,
-    get_filtered_idea_config,
-    get_idea_config_dict,
-)
+from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
 from src.ch18_world_etl.etl_sqlstr import (
     create_insert_into_translate_core_raw_sqlstr,
     create_insert_missing_face_name_into_translate_core_vld_sqlstr,
@@ -45,7 +41,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_TranslateDimensCheck():
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    translate_dimens_config = get_filtered_idea_config({kw.translate})
+    translate_dimens_config = get_idea_config_dict({kw.translate})
     for x_dimen in translate_dimens_config:
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
@@ -99,7 +95,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckMomentDimens():
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    moment_dimens_config = get_filtered_idea_config({kw.moment})
+    moment_dimens_config = get_idea_config_dict({kw.moment})
     for x_dimen in moment_dimens_config:
         # print(f"{abbv7} {x_dimen} checking...")
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
@@ -136,7 +132,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckBeliefDimens():
     sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    belief_dimens_config = get_filtered_idea_config({"belief"})
+    belief_dimens_config = get_idea_config_dict({"belief"})
 
     for x_dimen in belief_dimens_config:
         # print(f"{x_dimen} checking...")
@@ -203,7 +199,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_CheckNabuDimens():
     create_table_sqlstrs = get_prime_create_table_sqlstrs()
 
     # THEN
-    for x_dimen in get_filtered_idea_config({kw.nabu}):
+    for x_dimen in get_idea_config_dict({kw.nabu}):
         print(f"{get_dimen_abbv7(x_dimen)} {x_dimen} checking...")
         s_raw_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "raw")
         s_agg_tablename = prime_tbl(get_dimen_abbv7(x_dimen), "s", "agg")
@@ -874,7 +870,7 @@ GROUP BY spark_num, face_name
 def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    belief_dimens_config = get_filtered_idea_config({kw.belief})
+    belief_dimens_config = get_idea_config_dict({kw.belief})
 
     # WHEN
     insert_s_vld_sqlstrs = get_insert_into_sound_vld_sqlstrs()
@@ -931,7 +927,7 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
 def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    moment_dimens_config = get_filtered_idea_config({kw.moment, kw.nabu})
+    moment_dimens_config = get_idea_config_dict({kw.moment, kw.nabu})
     print(f"{moment_dimens_config.keys()=}")
 
     # WHEN
@@ -970,7 +966,7 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    belief_dimens_config = get_filtered_idea_config({kw.belief})
+    belief_dimens_config = get_idea_config_dict({kw.belief})
 
     # WHEN
     insert_h_raw_sqlstrs = get_insert_into_heard_raw_sqlstrs()
@@ -1027,7 +1023,7 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    moment_dimens_config = get_filtered_idea_config({kw.moment, kw.nabu})
+    moment_dimens_config = get_idea_config_dict({kw.moment, kw.nabu})
 
     # WHEN
     insert_h_raw_sqlstrs = get_insert_into_heard_raw_sqlstrs()

@@ -10,16 +10,17 @@ def idea_config_path() -> str:
     return create_path(chapter_dir, "idea_config.json")
 
 
-def get_idea_config_dict() -> dict:
-    return open_json(idea_config_path())
-
-
-def get_filtered_idea_config(idea_categorys: set[str]) -> dict:
-    return {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in get_idea_config_dict().items()
-        if dimen_config.get("idea_category") in idea_categorys
-    }
+def get_idea_config_dict(idea_categorys: set[str] = None) -> dict:
+    """If idea_categorys is None/empty return entire idea_config_dict, otherwise filter on idea_category"""
+    idea_config_dict = open_json(idea_config_path())
+    if idea_categorys:
+        return {
+            x_dimen: dimen_config
+            for x_dimen, dimen_config in idea_config_dict.items()
+            if dimen_config.get("idea_category") in idea_categorys
+        }
+    else:
+        return idea_config_dict
 
 
 def get_allowed_curds() -> set[str]:
