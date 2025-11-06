@@ -21,10 +21,10 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentDimen():
     # THEN
     gen_heard_vld_tablenames = set(insert_heard_vld_sqlstrs.keys())
     moment_dimes = get_moment_dimens()
-    moment_agg_tablenames = {prime_tbl(dimen, "h", "vld") for dimen in moment_dimes}
+    moment_vld_tablenames = {prime_tbl(dimen, "h", "vld") for dimen in moment_dimes}
     # print(f"{gen_heard_vld_tablenames=}")
     # print(f"     {get_moment_dimens()=}")
-    assert moment_agg_tablenames.issubset(gen_heard_vld_tablenames)
+    assert moment_vld_tablenames.issubset(gen_heard_vld_tablenames)
     idea_config = get_idea_config_dict({kw.moment})
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
@@ -33,9 +33,9 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentDimen():
         for x_dimen in idea_config:
             # print(f"{x_dimen} checking...")
             raw_tablename = prime_tbl(x_dimen, "h", "raw")
-            agg_tablename = prime_tbl(x_dimen, "h", "vld")
+            vld_tablename = prime_tbl(x_dimen, "h", "vld")
             raw_columns = get_table_columns(cursor, raw_tablename)
-            agg_columns = get_table_columns(cursor, agg_tablename)
+            vld_columns = get_table_columns(cursor, vld_tablename)
             raw_columns = {raw_col for raw_col in raw_columns if raw_col[-3:] != "otx"}
             raw_columns.remove(f"{kw.face_name}_inx")
             raw_columns.remove(kw.spark_num)
@@ -43,11 +43,11 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentDimen():
             raw_columns = get_default_sorted_list(raw_columns)
 
             raw_columns_str = ", ".join(raw_columns)
-            agg_columns_str = ", ".join(agg_columns)
+            vld_columns_str = ", ".join(vld_columns)
             # print(f"{raw_columns_str=}")
-            # print(f"{agg_columns_str=}")
-            expected_table2table_agg_insert_sqlstr = f"""
-INSERT INTO {agg_tablename} ({agg_columns_str})
+            # print(f"{vld_columns_str=}")
+            expected_table2table_vld_insert_sqlstr = f"""
+INSERT INTO {vld_tablename} ({vld_columns_str})
 SELECT {raw_columns_str}
 FROM {raw_tablename}
 GROUP BY {raw_columns_str}
@@ -55,10 +55,10 @@ GROUP BY {raw_columns_str}
             dimen_abbv7 = get_dimen_abbv7(x_dimen)
             # print(f'"{x_dimen}": {dimen_abbv7.upper()}_HEARD_VLD_INSERT_SQLSTR,')
             print(
-                f'{dimen_abbv7.upper()}_HEARD_VLD_INSERT_SQLSTR = """{expected_table2table_agg_insert_sqlstr}"""'
+                f'{dimen_abbv7.upper()}_HEARD_VLD_INSERT_SQLSTR = """{expected_table2table_vld_insert_sqlstr}"""'
             )
-            gen_sqlstr = insert_heard_vld_sqlstrs.get(agg_tablename)
-            assert gen_sqlstr == expected_table2table_agg_insert_sqlstr
+            gen_sqlstr = insert_heard_vld_sqlstrs.get(vld_tablename)
+            assert gen_sqlstr == expected_table2table_vld_insert_sqlstr
 
 
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimensRequired():
@@ -95,13 +95,13 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimensRequired():
             h_raw_del_columns_str = ", ".join(h_raw_del_cols)
             h_vld_put_columns_str = ", ".join(h_vld_put_cols)
             h_vld_del_columns_str = ", ".join(h_vld_del_cols)
-            expected_agg_put_insert_sqlstr = f"""
+            expected_vld_put_insert_sqlstr = f"""
 INSERT INTO {h_vld_put_tablename} ({h_vld_put_columns_str})
 SELECT {h_raw_put_columns_str}
 FROM {h_raw_put_tablename}
 GROUP BY {h_raw_put_columns_str}
 """
-            expected_agg_del_insert_sqlstr = f"""
+            expected_vld_del_insert_sqlstr = f"""
 INSERT INTO {h_vld_del_tablename} ({h_vld_del_columns_str})
 SELECT {h_raw_del_columns_str}
 FROM {h_raw_del_tablename}
@@ -110,14 +110,14 @@ GROUP BY {h_raw_del_columns_str}
             abbv7 = get_dimen_abbv7(belief_dimen)
             put_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_VLD_PUT_SQLSTR"
             del_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_VLD_DEL_SQLSTR"
-            print(f'{put_sqlstr_ref}= """{expected_agg_put_insert_sqlstr}"""')
-            print(f'{del_sqlstr_ref}= """{expected_agg_del_insert_sqlstr}"""')
+            print(f'{put_sqlstr_ref}= """{expected_vld_put_insert_sqlstr}"""')
+            print(f'{del_sqlstr_ref}= """{expected_vld_del_insert_sqlstr}"""')
             # print(f"'{h_vld_put_tablename}': {put_sqlstr_ref},")
             # print(f"'{h_vld_del_tablename}': {del_sqlstr_ref},")
             insert_h_vld_put_sqlstr = insert_heard_vld_sqlstrs.get(h_vld_put_tablename)
             insert_h_vld_del_sqlstr = insert_heard_vld_sqlstrs.get(h_vld_del_tablename)
-            assert insert_h_vld_put_sqlstr == expected_agg_put_insert_sqlstr
-            assert insert_h_vld_del_sqlstr == expected_agg_del_insert_sqlstr
+            assert insert_h_vld_put_sqlstr == expected_vld_put_insert_sqlstr
+            assert insert_h_vld_del_sqlstr == expected_vld_del_insert_sqlstr
 
 
 def test_get_insert_heard_vld_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
