@@ -115,6 +115,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_update_trlrope_sound_agg_knot_error_sqlstr,
     create_update_trltitl_sound_agg_knot_error_sqlstr,
     get_belief_heard_vld_tablenames,
+    get_insert_heard_agg_sqlstrs,
     get_insert_heard_vld_sqlstrs,
     get_insert_into_heard_raw_sqlstrs,
     get_insert_into_sound_vld_sqlstrs,
@@ -610,6 +611,11 @@ def set_heard_raw_inx_column(
         heard_raw_tablename, column_without_otx
     )
     cursor.execute(update_empty_inx_sqlstr)
+
+
+def etl_heard_raw_tables_to_heard_agg_tables(cursor: sqlite3_Cursor):
+    for insert_heard_agg_sqlstr in get_insert_heard_agg_sqlstrs().values():
+        cursor.execute(insert_heard_agg_sqlstr)
 
 
 def etl_heard_raw_tables_to_heard_vld_tables(cursor: sqlite3_Cursor):

@@ -861,6 +861,209 @@ WHERE {column_prefix}_inx IS NULL
 """
 
 
+BLFAWAR_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_plan_awardunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_ERASE_inx
+FROM belief_plan_awardunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_ERASE_inx
+"""
+BLFFACT_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_plan_factunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_ERASE_inx
+FROM belief_plan_factunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_ERASE_inx
+"""
+BLFHEAL_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_plan_healerunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_ERASE_inx
+FROM belief_plan_healerunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_ERASE_inx
+"""
+BLFLABO_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_plan_partyunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, party_title_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_ERASE_inx
+FROM belief_plan_partyunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_ERASE_inx
+"""
+BLFCASE_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_plan_reason_caseunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_ERASE_inx
+FROM belief_plan_reason_caseunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_ERASE_inx
+"""
+BLFREAS_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_plan_reasonunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_ERASE_inx
+FROM belief_plan_reasonunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_ERASE_inx
+"""
+BLFPLAN_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_planunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_ERASE_inx
+FROM belief_planunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_ERASE_inx
+"""
+BLFMEMB_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_voice_membership_h_del_agg (spark_num, face_name, moment_label, belief_name, voice_name, group_title_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, group_title_ERASE_inx
+FROM belief_voice_membership_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, group_title_ERASE_inx
+"""
+BLFVOCE_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_voiceunit_h_del_agg (spark_num, face_name, moment_label, belief_name, voice_name_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_ERASE_inx
+FROM belief_voiceunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_ERASE_inx
+"""
+BLFUNIT_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO beliefunit_h_del_agg (spark_num, face_name, moment_label, belief_name_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_ERASE_inx
+FROM beliefunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_ERASE_inx
+"""
+BLFAWAR_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_plan_awardunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_inx, give_force, take_force
+FROM belief_plan_awardunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_inx, give_force, take_force
+"""
+BLFFACT_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_plan_factunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
+FROM belief_plan_factunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
+"""
+BLFHEAL_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_plan_healerunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_inx
+FROM belief_plan_healerunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_inx
+"""
+BLFLABO_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_plan_partyunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, party_title, solo)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_inx, solo
+FROM belief_plan_partyunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_inx, solo
+"""
+BLFCASE_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper, reason_lower, reason_divisor)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_upper, reason_lower, reason_divisor
+FROM belief_plan_reason_caseunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_upper, reason_lower, reason_divisor
+"""
+BLFREAS_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_plan_reasonunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, active_requisite)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, active_requisite
+FROM belief_plan_reasonunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, active_requisite
+"""
+BLFPLAN_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_planunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
+FROM belief_planunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
+"""
+BLFMEMB_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_voice_membership_h_put_agg (spark_num, face_name, moment_label, belief_name, voice_name, group_title, group_cred_lumen, group_debt_lumen)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, group_title_inx, group_cred_lumen, group_debt_lumen
+FROM belief_voice_membership_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, group_title_inx, group_cred_lumen, group_debt_lumen
+"""
+BLFVOCE_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_voiceunit_h_put_agg (spark_num, face_name, moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, voice_cred_lumen, voice_debt_lumen
+FROM belief_voiceunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, voice_cred_lumen, voice_debt_lumen
+"""
+BLFUNIT_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO beliefunit_h_put_agg (spark_num, face_name, moment_label, belief_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain
+FROM beliefunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain
+"""
+MMTBUDD_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO moment_budunit_h_agg (spark_num, face_name, moment_label, belief_name, bud_time, quota, celldepth)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, bud_time, quota, celldepth
+FROM moment_budunit_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, bud_time, quota, celldepth
+"""
+MMTHOUR_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO moment_epoch_hour_h_agg (spark_num, face_name, moment_label, cumulative_minute, hour_label)
+SELECT spark_num, face_name_inx, moment_label_inx, cumulative_minute, hour_label_inx
+FROM moment_epoch_hour_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, cumulative_minute, hour_label_inx
+"""
+MMTMONT_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO moment_epoch_month_h_agg (spark_num, face_name, moment_label, cumulative_day, month_label)
+SELECT spark_num, face_name_inx, moment_label_inx, cumulative_day, month_label_inx
+FROM moment_epoch_month_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, cumulative_day, month_label_inx
+"""
+MMTWEEK_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO moment_epoch_weekday_h_agg (spark_num, face_name, moment_label, weekday_order, weekday_label)
+SELECT spark_num, face_name_inx, moment_label_inx, weekday_order, weekday_label_inx
+FROM moment_epoch_weekday_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, weekday_order, weekday_label_inx
+"""
+MMTPAYY_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO moment_paybook_h_agg (spark_num, face_name, moment_label, belief_name, voice_name, tran_time, amount)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
+FROM moment_paybook_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
+"""
+MMTOFFI_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO moment_timeoffi_h_agg (spark_num, face_name, moment_label, offi_time)
+SELECT spark_num, face_name_inx, moment_label_inx, offi_time
+FROM moment_timeoffi_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, offi_time
+"""
+MMTUNIT_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO momentunit_h_agg (spark_num, face_name, moment_label, epoch_label, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations)
+SELECT spark_num, face_name_inx, moment_label_inx, epoch_label_inx, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations
+FROM momentunit_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, epoch_label_inx, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations
+"""
+NABEPOC_HEARD_AGG_INSERT_SQLSTR = """
+INSERT INTO nabu_epochtime_h_agg (spark_num, face_name, moment_label, otx_time, inx_time)
+SELECT spark_num, face_name_inx, moment_label_inx, otx_time, inx_time
+FROM nabu_epochtime_h_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, otx_time, inx_time
+"""
+
+
+def get_insert_heard_agg_sqlstrs() -> dict[str, str]:
+    return {
+        "belief_plan_awardunit_h_del_agg": BLFAWAR_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_plan_factunit_h_del_agg": BLFFACT_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_plan_healerunit_h_del_agg": BLFHEAL_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_plan_partyunit_h_del_agg": BLFLABO_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_plan_reason_caseunit_h_del_agg": BLFCASE_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_plan_reasonunit_h_del_agg": BLFREAS_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_planunit_h_del_agg": BLFPLAN_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_voice_membership_h_del_agg": BLFMEMB_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_voiceunit_h_del_agg": BLFVOCE_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "beliefunit_h_del_agg": BLFUNIT_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_plan_awardunit_h_put_agg": BLFAWAR_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_plan_factunit_h_put_agg": BLFFACT_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_plan_healerunit_h_put_agg": BLFHEAL_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_plan_partyunit_h_put_agg": BLFLABO_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_plan_reason_caseunit_h_put_agg": BLFCASE_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_plan_reasonunit_h_put_agg": BLFREAS_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_planunit_h_put_agg": BLFPLAN_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_voice_membership_h_put_agg": BLFMEMB_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_voiceunit_h_put_agg": BLFVOCE_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "beliefunit_h_put_agg": BLFUNIT_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "moment_budunit_h_agg": MMTBUDD_HEARD_AGG_INSERT_SQLSTR,
+        "moment_epoch_hour_h_agg": MMTHOUR_HEARD_AGG_INSERT_SQLSTR,
+        "moment_epoch_month_h_agg": MMTMONT_HEARD_AGG_INSERT_SQLSTR,
+        "moment_epoch_weekday_h_agg": MMTWEEK_HEARD_AGG_INSERT_SQLSTR,
+        "moment_paybook_h_agg": MMTPAYY_HEARD_AGG_INSERT_SQLSTR,
+        "moment_timeoffi_h_agg": MMTOFFI_HEARD_AGG_INSERT_SQLSTR,
+        "momentunit_h_agg": MMTUNIT_HEARD_AGG_INSERT_SQLSTR,
+        "nabu_epochtime_h_agg": NABEPOC_HEARD_AGG_INSERT_SQLSTR,
+    }
+
+
 MMTPAYY_HEARD_VLD_INSERT_SQLSTR = """
 INSERT INTO moment_paybook_h_vld (moment_label, belief_name, voice_name, tran_time, amount)
 SELECT moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount

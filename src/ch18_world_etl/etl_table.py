@@ -116,15 +116,16 @@ def create_prime_tablename(
     return f"{tablename}_{put_del}_{stage1}" if put_del else f"{tablename}_{stage1}"
 
 
-def etl_dimen_config_path() -> str:
-    "Returns path: ch18_world_etl/etl_dimen_config.json"
+def etl_idea_category_config_path() -> str:
+    "Returns path: ch18_world_etl/etl_idea_category_config.json"
     src_dir = create_path(os_getcwd(), "src")
     chapter_dir = create_path(src_dir, "ch18_world_etl")
-    return create_path(chapter_dir, "etl_dimen_config.json")
+    return create_path(chapter_dir, "etl_idea_category_config.json")
 
 
-def etl_dimen_config_dict() -> dict:
-    return open_json(etl_dimen_config_path())
+def etl_idea_category_config_dict() -> dict:
+    """Config data for etl dimenensions (translate, moment, belief...) including required columns per stage"""
+    return open_json(etl_idea_category_config_path())
 
 
 def get_etl_category_stages_dict() -> dict:
@@ -245,9 +246,13 @@ def get_etl_category_stages_dict() -> dict:
     }
 
 
+def remove_otx_columns(columns_set: set) -> set:
+    return {x_col for x_col in columns_set if x_col[-3:] != "otx"}
+
+
 def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
     if x_dimen == "translate_core":
-        translate_core_dict = etl_dimen_config_dict().get("translate_core")
+        translate_core_dict = etl_idea_category_config_dict().get("translate_core")
         return set(translate_core_dict.get("override_columns"))
     x_config = get_idea_config_dict().get(x_dimen)
     columns = set(x_config.get("jkeys").keys())
@@ -282,20 +287,20 @@ def get_prime_columns(x_dimen: str, table_keylist: list[str]) -> set[str]:
         idea_category = "belief"
     config_keylist = [idea_category, "stages", *table_keylist]
 
-    etl_dimen_config = etl_dimen_config_dict()
+    etl_idea_category_config = etl_idea_category_config_dict()
     otx_keylist = copy_copy(config_keylist)
     otx_keylist.append("set_otx_inx_args")
-    if get_from_nested_dict(etl_dimen_config, otx_keylist, True):
+    if get_from_nested_dict(etl_idea_category_config, otx_keylist, True):
         columns = find_set_otx_inx_args(columns)
 
     update_keylist = copy_copy(config_keylist)
     update_keylist.append("add")
-    update_cols = get_from_nested_dict(etl_dimen_config, update_keylist, True)
+    update_cols = get_from_nested_dict(etl_idea_category_config, update_keylist, True)
     columns.update(get_empty_set_if_None(update_cols))
 
     update_keylist = copy_copy(config_keylist)
     update_keylist.append("remove")
-    remove_cols = get_from_nested_dict(etl_dimen_config, update_keylist, True)
+    remove_cols = get_from_nested_dict(etl_idea_category_config, update_keylist, True)
     columns -= set(get_empty_set_if_None(remove_cols))
 
     return columns

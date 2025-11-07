@@ -2,7 +2,10 @@
   "belief": {
     "stages": {
       "h": {
-        "agg": {"del": {}, "put": {}}, 
+        "agg": {
+          "del": { "exclude_from_insert": ["translate_spark_num", "error_message"], "exclude_otx_from_insert": true }, 
+          "put": { "exclude_from_insert": ["translate_spark_num", "error_message"], "exclude_otx_from_insert": true }
+        }, 
         "raw": {
           "del": { "add": ["translate_spark_num"], "set_otx_inx_args": true }, 
           "put": { "add": ["translate_spark_num"], "set_otx_inx_args": true }
@@ -22,7 +25,7 @@
   "moment": {
     "stages": {
       "h": {
-        "agg": {}, 
+        "agg": { "exclude_from_insert": ["error_message"], "exclude_otx_from_insert": true }, 
         "raw": { "add": ["error_message"], "set_otx_inx_args": true }, 
         "vld": { "remove": ["spark_num", "face_name"] }
       }, 
@@ -36,7 +39,7 @@
   "nabu": {
     "stages": {
       "h": {
-        "agg": {}, 
+        "agg": { "exclude_from_insert": ["error_message"], "exclude_otx_from_insert": true }, 
         "raw": { "add": ["error_message"], "set_otx_inx_args": true }
       }, 
       "s": {
