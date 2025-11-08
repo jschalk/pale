@@ -92,7 +92,6 @@ from src.ch18_world_etl._ref.ch18_path import (
     create_moment_ote1_json_path,
 )
 from src.ch18_world_etl._ref.ch18_semantic_types import FaceName, SparkInt
-from src.ch18_world_etl.belief_db_obj_tool import insert_job_obj
 from src.ch18_world_etl.etl_sqlstr import (
     CREATE_MOMENT_OTE1_AGG_SQLSTR,
     CREATE_MOMENT_VOICE_NETS_SQLSTR,
@@ -116,13 +115,15 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_update_trlrope_sound_agg_knot_error_sqlstr,
     create_update_trltitl_sound_agg_knot_error_sqlstr,
     get_belief_heard_vld_tablenames,
+    get_insert_heard_agg_sqlstrs,
     get_insert_heard_vld_sqlstrs,
     get_insert_into_heard_raw_sqlstrs,
     get_insert_into_sound_vld_sqlstrs,
     get_moment_belief_sound_agg_tablenames,
 )
+from src.ch18_world_etl.hydrate_belief import insert_job_obj
+from src.ch18_world_etl.hydrate_moment import get_moment_dict_from_heard_tables
 from src.ch18_world_etl.idea_collector import IdeaFileRef, get_all_idea_dataframes
-from src.ch18_world_etl.moment_db_obj_tool import get_moment_dict_from_heard_tables
 
 
 def etl_input_dfs_to_brick_raw_tables(cursor: sqlite3_Cursor, input_dir: str):
@@ -610,6 +611,11 @@ def set_heard_raw_inx_column(
         heard_raw_tablename, column_without_otx
     )
     cursor.execute(update_empty_inx_sqlstr)
+
+
+def etl_heard_raw_tables_to_heard_agg_tables(cursor: sqlite3_Cursor):
+    for insert_heard_agg_sqlstr in get_insert_heard_agg_sqlstrs().values():
+        cursor.execute(insert_heard_agg_sqlstr)
 
 
 def etl_heard_raw_tables_to_heard_vld_tables(cursor: sqlite3_Cursor):

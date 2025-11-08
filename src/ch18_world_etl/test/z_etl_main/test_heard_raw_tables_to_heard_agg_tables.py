@@ -1,129 +1,106 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_row_count, get_table_columns
+from src.ch01_py.dict_toolbox import get_empty_set_if_None
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
-from src.ch17_idea.idea_config import get_default_sorted_list, get_filtered_idea_config
-from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_vld_tables
+from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
+from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_agg_tables
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
-    get_insert_heard_vld_sqlstrs,
+    get_insert_heard_agg_sqlstrs,
 )
-from src.ch18_world_etl.etl_table import get_dimen_abbv7
+from src.ch18_world_etl.etl_table import (
+    etl_idea_category_config_dict,
+    get_dimen_abbv7,
+    get_etl_category_stages_dict,
+    get_prime_columns,
+    remove_otx_columns,
+)
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentNabuDimen():
-    # sourcery skip: no-loop-in-tests
-    # ESTABLISH / WHEN
-    insert_heard_vld_sqlstrs = get_insert_heard_vld_sqlstrs()
+def check_insert_sqlstr_exists(
+    dimen: str,
+    insert_heard_agg_sqlstrs: dict,
+    stage_dict: dict,
+    put_del: str = None,
+):
+    raw_tablename = prime_tbl(dimen, "h", "raw", put_del)
+    agg_tablename = prime_tbl(dimen, "h", "agg", put_del)
 
-    # THEN
-    gen_heard_vld_tablenames = set(insert_heard_vld_sqlstrs.keys())
-    moment_dimes = get_moment_dimens()
-    moment_agg_tablenames = {prime_tbl(dimen, "h", "vld") for dimen in moment_dimes}
-    nabu_agg_tablenames = {prime_tbl(dimen, "h", "vld") for dimen in get_nabu_dimens()}
-    # print(f"{gen_heard_vld_tablenames=}")
-    # print(f"     {get_moment_dimens()=}")
-    print(f"       {nabu_agg_tablenames=}")
-    assert moment_agg_tablenames.issubset(gen_heard_vld_tablenames)
-    assert nabu_agg_tablenames.issubset(gen_heard_vld_tablenames)
-    idea_config = get_filtered_idea_config({kw.moment, kw.nabu})
-    with sqlite3_connect(":memory:") as moment_db_conn:
-        cursor = moment_db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    # print(f"{raw_tablename=} {agg_tablename=}")
+    # print(f"{stage_dict=}")
+    raw_keylist = ["h", "raw", put_del] if put_del else ["h", "raw"]
+    agg_keylist = ["h", "agg", put_del] if put_del else ["h", "agg"]
+    p_agg_columns = get_prime_columns(dimen, agg_keylist)
+    p_raw_columns = get_prime_columns(dimen, raw_keylist)
+    if stage_dict.get("exclude_otx_from_insert"):
+        p_raw_columns = remove_otx_columns(p_raw_columns)
+    exclude_from_insert = stage_dict.get("exclude_from_insert")
+    exclude_from_insert = set(get_empty_set_if_None(exclude_from_insert))
+    p_raw_columns -= exclude_from_insert
+    p_raw_columns = get_default_sorted_list(p_raw_columns)
+    p_agg_columns = get_default_sorted_list(p_agg_columns)
 
-        for x_dimen in idea_config:
-            # print(f"{x_dimen} checking...")
-            raw_tablename = prime_tbl(x_dimen, "h", "raw")
-            agg_tablename = prime_tbl(x_dimen, "h", "vld")
-            raw_columns = get_table_columns(cursor, raw_tablename)
-            agg_columns = get_table_columns(cursor, agg_tablename)
-            raw_columns = {raw_col for raw_col in raw_columns if raw_col[-3:] != "otx"}
-            raw_columns.remove(f"{kw.face_name}_inx")
-            raw_columns.remove(kw.spark_num)
-            raw_columns.remove(kw.error_message)
-            raw_columns = get_default_sorted_list(raw_columns)
-
-            raw_columns_str = ", ".join(raw_columns)
-            agg_columns_str = ", ".join(agg_columns)
-            # print(f"{raw_columns_str=}")
-            # print(f"{agg_columns_str=}")
-            expected_table2table_agg_insert_sqlstr = f"""
+    raw_columns_str = ", ".join(p_raw_columns)
+    agg_columns_str = ", ".join(p_agg_columns)
+    expected_table2table_agg_insert_sqlstr = f"""
 INSERT INTO {agg_tablename} ({agg_columns_str})
 SELECT {raw_columns_str}
 FROM {raw_tablename}
 GROUP BY {raw_columns_str}
 """
-            dimen_abbv7 = get_dimen_abbv7(x_dimen)
-            # print(f'"{x_dimen}": {dimen_abbv7.upper()}_HEARD_VLD_INSERT_SQLSTR,')
-            print(
-                f'{dimen_abbv7.upper()}_HEARD_VLD_INSERT_SQLSTR = """{expected_table2table_agg_insert_sqlstr}"""'
-            )
-            gen_sqlstr = insert_heard_vld_sqlstrs.get(agg_tablename)
-            assert gen_sqlstr == expected_table2table_agg_insert_sqlstr
+    dimen_abbv7 = get_dimen_abbv7(dimen)
+    if put_del:
+        variable_name = (
+            f"{dimen_abbv7.upper()}_HEARD_AGG_{put_del.upper()}_INSERT_SQLSTR"
+        )
+    else:
+        variable_name = f"{dimen_abbv7.upper()}_HEARD_AGG_INSERT_SQLSTR"
+
+    print(f'"{agg_tablename}": {variable_name},')
+    # print(f'{variable_name} = """{expected_table2table_agg_insert_sqlstr}"""')
+    gen_sqlstr = insert_heard_agg_sqlstrs.get(agg_tablename)
+    # print(f"{expected_table2table_agg_insert_sqlstr=}")
+    # print(f"                            {gen_sqlstr=}")
+    assert gen_sqlstr == expected_table2table_agg_insert_sqlstr
 
 
-def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimensRequired():
-    # sourcery skip: no-loop-in-tests
-    # ESTABLISH
-    belief_dimens_config = get_filtered_idea_config({kw.belief})
-
-    # WHEN
-    insert_heard_vld_sqlstrs = get_insert_heard_vld_sqlstrs()
+def test_get_insert_heard_agg_sqlstrs_ReturnsObj():
+    # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
+    # ESTABLISH / WHEN
+    insert_heard_agg_sqlstrs = get_insert_heard_agg_sqlstrs()
 
     # THEN
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
+    h_str = "h"
+    agg_str = "agg"
+    agg_sqlstrs = insert_heard_agg_sqlstrs
+    etl_idea_category_config = etl_idea_category_config_dict()
+    with sqlite3_connect(":memory:") as moment_db_conn:
+        cursor = moment_db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-
-        for belief_dimen in belief_dimens_config:
-            # print(f"{belief_dimen=}")
-            h_raw_put_tablename = prime_tbl(belief_dimen, "h", "raw", "put")
-            h_raw_del_tablename = prime_tbl(belief_dimen, "h", "raw", "del")
-            h_vld_put_tablename = prime_tbl(belief_dimen, "h", "vld", "put")
-            h_vld_del_tablename = prime_tbl(belief_dimen, "h", "vld", "del")
-            h_raw_put_cols = get_table_columns(cursor, h_raw_put_tablename)
-            h_raw_del_cols = get_table_columns(cursor, h_raw_del_tablename)
-            h_vld_put_cols = get_table_columns(cursor, h_vld_put_tablename)
-            h_vld_del_cols = get_table_columns(cursor, h_vld_del_tablename)
-            h_raw_put_cols = {col for col in h_raw_put_cols if col[-3:] != "otx"}
-            h_raw_del_cols = {col for col in h_raw_del_cols if col[-3:] != "otx"}
-            h_raw_put_cols = get_default_sorted_list(h_raw_put_cols)
-            h_raw_del_cols = get_default_sorted_list(h_raw_del_cols)
-            h_raw_put_columns_str = ", ".join(h_raw_put_cols)
-            h_raw_put_cols.remove(kw.translate_spark_num)
-            h_raw_del_cols.remove(kw.translate_spark_num)
-            h_raw_put_columns_str = ", ".join(h_raw_put_cols)
-            h_raw_del_columns_str = ", ".join(h_raw_del_cols)
-            h_vld_put_columns_str = ", ".join(h_vld_put_cols)
-            h_vld_del_columns_str = ", ".join(h_vld_del_cols)
-            expected_agg_put_insert_sqlstr = f"""
-INSERT INTO {h_vld_put_tablename} ({h_vld_put_columns_str})
-SELECT {h_raw_put_columns_str}
-FROM {h_raw_put_tablename}
-GROUP BY {h_raw_put_columns_str}
-"""
-            expected_agg_del_insert_sqlstr = f"""
-INSERT INTO {h_vld_del_tablename} ({h_vld_del_columns_str})
-SELECT {h_raw_del_columns_str}
-FROM {h_raw_del_tablename}
-GROUP BY {h_raw_del_columns_str}
-"""
-            abbv7 = get_dimen_abbv7(belief_dimen)
-            put_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_VLD_PUT_SQLSTR"
-            del_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_VLD_DEL_SQLSTR"
-            print(f'{put_sqlstr_ref}= """{expected_agg_put_insert_sqlstr}"""')
-            print(f'{del_sqlstr_ref}= """{expected_agg_del_insert_sqlstr}"""')
-            # print(f"'{h_vld_put_tablename}': {put_sqlstr_ref},")
-            # print(f"'{h_vld_del_tablename}': {del_sqlstr_ref},")
-            insert_h_vld_put_sqlstr = insert_heard_vld_sqlstrs.get(h_vld_put_tablename)
-            insert_h_vld_del_sqlstr = insert_heard_vld_sqlstrs.get(h_vld_del_tablename)
-            assert insert_h_vld_put_sqlstr == expected_agg_put_insert_sqlstr
-            assert insert_h_vld_del_sqlstr == expected_agg_del_insert_sqlstr
+        for idea_category, category_dict in etl_idea_category_config.items():
+            category_config = get_idea_config_dict(idea_category)
+            if h_dict := category_dict.get("stages").get(h_str):
+                agg_dict = h_dict.get(agg_str)
+                # print(f"{idea_category=}")
+                if agg_dict.get("del") is None:
+                    for dimen in sorted(category_config.keys()):
+                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, agg_dict)
+                if agg_dict.get("del") is not None:
+                    del_dict = agg_dict.get("del")
+                    for dimen in sorted(category_config.keys()):
+                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, del_dict, "del")
+                if agg_dict.get("put") is not None:
+                    put_dict = agg_dict.get("put")
+                    for dimen in sorted(category_config.keys()):
+                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, put_dict, "put")
+    # gen_heard_agg_tablenames = set(insert_heard_agg_sqlstrs.keys())
+    # assert gen_heard_agg_tablenames.issubset()
 
 
-def test_get_insert_heard_vld_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
+def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     # ESTABLISH
     yao_inx = "Yaoito"
     spark1 = 1
@@ -159,16 +136,16 @@ VALUES
 """
         cursor.execute(insert_into_clause)
         assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 5
-        blfvoce_h_vld_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "vld", "put")
-        assert get_row_count(cursor, blfvoce_h_vld_put_tablename) == 0
+        blfvoce_h_agg_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "agg", "put")
+        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 0
 
         # WHEN
-        sqlstr = get_insert_heard_vld_sqlstrs().get(blfvoce_h_vld_put_tablename)
+        sqlstr = get_insert_heard_agg_sqlstrs().get(blfvoce_h_agg_put_tablename)
         print(sqlstr)
         cursor.execute(sqlstr)
 
         # THEN
-        assert get_row_count(cursor, blfvoce_h_vld_put_tablename) == 4
+        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
@@ -176,7 +153,7 @@ VALUES
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
-FROM {blfvoce_h_vld_put_tablename}
+FROM {blfvoce_h_agg_put_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -189,7 +166,7 @@ FROM {blfvoce_h_vld_put_tablename}
         ]
 
 
-def test_etl_heard_raw_tables_to_heard_vld_tables_PopulatesTable_Scenario0():
+def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0():
     # ESTABLISH
     yao_inx = "Yaoito"
     spark1 = 1
@@ -225,14 +202,14 @@ VALUES
 """
         cursor.execute(insert_into_clause)
         assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 5
-        blfvoce_h_vld_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "vld", "put")
-        assert get_row_count(cursor, blfvoce_h_vld_put_tablename) == 0
+        blfvoce_h_agg_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "agg", "put")
+        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 0
 
         # WHEN
-        etl_heard_raw_tables_to_heard_vld_tables(cursor)
+        etl_heard_raw_tables_to_heard_agg_tables(cursor)
 
         # THEN
-        assert get_row_count(cursor, blfvoce_h_vld_put_tablename) == 4
+        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
@@ -240,7 +217,7 @@ VALUES
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
-FROM {blfvoce_h_vld_put_tablename}
+FROM {blfvoce_h_agg_put_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()

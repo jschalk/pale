@@ -30,7 +30,6 @@ from src.ch16_translate.translate_config import (
 from src.ch17_idea.idea_config import (
     get_allowed_curds,
     get_default_sorted_list,
-    get_filtered_idea_config,
     get_idea_config_dict,
     get_idea_dimen_ref,
     get_idea_elements_sort_order,
@@ -454,7 +453,7 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
 
 
 def get_idea_categorys():
-    return {kw.belief, kw.moment, kw.translate, "nabu"}
+    return {kw.belief, kw.moment, kw.translate, kw.nabu}
 
 
 def _validate_idea_config(x_idea_config: dict):
@@ -478,7 +477,7 @@ def _validate_idea_config(x_idea_config: dict):
             sub_dimen = atom_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.moment:
             sub_dimen = moment_config_dict.get(idea_dimen)
-        elif idea_dict.get(kw.idea_category) == "nabu":
+        elif idea_dict.get(kw.idea_category) == kw.nabu:
             sub_dimen = nabu_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.translate:
             sub_dimen = translate_config_dict.get(idea_dimen)
@@ -773,9 +772,9 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     print(f"{sorted(builder_order_dict.keys())=}")
 
 
-def test_get_filtered_idea_config_ReturnsObj_Scenario0_Belief():
+def test_get_idea_config_dict_ReturnsObj_Scenario0_Belief():
     # ESTABLISH / WHEN
-    belief_idea_config = get_filtered_idea_config(kw.belief)
+    belief_idea_config = get_idea_config_dict(kw.belief)
 
     # THEN
     assert not belief_idea_config.get(kw.translate_name)
@@ -802,13 +801,13 @@ def test_get_filtered_idea_config_ReturnsObj_Scenario0_Belief():
     assert not belief_idea_config.get(kw.moment_timeoffi)
 
 
-def test_get_filtered_idea_config_ReturnsObj_Scenario1_CountDimens():
+def test_get_idea_config_dict_ReturnsObj_Scenario1_CountDimens():
     # ESTABLISH / WHEN / THEN
-    assert len(get_filtered_idea_config(idea_categorys={kw.belief})) == 10
-    assert len(get_filtered_idea_config(idea_categorys={kw.moment})) == 7
-    assert len(get_filtered_idea_config(idea_categorys={kw.nabu})) == 1
-    assert len(get_filtered_idea_config(idea_categorys={kw.translate})) == 4
-    assert len(get_filtered_idea_config({kw.nabu, kw.translate})) == 5
+    assert len(get_idea_config_dict(idea_categorys={kw.belief})) == 10
+    assert len(get_idea_config_dict(idea_categorys={kw.moment})) == 7
+    assert len(get_idea_config_dict(idea_categorys={kw.nabu})) == 1
+    assert len(get_idea_config_dict(idea_categorys={kw.translate})) == 4
+    assert len(get_idea_config_dict({kw.nabu, kw.translate})) == 5
 
 
 def test_get_quick_ideas_column_ref_ReturnsObj():

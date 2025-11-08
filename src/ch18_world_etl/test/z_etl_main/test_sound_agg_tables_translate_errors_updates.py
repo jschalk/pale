@@ -1,7 +1,7 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch18_world_etl.etl_main import set_moment_belief_sound_agg_knot_errors
 from src.ch18_world_etl.etl_sqlstr import (
-    CREATE_BLFVOCE_SOUND_PUT_AGG_STR,
+    CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR,
     CREATE_TRLCORE_SOUND_VLD_SQLSTR,
     create_knot_exists_in_label_error_update_sqlstr,
     create_knot_exists_in_name_error_update_sqlstr,
@@ -20,7 +20,7 @@ def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTabl
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_STR)
+        cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR)
         blfvoce_dimen = kw.belief_voiceunit
         blfvoce_s_agg_put = create_prime_tablename(blfvoce_dimen, "s", "agg", "put")
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
@@ -73,7 +73,7 @@ def test_create_knot_exists_in_label_error_update_sqlstr_ReturnsObj_PopulatesTab
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_STR)
+        cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR)
         blfvoce_dimen = kw.belief_voiceunit
         blfvoce_s_agg_put = create_prime_tablename(blfvoce_dimen, "s", "agg", "put")
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
@@ -129,7 +129,7 @@ def test_set_moment_belief_sound_agg_knot_errors_PopulatesTable_Scenario0():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_STR)
+        cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR)
         blfvoce_dimen = kw.belief_voiceunit
         blfvoce_s_agg_put = create_prime_tablename(blfvoce_dimen, "s", "agg", "put")
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (

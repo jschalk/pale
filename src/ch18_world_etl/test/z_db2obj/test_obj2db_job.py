@@ -1,7 +1,8 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import create_insert_query
 from src.ch07_belief_logic.belief_config import get_belief_calc_dimen_args
-from src.ch18_world_etl.belief_db_obj_tool import (
+from src.ch18_world_etl.etl_sqlstr import create_job_tables
+from src.ch18_world_etl.hydrate_belief import (
     create_beliefunit_metrics_insert_sqlstr,
     create_blfawar_metrics_insert_sqlstr,
     create_blfcase_metrics_insert_sqlstr,
@@ -14,7 +15,6 @@ from src.ch18_world_etl.belief_db_obj_tool import (
     create_blfreas_metrics_insert_sqlstr,
     create_blfvoce_metrics_insert_sqlstr,
 )
-from src.ch18_world_etl.etl_sqlstr import create_job_tables
 from src.ref.keywords import Ch18Keywords as kw
 
 
@@ -44,12 +44,12 @@ def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_label: x_moment_label,
         kw.belief_name: x_belief_name,
-        "keeps_buildable": x_keeps_buildable,
-        "keeps_justified": x_keeps_justified,
-        "offtrack_fund": x_offtrack_fund,
-        "rational": x_rational,
-        "sum_healerunit_plans_fund_total": x_sum_healerunit_plans_fund_total,
-        "tree_traverse_count": x_tree_traverse_count,
+        kw.keeps_buildable: x_keeps_buildable,
+        kw.keeps_justified: x_keeps_justified,
+        kw.offtrack_fund: x_offtrack_fund,
+        kw.rational: x_rational,
+        kw.sum_healerunit_plans_fund_total: x_sum_healerunit_plans_fund_total,
+        kw.tree_traverse_count: x_tree_traverse_count,
         kw.credor_respect: x_credor_respect,
         kw.debtor_respect: x_debtor_respect,
         kw.fund_grain: x_fund_grain,
@@ -123,28 +123,28 @@ def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_label: x_moment_label,
         kw.belief_name: x_belief_name,
-        "plan_active": x_active,
-        "all_voice_cred": x_all_voice_cred,
-        "all_voice_debt": x_all_voice_debt,
-        "descendant_pledge_count": x_descendant_pledge_count,
-        "fund_cease": x_fund_cease,
+        kw.plan_active: x_active,
+        kw.all_voice_cred: x_all_voice_cred,
+        kw.all_voice_debt: x_all_voice_debt,
+        kw.descendant_pledge_count: x_descendant_pledge_count,
+        kw.fund_cease: x_fund_cease,
         kw.fund_grain: x_fund_grain,
-        "fund_onset": x_fund_onset,
-        "fund_ratio": x_fund_ratio,
-        "gogo_calc": x_gogo_calc,
-        "healerunit_ratio": x_healerunit_ratio,
-        "tree_level": x_tree_level,
-        "range_evaluated": x_range_evaluated,
-        "stop_calc": x_stop_calc,
+        kw.fund_onset: x_fund_onset,
+        kw.fund_ratio: x_fund_ratio,
+        kw.gogo_calc: x_gogo_calc,
+        kw.healerunit_ratio: x_healerunit_ratio,
+        kw.tree_level: x_tree_level,
+        kw.range_evaluated: x_range_evaluated,
+        kw.stop_calc: x_stop_calc,
         kw.task: x_task,
-        "addin": x_addin,
-        "begin": x_begin,
-        "close": x_close,
-        "denom": x_denom,
+        kw.addin: x_addin,
+        kw.begin: x_begin,
+        kw.close: x_close,
+        kw.denom: x_denom,
         kw.gogo_want: x_gogo_want,
         kw.star: x_star,
-        "morph": x_morph,
-        "numor": x_numor,
+        kw.morph: x_morph,
+        kw.numor: x_numor,
         kw.plan_rope: x_rope,
         kw.pledge: x_pledge,
         kw.problem_bool: x_problem_bool,
@@ -454,7 +454,7 @@ def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
         kw.moment_label: x_moment_label,
         kw.belief_name: x_belief_name,
         kw.plan_rope: x_rope,
-        "healer_name": x_healer_name,
+        kw.healer_name: x_healer_name,
     }
     # all args included in values dict
     assert x_args == set(values_dict.keys())
@@ -512,8 +512,8 @@ def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
         kw.belief_name: x_belief_name,
         kw.plan_rope: x_rope,
         kw.party_title: x_party_title,
-        "solo": x_solo,
-        "belief_name_is_labor": x__belief_name_is_labor,
+        kw.solo: x_solo,
+        kw.belief_name_is_labor: x__belief_name_is_labor,
     }
     # all args included in values dict
     assert x_args == set(values_dict.keys())

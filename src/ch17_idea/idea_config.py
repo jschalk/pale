@@ -4,23 +4,23 @@ from src.ch01_py.file_toolbox import create_path, get_json_filename, open_json
 
 
 def idea_config_path() -> str:
-    "Returns path: a17_idea_logic/idea_config.json"
+    "Returns path: ch17_idea_logic/idea_config.json"
     src_dir = create_path(os_getcwd(), "src")
     chapter_dir = create_path(src_dir, "ch17_idea")
     return create_path(chapter_dir, "idea_config.json")
 
 
-def get_idea_config_dict() -> dict:
-    "Returns path: a17_idea_logic/idea_config.json"
-    return open_json(idea_config_path())
-
-
-def get_filtered_idea_config(idea_categorys: set[str]) -> dict:
-    return {
-        x_dimen: dimen_config
-        for x_dimen, dimen_config in get_idea_config_dict().items()
-        if dimen_config.get("idea_category") in idea_categorys
-    }
+def get_idea_config_dict(idea_categorys: set[str] = None) -> dict:
+    """If idea_categorys is None/empty return entire idea_config_dict, otherwise filter on idea_category"""
+    idea_config_dict = open_json(idea_config_path())
+    if idea_categorys:
+        return {
+            x_dimen: dimen_config
+            for x_dimen, dimen_config in idea_config_dict.items()
+            if dimen_config.get("idea_category") in idea_categorys
+        }
+    else:
+        return idea_config_dict
 
 
 def get_allowed_curds() -> set[str]:

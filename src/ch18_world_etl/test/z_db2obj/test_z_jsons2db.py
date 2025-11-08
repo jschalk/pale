@@ -13,7 +13,8 @@ from src.ch05_reason.reason_main import caseunit_shop, factheir_shop, reasonheir
 from src.ch06_plan.healer import healerunit_shop
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch18_world_etl.belief_db_obj_tool import (
+from src.ch18_world_etl.etl_sqlstr import create_job_tables
+from src.ch18_world_etl.hydrate_belief import (
     ObjKeysHolder,
     insert_job_blfawar,
     insert_job_blfcase,
@@ -28,7 +29,6 @@ from src.ch18_world_etl.belief_db_obj_tool import (
     insert_job_blfvoce,
     insert_job_obj,
 )
-from src.ch18_world_etl.etl_sqlstr import create_job_tables
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

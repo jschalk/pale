@@ -24,3 +24,15 @@ def get_nabu_dimens() -> set:
 
 def get_nabu_args() -> set:
     return {"otx_time", "inx_time", "moment_label"}
+
+
+def get_nabuable_args() -> set:
+    return {
+        "tran_time",
+        "bud_time",
+        "offi_time",
+        "reason_lower",
+        "fact_lower",
+        "fact_upper",
+        "reason_upper",
+    }
