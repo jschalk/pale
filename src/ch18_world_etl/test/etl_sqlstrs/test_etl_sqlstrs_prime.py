@@ -82,8 +82,8 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
             expected_sqlstrs_dict=expected_sqlstrs_dict,
         )
     print("################################################################")
-    # for expected_sql_ref in sorted(expected_sql_refs):
-    #     print(expected_sql_ref)
+    for expected_sql_ref in sorted(expected_sql_refs):
+        print(expected_sql_ref)
     # print("")
     # for expected_var_ref in sorted(expected_var_refs):
     #     print(expected_var_ref)

@@ -3,8 +3,16 @@
     "stages": {
       "h": {
         "agg": {
-          "del": { "exclude_from_insert": ["translate_spark_num", "error_message"], "exclude_otx_from_insert": true }, 
-          "put": { "exclude_from_insert": ["translate_spark_num", "error_message"], "exclude_otx_from_insert": true }
+          "del": {
+            "exclude_from_insert": ["translate_spark_num", "error_message"], 
+            "exclude_otx_from_insert": true, 
+            "set_nabuable_otx_inx_args": true
+          }, 
+          "put": {
+            "exclude_from_insert": ["translate_spark_num", "error_message"], 
+            "exclude_otx_from_insert": true, 
+            "set_nabuable_otx_inx_args": true
+          }
         }, 
         "raw": {
           "del": { "add": ["translate_spark_num"], "set_translateable_otx_inx_args": true }, 
@@ -25,7 +33,11 @@
   "moment": {
     "stages": {
       "h": {
-        "agg": { "exclude_from_insert": ["error_message"], "exclude_otx_from_insert": true }, 
+        "agg": {
+          "exclude_from_insert": ["error_message"], 
+          "exclude_otx_from_insert": true, 
+          "set_nabuable_otx_inx_args": true
+        }, 
         "raw": { "add": ["error_message"], "set_translateable_otx_inx_args": true }, 
         "vld": { "remove": ["spark_num", "face_name"] }
       }, 

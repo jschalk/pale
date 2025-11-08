@@ -23,7 +23,7 @@ CREATE_BLFAWAR_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_
 CREATE_BLFCASE_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
 CREATE_BLFCASE_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, reason_state_ERASE_otx TEXT, reason_state_ERASE_inx TEXT)"""
 CREATE_BLFCASE_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
-CREATE_BLFCASE_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_upper REAL, reason_lower REAL, reason_divisor INTEGER)"""
+CREATE_BLFCASE_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_upper_otx REAL, reason_upper_inx REAL, reason_lower_otx REAL, reason_lower_inx REAL, reason_divisor INTEGER)"""
 CREATE_BLFCASE_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, reason_state_otx TEXT, reason_state_inx TEXT, reason_upper REAL, reason_lower REAL, reason_divisor INTEGER)"""
 CREATE_BLFCASE_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_upper REAL, reason_lower REAL, reason_divisor INTEGER)"""
 CREATE_BLFCASE_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT, error_message TEXT)"""
@@ -35,7 +35,7 @@ CREATE_BLFCASE_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_
 CREATE_BLFFACT_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT)"""
 CREATE_BLFFACT_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, fact_context_ERASE_otx TEXT, fact_context_ERASE_inx TEXT)"""
 CREATE_BLFFACT_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT)"""
-CREATE_BLFFACT_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
+CREATE_BLFFACT_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower_otx REAL, fact_lower_inx REAL, fact_upper_otx REAL, fact_upper_inx REAL)"""
 CREATE_BLFFACT_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, fact_context_otx TEXT, fact_context_inx TEXT, fact_state_otx TEXT, fact_state_inx TEXT, fact_lower REAL, fact_upper REAL)"""
 CREATE_BLFFACT_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
 CREATE_BLFFACT_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT, error_message TEXT)"""
@@ -128,7 +128,7 @@ CREATE_BLFVOCE_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice
 CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voiceunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, voice_cred_lumen REAL, voice_debt_lumen REAL, error_message TEXT)"""
 CREATE_BLFVOCE_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voiceunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, voice_cred_lumen REAL, voice_debt_lumen REAL, error_message TEXT)"""
 CREATE_BLFVOCE_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voiceunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, voice_cred_lumen REAL, voice_debt_lumen REAL)"""
-CREATE_MMTBUDD_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_h_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER)"""
+CREATE_MMTBUDD_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_h_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, bud_time_otx INTEGER, bud_time_inx INTEGER, quota REAL, celldepth INTEGER)"""
 CREATE_MMTBUDD_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER, error_message TEXT)"""
 CREATE_MMTBUDD_HEARD_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_h_vld (moment_label TEXT, belief_name TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER)"""
 CREATE_MMTBUDD_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_budunit_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, bud_time INTEGER, quota REAL, celldepth INTEGER, error_message TEXT)"""
@@ -146,13 +146,13 @@ CREATE_MMTMONT_HEARD_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_mon
 CREATE_MMTMONT_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_month_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, cumulative_day INTEGER, month_label TEXT, error_message TEXT)"""
 CREATE_MMTMONT_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_month_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, cumulative_day INTEGER, month_label TEXT, error_message TEXT)"""
 CREATE_MMTMONT_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_epoch_month_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, cumulative_day INTEGER, month_label TEXT)"""
-CREATE_MMTOFFI_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_h_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time INTEGER)"""
+CREATE_MMTOFFI_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_h_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time_otx INTEGER, offi_time_inx INTEGER)"""
 CREATE_MMTOFFI_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, offi_time INTEGER, error_message TEXT)"""
 CREATE_MMTOFFI_HEARD_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_h_vld (moment_label TEXT, offi_time INTEGER)"""
 CREATE_MMTOFFI_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time INTEGER, error_message TEXT)"""
 CREATE_MMTOFFI_SOUND_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time INTEGER, error_message TEXT)"""
 CREATE_MMTOFFI_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_timeoffi_s_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, offi_time INTEGER)"""
-CREATE_MMTPAYY_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_h_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL)"""
+CREATE_MMTPAYY_HEARD_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_h_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time_otx INTEGER, tran_time_inx INTEGER, amount REAL)"""
 CREATE_MMTPAYY_HEARD_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_h_raw (spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, voice_name_otx TEXT, voice_name_inx TEXT, tran_time INTEGER, amount REAL, error_message TEXT)"""
 CREATE_MMTPAYY_HEARD_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_h_vld (moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL)"""
 CREATE_MMTPAYY_SOUND_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS moment_paybook_s_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, tran_time INTEGER, amount REAL, error_message TEXT)"""
@@ -928,7 +928,7 @@ FROM belief_plan_awardunit_h_put_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_inx, give_force, take_force
 """
 BLFFACT_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_factunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
+INSERT INTO belief_plan_factunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower_otx, fact_upper_otx)
 SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
 FROM belief_plan_factunit_h_put_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
@@ -946,7 +946,7 @@ FROM belief_plan_partyunit_h_put_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_inx, solo
 """
 BLFCASE_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper, reason_lower, reason_divisor)
+INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper_otx, reason_lower_otx, reason_divisor)
 SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_upper, reason_lower, reason_divisor
 FROM belief_plan_reason_caseunit_h_put_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_upper, reason_lower, reason_divisor
@@ -982,7 +982,7 @@ FROM beliefunit_h_put_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain
 """
 MMTBUDD_HEARD_AGG_INSERT_SQLSTR = """
-INSERT INTO moment_budunit_h_agg (spark_num, face_name, moment_label, belief_name, bud_time, quota, celldepth)
+INSERT INTO moment_budunit_h_agg (spark_num, face_name, moment_label, belief_name, bud_time_otx, quota, celldepth)
 SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, bud_time, quota, celldepth
 FROM moment_budunit_h_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, bud_time, quota, celldepth
@@ -1006,13 +1006,13 @@ FROM moment_epoch_weekday_h_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, weekday_order, weekday_label_inx
 """
 MMTPAYY_HEARD_AGG_INSERT_SQLSTR = """
-INSERT INTO moment_paybook_h_agg (spark_num, face_name, moment_label, belief_name, voice_name, tran_time, amount)
+INSERT INTO moment_paybook_h_agg (spark_num, face_name, moment_label, belief_name, voice_name, tran_time_otx, amount)
 SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
 FROM moment_paybook_h_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount
 """
 MMTOFFI_HEARD_AGG_INSERT_SQLSTR = """
-INSERT INTO moment_timeoffi_h_agg (spark_num, face_name, moment_label, offi_time)
+INSERT INTO moment_timeoffi_h_agg (spark_num, face_name, moment_label, offi_time_otx)
 SELECT spark_num, face_name_inx, moment_label_inx, offi_time
 FROM moment_timeoffi_h_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, offi_time

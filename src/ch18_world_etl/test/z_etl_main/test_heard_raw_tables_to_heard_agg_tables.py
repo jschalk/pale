@@ -15,6 +15,7 @@ from src.ch18_world_etl.etl_table import (
     get_dimen_abbv7,
     get_etl_category_stages_dict,
     get_prime_columns,
+    remove_inx_columns,
     remove_otx_columns,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
@@ -31,12 +32,14 @@ def check_insert_sqlstr_exists(
 
     # print(f"{raw_tablename=} {agg_tablename=}")
     # print(f"{stage_dict=}")
+    config_dict = etl_idea_category_config_dict()
     raw_keylist = ["h", "raw", put_del] if put_del else ["h", "raw"]
     agg_keylist = ["h", "agg", put_del] if put_del else ["h", "agg"]
-    p_agg_columns = get_prime_columns(dimen, agg_keylist)
-    p_raw_columns = get_prime_columns(dimen, raw_keylist)
+    p_agg_columns = get_prime_columns(dimen, agg_keylist, config_dict)
+    p_raw_columns = get_prime_columns(dimen, raw_keylist, config_dict)
     if stage_dict.get("exclude_otx_from_insert"):
         p_raw_columns = remove_otx_columns(p_raw_columns)
+        p_agg_columns = remove_inx_columns(p_agg_columns)
     exclude_from_insert = stage_dict.get("exclude_from_insert")
     exclude_from_insert = set(get_empty_set_if_None(exclude_from_insert))
     p_raw_columns -= exclude_from_insert
@@ -59,8 +62,8 @@ GROUP BY {raw_columns_str}
     else:
         variable_name = f"{dimen_abbv7.upper()}_HEARD_AGG_INSERT_SQLSTR"
 
-    print(f'"{agg_tablename}": {variable_name},')
-    # print(f'{variable_name} = """{expected_table2table_agg_insert_sqlstr}"""')
+    # print(f'"{agg_tablename}": {variable_name},')
+    print(f'{variable_name} = """{expected_table2table_agg_insert_sqlstr}"""')
     gen_sqlstr = insert_heard_agg_sqlstrs.get(agg_tablename)
     # print(f"{expected_table2table_agg_insert_sqlstr=}")
     # print(f"                            {gen_sqlstr=}")
