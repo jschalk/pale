@@ -4,7 +4,7 @@ from src.ch01_py.db_toolbox import get_create_table_sqlstr
 from src.ch01_py.dict_toolbox import get_empty_set_if_None, get_from_nested_dict
 from src.ch01_py.file_toolbox import create_path, open_json
 from src.ch08_belief_atom.atom_config import get_delete_key_name
-from src.ch16_translate.translate_config import find_set_otx_inx_args
+from src.ch16_translate.translate_config import set_translateable_otx_inx_args
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
     get_idea_config_dict,
@@ -289,9 +289,9 @@ def get_prime_columns(x_dimen: str, table_keylist: list[str]) -> set[str]:
 
     etl_idea_category_config = etl_idea_category_config_dict()
     otx_keylist = copy_copy(config_keylist)
-    otx_keylist.append("set_otx_inx_args")
+    otx_keylist.append("set_translateable_otx_inx_args")
     if get_from_nested_dict(etl_idea_category_config, otx_keylist, True):
-        columns = find_set_otx_inx_args(columns)
+        columns = set_translateable_otx_inx_args(columns)
 
     update_keylist = copy_copy(config_keylist)
     update_keylist.append("add")

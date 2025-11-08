@@ -7,6 +7,7 @@ from src.ch15_nabu.nabu_config import (
     get_nabuable_args,
     get_quick_nabus_column_ref,
     nabu_config_path,
+    set_nabuable_otx_inx_args,
 )
 from src.ref.keywords import Ch15Keywords as kw
 
@@ -103,3 +104,40 @@ def test_get_nabuable_args_ReturnsObj():
             print(f"{nabuable_args=}")
             assert expected_nabuable_args.issubset(nabuable_args)
             print(f"{category=} {x_key=} {nabuable_values_dict=}")
+
+
+def test_set_nabuable_otx_inx_args_ReturnsObj_Scenario0_All_nabuable_args():
+    # sourcery skip: no-loop-in-tests
+    # ESTABLISH
+    nabuable_args = get_nabuable_args()
+
+    # WHEN
+    otx_inx_args = set_nabuable_otx_inx_args(nabuable_args)
+
+    # THEN
+    expected_otx_inx_args = set()
+    for nabuable_arg in nabuable_args:
+        expected_otx_inx_args.add(f"{nabuable_arg}_otx")
+        expected_otx_inx_args.add(f"{nabuable_arg}_inx")
+    print(f"{otx_inx_args=}")
+    assert otx_inx_args == expected_otx_inx_args
+
+
+def test_set_nabuable_otx_inx_args_ReturnsObj_Scenario1_OtherArgsAreUntouched():
+    # sourcery skip: no-loop-in-tests
+    # ESTABLISH
+    run_str = "run"
+    x_nabuable_args = get_nabuable_args()
+    x_nabuable_args.add(run_str)
+
+    # WHEN
+    otx_inx_args = set_nabuable_otx_inx_args(x_nabuable_args)
+
+    # THEN
+    expected_otx_inx_args = set()
+    for nabuable_arg in get_nabuable_args():
+        expected_otx_inx_args.add(f"{nabuable_arg}_otx")
+        expected_otx_inx_args.add(f"{nabuable_arg}_inx")
+    expected_otx_inx_args.add(run_str)
+    print(f"{otx_inx_args=}")
+    assert otx_inx_args == expected_otx_inx_args
