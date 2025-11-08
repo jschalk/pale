@@ -4,6 +4,7 @@ from src.ch15_nabu.nabu_config import (
     get_nabu_args,
     get_nabu_config_dict,
     get_nabu_dimens,
+    get_nabuable_args,
     get_quick_nabus_column_ref,
     nabu_config_path,
 )
@@ -84,3 +85,21 @@ def test_get_nabu_args_ReturnsObj():
     print(f"{expected_nabu_args=}")
     assert nabu_args
     assert nabu_args == expected_nabu_args
+
+
+def test_get_nabuable_args_ReturnsObj():
+    # ESTABLISH / WHEN
+    nabuable_args = get_nabuable_args()
+
+    # THEN
+    assert nabuable_args
+    for category, category_dict in get_nabu_config_dict().items():
+        nabu_convertion_types = category_dict.get("nabu_convertion_types")
+        for x_key, nabu_convertion_type_dict in nabu_convertion_types.items():
+            nabuable_values_dict = nabu_convertion_type_dict.get("nabuable_values")
+            assert nabuable_values_dict
+            expected_nabuable_args = set(nabuable_values_dict.keys())
+            print(f"{expected_nabuable_args=}")
+            print(f"{nabuable_args=}")
+            assert expected_nabuable_args.issubset(nabuable_args)
+            print(f"{category=} {x_key=} {nabuable_values_dict=}")

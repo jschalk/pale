@@ -21,7 +21,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def check_insert_sqlstr_exists(
-    cursor: sqlite3_Cursor,
     dimen: str,
     insert_heard_agg_sqlstrs: dict,
     stage_dict: dict,
@@ -76,6 +75,7 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj():
     # THEN
     h_str = "h"
     agg_str = "agg"
+    agg_sqlstrs = insert_heard_agg_sqlstrs
     etl_idea_category_config = etl_idea_category_config_dict()
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
@@ -87,21 +87,15 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj():
                 # print(f"{idea_category=}")
                 if agg_dict.get("del") is None:
                     for dimen in sorted(category_config.keys()):
-                        check_insert_sqlstr_exists(
-                            cursor, dimen, insert_heard_agg_sqlstrs, agg_dict
-                        )
+                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, agg_dict)
                 if agg_dict.get("del") is not None:
                     del_dict = agg_dict.get("del")
                     for dimen in sorted(category_config.keys()):
-                        check_insert_sqlstr_exists(
-                            cursor, dimen, insert_heard_agg_sqlstrs, del_dict, "del"
-                        )
+                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, del_dict, "del")
                 if agg_dict.get("put") is not None:
                     put_dict = agg_dict.get("put")
                     for dimen in sorted(category_config.keys()):
-                        check_insert_sqlstr_exists(
-                            cursor, dimen, insert_heard_agg_sqlstrs, put_dict, "put"
-                        )
+                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, put_dict, "put")
     # gen_heard_agg_tablenames = set(insert_heard_agg_sqlstrs.keys())
     # assert gen_heard_agg_tablenames.issubset()
 
