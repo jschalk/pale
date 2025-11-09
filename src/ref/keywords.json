@@ -1,4 +1,6 @@
 {
+  "inx_time": {"init_chapter": "ch15"}, 
+  "otx_time": {"init_chapter": "ch15"}, 
   "Anaday": {"init_chapter": "ch13"}, 
   "Baileyday": {"init_chapter": "ch13"}, 
   "BeliefName": {"init_chapter": "ch07", "semantic_type": "str"}, 

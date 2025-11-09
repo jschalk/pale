@@ -245,8 +245,8 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[149] == kw.inx_title
     assert table_sorting_priority[150] == kw.otx_knot
     assert table_sorting_priority[151] == kw.inx_knot
-    assert table_sorting_priority[152] == "otx_time"
-    assert table_sorting_priority[153] == "inx_time"
+    assert table_sorting_priority[152] == kw.otx_time
+    assert table_sorting_priority[153] == kw.inx_time
     assert table_sorting_priority[154] == kw.knot
     assert table_sorting_priority[155] == kw.groupmark
     assert table_sorting_priority[156] == kw.unknown_str

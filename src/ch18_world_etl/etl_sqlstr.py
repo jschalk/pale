@@ -1064,6 +1064,26 @@ def get_insert_heard_agg_sqlstrs() -> dict[str, str]:
     }
 
 
+def get_update_epochtime_sqlstr(dst_tablename: str, focus_column: str):
+    nabepoc_h_agg_tablename = create_prime_tablename("nabu_epochtime", "h", "agg")
+    update_sqlstr = f"""WITH epochtime_diff AS (
+SELECT spark_num, otx_time - inx_time AS time_diff
+FROM {nabepoc_h_agg_tablename}
+)
+UPDATE {dst_tablename}
+SET {focus_column}_inx = {focus_column}_otx + (
+    SELECT time_diff
+    FROM epochtime_diff
+    WHERE epochtime_diff.spark_num = {dst_tablename}.spark_num
+)
+FROM epochtime_diff
+WHERE {dst_tablename}.spark_num IN (SELECT spark_num FROM epochtime_diff)
+;
+"""
+    print(update_sqlstr)
+    return update_sqlstr
+
+
 MMTPAYY_HEARD_VLD_INSERT_SQLSTR = """
 INSERT INTO moment_paybook_h_vld (moment_label, belief_name, voice_name, tran_time, amount)
 SELECT moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount

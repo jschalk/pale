@@ -83,7 +83,7 @@ class Ch13ExampleStrs(str, Enum):
 
 
 def get_bob_five_belief() -> BeliefUnit:
-    """Returns BeliefUnit with belief_label=Bob, mop as pledge plan, and five_epoch"""
+    """Returns BeliefUnit with belief_name=Bob, mop as pledge plan, and five_epoch"""
     bob_belief = beliefunit_shop(BOB_STR)
     bob_belief.add_plan(MOP_ROPE, pledge=True)
     add_epoch_planunit(bob_belief, get_five_config())
