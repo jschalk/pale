@@ -1,14 +1,20 @@
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_row_count, get_table_columns
+from src.ch01_py.db_toolbox import create_insert_query, get_row_count, get_table_columns
 from src.ch01_py.dict_toolbox import get_empty_set_if_None
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
-from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
+from src.ch17_idea.idea_config import (
+    get_default_sorted_list,
+    get_idea_config_dict,
+    get_idea_sqlite_types,
+)
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     BeliefName,
+    ContextNum,
     EpochTime,
     FaceName,
     MomentLabel,
+    RopeTerm,
     SparkInt,
 )
 from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_agg_tables
@@ -114,7 +120,7 @@ def select_mmtoffi_special_offi_time_inx(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
-):
+) -> list[tuple]:
     mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
@@ -126,3 +132,78 @@ WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_label} == '{x_moment_label}
 """
     cursor.execute(select_sqlstr)
     return cursor.fetchall()
+
+
+def insert_blfcase_special_h_agg(
+    cursor: sqlite3_Cursor,
+    x_spark_num: SparkInt,
+    x_moment_label: MomentLabel,
+    x_belief_name: BeliefName,
+    x_plan_rope: RopeTerm,
+    x_reason_context: RopeTerm,
+    x_reason_state: RopeTerm,
+    x_reason_upper: ContextNum,
+    x_reason_lower: ContextNum,
+) -> list[tuple]:
+    blfcase_tbl = prime_tbl(kw.belief_plan_reason_caseunit, "h", "agg", "put")
+    values_dict = {
+        "spark_num": x_spark_num,
+        "moment_label": x_moment_label,
+        "belief_name": x_belief_name,
+        "plan_rope": x_plan_rope,
+        "reason_context": x_reason_context,
+        "reason_state": x_reason_state,
+        "reason_upper_otx": x_reason_upper,
+        "reason_lower_otx": x_reason_lower,
+    }
+    insert_sqlstr = create_insert_query(cursor, blfcase_tbl, values_dict)
+    print(insert_sqlstr)
+    cursor.execute(insert_sqlstr)
+
+
+def select_blfcase_special_h_agg(
+    cursor: sqlite3_Cursor,
+    x_spark_num: SparkInt,
+    x_moment_label: MomentLabel,
+    x_belief_name: BeliefName,
+    x_plan_rope: RopeTerm,
+    x_reason_context: RopeTerm,
+    x_reason_state: RopeTerm,
+) -> list[tuple]:
+    pass
+
+
+def insert_blffact_special_h_agg(
+    cursor: sqlite3_Cursor,
+    x_spark_num: SparkInt,
+    x_moment_label: MomentLabel,
+    x_belief_name: BeliefName,
+    x_plan_rope: RopeTerm,
+    x_fact_context: RopeTerm,
+    x_fact_state: RopeTerm,
+    x_fact_upper: ContextNum,
+    x_fact_lower: ContextNum,
+) -> list[tuple]:
+    pass
+
+
+def select_blffact_special_h_agg(
+    cursor: sqlite3_Cursor,
+    x_spark_num: SparkInt,
+    x_moment_label: MomentLabel,
+    x_belief_name: BeliefName,
+    x_plan_rope: RopeTerm,
+    x_fact_context: RopeTerm,
+) -> list[tuple]:
+    pass
+
+
+def insert_blfplan_special_h_agg(
+    cursor: sqlite3_Cursor,
+    x_spark_num: SparkInt,
+    x_moment_label: MomentLabel,
+    x_belief_name: BeliefName,
+    x_plan_rope: RopeTerm,
+    x_denom: int,
+) -> list[tuple]:
+    pass

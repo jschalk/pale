@@ -443,6 +443,4 @@ def add_epoch_frame_to_beliefunit(
 ):
     root_plan_label = x_belief.planroot.plan_label
     epoch_rope = get_epoch_rope(root_plan_label, epoch_label, x_belief.knot)
-    add_frame_to_beliefunit(
-        x_belief=x_belief, x_int=epoch_frame_min, required_context_subrope=epoch_rope
-    )
+    add_frame_to_beliefunit(x_belief, epoch_frame_min, epoch_rope)

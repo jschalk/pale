@@ -1,6 +1,10 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_row_count, get_table_columns
 from src.ch01_py.dict_toolbox import get_empty_set_if_None
+from src.ch13_epoch.test._util.ch13_examples import (
+    Ch13ExampleStrs as wx,
+    get_bob_five_belief,
+)
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
@@ -14,6 +18,7 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.etl_table import create_prime_tablename as prime_tbl
 from src.ch18_world_etl.test._util.ch18_examples import (
+    insert_blfcase_special_h_agg,
     insert_mmtoffi_special_offi_time_otx,
     insert_mmtunit_special_c400_number,
     insert_nabepoc_h_agg_otx_inx_time,
@@ -180,3 +185,118 @@ FROM {mmtoffi_h_agg_tablename}
         rows = cursor.fetchall()
         print(rows)
         assert rows == [(spark1, exx.sue, exx.a23, x_offi_time_otx)]
+
+
+def test_insert_blfcase_special_h_agg_PopulatesTable_Scenario0():
+    # ESTABLISH
+    with sqlite3_connect(":memory:") as db_conn:
+        cursor = db_conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        blfcase_h_agg = prime_tbl(kw.belief_plan_reason_caseunit, "h", "agg", "put")
+        spark1 = 1
+        s1_reason_upper = 500
+        s1_reason_lower = 600
+        assert get_row_count(cursor, blfcase_h_agg) == 0
+
+        # WHEN
+        insert_blfcase_special_h_agg(
+            cursor=cursor,
+            x_spark_num=spark1,
+            x_moment_label=exx.sue,
+            x_belief_name=exx.a23,
+            x_plan_rope=wx.clean_rope,
+            x_reason_context=wx.day_rope,
+            x_reason_state=wx.days_rope,
+            x_reason_upper=s1_reason_upper,
+            x_reason_lower=s1_reason_lower,
+        )
+
+        # THEN
+        assert get_row_count(cursor, blfcase_h_agg) == 1
+        select_sqlstr = f"""SELECT 
+  {kw.spark_num}
+, {kw.moment_label}
+, {kw.belief_name}
+, {kw.plan_rope}
+, {kw.reason_context}
+, {kw.reason_state}
+, {kw.reason_upper}_otx
+, {kw.reason_lower}_otx
+FROM {blfcase_h_agg}
+"""
+        cursor.execute(select_sqlstr)
+        rows = cursor.fetchall()
+        print(rows)
+        expected_row = (
+            spark1,
+            exx.sue,
+            exx.a23,
+            wx.clean_rope,
+            wx.day_rope,
+            wx.days_rope,
+            s1_reason_upper,
+            s1_reason_lower,
+        )
+        assert rows == [expected_row]
+
+
+# def insert_blfcase_special_h_agg(
+#     cursor: sqlite3_Cursor,
+#     x_spark_num: SparkInt,
+#     x_moment_label: MomentLabel,
+#     x_belief_name: BeliefName,
+#     x_plan_rope: RopeTerm,
+#     x_reason_context: RopeTerm,
+#     x_reason_state: RopeTerm,
+#     x_reason_upper: ContextNum,
+#     x_reason_lower: ContextNum,
+# ) -> list[tuple]:
+#     pass
+
+
+# def select_blfcase_special_h_agg(
+#     cursor: sqlite3_Cursor,
+#     x_spark_num: SparkInt,
+#     x_moment_label: MomentLabel,
+#     x_belief_name: BeliefName,
+#     x_plan_rope: RopeTerm,
+#     x_reason_context: RopeTerm,
+#     x_reason_state: RopeTerm,
+# ) -> list[tuple]:
+#     pass
+
+
+# def insert_blffact_special_h_agg(
+#     cursor: sqlite3_Cursor,
+#     x_spark_num: SparkInt,
+#     x_moment_label: MomentLabel,
+#     x_belief_name: BeliefName,
+#     x_plan_rope: RopeTerm,
+#     x_fact_context: RopeTerm,
+#     x_fact_state: RopeTerm,
+#     x_fact_upper: ContextNum,
+#     x_fact_lower: ContextNum,
+# ) -> list[tuple]:
+#     pass
+
+
+# def select_blffact_special_h_agg(
+#     cursor: sqlite3_Cursor,
+#     x_spark_num: SparkInt,
+#     x_moment_label: MomentLabel,
+#     x_belief_name: BeliefName,
+#     x_plan_rope: RopeTerm,
+#     x_fact_context: RopeTerm,
+# ) -> list[tuple]:
+#     pass
+
+
+# def insert_blfplan_special_h_agg(
+#     cursor: sqlite3_Cursor,
+#     x_spark_num: SparkInt,
+#     x_moment_label: MomentLabel,
+#     x_belief_name: BeliefName,
+#     x_plan_rope: RopeTerm,
+#     x_denom: int,
+# ) -> list[tuple]:
+#     pass

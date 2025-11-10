@@ -1,37 +1,13 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_row_count, get_table_columns
-from src.ch01_py.dict_toolbox import get_empty_set_if_None
 from src.ch13_epoch.epoch_main import DEFAULT_EPOCH_LENGTH, get_c400_constants
-from src.ch14_moment.moment_config import get_moment_dimens
-from src.ch15_nabu.nabu_config import get_nabu_config_dict, get_nabu_dimens
-from src.ch17_idea.idea_config import (
-    get_default_sorted_list,
-    get_dimens_with_idea_element,
-    get_idea_config_dict,
-)
-from src.ch18_world_etl._ref.ch18_semantic_types import (
-    BeliefName,
-    EpochTime,
-    FaceName,
-    MomentLabel,
-    SparkInt,
-)
-from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_agg_tables
+from src.ch15_nabu.nabu_config import get_nabu_config_dict
+from src.ch17_idea.idea_config import get_dimens_with_idea_element
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
-    get_insert_heard_agg_sqlstrs,
     get_update_heard_agg_epochtime_sqlstr,
     get_update_heard_agg_epochtime_sqlstrs,
     update_heard_agg_epochtime_columns,
-)
-from src.ch18_world_etl.etl_table import (
-    etl_idea_category_config_dict,
-    get_dimen_abbv7,
-    get_etl_category_stages_dict,
-    get_prime_columns,
-    remove_inx_columns,
-    remove_otx_columns,
 )
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
@@ -40,15 +16,6 @@ from src.ch18_world_etl.test._util.ch18_examples import (
     select_mmtoffi_special_offi_time_inx as select_offi_time_inx,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
-
-# TODO create function that updates all nabuable otx fields.
-# identify the change
-#
-# update semantic_type: ContextNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: ContextNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
-# update semantic_type: EpochTime moment_paybook_h_agg tran_time
-# update semantic_type: EpochTime moment_budunit_h_agg bud_time
-# update semantic_type: EpochTime moment_timeh_agg time
 
 
 def test_get_update_heard_agg_epochtime_sqlstr_ReturnsObj_Scenario0_MMTOFFI():
