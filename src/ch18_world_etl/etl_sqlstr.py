@@ -1065,17 +1065,30 @@ def get_insert_heard_agg_sqlstrs() -> dict[str, str]:
 
 
 def get_update_heard_agg_epochtime_sqlstr(dst_tablename: str, focus_column: str):
+    #   spark_num, mod(otx_time - inx_time, IFNULL(x_moment.c400_number, 1472657760)) AS inx_epoch_diff
+    mmtunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
     nabepoc_h_agg_tablename = create_prime_tablename("nabu_epochtime", "h", "agg")
     return f"""WITH spark_inx_epoch_diff AS (
-SELECT spark_num, otx_time - inx_time AS inx_epoch_diff
+SELECT 
+  spark_num
+, otx_time - inx_time AS inx_epoch_diff
+, IFNULL(c400_number * 210379680, 1472657760) as epoch_length
 FROM {nabepoc_h_agg_tablename}
+LEFT JOIN (
+    SELECT moment_label, c400_number 
+    FROM {mmtunit_h_agg_tablename} 
+    GROUP BY moment_label, c400_number
+    ) x_moment ON x_moment.moment_label = {nabepoc_h_agg_tablename}.moment_label
 )
 UPDATE {dst_tablename}
-SET {focus_column}_inx = {focus_column}_otx + (
+SET {focus_column}_inx = mod({focus_column}_otx + (
     SELECT inx_epoch_diff
     FROM spark_inx_epoch_diff
     WHERE spark_inx_epoch_diff.spark_num = {dst_tablename}.spark_num
-)
+), (SELECT epoch_length
+    FROM spark_inx_epoch_diff
+    WHERE spark_inx_epoch_diff.spark_num = {dst_tablename}.spark_num
+))
 FROM spark_inx_epoch_diff
 WHERE {dst_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
 ;
