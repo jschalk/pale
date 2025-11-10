@@ -3,8 +3,12 @@ from src.ch01_py.db_toolbox import get_row_count, get_table_columns
 from src.ch01_py.dict_toolbox import get_empty_set_if_None
 from src.ch13_epoch.epoch_main import DEFAULT_EPOCH_LENGTH, get_c400_constants
 from src.ch14_moment.moment_config import get_moment_dimens
-from src.ch15_nabu.nabu_config import get_nabu_dimens
-from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
+from src.ch15_nabu.nabu_config import get_nabu_config_dict, get_nabu_dimens
+from src.ch17_idea.idea_config import (
+    get_default_sorted_list,
+    get_dimens_with_idea_element,
+    get_idea_config_dict,
+)
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     BeliefName,
     EpochTime,
@@ -18,6 +22,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_sound_and_heard_tables,
     get_insert_heard_agg_sqlstrs,
     get_update_heard_agg_epochtime_sqlstr,
+    get_update_heard_agg_epochtime_sqlstrs,
 )
 from src.ch18_world_etl.etl_table import (
     etl_idea_category_config_dict,
@@ -236,3 +241,30 @@ def test_get_update_heard_agg_epochtime_sqlstr_ReturnsObj_Scenario4_PopulatesTab
         assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == s3_offi_time_inx
         assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == 189
         assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == 1850
+
+
+def test_get_update_heard_agg_epochtime_sqlstrs_ReturnsObj():
+    # ESTABLISH / WHEN
+    gen_update_sqlstrs = get_update_heard_agg_epochtime_sqlstrs()
+
+    # THEN
+    assert gen_update_sqlstrs
+    expected_update_sqlstrs = {}
+    nabu_epochtime_dict = get_nabu_config_dict().get(kw.nabu_epochtime)
+    EpochTime_dict = nabu_epochtime_dict.get("affected_semantic_types").get("EpochTime")
+    nabuable_dict = EpochTime_dict.get("nabuable_values")
+    for epochtime_arg in nabuable_dict:
+        arg_dimens = get_dimens_with_idea_element(epochtime_arg)
+        print(f"{epochtime_arg=} {arg_dimens=}")
+        for arg_dimen in arg_dimens:
+            prime_tablename = prime_tbl(arg_dimen, "h", "agg")
+            update_sqlstr = get_update_heard_agg_epochtime_sqlstr(
+                prime_tablename, epochtime_arg
+            )
+            expected_update_sqlstrs[(arg_dimen, epochtime_arg)] = update_sqlstr
+    assert set(gen_update_sqlstrs.keys()) == {
+        (kw.moment_timeoffi, kw.offi_time),
+        (kw.moment_paybook, kw.tran_time),
+        (kw.moment_budunit, kw.bud_time),
+    }
+    assert gen_update_sqlstrs == expected_update_sqlstrs

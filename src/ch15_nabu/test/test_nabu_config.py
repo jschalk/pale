@@ -1,5 +1,6 @@
 from os import getcwd as os_getcwd
 from src.ch01_py.file_toolbox import create_path
+from src.ch15_nabu._ref.ch15_semantic_types import EpochTime
 from src.ch15_nabu.nabu_config import (
     get_nabu_args,
     get_nabu_config_dict,
@@ -29,8 +30,9 @@ def test_get_nabu_config_dict_ReturnsObj():
     assert kw.nabu_epochtime in nabu_config_dimens
     assert len(nabu_config) == 1
 
+    _validate_nabu_config(nabu_config)
 
-#     _validate_nabu_config(nabu_config)
+
 #     nabu_rope_dict = nabu_config.get(kw.nabu_rope)
 #     nabu_label_dict = nabu_config.get(kw.nabu_label)
 #     assert len(nabu_rope_dict.get(kw.jkeys)) == 1
@@ -39,11 +41,34 @@ def test_get_nabu_config_dict_ReturnsObj():
 #     assert len(nabu_label_dict.get(kw.jvalues)) == 4
 
 
-# def _validate_nabu_config(nabu_config: dict):
-#     x_possible_args = {}
+def _validate_nabu_config(nabu_config: dict):
+    x_possible_args = {}
 
-#     # for every nabu_format file there exists a unique nabu_number with leading zeros to make 5 digits
-#     for nabu_dimens, dimen_dict in nabu_config.items():
+    # for every nabu_format file there exists a unique nabu_number with leading zeros to make 5 digits
+    for dimen_dict in nabu_config.values():
+        assert dimen_dict.get(kw.jkeys)
+        assert dimen_dict.get(kw.jvalues) is not None
+        assert dimen_dict.get("affected_semantic_types") is not None
+        for attr_key, attrs_dict in dimen_dict.items():
+            if attr_key == "affected_semantic_types":
+                if kw.EpochTime in set(attrs_dict.keys()):
+                    EpochTime_dict = attrs_dict.get(kw.EpochTime)
+                    EpochTime_args = EpochTime_dict.get("nabuable_values")
+                    expected_EpochTime_args = {kw.tran_time, kw.offi_time, kw.bud_time}
+                    assert set(EpochTime_args.keys()) == expected_EpochTime_args
+                if kw.ContextNum in set(attrs_dict.keys()):
+                    ContextNum_dict = attrs_dict.get(kw.ContextNum)
+                    ContextNum_args = ContextNum_dict.get("nabuable_values")
+                    expected_ContextNum_args = {
+                        kw.reason_lower,
+                        kw.reason_upper,
+                        kw.fact_lower,
+                        kw.fact_upper,
+                    }
+                    assert set(ContextNum_args.keys()) == expected_ContextNum_args
+            # print(f"{x_dimen=} {attrs_dict=}")
+
+
 #         print(f"_validate_nabu_config {nabu_dimens=}")
 #         assert dimen_dict.get(kw.jkeys)
 #         assert dimen_dict.get(kw.jvalues)
@@ -95,8 +120,8 @@ def test_get_nabuable_args_ReturnsObj():
     # THEN
     assert nabuable_args
     for category, category_dict in get_nabu_config_dict().items():
-        nabu_convertion_types = category_dict.get("nabu_convertion_types")
-        for x_key, nabu_convertion_type_dict in nabu_convertion_types.items():
+        affected_semantic_types = category_dict.get("affected_semantic_types")
+        for x_key, nabu_convertion_type_dict in affected_semantic_types.items():
             nabuable_values_dict = nabu_convertion_type_dict.get("nabuable_values")
             assert nabuable_values_dict
             expected_nabuable_args = set(nabuable_values_dict.keys())

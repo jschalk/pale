@@ -31,6 +31,7 @@ from src.ch16_translate.translate_config import (
 from src.ch17_idea.idea_config import (
     get_allowed_curds,
     get_default_sorted_list,
+    get_dimens_with_idea_element,
     get_idea_config_dict,
     get_idea_dimen_ref,
     get_idea_elements_sort_order,
@@ -878,3 +879,8 @@ def test_get_idea_dimen_ref_ReturnsObj():
 
     # WHEN / THEN
     assert get_idea_dimen_ref() == expected_idea_dimen_ref
+
+
+def test_get_dimens_with_idea_element_ReturnsObj_Scenario0_offi_time():
+    # ESTABLISH / WHEN / THEN
+    assert get_dimens_with_idea_element(kw.offi_time) == {kw.moment_timeoffi}

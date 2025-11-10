@@ -1064,7 +1064,7 @@ def get_insert_heard_agg_sqlstrs() -> dict[str, str]:
     }
 
 
-def get_update_heard_agg_epochtime_sqlstr(dst_tablename: str, focus_column: str):
+def get_update_heard_agg_epochtime_sqlstr(dst_tablename: str, focus_column: str) -> str:
     #   spark_num, mod(otx_time - inx_time, IFNULL(x_moment.c400_number, 1472657760)) AS inx_epoch_diff
     mmtunit_h_agg_tablename = create_prime_tablename("momentunit", "h", "agg")
     nabepoc_h_agg_tablename = create_prime_tablename("nabu_epochtime", "h", "agg")
@@ -1093,6 +1093,20 @@ FROM spark_inx_epoch_diff
 WHERE {dst_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
 ;
 """
+
+
+def get_update_heard_agg_epochtime_sqlstrs() -> dict[str]:
+    mmtoffi_tbl = create_prime_tablename("moment_timeoffi", "h", "agg")
+    mmtoffi_key = ("moment_timeoffi", "offi_time")
+    mmtpayy_tbl = create_prime_tablename("moment_paybook", "h", "agg")
+    mmtpayy_key = ("moment_paybook", "tran_time")
+    mmtbudd_tbl = create_prime_tablename("moment_budunit", "h", "agg")
+    mmtbudd_key = ("moment_budunit", "bud_time")
+    return {
+        mmtpayy_key: get_update_heard_agg_epochtime_sqlstr(mmtpayy_tbl, "tran_time"),
+        mmtoffi_key: get_update_heard_agg_epochtime_sqlstr(mmtoffi_tbl, "offi_time"),
+        mmtbudd_key: get_update_heard_agg_epochtime_sqlstr(mmtbudd_tbl, "bud_time"),
+    }
 
 
 MMTPAYY_HEARD_VLD_INSERT_SQLSTR = """

@@ -931,3 +931,13 @@ def get_idea_dimen_ref() -> dict[str, set[str]]:
         "translate_rope": {"br00045", "br00117"},
         "translate_label": {"br00044", "br00116"},
     }
+
+
+def get_dimens_with_idea_element(x_arg: str) -> set[str]:
+    x_set = set()
+    for x_dimen, dimen_dict in get_idea_config_dict().items():
+        dimen_args = set(dimen_dict.get("jkeys"))
+        dimen_args.update(dimen_dict.get("jvalues"))
+        if x_arg in dimen_args:
+            x_set.add(x_dimen)
+    return x_set
