@@ -16,7 +16,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
     get_insert_heard_agg_sqlstrs,
-    get_update_epochtime_sqlstr,
+    get_update_heard_agg_epochtime_sqlstr,
 )
 from src.ch18_world_etl.etl_table import (
     etl_idea_category_config_dict,
@@ -121,7 +121,9 @@ VALUES
 
         # WHEN
         mmtoffi_table = mmtoffi_h_agg_tablename
-        update_mmtoffi_sql = get_update_epochtime_sqlstr(mmtoffi_table, kw.offi_time)
+        update_mmtoffi_sql = get_update_heard_agg_epochtime_sqlstr(
+            mmtoffi_table, kw.offi_time
+        )
         cursor.execute(update_mmtoffi_sql)
 
         # THEN
@@ -165,15 +167,20 @@ VALUES
         assert cursor.execute(select_s3_offi_time_inx).fetchone()[0] is None
 
         # WHEN
-        mmtoffi_table = mmtoffi_h_agg_tablename
-        update_mmtoffi_sql = get_update_epochtime_sqlstr(mmtoffi_table, kw.offi_time)
+        update_mmtoffi_sql = get_update_heard_agg_epochtime_sqlstr(
+            mmtoffi_h_agg_tablename, kw.offi_time
+        )
         cursor.execute(update_mmtoffi_sql)
 
         # THEN
-        s1_offi_time_inx = s1_offi_time_otx + s1_otx_time - s1_inx_time
-        s3_offi_time_inx = s3_offi_time_otx + s3_otx_time - s3_inx_time
+        s1_inx_epoch_diff = s1_otx_time - s1_inx_time
+        s3_inx_epoch_diff = s3_otx_time - s3_inx_time
+        s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
+        s3_offi_time_inx = s3_offi_time_otx + s3_inx_epoch_diff
         assert cursor.execute(select_s1_offi_time_inx).fetchone()[0] == s1_offi_time_inx
         assert cursor.execute(select_s3_offi_time_inx).fetchone()[0] == s3_offi_time_inx
+        assert cursor.execute(select_s1_offi_time_inx).fetchone()[0] == 189
+        assert cursor.execute(select_s3_offi_time_inx).fetchone()[0] == 1850
 
 
 # def check_insert_sqlstr_exists(

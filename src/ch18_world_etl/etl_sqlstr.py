@@ -1064,24 +1064,22 @@ def get_insert_heard_agg_sqlstrs() -> dict[str, str]:
     }
 
 
-def get_update_epochtime_sqlstr(dst_tablename: str, focus_column: str):
+def get_update_heard_agg_epochtime_sqlstr(dst_tablename: str, focus_column: str):
     nabepoc_h_agg_tablename = create_prime_tablename("nabu_epochtime", "h", "agg")
-    update_sqlstr = f"""WITH epochtime_diff AS (
-SELECT spark_num, otx_time - inx_time AS time_diff
+    return f"""WITH spark_inx_epoch_diff AS (
+SELECT spark_num, otx_time - inx_time AS inx_epoch_diff
 FROM {nabepoc_h_agg_tablename}
 )
 UPDATE {dst_tablename}
 SET {focus_column}_inx = {focus_column}_otx + (
-    SELECT time_diff
-    FROM epochtime_diff
-    WHERE epochtime_diff.spark_num = {dst_tablename}.spark_num
+    SELECT inx_epoch_diff
+    FROM spark_inx_epoch_diff
+    WHERE spark_inx_epoch_diff.spark_num = {dst_tablename}.spark_num
 )
-FROM epochtime_diff
-WHERE {dst_tablename}.spark_num IN (SELECT spark_num FROM epochtime_diff)
+FROM spark_inx_epoch_diff
+WHERE {dst_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
 ;
 """
-    print(update_sqlstr)
-    return update_sqlstr
 
 
 MMTPAYY_HEARD_VLD_INSERT_SQLSTR = """

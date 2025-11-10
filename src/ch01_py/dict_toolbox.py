@@ -11,7 +11,7 @@ def uppercase_in_str(x_str: str) -> bool:
 
 
 def uppercase_is_first(x_str: str) -> bool:
-    return len(x_str) > 0 and x_str[0].isupper()
+    return x_str != "" and x_str[0].isupper()
 
 
 def get_empty_dict_if_None(x_dict: dict = None) -> dict:
