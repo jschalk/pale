@@ -1109,6 +1109,11 @@ def get_update_heard_agg_epochtime_sqlstrs() -> dict[str]:
     }
 
 
+def update_heard_agg_epochtime_columns(cursor: sqlite3_Connection):
+    for update_sqlstr in get_update_heard_agg_epochtime_sqlstrs().values():
+        cursor.execute(update_sqlstr)
+
+
 MMTPAYY_HEARD_VLD_INSERT_SQLSTR = """
 INSERT INTO moment_paybook_h_vld (moment_label, belief_name, voice_name, tran_time, amount)
 SELECT moment_label_inx, belief_name_inx, voice_name_inx, tran_time, amount

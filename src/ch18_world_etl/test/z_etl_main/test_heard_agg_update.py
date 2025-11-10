@@ -23,6 +23,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_insert_heard_agg_sqlstrs,
     get_update_heard_agg_epochtime_sqlstr,
     get_update_heard_agg_epochtime_sqlstrs,
+    update_heard_agg_epochtime_columns,
 )
 from src.ch18_world_etl.etl_table import (
     etl_idea_category_config_dict,
@@ -268,3 +269,44 @@ def test_get_update_heard_agg_epochtime_sqlstrs_ReturnsObj():
         (kw.moment_budunit, kw.bud_time),
     }
     assert gen_update_sqlstrs == expected_update_sqlstrs
+
+
+def test_update_heard_agg_epochtime_columns_UpdatesDB_Scenario0_TwoRecordsAndDoesModularMath():
+    # ESTABLISH
+    spark1 = 1
+    spark3 = 3
+    a23_c400_number = 5
+    a23_epoch_length = get_c400_constants().c400_leap_length * a23_c400_number
+    print(f"{a23_epoch_length=}")
+    print(f"{DEFAULT_EPOCH_LENGTH=}")
+    s1_otx_time = 44
+    s1_inx_time = 55
+    s1_offi_time_otx = 200
+    s3_otx_time = 400 + a23_epoch_length
+    s3_inx_time = 550
+    s3_offi_time_otx = 2000
+
+    with sqlite3_connect(":memory:") as db_conn:
+        cursor = db_conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        insert_c400_number(cursor, spark1, exx.sue, exx.a23, a23_c400_number)
+        insert_otx_inx_time(cursor, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
+        insert_otx_inx_time(cursor, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
+        insert_offi_time_otx(cursor, spark1, exx.sue, exx.a23, s1_offi_time_otx)
+        insert_offi_time_otx(cursor, spark3, exx.sue, exx.a23, s3_offi_time_otx)
+        mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
+        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] is None
+        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] is None
+
+        # WHEN
+        update_heard_agg_epochtime_columns(cursor)
+
+        # THEN
+        s1_inx_epoch_diff = s1_otx_time - s1_inx_time
+        s3_inx_epoch_diff = s3_otx_time - s3_inx_time
+        s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
+        s3_offi_time_inx = (s3_offi_time_otx + s3_inx_epoch_diff) % a23_epoch_length
+        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == s1_offi_time_inx
+        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == s3_offi_time_inx
+        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == 189
+        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == 1850
