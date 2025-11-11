@@ -2,7 +2,7 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import create_insert_query
 from src.ch07_belief_logic.belief_config import get_belief_calc_dimen_args
 from src.ch18_world_etl.etl_sqlstr import create_job_tables
-from src.ch18_world_etl.hydrate_belief import (
+from src.ch18_world_etl.obj2db_belief import (
     create_beliefunit_metrics_insert_sqlstr,
     create_blfawar_metrics_insert_sqlstr,
     create_blfcase_metrics_insert_sqlstr,
