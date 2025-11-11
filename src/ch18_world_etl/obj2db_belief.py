@@ -550,3 +550,386 @@ def insert_job_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
     for x_factheir in job_belief.planroot.factheirs.values():
         x_objkeysholder.fact_rope = job_belief.planroot.get_plan_rope()
         insert_job_blffact(cursor, x_objkeysholder, x_factheir)
+
+
+def create_blfawar_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blfcase_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blffact_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blfgrou_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blfheal_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blflabo_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blfmemb_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blfplan_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blfreas_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+def create_blfunit_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    spark_num = values_dict.get("spark_num")
+    face_name = values_dict.get("face_name")
+    moment_label = values_dict.get("moment_label")
+    belief_name = values_dict.get("belief_name")
+    integer_str = "INTEGER"
+    real_str = "REAL"
+    credor_respect = values_dict.get("credor_respect")
+    debtor_respect = values_dict.get("debtor_respect")
+    fund_grain = values_dict.get("fund_grain")
+    fund_pool = values_dict.get("fund_pool")
+    max_tree_traverse = values_dict.get("max_tree_traverse")
+    mana_grain = values_dict.get("mana_grain")
+    respect_grain = values_dict.get("respect_grain")
+    tally = values_dict.get("tally")
+
+    return f"""INSERT INTO beliefunit_h_put_agg (spark_num, face_name, moment_label, belief_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain)
+VALUES (
+  {sqlite_obj_str(spark_num, integer_str)}
+, {sqlite_obj_str(face_name, "TEXT")}
+, {sqlite_obj_str(moment_label, "TEXT")}
+, {sqlite_obj_str(belief_name, "TEXT")}
+, {sqlite_obj_str(credor_respect, real_str)}
+, {sqlite_obj_str(debtor_respect, real_str)}
+, {sqlite_obj_str(fund_pool, real_str)}
+, {sqlite_obj_str(max_tree_traverse, integer_str)}
+, {sqlite_obj_str(tally, real_str)}
+, {sqlite_obj_str(fund_grain, real_str)}
+, {sqlite_obj_str(mana_grain, real_str)}
+, {sqlite_obj_str(respect_grain, real_str)}
+)
+;
+"""
+
+
+def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+    pass
+
+
+# def create_blfmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     voice_name = values_dict.get("voice_name")
+#     group_title = values_dict.get("group_title")
+#     group_cred_lumen = values_dict.get("group_cred_lumen")
+#     group_debt_lumen = values_dict.get("group_debt_lumen")
+#     credor_pool = values_dict.get("credor_pool")
+#     debtor_pool = values_dict.get("debtor_pool")
+#     fund_give = values_dict.get("fund_give")
+#     fund_take = values_dict.get("fund_take")
+#     fund_agenda_give = values_dict.get("fund_agenda_give")
+#     fund_agenda_take = values_dict.get("fund_agenda_take")
+#     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
+#     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
+#     real_str = "REAL"
+#     return f"""INSERT INTO belief_voice_membership_h_put_agg (moment_label, belief_name, voice_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(voice_name, "TEXT")}
+# , {sqlite_obj_str(group_title, "TEXT")}
+# , {sqlite_obj_str(group_cred_lumen, real_str)}
+# , {sqlite_obj_str(group_debt_lumen, real_str)}
+# , {sqlite_obj_str(credor_pool, real_str)}
+# , {sqlite_obj_str(debtor_pool, real_str)}
+# , {sqlite_obj_str(fund_give, real_str)}
+# , {sqlite_obj_str(fund_take, real_str)}
+# , {sqlite_obj_str(fund_agenda_give, real_str)}
+# , {sqlite_obj_str(fund_agenda_take, real_str)}
+# , {sqlite_obj_str(fund_agenda_ratio_give, real_str)}
+# , {sqlite_obj_str(fund_agenda_ratio_take, real_str)}
+# )
+# ;
+# """
+
+
+# def create_blfvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     voice_name = values_dict.get("voice_name")
+#     voice_cred_lumen = values_dict.get("voice_cred_lumen")
+#     voice_debt_lumen = values_dict.get("voice_debt_lumen")
+#     groupmark = values_dict.get("groupmark")
+#     credor_pool = values_dict.get("credor_pool")
+#     debtor_pool = values_dict.get("debtor_pool")
+#     fund_give = values_dict.get("fund_give")
+#     fund_take = values_dict.get("fund_take")
+#     fund_agenda_give = values_dict.get("fund_agenda_give")
+#     fund_agenda_take = values_dict.get("fund_agenda_take")
+#     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
+#     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
+#     inallocable_voice_debt_lumen = values_dict.get("inallocable_voice_debt_lumen")
+#     irrational_voice_debt_lumen = values_dict.get("irrational_voice_debt_lumen")
+#     real_str = "REAL"
+#     return f"""INSERT INTO belief_voiceunit_h_put_agg (moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_voice_debt_lumen, irrational_voice_debt_lumen)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(voice_name, "TEXT")}
+# , {sqlite_obj_str(voice_cred_lumen, real_str)}
+# , {sqlite_obj_str(voice_debt_lumen, real_str)}
+# , {sqlite_obj_str(groupmark, "TEXT")}
+# , {sqlite_obj_str(credor_pool, real_str)}
+# , {sqlite_obj_str(debtor_pool, real_str)}
+# , {sqlite_obj_str(fund_give, real_str)}
+# , {sqlite_obj_str(fund_take, real_str)}
+# , {sqlite_obj_str(fund_agenda_give, real_str)}
+# , {sqlite_obj_str(fund_agenda_take, real_str)}
+# , {sqlite_obj_str(fund_agenda_ratio_give, real_str)}
+# , {sqlite_obj_str(fund_agenda_ratio_take, real_str)}
+# , {sqlite_obj_str(inallocable_voice_debt_lumen, real_str)}
+# , {sqlite_obj_str(irrational_voice_debt_lumen, real_str)}
+# )
+# ;
+# """
+
+
+# def create_blfgrou_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     group_title = values_dict.get("group_title")
+#     credor_pool = values_dict.get("credor_pool")
+#     debtor_pool = values_dict.get("debtor_pool")
+#     fund_grain = values_dict.get("fund_grain")
+#     fund_give = values_dict.get("fund_give")
+#     fund_take = values_dict.get("fund_take")
+#     fund_agenda_give = values_dict.get("fund_agenda_give")
+#     fund_agenda_take = values_dict.get("fund_agenda_take")
+#     real_str = "REAL"
+#     return f"""INSERT INTO belief_groupunit_h_put_agg (moment_label, belief_name, group_title, fund_grain, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(group_title, "TEXT")}
+# , {sqlite_obj_str(fund_grain, real_str)}
+# , {sqlite_obj_str(credor_pool, real_str)}
+# , {sqlite_obj_str(debtor_pool, real_str)}
+# , {sqlite_obj_str(fund_give, real_str)}
+# , {sqlite_obj_str(fund_take, real_str)}
+# , {sqlite_obj_str(fund_agenda_give, real_str)}
+# , {sqlite_obj_str(fund_agenda_take, real_str)}
+# )
+# ;
+# """
+
+
+# def create_blfawar_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     rope = values_dict.get("plan_rope")
+#     awardee_title = values_dict.get("awardee_title")
+#     give_force = values_dict.get("give_force")
+#     take_force = values_dict.get("take_force")
+#     fund_give = values_dict.get("fund_give")
+#     fund_take = values_dict.get("fund_take")
+#     return f"""INSERT INTO belief_plan_awardunit_h_put_agg (moment_label, belief_name, plan_rope, awardee_title, give_force, take_force, fund_give, fund_take)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(rope, "TEXT")}
+# , {sqlite_obj_str(awardee_title, "TEXT")}
+# , {sqlite_obj_str(give_force, "REAL")}
+# , {sqlite_obj_str(take_force, "REAL")}
+# , {sqlite_obj_str(fund_give, "REAL")}
+# , {sqlite_obj_str(fund_take, "REAL")}
+# )
+# ;
+# """
+
+
+# def create_blffact_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     rope = values_dict.get("plan_rope")
+#     fact_context = values_dict.get("fact_context")
+#     fact_state = values_dict.get("fact_state")
+#     fact_lower = values_dict.get("fact_lower")
+#     fact_upper = values_dict.get("fact_upper")
+#     return f"""INSERT INTO belief_plan_factunit_h_put_agg (moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(rope, "TEXT")}
+# , {sqlite_obj_str(fact_context, "TEXT")}
+# , {sqlite_obj_str(fact_state, "TEXT")}
+# , {sqlite_obj_str(fact_lower, "REAL")}
+# , {sqlite_obj_str(fact_upper, "REAL")}
+# )
+# ;
+# """
+
+
+# def create_blfheal_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     rope = values_dict.get("plan_rope")
+#     healer_name = values_dict.get("healer_name")
+#     return f"""INSERT INTO belief_plan_healerunit_h_put_agg (moment_label, belief_name, plan_rope, healer_name)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(rope, "TEXT")}
+# , {sqlite_obj_str(healer_name, "TEXT")}
+# )
+# ;
+# """
+
+
+# def create_blfcase_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     rope = values_dict.get("plan_rope")
+#     reason_context = values_dict.get("reason_context")
+#     reason_state = values_dict.get("reason_state")
+#     reason_upper = values_dict.get("reason_upper")
+#     reason_lower = values_dict.get("reason_lower")
+#     reason_divisor = values_dict.get("reason_divisor")
+#     task = values_dict.get("task")
+#     case_active = values_dict.get("case_active")
+#     return f"""INSERT INTO belief_plan_reason_caseunit_h_put_agg (moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper, reason_lower, reason_divisor, task, case_active)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(rope, "TEXT")}
+# , {sqlite_obj_str(reason_context, "TEXT")}
+# , {sqlite_obj_str(reason_state, "TEXT")}
+# , {sqlite_obj_str(reason_upper, "REAL")}
+# , {sqlite_obj_str(reason_lower, "REAL")}
+# , {sqlite_obj_str(reason_divisor, "REAL")}
+# , {sqlite_obj_str(task, "INTEGER")}
+# , {sqlite_obj_str(case_active, "INTEGER")}
+# )
+# ;
+# """
+
+
+# def create_blfreas_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     rope = values_dict.get("plan_rope")
+#     reason_context = values_dict.get("reason_context")
+#     active_requisite = values_dict.get("active_requisite")
+#     task = values_dict.get("task")
+#     reason_active = values_dict.get("reason_active")
+#     parent_heir_active = values_dict.get("parent_heir_active")
+#     return f"""INSERT INTO belief_plan_reasonunit_h_put_agg (moment_label, belief_name, plan_rope, reason_context, active_requisite, task, reason_active, parent_heir_active)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(rope, "TEXT")}
+# , {sqlite_obj_str(reason_context, "TEXT")}
+# , {sqlite_obj_str(active_requisite, "INTEGER")}
+# , {sqlite_obj_str(task, "INTEGER")}
+# , {sqlite_obj_str(reason_active, "INTEGER")}
+# , {sqlite_obj_str(parent_heir_active, "INTEGER")}
+# )
+# ;
+# """
+
+
+# def create_blflabo_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     rope = values_dict.get("plan_rope")
+#     party_title = values_dict.get("party_title")
+#     solo = values_dict.get("solo")
+#     belief_name_is_labor = values_dict.get("belief_name_is_labor")
+#     return f"""INSERT INTO belief_plan_partyunit_h_put_agg (moment_label, belief_name, plan_rope, party_title, solo, belief_name_is_labor)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(rope, "TEXT")}
+# , {sqlite_obj_str(party_title, "TEXT")}
+# , {sqlite_obj_str(solo, "INTEGER")}
+# , {sqlite_obj_str(belief_name_is_labor, "INTEGER")}
+# )
+# ;
+# """
+
+
+# def create_blfplan_metrics_insert_sqlstr(values_dict: dict[str,]):
+#     moment_label = values_dict.get("moment_label")
+#     belief_name = values_dict.get("belief_name")
+#     rope = values_dict.get("plan_rope")
+#     begin = values_dict.get("begin")
+#     close = values_dict.get("close")
+#     addin = values_dict.get("addin")
+#     numor = values_dict.get("numor")
+#     denom = values_dict.get("denom")
+#     morph = values_dict.get("morph")
+#     gogo_want = values_dict.get("gogo_want")
+#     stop_want = values_dict.get("stop_want")
+#     star = values_dict.get("star")
+#     pledge = values_dict.get("pledge")
+#     problem_bool = values_dict.get("problem_bool")
+#     active = values_dict.get("plan_active")
+#     task = values_dict.get("task")
+#     fund_grain = values_dict.get("fund_grain")
+#     fund_onset = values_dict.get("fund_onset")
+#     fund_cease = values_dict.get("fund_cease")
+#     fund_ratio = values_dict.get("fund_ratio")
+#     gogo_calc = values_dict.get("gogo_calc")
+#     stop_calc = values_dict.get("stop_calc")
+#     tree_level = values_dict.get("tree_level")
+#     range_evaluated = values_dict.get("range_evaluated")
+#     descendant_pledge_count = values_dict.get("descendant_pledge_count")
+#     healerunit_ratio = values_dict.get("healerunit_ratio")
+#     all_voice_cred = values_dict.get("all_voice_cred")
+#     all_voice_debt = values_dict.get("all_voice_debt")
+#     integer_str = "INTEGER"
+#     real_str = "REAL"
+
+#     return f"""INSERT INTO belief_planunit_h_put_agg (moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, plan_active, task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_voice_cred, all_voice_debt)
+# VALUES (
+#   {sqlite_obj_str(moment_label, "TEXT")}
+# , {sqlite_obj_str(belief_name, "TEXT")}
+# , {sqlite_obj_str(rope, "TEXT")}
+# , {sqlite_obj_str(begin, real_str)}
+# , {sqlite_obj_str(close, real_str)}
+# , {sqlite_obj_str(addin, real_str)}
+# , {sqlite_obj_str(numor, "INTEGER")}
+# , {sqlite_obj_str(denom, "INTEGER")}
+# , {sqlite_obj_str(morph, real_str)}
+# , {sqlite_obj_str(gogo_want, real_str)}
+# , {sqlite_obj_str(stop_want, real_str)}
+# , {sqlite_obj_str(star, real_str)}
+# , {sqlite_obj_str(pledge, real_str)}
+# , {sqlite_obj_str(problem_bool, "INTEGER")}
+# , {sqlite_obj_str(fund_grain, real_str)}
+# , {sqlite_obj_str(active, "INTEGER")}
+# , {sqlite_obj_str(task, "INTEGER")}
+# , {sqlite_obj_str(fund_onset, real_str)}
+# , {sqlite_obj_str(fund_cease, real_str)}
+# , {sqlite_obj_str(fund_ratio, real_str)}
+# , {sqlite_obj_str(gogo_calc, real_str)}
+# , {sqlite_obj_str(stop_calc, real_str)}
+# , {sqlite_obj_str(tree_level, "INTEGER")}
+# , {sqlite_obj_str(range_evaluated, "INTEGER")}
+# , {sqlite_obj_str(descendant_pledge_count, "INTEGER")}
+# , {sqlite_obj_str(healerunit_ratio, real_str)}
+# , {sqlite_obj_str(all_voice_cred, real_str)}
+# , {sqlite_obj_str(all_voice_debt, real_str)}
+# )
+# ;
+# """
