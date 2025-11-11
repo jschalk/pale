@@ -581,7 +581,46 @@ def create_blfmemb_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 
 
 def create_blfplan_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
-    pass
+    spark_num = values_dict.get("spark_num")
+    face_name = values_dict.get("face_name")
+    moment_label = values_dict.get("moment_label")
+    belief_name = values_dict.get("belief_name")
+    rope = values_dict.get("plan_rope")
+    begin = values_dict.get("begin")
+    close = values_dict.get("close")
+    addin = values_dict.get("addin")
+    numor = values_dict.get("numor")
+    denom = values_dict.get("denom")
+    morph = values_dict.get("morph")
+    gogo_want = values_dict.get("gogo_want")
+    stop_want = values_dict.get("stop_want")
+    star = values_dict.get("star")
+    pledge = values_dict.get("pledge")
+    problem_bool = values_dict.get("problem_bool")
+    integer_str = "INTEGER"
+    real_str = "REAL"
+
+    return f"""INSERT INTO belief_planunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool)
+VALUES (
+  {sqlite_obj_str(spark_num, integer_str)}
+, {sqlite_obj_str(face_name, "TEXT")}
+, {sqlite_obj_str(moment_label, "TEXT")}
+, {sqlite_obj_str(belief_name, "TEXT")}
+, {sqlite_obj_str(rope, "TEXT")}
+, {sqlite_obj_str(begin, real_str)}
+, {sqlite_obj_str(close, real_str)}
+, {sqlite_obj_str(addin, real_str)}
+, {sqlite_obj_str(numor, "INTEGER")}
+, {sqlite_obj_str(denom, "INTEGER")}
+, {sqlite_obj_str(morph, real_str)}
+, {sqlite_obj_str(gogo_want, real_str)}
+, {sqlite_obj_str(stop_want, real_str)}
+, {sqlite_obj_str(star, real_str)}
+, {sqlite_obj_str(pledge, real_str)}
+, {sqlite_obj_str(problem_bool, "INTEGER")}
+)
+;
+"""
 
 
 def create_blfreas_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
@@ -643,7 +682,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
 #     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
 #     real_str = "REAL"
-#     return f"""INSERT INTO belief_voice_membership_h_put_agg (moment_label, belief_name, voice_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
+#     return f"""INSERT INTO belief_voice_membership_h_put_agg (spark_num, face_name, moment_label, belief_name, voice_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -682,7 +721,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     inallocable_voice_debt_lumen = values_dict.get("inallocable_voice_debt_lumen")
 #     irrational_voice_debt_lumen = values_dict.get("irrational_voice_debt_lumen")
 #     real_str = "REAL"
-#     return f"""INSERT INTO belief_voiceunit_h_put_agg (moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_voice_debt_lumen, irrational_voice_debt_lumen)
+#     return f"""INSERT INTO belief_voiceunit_h_put_agg (spark_num, face_name, moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_voice_debt_lumen, irrational_voice_debt_lumen)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -717,7 +756,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fund_agenda_give = values_dict.get("fund_agenda_give")
 #     fund_agenda_take = values_dict.get("fund_agenda_take")
 #     real_str = "REAL"
-#     return f"""INSERT INTO belief_groupunit_h_put_agg (moment_label, belief_name, group_title, fund_grain, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take)
+#     return f"""INSERT INTO belief_groupunit_h_put_agg (spark_num, face_name, moment_label, belief_name, group_title, fund_grain, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -743,7 +782,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     take_force = values_dict.get("take_force")
 #     fund_give = values_dict.get("fund_give")
 #     fund_take = values_dict.get("fund_take")
-#     return f"""INSERT INTO belief_plan_awardunit_h_put_agg (moment_label, belief_name, plan_rope, awardee_title, give_force, take_force, fund_give, fund_take)
+#     return f"""INSERT INTO belief_plan_awardunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force, fund_give, fund_take)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -766,7 +805,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fact_state = values_dict.get("fact_state")
 #     fact_lower = values_dict.get("fact_lower")
 #     fact_upper = values_dict.get("fact_upper")
-#     return f"""INSERT INTO belief_plan_factunit_h_put_agg (moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
+#     return f"""INSERT INTO belief_plan_factunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -785,7 +824,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     belief_name = values_dict.get("belief_name")
 #     rope = values_dict.get("plan_rope")
 #     healer_name = values_dict.get("healer_name")
-#     return f"""INSERT INTO belief_plan_healerunit_h_put_agg (moment_label, belief_name, plan_rope, healer_name)
+#     return f"""INSERT INTO belief_plan_healerunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -807,7 +846,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     reason_divisor = values_dict.get("reason_divisor")
 #     task = values_dict.get("task")
 #     case_active = values_dict.get("case_active")
-#     return f"""INSERT INTO belief_plan_reason_caseunit_h_put_agg (moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper, reason_lower, reason_divisor, task, case_active)
+#     return f"""INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper, reason_lower, reason_divisor, task, case_active)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -833,7 +872,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     task = values_dict.get("task")
 #     reason_active = values_dict.get("reason_active")
 #     parent_heir_active = values_dict.get("parent_heir_active")
-#     return f"""INSERT INTO belief_plan_reasonunit_h_put_agg (moment_label, belief_name, plan_rope, reason_context, active_requisite, task, reason_active, parent_heir_active)
+#     return f"""INSERT INTO belief_plan_reasonunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, active_requisite, task, reason_active, parent_heir_active)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -855,7 +894,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     party_title = values_dict.get("party_title")
 #     solo = values_dict.get("solo")
 #     belief_name_is_labor = values_dict.get("belief_name_is_labor")
-#     return f"""INSERT INTO belief_plan_partyunit_h_put_agg (moment_label, belief_name, plan_rope, party_title, solo, belief_name_is_labor)
+#     return f"""INSERT INTO belief_plan_partyunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, party_title, solo, belief_name_is_labor)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}
@@ -900,7 +939,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     integer_str = "INTEGER"
 #     real_str = "REAL"
 
-#     return f"""INSERT INTO belief_planunit_h_put_agg (moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, plan_active, task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_voice_cred, all_voice_debt)
+#     return f"""INSERT INTO belief_planunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, plan_active, task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_voice_cred, all_voice_debt)
 # VALUES (
 #   {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(belief_name, "TEXT")}

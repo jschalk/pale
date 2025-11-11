@@ -24,11 +24,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
-    # sourcery skip: extract-method
     # ESTABLISH
-    # for x_arg in sorted(x_args):
-    #     print(f"{x_arg=}")
-
     x_moment_label = "Amy23"
     x_belief_name = "Sue"
     x_credor_respect = 88.2
@@ -76,120 +72,80 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_planunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     # print(f"    x_{x_arg} = {x_count}")
-#     #     # print(f"""    "{x_arg}": x_{x_arg},""")
-#     #     print(f""" {x_arg} = values_dict.get("{x_arg}")""")
-#     #     # b0_str = "{"
-#     #     # b1_str = "}"
-#     #     # print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
+def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
+    # ESTABLISH
+    x_moment_label = "Amy23"
+    x_belief_name = "Sue"
+    x_active = 1
+    x_all_voice_cred = 2
+    x_all_voice_debt = 3
+    x_descendant_pledge_count = 4
+    x_fund_cease = 5
+    x_fund_grain = 6
+    x_fund_onset = 7
+    x_fund_ratio = 8
+    x_gogo_calc = 9
+    x_healerunit_ratio = 10
+    x_tree_level = 11
+    x_range_evaluated = 12
+    x_stop_calc = 13
+    x_task = 14
+    x_addin = 15
+    x_begin = 16
+    x_close = 17
+    x_denom = 18
+    x_gogo_want = 19
+    x_star = 21
+    x_morph = 22
+    x_numor = 23
+    x_rope = 24
+    x_pledge = 25
+    x_problem_bool = 26
+    x_stop_want = 27
+    values_dict = {
+        kw.spark_num: 77,
+        kw.face_name: exx.yao,
+        kw.moment_label: x_moment_label,
+        kw.belief_name: x_belief_name,
+        kw.addin: x_addin,
+        kw.begin: x_begin,
+        kw.close: x_close,
+        kw.denom: x_denom,
+        kw.gogo_want: x_gogo_want,
+        kw.star: x_star,
+        kw.morph: x_morph,
+        kw.numor: x_numor,
+        kw.plan_rope: x_rope,
+        kw.pledge: x_pledge,
+        kw.problem_bool: x_problem_bool,
+        kw.stop_want: x_stop_want,
+    }
+    # all args included in values dict
+    etl_config = get_etl_config()
+    dimen = kw.belief_planunit
+    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    print(f"{dst_columns=}")
+    assert dst_columns == set(values_dict.keys())
 
-#     x_moment_label = "Amy23"
-#     x_belief_name = "Sue"
-#     x_active = 1
-#     x_all_voice_cred = 2
-#     x_all_voice_debt = 3
-#     x_descendant_pledge_count = 4
-#     x_fund_cease = 5
-#     x_fund_grain = 6
-#     x_fund_onset = 7
-#     x_fund_ratio = 8
-#     x_gogo_calc = 9
-#     x_healerunit_ratio = 10
-#     x_tree_level = 11
-#     x_range_evaluated = 12
-#     x_stop_calc = 13
-#     x_task = 14
-#     x_addin = 15
-#     x_begin = 16
-#     x_close = 17
-#     x_denom = 18
-#     x_gogo_want = 19
-#     x_star = 21
-#     x_morph = 22
-#     x_numor = 23
-#     x_rope = 24
-#     x_pledge = 25
-#     x_problem_bool = 26
-#     x_stop_want = 27
-#     values_dict = {
-#         kw.moment_label: x_moment_label,
-#         kw.belief_name: x_belief_name,
-#         kw.plan_active: x_active,
-#         kw.all_voice_cred: x_all_voice_cred,
-#         kw.all_voice_debt: x_all_voice_debt,
-#         kw.descendant_pledge_count: x_descendant_pledge_count,
-#         kw.fund_cease: x_fund_cease,
-#         kw.fund_grain: x_fund_grain,
-#         kw.fund_onset: x_fund_onset,
-#         kw.fund_ratio: x_fund_ratio,
-#         kw.gogo_calc: x_gogo_calc,
-#         kw.healerunit_ratio: x_healerunit_ratio,
-#         kw.tree_level: x_tree_level,
-#         kw.range_evaluated: x_range_evaluated,
-#         kw.stop_calc: x_stop_calc,
-#         kw.task: x_task,
-#         kw.addin: x_addin,
-#         kw.begin: x_begin,
-#         kw.close: x_close,
-#         kw.denom: x_denom,
-#         kw.gogo_want: x_gogo_want,
-#         kw.star: x_star,
-#         kw.morph: x_morph,
-#         kw.numor: x_numor,
-#         kw.plan_rope: x_rope,
-#         kw.pledge: x_pledge,
-#         kw.problem_bool: x_problem_bool,
-#         kw.stop_want: x_stop_want,
-#     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+    # WHEN
+    insert_sqlstr = create_blfplan_h_put_agg_insert_sqlstr(values_dict)
 
-#     # WHEN
-#     insert_sqlstr = create_blfplan_h_put_agg_insert_sqlstr(values_dict)
-
-#     # THEN
-#     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "belief_planunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print(expected_sqlstr)
-#         print("")
-#         print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+    # THEN
+    assert insert_sqlstr
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        table_name = "belief_planunit_h_put_agg"
+        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
+        # print(expected_sqlstr)
+        # print("")
+        print(insert_sqlstr)
+        assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_plan_reasonunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_rope = 1
@@ -199,6 +155,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_reason_active = 5
 #     x__heir_active = 6
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.plan_rope: x_rope,
@@ -208,8 +166,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.reason_active: x_reason_active,
 #         kw.parent_heir_active: x__heir_active,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blfreas_h_put_agg_insert_sqlstr(values_dict)
@@ -230,29 +192,6 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_plan_reason_caseunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_rope = 1
@@ -264,6 +203,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_task = 7
 #     x_case_active = 8
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.plan_rope: x_rope,
@@ -275,8 +216,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.task: x_task,
 #         kw.case_active: x_case_active,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(values_dict)
@@ -297,29 +242,6 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blfawar_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_plan_awardunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_rope = 1
@@ -329,6 +251,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fund_give = 5
 #     x_fund_take = 6
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.plan_rope: x_rope,
@@ -338,8 +262,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.fund_give: x_fund_give,
 #         kw.fund_take: x_fund_take,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blfawar_h_put_agg_insert_sqlstr(values_dict)
@@ -360,29 +288,6 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_plan_factunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_rope = 1
@@ -391,6 +296,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fact_lower = 4
 #     x_fact_upper = 5
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.plan_rope: x_rope,
@@ -399,8 +306,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.fact_lower: x_fact_lower,
 #         kw.fact_upper: x_fact_upper,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blffact_h_put_agg_insert_sqlstr(values_dict)
@@ -421,41 +332,24 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blfheal_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_plan_healerunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_rope = 1
 #     x_healer_name = 2
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.plan_rope: x_rope,
 #         kw.healer_name: x_healer_name,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blfheal_h_put_agg_insert_sqlstr(values_dict)
@@ -476,29 +370,6 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blflabo_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_plan_partyunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_rope = 1
@@ -506,6 +377,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_solo = 4
 #     x__belief_name_is_labor = 3
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.plan_rope: x_rope,
@@ -513,8 +386,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.solo: x_solo,
 #         kw.belief_name_is_labor: x__belief_name_is_labor,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blflabo_h_put_agg_insert_sqlstr(values_dict)
@@ -536,29 +413,6 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blfvoce_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_voiceunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_voice_name = 1
@@ -576,6 +430,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_irrational_voice_debt_lumen = 13
 #     x_groupmark = 13
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.voice_name: x_voice_name,
@@ -593,8 +449,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.irrational_voice_debt_lumen: x_irrational_voice_debt_lumen,
 #         kw.groupmark: x_groupmark,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blfvoce_h_put_agg_insert_sqlstr(values_dict)
@@ -615,29 +475,6 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blfmemb_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_voice_membership")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_voice_name = 1
@@ -653,6 +490,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fund_agenda_ratio_give = 11
 #     x_fund_agenda_ratio_take = 12
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.voice_name: x_voice_name,
@@ -668,8 +507,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.fund_agenda_ratio_give: x_fund_agenda_ratio_give,
 #         kw.fund_agenda_ratio_take: x_fund_agenda_ratio_take,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blfmemb_h_put_agg_insert_sqlstr(values_dict)
@@ -690,29 +533,6 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 # def test_create_blfgrou_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     x_args = get_belief_calc_dimen_args("belief_groupunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    "{x_arg}": x_{x_arg},""")
-#     # print("")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    {x_arg} = values_dict.get("{x_arg}")""")
-#     # print("")
-#     # print("VALUES (")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     b0_str = "{"
-#     #     b1_str = "}"
-#     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
-#     # print(")")
-#     # print(";")
-
 #     x_moment_label = "Amy23"
 #     x_belief_name = "Sue"
 #     x_group_title = 1
@@ -724,6 +544,8 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fund_agenda_give = 7
 #     x_fund_agenda_take = 8
 #     values_dict = {
+#         kw.spark_num: 77,
+#         kw.face_name: exx.yao,
 #         kw.moment_label: x_moment_label,
 #         kw.belief_name: x_belief_name,
 #         kw.group_title: x_group_title,
@@ -735,8 +557,12 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.fund_agenda_give: x_fund_agenda_give,
 #         kw.fund_agenda_take: x_fund_agenda_take,
 #     }
-#     # all args included in values dict
-#     assert x_args == set(values_dict.keys())
+#     all args included in values dict
+#     etl_config = get_etl_config()
+#     dimen = kw.beliefunit
+#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     print(f"{dst_columns=}")
+#     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
 #     insert_sqlstr = create_blfgrou_h_put_agg_insert_sqlstr(values_dict)
