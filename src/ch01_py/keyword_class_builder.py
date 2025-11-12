@@ -116,3 +116,20 @@ def get_keywords_by_chapter_md() -> str:
 def save_keywords_by_chapter_md(x_dir: str):
     keywords_by_chapter_md_path = create_path(x_dir, "keywords_by_chapter.md")
     save_file(keywords_by_chapter_md_path, None, get_keywords_by_chapter_md())
+
+
+def convert_dict_enums_to_values(x_dict: dict) -> dict:
+    return enum_to_value(x_dict)
+
+
+def enum_to_value(obj):
+    if isinstance(obj, Enum):
+        return obj.value
+    elif isinstance(obj, dict):
+        return {k: enum_to_value(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [enum_to_value(v) for v in obj]
+    elif isinstance(obj, set):
+        return sorted(enum_to_value(v) for v in obj)
+    else:
+        return obj

@@ -9,7 +9,7 @@ from src.ch98_docs_builder.doc_builder import (
 )
 
 
-def test_SpecialTestThatBuildsDocs():
+def test_SpecialTestThatBuildsDocs(rebuild_bool):
     """
     Intended to be the last test before the style checker (linter) tests.
     Should only create documentation and/or sort json files
@@ -25,5 +25,5 @@ def test_SpecialTestThatBuildsDocs():
     save_ropeterm_description_md(destination_dir)
     save_keywords_by_chapter_md(destination_dir)  # docs\keywords_by_chapter.md
     # 4% of instances resave all json files so that they are ordered alphabetically
-    if random_random() < 0.04:
+    if random_random() < 0.04 or rebuild_bool:
         resave_chapter_and_keyword_json_files()

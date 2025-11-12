@@ -1,6 +1,4 @@
 {
-  "inx_time": {"init_chapter": "ch15"}, 
-  "otx_time": {"init_chapter": "ch15"}, 
   "Anaday": {"init_chapter": "ch13"}, 
   "Baileyday": {"init_chapter": "ch13"}, 
   "BeliefName": {"init_chapter": "ch07", "semantic_type": "str"}, 
@@ -241,6 +239,7 @@
   "inx_label": {"init_chapter": "ch16"}, 
   "inx_name": {"init_chapter": "ch16"}, 
   "inx_rope": {"init_chapter": "ch16"}, 
+  "inx_time": {"init_chapter": "ch15"}, 
   "inx_title": {"init_chapter": "ch16"}, 
   "irrational_voice_debt_lumen": {"init_chapter": "ch03"}, 
   "is_expanded": {"init_chapter": "ch06"}, 
@@ -325,6 +324,7 @@
   "otx_label": {"init_chapter": "ch16"}, 
   "otx_name": {"init_chapter": "ch16"}, 
   "otx_rope": {"init_chapter": "ch16"}, 
+  "otx_time": {"init_chapter": "ch15"}, 
   "otx_title": {"init_chapter": "ch16"}, 
   "parent_heir_active": {"init_chapter": "ch05"}, 
   "parent_rope": {"init_chapter": "ch02"}, 

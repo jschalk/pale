@@ -1,7 +1,9 @@
+from enum import Enum
 from src.ch01_py._ref.ch01_path import create_keywords_classes_file_path
 from src.ch01_py.chapter_desc_main import get_chapter_desc_prefix
 from src.ch01_py.file_toolbox import open_file, save_file
 from src.ch01_py.keyword_class_builder import (
+    convert_dict_enums_to_values,
     create_all_enum_keyword_classes_str,
     create_examplestrs_class_str,
     create_keywords_enum_class_file_str,
@@ -184,3 +186,75 @@ def test_SpecialTestThatBuildsKeywordEnumClasses():
     # WHEN / THEN
     prev_and_curr_classes_file_are_same = enum_classes_str == current_classes_file_str
     assert prev_and_curr_classes_file_are_same, assertion_failure_str
+
+
+class Color(Enum):
+    RED = "red"
+    BLUE = "blue"
+
+
+class Shape(Enum):
+    CIRCLE = "circle"
+    SQUARE = "square"
+
+
+def test_convert_dict_enums_to_values_ReturnsObj_Scenario0_FlatDict():
+    # ESTABLISH
+    data = {"color": Color.RED, "shape": Shape.SQUARE, "name": "box"}
+    # WHEN
+    result = convert_dict_enums_to_values(data)
+    # THEN
+    assert result == {"color": "red", "shape": "square", "name": "box"}
+
+
+def test_convert_dict_enums_to_values_ReturnsObj_Scenario1_NestedDict():
+    # ESTABLISH
+    data = {"outer": {"inner": {"color": Color.BLUE, "count": 5}}}
+    # WHEN
+    result = convert_dict_enums_to_values(data)
+    # THEN
+    assert result == {"outer": {"inner": {"color": "blue", "count": 5}}}
+
+
+def test_convert_dict_enums_to_values_ReturnsObj_Scenario2_List():
+    # ESTABLISH
+    data = [Color.RED, Color.BLUE, "plain"]
+    # WHEN
+    result = convert_dict_enums_to_values(data)
+    # THEN
+    assert result == ["red", "blue", "plain"]
+
+
+def test_convert_dict_enums_to_values_ReturnsObj_Scenario3_Set():
+    # ESTABLISH
+    data = {Color.RED, Color.BLUE, "plain"}
+    # WHEN
+    result = convert_dict_enums_to_values(data)
+    # THEN
+    assert result == ["blue", "plain", "red"]
+
+
+def test_convert_dict_enums_to_values_ReturnsObj_Scenario4_Mixed():
+    # ESTABLISH
+    data = {
+        "colors": [Color.RED, Color.BLUE],
+        "shapes": {"main": Shape.CIRCLE, "alt": "triangle"},
+        "count": 3,
+    }
+    # WHEN
+    result = convert_dict_enums_to_values(data)
+    # THEN
+    assert result == {
+        "colors": ["red", "blue"],
+        "shapes": {"main": "circle", "alt": "triangle"},
+        "count": 3,
+    }
+
+
+def test_convert_dict_enums_to_values_ReturnsObj_Scenario5_NonEnumValuesUnchanged():
+    # ESTABLISH
+    data = {"num": 10, "text": "hello", "flag": True}
+    # WHEN
+    result = convert_dict_enums_to_values(data)
+    # THEN
+    assert result == data
