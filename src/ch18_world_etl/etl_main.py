@@ -804,7 +804,9 @@ def etl_spark_belief_csvs_to_lesson_json(moment_mstr_dir: str):
                     moment_mstr_dir, moment_label, belief_name, spark_num
                 )
                 save_json(
-                    spark_all_lesson_path, None, spark_lesson.get_serializable_dict()
+                    spark_all_lesson_path,
+                    None,
+                    spark_lesson.get_serializable_step_dict(),
                 )
 
 
@@ -890,7 +892,7 @@ def etl_spark_lesson_json_to_spark_inherited_beliefunits(moment_mstr_dir: str):
                 save_json(
                     spark_dir,
                     "expressed_lesson.json",
-                    expressed_lesson.get_serializable_dict(),
+                    expressed_lesson.get_serializable_step_dict(),
                 )
                 prev_spark_num = spark_num
 

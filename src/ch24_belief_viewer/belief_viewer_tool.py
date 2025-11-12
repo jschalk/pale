@@ -1,5 +1,5 @@
 import dataclasses
-from src.ch01_py.dict_toolbox import make_dict_safe_for_json
+from src.ch01_py.dict_toolbox import get_serializable_dict
 from src.ch03_voice.group import AwardHeir, AwardLine, AwardUnit
 from src.ch03_voice.labor import PartyHeir, PartyUnit
 from src.ch05_reason.reason_main import (
@@ -145,8 +145,8 @@ def set_readable_plan_values(x_plan: PlanUnit, result: dict):
 def get_plan_view_dict(x_plan: PlanUnit) -> dict[str,]:
     """Returns a dictionary of only base value types and dictionarys"""
 
-    # return make_dict_safe_for_json(dataclasses_asdict(x_plan))
-    return make_dict_safe_for_json(belief_objs_asdict(x_plan))
+    # return get_serializable_dict(dataclasses_asdict(x_plan))
+    return get_serializable_dict(belief_objs_asdict(x_plan))
 
 
 def get_voices_view_dict(belief: BeliefUnit) -> dict[str,]:

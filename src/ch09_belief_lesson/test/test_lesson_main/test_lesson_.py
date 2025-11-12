@@ -284,7 +284,7 @@ def test_LessonUnit_get_step_dict_ReturnsObj_delta_start():
     assert sue_beliefatoms_dict.get(x_delta_start + 1) is not None
 
 
-def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
+def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Simple():
     # ESTABLISH
     amy45_str = "amy45"
     amy45_e5_int = 5
@@ -294,7 +294,7 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
     bob_lessonunit.set_face(exx.sue)
 
     # WHEN
-    total_dict = bob_lessonunit.get_serializable_dict()
+    total_dict = bob_lessonunit.get_serializable_step_dict()
 
     # THEN
     assert total_dict.get(kw.moment_label) is not None
@@ -309,13 +309,13 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Simple():
     assert total_dict.get(delta_str) == {}
 
 
-def test_LessonUnit_get_serializable_dict_ReturnsObj_Scenario0_WithBeliefDeltaPopulated():
+def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario0_WithBeliefDeltaPopulated():
     # ESTABLISH
     sue_beliefdelta = get_beliefdelta_sue_example()
     bob_lessonunit = lessonunit_shop(exx.bob, _beliefdelta=sue_beliefdelta)
 
     # WHEN
-    total_dict = bob_lessonunit.get_serializable_dict()
+    total_dict = bob_lessonunit.get_serializable_step_dict()
 
     # THEN
     print(f"{total_dict=}")
@@ -324,13 +324,13 @@ def test_LessonUnit_get_serializable_dict_ReturnsObj_Scenario0_WithBeliefDeltaPo
     assert total_dict.get(delta_str) == sue_beliefdelta.get_ordered_dict()
 
 
-def test_LessonUnit_get_serializable_dict_ReturnsObj_Scenario1_WithBeliefDeltaPopulated():
+def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario1_WithBeliefDeltaPopulated():
     # ESTABLISH
     sue_beliefdelta = get_beliefdelta_sue_example()
     bob_lessonunit = lessonunit_shop(exx.bob, _beliefdelta=sue_beliefdelta)
 
     # WHEN
-    generated_dict = bob_lessonunit.get_serializable_dict()
+    generated_dict = bob_lessonunit.get_serializable_step_dict()
 
     # THEN
     assert generated_dict
@@ -368,7 +368,7 @@ def test_get_lessonunit_from_dict_ReturnsObj_WithBeliefDeltaPopulated():
 
     # WHEN
     generated_bob_lessonunit = get_lessonunit_from_dict(
-        bob_lessonunit.get_serializable_dict()
+        bob_lessonunit.get_serializable_step_dict()
     )
 
     # THEN

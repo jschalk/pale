@@ -507,13 +507,15 @@ def mark_keys(
     return new_dict
 
 
-def make_dict_safe_for_json(obj):
+def get_serializable_dict(obj):
     if isinstance(obj, dict):
-        return {k: make_dict_safe_for_json(v) for k, v in obj.items()}
+        return {k: get_serializable_dict(v) for k, v in obj.items()}
     elif isinstance(obj, list):
-        return [make_dict_safe_for_json(v) for v in obj]
+        return [get_serializable_dict(v) for v in obj]
     elif isinstance(obj, set):
-        return list(obj)
+        return sorted(get_serializable_dict(v) for v in obj)
+    elif isinstance(obj, Enum):
+        return obj.value
     else:
         return obj
 
