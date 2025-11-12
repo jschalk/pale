@@ -591,7 +591,29 @@ VALUES (
 
 
 def create_blffact_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
-    pass
+    spark_num = values_dict.get("spark_num")
+    face_name = values_dict.get("face_name")
+    moment_label = values_dict.get("moment_label")
+    belief_name = values_dict.get("belief_name")
+    rope = values_dict.get("plan_rope")
+    fact_context = values_dict.get("fact_context")
+    fact_state = values_dict.get("fact_state")
+    fact_lower_otx = values_dict.get("fact_lower_otx")
+    fact_upper_otx = values_dict.get("fact_upper_otx")
+    return f"""INSERT INTO belief_plan_factunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower_otx, fact_upper_otx)
+VALUES (
+  {sqlite_obj_str(spark_num, "INTEGER")}
+, {sqlite_obj_str(face_name, "TEXT")}
+, {sqlite_obj_str(moment_label, "TEXT")}
+, {sqlite_obj_str(belief_name, "TEXT")}
+, {sqlite_obj_str(rope, "TEXT")}
+, {sqlite_obj_str(fact_context, "TEXT")}
+, {sqlite_obj_str(fact_state, "TEXT")}
+, {sqlite_obj_str(fact_lower_otx, "REAL")}
+, {sqlite_obj_str(fact_upper_otx, "REAL")}
+)
+;
+"""
 
 
 def create_blfgrou_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
@@ -1080,6 +1102,8 @@ def insert_h_agg_blffact(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["belief_name"] = x_objkeysholder.belief_name
     x_dict["plan_rope"] = x_objkeysholder.rope
+    x_dict["fact_upper_otx"] = x_dict["fact_upper"]
+    x_dict["fact_lower_otx"] = x_dict["fact_lower"]
     insert_sqlstr = create_blffact_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
@@ -1112,6 +1136,8 @@ def insert_h_agg_blfcase(
     x_dict["belief_name"] = x_objkeysholder.belief_name
     x_dict["plan_rope"] = x_objkeysholder.rope
     x_dict["reason_context"] = x_objkeysholder.reason_context
+    x_dict["reason_upper_otx"] = x_dict["reason_upper"]
+    x_dict["reason_lower_otx"] = x_dict["reason_lower"]
     insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
@@ -1180,26 +1206,26 @@ def insert_h_agg_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
     insert_h_agg_blfunit(cursor, x_objkeysholder, job_belief)
     for x_plan in job_belief.get_plan_dict().values():
         x_objkeysholder.rope = x_plan.get_plan_rope()
-        healerunit = x_plan.healerunit
-        laborheir = x_plan.laborheir
         insert_h_agg_blfplan(cursor, x_objkeysholder, x_plan)
-        insert_h_agg_blfheal(cursor, x_objkeysholder, healerunit)
-        insert_h_agg_blflabo(cursor, x_objkeysholder, laborheir)
-        for x_awardheir in x_plan.awardheirs.values():
-            insert_h_agg_blfawar(cursor, x_objkeysholder, x_awardheir)
+        # healerunit = x_plan.healerunit
+        # laborheir = x_plan.laborheir
+        # insert_h_agg_blfheal(cursor, x_objkeysholder, healerunit)
+        # insert_h_agg_blflabo(cursor, x_objkeysholder, laborheir)
+        # for x_awardheir in x_plan.awardheirs.values():
+        #     insert_h_agg_blfawar(cursor, x_objkeysholder, x_awardheir)
         for reason_context, reasonheir in x_plan.reasonheirs.items():
             insert_h_agg_blfreas(cursor, x_objkeysholder, reasonheir)
             x_objkeysholder.reason_context = reason_context
             for prem in reasonheir.cases.values():
                 insert_h_agg_blfcase(cursor, x_objkeysholder, prem)
 
-    for x_voice in job_belief.voices.values():
-        insert_h_agg_blfvoce(cursor, x_objkeysholder, x_voice)
-        for x_membership in x_voice.memberships.values():
-            insert_h_agg_blfmemb(cursor, x_objkeysholder, x_membership)
+    # for x_voice in job_belief.voices.values():
+    #     insert_h_agg_blfvoce(cursor, x_objkeysholder, x_voice)
+    #     for x_membership in x_voice.memberships.values():
+    #         insert_h_agg_blfmemb(cursor, x_objkeysholder, x_membership)
 
-    for x_groupunit in job_belief.groupunits.values():
-        insert_h_agg_blfgrou(cursor, x_objkeysholder, x_groupunit)
+    # for x_groupunit in job_belief.groupunits.values():
+    #     insert_h_agg_blfgrou(cursor, x_objkeysholder, x_groupunit)
 
     for x_factheir in job_belief.planroot.factheirs.values():
         x_objkeysholder.fact_rope = job_belief.planroot.get_plan_rope()

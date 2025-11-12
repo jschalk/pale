@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_row_count
+from src.ch01_py.db_toolbox import get_row_count, get_table_columns
 from src.ch03_voice.group import (
     awardheir_shop,
     awardunit_shop,
@@ -92,279 +92,207 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
         assert rows == expected_data
 
 
-# def test_insert_h_agg_blfplan_CreatesTableRowsFor_blfplan_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
-#     # x_args = get_belief_calc_dimen_args("belief_planunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    x_plan.{x_arg} = x_{x_arg}""")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
-#     # print("")
-#     x_moment_label = "Amy23"
-#     x_belief_name = 2
-#     casa_rope = create_rope(x_moment_label, "casa")
-#     x_parent_rope = casa_rope
-#     x_plan_label = "clean"
-#     x_begin = 5.0
-#     x_close = 6.0
-#     x_addin = 7.0
-#     x_numor = 8
-#     x_denom = 9
-#     x_morph = 10
-#     x_gogo_want = 11.0
-#     x_stop_want = 12.0
-#     x_star = 13
-#     x_pledge = 14
-#     x_problem_bool = 15
-#     x_active = 16
-#     x_task = 17
-#     x_fund_grain = 18.0
-#     x_fund_onset = 19.0
-#     x_fund_cease = 20.0
-#     x_fund_ratio = 21.0
-#     x_gogo_calc = 22.0
-#     x_stop_calc = 23.0
-#     x_level = 24
-#     x_range_evaluated = 25
-#     x_descendant_pledge_count = 26
-#     x_healerunit_ratio = 27.0
-#     x_all_voice_cred = 28
-#     x_all_voice_debt = 29
-#     x_plan = planunit_shop(exx.casa)
-#     x_plan.parent_rope = x_parent_rope
-#     x_plan.plan_label = x_plan_label
-#     x_plan.begin = x_begin
-#     x_plan.close = x_close
-#     x_plan.addin = x_addin
-#     x_plan.numor = x_numor
-#     x_plan.denom = x_denom
-#     x_plan.morph = x_morph
-#     x_plan.gogo_want = x_gogo_want
-#     x_plan.stop_want = x_stop_want
-#     x_plan.star = x_star
-#     x_plan.pledge = x_pledge
-#     x_plan.problem_bool = x_problem_bool
-#     x_plan.plan_active = x_active
-#     x_plan.task = x_task
-#     x_plan.fund_grain = x_fund_grain
-#     x_plan.fund_onset = x_fund_onset
-#     x_plan.fund_cease = x_fund_cease
-#     x_plan.fund_ratio = x_fund_ratio
-#     x_plan.gogo_calc = x_gogo_calc
-#     x_plan.stop_calc = x_stop_calc
-#     x_plan.tree_level = x_level
-#     x_plan.range_evaluated = x_range_evaluated
-#     x_plan.descendant_pledge_count = x_descendant_pledge_count
-#     x_plan.healerunit_ratio = x_healerunit_ratio
-#     x_plan.all_voice_cred = x_all_voice_cred
-#     x_plan.all_voice_debt = x_all_voice_debt
-#     x_plan.begin = x_begin
-#     x_plan.close = x_close
-#     x_plan.addin = x_addin
-#     x_plan.numor = x_numor
-#     x_plan.denom = x_denom
-#     x_plan.morph = x_morph
-#     x_plan.gogo_want = x_gogo_want
-#     x_plan.stop_want = x_stop_want
-#     x_plan.star = x_star
-#     x_plan.pledge = x_pledge
-#     x_plan.problem_bool = x_problem_bool
-#     x_plan.plan_active = x_active
-#     x_plan.task = x_task
-#     x_plan.fund_grain = x_fund_grain
-#     x_plan.fund_onset = x_fund_onset
-#     x_plan.fund_cease = x_fund_cease
-#     x_plan.fund_ratio = x_fund_ratio
-#     x_plan.gogo_calc = x_gogo_calc
-#     x_plan.stop_calc = x_stop_calc
-#     x_plan.tree_level = x_level
-#     x_plan.range_evaluated = x_range_evaluated
-#     x_plan.descendant_pledge_count = x_descendant_pledge_count
-#     x_plan.healerunit_ratio = x_healerunit_ratio
-#     x_plan.all_voice_cred = x_all_voice_cred
-#     x_plan.all_voice_debt = x_all_voice_debt
+def test_insert_h_agg_blfplan_CreatesTableRowsFor_blfplan_h_agg():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    x_spark_num = 77
+    x_face_name = exx.yao
+    x_moment_label = "Amy23"
+    x_belief_name = 2
+    casa_rope = create_rope(x_moment_label, "casa")
+    x_parent_rope = casa_rope
+    x_plan_label = "clean"
+    x_begin = 5.0
+    x_close = 6.0
+    x_addin = 7.0
+    x_numor = 8
+    x_denom = 9
+    x_morph = 10
+    x_gogo_want = 11.0
+    x_stop_want = 12.0
+    x_star = 13
+    x_pledge = 14
+    x_problem_bool = 15
+    x_plan = planunit_shop(exx.casa)
+    x_plan.parent_rope = x_parent_rope
+    x_plan.plan_label = x_plan_label
+    x_plan.begin = x_begin
+    x_plan.close = x_close
+    x_plan.addin = x_addin
+    x_plan.numor = x_numor
+    x_plan.denom = x_denom
+    x_plan.morph = x_morph
+    x_plan.gogo_want = x_gogo_want
+    x_plan.stop_want = x_stop_want
+    x_plan.star = x_star
+    x_plan.pledge = x_pledge
+    x_plan.problem_bool = x_problem_bool
+    x_plan.begin = x_begin
+    x_plan.close = x_close
+    x_plan.addin = x_addin
+    x_plan.numor = x_numor
+    x_plan.denom = x_denom
+    x_plan.morph = x_morph
+    x_plan.gogo_want = x_gogo_want
+    x_plan.stop_want = x_stop_want
+    x_plan.star = x_star
+    x_plan.pledge = x_pledge
+    x_plan.problem_bool = x_problem_bool
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "belief_planunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        x_table_name = "belief_planunit_h_put_agg"
+        assert get_row_count(cursor, x_table_name) == 0
+        x_objkeysholder = ObjKeysHolder(
+            spark_num=x_spark_num,
+            face_name=x_face_name,
+            moment_label=x_moment_label,
+            belief_name=x_belief_name,
+        )
 
-#         # WHEN
-#         insert_h_agg_blfplan(cursor, x_objkeysholder, x_plan)
+        # WHEN
+        insert_h_agg_blfplan(cursor, x_objkeysholder, x_plan)
 
-#         # THEN
-#         clean_rope = create_rope(casa_rope, "clean")
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             None,
-#             str(x_belief_name),
-#             clean_rope,
-#             x_begin,
-#             x_close,
-#             x_addin,
-#             x_numor,
-#             x_denom,
-#             x_morph,
-#             x_gogo_want,
-#             x_stop_want,
-#             x_star,
-#             x_pledge,
-#             x_problem_bool,
-#             x_fund_grain,
-#             x_active,
-#             x_task,
-#             x_fund_onset,
-#             x_fund_cease,
-#             x_fund_ratio,
-#             x_gogo_calc,
-#             x_stop_calc,
-#             x_level,
-#             x_range_evaluated,
-#             x_descendant_pledge_count,
-#             x_healerunit_ratio,
-#             x_all_voice_cred,
-#             x_all_voice_debt,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+        # THEN
+        clean_rope = create_rope(casa_rope, "clean")
+        assert get_row_count(cursor, x_table_name) == 1
+        select_sqlstr = f"SELECT * FROM {x_table_name};"
+        cursor.execute(select_sqlstr)
+        rows = cursor.fetchall()
+        expected_row1 = (
+            x_spark_num,
+            x_face_name,
+            None,
+            str(x_belief_name),
+            clean_rope,
+            x_begin,
+            x_close,
+            x_addin,
+            x_numor,
+            x_denom,
+            x_morph,
+            x_gogo_want,
+            x_stop_want,
+            x_star,
+            x_pledge,
+            x_problem_bool,
+        )
+        expected_data = [expected_row1]
+        assert rows == expected_data
 
 
-# def test_insert_h_agg_blfreas_CreatesTableRowsFor_blfreas_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
-#     # x_args = get_belief_calc_dimen_args("belief_plan_reasonunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    x_reasonunit.{x_arg} = x_{x_arg}""")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
-#     # print("")
+def test_insert_h_agg_blfreas_CreatesTableRowsFor_blfreas_h_agg():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    x_spark_num = 77
+    x_face_name = exx.yao
+    x_moment_label = 1
+    x_belief_name = 2
+    x_rope = 3
+    x_reason_context = 4
+    x_active_requisite = 5
+    x_reasonheir = reasonheir_shop(reason_context=x_reason_context)
+    x_reasonheir.reason_context = x_reason_context
+    x_reasonheir.active_requisite = x_active_requisite
 
-#     x_moment_label = 1
-#     x_belief_name = 2
-#     x_rope = 3
-#     x_reason_context = 4
-#     x_active_requisite = 5
-#     x_task = 6
-#     x_reason_active = 7
-#     x__heir_active = 8
-#     x_reasonheir = reasonheir_shop(reason_context=x_reason_context)
-#     x_reasonheir.reason_context = x_reason_context
-#     x_reasonheir.active_requisite = x_active_requisite
-#     x_reasonheir.task = x_task
-#     x_reasonheir.reason_active = x_reason_active
-#     x_reasonheir.parent_heir_active = x__heir_active
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        x_table_name = "belief_plan_reasonunit_h_put_agg"
+        assert get_row_count(cursor, x_table_name) == 0
+        x_objkeysholder = ObjKeysHolder(
+            spark_num=x_spark_num,
+            face_name=x_face_name,
+            moment_label=x_moment_label,
+            belief_name=x_belief_name,
+            rope=x_rope,
+        )
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "belief_plan_reasonunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+        # WHEN
+        insert_h_agg_blfreas(cursor, x_objkeysholder, x_reasonheir)
 
-#         # WHEN
-#         insert_h_agg_blfreas(cursor, x_objkeysholder, x_reasonheir)
-
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             str(x_moment_label),
-#             str(x_belief_name),
-#             str(x_rope),
-#             str(x_reason_context),
-#             x_active_requisite,
-#             x_task,
-#             x_reason_active,
-#             x__heir_active,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+        # THEN
+        assert get_row_count(cursor, x_table_name) == 1
+        select_sqlstr = f"SELECT * FROM {x_table_name};"
+        cursor.execute(select_sqlstr)
+        rows = cursor.fetchall()
+        expected_row1 = (
+            x_spark_num,
+            x_face_name,
+            str(x_moment_label),
+            str(x_belief_name),
+            str(x_rope),
+            str(x_reason_context),
+            x_active_requisite,
+        )
+        expected_data = [expected_row1]
+        assert rows == expected_data
 
 
-# def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
-#     # x_args = get_belief_calc_dimen_args("belief_plan_reason_caseunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    x_caseunit.{x_arg} = x_{x_arg}""")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    x_spark_num = 77
+    x_face_name = exx.yao
+    x_moment_label = 1
+    x_belief_name = 2
+    x_rope = 3
+    x_reason_context = 4
+    x_reason_state = 5
+    x_reason_upper_otx = 6.0
+    x_reason_lower_otx = 7.0
+    x_reason_upper_inx = None
+    x_reason_lower_inx = None
+    x_reason_divisor = 8
+    x_caseunit = caseunit_shop(reason_state=x_reason_state)
+    x_caseunit.reason_state = x_reason_state
+    x_caseunit.reason_upper = x_reason_upper_otx
+    x_caseunit.reason_lower = x_reason_lower_otx
+    x_caseunit.reason_divisor = x_reason_divisor
 
-#     x_moment_label = 1
-#     x_belief_name = 2
-#     x_rope = 3
-#     x_reason_context = 4
-#     x_reason_state = 5
-#     x_reason_upper = 6.0
-#     x_reason_lower = 7.0
-#     x_reason_divisor = 8
-#     x_task = 9
-#     x_case_active = 10
-#     x_caseunit = caseunit_shop(reason_state=x_reason_state)
-#     x_caseunit.reason_state = x_reason_state
-#     x_caseunit.reason_upper = x_reason_upper
-#     x_caseunit.reason_lower = x_reason_lower
-#     x_caseunit.reason_divisor = x_reason_divisor
-#     x_caseunit.task = x_task
-#     x_caseunit.case_active = x_case_active
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        x_table_name = "belief_plan_reason_caseunit_h_put_agg"
+        print(
+            f"{get_table_columns(cursor, x_table_name)=} {len(get_table_columns(cursor, x_table_name))=}"
+        )
+        assert get_row_count(cursor, x_table_name) == 0
+        x_objkeysholder = ObjKeysHolder(
+            spark_num=x_spark_num,
+            face_name=x_face_name,
+            moment_label=x_moment_label,
+            belief_name=x_belief_name,
+            rope=x_rope,
+            reason_context=x_reason_context,
+        )
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "belief_plan_reason_caseunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(
-#             x_moment_label, x_belief_name, x_rope, x_reason_context
-#         )
+        # WHEN
+        insert_h_agg_blfcase(cursor, x_objkeysholder, x_caseunit)
 
-#         # WHEN
-#         insert_h_agg_blfcase(cursor, x_objkeysholder, x_caseunit)
-
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             str(x_moment_label),
-#             str(x_belief_name),
-#             str(x_rope),
-#             str(x_reason_context),
-#             str(x_reason_state),
-#             x_reason_upper,
-#             x_reason_lower,
-#             x_reason_divisor,
-#             x_task,
-#             x_case_active,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+        # THEN
+        assert get_row_count(cursor, x_table_name) == 1
+        select_sqlstr = f"SELECT * FROM {x_table_name};"
+        cursor.execute(select_sqlstr)
+        rows = cursor.fetchall()
+        expected_row1 = (
+            x_spark_num,
+            x_face_name,
+            str(x_moment_label),
+            str(x_belief_name),
+            str(x_rope),
+            str(x_reason_context),
+            str(x_reason_state),
+            x_reason_upper_otx,
+            x_reason_upper_inx,
+            x_reason_lower_otx,
+            x_reason_lower_inx,
+            x_reason_divisor,
+        )
+        expected_data = [expected_row1]
+        assert len(rows[0]) == len(expected_data[0])
+        assert rows == expected_data
 
 
 # def test_insert_h_agg_blfmemb_CreatesTableRowsFor_blfmemb_h_agg():
@@ -382,6 +310,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     print(f"""            x_{x_arg},""")
 
+#     x_spark_num = 77
+#     x_face_name = exx.yao
 #     x_moment_label = 1
 #     x_belief_name = 2
 #     x_voice_name = 3
@@ -414,7 +344,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "belief_voice_membership_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, belief_name=x_belief_name)
 
 #         # WHEN
 #         insert_h_agg_blfmemb(cursor, x_objkeysholder, x_membership)
@@ -425,6 +355,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         cursor.execute(select_sqlstr)
 #         rows = cursor.fetchall()
 #         expected_row1 = (
+#             x_spark_num,
+#             x_face_name,
 #             str(x_moment_label),
 #             str(x_belief_name),
 #             str(x_voice_name),
@@ -459,6 +391,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     print(f"""            x_{x_arg},""")
 
+#     x_spark_num = 77
+#     x_face_name = exx.yao
 #     x_moment_label = 1
 #     x_belief_name = 2
 #     x_voice_name = 3
@@ -496,7 +430,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "belief_voiceunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, belief_name=x_belief_name)
 
 #         # WHEN
 #         insert_h_agg_blfvoce(cursor, x_objkeysholder, x_voice)
@@ -507,6 +441,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         cursor.execute(select_sqlstr)
 #         rows = cursor.fetchall()
 #         expected_row1 = (
+#             x_spark_num,
+#             x_face_name,
 #             str(x_moment_label),
 #             str(x_belief_name),
 #             str(x_voice_name),
@@ -543,6 +479,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     print(f"""            x_{x_arg},""")
 
+#     x_spark_num = 77
+#     x_face_name = exx.yao
 #     x_moment_label = 1
 #     x_belief_name = 2
 #     x_group_title = 3
@@ -568,7 +506,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "belief_groupunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, belief_name=x_belief_name)
 
 #         # WHEN
 #         insert_h_agg_blfgrou(cursor, x_objkeysholder, x_group)
@@ -579,6 +517,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         cursor.execute(select_sqlstr)
 #         rows = cursor.fetchall()
 #         expected_row1 = (
+#             x_spark_num,
+#             x_face_name,
 #             str(x_moment_label),
 #             str(x_belief_name),
 #             str(x_group_title),
@@ -609,6 +549,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     print(f"""            x_{x_arg},""")
 
+#     x_spark_num = 77
+#     x_face_name = exx.yao
 #     x_moment_label = 1
 #     x_belief_name = 2
 #     x_rope = 3
@@ -629,7 +571,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "belief_plan_awardunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope)
 
 #         # WHEN
 #         insert_h_agg_blfawar(cursor, x_objkeysholder, x_awardheir)
@@ -640,6 +582,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         cursor.execute(select_sqlstr)
 #         rows = cursor.fetchall()
 #         expected_row1 = (
+#             x_spark_num,
+#             x_face_name,
 #             str(x_moment_label),
 #             str(x_belief_name),
 #             str(x_rope),
@@ -653,60 +597,65 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         assert rows == expected_data
 
 
-# def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
-#     # x_args = get_belief_calc_dimen_args("belief_plan_factunit")
-#     # x_count = 0
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     x_count += 1
-#     #     print(f"    x_{x_arg} = {x_count}")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    x_factheir.{x_arg} = x_{x_arg}""")
-#     # print("")
-#     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    x_spark_num = 77
+    x_face_name = exx.yao
+    x_moment_label = 1
+    x_belief_name = 2
+    x_rope = 3
+    x_reason_context = 4
+    x_fact_state = 5
+    x_fact_lower_otx = 6
+    x_fact_upper_otx = 7
+    x_fact_lower_inx = None
+    x_fact_upper_inx = None
+    x_factheir = factheir_shop()
+    x_factheir.fact_context = x_reason_context
+    x_factheir.fact_state = x_fact_state
+    x_factheir.fact_lower = x_fact_lower_otx
+    x_factheir.fact_upper = x_fact_upper_otx
 
-#     x_moment_label = 1
-#     x_belief_name = 2
-#     x_rope = 3
-#     x_reason_context = 4
-#     x_fact_state = 5
-#     x_fact_lower = 6
-#     x_fact_upper = 7
-#     x_factheir = factheir_shop()
-#     x_factheir.fact_context = x_reason_context
-#     x_factheir.fact_state = x_fact_state
-#     x_factheir.fact_lower = x_fact_lower
-#     x_factheir.fact_upper = x_fact_upper
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        x_table_name = "belief_plan_factunit_h_put_agg"
+        assert get_row_count(cursor, x_table_name) == 0
+        x_objkeysholder = ObjKeysHolder(
+            spark_num=x_spark_num,
+            face_name=x_face_name,
+            moment_label=x_moment_label,
+            belief_name=x_belief_name,
+            rope=x_rope,
+        )
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "belief_plan_factunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+        # WHEN
+        insert_h_agg_blffact(cursor, x_objkeysholder, x_factheir)
 
-#         # WHEN
-#         insert_h_agg_blffact(cursor, x_objkeysholder, x_factheir)
-
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             str(x_moment_label),
-#             str(x_belief_name),
-#             str(x_rope),
-#             str(x_reason_context),
-#             str(x_fact_state),
-#             x_fact_lower,
-#             x_fact_upper,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+        # THEN
+        assert get_row_count(cursor, x_table_name) == 1
+        select_sqlstr = f"SELECT * FROM {x_table_name};"
+        cursor.execute(select_sqlstr)
+        rows = cursor.fetchall()
+        expected_row1 = (
+            x_spark_num,
+            x_face_name,
+            str(x_moment_label),
+            str(x_belief_name),
+            str(x_rope),
+            str(x_reason_context),
+            str(x_fact_state),
+            x_fact_lower_otx,
+            x_fact_lower_inx,
+            x_fact_upper_otx,
+            x_fact_upper_inx,
+        )
+        expected_data = [expected_row1]
+        assert len(rows[0]) == len(expected_data[0])
+        print(rows[0])
+        print(expected_data[0])
+        assert rows == expected_data
 
 
 # def test_insert_h_agg_blfheal_CreatesTableRowsFor_blfheal_h_agg():
@@ -724,6 +673,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     print(f"""            x_{x_arg},""")
 
+#     x_spark_num = 77
+#     x_face_name = exx.yao
 #     x_moment_label = 1
 #     x_belief_name = 2
 #     x_rope = 3
@@ -736,7 +687,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "belief_plan_healerunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope)
 
 #         # WHEN
 #         insert_h_agg_blfheal(cursor, x_objkeysholder, x_healerunit)
@@ -747,6 +698,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         cursor.execute(select_sqlstr)
 #         rows = cursor.fetchall()
 #         expected_row1 = (
+#             x_spark_num,
+#             x_face_name,
 #             str(x_moment_label),
 #             str(x_belief_name),
 #             str(x_rope),
@@ -777,6 +730,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     print(f"""            x_{x_arg},""")
 
+#     x_spark_num = 77
+#     x_face_name = exx.yao
 #     x_moment_label = 1
 #     x_belief_name = 2
 #     x_rope = 3
@@ -794,7 +749,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "belief_plan_partyunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope)
 
 #         # WHEN
 #         insert_h_agg_blflabo(cursor, x_objkeysholder, x_laborheir)
@@ -805,6 +760,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         cursor.execute(select_sqlstr)
 #         rows = cursor.fetchall()
 #         expected_row1 = (
+#             x_spark_num,
+#             x_face_name,
 #             str(x_moment_label),
 #             str(x_belief_name),
 #             str(x_rope),
@@ -824,7 +781,56 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
 #         assert rows == expected_data
 
 
-# def test_insert_h_agg_obj_CreatesTableRows_Scenario0():
+def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ContextNumRelevantTables():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    sue_belief = beliefunit_shop(exx.sue, exx.a23)
+    sue_belief.add_voiceunit(exx.sue)
+    sue_belief.add_voiceunit(exx.bob)
+    sue_belief.get_voice(exx.bob).add_membership(exx.run)
+    casa_rope = sue_belief.make_l1_rope("casa")
+    situation_rope = sue_belief.make_l1_rope(kw.reason_active)
+    clean_rope = sue_belief.make_rope(situation_rope, "clean")
+    dirty_rope = sue_belief.make_rope(situation_rope, "dirty")
+    sue_belief.add_plan(casa_rope)
+    sue_belief.add_plan(clean_rope)
+    sue_belief.add_plan(dirty_rope)
+    sue_belief.edit_plan_attr(
+        casa_rope, reason_context=situation_rope, reason_case=dirty_rope
+    )
+    sue_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.run))
+    sue_belief.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
+    casa_laborunit = laborunit_shop()
+    casa_laborunit.add_party(exx.sue, True)
+    sue_belief.edit_plan_attr(casa_rope, laborunit=casa_laborunit)
+    sue_belief.add_fact(situation_rope, clean_rope)
+
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        blffact_h_agg_table = f"{kw.belief_plan_factunit}_h_put_agg"
+        blfcase_h_agg_table = f"{kw.belief_plan_reason_caseunit}_h_put_agg"
+        blfreas_h_agg_table = f"{kw.belief_plan_reasonunit}_h_put_agg"
+        blfplan_h_agg_table = f"{kw.belief_planunit}_h_put_agg"
+        blfunit_h_agg_table = f"{kw.beliefunit}_h_put_agg"
+        assert get_row_count(cursor, blfunit_h_agg_table) == 0
+        assert get_row_count(cursor, blfplan_h_agg_table) == 0
+        assert get_row_count(cursor, blffact_h_agg_table) == 0
+        assert get_row_count(cursor, blfreas_h_agg_table) == 0
+        assert get_row_count(cursor, blfcase_h_agg_table) == 0
+
+        # WHEN
+        insert_h_agg_obj(cursor, sue_belief)
+
+        # THEN
+        assert get_row_count(cursor, blfunit_h_agg_table) == 1
+        assert get_row_count(cursor, blfplan_h_agg_table) == 5
+        assert get_row_count(cursor, blffact_h_agg_table) == 1
+        assert get_row_count(cursor, blfreas_h_agg_table) == 1
+        assert get_row_count(cursor, blfcase_h_agg_table) == 1
+
+
+# def test_insert_h_agg_obj_CreatesTableRows_Scenario1_AllTables():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     sue_belief = beliefunit_shop(exx.sue, exx.a23)
