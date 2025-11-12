@@ -15,8 +15,8 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
     MomentLabel,
     SparkInt,
 )
+from src.ch18_world_etl.etl_config import create_prime_tablename as prime_tbl
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
-from src.ch18_world_etl.etl_table import create_prime_tablename as prime_tbl
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_blfcase_special_h_agg,
     insert_mmtoffi_special_offi_time_otx,

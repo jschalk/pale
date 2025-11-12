@@ -17,18 +17,18 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
     RopeTerm,
     SparkInt,
 )
-from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_agg_tables
-from src.ch18_world_etl.etl_sqlstr import (
-    create_prime_tablename as prime_tbl,
-    create_sound_and_heard_tables,
-)
-from src.ch18_world_etl.etl_table import (
+from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict,
     get_dimen_abbv7,
     get_etl_category_stages_dict,
     get_prime_columns,
     remove_inx_columns,
     remove_otx_columns,
+)
+from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_agg_tables
+from src.ch18_world_etl.etl_sqlstr import (
+    create_prime_tablename as prime_tbl,
+    create_sound_and_heard_tables,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

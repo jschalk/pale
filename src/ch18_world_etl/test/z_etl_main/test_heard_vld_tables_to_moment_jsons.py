@@ -5,6 +5,7 @@ from src.ch01_py.file_toolbox import open_json
 from src.ch09_belief_lesson._ref.ch09_path import create_moment_json_path
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch14_moment.moment_main import get_momentunit_from_dict
+from src.ch18_world_etl.etl_config import get_dimen_abbv7
 from src.ch18_world_etl.etl_main import (
     create_sound_and_heard_tables,
     etl_heard_vld_tables_to_moment_jsons,
@@ -13,7 +14,6 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename,
     get_moment_heard_select1_sqlstrs,
 )
-from src.ch18_world_etl.etl_table import get_dimen_abbv7
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 

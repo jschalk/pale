@@ -16,6 +16,11 @@ from src.ch16_translate.translate_config import (
     set_translateable_otx_inx_args,
 )
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
+from src.ch18_world_etl.etl_config import (
+    create_prime_table_sqlstr,
+    get_dimen_abbv7,
+    get_etl_category_stages_dict,
+)
 from src.ch18_world_etl.etl_sqlstr import (
     create_insert_into_translate_core_raw_sqlstr,
     create_insert_missing_face_name_into_translate_core_vld_sqlstr,
@@ -30,11 +35,6 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_insert_into_sound_vld_sqlstrs,
     get_moment_belief_sound_agg_tablenames,
     get_prime_create_table_sqlstrs,
-)
-from src.ch18_world_etl.etl_table import (
-    create_prime_table_sqlstr,
-    get_dimen_abbv7,
-    get_etl_category_stages_dict,
 )
 from src.ref.keywords import Ch18Keywords as kw
 
