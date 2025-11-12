@@ -11,8 +11,10 @@ from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch11_bud.bud_main import MomentLabel
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     BeliefName,
+    FaceName,
     GroupTitle,
     RopeTerm,
+    SparkInt,
     VoiceName,
 )
 
@@ -370,6 +372,8 @@ VALUES (
 
 @dataclass
 class ObjKeysHolder:
+    spark_num: SparkInt = None
+    face_name: FaceName = None
     moment_label: MomentLabel = None
     belief_name: BeliefName = None
     rope: RopeTerm = None
@@ -522,7 +526,9 @@ def insert_job_blfunit(
 
 def insert_job_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
     job_belief.cashout()
-    x_objkeysholder = ObjKeysHolder(job_belief.moment_label, job_belief.belief_name)
+    x_objkeysholder = ObjKeysHolder(
+        moment_label=job_belief.moment_label, belief_name=job_belief.belief_name
+    )
     insert_job_blfunit(cursor, x_objkeysholder, job_belief)
     for x_plan in job_belief.get_plan_dict().values():
         x_objkeysholder.rope = x_plan.get_plan_rope()
@@ -1004,3 +1010,197 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # )
 # ;
 # """
+
+
+def insert_h_agg_blfmemb(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_membership: MemberShip,
+):
+    x_dict = copy_deepcopy(x_membership.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    insert_sqlstr = create_blfmemb_metrics_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfvoce(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_voice: VoiceUnit,
+):
+    x_dict = copy_deepcopy(x_voice.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    insert_sqlstr = create_blfvoce_metrics_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfgrou(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_groupunit: GroupUnit,
+):
+    x_dict = copy_deepcopy(x_groupunit.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    insert_sqlstr = create_blfgrou_metrics_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfawar(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_awardheir: AwardHeir,
+):
+    x_dict = copy_deepcopy(x_awardheir.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    x_dict["plan_rope"] = x_objkeysholder.rope
+    insert_sqlstr = create_blfawar_h_put_agg_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blffact(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_factheir: FactHeir,
+):
+    x_dict = copy_deepcopy(x_factheir.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    x_dict["plan_rope"] = x_objkeysholder.rope
+    insert_sqlstr = create_blffact_h_put_agg_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfheal(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_healer: HealerUnit,
+):
+    x_dict = {
+        "moment_label": x_objkeysholder.moment_label,
+        "belief_name": x_objkeysholder.belief_name,
+        "plan_rope": x_objkeysholder.rope,
+    }
+    for healer_name in sorted(x_healer._healer_names):
+        x_dict["healer_name"] = healer_name
+        insert_sqlstr = create_blfheal_h_put_agg_insert_sqlstr(x_dict)
+        cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfcase(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_caseunit: CaseUnit,
+):
+    x_dict = copy_deepcopy(x_caseunit.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    x_dict["plan_rope"] = x_objkeysholder.rope
+    x_dict["reason_context"] = x_objkeysholder.reason_context
+    insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfreas(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_reasonheir: ReasonHeir,
+):
+    x_dict = copy_deepcopy(x_reasonheir.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    x_dict["plan_rope"] = x_objkeysholder.rope
+    insert_sqlstr = create_blfreas_h_put_agg_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blflabo(
+    cursor: sqlite3_Cursor,
+    x_objkeysholder: ObjKeysHolder,
+    x_laborheir: LaborHeir,
+):
+    x_dict = copy_deepcopy(x_laborheir.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_label"] = x_objkeysholder.moment_label
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    x_dict["plan_rope"] = x_objkeysholder.rope
+    for party_title in sorted(x_laborheir.partys):
+        partyheir = x_laborheir.partys.get(party_title)
+        x_dict["party_title"] = partyheir.party_title
+        x_dict["solo"] = partyheir.solo
+        insert_sqlstr = create_blflabo_h_put_agg_insert_sqlstr(x_dict)
+        cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfplan(
+    cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_plan: PlanUnit
+):
+    x_dict = copy_deepcopy(x_plan.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["plan_rope"] = x_plan.get_plan_rope()
+    x_dict["belief_name"] = x_objkeysholder.belief_name
+    insert_sqlstr = create_blfplan_h_put_agg_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_blfunit(
+    cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_belief: BeliefUnit
+):
+    x_dict = copy_deepcopy(x_belief.__dict__)
+    x_dict["spark_num"] = x_objkeysholder.spark_num
+    x_dict["face_name"] = x_objkeysholder.face_name
+    insert_sqlstr = create_blfunit_h_put_agg_insert_sqlstr(x_dict)
+    cursor.execute(insert_sqlstr)
+
+
+def insert_h_agg_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
+    job_belief.cashout()
+    x_objkeysholder = ObjKeysHolder(
+        moment_label=job_belief.moment_label, belief_name=job_belief.belief_name
+    )
+    insert_h_agg_blfunit(cursor, x_objkeysholder, job_belief)
+    for x_plan in job_belief.get_plan_dict().values():
+        x_objkeysholder.rope = x_plan.get_plan_rope()
+        healerunit = x_plan.healerunit
+        laborheir = x_plan.laborheir
+        insert_h_agg_blfplan(cursor, x_objkeysholder, x_plan)
+        insert_h_agg_blfheal(cursor, x_objkeysholder, healerunit)
+        insert_h_agg_blflabo(cursor, x_objkeysholder, laborheir)
+        for x_awardheir in x_plan.awardheirs.values():
+            insert_h_agg_blfawar(cursor, x_objkeysholder, x_awardheir)
+        for reason_context, reasonheir in x_plan.reasonheirs.items():
+            insert_h_agg_blfreas(cursor, x_objkeysholder, reasonheir)
+            x_objkeysholder.reason_context = reason_context
+            for prem in reasonheir.cases.values():
+                insert_h_agg_blfcase(cursor, x_objkeysholder, prem)
+
+    for x_voice in job_belief.voices.values():
+        insert_h_agg_blfvoce(cursor, x_objkeysholder, x_voice)
+        for x_membership in x_voice.memberships.values():
+            insert_h_agg_blfmemb(cursor, x_objkeysholder, x_membership)
+
+    for x_groupunit in job_belief.groupunits.values():
+        insert_h_agg_blfgrou(cursor, x_objkeysholder, x_groupunit)
+
+    for x_factheir in job_belief.planroot.factheirs.values():
+        x_objkeysholder.fact_rope = job_belief.planroot.get_plan_rope()
+        insert_h_agg_blffact(cursor, x_objkeysholder, x_factheir)
