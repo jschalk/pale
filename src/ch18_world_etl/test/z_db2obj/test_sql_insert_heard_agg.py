@@ -186,52 +186,51 @@ def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
-#     # ESTABLISH
-#     x_moment_label = "Amy23"
-#     x_belief_name = "Sue"
-#     x_rope = 1
-#     x_reason_context = 2
-#     x_reason_state = 3
-#     x_reason_upper = 4
-#     x_reason_lower = 5
-#     x_reason_divisor = 6
-#     x_task = 7
-#     x_case_active = 8
-#     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
-#         kw.belief_name: x_belief_name,
-#         kw.plan_rope: x_rope,
-#         kw.reason_context: x_reason_context,
-#         kw.reason_state: x_reason_state,
-#         f"{kw.reason_upper}_otx": x_reason_upper,
-#         f"{kw.reason_lower}_otx": x_reason_lower,
-#         kw.reason_divisor: x_reason_divisor,
-#     }
-#     # all args included in values dict
-#     etl_config = get_etl_config()
-#     dimen = kw.belief_plan_reason_caseunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
-#     dst_columns = remove_inx_columns(dst_columns)
-#     print(f"{dst_columns=}")
-#     assert dst_columns == set(values_dict.keys())
+def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    x_moment_label = "Amy23"
+    x_belief_name = "Sue"
+    x_rope = 1
+    x_reason_context = 2
+    x_reason_state = 3
+    x_reason_upper = 4
+    x_reason_lower = 5
+    x_reason_divisor = 6
+    values_dict = {
+        kw.spark_num: 77,
+        kw.face_name: exx.yao,
+        kw.moment_label: x_moment_label,
+        kw.belief_name: x_belief_name,
+        kw.plan_rope: x_rope,
+        kw.reason_context: x_reason_context,
+        kw.reason_state: x_reason_state,
+        f"{kw.reason_upper}_otx": x_reason_upper,
+        f"{kw.reason_lower}_otx": x_reason_lower,
+        kw.reason_divisor: x_reason_divisor,
+    }
+    # all args included in values dict
+    etl_config = get_etl_config()
+    dimen = kw.belief_plan_reason_caseunit
+    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    dst_columns = remove_inx_columns(dst_columns)
+    print(f"{dst_columns=}")
+    assert dst_columns == set(values_dict.keys())
 
-#     # WHEN
-#     insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(values_dict)
+    # WHEN
+    insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(values_dict)
 
-#     # THEN
-#     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "belief_plan_reason_caseunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         # print(expected_sqlstr)
-#         print("")
-#         print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+    # THEN
+    assert insert_sqlstr
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        table_name = "belief_plan_reason_caseunit_h_put_agg"
+        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
+        # print(expected_sqlstr)
+        print("")
+        print(insert_sqlstr)
+        assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_blfawar_h_put_agg_insert_sqlstr_ReturnsObj():

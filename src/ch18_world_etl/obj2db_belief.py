@@ -557,7 +557,31 @@ def create_blfawar_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 
 
 def create_blfcase_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
-    pass
+    spark_num = values_dict.get("spark_num")
+    face_name = values_dict.get("face_name")
+    moment_label = values_dict.get("moment_label")
+    belief_name = values_dict.get("belief_name")
+    rope = values_dict.get("plan_rope")
+    reason_context = values_dict.get("reason_context")
+    reason_state = values_dict.get("reason_state")
+    reason_upper_otx = values_dict.get("reason_upper_otx")
+    reason_lower_otx = values_dict.get("reason_lower_otx")
+    reason_divisor = values_dict.get("reason_divisor")
+    return f"""INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper_otx, reason_lower_otx, reason_divisor)
+VALUES (
+  {sqlite_obj_str(spark_num, "INTEGER")}
+, {sqlite_obj_str(face_name, "TEXT")}
+, {sqlite_obj_str(moment_label, "TEXT")}
+, {sqlite_obj_str(belief_name, "TEXT")}
+, {sqlite_obj_str(rope, "TEXT")}
+, {sqlite_obj_str(reason_context, "TEXT")}
+, {sqlite_obj_str(reason_state, "TEXT")}
+, {sqlite_obj_str(reason_upper_otx, "REAL")}
+, {sqlite_obj_str(reason_lower_otx, "REAL")}
+, {sqlite_obj_str(reason_divisor, "REAL")}
+)
+;
+"""
 
 
 def create_blffact_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
@@ -860,36 +884,6 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # , {sqlite_obj_str(belief_name, "TEXT")}
 # , {sqlite_obj_str(rope, "TEXT")}
 # , {sqlite_obj_str(healer_name, "TEXT")}
-# )
-# ;
-# """
-
-
-# def create_blfcase_metrics_insert_sqlstr(values_dict: dict[str,]):
-#     moment_label = values_dict.get("moment_label")
-#     belief_name = values_dict.get("belief_name")
-#     rope = values_dict.get("plan_rope")
-#     reason_context = values_dict.get("reason_context")
-#     reason_state = values_dict.get("reason_state")
-#     reason_upper = values_dict.get("reason_upper")
-#     reason_lower = values_dict.get("reason_lower")
-#     reason_divisor = values_dict.get("reason_divisor")
-#     task = values_dict.get("task")
-#     case_active = values_dict.get("case_active")
-#     return f"""INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper, reason_lower, reason_divisor, task, case_active)
-# VALUES (
-#   {sqlite_obj_str(spark_num, "INTEGER")}
-# , {sqlite_obj_str(face_name, "TEXT")}
-# , {sqlite_obj_str(moment_label, "TEXT")}
-# , {sqlite_obj_str(belief_name, "TEXT")}
-# , {sqlite_obj_str(rope, "TEXT")}
-# , {sqlite_obj_str(reason_context, "TEXT")}
-# , {sqlite_obj_str(reason_state, "TEXT")}
-# , {sqlite_obj_str(reason_upper, "REAL")}
-# , {sqlite_obj_str(reason_lower, "REAL")}
-# , {sqlite_obj_str(reason_divisor, "REAL")}
-# , {sqlite_obj_str(task, "INTEGER")}
-# , {sqlite_obj_str(case_active, "INTEGER")}
 # )
 # ;
 # """
