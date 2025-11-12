@@ -12,13 +12,13 @@ from src.ch16_translate.map_term import (
 )
 from src.ch16_translate.translate_config import (
     default_unknown_str_if_None,
-    find_set_otx_inx_args,
     get_translate_args_class_types,
     get_translate_labelterm_args,
     get_translate_nameterm_args,
     get_translate_ropeterm_args,
     get_translate_titleterm_args,
     get_translateable_args,
+    set_translateable_otx_inx_args,
     translateable_class_types,
 )
 from src.ch16_translate.translate_main import TranslateUnit, translateunit_shop
@@ -186,13 +186,13 @@ def test_get_translateable_args_ReturnsObj():
     }
 
 
-def test_find_set_otx_inx_args_ReturnsObj_Scenario0_All_translateable_args():
+def test_set_translateable_otx_inx_args_ReturnsObj_Scenario0_All_translateable_args():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     translateable_args = get_translateable_args()
 
     # WHEN
-    otx_inx_args = find_set_otx_inx_args(translateable_args)
+    otx_inx_args = set_translateable_otx_inx_args(translateable_args)
 
     # THEN
     expected_otx_inx_args = set()
@@ -203,13 +203,13 @@ def test_find_set_otx_inx_args_ReturnsObj_Scenario0_All_translateable_args():
     assert otx_inx_args == expected_otx_inx_args
 
 
-def test_find_set_otx_inx_args_ReturnsObj_Scenario1_belief_dimen_delete_keys():
+def test_set_translateable_otx_inx_args_ReturnsObj_Scenario1_belief_dimen_delete_keys():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     belief_dimen_delete_keys = get_all_belief_dimen_delete_keys()
 
     # WHEN
-    otx_inx_args = find_set_otx_inx_args(belief_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(belief_dimen_delete_keys)
 
     # THEN
     expected_otx_inx_args = set()
@@ -220,7 +220,7 @@ def test_find_set_otx_inx_args_ReturnsObj_Scenario1_belief_dimen_delete_keys():
     assert otx_inx_args == expected_otx_inx_args
 
 
-def test_find_set_otx_inx_args_ReturnsObj_Scenario2_OtherArgsAreUntouched():
+def test_set_translateable_otx_inx_args_ReturnsObj_Scenario2_OtherArgsAreUntouched():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     run_str = "run"
@@ -228,7 +228,7 @@ def test_find_set_otx_inx_args_ReturnsObj_Scenario2_OtherArgsAreUntouched():
     given_belief_dimen_delete_keys.add(run_str)
 
     # WHEN
-    otx_inx_args = find_set_otx_inx_args(given_belief_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(given_belief_dimen_delete_keys)
 
     # THEN
     expected_otx_inx_args = set()
@@ -240,14 +240,14 @@ def test_find_set_otx_inx_args_ReturnsObj_Scenario2_OtherArgsAreUntouched():
     assert otx_inx_args == expected_otx_inx_args
 
 
-def test_find_set_otx_inx_args_ReturnsObj_Scenario3_PartialSets():
+def test_set_translateable_otx_inx_args_ReturnsObj_Scenario3_PartialSets():
     # ESTABLISH
     healer_name_ERASE_str = f"{kw.healer_name}_ERASE"
     run_str = "run"
     given_belief_dimen_delete_keys = {run_str, healer_name_ERASE_str}
 
     # WHEN
-    otx_inx_args = find_set_otx_inx_args(given_belief_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(given_belief_dimen_delete_keys)
 
     # THEN
     healer_name_ERASE_str = f"{kw.healer_name}_ERASE"

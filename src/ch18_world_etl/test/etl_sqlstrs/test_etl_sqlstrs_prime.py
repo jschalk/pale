@@ -12,8 +12,8 @@ from src.ch08_belief_atom.atom_config import get_belief_dimens, get_delete_key_n
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch16_translate.translate_config import (
-    find_set_otx_inx_args,
     get_translate_dimens,
+    set_translateable_otx_inx_args,
 )
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
 from src.ch18_world_etl.etl_sqlstr import (
@@ -82,8 +82,8 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
             expected_sqlstrs_dict=expected_sqlstrs_dict,
         )
     print("################################################################")
-    # for expected_sql_ref in sorted(expected_sql_refs):
-    #     print(expected_sql_ref)
+    for expected_sql_ref in sorted(expected_sql_refs):
+        print(expected_sql_ref)
     # print("")
     # for expected_var_ref in sorted(expected_var_refs):
     #     print(expected_var_ref)
@@ -900,8 +900,8 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
             # s_del_cols = set(s_del_cols).remove(kw.error_message)
             h_put_raw_cols = set(get_table_columns(cursor, h_put_raw_tablename))
             h_del_raw_cols = set(get_table_columns(cursor, h_del_raw_tablename))
-            h_put_cols = find_set_otx_inx_args(h_put_raw_cols)
-            h_del_cols = find_set_otx_inx_args(h_del_raw_cols)
+            h_put_cols = set_translateable_otx_inx_args(h_put_raw_cols)
+            h_del_cols = set_translateable_otx_inx_args(h_del_raw_cols)
             h_put_cols.remove(kw.translate_spark_num)
             h_del_cols.remove(kw.translate_spark_num)
             h_put_cols = {col for col in h_put_cols if col[-3:] != "inx"}
@@ -952,7 +952,7 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
             s_cols = set(get_table_columns(cursor, s_vld_tablename))
             h_raw_cols = get_table_columns(cursor, h_raw_tablename)
             h_raw_cols.remove(kw.error_message)
-            v_cols = find_set_otx_inx_args(h_raw_cols)
+            v_cols = set_translateable_otx_inx_args(h_raw_cols)
             v_cols = {col for col in v_cols if col[-3:] != "inx"}
             h_raw_tbl = h_raw_tablename
             s_vld_tbl = s_vld_tablename

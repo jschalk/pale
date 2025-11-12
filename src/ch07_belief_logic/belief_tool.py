@@ -352,19 +352,30 @@ def get_belief_unique_short_ropes(belief: BeliefUnit) -> dict[RopeTerm, RopeTerm
 
 def add_frame_to_caseunit(
     x_case: CaseUnit,
-    x_int: int,
+    x_frame: int,
     context_plan_close: int,
     context_plan_denom: int,
     context_plan_morph: bool,
 ):
-    """Given any case append number to caseunit reason_lower and reason_upper"""
+    """Given any case append number to caseunit reason_lower and reason_upper
+
+    Step 0: calculate modulus:
+        If it exists set to the caseunit's reason_divisor
+        Else if it exists set to the context plan's close
+        Elfe if it exists set to the context plan's denom
+    Step 1: morph x_frame
+        If context plan's morph is True then divide frame by context_plan_denom
+    Step 2: define CaseUnit attrs
+        Change CaseUnit's reason_lower and reason_upper range attrs by adding frame
+        to each and use modulus to make result is not negative or more then modulus.
+
+
+    """
     modulus = x_case.reason_divisor or context_plan_close or context_plan_denom
     if not context_plan_morph:
-        x_int //= get_1_if_None(context_plan_denom)
-    new_reason_lower = modular_addition(x_case.reason_lower, x_int, modulus)
-    new_reason_upper = modular_addition(x_case.reason_upper, x_int, modulus)
-    x_case.reason_lower = new_reason_lower
-    x_case.reason_upper = new_reason_upper
+        x_frame //= get_1_if_None(context_plan_denom)
+    x_case.reason_lower = modular_addition(x_case.reason_lower, x_frame, modulus)
+    x_case.reason_upper = modular_addition(x_case.reason_upper, x_frame, modulus)
 
 
 def add_frame_to_reasonunit(

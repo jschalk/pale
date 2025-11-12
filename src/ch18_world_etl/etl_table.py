@@ -4,7 +4,8 @@ from src.ch01_py.db_toolbox import get_create_table_sqlstr
 from src.ch01_py.dict_toolbox import get_empty_set_if_None, get_from_nested_dict
 from src.ch01_py.file_toolbox import create_path, open_json
 from src.ch08_belief_atom.atom_config import get_delete_key_name
-from src.ch16_translate.translate_config import find_set_otx_inx_args
+from src.ch15_nabu.nabu_config import set_nabuable_otx_inx_args
+from src.ch16_translate.translate_config import set_translateable_otx_inx_args
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
     get_idea_config_dict,
@@ -250,6 +251,10 @@ def remove_otx_columns(columns_set: set) -> set:
     return {x_col for x_col in columns_set if x_col[-3:] != "otx"}
 
 
+def remove_inx_columns(columns_set: set) -> set:
+    return {x_col for x_col in columns_set if x_col[-3:] != "inx"}
+
+
 def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
     if x_dimen == "translate_core":
         translate_core_dict = etl_idea_category_config_dict().get("translate_core")
@@ -268,9 +273,13 @@ def get_del_dimen_columns_set(x_dimen: str) -> set[str]:
     return set(columns_list)
 
 
-def get_prime_columns(x_dimen: str, table_keylist: list[str]) -> set[str]:
+def get_prime_columns(
+    x_dimen: str, table_keylist: list[str], etl_idea_category_config: dict
+) -> set[str]:
     """Given dimen and config_keylist (ala ["s", "agg", put_del] )
     Return list of columns for that prime table"""
+    if not table_keylist or not etl_idea_category_config:
+        return set()
     columns = get_all_dimen_columns_set(x_dimen)
     if table_keylist[-1] == "del":
         columns = get_del_dimen_columns_set(x_dimen)
@@ -287,11 +296,15 @@ def get_prime_columns(x_dimen: str, table_keylist: list[str]) -> set[str]:
         idea_category = "belief"
     config_keylist = [idea_category, "stages", *table_keylist]
 
-    etl_idea_category_config = etl_idea_category_config_dict()
     otx_keylist = copy_copy(config_keylist)
-    otx_keylist.append("set_otx_inx_args")
+    otx_keylist.append("set_translateable_otx_inx_args")
     if get_from_nested_dict(etl_idea_category_config, otx_keylist, True):
-        columns = find_set_otx_inx_args(columns)
+        columns = set_translateable_otx_inx_args(columns)
+
+    nabuable_keylist = copy_copy(config_keylist)
+    nabuable_keylist.append("set_nabuable_otx_inx_args")
+    if get_from_nested_dict(etl_idea_category_config, nabuable_keylist, True):
+        columns = set_nabuable_otx_inx_args(columns)
 
     update_keylist = copy_copy(config_keylist)
     update_keylist.append("add")
@@ -309,7 +322,10 @@ def get_prime_columns(x_dimen: str, table_keylist: list[str]) -> set[str]:
 def create_prime_table_sqlstr(
     x_dimen: str, stage0: str, stage1: str, put_del: str = None
 ) -> str:
+    """Given dimen and stages return the Create Table sqlstr"""
     tablename = create_prime_tablename(x_dimen, stage0, stage1, put_del)
     table_keylist = [stage0, stage1, put_del] if put_del else [stage0, stage1]
-    columns = get_default_sorted_list(get_prime_columns(x_dimen, table_keylist))
-    return get_create_table_sqlstr(tablename, columns, get_idea_sqlite_types())
+    etl_idea_category_config = etl_idea_category_config_dict()
+    columns_set = get_prime_columns(x_dimen, table_keylist, etl_idea_category_config)
+    columns_list = get_default_sorted_list(columns_set)
+    return get_create_table_sqlstr(tablename, columns_list, get_idea_sqlite_types())

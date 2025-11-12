@@ -1,3 +1,4 @@
+from enum import Enum
 from src.ch01_py._ref.ch01_path import create_keywords_classes_file_path
 from src.ch01_py.chapter_desc_main import get_chapter_desc_prefix
 from src.ch01_py.file_toolbox import open_file, save_file

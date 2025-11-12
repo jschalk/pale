@@ -24,6 +24,8 @@ from src.ch18_world_etl.etl_table import (
     etl_idea_category_config_path,
     get_all_dimen_columns_set,
     get_etl_category_stages_dict,
+    get_prime_columns,
+    remove_inx_columns,
     remove_otx_columns,
 )
 from src.ref.keywords import Ch18Keywords as kw
@@ -34,6 +36,13 @@ def test_remove_otx_columns_ReturnsObj():
     assert remove_otx_columns({"fizz", "buzz"}) == {"fizz", "buzz"}
     assert remove_otx_columns({"fizz", "buzz_otx"}) == {"fizz"}
     assert remove_otx_columns({"fizz_otx", "otx_buzz"}) == {"otx_buzz"}
+
+
+def test_remove_inx_columns_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert remove_inx_columns({"fizz", "buzz"}) == {"fizz", "buzz"}
+    assert remove_inx_columns({"fizz", "buzz_inx"}) == {"fizz"}
+    assert remove_inx_columns({"fizz_inx", "inx_buzz"}) == {"inx_buzz"}
 
 
 def test_ALL_DIMEN_ABBV7_has_all_dimens():
@@ -229,6 +238,87 @@ def test_get_etl_category_stages_dict_ReturnsObj():
                     # print(f"{expected_count} {stage_key=} ")
     # print(expected_dict)
     assert etl_category_stages_dict == expected_dict
+
+
+def test_get_prime_columns_ReturnsObj_Scenario0_EmptyKeylist():
+    # ESTABLISH
+    x_dimen = kw.momentunit
+
+    # WHEN / THEN
+    assert get_prime_columns(x_dimen, [], None) == set()
+
+
+def test_get_prime_columns_ReturnsObj_Scenario1_EmptyConfig():
+    # ESTABLISH
+    x_dimen = kw.momentunit
+    table_keylist = ["h", "agg"]
+
+    # WHEN / THEN
+    assert get_prime_columns(x_dimen, table_keylist, {}) == set()
+
+
+def test_get_prime_columns_ReturnsObj_Scenario2_moment_epoch_month():
+    # ESTABLISH
+    x_dimen = kw.moment_epoch_month
+    table_keylist = ["h", "agg"]
+    config_dict = get_idea_config_dict()
+
+    # WHEN
+    mmtunit_h_agg_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
+
+    # THEN
+    print(f"{mmtunit_h_agg_columns}")
+    assert mmtunit_h_agg_columns == {
+        kw.spark_num,
+        kw.moment_label,
+        kw.month_label,
+        kw.face_name,
+        kw.cumulative_day,
+    }
+
+
+def test_get_prime_columns_ReturnsObj_Scenario3_h_raw_set_translateable_otx_inx_args():
+    # ESTABLISH
+    x_dimen = kw.moment_epoch_month
+    table_keylist = ["h", "raw"]
+    config_dict = etl_idea_category_config_dict()
+
+    # WHEN
+    mmtepoc_h_raw_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
+
+    # THEN
+    print(f"{mmtepoc_h_raw_columns}")
+    assert mmtepoc_h_raw_columns == {
+        kw.spark_num,
+        f"{kw.moment_label}_otx",
+        f"{kw.moment_label}_inx",
+        f"{kw.month_label}_otx",
+        f"{kw.month_label}_inx",
+        f"{kw.face_name}_otx",
+        f"{kw.face_name}_inx",
+        kw.cumulative_day,
+        kw.error_message,
+    }
+
+
+def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabueable_otx_inx_args():
+    # ESTABLISH
+    x_dimen = kw.moment_timeoffi
+    table_keylist = ["h", "agg"]
+    config_dict = etl_idea_category_config_dict()
+
+    # WHEN
+    mmtoffi_h_agg_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
+
+    # THEN
+    print(f"{mmtoffi_h_agg_columns=}")
+    assert mmtoffi_h_agg_columns == {
+        f"{kw.offi_time}_otx",
+        f"{kw.offi_time}_inx",
+        kw.face_name,
+        kw.moment_label,
+        kw.spark_num,
+    }
 
 
 # TODO create tests for these functions

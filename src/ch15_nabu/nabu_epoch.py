@@ -47,8 +47,7 @@ class EpochNabu:
     def reveal_inx(
         self, otx_epoch_length: EpochTime, otx_value: EpochTime
     ) -> EpochTime:
-        inx_epoch_diff = self.get_inx_value(otx_epoch_length)
-        if inx_epoch_diff:
+        if inx_epoch_diff := self.get_inx_value(otx_epoch_length):
             otx_value += inx_epoch_diff
         otx_value = otx_value % otx_epoch_length
         return otx_value

@@ -193,7 +193,7 @@ def get_translateable_args() -> set:
     }
 
 
-def find_set_otx_inx_args(args: set) -> set:
+def set_translateable_otx_inx_args(args: set) -> set:
     """Receives set of args, returns a set with all "Translateable" args replaced with "_otx" and "_inx" """
     all_translateable = get_translateable_args()
     all_translateable.update(get_all_belief_dimen_delete_keys())

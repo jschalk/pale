@@ -52,8 +52,8 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_belief_j
     e7_all_lesson_path = create_spark_all_lesson_path(
         moment_mstr_dir, exx.a23, bob_inx, spark7
     )
-    save_json(e3_all_lesson_path, None, a23_bob_e3_lesson.get_serializable_dict())
-    save_json(e7_all_lesson_path, None, a23_bob_e7_lesson.get_serializable_dict())
+    save_json(e3_all_lesson_path, None, a23_bob_e3_lesson.get_serializable_step_dict())
+    save_json(e7_all_lesson_path, None, a23_bob_e7_lesson.get_serializable_step_dict())
     assert os_path_exists(e3_all_lesson_path)
     assert os_path_exists(e7_all_lesson_path)
     belief_filename = "belief.json"
@@ -118,10 +118,10 @@ def test_etl_spark_lesson_json_to_spark_inherited_beliefunits_SetsFiles_expresse
         moment_mstr_dir, exx.a23, bob_inx, spark7
     )
     save_json(
-        a23_bob_e3_all_lesson_path, None, a23_bob_e3_lesson.get_serializable_dict()
+        a23_bob_e3_all_lesson_path, None, a23_bob_e3_lesson.get_serializable_step_dict()
     )
     save_json(
-        a23_bob_e7_all_lesson_path, None, a23_bob_e7_lesson.get_serializable_dict()
+        a23_bob_e7_all_lesson_path, None, a23_bob_e7_lesson.get_serializable_step_dict()
     )
     e3_expressed_lesson_path = create_spark_expressed_lesson_path(
         moment_mstr_dir, exx.a23, bob_inx, spark3

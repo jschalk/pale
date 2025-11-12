@@ -72,7 +72,7 @@ class LessonUnit:
             "delta": self._beliefdelta.get_ordered_beliefatoms(self._delta_start),
         }
 
-    def get_serializable_dict(self) -> dict[str, dict]:
+    def get_serializable_step_dict(self) -> dict[str, dict]:
         total_dict = self.get_step_dict()
         total_dict["delta"] = self._beliefdelta.get_ordered_dict()
         return total_dict

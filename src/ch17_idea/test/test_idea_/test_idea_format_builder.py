@@ -29,10 +29,10 @@ def create_dimens_idea_format_dict() -> dict:
 def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_bool):
     # ESTABLISH / WHEN
     dimens_idea_format_dict = create_dimens_idea_format_dict()
-    for idea_format in sorted(dimens_idea_format_dict.keys()):
-        print(f"{idea_format=}")
 
     # THEN
+    for idea_format in sorted(dimens_idea_format_dict.keys()):
+        print(f"{idea_format=}")
     assert len(dimens_idea_format_dict) == 10
     belief_planunit_filename = f"idea_format_00026_{kw.belief_planunit}_v0_0_0.json"
     assert dimens_idea_format_dict.get(belief_planunit_filename)
@@ -44,14 +44,6 @@ def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_bool):
     assert kw.belief_name in belief_planunit_attributes
     assert kw.plan_rope in belief_planunit_attributes
     assert kw.gogo_want in belief_planunit_attributes
-
-    rebuild_format_jsons(rebuild_bool)
-
-
-def rebuild_format_jsons(x_rebuild_format_jsons: bool):
-    if x_rebuild_format_jsons:
-        for x_filename, idea_format in create_dimens_idea_format_dict().items():
-            save_json(get_idea_formats_dir(), x_filename, idea_format)
 
 
 def test_get_idea_brick_md_ReturnsObj():

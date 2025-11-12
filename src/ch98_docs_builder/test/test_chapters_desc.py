@@ -2,6 +2,7 @@ from src.ch98_docs_builder.doc_builder import get_chapter_desc_str_number
 
 
 def test_get_chapter_desc_str_number_ReturnsObj():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH / WHEN / THEN
     assert get_chapter_desc_str_number("ch04") == "04"
     assert get_chapter_desc_str_number("ch99") == "99"

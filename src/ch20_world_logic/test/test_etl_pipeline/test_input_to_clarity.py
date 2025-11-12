@@ -75,6 +75,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     blfvoce_sound_put_agg = prime_tbl("blfvoce", "s", "agg", "put")
     blfvoce_sound_put_vld = prime_tbl("blfvoce", "s", "vld", "put")
     momentunit_heard_raw = prime_tbl("momentunit", "h", "raw")
+    momentunit_heard_agg = prime_tbl("momentunit", "h", "agg")
     momentunit_heard_vld = prime_tbl("momentunit", "h", "vld")
     blfunit_heard_put_raw = prime_tbl("beliefunit", "h", "raw", "put")
     blfunit_heard_put_agg = prime_tbl("beliefunit", "h", "vld", "put")
@@ -111,6 +112,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert not db_table_exists(cursor, trlcore_sound_vld)
         assert not db_table_exists(cursor, trlname_sound_vld)
         assert not db_table_exists(cursor, momentunit_heard_raw)
+        assert not db_table_exists(cursor, momentunit_heard_agg)
         assert not db_table_exists(cursor, momentunit_heard_vld)
         assert not db_table_exists(cursor, blfunit_heard_put_raw)
         assert not db_table_exists(cursor, blfunit_heard_put_agg)
@@ -169,6 +171,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert get_row_count(cursor, blfunit_sound_put_vld) == 1
         assert get_row_count(cursor, blfvoce_sound_put_vld) == 1
         assert get_row_count(cursor, momentunit_heard_raw) == 1
+        assert get_row_count(cursor, momentunit_heard_agg) == 1
         assert get_row_count(cursor, blfunit_heard_put_raw) == 1
         assert get_row_count(cursor, blfvoce_heard_put_raw) == 1
         assert get_row_count(cursor, momentunit_heard_vld) == 1

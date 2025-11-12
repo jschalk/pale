@@ -27,6 +27,7 @@ from src.ch01_py.file_toolbox import (
     save_file,
     save_json,
 )
+from src.ch04_rope.rope import default_knot_if_None
 from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
 from src.ch08_belief_atom.atom_config import get_belief_dimens
 from src.ch08_belief_atom.atom_main import beliefatom_shop
@@ -69,10 +70,7 @@ from src.ch16_translate.translate_config import (
     get_translate_titleterm_args,
     translateable_class_types,
 )
-from src.ch16_translate.translate_main import (
-    default_knot_if_None,
-    default_unknown_str_if_None,
-)
+from src.ch16_translate.translate_main import default_unknown_str_if_None
 from src.ch17_idea.idea_config import (
     get_idea_dimen_ref,
     get_idea_format_filename,
@@ -121,9 +119,9 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_insert_into_sound_vld_sqlstrs,
     get_moment_belief_sound_agg_tablenames,
 )
-from src.ch18_world_etl.hydrate_belief import insert_job_obj
-from src.ch18_world_etl.hydrate_moment import get_moment_dict_from_heard_tables
 from src.ch18_world_etl.idea_collector import IdeaFileRef, get_all_idea_dataframes
+from src.ch18_world_etl.obj2db_belief import insert_job_obj
+from src.ch18_world_etl.obj2db_moment import get_moment_dict_from_heard_tables
 
 
 def etl_input_dfs_to_brick_raw_tables(cursor: sqlite3_Cursor, input_dir: str):
@@ -806,7 +804,9 @@ def etl_spark_belief_csvs_to_lesson_json(moment_mstr_dir: str):
                     moment_mstr_dir, moment_label, belief_name, spark_num
                 )
                 save_json(
-                    spark_all_lesson_path, None, spark_lesson.get_serializable_dict()
+                    spark_all_lesson_path,
+                    None,
+                    spark_lesson.get_serializable_step_dict(),
                 )
 
 
@@ -892,7 +892,7 @@ def etl_spark_lesson_json_to_spark_inherited_beliefunits(moment_mstr_dir: str):
                 save_json(
                     spark_dir,
                     "expressed_lesson.json",
-                    expressed_lesson.get_serializable_dict(),
+                    expressed_lesson.get_serializable_step_dict(),
                 )
                 prev_spark_num = spark_num
 

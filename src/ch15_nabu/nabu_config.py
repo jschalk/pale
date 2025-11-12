@@ -36,3 +36,16 @@ def get_nabuable_args() -> set:
         "fact_upper",
         "reason_upper",
     }
+
+
+def set_nabuable_otx_inx_args(args: set) -> set:
+    """Receives set of args, returns a set with all "Nabuable" args replaced with "_otx" and "_inx" """
+    all_nabuable = get_nabuable_args()
+    transformed_args = set()
+    for arg in args:
+        if arg in all_nabuable:
+            transformed_args.add(f"{arg}_otx")
+            transformed_args.add(f"{arg}_inx")
+        else:
+            transformed_args.add(arg)
+    return transformed_args

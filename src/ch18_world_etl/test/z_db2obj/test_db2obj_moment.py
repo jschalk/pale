@@ -4,7 +4,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename,
     create_sound_and_heard_tables,
 )
-from src.ch18_world_etl.hydrate_moment import get_moment_dict_from_heard_tables
+from src.ch18_world_etl.obj2db_moment import get_moment_dict_from_heard_tables
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
