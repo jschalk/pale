@@ -6,7 +6,7 @@ from src.ch01_py.db_toolbox import (
 from src.ch17_idea.idea_config import get_idea_config_dict, get_quick_ideas_column_ref
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table, get_default_sorted_list
 from src.ch18_world_etl._ref.ch18_semantic_types import KnotTerm
-from src.ch18_world_etl.etl_table import create_prime_tablename
+from src.ch18_world_etl.etl_config import create_prime_tablename
 
 CREATE_BLFAWAR_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title_ERASE TEXT)"""
 CREATE_BLFAWAR_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, awardee_title_ERASE_otx TEXT, awardee_title_ERASE_inx TEXT)"""

@@ -224,7 +224,9 @@ def test_insert_job_blfplan_CreatesTableRowsFor_blfplan_job():
         create_job_tables(cursor)
         x_table_name = "belief_planunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name
+        )
 
         # WHEN
         insert_job_blfplan(cursor, x_objkeysholder, x_plan)
@@ -305,7 +307,9 @@ def test_insert_job_blfreas_CreatesTableRowsFor_blfreas_job():
         create_job_tables(cursor)
         x_table_name = "belief_plan_reasonunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope
+        )
 
         # WHEN
         insert_job_blfreas(cursor, x_objkeysholder, x_reasonheir)
@@ -368,7 +372,10 @@ def test_insert_job_blfcase_CreatesTableRowsFor_blfcase_job():
         x_table_name = "belief_plan_reason_caseunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            x_moment_label, x_belief_name, x_rope, x_reason_context
+            moment_label=x_moment_label,
+            belief_name=x_belief_name,
+            rope=x_rope,
+            reason_context=x_reason_context,
         )
 
         # WHEN
@@ -442,7 +449,9 @@ def test_insert_job_blfmemb_CreatesTableRowsFor_blfmemb_job():
         create_job_tables(cursor)
         x_table_name = "belief_voice_membership_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name
+        )
 
         # WHEN
         insert_job_blfmemb(cursor, x_objkeysholder, x_membership)
@@ -524,7 +533,9 @@ def test_insert_job_blfvoce_CreatesTableRowsFor_blfvoce_job():
         create_job_tables(cursor)
         x_table_name = "belief_voiceunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name
+        )
 
         # WHEN
         insert_job_blfvoce(cursor, x_objkeysholder, x_voice)
@@ -596,7 +607,9 @@ def test_insert_job_blfgrou_CreatesTableRowsFor_blfgrou_job():
         create_job_tables(cursor)
         x_table_name = "belief_groupunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name
+        )
 
         # WHEN
         insert_job_blfgrou(cursor, x_objkeysholder, x_group)
@@ -657,7 +670,9 @@ def test_insert_job_blfawar_CreatesTableRowsFor_blfawar_job():
         create_job_tables(cursor)
         x_table_name = "belief_plan_awardunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope
+        )
 
         # WHEN
         insert_job_blfawar(cursor, x_objkeysholder, x_awardheir)
@@ -714,7 +729,9 @@ def test_insert_job_blffact_CreatesTableRowsFor_blffact_job():
         create_job_tables(cursor)
         x_table_name = "belief_plan_factunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope
+        )
 
         # WHEN
         insert_job_blffact(cursor, x_objkeysholder, x_factheir)
@@ -764,7 +781,9 @@ def test_insert_job_blfheal_CreatesTableRowsFor_blfheal_job():
         create_job_tables(cursor)
         x_table_name = "belief_plan_healerunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope
+        )
 
         # WHEN
         insert_job_blfheal(cursor, x_objkeysholder, x_healerunit)
@@ -822,7 +841,9 @@ def test_insert_job_blflabo_CreatesTableRowsFor_blflabo_job():
         create_job_tables(cursor)
         x_table_name = "belief_plan_partyunit_job"
         assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(x_moment_label, x_belief_name, x_rope)
+        x_objkeysholder = ObjKeysHolder(
+            moment_label=x_moment_label, belief_name=x_belief_name, rope=x_rope
+        )
 
         # WHEN
         insert_job_blflabo(cursor, x_objkeysholder, x_laborheir)

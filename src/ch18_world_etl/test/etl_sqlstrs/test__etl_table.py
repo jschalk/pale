@@ -17,7 +17,7 @@ from src.ch17_idea.idea_db_tool import (
     get_default_sorted_list,
     get_idea_into_dimen_raw_query,
 )
-from src.ch18_world_etl.etl_table import (
+from src.ch18_world_etl.etl_config import (
     ALL_DIMEN_ABBV7,
     create_prime_tablename,
     etl_idea_category_config_dict,

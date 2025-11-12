@@ -1,12 +1,13 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import create_insert_query
+from src.ch18_world_etl.etl_config import (
+    etl_idea_category_config_dict as get_etl_config,
+    get_prime_columns,
+    remove_inx_columns,
+)
 
 # TODO replace src.ch18_world_etl.etl_table with src.ch18_world_etl.etl_config
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
-from src.ch18_world_etl.etl_table import (
-    etl_idea_category_config_dict as get_etl_config,
-    get_prime_columns,
-)
 from src.ch18_world_etl.obj2db_belief import (
     create_blfawar_h_put_agg_insert_sqlstr,
     create_blfcase_h_put_agg_insert_sqlstr,
@@ -24,6 +25,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
+    # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = "Amy23"
     x_belief_name = "Sue"
@@ -73,6 +75,7 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 
 
 def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
+    # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = "Amy23"
     x_belief_name = "Sue"
@@ -144,6 +147,7 @@ def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
 
 
 def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
+    # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = "Amy23"
     x_belief_name = "Sue"
@@ -182,53 +186,51 @@ def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
-#     # ESTABLISH
-#     x_moment_label = "Amy23"
-#     x_belief_name = "Sue"
-#     x_rope = 1
-#     x_reason_context = 2
-#     x_reason_state = 3
-#     x_reason_upper = 4
-#     x_reason_lower = 5
-#     x_reason_divisor = 6
-#     x_task = 7
-#     x_case_active = 8
-#     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
-#         kw.belief_name: x_belief_name,
-#         kw.plan_rope: x_rope,
-#         kw.reason_context: x_reason_context,
-#         kw.reason_state: x_reason_state,
-#         kw.reason_upper: x_reason_upper,
-#         kw.reason_lower: x_reason_lower,
-#         kw.reason_divisor: x_reason_divisor,
-#         kw.task: x_task,
-#         kw.case_active: x_case_active,
-#     }
-#     all args included in values dict
-#     etl_config = get_etl_config()
-#     dimen = kw.beliefunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
-#     print(f"{dst_columns=}")
-#     assert dst_columns == set(values_dict.keys())
+def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    x_moment_label = "Amy23"
+    x_belief_name = "Sue"
+    x_rope = 1
+    x_reason_context = 2
+    x_reason_state = 3
+    x_reason_upper = 4
+    x_reason_lower = 5
+    x_reason_divisor = 6
+    values_dict = {
+        kw.spark_num: 77,
+        kw.face_name: exx.yao,
+        kw.moment_label: x_moment_label,
+        kw.belief_name: x_belief_name,
+        kw.plan_rope: x_rope,
+        kw.reason_context: x_reason_context,
+        kw.reason_state: x_reason_state,
+        f"{kw.reason_upper}_otx": x_reason_upper,
+        f"{kw.reason_lower}_otx": x_reason_lower,
+        kw.reason_divisor: x_reason_divisor,
+    }
+    # all args included in values dict
+    etl_config = get_etl_config()
+    dimen = kw.belief_plan_reason_caseunit
+    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    dst_columns = remove_inx_columns(dst_columns)
+    print(f"{dst_columns=}")
+    assert dst_columns == set(values_dict.keys())
 
-#     # WHEN
-#     insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(values_dict)
+    # WHEN
+    insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(values_dict)
 
-#     # THEN
-#     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "belief_plan_reason_caseunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         # print(expected_sqlstr)
-#         print("")
-#         print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+    # THEN
+    assert insert_sqlstr
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        table_name = "belief_plan_reason_caseunit_h_put_agg"
+        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
+        # print(expected_sqlstr)
+        print("")
+        print(insert_sqlstr)
+        assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_blfawar_h_put_agg_insert_sqlstr_ReturnsObj():
@@ -276,47 +278,49 @@ def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
 #         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
-#     # ESTABLISH
-#     x_moment_label = "Amy23"
-#     x_belief_name = "Sue"
-#     x_rope = 1
-#     x_fact_context = 2
-#     x_fact_state = 3
-#     x_fact_lower = 4
-#     x_fact_upper = 5
-#     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
-#         kw.belief_name: x_belief_name,
-#         kw.plan_rope: x_rope,
-#         kw.fact_context: x_fact_context,
-#         kw.fact_state: x_fact_state,
-#         kw.fact_lower: x_fact_lower,
-#         kw.fact_upper: x_fact_upper,
-#     }
-#     all args included in values dict
-#     etl_config = get_etl_config()
-#     dimen = kw.beliefunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
-#     print(f"{dst_columns=}")
-#     assert dst_columns == set(values_dict.keys())
+def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    x_moment_label = "Amy23"
+    x_belief_name = "Sue"
+    x_rope = 1
+    x_fact_context = 2
+    x_fact_state = 3
+    x_fact_lower_otx = 4
+    x_fact_upper_otx = 5
+    values_dict = {
+        kw.spark_num: 77,
+        kw.face_name: exx.yao,
+        kw.moment_label: x_moment_label,
+        kw.belief_name: x_belief_name,
+        kw.plan_rope: x_rope,
+        kw.fact_context: x_fact_context,
+        kw.fact_state: x_fact_state,
+        f"{kw.fact_lower}_otx": x_fact_lower_otx,
+        f"{kw.fact_upper}_otx": x_fact_upper_otx,
+    }
+    # all args included in values dict
+    etl_config = get_etl_config()
+    dimen = kw.belief_plan_factunit
+    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    dst_columns = remove_inx_columns(dst_columns)
+    print(f"{dst_columns=}")
+    assert dst_columns == set(values_dict.keys())
 
-#     # WHEN
-#     insert_sqlstr = create_blffact_h_put_agg_insert_sqlstr(values_dict)
+    # WHEN
+    insert_sqlstr = create_blffact_h_put_agg_insert_sqlstr(values_dict)
 
-#     # THEN
-#     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "belief_plan_factunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print("")
-#         print(expected_sqlstr)
-#         # print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+    # THEN
+    assert insert_sqlstr
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sound_and_heard_tables(cursor)
+        table_name = "belief_plan_factunit_h_put_agg"
+        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
+        print("")
+        print(expected_sqlstr)
+        # print(insert_sqlstr)
+        assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_blfheal_h_put_agg_insert_sqlstr_ReturnsObj():
