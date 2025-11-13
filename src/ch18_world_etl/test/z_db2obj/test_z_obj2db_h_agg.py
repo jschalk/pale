@@ -240,15 +240,15 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
     x_rope = 3
     x_reason_context = 4
     x_reason_state = 5
-    x_reason_upper_otx = 6.0
     x_reason_lower_otx = 7.0
-    x_reason_upper_inx = None
+    x_reason_upper_otx = 6.0
     x_reason_lower_inx = None
+    x_reason_upper_inx = None
     x_reason_divisor = 8
     x_caseunit = caseunit_shop(reason_state=x_reason_state)
     x_caseunit.reason_state = x_reason_state
-    x_caseunit.reason_upper = x_reason_upper_otx
     x_caseunit.reason_lower = x_reason_lower_otx
+    x_caseunit.reason_upper = x_reason_upper_otx
     x_caseunit.reason_divisor = x_reason_divisor
 
     with sqlite3_connect(":memory:") as conn:
@@ -284,10 +284,10 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
             str(x_rope),
             str(x_reason_context),
             str(x_reason_state),
-            x_reason_upper_otx,
-            x_reason_upper_inx,
             x_reason_lower_otx,
             x_reason_lower_inx,
+            x_reason_upper_otx,
+            x_reason_upper_inx,
             x_reason_divisor,
         )
         expected_data = [expected_row1]

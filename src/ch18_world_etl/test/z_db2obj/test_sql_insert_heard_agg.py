@@ -194,8 +194,8 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
     x_rope = 1
     x_reason_context = 2
     x_reason_state = 3
-    x_reason_upper = 4
-    x_reason_lower = 5
+    x_reason_lower = 4
+    x_reason_upper = 5
     x_reason_divisor = 6
     values_dict = {
         kw.spark_num: 77,
@@ -205,8 +205,8 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
         kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.reason_state: x_reason_state,
-        f"{kw.reason_upper}_otx": x_reason_upper,
         f"{kw.reason_lower}_otx": x_reason_lower,
+        f"{kw.reason_upper}_otx": x_reason_upper,
         kw.reason_divisor: x_reason_divisor,
     }
     # all args included in values dict

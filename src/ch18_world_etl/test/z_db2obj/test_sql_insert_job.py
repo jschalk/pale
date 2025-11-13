@@ -260,8 +260,8 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
     x_rope = 1
     x_reason_context = 2
     x_reason_state = 3
-    x_reason_upper = 4
     x_reason_lower = 5
+    x_reason_upper = 4
     x_reason_divisor = 6
     x_task = 7
     x_case_active = 8
@@ -271,8 +271,8 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
         kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.reason_state: x_reason_state,
-        kw.reason_upper: x_reason_upper,
         kw.reason_lower: x_reason_lower,
+        kw.reason_upper: x_reason_upper,
         kw.reason_divisor: x_reason_divisor,
         kw.task: x_task,
         kw.case_active: x_case_active,

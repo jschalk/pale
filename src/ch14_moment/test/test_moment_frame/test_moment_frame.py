@@ -235,23 +235,3 @@ def test_add_epoch_frame_to_momentunit_SetsAttr_Scenario7_offi_time_Set():
     # THEN
     assert t55_offi_time not in sue_momentunit.offi_times
     assert epected_offi_time in sue_momentunit.offi_times
-
-
-# TODO if needed create function that adds epoch_frame to momentunit files and beliefunit files
-# def test_add_epoch_frame_to_moment_json_ChangesFile_Scenario0():
-#     # ESTABLISH
-#     sue_momentunit = momentunit_shop(exx.sue, get_temp_dir())
-#     t55_offi_time = 55
-#     sue_momentunit.offi_times.add(t55_offi_time)
-#     epoch_frame_min = 10
-#     epected_offi_time = t55_offi_time + epoch_frame_min
-#     save
-#     assert t55_offi_time in sue_momentunit.offi_times
-#     assert epected_offi_time not in sue_momentunit.offi_times
-
-#     # WHEN
-#     add_epoch_frame_to_momentunit(sue_momentunit, epoch_frame_min)
-
-#     # THEN
-#     assert t55_offi_time not in sue_momentunit.offi_times
-#     assert epected_offi_time in sue_momentunit.offi_times

@@ -70,7 +70,7 @@ def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
         "br00023": "moment_label,belief_name,plan_rope,fact_context,fact_state,fact_lower,fact_upper\n",
         "br00024": "moment_label,belief_name,plan_rope,party_title,solo\n",
         "br00025": "moment_label,belief_name,plan_rope,healer_name\n",
-        "br00026": "moment_label,belief_name,plan_rope,reason_context,reason_state,reason_upper,reason_lower,reason_divisor\n",
+        "br00026": "moment_label,belief_name,plan_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor\n",
         "br00027": "moment_label,belief_name,plan_rope,reason_context,active_requisite\n",
         "br00028": "moment_label,belief_name,plan_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool\n",
         "br00029": "moment_label,belief_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,tally,fund_grain,mana_grain,respect_grain\n",

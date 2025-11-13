@@ -221,12 +221,12 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[124] == kw.give_force
     assert table_sorting_priority[125] == kw.star
     assert table_sorting_priority[126] == kw.max_tree_traverse
-    assert table_sorting_priority[127] == kw.reason_upper
-    assert table_sorting_priority[128] == f"{kw.reason_upper}_otx"
-    assert table_sorting_priority[129] == f"{kw.reason_upper}_inx"
-    assert table_sorting_priority[130] == kw.reason_lower
-    assert table_sorting_priority[131] == f"{kw.reason_lower}_otx"
-    assert table_sorting_priority[132] == f"{kw.reason_lower}_inx"
+    assert table_sorting_priority[127] == kw.reason_lower
+    assert table_sorting_priority[128] == f"{kw.reason_lower}_otx"
+    assert table_sorting_priority[129] == f"{kw.reason_lower}_inx"
+    assert table_sorting_priority[130] == kw.reason_upper
+    assert table_sorting_priority[131] == f"{kw.reason_upper}_otx"
+    assert table_sorting_priority[132] == f"{kw.reason_upper}_inx"
     assert table_sorting_priority[133] == kw.reason_divisor
     assert table_sorting_priority[134] == kw.pledge
     assert table_sorting_priority[135] == kw.problem_bool

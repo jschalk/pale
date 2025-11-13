@@ -35,6 +35,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_update_heard_agg_epochtime_sqlstrs,
     update_heard_agg_epochtime_columns,
 )
+from src.ch18_world_etl.obj2db_belief import insert_h_agg_obj
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_blfcase_special_h_agg as insert_blfcase,
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
@@ -52,7 +53,9 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 # def test_add_frame_to_caseunit_SetsAttr_Scenario0_NoWrap_dayly():
+#     # sourcery skip: extract-method
 #     # ESTABLISH
+#     spark7 = 7
 #     bob_belief = get_bob_five_belief()
 #     mop_dayly_args = {
 #         kw.plan_rope: wx.mop_rope,
@@ -64,11 +67,17 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     }
 #     day_plan = belief_planunit_get_obj(bob_belief, {kw.plan_rope: wx.day_rope})
 #     set_epoch_cases_by_args_dict(bob_belief, mop_dayly_args)
-#     assert belief_plan_reason_caseunit_exists(bob_belief, mop_dayly_args)
-#     day_case = belief_plan_reason_caseunit_get_obj(bob_belief, mop_dayly_args)
-#     x_epoch_frame_min = 100
-#     assert day_case.reason_lower == 600
-#     assert day_case.reason_upper == 690
+#     with sqlite3_connect(":memory:") as db_conn:
+#         cursor = db_conn.cursor()
+#         create_sound_and_heard_tables(cursor)
+#         insert_h_agg_obj(cursor, bob_belief)
+#         day_case_tuple = select_blfcase(
+#             cursor, spark7, exx.a23, exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
+#         )
+#         x_epoch_frame_min = 100
+#         print(f"{day_case_tuple=}")
+#         assert day_case_tuple[3] == 600
+#         assert day_case_tuple[4] == 690
 
 #     # WHEN
 #     add_frame_to_caseunit(
