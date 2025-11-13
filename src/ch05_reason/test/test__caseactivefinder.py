@@ -1,7 +1,10 @@
+from dataclasses import dataclass
 from plotly.graph_objects import Figure as plotly_figure, Scatter as plotly_Scatter
 from pytest import raises as pytest_raises
+from src.ch01_py.csv_toolbox import open_csv_with_types
 from src.ch01_py.plotly_toolbox import conditional_fig_show
 from src.ch05_reason.reason_main import CaseActiveFinder, caseactivefinder_shop
+from src.ref.keywords import Ch05Keywords as kw
 
 
 def test_CaseActiveFinder_Exists():
@@ -220,7 +223,6 @@ def add_traces(
     reason_divisor: float = 1,
 ) -> plotly_figure:
     fact_str = "FactUnit range"
-    case_str = "Case Range"
     blue_str = "Blue"
     pink_str = "Pink"
     sl = showlegend
@@ -340,292 +342,125 @@ def get_fig(pd: float, graphics_bool: bool) -> plotly_figure:
     return fig
 
 
-def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenari0_fact_range(
-    graphics_bool,
-):
-    # ESTABLISH / WHEN / THEN
-    """Check Scenarios CaseUnit.active. Plotly graph can be used to identify problems."""
-    # TODO refactor this test.
-    # It's currently a knucklehead way of creating asserting the expected booleans and creating a graph.
-    # Start with a test set, then do for loop through the test set to create the graph
-    # # Scenario A
-    assert caseactivefinder_shop(0.3, 0.7, 1, 0.1, 1.2).get_active_bool()
+@dataclass
+class ExpectedCaseAttrs:
+    caseactivefinder: CaseActiveFinder
+    expected_active: bool
+    expected_task: bool
+    add_to_line: float
+    description: str = None
 
-    # # Scenario B1
+
+def eca_shop(
+    caseactivefinder: CaseActiveFinder,
+    add_to_line: float,
+    expected_active: bool,
+    expected_task: bool,
+    description: str = None,
+) -> ExpectedCaseAttrs:
+    return ExpectedCaseAttrs(
+        caseactivefinder, expected_active, expected_task, add_to_line, description
+    )
+
+
+def check_case(
+    linel: float,
+    expectedcaseattrs: ExpectedCaseAttrs,
+    fig: plotly_figure,
+    graphics_bool: bool,
+    case_desc: str,
+):
+    linel += expectedcaseattrs.add_to_line
+    show_legend = linel == 0.1
+    if expectedcaseattrs.description:
+        case_desc = expectedcaseattrs.description
+    # case = c_tuple[0]
+    # expected_active = c_tuple[1]
+    # expected_task = c_tuple[2]
+    x_caseactivefinder = expectedcaseattrs.caseactivefinder
+    show_x(
+        expectedcaseattrs.expected_active,
+        expectedcaseattrs.expected_task,
+        x_caseactivefinder,
+        fig,
+        linel,
+        case_desc,
+        show_legend,
+        graphics_bool,
+    )
+    assert x_caseactivefinder.get_active_bool() == expectedcaseattrs.expected_active
+    assert x_caseactivefinder.get_task_bool() == expectedcaseattrs.expected_task
+    return linel
+
+
+def caf_shop(
+    reason_lower, reason_upper, reason_divisor, fact_lower_full, fact_upper_full
+) -> CaseActiveFinder:
+    """made to shorten function name in only one test"""
+    return caseactivefinder_shop(
+        reason_lower, reason_upper, reason_divisor, fact_lower_full, fact_upper_full
+    )
+
+
+def check_show_caseactivefinder_scenarios(graphics_bool: bool):
     graph_b = graphics_bool
+    grb = graphics_bool
     pd = 1  # reason_divisor
     fig = get_fig(pd, graphics_bool)
-    caseb1_1 = caseactivefinder_shop(0.3, 0.7, pd, 0.5, 0.8)
-    caseb1_2 = caseactivefinder_shop(0.3, 0.7, pd, 0.2, 0.5)
-    caseb1_3 = caseactivefinder_shop(0.3, 0.7, pd, 0.4, 0.6)
-    caseb1_4 = caseactivefinder_shop(0.3, 0.7, pd, 0.2, 0.8)
-    caseb1_5 = caseactivefinder_shop(0.3, 0.7, pd, 0.1, 0.3)
-    caseb1_6 = caseactivefinder_shop(0.3, 0.7, pd, 0.7, 0.8)
-    caseb1_7 = caseactivefinder_shop(0.3, 0.3, pd, 0.3, 0.5)
-    caseb1_8 = caseactivefinder_shop(0.3, 0.3, pd, 0.1, 0.3)
-    caseb1_9 = caseactivefinder_shop(0.3, 0.3, pd, 0.3, 0.3)
-    caseb1_10 = caseactivefinder_shop(0.0, 0.0, pd, 0.0, 0.0)
-    caseb1_11 = caseactivefinder_shop(0.3, 0.7, pd, 0.0, 0.0)
-
-    expect_active = True
-    expect_task = True
-    linel = -0.1
-    show_x(expect_active, expect_task, caseb1_1, fig, linel, "caseb1_1", True, graph_b)
-    assert caseb1_1.get_active_bool() == expect_active
-    assert caseb1_1.get_task_bool() == expect_task
-    expect_active = True
-    expect_task = False
-    linel -= 0.1
-    show_x(expect_active, expect_task, caseb1_2, fig, linel, "caseb1_2", False, graph_b)
-    assert caseb1_2.get_active_bool() == expect_active
-    assert caseb1_2.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb1_3, fig, linel, "caseb1_3", False, graph_b)
-    assert caseb1_3.get_active_bool() == expect_active
-    assert caseb1_3.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb1_4, fig, linel, "caseb1_4", False, graph_b)
-    assert caseb1_4.get_active_bool() == expect_active
-    assert caseb1_4.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = False
-    expect_task = False
-    show_x(expect_active, expect_task, caseb1_5, fig, linel, "caseb1_5", False, graph_b)
-    assert caseb1_5.get_active_bool() == expect_active
-    assert caseb1_5.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = False
-    expect_task = False
-    show_x(expect_active, expect_task, caseb1_6, fig, linel, "caseb1_6", False, graph_b)
-    assert caseb1_6.get_active_bool() == expect_active
-    assert caseb1_6.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb1_7, fig, linel, "caseb1_7", False, graph_b)
-    assert caseb1_7.get_active_bool() == expect_active
-    assert caseb1_7.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = False
-    expect_task = False
-    show_x(expect_active, expect_task, caseb1_8, fig, linel, "caseb1_8", False, graph_b)
-    assert caseb1_8.get_active_bool() == expect_active
-    assert caseb1_8.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb1_9, fig, linel, "caseb1_9", False, graph_b)
-    assert caseb1_9.get_active_bool() == expect_active
-    assert caseb1_9.get_task_bool() == expect_task
-    linel -= 0.1
-    exp_active = True
-    exp_task = False
-    show_x(exp_active, exp_task, caseb1_10, fig, linel, "caseb1_10", False, graph_b)
-    assert caseb1_10.get_active_bool() == exp_active
-    assert caseb1_10.get_task_bool() == exp_task
-    linel -= 0.1
-    exp_active = False
-    exp_task = False
-    show_x(exp_active, exp_task, caseb1_11, fig, linel, "caseb1_11", False, graph_b)
-    assert caseb1_11.get_active_bool() == exp_active
-    assert caseb1_11.get_task_bool() == exp_task
-
-    # Scenario B2
-    linel -= 0.1
-    caseb2_1 = caseactivefinder_shop(0.3, 0.7, pd, 0.8, 1.4)
-    caseb2_2 = caseactivefinder_shop(0.3, 0.7, pd, 0.6, 1.2)
-    caseb2_3 = caseactivefinder_shop(0.3, 0.7, pd, 0.6, 1.4)
-    caseb2_4 = caseactivefinder_shop(0.3, 0.7, pd, 0.9, 1.8)
-    caseb2_5 = caseactivefinder_shop(0.3, 0.7, pd, 0.2, 1.1)
-    caseb2_6 = caseactivefinder_shop(0.3, 0.7, pd, 0.9, 1.1)
-    caseb2_7 = caseactivefinder_shop(0.3, 0.7, pd, 0.7, 1.2)
-    caseb2_8 = caseactivefinder_shop(0.7, 0.7, pd, 0.7, 1.2)
-    caseb2_9 = caseactivefinder_shop(0.3, 0.7, pd, 0.9, 1.3)
-
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb2_1, fig, linel, "caseb2_1", False, graph_b)
-    assert caseb2_1.get_active_bool() == expect_active
-    assert caseb2_1.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb2_2, fig, linel, "caseb2_2", False, graph_b)
-    assert caseb2_2.get_active_bool() == expect_active
-    assert caseb2_2.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb2_3, fig, linel, "caseb2_3", False, graph_b)
-    assert caseb2_3.get_active_bool() == expect_active
-    assert caseb2_3.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb2_4, fig, linel, "caseb2_4", False, graph_b)
-    assert caseb2_4.get_active_bool() == expect_active
-    assert caseb2_4.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb2_5, fig, linel, "caseb2_5", False, graph_b)
-    assert caseb2_5.get_active_bool() == expect_active
-    assert caseb2_5.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = False
-    expect_task = False
-    show_x(expect_active, expect_task, caseb2_6, fig, linel, "caseb2_6", False, graph_b)
-    assert caseb2_6.get_active_bool() == expect_active
-    assert caseb2_6.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = False
-    expect_task = False
-    show_x(expect_active, expect_task, caseb2_7, fig, linel, "caseb2_7", False, graph_b)
-    assert caseb2_7.get_active_bool() == expect_active
-    assert caseb2_7.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb2_8, fig, linel, "caseb2_8", False, graph_b)
-    assert caseb2_8.get_active_bool() == expect_active
-    assert caseb2_8.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb2_9, fig, linel, "caseb2_9", False, graph_b)
-    assert caseb2_9.get_active_bool() == expect_active
-    assert caseb2_9.get_task_bool() == expect_task
-
-    # Scenario B3
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    caseb3_1 = caseactivefinder_shop(0.7, 0.3, pd, 0.2, 0.5)
-    caseb3_2 = caseactivefinder_shop(0.7, 0.3, pd, 0.5, 0.8)
-    caseb3_3 = caseactivefinder_shop(0.7, 0.3, pd, 0.2, 0.8)
-    caseb3_4 = caseactivefinder_shop(0.7, 0.3, pd, 0.1, 0.2)
-    caseb3_5 = caseactivefinder_shop(0.7, 0.3, pd, 0.8, 0.9)
-    caseb3_6 = caseactivefinder_shop(0.7, 0.3, pd, 0.4, 0.6)
-    caseb3_7 = caseactivefinder_shop(0.7, 0.3, pd, 0.3, 0.5)
-    caseb3_8 = caseactivefinder_shop(0.7, 0.3, pd, 0.7, 0.7)
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb3_1, fig, linel, "caseb3_1", False, graph_b)
-    assert caseb3_1.get_active_bool() == expect_active
-    assert caseb3_1.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb3_2, fig, linel, "caseb3_2", False, graph_b)
-    assert caseb3_2.get_active_bool() == expect_active
-    assert caseb3_2.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb3_3, fig, linel, "caseb3_3", False, graph_b)
-    assert caseb3_3.get_active_bool() == expect_active
-    assert caseb3_3.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb3_4, fig, linel, "caseb3_4", False, graph_b)
-    assert caseb3_4.get_active_bool() == expect_active
-    assert caseb3_4.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb3_5, fig, linel, "caseb3_5", False, graph_b)
-    assert caseb3_5.get_active_bool() == expect_active
-    assert caseb3_5.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = False
-    expect_task = False
-    show_x(expect_active, expect_task, caseb3_6, fig, linel, "caseb3_6", False, graph_b)
-    assert caseb3_6.get_active_bool() == expect_active
-    assert caseb3_6.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = False
-    expect_task = False
-    show_x(expect_active, expect_task, caseb3_7, fig, linel, "caseb3_7", False, graph_b)
-    assert caseb3_7.get_active_bool() == expect_active
-    assert caseb3_7.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb3_8, fig, linel, "caseb3_8", False, graph_b)
-    assert caseb3_8.get_active_bool() == expect_active
-    assert caseb3_8.get_task_bool() == expect_task
-
-    # Scenario B4
-    linel -= 0.1
-    caseb4_1 = caseactivefinder_shop(0.7, 0.3, pd, 0.6, 1.2)
-    caseb4_2 = caseactivefinder_shop(0.7, 0.3, pd, 0.8, 1.4)
-    caseb4_3 = caseactivefinder_shop(0.7, 0.3, pd, 0.6, 1.4)
-    caseb4_4 = caseactivefinder_shop(0.7, 0.3, pd, 0.8, 1.2)
-    caseb4_5 = caseactivefinder_shop(0.7, 0.3, pd, 0.2, 1.1)
-    caseb4_6 = caseactivefinder_shop(0.7, 0.3, pd, 0.9, 1.8)
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb4_1, fig, linel, "caseb4_1", False, graph_b)
-    assert caseb4_1.get_active_bool() == expect_active
-    assert caseb4_1.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb4_2, fig, linel, "caseb4_2", False, graph_b)
-    assert caseb4_2.get_active_bool() == expect_active
-    assert caseb4_2.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = True
-    show_x(expect_active, expect_task, caseb4_3, fig, linel, "caseb4_3", False, graph_b)
-    assert caseb4_3.get_active_bool() == expect_active
-    assert caseb4_3.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb4_4, fig, linel, "caseb4_4", False, graph_b)
-    assert caseb4_4.get_active_bool() == expect_active
-    assert caseb4_4.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb4_5, fig, linel, "caseb4_5", False, graph_b)
-    assert caseb4_5.get_active_bool() == expect_active
-    assert caseb4_5.get_task_bool() == expect_task
-    linel -= 0.1
-    expect_active = True
-    expect_task = False
-    show_x(expect_active, expect_task, caseb4_6, fig, linel, "caseb4_6", False, graph_b)
-    assert caseb4_6.get_active_bool() == expect_active
-    assert caseb4_6.get_task_bool() == expect_task
-
-    # Scenario B5
-    linel -= 0.1
-    caseb5_0 = caseactivefinder_shop(0.3, 0.7, pd, 0.0, 1.0)
-    caseb5_1 = caseactivefinder_shop(0.0, 1.0, pd, 0.0, 1.0)
-    linel -= 0.1
-    exp_active = True
-    exp_task = True
-    show_x(exp_active, exp_task, caseb5_0, fig, linel, "caseb1_11", False, graph_b)
-    assert caseb5_0.get_active_bool() == exp_active
-    assert caseb5_0.get_task_bool() == exp_task
-    linel -= 0.1
-    exp_active = True
-    exp_task = False
-    show_x(exp_active, exp_task, caseb5_1, fig, linel, "caseb1_12", False, graph_b)
-    assert caseb5_1.get_active_bool() == exp_active
-    assert caseb5_1.get_task_bool() == exp_task
+    linel = 0
+    test_cases_csv_path = "src/ch05_reason/test/caseactivefinder_test_cases.csv"
+    test_cases_types = {
+        "case_desc": "TEXT",
+        kw.reason_lower: "REAL",
+        kw.reason_upper: "REAL",
+        kw.reason_divisor: "REAL",
+        f"{kw.fact_lower}_full": "REAL",
+        f"{kw.fact_upper}_full": "REAL",
+        "linl_add": "REAL",
+        "expected_active": "BOOLEAN",
+        f"expected_{kw.task}": "BOOLEAN",
+    }
+    test_cases = open_csv_with_types(test_cases_csv_path, test_cases_types)
+    header = None
+    for test_case in test_cases:
+        if not header:
+            header = test_case
+        else:
+            case_desc = test_case[0]
+            reason_lower = test_case[1]
+            reason_upper = test_case[2]
+            reason_divisor = test_case[3]
+            fact_lower_full = test_case[4]
+            fact_upper_full = test_case[5]
+            linl_add = test_case[6]
+            expected_active = test_case[7]
+            expected_task = test_case[8]
+            x_caseactivefinder = caseactivefinder_shop(
+                reason_lower,
+                reason_upper,
+                reason_divisor,
+                fact_lower_full,
+                fact_upper_full,
+            )
+            x_eca = eca_shop(
+                x_caseactivefinder, linl_add, expected_active, expected_task, case_desc
+            )
+            linel = check_case(linel, x_eca, fig, grb, None)
 
     # Bottom reason_divisor line
     _add_last_trace_and_show(fig, pd, linel, graph_b)
+
+
+def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenari0_fact_range(
+    graphics_bool,
+):
+    # # ESTABLISH / WHEN / THEN
+    """Check Scenarios CaseUnit.active. Plotly graph can be used to identify problems."""
+    # # Scenario A
+    assert caf_shop(0.3, 0.7, 1, 0.1, 1.2).get_active_bool()
+
+    # # Scenario B1
+    check_show_caseactivefinder_scenarios(graphics_bool)
 
 
 def _add_last_trace_and_show(fig: plotly_figure, pd, linel, graphics_bool: bool):

@@ -227,6 +227,7 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_weeks_plan_Scenario0():
 
 
 def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_year_plan_Scenario0():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
     time_rope = sue_beliefunit.make_l1_rope(kw.time)
