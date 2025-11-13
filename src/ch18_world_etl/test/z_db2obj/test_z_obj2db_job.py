@@ -51,7 +51,7 @@ def test_ObjKeysHolder_Exists():
 def test_insert_job_blfunit_CreatesTableRowsFor_beliefunit_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_keeps_buildable = 99
     x_keeps_justified = 77
@@ -135,7 +135,7 @@ def test_insert_job_blfplan_CreatesTableRowsFor_blfplan_job():
     # for x_arg in get_default_sorted_list(x_args):
     #     print(f"""            x_{x_arg},""")
     # print("")
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = 2
     casa_rope = create_rope(x_moment_label, "casa")
     x_parent_rope = casa_rope

@@ -478,7 +478,7 @@ def test_MomentUnit__set_all_healer_dutys_Setsdutys(
 #     # ESTABLISH
 #     moment_mstr_dir = get_temp_dir()
 #     time56 = 56
-#     a23_moment = momentunit_shop("Amy23", moment_mstr_dir, offi_time_max=time56)
+#     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir, offi_time_max=time56)
 #     assert a23_moment.offi_time == 0
 #     assert a23_moment.offi_time_max == time56
 
@@ -493,7 +493,7 @@ def test_MomentUnit__set_all_healer_dutys_Setsdutys(
 
 # def test_MomentUnit_set_offi_time_Scenario1_SetsAttr():
 #     # ESTABLISH
-#     a23_moment = momentunit_shop("Amy23", get_temp_dir())
+#     a23_moment = momentunit_shop(exx.a23, get_temp_dir())
 #     assert a23_moment.offi_time == 0
 #     assert a23_moment.offi_time_max == 0
 
@@ -510,7 +510,7 @@ def test_MomentUnit_set_offi_time_max_Scenario0_SetsAttr():
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     time7 = 7
-    a23_moment = momentunit_shop("Amy23", moment_mstr_dir)
+    a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.offi_time_max = time7
     # assert a23_moment.offi_time == 0
     assert a23_moment.offi_time_max == time7
@@ -530,7 +530,7 @@ def test_MomentUnit_set_offi_time_max_Scenario0_SetsAttr():
 #     time21 = 21
 #     time77 = 77
 #     a23_moment = momentunit_shop(
-#         "Amy23", moment_mstr_dir, offi_time=time21, offi_time_max=time77
+#         exx.a23, moment_mstr_dir, offi_time=time21, offi_time_max=time77
 #     )
 #     assert a23_moment.offi_time == time21
 #     assert a23_moment.offi_time_max == time77
@@ -545,7 +545,7 @@ def test_MomentUnit_set_offi_time_max_Scenario0_SetsAttr():
 
 # def test_MomentUnit_set_offi_time_Scenario0_SetsAttr():
 #     # ESTABLISH
-#     a23_moment = momentunit_shop("Amy23", get_temp_dir())
+#     a23_moment = momentunit_shop(exx.a23, get_temp_dir())
 #     assert a23_moment.offi_time == 0
 #     assert a23_moment.offi_time_max == 0
 

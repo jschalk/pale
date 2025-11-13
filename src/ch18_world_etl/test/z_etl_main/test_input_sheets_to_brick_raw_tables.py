@@ -201,7 +201,7 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
 #         kw.moment_label,
 #         kw.hour_label,
 #     ]
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     df_row0 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
 #     df_row1 = [spark1, exx.sue, minute_420, exx.a23, hour7am]
 #     df_row2 = [spark2, exx.sue, minute_420, exx.a23, hour7am]

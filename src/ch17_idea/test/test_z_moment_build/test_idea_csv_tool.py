@@ -166,7 +166,7 @@ def test_add_momentunit_to_stance_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
     br04_csv_header = x_csvs.get("br00004")
     br05_csv_header = x_csvs.get("br00005")
     # br06_csv_header = x_csvs.get("br00006")
-    a23_momentunit = x_momentunits.get("Amy23")
+    a23_momentunit = x_momentunits.get(exx.a23)
 
     # WHEN
     add_momentunit_to_stance_csv_strs(a23_momentunit, x_csvs, csv_delimiter)

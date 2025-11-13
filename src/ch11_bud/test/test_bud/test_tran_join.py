@@ -4,7 +4,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_TranBook_join_SetsAttr():
     # ESTABLISH
-    m23_tranbook = tranbook_shop("Amy23")
+    m23_tranbook = tranbook_shop(exx.a23)
     t55_t = 5505
     t55_yao_amount = -55
     t66_t = 6606

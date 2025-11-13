@@ -23,7 +23,7 @@ def test_LessonFileHandler_default_gut_belief_ReturnsObj():
     pfour_float = 0.4
     sue_lessonfilehandler = lessonfilehandler_shop(
         env_dir(),
-        "Amy23",
+        exx.a23,
         exx.sue,
         knot=exx.slash,
         fund_pool=x_fund_pool,
@@ -50,44 +50,44 @@ def test_LessonFileHandler_create_initial_lesson_files_from_default_SavesLessonU
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "Amy23", exx.sue)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     init_lesson_filename = sue_lessonfilehandler.lesson_filename(init_lesson_id())
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, init_lesson_filename
     )
     assert os_path_exists(init_lesson_file_path) is False
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue) is False
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
 
     # WHEN
     sue_lessonfilehandler._create_initial_lesson_files_from_default()
 
     # THEN
     assert os_path_exists(init_lesson_file_path)
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue) is False
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
 
 
 def test_LessonFileHandler_create_gut_from_lessons_CreatesgutFileFromLessonFiles(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "Amy23", exx.sue)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     init_lesson_filename = sue_lessonfilehandler.lesson_filename(init_lesson_id())
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, init_lesson_filename
     )
     sue_lessonfilehandler._create_initial_lesson_files_from_default()
     assert os_path_exists(init_lesson_file_path)
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue) is False
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
 
     # WHEN
     sue_lessonfilehandler._create_gut_from_lessons()
 
     # THEN
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue)
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue)
     static_sue_gut = sue_lessonfilehandler._merge_any_lessons(
         sue_lessonfilehandler.default_gut_belief()
     )
-    gut_belief = open_gut_file(env_dir(), "Amy23", exx.sue)
+    gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
     assert gut_belief.to_dict() == static_sue_gut.to_dict()
 
 
@@ -95,24 +95,24 @@ def test_LessonFileHandler_create_initial_lesson_and_gut_files_CreatesLessonFile
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "Amy23", exx.sue)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     init_lesson_filename = sue_lessonfilehandler.lesson_filename(init_lesson_id())
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, init_lesson_filename
     )
     assert os_path_exists(init_lesson_file_path) is False
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue) is False
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
 
     # WHEN
     sue_lessonfilehandler._create_initial_lesson_and_gut_files()
 
     # THEN
     assert os_path_exists(init_lesson_file_path)
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue)
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue)
     static_sue_gut = sue_lessonfilehandler._merge_any_lessons(
         sue_lessonfilehandler.default_gut_belief()
     )
-    gut_belief = open_gut_file(env_dir(), "Amy23", exx.sue)
+    gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
     assert gut_belief.to_dict() == static_sue_gut.to_dict()
 
 
@@ -120,12 +120,12 @@ def test_LessonFileHandler_create_initial_lesson_files_from_gut_SavesOnlyLessonF
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "Amy23", exx.sue)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     sue_gut_belief = sue_lessonfilehandler.default_gut_belief()
     sue_gut_belief.add_voiceunit(exx.bob)
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue) is False
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
     save_gut_file(env_dir(), sue_gut_belief)
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue)
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue)
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, f"{init_lesson_id()}.json"
     )
@@ -144,9 +144,9 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesgutFileAndLessonFile
     # ESTABLISH
     seven_int = 25
     sue_lessonfilehandler = lessonfilehandler_shop(
-        env_dir(), "Amy23", exx.sue, respect_grain=seven_int
+        env_dir(), exx.a23, exx.sue, respect_grain=seven_int
     )
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue) is False
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, f"{init_lesson_id()}.json"
     )
@@ -157,8 +157,8 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesgutFileAndLessonFile
     sue_lessonfilehandler.initialize_lesson_gut_files()
 
     # THEN
-    gut_belief = open_gut_file(env_dir(), "Amy23", exx.sue)
-    assert gut_belief.moment_label == "Amy23"
+    gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
+    assert gut_belief.moment_label == exx.a23
     assert gut_belief.belief_name == exx.sue
     assert gut_belief.respect_grain == seven_int
     assert os_path_exists(init_lesson_file_path)
@@ -170,13 +170,13 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlygutFile(
     # ESTABLISH
     seven_int = 25
     sue_lessonfilehandler = lessonfilehandler_shop(
-        env_dir(), "Amy23", exx.sue, respect_grain=seven_int
+        env_dir(), exx.a23, exx.sue, respect_grain=seven_int
     )
     sue_lessonfilehandler.initialize_lesson_gut_files()
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue)
-    gut_path = create_gut_path(env_dir(), "Amy23", exx.sue)
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue)
+    gut_path = create_gut_path(env_dir(), exx.a23, exx.sue)
     delete_dir(gut_path)
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue) is False
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, f"{init_lesson_id()}.json"
     )
@@ -186,8 +186,8 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlygutFile(
     sue_lessonfilehandler.initialize_lesson_gut_files()
 
     # THEN
-    gut_belief = open_gut_file(env_dir(), "Amy23", exx.sue)
-    assert gut_belief.moment_label == "Amy23"
+    gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
+    assert gut_belief.moment_label == exx.a23
     assert gut_belief.belief_name == exx.sue
     assert gut_belief.respect_grain == seven_int
     assert os_path_exists(init_lesson_file_path)
@@ -199,13 +199,13 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
     # ESTABLISH
     seven_int = 25
     sue_lessonfilehandler = lessonfilehandler_shop(
-        env_dir(), "Amy23", exx.sue, respect_grain=seven_int
+        env_dir(), exx.a23, exx.sue, respect_grain=seven_int
     )
     sue_lessonfilehandler.initialize_lesson_gut_files()
-    sue_gut_belief = open_gut_file(env_dir(), "Amy23", exx.sue)
+    sue_gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
     sue_gut_belief.add_voiceunit(exx.bob)
     save_gut_file(env_dir(), sue_gut_belief)
-    assert gut_file_exists(env_dir(), "Amy23", exx.sue)
+    assert gut_file_exists(env_dir(), exx.a23, exx.sue)
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, f"{init_lesson_id()}.json"
     )
@@ -216,7 +216,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
     sue_lessonfilehandler.initialize_lesson_gut_files()
 
     # THEN
-    assert sue_gut_belief.moment_label == "Amy23"
+    assert sue_gut_belief.moment_label == exx.a23
     assert sue_gut_belief.belief_name == exx.sue
     assert sue_gut_belief.respect_grain == seven_int
     assert sue_gut_belief.voice_exists(exx.bob)
@@ -227,10 +227,10 @@ def test_LessonFileHandler_append_lessons_to_gut_file_AddsLessonsTogutFile(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), "Amy23", exx.sue)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     sue_lessonfilehandler.initialize_lesson_gut_files()
     sue_lessonfilehandler.save_lesson_file(sue_2beliefatoms_lessonunit())
-    gut_belief = open_gut_file(env_dir(), "Amy23", exx.sue)
+    gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
     # gut_belief.add_plan(gut_belief.make_l1_rope("sports"))
     sports_str = "sports"
     sports_rope = gut_belief.make_l1_rope(sports_str)

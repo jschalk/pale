@@ -93,7 +93,6 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert nabuable_inx_cols.issubset(table_sorting_priority)
 
     # all the suffix otx/inx columns are only used in one
-    # TODO switch order, reason_lower before reason_upper
     assert table_sorting_priority[0] == kw.world_name
     assert table_sorting_priority[1] == kw.idea_number
     assert table_sorting_priority[2] == kw.source_dimen

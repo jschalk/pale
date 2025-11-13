@@ -56,7 +56,7 @@ def test_rj_perspective_belief_ReturnsBeliefWith_belief_nameSetToLessonFileHandl
 ):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope("Amy23", nation_str)
+    nation_rope = create_rope(exx.a23, nation_str)
     iowa_rope = create_rope(nation_rope, "Iowa")
 
     yao_beliefunit = get_beliefunit_with_4_levels()

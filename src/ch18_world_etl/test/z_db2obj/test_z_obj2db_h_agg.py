@@ -38,8 +38,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    # TODO replace all "Amy23" references in tests to exx.a23
-    x_moment_label = "Amy23"
+    # TODO replace all exx.a23 references in tests to exx.a23
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -97,7 +97,7 @@ def test_insert_h_agg_blfplan_CreatesTableRowsFor_blfplan_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = 2
     casa_rope = create_rope(x_moment_label, "casa")
     x_parent_rope = casa_rope

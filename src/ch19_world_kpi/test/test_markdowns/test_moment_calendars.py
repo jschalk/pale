@@ -64,7 +64,7 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #     spark2 = 2
 #     ex_filename = "Faybob.xlsx"
 #     input_file_path = create_path(fay_world._input_dir, ex_filename)
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     br00011_columns = [
 #         kw.spark_num,
 #         kw.face_name,

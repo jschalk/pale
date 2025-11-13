@@ -5,7 +5,7 @@ from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch11_bud.bud_main import BudUnit, budunit_shop
 from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx
 
-A23_STR = "Amy23"
+A23_STR = exx.a23
 CASA_STR = "casa"
 CLEAN_STR = "clean"
 DIRTY_STR = "dirty"

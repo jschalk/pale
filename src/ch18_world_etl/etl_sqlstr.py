@@ -1109,6 +1109,12 @@ def get_update_heard_agg_epochtime_sqlstrs() -> dict[str]:
     }
 
 
+# TODO add_epoch_frame process should to pipeline
+# All _inx rope columns have been set. This is where the check for epoch_rope happens
+# Identify the epoch_rope from the moment
+# Identify how much should be added/deleted.
+# Create "_otx" and "_inx" columns for
+# reason_lower, reason_upper, fact_lower, fact_upper, tran_time, bud_time, offi_time
 def update_heard_agg_epochtime_columns(cursor: sqlite3_Connection):
     for update_sqlstr in get_update_heard_agg_epochtime_sqlstrs().values():
         cursor.execute(update_sqlstr)
@@ -1279,7 +1285,6 @@ GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_ERASE_inx
 """
 
 
-# TODO change get_insert_heard_vld_sqlstrs moment keys
 def get_insert_heard_vld_sqlstrs() -> dict[str, str]:
     return {
         "moment_paybook_h_vld": MMTPAYY_HEARD_VLD_INSERT_SQLSTR,

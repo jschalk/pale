@@ -61,11 +61,10 @@ def test_get_obj_from_plan_dict_Returns_HealerUnit():
 
 def test_PlanUnit_to_dict_ReturnsCompleteDict():
     # ESTABLISH
-    amy_str = "Amy23"
-    wk_rope = create_rope(amy_str, exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     nation_str = "nation"
-    nation_rope = create_rope(amy_str, nation_str)
+    nation_rope = create_rope(exx.a23, nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
 
@@ -120,7 +119,7 @@ def test_PlanUnit_to_dict_ReturnsCompleteDict():
     sue_laborunit.add_party(exx.sue)
     sue_laborunit.add_party(exx.yao)
     yao_healerunit = healerunit_shop({exx.yao})
-    casa_rope = create_rope(amy_str, exx.casa)
+    casa_rope = create_rope(exx.a23, exx.casa)
     x_problem_bool = True
     casa_plan = planunit_shop(
         parent_rope=casa_rope,
@@ -209,9 +208,8 @@ def test_PlanUnit_to_dict_ReturnsObj_DictWith_attrs_SetToTrue():
     casa_plan.pledge = True
     ignore_str = "ignore"
 
-    amy_str = "Amy23"
     a_str = "a"
-    a_rope = create_rope(amy_str, a_str)
+    a_rope = create_rope(exx.a23, a_str)
     casa_plan.set_factunit(factunit_shop(a_rope, a_rope))
 
     casa_plan.set_awardunit(awardunit_shop(exx.yao))

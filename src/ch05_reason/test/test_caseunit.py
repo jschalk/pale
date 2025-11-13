@@ -10,7 +10,7 @@ from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 
 def test_CaseUnit_Exists():
     # ESTABLISH
-    casa_rope = create_rope("Amy23", exx.casa)
+    casa_rope = create_rope(exx.a23, exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
 
@@ -40,7 +40,7 @@ def test_CaseUnit_Exists():
 
 def test_caseunit_shop_ReturnsObj():
     # ESTABLISH
-    casa_rope = create_rope("Amy23", exx.casa)
+    casa_rope = create_rope(exx.a23, exx.casa)
     email_str = "check email"
     email_rope = create_rope(casa_rope, email_str)
 
@@ -53,7 +53,7 @@ def test_caseunit_shop_ReturnsObj():
 
 def test_CaseUnit_clear_case_active_SetAttrs():
     # WHEN
-    casa_rope = create_rope("Amy23", exx.casa)
+    casa_rope = create_rope(exx.a23, exx.casa)
     casaunit = caseunit_shop(casa_rope)
     # THEN
     assert casaunit.case_active is None
@@ -71,7 +71,7 @@ def test_CaseUnit_clear_case_active_SetAttrs():
 
 def test_CaseUnit_is_range_ReturnsObj():
     # ESTABLISH
-    casa_rope = create_rope("Amy23", exx.casa)
+    casa_rope = create_rope(exx.a23, exx.casa)
 
     # WHEN
     casaunit = caseunit_shop(casa_rope, reason_lower=1, reason_upper=3)
@@ -93,7 +93,7 @@ def test_CaseUnit_is_range_ReturnsObj():
 
 def test_CaseUnit_is_segregate_ReturnsObj():
     # ESTABLISH
-    casa_rope = create_rope("Amy23", exx.casa)
+    casa_rope = create_rope(exx.a23, exx.casa)
 
     # WHEN
     casaunit = caseunit_shop(casa_rope, reason_lower=1, reason_upper=3)
@@ -113,7 +113,7 @@ def test_CaseUnit_is_segregate_ReturnsObj():
 
 def test_CaseUnit_is_in_lineage_ReturnsObj_Scenario0_Default_knot():
     # ESTABLISH
-    nation_rope = create_rope("Amy23", "Nation-States")
+    nation_rope = create_rope(exx.a23, "Nation-States")
     usa_rope = create_rope(nation_rope, "USA")
     texas_rope = create_rope(usa_rope, "Texas")
     idaho_rope = create_rope(usa_rope, "Idaho")
@@ -146,7 +146,7 @@ def test_CaseUnit_is_in_lineage_ReturnsObj_Scenario0_Default_knot():
 
 def test_CaseUnit_is_in_lineage_ReturnsObj_WithNonDefault_knot():
     # ESTABLISH
-    nation_rope = create_rope("Amy23", "Nation-States", knot=exx.slash)
+    nation_rope = create_rope(exx.a23, "Nation-States", knot=exx.slash)
     usa_rope = create_rope(nation_rope, "USA", knot=exx.slash)
     texas_rope = create_rope(usa_rope, "Texas", knot=exx.slash)
     idaho_rope = create_rope(usa_rope, "Idaho", knot=exx.slash)
@@ -187,7 +187,7 @@ def test_CaseUnit_is_in_lineage_ReturnsObj_WithNonDefault_knot():
 def test_CaseUnit_get_range_segregate_case_active_ReturnsObj_Scenario0_When_is_range_IsTrue():
     # ESTABLISH
     yr_str = "ced_yr"
-    yr_rope = create_rope("Amy23", yr_str)
+    yr_rope = create_rope(exx.a23, yr_str)
     yr_case = caseunit_shop(yr_rope, reason_lower=3, reason_upper=13)
 
     # WHEN / THEN
@@ -232,7 +232,7 @@ def test_CaseUnit_get_range_segregate_case_active_ReturnsObj_Scenario0_When_is_r
 def test_CaseUnit_get_range_segregate_case_active_ReturnsObj_Scenario1_When_is_segregate_IsTrue():
     # ESTABLISH
     yr_str = "ced_yr"
-    yr_rope = create_rope("Amy23", yr_str)
+    yr_rope = create_rope(exx.a23, yr_str)
     yr_case = caseunit_shop(yr_rope, reason_divisor=5, reason_lower=0, reason_upper=0)
 
     # WHEN / THEN
@@ -266,7 +266,7 @@ def test_CaseUnit_get_range_segregate_case_active_ReturnsObj_Scenario1_When_is_s
 
 def test_CaseUnit_is_range_or_segregate_ReturnsObj():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
 
     # WHEN / THEN
     wk_case = caseunit_shop(wk_rope)
@@ -283,7 +283,7 @@ def test_CaseUnit_is_range_or_segregate_ReturnsObj():
 
 def test_CaseUnit_get_active_ReturnsObj_Scenario0():
     # ESTABLISH / WHEN assumes fact is in lineage
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wk_case = caseunit_shop(wk_rope)
 
     # WHEN / THEN
@@ -296,7 +296,7 @@ def test_CaseUnit_get_active_ReturnsObj_Scenario0():
 
 def test_CaseUnit_get_active_ReturnsObj_Scenario1_ChecksIf_is_range_IsActive():
     # ESTABLISH assumes fact is in lineage
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wk_case = caseunit_shop(wk_rope, reason_lower=3, reason_upper=7)
 
     # WHEN / THEN
@@ -308,7 +308,7 @@ def test_CaseUnit_get_active_ReturnsObj_Scenario1_ChecksIf_is_range_IsActive():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario0_WhenFactUnitIsNull():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     after_str = "afternoon"
     after_rope = create_rope(wk_rope, after_str)
     x_caseunit = caseunit_shop(after_rope)
@@ -324,7 +324,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario0_WhenFactUnitIsNull():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario1_case_active_OfSimple():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(wed_rope)
     belief_fact = factheir_shop(wk_rope, wed_rope)
@@ -339,7 +339,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario1_case_active_OfSimple():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario2():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     wed_after_str = "afternoon"
     wed_after_rope = create_rope(wed_rope, wed_after_str)
@@ -356,7 +356,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario2():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario3():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     wed_noon_str = "noon"
     wed_noon_rope = create_rope(wed_rope, wed_noon_str)
@@ -373,7 +373,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario3():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario4():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     thu_str = "thur"
     thu_rope = create_rope(wk_rope, thu_str)
@@ -393,7 +393,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario4():
 
 def test_CaseUnit_set_case_active_SetsAttr_Scenario5():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     wed_cloudy_str = "cloudy"
     wed_cloudy_rope = create_rope(wed_rope, wed_cloudy_str)
@@ -413,7 +413,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario5():
 def test_CaseUnit_set_case_active_SetsAttr_Scenario6_Clock():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     hr24_str = "24hr"
     hr24_rope = create_rope(clock_rope, hr24_str)
     hr24_case = caseunit_shop(hr24_rope, reason_lower=7, reason_upper=7)
@@ -430,7 +430,7 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario6_Clock():
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario0_When_case_active_IsFalse():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     no_range_case = caseunit_shop(hr24_rope)
     no_range_case.case_active = False
 
@@ -442,7 +442,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario0_When_case_active_IsFalse():
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario1_When_is_range_IsTrue():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     range_5_to_31_case = caseunit_shop(
         reason_state=hr24_rope, reason_lower=5, reason_upper=31
     )
@@ -458,7 +458,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario1_When_is_range_IsTrue():
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario2_When_is_range_IsFalse():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     range_5_to_31_case = caseunit_shop(
         reason_state=hr24_rope, reason_lower=5, reason_upper=31
     )
@@ -474,7 +474,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario2_When_is_range_IsFalse():
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario3_When_is_segregate_IsFalse():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     o0_n0_d5_case = caseunit_shop(
         reason_state=hr24_rope, reason_divisor=5, reason_lower=0, reason_upper=0
     )
@@ -488,7 +488,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario3_When_is_segregate_IsFalse()
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario4_When_is_segregate_IsFalse():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     o0_n0_d5_case = caseunit_shop(
         reason_state=hr24_rope, reason_divisor=5, reason_lower=0, reason_upper=0
     )
@@ -502,7 +502,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario4_When_is_segregate_IsFalse()
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario5_When_is_segregate_IsTrue():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     o0_n0_d5_case = caseunit_shop(
         reason_state=hr24_rope, reason_divisor=5, reason_lower=0, reason_upper=0
     )
@@ -516,7 +516,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario5_When_is_segregate_IsTrue():
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario6_When_is_segregate_IsTrue():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     o0_n0_d5_case = caseunit_shop(
         reason_state=hr24_rope, reason_divisor=5, reason_lower=0, reason_upper=0
     )
@@ -529,7 +529,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario6_When_is_segregate_IsTrue():
 
 def test_CaseUnit_get_task_bool_ReturnsObj_Scenario7_NotNull():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(wed_rope)
     wed_case.case_active = True
@@ -544,7 +544,7 @@ def test_CaseUnit_get_task_bool_ReturnsObj_Scenario7_NotNull():
 def test_CaseUnit_set_case_active_SetAttrs_Scenario01():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     range_2_to_7_case = caseunit_shop(
         reason_state=hr24_rope, reason_lower=2, reason_upper=7
     )
@@ -563,7 +563,7 @@ def test_CaseUnit_set_case_active_SetAttrs_Scenario01():
 def test_CaseUnit_set_case_active_SetAttrs_Scenario02():
     # ESTABLISH
     hr24_str = "24hr"
-    hr24_rope = create_rope("Amy23", hr24_str)
+    hr24_rope = create_rope(exx.a23, hr24_str)
     range_2_to_7_case = caseunit_shop(
         reason_state=hr24_rope, reason_lower=2, reason_upper=7
     )
@@ -595,7 +595,7 @@ def test_CaseUnit_set_case_active_SetAttrs_Scenario02():
 def test_CaseUnit_set_case_active_SetAttrs_Scenario03():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     hr24_str = "24hr"
     hr24_rope = create_rope(clock_rope, hr24_str)
     hr24_case = caseunit_shop(hr24_rope, reason_lower=7, reason_upper=7)
@@ -612,7 +612,7 @@ def test_CaseUnit_set_case_active_SetAttrs_Scenario03():
 def test_CaseUnit_set_case_active_SetAttrs_Scenario4_CEDWeek_case_active_False():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     wk_str = "ced_wk"
     wk_rope = create_rope(clock_rope, wk_str)
     o1_n1_d6_case = caseunit_shop(
@@ -631,7 +631,7 @@ def test_CaseUnit_set_case_active_SetAttrs_Scenario4_CEDWeek_case_active_False()
 def test_CaseUnit_set_case_active_SetAttrs_Scenario5_CEDWeek_case_active_True():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     wk_str = "ced_wk"
     wk_rope = create_rope(clock_rope, wk_str)
     wk_case = caseunit_shop(
@@ -650,7 +650,7 @@ def test_CaseUnit_set_case_active_SetAttrs_Scenario5_CEDWeek_case_active_True():
 def test_CaseUnit_to_dict_ReturnsObj_Scenario0_With_divisor_reason_lower_reason_upper():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     wk_str = "ced_wk"
     wk_rope = create_rope(clock_rope, wk_str)
     wk_case = caseunit_shop(
@@ -674,7 +674,7 @@ def test_CaseUnit_to_dict_ReturnsObj_Scenario0_With_divisor_reason_lower_reason_
 def test_CaseUnit_to_dict_ReturnsObj_Scenario1_With_reason_lower_reason_upper_WithOut_divisor():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     wk_str = "ced_wk"
     wk_rope = create_rope(clock_rope, wk_str)
     wk_case = caseunit_shop(wk_rope, reason_lower=1, reason_upper=4)
@@ -691,7 +691,7 @@ def test_CaseUnit_to_dict_ReturnsObj_Scenario1_With_reason_lower_reason_upper_Wi
 def test_CaseUnit_to_dict_ReturnsObj_Scenario2_WithOnlyRopeTerms():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     wk_str = "ced_wk"
     wk_rope = create_rope(clock_rope, wk_str)
     wk_case = caseunit_shop(wk_rope)
@@ -708,7 +708,7 @@ def test_CaseUnit_to_dict_ReturnsObj_Scenario2_WithOnlyRopeTerms():
 def test_CaseUnit_get_obj_key():
     # ESTABLISH
     clock_str = "clock"
-    clock_rope = create_rope("Amy23", clock_str)
+    clock_rope = create_rope(exx.a23, clock_str)
     wk_str = "ced_wk"
     wk_rope = create_rope(clock_rope, wk_str)
     wk_case = caseunit_shop(wk_rope)
@@ -739,7 +739,7 @@ def test_CaseUnit_find_replace_rope_casas():
 
 def test_cases_get_from_dict_ReturnsObj_Scenario0_FromCompleteDict():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     static_dict = {
         wk_rope: {
             kw.reason_state: wk_rope,
@@ -760,7 +760,7 @@ def test_cases_get_from_dict_ReturnsObj_Scenario0_FromCompleteDict():
 
 def test_cases_get_from_dict_ReturnsObj_Scenario1_FromIncompleteDict():
     # ESTABLISH
-    wk_rope = create_rope("Amy23", exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     static_dict = {wk_rope: {kw.reason_state: wk_rope}}
 
     # WHEN
@@ -775,7 +775,7 @@ def test_cases_get_from_dict_ReturnsObj_Scenario1_FromIncompleteDict():
 def test_CaseUnitsUnit_set_knot_SetAttrs():
     # ESTABLISH
     sun_str = "Sun"
-    slash_wk_rope = create_rope("Amy23", exx.wk, knot=exx.slash)
+    slash_wk_rope = create_rope(exx.a23, exx.wk, knot=exx.slash)
     slash_sun_rope = create_rope(slash_wk_rope, sun_str, knot=exx.slash)
     sun_caseunit = caseunit_shop(slash_sun_rope, knot=exx.slash)
     assert sun_caseunit.knot == exx.slash
@@ -787,14 +787,14 @@ def test_CaseUnitsUnit_set_knot_SetAttrs():
 
     # THEN
     assert sun_caseunit.knot == colon_str
-    colon_wk_rope = create_rope("Amy23", exx.wk, knot=colon_str)
+    colon_wk_rope = create_rope(exx.a23, exx.wk, knot=colon_str)
     colon_sun_rope = create_rope(colon_wk_rope, sun_str, knot=colon_str)
     assert sun_caseunit.reason_state == colon_sun_rope
 
 
 def test_rope_find_replace_rope_key_dict_ReturnsCasesUnit_Scenario1():
     # ESTABLISH
-    casa_rope = create_rope("Amy23", "casa")
+    casa_rope = create_rope(exx.a23, "casa")
     old_seasons_rope = create_rope(casa_rope, "seasons")
     old_case_x = caseunit_shop(old_seasons_rope)
     old_cases_x = {old_case_x.reason_state: old_case_x}

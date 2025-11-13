@@ -312,7 +312,7 @@ def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj():
 
 def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_PlanUnitsSorted():
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     root_rope = to_rope(x_moment_label)
     sports_str = "sports"
     sports_rope = create_rope(x_moment_label, sports_str)
@@ -346,7 +346,7 @@ def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_PlanUnitsSorted():
 def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_Rope_Sorted():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     sports_str = "sports"
     sports_rope = create_rope(x_moment_label, sports_str)
     knee_str = "knee"

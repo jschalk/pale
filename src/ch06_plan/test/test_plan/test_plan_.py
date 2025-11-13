@@ -279,7 +279,7 @@ def test_PlanUnit_set_knot_SetsAttr():
 def test_PlanUnit_get_obj_key_ReturnsObj():
     # ESTABLISH
     round_str = "round_stuff"
-    round_rope = create_rope("Amy23", round_str)
+    round_rope = create_rope(exx.a23, round_str)
     ball_str = "ball"
 
     # WHEN
@@ -292,7 +292,7 @@ def test_PlanUnit_get_obj_key_ReturnsObj():
 def test_PlanUnit_get_rope_ReturnsObj():
     # ESTABLISH
     round_str = "round_stuff"
-    round_rope = create_rope("Amy23", round_str, knot=exx.slash)
+    round_rope = create_rope(exx.a23, round_str, knot=exx.slash)
     ball_str = "ball"
 
     # WHEN
@@ -306,13 +306,13 @@ def test_PlanUnit_get_rope_ReturnsObj():
 def test_PlanUnit_set_parent_rope_SetsAttr():
     # ESTABLISH
     round_str = "round_stuff"
-    round_rope = create_rope("Amy23", round_str, knot=exx.slash)
+    round_rope = create_rope(exx.a23, round_str, knot=exx.slash)
     ball_str = "ball"
     ball_plan = planunit_shop(ball_str, parent_rope=round_rope, knot=exx.slash)
     assert ball_plan.parent_rope == round_rope
 
     # WHEN
-    sports_rope = create_rope("Amy23", "sports", knot=exx.slash)
+    sports_rope = create_rope(exx.a23, "sports", knot=exx.slash)
     ball_plan.set_parent_rope(parent_rope=sports_rope)
 
     # THEN

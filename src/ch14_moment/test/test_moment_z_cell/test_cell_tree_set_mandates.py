@@ -106,7 +106,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -143,7 +143,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -188,7 +188,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -251,7 +251,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -314,7 +314,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     tp5 = 5
 #     exx.bob = "Bob"
 
@@ -381,7 +381,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 # ):
 #     # ESTABLISH
 #     mstr_dir = get_temp_dir()
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     tp5 = 5
 #     exx.bob = "Bob"
 

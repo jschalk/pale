@@ -5,8 +5,6 @@ from src.ch18_world_etl.etl_config import (
     get_prime_columns,
     remove_inx_columns,
 )
-
-# TODO replace src.ch18_world_etl.etl_table with src.ch18_world_etl.etl_config
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.obj2db_belief import (
     create_blfawar_h_put_agg_insert_sqlstr,
@@ -27,7 +25,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -77,7 +75,7 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_active = 1
     x_all_voice_cred = 2
@@ -149,7 +147,7 @@ def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -189,7 +187,7 @@ def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -235,7 +233,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfawar_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_rope = 1
 #     x_awardee_title = 2
@@ -281,7 +279,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_fact_context = 2
@@ -325,7 +323,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfheal_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_rope = 1
 #     x_healer_name = 2
@@ -362,7 +360,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blflabo_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_rope = 1
 #     x_party_title = 2
@@ -404,7 +402,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfvoce_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_voice_name = 1
 #     x_voice_cred_lumen = 2
@@ -465,7 +463,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfmemb_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_voice_name = 1
 #     x_group_title = 2
@@ -522,7 +520,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfgrou_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_group_title = 1
 #     x_credor_pool = 2

@@ -182,7 +182,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #         kw.quota,
 #         kw.celldepth,
 #     ]
-#     exx.a23 = "Amy23"
+#     exx.a23 = exx.a23
 #     tp37 = 37
 #     sue_quota = 235
 #     sue_celldepth = 3
