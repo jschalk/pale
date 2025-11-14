@@ -820,7 +820,8 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ContextNumRelevantTables():
         assert get_row_count(cursor, blfcase_h_agg_table) == 0
 
         # WHEN
-        insert_h_agg_obj(cursor, sue_belief)
+        spark7 = 7
+        insert_h_agg_obj(cursor, sue_belief, spark7, face_name=exx.yao)
 
         # THEN
         assert get_row_count(cursor, blfunit_h_agg_table) == 1
@@ -828,6 +829,11 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ContextNumRelevantTables():
         assert get_row_count(cursor, blffact_h_agg_table) == 1
         assert get_row_count(cursor, blfreas_h_agg_table) == 1
         assert get_row_count(cursor, blfcase_h_agg_table) == 1
+        select_case_sqlstr = (
+            f"""SELECT spark_num, face_name, moment_label FROM {blfcase_h_agg_table};"""
+        )
+        cursor.execute(select_case_sqlstr)
+        assert cursor.fetchall() == [(spark7, exx.yao, exx.a23)]
 
 
 # def test_insert_h_agg_obj_CreatesTableRows_Scenario1_AllTables():

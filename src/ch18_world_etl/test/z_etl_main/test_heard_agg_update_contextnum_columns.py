@@ -1,10 +1,6 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch06_plan.test._util.ch06_examples import get_range_attrs
 from src.ch07_belief_logic.belief_tool import (
-    add_frame_to_beliefunit,
-    add_frame_to_caseunit,
-    add_frame_to_factunit,
-    add_frame_to_reasonunit,
     belief_plan_factunit_exists,
     belief_plan_factunit_get_obj,
     belief_plan_reason_caseunit_exists,
@@ -17,10 +13,7 @@ from src.ch13_epoch.epoch_main import (
     add_epoch_planunit,
     get_c400_constants,
 )
-from src.ch13_epoch.epoch_reason import (
-    add_epoch_frame_to_beliefunit,
-    set_epoch_cases_by_args_dict,
-)
+from src.ch13_epoch.epoch_reason import set_epoch_cases_by_args_dict
 from src.ch13_epoch.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
     get_bob_five_belief,
@@ -28,6 +21,13 @@ from src.ch13_epoch.test._util.ch13_examples import (
 )
 from src.ch15_nabu.nabu_config import get_nabu_config_dict
 from src.ch17_idea.idea_config import get_dimens_with_idea_element
+from src.ch18_world_etl.etl_contextnum import (
+    add_epoch_frame_to_db_beliefunit,
+    add_frame_to_db_beliefunit,
+    add_frame_to_db_caseunit,
+    add_frame_to_db_factunit,
+    add_frame_to_db_reasonunit,
+)
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
@@ -52,11 +52,12 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 # update semantic_type: ContextNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario0_NoWrap_dayly():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario0_NoWrap_dayly():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     spark7 = 7
 #     bob_belief = get_bob_five_belief()
+#     print(f"{bob_belief.moment_label=}")
 #     mop_dayly_args = {
 #         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.day_rope,
@@ -70,28 +71,41 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     with sqlite3_connect(":memory:") as db_conn:
 #         cursor = db_conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         insert_h_agg_obj(cursor, bob_belief)
-#         day_case_tuple = select_blfcase(
-#             cursor, spark7, exx.a23, exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
+#         insert_h_agg_obj(cursor, bob_belief, spark7, exx.yao)
+#         blfcase_objs = select_blfcase(
+#             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
 #         )
+#         print(f"{blfcase_objs=}")
+#         assert blfcase_objs
 #         x_epoch_frame_min = 100
-#         print(f"{day_case_tuple=}")
-#         assert day_case_tuple[3] == 600
-#         assert day_case_tuple[4] == 690
+#         blfcase_obj0 = blfcase_objs[0]
+#         assert blfcase_obj0.reason_lower_otx == 600
+#         assert not blfcase_obj0.reason_lower_inx
+#         assert blfcase_obj0.reason_upper_otx == 690
+#         assert not blfcase_obj0.reason_upper_inx
 
-#     # WHEN
-#     add_frame_to_caseunit(
-#         day_case, x_epoch_frame_min, day_plan.close, day_plan.denom, day_plan.morph
-#     )
+#         # WHEN
+#         add_frame_to_db_caseunit(
+#             cursor,
+#             blfcase_obj0,
+#             x_epoch_frame_min,
+#             day_plan.close,
+#             day_plan.denom,
+#             day_plan.morph,
+#         )
 
-#     # THEN
-#     assert day_case.reason_lower != 600
-#     assert day_case.reason_upper != 690
-#     assert day_case.reason_lower == 600 + 100
-#     assert day_case.reason_upper == 690 + 100
+#         # THEN
+#         after_blfcase_obj0 = select_blfcase(
+#             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
+#         )[0]
+#         assert after_blfcase_obj0.reason_lower_otx == 600
+#         assert after_blfcase_obj0.reason_lower_inx == 600 + 100
+#         assert after_blfcase_obj0.reason_upper_otx == 690
+#         assert after_blfcase_obj0.reason_upper_inx == 690 + 100
+#     assert 1 == 2
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario1_Wrap_dayly():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario1_Wrap_dayly():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     mop_dayly_args = {
@@ -111,7 +125,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert day_case.reason_upper == 690
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         day_case, x_epoch_frame_min, day_plan.close, day_plan.denom, day_plan.morph
 #     )
 
@@ -122,7 +136,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert day_case.reason_upper == (690 + x_epoch_frame_min) % day_case.reason_divisor
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario3_adds_epoch_frame_NoWarp_xdays():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario3_adds_epoch_frame_NoWarp_xdays():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     mop_days_lower_day = 3
@@ -146,7 +160,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert days_case.reason_upper == mop_days_upper_day
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         days_case, x_epoch_frame_min, days_plan.close, days_plan.denom, days_plan.morph
 #     )
 
@@ -157,7 +171,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert days_case.reason_upper == mop_days_upper_day + 3
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario4_adds_epoch_frame_Wrap_xdays():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario4_adds_epoch_frame_Wrap_xdays():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     mop_days_lower_day = 3
@@ -181,7 +195,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert days_case.reason_upper == mop_days_upper_day
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         days_case, x_epoch_frame_min, days_plan.close, days_plan.denom, days_plan.morph
 #     )
 
@@ -196,7 +210,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert days_case.reason_upper == ex_upper
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario5_adds_epoch_frame_NoWrap_weekly():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario5_adds_epoch_frame_NoWrap_weekly():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     mop_weekly_args = {
@@ -216,7 +230,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert week_case.reason_upper == 690
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         week_case, x_epoch_frame_min, week_plan.close, week_plan.denom, week_plan.morph
 #     )
 
@@ -227,7 +241,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert week_case.reason_upper == 690 + 100
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario6_adds_epoch_frame_Wrap_weekly():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario6_adds_epoch_frame_Wrap_weekly():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     mop_weekly_args = {
@@ -247,7 +261,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert week_case.reason_upper == 690
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         week_case, x_epoch_frame_min, week_plan.close, week_plan.denom, week_plan.morph
 #     )
 
@@ -262,7 +276,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     )
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario7_adds_epoch_frame_NoWrap_xweeks():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario7_adds_epoch_frame_NoWrap_xweeks():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     mop_weeks_lower_week = 3
@@ -286,7 +300,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert xweeks_case.reason_upper == mop_weeks_upper_week
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         xweeks_case,
 #         x_epoch_frame_min,
 #         weeks_plan.close,
@@ -301,7 +315,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert xweeks_case.reason_upper == mop_weeks_upper_week + 3
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario8_adds_epoch_frame_Wraps_every_xweeks():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario8_adds_epoch_frame_Wraps_every_xweeks():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     mop_weeks_lower_week = 3
@@ -325,7 +339,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert xweeks_case.reason_upper == mop_weeks_upper_week
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         xweeks_case,
 #         x_epoch_frame_min,
 #         weeks_plan.close,
@@ -344,7 +358,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert xweeks_case.reason_upper == ex_upper
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario9_adds_epoch_frame_NoWrap_monthday():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario9_adds_epoch_frame_NoWrap_monthday():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     geo_rope = bob_belief.make_rope(wx.five_year_rope, wx.Geo)
@@ -370,7 +384,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert monthday_case.reason_upper == geo_8_EpochTime
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         monthday_case,
 #         x_epoch_frame_min,
 #         year_plan.close,
@@ -385,7 +399,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert monthday_case.reason_upper == geo_8_EpochTime + x_epoch_frame_min
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario10_adds_epoch_frame_Wraps_monthday():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario10_adds_epoch_frame_Wraps_monthday():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     geo_rope = bob_belief.make_rope(wx.five_year_rope, wx.Geo)
@@ -409,7 +423,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert monthday_case.reason_upper == geo_8_EpochTime
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         monthday_case,
 #         x_epoch_frame_min,
 #         year_plan.close,
@@ -426,7 +440,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert monthday_case.reason_upper == (geo_8_EpochTime + x_epoch_frame_min) % 525600
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario11_adds_epoch_frame_NoWrap_monthly():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario11_adds_epoch_frame_NoWrap_monthly():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     geo_rope = bob_belief.make_rope(wx.five_year_rope, wx.Geo)
@@ -455,7 +469,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert geo_case.reason_upper == geo_8_EpochTime
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         geo_case, x_epoch_frame_min, year_plan.close, year_plan.denom, year_plan.morph
 #     )
 
@@ -466,7 +480,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert geo_case.reason_upper == geo_8_EpochTime + x_epoch_frame_min
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario12_adds_epoch_frame_Wraps_monthly():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario12_adds_epoch_frame_Wraps_monthly():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     geo_rope = bob_belief.make_rope(wx.five_year_rope, wx.Geo)
@@ -493,7 +507,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert geo_case.reason_upper == geo_8_EpochTime
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         geo_case, x_epoch_frame_min, year_plan.close, year_plan.denom, year_plan.morph
 #     )
 
@@ -506,7 +520,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert geo_case.reason_upper == (geo_8_EpochTime + x_epoch_frame_min) % 525600
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario13_adds_epoch_frame_NoWrap_range():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario13_adds_epoch_frame_NoWrap_range():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     x_range_lower_min = 7777
@@ -532,7 +546,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert epoch_case.reason_upper == x_range_upper_min
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         epoch_case,
 #         x_epoch_frame_min,
 #         epoch_plan.close,
@@ -547,7 +561,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert epoch_case.reason_upper == x_range_upper_min + x_epoch_frame_min
 
 
-# def test_add_frame_to_caseunit_SetsAttr_Scenario14_adds_epoch_frame_Wraps_range():
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario14_adds_epoch_frame_Wraps_range():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     x_range_lower_min = 7777
@@ -573,7 +587,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert epoch_case.reason_upper == x_range_upper_min
 
 #     # WHEN
-#     add_frame_to_caseunit(
+#     add_frame_to_db_caseunit(
 #         epoch_case,
 #         x_epoch_frame_min,
 #         epoch_plan.close,
@@ -593,7 +607,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert epoch_case.reason_upper == expected_upper
 
 
-# def test_add_frame_to_reasonunit_SetsAttr_Scenario0_AllCaseUnitsAre_epoch():
+# def test_add_frame_to_db_reasonunit_SetsAttr_Scenario0_AllCaseUnitsAre_epoch():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     x_range_lower_min = 7777
@@ -621,7 +635,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert epoch_case.reason_upper == x_range_upper_min
 
 #     # WHEN
-#     add_frame_to_reasonunit(
+#     add_frame_to_db_reasonunit(
 #         five_reason,
 #         x_epoch_frame_min,
 #         epoch_plan.close,
@@ -638,7 +652,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert epoch_case.reason_upper == expected_upper
 
 
-# def test_add_frame_to_factunit_SetsAttr_epoch_Scenario0_NoWrap():
+# def test_add_frame_to_db_factunit_SetsAttr_epoch_Scenario0_NoWrap():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     x_lower_min = 7777
@@ -658,7 +672,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_five_fact.fact_upper == x_upper_min
 
 #     # WHEN
-#     add_frame_to_factunit(root_five_fact, x_epoch_frame_min, epoch_plan.close)
+#     add_frame_to_db_factunit(root_five_fact, x_epoch_frame_min, epoch_plan.close)
 
 #     # THEN
 #     assert root_five_fact.fact_lower != x_lower_min
@@ -669,7 +683,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_five_fact.fact_upper == expected_upper
 
 
-# def test_add_frame_to_factunit_SetsAttr_epoch_Scenario1_Wrap():
+# def test_add_frame_to_db_factunit_SetsAttr_epoch_Scenario1_Wrap():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     x_lower_min = 7777
@@ -689,7 +703,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_five_fact.fact_upper == x_upper_min
 
 #     # WHEN
-#     add_frame_to_factunit(root_five_fact, x_epoch_frame_min, epoch_plan.close)
+#     add_frame_to_db_factunit(root_five_fact, x_epoch_frame_min, epoch_plan.close)
 
 #     # THEN
 #     assert root_five_fact.fact_lower != x_lower_min
@@ -700,7 +714,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_five_fact.fact_upper == expected_upper
 
 
-# def test_add_frame_to_beliefunit_SetsAttrs_Scenario0_OnlyEpochFactsAndReasons():
+# def test_add_frame_to_db_beliefunit_SetsAttrs_Scenario0_OnlyEpochFactsAndReasons():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     x_range_lower_min = 7777
@@ -739,7 +753,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_five_fact.fact_upper == x_upper_min
 
 #     # WHEN
-#     add_frame_to_beliefunit(bob_belief, x_epoch_frame_min)
+#     add_frame_to_db_beliefunit(bob_belief, x_epoch_frame_min)
 
 #     # THEN
 #     assert epoch_case.reason_lower != x_range_lower_min
@@ -748,7 +762,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_five_fact.fact_upper != x_upper_min
 
 
-# def test_add_frame_to_beliefunit_SetsAttrs_Scenario1_FilterFactsAndReasonsEdited():
+# def test_add_frame_to_db_beliefunit_SetsAttrs_Scenario1_FilterFactsAndReasonsEdited():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     add_epoch_planunit(bob_belief, get_lizzy9_config())
@@ -801,7 +815,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_lizzy9_fact.fact_lower == x_lower_min
 
 #     # WHEN
-#     add_frame_to_beliefunit(
+#     add_frame_to_db_beliefunit(
 #         bob_belief, x_epoch_frame_min, required_context_subrope=wx.five_rope
 #     )
 
@@ -812,7 +826,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_five_fact.fact_lower != x_lower_min
 
 
-# def test_add_frame_to_beliefunit_SetsAttrs_Scenario2_IgnoreNonRangeReasonsFacts():
+# def test_add_frame_to_db_beliefunit_SetsAttrs_Scenario2_IgnoreNonRangeReasonsFacts():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     bob_belief.add_plan(wx.clean_rope)
@@ -868,7 +882,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_clean_fact.fact_upper is None
 
 #     # WHEN
-#     add_frame_to_beliefunit(bob_belief, x_epoch_frame_min)
+#     add_frame_to_db_beliefunit(bob_belief, x_epoch_frame_min)
 
 #     # THEN
 #     assert five_case.reason_lower != x_range_lower_min
@@ -881,7 +895,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_clean_fact.fact_upper is None
 
 
-# def test_add_epoch_frame_to_beliefunit_SetsAttrs_Scenario0_IgnoreNonRangeReasonsFacts():
+# def test_add_epoch_frame_to_db_beliefunit_SetsAttrs_Scenario0_IgnoreNonRangeReasonsFacts():
 #     # ESTABLISH
 #     bob_belief = get_bob_five_belief()
 #     bob_belief.add_plan(wx.clean_rope)
@@ -937,7 +951,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #     assert root_clean_fact.fact_upper is None
 
 #     # WHEN
-#     add_epoch_frame_to_beliefunit(
+#     add_epoch_frame_to_db_beliefunit(
 #         x_belief=bob_belief, epoch_label=wx.five_str, epoch_frame_min=x_epoch_frame_min
 #     )
 

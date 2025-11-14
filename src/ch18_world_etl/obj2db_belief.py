@@ -1198,10 +1198,18 @@ def insert_h_agg_blfunit(
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
+def insert_h_agg_obj(
+    cursor: sqlite3_Cursor,
+    job_belief: BeliefUnit,
+    spark_num: SparkInt,
+    face_name: FaceName,
+):
     job_belief.cashout()
     x_objkeysholder = ObjKeysHolder(
-        moment_label=job_belief.moment_label, belief_name=job_belief.belief_name
+        spark_num=spark_num,
+        face_name=face_name,
+        moment_label=job_belief.moment_label,
+        belief_name=job_belief.belief_name,
     )
     insert_h_agg_blfunit(cursor, x_objkeysholder, job_belief)
     for x_plan in job_belief.get_plan_dict().values():

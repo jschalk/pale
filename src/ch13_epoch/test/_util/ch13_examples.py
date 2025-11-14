@@ -15,7 +15,7 @@ from src.ch13_epoch.epoch_main import (
 )
 from src.ref.keywords import Ch13Keywords as kw
 
-BOB_STR = "BOB"
+BOB_STR = "Bob"
 CASA_STR = "casa"
 CLEAN_STR = "clean"
 DIRTYNESS_STR = "dirtyness"

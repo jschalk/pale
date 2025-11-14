@@ -847,12 +847,13 @@ class PlanUnit:
     def _set_range_inheritor_factheir(
         self, all_plans: list, rangeroot_rope: RopeTerm, fact_context: RopeTerm
     ):
-        new_factheir_obj = create_range_inheritor_factheir(
-            rangeroot_factheir=self.factheirs.get(rangeroot_rope),
-            all_plans=all_plans,
-            fact_context=fact_context,
-        )
-        self._set_factheir(new_factheir_obj)
+        if rangeroot_factheir := self.factheirs.get(rangeroot_rope):
+            new_factheir_obj = create_range_inheritor_factheir(
+                rangeroot_factheir=rangeroot_factheir,
+                all_plans=all_plans,
+                fact_context=fact_context,
+            )
+            self._set_factheir(new_factheir_obj)
 
     def all_reasonheirs_are_active(self) -> bool:
         x_reasonheirs = self.reasonheirs.values()
