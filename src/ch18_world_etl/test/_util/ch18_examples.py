@@ -12,7 +12,7 @@ from src.ch17_idea.idea_config import (
 )
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     BeliefName,
-    ContextNum,
+    CotoNum,
     EpochTime,
     FaceName,
     MomentLabel,
@@ -144,8 +144,8 @@ def insert_blfcase_special_h_agg(
     x_plan_rope: RopeTerm,
     x_reason_context: RopeTerm,
     x_reason_state: RopeTerm,
-    x_reason_lower: ContextNum,
-    x_reason_upper: ContextNum,
+    x_reason_lower: CotoNum,
+    x_reason_upper: CotoNum,
 ) -> list[tuple]:
     blfcase_tbl = prime_tbl(kw.belief_plan_reason_caseunit, "h", "agg", "put")
     values_dict = {
@@ -237,8 +237,8 @@ def insert_blffact_special_h_agg(
     x_plan_rope: RopeTerm,
     x_fact_context: RopeTerm,
     x_fact_state: RopeTerm,
-    x_fact_upper: ContextNum,
-    x_fact_lower: ContextNum,
+    x_fact_upper: CotoNum,
+    x_fact_lower: CotoNum,
 ) -> list[tuple]:
     pass
 

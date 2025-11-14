@@ -4,7 +4,7 @@
   "BeliefName": {"init_chapter": "ch07", "semantic_type": "str"}, 
   "CRUD_command": {"init_chapter": "ch08", "semantic_type": "str"}, 
   "Chiday": {"init_chapter": "ch13"}, 
-  "ContextNum": {"init_chapter": "ch04", "semantic_type": "float"}, 
+  "CotoNum": {"init_chapter": "ch04", "semantic_type": "float"}, 
   "DELETE": {"init_chapter": "ch08"}, 
   "Danceday": {"init_chapter": "ch13"}, 
   "Eastday": {"init_chapter": "ch13"}, 

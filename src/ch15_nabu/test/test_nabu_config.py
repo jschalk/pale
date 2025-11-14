@@ -56,16 +56,16 @@ def _validate_nabu_config(nabu_config: dict):
                     EpochTime_args = EpochTime_dict.get("nabuable_values")
                     expected_EpochTime_args = {kw.tran_time, kw.offi_time, kw.bud_time}
                     assert set(EpochTime_args.keys()) == expected_EpochTime_args
-                if kw.ContextNum in set(attrs_dict.keys()):
-                    ContextNum_dict = attrs_dict.get(kw.ContextNum)
-                    ContextNum_args = ContextNum_dict.get("nabuable_values")
-                    expected_ContextNum_args = {
+                if kw.CotoNum in set(attrs_dict.keys()):
+                    CotoNum_dict = attrs_dict.get(kw.CotoNum)
+                    CotoNum_args = CotoNum_dict.get("nabuable_values")
+                    expected_CotoNum_args = {
                         kw.reason_lower,
                         kw.reason_upper,
                         kw.fact_lower,
                         kw.fact_upper,
                     }
-                    assert set(ContextNum_args.keys()) == expected_ContextNum_args
+                    assert set(CotoNum_args.keys()) == expected_CotoNum_args
             # print(f"{x_dimen=} {attrs_dict=}")
 
 

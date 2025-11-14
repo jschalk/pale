@@ -9,7 +9,7 @@ from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch07_belief_logic.belief_tool import belief_attr_exists, belief_get_obj
 from src.ch08_belief_atom._ref.ch08_semantic_types import (
-    ContextNum,
+    CotoNum,
     LabelTerm,
     RopeTerm,
     TitleTerm,
@@ -613,8 +613,8 @@ class AtomRow:
     denom: int = None
     reason_divisor: int = None
     fact_context: RopeTerm = None
-    fact_upper: ContextNum = None
-    fact_lower: ContextNum = None
+    fact_upper: CotoNum = None
+    fact_lower: CotoNum = None
     fund_grain: float = None
     fund_pool: float = None
     give_force: float = None
@@ -625,9 +625,9 @@ class AtomRow:
     max_tree_traverse: int = None
     morph: bool = None
     reason_state: RopeTerm = None
-    reason_upper: ContextNum = None
+    reason_upper: CotoNum = None
     numor: int = None
-    reason_lower: ContextNum = None
+    reason_lower: CotoNum = None
     mana_grain: float = None
     fact_state: RopeTerm = None
     pledge: bool = None

@@ -13,7 +13,7 @@ from src.ch17_idea.idea_config import (
 )
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     BeliefName,
-    ContextNum,
+    CotoNum,
     EpochTime,
     FaceName,
     MomentLabel,

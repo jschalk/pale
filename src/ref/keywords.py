@@ -124,7 +124,7 @@ class Ch03Keywords(str, Enum):
 
 
 class Ch04Keywords(str, Enum):
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -195,7 +195,7 @@ class Ch04Keywords(str, Enum):
 
 
 class Ch05Keywords(str, Enum):
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -285,7 +285,7 @@ class Ch05Keywords(str, Enum):
 
 
 class Ch06Keywords(str, Enum):
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -416,7 +416,7 @@ class Ch06Keywords(str, Enum):
 
 class Ch07Keywords(str, Enum):
     BeliefName = "BeliefName"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -585,7 +585,7 @@ class Ch07Keywords(str, Enum):
 class Ch08Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -763,7 +763,7 @@ class Ch08Keywords(str, Enum):
 class Ch09Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     FaceName = "FaceName"
     FirstLabel = "FirstLabel"
@@ -948,7 +948,7 @@ class Ch09Keywords(str, Enum):
 class Ch10Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     FaceName = "FaceName"
     FirstLabel = "FirstLabel"
@@ -1134,7 +1134,7 @@ class Ch10Keywords(str, Enum):
 class Ch11Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Epoch = "Epoch"
     EpochTime = "EpochTime"
@@ -1340,7 +1340,7 @@ class Ch11Keywords(str, Enum):
 class Ch12Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Epoch = "Epoch"
     EpochTime = "EpochTime"
@@ -1579,7 +1579,7 @@ class Ch13Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -1870,7 +1870,7 @@ class Ch14Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -2179,7 +2179,7 @@ class Ch15Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -2499,7 +2499,7 @@ class Ch16Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -2842,7 +2842,7 @@ class Ch17Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -3205,7 +3205,7 @@ class Ch18Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -3581,7 +3581,7 @@ class Ch19Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -3961,7 +3961,7 @@ class Ch20Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -4343,7 +4343,7 @@ class Ch21Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -4729,7 +4729,7 @@ class Ch22Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -5117,7 +5117,7 @@ class Ch24Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
@@ -5507,7 +5507,7 @@ class Ch98Keywords(str, Enum):
     BeliefName = "BeliefName"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
-    ContextNum = "ContextNum"
+    CotoNum = "CotoNum"
     DELETE = "DELETE"
     Danceday = "Danceday"
     Eastday = "Eastday"
