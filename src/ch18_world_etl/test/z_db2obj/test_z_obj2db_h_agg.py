@@ -781,7 +781,7 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
 #         assert rows == expected_data
 
 
-def test_insert_h_agg_obj_CreatesTableRows_Scenario0_CaseNumRelevantTables():
+def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
     # sourcery skip: extract-method
     # ESTABLISH
     sue_belief = beliefunit_shop(exx.sue, exx.a23)

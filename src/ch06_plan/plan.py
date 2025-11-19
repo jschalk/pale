@@ -49,12 +49,12 @@ from src.ch05_reason.reason_main import (
     reasonunit_shop,
 )
 from src.ch06_plan._ref.ch06_semantic_types import (
-    CaseNum,
     FundGrain,
     FundNum,
     GroupTitle,
     KnotTerm,
     LabelTerm,
+    ReasonNum,
     RopeTerm,
     VoiceName,
     default_knot_if_None,
@@ -86,8 +86,8 @@ class PlanAttrHolder:
     reason: ReasonUnit = None
     reason_context: RopeTerm = None
     reason_case: RopeTerm = None
-    reason_lower: CaseNum = None
-    reason_upper: CaseNum = None
+    reason_lower: ReasonNum = None
+    reason_upper: ReasonNum = None
     reason_divisor: int = None
     reason_del_case_reason_context: RopeTerm = None
     reason_del_case_reason_state: RopeTerm = None
@@ -130,8 +130,8 @@ def planattrholder_shop(
     reason: ReasonUnit = None,
     reason_context: RopeTerm = None,
     reason_case: RopeTerm = None,
-    reason_lower: CaseNum = None,
-    reason_upper: CaseNum = None,
+    reason_lower: ReasonNum = None,
+    reason_upper: ReasonNum = None,
     reason_divisor: int = None,
     reason_del_case_reason_context: RopeTerm = None,
     reason_del_case_reason_state: RopeTerm = None,
@@ -712,8 +712,8 @@ class PlanUnit:
         self,
         reason_context: RopeTerm,
         case: RopeTerm,
-        reason_lower: CaseNum,
-        reason_upper: CaseNum,
+        reason_lower: ReasonNum,
+        reason_upper: ReasonNum,
         reason_divisor: int,
     ):
         x_reasonunit = self._get_or_create_reasonunit(reason_context=reason_context)

@@ -197,12 +197,12 @@
         "sqlite_datatype": "INTEGER"
       }, 
       "reason_lower": {
-        "class_type": "CaseNum", 
+        "class_type": "ReasonNum", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "REAL"
       }, 
       "reason_upper": {
-        "class_type": "CaseNum", 
+        "class_type": "ReasonNum", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "REAL"
       }, 

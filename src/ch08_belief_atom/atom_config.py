@@ -54,7 +54,7 @@ def get_allowed_class_types() -> set[str]:
         "int",
         "LabelTerm",
         "RopeTerm",
-        "CaseNum",
+        "ReasonNum",
         "FactNum",
     }
 
@@ -88,9 +88,9 @@ def get_atom_args_class_types() -> dict[str, str]:
         "max_tree_traverse": "int",
         "morph": "bool",
         "reason_state": "RopeTerm",
-        "reason_upper": "CaseNum",
+        "reason_upper": "ReasonNum",
         "numor": "int",
-        "reason_lower": "CaseNum",
+        "reason_lower": "ReasonNum",
         "mana_grain": "float",
         "fact_state": "RopeTerm",
         "pledge": "bool",

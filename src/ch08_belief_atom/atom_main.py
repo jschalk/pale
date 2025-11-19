@@ -9,9 +9,9 @@ from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch07_belief_logic.belief_tool import belief_attr_exists, belief_get_obj
 from src.ch08_belief_atom._ref.ch08_semantic_types import (
-    CaseNum,
     FactNum,
     LabelTerm,
+    ReasonNum,
     RopeTerm,
     TitleTerm,
     VoiceName,
@@ -626,9 +626,9 @@ class AtomRow:
     max_tree_traverse: int = None
     morph: bool = None
     reason_state: RopeTerm = None
-    reason_upper: CaseNum = None
+    reason_upper: ReasonNum = None
     numor: int = None
-    reason_lower: CaseNum = None
+    reason_lower: ReasonNum = None
     mana_grain: float = None
     fact_state: RopeTerm = None
     pledge: bool = None

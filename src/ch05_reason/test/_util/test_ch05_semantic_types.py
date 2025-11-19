@@ -1,17 +1,17 @@
 from inspect import getdoc as inspect_getdoc
-from src.ch05_reason._ref.ch05_semantic_types import CaseNum, FactNum
+from src.ch05_reason._ref.ch05_semantic_types import FactNum, ReasonNum
 from src.ref.keywords import Ch05Keywords as kw
 
 
-def test_CaseNum_Exists():
+def test_ReasonNum_Exists():
     # ESTABLISH
     four_int = 4
     # WHEN
-    four_casenum = CaseNum(four_int)
+    four_reasonnum = ReasonNum(four_int)
     # THEN
-    assert four_int == four_casenum
+    assert four_int == four_reasonnum
     doc_str = """A numeric value that may converted to other Semantic Types by an external process driven by context."""
-    assert inspect_getdoc(four_casenum) == doc_str
+    assert inspect_getdoc(four_reasonnum) == doc_str
 
 
 def test_FactNum_Exists():

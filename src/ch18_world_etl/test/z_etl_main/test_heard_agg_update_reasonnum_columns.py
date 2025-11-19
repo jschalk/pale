@@ -49,8 +49,8 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 # TODO create function that updates all nabuable otx fields.
 # identify the change
-# update semantic_type: CaseNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: CaseNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
+# update semantic_type: ReasonNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
+# update semantic_type: ReasonNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
 
 
 def test_get_add_frame_to_db_caseunit_sqlstr_ReturnsObj():

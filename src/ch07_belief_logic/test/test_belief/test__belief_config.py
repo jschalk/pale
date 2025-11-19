@@ -522,11 +522,11 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blfcase, jv, kw.reason_divisor) == "INTEGER"
     assert g_popcashout(cfig, blfcase, jv, kw.reason_divisor) == False
 
-    assert g_class_type(cfig, blfcase, jv, kw.reason_upper) == kw.CaseNum
+    assert g_class_type(cfig, blfcase, jv, kw.reason_upper) == kw.ReasonNum
     assert g_sqlitetype(cfig, blfcase, jv, kw.reason_upper) == "REAL"
     assert g_popcashout(cfig, blfcase, jv, kw.reason_upper) == False
 
-    assert g_class_type(cfig, blfcase, jv, kw.reason_lower) == kw.CaseNum
+    assert g_class_type(cfig, blfcase, jv, kw.reason_lower) == kw.ReasonNum
     assert g_sqlitetype(cfig, blfcase, jv, kw.reason_lower) == "REAL"
     assert g_popcashout(cfig, blfcase, jv, kw.reason_lower) == False
 
@@ -837,8 +837,8 @@ def test_get_belief_calc_args_type_dict_ReturnsObj():
     assert belief_calc_args_type_dict.get(kw.reason_active) == "int"
     assert belief_calc_args_type_dict.get(kw.task) == "int"
     assert belief_calc_args_type_dict.get(kw.reason_divisor) == "int"
-    assert belief_calc_args_type_dict.get(kw.reason_upper) == kw.CaseNum
-    assert belief_calc_args_type_dict.get(kw.reason_lower) == kw.CaseNum
+    assert belief_calc_args_type_dict.get(kw.reason_upper) == kw.ReasonNum
+    assert belief_calc_args_type_dict.get(kw.reason_lower) == kw.ReasonNum
     assert belief_calc_args_type_dict.get(kw.parent_heir_active) == "int"
     assert belief_calc_args_type_dict.get(kw.active_requisite) == "bool"
     assert belief_calc_args_type_dict.get(kw.party_title) == kw.TitleTerm

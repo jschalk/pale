@@ -43,7 +43,6 @@ from src.ch06_plan.plan import (
 )
 from src.ch07_belief_logic._ref.ch07_semantic_types import (
     BeliefName,
-    CaseNum,
     FactNum,
     FundGrain,
     FundNum,
@@ -53,6 +52,7 @@ from src.ch07_belief_logic._ref.ch07_semantic_types import (
     LabelTerm,
     ManaGrain,
     MomentLabel,
+    ReasonNum,
     RespectGrain,
     RespectNum,
     RopeTerm,
@@ -751,8 +751,8 @@ class BeliefUnit:
         plan_rope: RopeTerm,
         reason_context: RopeTerm = None,
         reason_case: RopeTerm = None,
-        reason_lower: CaseNum = None,
-        reason_upper: CaseNum = None,
+        reason_lower: ReasonNum = None,
+        reason_upper: ReasonNum = None,
         reason_divisor: int = None,
     ):
         self.edit_plan_attr(
@@ -772,8 +772,8 @@ class BeliefUnit:
         reason: ReasonUnit = None,
         reason_context: RopeTerm = None,
         reason_case: RopeTerm = None,
-        reason_lower: CaseNum = None,
-        reason_upper: CaseNum = None,
+        reason_lower: ReasonNum = None,
+        reason_upper: ReasonNum = None,
         reason_divisor: int = None,
         reason_del_case_reason_context: RopeTerm = None,
         reason_del_case_reason_state: RopeTerm = None,

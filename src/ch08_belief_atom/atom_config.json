@@ -121,8 +121,8 @@
     }, 
     "jvalues": {
       "reason_divisor": { "class_type": "int"       , "column_order": 5, "sqlite_datatype": "INTEGER" }, 
-      "reason_lower"  : { "class_type": "CaseNum", "column_order": 3, "sqlite_datatype": "REAL"    }, 
-      "reason_upper"  : { "class_type": "CaseNum", "column_order": 4, "sqlite_datatype": "REAL"    }
+      "reason_lower"  : { "class_type": "ReasonNum", "column_order": 3, "sqlite_datatype": "REAL"    }, 
+      "reason_upper"  : { "class_type": "ReasonNum", "column_order": 4, "sqlite_datatype": "REAL"    }
     }, 
     "normal_specs": {"normal_table_name": "case"}
   }, 

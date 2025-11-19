@@ -56,11 +56,11 @@ def _validate_nabu_config(nabu_config: dict):
                     EpochTime_args = EpochTime_dict.get("nabuable_values")
                     expected_EpochTime_args = {kw.tran_time, kw.offi_time, kw.bud_time}
                     assert set(EpochTime_args.keys()) == expected_EpochTime_args
-                if kw.CaseNum in set(attrs_dict.keys()):
-                    CaseNum_dict = attrs_dict.get(kw.CaseNum)
-                    CaseNum_args = CaseNum_dict.get("nabuable_values")
-                    expected_CaseNum_args = {kw.reason_lower, kw.reason_upper}
-                    assert set(CaseNum_args.keys()) == expected_CaseNum_args
+                if kw.ReasonNum in set(attrs_dict.keys()):
+                    ReasonNum_dict = attrs_dict.get(kw.ReasonNum)
+                    ReasonNum_args = ReasonNum_dict.get("nabuable_values")
+                    expected_ReasonNum_args = {kw.reason_lower, kw.reason_upper}
+                    assert set(ReasonNum_args.keys()) == expected_ReasonNum_args
                 if kw.FactNum in set(attrs_dict.keys()):
                     FactNum_dict = attrs_dict.get(kw.FactNum)
                     FactNum_args = FactNum_dict.get("nabuable_values")

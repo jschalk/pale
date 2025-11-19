@@ -147,7 +147,7 @@ class WorldUnit:
         etl_sound_vld_tables_to_heard_raw_tables(cursor)
         # heard raw to moment/belief jsons
         etl_heard_raw_tables_to_heard_agg_tables(cursor)
-        # TODO add step to convert EpochTime and CaseNum in heard_agg_tables, use rules defined in Nabu chapter
+        # TODO add step to convert EpochTime and ReasonNum in heard_agg_tables, use rules defined in Nabu chapter
         # TODO change "etl_heard_raw_tables_to_heard_vld_tables" to "etl_heard_agg_tables_to_heard_vld_tables"
         etl_heard_raw_tables_to_heard_vld_tables(cursor)
         # etl_heard_vld_nabu_updates

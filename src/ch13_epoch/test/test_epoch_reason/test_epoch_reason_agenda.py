@@ -1,6 +1,6 @@
 from src.ch06_plan.test._util.ch06_examples import get_range_attrs
 from src.ch07_belief_logic.belief_main import BeliefUnit, PlanUnit, RopeTerm
-from src.ch13_epoch._ref.ch13_semantic_types import CaseNum, FactNum
+from src.ch13_epoch._ref.ch13_semantic_types import FactNum, ReasonNum
 from src.ch13_epoch.epoch_reason import (
     set_epoch_base_case_dayly,
     set_epoch_cases_for_monthly,
