@@ -21,7 +21,7 @@ from src.ch13_epoch.test._util.ch13_examples import (
 )
 from src.ch15_nabu.nabu_config import get_nabu_config_dict
 from src.ch17_idea.idea_config import get_dimens_with_idea_element
-from src.ch18_world_etl.etl_cotonum import (
+from src.ch18_world_etl.etl_nabu import (
     add_epoch_frame_to_db_beliefunit,
     add_frame_to_db_beliefunit,
     add_frame_to_db_caseunit,
@@ -49,8 +49,8 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 # TODO create function that updates all nabuable otx fields.
 # identify the change
-# update semantic_type: CotoNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: CotoNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
+# update semantic_type: CaseNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
+# update semantic_type: CaseNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
 
 
 def test_get_add_frame_to_db_caseunit_sqlstr_ReturnsObj():

@@ -32,8 +32,8 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 # TODO create function that updates all nabuable otx fields.
 # identify the change
 #
-# update semantic_type: CotoNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: CotoNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
+# update semantic_type: CaseNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
+# update semantic_type: CaseNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
 # update semantic_type: EpochTime moment_paybook_h_agg tran_time
 # update semantic_type: EpochTime moment_budunit_h_agg bud_time
 # update semantic_type: EpochTime moment_timeh_agg time
@@ -327,8 +327,8 @@ FROM {blfcase_h_agg}
 #     x_plan_rope: RopeTerm,
 #     x_reason_context: RopeTerm,
 #     x_reason_state: RopeTerm,
-#     x_reason_lower: CotoNum,
-#     x_reason_upper: CotoNum,
+#     x_reason_lower: CaseNum,
+#     x_reason_upper: CaseNum,
 # ) -> list[tuple]:
 #     pass
 
@@ -353,8 +353,8 @@ FROM {blfcase_h_agg}
 #     x_plan_rope: RopeTerm,
 #     x_fact_context: RopeTerm,
 #     x_fact_state: RopeTerm,
-#     x_fact_upper: CotoNum,
-#     x_fact_lower: CotoNum,
+#     x_fact_upper: FactNum,
+#     x_fact_lower: FactNum,
 # ) -> list[tuple]:
 #     pass
 

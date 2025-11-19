@@ -20,7 +20,13 @@ from src.ch04_rope._ref.ch04_semantic_types import (
 )
 
 
-class CotoNum(float):
+class CaseNum(float):
+    """A numeric value that may converted to other Semantic Types by an external process driven by context."""
+
+    pass
+
+
+class FactNum(float):
     """A numeric value that may converted to other Semantic Types by an external process driven by context."""
 
     pass
