@@ -38,8 +38,8 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_beliefunit_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    # TODO replace all "Amy23" references in tests to exx.a23
-    x_moment_label = "Amy23"
+    # TODO replace all exx.a23 references in tests to exx.a23
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -97,7 +97,7 @@ def test_insert_h_agg_blfplan_CreatesTableRowsFor_blfplan_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = 2
     casa_rope = create_rope(x_moment_label, "casa")
     x_parent_rope = casa_rope
@@ -240,15 +240,15 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
     x_rope = 3
     x_reason_context = 4
     x_reason_state = 5
-    x_reason_upper_otx = 6.0
     x_reason_lower_otx = 7.0
-    x_reason_upper_inx = None
+    x_reason_upper_otx = 6.0
     x_reason_lower_inx = None
+    x_reason_upper_inx = None
     x_reason_divisor = 8
     x_caseunit = caseunit_shop(reason_state=x_reason_state)
     x_caseunit.reason_state = x_reason_state
-    x_caseunit.reason_upper = x_reason_upper_otx
     x_caseunit.reason_lower = x_reason_lower_otx
+    x_caseunit.reason_upper = x_reason_upper_otx
     x_caseunit.reason_divisor = x_reason_divisor
 
     with sqlite3_connect(":memory:") as conn:
@@ -284,11 +284,15 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
             str(x_rope),
             str(x_reason_context),
             str(x_reason_state),
-            x_reason_upper_otx,
-            x_reason_upper_inx,
             x_reason_lower_otx,
             x_reason_lower_inx,
+            x_reason_upper_otx,
+            x_reason_upper_inx,
             x_reason_divisor,
+            None,
+            None,
+            None,
+            None,
         )
         expected_data = [expected_row1]
         assert len(rows[0]) == len(expected_data[0])
@@ -650,6 +654,10 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
             x_fact_lower_inx,
             x_fact_upper_otx,
             x_fact_upper_inx,
+            None,
+            None,
+            None,
+            None,
         )
         expected_data = [expected_row1]
         assert len(rows[0]) == len(expected_data[0])
@@ -781,7 +789,7 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
 #         assert rows == expected_data
 
 
-def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ContextNumRelevantTables():
+def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
     # sourcery skip: extract-method
     # ESTABLISH
     sue_belief = beliefunit_shop(exx.sue, exx.a23)
@@ -820,7 +828,8 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ContextNumRelevantTables():
         assert get_row_count(cursor, blfcase_h_agg_table) == 0
 
         # WHEN
-        insert_h_agg_obj(cursor, sue_belief)
+        spark7 = 7
+        insert_h_agg_obj(cursor, sue_belief, spark7, face_name=exx.yao)
 
         # THEN
         assert get_row_count(cursor, blfunit_h_agg_table) == 1
@@ -828,6 +837,11 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ContextNumRelevantTables():
         assert get_row_count(cursor, blffact_h_agg_table) == 1
         assert get_row_count(cursor, blfreas_h_agg_table) == 1
         assert get_row_count(cursor, blfcase_h_agg_table) == 1
+        select_case_sqlstr = (
+            f"""SELECT spark_num, face_name, moment_label FROM {blfcase_h_agg_table};"""
+        )
+        cursor.execute(select_case_sqlstr)
+        assert cursor.fetchall() == [(spark7, exx.yao, exx.a23)]
 
 
 # def test_insert_h_agg_obj_CreatesTableRows_Scenario1_AllTables():

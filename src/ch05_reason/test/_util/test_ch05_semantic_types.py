@@ -1,14 +1,25 @@
 from inspect import getdoc as inspect_getdoc
-from src.ch05_reason._ref.ch05_semantic_types import ContextNum
+from src.ch05_reason._ref.ch05_semantic_types import FactNum, ReasonNum
 from src.ref.keywords import Ch05Keywords as kw
 
 
-def test_ContextNum_Exists():
+def test_ReasonNum_Exists():
     # ESTABLISH
     four_int = 4
     # WHEN
-    four_context_num = ContextNum(four_int)
+    four_reasonnum = ReasonNum(four_int)
     # THEN
-    assert four_int == four_context_num
+    assert four_int == four_reasonnum
     doc_str = """A numeric value that may converted to other Semantic Types by an external process driven by context."""
-    assert inspect_getdoc(four_context_num) == doc_str
+    assert inspect_getdoc(four_reasonnum) == doc_str
+
+
+def test_FactNum_Exists():
+    # ESTABLISH
+    four_int = 4
+    # WHEN
+    four_factnum = FactNum(four_int)
+    # THEN
+    assert four_int == four_factnum
+    doc_str = """A numeric value that may converted to other Semantic Types by an external process driven by context."""
+    assert inspect_getdoc(four_factnum) == doc_str

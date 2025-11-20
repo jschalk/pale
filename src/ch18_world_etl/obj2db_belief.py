@@ -194,20 +194,20 @@ def create_blfcase_metrics_insert_sqlstr(values_dict: dict[str,]):
     rope = values_dict.get("plan_rope")
     reason_context = values_dict.get("reason_context")
     reason_state = values_dict.get("reason_state")
-    reason_upper = values_dict.get("reason_upper")
     reason_lower = values_dict.get("reason_lower")
+    reason_upper = values_dict.get("reason_upper")
     reason_divisor = values_dict.get("reason_divisor")
     task = values_dict.get("task")
     case_active = values_dict.get("case_active")
-    return f"""INSERT INTO belief_plan_reason_caseunit_job (moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper, reason_lower, reason_divisor, task, case_active)
+    return f"""INSERT INTO belief_plan_reason_caseunit_job (moment_label, belief_name, plan_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor, task, case_active)
 VALUES (
   {sqlite_obj_str(moment_label, "TEXT")}
 , {sqlite_obj_str(belief_name, "TEXT")}
 , {sqlite_obj_str(rope, "TEXT")}
 , {sqlite_obj_str(reason_context, "TEXT")}
 , {sqlite_obj_str(reason_state, "TEXT")}
-, {sqlite_obj_str(reason_upper, "REAL")}
 , {sqlite_obj_str(reason_lower, "REAL")}
+, {sqlite_obj_str(reason_upper, "REAL")}
 , {sqlite_obj_str(reason_divisor, "REAL")}
 , {sqlite_obj_str(task, "INTEGER")}
 , {sqlite_obj_str(case_active, "INTEGER")}
@@ -570,10 +570,10 @@ def create_blfcase_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     rope = values_dict.get("plan_rope")
     reason_context = values_dict.get("reason_context")
     reason_state = values_dict.get("reason_state")
-    reason_upper_otx = values_dict.get("reason_upper_otx")
     reason_lower_otx = values_dict.get("reason_lower_otx")
+    reason_upper_otx = values_dict.get("reason_upper_otx")
     reason_divisor = values_dict.get("reason_divisor")
-    return f"""INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_upper_otx, reason_lower_otx, reason_divisor)
+    return f"""INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_lower_otx, reason_upper_otx, reason_divisor)
 VALUES (
   {sqlite_obj_str(spark_num, "INTEGER")}
 , {sqlite_obj_str(face_name, "TEXT")}
@@ -582,8 +582,8 @@ VALUES (
 , {sqlite_obj_str(rope, "TEXT")}
 , {sqlite_obj_str(reason_context, "TEXT")}
 , {sqlite_obj_str(reason_state, "TEXT")}
-, {sqlite_obj_str(reason_upper_otx, "REAL")}
 , {sqlite_obj_str(reason_lower_otx, "REAL")}
+, {sqlite_obj_str(reason_upper_otx, "REAL")}
 , {sqlite_obj_str(reason_divisor, "REAL")}
 )
 ;
@@ -1136,8 +1136,8 @@ def insert_h_agg_blfcase(
     x_dict["belief_name"] = x_objkeysholder.belief_name
     x_dict["plan_rope"] = x_objkeysholder.rope
     x_dict["reason_context"] = x_objkeysholder.reason_context
-    x_dict["reason_upper_otx"] = x_dict["reason_upper"]
     x_dict["reason_lower_otx"] = x_dict["reason_lower"]
+    x_dict["reason_upper_otx"] = x_dict["reason_upper"]
     insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
@@ -1198,10 +1198,18 @@ def insert_h_agg_blfunit(
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_obj(cursor: sqlite3_Cursor, job_belief: BeliefUnit):
+def insert_h_agg_obj(
+    cursor: sqlite3_Cursor,
+    job_belief: BeliefUnit,
+    spark_num: SparkInt,
+    face_name: FaceName,
+):
     job_belief.cashout()
     x_objkeysholder = ObjKeysHolder(
-        moment_label=job_belief.moment_label, belief_name=job_belief.belief_name
+        spark_num=spark_num,
+        face_name=face_name,
+        moment_label=job_belief.moment_label,
+        belief_name=job_belief.belief_name,
     )
     insert_h_agg_blfunit(cursor, x_objkeysholder, job_belief)
     for x_plan in job_belief.get_plan_dict().values():

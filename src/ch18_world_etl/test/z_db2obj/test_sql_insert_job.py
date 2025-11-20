@@ -15,7 +15,7 @@ from src.ch18_world_etl.obj2db_belief import (
     create_blfreas_metrics_insert_sqlstr,
     create_blfvoce_metrics_insert_sqlstr,
 )
-from src.ref.keywords import Ch18Keywords as kw
+from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
@@ -25,7 +25,7 @@ def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
     # for x_arg in sorted(x_args):
     #     print(f"{x_arg=}")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_keeps_buildable = True
     x_keeps_justified = False
@@ -92,7 +92,7 @@ def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
     #     # b1_str = "}"
     #     # print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_active = 1
     x_all_voice_cred = 2
@@ -192,7 +192,7 @@ def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
     #     b1_str = "}"
     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -255,13 +255,13 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
     x_reason_state = 3
-    x_reason_upper = 4
     x_reason_lower = 5
+    x_reason_upper = 4
     x_reason_divisor = 6
     x_task = 7
     x_case_active = 8
@@ -271,8 +271,8 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
         kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.reason_state: x_reason_state,
-        kw.reason_upper: x_reason_upper,
         kw.reason_lower: x_reason_lower,
+        kw.reason_upper: x_reason_upper,
         kw.reason_divisor: x_reason_divisor,
         kw.task: x_task,
         kw.case_active: x_case_active,
@@ -322,7 +322,7 @@ def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_awardee_title = 2
@@ -385,7 +385,7 @@ def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_fact_context = 2
@@ -446,7 +446,7 @@ def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_healer_name = 2
@@ -501,7 +501,7 @@ def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_party_title = 2
@@ -561,7 +561,7 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_voice_name = 1
     x_voice_cred_lumen = 2
@@ -640,7 +640,7 @@ def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_voice_name = 1
     x_group_title = 2
@@ -715,7 +715,7 @@ def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_group_title = 1
     x_credor_pool = 2

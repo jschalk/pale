@@ -372,7 +372,7 @@ def test_BeliefUnit_get_plan_tree_ordered_rope_list_ReturnsObj_Scenario0():
 
 def test_BeliefUnit_get_plan_tree_ordered_rope_list_ReturnsObj_Scenario1():
     # ESTABLISH
-    y_belief = beliefunit_shop("Bob", "Amy23")
+    y_belief = beliefunit_shop("Bob", exx.a23)
     root_rope = y_belief.planroot.get_plan_rope()
 
     # WHEN

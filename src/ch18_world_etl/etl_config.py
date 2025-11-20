@@ -4,7 +4,10 @@ from src.ch01_py.db_toolbox import get_create_table_sqlstr
 from src.ch01_py.dict_toolbox import get_empty_set_if_None, get_from_nested_dict
 from src.ch01_py.file_toolbox import create_path, open_json
 from src.ch08_belief_atom.atom_config import get_delete_key_name
-from src.ch15_nabu.nabu_config import set_nabuable_otx_inx_args
+from src.ch15_nabu.nabu_config import (
+    get_context_nabuable_args,
+    set_nabuable_otx_inx_args,
+)
 from src.ch16_translate.translate_config import set_translateable_otx_inx_args
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
@@ -255,6 +258,20 @@ def remove_inx_columns(columns_set: set) -> set:
     return {x_col for x_col in columns_set if x_col[-3:] != "inx"}
 
 
+def get_temp_staging_columns() -> set:
+    return {
+        "context_plan_close",
+        "context_plan_denom",
+        "context_plan_morph",
+        "inx_epoch_diff",
+    }
+
+
+def remove_staging_columns(columns_set: set) -> set:
+    staging_columns = get_temp_staging_columns()
+    return {x_col for x_col in columns_set if x_col not in staging_columns}
+
+
 def get_all_dimen_columns_set(x_dimen: str) -> set[str]:
     if x_dimen == "translate_core":
         translate_core_dict = etl_idea_category_config_dict().get("translate_core")
@@ -304,6 +321,11 @@ def get_prime_columns(
     nabuable_keylist = copy_copy(config_keylist)
     nabuable_keylist.append("set_nabuable_otx_inx_args")
     if get_from_nested_dict(etl_idea_category_config, nabuable_keylist, True):
+        context_nabuable_args = get_context_nabuable_args()
+
+        if any(c_arg in columns for c_arg in context_nabuable_args):
+            columns.update(get_temp_staging_columns())
+
         columns = set_nabuable_otx_inx_args(columns)
 
     update_keylist = copy_copy(config_keylist)

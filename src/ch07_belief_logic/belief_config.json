@@ -85,7 +85,7 @@
     }, 
     "jvalues": {
       "fact_lower": {
-        "class_type": "ContextNum", 
+        "class_type": "FactNum", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "REAL"
       }, 
@@ -95,7 +95,7 @@
         "sqlite_datatype": "TEXT"
       }, 
       "fact_upper": {
-        "class_type": "ContextNum", 
+        "class_type": "FactNum", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "REAL"
       }
@@ -197,12 +197,12 @@
         "sqlite_datatype": "INTEGER"
       }, 
       "reason_lower": {
-        "class_type": "ContextNum", 
+        "class_type": "ReasonNum", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "REAL"
       }, 
       "reason_upper": {
-        "class_type": "ContextNum", 
+        "class_type": "ReasonNum", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "REAL"
       }, 

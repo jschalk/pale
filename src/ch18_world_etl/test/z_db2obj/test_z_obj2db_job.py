@@ -51,7 +51,7 @@ def test_ObjKeysHolder_Exists():
 def test_insert_job_blfunit_CreatesTableRowsFor_beliefunit_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_keeps_buildable = 99
     x_keeps_justified = 77
@@ -135,7 +135,7 @@ def test_insert_job_blfplan_CreatesTableRowsFor_blfplan_job():
     # for x_arg in get_default_sorted_list(x_args):
     #     print(f"""            x_{x_arg},""")
     # print("")
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = 2
     casa_rope = create_rope(x_moment_label, "casa")
     x_parent_rope = casa_rope
@@ -353,15 +353,15 @@ def test_insert_job_blfcase_CreatesTableRowsFor_blfcase_job():
     x_rope = 3
     x_reason_context = 4
     x_reason_state = 5
-    x_reason_upper = 6.0
     x_reason_lower = 7.0
+    x_reason_upper = 6.0
     x_reason_divisor = 8
     x_task = 9
     x_case_active = 10
     x_caseunit = caseunit_shop(reason_state=x_reason_state)
     x_caseunit.reason_state = x_reason_state
-    x_caseunit.reason_upper = x_reason_upper
     x_caseunit.reason_lower = x_reason_lower
+    x_caseunit.reason_upper = x_reason_upper
     x_caseunit.reason_divisor = x_reason_divisor
     x_caseunit.task = x_task
     x_caseunit.case_active = x_case_active
@@ -392,8 +392,8 @@ def test_insert_job_blfcase_CreatesTableRowsFor_blfcase_job():
             str(x_rope),
             str(x_reason_context),
             str(x_reason_state),
-            x_reason_upper,
             x_reason_lower,
+            x_reason_upper,
             x_reason_divisor,
             x_task,
             x_case_active,

@@ -4,9 +4,8 @@ from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict as get_etl_config,
     get_prime_columns,
     remove_inx_columns,
+    remove_staging_columns,
 )
-
-# TODO replace src.ch18_world_etl.etl_table with src.ch18_world_etl.etl_config
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.obj2db_belief import (
     create_blfawar_h_put_agg_insert_sqlstr,
@@ -27,7 +26,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -77,7 +76,7 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_active = 1
     x_all_voice_cred = 2
@@ -149,7 +148,7 @@ def test_create_blfplan_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -189,13 +188,13 @@ def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_reason_context = 2
     x_reason_state = 3
-    x_reason_upper = 4
-    x_reason_lower = 5
+    x_reason_lower = 4
+    x_reason_upper = 5
     x_reason_divisor = 6
     values_dict = {
         kw.spark_num: 77,
@@ -205,8 +204,8 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
         kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.reason_state: x_reason_state,
-        f"{kw.reason_upper}_otx": x_reason_upper,
         f"{kw.reason_lower}_otx": x_reason_lower,
+        f"{kw.reason_upper}_otx": x_reason_upper,
         kw.reason_divisor: x_reason_divisor,
     }
     # all args included in values dict
@@ -214,6 +213,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
     dimen = kw.belief_plan_reason_caseunit
     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
     dst_columns = remove_inx_columns(dst_columns)
+    dst_columns = remove_staging_columns(dst_columns)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 
@@ -235,7 +235,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfawar_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_rope = 1
 #     x_awardee_title = 2
@@ -281,7 +281,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = "Amy23"
+    x_moment_label = exx.a23
     x_belief_name = "Sue"
     x_rope = 1
     x_fact_context = 2
@@ -304,6 +304,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
     dimen = kw.belief_plan_factunit
     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
     dst_columns = remove_inx_columns(dst_columns)
+    dst_columns = remove_staging_columns(dst_columns)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 
@@ -325,7 +326,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfheal_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_rope = 1
 #     x_healer_name = 2
@@ -362,7 +363,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blflabo_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_rope = 1
 #     x_party_title = 2
@@ -404,7 +405,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfvoce_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_voice_name = 1
 #     x_voice_cred_lumen = 2
@@ -465,7 +466,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfmemb_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_voice_name = 1
 #     x_group_title = 2
@@ -522,7 +523,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_blfgrou_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = "Amy23"
+#     x_moment_label = exx.a23
 #     x_belief_name = "Sue"
 #     x_group_title = 1
 #     x_credor_pool = 2

@@ -128,7 +128,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
         print(rows)
         assert rows == [
             (
-                "Amy23",
+                exx.a23,
                 "Bobby",
                 "Bobby",
                 77.0,
@@ -146,7 +146,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
                 0.0,
             ),
             (
-                "Amy23",
+                exx.a23,
                 "Bobby",
                 "Suzy",
                 88.0,
@@ -164,7 +164,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
                 0.0,
             ),
             (
-                "Amy23",
+                exx.a23,
                 "Bobby",
                 "Yaoe",
                 44.0,

@@ -226,7 +226,7 @@ def get_bob_mop_fact_clean_beliefunit_example() -> BeliefUnit:
 
 
 def get_yao_run_with_reason_beliefunit_example() -> BeliefUnit:
-    yao_belief = beliefunit_shop("Yao", "Amy23")
+    yao_belief = beliefunit_shop("Yao", exx.a23)
     sport_str = "sport"
     participate_str = "participate"
     ski_str = "skiing"

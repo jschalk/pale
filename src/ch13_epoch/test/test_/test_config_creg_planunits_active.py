@@ -1,6 +1,6 @@
 from datetime import datetime
 from src.ch06_plan.plan import planunit_shop
-from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
 from src.ch13_epoch.epoch_main import get_year_rope
 from src.ch13_epoch.test._util.ch13_examples import (
     add_time_creg_planunit,
@@ -227,6 +227,7 @@ def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_weeks_plan_Scenario0():
 
 
 def test_BeliefUnit_get_agenda_dict_ReturnsDictWith_year_plan_Scenario0():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
     time_rope = sue_beliefunit.make_l1_rope(kw.time)
@@ -482,6 +483,25 @@ def test_BeliefUnit_add_time_creg_planunit_SyncsWeekDayAndYear_Wednesday_March1_
     assert len(sue_beliefunit.get_agenda_dict()) == 0
 
 
+def change_fact_print_attrs(x_beliefunit: BeliefUnit, x_lower: float, x_upper: float):
+    casa_rope = x_beliefunit.make_l1_rope(exx.casa)
+    clean_rope = x_beliefunit.make_rope(casa_rope, exx.clean)
+    clean_plan = x_beliefunit.get_plan_obj(clean_rope)
+    time_rope = x_beliefunit.make_l1_rope(kw.time)
+    creg_rope = x_beliefunit.make_rope(time_rope, kw.creg)
+    year_rope = get_year_rope(x_beliefunit, kw.creg)
+    week_rope = x_beliefunit.make_rope(creg_rope, kw.week)
+    wed_rope = x_beliefunit.make_rope(week_rope, get_wed())
+    x_beliefunit.add_fact(creg_rope, creg_rope, x_lower, x_upper)
+    x_beliefunit.cashout()
+
+    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
+    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
+    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
+    print(f"{len(x_beliefunit.get_agenda_dict())=} {x_upper=}")
+    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
+
+
 def test_BeliefUnit_add_time_creg_planunit_SyncsWeekDayAndYear_Thursday_March2_2000():
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
@@ -537,73 +557,17 @@ def test_BeliefUnit_add_time_creg_planunit_SyncsWeekDayAndYear_Thursday_March2_2
     print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
 
     # WHEN / THEN
-    sue_beliefunit.add_fact(creg_rope, creg_rope, yr2000_mar6day, yr2000_mar7day)
-    sue_beliefunit.cashout()
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
-    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
-    print(f"{len(sue_beliefunit.get_agenda_dict())=} {yr2000_mar6day=}")
-    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
+    change_fact_print_attrs(sue_beliefunit, yr2000_mar6day, yr2000_mar7day)
     assert len(sue_beliefunit.get_agenda_dict()) == 0
-
-    # WHEN / THEN
-    sue_beliefunit.add_fact(creg_rope, creg_rope, yr2000_mar7day, yr2000_mar8day)
-    sue_beliefunit.cashout()
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
-    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
-    print(f"{len(sue_beliefunit.get_agenda_dict())=} {yr2000_mar7day=}")
-    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
+    change_fact_print_attrs(sue_beliefunit, yr2000_mar7day, yr2000_mar8day)
     assert len(sue_beliefunit.get_agenda_dict()) == 0
-
-    # WHEN / THEN
-    sue_beliefunit.add_fact(creg_rope, creg_rope, yr2000_mar1day, yr2000_mar2day)
-    sue_beliefunit.cashout()
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
-    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
-    print(f"{len(sue_beliefunit.get_agenda_dict())=} {yr2000_mar1day=}")
-    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
+    change_fact_print_attrs(sue_beliefunit, yr2000_mar1day, yr2000_mar2day)
     # TODO This should be zero but it comes back as 1
-    print(f"{sue_beliefunit.get_agenda_dict().keys()=}") == 1
     assert len(sue_beliefunit.get_agenda_dict()) == 1
-
-    # WHEN / THEN
-    sue_beliefunit.add_fact(creg_rope, creg_rope, yr2000_mar2day, yr2000_mar3day)
-    sue_beliefunit.cashout()
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
-    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
-    print(f"{len(sue_beliefunit.get_agenda_dict())=} {yr2000_mar2day=}")
-    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
+    change_fact_print_attrs(sue_beliefunit, yr2000_mar2day, yr2000_mar3day)
     assert len(sue_beliefunit.get_agenda_dict()) == 1
-
-    # WHEN / THEN
-    sue_beliefunit.add_fact(creg_rope, creg_rope, yr2000_mar3day, yr2000_mar4day)
-    sue_beliefunit.cashout()
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
-    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
-    print(f"{len(sue_beliefunit.get_agenda_dict())=} {yr2000_mar3day=}")
-    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
+    change_fact_print_attrs(sue_beliefunit, yr2000_mar3day, yr2000_mar4day)
     assert len(sue_beliefunit.get_agenda_dict()) == 0
-
-    # WHEN / THEN
-    sue_beliefunit.add_fact(creg_rope, creg_rope, yr2000_mar4day, yr2000_mar5day)
-    sue_beliefunit.cashout()
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
-    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
-    print(f"{len(sue_beliefunit.get_agenda_dict())=} {yr2000_mar4day=}")
-    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
-    assert len(sue_beliefunit.get_agenda_dict()) == 0
-
-    # WHEN / THEN
-    sue_beliefunit.add_fact(creg_rope, creg_rope, yr2000_mar5day, yr2000_mar6day)
-    sue_beliefunit.cashout()
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_lower=}")
-    print(f"{clean_plan.factheirs.get(wed_rope).fact_upper=}")
-    print(f"{clean_plan.get_reasonheir(wed_rope).reason_active=}")
-    print(f"{len(sue_beliefunit.get_agenda_dict())=} {yr2000_mar5day=}")
-    print(f"{clean_plan.get_reasonheir(year_rope).reason_active=} \n")
+    change_fact_print_attrs(sue_beliefunit, yr2000_mar4day, yr2000_mar5day)
+    change_fact_print_attrs(sue_beliefunit, yr2000_mar5day, yr2000_mar6day)
     assert len(sue_beliefunit.get_agenda_dict()) == 0

@@ -5,8 +5,7 @@
         "agg": {
           "del": {
             "exclude_from_insert": ["translate_spark_num", "error_message"], 
-            "exclude_otx_from_insert": true, 
-            "set_nabuable_otx_inx_args": true
+            "exclude_otx_from_insert": true
           }, 
           "put": {
             "exclude_from_insert": ["translate_spark_num", "error_message"], 

@@ -1,6 +1,7 @@
 from pytest import raises as pytest_raises
 from src.ch04_rope.rope import create_rope
 from src.ch06_plan.plan import planunit_shop
+from src.ref.keywords import Ch06Keywords as kw, ExampleStrs as exx
 
 
 def test_get_kids_in_range_GetsCorrectPlans():
@@ -50,7 +51,7 @@ def test_get_kids_in_range_EmptyParametersReturnsAll_kids():
 
 def test_PlanUnit_get_descendants_ReturnsNoRopeTerms():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)
 
@@ -63,7 +64,7 @@ def test_PlanUnit_get_descendants_ReturnsNoRopeTerms():
 
 def test_PlanUnit_get_descendants_Returns3DescendantsRopeTerms():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)
@@ -95,7 +96,7 @@ def test_PlanUnit_get_descendants_Returns3DescendantsRopeTerms():
 
 def test_PlanUnit_get_descendants_ErrorRaisedIfInfiniteLoop():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)
@@ -113,7 +114,7 @@ def test_PlanUnit_get_descendants_ErrorRaisedIfInfiniteLoop():
 
 def test_PlanUnit_clear_kids_SetsAttr():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)
@@ -130,7 +131,7 @@ def test_PlanUnit_clear_kids_SetsAttr():
 
 def test_PlanUnit_get_kid_ReturnsObj():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)
@@ -153,7 +154,7 @@ def test_PlanUnit_get_kid_ReturnsObj():
 
 def test_PlanUnit_del_kid_CorrectModifiesAttr():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)
@@ -176,7 +177,7 @@ def test_PlanUnit_del_kid_CorrectModifiesAttr():
 
 def test_PlanUnit_get_kids_star_sum_ReturnsObj_Scenario0():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)
@@ -193,7 +194,7 @@ def test_PlanUnit_get_kids_star_sum_ReturnsObj_Scenario0():
 
 def test_PlanUnit_get_kids_star_sum_ReturnsObj_Scenario1():
     # ESTABLISH
-    amy_str = "Amy23"
+    amy_str = exx.a23
     nation_str = "nation"
     nation_rope = create_rope(amy_str, nation_str)
     nation_plan = planunit_shop(nation_str, parent_rope=amy_str)

@@ -4,7 +4,7 @@ from src.ch06_plan.plan import planunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop, get_sorted_plan_list
 from src.ch07_belief_logic.test._util.ch07_examples import get_beliefunit_with_4_levels
 from src.ch07_belief_logic.tree_metric import TreeMetrics, treemetrics_shop
-from src.ref.keywords import Ch07Keywords as kw
+from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
 def test_TreeMetrics_Exists():
@@ -211,7 +211,7 @@ def test_get_sorted_plan_list_ReturnsObj_Scenario0_DefaultOrder_plan_plan_rope()
 
 def test_get_sorted_plan_list_ReturnsObj_Scenario1_SortBy_fund_ratio():
     # ESTABLISH
-    sue_belief = beliefunit_shop("Sue", "Amy23")
+    sue_belief = beliefunit_shop("Sue", exx.a23)
     sem_jours_rope = sue_belief.make_l1_rope("sem_jours")
     sun_plan = planunit_shop("Sun", parent_rope=sem_jours_rope)
     mon_plan = planunit_shop("Mon", parent_rope=sem_jours_rope)

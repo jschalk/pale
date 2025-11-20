@@ -57,7 +57,7 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario2_EmptyVoicesCause_inallocable
 
 def a23_job(belief_name: str) -> BeliefUnit:
     moment_mstr_dir = get_temp_dir()
-    return open_job_file(moment_mstr_dir, "Amy23", belief_name)
+    return open_job_file(moment_mstr_dir, exx.a23, belief_name)
 
 
 def test_MomentUnit_rotate_job_ReturnsObj_Scenario3_job_ChangesFromRotation(

@@ -173,12 +173,12 @@ def get_idea_elements_sort_order() -> list[str]:
         "give_force",
         "star",
         "max_tree_traverse",
-        "reason_upper",
-        "reason_upper_otx",
-        "reason_upper_inx",
         "reason_lower",
         "reason_lower_otx",
         "reason_lower_inx",
+        "reason_upper",
+        "reason_upper_otx",
+        "reason_upper_inx",
         "reason_divisor",
         "pledge",
         "problem_bool",
@@ -243,6 +243,10 @@ def get_idea_elements_sort_order() -> list[str]:
         "bnet_funds",
         "fund_rank",
         "pledges_count",
+        "context_plan_close",
+        "context_plan_denom",
+        "context_plan_morph",
+        "inx_epoch_diff",
     ]
 
 
@@ -455,6 +459,10 @@ def get_idea_sqlite_types() -> dict[str, str]:
         "bnet_funds": "REAL",
         "fund_rank": "INTEGER",
         "pledges_count": "INTEGER",
+        "context_plan_close": "TEXT",
+        "context_plan_denom": "TEXT",
+        "context_plan_morph": "TEXT",
+        "inx_epoch_diff": "INTEGER",
     }
 
 
@@ -764,7 +772,7 @@ def get_idea_format_headers() -> dict[str, list[str]]:
         "moment_label,belief_name,plan_rope,fact_context,fact_state,fact_lower,fact_upper": idea_format_00023_belief_plan_factunit_v0_0_0(),
         "moment_label,belief_name,plan_rope,party_title,solo": idea_format_00024_belief_plan_partyunit_v0_0_0(),
         "moment_label,belief_name,plan_rope,healer_name": idea_format_00025_belief_plan_healerunit_v0_0_0(),
-        "moment_label,belief_name,plan_rope,reason_context,reason_state,reason_upper,reason_lower,reason_divisor": idea_format_00026_belief_plan_reason_caseunit_v0_0_0(),
+        "moment_label,belief_name,plan_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor": idea_format_00026_belief_plan_reason_caseunit_v0_0_0(),
         "moment_label,belief_name,plan_rope,reason_context,active_requisite": idea_format_00027_belief_plan_reasonunit_v0_0_0(),
         "moment_label,belief_name,plan_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool": idea_format_00028_belief_planunit_v0_0_0(),
         "moment_label,belief_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,tally,fund_grain,mana_grain,respect_grain": idea_format_00029_beliefunit_v0_0_0(),

@@ -243,19 +243,18 @@ def test_PlanUnit_set_range_inheritors_factheirs_SetsAttrNoParameters():
 
 def test_PlanUnit_set_range_inheritors_factheirs_SetsAttrNewFactHeir():
     # ESTABLISH
-    amy_str = "Amy23"
-    wk_rope = create_rope(amy_str, exx.wk)
+    wk_rope = create_rope(exx.a23, exx.wk)
     wk_reason_lower = 3
     wk_reason_upper = 7
     wk_addin = 10
-    wk_plan = planunit_shop(exx.wk, parent_rope=amy_str, addin=wk_addin)
+    wk_plan = planunit_shop(exx.wk, parent_rope=exx.a23, addin=wk_addin)
     wk_factheir = factheir_shop(wk_rope, wk_rope, wk_reason_lower, wk_reason_upper)
     tue_str = "Tue"
     tue_rope = create_rope(wk_rope, tue_str)
     tue_addin = 100
     tue_plan = planunit_shop(tue_str, parent_rope=wk_rope, addin=tue_addin)
     ball_str = "ball"
-    ball_rope = create_rope(amy_str, ball_str)
+    ball_rope = create_rope(exx.a23, ball_str)
     ball_plan = planunit_shop(ball_str)
     ball_plan._set_factheir(wk_factheir)
     tue_reasonheirs = {tue_rope: reasonheir_shop(tue_rope, None, False)}

@@ -10,7 +10,7 @@ from src.ch04_rope.rope import (
     rebuild_rope,
     replace_knot,
 )
-from src.ch05_reason._ref.ch05_semantic_types import ContextNum
+from src.ch05_reason._ref.ch05_semantic_types import FactNum, ReasonNum
 
 
 class InvalidReasonException(Exception):
@@ -21,8 +21,8 @@ class InvalidReasonException(Exception):
 class FactCore:
     fact_context: RopeTerm = None
     fact_state: RopeTerm = None
-    fact_lower: ContextNum = None
-    fact_upper: ContextNum = None
+    fact_lower: FactNum = None
+    fact_upper: FactNum = None
 
     def to_dict(self) -> dict[str,]:
         """Returns dict that is serializable to JSON."""
@@ -43,8 +43,8 @@ class FactCore:
     def set_attr(
         self,
         fact_state: RopeTerm = None,
-        fact_lower: ContextNum = None,
-        fact_upper: ContextNum = None,
+        fact_lower: FactNum = None,
+        fact_upper: FactNum = None,
     ):
         if fact_state is not None:
             self.fact_state = fact_state
@@ -77,8 +77,8 @@ class FactUnit(FactCore):
 def factunit_shop(
     fact_context: RopeTerm = None,
     fact_state: RopeTerm = None,
-    fact_lower: ContextNum = None,
-    fact_upper: ContextNum = None,
+    fact_lower: FactNum = None,
+    fact_upper: FactNum = None,
 ) -> FactUnit:
     return FactUnit(
         fact_context=fact_context,
@@ -144,8 +144,8 @@ class FactHeir(FactCore):
 def factheir_shop(
     fact_context: RopeTerm = None,
     fact_state: RopeTerm = None,
-    fact_lower: ContextNum = None,
-    fact_upper: ContextNum = None,
+    fact_lower: FactNum = None,
+    fact_upper: FactNum = None,
 ) -> FactHeir:
     return FactHeir(
         fact_context=fact_context,
@@ -162,12 +162,12 @@ class CaseActiveFinderException(Exception):
 @dataclass
 class CaseActiveFinder:
     # between 0 and reason_divisor, can be more than reason_upper
-    reason_lower: ContextNum
+    reason_lower: ReasonNum
     # between 0 and reason_divisor, can be less than reason_lower
-    reason_upper: ContextNum
+    reason_upper: ReasonNum
     reason_divisor: float  # greater than zero
-    fact_lower_full: float  # less than fact_upper
-    fact_upper_full: float
+    fact_lower_full: FactNum  # less than fact_upper
+    fact_upper_full: FactNum
 
     def check_attr(self):
         if None in (
@@ -262,10 +262,10 @@ def get_range_less_than_reason_divisor_active(
 
 
 def get_collasped_fact_range_active(
-    reason_lower: ContextNum,
-    reason_upper: ContextNum,
+    reason_lower: ReasonNum,
+    reason_upper: ReasonNum,
     reason_divisor: float,
-    fact_upper_full: float,
+    fact_upper_full: FactNum,
 ) -> bool:
     x_caseactivefinder = caseactivefinder_shop(
         reason_lower=reason_lower,
@@ -278,11 +278,11 @@ def get_collasped_fact_range_active(
 
 
 def caseactivefinder_shop(
-    reason_lower: ContextNum,
-    reason_upper: ContextNum,
+    reason_lower: ReasonNum,
+    reason_upper: ReasonNum,
     reason_divisor: float,
-    fact_lower_full: float,
-    fact_upper_full: float,
+    fact_lower_full: FactNum,
+    fact_upper_full: FactNum,
 ):
     x_caseactivefinder = CaseActiveFinder(
         reason_lower,
@@ -298,8 +298,8 @@ def caseactivefinder_shop(
 @dataclass
 class CaseUnit:
     reason_state: RopeTerm
-    reason_lower: ContextNum = None
-    reason_upper: ContextNum = None
+    reason_lower: ReasonNum = None
+    reason_upper: ReasonNum = None
     reason_divisor: int = None
     case_active: bool = None
     task: bool = None
@@ -435,8 +435,8 @@ class CaseUnit:
 # class casesshop:
 def caseunit_shop(
     reason_state: RopeTerm,
-    reason_lower: ContextNum = None,
-    reason_upper: ContextNum = None,
+    reason_lower: ReasonNum = None,
+    reason_upper: ReasonNum = None,
     reason_divisor: float = None,
     knot: KnotTerm = None,
 ) -> CaseUnit:
@@ -507,8 +507,8 @@ class ReasonCore:
     def set_case(
         self,
         case: RopeTerm,
-        reason_lower: ContextNum = None,
-        reason_upper: ContextNum = None,
+        reason_lower: ReasonNum = None,
+        reason_upper: ReasonNum = None,
         reason_divisor: int = None,
     ):
         self.cases[case] = caseunit_shop(

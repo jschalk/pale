@@ -147,7 +147,7 @@ def test_create_keep_rope_path_RaisesError_Scenarion2_keep_rope_DoesNotExist():
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        create_keep_rope_path("dir", exx.bob, "Amy23", None, None)
+        create_keep_rope_path("dir", exx.bob, exx.a23, None, None)
     assertion_fail_str = (
         f"'{exx.bob}' cannot save to keep_path because it does not have keep_rope."
     )

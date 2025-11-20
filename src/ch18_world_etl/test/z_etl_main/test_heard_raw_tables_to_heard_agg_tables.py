@@ -11,6 +11,7 @@ from src.ch18_world_etl.etl_config import (
     get_prime_columns,
     remove_inx_columns,
     remove_otx_columns,
+    remove_staging_columns,
 )
 from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_agg_tables
 from src.ch18_world_etl.etl_sqlstr import (
@@ -40,6 +41,7 @@ def check_insert_sqlstr_exists(
     if stage_dict.get("exclude_otx_from_insert"):
         p_raw_columns = remove_otx_columns(p_raw_columns)
         p_agg_columns = remove_inx_columns(p_agg_columns)
+        p_agg_columns = remove_staging_columns(p_agg_columns)
     exclude_from_insert = stage_dict.get("exclude_from_insert")
     exclude_from_insert = set(get_empty_set_if_None(exclude_from_insert))
     p_raw_columns -= exclude_from_insert

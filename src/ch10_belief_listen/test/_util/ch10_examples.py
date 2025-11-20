@@ -30,7 +30,7 @@ def run_str() -> str:
 
 
 def a23_casa_rope() -> RopeTerm:
-    return create_rope("Amy23", exx.casa)
+    return create_rope(exx.a23, exx.casa)
 
 
 def a23_cuisine_rope() -> RopeTerm:

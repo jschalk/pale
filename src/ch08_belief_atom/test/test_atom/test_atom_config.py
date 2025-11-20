@@ -548,7 +548,8 @@ def test_get_allowed_class_types_ReturnsObj():
     # ESTABLISH
     x_allowed_class_types = {
         "int",
-        kw.ContextNum,
+        kw.ReasonNum,
+        kw.FactNum,
         kw.NameTerm,
         kw.TitleTerm,
         kw.LabelTerm,
@@ -625,8 +626,8 @@ def test_get_atom_args_class_types_ReturnsObj():
     assert x_class_types.get(kw.denom) == "int"
     assert x_class_types.get(kw.reason_divisor) == "int"
     assert x_class_types.get(kw.fact_context) == kw.RopeTerm
-    assert x_class_types.get(kw.fact_upper) == kw.ContextNum
-    assert x_class_types.get(kw.fact_lower) == kw.ContextNum
+    assert x_class_types.get(kw.fact_upper) == kw.FactNum
+    assert x_class_types.get(kw.fact_lower) == kw.FactNum
     assert x_class_types.get(kw.fund_grain) == "float"
     assert x_class_types.get(kw.fund_pool) == "float"
     assert x_class_types.get(kw.give_force) == "float"
@@ -637,9 +638,9 @@ def test_get_atom_args_class_types_ReturnsObj():
     assert x_class_types.get(kw.max_tree_traverse) == "int"
     assert x_class_types.get(kw.morph) == "bool"
     assert x_class_types.get(kw.reason_state) == kw.RopeTerm
-    assert x_class_types.get(kw.reason_upper) == kw.ContextNum
+    assert x_class_types.get(kw.reason_upper) == kw.ReasonNum
     assert x_class_types.get(kw.numor) == "int"
-    assert x_class_types.get(kw.reason_lower) == kw.ContextNum
+    assert x_class_types.get(kw.reason_lower) == kw.ReasonNum
     assert x_class_types.get(kw.mana_grain) == "float"
     assert x_class_types.get(kw.fact_state) == kw.RopeTerm
     assert x_class_types.get(kw.pledge) == "bool"

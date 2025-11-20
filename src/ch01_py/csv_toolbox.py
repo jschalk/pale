@@ -10,7 +10,7 @@ from os.path import exists as os_path_exists, join as os_path_join
 from sqlite3 import connect as sqlite3_connect
 
 
-def open_csv_with_types(csv_path, column_types):
+def open_csv_with_types(csv_path: str, column_types: dict):
     """
     Reads a CSV file and returns a list of tuples where each value is converted
     to a type from the provided column type dictionary.

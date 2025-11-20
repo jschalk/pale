@@ -1,8 +1,12 @@
 {
   "nabu_epochtime": {
     "affected_semantic_types": {
-      "ContextNum": {
-        "nabuable_values": {"fact_lower": {}, "fact_upper": {}, "reason_lower": {}, "reason_upper": {}}, 
+      "ReasonNum": {
+        "nabuable_values": {"reason_lower": {}, "reason_upper": {}}, 
+        "note": "otx_time is the only required input, inx_time and moment_label can be provided. "
+      }, 
+      "FactNum": {
+        "nabuable_values": {"fact_lower": {}, "fact_upper": {}}, 
         "note": "otx_time is the only required input, inx_time and moment_label can be provided. "
       }, 
       "EpochTime": {

@@ -28,17 +28,26 @@ def get_nabu_args() -> set:
 
 def get_nabuable_args() -> set:
     return {
-        "tran_time",
         "bud_time",
-        "offi_time",
-        "reason_lower",
         "fact_lower",
         "fact_upper",
+        "offi_time",
+        "reason_lower",
+        "reason_upper",
+        "tran_time",
+    }
+
+
+def get_context_nabuable_args() -> set:
+    return {
+        "fact_lower",
+        "fact_upper",
+        "reason_lower",
         "reason_upper",
     }
 
 
-def set_nabuable_otx_inx_args(args: set) -> set:
+def set_nabuable_otx_inx_args(args: set) -> set:  # sourcery skip: extract-method
     """Receives set of args, returns a set with all "Nabuable" args replaced with "_otx" and "_inx" """
     all_nabuable = get_nabuable_args()
     transformed_args = set()

@@ -2,6 +2,7 @@ from os import getcwd as os_getcwd
 from src.ch01_py.file_toolbox import create_path
 from src.ch15_nabu._ref.ch15_semantic_types import EpochTime
 from src.ch15_nabu.nabu_config import (
+    get_context_nabuable_args,
     get_nabu_args,
     get_nabu_config_dict,
     get_nabu_dimens,
@@ -56,16 +57,16 @@ def _validate_nabu_config(nabu_config: dict):
                     EpochTime_args = EpochTime_dict.get("nabuable_values")
                     expected_EpochTime_args = {kw.tran_time, kw.offi_time, kw.bud_time}
                     assert set(EpochTime_args.keys()) == expected_EpochTime_args
-                if kw.ContextNum in set(attrs_dict.keys()):
-                    ContextNum_dict = attrs_dict.get(kw.ContextNum)
-                    ContextNum_args = ContextNum_dict.get("nabuable_values")
-                    expected_ContextNum_args = {
-                        kw.reason_lower,
-                        kw.reason_upper,
-                        kw.fact_lower,
-                        kw.fact_upper,
-                    }
-                    assert set(ContextNum_args.keys()) == expected_ContextNum_args
+                if kw.ReasonNum in set(attrs_dict.keys()):
+                    ReasonNum_dict = attrs_dict.get(kw.ReasonNum)
+                    ReasonNum_args = ReasonNum_dict.get("nabuable_values")
+                    expected_ReasonNum_args = {kw.reason_lower, kw.reason_upper}
+                    assert set(ReasonNum_args.keys()) == expected_ReasonNum_args
+                if kw.FactNum in set(attrs_dict.keys()):
+                    FactNum_dict = attrs_dict.get(kw.FactNum)
+                    FactNum_args = FactNum_dict.get("nabuable_values")
+                    expected_FactNum_args = {kw.fact_lower, kw.fact_upper}
+                    assert set(FactNum_args.keys()) == expected_FactNum_args
             # print(f"{x_dimen=} {attrs_dict=}")
 
 
@@ -115,20 +116,24 @@ def test_get_nabu_args_ReturnsObj():
 
 def test_get_nabuable_args_ReturnsObj():
     # ESTABLISH / WHEN
-    nabuable_args = get_nabuable_args()
+    gen_nabuable_args = get_nabuable_args()
 
     # THEN
-    assert nabuable_args
+    expected_nabuable_args = set()
+    assert gen_nabuable_args
     for category, category_dict in get_nabu_config_dict().items():
         affected_semantic_types = category_dict.get("affected_semantic_types")
         for x_key, nabu_convertion_type_dict in affected_semantic_types.items():
             nabuable_values_dict = nabu_convertion_type_dict.get("nabuable_values")
             assert nabuable_values_dict
-            expected_nabuable_args = set(nabuable_values_dict.keys())
-            print(f"{expected_nabuable_args=}")
-            print(f"{nabuable_args=}")
-            assert expected_nabuable_args.issubset(nabuable_args)
+            type_nabuable_args = set(nabuable_values_dict.keys())
+            print(f"{type_nabuable_args=}")
+            print(f"{gen_nabuable_args=}")
+            assert type_nabuable_args.issubset(gen_nabuable_args)
             print(f"{category=} {x_key=} {nabuable_values_dict=}")
+            expected_nabuable_args.update(type_nabuable_args)
+
+    assert expected_nabuable_args == gen_nabuable_args
 
 
 def test_set_nabuable_otx_inx_args_ReturnsObj_Scenario0_All_nabuable_args():
@@ -166,3 +171,28 @@ def test_set_nabuable_otx_inx_args_ReturnsObj_Scenario1_OtherArgsAreUntouched():
     expected_otx_inx_args.add(run_str)
     print(f"{otx_inx_args=}")
     assert otx_inx_args == expected_otx_inx_args
+
+
+def test_get_context_nabuable_args_ReturnsObj():
+    # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
+    # ESTABLISH / WHEN
+    context_args = get_context_nabuable_args()
+
+    # THEN
+    expected_context_args = set()
+    assert context_args
+    for category, category_dict in get_nabu_config_dict().items():
+        affected_semantic_types = category_dict.get("affected_semantic_types")
+        for semantic_type in affected_semantic_types.keys():
+            if semantic_type in {kw.ReasonNum, kw.FactNum}:
+                nabu_convertion_type_dict = affected_semantic_types.get(semantic_type)
+                nabuable_values_dict = nabu_convertion_type_dict.get("nabuable_values")
+                assert nabuable_values_dict
+                type_nabuable_args = set(nabuable_values_dict.keys())
+                print(f"{type_nabuable_args=}")
+                print(f"{context_args=}")
+                assert type_nabuable_args.issubset(context_args)
+                print(f"{category=} {semantic_type=} {nabuable_values_dict=}")
+                expected_context_args.update(type_nabuable_args)
+
+    assert expected_context_args == context_args

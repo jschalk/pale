@@ -93,7 +93,6 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert nabuable_inx_cols.issubset(table_sorting_priority)
 
     # all the suffix otx/inx columns are only used in one
-    # TODO switch order, reason_lower before reason_upper
     assert table_sorting_priority[0] == kw.world_name
     assert table_sorting_priority[1] == kw.idea_number
     assert table_sorting_priority[2] == kw.source_dimen
@@ -221,12 +220,12 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[124] == kw.give_force
     assert table_sorting_priority[125] == kw.star
     assert table_sorting_priority[126] == kw.max_tree_traverse
-    assert table_sorting_priority[127] == kw.reason_upper
-    assert table_sorting_priority[128] == f"{kw.reason_upper}_otx"
-    assert table_sorting_priority[129] == f"{kw.reason_upper}_inx"
-    assert table_sorting_priority[130] == kw.reason_lower
-    assert table_sorting_priority[131] == f"{kw.reason_lower}_otx"
-    assert table_sorting_priority[132] == f"{kw.reason_lower}_inx"
+    assert table_sorting_priority[127] == kw.reason_lower
+    assert table_sorting_priority[128] == f"{kw.reason_lower}_otx"
+    assert table_sorting_priority[129] == f"{kw.reason_lower}_inx"
+    assert table_sorting_priority[130] == kw.reason_upper
+    assert table_sorting_priority[131] == f"{kw.reason_upper}_otx"
+    assert table_sorting_priority[132] == f"{kw.reason_upper}_inx"
     assert table_sorting_priority[133] == kw.reason_divisor
     assert table_sorting_priority[134] == kw.pledge
     assert table_sorting_priority[135] == kw.problem_bool
@@ -291,8 +290,12 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[194] == kw.bnet_funds
     assert table_sorting_priority[195] == kw.fund_rank
     assert table_sorting_priority[196] == kw.pledges_count
+    assert table_sorting_priority[197] == f"context_plan_{kw.close}"
+    assert table_sorting_priority[198] == f"context_plan_{kw.denom}"
+    assert table_sorting_priority[199] == f"context_plan_{kw.morph}"
+    assert table_sorting_priority[200] == kw.inx_epoch_diff
 
-    assert len(table_sorting_priority) == 197
+    assert len(table_sorting_priority) == 201
     all_args = copy_copy(atom_args)
     all_args.update(all_belief_dimen_delete_keys)
     all_args.update(moment_args)
@@ -316,6 +319,10 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     all_args.add(kw.bnet_funds)  # kpi columns
     all_args.add(kw.fund_rank)  # kpi columns
     all_args.add(kw.pledges_count)  # kpi columns
+    all_args.add(f"context_plan_{kw.close}")  # nabu ReasonNum FactNum staging columns
+    all_args.add(f"context_plan_{kw.denom}")  # nabu ReasonNum FactNum staging columns
+    all_args.add(f"context_plan_{kw.morph}")  # nabu ReasonNum FactNum staging columns
+    all_args.add(kw.inx_epoch_diff)  # nabu ReasonNum FactNum staging columns
     assert all_args == set(table_sorting_priority)
 
     x_no_underscoore_set = {x_arg.replace("_", "") for x_arg in table_sorting_priority}
@@ -403,6 +410,7 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert sqlite_types.get(kw.epoch_label) == "TEXT"
     assert sqlite_types.get(kw.error_message) == "TEXT"
     assert sqlite_types.get(kw.solo) == "INTEGER"
+    assert sqlite_types.get(kw.inx_epoch_diff) == "INTEGER"
 
     # sourcery skip: no-loop-in-tests
     for x_arg, datatype in get_belief_calc_args_sqlite_datatype_dict().items():

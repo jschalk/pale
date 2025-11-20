@@ -1,6 +1,6 @@
 from src.ch06_plan.test._util.ch06_examples import get_range_attrs
 from src.ch07_belief_logic.belief_main import BeliefUnit, PlanUnit, RopeTerm
-from src.ch13_epoch._ref.ch13_semantic_types import ContextNum
+from src.ch13_epoch._ref.ch13_semantic_types import FactNum, ReasonNum
 from src.ch13_epoch.epoch_reason import (
     set_epoch_base_case_dayly,
     set_epoch_cases_for_monthly,
@@ -97,8 +97,8 @@ def test_set_epoch_cases_for_yearly_monthday_ChangesBeliefUnit_agenda():
 def expected_ag_count_fact_set(
     mop_plan: PlanUnit,
     x_belief: BeliefUnit,
-    fact_lower: ContextNum,
-    fact_upper: ContextNum,
+    fact_lower: FactNum,
+    fact_upper: FactNum,
     expected: int,
 ) -> dict[RopeTerm, PlanUnit]:
     x_belief.add_fact(wx.five_rope, wx.five_rope, fact_lower, fact_upper)

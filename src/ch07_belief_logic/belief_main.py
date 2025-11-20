@@ -43,7 +43,7 @@ from src.ch06_plan.plan import (
 )
 from src.ch07_belief_logic._ref.ch07_semantic_types import (
     BeliefName,
-    ContextNum,
+    FactNum,
     FundGrain,
     FundNum,
     GroupTitle,
@@ -52,6 +52,7 @@ from src.ch07_belief_logic._ref.ch07_semantic_types import (
     LabelTerm,
     ManaGrain,
     MomentLabel,
+    ReasonNum,
     RespectGrain,
     RespectNum,
     RopeTerm,
@@ -414,8 +415,8 @@ class BeliefUnit:
         self,
         fact_context: RopeTerm,
         fact_state: RopeTerm = None,
-        fact_lower: ContextNum = None,
-        fact_upper: ContextNum = None,
+        fact_lower: FactNum = None,
+        fact_upper: FactNum = None,
         create_missing_plans: bool = None,
     ):
         """Sets planroot factunit"""
@@ -750,8 +751,8 @@ class BeliefUnit:
         plan_rope: RopeTerm,
         reason_context: RopeTerm = None,
         reason_case: RopeTerm = None,
-        reason_lower: ContextNum = None,
-        reason_upper: ContextNum = None,
+        reason_lower: ReasonNum = None,
+        reason_upper: ReasonNum = None,
         reason_divisor: int = None,
     ):
         self.edit_plan_attr(
@@ -771,8 +772,8 @@ class BeliefUnit:
         reason: ReasonUnit = None,
         reason_context: RopeTerm = None,
         reason_case: RopeTerm = None,
-        reason_lower: ContextNum = None,
-        reason_upper: ContextNum = None,
+        reason_lower: ReasonNum = None,
+        reason_upper: ReasonNum = None,
         reason_divisor: int = None,
         reason_del_case_reason_context: RopeTerm = None,
         reason_del_case_reason_state: RopeTerm = None,
