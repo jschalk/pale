@@ -243,6 +243,10 @@ def get_idea_elements_sort_order() -> list[str]:
         "bnet_funds",
         "fund_rank",
         "pledges_count",
+        "context_plan_close",
+        "context_plan_denom",
+        "context_plan_morph",
+        "inx_epoch_diff",
     ]
 
 
@@ -455,6 +459,10 @@ def get_idea_sqlite_types() -> dict[str, str]:
         "bnet_funds": "REAL",
         "fund_rank": "INTEGER",
         "pledges_count": "INTEGER",
+        "context_plan_close": "TEXT",
+        "context_plan_denom": "TEXT",
+        "context_plan_morph": "TEXT",
+        "inx_epoch_diff": "INTEGER",
     }
 
 

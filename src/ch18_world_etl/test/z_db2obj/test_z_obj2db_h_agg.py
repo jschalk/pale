@@ -289,6 +289,10 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
             x_reason_upper_otx,
             x_reason_upper_inx,
             x_reason_divisor,
+            None,
+            None,
+            None,
+            None,
         )
         expected_data = [expected_row1]
         assert len(rows[0]) == len(expected_data[0])
@@ -650,6 +654,10 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
             x_fact_lower_inx,
             x_fact_upper_otx,
             x_fact_upper_inx,
+            None,
+            None,
+            None,
+            None,
         )
         expected_data = [expected_row1]
         assert len(rows[0]) == len(expected_data[0])

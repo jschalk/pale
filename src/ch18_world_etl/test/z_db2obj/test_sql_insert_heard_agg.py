@@ -4,6 +4,7 @@ from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict as get_etl_config,
     get_prime_columns,
     remove_inx_columns,
+    remove_staging_columns,
 )
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.obj2db_belief import (
@@ -212,6 +213,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
     dimen = kw.belief_plan_reason_caseunit
     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
     dst_columns = remove_inx_columns(dst_columns)
+    dst_columns = remove_staging_columns(dst_columns)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 
@@ -302,6 +304,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
     dimen = kw.belief_plan_factunit
     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
     dst_columns = remove_inx_columns(dst_columns)
+    dst_columns = remove_staging_columns(dst_columns)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 

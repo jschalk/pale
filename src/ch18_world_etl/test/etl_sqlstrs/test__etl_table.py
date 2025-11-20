@@ -27,6 +27,7 @@ from src.ch18_world_etl.etl_config import (
     get_prime_columns,
     remove_inx_columns,
     remove_otx_columns,
+    remove_staging_columns,
 )
 from src.ref.keywords import Ch18Keywords as kw
 
@@ -43,6 +44,13 @@ def test_remove_inx_columns_ReturnsObj():
     assert remove_inx_columns({"fizz", "buzz"}) == {"fizz", "buzz"}
     assert remove_inx_columns({"fizz", "buzz_inx"}) == {"fizz"}
     assert remove_inx_columns({"fizz_inx", "inx_buzz"}) == {"inx_buzz"}
+
+
+def test_remove_staging_columns_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert remove_staging_columns({"fizz", "buzz"}) == {"fizz", "buzz"}
+    assert remove_staging_columns({"fizz", "inx_epoch_diff"}) == {"fizz"}
+    assert remove_staging_columns({"context_plan_close", "inx_buzz"}) == {"inx_buzz"}
 
 
 def test_ALL_DIMEN_ABBV7_has_all_dimens():
@@ -301,7 +309,7 @@ def test_get_prime_columns_ReturnsObj_Scenario3_h_raw_set_translateable_otx_inx_
     }
 
 
-def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabueable_otx_inx_args():
+def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args():
     # ESTABLISH
     x_dimen = kw.moment_timeoffi
     table_keylist = ["h", "agg"]
@@ -313,10 +321,49 @@ def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabueable_otx_inx_args
     # THEN
     print(f"{mmtoffi_h_agg_columns=}")
     assert mmtoffi_h_agg_columns == {
-        f"{kw.offi_time}_otx",
-        f"{kw.offi_time}_inx",
         kw.face_name,
         kw.moment_label,
+        f"{kw.offi_time}_otx",
+        f"{kw.offi_time}_inx",
+        kw.spark_num,
+    }
+
+
+def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_ContextNabuableArgs():
+    # ESTABLISH
+    x_dimen = kw.belief_plan_reason_caseunit
+    table_keylist = ["h", "agg", "put"]
+    config_dict = etl_idea_category_config_dict()
+
+    # WHEN
+    blfcase_h_agg_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
+
+    # THEN
+    print(f"{blfcase_h_agg_columns=}")
+    assert blfcase_h_agg_columns
+    expected_added_columns = {
+        f"context_plan_{kw.close}",
+        f"context_plan_{kw.denom}",
+        f"context_plan_{kw.morph}",
+        kw.inx_epoch_diff,
+    }
+    assert expected_added_columns.issubset(blfcase_h_agg_columns)
+    assert blfcase_h_agg_columns == {
+        kw.belief_name,
+        f"context_plan_{kw.close}",
+        f"context_plan_{kw.denom}",
+        f"context_plan_{kw.morph}",
+        kw.face_name,
+        kw.inx_epoch_diff,
+        kw.moment_label,
+        kw.plan_rope,
+        kw.reason_context,
+        kw.reason_state,
+        kw.reason_divisor,
+        f"{kw.reason_lower}_otx",
+        f"{kw.reason_lower}_inx",
+        f"{kw.reason_upper}_otx",
+        f"{kw.reason_upper}_inx",
         kw.spark_num,
     }
 

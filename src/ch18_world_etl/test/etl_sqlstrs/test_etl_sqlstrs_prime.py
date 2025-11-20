@@ -20,6 +20,7 @@ from src.ch18_world_etl.etl_config import (
     create_prime_table_sqlstr,
     get_dimen_abbv7,
     get_etl_category_stages_dict,
+    get_prime_columns,
 )
 from src.ch18_world_etl.etl_sqlstr import (
     create_insert_into_translate_core_raw_sqlstr,
@@ -82,13 +83,17 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
             expected_sqlstrs_dict=expected_sqlstrs_dict,
         )
     print("################################################################")
-    for expected_sql_ref in sorted(expected_sql_refs):
-        print(expected_sql_ref)
+    # for expected_sql_ref in sorted(expected_sql_refs):
+    #     print(expected_sql_ref)
     # print("")
-    # for expected_var_ref in sorted(expected_var_refs):
-    #     print(expected_var_ref)
 
     assert prime_tablenames == expected_tablenames
+    for expected_sql_ref, expected_sqlstr in expected_sqlstrs_dict.items():
+        gen_sqlstr = create_table_sqlstrs.get(expected_sql_ref)
+        if gen_sqlstr != expected_sqlstr:
+            print(f"{expected_sql_ref=}")
+            print(expected_sqlstr)
+        assert gen_sqlstr == expected_sqlstr
     assert create_table_sqlstrs == expected_sqlstrs_dict
 
     # translate_dimens_config = get_idea_config_dict({kw.translate})
