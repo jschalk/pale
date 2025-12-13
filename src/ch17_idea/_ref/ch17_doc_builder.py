@@ -1,5 +1,5 @@
 from pathlib import Path
-from src.ch01_py.file_toolbox import open_json
+from src.ch01_py.file_toolbox import create_path, open_json
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_formats_dir
 
 
@@ -43,7 +43,8 @@ def get_brick_formats_md():
         idea = data["idea_number"]
         attr_names = set(data["attributes"].keys())
         sorted_attrs = get_default_sorted_list(attr_names)
-        manifest_line = f"- [`{idea}`](ideas/{idea}.md): " + ", ".join(sorted_attrs)
+        idea_md_path = create_path("ideas", f"{idea}.md")
+        manifest_line = f"- [`{idea}`]({idea_md_path}): " + ", ".join(sorted_attrs)
         manifest_lines.append(manifest_line)
 
     # Where the Markdown manifest will be written

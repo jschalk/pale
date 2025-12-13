@@ -73,7 +73,7 @@ def test_set_dir_SetsFile(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
     fay_name = "Fay_bob"
-    fay_dir = f"{env_dir}/{fay_name}"
+    fay_dir = create_path(env_dir, fay_name)
     assert not os_path_exist(fay_dir)
 
     # WHEN
@@ -141,8 +141,8 @@ def test_open_file_OpensFilesWithOnly_dest_dir(
     x2_filename = f"{x2_name}.{x2_file_ext}"
     x1_file_str = "trying this"
     x2_file_str = "look there"
-    x1_file_path = f"{env_dir}/{x1_filename}"
-    x2_file_path = f"{env_dir}/{x2_filename}"
+    x1_file_path = create_path(env_dir, x1_filename)
+    x2_file_path = create_path(env_dir, x2_filename)
 
     print(f"{env_dir=} {x1_filename=}")
     print(f"{env_dir=} {x1_filename=}")
@@ -316,12 +316,12 @@ def test_get_dir_file_strs_returnsSubDirs(temp_dir_setup):
     x1_file_str = "trying this"
     x2_file_str = "look there"
     save_file(
-        dest_dir=f"{env_dir}/{x1_name}",
+        dest_dir=create_path(env_dir, x1_name),
         filename=x1_filename,
         file_str=x1_file_str,
     )
     save_file(
-        dest_dir=f"{env_dir}/{x2_name}",
+        dest_dir=create_path(env_dir, x2_name),
         filename=x2_filename,
         file_str=x2_file_str,
     )
@@ -349,7 +349,7 @@ def test_get_dir_file_strs_doesNotReturnsFiles(temp_dir_setup):
     x2_filename = f"{x2_name}.{x2_file_ext}"
     x2_file_str = "look there"
     save_file(
-        dest_dir=f"{env_dir}/{x2_name}",
+        dest_dir=create_path(env_dir, x2_name),
         filename=x2_filename,
         file_str=x2_file_str,
     )
@@ -457,7 +457,7 @@ def test_count_files_ReturnsNoneIfDirectoryDoesNotExist(
 ):
     # ESTABLISH
     env_dir = get_temp_dir()
-    does_not_exist_dir = f"{env_dir}/swim"
+    does_not_exist_dir = create_path(env_dir, "swim")
 
     # WHEN
     dir_count = count_files(dir_path=does_not_exist_dir)
@@ -539,10 +539,10 @@ def test_get_all_dirs_with_file_ReturnsDirectories(temp_dir_setup):
     env_dir = get_temp_dir()
     x1_filename = "x1.txt"
     x1_file_str = "trying this"
-    iowa_rel_dir = "iowa/dallas"
-    ohio_rel_dir = "ohio/elpaso"
-    iowa_dir = f"{env_dir}/{iowa_rel_dir}"
-    ohio_dir = f"{env_dir}/{ohio_rel_dir}"
+    iowa_rel_dir = create_path("iowa", "dallas")
+    ohio_rel_dir = create_path("ohio", "elpaso")
+    iowa_dir = create_path(env_dir, iowa_rel_dir)
+    ohio_dir = create_path(env_dir, ohio_rel_dir)
     save_file(dest_dir=iowa_dir, filename=x1_filename, file_str=x1_file_str)
     save_file(dest_dir=ohio_dir, filename=x1_filename, file_str=x1_file_str)
 
@@ -558,10 +558,10 @@ def test_get_dir_filenames_ReturnsObj_Scenario0_NoFilter(temp_dir_setup):
     env_dir = get_temp_dir()
     x1_filename = "x1.txt"
     x2_filename = "x2.txt"
-    iowa_rel_dir = "iowa/dallas"
-    ohio_rel_dir = "ohio/elpaso"
-    iowa_dir = f"{env_dir}/{iowa_rel_dir}"
-    ohio_dir = f"{env_dir}/{ohio_rel_dir}"
+    iowa_rel_dir = create_path("iowa", "dallas")
+    ohio_rel_dir = create_path("ohio", "elpaso")
+    iowa_dir = create_path(env_dir, iowa_rel_dir)
+    ohio_dir = create_path(env_dir, ohio_rel_dir)
     save_file(iowa_dir, x1_filename, "")
     save_file(iowa_dir, x2_filename, "")
     save_file(ohio_dir, x2_filename, "")
@@ -583,10 +583,10 @@ def test_get_dir_filenames_ReturnsObj_Scenario1_FilterByExtension(
     env_dir = get_temp_dir()
     x1_filename = "x1.txt"
     x2_filename = "x2.json"
-    iowa_rel_dir = "iowa/dallas"
-    ohio_rel_dir = "ohio/elpaso"
-    iowa_dir = f"{env_dir}/{iowa_rel_dir}"
-    ohio_dir = f"{env_dir}/{ohio_rel_dir}"
+    iowa_rel_dir = create_path("iowa", "dallas")
+    ohio_rel_dir = create_path("ohio", "elpaso")
+    iowa_dir = create_path(env_dir, iowa_rel_dir)
+    ohio_dir = create_path(env_dir, ohio_rel_dir)
     save_file(iowa_dir, x1_filename, "")
     save_file(iowa_dir, x2_filename, "")
     save_file(ohio_dir, x2_filename, "")
@@ -611,10 +611,10 @@ def test_get_dir_filenames_ReturnsObj_Scenario2_FilterByExtension(
     x2_filename = "x2.json"
     x3_filename = "x3.json"
     x4_filename = "x4.json"
-    iowa_rel_dir = "iowa/dallas"
-    ohio_rel_dir = "ohio/elpaso"
-    iowa_dir = f"{env_dir}/{iowa_rel_dir}"
-    ohio_dir = f"{env_dir}/{ohio_rel_dir}"
+    iowa_rel_dir = create_path("iowa", "dallas")
+    ohio_rel_dir = create_path("ohio", "elpaso")
+    iowa_dir = create_path(env_dir, iowa_rel_dir)
+    ohio_dir = create_path(env_dir, ohio_rel_dir)
     save_file(iowa_dir, x1_filename, "")
     save_file(iowa_dir, x2_filename, "")
     save_file(ohio_dir, x2_filename, "")

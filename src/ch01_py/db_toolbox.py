@@ -615,11 +615,3 @@ def save_to_split_csvs(
 
 def get_key_part(key_values: list[str]) -> str:
     return "/".join(str(value) for value in key_values)
-    # x_key_path = ""
-    # for value in key_values:
-    #     header_name = key_columns.pop()
-    #     if x_key_path == "":
-    #         x_key_path = f"{header_name}s/{value}"
-    #     else:
-    #         x_key_path += f"/{header_name}s/{value}"
-    # return x_key_path

@@ -313,7 +313,8 @@ def get_all_dirs_with_file(x_filename: str, x_dir: pathlib_Path) -> set[str]:
             if filename == x_filename:
                 x_dir_path = pathlib_Path(dirpath)
                 relative_path = x_dir_path.relative_to(x_dir)
-                relative_dirs.add(str(relative_path).replace("\\", "/"))
+                # relative_dirs.add(str(relative_path).replace("\\", "/"))
+                relative_dirs.add(str(relative_path))
     return relative_dirs
 
 
@@ -335,7 +336,8 @@ def get_dir_filenames(
             if not include_extensions or obj_extension in include_extensions:
                 x_dir_path = pathlib_Path(dirpath)
                 relative_path = x_dir_path.relative_to(x_dir)
-                relative_path = str(relative_path).replace("\\", "/")
+                # relative_path = str(relative_path).replace("\\", "/")
+                relative_path = str(relative_path)
                 filenames_set.add((relative_path, filename))
     if matchs != set():
         for dir, filename in copy_deepcopy(filenames_set):

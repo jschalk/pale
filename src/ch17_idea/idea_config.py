@@ -39,8 +39,7 @@ def get_allowed_curds() -> set[str]:
 
 def get_idea_formats_dir() -> str:
     idea_dir = create_path("src", "ch17_idea")
-    # return create_path(idea_dir, "idea_formats")
-    return "src/ch17_idea/idea_formats"
+    return create_path(idea_dir, "idea_formats")
 
 
 def get_idea_elements_sort_order() -> list[str]:

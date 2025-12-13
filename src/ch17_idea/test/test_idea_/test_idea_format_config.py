@@ -1,4 +1,4 @@
-from src.ch01_py.file_toolbox import get_dir_file_strs
+from src.ch01_py.file_toolbox import create_path, get_dir_file_strs
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
     get_idea_elements_sort_order,
@@ -36,8 +36,7 @@ def test_get_idea_formats_dir_ReturnsObj():
     # THEN
     print(f"{idea_dir=}")
     print(f"{src_chapter_dir()=}")
-    # assert idea_dir == create_path(src_chapter_dir(), "idea_formats")
-    assert idea_dir == f"{src_chapter_dir()}/idea_formats"
+    assert idea_dir == create_path(src_chapter_dir(), "idea_formats")
 
 
 def test_get_idearef_obj_ReturnsObj():

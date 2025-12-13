@@ -7,6 +7,7 @@ from pandas import (
     read_excel as pandas_read_excel,
 )
 from pandas.testing import assert_frame_equal as pandas_testing_assert_frame_equal
+from src.ch01_py.file_toolbox import create_path
 from src.ch17_idea.idea_db_tool import (
     csv_dict_to_excel,
     prettify_excel,
@@ -21,7 +22,7 @@ def test_csv_dict_to_excel_SavesFile(temp_dir_setup):
     test_data = {"TestSheet": "A,B\n5,6\n7,8"}
     x_dir = get_temp_dir()
     x_filename = "test_data.xlsx"
-    file_path = f"{x_dir}/{x_filename}"
+    file_path = create_path(x_dir, x_filename)
     assert os_path_exists(file_path) is False
 
     # WHEN

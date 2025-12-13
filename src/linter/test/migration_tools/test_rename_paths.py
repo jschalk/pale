@@ -224,7 +224,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_directory(
     # GIVEN
     env_dir = get_temp_dir()
     dolphine_text = "dolphin"
-    dolphin_dir = f"{env_dir}/{dolphine_text}"
+    dolphin_dir = create_path(env_dir, dolphine_text)
     dolphin_file_name = f"{dolphine_text}.json"
     lopster_file_name = "lopster.json"
     dolphin_file_text = "trying this"
@@ -236,7 +236,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_directory(
     assert dolphin_files_dict.get(dolphin_file_name) == dolphin_file_text
     assert dolphin_files_dict.get(lopster_file_name) == lopster_file_text
     bobphin_text = "bobphin"
-    bobphin_dir = f"{env_dir}/{bobphin_text}"
+    bobphin_dir = create_path(env_dir, bobphin_text)
     assert os_path_exists(dolphin_dir)
     assert os_path_exists(bobphin_dir) == False
 
@@ -260,7 +260,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_delete_old_directorys(
     # GIVEN
     env_dir = get_temp_dir()
     dolphine_text = "dolphin"
-    dolphin_dir = f"{env_dir}/{dolphine_text}"
+    dolphin_dir = create_path(env_dir, dolphine_text)
     dolphin_file_name = f"{dolphine_text}.json"
     lopster_file_name = "lopster.json"
     dolphin_file_text = "trying this"
@@ -273,7 +273,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_delete_old_directorys(
     assert dolphin_files_dict.get(dolphin_file_name) == dolphin_file_text
     assert dolphin_files_dict.get(lopster_file_name) == lopster_file_text
     bobphin_text = "bobphin"
-    bobphin_dir = f"{env_dir}/{bobphin_text}"
+    bobphin_dir = create_path(env_dir, bobphin_text)
     assert os_path_exists(dolphin_dir)
     assert os_path_exists(bobphin_dir) == False
 
