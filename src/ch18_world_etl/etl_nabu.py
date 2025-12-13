@@ -40,26 +40,6 @@ def add_frame_to_db_beliefunit():
     pass
 
 
-def get_add_frame_to_db_caseunit_sqlstr() -> str:
-    nabepoc_tablename = prime_tbl("nabu_epochtime", "h", "agg")
-    blfcase_tablename = prime_tbl("belief_plan_reason_caseunit", "h", "agg", "put")
-    return f"""
-WITH spark_inx_epoch_diff AS (
-    SELECT 
-    spark_num
-    , otx_time - inx_time AS inx_epoch_diff
-    FROM {nabepoc_tablename}
-)
-UPDATE {blfcase_tablename}
-SET 
-  reason_lower_inx = reason_lower_otx + spark_inx_epoch_diff.inx_epoch_diff
-, reason_upper_inx = reason_upper_otx + spark_inx_epoch_diff.inx_epoch_diff
-FROM spark_inx_epoch_diff
-WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
-;
-"""
-
-
 def add_frame_to_db_caseunit(
     cursor: sqlite3_Cursor,
     plan_close: float,
