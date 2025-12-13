@@ -5,7 +5,7 @@ from src.ch17_idea._ref.ch17_doc_builder import (
     get_idea_brick_md,
     get_idea_brick_mds,
 )
-from src.ch17_idea.idea_config import get_idea_config_dict, get_idea_formats_dir
+from src.ch17_idea.idea_config import get_idea_config_dict
 from src.ch17_idea.test._util.ch17_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch17Keywords as kw
 

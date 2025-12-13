@@ -1,17 +1,17 @@
 {
   "nabu_epochtime": {
     "affected_semantic_types": {
-      "ReasonNum": {
-        "nabuable_values": {"reason_lower": {}, "reason_upper": {}}, 
-        "note": "otx_time is the only required input, inx_time and moment_label can be provided. "
+      "EpochTime": {
+        "nabuable_values": {"bud_time": {}, "offi_time": {}, "tran_time": {}}, 
+        "note": "otx_time is the only required input, inx_time and moment_label can be provided. moment_label is used to provide epoch_length and then modular math calculates changes to all nabuable_values"
       }, 
       "FactNum": {
         "nabuable_values": {"fact_lower": {}, "fact_upper": {}}, 
         "note": "otx_time is the only required input, inx_time and moment_label can be provided. "
       }, 
-      "EpochTime": {
-        "nabuable_values": {"bud_time": {}, "offi_time": {}, "tran_time": {}}, 
-        "note": "otx_time is the only required input, inx_time and moment_label can be provided. moment_label is used to provide epoch_length and then modular math calculates changes to all nabuable_values"
+      "ReasonNum": {
+        "nabuable_values": {"reason_lower": {}, "reason_upper": {}}, 
+        "note": "otx_time is the only required input, inx_time and moment_label can be provided. "
       }
     }, 
     "jkeys": {"moment_label": {}, "otx_time": {}}, 

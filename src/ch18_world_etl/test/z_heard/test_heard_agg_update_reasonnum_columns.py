@@ -1,6 +1,7 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor as sqlite_Cursor, connect as sqlite3_connect
 from src.ch06_plan.test._util.ch06_examples import get_range_attrs
 from src.ch07_belief_logic.belief_tool import (
+    BeliefUnit,
     belief_plan_factunit_exists,
     belief_plan_factunit_get_obj,
     belief_plan_reason_caseunit_exists,
@@ -27,11 +28,11 @@ from src.ch18_world_etl.etl_nabu import (
     add_frame_to_db_caseunit,
     add_frame_to_db_factunit,
     add_frame_to_db_reasonunit,
-    get_add_frame_to_db_caseunit_sqlstr,
 )
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
+    get_update_blfcase_inx_epoch_diff_sqlstr,
     get_update_heard_agg_epochtime_sqlstr,
     get_update_heard_agg_epochtime_sqlstrs,
     update_heard_agg_epochtime_columns,
@@ -47,46 +48,8 @@ from src.ch18_world_etl.test._util.ch18_examples import (
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
-# TODO create function that updates all nabuable otx fields.
-# identify the change
-# update semantic_type: ReasonNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: ReasonNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
 
-
-def test_get_add_frame_to_db_caseunit_sqlstr_ReturnsObj():
-    # ESTABLISH
-    blfcase_tablename = prime_tbl(kw.belief_plan_reason_caseunit, "h", "agg", "put")
-    nabepoc_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
-    mmtunit_tablename = prime_tbl(kw.momentunit, "h", "agg")
-
-    # WHEN
-    update_sqlstr = get_add_frame_to_db_caseunit_sqlstr()
-
-    # THEN
-    assert update_sqlstr
-    expected_update_sqlstr = f"""
-WITH spark_inx_epoch_diff AS (
-    SELECT 
-    spark_num
-    , otx_time - inx_time AS inx_epoch_diff
-    FROM {nabepoc_tablename}
-)
-UPDATE {blfcase_tablename}
-SET 
-  reason_lower_inx = reason_lower_otx + spark_inx_epoch_diff.inx_epoch_diff
-, reason_upper_inx = reason_upper_otx + spark_inx_epoch_diff.inx_epoch_diff
-FROM spark_inx_epoch_diff
-WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
-;
-"""
-    print(expected_update_sqlstr)
-    assert update_sqlstr == expected_update_sqlstr
-
-
-def test_add_frame_to_db_caseunit_SetsAttr_Scenario0_NoWrap_dayly():
-    # sourcery skip: extract-method
-    # ESTABLISH
-    spark7 = 7
+def get_bob_five_with_mop_dayly() -> BeliefUnit:
     bob_belief = get_bob_five_belief()
     print(f"{bob_belief.moment_label=}")
     x_dayly_lower_min = 600
@@ -101,41 +64,105 @@ def test_add_frame_to_db_caseunit_SetsAttr_Scenario0_NoWrap_dayly():
     }
     day_plan = belief_planunit_get_obj(bob_belief, {kw.plan_rope: wx.day_rope})
     set_epoch_cases_by_args_dict(bob_belief, mop_dayly_args)
+    return bob_belief
+
+
+# TODO create function that updates all nabuable otx fields.
+# identify the change
+# update semantic_type: ReasonNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
+# update semantic_type: ReasonNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
+def test_get_update_blfcase_inx_epoch_diff_sqlstr_SetsColumnValues():
+    # sourcery skip: extract-method
+    # ESTABLISH
+    spark7 = 7
+    bob_belief = get_bob_five_with_mop_dayly()
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
+        otx_time = 199
+        inx_time = 13
         m_label = bob_belief.moment_label
-        otx_time = 100
-        inx_time = 0
         insert_otx_inx_time(cursor, spark7, exx.yao, m_label, otx_time, inx_time)
         insert_h_agg_obj(cursor, bob_belief, spark7, exx.yao)
         blfcase_objs = select_blfcase(
             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
         )
-        print(f"{blfcase_objs=}")
-        assert blfcase_objs
         blfcase_obj0 = blfcase_objs[0]
-        assert blfcase_obj0.reason_lower_otx == 600
-        assert blfcase_obj0.reason_lower_otx == x_dayly_lower_min
-        assert not blfcase_obj0.reason_lower_inx
-        assert blfcase_obj0.reason_upper_otx == 690
-        assert blfcase_obj0.reason_upper_otx == x_dayly_lower_min + x_dayly_duration_min
-        assert not blfcase_obj0.reason_upper_inx
+        assert blfcase_obj0.inx_epoch_diff is None
 
         # WHEN
-        add_frame_to_db_caseunit(cursor, day_plan.close, day_plan.denom, day_plan.morph)
+        update_sql = get_update_blfcase_inx_epoch_diff_sqlstr()
+        cursor.execute(update_sql)
 
         # THEN
-        after_blfcase_obj0 = select_blfcase(
+        blfcase_objs = select_blfcase(
             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
-        )[0]
-        expected_lower_inx = blfcase_obj0.reason_lower_otx + otx_time - inx_time
-        expected_upper_inx = blfcase_obj0.reason_upper_otx + otx_time - inx_time
-        assert after_blfcase_obj0.reason_lower_otx == 600
-        assert after_blfcase_obj0.reason_lower_inx == expected_lower_inx
-        assert after_blfcase_obj0.reason_upper_otx == 690
-        assert after_blfcase_obj0.reason_upper_inx == expected_upper_inx
-        assert after_blfcase_obj0.reason_upper_inx == 690 + otx_time - inx_time
+        )
+        blfcase_obj0 = blfcase_objs[0]
+        assert blfcase_obj0.inx_epoch_diff == otx_time - inx_time
+        assert blfcase_obj0.inx_epoch_diff == 186
+
+
+# def test_get_update_blffact_inx_epoch_diff_sqlstr_SetsTable(): # ESTABLISH # WHEN # THEN
+# def test_get_update_blfcase_context_plan_sqlstr_SetsTable(): # ESTABLISH # WHEN # THEN
+# def test_get_update_blffact_context_plan_sqlstr_SetsTable(): # ESTABLISH # WHEN # THEN
+# def test_get_update_blfcase_range_sqlstr_SetsTable(): # ESTABLISH # WHEN # THEN
+# def test_get_update_blffact_range_sqlstr_SetsTable(): # ESTABLISH # WHEN # THEN
+
+
+# def test_add_frame_to_db_caseunit_SetsAttr_Scenario0_NoWrap_dayly():
+#     # sourcery skip: extract-method
+#     # ESTABLISH
+#     spark7 = 7
+#     bob_belief = get_bob_five_belief()
+#     print(f"{bob_belief.moment_label=}")
+#     x_dayly_lower_min = 600
+#     x_dayly_duration_min = 90
+#     mop_dayly_args = {
+#         kw.plan_rope: wx.mop_rope,
+#         kw.reason_context: wx.day_rope,
+#         kw.reason_state: wx.day_rope,
+#         kw.epoch_label: wx.five_str,
+#         kw.dayly_lower_min: x_dayly_lower_min,
+#         kw.dayly_duration_min: x_dayly_duration_min,
+#     }
+#     day_plan = belief_planunit_get_obj(bob_belief, {kw.plan_rope: wx.day_rope})
+#     set_epoch_cases_by_args_dict(bob_belief, mop_dayly_args)
+#     with sqlite3_connect(":memory:") as db_conn:
+#         cursor = db_conn.cursor()
+#         create_sound_and_heard_tables(cursor)
+#         m_label = bob_belief.moment_label
+#         otx_time = 100
+#         inx_time = 0
+#         insert_otx_inx_time(cursor, spark7, exx.yao, m_label, otx_time, inx_time)
+#         insert_h_agg_obj(cursor, bob_belief, spark7, exx.yao)
+#         blfcase_objs = select_blfcase(
+#             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
+#         )
+#         print(f"{blfcase_objs=}")
+#         assert blfcase_objs
+#         blfcase_obj0 = blfcase_objs[0]
+#         assert blfcase_obj0.reason_lower_otx == 600
+#         assert blfcase_obj0.reason_lower_otx == x_dayly_lower_min
+#         assert not blfcase_obj0.reason_lower_inx
+#         assert blfcase_obj0.reason_upper_otx == 690
+#         assert blfcase_obj0.reason_upper_otx == x_dayly_lower_min + x_dayly_duration_min
+#         assert not blfcase_obj0.reason_upper_inx
+
+#         # WHEN
+#         add_frame_to_db_caseunit(cursor, day_plan.close, day_plan.denom, day_plan.morph)
+
+#         # THEN
+#         after_blfcase_obj0 = select_blfcase(
+#             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
+#         )[0]
+#         expected_lower_inx = blfcase_obj0.reason_lower_otx + otx_time - inx_time
+#         expected_upper_inx = blfcase_obj0.reason_upper_otx + otx_time - inx_time
+#         assert after_blfcase_obj0.reason_lower_otx == 600
+#         assert after_blfcase_obj0.reason_lower_inx == expected_lower_inx
+#         assert after_blfcase_obj0.reason_upper_otx == 690
+#         assert after_blfcase_obj0.reason_upper_inx == expected_upper_inx
+#         assert after_blfcase_obj0.reason_upper_inx == 690 + otx_time - inx_time
 
 
 # def test_add_frame_to_db_caseunit_SetsAttr_Scenario1_Wrap_dayly():

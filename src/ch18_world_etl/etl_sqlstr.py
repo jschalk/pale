@@ -1114,7 +1114,128 @@ def get_update_heard_agg_epochtime_sqlstrs() -> dict[str]:
 # Identify the epoch_rope from the moment
 # Identify how much should be added/deleted.
 # Create "_otx" and "_inx" columns for
-# reason_lower, reason_upper, fact_lower, fact_upper, tran_time, bud_time, offi_time
+# reason_lower, reason_upper, fact_lower, fact_upper, tran_time, bud_time,
+def get_update_blfcase_inx_epoch_diff_sqlstr() -> str:
+    nabepoc_tablename = create_prime_tablename("nabu_epochtime", "h", "agg")
+    blfcase_abbv = "belief_plan_reason_caseunit"
+    blfcase_tablename = create_prime_tablename(blfcase_abbv, "h", "agg", "put")
+    return f"""
+WITH spark_inx_epoch_diff AS (
+    SELECT 
+      spark_num
+    , otx_time - inx_time AS inx_epoch_diff
+    FROM {nabepoc_tablename}
+    GROUP BY spark_num, otx_time, inx_time
+)
+UPDATE {blfcase_tablename}
+SET inx_epoch_diff = spark_inx_epoch_diff.inx_epoch_diff
+FROM spark_inx_epoch_diff
+WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
+;
+"""
+
+
+def get_update_blffact_inx_epoch_diff_sqlstr() -> str:
+    nabepoc_tablename = create_prime_tablename("nabu_epochtime", "h", "agg")
+    blffact_tablename = create_prime_tablename("blffact", "h", "agg", "put")
+    return f"""
+WITH spark_inx_epoch_diff AS (
+    SELECT 
+      spark_num
+    , otx_time - inx_time AS inx_epoch_diff
+    FROM {nabepoc_tablename}
+    GROUP BY spark_num, otx_time, inx_time
+)
+UPDATE {blffact_tablename}
+SET inx_epoch_diff = spark_inx_epoch_diff.inx_epoch_diff
+FROM spark_inx_epoch_diff
+WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
+;
+"""
+
+
+def get_update_blfcase_context_plan_sqlstr() -> str:
+    blfcase_tablename = create_prime_tablename("blfcase", "h", "agg", "put")
+    blfplan_tablename = create_prime_tablename("blfplan", "h", "agg", "put")
+    return f"""
+WITH spark_blfplan AS (
+    SELECT spark_num, close, denom, morph
+    FROM {blfplan_tablename}
+    GROUP BY spark_num, close, denom, morph
+)
+UPDATE {blfcase_tablename}
+SET 
+  context_plan_close = spark_blfplan.close
+, context_plan_denom = spark_blfplan.denom
+, context_plan_morph = spark_blfplan.morph
+FROM spark_blfplan
+WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfplan)
+;
+"""
+
+
+def get_update_blffact_context_plan_sqlstr() -> str:
+    blffact_tablename = create_prime_tablename("blffact", "h", "agg", "put")
+    blfplan_tablename = create_prime_tablename("blfplan", "h", "agg", "put")
+    return f"""
+WITH spark_blfplan AS (
+    SELECT spark_num, close, denom, morph
+    FROM {blfplan_tablename}
+    GROUP BY spark_num, close, denom, morph
+)
+UPDATE {blffact_tablename}
+SET 
+  context_plan_close = spark_blfplan.close
+, context_plan_denom = spark_blfplan.denom
+, context_plan_morph = spark_blfplan.morph
+FROM spark_blfplan
+WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_blfplan)
+;
+"""
+
+
+def get_update_blfcase_range_sqlstr() -> str:
+    blfcase_tablename = create_prime_tablename("blfcase", "h", "agg", "put")
+    return f"""
+WITH spark_blfcase AS (
+    SELECT 
+      spark_num
+    , IFNULL(reason_divisor, IFNULL(context_plan_close, context_plan_denom)) modulus
+    , CASE WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_plan_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
+    FROM {blfcase_tablename}
+    GROUP BY spark_num, reason_divisor, context_plan_close, context_plan_denom, context_plan_morph
+)
+UPDATE {blfcase_tablename}
+SET 
+  reason_lower_inx = (reason_lower_otx + spark_blfcase.calc_epoch_diff) % spark_blfcase.modulus
+, reason_upper_inx = (reason_upper_otx + spark_blfcase.calc_epoch_diff) % spark_blfcase.modulus
+FROM spark_blfcase
+WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfcase)
+;
+"""
+
+
+def get_update_blffact_range_sqlstr() -> str:
+    blffact_tablename = create_prime_tablename("blffact", "h", "agg", "put")
+    return f"""
+WITH spark_blffact AS (
+    SELECT 
+      spark_num
+    , IFNULL(reason_divisor, IFNULL(context_plan_close, context_plan_denom)) modulus
+    , FACT WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_plan_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
+    FROM {blffact_tablename}
+    GROUP BY spark_num, reason_divisor, context_plan_close, context_plan_denom, context_plan_morph
+)
+UPDATE {blffact_tablename}
+SET 
+  reason_lower_inx = (reason_lower_otx + spark_blffact.calc_epoch_diff) % spark_blffact.modulus
+, reason_upper_inx = (reason_upper_otx + spark_blffact.calc_epoch_diff) % spark_blffact.modulus
+FROM spark_blffact
+WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_blffact)
+;
+"""
+
+
 def update_heard_agg_epochtime_columns(cursor: sqlite3_Connection):
     for update_sqlstr in get_update_heard_agg_epochtime_sqlstrs().values():
         cursor.execute(update_sqlstr)

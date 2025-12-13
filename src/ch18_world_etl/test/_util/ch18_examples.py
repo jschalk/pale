@@ -176,6 +176,10 @@ class BLFCASEHEARDAGG:
     reason_upper_otx: float
     reason_upper_inx: float
     reason_divisor: int
+    context_plan_close: float
+    context_plan_denom: float
+    context_plan_morph: float
+    inx_epoch_diff: int
 
 
 def select_blfcase_special_h_agg(
@@ -201,6 +205,10 @@ def select_blfcase_special_h_agg(
 , {kw.reason_upper}_otx
 , {kw.reason_upper}_inx
 , {kw.reason_divisor}
+, context_plan_close
+, context_plan_denom
+, context_plan_morph
+, inx_epoch_diff
 FROM {blfcase_h_agg_tablename}
 WHERE {kw.spark_num} = {x_spark_num} 
     AND {kw.moment_label} = '{x_moment_label}'
@@ -225,6 +233,10 @@ WHERE {kw.spark_num} = {x_spark_num}
             reason_upper_otx=row[8],
             reason_upper_inx=row[9],
             reason_divisor=row[10],
+            context_plan_close=row[11],
+            context_plan_denom=row[12],
+            context_plan_morph=row[13],
+            inx_epoch_diff=row[14],
         )
         blfcase_heard_aggs.append(x_blfcase_h_agg)
     return blfcase_heard_aggs
