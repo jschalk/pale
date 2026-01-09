@@ -1,6 +1,6 @@
 {
   "attributes": {
-    "belief_name" : { "otx_key": true  }, 
+    "plan_name" : { "otx_key": true  }, 
     "face_name"   : { "otx_key": true  }, 
     "moment_label": { "otx_key": true  }, 
     "keg_rope"   : { "otx_key": true  }, 
@@ -8,6 +8,6 @@
     "spark_num"   : { "otx_key": true  }, 
     "star"        : { "otx_key": false }
   }, 
-  "dimens": ["momentunit", "beliefunit", "belief_kegunit"], 
+  "dimens": ["momentunit", "planunit", "plan_kegunit"], 
   "idea_number": "br00013"
 }

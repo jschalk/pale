@@ -27,7 +27,7 @@ def test_get_moment_guts_voices_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
 
     # THEN
     voiceunit_colums = {
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.voice_cred_lumen,
         kw.voice_debt_lumen,
@@ -67,7 +67,7 @@ def test_get_moment_jobs_voices_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
 
     # THEN
     voiceunit_colums = {
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.voice_cred_lumen,
         kw.voice_debt_lumen,
@@ -108,7 +108,7 @@ def test_get_moment_guts_agenda_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
 
     # THEN
     agenda_colums = {
-        kw.belief_name,
+        kw.plan_name,
         kw.fund_ratio,
         kw.keg_label,
         kw.parent_rope,
@@ -147,7 +147,7 @@ def test_get_moment_jobs_agenda_dataframe_ReturnsObj(temp_dir_setup):
 
     # THEN
     agenda_colums = {
-        kw.belief_name,
+        kw.plan_name,
         kw.fund_ratio,
         kw.keg_label,
         kw.parent_rope,

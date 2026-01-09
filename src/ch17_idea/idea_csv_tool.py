@@ -1,6 +1,6 @@
 from src.ch01_py.dict_toolbox import get_empty_str_if_None as if_none_str
-from src.ch07_belief_logic.belief_main import BeliefUnit
-from src.ch09_belief_lesson.lesson_main import LessonUnit
+from src.ch07_plan_logic.plan_main import PlanUnit
+from src.ch09_plan_lesson.lesson_main import LessonUnit
 from src.ch14_moment.moment_main import MomentUnit
 from src.ch17_idea._ref.ch17_semantic_types import FaceName, MomentLabel
 from src.ch17_idea.idea_config import get_idea_format_filename, get_idea_format_headers
@@ -112,13 +112,13 @@ def _add_budunit_to_br00001_csv(
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for broker_belief_name, beliefbudhistorys in x_moment.beliefbudhistorys.items():
-        for bud_time, budunit in beliefbudhistorys.buds.items():
+    for broker_plan_name, planbudhistorys in x_moment.planbudhistorys.items():
+        for bud_time, budunit in planbudhistorys.buds.items():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
                 x_moment.moment_label,
-                broker_belief_name,
+                broker_plan_name,
                 str(bud_time),
                 str(budunit.quota),
                 str(budunit.celldepth),
@@ -135,7 +135,7 @@ def _add_paybook_to_br00002_csv(
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for belief_name, tranunit in x_moment.paybook.tranunits.items():
+    for plan_name, tranunit in x_moment.paybook.tranunits.items():
         for voice_name, time_dict in tranunit.items():
             for tran_time, amount in time_dict.items():
                 moment_label = x_moment.moment_label
@@ -143,7 +143,7 @@ def _add_paybook_to_br00002_csv(
                     if_none_str(face_name),
                     if_none_str(spark_num),
                     moment_label,
-                    belief_name,
+                    plan_name,
                     voice_name,
                     str(tran_time),
                     str(amount),
@@ -213,20 +213,20 @@ def _add_weekdays_to_br00005_csv(
     return x_csv
 
 
-def add_belief_to_br00020_csv(
+def add_plan_to_br00020_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for voiceunit in x_belief.voices.values():
+    for voiceunit in x_plan.voices.values():
         for membership in voiceunit.memberships.values():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_belief.moment_label,
-                x_belief.belief_name,
+                x_plan.moment_label,
+                x_plan.plan_name,
                 voiceunit.voice_name,
                 membership.group_title,
                 if_none_str(membership.group_cred_lumen),
@@ -237,19 +237,19 @@ def add_belief_to_br00020_csv(
     return x_csv
 
 
-def add_belief_to_br00021_csv(
+def add_plan_to_br00021_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for voiceunit in x_belief.voices.values():
+    for voiceunit in x_plan.voices.values():
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_belief.moment_label,
-            x_belief.belief_name,
+            x_plan.moment_label,
+            x_plan.plan_name,
             voiceunit.voice_name,
             if_none_str(voiceunit.voice_cred_lumen),
             if_none_str(voiceunit.voice_debt_lumen),
@@ -259,20 +259,20 @@ def add_belief_to_br00021_csv(
     return x_csv
 
 
-def add_belief_to_br00022_csv(
+def add_plan_to_br00022_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_belief._keg_dict.values():
+    for kegunit in x_plan._keg_dict.values():
         for awardunit in kegunit.awardunits.values():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_belief.moment_label,
-                x_belief.belief_name,
+                x_plan.moment_label,
+                x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 awardunit.awardee_title,
                 if_none_str(awardunit.give_force),
@@ -283,20 +283,20 @@ def add_belief_to_br00022_csv(
     return x_csv
 
 
-def add_belief_to_br00023_csv(
+def add_plan_to_br00023_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for factunit in x_belief.kegroot.factunits.values():
+    for factunit in x_plan.kegroot.factunits.values():
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_belief.moment_label,
-            x_belief.belief_name,
-            x_belief.kegroot.get_keg_rope(),
+            x_plan.moment_label,
+            x_plan.plan_name,
+            x_plan.kegroot.get_keg_rope(),
             factunit.fact_context,
             factunit.fact_state,
             if_none_str(factunit.fact_lower),
@@ -307,20 +307,20 @@ def add_belief_to_br00023_csv(
     return x_csv
 
 
-def add_belief_to_br00024_csv(
+def add_plan_to_br00024_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_belief._keg_dict.values():
+    for kegunit in x_plan._keg_dict.values():
         for group_title in kegunit.laborunit.partys:
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_belief.moment_label,
-                x_belief.belief_name,
+                x_plan.moment_label,
+                x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 group_title,
             ]
@@ -329,20 +329,20 @@ def add_belief_to_br00024_csv(
     return x_csv
 
 
-def add_belief_to_br00025_csv(
+def add_plan_to_br00025_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_belief._keg_dict.values():
+    for kegunit in x_plan._keg_dict.values():
         for group_title in kegunit.healerunit._healer_names:
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_belief.moment_label,
-                x_belief.belief_name,
+                x_plan.moment_label,
+                x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 group_title,
             ]
@@ -351,21 +351,21 @@ def add_belief_to_br00025_csv(
     return x_csv
 
 
-def add_belief_to_br00026_csv(
+def add_plan_to_br00026_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_belief._keg_dict.values():
+    for kegunit in x_plan._keg_dict.values():
         for reasonunit in kegunit.reasonunits.values():
             for caseunit in reasonunit.cases.values():
                 x_row = [
                     if_none_str(face_name),
                     if_none_str(spark_num),
-                    x_belief.moment_label,
-                    x_belief.belief_name,
+                    x_plan.moment_label,
+                    x_plan.plan_name,
                     kegunit.get_keg_rope(),
                     reasonunit.reason_context,
                     caseunit.reason_state,
@@ -378,20 +378,20 @@ def add_belief_to_br00026_csv(
     return x_csv
 
 
-def add_belief_to_br00027_csv(
+def add_plan_to_br00027_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_belief._keg_dict.values():
+    for kegunit in x_plan._keg_dict.values():
         for reasonunit in kegunit.reasonunits.values():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_belief.moment_label,
-                x_belief.belief_name,
+                x_plan.moment_label,
+                x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 reasonunit.reason_context,
                 if_none_str(reasonunit.active_requisite),
@@ -401,20 +401,20 @@ def add_belief_to_br00027_csv(
     return x_csv
 
 
-def add_belief_to_br00028_csv(
+def add_plan_to_br00028_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_belief._keg_dict.values():
-        if kegunit != x_belief.kegroot:
+    for kegunit in x_plan._keg_dict.values():
+        if kegunit != x_plan.kegroot:
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_belief.moment_label,
-                x_belief.belief_name,
+                x_plan.moment_label,
+                x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 if_none_str(kegunit.begin),
                 if_none_str(kegunit.close),
@@ -433,9 +433,9 @@ def add_belief_to_br00028_csv(
     return x_csv
 
 
-def add_belief_to_br00029_csv(
+def add_plan_to_br00029_csv(
     x_csv: str,
-    x_belief: BeliefUnit,
+    x_plan: PlanUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
@@ -443,24 +443,24 @@ def add_belief_to_br00029_csv(
     x_row = [
         if_none_str(face_name),
         if_none_str(spark_num),
-        x_belief.moment_label,
-        x_belief.belief_name,
-        if_none_str(x_belief.credor_respect),
-        if_none_str(x_belief.debtor_respect),
-        if_none_str(x_belief.fund_pool),
-        if_none_str(x_belief.max_tree_traverse),
-        if_none_str(x_belief.tally),
-        if_none_str(x_belief.fund_grain),
-        if_none_str(x_belief.mana_grain),
-        if_none_str(x_belief.respect_grain),
+        x_plan.moment_label,
+        x_plan.plan_name,
+        if_none_str(x_plan.credor_respect),
+        if_none_str(x_plan.debtor_respect),
+        if_none_str(x_plan.fund_pool),
+        if_none_str(x_plan.max_tree_traverse),
+        if_none_str(x_plan.tally),
+        if_none_str(x_plan.fund_grain),
+        if_none_str(x_plan.mana_grain),
+        if_none_str(x_plan.respect_grain),
     ]
     x_csv += csv_delimiter.join(x_row)
     x_csv += "\n"
     return x_csv
 
 
-def add_beliefunit_to_stance_csv_strs(
-    x_belief: BeliefUnit, moment_csv_strs: dict[str, str], csv_delimiter: str
+def add_planunit_to_stance_csv_strs(
+    x_plan: PlanUnit, moment_csv_strs: dict[str, str], csv_delimiter: str
 ) -> str:
     br00020_csv = moment_csv_strs.get("br00020")
     br00021_csv = moment_csv_strs.get("br00021")
@@ -472,16 +472,16 @@ def add_beliefunit_to_stance_csv_strs(
     br00027_csv = moment_csv_strs.get("br00027")
     br00028_csv = moment_csv_strs.get("br00028")
     br00029_csv = moment_csv_strs.get("br00029")
-    br00020_csv = add_belief_to_br00020_csv(br00020_csv, x_belief, csv_delimiter)
-    br00021_csv = add_belief_to_br00021_csv(br00021_csv, x_belief, csv_delimiter)
-    br00022_csv = add_belief_to_br00022_csv(br00022_csv, x_belief, csv_delimiter)
-    br00023_csv = add_belief_to_br00023_csv(br00023_csv, x_belief, csv_delimiter)
-    br00024_csv = add_belief_to_br00024_csv(br00024_csv, x_belief, csv_delimiter)
-    br00025_csv = add_belief_to_br00025_csv(br00025_csv, x_belief, csv_delimiter)
-    br00026_csv = add_belief_to_br00026_csv(br00026_csv, x_belief, csv_delimiter)
-    br00027_csv = add_belief_to_br00027_csv(br00027_csv, x_belief, csv_delimiter)
-    br00028_csv = add_belief_to_br00028_csv(br00028_csv, x_belief, csv_delimiter)
-    br00029_csv = add_belief_to_br00029_csv(br00029_csv, x_belief, csv_delimiter)
+    br00020_csv = add_plan_to_br00020_csv(br00020_csv, x_plan, csv_delimiter)
+    br00021_csv = add_plan_to_br00021_csv(br00021_csv, x_plan, csv_delimiter)
+    br00022_csv = add_plan_to_br00022_csv(br00022_csv, x_plan, csv_delimiter)
+    br00023_csv = add_plan_to_br00023_csv(br00023_csv, x_plan, csv_delimiter)
+    br00024_csv = add_plan_to_br00024_csv(br00024_csv, x_plan, csv_delimiter)
+    br00025_csv = add_plan_to_br00025_csv(br00025_csv, x_plan, csv_delimiter)
+    br00026_csv = add_plan_to_br00026_csv(br00026_csv, x_plan, csv_delimiter)
+    br00027_csv = add_plan_to_br00027_csv(br00027_csv, x_plan, csv_delimiter)
+    br00028_csv = add_plan_to_br00028_csv(br00028_csv, x_plan, csv_delimiter)
+    br00029_csv = add_plan_to_br00029_csv(br00029_csv, x_plan, csv_delimiter)
     moment_csv_strs["br00020"] = br00020_csv
     moment_csv_strs["br00021"] = br00021_csv
     moment_csv_strs["br00022"] = br00022_csv
@@ -497,17 +497,17 @@ def add_beliefunit_to_stance_csv_strs(
 def add_lesson_to_br00020_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_voice_membership":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_voice_membership":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("voice_name"),
-                beliefatom.jkeys.get("group_title"),
-                if_none_str(beliefatom.jvalues.get("group_cred_lumen")),
-                if_none_str(beliefatom.jvalues.get("group_debt_lumen")),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("voice_name"),
+                planatom.jkeys.get("group_title"),
+                if_none_str(planatom.jvalues.get("group_cred_lumen")),
+                if_none_str(planatom.jvalues.get("group_debt_lumen")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -517,16 +517,16 @@ def add_lesson_to_br00020_csv(
 def add_lesson_to_br00021_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_voiceunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_voiceunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("voice_name"),
-                if_none_str(beliefatom.jvalues.get("voice_cred_lumen")),
-                if_none_str(beliefatom.jvalues.get("voice_debt_lumen")),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("voice_name"),
+                if_none_str(planatom.jvalues.get("voice_cred_lumen")),
+                if_none_str(planatom.jvalues.get("voice_debt_lumen")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -536,17 +536,17 @@ def add_lesson_to_br00021_csv(
 def add_lesson_to_br00022_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_keg_awardunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_keg_awardunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("keg_rope"),
-                beliefatom.jkeys.get("awardee_title"),
-                if_none_str(beliefatom.jvalues.get("give_force")),
-                if_none_str(beliefatom.jvalues.get("take_force")),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("keg_rope"),
+                planatom.jkeys.get("awardee_title"),
+                if_none_str(planatom.jvalues.get("give_force")),
+                if_none_str(planatom.jvalues.get("take_force")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -556,18 +556,18 @@ def add_lesson_to_br00022_csv(
 def add_lesson_to_br00023_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_keg_factunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_keg_factunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("keg_rope"),
-                beliefatom.jkeys.get("fact_context"),
-                if_none_str(beliefatom.jvalues.get("fact_state")),
-                if_none_str(beliefatom.jvalues.get("fact_lower")),
-                if_none_str(beliefatom.jvalues.get("fact_upper")),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("keg_rope"),
+                planatom.jkeys.get("fact_context"),
+                if_none_str(planatom.jvalues.get("fact_state")),
+                if_none_str(planatom.jvalues.get("fact_lower")),
+                if_none_str(planatom.jvalues.get("fact_upper")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -577,15 +577,15 @@ def add_lesson_to_br00023_csv(
 def add_lesson_to_br00024_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_keg_partyunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_keg_partyunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("keg_rope"),
-                beliefatom.jkeys.get("party_title"),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("keg_rope"),
+                planatom.jkeys.get("party_title"),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -595,15 +595,15 @@ def add_lesson_to_br00024_csv(
 def add_lesson_to_br00025_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_keg_healerunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_keg_healerunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("keg_rope"),
-                beliefatom.jkeys.get("healer_name"),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("keg_rope"),
+                planatom.jkeys.get("healer_name"),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -613,19 +613,19 @@ def add_lesson_to_br00025_csv(
 def add_lesson_to_br00026_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_keg_reason_caseunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_keg_reason_caseunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("keg_rope"),
-                beliefatom.jkeys.get("reason_context"),
-                beliefatom.jkeys.get("reason_state"),
-                if_none_str(beliefatom.jvalues.get("reason_lower")),
-                if_none_str(beliefatom.jvalues.get("reason_upper")),
-                if_none_str(beliefatom.jvalues.get("reason_divisor")),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("keg_rope"),
+                planatom.jkeys.get("reason_context"),
+                planatom.jkeys.get("reason_state"),
+                if_none_str(planatom.jvalues.get("reason_lower")),
+                if_none_str(planatom.jvalues.get("reason_upper")),
+                if_none_str(planatom.jvalues.get("reason_divisor")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -635,16 +635,16 @@ def add_lesson_to_br00026_csv(
 def add_lesson_to_br00027_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_keg_reasonunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_keg_reasonunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("keg_rope"),
-                beliefatom.jkeys.get("reason_context"),
-                if_none_str(beliefatom.jvalues.get("active_requisite")),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("keg_rope"),
+                planatom.jkeys.get("reason_context"),
+                if_none_str(planatom.jvalues.get("active_requisite")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -654,25 +654,25 @@ def add_lesson_to_br00027_csv(
 def add_lesson_to_br00028_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "belief_kegunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "plan_kegunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                beliefatom.jkeys.get("keg_rope"),
-                if_none_str(beliefatom.jvalues.get("begin")),
-                if_none_str(beliefatom.jvalues.get("close")),
-                if_none_str(beliefatom.jvalues.get("addin")),
-                if_none_str(beliefatom.jvalues.get("numor")),
-                if_none_str(beliefatom.jvalues.get("denom")),
-                if_none_str(beliefatom.jvalues.get("morph")),
-                if_none_str(beliefatom.jvalues.get("gogo_want")),
-                if_none_str(beliefatom.jvalues.get("stop_want")),
-                if_none_str(beliefatom.jvalues.get("star")),
-                if_none_str(beliefatom.jvalues.get("pledge")),
-                if_none_str(beliefatom.jvalues.get("problem_bool")),
+                x_lessonunit.plan_name,
+                planatom.jkeys.get("keg_rope"),
+                if_none_str(planatom.jvalues.get("begin")),
+                if_none_str(planatom.jvalues.get("close")),
+                if_none_str(planatom.jvalues.get("addin")),
+                if_none_str(planatom.jvalues.get("numor")),
+                if_none_str(planatom.jvalues.get("denom")),
+                if_none_str(planatom.jvalues.get("morph")),
+                if_none_str(planatom.jvalues.get("gogo_want")),
+                if_none_str(planatom.jvalues.get("stop_want")),
+                if_none_str(planatom.jvalues.get("star")),
+                if_none_str(planatom.jvalues.get("pledge")),
+                if_none_str(planatom.jvalues.get("problem_bool")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -682,21 +682,21 @@ def add_lesson_to_br00028_csv(
 def add_lesson_to_br00029_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for beliefatom in x_lessonunit._beliefdelta.get_ordered_beliefatoms().values():
-        if beliefatom.dimen == "beliefunit":
+    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
+        if planatom.dimen == "planunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
-                x_lessonunit.belief_name,
-                if_none_str(beliefatom.jvalues.get("credor_respect")),
-                if_none_str(beliefatom.jvalues.get("debtor_respect")),
-                if_none_str(beliefatom.jvalues.get("fund_pool")),
-                if_none_str(beliefatom.jvalues.get("max_tree_traverse")),
-                if_none_str(beliefatom.jvalues.get("tally")),
-                if_none_str(beliefatom.jvalues.get("fund_grain")),
-                if_none_str(beliefatom.jvalues.get("mana_grain")),
-                if_none_str(beliefatom.jvalues.get("respect_grain")),
+                x_lessonunit.plan_name,
+                if_none_str(planatom.jvalues.get("credor_respect")),
+                if_none_str(planatom.jvalues.get("debtor_respect")),
+                if_none_str(planatom.jvalues.get("fund_pool")),
+                if_none_str(planatom.jvalues.get("max_tree_traverse")),
+                if_none_str(planatom.jvalues.get("tally")),
+                if_none_str(planatom.jvalues.get("fund_grain")),
+                if_none_str(planatom.jvalues.get("mana_grain")),
+                if_none_str(planatom.jvalues.get("respect_grain")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"

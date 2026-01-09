@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch18_world_etl.etl_main import set_moment_belief_sound_agg_knot_errors
+from src.ch18_world_etl.etl_main import set_moment_plan_sound_agg_knot_errors
 from src.ch18_world_etl.etl_sqlstr import (
     CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR,
     CREATE_TRLCORE_SOUND_VLD_SQLSTR,
@@ -21,10 +21,10 @@ def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTabl
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR)
-        blfvoce_dimen = kw.belief_voiceunit
+        blfvoce_dimen = kw.plan_voiceunit
         blfvoce_s_agg_put = create_prime_tablename(blfvoce_dimen, "s", "agg", "put")
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
+  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.plan_name}, {kw.voice_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
@@ -74,10 +74,10 @@ def test_create_knot_exists_in_label_error_update_sqlstr_ReturnsObj_PopulatesTab
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR)
-        blfvoce_dimen = kw.belief_voiceunit
+        blfvoce_dimen = kw.plan_voiceunit
         blfvoce_s_agg_put = create_prime_tablename(blfvoce_dimen, "s", "agg", "put")
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
+  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.plan_name}, {kw.voice_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
@@ -117,7 +117,7 @@ VALUES
         ]
 
 
-def test_set_moment_belief_sound_agg_knot_errors_PopulatesTable_Scenario0():
+def test_set_moment_plan_sound_agg_knot_errors_PopulatesTable_Scenario0():
     # ESTABLISH
     colon = ":"
     bob_str = f"{colon}Bob"
@@ -130,10 +130,10 @@ def test_set_moment_belief_sound_agg_knot_errors_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         cursor.execute(CREATE_BLFVOCE_SOUND_PUT_AGG_SQLSTR)
-        blfvoce_dimen = kw.belief_voiceunit
+        blfvoce_dimen = kw.plan_voiceunit
         blfvoce_s_agg_put = create_prime_tablename(blfvoce_dimen, "s", "agg", "put")
         insert_blfvoce_sqlstr = f"""INSERT INTO {blfvoce_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.voice_name})
+  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.plan_name}, {kw.voice_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
@@ -155,11 +155,11 @@ VALUES
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 0
 
         # WHEN
-        set_moment_belief_sound_agg_knot_errors(cursor)
+        set_moment_plan_sound_agg_knot_errors(cursor)
 
         # THEN
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 2
-        select_core_raw_sqlstr = f"SELECT * FROM {blfvoce_s_agg_put} ORDER BY {kw.moment_label}, {kw.belief_name}, {kw.voice_name}"
+        select_core_raw_sqlstr = f"SELECT * FROM {blfvoce_s_agg_put} ORDER BY {kw.moment_label}, {kw.plan_name}, {kw.voice_name}"
         cursor.execute(select_core_raw_sqlstr)
         name_knot_str = f"Knot cannot exist in NameTerm column {kw.voice_name}"
         label_knot_str = f"Knot cannot exist in LabelTerm column {kw.moment_label}"

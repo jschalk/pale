@@ -177,8 +177,8 @@ def awardline_shop(awardee_title: GroupTitle, fund_give: float, fund_take: float
 
 @dataclass
 class GroupUnit(GroupCore):
-    memberships: dict[VoiceName, MemberShip] = None  # set by BeliefUnit.set_voiceunit()
-    # calculated by BeliefUnit.cashout()
+    memberships: dict[VoiceName, MemberShip] = None  # set by PlanUnit.set_voiceunit()
+    # calculated by PlanUnit.cashout()
     fund_give: float = None
     fund_take: float = None
     fund_agenda_give: float = None

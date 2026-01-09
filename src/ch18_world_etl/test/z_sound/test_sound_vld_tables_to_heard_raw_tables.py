@@ -24,15 +24,13 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PopulatesTable_Scenario0()
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        beliefavoice_s_vld_put_tablename = prime_tbl(
-            kw.belief_voiceunit, "s", "vld", "put"
-        )
-        print(f"{get_table_columns(cursor, beliefavoice_s_vld_put_tablename)=}")
-        insert_into_clause = f"""INSERT INTO {beliefavoice_s_vld_put_tablename} (
+        planavoice_s_vld_put_tablename = prime_tbl(kw.plan_voiceunit, "s", "vld", "put")
+        print(f"{get_table_columns(cursor, planavoice_s_vld_put_tablename)=}")
+        insert_into_clause = f"""INSERT INTO {planavoice_s_vld_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -46,8 +44,8 @@ VALUES
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
-        assert get_row_count(cursor, beliefavoice_s_vld_put_tablename) == 4
-        blfawar_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
+        assert get_row_count(cursor, planavoice_s_vld_put_tablename) == 4
+        blfawar_h_raw_put_tablename = prime_tbl(kw.plan_voiceunit, "h", "raw", "put")
         assert get_row_count(cursor, blfawar_h_raw_put_tablename) == 0
 
         # WHEN
@@ -59,7 +57,7 @@ VALUES
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}_otx
 , {kw.moment_label}_otx
-, {kw.belief_name}_otx
+, {kw.plan_name}_otx
 , {kw.voice_name}_otx
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -91,13 +89,13 @@ def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario0_AddRowsToTable():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_s_vld_put_tablename = prime_tbl(kw.belief_voiceunit, "s", "vld", "put")
+        blfvoce_s_vld_put_tablename = prime_tbl(kw.plan_voiceunit, "s", "vld", "put")
         print(f"{get_table_columns(cursor, blfvoce_s_vld_put_tablename)=}")
         insert_into_clause = f"""INSERT INTO {blfvoce_s_vld_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -112,7 +110,7 @@ VALUES
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
         assert get_row_count(cursor, blfvoce_s_vld_put_tablename) == 4
-        blfvoce_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
+        blfvoce_h_raw_put_tablename = prime_tbl(kw.plan_voiceunit, "h", "raw", "put")
         assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 0
 
         # WHEN
@@ -123,7 +121,7 @@ VALUES
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}_otx
 , {kw.moment_label}_otx
-, {kw.belief_name}_otx
+, {kw.plan_name}_otx
 , {kw.voice_name}_otx
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -154,13 +152,13 @@ def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario1_Populates_inx_Column
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_s_vld_put_tablename = prime_tbl(kw.belief_voiceunit, "s", "vld", "put")
+        blfvoce_s_vld_put_tablename = prime_tbl(kw.plan_voiceunit, "s", "vld", "put")
         print(f"{get_table_columns(cursor, blfvoce_s_vld_put_tablename)=}")
         insert_into_clause = f"""INSERT INTO {blfvoce_s_vld_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -175,7 +173,7 @@ VALUES
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
         assert get_row_count(cursor, blfvoce_s_vld_put_tablename) == 4
-        blfvoce_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
+        blfvoce_h_raw_put_tablename = prime_tbl(kw.plan_voiceunit, "h", "raw", "put")
         assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 0
 
         # WHEN
@@ -186,7 +184,7 @@ VALUES
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_label}_inx
-, {kw.belief_name}_inx
+, {kw.plan_name}_inx
 , {kw.voice_name}_inx
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}

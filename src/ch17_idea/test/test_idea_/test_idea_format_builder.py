@@ -1,5 +1,5 @@
 from src.ch01_py.file_toolbox import save_json
-from src.ch08_belief_atom.atom_config import get_atom_config_args
+from src.ch08_plan_atom.atom_config import get_atom_config_args
 from src.ch17_idea._ref.ch17_doc_builder import (
     get_brick_formats_md,
     get_idea_brick_md,
@@ -14,9 +14,9 @@ def create_dimens_idea_format_dict() -> dict:
     idea_format_files_dict = {}
     x_count = 20
     for idea_dimen, dimen_dict in get_idea_config_dict().items():
-        if dimen_dict.get(kw.idea_category) == "belief":
+        if dimen_dict.get(kw.idea_category) == "plan":
             idea_filename = f"idea_format_{x_count:05}_{idea_dimen}_v0_0_0.json"
-            attributes_set = {kw.moment_label, kw.belief_name}
+            attributes_set = {kw.moment_label, kw.plan_name}
             args_dict = get_atom_config_args(idea_dimen)
             attributes_set.update(set(args_dict.keys()))
 
@@ -34,16 +34,16 @@ def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_bool):
     for idea_format in sorted(dimens_idea_format_dict.keys()):
         print(f"{idea_format=}")
     assert len(dimens_idea_format_dict) == 10
-    belief_kegunit_filename = f"idea_format_00026_{kw.belief_kegunit}_v0_0_0.json"
-    assert dimens_idea_format_dict.get(belief_kegunit_filename)
-    belief_kegunit_dict = dimens_idea_format_dict.get(belief_kegunit_filename)
-    assert belief_kegunit_dict.get(kw.dimens) == [kw.belief_kegunit]
-    assert belief_kegunit_dict.get(kw.attributes)
-    belief_kegunit_attributes = belief_kegunit_dict.get(kw.attributes)
-    assert kw.moment_label in belief_kegunit_attributes
-    assert kw.belief_name in belief_kegunit_attributes
-    assert kw.keg_rope in belief_kegunit_attributes
-    assert kw.gogo_want in belief_kegunit_attributes
+    plan_kegunit_filename = f"idea_format_00026_{kw.plan_kegunit}_v0_0_0.json"
+    assert dimens_idea_format_dict.get(plan_kegunit_filename)
+    plan_kegunit_dict = dimens_idea_format_dict.get(plan_kegunit_filename)
+    assert plan_kegunit_dict.get(kw.dimens) == [kw.plan_kegunit]
+    assert plan_kegunit_dict.get(kw.attributes)
+    plan_kegunit_attributes = plan_kegunit_dict.get(kw.attributes)
+    assert kw.moment_label in plan_kegunit_attributes
+    assert kw.plan_name in plan_kegunit_attributes
+    assert kw.keg_rope in plan_kegunit_attributes
+    assert kw.gogo_want in plan_kegunit_attributes
 
 
 def test_get_idea_brick_md_ReturnsObj():

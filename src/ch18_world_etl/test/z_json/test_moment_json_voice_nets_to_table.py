@@ -1,7 +1,7 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import db_table_exists, get_row_count
 from src.ch01_py.file_toolbox import save_json
-from src.ch09_belief_lesson._ref.ch09_path import create_moment_json_path
+from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch11_bud.bud_main import tranbook_shop
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.etl_main import (
@@ -38,7 +38,7 @@ def test_insert_tranunit_voices_net_PopulatesDatabase():
 
         # THEN
         assert get_row_count(cursor, moment_voice_nets_tablename) == 2
-        select_sqlstr = f"SELECT moment_label, belief_name, {kw.belief_net_amount} FROM {moment_voice_nets_tablename}"
+        select_sqlstr = f"SELECT moment_label, plan_name, {kw.plan_net_amount} FROM {moment_voice_nets_tablename}"
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
         assert rows == [
@@ -77,7 +77,7 @@ def test_etl_moment_json_voice_nets_to_moment_voice_nets_table_PopulatesDatabase
 
         # THEN
         assert get_row_count(cursor, moment_voice_nets_tablename) == 2
-        select_sqlstr = f"SELECT moment_label, belief_name, {kw.belief_net_amount} FROM {moment_voice_nets_tablename}"
+        select_sqlstr = f"SELECT moment_label, plan_name, {kw.plan_net_amount} FROM {moment_voice_nets_tablename}"
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
         assert rows == [

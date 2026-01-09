@@ -3,12 +3,12 @@ from pandas import DataFrame
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import db_table_exists, get_row_count
 from src.ch01_py.file_toolbox import count_dirs_files, create_path, save_file
-from src.ch09_belief_lesson._ref.ch09_path import (
+from src.ch09_plan_lesson._ref.ch09_path import (
     create_gut_path,
     create_job_path,
     create_moment_json_path,
 )
-from src.ch09_belief_lesson.lesson_filehandler import open_gut_file
+from src.ch09_plan_lesson.lesson_filehandler import open_gut_file
 from src.ch11_bud._ref.ch11_path import (
     create_spark_all_lesson_path,
     create_spark_expressed_lesson_path as expressed_path,
@@ -45,7 +45,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         kw.face_name,
         kw.spark_num,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.otx_name,
         kw.inx_name,
@@ -68,17 +68,17 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     momentunit_sound_raw = prime_tbl("momentunit", "s", "raw")
     momentunit_sound_agg = prime_tbl("momentunit", "s", "agg")
     momentunit_sound_vld = prime_tbl("momentunit", "s", "vld")
-    blfunit_sound_put_raw = prime_tbl("beliefunit", "s", "raw", "put")
-    blfunit_sound_put_agg = prime_tbl("beliefunit", "s", "agg", "put")
-    blfunit_sound_put_vld = prime_tbl("beliefunit", "s", "vld", "put")
+    blfunit_sound_put_raw = prime_tbl("planunit", "s", "raw", "put")
+    blfunit_sound_put_agg = prime_tbl("planunit", "s", "agg", "put")
+    blfunit_sound_put_vld = prime_tbl("planunit", "s", "vld", "put")
     blfvoce_sound_put_raw = prime_tbl("blfvoce", "s", "raw", "put")
     blfvoce_sound_put_agg = prime_tbl("blfvoce", "s", "agg", "put")
     blfvoce_sound_put_vld = prime_tbl("blfvoce", "s", "vld", "put")
     momentunit_heard_raw = prime_tbl("momentunit", "h", "raw")
     momentunit_heard_agg = prime_tbl("momentunit", "h", "agg")
     momentunit_heard_vld = prime_tbl("momentunit", "h", "vld")
-    blfunit_heard_put_raw = prime_tbl("beliefunit", "h", "raw", "put")
-    blfunit_heard_put_agg = prime_tbl("beliefunit", "h", "vld", "put")
+    blfunit_heard_put_raw = prime_tbl("planunit", "h", "raw", "put")
+    blfunit_heard_put_agg = prime_tbl("planunit", "h", "vld", "put")
     blfvoce_heard_put_raw = prime_tbl("blfvoce", "h", "raw", "put")
     blfvoce_heard_put_agg = prime_tbl("blfvoce", "h", "vld", "put")
     mstr_dir = fay_world._moment_mstr_dir
@@ -129,8 +129,8 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert not db_table_exists(cursor, kw.moment_kpi001_voice_nets)
         assert not os_path_exists(last_run_metrics_path)
 
-        # # create beliefunits
-        # self.belief_tables_to_spark_belief_csvs(cursor)
+        # # create planunits
+        # self.plan_tables_to_spark_plan_csvs(cursor)
 
         # # create all moment_job and mandate reports
         # self.calc_moment_bud_voice_mandate_net_ledgers()
@@ -140,12 +140,12 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
 
         # THEN
         # select_translate_core = f"SELECT * FROM {trlcore_sound_vld}"
-        # select_beliefunit_put = f"SELECT * FROM {blfunit_sound_put_agg}"
+        # select_planunit_put = f"SELECT * FROM {blfunit_sound_put_agg}"
         # select_blfvoce_put = f"SELECT * FROM {blfvoce_sound_put_agg}"
         # select_momentunit_put_raw = f"SELECT * FROM {momentunit_sound_raw}"
         # select_momentunit_put_agg = f"SELECT * FROM {momentunit_sound_agg}"
         # print(f"{cursor.execute(select_translate_core).fetchall()=}")
-        # print(f"{cursor.execute(select_beliefunit_put).fetchall()=}")
+        # print(f"{cursor.execute(select_planunit_put).fetchall()=}")
         # print(f"{cursor.execute(select_blfvoce_put).fetchall()=}")
         # print(f"{cursor.execute(select_momentunit_put_raw).fetchall()=}")
         # print(f"{cursor.execute(select_momentunit_put_agg).fetchall()=}")
@@ -209,7 +209,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         kw.face_name,
         kw.spark_num,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.otx_name,
         kw.inx_name,
@@ -225,7 +225,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -251,14 +251,14 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     trlcore_sound_vld = prime_tbl("trlcore", "s", "vld")
     momentunit_sound_raw = prime_tbl("momentunit", "s", "raw")
     momentunit_sound_agg = prime_tbl("momentunit", "s", "agg")
-    blfunit_sound_put_raw = prime_tbl("beliefunit", "s", "raw", "put")
-    blfunit_sound_put_agg = prime_tbl("beliefunit", "s", "agg", "put")
+    blfunit_sound_put_raw = prime_tbl("planunit", "s", "raw", "put")
+    blfunit_sound_put_agg = prime_tbl("planunit", "s", "agg", "put")
     blfvoce_sound_put_raw = prime_tbl("blfvoce", "s", "raw", "put")
     blfvoce_sound_put_agg = prime_tbl("blfvoce", "s", "agg", "put")
     momentunit_heard_raw = prime_tbl("momentunit", "h", "raw")
     momentunit_heard_vld = prime_tbl("momentunit", "h", "vld")
-    blfunit_heard_put_raw = prime_tbl("beliefunit", "h", "raw", "put")
-    blfunit_heard_put_agg = prime_tbl("beliefunit", "h", "vld", "put")
+    blfunit_heard_put_raw = prime_tbl("planunit", "h", "raw", "put")
+    blfunit_heard_put_agg = prime_tbl("planunit", "h", "vld", "put")
     blfvoce_heard_put_raw = prime_tbl("blfvoce", "h", "raw", "put")
     blfvoce_heard_put_agg = prime_tbl("blfvoce", "h", "vld", "put")
     mstr_dir = fay_world._moment_mstr_dir
@@ -305,8 +305,8 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         assert not db_table_exists(cursor, kw.moment_kpi001_voice_nets)
         # self.moment_agg_tables_to_moment_ote1_agg(cursor)
 
-        # # create beliefunits
-        # self.belief_tables_to_spark_belief_csvs(cursor)
+        # # create planunits
+        # self.plan_tables_to_spark_plan_csvs(cursor)
 
         # # create all moment_job and mandate reports
         # self.calc_moment_bud_voice_mandate_net_ledgers()
@@ -365,7 +365,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentT
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.tran_time,
         kw.amount,
@@ -402,7 +402,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIde
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
@@ -476,7 +476,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -502,7 +502,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
@@ -552,7 +552,7 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         kw.face_name,
         kw.spark_num,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.otx_name,
         kw.inx_name,
@@ -568,7 +568,7 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -601,14 +601,14 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         trlcore_sound_vld = prime_tbl("trlcore", "s", "vld")
         momentunit_sound_raw = prime_tbl("momentunit", "s", "raw")
         momentunit_sound_agg = prime_tbl("momentunit", "s", "agg")
-        blfunit_sound_put_raw = prime_tbl("beliefunit", "s", "raw", "put")
-        blfunit_sound_put_agg = prime_tbl("beliefunit", "s", "agg", "put")
+        blfunit_sound_put_raw = prime_tbl("planunit", "s", "raw", "put")
+        blfunit_sound_put_agg = prime_tbl("planunit", "s", "agg", "put")
         blfvoce_sound_put_raw = prime_tbl("blfvoce", "s", "raw", "put")
         blfvoce_sound_put_agg = prime_tbl("blfvoce", "s", "agg", "put")
         momentunit_heard_raw = prime_tbl("momentunit", "h", "raw")
         momentunit_heard_vld = prime_tbl("momentunit", "h", "vld")
-        blfunit_heard_put_raw = prime_tbl("beliefunit", "h", "raw", "put")
-        blfunit_heard_put_agg = prime_tbl("beliefunit", "h", "vld", "put")
+        blfunit_heard_put_raw = prime_tbl("planunit", "h", "raw", "put")
+        blfunit_heard_put_agg = prime_tbl("planunit", "h", "vld", "put")
         blfvoce_heard_put_raw = prime_tbl("blfvoce", "h", "raw", "put")
         blfvoce_heard_put_agg = prime_tbl("blfvoce", "h", "vld", "put")
 

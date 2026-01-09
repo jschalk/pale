@@ -1,6 +1,0 @@
-{
-  "chapter_blurb": "Defines a BeliefUnit as a KegUnit and VoiceUnits capable of producing an agenda.", 
-  "chapter_content": "A belief is a beliefunit, made of voices and kegs. All kegs are connected to the kegroot, which is given all the funds in a beliefunit.", 
-  "chapter_description": "ch07_belief_logic", 
-  "chapter_number": 7
-}

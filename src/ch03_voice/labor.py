@@ -85,24 +85,24 @@ def get_laborunit_from_dict(laborunit_dict: dict) -> LaborUnit:
 @dataclass
 class LaborHeir:
     partys: dict[GroupTitle, PartyHeir] = None
-    belief_name_is_labor: bool = None
+    plan_name_is_labor: bool = None
 
     def partys_empty(self) -> bool:
         return self.partys == {}
 
-    def set_belief_name_is_labor(
+    def set_plan_name_is_labor(
         self,
         groupunits: dict[GroupTitle, GroupUnit],
-        belief_name: VoiceName,
+        plan_name: VoiceName,
     ):
-        self.belief_name_is_labor = self.get_belief_name_is_labor_bool(
-            groupunits, belief_name
+        self.plan_name_is_labor = self.get_plan_name_is_labor_bool(
+            groupunits, plan_name
         )
 
-    def get_belief_name_is_labor_bool(
+    def get_plan_name_is_labor_bool(
         self,
         groupunits: dict[GroupTitle, GroupUnit],
-        belief_name: VoiceName,
+        plan_name: VoiceName,
     ) -> bool:
         if self.partys == {}:
             return True
@@ -110,7 +110,7 @@ class LaborHeir:
         for x_party_title, x_groupunit in groupunits.items():
             if x_party_title in self.partys:
                 for x_voice_name in x_groupunit.memberships.keys():
-                    if x_voice_name == belief_name:
+                    if x_voice_name == plan_name:
                         return True
         return False
 
@@ -149,8 +149,8 @@ def _set_party_to_partys(partys: dict, x_party):
 
 
 def laborheir_shop(
-    partys: dict[GroupTitle, PartyHeir] = None, belief_name_is_labor: bool = None
+    partys: dict[GroupTitle, PartyHeir] = None, plan_name_is_labor: bool = None
 ) -> LaborHeir:
     partys = get_empty_dict_if_None(partys)
-    belief_name_is_labor = get_False_if_None(belief_name_is_labor)
-    return LaborHeir(partys=partys, belief_name_is_labor=belief_name_is_labor)
+    plan_name_is_labor = get_False_if_None(plan_name_is_labor)
+    return LaborHeir(partys=partys, plan_name_is_labor=plan_name_is_labor)

@@ -1,6 +1,6 @@
 from src.ch01_py.file_toolbox import create_path
 from src.ch11_bud._ref.ch11_path import create_bud_dir_path
-from src.ch14_moment._ref.ch14_semantic_types import BeliefName, LabelTerm
+from src.ch14_moment._ref.ch14_semantic_types import LabelTerm, PlanName
 
 BUD_MANDATE_FILENAME = "bud_voice_mandate_ledger.json"
 
@@ -8,11 +8,11 @@ BUD_MANDATE_FILENAME = "bud_voice_mandate_ledger.json"
 def create_bud_voice_mandate_ledger_path(
     moment_mstr_dir: str,
     moment_label: LabelTerm,
-    belief_name: BeliefName,
+    plan_name: PlanName,
     bud_time: int,
 ) -> str:
-    """Returns path: moment_mstr_dir\\moments\\moment_label\\beliefs\\belief_name\\buds\n\\bud_time\\bud_voice_mandate_ledger.json"""
+    """Returns path: moment_mstr_dir\\moments\\moment_label\\plans\\plan_name\\buds\n\\bud_time\\bud_voice_mandate_ledger.json"""
     epochtime_dir = create_bud_dir_path(
-        moment_mstr_dir, moment_label, belief_name, bud_time
+        moment_mstr_dir, moment_label, plan_name, bud_time
     )
     return create_path(epochtime_dir, "bud_voice_mandate_ledger.json")

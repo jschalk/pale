@@ -1,7 +1,7 @@
 from enum import Enum
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import FactUnit, factunit_shop
-from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch11_bud.bud_main import BudUnit, budunit_shop
 from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx
 
@@ -16,9 +16,9 @@ YAO_STR = "Yao"
 BLUE_STR = "blue"
 MOOP_STR = "mop"
 
-SUE_BELIEF = beliefunit_shop(SUE_STR, A23_STR)
-CASA_ROPE = SUE_BELIEF.make_l1_rope(CASA_STR)
-MOP_ROPE = SUE_BELIEF.make_rope(CASA_ROPE, MOOP_STR)
+SUE_PLAN = planunit_shop(SUE_STR, A23_STR)
+CASA_ROPE = SUE_PLAN.make_l1_rope(CASA_STR)
+MOP_ROPE = SUE_PLAN.make_rope(CASA_ROPE, MOOP_STR)
 
 
 class Ch11ExampleStrs(str, Enum):

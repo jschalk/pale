@@ -1,12 +1,12 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch06_keg.test._util.ch06_examples import get_range_attrs
-from src.ch07_belief_logic.belief_tool import (
-    belief_keg_factunit_exists,
-    belief_keg_factunit_get_obj,
-    belief_keg_reason_caseunit_exists,
-    belief_keg_reason_caseunit_get_obj,
-    belief_keg_reasonunit_get_obj,
-    belief_kegunit_get_obj,
+from src.ch07_plan_logic.plan_tool import (
+    plan_keg_factunit_exists,
+    plan_keg_factunit_get_obj,
+    plan_keg_reason_caseunit_exists,
+    plan_keg_reason_caseunit_get_obj,
+    plan_keg_reasonunit_get_obj,
+    plan_kegunit_get_obj,
 )
 from src.ch13_epoch.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
@@ -16,16 +16,16 @@ from src.ch13_epoch.epoch_main import (
 from src.ch13_epoch.epoch_reason import set_epoch_cases_by_args_dict
 from src.ch13_epoch.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
-    get_bob_five_belief,
+    get_bob_five_plan,
     get_lizzy9_config,
 )
 from src.ch15_nabu.nabu_config import get_nabu_config_dict
 from src.ch17_idea.idea_config import get_dimens_with_idea_element
 from src.ch18_world_etl.etl_nabu import (
-    add_epoch_frame_to_db_beliefunit,
-    add_frame_to_db_beliefunit,
+    add_epoch_frame_to_db_planunit,
     add_frame_to_db_caseunit,
     add_frame_to_db_factunit,
+    add_frame_to_db_planunit,
     add_frame_to_db_reasonunit,
 )
 from src.ch18_world_etl.etl_sqlstr import (
@@ -41,7 +41,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_update_heard_agg_epochtime_sqlstrs,
     update_heard_agg_epochtime_columns,
 )
-from src.ch18_world_etl.obj2db_belief import insert_h_agg_obj
+from src.ch18_world_etl.obj2db_plan import insert_h_agg_obj
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_blfcase_special_h_agg as insert_blfcase,
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
@@ -54,13 +54,13 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 # TODO create function that updates all nabuable otx fields.
 # identify the change
-# update semantic_type: ReasonNum belief_keg_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: ReasonNum belief_keg_factunit_h_agg_put fact_lower, fact_upper
+# update semantic_type: ReasonNum plan_keg_reason_caseunit_h_agg_put reason_lower, reason_upper
+# update semantic_type: ReasonNum plan_keg_factunit_h_agg_put fact_lower, fact_upper
 
 
 def test_get_update_blfcase_inx_epoch_diff_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfcase_tablename = prime_tbl(kw.belief_keg_reason_caseunit, "h", "agg", "put")
+    blfcase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
     nabepoc_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
 
     # WHEN
@@ -88,7 +88,7 @@ WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_di
 
 def test_get_update_blffact_inx_epoch_diff_sqlstr_ReturnsObj():
     # ESTABLISH
-    blffact_tablename = prime_tbl(kw.belief_keg_factunit, "h", "agg", "put")
+    blffact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
     nabepoc_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
 
     # WHEN
@@ -116,8 +116,8 @@ WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_di
 
 def test_get_update_blfcase_context_keg_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfcase_tablename = prime_tbl(kw.belief_keg_reason_caseunit, "h", "agg", "put")
-    blfkegg_tablename = prime_tbl(kw.belief_kegunit, "h", "agg", "put")
+    blfcase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+    blfkegg_tablename = prime_tbl(kw.plan_kegunit, "h", "agg", "put")
 
     # WHEN
     update_sqlstr = get_update_blfcase_context_keg_sqlstr()
@@ -145,8 +145,8 @@ WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfkegg)
 
 def test_get_update_blffact_context_keg_sqlstr_ReturnsObj():
     # ESTABLISH
-    blffact_tablename = prime_tbl(kw.belief_keg_factunit, "h", "agg", "put")
-    blfkegg_tablename = prime_tbl(kw.belief_kegunit, "h", "agg", "put")
+    blffact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
+    blfkegg_tablename = prime_tbl(kw.plan_kegunit, "h", "agg", "put")
 
     # WHEN
     update_sqlstr = get_update_blffact_context_keg_sqlstr()
@@ -174,7 +174,7 @@ WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_blfkegg)
 
 def test_get_update_blfcase_range_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfcase_tablename = prime_tbl(kw.belief_keg_reason_caseunit, "h", "agg", "put")
+    blfcase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
 
     # WHEN
     update_sqlstr = get_update_blfcase_range_sqlstr()
@@ -204,7 +204,7 @@ WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfcase)
 
 def test_get_update_blffact_range_sqlstr_ReturnsObj():
     # ESTABLISH
-    blffact_tablename = prime_tbl(kw.belief_keg_factunit, "h", "agg", "put")
+    blffact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
 
     # WHEN
     update_sqlstr = get_update_blffact_range_sqlstr()

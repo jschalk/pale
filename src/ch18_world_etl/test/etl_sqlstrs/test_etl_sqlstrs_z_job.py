@@ -4,7 +4,7 @@ from src.ch01_py.db_toolbox import (
     get_create_table_sqlstr,
     get_db_tables,
 )
-from src.ch07_belief_logic.belief_config import get_belief_config_dict
+from src.ch07_plan_logic.plan_config import get_plan_config_dict
 from src.ch17_idea.idea_config import get_idea_sqlite_types
 from src.ch17_idea.idea_db_tool import get_default_sorted_list
 from src.ch18_world_etl.etl_sqlstr import (
@@ -22,13 +22,13 @@ def test_get_job_create_table_sqlstrs_ReturnsObj():
 
     # THEN
     s_types = get_idea_sqlite_types()
-    belief_config = get_belief_config_dict()
-    for x_dimen in belief_config.keys():
+    plan_config = get_plan_config_dict()
+    for x_dimen in plan_config.keys():
         # print(f"{x_dimen} checking...")
-        x_config = belief_config.get(x_dimen)
+        x_config = plan_config.get(x_dimen)
 
         job_table = prime_table(x_dimen, kw.job, None)
-        job_cols = {kw.moment_label, kw.belief_name}
+        job_cols = {kw.moment_label, kw.plan_name}
         job_cols.update(set(x_config.get(kw.jkeys).keys()))
         job_cols.update(set(x_config.get(kw.jvalues).keys()))
         job_cols = get_default_sorted_list(job_cols)
@@ -47,28 +47,28 @@ def test_create_job_tables_CreatesTables():
         cursor = moment_db_conn.cursor()
         assert len(get_db_tables(cursor)) == 0
 
-        blfmemb_job_table = prime_table(kw.belief_voice_membership, kw.job, None)
-        blfvoce_job_table = prime_table(kw.belief_voiceunit, kw.job, None)
-        blfgrou_job_table = prime_table(kw.belief_groupunit, kw.job, None)
-        blfawar_job_table = prime_table(kw.belief_keg_awardunit, kw.job, None)
-        blffact_job_table = prime_table(kw.belief_keg_factunit, kw.job, None)
-        blfheal_job_table = prime_table(kw.belief_keg_healerunit, kw.job, None)
-        blfcase_job_table = prime_table(kw.belief_keg_reason_caseunit, kw.job, None)
-        beliefares_job_table = prime_table(kw.belief_keg_reasonunit, kw.job, None)
-        blflabo_job_table = prime_table(kw.belief_keg_partyunit, kw.job, None)
-        blfkegg_job_table = prime_table(kw.belief_kegunit, kw.job, None)
-        blfunit_job_table = prime_table(kw.beliefunit, kw.job, None)
-        # blfmemb_job_table = f"{kw.belief_voice_membership}_job"
-        # blfvoce_job_table = f"{kw.belief_voiceunit}_job"
-        # blfgrou_job_table = f"{kw.belief_groupunit}_job"
-        # blfawar_job_table = f"{kw.belief_keg_awardunit}_job"
-        # blffact_job_table = f"{kw.belief_keg_factunit}_job"
-        # blfheal_job_table = f"{kw.belief_keg_healerunit}_job"
-        # blfcase_job_table = f"{kw.belief_keg_reason_caseunit}_job"
-        # beliefares_job_table = f"{kw.belief_keg_reasonunit}_job"
-        # blflabo_job_table = f"{kw.belief_keg_partyunit}_job"
-        # blfkegg_job_table = f"{kw.belief_kegunit}_job"
-        # blfunit_job_table = f"{kw.beliefunit}_job"
+        blfmemb_job_table = prime_table(kw.plan_voice_membership, kw.job, None)
+        blfvoce_job_table = prime_table(kw.plan_voiceunit, kw.job, None)
+        blfgrou_job_table = prime_table(kw.plan_groupunit, kw.job, None)
+        blfawar_job_table = prime_table(kw.plan_keg_awardunit, kw.job, None)
+        blffact_job_table = prime_table(kw.plan_keg_factunit, kw.job, None)
+        blfheal_job_table = prime_table(kw.plan_keg_healerunit, kw.job, None)
+        blfcase_job_table = prime_table(kw.plan_keg_reason_caseunit, kw.job, None)
+        planares_job_table = prime_table(kw.plan_keg_reasonunit, kw.job, None)
+        blflabo_job_table = prime_table(kw.plan_keg_partyunit, kw.job, None)
+        blfkegg_job_table = prime_table(kw.plan_kegunit, kw.job, None)
+        blfunit_job_table = prime_table(kw.planunit, kw.job, None)
+        # blfmemb_job_table = f"{kw.plan_voice_membership}_job"
+        # blfvoce_job_table = f"{kw.plan_voiceunit}_job"
+        # blfgrou_job_table = f"{kw.plan_groupunit}_job"
+        # blfawar_job_table = f"{kw.plan_keg_awardunit}_job"
+        # blffact_job_table = f"{kw.plan_keg_factunit}_job"
+        # blfheal_job_table = f"{kw.plan_keg_healerunit}_job"
+        # blfcase_job_table = f"{kw.plan_keg_reason_caseunit}_job"
+        # planares_job_table = f"{kw.plan_keg_reasonunit}_job"
+        # blflabo_job_table = f"{kw.plan_keg_partyunit}_job"
+        # blfkegg_job_table = f"{kw.plan_kegunit}_job"
+        # blfunit_job_table = f"{kw.planunit}_job"
 
         assert db_table_exists(cursor, blfmemb_job_table) is False
         assert db_table_exists(cursor, blfvoce_job_table) is False
@@ -77,7 +77,7 @@ def test_create_job_tables_CreatesTables():
         assert db_table_exists(cursor, blffact_job_table) is False
         assert db_table_exists(cursor, blfheal_job_table) is False
         assert db_table_exists(cursor, blfcase_job_table) is False
-        assert db_table_exists(cursor, beliefares_job_table) is False
+        assert db_table_exists(cursor, planares_job_table) is False
         assert db_table_exists(cursor, blflabo_job_table) is False
         assert db_table_exists(cursor, blfkegg_job_table) is False
         assert db_table_exists(cursor, blfunit_job_table) is False
@@ -99,7 +99,7 @@ def test_create_job_tables_CreatesTables():
         assert db_table_exists(cursor, blffact_job_table)
         assert db_table_exists(cursor, blfheal_job_table)
         assert db_table_exists(cursor, blfcase_job_table)
-        assert db_table_exists(cursor, beliefares_job_table)
+        assert db_table_exists(cursor, planares_job_table)
         assert db_table_exists(cursor, blflabo_job_table)
         assert db_table_exists(cursor, blfkegg_job_table)
         assert db_table_exists(cursor, blfunit_job_table)

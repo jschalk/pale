@@ -120,13 +120,13 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
+        blfvoce_h_raw_put_tablename = prime_tbl(kw.plan_voiceunit, "h", "raw", "put")
         print(f"{get_table_columns(cursor, blfvoce_h_raw_put_tablename)=}")
         insert_into_clause = f"""INSERT INTO {blfvoce_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_label}_inx
-, {kw.belief_name}_inx
+, {kw.plan_name}_inx
 , {kw.voice_name}_inx
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -141,7 +141,7 @@ VALUES
 """
         cursor.execute(insert_into_clause)
         assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 5
-        blfvoce_h_agg_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "agg", "put")
+        blfvoce_h_agg_put_tablename = prime_tbl(kw.plan_voiceunit, "h", "agg", "put")
         assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 0
 
         # WHEN
@@ -154,7 +154,7 @@ VALUES
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -186,13 +186,13 @@ def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
+        blfvoce_h_raw_put_tablename = prime_tbl(kw.plan_voiceunit, "h", "raw", "put")
         print(f"{get_table_columns(cursor, blfvoce_h_raw_put_tablename)=}")
         insert_into_clause = f"""INSERT INTO {blfvoce_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_label}_inx
-, {kw.belief_name}_inx
+, {kw.plan_name}_inx
 , {kw.voice_name}_inx
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -207,7 +207,7 @@ VALUES
 """
         cursor.execute(insert_into_clause)
         assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 5
-        blfvoce_h_agg_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "agg", "put")
+        blfvoce_h_agg_put_tablename = prime_tbl(kw.plan_voiceunit, "h", "agg", "put")
         assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 0
 
         # WHEN
@@ -218,7 +218,7 @@ VALUES
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}

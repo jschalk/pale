@@ -11,11 +11,11 @@ from src.ch17_idea.idea_config import (
     get_idea_sqlite_types,
 )
 from src.ch18_world_etl._ref.ch18_semantic_types import (
-    BeliefName,
     EpochTime,
     FaceName,
     FactNum,
     MomentLabel,
+    PlanName,
     ReasonNum,
     RopeTerm,
     SparkInt,
@@ -141,18 +141,18 @@ def insert_blfcase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
-    x_belief_name: BeliefName,
+    x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_reason_context: RopeTerm,
     x_reason_state: RopeTerm,
     x_reason_lower: ReasonNum,
     x_reason_upper: ReasonNum,
 ) -> list[tuple]:
-    blfcase_tbl = prime_tbl(kw.belief_keg_reason_caseunit, "h", "agg", "put")
+    blfcase_tbl = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
     values_dict = {
         "spark_num": x_spark_num,
         "moment_label": x_moment_label,
-        "belief_name": x_belief_name,
+        "plan_name": x_plan_name,
         "keg_rope": x_keg_rope,
         "reason_context": x_reason_context,
         "reason_state": x_reason_state,
@@ -167,7 +167,7 @@ def insert_blfcase_special_h_agg(
 class BLFCASEHEARDAGG:
     spark_num: SparkInt
     moment_label: MomentLabel
-    belief_name: BeliefName
+    plan_name: PlanName
     keg_rope: RopeTerm
     reason_context: RopeTerm
     reason_state: RopeTerm
@@ -186,17 +186,17 @@ def select_blfcase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
-    x_belief_name: BeliefName,
+    x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_reason_context: RopeTerm,
     x_reason_state: RopeTerm,
 ) -> list[BLFCASEHEARDAGG]:
-    x_dimen = kw.belief_keg_reason_caseunit
+    x_dimen = kw.plan_keg_reason_caseunit
     blfcase_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.keg_rope}
 , {kw.reason_context}
 , {kw.reason_state}
@@ -212,7 +212,7 @@ def select_blfcase_special_h_agg(
 FROM {blfcase_h_agg_tablename}
 WHERE {kw.spark_num} = {x_spark_num} 
     AND {kw.moment_label} = '{x_moment_label}'
-    AND {kw.belief_name} = '{x_belief_name}'
+    AND {kw.plan_name} = '{x_plan_name}'
     AND {kw.keg_rope} = '{x_keg_rope}'
     AND {kw.reason_context} = '{x_reason_context}'
     AND {kw.reason_state} = '{x_reason_state}'
@@ -224,7 +224,7 @@ WHERE {kw.spark_num} = {x_spark_num}
         x_blfcase_h_agg = BLFCASEHEARDAGG(
             spark_num=row[0],
             moment_label=row[1],
-            belief_name=row[2],
+            plan_name=row[2],
             keg_rope=row[3],
             reason_context=row[4],
             reason_state=row[5],
@@ -246,7 +246,7 @@ def insert_blffact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
-    x_belief_name: BeliefName,
+    x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_fact_context: RopeTerm,
     x_fact_state: RopeTerm,
@@ -260,7 +260,7 @@ def select_blffact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
-    x_belief_name: BeliefName,
+    x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_fact_context: RopeTerm,
 ) -> list[tuple]:
@@ -271,7 +271,7 @@ def insert_blfkegg_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
-    x_belief_name: BeliefName,
+    x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_denom: int,
 ) -> list[tuple]:

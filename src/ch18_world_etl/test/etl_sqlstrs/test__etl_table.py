@@ -7,7 +7,7 @@ from src.ch01_py.db_toolbox import (
     required_columns_exist,
 )
 from src.ch01_py.file_toolbox import create_path
-from src.ch08_belief_atom.atom_config import get_delete_key_name
+from src.ch08_plan_atom.atom_config import get_delete_key_name
 from src.ch17_idea.idea_config import (
     get_idea_config_dict,
     get_idea_numbers,
@@ -62,17 +62,17 @@ def test_ALL_DIMEN_ABBV7_has_all_dimens():
 
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # ESTABLISH
-    blfunit_dimen = kw.beliefunit
-    blfvoce_dimen = kw.belief_voiceunit
-    blfmemb_dimen = kw.belief_voice_membership
-    blfgrou_dimen = kw.belief_groupunit
-    blfkegg_dimen = kw.belief_kegunit
-    blfawar_dimen = kw.belief_keg_awardunit
-    blfreas_dimen = kw.belief_keg_reasonunit
-    blfcase_dimen = kw.belief_keg_reason_caseunit
-    blflabo_dimen = kw.belief_keg_partyunit
-    blfheal_dimen = kw.belief_keg_healerunit
-    blffact_dimen = kw.belief_keg_factunit
+    blfunit_dimen = kw.planunit
+    blfvoce_dimen = kw.plan_voiceunit
+    blfmemb_dimen = kw.plan_voice_membership
+    blfgrou_dimen = kw.plan_groupunit
+    blfkegg_dimen = kw.plan_kegunit
+    blfawar_dimen = kw.plan_keg_awardunit
+    blfreas_dimen = kw.plan_keg_reasonunit
+    blfcase_dimen = kw.plan_keg_reason_caseunit
+    blflabo_dimen = kw.plan_keg_partyunit
+    blfheal_dimen = kw.plan_keg_healerunit
+    blffact_dimen = kw.plan_keg_factunit
     mmtunit_dimen = kw.momentunit
     mmtpayy_dimen = kw.moment_paybook
     mmtbudd_dimen = kw.moment_budunit
@@ -93,7 +93,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     del_str = "del"
 
     # WHEN
-    blfunit_s_agg_table = create_prime_tablename("beliefunit", "s", agg_str, put_str)
+    blfunit_s_agg_table = create_prime_tablename("planunit", "s", agg_str, put_str)
     blfvoce_s_agg_table = create_prime_tablename("blfvoce", "s", agg_str, put_str)
     blfmemb_s_agg_table = create_prime_tablename("blfmemb", "s", agg_str, put_str)
     blfkegg_s_agg_table = create_prime_tablename("blfkegg", "s", agg_str, put_str)
@@ -156,7 +156,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert trlcore_s_agg_table == f"{trlcore_dimen}_s_agg"
     assert blfvoce_job_table == f"{blfvoce_dimen}_job"
     assert blfgrou_job_table == f"{blfgrou_dimen}_job"
-    assert x_blfvoce_raw == "belief_voiceunit_raw"
+    assert x_blfvoce_raw == "plan_voiceunit_raw"
 
 
 def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():
@@ -200,7 +200,7 @@ def test_get_etl_idea_category_config_dict_ReturnsObj_Scenario0_IsFullyPopulated
     assert kw.moment in etl_idea_category_config_dimens
     assert kw.translate_core in etl_idea_category_config_dimens
     assert kw.translate in etl_idea_category_config_dimens
-    assert kw.belief in etl_idea_category_config_dimens
+    assert kw.plan in etl_idea_category_config_dimens
     assert kw.nabu in etl_idea_category_config_dimens
     assert len(etl_idea_category_config_dimens) == 5
 
@@ -331,7 +331,7 @@ def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args(
 
 def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_ContextNabuableArgs():
     # ESTABLISH
-    x_dimen = kw.belief_keg_reason_caseunit
+    x_dimen = kw.plan_keg_reason_caseunit
     table_keylist = ["h", "agg", "put"]
     config_dict = etl_idea_category_config_dict()
 
@@ -349,7 +349,7 @@ def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_
     }
     assert expected_added_columns.issubset(blfcase_h_agg_columns)
     assert blfcase_h_agg_columns == {
-        kw.belief_name,
+        kw.plan_name,
         f"context_keg_{kw.close}",
         f"context_keg_{kw.denom}",
         f"context_keg_{kw.morph}",

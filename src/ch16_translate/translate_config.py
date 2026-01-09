@@ -1,7 +1,7 @@
 from os import getcwd as os_getcwd
 from src.ch01_py.dict_toolbox import get_from_nested_dict
 from src.ch01_py.file_toolbox import create_path, open_json
-from src.ch08_belief_atom.atom_config import get_all_belief_dimen_delete_keys
+from src.ch08_plan_atom.atom_config import get_all_plan_dimen_delete_keys
 
 
 def translate_config_path() -> str:
@@ -72,7 +72,7 @@ def get_translate_args_class_types() -> dict[str, str]:
         "amount": "float",
         "awardee_title": "TitleTerm",
         "begin": "float",
-        "belief_name": "NameTerm",
+        "plan_name": "NameTerm",
         "bud_time": "EpochTime",
         "c400_number": "int",
         "celldepth": "int",
@@ -174,7 +174,7 @@ def translateable_class_types() -> set:
 def get_translateable_args() -> set:
     return {
         "awardee_title",
-        "belief_name",
+        "plan_name",
         "epoch_label",
         "face_name",
         "fact_context",
@@ -196,7 +196,7 @@ def get_translateable_args() -> set:
 def set_translateable_otx_inx_args(args: set) -> set:
     """Receives set of args, returns a set with all "Translateable" args replaced with "_otx" and "_inx" """
     all_translateable = get_translateable_args()
-    all_translateable.update(get_all_belief_dimen_delete_keys())
+    all_translateable.update(get_all_plan_dimen_delete_keys())
     transformed_args = set()
     for arg in args:
         if arg in all_translateable:
@@ -212,7 +212,7 @@ def get_translate_nameterm_args() -> set[str]:
         "voice_name",
         "face_name",
         "healer_name",
-        "belief_name",
+        "plan_name",
     }
 
 

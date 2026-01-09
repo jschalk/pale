@@ -1,0 +1,12 @@
+{
+  "attributes": {
+    "plan_name" : { "otx_key": true }, 
+    "face_name"   : { "otx_key": true }, 
+    "healer_name" : { "otx_key": true }, 
+    "moment_label": { "otx_key": true }, 
+    "keg_rope"   : { "otx_key": true }, 
+    "spark_num"   : { "otx_key": true }
+  }, 
+  "dimens": ["momentunit", "planunit", "plan_kegunit", "plan_keg_healerunit"], 
+  "idea_number": "br00025"
+}

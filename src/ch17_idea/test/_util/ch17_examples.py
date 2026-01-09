@@ -28,11 +28,11 @@ def get_ex1_br00000_df() -> DataFrame:
 
 def get_ex1_br00001_df() -> DataFrame:
     """idea_format_00001_moment_budunit_v0_0_0
-    moment_label,belief_name,quota,bud_time,celldepth"""
+    moment_label,plan_name,quota,bud_time,celldepth"""
     x_df = DataFrame(
         columns=[
             kw.moment_label,
-            kw.belief_name,
+            kw.plan_name,
             kw.quota,
             kw.bud_time,
             kw.celldepth,
@@ -44,9 +44,9 @@ def get_ex1_br00001_df() -> DataFrame:
 
 def get_ex1_br00002_df() -> DataFrame:
     """idea_format_00002_moment_paybook_v0_0_0
-    voice_name,amount,moment_label,belief_name,tran_time"""
+    voice_name,amount,moment_label,plan_name,tran_time"""
     x_df = DataFrame(
-        columns=["voice_name", "amount", kw.moment_label, kw.belief_name, "tran_time"]
+        columns=["voice_name", "amount", kw.moment_label, kw.plan_name, "tran_time"]
     )
     x_df.loc[0] = ["Bob", 888, exx.a23, "Zia", 777]
     return x_df
@@ -141,11 +141,11 @@ def get_ex2_br00000_df() -> DataFrame:
 
 def get_ex2_br00001_df() -> DataFrame:
     """idea_format_00001_moment_budunit_v0_0_0
-    moment_label,belief_name,quota,bud_time"""
+    moment_label,plan_name,quota,bud_time"""
     x_df = DataFrame(
         columns=[
             kw.moment_label,
-            kw.belief_name,
+            kw.plan_name,
             kw.quota,
             kw.bud_time,
             kw.celldepth,
@@ -161,13 +161,13 @@ def get_ex2_br00001_df() -> DataFrame:
 
 def get_ex2_br00002_df() -> DataFrame:
     """idea_format_00002_moment_paybook_v0_0_0
-    voice_name,amount,moment_label,belief_name,tran_time"""
+    voice_name,amount,moment_label,plan_name,tran_time"""
     x_df = DataFrame(
         columns=[
             kw.voice_name,
             kw.amount,
             kw.moment_label,
-            kw.belief_name,
+            kw.plan_name,
             kw.tran_time,
         ]
     )

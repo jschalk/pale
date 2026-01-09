@@ -1,6 +1,6 @@
 {
   "attributes": {
-    "belief_name" : { "otx_key": true  }, 
+    "plan_name" : { "otx_key": true  }, 
     "face_name"   : { "otx_key": true  }, 
     "inx_name"    : { "otx_key": false }, 
     "moment_label": { "otx_key": true  }, 
@@ -8,6 +8,6 @@
     "spark_num"   : { "otx_key": true  }, 
     "voice_name"  : { "otx_key": true  }
   }, 
-  "dimens": ["translate_name", "belief_voiceunit", "momentunit", "beliefunit"], 
+  "dimens": ["translate_name", "plan_voiceunit", "momentunit", "planunit"], 
   "idea_number": "br00113"
 }

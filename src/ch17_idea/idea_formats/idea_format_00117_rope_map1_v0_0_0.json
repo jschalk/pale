@@ -1,6 +1,6 @@
 {
   "attributes": {
-    "belief_name" : { "otx_key": true  }, 
+    "plan_name" : { "otx_key": true  }, 
     "face_name"   : { "otx_key": true  }, 
     "inx_rope"    : { "otx_key": false }, 
     "moment_label": { "otx_key": true  }, 
@@ -8,6 +8,6 @@
     "spark_num"   : { "otx_key": true  }, 
     "voice_name"  : { "otx_key": true  }
   }, 
-  "dimens": ["translate_rope", "belief_voiceunit", "beliefunit", "momentunit"], 
+  "dimens": ["translate_rope", "plan_voiceunit", "planunit", "momentunit"], 
   "idea_number": "br00117"
 }

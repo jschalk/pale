@@ -5,12 +5,9 @@ from src.ch01_py.file_toolbox import save_json
 from src.ch03_voice.group import awardunit_shop
 from src.ch03_voice.labor import laborunit_shop
 from src.ch06_keg.healer import healerunit_shop
-from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch09_belief_lesson._ref.ch09_path import (
-    create_job_path,
-    create_moment_json_path,
-)
-from src.ch10_belief_listen.keep_tool import save_job_file
+from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch09_plan_lesson._ref.ch09_path import create_job_path, create_moment_json_path
+from src.ch10_plan_listen.keep_tool import save_job_file
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.etl_main import etl_moment_job_jsons_to_job_tables
 from src.ch18_world_etl.etl_sqlstr import create_prime_tablename as prime_table
@@ -24,29 +21,29 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     # ESTABLISH
     m23_moment_mstr_dir = get_temp_dir()
     m23_str = "music23"
-    sue_belief = beliefunit_shop(exx.sue, exx.a23)
-    sue_belief.add_voiceunit(exx.sue)
-    sue_belief.add_voiceunit(exx.bob)
-    sue_belief.get_voice(exx.bob).add_membership(exx.run)
-    casa_rope = sue_belief.make_l1_rope("casa")
-    situation_rope = sue_belief.make_l1_rope(kw.reason_active)
-    clean_rope = sue_belief.make_rope(situation_rope, "clean")
-    dirty_rope = sue_belief.make_rope(situation_rope, "dirty")
-    sue_belief.add_keg(casa_rope)
-    sue_belief.add_keg(clean_rope)
-    sue_belief.add_keg(dirty_rope)
-    sue_belief.edit_keg_attr(
+    sue_plan = planunit_shop(exx.sue, exx.a23)
+    sue_plan.add_voiceunit(exx.sue)
+    sue_plan.add_voiceunit(exx.bob)
+    sue_plan.get_voice(exx.bob).add_membership(exx.run)
+    casa_rope = sue_plan.make_l1_rope("casa")
+    situation_rope = sue_plan.make_l1_rope(kw.reason_active)
+    clean_rope = sue_plan.make_rope(situation_rope, "clean")
+    dirty_rope = sue_plan.make_rope(situation_rope, "dirty")
+    sue_plan.add_keg(casa_rope)
+    sue_plan.add_keg(clean_rope)
+    sue_plan.add_keg(dirty_rope)
+    sue_plan.edit_keg_attr(
         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
-    sue_belief.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.run))
-    sue_belief.edit_keg_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
+    sue_plan.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.run))
+    sue_plan.edit_keg_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     sue_laborunit = laborunit_shop()
     sue_laborunit.add_party(exx.sue)
-    sue_belief.edit_keg_attr(casa_rope, laborunit=sue_laborunit)
-    sue_belief.add_fact(situation_rope, clean_rope)
-    print(f"{sue_belief.get_keg_obj(casa_rope).laborunit=}")
-    print(f"{sue_belief.get_keg_obj(casa_rope).to_dict()=}")
-    save_job_file(m23_moment_mstr_dir, sue_belief)
+    sue_plan.edit_keg_attr(casa_rope, laborunit=sue_laborunit)
+    sue_plan.add_fact(situation_rope, clean_rope)
+    print(f"{sue_plan.get_keg_obj(casa_rope).laborunit=}")
+    print(f"{sue_plan.get_keg_obj(casa_rope).to_dict()=}")
+    save_job_file(m23_moment_mstr_dir, sue_plan)
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
@@ -101,7 +98,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     credit77 = 77
     credit88 = 88
     moment_mstr_dir = get_temp_dir()
-    bob_job = beliefunit_shop(bob_inx, exx.a23)
+    bob_job = planunit_shop(bob_inx, exx.a23)
     bob_job.add_voiceunit(bob_inx, credit77)
     bob_job.add_voiceunit(yao_inx, credit44)
     bob_job.add_voiceunit(bob_inx, credit77)

@@ -47,9 +47,9 @@ class Bad_voice_nameMemberShipException(Exception):
 
 @dataclass
 class VoiceUnit:
-    """This represents the belief_name's opinion of the VoiceUnit.voice_name
-    VoiceUnit.voice_cred_lumen represents how much voice_cred_lumen the _belief_name projects to the voice_name
-    VoiceUnit.voice_debt_lumen represents how much voice_debt_lumen the _belief_name projects to the voice_name
+    """This represents the plan_name's opinion of the VoiceUnit.voice_name
+    VoiceUnit.voice_cred_lumen represents how much voice_cred_lumen the _plan_name projects to the voice_name
+    VoiceUnit.voice_debt_lumen represents how much voice_debt_lumen the _plan_name projects to the voice_name
     """
 
     voice_name: VoiceName = None
@@ -57,14 +57,14 @@ class VoiceUnit:
     respect_grain: RespectGrain = None
     voice_cred_lumen: int = None
     voice_debt_lumen: int = None
-    # special attribute: static in belief json, in memory it is deleted after loading and recalculated during saving.
+    # special attribute: static in plan json, in memory it is deleted after loading and recalculated during saving.
     memberships: dict[VoiceName, MemberShip] = None
     # calculated fields
     credor_pool: RespectNum = None
     debtor_pool: RespectNum = None
     irrational_voice_debt_lumen: int = None  # set by listening process
     inallocable_voice_debt_lumen: int = None  # set by listening process
-    # set by Belief.cashout()
+    # set by Plan.cashout()
     fund_give: FundNum = None
     fund_take: FundNum = None
     fund_agenda_give: FundNum = None

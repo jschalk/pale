@@ -11,13 +11,13 @@ from src.ch02_allot.allot import (
     default_grain_num_if_None,
     validate_pool_num,
 )
-from src.ch10_belief_listen._ref.ch10_path import create_keep_grade_path
+from src.ch10_plan_listen._ref.ch10_path import create_keep_grade_path
 from src.ch12_keep._ref.ch12_semantic_types import (
-    BeliefName,
     KnotTerm,
     LabelTerm,
     ManaGrain,
     ManaNum,
+    PlanName,
     RopeTerm,
     VoiceName,
     default_knot_if_None,
@@ -34,13 +34,13 @@ from src.ch12_keep.rivercycle import (
 class RiverRun:
     moment_mstr_dir: str = None
     moment_label: LabelTerm = None
-    belief_name: BeliefName = None
+    plan_name: PlanName = None
     keep_rope: RopeTerm = None
     knot: KnotTerm = None
     keep_point_magnitude: ManaNum = None
     mana_grain: ManaGrain = None
     number: int = None
-    keep_patientledgers: dict[BeliefName : dict[VoiceName, float]] = None
+    keep_patientledgers: dict[PlanName : dict[VoiceName, float]] = None
     need_dues: dict[VoiceName, float] = None
     cycle_max: int = None
     # calculated fields
@@ -60,25 +60,25 @@ class RiverRun:
 
     def set_keep_patientledger(
         self,
-        belief_name: BeliefName,
+        plan_name: PlanName,
         voice_name: VoiceName,
         mana_ledger: float,
     ):
         set_in_nested_dict(
             x_dict=self.keep_patientledgers,
-            x_keylist=[belief_name, voice_name],
+            x_keylist=[plan_name, voice_name],
             x_obj=mana_ledger,
         )
 
-    def delete_keep_patientledgers_belief(self, belief_name: BeliefName):
-        self.keep_patientledgers.pop(belief_name)
+    def delete_keep_patientledgers_plan(self, plan_name: PlanName):
+        self.keep_patientledgers.pop(plan_name)
 
     def get_all_keep_patientledger_voice_names(self):
         x_set = set()
-        for belief_name, belief_dict in self.keep_patientledgers.items():
-            if belief_name not in x_set:
-                x_set.add(belief_name)
-            for voice_name in belief_dict.keys():
+        for plan_name, plan_dict in self.keep_patientledgers.items():
+            if plan_name not in x_set:
+                x_set.add(plan_name)
+            for voice_name in plan_dict.keys():
                 if voice_name not in x_set:
                     x_set.add(voice_name)
         return x_set
@@ -175,7 +175,7 @@ class RiverRun:
     def set_initial_rivergrade(self, voice_name: VoiceName):
         x_rivergrade = rivergrade_shop(
             self.moment_label,
-            self.belief_name,
+            self.plan_name,
             self.keep_rope,
             voice_name,
             self.number,
@@ -204,7 +204,7 @@ class RiverRun:
         self.set_all_initial_rivergrades()
 
         self.cycle_count = 0
-        x_rivercyle = create_init_rivercycle(self.belief_name, self.keep_patientledgers)
+        x_rivercyle = create_init_rivercycle(self.plan_name, self.keep_patientledgers)
         x_cyclelegder = x_rivercyle.create_cylceledger()
         self.cycle_carees_curr = set(x_cyclelegder.keys())
         x_cyclelegder, need_got_curr = self.levy_need_dues(x_cyclelegder)
@@ -225,10 +225,10 @@ class RiverRun:
         need_dues_voices = set(self.need_dues.keys())
         need_yields_voices = set(self.need_yields.keys())
         self.doctor_count = len(need_dues_voices.union(need_yields_voices))
-        self.patient_count = len(self.keep_patientledgers.get(self.belief_name))
+        self.patient_count = len(self.keep_patientledgers.get(self.plan_name))
 
     def _set_cares(self):
-        care_patientledger = self.keep_patientledgers.get(self.belief_name)
+        care_patientledger = self.keep_patientledgers.get(self.plan_name)
         self.cares = allot_scale(
             ledger=care_patientledger,
             scale_number=self.keep_point_magnitude,
@@ -239,11 +239,11 @@ class RiverRun:
         rivergrade = self.get_rivergrade(voice_name)
         grade_path = create_keep_grade_path(
             moment_mstr_dir=self.moment_mstr_dir,
-            belief_name=self.belief_name,
+            plan_name=self.plan_name,
             moment_label=self.moment_label,
             keep_rope=self.keep_rope,
             knot=self.knot,
-            grade_belief_name=voice_name,
+            grade_plan_name=voice_name,
         )
         save_json(grade_path, None, rivergrade.to_dict())
 
@@ -268,20 +268,20 @@ class RiverRun:
 def riverrun_shop(
     moment_mstr_dir: str,
     moment_label: LabelTerm,
-    belief_name: BeliefName,
+    plan_name: PlanName,
     keep_rope: RopeTerm = None,
     knot: KnotTerm = None,
     keep_point_magnitude: ManaNum = None,
     mana_grain: ManaGrain = None,
     number: int = None,
-    keep_patientledgers: dict[BeliefName : dict[VoiceName, float]] = None,
+    keep_patientledgers: dict[PlanName : dict[VoiceName, float]] = None,
     need_dues: dict[VoiceName, float] = None,
     cycle_max: int = None,
 ):
     x_riverun = RiverRun(
         moment_mstr_dir=moment_mstr_dir,
         moment_label=moment_label,
-        belief_name=belief_name,
+        plan_name=plan_name,
         keep_rope=keep_rope,
         knot=default_knot_if_None(knot),
         keep_point_magnitude=validate_pool_num(keep_point_magnitude),

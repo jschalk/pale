@@ -168,64 +168,64 @@ def test_LaborHeir_Exists():
     # THEN
     assert x_laborheir
     assert not x_laborheir.partys
-    assert not x_laborheir.belief_name_is_labor
+    assert not x_laborheir.plan_name_is_labor
     obj_attrs = set(x_laborheir.__dict__.keys())
     print(sorted(list(obj_attrs)))
-    assert obj_attrs == {kw.partys, kw.belief_name_is_labor}
+    assert obj_attrs == {kw.partys, kw.plan_name_is_labor}
 
 
 def test_laborheir_shop_ReturnsObj_Scenario1_WithAttributes():
     # ESTABLISH
     swim_party_title = GroupTitle("swimmers")
-    _belief_name_x_laborunit = "example"
+    _plan_name_x_laborunit = "example"
     x_partys = {swim_party_title: partyunit_shop(swim_party_title)}
 
     # WHEN
     x_laborheir = laborheir_shop(
-        partys=x_partys, belief_name_is_labor=_belief_name_x_laborunit
+        partys=x_partys, plan_name_is_labor=_plan_name_x_laborunit
     )
 
     # THEN
     assert x_laborheir
     assert x_laborheir.partys == x_partys
-    assert x_laborheir.belief_name_is_labor == _belief_name_x_laborunit
+    assert x_laborheir.plan_name_is_labor == _plan_name_x_laborunit
 
 
-def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_Emptyx_partys():
+def test_LaborHeir_set_plan_name_is_labor_SetsAttribute_Emptyx_partys():
     # ESTABLISH
     x_partys = {}
     x_laborheir = laborheir_shop(partys=x_partys)
-    assert x_laborheir.belief_name_is_labor is False
+    assert x_laborheir.plan_name_is_labor is False
 
     # WHEN
     groupunits = {}
-    x_laborheir.set_belief_name_is_labor(groupunits, belief_name="")
+    x_laborheir.set_plan_name_is_labor(groupunits, plan_name="")
 
     # THEN
-    assert x_laborheir.belief_name_is_labor
+    assert x_laborheir.plan_name_is_labor
 
 
-def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v1():
+def test_LaborHeir_set_plan_name_is_labor_SetsAttribute_NonEmptyx_partys_v1():
     # ESTABLISH
     yao_groupunit = groupunit_shop(exx.yao)
     sue_groupunit = groupunit_shop(exx.sue)
     yao_groupunit.set_g_membership(membership_shop(exx.yao, voice_name=exx.yao))
     sue_groupunit.set_g_membership(membership_shop(exx.sue, voice_name=exx.sue))
     x_groupunits = {exx.yao: yao_groupunit, exx.sue: sue_groupunit}
-    belief_name = exx.yao
+    plan_name = exx.yao
 
     x_partys = {exx.yao}
     x_laborheir = laborheir_shop(partys=x_partys)
-    assert x_laborheir.belief_name_is_labor is False
+    assert x_laborheir.plan_name_is_labor is False
 
     # WHEN
-    x_laborheir.set_belief_name_is_labor(x_groupunits, belief_name)
+    x_laborheir.set_plan_name_is_labor(x_groupunits, plan_name)
 
     # THEN
-    assert x_laborheir.belief_name_is_labor
+    assert x_laborheir.plan_name_is_labor
 
 
-def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v2():
+def test_LaborHeir_set_plan_name_is_labor_SetsAttribute_NonEmptyx_partys_v2():
     # ESTABLISH
     yao_groupunit = groupunit_shop(exx.yao)
     sue_groupunit = groupunit_shop(exx.sue)
@@ -235,16 +235,16 @@ def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v2():
     x_partys = {exx.sue}
     x_laborheir = laborheir_shop(partys=x_partys)
     assert yao_groupunit.get_voice_membership(exx.yao) is not None
-    assert x_laborheir.belief_name_is_labor is False
+    assert x_laborheir.plan_name_is_labor is False
 
     # WHEN
-    x_laborheir.set_belief_name_is_labor(x_groupunits, exx.yao)
+    x_laborheir.set_plan_name_is_labor(x_groupunits, exx.yao)
 
     # THEN
-    assert x_laborheir.belief_name_is_labor is False
+    assert x_laborheir.plan_name_is_labor is False
 
 
-def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v3():
+def test_LaborHeir_set_plan_name_is_labor_SetsAttribute_NonEmptyx_partys_v3():
     # ESTABLISH
     yao_groupunit = groupunit_shop(exx.yao)
     sue_groupunit = groupunit_shop(exx.sue)
@@ -265,16 +265,16 @@ def test_LaborHeir_set_belief_name_is_labor_SetsAttribute_NonEmptyx_partys_v3():
 
     x_partys = {swim_str}
     x_laborheir = laborheir_shop(partys=x_partys)
-    assert x_laborheir.belief_name_is_labor is False
-    x_laborheir.set_belief_name_is_labor(x_groupunits, belief_name=exx.yao)
-    assert x_laborheir.belief_name_is_labor
+    assert x_laborheir.plan_name_is_labor is False
+    x_laborheir.set_plan_name_is_labor(x_groupunits, plan_name=exx.yao)
+    assert x_laborheir.plan_name_is_labor
 
     # WHEN
     swim_groupunit.del_membership(exx.yao)
-    x_laborheir.set_belief_name_is_labor(x_groupunits, exx.yao)
+    x_laborheir.set_plan_name_is_labor(x_groupunits, exx.yao)
 
     # THEN
-    assert x_laborheir.belief_name_is_labor is False
+    assert x_laborheir.plan_name_is_labor is False
 
 
 def test_LaborHeir_set_partys_Scenario0_LaborUnitIsEmptyAndParentLaborHeirIsEmpty():

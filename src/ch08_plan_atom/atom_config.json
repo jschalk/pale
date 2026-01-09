@@ -1,0 +1,231 @@
+{
+  "plan_keg_awardunit": {
+    "DELETE": {"atom_order": 21}, 
+    "INSERT": {"atom_order": 3}, 
+    "UPDATE": {"atom_order": 12}, 
+    "jkeys": {
+      "awardee_title": {
+        "class_type": "TitleTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "give_force": { "class_type": "float", "column_order": 3, "sqlite_datatype": "REAL" }, 
+      "take_force": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }
+    }, 
+    "normal_specs": {"normal_table_name": "awardunit"}
+  }, 
+  "plan_keg_factunit": {
+    "DELETE": {"atom_order": 18}, 
+    "INSERT": {"atom_order": 6}, 
+    "UPDATE": {"atom_order": 13}, 
+    "jkeys": {
+      "fact_context": {
+        "class_type": "RopeTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "fact_lower": { "class_type": "FactNum" , "column_order": 3, "sqlite_datatype": "REAL" }, 
+      "fact_state": { "class_type": "RopeTerm", "column_order": 2, "sqlite_datatype": "TEXT" }, 
+      "fact_upper": { "class_type": "FactNum" , "column_order": 4, "sqlite_datatype": "REAL" }
+    }, 
+    "normal_specs": {"normal_table_name": "fact"}
+  }, 
+  "plan_keg_healerunit": {
+    "DELETE": {"atom_order": 20}, 
+    "INSERT": {"atom_order": 5}, 
+    "jkeys": {
+      "healer_name": {
+        "class_type": "NameTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {}, 
+    "normal_specs": {"normal_table_name": "healerunit"}
+  }, 
+  "plan_keg_partyunit": {
+    "DELETE": {"atom_order": 19}, 
+    "INSERT": {"atom_order": 4}, 
+    "jkeys": {
+      "party_title": {
+        "class_type": "TitleTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "solo": {
+        "class_type": "int", 
+        "column_order": 2, 
+        "nesting_order": 2, 
+        "sqlite_datatype": "INTEGER"
+      }
+    }, 
+    "normal_specs": {"normal_table_name": "partyunit"}
+  }, 
+  "plan_keg_reason_caseunit": {
+    "DELETE": {"atom_order": 16}, 
+    "INSERT": {"atom_order": 8}, 
+    "UPDATE": {"atom_order": 14}, 
+    "jkeys": {
+      "keg_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "reason_context": {
+        "class_type": "RopeTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "reason_state": {
+        "class_type": "RopeTerm", 
+        "column_order": 2, 
+        "nesting_order": 2, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "reason_divisor": { "class_type": "int"      , "column_order": 5, "sqlite_datatype": "INTEGER" }, 
+      "reason_lower"  : { "class_type": "ReasonNum", "column_order": 3, "sqlite_datatype": "REAL"    }, 
+      "reason_upper"  : { "class_type": "ReasonNum", "column_order": 4, "sqlite_datatype": "REAL"    }
+    }, 
+    "normal_specs": {"normal_table_name": "case"}
+  }, 
+  "plan_keg_reasonunit": {
+    "DELETE": {"atom_order": 17}, 
+    "INSERT": {"atom_order": 7}, 
+    "UPDATE": {"atom_order": 15}, 
+    "jkeys": {
+      "keg_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "reason_context": {
+        "class_type": "RopeTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "active_requisite": {"class_type": "bool", "column_order": 2, "sqlite_datatype": "INTEGER"}
+    }, 
+    "normal_specs": {"normal_table_name": "reason"}
+  }, 
+  "plan_kegunit": {
+    "DELETE": {"atom_order": 22}, 
+    "INSERT": {"atom_order": 2}, 
+    "UPDATE": {"atom_order": 11}, 
+    "jkeys": {
+      "keg_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "addin"       : { "class_type": "float", "column_order": 10, "sqlite_datatype": "REAL"    }, 
+      "begin"       : { "class_type": "float", "column_order":  5, "sqlite_datatype": "REAL"    }, 
+      "close"       : { "class_type": "float", "column_order":  6, "sqlite_datatype": "REAL"    }, 
+      "denom"       : { "class_type": "int"  , "column_order":  8, "sqlite_datatype": "INTEGER" }, 
+      "gogo_want"   : { "class_type": "float", "column_order": 11, "sqlite_datatype": "REAL"    }, 
+      "morph"       : { "class_type": "bool" , "column_order":  9, "sqlite_datatype": "INTEGER" }, 
+      "numor"       : { "class_type": "int"  , "column_order":  7, "sqlite_datatype": "INTEGER" }, 
+      "pledge"      : { "class_type": "bool" , "column_order":  2, "sqlite_datatype": "INTEGER" }, 
+      "problem_bool": { "class_type": "bool" , "column_order":  4, "sqlite_datatype": "INTEGER" }, 
+      "star"        : { "class_type": "int"  , "column_order":  3, "sqlite_datatype": "INTEGER" }, 
+      "stop_want"   : { "class_type": "float", "column_order": 12, "sqlite_datatype": "REAL"    }
+    }, 
+    "normal_specs": {"normal_table_name": "keg"}
+  }, 
+  "plan_voice_membership": {
+    "DELETE": {"atom_order": 23}, 
+    "INSERT": {"atom_order": 1}, 
+    "UPDATE": {"atom_order": 10}, 
+    "jkeys": {
+      "group_title": {
+        "class_type": "TitleTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "voice_name": {
+        "class_type": "NameTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "group_cred_lumen": { "class_type": "float", "column_order": 3, "sqlite_datatype": "REAL" }, 
+      "group_debt_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }
+    }, 
+    "normal_specs": {"normal_table_name": "membership"}
+  }, 
+  "plan_voiceunit": {
+    "DELETE": {"atom_order": 24}, 
+    "INSERT": {"atom_order": 0}, 
+    "UPDATE": {"atom_order": 9}, 
+    "jkeys": {
+      "voice_name": {"class_type": "NameTerm", "column_order": 0, "sqlite_datatype": "TEXT"}
+    }, 
+    "jvalues": {
+      "voice_cred_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }, 
+      "voice_debt_lumen": { "class_type": "float", "column_order": 1, "sqlite_datatype": "REAL" }
+    }, 
+    "normal_specs": {"normal_table_name": "voiceunit"}
+  }, 
+  "planunit": {
+    "UPDATE": {"atom_order": 25}, 
+    "jkeys": {}, 
+    "jvalues": {
+      "credor_respect"   : { "class_type": "float", "column_order": 3, "sqlite_datatype": "REAL"    }, 
+      "debtor_respect"   : { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL"    }, 
+      "fund_grain"       : { "class_type": "float", "column_order": 1, "sqlite_datatype": "REAL"    }, 
+      "fund_pool"        : { "class_type": "float", "column_order": 0, "sqlite_datatype": "REAL"    }, 
+      "mana_grain"       : { "class_type": "float", "column_order": 6, "sqlite_datatype": "REAL"    }, 
+      "max_tree_traverse": { "class_type": "int"  , "column_order": 5, "sqlite_datatype": "INTEGER" }, 
+      "respect_grain"    : { "class_type": "float", "column_order": 4, "sqlite_datatype": "REAL"    }, 
+      "tally"            : { "class_type": "int"  , "column_order": 7, "sqlite_datatype": "INTEGER" }
+    }, 
+    "normal_specs": {"normal_table_name": "plan"}
+  }
+}

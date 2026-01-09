@@ -1,8 +1,8 @@
 from os.path import exists as os_path_exists
 from src.ch01_py.file_toolbox import count_dirs_files, open_json, save_json
-from src.ch09_belief_lesson._ref.ch09_path import (
-    create_moment_beliefs_dir_path,
+from src.ch09_plan_lesson._ref.ch09_path import (
     create_moment_json_path,
+    create_moment_plans_dir_path,
 )
 from src.ch11_bud._ref.ch11_path import create_cell_json_path
 from src.ch11_bud.bud_main import DEFAULT_CELLDEPTH
@@ -31,14 +31,14 @@ def test_MomentUnit_create_buds_root_cells_Scenaro0_BudEmpty(
     a23_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     print(f"{a23_json_path=}")
-    a23_beliefs_path = create_moment_beliefs_dir_path(moment_mstr_dir, exx.a23)
-    assert count_dirs_files(a23_beliefs_path) == 0
+    a23_plans_path = create_moment_plans_dir_path(moment_mstr_dir, exx.a23)
+    assert count_dirs_files(a23_plans_path) == 0
 
     # WHEN
     amy23_moment.create_buds_root_cells({})
 
     # THEN
-    assert count_dirs_files(a23_beliefs_path) == 0
+    assert count_dirs_files(a23_plans_path) == 0
 
 
 def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
@@ -56,7 +56,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
-    # Create spark time mapping belief_time_agg for time 37
+    # Create spark time mapping plan_time_agg for time 37
     spark3 = 3
     spark7 = 7
     epochtime66 = 66
@@ -74,12 +74,12 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
     cell_dict = open_json(tp37_cell_json_path)
     print(f"{cell_dict=}")
     assert cell_dict.get(kw.celldepth) == DEFAULT_CELLDEPTH
-    assert cell_dict.get(kw.bud_belief_name) == exx.bob
+    assert cell_dict.get(kw.bud_plan_name) == exx.bob
     assert cell_dict.get(kw.quota) == bud1_quota
     assert cell_dict.get(kw.spark_num) == spark3
 
 
-def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoBeliefExistsInSparksPast(
+def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoPlanExistsInSparksPast(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -94,7 +94,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoBeliefExistsIn
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
-    # Create spark time mapping belief_time_agg for time 37
+    # Create spark time mapping plan_time_agg for time 37
     spark3 = 3
     spark7 = 7
     epochtime40 = 40
@@ -113,7 +113,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoBeliefExistsIn
     assert cell_dict.get(kw.ancestors) == []
     assert not cell_dict.get(kw.spark_num)
     assert cell_dict.get(kw.celldepth) == DEFAULT_CELLDEPTH
-    assert cell_dict.get(kw.bud_belief_name) == exx.bob
+    assert cell_dict.get(kw.bud_plan_name) == exx.bob
     assert cell_dict.get(kw.quota) == bud1_quota
 
 
@@ -135,7 +135,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
-    # Create spark time mapping belief_time_agg for time 37
+    # Create spark time mapping plan_time_agg for time 37
     spark3 = 3
     spark7 = 7
     epochtime30 = 30
@@ -155,6 +155,6 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
     assert cell_dict.get(kw.ancestors) == []
     assert cell_dict.get(kw.spark_num) == spark3
     assert cell_dict.get(kw.celldepth) == bud1_celldepth
-    assert cell_dict.get(kw.bud_belief_name) == exx.bob
+    assert cell_dict.get(kw.bud_plan_name) == exx.bob
     assert cell_dict.get(kw.mana_grain) == a23_mana_grain
     assert cell_dict.get(kw.quota) == bud1_quota

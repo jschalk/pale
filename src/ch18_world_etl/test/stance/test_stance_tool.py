@@ -2,15 +2,12 @@ from os.path import exists as os_path_exists
 from pandas import read_excel as pandas_read_excel
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.file_toolbox import create_path, save_json, set_dir
-from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch09_belief_lesson._ref.ch09_path import (
-    create_gut_path,
-    create_moment_json_path,
-)
+from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch09_plan_lesson._ref.ch09_path import create_gut_path, create_moment_json_path
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch17_idea.idea_csv_tool import (
-    add_beliefunit_to_stance_csv_strs,
     add_momentunit_to_stance_csv_strs,
+    add_planunit_to_stance_csv_strs,
     create_init_stance_idea_csv_strs,
 )
 from src.ch17_idea.idea_db_tool import get_sheet_names
@@ -45,7 +42,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario0_NoMomentUnits(
     assert gen_stance_csv_strs == expected_stance_csv_strs
 
 
-def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoBeliefUnits(
+def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoPlanUnits(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -64,7 +61,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoBeliefU
     assert gen_stance_csv_strs == expected_stance_csv_strs
 
 
-def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_BeliefUnits(
+def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_PlanUnits(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -73,8 +70,8 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_BeliefUnits(
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     save_json(moment_json_path, None, a23_moment.to_dict())
-    # create belief gut file
-    bob_gut = beliefunit_shop(exx.bob, exx.a23)
+    # create plan gut file
+    bob_gut = planunit_shop(exx.bob, exx.a23)
     bob_gut.add_voiceunit("Yao", 44, 55)
     a23_bob_gut_path = create_gut_path(moment_mstr_dir, exx.a23, exx.bob)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
@@ -85,7 +82,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_BeliefUnits(
     # THEN
     expected_stance_csv_strs = create_init_stance_idea_csv_strs()
     add_momentunit_to_stance_csv_strs(a23_moment, expected_stance_csv_strs, ",")
-    add_beliefunit_to_stance_csv_strs(bob_gut, expected_stance_csv_strs, ",")
+    add_planunit_to_stance_csv_strs(bob_gut, expected_stance_csv_strs, ",")
     assert gen_stance_csv_strs == expected_stance_csv_strs
 
 

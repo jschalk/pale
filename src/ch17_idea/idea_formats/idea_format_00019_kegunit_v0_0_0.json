@@ -2,7 +2,7 @@
   "attributes": {
     "addin"       : { "otx_key": false }, 
     "begin"       : { "otx_key": false }, 
-    "belief_name" : { "otx_key": true  }, 
+    "plan_name" : { "otx_key": true  }, 
     "close"       : { "otx_key": false }, 
     "denom"       : { "otx_key": false }, 
     "face_name"   : { "otx_key": true  }, 
@@ -14,6 +14,6 @@
     "spark_num"   : { "otx_key": true  }, 
     "stop_want"   : { "otx_key": false }
   }, 
-  "dimens": ["momentunit", "beliefunit", "belief_kegunit"], 
+  "dimens": ["momentunit", "planunit", "plan_kegunit"], 
   "idea_number": "br00019"
 }

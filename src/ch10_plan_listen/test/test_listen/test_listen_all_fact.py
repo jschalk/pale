@@ -1,0 +1,243 @@
+from src.ch06_keg.keg import kegunit_shop
+from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch10_plan_listen.listen_main import (
+    get_debtors_roll,
+    get_ordered_debtors_roll,
+    listen_to_speaker_fact,
+    migrate_all_facts,
+)
+from src.ref.keywords import ExampleStrs as exx
+
+
+def test_get_debtors_roll_ReturnsObj():
+    # ESTABLISH
+    yao_duty = planunit_shop(exx.yao)
+    zia_voice_cred_lumen = 47
+    zia_voice_debt_lumen = 41
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.cashout()
+
+    # WHEN
+    yao_roll = get_debtors_roll(yao_duty)
+
+    # THEN
+    zia_voiceunit = yao_duty.get_voice(exx.zia)
+    assert yao_roll == [zia_voiceunit]
+
+
+def test_get_debtors_roll_ReturnsObjIgnoresZero_voice_debt_lumen():
+    # ESTABLISH
+    yao_duty = planunit_shop(exx.yao)
+    zia_voice_cred_lumen = 47
+    zia_voice_debt_lumen = 41
+    wei_str = "Wei"
+    wei_voice_cred_lumen = 67
+    wei_voice_debt_lumen = 0
+    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_duty.add_voiceunit(wei_str, wei_voice_cred_lumen, wei_voice_debt_lumen)
+    yao_duty.cashout()
+
+    # WHEN
+    yao_roll = get_debtors_roll(yao_duty)
+
+    # THEN
+    zia_voiceunit = yao_duty.get_voice(exx.zia)
+    assert yao_roll == [zia_voiceunit]
+
+
+def test_get_ordered_debtors_roll_ReturnsObj_InOrder():
+    # ESTABLISH
+    yao_plan = planunit_shop(exx.yao)
+    zia_voice_cred_lumen = 47
+    zia_voice_debt_lumen = 41
+    sue_voice_cred_lumen = 57
+    sue_voice_debt_lumen = 51
+    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    yao_plan.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    yao_pool = 92
+    yao_plan.set_voice_respect(yao_pool)
+
+    # WHEN
+    ordered_voices1 = get_ordered_debtors_roll(yao_plan)
+
+    # THEN
+    zia_voice = yao_plan.get_voice(exx.zia)
+    sue_voice = yao_plan.get_voice(exx.sue)
+    assert ordered_voices1[0].to_dict() == sue_voice.to_dict()
+    assert ordered_voices1 == [sue_voice, zia_voice]
+
+    # ESTABLISH
+    bob_voice_debt_lumen = 75
+    yao_plan.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
+    bob_voice = yao_plan.get_voice(exx.bob)
+
+    # WHEN
+    ordered_voices2 = get_ordered_debtors_roll(yao_plan)
+
+    # THEN
+    assert ordered_voices2[0].to_dict() == bob_voice.to_dict()
+    assert ordered_voices2 == [bob_voice, sue_voice, zia_voice]
+
+
+def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
+    # ESTABLISH
+    yao_plan = planunit_shop(exx.yao)
+    zia_voice_debt_lumen = 41
+    sue_voice_debt_lumen = 51
+    yao_pool = 92
+    yao_plan.set_voice_respect(yao_pool)
+    bob_voice_debt_lumen = 75
+    yao_plan.add_voiceunit(exx.zia, 0, zia_voice_debt_lumen)
+    yao_plan.add_voiceunit(exx.sue, 0, sue_voice_debt_lumen)
+    yao_plan.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
+    yao_plan.add_voiceunit(exx.yao, 0, 0)
+    yao_plan.add_voiceunit(exx.xio, 0, 0)
+
+    # WHEN
+    ordered_voices2 = get_ordered_debtors_roll(yao_plan)
+
+    # THEN
+    assert len(ordered_voices2) == 3
+    zia_voice = yao_plan.get_voice(exx.zia)
+    sue_voice = yao_plan.get_voice(exx.sue)
+    bob_voice = yao_plan.get_voice(exx.bob)
+    assert ordered_voices2[0].to_dict() == bob_voice.to_dict()
+    assert ordered_voices2 == [bob_voice, sue_voice, zia_voice]
+
+
+def test_set_listen_to_speaker_fact_SetsFact():
+    # ESTABLISH
+    yao_listener = planunit_shop(exx.yao)
+    casa_rope = yao_listener.make_l1_rope(exx.casa)
+    situation_str = "situation"
+    situation_rope = yao_listener.make_rope(casa_rope, situation_str)
+    clean_rope = yao_listener.make_rope(situation_rope, exx.clean)
+    dirty_str = "dirty"
+    dirty_rope = yao_listener.make_rope(situation_rope, dirty_str)
+    sweep_str = "sweep"
+    sweep_rope = yao_listener.make_rope(casa_rope, sweep_str)
+
+    yao_listener.add_voiceunit(exx.yao)
+    yao_listener.set_voice_respect(20)
+    yao_listener.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
+    yao_listener.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
+    yao_listener.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
+    yao_listener.edit_keg_attr(
+        sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
+    )
+    missing_fact_fact_contexts = list(
+        yao_listener.get_missing_fact_reason_contexts().keys()
+    )
+
+    yao_speaker = planunit_shop(exx.yao)
+    yao_speaker.add_fact(situation_rope, clean_rope, create_missing_kegs=True)
+    assert yao_listener.get_missing_fact_reason_contexts().keys() == {situation_rope}
+
+    # WHEN
+    listen_to_speaker_fact(yao_listener, yao_speaker, missing_fact_fact_contexts)
+
+    # THEN
+    assert len(yao_listener.get_missing_fact_reason_contexts().keys()) == 0
+
+
+def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
+    # ESTABLISH
+    yao_listener = planunit_shop(exx.yao)
+    yao_listener.add_voiceunit(exx.yao)
+    yao_listener.set_voice_respect(20)
+    casa_rope = yao_listener.make_l1_rope(exx.casa)
+    situation_str = "situation"
+    situation_rope = yao_listener.make_rope(casa_rope, situation_str)
+    clean_rope = yao_listener.make_rope(situation_rope, exx.clean)
+    dirty_str = "dirty"
+    dirty_rope = yao_listener.make_rope(situation_rope, dirty_str)
+    sweep_str = "sweep"
+    sweep_rope = yao_listener.make_rope(casa_rope, sweep_str)
+    fridge_str = "fridge"
+    fridge_rope = yao_listener.make_rope(casa_rope, fridge_str)
+    running_str = "running"
+    running_rope = yao_listener.make_rope(fridge_rope, running_str)
+
+    yao_listener.set_keg_obj(kegunit_shop(running_str), fridge_rope)
+    yao_listener.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
+    yao_listener.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
+    yao_listener.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
+    yao_listener.edit_keg_attr(
+        sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
+    )
+    yao_listener.edit_keg_attr(
+        sweep_rope, reason_context=fridge_rope, reason_case=running_rope
+    )
+    assert len(yao_listener.get_missing_fact_reason_contexts()) == 2
+    yao_listener.add_fact(situation_rope, dirty_rope)
+    assert len(yao_listener.get_missing_fact_reason_contexts()) == 1
+    assert yao_listener.get_fact(situation_rope).fact_state == dirty_rope
+
+    # WHEN
+    yao_speaker = planunit_shop(exx.yao)
+    yao_speaker.add_fact(situation_rope, clean_rope, create_missing_kegs=True)
+    yao_speaker.add_fact(fridge_rope, running_rope, create_missing_kegs=True)
+    missing_fact_fact_contexts = list(
+        yao_listener.get_missing_fact_reason_contexts().keys()
+    )
+    listen_to_speaker_fact(yao_listener, yao_speaker, missing_fact_fact_contexts)
+
+    # THEN
+    assert len(yao_listener.get_missing_fact_reason_contexts()) == 0
+    # did not grab speaker's factunit
+    assert yao_listener.get_fact(situation_rope).fact_state == dirty_rope
+    # grabed speaker's factunit
+    assert yao_listener.get_fact(fridge_rope).fact_state == running_rope
+
+
+def test_migrate_all_facts_AddsKegUnitsAndSetsFactUnits():
+    # ESTABLISH
+    yao_src = planunit_shop(exx.yao)
+    casa_rope = yao_src.make_l1_rope(exx.casa)
+    situation_str = "situation"
+    situation_rope = yao_src.make_rope(casa_rope, situation_str)
+    clean_rope = yao_src.make_rope(situation_rope, exx.clean)
+    dirty_str = "dirty"
+    dirty_rope = yao_src.make_rope(situation_rope, dirty_str)
+    sweep_str = "sweep"
+    sweep_rope = yao_src.make_rope(casa_rope, sweep_str)
+    weather_str = "weather"
+    weather_rope = yao_src.make_l1_rope(weather_str)
+    rain_str = "raining"
+    rain_rope = yao_src.make_rope(weather_rope, rain_str)
+    snow_str = "snow"
+    snow_rope = yao_src.make_rope(weather_rope, snow_str)
+
+    yao_src.add_voiceunit(exx.yao)
+    yao_src.set_voice_respect(20)
+    yao_src.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
+    yao_src.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
+    yao_src.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
+    yao_src.edit_reason(sweep_rope, situation_rope, dirty_rope)
+    # missing_fact_fact_contexts = list(yao_src.get_missing_fact_reason_contexts().keys())
+    yao_src.set_keg_obj(kegunit_shop(rain_str), weather_rope)
+    yao_src.set_keg_obj(kegunit_shop(snow_str), weather_rope)
+    yao_src.add_fact(weather_rope, rain_rope)
+    yao_src.add_fact(situation_rope, clean_rope)
+    yao_src.cashout()
+
+    yao_dst = planunit_shop(exx.yao)
+    assert yao_dst.keg_exists(clean_rope) is False
+    assert yao_dst.keg_exists(dirty_rope) is False
+    assert yao_dst.keg_exists(rain_rope) is False
+    assert yao_dst.keg_exists(snow_rope) is False
+    assert yao_dst.get_fact(weather_rope) is None
+    assert yao_dst.get_fact(situation_rope) is None
+
+    # WHEN
+    migrate_all_facts(yao_src, yao_dst)
+
+    # THEN
+    assert yao_dst.keg_exists(clean_rope)
+    assert yao_dst.keg_exists(dirty_rope)
+    assert yao_dst.keg_exists(rain_rope)
+    assert yao_dst.keg_exists(snow_rope)
+    assert yao_dst.get_fact(weather_rope) is not None
+    assert yao_dst.get_fact(situation_rope) is not None
+    assert yao_dst.get_fact(weather_rope).fact_state == rain_rope
+    assert yao_dst.get_fact(situation_rope).fact_state == clean_rope

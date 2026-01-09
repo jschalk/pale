@@ -24,7 +24,7 @@ from src.ch18_world_etl.etl_main import (
     etl_heard_raw_tables_to_heard_vld_tables,
     etl_heard_raw_tables_to_moment_ote1_agg,
     etl_heard_vld_tables_to_moment_jsons,
-    etl_heard_vld_to_spark_belief_csvs,
+    etl_heard_vld_to_spark_plan_csvs,
     etl_input_dfs_to_brick_raw_tables,
     etl_moment_guts_to_moment_jobs,
     etl_moment_job_jsons_to_job_tables,
@@ -37,9 +37,9 @@ from src.ch18_world_etl.etl_main import (
     etl_sound_agg_tables_to_sound_vld_tables,
     etl_sound_raw_tables_to_sound_agg_tables,
     etl_sound_vld_tables_to_heard_raw_tables,
-    etl_spark_belief_csvs_to_lesson_json,
-    etl_spark_inherited_beliefunits_to_moment_gut,
-    etl_spark_lesson_json_to_spark_inherited_beliefunits,
+    etl_spark_inherited_planunits_to_moment_gut,
+    etl_spark_lesson_json_to_spark_inherited_planunits,
+    etl_spark_plan_csvs_to_lesson_json,
     etl_sparks_brick_agg_table_to_sparks_brick_valid_table,
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
     get_max_brick_agg_spark_num,
@@ -145,17 +145,17 @@ class WorldUnit:
         etl_translate_sound_agg_tables_to_translate_sound_vld_tables(cursor)
         etl_sound_agg_tables_to_sound_vld_tables(cursor)
         etl_sound_vld_tables_to_heard_raw_tables(cursor)
-        # heard raw to moment/belief jsons
+        # heard raw to moment/plan jsons
         etl_heard_raw_tables_to_heard_agg_tables(cursor)
         # TODO add step to convert EpochTime and ReasonNum in heard_agg_tables, use rules defined in Nabu chapter
         # TODO change "etl_heard_raw_tables_to_heard_vld_tables" to "etl_heard_agg_tables_to_heard_vld_tables"
         etl_heard_raw_tables_to_heard_vld_tables(cursor)
         # etl_heard_vld_nabu_updates
         etl_heard_vld_tables_to_moment_jsons(cursor, mstr_dir)
-        etl_heard_vld_to_spark_belief_csvs(cursor, mstr_dir)
-        etl_spark_belief_csvs_to_lesson_json(mstr_dir)
-        etl_spark_lesson_json_to_spark_inherited_beliefunits(mstr_dir)
-        etl_spark_inherited_beliefunits_to_moment_gut(mstr_dir)
+        etl_heard_vld_to_spark_plan_csvs(cursor, mstr_dir)
+        etl_spark_plan_csvs_to_lesson_json(mstr_dir)
+        etl_spark_lesson_json_to_spark_inherited_planunits(mstr_dir)
+        etl_spark_inherited_planunits_to_moment_gut(mstr_dir)
         add_moment_epoch_to_guts(mstr_dir)
         etl_moment_guts_to_moment_jobs(mstr_dir)
         etl_heard_raw_tables_to_moment_ote1_agg(cursor)

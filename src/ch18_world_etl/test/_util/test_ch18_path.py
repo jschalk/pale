@@ -7,8 +7,8 @@ from src.ch18_world_etl._ref.ch18_path import (
     create_moment_ote1_csv_path,
     create_moment_ote1_json_path,
     create_stance0001_path,
-    create_stances_belief_dir_path,
     create_stances_dir_path,
+    create_stances_plan_dir_path,
     create_world_db_path,
 )
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
@@ -74,12 +74,12 @@ def test_create_stances_dir_path_ReturnsObj():
     assert gen_bob_stance_dir == expected_stances_dir
 
 
-def test_create_stances_belief_dir_path_ReturnsObj():
+def test_create_stances_plan_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
 
     # WHEN
-    gen_bob_stance_dir = create_stances_belief_dir_path(x_moment_mstr_dir, exx.bob)
+    gen_bob_stance_dir = create_stances_plan_dir_path(x_moment_mstr_dir, exx.bob)
 
     # THEN
     stances_dir = create_stances_dir_path(x_moment_mstr_dir)
@@ -118,14 +118,14 @@ def test_create_stances_dir_path_HasDocString():
     assert LINUX_OS or inspect_getdoc(create_stances_dir_path) == doc_str
 
 
-def test_create_stances_belief_dir_path_HasDocString():
+def test_create_stances_plan_dir_path_HasDocString():
     # ESTABLISH
-    doc_str = create_stances_belief_dir_path(
-        moment_mstr_dir="moment_mstr_dir", belief_name=kw.belief_name
+    doc_str = create_stances_plan_dir_path(
+        moment_mstr_dir="moment_mstr_dir", plan_name=kw.plan_name
     )
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
-    assert LINUX_OS or inspect_getdoc(create_stances_belief_dir_path) == doc_str
+    assert LINUX_OS or inspect_getdoc(create_stances_plan_dir_path) == doc_str
 
 
 def test_create_stance0001_path_HasDocString():

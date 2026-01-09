@@ -200,7 +200,7 @@ def test_KegUnit_set_reasonheirsAcceptsNewValues():
     assert ball_keg.reasonheirs == {}
 
     # WHEN
-    ball_keg.set_reasonheirs(reasonheirs=reasonheirs, belief_keg_dict={})
+    ball_keg.set_reasonheirs(reasonheirs=reasonheirs, plan_keg_dict={})
 
     # THEN
     assert ball_keg.reasonheirs == reasonheirs
@@ -221,7 +221,7 @@ def test_KegUnit_set_reasonheirsRefusesNewValues():
     assert ball_keg.reasonunits != {}
 
     # WHEN
-    ball_keg.set_reasonheirs(reasonheirs={}, belief_keg_dict={})
+    ball_keg.set_reasonheirs(reasonheirs={}, plan_keg_dict={})
 
     # THEN
     reasonheir = reasonheir_shop(run_rope, cases=run_cases)
@@ -235,7 +235,7 @@ def test_KegUnit_set_range_inheritors_factheirs_SetsAttrNoParameters():
     assert ball_keg.factheirs == {}
 
     # WHEN
-    ball_keg.set_range_inheritors_factheirs(belief_keg_dict={}, range_inheritors={})
+    ball_keg.set_range_inheritors_factheirs(plan_keg_dict={}, range_inheritors={})
 
     # THEN
     assert ball_keg.factheirs == {}
@@ -258,11 +258,11 @@ def test_KegUnit_set_range_inheritors_factheirs_SetsAttrNewFactHeir():
     ball_keg = kegunit_shop(ball_str)
     ball_keg._set_factheir(wk_factheir)
     tue_reasonheirs = {tue_rope: reasonheir_shop(tue_rope, None, False)}
-    x_belief_keg_dict = {
+    x_plan_keg_dict = {
         wk_keg.get_keg_rope(): wk_keg,
         tue_keg.get_keg_rope(): tue_keg,
     }
-    ball_keg.set_reasonheirs(x_belief_keg_dict, tue_reasonheirs)
+    ball_keg.set_reasonheirs(x_plan_keg_dict, tue_reasonheirs)
 
     x_range_inheritors = {tue_rope: wk_rope}
     assert len(ball_keg.reasonheirs) == 1
@@ -272,7 +272,7 @@ def test_KegUnit_set_range_inheritors_factheirs_SetsAttrNewFactHeir():
     assert ball_keg.factheirs.get(tue_rope) is None
 
     # WHEN
-    ball_keg.set_range_inheritors_factheirs(x_belief_keg_dict, x_range_inheritors)
+    ball_keg.set_range_inheritors_factheirs(x_plan_keg_dict, x_range_inheritors)
 
     # THEN
     tue_reason_lower = 113
@@ -331,7 +331,7 @@ def test_KegUnit_get_reasonheir_ReturnsObj_Scenario0():
     dirty_str = "dirty"
     x_reasonheir = reasonheir_shop(reason_context=dirty_str)
     x_reasonheirs = {x_reasonheir.reason_context: x_reasonheir}
-    clean_keg.set_reasonheirs(reasonheirs=x_reasonheirs, belief_keg_dict={})
+    clean_keg.set_reasonheirs(reasonheirs=x_reasonheirs, plan_keg_dict={})
 
     # WHEN
     z_reasonheir = clean_keg.get_reasonheir(reason_context=dirty_str)
@@ -341,13 +341,13 @@ def test_KegUnit_get_reasonheir_ReturnsObj_Scenario0():
     assert z_reasonheir.reason_context == dirty_str
 
 
-def test_KegUnit_get_reasonheir_ReturnsObj_Scenario1_belief_keg_IsEmpty():
+def test_KegUnit_get_reasonheir_ReturnsObj_Scenario1_plan_keg_IsEmpty():
     # ESTABLISH
     clean_keg = kegunit_shop(exx.clean)
     dirty_str = "dirty"
     x_reasonheir = reasonheir_shop(dirty_str)
     x_reasonheirs = {x_reasonheir.reason_context: x_reasonheir}
-    clean_keg.set_reasonheirs(reasonheirs=x_reasonheirs, belief_keg_dict={})
+    clean_keg.set_reasonheirs(reasonheirs=x_reasonheirs, plan_keg_dict={})
 
     # WHEN
     test6_str = "test6"

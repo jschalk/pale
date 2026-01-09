@@ -3,7 +3,7 @@ from os import getcwd as os_getcwd
 from src.ch01_py.db_toolbox import get_create_table_sqlstr
 from src.ch01_py.dict_toolbox import get_empty_set_if_None, get_from_nested_dict
 from src.ch01_py.file_toolbox import create_path, open_json
-from src.ch08_belief_atom.atom_config import get_delete_key_name
+from src.ch08_plan_atom.atom_config import get_delete_key_name
 from src.ch15_nabu.nabu_config import (
     get_context_nabuable_args,
     set_nabuable_otx_inx_args,
@@ -50,16 +50,16 @@ def get_dimen_abbv7(dimen: str) -> str:
         "moment_epoch_weekday": "MMTWEEK",
         "moment_timeoffi": "MMTOFFI",
         "momentunit": "MMTUNIT",
-        "belief_voice_membership": "BLFMEMB",
-        "belief_voiceunit": "BLFVOCE",
-        "belief_keg_awardunit": "BLFAWAR",
-        "belief_keg_factunit": "BLFFACT",
-        "belief_keg_healerunit": "BLFHEAL",
-        "belief_keg_reason_caseunit": "BLFCASE",
-        "belief_keg_reasonunit": "BLFREAS",
-        "belief_keg_partyunit": "BLFLABO",
-        "belief_kegunit": "BLFKEGG",
-        "beliefunit": "BLFUNIT",
+        "plan_voice_membership": "BLFMEMB",
+        "plan_voiceunit": "BLFVOCE",
+        "plan_keg_awardunit": "BLFAWAR",
+        "plan_keg_factunit": "BLFFACT",
+        "plan_keg_healerunit": "BLFHEAL",
+        "plan_keg_reason_caseunit": "BLFCASE",
+        "plan_keg_reasonunit": "BLFREAS",
+        "plan_keg_partyunit": "BLFLABO",
+        "plan_kegunit": "BLFKEGG",
+        "planunit": "BLFUNIT",
         "nabu_epochtime": "NABEPOC",
         "translate_title": "TRLTITL",
         "translate_name": "TRLNAME",
@@ -89,17 +89,17 @@ def create_prime_tablename(
         "MMTWEEK": "moment_epoch_weekday",
         "MMTOFFI": "moment_timeoffi",
         "MMTUNIT": "momentunit",
-        "BLFMEMB": "belief_voice_membership",
-        "BLFVOCE": "belief_voiceunit",
-        "BLFAWAR": "belief_keg_awardunit",
-        "BLFFACT": "belief_keg_factunit",
-        "BLFGROU": "belief_groupunit",
-        "BLFHEAL": "belief_keg_healerunit",
-        "BLFCASE": "belief_keg_reason_caseunit",
-        "BLFREAS": "belief_keg_reasonunit",
-        "BLFLABO": "belief_keg_partyunit",
-        "BLFKEGG": "belief_kegunit",
-        "BLFUNIT": "beliefunit",
+        "BLFMEMB": "plan_voice_membership",
+        "BLFVOCE": "plan_voiceunit",
+        "BLFAWAR": "plan_keg_awardunit",
+        "BLFFACT": "plan_keg_factunit",
+        "BLFGROU": "plan_groupunit",
+        "BLFHEAL": "plan_keg_healerunit",
+        "BLFCASE": "plan_keg_reason_caseunit",
+        "BLFREAS": "plan_keg_reasonunit",
+        "BLFLABO": "plan_keg_partyunit",
+        "BLFKEGG": "plan_kegunit",
+        "BLFUNIT": "planunit",
         "NABEPOC": "nabu_epochtime",
         "TRLTITL": "translate_title",
         "TRLNAME": "translate_name",
@@ -128,80 +128,80 @@ def etl_idea_category_config_path() -> str:
 
 
 def etl_idea_category_config_dict() -> dict:
-    """Config data for etl dimenensions (translate, moment, belief...) including required columns per stage"""
+    """Config data for etl dimenensions (translate, moment, plan...) including required columns per stage"""
     return open_json(etl_idea_category_config_path())
 
 
 def get_etl_category_stages_dict() -> dict:
     return {
-        "belief_h_agg_put": {
-            "idea_category": "belief",
+        "plan_h_agg_put": {
+            "idea_category": "plan",
             "stage0": "h",
             "stage1": "agg",
             "put_del": "put",
         },
-        "belief_h_agg_del": {
-            "idea_category": "belief",
+        "plan_h_agg_del": {
+            "idea_category": "plan",
             "stage0": "h",
             "stage1": "agg",
             "put_del": "del",
         },
-        "belief_h_raw_put": {
-            "idea_category": "belief",
+        "plan_h_raw_put": {
+            "idea_category": "plan",
             "stage0": "h",
             "stage1": "raw",
             "put_del": "put",
         },
-        "belief_h_raw_del": {
-            "idea_category": "belief",
+        "plan_h_raw_del": {
+            "idea_category": "plan",
             "stage0": "h",
             "stage1": "raw",
             "put_del": "del",
         },
-        "belief_h_vld_put": {
-            "idea_category": "belief",
+        "plan_h_vld_put": {
+            "idea_category": "plan",
             "stage0": "h",
             "stage1": "vld",
             "put_del": "put",
         },
-        "belief_h_vld_del": {
-            "idea_category": "belief",
+        "plan_h_vld_del": {
+            "idea_category": "plan",
             "stage0": "h",
             "stage1": "vld",
             "put_del": "del",
         },
-        "belief_s_agg_put": {
-            "idea_category": "belief",
+        "plan_s_agg_put": {
+            "idea_category": "plan",
             "stage0": "s",
             "stage1": "agg",
             "put_del": "put",
         },
-        "belief_s_agg_del": {
-            "idea_category": "belief",
+        "plan_s_agg_del": {
+            "idea_category": "plan",
             "stage0": "s",
             "stage1": "agg",
             "put_del": "del",
         },
-        "belief_s_raw_put": {
-            "idea_category": "belief",
+        "plan_s_raw_put": {
+            "idea_category": "plan",
             "stage0": "s",
             "stage1": "raw",
             "put_del": "put",
         },
-        "belief_s_raw_del": {
-            "idea_category": "belief",
+        "plan_s_raw_del": {
+            "idea_category": "plan",
             "stage0": "s",
             "stage1": "raw",
             "put_del": "del",
         },
-        "belief_s_vld_put": {
-            "idea_category": "belief",
+        "plan_s_vld_put": {
+            "idea_category": "plan",
             "stage0": "s",
             "stage1": "vld",
             "put_del": "put",
         },
-        "belief_s_vld_del": {
-            "idea_category": "belief",
+        "plan_s_vld_del": {
+            "idea_category": "plan",
             "stage0": "s",
             "stage1": "vld",
             "put_del": "del",
@@ -309,8 +309,8 @@ def get_prime_columns(
         idea_category = "nabu"
     elif x_dimen.find("moment") == 0:
         idea_category = "moment"
-    elif x_dimen.find("belief") == 0:
-        idea_category = "belief"
+    elif x_dimen.find("plan") == 0:
+        idea_category = "plan"
     config_keylist = [idea_category, "stages", *table_keylist]
 
     otx_keylist = copy_copy(config_keylist)

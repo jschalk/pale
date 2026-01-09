@@ -3,7 +3,7 @@ from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch01_py.db_toolbox import create_insert_query, get_row_count, get_table_columns
 from src.ch01_py.dict_toolbox import get_empty_set_if_None
 from src.ch05_reason.reason_main import caseunit_shop
-from src.ch07_belief_logic.belief_tool import add_frame_to_caseunit
+from src.ch07_plan_logic.plan_tool import add_frame_to_caseunit
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import (
@@ -12,11 +12,11 @@ from src.ch17_idea.idea_config import (
     get_idea_sqlite_types,
 )
 from src.ch18_world_etl._ref.ch18_semantic_types import (
-    BeliefName,
     EpochTime,
     FaceName,
     FactNum,
     MomentLabel,
+    PlanName,
     ReasonNum,
     RopeTerm,
     SparkInt,
@@ -36,7 +36,7 @@ from src.ch18_world_etl.etl_sqlstr import (
 )
 
 
-def add_frame_to_db_beliefunit():
+def add_frame_to_db_planunit():
     pass
 
 
@@ -59,5 +59,5 @@ def add_frame_to_db_reasonunit():
     pass
 
 
-def add_epoch_frame_to_db_beliefunit():
+def add_epoch_frame_to_db_planunit():
     pass

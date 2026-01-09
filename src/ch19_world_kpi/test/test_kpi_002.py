@@ -22,7 +22,7 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
         job_blfkegg_tablename = create_prime_tablename("BLFKEGG", "job", None)
         insert_sqlstr = f"""INSERT INTO {job_blfkegg_tablename} (
   {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.keg_rope}
 , {kw.pledge}
 , {kw.keg_active}
@@ -34,23 +34,23 @@ VALUES
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, job_blfkegg_tablename) == 2
-        moment_kpi002_belief_pledges_tablename = kw.moment_kpi002_belief_pledges
-        assert not db_table_exists(cursor, moment_kpi002_belief_pledges_tablename)
+        moment_kpi002_plan_pledges_tablename = kw.moment_kpi002_plan_pledges
+        assert not db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
 
         # WHEN
         create_populate_kpi002_table(cursor)
 
         # THEN
-        assert db_table_exists(cursor, moment_kpi002_belief_pledges_tablename)
-        assert get_table_columns(cursor, moment_kpi002_belief_pledges_tablename) == [
+        assert db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
+        assert get_table_columns(cursor, moment_kpi002_plan_pledges_tablename) == [
             kw.moment_label,
-            kw.belief_name,
+            kw.plan_name,
             kw.keg_rope,
             kw.pledge,
             kw.keg_active,
             kw.task,
         ]
-        assert get_row_count(cursor, moment_kpi002_belief_pledges_tablename) == 0
+        assert get_row_count(cursor, moment_kpi002_plan_pledges_tablename) == 0
 
 
 def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
@@ -70,7 +70,7 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
         job_blfkegg_tablename = create_prime_tablename("BLFKEGG", "job", None)
         insert_sqlstr = f"""INSERT INTO {job_blfkegg_tablename} (
   {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.keg_rope}
 , {kw.pledge}
 , {kw.keg_active}
@@ -84,20 +84,20 @@ VALUES
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, job_blfkegg_tablename) == 4
-        moment_kpi002_belief_pledges_tablename = kw.moment_kpi002_belief_pledges
-        assert not db_table_exists(cursor, moment_kpi002_belief_pledges_tablename)
+        moment_kpi002_plan_pledges_tablename = kw.moment_kpi002_plan_pledges
+        assert not db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
 
         # WHEN
         create_populate_kpi002_table(cursor)
 
         # THEN
-        assert db_table_exists(cursor, moment_kpi002_belief_pledges_tablename)
-        assert get_table_columns(cursor, moment_kpi002_belief_pledges_tablename) == [
+        assert db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
+        assert get_table_columns(cursor, moment_kpi002_plan_pledges_tablename) == [
             kw.moment_label,
-            kw.belief_name,
+            kw.plan_name,
             kw.keg_rope,
             kw.pledge,
             kw.keg_active,
             kw.task,
         ]
-        assert get_row_count(cursor, moment_kpi002_belief_pledges_tablename) == 2
+        assert get_row_count(cursor, moment_kpi002_plan_pledges_tablename) == 2

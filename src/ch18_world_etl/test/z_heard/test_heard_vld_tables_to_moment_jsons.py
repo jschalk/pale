@@ -2,7 +2,7 @@ from os.path import exists as os_path_exists
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import create_select_query, db_table_exists, get_row_count
 from src.ch01_py.file_toolbox import open_json
-from src.ch09_belief_lesson._ref.ch09_path import create_moment_json_path
+from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch14_moment.moment_main import get_momentunit_from_dict
 from src.ch18_world_etl.etl_config import get_dimen_abbv7

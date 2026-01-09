@@ -11,10 +11,10 @@ from src.ch01_py.dict_toolbox import (
 )
 from src.ch02_allot.allot import default_pool_num
 from src.ch11_bud._ref.ch11_semantic_types import (
-    BeliefName,
     EpochTime,
     FundNum,
     MomentLabel,
+    PlanName,
     VoiceName,
 )
 
@@ -32,14 +32,14 @@ DEFAULT_CELLDEPTH = 2
 
 @dataclass
 class TranUnit:
-    src: BeliefName = None
+    src: PlanName = None
     dst: VoiceName = None
     tran_time: EpochTime = None
     amount: FundNum = None
 
 
 def tranunit_shop(
-    src: BeliefName, dst: VoiceName, tran_time: EpochTime, amount: FundNum
+    src: PlanName, dst: VoiceName, tran_time: EpochTime, amount: FundNum
 ) -> TranUnit:
     return TranUnit(src=src, dst=dst, tran_time=tran_time, amount=amount)
 
@@ -47,8 +47,8 @@ def tranunit_shop(
 @dataclass
 class TranBook:
     moment_label: MomentLabel = None
-    tranunits: dict[BeliefName, dict[VoiceName, dict[EpochTime, FundNum]]] = None
-    _voices_net: dict[BeliefName, dict[VoiceName, FundNum]] = None
+    tranunits: dict[PlanName, dict[VoiceName, dict[EpochTime, FundNum]]] = None
+    _voices_net: dict[PlanName, dict[VoiceName, FundNum]] = None
 
     def set_tranunit(
         self,
@@ -57,7 +57,7 @@ class TranBook:
         offi_time_max: EpochTime = None,
     ):
         self.add_tranunit(
-            belief_name=tranunit.src,
+            plan_name=tranunit.src,
             voice_name=tranunit.dst,
             tran_time=tranunit.tran_time,
             amount=tranunit.amount,
@@ -67,7 +67,7 @@ class TranBook:
 
     def add_tranunit(
         self,
-        belief_name: BeliefName,
+        plan_name: PlanName,
         voice_name: VoiceName,
         tran_time: EpochTime,
         amount: FundNum,
@@ -82,28 +82,28 @@ class TranBook:
         if offi_time_max != None and tran_time >= offi_time_max:
             exception_str = f"Cannot set tranunit for tran_time={tran_time}, EpochTime is greater than current time={offi_time_max}"
             raise tran_time_Exception(exception_str)
-        x_keylist = [belief_name, voice_name, tran_time]
+        x_keylist = [plan_name, voice_name, tran_time]
         set_in_nested_dict(self.tranunits, x_keylist, amount)
 
     def tranunit_exists(
-        self, src: BeliefName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
     ) -> bool:
         return get_from_nested_dict(self.tranunits, [src, dst, tran_time], True) != None
 
     def get_tranunit(
-        self, src: BeliefName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
     ) -> TranUnit:
         x_amount = get_from_nested_dict(self.tranunits, [src, dst, tran_time], True)
         if x_amount != None:
             return tranunit_shop(src, dst, tran_time, x_amount)
 
     def get_amount(
-        self, src: BeliefName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
     ) -> TranUnit:
         return get_from_nested_dict(self.tranunits, [src, dst, tran_time], True)
 
     def del_tranunit(
-        self, src: BeliefName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
     ) -> TranUnit:
         x_keylist = [src, dst, tran_time]
         if exists_in_nested_dict(self.tranunits, x_keylist):
@@ -116,22 +116,22 @@ class TranBook:
                 x_set.update(set(tran_time_dict.keys()))
         return x_set
 
-    def get_beliefs_voices_net(
+    def get_plans_voices_net(
         self,
-    ) -> dict[BeliefName, dict[VoiceName, FundNum]]:
-        beliefs_voices_net_dict = {}
-        for belief_name, belief_dict in self.tranunits.items():
-            for voice_name, voice_dict in belief_dict.items():
-                if beliefs_voices_net_dict.get(belief_name) is None:
-                    beliefs_voices_net_dict[belief_name] = {}
-                belief_net_dict = beliefs_voices_net_dict.get(belief_name)
-                belief_net_dict[voice_name] = sum(voice_dict.values())
-        return beliefs_voices_net_dict
+    ) -> dict[PlanName, dict[VoiceName, FundNum]]:
+        plans_voices_net_dict = {}
+        for plan_name, plan_dict in self.tranunits.items():
+            for voice_name, voice_dict in plan_dict.items():
+                if plans_voices_net_dict.get(plan_name) is None:
+                    plans_voices_net_dict[plan_name] = {}
+                plan_net_dict = plans_voices_net_dict.get(plan_name)
+                plan_net_dict[voice_name] = sum(voice_dict.values())
+        return plans_voices_net_dict
 
     def get_voices_net_dict(self) -> dict[VoiceName, FundNum]:
         voices_net_dict = {}
-        for belief_dict in self.tranunits.values():
-            for voice_name, voice_dict in sorted(belief_dict.items()):
+        for plan_dict in self.tranunits.values():
+            for voice_name, voice_dict in sorted(plan_dict.items()):
                 if voices_net_dict.get(voice_name) is None:
                     voices_net_dict[voice_name] = sum(voice_dict.values())
                 else:
@@ -162,7 +162,7 @@ class TranBook:
 
     def to_dict(
         self,
-    ) -> dict[MomentLabel, dict[BeliefName, dict[VoiceName, dict[EpochTime, FundNum]]]]:
+    ) -> dict[MomentLabel, dict[PlanName, dict[VoiceName, dict[EpochTime, FundNum]]]]:
         """Returns dict that is serializable to JSON."""
 
         return {"moment_label": self.moment_label, "tranunits": self.tranunits}
@@ -170,7 +170,7 @@ class TranBook:
 
 def tranbook_shop(
     x_moment_label: MomentLabel,
-    x_tranunits: dict[BeliefName, dict[VoiceName, dict[EpochTime, FundNum]]] = None,
+    x_tranunits: dict[PlanName, dict[VoiceName, dict[EpochTime, FundNum]]] = None,
 ):
     return TranBook(
         moment_label=x_moment_label,
@@ -182,10 +182,10 @@ def tranbook_shop(
 def get_tranbook_from_dict(x_dict: dict) -> TranBook:
     x_tranunits = x_dict.get("tranunits")
     new_tranunits = {}
-    for x_belief_name, x_voice_dict in x_tranunits.items():
+    for x_plan_name, x_voice_dict in x_tranunits.items():
         for x_voice_name, x_tran_time_dict in x_voice_dict.items():
             for x_tran_time, x_amount in x_tran_time_dict.items():
-                x_key_list = [x_belief_name, x_voice_name, int(x_tran_time)]
+                x_key_list = [x_plan_name, x_voice_name, int(x_tran_time)]
                 set_in_nested_dict(new_tranunits, x_key_list, x_amount)
     return tranbook_shop(x_dict.get("moment_label"), new_tranunits)
 
@@ -254,8 +254,8 @@ def budunit_shop(
 
 
 @dataclass
-class BeliefBudHistory:
-    belief_name: BeliefName = None
+class PlanBudHistory:
+    plan_name: PlanName = None
     buds: dict[EpochTime, BudUnit] = None
     # calculated fields
     _sum_budunit_quota: FundNum = None
@@ -281,17 +281,17 @@ class BeliefBudHistory:
 
     def get_2d_array(self) -> list[list]:
         return [
-            [self.belief_name, x_bud.bud_time, x_bud.quota]
+            [self.plan_name, x_bud.bud_time, x_bud.quota]
             for x_bud in self.buds.values()
         ]
 
     def get_headers(self) -> list:
-        return ["belief_name", "bud_time", "quota"]
+        return ["plan_name", "bud_time", "quota"]
 
     def to_dict(self) -> dict:
         """Returns dict that is serializable to JSON."""
 
-        return {"belief_name": self.belief_name, "buds": self._get_buds_dict()}
+        return {"plan_name": self.plan_name, "buds": self._get_buds_dict()}
 
     def _get_buds_dict(self) -> dict:
         return {x_bud.bud_time: x_bud.to_dict() for x_bud in self.buds.values()}
@@ -304,7 +304,7 @@ class BeliefBudHistory:
         for x_bud_time, x_bud in self.buds.items():
             for dst_voice_name, x_quota in x_bud._bud_voice_nets.items():
                 x_tranbook.add_tranunit(
-                    belief_name=self.belief_name,
+                    plan_name=self.plan_name,
                     voice_name=dst_voice_name,
                     tran_time=x_bud_time,
                     amount=x_quota,
@@ -312,8 +312,8 @@ class BeliefBudHistory:
         return x_tranbook
 
 
-def beliefbudhistory_shop(belief_name: BeliefName) -> BeliefBudHistory:
-    return BeliefBudHistory(belief_name=belief_name, buds={}, _sum_voice_bud_nets={})
+def planbudhistory_shop(plan_name: PlanName) -> PlanBudHistory:
+    return PlanBudHistory(plan_name=plan_name, buds={}, _sum_voice_bud_nets={})
 
 
 def get_budunit_from_dict(x_dict: dict) -> BudUnit:
@@ -327,11 +327,11 @@ def get_budunit_from_dict(x_dict: dict) -> BudUnit:
     )
 
 
-def get_beliefbudhistory_from_dict(x_dict: dict) -> BeliefBudHistory:
-    x_belief_name = x_dict.get("belief_name")
-    x_beliefbudhistory = beliefbudhistory_shop(x_belief_name)
-    x_beliefbudhistory.buds = get_buds_from_dict(x_dict.get("buds"))
-    return x_beliefbudhistory
+def get_planbudhistory_from_dict(x_dict: dict) -> PlanBudHistory:
+    x_plan_name = x_dict.get("plan_name")
+    x_planbudhistory = planbudhistory_shop(x_plan_name)
+    x_planbudhistory.buds = get_buds_from_dict(x_dict.get("buds"))
+    return x_planbudhistory
 
 
 def get_buds_from_dict(buds_dict: dict) -> dict[EpochTime, BudUnit]:

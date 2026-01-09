@@ -27,7 +27,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     br00113_columns = [
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.otx_name,
         kw.inx_name,
@@ -43,7 +43,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     br00001_columns = [
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -76,14 +76,14 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         trlcore_sound_vld = create_prime_tablename("trlcore", "s", "vld")
         momentunit_sound_raw = create_prime_tablename("momentunit", "s", "raw")
         momentunit_sound_agg = create_prime_tablename("momentunit", "s", "agg")
-        blfunit_sound_put_raw = create_prime_tablename("beliefunit", "s", "raw", "put")
-        blfunit_sound_put_agg = create_prime_tablename("beliefunit", "s", "agg", "put")
+        blfunit_sound_put_raw = create_prime_tablename("planunit", "s", "raw", "put")
+        blfunit_sound_put_agg = create_prime_tablename("planunit", "s", "agg", "put")
         blfvoce_sound_put_raw = create_prime_tablename("blfvoce", "s", "raw", "put")
         blfvoce_sound_put_agg = create_prime_tablename("blfvoce", "s", "agg", "put")
         momentunit_heard_raw = create_prime_tablename("momentunit", "h", "raw")
         momentunit_heard_vld = create_prime_tablename("momentunit", "h", "vld")
-        blfunit_heard_put_raw = create_prime_tablename("beliefunit", "h", "raw", "put")
-        blfunit_heard_put_agg = create_prime_tablename("beliefunit", "h", "vld", "put")
+        blfunit_heard_put_raw = create_prime_tablename("planunit", "h", "raw", "put")
+        blfunit_heard_put_agg = create_prime_tablename("planunit", "h", "vld", "put")
         blfvoce_heard_put_raw = create_prime_tablename("blfvoce", "h", "raw", "put")
         blfvoce_heard_put_agg = create_prime_tablename("blfvoce", "h", "vld", "put")
 
@@ -157,7 +157,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     br00113_columns = [
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
         kw.otx_name,
         kw.inx_name,

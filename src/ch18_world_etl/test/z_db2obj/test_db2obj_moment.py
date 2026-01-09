@@ -92,7 +92,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scen
         "offi_times",
         kw.epoch,
         kw.paybook,
-        kw.beliefbudhistorys,
+        kw.planbudhistorys,
     }
 
 
@@ -108,7 +108,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtpayy_Attrs_Scenari
         momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", "h", "vld")
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_vld_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
-        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_vld_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
+        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_vld_tablename} (moment_label, plan_name, voice_name, tran_time, amount)
 VALUES ('{exx.a23}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
@@ -143,7 +143,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtpayy_Attrs_Scenari
         momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", "h", "vld")
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_vld_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
-        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_vld_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
+        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_vld_tablename} (moment_label, plan_name, voice_name, tran_time, amount)
 VALUES
   ('{exx.a23}', '{exx.bob}', '{exx.sue}', {tp55}, {a23_bob_sue_tp55_amount})
 , ('{a45_str}', '{exx.bob}', '{exx.sue}', {tp55}, {a45_bob_sue_tp55_amount})
@@ -179,7 +179,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentbud_Attrs_Scena
         momentbud_h_vld_tablename = create_prime_tablename("mmtbudd", "h", "vld")
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_vld_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
-        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_vld_tablename} (moment_label, belief_name, bud_time, quota, celldepth)
+        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_vld_tablename} (moment_label, plan_name, bud_time, quota, celldepth)
 VALUES ('{exx.a23}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
 ;
 """
@@ -189,24 +189,21 @@ VALUES ('{exx.a23}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth}
         a23_dict = get_moment_dict_from_heard_tables(cursor, exx.a23)
 
     # THEN
-    a23_beliefbudhistory_dict = a23_dict.get("beliefbudhistorys")
-    print(f"{a23_beliefbudhistory_dict=}")
-    assert a23_beliefbudhistory_dict
-    a23_beliefbudhistory_bob_dict = a23_beliefbudhistory_dict.get(exx.bob)
-    assert a23_beliefbudhistory_bob_dict
-    a23_bob_buds_dict = a23_beliefbudhistory_bob_dict.get("buds")
+    a23_planbudhistory_dict = a23_dict.get("planbudhistorys")
+    print(f"{a23_planbudhistory_dict=}")
+    assert a23_planbudhistory_dict
+    a23_planbudhistory_bob_dict = a23_planbudhistory_dict.get(exx.bob)
+    assert a23_planbudhistory_bob_dict
+    a23_bob_buds_dict = a23_planbudhistory_bob_dict.get("buds")
     assert a23_bob_buds_dict
-    a23_beliefbudhistory_bob_tp55_dict = a23_bob_buds_dict.get(tp55)
-    assert a23_beliefbudhistory_bob_tp55_dict
-    expected_a23_beliefbudhistory_bob_tp55_dict = {
+    a23_planbudhistory_bob_tp55_dict = a23_bob_buds_dict.get(tp55)
+    assert a23_planbudhistory_bob_tp55_dict
+    expected_a23_planbudhistory_bob_tp55_dict = {
         "bud_time": 55,
         "quota": bob_tp55_quota,
         "celldepth": bob_tp55_celldepth,
     }
-    assert (
-        a23_beliefbudhistory_bob_tp55_dict
-        == expected_a23_beliefbudhistory_bob_tp55_dict
-    )
+    assert a23_planbudhistory_bob_tp55_dict == expected_a23_planbudhistory_bob_tp55_dict
 
 
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmthour_Attrs_Scenario0():
@@ -403,7 +400,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_mmtp
         momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", "h", "vld")
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_vld_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
-        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_vld_tablename} (moment_label, belief_name, voice_name, tran_time, amount)
+        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentpay_h_vld_tablename} (moment_label, plan_name, voice_name, tran_time, amount)
 VALUES ('{exx.a23}', '{exx.bob}', '{exx.sue}', {tp55}, {bob_sue_tp55_amount})
 ;
 """
@@ -432,7 +429,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario2_mome
         momentbud_h_vld_tablename = create_prime_tablename("mmtbudd", "h", "vld")
         momentunit_insert_sqlstr = f"INSERT INTO {momentunit_h_vld_tablename} (moment_label) VALUES ('{exx.a23}');"
         cursor.execute(momentunit_insert_sqlstr)
-        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_vld_tablename} (moment_label, belief_name, bud_time, quota, celldepth)
+        mmtpayy_insert_sqlstr = f"""INSERT INTO {momentbud_h_vld_tablename} (moment_label, plan_name, bud_time, quota, celldepth)
 VALUES ('{exx.a23}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth})
 ;
 """
@@ -443,10 +440,10 @@ VALUES ('{exx.a23}', '{exx.bob}', {tp55}, {bob_tp55_quota}, {bob_tp55_celldepth}
     a23_momentunit = get_momentunit_from_dict(a23_dict)
 
     # THEN
-    a23_bob_beliefbudhistory = a23_momentunit.get_beliefbudhistory(exx.bob)
-    print(f"{a23_bob_beliefbudhistory=}")
-    assert a23_bob_beliefbudhistory
-    a23_bob_55_bud = a23_bob_beliefbudhistory.get_bud(tp55)
+    a23_bob_planbudhistory = a23_momentunit.get_planbudhistory(exx.bob)
+    print(f"{a23_bob_planbudhistory=}")
+    assert a23_bob_planbudhistory
+    a23_bob_55_bud = a23_bob_planbudhistory.get_bud(tp55)
     assert a23_bob_55_bud.bud_time == tp55
     assert a23_bob_55_bud.quota == bob_tp55_quota
     assert a23_bob_55_bud.celldepth == bob_tp55_celldepth

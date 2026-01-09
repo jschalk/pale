@@ -40,7 +40,7 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.voice_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
@@ -56,5 +56,5 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
 
     # THEN
     assert os_path_exists(kpi001_csv_path)
-    expected_csv_str = f"{kw.moment_label},{kw.belief_name},{kw.bnet_funds},{kw.fund_rank},{kw.pledges_count}\n"
+    expected_csv_str = f"{kw.moment_label},{kw.plan_name},{kw.bnet_funds},{kw.fund_rank},{kw.pledges_count}\n"
     assert open(kpi001_csv_path).read() == expected_csv_str

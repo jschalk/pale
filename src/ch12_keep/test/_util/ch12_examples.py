@@ -1,6 +1,6 @@
 from src.ch04_rope.rope import RopeTerm, create_rope_from_labels
-from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch12_keep._ref.ch12_semantic_types import BeliefName, VoiceName
+from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch12_keep._ref.ch12_semantic_types import PlanName, VoiceName
 from src.ch12_keep.rivercycle import get_patientledger
 from src.ref.keywords import ExampleStrs as exx
 
@@ -16,36 +16,36 @@ def example_yao_patientledger() -> dict[str, float]:
     yao_voice_cred_lumen = 7
     bob_voice_cred_lumen = 3
     zia_voice_cred_lumen = 10
-    yao_belief = beliefunit_shop(exx.yao)
-    yao_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
-    yao_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    yao_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
-    return get_patientledger(yao_belief)
+    yao_plan = planunit_shop(exx.yao)
+    yao_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen)
+    yao_plan.add_voiceunit(exx.bob, bob_voice_cred_lumen)
+    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen)
+    return get_patientledger(yao_plan)
 
 
 def example_bob_patientledger() -> dict[str, float]:
     yao_voice_cred_lumen = 1
     bob_voice_cred_lumen = 7
     zia_voice_cred_lumen = 42
-    bob_belief = beliefunit_shop(exx.bob)
-    bob_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
-    bob_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    bob_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
-    return get_patientledger(bob_belief)
+    bob_plan = planunit_shop(exx.bob)
+    bob_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen)
+    bob_plan.add_voiceunit(exx.bob, bob_voice_cred_lumen)
+    bob_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen)
+    return get_patientledger(bob_plan)
 
 
 def example_zia_patientledger() -> dict[str, float]:
     yao_voice_cred_lumen = 89
     bob_voice_cred_lumen = 150
     zia_voice_cred_lumen = 61
-    zia_belief = beliefunit_shop(exx.zia)
-    zia_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
-    zia_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    zia_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
-    return get_patientledger(zia_belief)
+    zia_plan = planunit_shop(exx.zia)
+    zia_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen)
+    zia_plan.add_voiceunit(exx.bob, bob_voice_cred_lumen)
+    zia_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen)
+    return get_patientledger(zia_plan)
 
 
-def example_yao_bob_zia_patientledgers() -> dict[BeliefName : dict[VoiceName, float]]:
+def example_yao_bob_zia_patientledgers() -> dict[PlanName : dict[VoiceName, float]]:
     return {
         exx.yao: example_yao_patientledger,
         exx.bob: example_bob_patientledger,

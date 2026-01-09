@@ -20,7 +20,7 @@ So how do I listen? beto has an engine for converting the declarations (as data)
 # 0.0.1 "Moments" The foundation of beto
 For Levinas all of reality is born from the face to face encounter. The same (me) welcomes the Other through the Face. The Face of the other tells me it's suffering and it's suffering becomes my suffering. I then MOMENT to change who I am to ease that suffering. The suffering is infinitely deep and beyond my complete understanding so when I moment to respond to that suffering I am acting with confidence that I understand what the suffering is and that I know how to respond. That confidence stops the listening process, the Moment cuts the infinite into the finite and is the foundation for a world. When that Moment is created it can create a world. Worlds can hold a infinite amount of human experience. A small subset of that is logical systems. beto is uses computers to build logic.
 
-A Moment can create a world or change a current world. Each belief can only make one moment at a time so a world that has been built by multiple moments implies each moment is from a different time. beto describes the passage of time by *spark_nums*. *spark_num* is alropes an integer. 
+A Moment can create a world or change a current world. Each plan can only make one moment at a time so a world that has been built by multiple moments implies each moment is from a different time. beto describes the passage of time by *spark_nums*. *spark_num* is alropes an integer. 
 
 For beto all data must have *spark_num*, *face_name*, *moment_label*. These are the required keys.
 
@@ -30,25 +30,25 @@ For beto all data must have *spark_num*, *face_name*, *moment_label*. These are 
 `beto` is a python library for listening to the needs of my neighbors and in turn letting them know what I need. Needs can be expressed in Excel sheets that range in complexity from a simple five column single row (example below) to 10+ columns that include configuration options that are usually set to defaults. Each row is translated and used to build the "clarity" data set. Even sheet with a single row like the example 0.1.0 below can be processed by beto. 
 
 # Input Example Excel file 0.1.0: fizz0.xlsx with sheet "br00000_buzz" 
-| spark_num | face_name | moment_label | belief_name | voice_name | tran_time | amount |
+| spark_num | face_name | moment_label | plan_name | voice_name | tran_time | amount |
 |-----------|-----------|-----------|------------|-----------|-----------|--------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |    891    |  7000  |
 
-When beto processes example 0.1.0 it creates a Moment labeled "OxboxDean" that contains beliefs Emmanuel and Dean and a single transaction of 7000 OxboxDean from Emmanuel to Dean. Here's a metric:
-| moment_label | belief_name | moment_fund_amount | moment_fund_rank | moment_pledges |
+When beto processes example 0.1.0 it creates a Moment labeled "OxboxDean" that contains plans Emmanuel and Dean and a single transaction of 7000 OxboxDean from Emmanuel to Dean. Here's a metric:
+| moment_label | plan_name | moment_fund_amount | moment_fund_rank | moment_pledges |
 |--------------|---------------|--------------------|------------------|--------------|
 |  OxboxDean   |    Emmanuel   |       -7000        |         2        |       0      |
 |  OxboxDean   |      Dean     |        7000        |         1        |       0      |
 
 
 Output stance: emmanuel_stance.xlsx, sheet "br00000"
-| spark_num | face_name | moment_label | belief_name | voice_name | tran_time | amount |
+| spark_num | face_name | moment_label | plan_name | voice_name | tran_time | amount |
 |-----------|-----------|--------------|---------------|-----------|-----------|--------|
 |    77     | Emmanuel  |   OxboxDean  |    Emmanuel   |    Dean   |    891    |  7000  |
 
 
 <!-- # Input Example Excel file 0.1.2: fizz2.xlsx with sheet "br00000_buzz2" 
-| spark_num | face_name | moment_label | belief_name | voice_name | voice_cred_points | voice_debt_points |
+| spark_num | face_name | moment_label | plan_name | voice_name | voice_cred_points | voice_debt_points |
 |-----------|-----------|-----------|------------|-----------|---------------|---------------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |      100      |      15       |
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |  Emmanuel |       50      |      75       |
@@ -102,31 +102,31 @@ screenshots and elucidatory text.
 <!-- TODO: Add elucidations -->
 base attributes vs reason attributess
 
-BeliefUnit objects
+PlanUnit objects
 
-BeliefUnit VoiceUnit objects
+PlanUnit VoiceUnit objects
 
-BeliefUnit GroupUnit objects
+PlanUnit GroupUnit objects
 
-BeliefUnit KegUnit objects
+PlanUnit KegUnit objects
 
-BeliefUnit KegUnit hierarchical structure
+PlanUnit KegUnit hierarchical structure
 
-BeliefUnit KegUnit AwardUnit objects
+PlanUnit KegUnit AwardUnit objects
 
-BeliefUnit KegUnit AwardLine objects
+PlanUnit KegUnit AwardLine objects
 
-BeliefUnit KegUnit AwardHeir objects
+PlanUnit KegUnit AwardHeir objects
 
-BeliefUnit KegUnit AwardHeir objects
+PlanUnit KegUnit AwardHeir objects
 
-BeliefUnit KegUnit Reason CaseUnit objects
+PlanUnit KegUnit Reason CaseUnit objects
 
-BeliefUnit KegUnit Reason CaseHeir objects
+PlanUnit KegUnit Reason CaseHeir objects
 
-BeliefUnit KegUnit FactUnit objects
+PlanUnit KegUnit FactUnit objects
 
-BeliefUnit KegUnit FactHeir objects1
+PlanUnit KegUnit FactHeir objects1
 
 
 ## 1.3 Test-Driven-Development

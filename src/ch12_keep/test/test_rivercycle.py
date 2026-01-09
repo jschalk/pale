@@ -1,5 +1,5 @@
 from src.ch02_allot.allot import default_grain_num_if_None
-from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch12_keep.rivercycle import (
     RiverCycle,
     create_init_rivercycle,
@@ -136,9 +136,9 @@ def test_RiverCylce_create_cylceledger_ReturnsObjTwoRiverBooks():
 
 def test_create_init_rivercycle_ReturnsObj_Scenario1_voiceunit():
     # ESTABLISH
-    yao_belief = beliefunit_shop(exx.yao)
-    yao_belief.add_voiceunit(exx.yao)
-    yao_patientledger = get_patientledger(yao_belief)
+    yao_plan = planunit_shop(exx.yao)
+    yao_plan.add_voiceunit(exx.yao)
+    yao_patientledger = get_patientledger(yao_plan)
     keep_patientledgers = {exx.yao: yao_patientledger}
     keep_magnitude = 1200
 
@@ -159,11 +159,11 @@ def test_create_init_rivercycle_ReturnsObj_Scenario2_magnitude_Default():
     yao_voice_cred_lumen = 7
     bob_voice_cred_lumen = 3
     zia_voice_cred_lumen = 10
-    yao_belief = beliefunit_shop(exx.yao)
-    yao_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
-    yao_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    yao_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
-    yao_patientledger = get_patientledger(yao_belief)
+    yao_plan = planunit_shop(exx.yao)
+    yao_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen)
+    yao_plan.add_voiceunit(exx.bob, bob_voice_cred_lumen)
+    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen)
+    yao_patientledger = get_patientledger(yao_plan)
     keep_patientledgers = {exx.yao: yao_patientledger}
     print(f"{keep_patientledgers=}")
 
@@ -186,11 +186,11 @@ def test_create_init_rivercycle_ReturnsObj_Scenario3_voiceunit():
     yao_voice_cred_lumen = 7
     bob_voice_cred_lumen = 3
     zia_voice_cred_lumen = 10
-    yao_belief = beliefunit_shop(exx.yao)
-    yao_belief.add_voiceunit(exx.yao, yao_voice_cred_lumen)
-    yao_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    yao_belief.add_voiceunit(exx.zia, zia_voice_cred_lumen)
-    yao_patientledger = get_patientledger(yao_belief)
+    yao_plan = planunit_shop(exx.yao)
+    yao_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen)
+    yao_plan.add_voiceunit(exx.bob, bob_voice_cred_lumen)
+    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen)
+    yao_patientledger = get_patientledger(yao_plan)
     keep_patientledgers = {exx.yao: yao_patientledger}
     print(f"{keep_patientledgers=}")
 

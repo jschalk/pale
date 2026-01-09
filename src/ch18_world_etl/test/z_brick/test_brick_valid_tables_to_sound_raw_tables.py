@@ -30,7 +30,7 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
             kw.spark_num,
             kw.face_name,
             kw.moment_label,
-            kw.belief_name,
+            kw.plan_name,
             kw.voice_name,
             kw.otx_rope,
             kw.inx_rope,
@@ -40,7 +40,7 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
   {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.otx_rope}
 , {kw.inx_rope}

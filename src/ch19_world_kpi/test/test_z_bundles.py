@@ -20,7 +20,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario0_WithDefaultBundleID():
         cursor.execute(CREATE_MOMENT_VOICE_NETS_SQLSTR)
         moment_voice_nets_tablename = kw.moment_voice_nets
         blfkegg_job_tablename = create_prime_tablename("BLFKEGG", "job", None)
-        insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount})
+        insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.plan_name}, {kw.plan_net_amount})
 VALUES
   ('{exx.a23}', '{exx.bob}', {bob_voice_net})
 , ('{exx.a23}', '{exx.yao}', {yao_voice_net})
@@ -29,7 +29,7 @@ VALUES
         assert db_table_exists(cursor, blfkegg_job_tablename)
         assert get_row_count(cursor, moment_voice_nets_tablename) == 2
         moment_kpi001_tablename = kw.moment_kpi001_voice_nets
-        moment_kpi002_tablename = kw.moment_kpi002_belief_pledges
+        moment_kpi002_tablename = kw.moment_kpi002_plan_pledges
         assert not db_table_exists(cursor, moment_kpi001_tablename)
         assert not db_table_exists(cursor, moment_kpi002_tablename)
 
@@ -43,7 +43,7 @@ VALUES
         assert get_row_count(cursor, moment_kpi002_tablename) == 0
         assert set(get_db_tables(db_conn).keys()) == {
             kw.moment_kpi001_voice_nets,
-            kw.moment_kpi002_belief_pledges,
+            kw.moment_kpi002_plan_pledges,
             moment_voice_nets_tablename,
             blfkegg_job_tablename,
         }
@@ -59,7 +59,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario1_WithNoBundleID():
         cursor.execute(CREATE_JOB_BLFKEGG_SQLSTR)
         cursor.execute(CREATE_MOMENT_VOICE_NETS_SQLSTR)
         moment_voice_nets_tablename = kw.moment_voice_nets
-        insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.belief_name}, {kw.belief_net_amount})
+        insert_sqlstr = f"""INSERT INTO {moment_voice_nets_tablename} ({kw.moment_label}, {kw.plan_name}, {kw.plan_net_amount})
 VALUES
   ('{exx.a23}', '{exx.bob}', {bob_voice_net})
 , ('{exx.a23}', '{exx.yao}', {yao_voice_net})
@@ -77,7 +77,7 @@ VALUES
         blfkegg_job_tablename = create_prime_tablename("BLFKEGG", "job", None)
         assert set(get_db_tables(db_conn).keys()) == {
             kw.moment_kpi001_voice_nets,
-            kw.moment_kpi002_belief_pledges,
+            kw.moment_kpi002_plan_pledges,
             moment_voice_nets_tablename,
             blfkegg_job_tablename,
         }

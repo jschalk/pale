@@ -8,7 +8,7 @@ from src.ch01_py.db_toolbox import (
     get_db_tables,
     get_table_columns,
 )
-from src.ch08_belief_atom.atom_config import get_belief_dimens, get_delete_key_name
+from src.ch08_plan_atom.atom_config import get_delete_key_name, get_plan_dimens
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch16_translate.translate_config import (
@@ -31,10 +31,10 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_sound_agg_insert_sqlstrs,
     create_sound_and_heard_tables,
     create_sound_raw_update_inconsist_error_message_sqlstr,
-    get_belief_heard_vld_tablenames,
     get_insert_into_heard_raw_sqlstrs,
     get_insert_into_sound_vld_sqlstrs,
-    get_moment_belief_sound_agg_tablenames,
+    get_moment_plan_sound_agg_tablenames,
+    get_plan_heard_vld_tablenames,
     get_prime_create_table_sqlstrs,
 )
 from src.ref.keywords import Ch18Keywords as kw
@@ -156,57 +156,56 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj_HasAllKeys():
     translate_dimens_count = len(get_translate_dimens()) * 3
     nabu_dimens_count = len(get_nabu_dimens()) * 5
     moment_dimens_count = len(get_moment_dimens()) * 6
-    belief_dimens_count = len(get_belief_dimens()) * 12
+    plan_dimens_count = len(get_plan_dimens()) * 12
     print(f"{translate_dimens_count=}")
     print(f"{nabu_dimens_count=}")
     print(f"{moment_dimens_count=}")
-    print(f"{belief_dimens_count=}")
+    print(f"{plan_dimens_count=}")
     all_dimens_count = (
         translate_dimens_count
         + nabu_dimens_count
         + moment_dimens_count
-        + belief_dimens_count
+        + plan_dimens_count
     )
     translate_core_count = 3
     all_dimens_count += translate_core_count
     assert len(create_table_sqlstrs) == all_dimens_count
 
 
-def test_get_moment_belief_sound_agg_tablenames_ReturnsObj():
+def test_get_moment_plan_sound_agg_tablenames_ReturnsObj():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH / WHEN
-    moment_belief_sound_agg_tablenames = get_moment_belief_sound_agg_tablenames()
+    moment_plan_sound_agg_tablenames = get_moment_plan_sound_agg_tablenames()
 
     # THEN
-    assert moment_belief_sound_agg_tablenames
+    assert moment_plan_sound_agg_tablenames
     expected_sound_agg_tablenames = set()
-    for belief_dimen in get_belief_dimens():
-        expected_sound_agg_tablenames.add(prime_tbl(belief_dimen, "s", "agg", "put"))
-        expected_sound_agg_tablenames.add(prime_tbl(belief_dimen, "s", "agg", "del"))
+    for plan_dimen in get_plan_dimens():
+        expected_sound_agg_tablenames.add(prime_tbl(plan_dimen, "s", "agg", "put"))
+        expected_sound_agg_tablenames.add(prime_tbl(plan_dimen, "s", "agg", "del"))
     for nabu_dimen in get_nabu_dimens():
         expected_sound_agg_tablenames.add(prime_tbl(nabu_dimen, "s", "agg"))
     for moment_dimen in get_moment_dimens():
         expected_sound_agg_tablenames.add(prime_tbl(moment_dimen, "s", "agg"))
     print(sorted(list(expected_sound_agg_tablenames)))
-    assert moment_belief_sound_agg_tablenames == expected_sound_agg_tablenames
+    assert moment_plan_sound_agg_tablenames == expected_sound_agg_tablenames
     prime_create_tablenames = set(get_prime_create_table_sqlstrs().keys())
-    assert moment_belief_sound_agg_tablenames.issubset(prime_create_tablenames)
+    assert moment_plan_sound_agg_tablenames.issubset(prime_create_tablenames)
 
 
-def test_get_belief_heard_vld_tablenames_ReturnsObj_BeliefDimens():
+def test_get_plan_heard_vld_tablenames_ReturnsObj_PlanDimens():
     # ESTABLISH / WHEN
-    belief_heard_vld_tablenames = get_belief_heard_vld_tablenames()
+    plan_heard_vld_tablenames = get_plan_heard_vld_tablenames()
 
     # THEN
-    assert belief_heard_vld_tablenames
-    expected_belief_heard_vld_tablenames = {
-        prime_tbl(belief_dimen, "h", "vld", "put")
-        for belief_dimen in get_belief_dimens()
+    assert plan_heard_vld_tablenames
+    expected_plan_heard_vld_tablenames = {
+        prime_tbl(plan_dimen, "h", "vld", "put") for plan_dimen in get_plan_dimens()
     }
-    print(f"{expected_belief_heard_vld_tablenames=}")
-    assert expected_belief_heard_vld_tablenames == belief_heard_vld_tablenames
-    assert len(belief_heard_vld_tablenames) == len(get_belief_dimens())
-    agg_tablenames = belief_heard_vld_tablenames
+    print(f"{expected_plan_heard_vld_tablenames=}")
+    assert expected_plan_heard_vld_tablenames == plan_heard_vld_tablenames
+    assert len(plan_heard_vld_tablenames) == len(get_plan_dimens())
+    agg_tablenames = plan_heard_vld_tablenames
     assert agg_tablenames.issubset(set(get_prime_create_table_sqlstrs().keys()))
 
 
@@ -220,7 +219,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         vld_str = "vld"
         put_str = "put"
         del_str = "del"
-        blfunit_s_put_agg_table = prime_tbl("beliefunit", "s", agg_str, put_str)
+        blfunit_s_put_agg_table = prime_tbl("planunit", "s", agg_str, put_str)
         blfvoce_s_put_agg_table = prime_tbl("blfvoce", "s", agg_str, put_str)
         blfmemb_s_put_agg_table = prime_tbl("blfmemb", "s", agg_str, put_str)
         blffact_s_del_agg_table = prime_tbl("blffact", "s", agg_str, del_str)
@@ -428,10 +427,10 @@ WHERE inconsistency_rows.moment_label = nabu_epochtime_s_raw.moment_label
         assert update_sqlstr == static_example_sqlstr
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario3_BeliefDimen():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario3_PlanDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = kw.belief_keg_awardunit
+    dimen = kw.plan_keg_awardunit
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -458,21 +457,21 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         assert update_sqlstr == expected_update_sqlstr
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
-SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title
-FROM belief_keg_awardunit_s_put_raw
-GROUP BY spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title
+SELECT spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title
+FROM plan_keg_awardunit_s_put_raw
+GROUP BY spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title
 HAVING MIN(give_force) != MAX(give_force)
     OR MIN(take_force) != MAX(take_force)
 )
-UPDATE belief_keg_awardunit_s_put_raw
+UPDATE plan_keg_awardunit_s_put_raw
 SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
-WHERE inconsistency_rows.spark_num = belief_keg_awardunit_s_put_raw.spark_num
-    AND inconsistency_rows.face_name = belief_keg_awardunit_s_put_raw.face_name
-    AND inconsistency_rows.moment_label = belief_keg_awardunit_s_put_raw.moment_label
-    AND inconsistency_rows.belief_name = belief_keg_awardunit_s_put_raw.belief_name
-    AND inconsistency_rows.keg_rope = belief_keg_awardunit_s_put_raw.keg_rope
-    AND inconsistency_rows.awardee_title = belief_keg_awardunit_s_put_raw.awardee_title
+WHERE inconsistency_rows.spark_num = plan_keg_awardunit_s_put_raw.spark_num
+    AND inconsistency_rows.face_name = plan_keg_awardunit_s_put_raw.face_name
+    AND inconsistency_rows.moment_label = plan_keg_awardunit_s_put_raw.moment_label
+    AND inconsistency_rows.plan_name = plan_keg_awardunit_s_put_raw.plan_name
+    AND inconsistency_rows.keg_rope = plan_keg_awardunit_s_put_raw.keg_rope
+    AND inconsistency_rows.awardee_title = plan_keg_awardunit_s_put_raw.awardee_title
 ;
 """
         print(update_sqlstr)
@@ -600,10 +599,10 @@ GROUP BY spark_num, face_name, moment_label, otx_time
         assert update_sqlstrs[0] == static_example_sqlstr
 
 
-def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_BeliefDimen():
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PlanDimen():
     # sourcery skip: extract-duplicate-method, extract-method
     # ESTABLISH
-    dimen = kw.belief_keg_awardunit
+    dimen = kw.plan_keg_awardunit
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -628,11 +627,11 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_BeliefDimen():
         # print(put_expected_insert_sqlstr)
         assert update_sqlstrs[0] == put_expected_insert_sqlstr
 
-        static_example_put_sqlstr = """INSERT INTO belief_keg_awardunit_s_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, give_force, take_force)
-SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, MAX(give_force), MAX(take_force)
-FROM belief_keg_awardunit_s_put_raw
+        static_example_put_sqlstr = """INSERT INTO plan_keg_awardunit_s_put_agg (spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title, give_force, take_force)
+SELECT spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title, MAX(give_force), MAX(take_force)
+FROM plan_keg_awardunit_s_put_raw
 WHERE error_message IS NULL
-GROUP BY spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title
+GROUP BY spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title
 ;
 """
         # print(update_sqlstrs[0])
@@ -659,10 +658,10 @@ GROUP BY spark_num, face_name, moment_label, belief_name, keg_rope, awardee_titl
         print(update_sqlstrs[1])
         assert update_sqlstrs[1] == del_expected_insert_sqlstr
 
-        static_example_del_sqlstr = """INSERT INTO belief_keg_awardunit_s_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE)
-SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE
-FROM belief_keg_awardunit_s_del_raw
-GROUP BY spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE
+        static_example_del_sqlstr = """INSERT INTO plan_keg_awardunit_s_del_agg (spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title_ERASE)
+SELECT spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title_ERASE
+FROM plan_keg_awardunit_s_del_raw
+GROUP BY spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title_ERASE
 ;
 """
         assert update_sqlstrs[1] == static_example_del_sqlstr
@@ -717,7 +716,7 @@ def test_create_insert_missing_face_name_into_translate_core_vld_sqlstr_ReturnsO
     # ESTABLISH
     default_knot = "|"
     default_unknown_str = "unknown2"
-    blfvoce_s_agg_tablename = prime_tbl(kw.belief_voiceunit, "s", "agg")
+    blfvoce_s_agg_tablename = prime_tbl(kw.plan_voiceunit, "s", "agg")
 
     # WHEN
     insert_sqlstr = create_insert_missing_face_name_into_translate_core_vld_sqlstr(
@@ -784,10 +783,10 @@ GROUP BY spark_num, face_name
     assert label_sqlstr == expected_label_sqlstr
 
 
-def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
+def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PlanDimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    belief_dimens_config = get_idea_config_dict({kw.belief})
+    plan_dimens_config = get_idea_config_dict({kw.plan})
 
     # WHEN
     insert_s_vld_sqlstrs = get_insert_into_sound_vld_sqlstrs()
@@ -797,12 +796,12 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
 
-        for belief_dimen in belief_dimens_config:
-            # print(f"{belief_dimen=}")
-            s_put_agg_tablename = prime_tbl(belief_dimen, "s", "agg", "put")
-            s_del_agg_tablename = prime_tbl(belief_dimen, "s", "agg", "del")
-            s_put_vld_tablename = prime_tbl(belief_dimen, "s", "vld", "put")
-            s_del_vld_tablename = prime_tbl(belief_dimen, "s", "vld", "del")
+        for plan_dimen in plan_dimens_config:
+            # print(f"{plan_dimen=}")
+            s_put_agg_tablename = prime_tbl(plan_dimen, "s", "agg", "put")
+            s_del_agg_tablename = prime_tbl(plan_dimen, "s", "agg", "del")
+            s_put_vld_tablename = prime_tbl(plan_dimen, "s", "vld", "put")
+            s_del_vld_tablename = prime_tbl(plan_dimen, "s", "vld", "del")
             s_put_agg_cols = get_table_columns(cursor, s_put_agg_tablename)
             s_del_agg_cols = get_table_columns(cursor, s_del_agg_tablename)
             s_put_agg_cols.remove(kw.error_message)
@@ -830,7 +829,7 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_BeliefDimens():
             s_del_vld_insert_select = f"{s_del_vld_insert_sql} {s_del_agg_select_sql}"
             # print(f"{s_put_vld_insert_sql=}")
             # create_select_query(cursor=)
-            abbv7 = get_dimen_abbv7(belief_dimen)
+            abbv7 = get_dimen_abbv7(plan_dimen)
             put_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_PUT_SQLSTR"
             del_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_DEL_SQLSTR"
             print(f'{put_sqlstr_ref}= "{s_put_vld_insert_select}"')
@@ -880,10 +879,10 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
             assert insert_s_vld_sqlstrs.get(s_vld_tbl) == s_vld_insert_select
 
 
-def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
+def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PlanDimens():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    belief_dimens_config = get_idea_config_dict({kw.belief})
+    plan_dimens_config = get_idea_config_dict({kw.plan})
 
     # WHEN
     insert_h_raw_sqlstrs = get_insert_into_heard_raw_sqlstrs()
@@ -893,12 +892,12 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
 
-        for belief_dimen in belief_dimens_config:
-            # print(f"{belief_dimen=}")
-            s_put_vld_tablename = prime_tbl(belief_dimen, "s", "vld", "put")
-            s_del_vld_tablename = prime_tbl(belief_dimen, "s", "vld", "del")
-            h_put_raw_tablename = prime_tbl(belief_dimen, "h", "raw", "put")
-            h_del_raw_tablename = prime_tbl(belief_dimen, "h", "raw", "del")
+        for plan_dimen in plan_dimens_config:
+            # print(f"{plan_dimen=}")
+            s_put_vld_tablename = prime_tbl(plan_dimen, "s", "vld", "put")
+            s_del_vld_tablename = prime_tbl(plan_dimen, "s", "vld", "del")
+            h_put_raw_tablename = prime_tbl(plan_dimen, "h", "raw", "put")
+            h_del_raw_tablename = prime_tbl(plan_dimen, "h", "raw", "del")
             s_put_cols = set(get_table_columns(cursor, s_put_vld_tablename))
             s_del_cols = set(get_table_columns(cursor, s_del_vld_tablename))
             # s_put_cols = set(s_put_cols).remove(kw.error_message)
@@ -926,7 +925,7 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_BeliefDimens():
             h_put_raw_insert_select = f"{h_put_raw_insert_sql} {s_put_vld_select_sql}"
             h_del_raw_insert_select = f"{h_del_raw_insert_sql} {s_del_vld_select_sql}"
             # create_select_query(cursor=)
-            abbv7 = get_dimen_abbv7(belief_dimen)
+            abbv7 = get_dimen_abbv7(plan_dimen)
             put_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_PUT_SQLSTR"
             del_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_DEL_SQLSTR"
             print(f'{put_sqlstr_ref}= "{h_put_raw_insert_select}"')

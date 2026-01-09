@@ -121,7 +121,7 @@ VALUES
         assert cursor.fetchall() == [("br00117", 1), ("br00077", 1)]
 
 
-def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_belief_raw_del():
+def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_plan_raw_del():
     # ESTABLISH
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -135,15 +135,13 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_belief_raw_de
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        beliefa_s_raw_del = create_prime_tablename(
-            kw.belief_voiceunit, "s", "raw", "del"
-        )
-        insert_into_clause = f"""INSERT INTO {beliefa_s_raw_del} (
+        plana_s_raw_del = create_prime_tablename(kw.plan_voiceunit, "s", "raw", "del")
+        insert_into_clause = f"""INSERT INTO {plana_s_raw_del} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}_ERASE
 )"""
         b117 = "br00117"
@@ -158,16 +156,16 @@ VALUES
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
-        error_count_sqlstr = f"SELECT COUNT(*) FROM {beliefa_s_raw_del}"
+        error_count_sqlstr = f"SELECT COUNT(*) FROM {plana_s_raw_del}"
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 4
-        assert kw.error_message not in get_table_columns(cursor, beliefa_s_raw_del)
+        assert kw.error_message not in get_table_columns(cursor, plana_s_raw_del)
 
         # WHEN
         set_sound_raw_tables_error_message(cursor)
 
         # THEN No Error message is added and updated
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 4
-        assert kw.error_message not in get_table_columns(cursor, beliefa_s_raw_del)
+        assert kw.error_message not in get_table_columns(cursor, plana_s_raw_del)
 
 
 # TODO copy over and use these tests?
@@ -228,7 +226,7 @@ VALUES
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}
@@ -304,7 +302,7 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}_ERASE
 )"""
         values_clause = f"""
@@ -388,7 +386,7 @@ VALUES
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
+, {kw.plan_name}
 , {kw.voice_name}
 , {kw.voice_cred_lumen}
 , {kw.voice_debt_lumen}

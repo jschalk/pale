@@ -22,8 +22,8 @@ def test_create_bud_voice_mandate_ledger_path_ReturnsObj():
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     amy23_dir = create_path(x_moments_dir, exx.a23)
-    beliefs_dir = create_path(amy23_dir, "beliefs")
-    sue_dir = create_path(beliefs_dir, exx.sue)
+    plans_dir = create_path(amy23_dir, "plans")
+    sue_dir = create_path(plans_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
     epochtime_dir = create_path(buds_dir, epochtime7)
     expected_bud_path_dir = create_path(epochtime_dir, BUD_MANDATE_FILENAME)
@@ -38,7 +38,7 @@ def test_create_bud_voice_mandate_ledger_path_HasDocString():
     doc_str = create_bud_voice_mandate_ledger_path(
         moment_mstr_dir="moment_mstr_dir",
         moment_label=kw.moment_label,
-        belief_name=kw.belief_name,
+        plan_name=kw.plan_name,
         bud_time=kw.bud_time,
     )
     doc_str = doc_str.replace("buds\\bud_time", "buds\n\\bud_time")

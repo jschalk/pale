@@ -1,6 +1,6 @@
 {
   "attributes": {
-    "belief_name" : { "otx_key": true  }, 
+    "plan_name" : { "otx_key": true  }, 
     "bud_time"    : { "otx_key": true  }, 
     "celldepth"   : { "otx_key": false }, 
     "face_name"   : { "otx_key": true  }, 
@@ -8,6 +8,6 @@
     "quota"       : { "otx_key": false }, 
     "spark_num"   : { "otx_key": true  }
   }, 
-  "dimens": ["moment_budunit", "momentunit", "beliefunit"], 
+  "dimens": ["moment_budunit", "momentunit", "planunit"], 
   "idea_number": "br00001"
 }

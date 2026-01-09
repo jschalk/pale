@@ -1,11 +1,11 @@
 {
-  "belief_keg_awardunit": {
+  "plan_keg_awardunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 11, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
       "awardee_title": {}, 
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
       "keg_rope": {}, 
@@ -13,12 +13,12 @@
     }, 
     "jvalues": {"give_force": {}, "take_force": {}}
   }, 
-  "belief_keg_factunit": {
+  "plan_keg_factunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 12, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "fact_context": {}, 
       "moment_label": {}, 
@@ -27,12 +27,12 @@
     }, 
     "jvalues": {"fact_lower": {}, "fact_state": {}, "fact_upper": {}}
   }, 
-  "belief_keg_healerunit": {
+  "plan_keg_healerunit": {
     "allowed_crud": "delete_insert", 
     "build_order": 15, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "healer_name": {}, 
       "moment_label": {}, 
@@ -41,12 +41,12 @@
     }, 
     "jvalues": {}
   }, 
-  "belief_keg_partyunit": {
+  "plan_keg_partyunit": {
     "allowed_crud": "delete_insert", 
     "build_order": 14, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
       "party_title": {}, 
@@ -55,12 +55,12 @@
     }, 
     "jvalues": {"solo": {}}
   }, 
-  "belief_keg_reason_caseunit": {
+  "plan_keg_reason_caseunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 16, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
       "keg_rope": {}, 
@@ -70,12 +70,12 @@
     }, 
     "jvalues": {"reason_divisor": {}, "reason_lower": {}, "reason_upper": {}}
   }, 
-  "belief_keg_reasonunit": {
+  "plan_keg_reasonunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 17, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
       "keg_rope": {}, 
@@ -84,12 +84,12 @@
     }, 
     "jvalues": {"active_requisite": {}}
   }, 
-  "belief_kegunit": {
+  "plan_kegunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 18, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
       "keg_rope": {}, 
@@ -109,12 +109,12 @@
       "stop_want": {}
     }
   }, 
-  "belief_voice_membership": {
+  "plan_voice_membership": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 9, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "group_title": {}, 
       "moment_label": {}, 
@@ -123,12 +123,12 @@
     }, 
     "jvalues": {"group_cred_lumen": {}, "group_debt_lumen": {}}
   }, 
-  "belief_voiceunit": {
+  "plan_voiceunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 10, 
-    "idea_category": "belief", 
+    "idea_category": "plan", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
       "spark_num": {}, 
@@ -136,11 +136,11 @@
     }, 
     "jvalues": {"voice_cred_lumen": {}, "voice_debt_lumen": {}}
   }, 
-  "beliefunit": {
+  "planunit": {
     "allowed_crud": "UPDATE", 
     "build_order": 19, 
-    "idea_category": "belief", 
-    "jkeys": {"belief_name": {}, "face_name": {}, "moment_label": {}, "spark_num": {}}, 
+    "idea_category": "plan", 
+    "jkeys": {"plan_name": {}, "face_name": {}, "moment_label": {}, "spark_num": {}}, 
     "jvalues": {
       "credor_respect": {}, 
       "debtor_respect": {}, 
@@ -157,7 +157,7 @@
     "build_order": 20, 
     "idea_category": "moment", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "bud_time": {}, 
       "face_name": {}, 
       "moment_label": {}, 
@@ -191,7 +191,7 @@
     "build_order": 21, 
     "idea_category": "moment", 
     "jkeys": {
-      "belief_name": {}, 
+      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
       "spark_num": {}, 
