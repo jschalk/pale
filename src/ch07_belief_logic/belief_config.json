@@ -28,7 +28,7 @@
       "fund_take": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}
     }
   }, 
-  "belief_plan_awardunit": {
+  "belief_keg_awardunit": {
     "abbreviation": "blfawar", 
     "jkeys": {
       "awardee_title": {
@@ -46,7 +46,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -59,7 +59,7 @@
       "take_force": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}
     }
   }, 
-  "belief_plan_factunit": {
+  "belief_keg_factunit": {
     "abbreviation": "blffact", 
     "jkeys": {
       "belief_name": {
@@ -77,7 +77,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -101,7 +101,7 @@
       }
     }
   }, 
-  "belief_plan_healerunit": {
+  "belief_keg_healerunit": {
     "abbreviation": "blfheal", 
     "jkeys": {
       "belief_name": {
@@ -119,7 +119,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -127,7 +127,7 @@
     }, 
     "jvalues": {}
   }, 
-  "belief_plan_partyunit": {
+  "belief_keg_partyunit": {
     "abbreviation": "blflabo", 
     "jkeys": {
       "belief_name": {
@@ -145,7 +145,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -160,7 +160,7 @@
       }
     }
   }, 
-  "belief_plan_reason_caseunit": {
+  "belief_keg_reason_caseunit": {
     "abbreviation": "blfcase", 
     "jkeys": {
       "belief_name": {
@@ -173,7 +173,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -209,7 +209,7 @@
       "task": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}
     }
   }, 
-  "belief_plan_reasonunit": {
+  "belief_keg_reasonunit": {
     "abbreviation": "blfreas", 
     "jkeys": {
       "belief_name": {
@@ -222,7 +222,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -244,8 +244,8 @@
       "task": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}
     }
   }, 
-  "belief_planunit": {
-    "abbreviation": "blfplan", 
+  "belief_kegunit": {
+    "abbreviation": "blfkegg", 
     "jkeys": {
       "belief_name": {
         "class_type": "NameTerm", 
@@ -257,7 +257,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -292,7 +292,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "INTEGER"
       }, 
-      "plan_active": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
+      "keg_active": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
       "pledge": {
         "class_type": "bool", 
         "populate_by_cashout": false, 
@@ -421,7 +421,7 @@
         "sqlite_datatype": "INTEGER"
       }, 
       "respect_grain": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}, 
-      "sum_healerunit_plans_fund_total": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
+      "sum_healerunit_kegs_fund_total": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
       "tally": {
         "class_type": "int", 
         "populate_by_cashout": false, 

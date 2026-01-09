@@ -8,7 +8,7 @@ from src.ch17_idea.idea_db_tool import (
 from src.ref.keywords import Ch17Keywords as kw
 
 
-def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_belief_plan_partyunit():
+def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_belief_keg_partyunit():
     # ESTABLISH
     with sqlite3_connect(":memory:") as conn:
         idea_number = "br000XX"
@@ -16,13 +16,13 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_belief_plan_partyuni
             kw.spark_num,
             kw.face_name,
             kw.moment_label,
-            kw.plan_rope,
+            kw.keg_rope,
             kw.party_title,
             kw.belief_name,
             kw.voice_name,
             kw.amount,
         ]
-        blflabo_cat = "belief_plan_partyunit"
+        blflabo_cat = "belief_keg_partyunit"
         src_table = f"{idea_number}_raw"
         dst_table = f"{blflabo_cat}_raw"
         idea_config = get_idea_config_dict()
@@ -44,11 +44,11 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_belief_plan_partyuni
         )
 
         # THEN
-        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.plan_rope}, {kw.party_title}"
+        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.belief_name}, {kw.keg_rope}, {kw.party_title}"
         expected_sqlstr = f"""INSERT INTO {blflabo_cat}_raw ({kw.idea_number}, {columns_str})
 SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
 FROM {idea_number}_raw
-WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_label} IS NOT NULL AND {kw.belief_name} IS NOT NULL AND {kw.plan_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
+WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_label} IS NOT NULL AND {kw.belief_name} IS NOT NULL AND {kw.keg_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
 GROUP BY {columns_str}
 ;
 """
@@ -66,7 +66,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_belief_voiceunit():
             kw.spark_num,
             kw.face_name,
             kw.moment_label,
-            kw.plan_rope,
+            kw.keg_rope,
             kw.party_title,
             kw.belief_name,
             kw.voice_name,
@@ -115,7 +115,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_belief_voiceunit():
             kw.spark_num,
             kw.face_name,
             kw.moment_label,
-            kw.plan_rope,
+            kw.keg_rope,
             kw.party_title,
             kw.belief_name,
             kw.voice_name,

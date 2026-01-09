@@ -31,7 +31,7 @@ def test_get_belief_dimens_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_belief_dimens() == set(get_atom_config_dict().keys())
     assert kw.belief_voiceunit in get_belief_dimens()
-    assert is_belief_dimen(kw.planroot) is False
+    assert is_belief_dimen(kw.kegroot) is False
 
 
 def test_get_all_belief_dimen_keys_ReturnsObj():
@@ -141,54 +141,54 @@ def test_get_atom_config_dict_EveryCrudOperationHasBeliefDeltaOrderGroup():
     # # Simple script for editing atom_config.json
     # set_mog(kw.INSERT, kw.belief_voiceunit, 0)
     # set_mog(kw.INSERT, kw.belief_voice_membership, 1)
-    # set_mog(kw.INSERT, kw.belief_planunit, 2)
-    # set_mog(kw.INSERT, kw.belief_plan_awardunit, 3)
-    # set_mog(kw.INSERT, kw.belief_plan_partyunit, 4)
-    # set_mog(kw.INSERT, kw.belief_plan_healerunit, 5)
-    # set_mog(kw.INSERT, kw.belief_plan_factunit, 6)
-    # set_mog(kw.INSERT, kw.belief_plan_reasonunit, 7)
-    # set_mog(kw.INSERT, kw.belief_plan_reason_caseunit, 8)
+    # set_mog(kw.INSERT, kw.belief_kegunit, 2)
+    # set_mog(kw.INSERT, kw.belief_keg_awardunit, 3)
+    # set_mog(kw.INSERT, kw.belief_keg_partyunit, 4)
+    # set_mog(kw.INSERT, kw.belief_keg_healerunit, 5)
+    # set_mog(kw.INSERT, kw.belief_keg_factunit, 6)
+    # set_mog(kw.INSERT, kw.belief_keg_reasonunit, 7)
+    # set_mog(kw.INSERT, kw.belief_keg_reason_caseunit, 8)
     # set_mog(kw.UPDATE, kw.belief_voiceunit, 9)
     # set_mog(kw.UPDATE, kw.belief_voice_membership, 10)
-    # set_mog(kw.UPDATE, kw.belief_planunit, 11)
-    # set_mog(kw.UPDATE, kw.belief_plan_awardunit, 12)
-    # set_mog(kw.UPDATE, kw.belief_plan_factunit, 13)
-    # set_mog(kw.UPDATE, kw.belief_plan_reason_caseunit, 14)
-    # set_mog(kw.UPDATE, kw.belief_plan_reasonunit, 15)
-    # set_mog(kw.DELETE, kw.belief_plan_reason_caseunit, 16)
-    # set_mog(kw.DELETE, kw.belief_plan_reasonunit, 17)
-    # set_mog(kw.DELETE, kw.belief_plan_factunit, 18)
-    # set_mog(kw.DELETE, kw.belief_plan_partyunit, 19)
-    # set_mog(kw.DELETE, kw.belief_plan_healerunit, 20)
-    # set_mog(kw.DELETE, kw.belief_plan_awardunit, 21)
-    # set_mog(kw.DELETE, kw.belief_planunit, 22)
+    # set_mog(kw.UPDATE, kw.belief_kegunit, 11)
+    # set_mog(kw.UPDATE, kw.belief_keg_awardunit, 12)
+    # set_mog(kw.UPDATE, kw.belief_keg_factunit, 13)
+    # set_mog(kw.UPDATE, kw.belief_keg_reason_caseunit, 14)
+    # set_mog(kw.UPDATE, kw.belief_keg_reasonunit, 15)
+    # set_mog(kw.DELETE, kw.belief_keg_reason_caseunit, 16)
+    # set_mog(kw.DELETE, kw.belief_keg_reasonunit, 17)
+    # set_mog(kw.DELETE, kw.belief_keg_factunit, 18)
+    # set_mog(kw.DELETE, kw.belief_keg_partyunit, 19)
+    # set_mog(kw.DELETE, kw.belief_keg_healerunit, 20)
+    # set_mog(kw.DELETE, kw.belief_keg_awardunit, 21)
+    # set_mog(kw.DELETE, kw.belief_kegunit, 22)
     # set_mog(kw.DELETE, kw.belief_voice_membership, 23)
     # set_mog(kw.DELETE, kw.belief_voiceunit, 24)
     # set_mog(kw.UPDATE, kw.beliefunit, 25)
 
     assert 0 == q_order(kw.INSERT, kw.belief_voiceunit)
     assert 1 == q_order(kw.INSERT, kw.belief_voice_membership)
-    assert 2 == q_order(kw.INSERT, kw.belief_planunit)
-    assert 3 == q_order(kw.INSERT, kw.belief_plan_awardunit)
-    assert 4 == q_order(kw.INSERT, kw.belief_plan_partyunit)
-    assert 5 == q_order(kw.INSERT, kw.belief_plan_healerunit)
-    assert 6 == q_order(kw.INSERT, kw.belief_plan_factunit)
-    assert 7 == q_order(kw.INSERT, kw.belief_plan_reasonunit)
-    assert 8 == q_order(kw.INSERT, kw.belief_plan_reason_caseunit)
+    assert 2 == q_order(kw.INSERT, kw.belief_kegunit)
+    assert 3 == q_order(kw.INSERT, kw.belief_keg_awardunit)
+    assert 4 == q_order(kw.INSERT, kw.belief_keg_partyunit)
+    assert 5 == q_order(kw.INSERT, kw.belief_keg_healerunit)
+    assert 6 == q_order(kw.INSERT, kw.belief_keg_factunit)
+    assert 7 == q_order(kw.INSERT, kw.belief_keg_reasonunit)
+    assert 8 == q_order(kw.INSERT, kw.belief_keg_reason_caseunit)
     assert 9 == q_order(kw.UPDATE, kw.belief_voiceunit)
     assert 10 == q_order(kw.UPDATE, kw.belief_voice_membership)
-    assert 11 == q_order(kw.UPDATE, kw.belief_planunit)
-    assert 12 == q_order(kw.UPDATE, kw.belief_plan_awardunit)
-    assert 13 == q_order(kw.UPDATE, kw.belief_plan_factunit)
-    assert 14 == q_order(kw.UPDATE, kw.belief_plan_reason_caseunit)
-    assert 15 == q_order(kw.UPDATE, kw.belief_plan_reasonunit)
-    assert 16 == q_order(kw.DELETE, kw.belief_plan_reason_caseunit)
-    assert 17 == q_order(kw.DELETE, kw.belief_plan_reasonunit)
-    assert 18 == q_order(kw.DELETE, kw.belief_plan_factunit)
-    assert 19 == q_order(kw.DELETE, kw.belief_plan_partyunit)
-    assert 20 == q_order(kw.DELETE, kw.belief_plan_healerunit)
-    assert 21 == q_order(kw.DELETE, kw.belief_plan_awardunit)
-    assert 22 == q_order(kw.DELETE, kw.belief_planunit)
+    assert 11 == q_order(kw.UPDATE, kw.belief_kegunit)
+    assert 12 == q_order(kw.UPDATE, kw.belief_keg_awardunit)
+    assert 13 == q_order(kw.UPDATE, kw.belief_keg_factunit)
+    assert 14 == q_order(kw.UPDATE, kw.belief_keg_reason_caseunit)
+    assert 15 == q_order(kw.UPDATE, kw.belief_keg_reasonunit)
+    assert 16 == q_order(kw.DELETE, kw.belief_keg_reason_caseunit)
+    assert 17 == q_order(kw.DELETE, kw.belief_keg_reasonunit)
+    assert 18 == q_order(kw.DELETE, kw.belief_keg_factunit)
+    assert 19 == q_order(kw.DELETE, kw.belief_keg_partyunit)
+    assert 20 == q_order(kw.DELETE, kw.belief_keg_healerunit)
+    assert 21 == q_order(kw.DELETE, kw.belief_keg_awardunit)
+    assert 22 == q_order(kw.DELETE, kw.belief_kegunit)
     assert 23 == q_order(kw.DELETE, kw.belief_voice_membership)
     assert 24 == q_order(kw.DELETE, kw.belief_voiceunit)
     assert 25 == q_order(kw.UPDATE, kw.beliefunit)
@@ -209,24 +209,24 @@ def test_get_atom_config_dict_CheckEachDimenHasCorrectArgCount():
     assert _get_atom_config_jkeys_len(kw.beliefunit) == 0
     assert _get_atom_config_jkeys_len(kw.belief_voiceunit) == 1
     assert _get_atom_config_jkeys_len(kw.belief_voice_membership) == 2
-    assert _get_atom_config_jkeys_len(kw.belief_planunit) == 1
-    assert _get_atom_config_jkeys_len(kw.belief_plan_awardunit) == 2
-    assert _get_atom_config_jkeys_len(kw.belief_plan_reasonunit) == 2
-    assert _get_atom_config_jkeys_len(kw.belief_plan_reason_caseunit) == 3
-    assert _get_atom_config_jkeys_len(kw.belief_plan_partyunit) == 2
-    assert _get_atom_config_jkeys_len(kw.belief_plan_healerunit) == 2
-    assert _get_atom_config_jkeys_len(kw.belief_plan_factunit) == 2
+    assert _get_atom_config_jkeys_len(kw.belief_kegunit) == 1
+    assert _get_atom_config_jkeys_len(kw.belief_keg_awardunit) == 2
+    assert _get_atom_config_jkeys_len(kw.belief_keg_reasonunit) == 2
+    assert _get_atom_config_jkeys_len(kw.belief_keg_reason_caseunit) == 3
+    assert _get_atom_config_jkeys_len(kw.belief_keg_partyunit) == 2
+    assert _get_atom_config_jkeys_len(kw.belief_keg_healerunit) == 2
+    assert _get_atom_config_jkeys_len(kw.belief_keg_factunit) == 2
 
     assert _get_atom_config_jvalues_len(kw.beliefunit) == 8
     assert _get_atom_config_jvalues_len(kw.belief_voiceunit) == 2
     assert _get_atom_config_jvalues_len(kw.belief_voice_membership) == 2
-    assert _get_atom_config_jvalues_len(kw.belief_planunit) == 11
-    assert _get_atom_config_jvalues_len(kw.belief_plan_awardunit) == 2
-    assert _get_atom_config_jvalues_len(kw.belief_plan_reasonunit) == 1
-    assert _get_atom_config_jvalues_len(kw.belief_plan_reason_caseunit) == 3
-    assert _get_atom_config_jvalues_len(kw.belief_plan_partyunit) == 1
-    assert _get_atom_config_jvalues_len(kw.belief_plan_healerunit) == 0
-    assert _get_atom_config_jvalues_len(kw.belief_plan_factunit) == 3
+    assert _get_atom_config_jvalues_len(kw.belief_kegunit) == 11
+    assert _get_atom_config_jvalues_len(kw.belief_keg_awardunit) == 2
+    assert _get_atom_config_jvalues_len(kw.belief_keg_reasonunit) == 1
+    assert _get_atom_config_jvalues_len(kw.belief_keg_reason_caseunit) == 3
+    assert _get_atom_config_jvalues_len(kw.belief_keg_partyunit) == 1
+    assert _get_atom_config_jvalues_len(kw.belief_keg_healerunit) == 0
+    assert _get_atom_config_jvalues_len(kw.belief_keg_factunit) == 3
 
 
 def _has_every_element(x_arg, x_dict) -> bool:
@@ -324,8 +324,8 @@ def unique_jkeys():
     jkey_key_count = 0
     for atom_dimen in get_atom_config_dict().keys():
         new_jkey_keys = _get_atom_config_jkey_keys(atom_dimen)
-        if kw.plan_rope in new_jkey_keys:
-            new_jkey_keys.remove(kw.plan_rope)
+        if kw.keg_rope in new_jkey_keys:
+            new_jkey_keys.remove(kw.keg_rope)
         if kw.reason_context in new_jkey_keys:
             new_jkey_keys.remove(kw.reason_context)
         if kw.voice_name in new_jkey_keys:
@@ -358,16 +358,16 @@ def test_get_sorted_jkey_keys_ReturnsObj_belief_voiceunit():
     assert x_sorted_jkey_keys == [kw.voice_name]
 
 
-def test_get_sorted_jkey_keys_ReturnsObj_belief_plan_reason_caseunit():
+def test_get_sorted_jkey_keys_ReturnsObj_belief_keg_reason_caseunit():
     # ESTABLISH
-    x_dimen = kw.belief_plan_reason_caseunit
+    x_dimen = kw.belief_keg_reason_caseunit
 
     # WHEN
     x_sorted_jkey_keys = get_sorted_jkey_keys(x_dimen)
 
     # THEN
     assert x_sorted_jkey_keys == [
-        kw.plan_rope,
+        kw.keg_rope,
         kw.reason_context,
         kw.reason_state,
     ]
@@ -393,18 +393,18 @@ def test_get_normalized_belief_table_build_ReturnsObj():
     cat_beliefunit = nx.get(kw.beliefunit)
     cat_voiceunit = nx.get(kw.belief_voiceunit)
     cat_membership = nx.get(kw.belief_voice_membership)
-    cat_plan = nx.get(kw.belief_planunit)
-    cat_awardunit = nx.get(kw.belief_plan_awardunit)
-    cat_reason = nx.get(kw.belief_plan_reasonunit)
-    cat_case = nx.get(kw.belief_plan_reason_caseunit)
-    cat_partyunit = nx.get(kw.belief_plan_partyunit)
-    cat_healerunit = nx.get(kw.belief_plan_healerunit)
-    cat_fact = nx.get(kw.belief_plan_factunit)
+    cat_keg = nx.get(kw.belief_kegunit)
+    cat_awardunit = nx.get(kw.belief_keg_awardunit)
+    cat_reason = nx.get(kw.belief_keg_reasonunit)
+    cat_case = nx.get(kw.belief_keg_reason_caseunit)
+    cat_partyunit = nx.get(kw.belief_keg_partyunit)
+    cat_healerunit = nx.get(kw.belief_keg_healerunit)
+    cat_fact = nx.get(kw.belief_keg_factunit)
 
     assert cat_beliefunit is not None
     assert cat_voiceunit is not None
     assert cat_membership is not None
-    assert cat_plan is not None
+    assert cat_keg is not None
     assert cat_awardunit is not None
     assert cat_reason is not None
     assert cat_case is not None
@@ -415,7 +415,7 @@ def test_get_normalized_belief_table_build_ReturnsObj():
     normal_specs_beliefunit = cat_beliefunit.get(kw.normal_specs)
     normal_specs_voiceunit = cat_voiceunit.get(kw.normal_specs)
     normal_specs_membership = cat_membership.get(kw.normal_specs)
-    normal_specs_plan = cat_plan.get(kw.normal_specs)
+    normal_specs_keg = cat_keg.get(kw.normal_specs)
     normal_specs_awardunit = cat_awardunit.get(kw.normal_specs)
     normal_specs_reason = cat_reason.get(kw.normal_specs)
     normal_specs_case = cat_case.get(kw.normal_specs)
@@ -429,7 +429,7 @@ def test_get_normalized_belief_table_build_ReturnsObj():
     assert normal_specs_beliefunit is not None
     assert normal_specs_voiceunit is not None
     assert normal_specs_membership is not None
-    assert normal_specs_plan is not None
+    assert normal_specs_keg is not None
     assert normal_specs_awardunit is not None
     assert normal_specs_reason is not None
     assert normal_specs_case is not None
@@ -440,7 +440,7 @@ def test_get_normalized_belief_table_build_ReturnsObj():
     table_name_beliefunit = normal_specs_beliefunit.get(kw.normal_table_name)
     table_name_voiceunit = normal_specs_voiceunit.get(kw.normal_table_name)
     table_name_membership = normal_specs_membership.get(kw.normal_table_name)
-    table_name_plan = normal_specs_plan.get(kw.normal_table_name)
+    table_name_keg = normal_specs_keg.get(kw.normal_table_name)
     table_name_awardunit = normal_specs_awardunit.get(kw.normal_table_name)
     table_name_reason = normal_specs_reason.get(kw.normal_table_name)
     table_name_case = normal_specs_case.get(kw.normal_table_name)
@@ -451,7 +451,7 @@ def test_get_normalized_belief_table_build_ReturnsObj():
     assert table_name_beliefunit == "belief"
     assert table_name_voiceunit == "voiceunit"
     assert table_name_membership == "membership"
-    assert table_name_plan == "plan"
+    assert table_name_keg == "keg"
     assert table_name_awardunit == "awardunit"
     assert table_name_reason == "reason"
     assert table_name_case == "case"
@@ -491,16 +491,16 @@ def test_get_normalized_belief_table_build_ReturnsObj():
     assert voice_debt_lumen_dict.get(kw.sqlite_datatype) == "REAL"
     assert voice_debt_lumen_dict.get("nullable") is True
 
-    assert len(cat_plan) == 2
-    plan_columns = cat_plan.get(columns_str)
-    assert len(plan_columns) == 13
-    assert plan_columns.get(kw.uid) is not None
-    assert plan_columns.get(kw.plan_rope) is not None
-    assert plan_columns.get(kw.begin) is not None
-    assert plan_columns.get(kw.close) is not None
+    assert len(cat_keg) == 2
+    keg_columns = cat_keg.get(columns_str)
+    assert len(keg_columns) == 13
+    assert keg_columns.get(kw.uid) is not None
+    assert keg_columns.get(kw.keg_rope) is not None
+    assert keg_columns.get(kw.begin) is not None
+    assert keg_columns.get(kw.close) is not None
 
-    gogo_want_dict = plan_columns.get(kw.gogo_want)
-    stop_want_dict = plan_columns.get(kw.stop_want)
+    gogo_want_dict = keg_columns.get(kw.gogo_want)
+    stop_want_dict = keg_columns.get(kw.stop_want)
     assert len(gogo_want_dict) == 2
     assert len(stop_want_dict) == 2
     assert gogo_want_dict.get(kw.sqlite_datatype) == "REAL"
@@ -516,11 +516,11 @@ def test_get_atom_args_dimen_mapping_ReturnsObj():
     # THEN
     assert x_atom_args_dimen_mapping
     assert x_atom_args_dimen_mapping.get(kw.stop_want)
-    assert x_atom_args_dimen_mapping.get(kw.stop_want) == {kw.belief_planunit}
-    assert x_atom_args_dimen_mapping.get(kw.plan_rope)
-    rope_dimens = x_atom_args_dimen_mapping.get(kw.plan_rope)
-    assert kw.belief_plan_factunit in rope_dimens
-    assert kw.belief_plan_partyunit in rope_dimens
+    assert x_atom_args_dimen_mapping.get(kw.stop_want) == {kw.belief_kegunit}
+    assert x_atom_args_dimen_mapping.get(kw.keg_rope)
+    rope_dimens = x_atom_args_dimen_mapping.get(kw.keg_rope)
+    assert kw.belief_keg_factunit in rope_dimens
+    assert kw.belief_keg_partyunit in rope_dimens
     assert len(rope_dimens) == 7
     assert len(x_atom_args_dimen_mapping) == 42
 
@@ -541,7 +541,7 @@ def get_class_type(x_dimen: str, x_arg: str) -> str:
 def test_get_class_type_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_class_type(kw.belief_voiceunit, kw.voice_name) == kw.NameTerm
-    assert get_class_type(kw.belief_planunit, kw.gogo_want) == "float"
+    assert get_class_type(kw.belief_kegunit, kw.gogo_want) == "float"
 
 
 def test_get_allowed_class_types_ReturnsObj():
@@ -645,7 +645,7 @@ def test_get_atom_args_class_types_ReturnsObj():
     assert x_class_types.get(kw.fact_state) == kw.RopeTerm
     assert x_class_types.get(kw.pledge) == "bool"
     assert x_class_types.get(kw.problem_bool) == "bool"
-    assert x_class_types.get(kw.plan_rope) == kw.RopeTerm
+    assert x_class_types.get(kw.keg_rope) == kw.RopeTerm
     assert x_class_types.get(kw.solo) == "int"
     assert x_class_types.get(kw.stop_want) == "float"
     assert x_class_types.get(kw.take_force) == "float"

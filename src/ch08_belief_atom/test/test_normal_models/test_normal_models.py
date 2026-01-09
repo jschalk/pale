@@ -6,9 +6,9 @@ from src.ch08_belief_atom.normal_model import (
     CaseTable,
     FactTable,
     HealerUnitTable,
+    KegTable,
     LaborLinkTable,
     MemberShipTable,
-    PlanTable,
     ReasonTable,
     VoiceUnitTable,
 )
@@ -93,22 +93,22 @@ def test_normalized_table_MemberShipTable_membership_Exists():
     all_columns_are_as_config_requires(mapper, config_dimen)
 
 
-def test_normalized_table_PlanTable_plan_Exists():
+def test_normalized_table_KegTable_keg_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_belief_table_build().get(kw.belief_planunit)
-    mapper = inspect(PlanTable)
+    config_dimen = get_normalized_belief_table_build().get(kw.belief_kegunit)
+    mapper = inspect(KegTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
     # WHEN / THEN
     config_table_name = get_config_table_name(config_dimen)
-    assert config_table_name == "plan"
-    assert config_table_name == PlanTable.__tablename__
+    assert config_table_name == "keg"
+    assert config_table_name == KegTable.__tablename__
     all_columns_are_as_config_requires(mapper, config_dimen)
 
 
 def test_normalized_table_AwardUnitTable_awardunit_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_belief_table_build().get(kw.belief_plan_awardunit)
+    config_dimen = get_normalized_belief_table_build().get(kw.belief_keg_awardunit)
     mapper = inspect(AwardUnitTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -121,7 +121,7 @@ def test_normalized_table_AwardUnitTable_awardunit_Exists():
 
 def test_normalized_table_ReasonTable_reason_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_belief_table_build().get(kw.belief_plan_reasonunit)
+    config_dimen = get_normalized_belief_table_build().get(kw.belief_keg_reasonunit)
     mapper = inspect(ReasonTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -135,7 +135,7 @@ def test_normalized_table_ReasonTable_reason_Exists():
 def test_normalized_table_CaseTable_case_Exists():
     # ESTABLISH
     config_dimen = get_normalized_belief_table_build().get(
-        kw.belief_plan_reason_caseunit
+        kw.belief_keg_reason_caseunit
     )
     mapper = inspect(CaseTable)
     print_out_expected_class_attribute_declarations(config_dimen)
@@ -149,7 +149,7 @@ def test_normalized_table_CaseTable_case_Exists():
 
 def test_normalized_table_LaborLinkTable_partyunit_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_belief_table_build().get(kw.belief_plan_partyunit)
+    config_dimen = get_normalized_belief_table_build().get(kw.belief_keg_partyunit)
     mapper = inspect(LaborLinkTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -162,7 +162,7 @@ def test_normalized_table_LaborLinkTable_partyunit_Exists():
 
 def test_normalized_table_HealerUnitTable_healerunit_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_belief_table_build().get(kw.belief_plan_healerunit)
+    config_dimen = get_normalized_belief_table_build().get(kw.belief_keg_healerunit)
     mapper = inspect(HealerUnitTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -175,7 +175,7 @@ def test_normalized_table_HealerUnitTable_healerunit_Exists():
 
 def test_normalized_table_FactTable_fact_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_belief_table_build().get(kw.belief_plan_factunit)
+    config_dimen = get_normalized_belief_table_build().get(kw.belief_keg_factunit)
     mapper = inspect(FactTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 

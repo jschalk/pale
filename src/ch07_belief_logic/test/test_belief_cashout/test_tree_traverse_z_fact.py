@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch05_reason.reason_main import factheir_shop, factunit_shop
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
     get_beliefunit_1task_1ceo_minutes_reason_1fact,
@@ -8,7 +8,7 @@ from src.ch07_belief_logic.test._util.ch07_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_BeliefUnit_cashout_ChangesPlanUnit_pledge_task():
+def test_BeliefUnit_cashout_ChangesKegUnit_pledge_task():
     # ESTABLISH
     yao_belief = get_beliefunit_1task_1ceo_minutes_reason_1fact()
     hr_str = "hr"
@@ -21,68 +21,66 @@ def test_BeliefUnit_cashout_ChangesPlanUnit_pledge_task():
 
     # THEN
     mail_rope = yao_belief.make_l1_rope("obtain mail")
-    plan_dict = yao_belief.get_plan_dict()
-    mail_plan = plan_dict.get(mail_rope)
+    keg_dict = yao_belief.get_keg_dict()
+    mail_keg = keg_dict.get(mail_rope)
     yao_belief.add_fact(
         fact_context=hr_rope, fact_state=hr_rope, fact_lower=82, fact_upper=95
     )
-    assert mail_plan.pledge is True
-    assert mail_plan.task is False
+    assert mail_keg.pledge is True
+    assert mail_keg.task is False
 
     # WHEN
     yao_belief.cashout()
 
     # THEN
-    mail_plan = yao_belief.get_plan_obj(mail_rope)
-    assert mail_plan.pledge
-    assert mail_plan.task
+    mail_keg = yao_belief.get_keg_obj(mail_rope)
+    assert mail_keg.pledge
+    assert mail_keg.task
 
 
 def test_BeliefUnit_cashout_ExecutesWithRangeRootFacts():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
     casa_rope = zia_belief.make_l1_rope(exx.casa)
-    zia_belief.set_l1_plan(planunit_shop(exx.casa))
+    zia_belief.set_l1_keg(kegunit_shop(exx.casa))
     clean_rope = zia_belief.make_rope(casa_rope, exx.clean)
     clean_begin = -3
     clean_close = 7
-    clean_plan = planunit_shop(exx.clean, begin=clean_begin, close=clean_close)
+    clean_keg = kegunit_shop(exx.clean, begin=clean_begin, close=clean_close)
     sweep_str = "sweep"
     sweep_gogo_want = -2
     sweep_stop_want = 1
-    sweep_plan = planunit_shop(sweep_str, gogo_want=sweep_gogo_want)
-    sweep_plan.stop_want = sweep_stop_want
-    zia_belief.set_plan_obj(clean_plan, parent_rope=casa_rope)
+    sweep_keg = kegunit_shop(sweep_str, gogo_want=sweep_gogo_want)
+    sweep_keg.stop_want = sweep_stop_want
+    zia_belief.set_keg_obj(clean_keg, parent_rope=casa_rope)
     zia_belief.add_fact(
         fact_context=clean_rope, fact_state=clean_rope, fact_lower=1, fact_upper=5
     )
-    assert zia_belief.planroot.factheirs == {}
+    assert zia_belief.kegroot.factheirs == {}
 
     # WHEN
     zia_belief.cashout()
 
     # THEN
-    assert zia_belief.planroot.factheirs != {}
+    assert zia_belief.kegroot.factheirs != {}
     clean_factheir = factheir_shop(clean_rope, clean_rope, 1.0, 5.0)
-    assert zia_belief.planroot.factheirs == {
-        clean_factheir.fact_context: clean_factheir
-    }
+    assert zia_belief.kegroot.factheirs == {clean_factheir.fact_context: clean_factheir}
 
 
 def test_BeliefUnit_cashout_RaisesErrorIfNon_RangeRootHasFactUnit():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
     casa_rope = zia_belief.make_l1_rope(exx.casa)
-    zia_belief.set_l1_plan(planunit_shop(exx.casa))
+    zia_belief.set_l1_keg(kegunit_shop(exx.casa))
     clean_rope = zia_belief.make_rope(casa_rope, exx.clean)
     clean_begin = -3
     clean_close = 7
-    clean_plan = planunit_shop(exx.clean, begin=clean_begin, close=clean_close)
+    clean_keg = kegunit_shop(exx.clean, begin=clean_begin, close=clean_close)
     sweep_str = "sweep"
     sweep_rope = zia_belief.make_rope(clean_rope, sweep_str)
-    sweep_plan = planunit_shop(sweep_str, addin=2)
-    zia_belief.set_plan_obj(clean_plan, parent_rope=casa_rope)
-    zia_belief.set_plan_obj(sweep_plan, parent_rope=clean_rope)
+    sweep_keg = kegunit_shop(sweep_str, addin=2)
+    zia_belief.set_keg_obj(clean_keg, parent_rope=casa_rope)
+    zia_belief.set_keg_obj(sweep_keg, parent_rope=clean_rope)
     zia_belief.add_fact(sweep_rope, sweep_rope, fact_lower=1, fact_upper=5)
 
     # WHEN
@@ -92,7 +90,7 @@ def test_BeliefUnit_cashout_RaisesErrorIfNon_RangeRootHasFactUnit():
     # THEN
     assert (
         str(excinfo.value)
-        == f"Cannot have fact for range inheritor '{sweep_rope}'. A ranged fact plan must have _begin, _close"
+        == f"Cannot have fact for range inheritor '{sweep_rope}'. A ranged fact keg must have _begin, _close"
     )
 
 
@@ -100,55 +98,55 @@ def test_BeliefUnit_cashout_FactHeirsInherited():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
     swim_rope = zia_belief.make_l1_rope(exx.swim)
-    zia_belief.set_l1_plan(planunit_shop(exx.swim))
+    zia_belief.set_l1_keg(kegunit_shop(exx.swim))
     fast_str = "fast"
     slow_str = "slow"
     fast_rope = zia_belief.make_rope(swim_rope, fast_str)
     slow_rope = zia_belief.make_rope(swim_rope, slow_str)
-    zia_belief.set_plan_obj(planunit_shop(fast_str), parent_rope=swim_rope)
-    zia_belief.set_plan_obj(planunit_shop(slow_str), parent_rope=swim_rope)
+    zia_belief.set_keg_obj(kegunit_shop(fast_str), parent_rope=swim_rope)
+    zia_belief.set_keg_obj(kegunit_shop(slow_str), parent_rope=swim_rope)
 
     earth_str = "earth"
     earth_rope = zia_belief.make_l1_rope(earth_str)
-    zia_belief.set_l1_plan(planunit_shop(earth_str))
+    zia_belief.set_l1_keg(kegunit_shop(earth_str))
 
-    swim_plan = zia_belief.get_plan_obj(swim_rope)
-    fast_plan = zia_belief.get_plan_obj(fast_rope)
-    slow_plan = zia_belief.get_plan_obj(slow_rope)
+    swim_keg = zia_belief.get_keg_obj(swim_rope)
+    fast_keg = zia_belief.get_keg_obj(fast_rope)
+    slow_keg = zia_belief.get_keg_obj(slow_rope)
     zia_belief.add_fact(
         fact_context=earth_rope, fact_state=earth_rope, fact_lower=1.0, fact_upper=5.0
     )
-    assert swim_plan.factheirs == {}
-    assert fast_plan.factheirs == {}
-    assert slow_plan.factheirs == {}
+    assert swim_keg.factheirs == {}
+    assert fast_keg.factheirs == {}
+    assert slow_keg.factheirs == {}
 
     # WHEN
     zia_belief.cashout()
 
     # THEN
-    assert swim_plan.factheirs != {}
-    assert fast_plan.factheirs != {}
-    assert slow_plan.factheirs != {}
+    assert swim_keg.factheirs != {}
+    assert fast_keg.factheirs != {}
+    assert slow_keg.factheirs != {}
     factheir_set_range = factheir_shop(earth_rope, earth_rope, 1.0, 5.0)
     factheirs_set_range = {factheir_set_range.fact_context: factheir_set_range}
-    assert swim_plan.factheirs == factheirs_set_range
-    assert fast_plan.factheirs == factheirs_set_range
-    assert slow_plan.factheirs == factheirs_set_range
-    print(f"{swim_plan.factheirs=}")
-    assert len(swim_plan.factheirs) == 1
+    assert swim_keg.factheirs == factheirs_set_range
+    assert fast_keg.factheirs == factheirs_set_range
+    assert slow_keg.factheirs == factheirs_set_range
+    print(f"{swim_keg.factheirs=}")
+    assert len(swim_keg.factheirs) == 1
 
     # WHEN
-    swim_earth_factheir = swim_plan.factheirs.get(earth_rope)
+    swim_earth_factheir = swim_keg.factheirs.get(earth_rope)
     swim_earth_factheir.set_range_null()
 
     # THEN
     fact_none_range = factheir_shop(earth_rope, earth_rope, None, None)
     facts_none_range = {fact_none_range.fact_context: fact_none_range}
-    assert swim_plan.factheirs == facts_none_range
-    assert fast_plan.factheirs == factheirs_set_range
-    assert slow_plan.factheirs == factheirs_set_range
+    assert swim_keg.factheirs == facts_none_range
+    assert fast_keg.factheirs == factheirs_set_range
+    assert slow_keg.factheirs == factheirs_set_range
 
-    fact_x1 = swim_plan.factheirs.get(earth_rope)
+    fact_x1 = swim_keg.factheirs.get(earth_rope)
     fact_x1.set_range_null()
     print(type(fact_x1))
     assert str(type(fact_x1)).find(".reason.FactHeir'>")
@@ -159,19 +157,19 @@ def test_BeliefUnit_cashout_FactUnitMoldsFactHeir():
     # ESTABLISH
     zia_belief = beliefunit_shop("Zia")
     swim_rope = zia_belief.make_l1_rope(exx.swim)
-    zia_belief.set_l1_plan(planunit_shop(exx.swim))
-    swim_plan = zia_belief.get_plan_obj(swim_rope)
+    zia_belief.set_l1_keg(kegunit_shop(exx.swim))
+    swim_keg = zia_belief.get_keg_obj(swim_rope)
 
     fast_str = "fast"
     slow_str = "slow"
-    zia_belief.set_plan_obj(planunit_shop(fast_str), parent_rope=swim_rope)
-    zia_belief.set_plan_obj(planunit_shop(slow_str), parent_rope=swim_rope)
+    zia_belief.set_keg_obj(kegunit_shop(fast_str), parent_rope=swim_rope)
+    zia_belief.set_keg_obj(kegunit_shop(slow_str), parent_rope=swim_rope)
 
     earth_str = "earth"
     earth_rope = zia_belief.make_l1_rope(earth_str)
-    zia_belief.set_l1_plan(planunit_shop(earth_str))
+    zia_belief.set_l1_keg(kegunit_shop(earth_str))
 
-    assert swim_plan.factheirs == {}
+    assert swim_keg.factheirs == {}
 
     # WHEN
     zia_belief.add_fact(
@@ -184,7 +182,7 @@ def test_BeliefUnit_cashout_FactUnitMoldsFactHeir():
         earth_rope, earth_rope, fact_lower=1.0, fact_upper=5.0
     )
     first_earthdict = {first_earthheir.fact_context: first_earthheir}
-    assert swim_plan.factheirs == first_earthdict
+    assert swim_keg.factheirs == first_earthdict
 
     # WHEN
     # earth_curb = factunit_shop(fact_context=earth_rope, fact_state=earth_rope, reason_lower=3.0, reason_upper=4.0)
@@ -199,7 +197,7 @@ def test_BeliefUnit_cashout_FactUnitMoldsFactHeir():
         earth_rope, earth_rope, fact_lower=3.0, fact_upper=5.0
     )
     after_earthdict = {after_earthheir.fact_context: after_earthheir}
-    assert swim_plan.factheirs == after_earthdict
+    assert swim_keg.factheirs == after_earthdict
 
 
 def test_BeliefUnit_cashout_FactHeirDeletesFactUnit():
@@ -207,36 +205,36 @@ def test_BeliefUnit_cashout_FactHeirDeletesFactUnit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     swim_rope = sue_belief.make_l1_rope(exx.swim)
-    sue_belief.set_l1_plan(planunit_shop(exx.swim))
+    sue_belief.set_l1_keg(kegunit_shop(exx.swim))
     fast_str = "fast"
     slow_str = "slow"
-    sue_belief.set_plan_obj(planunit_shop(fast_str), parent_rope=swim_rope)
-    sue_belief.set_plan_obj(planunit_shop(slow_str), parent_rope=swim_rope)
+    sue_belief.set_keg_obj(kegunit_shop(fast_str), parent_rope=swim_rope)
+    sue_belief.set_keg_obj(kegunit_shop(slow_str), parent_rope=swim_rope)
     earth_str = "earth"
     earth_rope = sue_belief.make_l1_rope(earth_str)
-    sue_belief.set_l1_plan(planunit_shop(earth_str))
-    swim_plan = sue_belief.get_plan_obj(swim_rope)
+    sue_belief.set_l1_keg(kegunit_shop(earth_str))
+    swim_keg = sue_belief.get_keg_obj(swim_rope)
     first_earthheir = factheir_shop(
         earth_rope, earth_rope, fact_lower=200.0, fact_upper=500.0
     )
     first_earthdict = {first_earthheir.fact_context: first_earthheir}
     sue_belief.add_fact(earth_rope, earth_rope, fact_lower=200.0, fact_upper=500.0)
-    assert swim_plan.factheirs == {}
+    assert swim_keg.factheirs == {}
 
     # WHEN
     sue_belief.cashout()
 
     # THEN
-    assert swim_plan.factheirs == first_earthdict
+    assert swim_keg.factheirs == first_earthdict
 
     # WHEN
     earth_curb = factunit_shop(earth_rope, earth_rope, fact_lower=3.0, fact_upper=4.0)
-    swim_plan.set_factunit(factunit=earth_curb)
+    swim_keg.set_factunit(factunit=earth_curb)
     sue_belief.cashout()
 
     # THEN
-    assert swim_plan.factheirs == first_earthdict
-    assert swim_plan.factunits == {}
+    assert swim_keg.factheirs == first_earthdict
+    assert swim_keg.factunits == {}
 
 
 def test_BeliefUnit_cashout_SetstaskAsComplete():
@@ -244,18 +242,18 @@ def test_BeliefUnit_cashout_SetstaskAsComplete():
     yao_belief = get_beliefunit_1task_1ceo_minutes_reason_1fact()
     mail_str = "obtain mail"
     assert yao_belief is not None
-    assert len(yao_belief.planroot.kids[mail_str].reasonunits) == 1
-    plan_dict = yao_belief.get_plan_dict()
-    mail_plan = plan_dict.get(yao_belief.make_l1_rope(mail_str))
+    assert len(yao_belief.kegroot.kids[mail_str].reasonunits) == 1
+    keg_dict = yao_belief.get_keg_dict()
+    mail_keg = keg_dict.get(yao_belief.make_l1_rope(mail_str))
     hr_str = "hr"
     hr_rope = yao_belief.make_l1_rope(hr_str)
     yao_belief.add_fact(hr_rope, hr_rope, fact_lower=82, fact_upper=85)
-    assert mail_plan.pledge
-    assert mail_plan.task
+    assert mail_keg.pledge
+    assert mail_keg.task
 
     # WHEN
     yao_belief.cashout()
 
     # THEN
-    assert mail_plan.pledge
-    assert not mail_plan.task
+    assert mail_keg.pledge
+    assert not mail_keg.task

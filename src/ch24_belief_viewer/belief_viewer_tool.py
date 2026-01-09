@@ -9,7 +9,7 @@ from src.ch05_reason.reason_main import (
     ReasonHeir,
     ReasonUnit,
 )
-from src.ch06_plan.plan import PlanUnit
+from src.ch06_keg.keg import KegUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch13_epoch.epoch_str_func import (
     get_fact_state_readable_str,
@@ -53,8 +53,8 @@ def belief_objs_asdict(
             result[field.name] = belief_objs_asdict(
                 value, current_belief, current_reason
             )
-        if isinstance(obj, PlanUnit):
-            set_readable_plan_values(obj, result)
+        if isinstance(obj, KegUnit):
+            set_readable_keg_values(obj, result)
         elif isinstance(obj, AwardUnit):
             obj_readable_str = (
                 f"{obj.awardee_title}: Take {obj.take_force}, Give {obj.give_force}"
@@ -105,15 +105,15 @@ def belief_objs_asdict(
         return obj
 
 
-def set_readable_plan_values(x_plan: PlanUnit, result: dict):
+def set_readable_keg_values(x_keg: KegUnit, result: dict):
     result["parent_rope"] = (
-        add_small_dot(x_plan.parent_rope)
+        add_small_dot(x_keg.parent_rope)
         if result.get("parent_rope") != ""
-        else add_small_dot("Root Plan parent_rope is empty str")
+        else add_small_dot("Root Keg parent_rope is empty str")
     )
-    result["plan_fund_total"] = x_plan.get_plan_fund_total()
-    all_voice_cred_str = f"all_voice_cred = {x_plan.all_voice_cred}"
-    all_voice_debt_str = f"all_voice_debt = {x_plan.all_voice_debt}"
+    result["keg_fund_total"] = x_keg.get_keg_fund_total()
+    all_voice_cred_str = f"all_voice_cred = {x_keg.all_voice_cred}"
+    all_voice_debt_str = f"all_voice_debt = {x_keg.all_voice_debt}"
     all_voice_cred_str = add_small_dot(all_voice_cred_str)
     all_voice_debt_str = add_small_dot(all_voice_debt_str)
     result["all_voice_cred"] = all_voice_cred_str
@@ -139,14 +139,14 @@ def set_readable_plan_values(x_plan: PlanUnit, result: dict):
     result["denom"] = add_small_dot(f"denom: {result_denom}")
     result["morph"] = add_small_dot(f"morph: {result_morph}")
     result["numor"] = add_small_dot(f"numor: {result_numor}")
-    result["plan_active_hx"] = add_small_dot(f"plan_active_hx: {x_plan.plan_active_hx}")
+    result["keg_active_hx"] = add_small_dot(f"keg_active_hx: {x_keg.keg_active_hx}")
 
 
-def get_plan_view_dict(x_plan: PlanUnit) -> dict[str,]:
+def get_keg_view_dict(x_keg: KegUnit) -> dict[str,]:
     """Returns a dictionary of only base value types and dictionarys"""
 
-    # return get_serializable_dict(dataclasses_asdict(x_plan))
-    return get_serializable_dict(belief_objs_asdict(x_plan))
+    # return get_serializable_dict(dataclasses_asdict(x_keg))
+    return get_serializable_dict(belief_objs_asdict(x_keg))
 
 
 def get_voices_view_dict(belief: BeliefUnit) -> dict[str,]:
@@ -371,6 +371,6 @@ def get_groups_view_dict(belief: BeliefUnit) -> dict[str,]:
 
 def get_belief_view_dict(belief: BeliefUnit) -> dict[str,]:
     return {
-        "planroot": get_plan_view_dict(belief.planroot),
+        "kegroot": get_keg_view_dict(belief.kegroot),
         "voices": get_voices_view_dict(belief),
     }

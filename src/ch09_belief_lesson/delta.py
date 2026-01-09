@@ -10,7 +10,7 @@ from src.ch01_py.dict_toolbox import (
 from src.ch03_voice.group import MemberShip
 from src.ch03_voice.voice import MemberShip, VoiceName, VoiceUnit
 from src.ch05_reason.reason_main import FactUnit, ReasonUnit
-from src.ch06_plan.plan import PlanUnit
+from src.ch06_keg.keg import KegUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
 from src.ch08_belief_atom.atom_config import CRUD_command
 from src.ch08_belief_atom.atom_main import (
@@ -48,8 +48,8 @@ class BeliefDelta:
 
         ordered_list = []
         for x_list in atom_order_key_dict.values():
-            if x_list[0].jkeys.get("plan_rope") is not None:
-                x_list = sorted(x_list, key=lambda x: x.jkeys.get("plan_rope"))
+            if x_list[0].jkeys.get("keg_rope") is not None:
+                x_list = sorted(x_list, key=lambda x: x.jkeys.get("keg_rope"))
             ordered_list.extend(x_list)
         return ordered_list
 
@@ -128,7 +128,7 @@ class BeliefDelta:
         after_belief.cashout()
         self.add_beliefatoms_beliefunit_simple_attrs(before_belief, after_belief)
         self.add_beliefatoms_voices(before_belief, after_belief)
-        self.add_beliefatoms_plans(before_belief, after_belief)
+        self.add_beliefatoms_kegs(before_belief, after_belief)
 
     def add_beliefatoms_beliefunit_simple_attrs(
         self, before_belief: BeliefUnit, after_belief: BeliefUnit
@@ -333,157 +333,155 @@ class BeliefDelta:
             x_beliefatom.set_jkey("group_title", delete_group_title)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatoms_plans(
-        self, before_belief: BeliefUnit, after_belief: BeliefUnit
-    ):
-        before_plan_ropes = set(before_belief._plan_dict.keys())
-        after_plan_ropes = set(after_belief._plan_dict.keys())
+    def add_beliefatoms_kegs(self, before_belief: BeliefUnit, after_belief: BeliefUnit):
+        before_keg_ropes = set(before_belief._keg_dict.keys())
+        after_keg_ropes = set(after_belief._keg_dict.keys())
 
-        self.add_beliefatom_plan_inserts(
+        self.add_beliefatom_keg_inserts(
             after_belief=after_belief,
-            insert_plan_ropes=after_plan_ropes.difference(before_plan_ropes),
+            insert_keg_ropes=after_keg_ropes.difference(before_keg_ropes),
         )
-        self.add_beliefatom_plan_deletes(
+        self.add_beliefatom_keg_deletes(
             before_belief=before_belief,
-            delete_plan_ropes=before_plan_ropes.difference(after_plan_ropes),
+            delete_keg_ropes=before_keg_ropes.difference(after_keg_ropes),
         )
-        self.add_beliefatom_plan_updates(
+        self.add_beliefatom_keg_updates(
             before_belief=before_belief,
             after_belief=after_belief,
-            update_ropes=before_plan_ropes & (after_plan_ropes),
+            update_ropes=before_keg_ropes & (after_keg_ropes),
         )
 
-    def add_beliefatom_plan_inserts(
-        self, after_belief: BeliefUnit, insert_plan_ropes: set
+    def add_beliefatom_keg_inserts(
+        self, after_belief: BeliefUnit, insert_keg_ropes: set
     ):
-        for insert_plan_rope in insert_plan_ropes:
-            insert_planunit = after_belief.get_plan_obj(insert_plan_rope)
-            x_beliefatom = beliefatom_shop("belief_planunit", "INSERT")
-            x_beliefatom.set_jkey("plan_rope", insert_planunit.get_plan_rope())
-            x_beliefatom.set_jvalue("addin", insert_planunit.addin)
-            x_beliefatom.set_jvalue("begin", insert_planunit.begin)
-            x_beliefatom.set_jvalue("close", insert_planunit.close)
-            x_beliefatom.set_jvalue("denom", insert_planunit.denom)
-            x_beliefatom.set_jvalue("numor", insert_planunit.numor)
-            x_beliefatom.set_jvalue("morph", insert_planunit.morph)
-            x_beliefatom.set_jvalue("star", insert_planunit.star)
-            x_beliefatom.set_jvalue("pledge", insert_planunit.pledge)
+        for insert_keg_rope in insert_keg_ropes:
+            insert_kegunit = after_belief.get_keg_obj(insert_keg_rope)
+            x_beliefatom = beliefatom_shop("belief_kegunit", "INSERT")
+            x_beliefatom.set_jkey("keg_rope", insert_kegunit.get_keg_rope())
+            x_beliefatom.set_jvalue("addin", insert_kegunit.addin)
+            x_beliefatom.set_jvalue("begin", insert_kegunit.begin)
+            x_beliefatom.set_jvalue("close", insert_kegunit.close)
+            x_beliefatom.set_jvalue("denom", insert_kegunit.denom)
+            x_beliefatom.set_jvalue("numor", insert_kegunit.numor)
+            x_beliefatom.set_jvalue("morph", insert_kegunit.morph)
+            x_beliefatom.set_jvalue("star", insert_kegunit.star)
+            x_beliefatom.set_jvalue("pledge", insert_kegunit.pledge)
             self.set_beliefatom(x_beliefatom)
 
-            self.add_beliefatom_plan_factunit_inserts(
-                planunit=insert_planunit,
-                insert_factunit_reason_contexts=set(insert_planunit.factunits.keys()),
+            self.add_beliefatom_keg_factunit_inserts(
+                kegunit=insert_kegunit,
+                insert_factunit_reason_contexts=set(insert_kegunit.factunits.keys()),
             )
-            self.add_beliefatom_plan_awardunit_inserts(
-                after_planunit=insert_planunit,
-                insert_awardunit_awardee_titles=set(insert_planunit.awardunits.keys()),
+            self.add_beliefatom_keg_awardunit_inserts(
+                after_kegunit=insert_kegunit,
+                insert_awardunit_awardee_titles=set(insert_kegunit.awardunits.keys()),
             )
-            self.add_beliefatom_plan_reasonunit_inserts(
-                after_planunit=insert_planunit,
+            self.add_beliefatom_keg_reasonunit_inserts(
+                after_kegunit=insert_kegunit,
                 insert_reasonunit_reason_contexts=set(
-                    insert_planunit.reasonunits.keys()
+                    insert_kegunit.reasonunits.keys()
                 ),
             )
-            self.add_beliefatom_plan_partyunit_insert(
-                plan_rope=insert_plan_rope,
-                insert_partyunit_party_titles=insert_planunit.laborunit.partys,
+            self.add_beliefatom_keg_partyunit_insert(
+                keg_rope=insert_keg_rope,
+                insert_partyunit_party_titles=insert_kegunit.laborunit.partys,
             )
-            self.add_beliefatom_plan_healerunit_insert(
-                plan_rope=insert_plan_rope,
-                insert_healerunit_healer_names=insert_planunit.healerunit._healer_names,
+            self.add_beliefatom_keg_healerunit_insert(
+                keg_rope=insert_keg_rope,
+                insert_healerunit_healer_names=insert_kegunit.healerunit._healer_names,
             )
 
-    def add_beliefatom_plan_updates(
+    def add_beliefatom_keg_updates(
         self,
         before_belief: BeliefUnit,
         after_belief: BeliefUnit,
         update_ropes: set,
     ):
-        for plan_rope in update_ropes:
-            after_planunit = after_belief.get_plan_obj(plan_rope)
-            before_planunit = before_belief.get_plan_obj(plan_rope)
-            if jvalues_different("belief_planunit", before_planunit, after_planunit):
-                x_beliefatom = beliefatom_shop("belief_planunit", "UPDATE")
-                x_beliefatom.set_jkey("plan_rope", after_planunit.get_plan_rope())
-                if before_planunit.addin != after_planunit.addin:
-                    x_beliefatom.set_jvalue("addin", after_planunit.addin)
-                if before_planunit.begin != after_planunit.begin:
-                    x_beliefatom.set_jvalue("begin", after_planunit.begin)
-                if before_planunit.close != after_planunit.close:
-                    x_beliefatom.set_jvalue("close", after_planunit.close)
-                if before_planunit.denom != after_planunit.denom:
-                    x_beliefatom.set_jvalue("denom", after_planunit.denom)
-                if before_planunit.numor != after_planunit.numor:
-                    x_beliefatom.set_jvalue("numor", after_planunit.numor)
-                if before_planunit.morph != after_planunit.morph:
-                    x_beliefatom.set_jvalue("morph", after_planunit.morph)
-                if before_planunit.star != after_planunit.star:
-                    x_beliefatom.set_jvalue("star", after_planunit.star)
-                if before_planunit.pledge != after_planunit.pledge:
-                    x_beliefatom.set_jvalue("pledge", after_planunit.pledge)
+        for keg_rope in update_ropes:
+            after_kegunit = after_belief.get_keg_obj(keg_rope)
+            before_kegunit = before_belief.get_keg_obj(keg_rope)
+            if jvalues_different("belief_kegunit", before_kegunit, after_kegunit):
+                x_beliefatom = beliefatom_shop("belief_kegunit", "UPDATE")
+                x_beliefatom.set_jkey("keg_rope", after_kegunit.get_keg_rope())
+                if before_kegunit.addin != after_kegunit.addin:
+                    x_beliefatom.set_jvalue("addin", after_kegunit.addin)
+                if before_kegunit.begin != after_kegunit.begin:
+                    x_beliefatom.set_jvalue("begin", after_kegunit.begin)
+                if before_kegunit.close != after_kegunit.close:
+                    x_beliefatom.set_jvalue("close", after_kegunit.close)
+                if before_kegunit.denom != after_kegunit.denom:
+                    x_beliefatom.set_jvalue("denom", after_kegunit.denom)
+                if before_kegunit.numor != after_kegunit.numor:
+                    x_beliefatom.set_jvalue("numor", after_kegunit.numor)
+                if before_kegunit.morph != after_kegunit.morph:
+                    x_beliefatom.set_jvalue("morph", after_kegunit.morph)
+                if before_kegunit.star != after_kegunit.star:
+                    x_beliefatom.set_jvalue("star", after_kegunit.star)
+                if before_kegunit.pledge != after_kegunit.pledge:
+                    x_beliefatom.set_jvalue("pledge", after_kegunit.pledge)
                 self.set_beliefatom(x_beliefatom)
 
             # insert / update / delete factunits
-            before_factunit_reason_contexts = set(before_planunit.factunits.keys())
-            after_factunit_reason_contexts = set(after_planunit.factunits.keys())
-            self.add_beliefatom_plan_factunit_inserts(
-                planunit=after_planunit,
+            before_factunit_reason_contexts = set(before_kegunit.factunits.keys())
+            after_factunit_reason_contexts = set(after_kegunit.factunits.keys())
+            self.add_beliefatom_keg_factunit_inserts(
+                kegunit=after_kegunit,
                 insert_factunit_reason_contexts=after_factunit_reason_contexts.difference(
                     before_factunit_reason_contexts
                 ),
             )
-            self.add_beliefatom_plan_factunit_updates(
-                before_planunit=before_planunit,
-                after_planunit=after_planunit,
+            self.add_beliefatom_keg_factunit_updates(
+                before_kegunit=before_kegunit,
+                after_kegunit=after_kegunit,
                 update_factunit_reason_contexts=before_factunit_reason_contexts
                 & (after_factunit_reason_contexts),
             )
-            self.add_beliefatom_plan_factunit_deletes(
-                plan_rope=plan_rope,
+            self.add_beliefatom_keg_factunit_deletes(
+                keg_rope=keg_rope,
                 delete_factunit_reason_contexts=before_factunit_reason_contexts.difference(
                     after_factunit_reason_contexts
                 ),
             )
 
             # insert / update / delete awardunits
-            before_awardunits_awardee_titles = set(before_planunit.awardunits.keys())
-            after_awardunits_awardee_titles = set(after_planunit.awardunits.keys())
-            self.add_beliefatom_plan_awardunit_inserts(
-                after_planunit=after_planunit,
+            before_awardunits_awardee_titles = set(before_kegunit.awardunits.keys())
+            after_awardunits_awardee_titles = set(after_kegunit.awardunits.keys())
+            self.add_beliefatom_keg_awardunit_inserts(
+                after_kegunit=after_kegunit,
                 insert_awardunit_awardee_titles=after_awardunits_awardee_titles.difference(
                     before_awardunits_awardee_titles
                 ),
             )
-            self.add_beliefatom_plan_awardunit_updates(
-                before_planunit=before_planunit,
-                after_planunit=after_planunit,
+            self.add_beliefatom_keg_awardunit_updates(
+                before_kegunit=before_kegunit,
+                after_kegunit=after_kegunit,
                 update_awardunit_awardee_titles=before_awardunits_awardee_titles
                 & (after_awardunits_awardee_titles),
             )
-            self.add_beliefatom_plan_awardunit_deletes(
-                plan_rope=plan_rope,
+            self.add_beliefatom_keg_awardunit_deletes(
+                keg_rope=keg_rope,
                 delete_awardunit_awardee_titles=before_awardunits_awardee_titles.difference(
                     after_awardunits_awardee_titles
                 ),
             )
 
             # insert / update / delete reasonunits
-            before_reasonunit_reason_contexts = set(before_planunit.reasonunits.keys())
-            after_reasonunit_reason_contexts = set(after_planunit.reasonunits.keys())
-            self.add_beliefatom_plan_reasonunit_inserts(
-                after_planunit=after_planunit,
+            before_reasonunit_reason_contexts = set(before_kegunit.reasonunits.keys())
+            after_reasonunit_reason_contexts = set(after_kegunit.reasonunits.keys())
+            self.add_beliefatom_keg_reasonunit_inserts(
+                after_kegunit=after_kegunit,
                 insert_reasonunit_reason_contexts=after_reasonunit_reason_contexts.difference(
                     before_reasonunit_reason_contexts
                 ),
             )
-            self.add_beliefatom_plan_reasonunit_updates(
-                before_planunit=before_planunit,
-                after_planunit=after_planunit,
+            self.add_beliefatom_keg_reasonunit_updates(
+                before_kegunit=before_kegunit,
+                after_kegunit=after_kegunit,
                 update_reasonunit_reason_contexts=before_reasonunit_reason_contexts
                 & (after_reasonunit_reason_contexts),
             )
-            self.add_beliefatom_plan_reasonunit_deletes(
-                before_planunit=before_planunit,
+            self.add_beliefatom_keg_reasonunit_deletes(
+                before_kegunit=before_kegunit,
                 delete_reasonunit_reason_contexts=before_reasonunit_reason_contexts.difference(
                     after_reasonunit_reason_contexts
                 ),
@@ -494,16 +492,16 @@ class BeliefDelta:
             # update reasonunits_permises delete_case
 
             # insert / update / delete partyunits
-            before_partys_party_titles = set(before_planunit.laborunit.partys)
-            after_partys_party_titles = set(after_planunit.laborunit.partys)
-            self.add_beliefatom_plan_partyunit_insert(
-                plan_rope=plan_rope,
+            before_partys_party_titles = set(before_kegunit.laborunit.partys)
+            after_partys_party_titles = set(after_kegunit.laborunit.partys)
+            self.add_beliefatom_keg_partyunit_insert(
+                keg_rope=keg_rope,
                 insert_partyunit_party_titles=after_partys_party_titles.difference(
                     before_partys_party_titles
                 ),
             )
-            self.add_beliefatom_plan_partyunit_deletes(
-                plan_rope=plan_rope,
+            self.add_beliefatom_keg_partyunit_deletes(
+                keg_rope=keg_rope,
                 delete_partyunit_party_titles=before_partys_party_titles.difference(
                     after_partys_party_titles
                 ),
@@ -511,66 +509,64 @@ class BeliefDelta:
 
             # insert / update / delete healerunits
             before_healerunits_healer_names = set(
-                before_planunit.healerunit._healer_names
+                before_kegunit.healerunit._healer_names
             )
-            after_healerunits_healer_names = set(
-                after_planunit.healerunit._healer_names
-            )
-            self.add_beliefatom_plan_healerunit_insert(
-                plan_rope=plan_rope,
+            after_healerunits_healer_names = set(after_kegunit.healerunit._healer_names)
+            self.add_beliefatom_keg_healerunit_insert(
+                keg_rope=keg_rope,
                 insert_healerunit_healer_names=after_healerunits_healer_names.difference(
                     before_healerunits_healer_names
                 ),
             )
-            self.add_beliefatom_plan_healerunit_deletes(
-                plan_rope=plan_rope,
+            self.add_beliefatom_keg_healerunit_deletes(
+                keg_rope=keg_rope,
                 delete_healerunit_healer_names=before_healerunits_healer_names.difference(
                     after_healerunits_healer_names
                 ),
             )
 
-    def add_beliefatom_plan_deletes(
-        self, before_belief: BeliefUnit, delete_plan_ropes: set
+    def add_beliefatom_keg_deletes(
+        self, before_belief: BeliefUnit, delete_keg_ropes: set
     ):
-        for delete_plan_rope in delete_plan_ropes:
-            x_beliefatom = beliefatom_shop("belief_planunit", "DELETE")
-            x_beliefatom.set_jkey("plan_rope", delete_plan_rope)
+        for delete_keg_rope in delete_keg_ropes:
+            x_beliefatom = beliefatom_shop("belief_kegunit", "DELETE")
+            x_beliefatom.set_jkey("keg_rope", delete_keg_rope)
             self.set_beliefatom(x_beliefatom)
 
-            delete_planunit = before_belief.get_plan_obj(delete_plan_rope)
-            self.add_beliefatom_plan_factunit_deletes(
-                plan_rope=delete_plan_rope,
-                delete_factunit_reason_contexts=set(delete_planunit.factunits.keys()),
+            delete_kegunit = before_belief.get_keg_obj(delete_keg_rope)
+            self.add_beliefatom_keg_factunit_deletes(
+                keg_rope=delete_keg_rope,
+                delete_factunit_reason_contexts=set(delete_kegunit.factunits.keys()),
             )
 
-            self.add_beliefatom_plan_awardunit_deletes(
-                plan_rope=delete_plan_rope,
-                delete_awardunit_awardee_titles=set(delete_planunit.awardunits.keys()),
+            self.add_beliefatom_keg_awardunit_deletes(
+                keg_rope=delete_keg_rope,
+                delete_awardunit_awardee_titles=set(delete_kegunit.awardunits.keys()),
             )
-            self.add_beliefatom_plan_reasonunit_deletes(
-                before_planunit=delete_planunit,
+            self.add_beliefatom_keg_reasonunit_deletes(
+                before_kegunit=delete_kegunit,
                 delete_reasonunit_reason_contexts=set(
-                    delete_planunit.reasonunits.keys()
+                    delete_kegunit.reasonunits.keys()
                 ),
             )
-            self.add_beliefatom_plan_partyunit_deletes(
-                plan_rope=delete_plan_rope,
-                delete_partyunit_party_titles=delete_planunit.laborunit.partys,
+            self.add_beliefatom_keg_partyunit_deletes(
+                keg_rope=delete_keg_rope,
+                delete_partyunit_party_titles=delete_kegunit.laborunit.partys,
             )
-            self.add_beliefatom_plan_healerunit_deletes(
-                plan_rope=delete_plan_rope,
-                delete_healerunit_healer_names=delete_planunit.healerunit._healer_names,
+            self.add_beliefatom_keg_healerunit_deletes(
+                keg_rope=delete_keg_rope,
+                delete_healerunit_healer_names=delete_kegunit.healerunit._healer_names,
             )
 
-    def add_beliefatom_plan_reasonunit_inserts(
-        self, after_planunit: PlanUnit, insert_reasonunit_reason_contexts: set
+    def add_beliefatom_keg_reasonunit_inserts(
+        self, after_kegunit: KegUnit, insert_reasonunit_reason_contexts: set
     ):
         for insert_reasonunit_reason_context in insert_reasonunit_reason_contexts:
-            after_reasonunit = after_planunit.get_reasonunit(
+            after_reasonunit = after_kegunit.get_reasonunit(
                 insert_reasonunit_reason_context
             )
-            x_beliefatom = beliefatom_shop("belief_plan_reasonunit", "INSERT")
-            x_beliefatom.set_jkey("plan_rope", after_planunit.get_plan_rope())
+            x_beliefatom = beliefatom_shop("belief_keg_reasonunit", "INSERT")
+            x_beliefatom.set_jkey("keg_rope", after_kegunit.get_keg_rope())
             x_beliefatom.set_jkey("reason_context", after_reasonunit.reason_context)
             if after_reasonunit.active_requisite is not None:
                 x_beliefatom.set_jvalue(
@@ -579,30 +575,30 @@ class BeliefDelta:
                 )
             self.set_beliefatom(x_beliefatom)
 
-            self.add_beliefatom_plan_reason_caseunit_inserts(
-                plan_rope=after_planunit.get_plan_rope(),
+            self.add_beliefatom_keg_reason_caseunit_inserts(
+                keg_rope=after_kegunit.get_keg_rope(),
                 after_reasonunit=after_reasonunit,
                 insert_case_reason_states=set(after_reasonunit.cases.keys()),
             )
 
-    def add_beliefatom_plan_reasonunit_updates(
+    def add_beliefatom_keg_reasonunit_updates(
         self,
-        before_planunit: PlanUnit,
-        after_planunit: PlanUnit,
+        before_kegunit: KegUnit,
+        after_kegunit: KegUnit,
         update_reasonunit_reason_contexts: set,
     ):
         for update_reasonunit_reason_context in update_reasonunit_reason_contexts:
-            before_reasonunit = before_planunit.get_reasonunit(
+            before_reasonunit = before_kegunit.get_reasonunit(
                 update_reasonunit_reason_context
             )
-            after_reasonunit = after_planunit.get_reasonunit(
+            after_reasonunit = after_kegunit.get_reasonunit(
                 update_reasonunit_reason_context
             )
             if jvalues_different(
-                "belief_plan_reasonunit", before_reasonunit, after_reasonunit
+                "belief_keg_reasonunit", before_reasonunit, after_reasonunit
             ):
-                x_beliefatom = beliefatom_shop("belief_plan_reasonunit", "UPDATE")
-                x_beliefatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
+                x_beliefatom = beliefatom_shop("belief_keg_reasonunit", "UPDATE")
+                x_beliefatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
                 x_beliefatom.set_jkey("reason_context", after_reasonunit.reason_context)
                 if (
                     before_reasonunit.active_requisite
@@ -616,56 +612,56 @@ class BeliefDelta:
 
             before_case_reason_states = set(before_reasonunit.cases.keys())
             after_case_reason_states = set(after_reasonunit.cases.keys())
-            self.add_beliefatom_plan_reason_caseunit_inserts(
-                plan_rope=before_planunit.get_plan_rope(),
+            self.add_beliefatom_keg_reason_caseunit_inserts(
+                keg_rope=before_kegunit.get_keg_rope(),
                 after_reasonunit=after_reasonunit,
                 insert_case_reason_states=after_case_reason_states.difference(
                     before_case_reason_states
                 ),
             )
-            self.add_beliefatom_plan_reason_caseunit_updates(
-                plan_rope=before_planunit.get_plan_rope(),
+            self.add_beliefatom_keg_reason_caseunit_updates(
+                keg_rope=before_kegunit.get_keg_rope(),
                 before_reasonunit=before_reasonunit,
                 after_reasonunit=after_reasonunit,
                 update_case_reason_states=after_case_reason_states
                 & (before_case_reason_states),
             )
-            self.add_beliefatom_plan_reason_caseunit_deletes(
-                plan_rope=before_planunit.get_plan_rope(),
+            self.add_beliefatom_keg_reason_caseunit_deletes(
+                keg_rope=before_kegunit.get_keg_rope(),
                 reasonunit_reason_context=update_reasonunit_reason_context,
                 delete_case_reason_states=before_case_reason_states.difference(
                     after_case_reason_states
                 ),
             )
 
-    def add_beliefatom_plan_reasonunit_deletes(
-        self, before_planunit: PlanUnit, delete_reasonunit_reason_contexts: set
+    def add_beliefatom_keg_reasonunit_deletes(
+        self, before_kegunit: KegUnit, delete_reasonunit_reason_contexts: set
     ):
         for delete_reasonunit_reason_context in delete_reasonunit_reason_contexts:
-            x_beliefatom = beliefatom_shop("belief_plan_reasonunit", "DELETE")
-            x_beliefatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
+            x_beliefatom = beliefatom_shop("belief_keg_reasonunit", "DELETE")
+            x_beliefatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
             x_beliefatom.set_jkey("reason_context", delete_reasonunit_reason_context)
             self.set_beliefatom(x_beliefatom)
 
-            before_reasonunit = before_planunit.get_reasonunit(
+            before_reasonunit = before_kegunit.get_reasonunit(
                 delete_reasonunit_reason_context
             )
-            self.add_beliefatom_plan_reason_caseunit_deletes(
-                plan_rope=before_planunit.get_plan_rope(),
+            self.add_beliefatom_keg_reason_caseunit_deletes(
+                keg_rope=before_kegunit.get_keg_rope(),
                 reasonunit_reason_context=delete_reasonunit_reason_context,
                 delete_case_reason_states=set(before_reasonunit.cases.keys()),
             )
 
-    def add_beliefatom_plan_reason_caseunit_inserts(
+    def add_beliefatom_keg_reason_caseunit_inserts(
         self,
-        plan_rope: RopeTerm,
+        keg_rope: RopeTerm,
         after_reasonunit: ReasonUnit,
         insert_case_reason_states: set,
     ):
         for insert_case_reason_state in insert_case_reason_states:
             after_caseunit = after_reasonunit.get_case(insert_case_reason_state)
-            x_beliefatom = beliefatom_shop("belief_plan_reason_caseunit", "INSERT")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_reason_caseunit", "INSERT")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("reason_context", after_reasonunit.reason_context)
             x_beliefatom.set_jkey("reason_state", after_caseunit.reason_state)
             if after_caseunit.reason_lower is not None:
@@ -676,9 +672,9 @@ class BeliefDelta:
                 x_beliefatom.set_jvalue("reason_divisor", after_caseunit.reason_divisor)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_reason_caseunit_updates(
+    def add_beliefatom_keg_reason_caseunit_updates(
         self,
-        plan_rope: RopeTerm,
+        keg_rope: RopeTerm,
         before_reasonunit: ReasonUnit,
         after_reasonunit: ReasonUnit,
         update_case_reason_states: set,
@@ -687,12 +683,12 @@ class BeliefDelta:
             before_caseunit = before_reasonunit.get_case(update_case_reason_state)
             after_caseunit = after_reasonunit.get_case(update_case_reason_state)
             if jvalues_different(
-                "belief_plan_reason_caseunit",
+                "belief_keg_reason_caseunit",
                 before_caseunit,
                 after_caseunit,
             ):
-                x_beliefatom = beliefatom_shop("belief_plan_reason_caseunit", "UPDATE")
-                x_beliefatom.set_jkey("plan_rope", plan_rope)
+                x_beliefatom = beliefatom_shop("belief_keg_reason_caseunit", "UPDATE")
+                x_beliefatom.set_jkey("keg_rope", keg_rope)
                 x_beliefatom.set_jkey(
                     "reason_context", before_reasonunit.reason_context
                 )
@@ -707,87 +703,87 @@ class BeliefDelta:
                     )
                 self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_reason_caseunit_deletes(
+    def add_beliefatom_keg_reason_caseunit_deletes(
         self,
-        plan_rope: RopeTerm,
+        keg_rope: RopeTerm,
         reasonunit_reason_context: RopeTerm,
         delete_case_reason_states: set,
     ):
         for delete_case_reason_state in delete_case_reason_states:
-            x_beliefatom = beliefatom_shop("belief_plan_reason_caseunit", "DELETE")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_reason_caseunit", "DELETE")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("reason_context", reasonunit_reason_context)
             x_beliefatom.set_jkey("reason_state", delete_case_reason_state)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_partyunit_insert(
-        self, plan_rope: RopeTerm, insert_partyunit_party_titles: set
+    def add_beliefatom_keg_partyunit_insert(
+        self, keg_rope: RopeTerm, insert_partyunit_party_titles: set
     ):
         for insert_partyunit_party_title in insert_partyunit_party_titles:
-            x_beliefatom = beliefatom_shop("belief_plan_partyunit", "INSERT")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_partyunit", "INSERT")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("party_title", insert_partyunit_party_title)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_partyunit_deletes(
-        self, plan_rope: RopeTerm, delete_partyunit_party_titles: set
+    def add_beliefatom_keg_partyunit_deletes(
+        self, keg_rope: RopeTerm, delete_partyunit_party_titles: set
     ):
         for delete_partyunit_party_title in delete_partyunit_party_titles:
-            x_beliefatom = beliefatom_shop("belief_plan_partyunit", "DELETE")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_partyunit", "DELETE")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("party_title", delete_partyunit_party_title)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_healerunit_insert(
-        self, plan_rope: RopeTerm, insert_healerunit_healer_names: set
+    def add_beliefatom_keg_healerunit_insert(
+        self, keg_rope: RopeTerm, insert_healerunit_healer_names: set
     ):
         for insert_healerunit_healer_name in insert_healerunit_healer_names:
-            x_beliefatom = beliefatom_shop("belief_plan_healerunit", "INSERT")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_healerunit", "INSERT")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("healer_name", insert_healerunit_healer_name)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_healerunit_deletes(
-        self, plan_rope: RopeTerm, delete_healerunit_healer_names: set
+    def add_beliefatom_keg_healerunit_deletes(
+        self, keg_rope: RopeTerm, delete_healerunit_healer_names: set
     ):
         for delete_healerunit_healer_name in delete_healerunit_healer_names:
-            x_beliefatom = beliefatom_shop("belief_plan_healerunit", "DELETE")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_healerunit", "DELETE")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("healer_name", delete_healerunit_healer_name)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_awardunit_inserts(
-        self, after_planunit: PlanUnit, insert_awardunit_awardee_titles: set
+    def add_beliefatom_keg_awardunit_inserts(
+        self, after_kegunit: KegUnit, insert_awardunit_awardee_titles: set
     ):
         for after_awardunit_awardee_title in insert_awardunit_awardee_titles:
-            after_awardunit = after_planunit.awardunits.get(
+            after_awardunit = after_kegunit.awardunits.get(
                 after_awardunit_awardee_title
             )
-            x_beliefatom = beliefatom_shop("belief_plan_awardunit", "INSERT")
-            x_beliefatom.set_jkey("plan_rope", after_planunit.get_plan_rope())
+            x_beliefatom = beliefatom_shop("belief_keg_awardunit", "INSERT")
+            x_beliefatom.set_jkey("keg_rope", after_kegunit.get_keg_rope())
             x_beliefatom.set_jkey("awardee_title", after_awardunit.awardee_title)
             x_beliefatom.set_jvalue("give_force", after_awardunit.give_force)
             x_beliefatom.set_jvalue("take_force", after_awardunit.take_force)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_awardunit_updates(
+    def add_beliefatom_keg_awardunit_updates(
         self,
-        before_planunit: PlanUnit,
-        after_planunit: PlanUnit,
+        before_kegunit: KegUnit,
+        after_kegunit: KegUnit,
         update_awardunit_awardee_titles: set,
     ):
         for update_awardunit_awardee_title in update_awardunit_awardee_titles:
-            before_awardunit = before_planunit.awardunits.get(
+            before_awardunit = before_kegunit.awardunits.get(
                 update_awardunit_awardee_title
             )
-            after_awardunit = after_planunit.awardunits.get(
+            after_awardunit = after_kegunit.awardunits.get(
                 update_awardunit_awardee_title
             )
             if jvalues_different(
-                "belief_plan_awardunit", before_awardunit, after_awardunit
+                "belief_keg_awardunit", before_awardunit, after_awardunit
             ):
-                x_beliefatom = beliefatom_shop("belief_plan_awardunit", "UPDATE")
-                x_beliefatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
+                x_beliefatom = beliefatom_shop("belief_keg_awardunit", "UPDATE")
+                x_beliefatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
                 x_beliefatom.set_jkey("awardee_title", after_awardunit.awardee_title)
                 if before_awardunit.give_force != after_awardunit.give_force:
                     x_beliefatom.set_jvalue("give_force", after_awardunit.give_force)
@@ -795,22 +791,22 @@ class BeliefDelta:
                     x_beliefatom.set_jvalue("take_force", after_awardunit.take_force)
                 self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_awardunit_deletes(
-        self, plan_rope: RopeTerm, delete_awardunit_awardee_titles: set
+    def add_beliefatom_keg_awardunit_deletes(
+        self, keg_rope: RopeTerm, delete_awardunit_awardee_titles: set
     ):
         for delete_awardunit_awardee_title in delete_awardunit_awardee_titles:
-            x_beliefatom = beliefatom_shop("belief_plan_awardunit", "DELETE")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_awardunit", "DELETE")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("awardee_title", delete_awardunit_awardee_title)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_factunit_inserts(
-        self, planunit: PlanUnit, insert_factunit_reason_contexts: set
+    def add_beliefatom_keg_factunit_inserts(
+        self, kegunit: KegUnit, insert_factunit_reason_contexts: set
     ):
         for insert_factunit_reason_context in insert_factunit_reason_contexts:
-            insert_factunit = planunit.factunits.get(insert_factunit_reason_context)
-            x_beliefatom = beliefatom_shop("belief_plan_factunit", "INSERT")
-            x_beliefatom.set_jkey("plan_rope", planunit.get_plan_rope())
+            insert_factunit = kegunit.factunits.get(insert_factunit_reason_context)
+            x_beliefatom = beliefatom_shop("belief_keg_factunit", "INSERT")
+            x_beliefatom.set_jkey("keg_rope", kegunit.get_keg_rope())
             x_beliefatom.set_jkey("fact_context", insert_factunit.fact_context)
             if insert_factunit.fact_state is not None:
                 x_beliefatom.set_jvalue("fact_state", insert_factunit.fact_state)
@@ -820,24 +816,22 @@ class BeliefDelta:
                 x_beliefatom.set_jvalue("fact_upper", insert_factunit.fact_upper)
             self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_factunit_updates(
+    def add_beliefatom_keg_factunit_updates(
         self,
-        before_planunit: PlanUnit,
-        after_planunit: PlanUnit,
+        before_kegunit: KegUnit,
+        after_kegunit: KegUnit,
         update_factunit_reason_contexts: set,
     ):
         for update_factunit_reason_context in update_factunit_reason_contexts:
-            before_factunit = before_planunit.factunits.get(
+            before_factunit = before_kegunit.factunits.get(
                 update_factunit_reason_context
             )
-            after_factunit = after_planunit.factunits.get(
-                update_factunit_reason_context
-            )
+            after_factunit = after_kegunit.factunits.get(update_factunit_reason_context)
             if jvalues_different(
-                "belief_plan_factunit", before_factunit, after_factunit
+                "belief_keg_factunit", before_factunit, after_factunit
             ):
-                x_beliefatom = beliefatom_shop("belief_plan_factunit", "UPDATE")
-                x_beliefatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
+                x_beliefatom = beliefatom_shop("belief_keg_factunit", "UPDATE")
+                x_beliefatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
                 x_beliefatom.set_jkey("fact_context", after_factunit.fact_context)
                 if before_factunit.fact_state != after_factunit.fact_state:
                     x_beliefatom.set_jvalue("fact_state", after_factunit.fact_state)
@@ -847,12 +841,12 @@ class BeliefDelta:
                     x_beliefatom.set_jvalue("fact_upper", after_factunit.fact_upper)
                 self.set_beliefatom(x_beliefatom)
 
-    def add_beliefatom_plan_factunit_deletes(
-        self, plan_rope: RopeTerm, delete_factunit_reason_contexts: FactUnit
+    def add_beliefatom_keg_factunit_deletes(
+        self, keg_rope: RopeTerm, delete_factunit_reason_contexts: FactUnit
     ):
         for delete_factunit_reason_context in delete_factunit_reason_contexts:
-            x_beliefatom = beliefatom_shop("belief_plan_factunit", "DELETE")
-            x_beliefatom.set_jkey("plan_rope", plan_rope)
+            x_beliefatom = beliefatom_shop("belief_keg_factunit", "DELETE")
+            x_beliefatom.set_jkey("keg_rope", keg_rope)
             x_beliefatom.set_jkey("fact_context", delete_factunit_reason_context)
             self.set_beliefatom(x_beliefatom)
 

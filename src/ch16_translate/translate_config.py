@@ -109,7 +109,7 @@ def get_translate_args_class_types() -> dict[str, str]:
         "offi_time": "EpochTime",
         "quota": "int",
         "party_title": "TitleTerm",
-        "plan_rope": "RopeTerm",
+        "keg_rope": "RopeTerm",
         "pledge": "bool",
         "problem_bool": "bool",
         "reason_context": "RopeTerm",
@@ -185,7 +185,7 @@ def get_translateable_args() -> set:
         "moment_label",
         "month_label",
         "party_title",
-        "plan_rope",
+        "keg_rope",
         "reason_context",
         "reason_state",
         "voice_name",
@@ -238,7 +238,7 @@ def get_translate_ropeterm_args() -> set[str]:
     return {
         "fact_state",
         "fact_context",
-        "plan_rope",
+        "keg_rope",
         "reason_state",
         "reason_context",
     }

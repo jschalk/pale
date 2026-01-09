@@ -1,6 +1,6 @@
 from src.ch03_voice.group import awardunit_shop
 from src.ch05_reason.reason_main import factunit_shop
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch08_belief_atom.atom_main import beliefatom_shop
 from src.ch09_belief_lesson.delta import beliefdelta_shop
@@ -257,7 +257,7 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_membership()
     assert after_yao_run_membership.group_debt_lumen == new_yao_run_group_debt_lumen
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_planunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_kegunit():
     # ESTABLISH
     before_sue_beliefunit = beliefunit_shop(exx.sue)
     sports_str = "sports"
@@ -266,27 +266,27 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_planunit():
     ball_rope = before_sue_beliefunit.make_rope(sports_rope, ball_str)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_beliefunit.make_rope(sports_rope, disc_str)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(disc_str), sports_rope)
-    delete_disc_beliefatom = beliefatom_shop(kw.belief_planunit, kw.DELETE)
-    delete_disc_beliefatom.set_jkey(kw.plan_rope, disc_rope)
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(disc_str), sports_rope)
+    delete_disc_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.DELETE)
+    delete_disc_beliefatom.set_jkey(kw.keg_rope, disc_rope)
     print(f"{disc_rope=}")
-    delete_disc_beliefatom.set_jkey(kw.plan_rope, disc_rope)
+    delete_disc_beliefatom.set_jkey(kw.keg_rope, disc_rope)
     print(f"{delete_disc_beliefatom=}")
     sue_beliefdelta = beliefdelta_shop()
     sue_beliefdelta.set_beliefatom(delete_disc_beliefatom)
-    assert before_sue_beliefunit.plan_exists(ball_rope)
-    assert before_sue_beliefunit.plan_exists(disc_rope)
+    assert before_sue_beliefunit.keg_exists(ball_rope)
+    assert before_sue_beliefunit.keg_exists(disc_rope)
 
     # WHEN
     after_sue_beliefunit = sue_beliefdelta.get_atom_edited_belief(before_sue_beliefunit)
 
     # THEN
-    assert after_sue_beliefunit.plan_exists(ball_rope)
-    assert after_sue_beliefunit.plan_exists(disc_rope) is False
+    assert after_sue_beliefunit.keg_exists(ball_rope)
+    assert after_sue_beliefunit.keg_exists(disc_rope) is False
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_planunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_kegunit():
     # ESTABLISH
     before_sue_beliefunit = beliefunit_shop(exx.sue)
     sports_str = "sports"
@@ -295,9 +295,9 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_planunit():
     ball_rope = before_sue_beliefunit.make_rope(sports_rope, ball_str)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_beliefunit.make_rope(sports_rope, disc_str)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    assert before_sue_beliefunit.plan_exists(ball_rope)
-    assert before_sue_beliefunit.plan_exists(disc_rope) is False
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    assert before_sue_beliefunit.keg_exists(ball_rope)
+    assert before_sue_beliefunit.keg_exists(disc_rope) is False
 
     # WHEN
     # x_addin = 140
@@ -306,8 +306,8 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_planunit():
     # x_denom = 17
     # x_numor = 10
     x_pledge = True
-    insert_disc_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    insert_disc_beliefatom.set_jkey(kw.plan_rope, disc_rope)
+    insert_disc_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    insert_disc_beliefatom.set_jkey(kw.keg_rope, disc_rope)
     # insert_disc_beliefatom.set_jvalue(kw.addin, x_addin)
     # insert_disc_beliefatom.set_jvalue(kw.begin, x_begin)
     # insert_disc_beliefatom.set_jvalue(kw.close, x_close)
@@ -323,21 +323,21 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_planunit():
     after_sue_beliefunit = sue_beliefdelta.get_atom_edited_belief(before_sue_beliefunit)
 
     # THEN
-    assert after_sue_beliefunit.plan_exists(ball_rope)
-    assert after_sue_beliefunit.plan_exists(disc_rope)
-    disc_plan = after_sue_beliefunit.get_plan_obj(disc_rope)
-    assert disc_plan.gogo_want == x_gogo_want
-    assert disc_plan.stop_want == x_stop_want
+    assert after_sue_beliefunit.keg_exists(ball_rope)
+    assert after_sue_beliefunit.keg_exists(disc_rope)
+    disc_keg = after_sue_beliefunit.get_keg_obj(disc_rope)
+    assert disc_keg.gogo_want == x_gogo_want
+    assert disc_keg.stop_want == x_stop_want
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_planunit_SimpleAttributes():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_kegunit_SimpleAttributes():
     # ESTABLISH
     before_sue_beliefunit = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_beliefunit.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_beliefunit.make_rope(sports_rope, ball_str)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(ball_str), sports_rope)
 
     # x_addin = 140
     x_begin = 1000
@@ -347,8 +347,8 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_planunit_Sim
     x_gogo_want = 1222
     x_stop_want = 1333
     x_pledge = True
-    insert_disc_beliefatom = beliefatom_shop(kw.belief_planunit, kw.UPDATE)
-    insert_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    insert_disc_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.UPDATE)
+    insert_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     # insert_disc_beliefatom.set_jvalue(kw.addin, x_addin)
     insert_disc_beliefatom.set_jvalue(kw.begin, x_begin)
     insert_disc_beliefatom.set_jvalue(kw.close, x_close)
@@ -361,24 +361,24 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_planunit_Sim
     print(f"{insert_disc_beliefatom=}")
     sue_beliefdelta = beliefdelta_shop()
     sue_beliefdelta.set_beliefatom(insert_disc_beliefatom)
-    assert before_sue_beliefunit.get_plan_obj(ball_rope).begin is None
-    assert before_sue_beliefunit.get_plan_obj(ball_rope).close is None
-    assert before_sue_beliefunit.get_plan_obj(ball_rope).pledge is False
-    assert before_sue_beliefunit.get_plan_obj(ball_rope).gogo_want is None
-    assert before_sue_beliefunit.get_plan_obj(ball_rope).stop_want is None
+    assert before_sue_beliefunit.get_keg_obj(ball_rope).begin is None
+    assert before_sue_beliefunit.get_keg_obj(ball_rope).close is None
+    assert before_sue_beliefunit.get_keg_obj(ball_rope).pledge is False
+    assert before_sue_beliefunit.get_keg_obj(ball_rope).gogo_want is None
+    assert before_sue_beliefunit.get_keg_obj(ball_rope).stop_want is None
 
     # WHEN
     after_sue_beliefunit = sue_beliefdelta.get_atom_edited_belief(before_sue_beliefunit)
 
     # THEN
-    assert after_sue_beliefunit.get_plan_obj(ball_rope).begin == x_begin
-    assert after_sue_beliefunit.get_plan_obj(ball_rope).close == x_close
-    assert after_sue_beliefunit.get_plan_obj(ball_rope).gogo_want == x_gogo_want
-    assert after_sue_beliefunit.get_plan_obj(ball_rope).stop_want == x_stop_want
-    assert after_sue_beliefunit.get_plan_obj(ball_rope).pledge
+    assert after_sue_beliefunit.get_keg_obj(ball_rope).begin == x_begin
+    assert after_sue_beliefunit.get_keg_obj(ball_rope).close == x_close
+    assert after_sue_beliefunit.get_keg_obj(ball_rope).gogo_want == x_gogo_want
+    assert after_sue_beliefunit.get_keg_obj(ball_rope).stop_want == x_stop_want
+    assert after_sue_beliefunit.get_keg_obj(ball_rope).pledge
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_awardunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_keg_awardunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_beliefunit = beliefunit_shop(exx.sue)
@@ -401,18 +401,18 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_awardun
     ball_rope = before_sue_beliefunit.make_rope(sports_rope, ball_str)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_beliefunit.make_rope(sports_rope, disc_str)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(disc_str), sports_rope)
-    before_sue_beliefunit.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_beliefunit.edit_plan_attr(ball_rope, awardunit=awardunit_shop(fly_str))
-    before_sue_beliefunit.edit_plan_attr(disc_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_beliefunit.edit_plan_attr(disc_rope, awardunit=awardunit_shop(fly_str))
-    assert len(before_sue_beliefunit.get_plan_obj(ball_rope).awardunits) == 2
-    assert len(before_sue_beliefunit.get_plan_obj(disc_rope).awardunits) == 2
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(disc_str), sports_rope)
+    before_sue_beliefunit.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_beliefunit.edit_keg_attr(ball_rope, awardunit=awardunit_shop(fly_str))
+    before_sue_beliefunit.edit_keg_attr(disc_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_beliefunit.edit_keg_attr(disc_rope, awardunit=awardunit_shop(fly_str))
+    assert len(before_sue_beliefunit.get_keg_obj(ball_rope).awardunits) == 2
+    assert len(before_sue_beliefunit.get_keg_obj(disc_rope).awardunits) == 2
 
     # WHEN
-    delete_disc_beliefatom = beliefatom_shop(kw.belief_plan_awardunit, kw.DELETE)
-    delete_disc_beliefatom.set_jkey(kw.plan_rope, disc_rope)
+    delete_disc_beliefatom = beliefatom_shop(kw.belief_keg_awardunit, kw.DELETE)
+    delete_disc_beliefatom.set_jkey(kw.keg_rope, disc_rope)
     delete_disc_beliefatom.set_jkey(kw.awardee_title, fly_str)
     print(f"{delete_disc_beliefatom=}")
     sue_beliefdelta = beliefdelta_shop()
@@ -420,11 +420,11 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_awardun
     after_sue_beliefunit = sue_beliefdelta.get_atom_edited_belief(before_sue_beliefunit)
 
     # THEN
-    assert len(after_sue_beliefunit.get_plan_obj(ball_rope).awardunits) == 2
-    assert len(after_sue_beliefunit.get_plan_obj(disc_rope).awardunits) == 1
+    assert len(after_sue_beliefunit.get_keg_obj(ball_rope).awardunits) == 2
+    assert len(after_sue_beliefunit.get_keg_obj(disc_rope).awardunits) == 1
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_awardunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_keg_awardunit():
     # ESTABLISH
     before_sue_beliefunit = beliefunit_shop(exx.sue)
     before_sue_beliefunit.add_voiceunit(exx.yao)
@@ -436,19 +436,17 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_awardun
     sports_rope = before_sue_beliefunit.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_beliefunit.make_rope(sports_rope, ball_str)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_sue_beliefunit.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    run_awardunit = before_sue_beliefunit.get_plan_obj(ball_rope).awardunits.get(
-        exx.run
-    )
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_beliefunit.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    run_awardunit = before_sue_beliefunit.get_keg_obj(ball_rope).awardunits.get(exx.run)
     assert run_awardunit.give_force == 1
     assert run_awardunit.take_force == 1
 
     # WHEN
     x_give_force = 55
     x_take_force = 66
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_awardunit, kw.UPDATE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_awardunit, kw.UPDATE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.awardee_title, exx.run)
     update_disc_beliefatom.set_jvalue(kw.give_force, x_give_force)
     update_disc_beliefatom.set_jvalue(kw.take_force, x_take_force)
@@ -458,13 +456,13 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_awardun
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_beliefunit)
 
     # THEN
-    run_awardunit = after_sue_au.get_plan_obj(ball_rope).awardunits.get(exx.run)
+    run_awardunit = after_sue_au.get_keg_obj(ball_rope).awardunits.get(exx.run)
     print(f"{run_awardunit.give_force=}")
     assert run_awardunit.give_force == x_give_force
     assert run_awardunit.take_force == x_take_force
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_awardunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_keg_awardunit():
     # ESTABLISH
     before_sue_beliefunit = beliefunit_shop(exx.sue)
     before_sue_beliefunit.add_voiceunit(exx.yao)
@@ -475,15 +473,15 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_awardun
     sports_rope = before_sue_beliefunit.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_beliefunit.make_rope(sports_rope, ball_str)
-    before_sue_beliefunit.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_plan = before_sue_beliefunit.get_plan_obj(ball_rope)
-    assert before_ball_plan.awardunits.get(exx.run) is None
+    before_sue_beliefunit.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_keg = before_sue_beliefunit.get_keg_obj(ball_rope)
+    assert before_ball_keg.awardunits.get(exx.run) is None
 
     # WHEN
     x_give_force = 55
     x_take_force = 66
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_awardunit, kw.INSERT)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_awardunit, kw.INSERT)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.awardee_title, exx.run)
     update_disc_beliefatom.set_jvalue(kw.give_force, x_give_force)
     update_disc_beliefatom.set_jvalue(kw.take_force, x_take_force)
@@ -493,32 +491,32 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_awardun
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_beliefunit)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_plan.awardunits.get(exx.run) is not None
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_keg.awardunits.get(exx.run) is not None
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_factunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_keg_factunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_au.make_rope(knee_rope, damaged_str)
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(damaged_str), knee_rope)
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_plan.factunits == {}
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_keg.factunits == {}
 
     # WHEN
     damaged_fact_lower = 55
     damaged_fact_upper = 66
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_factunit, kw.INSERT)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_factunit, kw.INSERT)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.fact_context, knee_rope)
     update_disc_beliefatom.set_jvalue(kw.fact_state, damaged_rope)
     update_disc_beliefatom.set_jvalue(kw.fact_lower, damaged_fact_lower)
@@ -529,40 +527,40 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_factuni
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_plan.factunits != {}
-    assert after_ball_plan.factunits.get(knee_rope) is not None
-    assert after_ball_plan.factunits.get(knee_rope).fact_context == knee_rope
-    assert after_ball_plan.factunits.get(knee_rope).fact_state == damaged_rope
-    assert after_ball_plan.factunits.get(knee_rope).fact_lower == damaged_fact_lower
-    assert after_ball_plan.factunits.get(knee_rope).fact_upper == damaged_fact_upper
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_keg.factunits != {}
+    assert after_ball_keg.factunits.get(knee_rope) is not None
+    assert after_ball_keg.factunits.get(knee_rope).fact_context == knee_rope
+    assert after_ball_keg.factunits.get(knee_rope).fact_state == damaged_rope
+    assert after_ball_keg.factunits.get(knee_rope).fact_lower == damaged_fact_lower
+    assert after_ball_keg.factunits.get(knee_rope).fact_upper == damaged_fact_upper
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_factunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_keg_factunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_au.make_rope(knee_rope, damaged_str)
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(damaged_str), knee_rope)
-    before_sue_au.edit_plan_attr(
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_au.edit_keg_attr(
         ball_rope,
         factunit=factunit_shop(fact_context=knee_rope, fact_state=damaged_rope),
     )
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_plan.factunits != {}
-    assert before_ball_plan.factunits.get(knee_rope) is not None
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_keg.factunits != {}
+    assert before_ball_keg.factunits.get(knee_rope) is not None
 
     # WHEN
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_factunit, kw.DELETE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_factunit, kw.DELETE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.fact_context, knee_rope)
     # print(f"{update_disc_beliefatom=}")
     sue_beliefdelta = beliefdelta_shop()
@@ -570,11 +568,11 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_factuni
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_plan.factunits == {}
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_keg.factunits == {}
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_factunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_keg_factunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
@@ -582,30 +580,30 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_factuni
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_au.make_rope(knee_rope, damaged_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_au.make_rope(knee_rope, medical_str)
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(damaged_str), knee_rope)
-    before_sue_au.set_plan_obj(planunit_shop(medical_str), knee_rope)
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(medical_str), knee_rope)
     before_knee_factunit = factunit_shop(knee_rope, damaged_rope)
-    before_sue_au.edit_plan_attr(ball_rope, factunit=before_knee_factunit)
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_plan.factunits != {}
-    assert before_ball_plan.factunits.get(knee_rope) is not None
-    assert before_ball_plan.factunits.get(knee_rope).fact_state == damaged_rope
-    assert before_ball_plan.factunits.get(knee_rope).fact_lower is None
-    assert before_ball_plan.factunits.get(knee_rope).fact_upper is None
+    before_sue_au.edit_keg_attr(ball_rope, factunit=before_knee_factunit)
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_keg.factunits != {}
+    assert before_ball_keg.factunits.get(knee_rope) is not None
+    assert before_ball_keg.factunits.get(knee_rope).fact_state == damaged_rope
+    assert before_ball_keg.factunits.get(knee_rope).fact_lower is None
+    assert before_ball_keg.factunits.get(knee_rope).fact_upper is None
 
     # WHEN
     medical_fact_lower = 45
     medical_fact_upper = 77
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_factunit, kw.UPDATE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_factunit, kw.UPDATE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.fact_context, knee_rope)
     update_disc_beliefatom.set_jvalue(kw.fact_state, medical_rope)
     update_disc_beliefatom.set_jvalue(kw.fact_lower, medical_fact_lower)
@@ -616,15 +614,15 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_factuni
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_plan.factunits != {}
-    assert after_ball_plan.factunits.get(knee_rope) is not None
-    assert after_ball_plan.factunits.get(knee_rope).fact_state == medical_rope
-    assert after_ball_plan.factunits.get(knee_rope).fact_lower == medical_fact_lower
-    assert after_ball_plan.factunits.get(knee_rope).fact_upper == medical_fact_upper
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_keg.factunits != {}
+    assert after_ball_keg.factunits.get(knee_rope) is not None
+    assert after_ball_keg.factunits.get(knee_rope).fact_state == medical_rope
+    assert after_ball_keg.factunits.get(knee_rope).fact_lower == medical_fact_lower
+    assert after_ball_keg.factunits.get(knee_rope).fact_upper == medical_fact_upper
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reason_caseunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_keg_reason_caseunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
@@ -632,19 +630,19 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reason_
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_au.make_rope(knee_rope, damaged_str)
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(damaged_str), knee_rope)
-    before_sue_au.edit_plan_attr(
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_au.edit_keg_attr(
         ball_rope, reason_context=knee_rope, reason_case=damaged_rope
     )
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_plan.reasonunits != {}
-    before_knee_reasonunit = before_ball_plan.get_reasonunit(knee_rope)
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_keg.reasonunits != {}
+    before_knee_reasonunit = before_ball_keg.get_reasonunit(knee_rope)
     assert before_knee_reasonunit is not None
     damaged_caseunit = before_knee_reasonunit.get_case(damaged_rope)
     assert damaged_caseunit.reason_state == damaged_rope
@@ -656,8 +654,8 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reason_
     damaged_reason_lower = 45
     damaged_reason_upper = 77
     damaged_reason_divisor = 3
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_reason_caseunit, kw.UPDATE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_reason_caseunit, kw.UPDATE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.reason_context, knee_rope)
     update_disc_beliefatom.set_jkey(kw.reason_state, damaged_rope)
     update_disc_beliefatom.set_jvalue(kw.reason_lower, damaged_reason_lower)
@@ -669,8 +667,8 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reason_
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    after_knee_reasonunit = after_ball_plan.get_reasonunit(knee_rope)
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    after_knee_reasonunit = after_ball_keg.get_reasonunit(knee_rope)
     assert after_knee_reasonunit is not None
     after_damaged_caseunit = after_knee_reasonunit.get_case(damaged_rope)
     assert after_damaged_caseunit.reason_state == damaged_rope
@@ -679,28 +677,28 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reason_
     assert after_damaged_caseunit.reason_divisor == damaged_reason_divisor
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_reason_caseunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_keg_reason_caseunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_au.make_rope(knee_rope, damaged_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_au.make_rope(knee_rope, medical_str)
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(damaged_str), knee_rope)
-    before_sue_au.set_plan_obj(planunit_shop(medical_str), knee_rope)
-    before_sue_au.edit_plan_attr(
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(medical_str), knee_rope)
+    before_sue_au.edit_keg_attr(
         ball_rope, reason_context=knee_rope, reason_case=damaged_rope
     )
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    before_knee_reasonunit = before_ball_plan.get_reasonunit(knee_rope)
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    before_knee_reasonunit = before_ball_keg.get_reasonunit(knee_rope)
     assert before_knee_reasonunit.get_case(damaged_rope) is not None
     assert before_knee_reasonunit.get_case(medical_rope) is None
 
@@ -708,8 +706,8 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_reason_
     medical_reason_lower = 45
     medical_reason_upper = 77
     medical_reason_divisor = 3
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_reason_caseunit, kw.INSERT)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_reason_caseunit, kw.INSERT)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.reason_context, knee_rope)
     update_disc_beliefatom.set_jkey(kw.reason_state, medical_rope)
     update_disc_beliefatom.set_jvalue(kw.reason_lower, medical_reason_lower)
@@ -721,8 +719,8 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_reason_
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    after_knee_reasonunit = after_ball_plan.get_reasonunit(knee_rope)
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    after_knee_reasonunit = after_ball_keg.get_reasonunit(knee_rope)
     after_medical_caseunit = after_knee_reasonunit.get_case(medical_rope)
     assert after_medical_caseunit is not None
     assert after_medical_caseunit.reason_state == medical_rope
@@ -731,7 +729,7 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_reason_
     assert after_medical_caseunit.reason_divisor == medical_reason_divisor
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_reason_caseunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_keg_reason_caseunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
@@ -739,30 +737,30 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_reason_
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_au.make_rope(knee_rope, damaged_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_au.make_rope(knee_rope, medical_str)
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(damaged_str), knee_rope)
-    before_sue_au.set_plan_obj(planunit_shop(medical_str), knee_rope)
-    before_sue_au.edit_plan_attr(
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(medical_str), knee_rope)
+    before_sue_au.edit_keg_attr(
         ball_rope, reason_context=knee_rope, reason_case=damaged_rope
     )
-    before_sue_au.edit_plan_attr(
+    before_sue_au.edit_keg_attr(
         ball_rope, reason_context=knee_rope, reason_case=medical_rope
     )
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    before_knee_reasonunit = before_ball_plan.get_reasonunit(knee_rope)
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    before_knee_reasonunit = before_ball_keg.get_reasonunit(knee_rope)
     assert before_knee_reasonunit.get_case(damaged_rope) is not None
     assert before_knee_reasonunit.get_case(medical_rope) is not None
 
     # WHEN
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_reason_caseunit, kw.DELETE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_reason_caseunit, kw.DELETE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.reason_context, knee_rope)
     update_disc_beliefatom.set_jkey(kw.reason_state, medical_rope)
     sue_beliefdelta = beliefdelta_shop()
@@ -770,33 +768,33 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_reason_
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    after_knee_reasonunit = after_ball_plan.get_reasonunit(knee_rope)
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    after_knee_reasonunit = after_ball_keg.get_reasonunit(knee_rope)
     assert after_knee_reasonunit.get_case(damaged_rope) is not None
     assert after_knee_reasonunit.get_case(medical_rope) is None
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_reasonunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_keg_reasonunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_au.make_rope(knee_rope, medical_str)
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(medical_str), knee_rope)
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_plan.get_reasonunit(knee_rope) is None
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(medical_str), knee_rope)
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_keg.get_reasonunit(knee_rope) is None
 
     # WHEN
     medical_active_requisite = True
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_reasonunit, kw.INSERT)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_reasonunit, kw.INSERT)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey("reason_context", knee_rope)
     update_disc_beliefatom.set_jvalue(
         kw.active_requisite,
@@ -808,14 +806,14 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_reasonu
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    after_knee_reasonunit = after_ball_plan.get_reasonunit(knee_rope)
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    after_knee_reasonunit = after_ball_keg.get_reasonunit(knee_rope)
     assert after_knee_reasonunit is not None
     assert after_knee_reasonunit.get_case(medical_rope) is None
     assert after_knee_reasonunit.active_requisite == medical_active_requisite
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reasonunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_keg_reasonunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
@@ -823,28 +821,28 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reasonu
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_au.make_rope(knee_rope, medical_str)
     before_medical_active_requisite = False
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.set_plan_obj(planunit_shop(medical_str), knee_rope)
-    before_sue_au.edit_plan_attr(
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.set_keg_obj(kegunit_shop(medical_str), knee_rope)
+    before_sue_au.edit_keg_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_requisite_active=before_medical_active_requisite,
     )
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    before_ball_reasonunit = before_ball_plan.get_reasonunit(knee_rope)
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    before_ball_reasonunit = before_ball_keg.get_reasonunit(knee_rope)
     assert before_ball_reasonunit is not None
     assert before_ball_reasonunit.active_requisite == before_medical_active_requisite
 
     # WHEN
     after_medical_active_requisite = True
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_reasonunit, kw.UPDATE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_reasonunit, kw.UPDATE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey("reason_context", knee_rope)
     update_disc_beliefatom.set_jvalue(
         kw.active_requisite,
@@ -856,47 +854,47 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_update_plan_reasonu
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    after_knee_reasonunit = after_ball_plan.get_reasonunit(knee_rope)
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    after_knee_reasonunit = after_ball_keg.get_reasonunit(knee_rope)
     assert after_knee_reasonunit is not None
     assert after_knee_reasonunit.get_case(medical_rope) is None
     assert after_knee_reasonunit.active_requisite == after_medical_active_requisite
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_reasonunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_keg_reasonunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_au.make_l1_rope(knee_str)
     medical_active_requisite = False
-    before_sue_au.set_l1_plan(planunit_shop(knee_str))
-    before_sue_au.edit_plan_attr(
+    before_sue_au.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_au.edit_keg_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_requisite_active=medical_active_requisite,
     )
-    before_ball_plan = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_plan.get_reasonunit(knee_rope) is not None
+    before_ball_keg = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_keg.get_reasonunit(knee_rope) is not None
 
     # WHEN
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_reasonunit, kw.DELETE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_reasonunit, kw.DELETE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey("reason_context", knee_rope)
     sue_beliefdelta = beliefdelta_shop()
     sue_beliefdelta.set_beliefatom(update_disc_beliefatom)
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_plan = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_plan.get_reasonunit(knee_rope) is None
+    after_ball_keg = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_keg.get_reasonunit(knee_rope) is None
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_partyunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_keg_partyunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     before_sue_au.add_voiceunit(exx.yao)
@@ -904,25 +902,25 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_partyun
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_planunit = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_planunit.laborunit.partys == {}
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_kegunit = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_kegunit.laborunit.partys == {}
 
     # WHEN
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_partyunit, kw.INSERT)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_partyunit, kw.INSERT)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.party_title, exx.yao)
     sue_beliefdelta = beliefdelta_shop()
     sue_beliefdelta.set_beliefatom(update_disc_beliefatom)
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_planunit = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_planunit.laborunit.partys != set()
-    assert after_ball_planunit.laborunit.get_partyunit(exx.yao) is not None
+    after_ball_kegunit = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_kegunit.laborunit.partys != set()
+    assert after_ball_kegunit.laborunit.get_partyunit(exx.yao) is not None
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_partyunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_keg_partyunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     before_sue_au.add_voiceunit(exx.yao)
@@ -930,27 +928,27 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_partyun
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_planunit = before_sue_au.get_plan_obj(ball_rope)
-    before_ball_planunit.laborunit.add_party(exx.yao)
-    assert before_ball_planunit.laborunit.partys != set()
-    assert before_ball_planunit.laborunit.get_partyunit(exx.yao) is not None
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_kegunit = before_sue_au.get_keg_obj(ball_rope)
+    before_ball_kegunit.laborunit.add_party(exx.yao)
+    assert before_ball_kegunit.laborunit.partys != set()
+    assert before_ball_kegunit.laborunit.get_partyunit(exx.yao) is not None
 
     # WHEN
-    update_disc_beliefatom = beliefatom_shop(kw.belief_plan_partyunit, kw.DELETE)
-    update_disc_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    update_disc_beliefatom = beliefatom_shop(kw.belief_keg_partyunit, kw.DELETE)
+    update_disc_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     update_disc_beliefatom.set_jkey(kw.party_title, exx.yao)
     sue_beliefdelta = beliefdelta_shop()
     sue_beliefdelta.set_beliefatom(update_disc_beliefatom)
-    print(f"{before_sue_au.get_plan_obj(ball_rope).laborunit=}")
+    print(f"{before_sue_au.get_keg_obj(ball_rope).laborunit=}")
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_planunit = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_planunit.laborunit.partys == {}
+    after_ball_kegunit = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_kegunit.laborunit.partys == {}
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_healerunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_keg_healerunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     before_sue_au.add_voiceunit(exx.yao)
@@ -958,14 +956,14 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_healeru
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_planunit = before_sue_au.get_plan_obj(ball_rope)
-    assert before_ball_planunit.healerunit._healer_names == set()
-    assert not before_ball_planunit.healerunit.healer_name_exists(exx.yao)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_kegunit = before_sue_au.get_keg_obj(ball_rope)
+    assert before_ball_kegunit.healerunit._healer_names == set()
+    assert not before_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
     # WHEN
-    x_beliefatom = beliefatom_shop(kw.belief_plan_healerunit, kw.INSERT)
-    x_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    x_beliefatom = beliefatom_shop(kw.belief_keg_healerunit, kw.INSERT)
+    x_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     x_beliefatom.set_jkey(kw.healer_name, exx.yao)
     print(f"{x_beliefatom=}")
     sue_beliefdelta = beliefdelta_shop()
@@ -973,12 +971,12 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_insert_plan_healeru
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_planunit = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_planunit.healerunit._healer_names != set()
-    assert after_ball_planunit.healerunit.healer_name_exists(exx.yao)
+    after_ball_kegunit = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_kegunit.healerunit._healer_names != set()
+    assert after_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
 
-def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_healerunit():
+def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_keg_healerunit():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     before_sue_au.add_voiceunit(exx.yao)
@@ -986,25 +984,25 @@ def test_BeliefDelta_get_edited_belief_ReturnsObj_BeliefUnit_delete_plan_healeru
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_planunit = before_sue_au.get_plan_obj(ball_rope)
-    before_ball_planunit.healerunit.set_healer_name(exx.yao)
-    assert before_ball_planunit.healerunit._healer_names != set()
-    assert before_ball_planunit.healerunit.healer_name_exists(exx.yao)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_kegunit = before_sue_au.get_keg_obj(ball_rope)
+    before_ball_kegunit.healerunit.set_healer_name(exx.yao)
+    assert before_ball_kegunit.healerunit._healer_names != set()
+    assert before_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
     # WHEN
-    x_beliefatom = beliefatom_shop(kw.belief_plan_healerunit, kw.DELETE)
-    x_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    x_beliefatom = beliefatom_shop(kw.belief_keg_healerunit, kw.DELETE)
+    x_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     x_beliefatom.set_jkey(kw.healer_name, exx.yao)
     sue_beliefdelta = beliefdelta_shop()
     sue_beliefdelta.set_beliefatom(x_beliefatom)
-    print(f"{before_sue_au.get_plan_obj(ball_rope).laborunit=}")
+    print(f"{before_sue_au.get_keg_obj(ball_rope).laborunit=}")
     after_sue_au = sue_beliefdelta.get_atom_edited_belief(before_sue_au)
 
     # THEN
-    after_ball_planunit = after_sue_au.get_plan_obj(ball_rope)
-    assert after_ball_planunit.healerunit._healer_names == set()
-    assert not after_ball_planunit.healerunit.healer_name_exists(exx.yao)
+    after_ball_kegunit = after_sue_au.get_keg_obj(ball_rope)
+    assert after_ball_kegunit.healerunit._healer_names == set()
+    assert not after_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
 
 def test_BeliefDelta_get_beliefdelta_example1_ContainsBeliefAtoms():

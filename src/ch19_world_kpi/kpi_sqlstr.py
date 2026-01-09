@@ -9,11 +9,11 @@ SELECT
 , moment_voice_nets.belief_name
 , belief_net_amount AS bnet_funds
 , RANK() OVER (ORDER BY belief_net_amount DESC) AS fund_rank
-, IFNULL(SUM(belief_planunit_job.pledge), 0) AS pledges_count
+, IFNULL(SUM(belief_kegunit_job.pledge), 0) AS pledges_count
 FROM moment_voice_nets
-LEFT JOIN belief_planunit_job ON
-  belief_planunit_job.moment_label = moment_voice_nets.moment_label
-  AND belief_planunit_job.belief_name = moment_voice_nets.belief_name
+LEFT JOIN belief_kegunit_job ON
+  belief_kegunit_job.moment_label = moment_voice_nets.moment_label
+  AND belief_kegunit_job.belief_name = moment_voice_nets.belief_name
 GROUP BY moment_voice_nets.moment_label, moment_voice_nets.belief_name
 ;
 """
@@ -25,11 +25,11 @@ CREATE TABLE moment_kpi002_belief_pledges AS
 SELECT
   moment_label
 , belief_name
-, plan_rope
+, keg_rope
 , pledge
-, plan_active
+, keg_active
 , task
-FROM belief_planunit_job
-WHERE pledge == 1 AND plan_active == 1
+FROM belief_kegunit_job
+WHERE pledge == 1 AND keg_active == 1
 ;
 """

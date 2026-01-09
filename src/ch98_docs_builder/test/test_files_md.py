@@ -39,7 +39,7 @@ def test_save_chapter_blurbs_md_CreatesFile(temp_dir_setup):
 def test_save_ropeterm_description_md_CreatesFile(temp_dir_setup):
     # ESTABLISH
     temp_dir = get_temp_dir()
-    file_path = create_path(temp_dir, "ropeterm_explanation.md")
+    file_path = create_path(temp_dir, "ropeterm_exkegation.md")
     assert not os_path_exists(file_path)
 
     # WHEN

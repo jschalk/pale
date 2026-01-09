@@ -10,9 +10,9 @@ from src.ch09_belief_lesson.test._util.ch09_env import (
     temp_dir_setup,
 )
 from src.ch09_belief_lesson.test._util.ch09_examples import (
-    get_atom_example_planunit_ball,
-    get_atom_example_planunit_knee,
-    get_atom_example_planunit_sports,
+    get_atom_example_kegunit_ball,
+    get_atom_example_kegunit_knee,
+    get_atom_example_kegunit_sports,
 )
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
@@ -36,7 +36,7 @@ def test_LessonUnit_save_atom_file_SavesCorrectFile(temp_dir_setup):
     assert os_path_exists(sue_atom6_path) is False
 
     # WHEN
-    sports_atom = get_atom_example_planunit_sports()
+    sports_atom = get_atom_example_kegunit_sports()
     sue_lessonunit._save_atom_file(two_int, sports_atom)
 
     # THEN
@@ -65,7 +65,7 @@ def test_LessonUnit_atom_file_exists_ReturnsObj(temp_dir_setup):
     assert sue_lessonunit.atom_file_exists(two_int) is False
 
     # WHEN
-    sports_atom = get_atom_example_planunit_sports()
+    sports_atom = get_atom_example_kegunit_sports()
     sue_lessonunit._save_atom_file(two_int, sports_atom)
 
     # THEN
@@ -87,7 +87,7 @@ def test_LessonUnit_open_atom_file_ReturnsObj(temp_dir_setup):
     print(f"{sue_atom2_path=}")
     print(f"{sue_atom6_path=}")
     sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
-    sports_atom = get_atom_example_planunit_sports()
+    sports_atom = get_atom_example_kegunit_sports()
     sue_lessonunit._save_atom_file(two_int, sports_atom)
     assert sue_lessonunit.atom_file_exists(two_int)
 
@@ -175,8 +175,8 @@ def test_LessonUnit_save_files_SavesFiles(temp_dir_setup):
     sue_lessonunit.set_face(exx.yao)
     int4 = 4
     int5 = 5
-    sports_atom = get_atom_example_planunit_sports()
-    knee_atom = get_atom_example_planunit_knee()
+    sports_atom = get_atom_example_kegunit_sports()
+    knee_atom = get_atom_example_kegunit_knee()
     sue_lessonunit._beliefdelta.set_beliefatom(sports_atom)
     sue_lessonunit._beliefdelta.set_beliefatom(knee_atom)
     assert sue_lessonunit.lesson_file_exists() is False
@@ -203,9 +203,9 @@ def test_LessonUnit_create_beliefdelta_from_atom_files_SetsAttr(temp_dir_setup):
     int4 = 4
     int5 = 5
     int9 = 9
-    spor_atom = get_atom_example_planunit_sports()
-    knee_atom = get_atom_example_planunit_knee()
-    ball_atom = get_atom_example_planunit_ball()
+    spor_atom = get_atom_example_kegunit_sports()
+    knee_atom = get_atom_example_kegunit_knee()
+    ball_atom = get_atom_example_kegunit_ball()
     sue_lessonunit._save_atom_file(int4, spor_atom)
     sue_lessonunit._save_atom_file(int5, knee_atom)
     sue_lessonunit._save_atom_file(int9, ball_atom)
@@ -238,9 +238,9 @@ def test_create_lessonunit_from_files_ReturnsObj(temp_dir_setup):
     )
     src_sue_lessonunit.set_delta_start(sue_delta_start)
     src_sue_lessonunit.set_face(exx.yao)
-    sports_atom = get_atom_example_planunit_sports()
-    knee_atom = get_atom_example_planunit_knee()
-    ball_atom = get_atom_example_planunit_ball()
+    sports_atom = get_atom_example_kegunit_sports()
+    knee_atom = get_atom_example_kegunit_knee()
+    ball_atom = get_atom_example_kegunit_ball()
     src_sue_lessonunit._beliefdelta.set_beliefatom(sports_atom)
     src_sue_lessonunit._beliefdelta.set_beliefatom(knee_atom)
     src_sue_lessonunit._beliefdelta.set_beliefatom(ball_atom)

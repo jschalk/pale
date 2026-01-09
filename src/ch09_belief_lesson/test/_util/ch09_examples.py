@@ -29,38 +29,38 @@ def get_atom_example_factunit_knee(first_label: LabelTerm = None) -> BeliefAtom:
     knee_rope = create_rope(first_label, knee_str)
     knee_fact_lower = 7
     knee_fact_upper = 23
-    x_dimen = kw.belief_plan_factunit
+    x_dimen = kw.belief_keg_factunit
     insert_factunit_beliefatom = beliefatom_shop(x_dimen, kw.INSERT)
-    insert_factunit_beliefatom.set_jkey(kw.plan_rope, ball_rope)
+    insert_factunit_beliefatom.set_jkey(kw.keg_rope, ball_rope)
     insert_factunit_beliefatom.set_jkey(kw.fact_context, knee_rope)
     insert_factunit_beliefatom.set_jvalue(kw.fact_lower, knee_fact_lower)
     insert_factunit_beliefatom.set_jvalue(kw.fact_upper, knee_fact_upper)
     return insert_factunit_beliefatom
 
 
-def get_atom_example_planunit_sports(moment_label: MomentLabel = None) -> BeliefAtom:
+def get_atom_example_kegunit_sports(moment_label: MomentLabel = None) -> BeliefAtom:
     if not moment_label:
         moment_label = exx.a23
     sports_str = "sports"
     sports_rope = create_rope(moment_label, sports_str)
-    insert_planunit_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    insert_planunit_beliefatom.set_jkey(kw.plan_rope, sports_rope)
-    return insert_planunit_beliefatom
+    insert_kegunit_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    insert_kegunit_beliefatom.set_jkey(kw.keg_rope, sports_rope)
+    return insert_kegunit_beliefatom
 
 
-def get_atom_example_planunit_ball(moment_label: MomentLabel = None) -> BeliefAtom:
+def get_atom_example_kegunit_ball(moment_label: MomentLabel = None) -> BeliefAtom:
     if not moment_label:
         moment_label = exx.a23
     sports_str = "sports"
     sports_rope = create_rope(moment_label, sports_str)
     ball_str = "basketball"
     ball_rope = create_rope(sports_rope, ball_str)
-    insert_planunit_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    insert_planunit_beliefatom.set_jkey(kw.plan_rope, ball_rope)
-    return insert_planunit_beliefatom
+    insert_kegunit_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    insert_kegunit_beliefatom.set_jkey(kw.keg_rope, ball_rope)
+    return insert_kegunit_beliefatom
 
 
-def get_atom_example_planunit_knee(moment_label: MomentLabel = None) -> BeliefAtom:
+def get_atom_example_kegunit_knee(moment_label: MomentLabel = None) -> BeliefAtom:
     if not moment_label:
         moment_label = exx.a23
     sports_str = "sports"
@@ -71,11 +71,11 @@ def get_atom_example_planunit_knee(moment_label: MomentLabel = None) -> BeliefAt
     begin_str = "begin"
     close_str = "close"
     knee_rope = create_rope(sports_rope, knee_str)
-    insert_planunit_beliefatom = beliefatom_shop(kw.belief_planunit, crud_str=kw.INSERT)
-    insert_planunit_beliefatom.set_jkey(kw.plan_rope, knee_rope)
-    insert_planunit_beliefatom.set_jvalue(begin_str, knee_begin)
-    insert_planunit_beliefatom.set_jvalue(close_str, knee_close)
-    return insert_planunit_beliefatom
+    insert_kegunit_beliefatom = beliefatom_shop(kw.belief_kegunit, crud_str=kw.INSERT)
+    insert_kegunit_beliefatom.set_jkey(kw.keg_rope, knee_rope)
+    insert_kegunit_beliefatom.set_jvalue(begin_str, knee_begin)
+    insert_kegunit_beliefatom.set_jvalue(close_str, knee_close)
+    return insert_kegunit_beliefatom
 
 
 def get_beliefdelta_sue_example() -> BeliefDelta:
@@ -115,29 +115,29 @@ def get_sue_lessonunit() -> LessonUnit:
 
 def sue_1beliefatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(belief_name="Sue", _lesson_id=53, face_name="Yao")
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_sports())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_sports())
     return x_lessonunit
 
 
 def sue_2beliefatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(belief_name="Sue", _lesson_id=53, face_name="Yao")
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_knee())
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_sports())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_knee())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_sports())
     return x_lessonunit
 
 
 def sue_3beliefatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(belief_name="Sue", _lesson_id=37, face_name="Yao")
     x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_factunit_knee())
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_ball())
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_knee())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_ball())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_knee())
     return x_lessonunit
 
 
 def sue_4beliefatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(belief_name="Sue", _lesson_id=47, face_name="Yao")
     x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_factunit_knee())
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_ball())
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_knee())
-    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_sports())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_ball())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_knee())
+    x_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_sports())
     return x_lessonunit

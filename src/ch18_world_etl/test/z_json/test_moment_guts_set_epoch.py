@@ -23,11 +23,11 @@ def test_add_moment_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)
-    assert not init_sue_gut.plan_exists(five_rope)
+    assert not init_sue_gut.keg_exists(five_rope)
 
     # WHEN
     add_moment_epoch_to_guts(moment_mstr_dir)
 
     # THEN
     post_sue_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
-    assert post_sue_gut.plan_exists(five_rope)
+    assert post_sue_gut.keg_exists(five_rope)

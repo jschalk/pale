@@ -3,11 +3,11 @@ from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.belief_tool import (
     belief_get_obj,
-    belief_plan_awardunit_get_obj,
-    belief_plan_factunit_get_obj,
-    belief_plan_reason_caseunit_get_obj as caseunit_get_obj,
-    belief_plan_reasonunit_get_obj,
-    belief_planunit_get_obj,
+    belief_keg_awardunit_get_obj,
+    belief_keg_factunit_get_obj,
+    belief_keg_reason_caseunit_get_obj as caseunit_get_obj,
+    belief_keg_reasonunit_get_obj,
+    belief_kegunit_get_obj,
     belief_voice_membership_get_obj,
     belief_voiceunit_get_obj,
 )
@@ -42,95 +42,95 @@ def test_belief_voice_membership_get_obj_ReturnsObj():
     assert x_obj == sue_belief.get_voice(exx.yao).get_membership(swim_str)
 
 
-def test_belief_planunit_get_obj_ReturnsObj():
+def test_belief_kegunit_get_obj_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope}
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope}
 
     # WHEN
-    x_obj = belief_planunit_get_obj(sue_belief, jkeys)
+    x_obj = belief_kegunit_get_obj(sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope)
 
 
-def test_belief_plan_awardunit_get_obj_ReturnsObj():
+def test_belief_keg_awardunit_get_obj_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: exx.swim}
-    sue_belief.add_plan(casa_rope)
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(exx.swim))
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope, kw.awardee_title: exx.swim}
+    sue_belief.add_keg(casa_rope)
+    sue_belief.get_keg_obj(casa_rope).set_awardunit(awardunit_shop(exx.swim))
 
     # WHEN
-    x_obj = belief_plan_awardunit_get_obj(sue_belief, jkeys)
+    x_obj = belief_keg_awardunit_get_obj(sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_awardunit(exx.swim)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope).get_awardunit(exx.swim)
 
 
-def test_belief_plan_reasonunit_get_obj_ReturnsObj():
+def test_belief_keg_reasonunit_get_obj_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope("wk")
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.reason_context: wk_rope}
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(wk_rope)
-    sue_belief.get_plan_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope, kw.reason_context: wk_rope}
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(wk_rope)
+    sue_belief.get_keg_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
 
     # WHEN
-    x_obj = belief_plan_reasonunit_get_obj(sue_belief, jkeys)
+    x_obj = belief_keg_reasonunit_get_obj(sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_reasonunit(wk_rope)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope).get_reasonunit(wk_rope)
 
 
-def test_belief_plan_reason_caseunit_get_obj_ReturnsObj():
+def test_belief_keg_reason_caseunit_get_obj_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope(exx.wk)
     thur_rope = sue_belief.make_rope(wk_rope, "thur")
     casa_jkeys = {
-        kw.plan_rope: casa_rope,
+        kw.keg_rope: casa_rope,
         kw.reason_context: wk_rope,
         kw.reason_state: thur_rope,
     }
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(wk_rope)
-    sue_belief.add_plan(thur_rope)
-    casa_plan = sue_belief.get_plan_obj(casa_rope)
-    casa_plan.set_reasonunit(reasonunit_shop(wk_rope))
-    casa_plan.get_reasonunit(wk_rope).set_case(thur_rope)
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(wk_rope)
+    sue_belief.add_keg(thur_rope)
+    casa_keg = sue_belief.get_keg_obj(casa_rope)
+    casa_keg.set_reasonunit(reasonunit_shop(wk_rope))
+    casa_keg.get_reasonunit(wk_rope).set_case(thur_rope)
 
     # WHEN
     x_obj = caseunit_get_obj(sue_belief, casa_jkeys)
     # THEN
     assert x_obj
-    assert x_obj == casa_plan.get_reasonunit(wk_rope).get_case(thur_rope)
+    assert x_obj == casa_keg.get_reasonunit(wk_rope).get_case(thur_rope)
 
 
-def test_belief_plan_factunit_get_obj_ReturnsObj():
+def test_belief_keg_factunit_get_obj_ReturnsObj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope("wk")
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.fact_context: wk_rope}
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(wk_rope)
-    sue_belief.get_plan_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope, kw.fact_context: wk_rope}
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(wk_rope)
+    sue_belief.get_keg_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
 
     # WHEN
-    x_obj = belief_plan_factunit_get_obj(sue_belief, jkeys)
+    x_obj = belief_keg_factunit_get_obj(sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).factunits.get(wk_rope)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope).factunits.get(wk_rope)
 
 
 def test_belief_get_obj_ReturnsObj_BeliefUnit():
@@ -174,92 +174,92 @@ def test_belief_get_obj_ReturnsObj_belief_voice_membership_get_obj():
     assert x_obj == sue_belief.get_voice(exx.yao).get_membership(swim_str)
 
 
-def test_belief_get_obj_ReturnsObj_belief_planunit_get_obj():
+def test_belief_get_obj_ReturnsObj_belief_kegunit_get_obj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope}
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope}
 
     # WHEN
-    x_obj = belief_get_obj(kw.belief_planunit, sue_belief, jkeys)
+    x_obj = belief_get_obj(kw.belief_kegunit, sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope)
 
 
-def test_belief_get_obj_ReturnsObj_belief_plan_awardunit_get_obj():
+def test_belief_get_obj_ReturnsObj_belief_keg_awardunit_get_obj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.awardee_title: exx.swim}
-    sue_belief.add_plan(casa_rope)
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(exx.swim))
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope, kw.awardee_title: exx.swim}
+    sue_belief.add_keg(casa_rope)
+    sue_belief.get_keg_obj(casa_rope).set_awardunit(awardunit_shop(exx.swim))
 
     # WHEN
-    x_obj = belief_get_obj(kw.belief_plan_awardunit, sue_belief, jkeys)
+    x_obj = belief_get_obj(kw.belief_keg_awardunit, sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_awardunit(exx.swim)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope).get_awardunit(exx.swim)
 
 
-def test_belief_get_obj_ReturnsObj_belief_plan_reasonunit_get_obj():
+def test_belief_get_obj_ReturnsObj_belief_keg_reasonunit_get_obj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope("wk")
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.reason_context: wk_rope}
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(wk_rope)
-    sue_belief.get_plan_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope, kw.reason_context: wk_rope}
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(wk_rope)
+    sue_belief.get_keg_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
 
     # WHEN
-    x_obj = belief_get_obj(kw.belief_plan_reasonunit, sue_belief, jkeys)
+    x_obj = belief_get_obj(kw.belief_keg_reasonunit, sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).get_reasonunit(wk_rope)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope).get_reasonunit(wk_rope)
 
 
-def test_belief_get_obj_ReturnsObj_belief_plan_reason_caseunit_get_obj():
+def test_belief_get_obj_ReturnsObj_belief_keg_reason_caseunit_get_obj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope(exx.wk)
     thur_rope = sue_belief.make_rope(wk_rope, "thur")
     casa_jkeys = {
-        kw.plan_rope: casa_rope,
+        kw.keg_rope: casa_rope,
         kw.reason_context: wk_rope,
         kw.reason_state: thur_rope,
     }
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(wk_rope)
-    sue_belief.add_plan(thur_rope)
-    casa_plan = sue_belief.get_plan_obj(casa_rope)
-    casa_plan.set_reasonunit(reasonunit_shop(wk_rope))
-    casa_plan.get_reasonunit(wk_rope).set_case(thur_rope)
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(wk_rope)
+    sue_belief.add_keg(thur_rope)
+    casa_keg = sue_belief.get_keg_obj(casa_rope)
+    casa_keg.set_reasonunit(reasonunit_shop(wk_rope))
+    casa_keg.get_reasonunit(wk_rope).set_case(thur_rope)
 
     # WHEN
-    x_obj = belief_get_obj(kw.belief_plan_reason_caseunit, sue_belief, casa_jkeys)
+    x_obj = belief_get_obj(kw.belief_keg_reason_caseunit, sue_belief, casa_jkeys)
     # THEN
     assert x_obj
-    assert x_obj == casa_plan.get_reasonunit(wk_rope).get_case(thur_rope)
+    assert x_obj == casa_keg.get_reasonunit(wk_rope).get_case(thur_rope)
 
 
-def test_belief_get_obj_ReturnsObj_belief_plan_factunit_get_obj():
+def test_belief_get_obj_ReturnsObj_belief_keg_factunit_get_obj():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope("wk")
-    sue_belief.add_plan(casa_rope)
-    jkeys = {kw.plan_rope: casa_rope, kw.fact_context: wk_rope}
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(wk_rope)
-    sue_belief.get_plan_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
+    sue_belief.add_keg(casa_rope)
+    jkeys = {kw.keg_rope: casa_rope, kw.fact_context: wk_rope}
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(wk_rope)
+    sue_belief.get_keg_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
 
     # WHEN
-    x_obj = belief_get_obj(kw.belief_plan_factunit, sue_belief, jkeys)
+    x_obj = belief_get_obj(kw.belief_keg_factunit, sue_belief, jkeys)
     # THEN
     assert x_obj
-    assert x_obj == sue_belief.get_plan_obj(casa_rope).factunits.get(wk_rope)
+    assert x_obj == sue_belief.get_keg_obj(casa_rope).factunits.get(wk_rope)

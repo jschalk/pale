@@ -14,22 +14,22 @@ h1 {
     border-radius: 5px;
 }
 
-.plan_controls {
+.keg_controls {
     margin-bottom: 20px;
     padding: 10px;
     background-color: #f5f5f5;
     border-radius: 5px;
 }
 
-.plan_tree_display {
+.keg_tree_display {
     font-family: monospace;
     line-height: 1.4;
 }
 
-.plan_tree_display small {
+.keg_tree_display small {
     color: #666;
 }
 
-.plan_tree_display div {
+.keg_tree_display div {
     margin: 2px 0;
 }

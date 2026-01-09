@@ -21,7 +21,7 @@ from src.ch09_belief_lesson.test._util.ch09_env import (
     temp_dir_setup,
 )
 from src.ch09_belief_lesson.test._util.ch09_examples import (
-    get_atom_example_planunit_knee,
+    get_atom_example_kegunit_knee,
     get_sue_lessonunit,
     sue_1beliefatoms_lessonunit,
     sue_2beliefatoms_lessonunit,
@@ -379,7 +379,7 @@ def test_LessonFileHandler_del_lesson_file_DeleteslessonjsonAndNotBeliefAtomjson
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
     )
-    sue_lessonunit._beliefdelta.set_beliefatom(get_atom_example_planunit_knee())
+    sue_lessonunit._beliefdelta.set_beliefatom(get_atom_example_kegunit_knee())
     zero_int = 0
     assert sue_lessonfilehandler.hub_lesson_file_exists(six_int) is False
     assert sue_lessonfilehandler.h_atom_file_exists(zero_int) is False
@@ -505,14 +505,14 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sports_rope = gut_belief.make_l1_rope(sports_str)
     knee_str = "knee"
     knee_rope = gut_belief.make_rope(sports_rope, knee_str)
-    assert gut_belief.plan_exists(sports_rope) is False
+    assert gut_belief.keg_exists(sports_rope) is False
 
     # WHEN
     new_belief = sue_lessonfilehandler._merge_any_lessons(gut_belief)
 
     # THEN
     assert new_belief != gut_belief
-    assert new_belief.plan_exists(sports_rope)
+    assert new_belief.keg_exists(sports_rope)
 
 
 def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies_2atoms(
@@ -528,13 +528,13 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sports_rope = gut_belief.make_l1_rope(sports_str)
     knee_str = "knee"
     knee_rope = gut_belief.make_rope(sports_rope, knee_str)
-    assert gut_belief.plan_exists(sports_rope) is False
-    assert gut_belief.plan_exists(knee_rope) is False
+    assert gut_belief.keg_exists(sports_rope) is False
+    assert gut_belief.keg_exists(knee_rope) is False
 
     # WHEN
     new_belief = sue_lessonfilehandler._merge_any_lessons(gut_belief)
 
     # THEN
     assert new_belief != gut_belief
-    assert new_belief.plan_exists(sports_rope)
-    assert new_belief.plan_exists(knee_rope)
+    assert new_belief.keg_exists(sports_rope)
+    assert new_belief.keg_exists(knee_rope)

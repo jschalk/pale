@@ -16,7 +16,7 @@ def test_get_belief_root_facts_dict_ReturnsObj_Scenario0_No_factunits():
     assert get_belief_root_facts_dict(sue_belief) == {}
     assert (
         get_belief_root_facts_dict(sue_belief)
-        == sue_belief.get_planroot_factunits_dict()
+        == sue_belief.get_kegroot_factunits_dict()
     )
 
 
@@ -26,7 +26,7 @@ def test_get_belief_root_facts_dict_ReturnsObj_Scenario1_factunits_Exist():
     casa_rope = sue_belief.make_l1_rope("casa")
     clean_rope = sue_belief.make_l1_rope("clean")
     dirty_rope = sue_belief.make_l1_rope("dirty")
-    sue_belief.add_fact(casa_rope, dirty_rope, create_missing_plans=True)
+    sue_belief.add_fact(casa_rope, dirty_rope, create_missing_kegs=True)
 
     # WHEN
     sue_fact_dict = get_belief_root_facts_dict(sue_belief)
@@ -103,19 +103,19 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario1_Belief1FactsChanged():
     clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
     mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
-    bob_belief.add_plan(floor_rope)
-    bob_belief.add_plan(clean_rope)
-    bob_belief.add_plan(dirty_rope)
-    bob_belief.add_plan(mop_rope, pledge=True)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(floor_rope)
+    bob_belief.add_keg(clean_rope)
+    bob_belief.add_keg(dirty_rope)
+    bob_belief.add_keg(mop_rope, pledge=True)
+    bob_belief.edit_keg_attr(
         mop_rope, reason_context=floor_rope, reason_case=dirty_rope
     )
     dirty_facts_dict = {
         floor_rope: {kw.fact_context: floor_rope, kw.fact_state: dirty_rope}
     }
     before_bob_belief = copy_deepcopy(bob_belief)
-    assert bob_belief.get_planroot_factunits_dict() != dirty_facts_dict
-    assert bob_belief.get_planroot_factunits_dict() == {}
+    assert bob_belief.get_kegroot_factunits_dict() != dirty_facts_dict
+    assert bob_belief.get_kegroot_factunits_dict() == {}
     assert bob_belief.to_dict() == before_bob_belief.to_dict()
 
     # WHEN
@@ -123,7 +123,7 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario1_Belief1FactsChanged():
 
     # THEN
     assert bob_belief.to_dict() != before_bob_belief.to_dict()
-    assert bob_belief.get_planroot_factunits_dict() == dirty_facts_dict
+    assert bob_belief.get_kegroot_factunits_dict() == dirty_facts_dict
 
 
 def test_set_factunits_to_belief_ReturnsObj_Scenario2_FactUnit_reason_context_DoesNotExistInBelief():
@@ -136,19 +136,19 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario2_FactUnit_reason_context_Do
     clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
     mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
-    bob_belief.add_plan(floor_rope)
-    # bob_belief.add_plan(clean_rope)
-    bob_belief.add_plan(dirty_rope)
-    bob_belief.add_plan(mop_rope, pledge=True)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(floor_rope)
+    # bob_belief.add_keg(clean_rope)
+    bob_belief.add_keg(dirty_rope)
+    bob_belief.add_keg(mop_rope, pledge=True)
+    bob_belief.edit_keg_attr(
         mop_rope, reason_context=floor_rope, reason_case=dirty_rope
     )
     clean_facts_dict = {
         floor_rope: {kw.fact_context: floor_rope, kw.fact_state: clean_rope}
     }
     before_bob_belief = copy_deepcopy(bob_belief)
-    assert bob_belief.get_planroot_factunits_dict() != clean_facts_dict
-    assert bob_belief.get_planroot_factunits_dict() == {}
+    assert bob_belief.get_kegroot_factunits_dict() != clean_facts_dict
+    assert bob_belief.get_kegroot_factunits_dict() == {}
     assert bob_belief.to_dict() == before_bob_belief.to_dict()
 
     # WHEN
@@ -156,8 +156,8 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario2_FactUnit_reason_context_Do
 
     # THEN
     assert bob_belief.to_dict() != before_bob_belief.to_dict()
-    assert bob_belief.get_planroot_factunits_dict() == clean_facts_dict
-    assert bob_belief.get_plan_obj(clean_rope)
+    assert bob_belief.get_kegroot_factunits_dict() == clean_facts_dict
+    assert bob_belief.get_keg_obj(clean_rope)
 
 
 def test_set_factunits_to_belief_ReturnsObj_Scenario3_FactUnit_reason_context_Withoutreason_contextNotAddedToBelief():
@@ -170,11 +170,11 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario3_FactUnit_reason_context_Wi
     clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
     mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
-    bob_belief.add_plan(floor_rope)
-    # bob_belief.add_plan(clean_rope)
-    bob_belief.add_plan(dirty_rope)
-    bob_belief.add_plan(mop_rope, pledge=True)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(floor_rope)
+    # bob_belief.add_keg(clean_rope)
+    bob_belief.add_keg(dirty_rope)
+    bob_belief.add_keg(mop_rope, pledge=True)
+    bob_belief.edit_keg_attr(
         mop_rope, reason_context=floor_rope, reason_case=dirty_rope
     )
 
@@ -188,16 +188,16 @@ def test_set_factunits_to_belief_ReturnsObj_Scenario3_FactUnit_reason_context_Wi
         weather_rope: {kw.fact_context: weather_rope, kw.fact_state: rain_rope},
     }
     before_bob_belief = copy_deepcopy(bob_belief)
-    assert bob_belief.get_planroot_factunits_dict() != two_facts_dict
-    assert bob_belief.get_planroot_factunits_dict() == {}
+    assert bob_belief.get_kegroot_factunits_dict() != two_facts_dict
+    assert bob_belief.get_kegroot_factunits_dict() == {}
     assert bob_belief.to_dict() == before_bob_belief.to_dict()
 
     # WHEN
     set_factunits_to_belief(bob_belief, two_facts_dict)
 
     # THEN
-    assert floor_rope in set(bob_belief.get_planroot_factunits_dict().keys())
-    assert weather_rope not in set(bob_belief.get_planroot_factunits_dict().keys())
+    assert floor_rope in set(bob_belief.get_kegroot_factunits_dict().keys())
+    assert weather_rope not in set(bob_belief.get_kegroot_factunits_dict().keys())
     assert bob_belief.to_dict() != before_bob_belief.to_dict()
 
 
@@ -211,23 +211,23 @@ def test_clear_factunits_from_belief_ReturnsObj_Scenario1_FactUnit_Exist():
     clean_rope = bob_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_belief.make_rope(floor_rope, dirty_str)
     mop_rope = bob_belief.make_rope(casa_rope, exx.mop)
-    bob_belief.add_plan(floor_rope)
-    # bob_belief.add_plan(clean_rope)
-    bob_belief.add_plan(dirty_rope)
-    bob_belief.add_plan(mop_rope, pledge=True)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(floor_rope)
+    # bob_belief.add_keg(clean_rope)
+    bob_belief.add_keg(dirty_rope)
+    bob_belief.add_keg(mop_rope, pledge=True)
+    bob_belief.edit_keg_attr(
         mop_rope, reason_context=floor_rope, reason_case=dirty_rope
     )
     bob_belief.add_fact(floor_rope, dirty_rope)
     floor_facts_dict = {
         floor_rope: {kw.fact_context: floor_rope, kw.fact_state: dirty_rope}
     }
-    assert bob_belief.get_planroot_factunits_dict() == floor_facts_dict
-    assert bob_belief.get_planroot_factunits_dict() != {}
+    assert bob_belief.get_kegroot_factunits_dict() == floor_facts_dict
+    assert bob_belief.get_kegroot_factunits_dict() != {}
 
     # WHEN
     clear_factunits_from_belief(bob_belief)
 
     # THEN
-    assert bob_belief.get_planroot_factunits_dict() != floor_facts_dict
-    assert bob_belief.get_planroot_factunits_dict() == {}
+    assert bob_belief.get_kegroot_factunits_dict() != floor_facts_dict
+    assert bob_belief.get_kegroot_factunits_dict() == {}

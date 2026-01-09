@@ -84,7 +84,7 @@ def save_chapter_blurbs_md(x_dir: str):
 
 
 def save_ropeterm_description_md(x_dir: str):
-    save_file(x_dir, "ropeterm_explanation.md", get_ropeterm_description_md())
+    save_file(x_dir, "ropeterm_exkegation.md", get_ropeterm_description_md())
 
 
 def save_idea_brick_mds(dest_dir: str):

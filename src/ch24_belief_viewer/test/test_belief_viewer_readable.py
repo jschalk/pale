@@ -1,7 +1,7 @@
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch24_belief_viewer.belief_viewer_tool import (
     get_belief_view_dict,
-    get_plan_view_dict,
+    get_keg_view_dict,
 )
 from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 
@@ -18,8 +18,8 @@ def test_get_belief_view_dict_ReturnsObj_Scenario0_Empty():
     assert set(sue_belief_view_dict.keys()) == {
         # kw.groupunits,
         kw.voices,
-        kw.planroot,
+        kw.kegroot,
     }
-    sue_plan_view_dict = sue_belief_view_dict.get(kw.planroot)
-    expected_sue_plan_view_dict = get_plan_view_dict(sue_believer.planroot)
-    assert sue_plan_view_dict == expected_sue_plan_view_dict
+    sue_keg_view_dict = sue_belief_view_dict.get(kw.kegroot)
+    expected_sue_keg_view_dict = get_keg_view_dict(sue_believer.kegroot)
+    assert sue_keg_view_dict == expected_sue_keg_view_dict

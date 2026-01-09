@@ -42,9 +42,9 @@ def add_frame_to_db_beliefunit():
 
 def add_frame_to_db_caseunit(
     cursor: sqlite3_Cursor,
-    plan_close: float,
-    plan_denom: float,
-    plan_morph: float,
+    keg_close: float,
+    keg_denom: float,
+    keg_morph: float,
 ):
     update_sql = get_add_frame_to_db_caseunit_sqlstr()
     # UPDATE BLFCASE WHERE SPARK_NUM is equal to blfcase_obj using rules from "add_frame_to_caseunit"

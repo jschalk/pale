@@ -23,50 +23,50 @@ def create_legible_list(x_delta: BeliefDelta, x_belief: BeliefUnit) -> list[str]
     x_list = ["DELETE", "belief_voice_membership"]
     voice_membership_delete_dict = get_leg_obj(atoms_dict, x_list)
 
-    x_list = ["INSERT", "belief_planunit"]
-    belief_planunit_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["UPDATE", "belief_planunit"]
-    belief_planunit_update_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "belief_planunit"]
-    belief_planunit_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "belief_kegunit"]
+    belief_kegunit_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["UPDATE", "belief_kegunit"]
+    belief_kegunit_update_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "belief_kegunit"]
+    belief_kegunit_delete_dict = get_leg_obj(atoms_dict, x_list)
 
-    x_list = ["INSERT", "belief_plan_awardunit"]
-    belief_plan_awardunit_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["UPDATE", "belief_plan_awardunit"]
-    belief_plan_awardunit_update_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "belief_plan_awardunit"]
-    belief_plan_awardunit_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "belief_keg_awardunit"]
+    belief_keg_awardunit_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["UPDATE", "belief_keg_awardunit"]
+    belief_keg_awardunit_update_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "belief_keg_awardunit"]
+    belief_keg_awardunit_delete_dict = get_leg_obj(atoms_dict, x_list)
 
-    x_list = ["INSERT", "belief_plan_reasonunit"]
-    belief_plan_reasonunit_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["UPDATE", "belief_plan_reasonunit"]
-    belief_plan_reasonunit_update_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "belief_plan_reasonunit"]
-    belief_plan_reasonunit_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "belief_keg_reasonunit"]
+    belief_keg_reasonunit_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["UPDATE", "belief_keg_reasonunit"]
+    belief_keg_reasonunit_update_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "belief_keg_reasonunit"]
+    belief_keg_reasonunit_delete_dict = get_leg_obj(atoms_dict, x_list)
 
-    x_list = ["INSERT", "belief_plan_reason_caseunit"]
-    belief_plan_reason_caseunit_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["UPDATE", "belief_plan_reason_caseunit"]
-    belief_plan_reason_caseunit_update_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "belief_plan_reason_caseunit"]
-    belief_plan_reason_caseunit_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "belief_keg_reason_caseunit"]
+    belief_keg_reason_caseunit_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["UPDATE", "belief_keg_reason_caseunit"]
+    belief_keg_reason_caseunit_update_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "belief_keg_reason_caseunit"]
+    belief_keg_reason_caseunit_delete_dict = get_leg_obj(atoms_dict, x_list)
 
-    x_list = ["INSERT", "belief_plan_partyunit"]
-    belief_plan_partyunit_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "belief_plan_partyunit"]
-    belief_plan_partyunit_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "belief_keg_partyunit"]
+    belief_keg_partyunit_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "belief_keg_partyunit"]
+    belief_keg_partyunit_delete_dict = get_leg_obj(atoms_dict, x_list)
 
-    x_list = ["INSERT", "belief_plan_healerunit"]
-    belief_plan_healerunit_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "belief_plan_healerunit"]
-    belief_plan_healerunit_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "belief_keg_healerunit"]
+    belief_keg_healerunit_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "belief_keg_healerunit"]
+    belief_keg_healerunit_delete_dict = get_leg_obj(atoms_dict, x_list)
 
-    x_list = ["INSERT", "belief_plan_factunit"]
-    belief_plan_factunit_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["UPDATE", "belief_plan_factunit"]
-    belief_plan_factunit_update_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "belief_plan_factunit"]
-    belief_plan_factunit_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "belief_keg_factunit"]
+    belief_keg_factunit_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["UPDATE", "belief_keg_factunit"]
+    belief_keg_factunit_update_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "belief_keg_factunit"]
+    belief_keg_factunit_delete_dict = get_leg_obj(atoms_dict, x_list)
 
     leg_list = []
     if beliefunit_atom is not None:
@@ -97,87 +97,87 @@ def create_legible_list(x_delta: BeliefDelta, x_belief: BeliefUnit) -> list[str]
             leg_list, voice_membership_delete_dict, x_belief
         )
 
-    if belief_planunit_insert_dict is not None:
-        add_belief_planunit_insert_to_legible_list(
-            leg_list, belief_planunit_insert_dict, x_belief
+    if belief_kegunit_insert_dict is not None:
+        add_belief_kegunit_insert_to_legible_list(
+            leg_list, belief_kegunit_insert_dict, x_belief
         )
-    if belief_planunit_update_dict is not None:
-        add_belief_planunit_update_to_legible_list(
-            leg_list, belief_planunit_update_dict, x_belief
+    if belief_kegunit_update_dict is not None:
+        add_belief_kegunit_update_to_legible_list(
+            leg_list, belief_kegunit_update_dict, x_belief
         )
-    if belief_planunit_delete_dict is not None:
-        add_belief_planunit_delete_to_legible_list(
-            leg_list, belief_planunit_delete_dict, x_belief
-        )
-
-    if belief_plan_awardunit_insert_dict is not None:
-        add_belief_plan_awardunit_insert_to_legible_list(
-            leg_list, belief_plan_awardunit_insert_dict, x_belief
-        )
-    if belief_plan_awardunit_update_dict is not None:
-        add_belief_plan_awardunit_update_to_legible_list(
-            leg_list, belief_plan_awardunit_update_dict, x_belief
-        )
-    if belief_plan_awardunit_delete_dict is not None:
-        add_belief_plan_awardunit_delete_to_legible_list(
-            leg_list, belief_plan_awardunit_delete_dict, x_belief
+    if belief_kegunit_delete_dict is not None:
+        add_belief_kegunit_delete_to_legible_list(
+            leg_list, belief_kegunit_delete_dict, x_belief
         )
 
-    if belief_plan_reasonunit_insert_dict is not None:
-        add_belief_plan_reasonunit_insert_to_legible_list(
-            leg_list, belief_plan_reasonunit_insert_dict, x_belief
+    if belief_keg_awardunit_insert_dict is not None:
+        add_belief_keg_awardunit_insert_to_legible_list(
+            leg_list, belief_keg_awardunit_insert_dict, x_belief
         )
-    if belief_plan_reasonunit_update_dict is not None:
-        add_belief_plan_reasonunit_update_to_legible_list(
-            leg_list, belief_plan_reasonunit_update_dict, x_belief
+    if belief_keg_awardunit_update_dict is not None:
+        add_belief_keg_awardunit_update_to_legible_list(
+            leg_list, belief_keg_awardunit_update_dict, x_belief
         )
-    if belief_plan_reasonunit_delete_dict is not None:
-        add_belief_plan_reasonunit_delete_to_legible_list(
-            leg_list, belief_plan_reasonunit_delete_dict, x_belief
+    if belief_keg_awardunit_delete_dict is not None:
+        add_belief_keg_awardunit_delete_to_legible_list(
+            leg_list, belief_keg_awardunit_delete_dict, x_belief
         )
 
-    if belief_plan_reason_caseunit_insert_dict is not None:
+    if belief_keg_reasonunit_insert_dict is not None:
+        add_belief_keg_reasonunit_insert_to_legible_list(
+            leg_list, belief_keg_reasonunit_insert_dict, x_belief
+        )
+    if belief_keg_reasonunit_update_dict is not None:
+        add_belief_keg_reasonunit_update_to_legible_list(
+            leg_list, belief_keg_reasonunit_update_dict, x_belief
+        )
+    if belief_keg_reasonunit_delete_dict is not None:
+        add_belief_keg_reasonunit_delete_to_legible_list(
+            leg_list, belief_keg_reasonunit_delete_dict, x_belief
+        )
+
+    if belief_keg_reason_caseunit_insert_dict is not None:
         add_belief_reason_caseunit_insert_to_legible_list(
-            leg_list, belief_plan_reason_caseunit_insert_dict, x_belief
+            leg_list, belief_keg_reason_caseunit_insert_dict, x_belief
         )
-    if belief_plan_reason_caseunit_update_dict is not None:
+    if belief_keg_reason_caseunit_update_dict is not None:
         add_belief_reason_caseunit_update_to_legible_list(
-            leg_list, belief_plan_reason_caseunit_update_dict, x_belief
+            leg_list, belief_keg_reason_caseunit_update_dict, x_belief
         )
-    if belief_plan_reason_caseunit_delete_dict is not None:
+    if belief_keg_reason_caseunit_delete_dict is not None:
         add_belief_reason_caseunit_delete_to_legible_list(
-            leg_list, belief_plan_reason_caseunit_delete_dict, x_belief
+            leg_list, belief_keg_reason_caseunit_delete_dict, x_belief
         )
 
-    if belief_plan_partyunit_insert_dict is not None:
-        add_belief_plan_partyunit_insert_to_legible_list(
-            leg_list, belief_plan_partyunit_insert_dict, x_belief
+    if belief_keg_partyunit_insert_dict is not None:
+        add_belief_keg_partyunit_insert_to_legible_list(
+            leg_list, belief_keg_partyunit_insert_dict, x_belief
         )
-    if belief_plan_partyunit_delete_dict is not None:
-        add_belief_plan_partyunit_delete_to_legible_list(
-            leg_list, belief_plan_partyunit_delete_dict, x_belief
-        )
-
-    if belief_plan_healerunit_insert_dict is not None:
-        add_belief_plan_healerunit_insert_to_legible_list(
-            leg_list, belief_plan_healerunit_insert_dict, x_belief
-        )
-    if belief_plan_healerunit_delete_dict is not None:
-        add_belief_plan_healerunit_delete_to_legible_list(
-            leg_list, belief_plan_healerunit_delete_dict, x_belief
+    if belief_keg_partyunit_delete_dict is not None:
+        add_belief_keg_partyunit_delete_to_legible_list(
+            leg_list, belief_keg_partyunit_delete_dict, x_belief
         )
 
-    if belief_plan_factunit_insert_dict is not None:
-        add_belief_plan_factunit_insert_to_legible_list(
-            leg_list, belief_plan_factunit_insert_dict, x_belief
+    if belief_keg_healerunit_insert_dict is not None:
+        add_belief_keg_healerunit_insert_to_legible_list(
+            leg_list, belief_keg_healerunit_insert_dict, x_belief
         )
-    if belief_plan_factunit_update_dict is not None:
-        add_belief_plan_factunit_update_to_legible_list(
-            leg_list, belief_plan_factunit_update_dict, x_belief
+    if belief_keg_healerunit_delete_dict is not None:
+        add_belief_keg_healerunit_delete_to_legible_list(
+            leg_list, belief_keg_healerunit_delete_dict, x_belief
         )
-    if belief_plan_factunit_delete_dict is not None:
-        add_belief_plan_factunit_delete_to_legible_list(
-            leg_list, belief_plan_factunit_delete_dict, x_belief
+
+    if belief_keg_factunit_insert_dict is not None:
+        add_belief_keg_factunit_insert_to_legible_list(
+            leg_list, belief_keg_factunit_insert_dict, x_belief
+        )
+    if belief_keg_factunit_update_dict is not None:
+        add_belief_keg_factunit_update_to_legible_list(
+            leg_list, belief_keg_factunit_update_dict, x_belief
+        )
+    if belief_keg_factunit_delete_dict is not None:
+        add_belief_keg_factunit_delete_to_legible_list(
+            leg_list, belief_keg_factunit_delete_dict, x_belief
         )
 
     return leg_list
@@ -302,22 +302,22 @@ def add_belief_voice_membership_delete_to_legible_list(
             legible_list.append(x_str)
 
 
-def add_belief_planunit_insert_to_legible_list(
-    legible_list: list[str], planunit_insert_dict: dict, x_belief: BeliefUnit
+def add_belief_kegunit_insert_to_legible_list(
+    legible_list: list[str], kegunit_insert_dict: dict, x_belief: BeliefUnit
 ):
     _problem_bool_str = "problem_bool"
-    for planunit_atom in planunit_insert_dict.values():
-        rope_value = planunit_atom.get_value("plan_rope")
-        _addin_value = planunit_atom.get_value("addin")
-        _begin_value = planunit_atom.get_value("begin")
-        _close_value = planunit_atom.get_value("close")
-        _denom_value = planunit_atom.get_value("denom")
-        _numor_value = planunit_atom.get_value("numor")
-        _problem_bool_value = planunit_atom.get_value(_problem_bool_str)
-        _morph_value = planunit_atom.get_value("morph")
-        _star_value = planunit_atom.get_value("star")
-        pledge_value = planunit_atom.get_value("pledge")
-        x_str = f"Created Plan '{rope_value}'. "
+    for kegunit_atom in kegunit_insert_dict.values():
+        rope_value = kegunit_atom.get_value("keg_rope")
+        _addin_value = kegunit_atom.get_value("addin")
+        _begin_value = kegunit_atom.get_value("begin")
+        _close_value = kegunit_atom.get_value("close")
+        _denom_value = kegunit_atom.get_value("denom")
+        _numor_value = kegunit_atom.get_value("numor")
+        _problem_bool_value = kegunit_atom.get_value(_problem_bool_str)
+        _morph_value = kegunit_atom.get_value("morph")
+        _star_value = kegunit_atom.get_value("star")
+        pledge_value = kegunit_atom.get_value("pledge")
+        x_str = f"Created Keg '{rope_value}'. "
         if _addin_value is not None:
             x_str += f"addin={_addin_value}."
         if _begin_value is not None:
@@ -340,22 +340,22 @@ def add_belief_planunit_insert_to_legible_list(
         legible_list.append(x_str)
 
 
-def add_belief_planunit_update_to_legible_list(
-    legible_list: list[str], planunit_update_dict: dict, x_belief: BeliefUnit
+def add_belief_kegunit_update_to_legible_list(
+    legible_list: list[str], kegunit_update_dict: dict, x_belief: BeliefUnit
 ):
     _problem_bool_str = "problem_bool"
-    for planunit_atom in planunit_update_dict.values():
-        rope_value = planunit_atom.get_value("plan_rope")
-        addin_value = planunit_atom.get_value("addin")
-        begin_value = planunit_atom.get_value("begin")
-        close_value = planunit_atom.get_value("close")
-        denom_value = planunit_atom.get_value("denom")
-        numor_value = planunit_atom.get_value("numor")
-        problem_bool_value = planunit_atom.get_value(_problem_bool_str)
-        morph_value = planunit_atom.get_value("morph")
-        star_value = planunit_atom.get_value("star")
-        pledge_value = planunit_atom.get_value("pledge")
-        x_str = f"Plan '{rope_value}' set these attrs: "
+    for kegunit_atom in kegunit_update_dict.values():
+        rope_value = kegunit_atom.get_value("keg_rope")
+        addin_value = kegunit_atom.get_value("addin")
+        begin_value = kegunit_atom.get_value("begin")
+        close_value = kegunit_atom.get_value("close")
+        denom_value = kegunit_atom.get_value("denom")
+        numor_value = kegunit_atom.get_value("numor")
+        problem_bool_value = kegunit_atom.get_value(_problem_bool_str)
+        morph_value = kegunit_atom.get_value("morph")
+        star_value = kegunit_atom.get_value("star")
+        pledge_value = kegunit_atom.get_value("pledge")
+        x_str = f"Keg '{rope_value}' set these attrs: "
         if addin_value is not None:
             x_str += f"addin={addin_value}."
         if begin_value is not None:
@@ -378,116 +378,116 @@ def add_belief_planunit_update_to_legible_list(
         legible_list.append(x_str)
 
 
-def add_belief_planunit_delete_to_legible_list(
-    legible_list: list[str], planunit_delete_dict: dict, x_belief: BeliefUnit
+def add_belief_kegunit_delete_to_legible_list(
+    legible_list: list[str], kegunit_delete_dict: dict, x_belief: BeliefUnit
 ):
-    for planunit_atom in planunit_delete_dict.values():
-        rope_value = planunit_atom.get_value("plan_rope")
-        x_str = f"Plan '{rope_value}' was deleted."
+    for kegunit_atom in kegunit_delete_dict.values():
+        rope_value = kegunit_atom.get_value("keg_rope")
+        x_str = f"Keg '{rope_value}' was deleted."
         legible_list.append(x_str)
 
 
-def add_belief_plan_awardunit_insert_to_legible_list(
-    legible_list: list[str], plan_awardunit_insert_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_awardunit_insert_to_legible_list(
+    legible_list: list[str], keg_awardunit_insert_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_awardunit_insert_dict.values():
-        for plan_awardunit_atom in rope_dict.values():
-            awardee_title_value = plan_awardunit_atom.get_value("awardee_title")
-            rope_value = plan_awardunit_atom.get_value("plan_rope")
-            give_force_value = plan_awardunit_atom.get_value("give_force")
-            take_force_value = plan_awardunit_atom.get_value("take_force")
-            x_str = f"AwardUnit created for group {awardee_title_value} for plan '{rope_value}' with give_force={give_force_value} and take_force={take_force_value}."
+    for rope_dict in keg_awardunit_insert_dict.values():
+        for keg_awardunit_atom in rope_dict.values():
+            awardee_title_value = keg_awardunit_atom.get_value("awardee_title")
+            rope_value = keg_awardunit_atom.get_value("keg_rope")
+            give_force_value = keg_awardunit_atom.get_value("give_force")
+            take_force_value = keg_awardunit_atom.get_value("take_force")
+            x_str = f"AwardUnit created for group {awardee_title_value} for keg '{rope_value}' with give_force={give_force_value} and take_force={take_force_value}."
             legible_list.append(x_str)
 
 
-def add_belief_plan_awardunit_update_to_legible_list(
-    legible_list: list[str], plan_awardunit_update_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_awardunit_update_to_legible_list(
+    legible_list: list[str], keg_awardunit_update_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_awardunit_update_dict.values():
-        for plan_awardunit_atom in rope_dict.values():
-            awardee_title_value = plan_awardunit_atom.get_value("awardee_title")
-            rope_value = plan_awardunit_atom.get_value("plan_rope")
-            give_force_value = plan_awardunit_atom.get_value("give_force")
-            take_force_value = plan_awardunit_atom.get_value("take_force")
+    for rope_dict in keg_awardunit_update_dict.values():
+        for keg_awardunit_atom in rope_dict.values():
+            awardee_title_value = keg_awardunit_atom.get_value("awardee_title")
+            rope_value = keg_awardunit_atom.get_value("keg_rope")
+            give_force_value = keg_awardunit_atom.get_value("give_force")
+            take_force_value = keg_awardunit_atom.get_value("take_force")
             if give_force_value is not None and take_force_value is not None:
-                x_str = f"AwardUnit has been set for group {awardee_title_value} for plan '{rope_value}'. Now give_force={give_force_value} and take_force={take_force_value}."
+                x_str = f"AwardUnit has been set for group {awardee_title_value} for keg '{rope_value}'. Now give_force={give_force_value} and take_force={take_force_value}."
             elif give_force_value is not None:
-                x_str = f"AwardUnit has been set for group {awardee_title_value} for plan '{rope_value}'. Now give_force={give_force_value}."
+                x_str = f"AwardUnit has been set for group {awardee_title_value} for keg '{rope_value}'. Now give_force={give_force_value}."
             elif take_force_value is not None:
-                x_str = f"AwardUnit has been set for group {awardee_title_value} for plan '{rope_value}'. Now take_force={take_force_value}."
+                x_str = f"AwardUnit has been set for group {awardee_title_value} for keg '{rope_value}'. Now take_force={take_force_value}."
             legible_list.append(x_str)
 
 
-def add_belief_plan_awardunit_delete_to_legible_list(
-    legible_list: list[str], plan_awardunit_delete_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_awardunit_delete_to_legible_list(
+    legible_list: list[str], keg_awardunit_delete_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_awardunit_delete_dict.values():
-        for plan_awardunit_atom in rope_dict.values():
-            awardee_title_value = plan_awardunit_atom.get_value("awardee_title")
-            rope_value = plan_awardunit_atom.get_value("plan_rope")
-            x_str = f"AwardUnit for group {awardee_title_value}, plan '{rope_value}' has been deleted."
+    for rope_dict in keg_awardunit_delete_dict.values():
+        for keg_awardunit_atom in rope_dict.values():
+            awardee_title_value = keg_awardunit_atom.get_value("awardee_title")
+            rope_value = keg_awardunit_atom.get_value("keg_rope")
+            x_str = f"AwardUnit for group {awardee_title_value}, keg '{rope_value}' has been deleted."
             legible_list.append(x_str)
 
 
-def add_belief_plan_reasonunit_insert_to_legible_list(
-    legible_list: list[str], plan_reasonunit_insert_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_reasonunit_insert_to_legible_list(
+    legible_list: list[str], keg_reasonunit_insert_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_reasonunit_insert_dict.values():
-        for plan_reasonunit_atom in rope_dict.values():
-            rope_value = plan_reasonunit_atom.get_value("plan_rope")
-            reason_context_value = plan_reasonunit_atom.get_value("reason_context")
-            active_requisite_value = plan_reasonunit_atom.get_value("active_requisite")
-            x_str = f"ReasonUnit created for plan '{rope_value}' with reason_context '{reason_context_value}'."
+    for rope_dict in keg_reasonunit_insert_dict.values():
+        for keg_reasonunit_atom in rope_dict.values():
+            rope_value = keg_reasonunit_atom.get_value("keg_rope")
+            reason_context_value = keg_reasonunit_atom.get_value("reason_context")
+            active_requisite_value = keg_reasonunit_atom.get_value("active_requisite")
+            x_str = f"ReasonUnit created for keg '{rope_value}' with reason_context '{reason_context_value}'."
             if active_requisite_value is not None:
                 x_str += f" active_requisite={active_requisite_value}."
             legible_list.append(x_str)
 
 
-def add_belief_plan_reasonunit_update_to_legible_list(
-    legible_list: list[str], plan_reasonunit_update_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_reasonunit_update_to_legible_list(
+    legible_list: list[str], keg_reasonunit_update_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_reasonunit_update_dict.values():
-        for plan_reasonunit_atom in rope_dict.values():
-            rope_value = plan_reasonunit_atom.get_value("plan_rope")
-            reason_context_value = plan_reasonunit_atom.get_value("reason_context")
-            active_requisite_value = plan_reasonunit_atom.get_value("active_requisite")
+    for rope_dict in keg_reasonunit_update_dict.values():
+        for keg_reasonunit_atom in rope_dict.values():
+            rope_value = keg_reasonunit_atom.get_value("keg_rope")
+            reason_context_value = keg_reasonunit_atom.get_value("reason_context")
+            active_requisite_value = keg_reasonunit_atom.get_value("active_requisite")
             if active_requisite_value is not None:
-                x_str = f"ReasonUnit reason_context='{reason_context_value}' for plan '{rope_value}' set with active_requisite={active_requisite_value}."
+                x_str = f"ReasonUnit reason_context='{reason_context_value}' for keg '{rope_value}' set with active_requisite={active_requisite_value}."
             else:
-                x_str = f"ReasonUnit reason_context='{reason_context_value}' for plan '{rope_value}' and no longer checks reason_context active mode."
+                x_str = f"ReasonUnit reason_context='{reason_context_value}' for keg '{rope_value}' and no longer checks reason_context active mode."
             legible_list.append(x_str)
 
 
-def add_belief_plan_reasonunit_delete_to_legible_list(
-    legible_list: list[str], plan_reasonunit_delete_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_reasonunit_delete_to_legible_list(
+    legible_list: list[str], keg_reasonunit_delete_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_reasonunit_delete_dict.values():
-        for plan_reasonunit_atom in rope_dict.values():
-            rope_value = plan_reasonunit_atom.get_value("plan_rope")
-            reason_context_value = plan_reasonunit_atom.get_value("reason_context")
-            x_str = f"ReasonUnit reason_context='{reason_context_value}' for plan '{rope_value}' has been deleted."
+    for rope_dict in keg_reasonunit_delete_dict.values():
+        for keg_reasonunit_atom in rope_dict.values():
+            rope_value = keg_reasonunit_atom.get_value("keg_rope")
+            reason_context_value = keg_reasonunit_atom.get_value("reason_context")
+            x_str = f"ReasonUnit reason_context='{reason_context_value}' for keg '{rope_value}' has been deleted."
             legible_list.append(x_str)
 
 
 def add_belief_reason_caseunit_insert_to_legible_list(
     legible_list: list[str],
-    plan_reason_caseunit_insert_dict: dict,
+    keg_reason_caseunit_insert_dict: dict,
     x_belief: BeliefUnit,
 ):
-    for rope_dict in plan_reason_caseunit_insert_dict.values():
+    for rope_dict in keg_reason_caseunit_insert_dict.values():
         for reason_context_dict in rope_dict.values():
-            for plan_reason_caseunit_atom in reason_context_dict.values():
-                rope_value = plan_reason_caseunit_atom.get_value("plan_rope")
-                reason_context_value = plan_reason_caseunit_atom.get_value(
+            for keg_reason_caseunit_atom in reason_context_dict.values():
+                rope_value = keg_reason_caseunit_atom.get_value("keg_rope")
+                reason_context_value = keg_reason_caseunit_atom.get_value(
                     "reason_context"
                 )
-                reason_state_value = plan_reason_caseunit_atom.get_value("reason_state")
-                reason_divisor_value = plan_reason_caseunit_atom.get_value(
+                reason_state_value = keg_reason_caseunit_atom.get_value("reason_state")
+                reason_divisor_value = keg_reason_caseunit_atom.get_value(
                     "reason_divisor"
                 )
-                reason_upper_value = plan_reason_caseunit_atom.get_value("reason_upper")
-                reason_lower_value = plan_reason_caseunit_atom.get_value("reason_lower")
-                x_str = f"CaseUnit '{reason_state_value}' created for reason '{reason_context_value}' for plan '{rope_value}'."
+                reason_upper_value = keg_reason_caseunit_atom.get_value("reason_upper")
+                reason_lower_value = keg_reason_caseunit_atom.get_value("reason_lower")
+                x_str = f"CaseUnit '{reason_state_value}' created for reason '{reason_context_value}' for keg '{rope_value}'."
                 if reason_lower_value is not None:
                     x_str += f" reason_lower={reason_lower_value}."
                 if reason_upper_value is not None:
@@ -499,23 +499,23 @@ def add_belief_reason_caseunit_insert_to_legible_list(
 
 def add_belief_reason_caseunit_update_to_legible_list(
     legible_list: list[str],
-    plan_reason_caseunit_update_dict: dict,
+    keg_reason_caseunit_update_dict: dict,
     x_belief: BeliefUnit,
 ):
-    for rope_dict in plan_reason_caseunit_update_dict.values():
+    for rope_dict in keg_reason_caseunit_update_dict.values():
         for reason_context_dict in rope_dict.values():
-            for plan_reason_caseunit_atom in reason_context_dict.values():
-                rope_value = plan_reason_caseunit_atom.get_value("plan_rope")
-                reason_context_value = plan_reason_caseunit_atom.get_value(
+            for keg_reason_caseunit_atom in reason_context_dict.values():
+                rope_value = keg_reason_caseunit_atom.get_value("keg_rope")
+                reason_context_value = keg_reason_caseunit_atom.get_value(
                     "reason_context"
                 )
-                reason_state_value = plan_reason_caseunit_atom.get_value("reason_state")
-                reason_divisor_value = plan_reason_caseunit_atom.get_value(
+                reason_state_value = keg_reason_caseunit_atom.get_value("reason_state")
+                reason_divisor_value = keg_reason_caseunit_atom.get_value(
                     "reason_divisor"
                 )
-                reason_upper_value = plan_reason_caseunit_atom.get_value("reason_upper")
-                reason_lower_value = plan_reason_caseunit_atom.get_value("reason_lower")
-                x_str = f"CaseUnit '{reason_state_value}' updated for reason '{reason_context_value}' for plan '{rope_value}'."
+                reason_upper_value = keg_reason_caseunit_atom.get_value("reason_upper")
+                reason_lower_value = keg_reason_caseunit_atom.get_value("reason_lower")
+                x_str = f"CaseUnit '{reason_state_value}' updated for reason '{reason_context_value}' for keg '{rope_value}'."
                 if reason_lower_value is not None:
                     x_str += f" reason_lower={reason_lower_value}."
                 if reason_upper_value is not None:
@@ -527,76 +527,76 @@ def add_belief_reason_caseunit_update_to_legible_list(
 
 def add_belief_reason_caseunit_delete_to_legible_list(
     legible_list: list[str],
-    plan_reason_caseunit_delete_dict: dict,
+    keg_reason_caseunit_delete_dict: dict,
     x_belief: BeliefUnit,
 ):
-    for rope_dict in plan_reason_caseunit_delete_dict.values():
+    for rope_dict in keg_reason_caseunit_delete_dict.values():
         for reason_context_dict in rope_dict.values():
-            for plan_reason_caseunit_atom in reason_context_dict.values():
-                rope_value = plan_reason_caseunit_atom.get_value("plan_rope")
-                reason_context_value = plan_reason_caseunit_atom.get_value(
+            for keg_reason_caseunit_atom in reason_context_dict.values():
+                rope_value = keg_reason_caseunit_atom.get_value("keg_rope")
+                reason_context_value = keg_reason_caseunit_atom.get_value(
                     "reason_context"
                 )
-                reason_state_value = plan_reason_caseunit_atom.get_value("reason_state")
-                x_str = f"CaseUnit '{reason_state_value}' deleted from reason '{reason_context_value}' for plan '{rope_value}'."
+                reason_state_value = keg_reason_caseunit_atom.get_value("reason_state")
+                x_str = f"CaseUnit '{reason_state_value}' deleted from reason '{reason_context_value}' for keg '{rope_value}'."
                 legible_list.append(x_str)
 
 
-def add_belief_plan_partyunit_insert_to_legible_list(
-    legible_list: list[str], plan_partyunit_insert_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_partyunit_insert_to_legible_list(
+    legible_list: list[str], keg_partyunit_insert_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_partyunit_insert_dict.values():
-        for plan_partyunit_atom in rope_dict.values():
-            party_title_value = plan_partyunit_atom.get_value("party_title")
-            rope_value = plan_partyunit_atom.get_value("plan_rope")
-            x_str = f"partyunit '{party_title_value}' created for plan '{rope_value}'."
+    for rope_dict in keg_partyunit_insert_dict.values():
+        for keg_partyunit_atom in rope_dict.values():
+            party_title_value = keg_partyunit_atom.get_value("party_title")
+            rope_value = keg_partyunit_atom.get_value("keg_rope")
+            x_str = f"partyunit '{party_title_value}' created for keg '{rope_value}'."
             legible_list.append(x_str)
 
 
-def add_belief_plan_partyunit_delete_to_legible_list(
-    legible_list: list[str], plan_partyunit_delete_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_partyunit_delete_to_legible_list(
+    legible_list: list[str], keg_partyunit_delete_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_partyunit_delete_dict.values():
-        for plan_partyunit_atom in rope_dict.values():
-            party_title_value = plan_partyunit_atom.get_value("party_title")
-            rope_value = plan_partyunit_atom.get_value("plan_rope")
-            x_str = f"partyunit '{party_title_value}' deleted for plan '{rope_value}'."
+    for rope_dict in keg_partyunit_delete_dict.values():
+        for keg_partyunit_atom in rope_dict.values():
+            party_title_value = keg_partyunit_atom.get_value("party_title")
+            rope_value = keg_partyunit_atom.get_value("keg_rope")
+            x_str = f"partyunit '{party_title_value}' deleted for keg '{rope_value}'."
             legible_list.append(x_str)
 
 
-def add_belief_plan_healerunit_insert_to_legible_list(
-    legible_list: list[str], plan_healerunit_insert_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_healerunit_insert_to_legible_list(
+    legible_list: list[str], keg_healerunit_insert_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_healerunit_insert_dict.values():
-        for plan_healerunit_atom in rope_dict.values():
-            healer_name_value = plan_healerunit_atom.get_value("healer_name")
-            rope_value = plan_healerunit_atom.get_value("plan_rope")
-            x_str = f"HealerUnit '{healer_name_value}' created for plan '{rope_value}'."
+    for rope_dict in keg_healerunit_insert_dict.values():
+        for keg_healerunit_atom in rope_dict.values():
+            healer_name_value = keg_healerunit_atom.get_value("healer_name")
+            rope_value = keg_healerunit_atom.get_value("keg_rope")
+            x_str = f"HealerUnit '{healer_name_value}' created for keg '{rope_value}'."
             legible_list.append(x_str)
 
 
-def add_belief_plan_healerunit_delete_to_legible_list(
-    legible_list: list[str], plan_healerunit_delete_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_healerunit_delete_to_legible_list(
+    legible_list: list[str], keg_healerunit_delete_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_healerunit_delete_dict.values():
-        for plan_healerunit_atom in rope_dict.values():
-            healer_name_value = plan_healerunit_atom.get_value("healer_name")
-            rope_value = plan_healerunit_atom.get_value("plan_rope")
-            x_str = f"HealerUnit '{healer_name_value}' deleted for plan '{rope_value}'."
+    for rope_dict in keg_healerunit_delete_dict.values():
+        for keg_healerunit_atom in rope_dict.values():
+            healer_name_value = keg_healerunit_atom.get_value("healer_name")
+            rope_value = keg_healerunit_atom.get_value("keg_rope")
+            x_str = f"HealerUnit '{healer_name_value}' deleted for keg '{rope_value}'."
             legible_list.append(x_str)
 
 
-def add_belief_plan_factunit_insert_to_legible_list(
-    legible_list: list[str], plan_factunit_insert_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_factunit_insert_to_legible_list(
+    legible_list: list[str], keg_factunit_insert_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_factunit_insert_dict.values():
-        for plan_factunit_atom in rope_dict.values():
-            rope_value = plan_factunit_atom.get_value("plan_rope")
-            fact_context_value = plan_factunit_atom.get_value("fact_context")
-            fact_state_value = plan_factunit_atom.get_value("fact_state")
-            fact_upper_value = plan_factunit_atom.get_value("fact_upper")
-            fact_lower_value = plan_factunit_atom.get_value("fact_lower")
-            x_str = f"FactUnit '{fact_state_value}' created for reason_context '{fact_context_value}' for plan '{rope_value}'."
+    for rope_dict in keg_factunit_insert_dict.values():
+        for keg_factunit_atom in rope_dict.values():
+            rope_value = keg_factunit_atom.get_value("keg_rope")
+            fact_context_value = keg_factunit_atom.get_value("fact_context")
+            fact_state_value = keg_factunit_atom.get_value("fact_state")
+            fact_upper_value = keg_factunit_atom.get_value("fact_upper")
+            fact_lower_value = keg_factunit_atom.get_value("fact_lower")
+            x_str = f"FactUnit '{fact_state_value}' created for reason_context '{fact_context_value}' for keg '{rope_value}'."
             if fact_lower_value is not None:
                 x_str += f" fact_lower={fact_lower_value}."
             if fact_upper_value is not None:
@@ -604,17 +604,17 @@ def add_belief_plan_factunit_insert_to_legible_list(
             legible_list.append(x_str)
 
 
-def add_belief_plan_factunit_update_to_legible_list(
-    legible_list: list[str], plan_factunit_update_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_factunit_update_to_legible_list(
+    legible_list: list[str], keg_factunit_update_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_factunit_update_dict.values():
-        for plan_factunit_atom in rope_dict.values():
-            rope_value = plan_factunit_atom.get_value("plan_rope")
-            fact_context_value = plan_factunit_atom.get_value("fact_context")
-            fact_state_value = plan_factunit_atom.get_value("fact_state")
-            fact_upper_value = plan_factunit_atom.get_value("fact_upper")
-            fact_lower_value = plan_factunit_atom.get_value("fact_lower")
-            x_str = f"FactUnit '{fact_state_value}' updated for reason_context '{fact_context_value}' for plan '{rope_value}'."
+    for rope_dict in keg_factunit_update_dict.values():
+        for keg_factunit_atom in rope_dict.values():
+            rope_value = keg_factunit_atom.get_value("keg_rope")
+            fact_context_value = keg_factunit_atom.get_value("fact_context")
+            fact_state_value = keg_factunit_atom.get_value("fact_state")
+            fact_upper_value = keg_factunit_atom.get_value("fact_upper")
+            fact_lower_value = keg_factunit_atom.get_value("fact_lower")
+            x_str = f"FactUnit '{fact_state_value}' updated for reason_context '{fact_context_value}' for keg '{rope_value}'."
             if fact_lower_value is not None:
                 x_str += f" fact_lower={fact_lower_value}."
             if fact_upper_value is not None:
@@ -622,13 +622,13 @@ def add_belief_plan_factunit_update_to_legible_list(
             legible_list.append(x_str)
 
 
-def add_belief_plan_factunit_delete_to_legible_list(
-    legible_list: list[str], plan_factunit_delete_dict: dict, x_belief: BeliefUnit
+def add_belief_keg_factunit_delete_to_legible_list(
+    legible_list: list[str], keg_factunit_delete_dict: dict, x_belief: BeliefUnit
 ):
-    for rope_dict in plan_factunit_delete_dict.values():
-        for plan_factunit_atom in rope_dict.values():
-            rope_value = plan_factunit_atom.get_value("plan_rope")
-            fact_context_value = plan_factunit_atom.get_value("fact_context")
-            fact_state_value = plan_factunit_atom.get_value("fact_state")
-            x_str = f"FactUnit reason_context '{fact_context_value}' deleted for plan '{rope_value}'."
+    for rope_dict in keg_factunit_delete_dict.values():
+        for keg_factunit_atom in rope_dict.values():
+            rope_value = keg_factunit_atom.get_value("keg_rope")
+            fact_context_value = keg_factunit_atom.get_value("fact_context")
+            fact_state_value = keg_factunit_atom.get_value("fact_state")
+            x_str = f"FactUnit reason_context '{fact_context_value}' deleted for keg '{rope_value}'."
             legible_list.append(x_str)

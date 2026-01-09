@@ -142,8 +142,8 @@ class TranBook:
         return ["voice_name", "net_amount"]
 
     def _get_voices_net_array(self) -> list[list]:
-        x_plans = self.get_voices_net_dict().items()
-        return [[voice_name, net_amount] for voice_name, net_amount in x_plans]
+        x_kegs = self.get_voices_net_dict().items()
+        return [[voice_name, net_amount] for voice_name, net_amount in x_kegs]
 
     def get_voices_net_csv(self) -> str:
         return create_csv(self._get_voices_headers(), self._get_voices_net_array())

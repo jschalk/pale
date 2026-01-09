@@ -34,16 +34,16 @@ def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_bool):
     for idea_format in sorted(dimens_idea_format_dict.keys()):
         print(f"{idea_format=}")
     assert len(dimens_idea_format_dict) == 10
-    belief_planunit_filename = f"idea_format_00026_{kw.belief_planunit}_v0_0_0.json"
-    assert dimens_idea_format_dict.get(belief_planunit_filename)
-    belief_planunit_dict = dimens_idea_format_dict.get(belief_planunit_filename)
-    assert belief_planunit_dict.get(kw.dimens) == [kw.belief_planunit]
-    assert belief_planunit_dict.get(kw.attributes)
-    belief_planunit_attributes = belief_planunit_dict.get(kw.attributes)
-    assert kw.moment_label in belief_planunit_attributes
-    assert kw.belief_name in belief_planunit_attributes
-    assert kw.plan_rope in belief_planunit_attributes
-    assert kw.gogo_want in belief_planunit_attributes
+    belief_kegunit_filename = f"idea_format_00026_{kw.belief_kegunit}_v0_0_0.json"
+    assert dimens_idea_format_dict.get(belief_kegunit_filename)
+    belief_kegunit_dict = dimens_idea_format_dict.get(belief_kegunit_filename)
+    assert belief_kegunit_dict.get(kw.dimens) == [kw.belief_kegunit]
+    assert belief_kegunit_dict.get(kw.attributes)
+    belief_kegunit_attributes = belief_kegunit_dict.get(kw.attributes)
+    assert kw.moment_label in belief_kegunit_attributes
+    assert kw.belief_name in belief_kegunit_attributes
+    assert kw.keg_rope in belief_kegunit_attributes
+    assert kw.gogo_want in belief_kegunit_attributes
 
 
 def test_get_idea_brick_md_ReturnsObj():

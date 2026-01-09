@@ -1,9 +1,9 @@
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import beliefunit_v001
 from src.ch08_belief_atom.atom_main import beliefatom_shop
 from src.ch17_idea.idea_config import (
-    idea_format_00013_planunit_v0_0_0,
+    idea_format_00013_kegunit_v0_0_0,
     idea_format_00021_belief_voiceunit_v0_0_0,
 )
 from src.ch17_idea.idea_main import create_idea_df, get_idearef_obj, make_beliefdelta
@@ -124,51 +124,51 @@ def test_make_beliefdelta_Arg_idea_format_00021_belief_voiceunit_v0_0_0():
 #     assert len(membership_changunit.get_ordered_beliefatoms()) == 10
 
 
-def test_make_beliefdelta_Arg_idea_format_00013_planunit_v0_0_0():
+def test_make_beliefdelta_Arg_idea_format_00013_kegunit_v0_0_0():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     amy_moment_label = "amy56"
     sue_beliefunit = beliefunit_shop(exx.sue, amy_moment_label)
     casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
     casa_star = 31
-    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa, star=casa_star))
+    sue_beliefunit.set_l1_keg(kegunit_shop(exx.casa, star=casa_star))
     clean_rope = sue_beliefunit.make_rope(casa_rope, exx.clean)
-    sue_beliefunit.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
-    x_idea_name = idea_format_00013_planunit_v0_0_0()
-    planunit_dataframe = create_idea_df(sue_beliefunit, x_idea_name)
-    planunit_csv = planunit_dataframe.to_csv(index=False)
+    sue_beliefunit.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
+    x_idea_name = idea_format_00013_kegunit_v0_0_0()
+    kegunit_dataframe = create_idea_df(sue_beliefunit, x_idea_name)
+    kegunit_csv = kegunit_dataframe.to_csv(index=False)
 
     # WHEN
-    planunit_changunit = make_beliefdelta(planunit_csv)
+    kegunit_changunit = make_beliefdelta(kegunit_csv)
 
     # THEN
-    casa_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    casa_beliefatom.set_arg(kw.plan_rope, casa_rope)
+    casa_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    casa_beliefatom.set_arg(kw.keg_rope, casa_rope)
     casa_beliefatom.set_arg(kw.pledge, False)
     casa_beliefatom.set_arg(kw.star, casa_star)
     print(f"{casa_beliefatom=}")
     assert casa_beliefatom.get_value(kw.star) == casa_star
-    clean_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    clean_beliefatom.set_arg(kw.plan_rope, clean_rope)
+    clean_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    clean_beliefatom.set_arg(kw.keg_rope, clean_rope)
     clean_beliefatom.set_arg(kw.pledge, True)
     clean_beliefatom.set_arg(kw.star, 1)
-    assert planunit_changunit.c_beliefatom_exists(casa_beliefatom)
-    assert planunit_changunit.c_beliefatom_exists(clean_beliefatom)
-    assert len(planunit_changunit.get_ordered_beliefatoms()) == 2
+    assert kegunit_changunit.c_beliefatom_exists(casa_beliefatom)
+    assert kegunit_changunit.c_beliefatom_exists(clean_beliefatom)
+    assert len(kegunit_changunit.get_ordered_beliefatoms()) == 2
 
 
-def test_create_idea_df_Arg_idea_format_00013_planunit_v0_0_0_Scenario_beliefunit_v001(
+def test_create_idea_df_Arg_idea_format_00013_kegunit_v0_0_0_Scenario_beliefunit_v001(
     run_big_tests,
 ):
     # sourcery skip: no-conditionals-in-tests
     if run_big_tests:
         # ESTABLISH / WHEN
-        x_idea_name = idea_format_00013_planunit_v0_0_0()
+        x_idea_name = idea_format_00013_kegunit_v0_0_0()
 
         # WHEN
-        planunit_format = create_idea_df(beliefunit_v001(), x_idea_name)
+        kegunit_format = create_idea_df(beliefunit_v001(), x_idea_name)
 
         # THEN
-        array_headers = list(planunit_format.columns)
+        array_headers = list(kegunit_format.columns)
         assert array_headers == get_idearef_obj(x_idea_name).get_headers_list()
-        assert len(planunit_format) == 251
+        assert len(kegunit_format) == 251

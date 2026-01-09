@@ -1,6 +1,6 @@
 from src.ch02_allot.allot import default_pool_num, validate_pool_num
 from src.ch03_voice.voice import RespectNum
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch10_belief_listen.basis_belief import (
     create_empty_belief_from_belief,
@@ -14,7 +14,7 @@ def test_create_empty_belief_from_belief_ReturnsObj():
     # ESTABLISH
     mana_grain_float = 0.7
     yao_gut = beliefunit_shop(exx.yao, knot=exx.slash, mana_grain=mana_grain_float)
-    yao_gut.set_l1_plan(planunit_shop("Iowa"))
+    yao_gut.set_l1_keg(kegunit_shop("Iowa"))
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_credor_pool = 87
@@ -57,7 +57,7 @@ def test_create_empty_belief_from_belief_ReturnsObj():
 def test_create_listen_basis_ReturnsObj():
     # ESTABLISH
     yao_duty = beliefunit_shop(exx.yao, knot=exx.slash)
-    yao_duty.set_l1_plan(planunit_shop("Iowa"))
+    yao_duty.set_l1_keg(kegunit_shop("Iowa"))
     zia_voice_cred_lumen = 47
     zia_voice_debt_lumen = 41
     zia_credor_pool = 8700
@@ -90,8 +90,8 @@ def test_create_listen_basis_ReturnsObj():
     assert yao_basis_vision.credor_respect == yao_duty.credor_respect
     assert yao_basis_vision.debtor_respect == yao_duty.debtor_respect
     yao_basis_vision.cashout()
-    assert len(yao_basis_vision._plan_dict) != len(yao_duty._plan_dict)
-    assert len(yao_basis_vision._plan_dict) == 1
+    assert len(yao_basis_vision._keg_dict) != len(yao_duty._keg_dict)
+    assert len(yao_basis_vision._keg_dict) == 1
     vision_zia_voiceunit = yao_basis_vision.get_voice(exx.zia)
     assert (
         yao_basis_vision.get_voiceunits_dict().keys()
@@ -118,7 +118,7 @@ def test_get_default_job_ReturnsObj():
     bob_voiceunit = sue_beliefunit.get_voice(exx.bob)
     bob_voiceunit.add_membership(f"{exx.slash}swimmers")
     sue_beliefunit.set_voice_respect(sue_voice_pool)
-    sue_beliefunit.set_l1_plan(planunit_shop(exx.casa))
+    sue_beliefunit.set_l1_keg(kegunit_shop(exx.casa))
     sue_beliefunit.set_max_tree_traverse(sue_max_tree_traverse)
 
     # WHEN
@@ -138,4 +138,4 @@ def test_get_default_job_ReturnsObj():
     assert default_job.debtor_respect == RespectNum(default_pool_num())
     assert default_job.max_tree_traverse == sue_max_tree_traverse
     assert len(default_job.get_voiceunits_dict()) == 1
-    assert len(default_job._plan_dict) == 1
+    assert len(default_job._keg_dict) == 1

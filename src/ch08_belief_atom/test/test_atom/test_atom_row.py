@@ -47,7 +47,7 @@ def test_AtomRow_Exists():
     assert x_atomrow.fact_state is None
     assert x_atomrow.pledge is None
     assert x_atomrow.problem_bool is None
-    assert x_atomrow.plan_rope is None
+    assert x_atomrow.keg_rope is None
     assert x_atomrow.stop_want is None
     assert x_atomrow.take_force is None
     assert x_atomrow.tally is None
@@ -120,15 +120,15 @@ def test_AtomRow_set_class_types_SetsAttr():
     x_atomrow = atomrow_shop({}, kw.INSERT)
     x_atomrow.close = "4"
     x_parent_rope = "Fay_bob"
-    x_plan_label = "Bobziy"
+    x_keg_label = "Bobziy"
     x_morph_str = "True"
     x_morph_bool = True
-    x_rope = create_rope(x_parent_rope, x_plan_label)
-    x_atomrow.plan_rope = x_rope
+    x_rope = create_rope(x_parent_rope, x_keg_label)
+    x_atomrow.keg_rope = x_rope
     x_atomrow.morph = x_morph_str
     four_int = 4
     assert x_atomrow.close != four_int
-    assert x_atomrow.plan_rope == x_rope
+    assert x_atomrow.keg_rope == x_rope
     assert x_atomrow.morph == x_morph_str
 
     # WHEN
@@ -136,7 +136,7 @@ def test_AtomRow_set_class_types_SetsAttr():
 
     # THEN
     assert x_atomrow.close == four_int
-    assert x_atomrow.plan_rope == x_rope
+    assert x_atomrow.keg_rope == x_rope
     assert x_atomrow.morph == x_morph_bool
 
 
@@ -223,10 +223,10 @@ def test_AtomRow_get_beliefatoms_ReturnsObjIfDimenIsCorrect():
     assert len(x_atomrow.get_beliefatoms()) == 1
 
 
-def test_AtomRow_get_beliefatoms_ReturnsObj_belief_planunit_INSERT_pledge_False_Scenario0():
+def test_AtomRow_get_beliefatoms_ReturnsObj_belief_kegunit_INSERT_pledge_False_Scenario0():
     # ESTABLISH
-    x_atomrow = atomrow_shop({kw.belief_planunit}, kw.INSERT)
-    x_atomrow.plan_rope = create_rope("amy78", "casa")
+    x_atomrow = atomrow_shop({kw.belief_kegunit}, kw.INSERT)
+    x_atomrow.keg_rope = create_rope("amy78", "casa")
     x_atomrow.pledge = False
     assert len(x_atomrow.get_beliefatoms()) == 1
 
@@ -234,19 +234,19 @@ def test_AtomRow_get_beliefatoms_ReturnsObj_belief_planunit_INSERT_pledge_False_
     x_beliefatom = x_atomrow.get_beliefatoms()[0]
 
     # THEN
-    static_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    static_beliefatom.set_arg(kw.plan_rope, create_rope("amy78", "casa"))
+    static_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    static_beliefatom.set_arg(kw.keg_rope, create_rope("amy78", "casa"))
     static_beliefatom.set_arg(kw.pledge, False)
     print(static_beliefatom)
     print(x_beliefatom)
     assert x_beliefatom == static_beliefatom
 
 
-def test_AtomRow_get_beliefatoms_ReturnsObj_belief_planunit_INSERT_pledge_False_Scenario1():
+def test_AtomRow_get_beliefatoms_ReturnsObj_belief_kegunit_INSERT_pledge_False_Scenario1():
     # ESTABLISH
-    x_dimens = {kw.belief_planunit, kw.belief_plan_healerunit}
+    x_dimens = {kw.belief_kegunit, kw.belief_keg_healerunit}
     x_atomrow = atomrow_shop(x_dimens, kw.INSERT)
-    x_atomrow.plan_rope = create_rope("amy78", "casa")
+    x_atomrow.keg_rope = create_rope("amy78", "casa")
     x_atomrow.pledge = False
     x_atomrow.healer_name = "Bob"
 
@@ -255,12 +255,12 @@ def test_AtomRow_get_beliefatoms_ReturnsObj_belief_planunit_INSERT_pledge_False_
 
     # THEN
     assert len(x_beliefatoms) == 2
-    y_plan_beliefatom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
+    y_keg_beliefatom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
     casa_rope = create_rope("amy78", "casa")
-    y_plan_beliefatom.set_arg(kw.plan_rope, casa_rope)
-    y_plan_beliefatom.set_arg(kw.pledge, False)
-    assert y_plan_beliefatom in x_beliefatoms
-    healerunit_beliefatom = beliefatom_shop(kw.belief_plan_healerunit, kw.INSERT)
-    healerunit_beliefatom.set_arg(kw.plan_rope, casa_rope)
+    y_keg_beliefatom.set_arg(kw.keg_rope, casa_rope)
+    y_keg_beliefatom.set_arg(kw.pledge, False)
+    assert y_keg_beliefatom in x_beliefatoms
+    healerunit_beliefatom = beliefatom_shop(kw.belief_keg_healerunit, kw.INSERT)
+    healerunit_beliefatom.set_arg(kw.keg_rope, casa_rope)
     healerunit_beliefatom.set_arg("healer_name", "Bob")
     assert healerunit_beliefatom in x_beliefatoms

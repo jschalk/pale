@@ -7,9 +7,9 @@ from src.ch09_belief_lesson.test._util.ch09_env import (
 )
 from src.ch09_belief_lesson.test._util.ch09_examples import (
     get_atom_example_factunit_knee,
-    get_atom_example_planunit_ball,
-    get_atom_example_planunit_knee,
-    get_atom_example_planunit_sports,
+    get_atom_example_kegunit_ball,
+    get_atom_example_kegunit_knee,
+    get_atom_example_kegunit_sports,
     get_ch09_example_moment_label as moment_label,
 )
 from src.ref.keywords import ExampleStrs as exx
@@ -169,14 +169,14 @@ def test_LessonFileHandler_get_belief_from_atom_files_ReturnsFileWithZeroAtoms(
     assert yao_belief.respect_grain == yao_lessonfilehandler.respect_grain
 
 
-def test_LessonFileHandler_get_belief_from_atom_files_ReturnsFile_SimplePlan(
+def test_LessonFileHandler_get_belief_from_atom_files_ReturnsFile_SimpleKeg(
     temp_dir_setup,
 ):
     # ESTABLISH
     yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
 
     # save atom files
-    sports_atom = get_atom_example_planunit_sports(yao_lessonfilehandler.moment_label)
+    sports_atom = get_atom_example_kegunit_sports(yao_lessonfilehandler.moment_label)
     yao_lessonfilehandler.save_atom_file(sports_atom)
 
     # WHEN
@@ -189,7 +189,7 @@ def test_LessonFileHandler_get_belief_from_atom_files_ReturnsFile_SimplePlan(
     sports_str = "sports"
     sports_rope = yao_belief.make_l1_rope(sports_str)
 
-    assert yao_belief.plan_exists(sports_rope)
+    assert yao_belief.keg_exists(sports_rope)
 
 
 def test_LessonFileHandler_get_belief_from_atom_files_ReturnsFile_WithFactUnit(
@@ -201,10 +201,10 @@ def test_LessonFileHandler_get_belief_from_atom_files_ReturnsFile_WithFactUnit(
     # save atom files
     x_moment_label = yao_lessonfilehandler.moment_label
     yao_lessonfilehandler.save_atom_file(
-        get_atom_example_planunit_sports(x_moment_label)
+        get_atom_example_kegunit_sports(x_moment_label)
     )
-    yao_lessonfilehandler.save_atom_file(get_atom_example_planunit_ball(x_moment_label))
-    yao_lessonfilehandler.save_atom_file(get_atom_example_planunit_knee(x_moment_label))
+    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_ball(x_moment_label))
+    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_knee(x_moment_label))
     yao_lessonfilehandler.save_atom_file(get_atom_example_factunit_knee(x_moment_label))
     print(f"{get_dir_file_strs(yao_lessonfilehandler.atoms_dir).keys()=}")
 
@@ -218,4 +218,4 @@ def test_LessonFileHandler_get_belief_from_atom_files_ReturnsFile_WithFactUnit(
     sports_str = "sports"
     sports_rope = yao_belief.make_l1_rope(sports_str)
 
-    assert yao_belief.plan_exists(sports_rope)
+    assert yao_belief.keg_exists(sports_rope)

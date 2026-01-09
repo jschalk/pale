@@ -13,8 +13,8 @@ class TreeMetrics:
     awardunits_metrics: dict[GroupTitle, AwardUnit] = None
     uid_max: int = None
     uid_dict: dict[int, int] = None
-    all_plan_uids_are_unique: bool = None
-    last_evaluated_pledge_plan_rope: RopeTerm = None
+    all_keg_uids_are_unique: bool = None
+    last_evaluated_pledge_keg_rope: RopeTerm = None
 
     def evaluate_label(
         self,
@@ -23,18 +23,18 @@ class TreeMetrics:
         awardunits: dict[GroupTitle, AwardUnit],
         uid: int,
         pledge: bool,
-        plan_rope: RopeTerm,
+        keg_rope: RopeTerm,
     ):
         self.label_count += 1
-        self.evaluate_pledge(pledge=pledge, plan_rope=plan_rope)
+        self.evaluate_pledge(pledge=pledge, keg_rope=keg_rope)
         self.evaluate_level(tree_level=tree_level)
         self.evaluate_reasonunits(reasons=reasons)
         self.evaluate_awardunits(awardunits=awardunits)
         self.evaluate_uid_max(uid=uid)
 
-    def evaluate_pledge(self, pledge: bool, plan_rope: RopeTerm):
+    def evaluate_pledge(self, pledge: bool, keg_rope: RopeTerm):
         if pledge:
-            self.last_evaluated_pledge_plan_rope = plan_rope
+            self.last_evaluated_pledge_keg_rope = keg_rope
 
     def evaluate_level(self, tree_level):
         if self.tree_level_count.get(tree_level) is None:
@@ -65,7 +65,7 @@ class TreeMetrics:
             self.uid_dict[uid] = 1
         else:
             self.uid_dict[uid] += 1
-            self.all_plan_uids_are_unique = False
+            self.all_keg_uids_are_unique = False
 
 
 def treemetrics_shop(
@@ -84,6 +84,6 @@ def treemetrics_shop(
         uid_dict=get_empty_dict_if_None(uid_dict),
         uid_max=get_0_if_None(uid_max),
     )
-    if x_treemetrics.all_plan_uids_are_unique is None:
-        x_treemetrics.all_plan_uids_are_unique = True
+    if x_treemetrics.all_keg_uids_are_unique is None:
+        x_treemetrics.all_keg_uids_are_unique = True
     return x_treemetrics

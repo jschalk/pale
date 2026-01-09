@@ -108,25 +108,25 @@ BeliefUnit VoiceUnit objects
 
 BeliefUnit GroupUnit objects
 
-BeliefUnit PlanUnit objects
+BeliefUnit KegUnit objects
 
-BeliefUnit PlanUnit hierarchical structure
+BeliefUnit KegUnit hierarchical structure
 
-BeliefUnit PlanUnit AwardUnit objects
+BeliefUnit KegUnit AwardUnit objects
 
-BeliefUnit PlanUnit AwardLine objects
+BeliefUnit KegUnit AwardLine objects
 
-BeliefUnit PlanUnit AwardHeir objects
+BeliefUnit KegUnit AwardHeir objects
 
-BeliefUnit PlanUnit AwardHeir objects
+BeliefUnit KegUnit AwardHeir objects
 
-BeliefUnit PlanUnit Reason CaseUnit objects
+BeliefUnit KegUnit Reason CaseUnit objects
 
-BeliefUnit PlanUnit Reason CaseHeir objects
+BeliefUnit KegUnit Reason CaseHeir objects
 
-BeliefUnit PlanUnit FactUnit objects
+BeliefUnit KegUnit FactUnit objects
 
-BeliefUnit PlanUnit FactHeir objects1
+BeliefUnit KegUnit FactHeir objects1
 
 
 ## 1.3 Test-Driven-Development

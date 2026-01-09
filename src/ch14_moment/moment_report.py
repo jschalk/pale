@@ -143,7 +143,7 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
         "belief_name",
         "fund_ratio",
-        "plan_label",
+        "keg_label",
         "parent_rope",
         "begin",
         "close",
@@ -162,7 +162,7 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
             values=[
                 df.belief_name,
                 df.fund_ratio,
-                df.plan_label,
+                df.keg_label,
                 df.parent_rope,
                 df.begin,
                 df.close,
@@ -202,7 +202,7 @@ def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
         "belief_name",
         "fund_ratio",
-        "plan_label",
+        "keg_label",
         "parent_rope",
         "begin",
         "close",
@@ -221,7 +221,7 @@ def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
             values=[
                 df.belief_name,
                 df.fund_ratio,
-                df.plan_label,
+                df.keg_label,
                 df.parent_rope,
                 df.begin,
                 df.close,

@@ -431,7 +431,7 @@ WHERE inconsistency_rows.moment_label = nabu_epochtime_s_raw.moment_label
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario3_BeliefDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = kw.belief_plan_awardunit
+    dimen = kw.belief_keg_awardunit
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -458,21 +458,21 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         assert update_sqlstr == expected_update_sqlstr
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
-SELECT spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title
-FROM belief_plan_awardunit_s_put_raw
-GROUP BY spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title
+SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title
+FROM belief_keg_awardunit_s_put_raw
+GROUP BY spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title
 HAVING MIN(give_force) != MAX(give_force)
     OR MIN(take_force) != MAX(take_force)
 )
-UPDATE belief_plan_awardunit_s_put_raw
+UPDATE belief_keg_awardunit_s_put_raw
 SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
-WHERE inconsistency_rows.spark_num = belief_plan_awardunit_s_put_raw.spark_num
-    AND inconsistency_rows.face_name = belief_plan_awardunit_s_put_raw.face_name
-    AND inconsistency_rows.moment_label = belief_plan_awardunit_s_put_raw.moment_label
-    AND inconsistency_rows.belief_name = belief_plan_awardunit_s_put_raw.belief_name
-    AND inconsistency_rows.plan_rope = belief_plan_awardunit_s_put_raw.plan_rope
-    AND inconsistency_rows.awardee_title = belief_plan_awardunit_s_put_raw.awardee_title
+WHERE inconsistency_rows.spark_num = belief_keg_awardunit_s_put_raw.spark_num
+    AND inconsistency_rows.face_name = belief_keg_awardunit_s_put_raw.face_name
+    AND inconsistency_rows.moment_label = belief_keg_awardunit_s_put_raw.moment_label
+    AND inconsistency_rows.belief_name = belief_keg_awardunit_s_put_raw.belief_name
+    AND inconsistency_rows.keg_rope = belief_keg_awardunit_s_put_raw.keg_rope
+    AND inconsistency_rows.awardee_title = belief_keg_awardunit_s_put_raw.awardee_title
 ;
 """
         print(update_sqlstr)
@@ -603,7 +603,7 @@ GROUP BY spark_num, face_name, moment_label, otx_time
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_BeliefDimen():
     # sourcery skip: extract-duplicate-method, extract-method
     # ESTABLISH
-    dimen = kw.belief_plan_awardunit
+    dimen = kw.belief_keg_awardunit
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -628,11 +628,11 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_BeliefDimen():
         # print(put_expected_insert_sqlstr)
         assert update_sqlstrs[0] == put_expected_insert_sqlstr
 
-        static_example_put_sqlstr = """INSERT INTO belief_plan_awardunit_s_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force)
-SELECT spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, MAX(give_force), MAX(take_force)
-FROM belief_plan_awardunit_s_put_raw
+        static_example_put_sqlstr = """INSERT INTO belief_keg_awardunit_s_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, give_force, take_force)
+SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, MAX(give_force), MAX(take_force)
+FROM belief_keg_awardunit_s_put_raw
 WHERE error_message IS NULL
-GROUP BY spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title
+GROUP BY spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title
 ;
 """
         # print(update_sqlstrs[0])
@@ -659,10 +659,10 @@ GROUP BY spark_num, face_name, moment_label, belief_name, plan_rope, awardee_tit
         print(update_sqlstrs[1])
         assert update_sqlstrs[1] == del_expected_insert_sqlstr
 
-        static_example_del_sqlstr = """INSERT INTO belief_plan_awardunit_s_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE)
-SELECT spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE
-FROM belief_plan_awardunit_s_del_raw
-GROUP BY spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE
+        static_example_del_sqlstr = """INSERT INTO belief_keg_awardunit_s_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE)
+SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE
+FROM belief_keg_awardunit_s_del_raw
+GROUP BY spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE
 ;
 """
         assert update_sqlstrs[1] == static_example_del_sqlstr

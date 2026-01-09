@@ -310,7 +310,7 @@ def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj():
     #         print(f"{x_atom.dimen=}")
 
 
-def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_PlanUnitsSorted():
+def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_KegUnitsSorted():
     # ESTABLISH
     x_moment_label = exx.a23
     root_rope = to_rope(x_moment_label)
@@ -318,14 +318,14 @@ def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_PlanUnitsSorted():
     sports_rope = create_rope(x_moment_label, sports_str)
     knee_str = "knee"
     knee_rope = create_rope(x_moment_label, knee_str)
-    x_dimen = kw.belief_planunit
-    sports_insert_planunit_beliefatom = beliefatom_shop(x_dimen, kw.INSERT)
-    sports_insert_planunit_beliefatom.set_jkey(kw.plan_rope, sports_rope)
-    knee_insert_planunit_beliefatom = beliefatom_shop(x_dimen, kw.INSERT)
-    knee_insert_planunit_beliefatom.set_jkey(kw.plan_rope, knee_rope)
+    x_dimen = kw.belief_kegunit
+    sports_insert_kegunit_beliefatom = beliefatom_shop(x_dimen, kw.INSERT)
+    sports_insert_kegunit_beliefatom.set_jkey(kw.keg_rope, sports_rope)
+    knee_insert_kegunit_beliefatom = beliefatom_shop(x_dimen, kw.INSERT)
+    knee_insert_kegunit_beliefatom.set_jkey(kw.keg_rope, knee_rope)
     x_beliefdelta = beliefdelta_shop()
-    x_beliefdelta.set_beliefatom(knee_insert_planunit_beliefatom)
-    x_beliefdelta.set_beliefatom(sports_insert_planunit_beliefatom)
+    x_beliefdelta.set_beliefatom(knee_insert_kegunit_beliefatom)
+    x_beliefdelta.set_beliefatom(sports_insert_kegunit_beliefatom)
 
     # WHEN
     x_atom_order_list = x_beliefdelta.get_sorted_beliefatoms()
@@ -334,8 +334,8 @@ def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_PlanUnitsSorted():
     assert len(x_atom_order_list) == 2
     # for beliefatom in x_atom_order_list:
     #     print(f"{beliefatom.jkeys=}")
-    assert x_atom_order_list[0] == knee_insert_planunit_beliefatom
-    assert x_atom_order_list[1] == sports_insert_planunit_beliefatom
+    assert x_atom_order_list[0] == knee_insert_kegunit_beliefatom
+    assert x_atom_order_list[1] == sports_insert_kegunit_beliefatom
     # for crud_str, atom_list in sue_atom_order_dict.items():
     #     print(f"{crud_str=}")
     #     print(f"{len(atom_list)=}")
@@ -351,14 +351,14 @@ def test_BeliefDelta_get_sorted_beliefatoms_ReturnsObj_Rope_Sorted():
     sports_rope = create_rope(x_moment_label, sports_str)
     knee_str = "knee"
     knee_rope = create_rope(sports_rope, knee_str)
-    x_dimen = kw.belief_plan_awardunit
+    x_dimen = kw.belief_keg_awardunit
     swimmers_str = ",Swimmers"
     sports_awardunit_beliefatom = beliefatom_shop(x_dimen, kw.INSERT)
     sports_awardunit_beliefatom.set_jkey(kw.awardee_title, swimmers_str)
-    sports_awardunit_beliefatom.set_jkey(kw.plan_rope, sports_rope)
+    sports_awardunit_beliefatom.set_jkey(kw.keg_rope, sports_rope)
     knee_awardunit_beliefatom = beliefatom_shop(x_dimen, kw.INSERT)
     knee_awardunit_beliefatom.set_jkey(kw.awardee_title, swimmers_str)
-    knee_awardunit_beliefatom.set_jkey(kw.plan_rope, knee_rope)
+    knee_awardunit_beliefatom.set_jkey(kw.keg_rope, knee_rope)
     x_beliefdelta = beliefdelta_shop()
     x_beliefdelta.set_beliefatom(knee_awardunit_beliefatom)
     x_beliefdelta.set_beliefatom(sports_awardunit_beliefatom)

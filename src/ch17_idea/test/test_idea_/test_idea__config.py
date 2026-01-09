@@ -42,7 +42,7 @@ from src.ch17_idea.idea_config import (
     get_idearef_from_file,
     get_quick_ideas_column_ref,
     idea_config_path,
-    idea_format_00013_planunit_v0_0_0,
+    idea_format_00013_kegunit_v0_0_0,
     idea_format_00020_belief_voice_membership_v0_0_0,
     idea_format_00021_belief_voiceunit_v0_0_0,
 )
@@ -143,12 +143,12 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[47] == f"{kw.group_title}_ERASE"
     assert table_sorting_priority[48] == f"{kw.group_title}_ERASE_otx"
     assert table_sorting_priority[49] == f"{kw.group_title}_ERASE_inx"
-    assert table_sorting_priority[50] == kw.plan_rope
-    assert table_sorting_priority[51] == f"{kw.plan_rope}_otx"
-    assert table_sorting_priority[52] == f"{kw.plan_rope}_inx"
-    assert table_sorting_priority[53] == f"{kw.plan_rope}_ERASE"
-    assert table_sorting_priority[54] == f"{kw.plan_rope}_ERASE_otx"
-    assert table_sorting_priority[55] == f"{kw.plan_rope}_ERASE_inx"
+    assert table_sorting_priority[50] == kw.keg_rope
+    assert table_sorting_priority[51] == f"{kw.keg_rope}_otx"
+    assert table_sorting_priority[52] == f"{kw.keg_rope}_inx"
+    assert table_sorting_priority[53] == f"{kw.keg_rope}_ERASE"
+    assert table_sorting_priority[54] == f"{kw.keg_rope}_ERASE_otx"
+    assert table_sorting_priority[55] == f"{kw.keg_rope}_ERASE_inx"
     assert table_sorting_priority[56] == kw.reason_context
     assert table_sorting_priority[57] == f"{kw.reason_context}_otx"
     assert table_sorting_priority[58] == f"{kw.reason_context}_inx"
@@ -255,7 +255,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[159] == kw.job_listen_rotations
     assert table_sorting_priority[160] == kw.error_message
     assert table_sorting_priority[161] == "belief_name_is_labor"
-    assert table_sorting_priority[162] == kw.plan_active
+    assert table_sorting_priority[162] == kw.keg_active
     assert table_sorting_priority[163] == kw.task
     assert table_sorting_priority[164] == kw.reason_active
     assert table_sorting_priority[165] == kw.case_active
@@ -283,16 +283,16 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[187] == kw.offtrack_fund
     assert table_sorting_priority[188] == kw.parent_heir_active
     assert table_sorting_priority[189] == kw.irrational_voice_debt_lumen
-    assert table_sorting_priority[190] == kw.sum_healerunit_plans_fund_total
+    assert table_sorting_priority[190] == kw.sum_healerunit_kegs_fund_total
     assert table_sorting_priority[191] == kw.keeps_buildable
     assert table_sorting_priority[192] == kw.all_voice_debt
     assert table_sorting_priority[193] == kw.tree_traverse_count
     assert table_sorting_priority[194] == kw.bnet_funds
     assert table_sorting_priority[195] == kw.fund_rank
     assert table_sorting_priority[196] == kw.pledges_count
-    assert table_sorting_priority[197] == f"context_plan_{kw.close}"
-    assert table_sorting_priority[198] == f"context_plan_{kw.denom}"
-    assert table_sorting_priority[199] == f"context_plan_{kw.morph}"
+    assert table_sorting_priority[197] == f"context_keg_{kw.close}"
+    assert table_sorting_priority[198] == f"context_keg_{kw.denom}"
+    assert table_sorting_priority[199] == f"context_keg_{kw.morph}"
     assert table_sorting_priority[200] == kw.inx_epoch_diff
 
     assert len(table_sorting_priority) == 201
@@ -319,9 +319,9 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     all_args.add(kw.bnet_funds)  # kpi columns
     all_args.add(kw.fund_rank)  # kpi columns
     all_args.add(kw.pledges_count)  # kpi columns
-    all_args.add(f"context_plan_{kw.close}")  # nabu ReasonNum FactNum staging columns
-    all_args.add(f"context_plan_{kw.denom}")  # nabu ReasonNum FactNum staging columns
-    all_args.add(f"context_plan_{kw.morph}")  # nabu ReasonNum FactNum staging columns
+    all_args.add(f"context_keg_{kw.close}")  # nabu ReasonNum FactNum staging columns
+    all_args.add(f"context_keg_{kw.denom}")  # nabu ReasonNum FactNum staging columns
+    all_args.add(f"context_keg_{kw.morph}")  # nabu ReasonNum FactNum staging columns
     all_args.add(kw.inx_epoch_diff)  # nabu ReasonNum FactNum staging columns
     assert all_args == set(table_sorting_priority)
 
@@ -350,7 +350,7 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert sqlite_types.get(kw.belief_name) == "TEXT"
     assert sqlite_types.get(kw.voice_name) == "TEXT"
     assert sqlite_types.get(kw.group_title) == "TEXT"
-    assert sqlite_types.get(kw.plan_rope) == "TEXT"
+    assert sqlite_types.get(kw.keg_rope) == "TEXT"
     assert sqlite_types.get(kw.reason_context) == "TEXT"
     assert sqlite_types.get(kw.reason_state) == "TEXT"
     assert sqlite_types.get(kw.fact_state) == "TEXT"
@@ -458,13 +458,13 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
     assert kw.moment_timeoffi in idea_config_dimens
     assert kw.belief_voice_membership in idea_config_dimens
     assert kw.belief_voiceunit in idea_config_dimens
-    assert kw.belief_plan_awardunit in idea_config_dimens
-    assert kw.belief_plan_factunit in idea_config_dimens
-    assert kw.belief_plan_partyunit in idea_config_dimens
-    assert kw.belief_plan_healerunit in idea_config_dimens
-    assert kw.belief_plan_reason_caseunit in idea_config_dimens
-    assert kw.belief_plan_reasonunit in idea_config_dimens
-    assert kw.belief_planunit in idea_config_dimens
+    assert kw.belief_keg_awardunit in idea_config_dimens
+    assert kw.belief_keg_factunit in idea_config_dimens
+    assert kw.belief_keg_partyunit in idea_config_dimens
+    assert kw.belief_keg_healerunit in idea_config_dimens
+    assert kw.belief_keg_reason_caseunit in idea_config_dimens
+    assert kw.belief_keg_reasonunit in idea_config_dimens
+    assert kw.belief_kegunit in idea_config_dimens
     assert kw.beliefunit in idea_config_dimens
     assert kw.nabu_epochtime in idea_config_dimens
     assert kw.translate_name in idea_config_dimens
@@ -619,7 +619,7 @@ def test_get_idea_format_filenames_ReturnsObj():
     # THEN
     assert idea_format_00021_belief_voiceunit_v0_0_0() in idea_filenames_set
     assert idea_format_00020_belief_voice_membership_v0_0_0() in idea_filenames_set
-    assert idea_format_00013_planunit_v0_0_0() in idea_filenames_set
+    assert idea_format_00013_kegunit_v0_0_0() in idea_filenames_set
 
     # WHEN / THEN
     print("validate")
@@ -686,7 +686,7 @@ def _validate_idea_format_files(idea_filenames: set[str]):
             idea_attrs.add(delete_attr_without_erase)
 
         for x_dimen, dimen_keys in all_dimen_keys_dict.items():
-            # if x_dimen == kw.belief_plan_factunit and x_dimen in format_dimens:
+            # if x_dimen == kw.belief_keg_factunit and x_dimen in format_dimens:
             #     print(f"{idea_number_value}  {x_dimen=} {idea_attrs_list=}")
             if dimen_keys.issubset(idea_attrs):
                 if x_dimen not in format_dimens:
@@ -729,7 +729,7 @@ def test_get_idea_format_filename_ReturnsObj():
     # THEN
     assert br00021_filename == idea_format_00021_belief_voiceunit_v0_0_0()
     assert br00020_filename == idea_format_00020_belief_voice_membership_v0_0_0()
-    assert br00013_filename == idea_format_00013_planunit_v0_0_0()
+    assert br00013_filename == idea_format_00013_kegunit_v0_0_0()
 
     all_set = {get_idea_format_filename(br) for br in get_idea_numbers()}
     assert all_set == get_idea_format_filenames()
@@ -756,13 +756,13 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     # set_idea_config_json(kw.moment_epoch_weekday, 8)
     # set_idea_config_json(kw.belief_voice_membership, 9)
     # set_idea_config_json(kw.belief_voiceunit, 10)
-    # set_idea_config_json(kw.belief_plan_awardunit, 11)
-    # set_idea_config_json(kw.belief_plan_factunit, 12)
-    # set_idea_config_json(kw.belief_plan_partyunit, 14)
-    # set_idea_config_json(kw.belief_plan_healerunit, 15)
-    # set_idea_config_json(kw.belief_plan_reason_caseunit, 16)
-    # set_idea_config_json(kw.belief_plan_reasonunit, 17)
-    # set_idea_config_json(kw.belief_planunit, 18)
+    # set_idea_config_json(kw.belief_keg_awardunit, 11)
+    # set_idea_config_json(kw.belief_keg_factunit, 12)
+    # set_idea_config_json(kw.belief_keg_partyunit, 14)
+    # set_idea_config_json(kw.belief_keg_healerunit, 15)
+    # set_idea_config_json(kw.belief_keg_reason_caseunit, 16)
+    # set_idea_config_json(kw.belief_keg_reasonunit, 17)
+    # set_idea_config_json(kw.belief_kegunit, 18)
     # set_idea_config_json(kw.beliefunit, 19)
     # set_idea_config_json(kw.moment_budunit, 20)
     # set_idea_config_json(kw.moment_paybook, 21)
@@ -781,13 +781,13 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     assert x_idea_config.get(kw.moment_epoch_weekday).get(bo) == 8
     assert x_idea_config.get(kw.belief_voice_membership).get(bo) == 9
     assert x_idea_config.get(kw.belief_voiceunit).get(bo) == 10
-    assert x_idea_config.get(kw.belief_plan_awardunit).get(bo) == 11
-    assert x_idea_config.get(kw.belief_plan_factunit).get(bo) == 12
-    assert x_idea_config.get(kw.belief_plan_partyunit).get(bo) == 14
-    assert x_idea_config.get(kw.belief_plan_healerunit).get(bo) == 15
-    assert x_idea_config.get(kw.belief_plan_reason_caseunit).get(bo) == 16
-    assert x_idea_config.get(kw.belief_plan_reasonunit).get(bo) == 17
-    assert x_idea_config.get(kw.belief_planunit).get(bo) == 18
+    assert x_idea_config.get(kw.belief_keg_awardunit).get(bo) == 11
+    assert x_idea_config.get(kw.belief_keg_factunit).get(bo) == 12
+    assert x_idea_config.get(kw.belief_keg_partyunit).get(bo) == 14
+    assert x_idea_config.get(kw.belief_keg_healerunit).get(bo) == 15
+    assert x_idea_config.get(kw.belief_keg_reason_caseunit).get(bo) == 16
+    assert x_idea_config.get(kw.belief_keg_reasonunit).get(bo) == 17
+    assert x_idea_config.get(kw.belief_kegunit).get(bo) == 18
     assert x_idea_config.get(kw.beliefunit).get(bo) == 19
     assert x_idea_config.get(kw.moment_budunit).get(bo) == 20
     assert x_idea_config.get(kw.moment_paybook).get(bo) == 21
@@ -820,13 +820,13 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_Belief():
     assert not belief_idea_config.get(kw.moment_epoch_weekday)
     assert belief_idea_config.get(kw.belief_voice_membership)
     assert belief_idea_config.get(kw.belief_voiceunit)
-    assert belief_idea_config.get(kw.belief_plan_awardunit)
-    assert belief_idea_config.get(kw.belief_plan_factunit)
-    assert belief_idea_config.get(kw.belief_plan_partyunit)
-    assert belief_idea_config.get(kw.belief_plan_healerunit)
-    assert belief_idea_config.get(kw.belief_plan_reason_caseunit)
-    assert belief_idea_config.get(kw.belief_plan_reasonunit)
-    assert belief_idea_config.get(kw.belief_planunit)
+    assert belief_idea_config.get(kw.belief_keg_awardunit)
+    assert belief_idea_config.get(kw.belief_keg_factunit)
+    assert belief_idea_config.get(kw.belief_keg_partyunit)
+    assert belief_idea_config.get(kw.belief_keg_healerunit)
+    assert belief_idea_config.get(kw.belief_keg_reason_caseunit)
+    assert belief_idea_config.get(kw.belief_keg_reasonunit)
+    assert belief_idea_config.get(kw.belief_kegunit)
     assert belief_idea_config.get(kw.beliefunit)
     assert not belief_idea_config.get(kw.moment_budunit)
     assert not belief_idea_config.get(kw.moment_paybook)

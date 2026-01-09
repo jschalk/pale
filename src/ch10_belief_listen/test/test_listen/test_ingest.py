@@ -1,4 +1,4 @@
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch10_belief_listen.listen_main import (
     _allocate_irrational_voice_debt_lumen,
@@ -37,10 +37,10 @@ def test_generate_perspective_agenda_GrabsAgendatasks():
     dirty_rope = yao_speaker.make_rope(situation_rope, dirty_str)
     sweep_str = "sweep"
     sweep_rope = yao_speaker.make_rope(casa_rope, sweep_str)
-    yao_speaker.set_plan_obj(planunit_shop(exx.clean), situation_rope)
-    yao_speaker.set_plan_obj(planunit_shop(dirty_str), situation_rope)
-    yao_speaker.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
-    yao_speaker.edit_plan_attr(
+    yao_speaker.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
+    yao_speaker.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
+    yao_speaker.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
+    yao_speaker.edit_keg_attr(
         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
     yao_speaker.add_fact(situation_rope, clean_rope)
@@ -56,14 +56,14 @@ def test_generate_perspective_agenda_GrabsAgendatasks():
 def test_generate_ingest_list_ReturnsList_v1():
     # ESTABLISH
     zia_beliefunit = beliefunit_shop(exx.zia)
-    zia_beliefunit.set_l1_plan(planunit_shop(exx.clean, pledge=True))
+    zia_beliefunit.set_l1_keg(kegunit_shop(exx.clean, pledge=True))
     zia_debtor_pool = 78
     zia_resepect_bit = 2
     assert len(zia_beliefunit.get_agenda_dict()) == 1
 
     # WHEN
     ingested_list = generate_ingest_list(
-        plan_list=list(zia_beliefunit.get_agenda_dict().values()),
+        keg_list=list(zia_beliefunit.get_agenda_dict().values()),
         debtor_respect=zia_debtor_pool,
         respect_grain=zia_resepect_bit,
     )
@@ -71,23 +71,23 @@ def test_generate_ingest_list_ReturnsList_v1():
     # THEN
     # clean_rope = zia_beliefunit.make_l1_rope(exx.clean)
     clean_rope = zia_beliefunit.make_l1_rope(exx.clean)
-    clean_planunit = zia_beliefunit.get_plan_obj(clean_rope)
-    assert ingested_list[0] == clean_planunit
+    clean_kegunit = zia_beliefunit.get_keg_obj(clean_rope)
+    assert ingested_list[0] == clean_kegunit
     assert ingested_list[0].star == zia_debtor_pool
 
 
 def test_generate_ingest_list_ReturnsList_v2():
     # ESTABLISH
     zia_beliefunit = beliefunit_shop(exx.zia)
-    zia_beliefunit.set_l1_plan(planunit_shop(exx.clean, pledge=True))
-    zia_beliefunit.set_l1_plan(planunit_shop(exx.cuisine, pledge=True))
+    zia_beliefunit.set_l1_keg(kegunit_shop(exx.clean, pledge=True))
+    zia_beliefunit.set_l1_keg(kegunit_shop(exx.cuisine, pledge=True))
     zia_debtor_pool = 32
     zia_resepect_bit = 2
     assert len(zia_beliefunit.get_agenda_dict()) == 2
 
     # WHEN
     ingested_list = generate_ingest_list(
-        plan_list=list(zia_beliefunit.get_agenda_dict().values()),
+        keg_list=list(zia_beliefunit.get_agenda_dict().values()),
         debtor_respect=zia_debtor_pool,
         respect_grain=zia_resepect_bit,
     )
@@ -97,25 +97,25 @@ def test_generate_ingest_list_ReturnsList_v2():
     assert len(ingested_list) == 2
     clean_rope = zia_beliefunit.make_l1_rope(exx.clean)
     cuisine_rope = zia_beliefunit.make_l1_rope(exx.cuisine)
-    clean_planunit = zia_beliefunit.get_plan_obj(clean_rope)
-    cuisine_planunit = zia_beliefunit.get_plan_obj(cuisine_rope)
-    assert ingested_list[0] == cuisine_planunit
+    clean_kegunit = zia_beliefunit.get_keg_obj(clean_rope)
+    cuisine_kegunit = zia_beliefunit.get_keg_obj(cuisine_rope)
+    assert ingested_list[0] == cuisine_kegunit
     assert ingested_list[0].star == 16.0
-    assert ingested_list == [cuisine_planunit, clean_planunit]
+    assert ingested_list == [cuisine_kegunit, clean_kegunit]
 
 
 def test_generate_ingest_list_ReturnsList_v3():
     # ESTABLISH
     zia_beliefunit = beliefunit_shop(exx.zia)
-    zia_beliefunit.set_l1_plan(planunit_shop(exx.clean, pledge=True))
-    zia_beliefunit.set_l1_plan(planunit_shop(exx.cuisine, star=3, pledge=True))
+    zia_beliefunit.set_l1_keg(kegunit_shop(exx.clean, pledge=True))
+    zia_beliefunit.set_l1_keg(kegunit_shop(exx.cuisine, star=3, pledge=True))
     zia_debtor_pool = 32
     zia_resepect_bit = 2
     assert len(zia_beliefunit.get_agenda_dict()) == 2
 
     # WHEN
     ingested_list = generate_ingest_list(
-        plan_list=list(zia_beliefunit.get_agenda_dict().values()),
+        keg_list=list(zia_beliefunit.get_agenda_dict().values()),
         debtor_respect=zia_debtor_pool,
         respect_grain=zia_resepect_bit,
     )
@@ -123,9 +123,9 @@ def test_generate_ingest_list_ReturnsList_v3():
     # THEN
     clean_rope = zia_beliefunit.make_l1_rope(exx.clean)
     cuisine_rope = zia_beliefunit.make_l1_rope(exx.cuisine)
-    clean_planunit = zia_beliefunit.get_plan_obj(clean_rope)
-    cuisine_planunit = zia_beliefunit.get_plan_obj(cuisine_rope)
-    assert ingested_list == [cuisine_planunit, clean_planunit]
+    clean_kegunit = zia_beliefunit.get_keg_obj(clean_rope)
+    cuisine_kegunit = zia_beliefunit.get_keg_obj(cuisine_rope)
+    assert ingested_list == [cuisine_kegunit, clean_kegunit]
     assert ingested_list[0].star == 24.0
     assert ingested_list[1].star == 8.0
 
@@ -133,15 +133,15 @@ def test_generate_ingest_list_ReturnsList_v3():
 def test_generate_ingest_list_ReturnsList_v4():
     # ESTABLISH
     zia_beliefunit = beliefunit_shop(exx.zia)
-    zia_beliefunit.set_l1_plan(planunit_shop(exx.clean, pledge=True))
-    zia_beliefunit.set_l1_plan(planunit_shop(exx.cuisine, star=2, pledge=True))
+    zia_beliefunit.set_l1_keg(kegunit_shop(exx.clean, pledge=True))
+    zia_beliefunit.set_l1_keg(kegunit_shop(exx.cuisine, star=2, pledge=True))
     zia_debtor_pool = 32
     zia_resepect_bit = 2
     assert len(zia_beliefunit.get_agenda_dict()) == 2
 
     # WHEN
     ingested_list = generate_ingest_list(
-        plan_list=list(zia_beliefunit.get_agenda_dict().values()),
+        keg_list=list(zia_beliefunit.get_agenda_dict().values()),
         debtor_respect=zia_debtor_pool,
         respect_grain=zia_resepect_bit,
     )
@@ -149,8 +149,8 @@ def test_generate_ingest_list_ReturnsList_v4():
     # THEN
     clean_rope = zia_beliefunit.make_l1_rope(exx.clean)
     cuisine_rope = zia_beliefunit.make_l1_rope(exx.cuisine)
-    clean_planunit = zia_beliefunit.get_plan_obj(clean_rope)
-    cuisine_planunit = zia_beliefunit.get_plan_obj(cuisine_rope)
+    clean_kegunit = zia_beliefunit.get_keg_obj(clean_rope)
+    cuisine_kegunit = zia_beliefunit.get_keg_obj(cuisine_rope)
     assert ingested_list[0].star == 22
     assert ingested_list[1].star == 10
-    assert ingested_list == [cuisine_planunit, clean_planunit]
+    assert ingested_list == [cuisine_kegunit, clean_kegunit]

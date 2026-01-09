@@ -1,166 +1,166 @@
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_BeliefUnit_get_plan_ranged_kids_ReturnsAllChildren():
+def test_BeliefUnit_get_keg_ranged_kids_ReturnsAllChildren():
     # ESTABLISH
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
     wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
-    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
-    yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
+    wk_keg = kegunit_shop(exx.wk, begin=0, close=10800)
+    yao_beliefunit.set_keg_obj(wk_keg, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
     thu_str = "Thur"
     fri_str = "Fri"
     sat_str = "Sat"
     sun_str = "Sun"
-    mon_plan = planunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
-    tue_plan = planunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
-    wed_plan = planunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
-    thu_plan = planunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
-    fri_plan = planunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
-    sat_plan = planunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
-    sun_plan = planunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
-    yao_beliefunit.set_plan_obj(mon_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(tue_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(wed_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(thu_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(fri_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sat_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sun_plan, wk_rope)
+    mon_keg = kegunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
+    tue_keg = kegunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
+    wed_keg = kegunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
+    thu_keg = kegunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
+    fri_keg = kegunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
+    sat_keg = kegunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
+    sun_keg = kegunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
+    yao_beliefunit.set_keg_obj(mon_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(tue_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(wed_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(thu_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(fri_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sat_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sun_keg, wk_rope)
     yao_beliefunit.cashout()
 
     # WHEN
-    ranged_plans = yao_beliefunit.get_plan_ranged_kids(plan_rope=wk_rope)
+    ranged_kegs = yao_beliefunit.get_keg_ranged_kids(keg_rope=wk_rope)
 
     # # THEN
-    assert len(ranged_plans) == 7
+    assert len(ranged_kegs) == 7
 
 
-def test_BeliefUnit_get_plan_ranged_kids_ReturnsSomeChildrenScenario1():
+def test_BeliefUnit_get_keg_ranged_kids_ReturnsSomeChildrenScenario1():
     # ESTABLISH
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
     wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
-    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
-    yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
+    wk_keg = kegunit_shop(exx.wk, begin=0, close=10800)
+    yao_beliefunit.set_keg_obj(wk_keg, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
     thu_str = "Thur"
     fri_str = "Fri"
     sat_str = "Sat"
     sun_str = "Sun"
-    mon_plan = planunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
-    tue_plan = planunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
-    wed_plan = planunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
-    thu_plan = planunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
-    fri_plan = planunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
-    sat_plan = planunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
-    sun_plan = planunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
-    yao_beliefunit.set_plan_obj(mon_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(tue_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(wed_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(thu_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(fri_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sat_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sun_plan, wk_rope)
+    mon_keg = kegunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
+    tue_keg = kegunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
+    wed_keg = kegunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
+    thu_keg = kegunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
+    fri_keg = kegunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
+    sat_keg = kegunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
+    sun_keg = kegunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
+    yao_beliefunit.set_keg_obj(mon_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(tue_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(wed_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(thu_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(fri_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sat_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sun_keg, wk_rope)
     yao_beliefunit.cashout()
 
     # WHEN
     x_begin = 1440
     x_close = 4 * 1440
     print(f"{x_begin=} {x_close=}")
-    ranged_plans = yao_beliefunit.get_plan_ranged_kids(wk_rope, x_begin, x_close)
+    ranged_kegs = yao_beliefunit.get_keg_ranged_kids(wk_rope, x_begin, x_close)
 
     # THEN
-    # for plan_x in wk_plan.kids.values():
-    #     print(f"{plan_x.plan_label=} {plan_x.gogo_calc=} {plan_x.stop_calc=} ")
+    # for keg_x in wk_keg.kids.values():
+    #     print(f"{keg_x.keg_label=} {keg_x.gogo_calc=} {keg_x.stop_calc=} ")
     # print("")
-    # for plan_x in ranged_plans.values():
-    #     print(f"{plan_x.plan_label=} {plan_x.gogo_calc=} {plan_x.stop_calc=} ")
-    assert len(ranged_plans) == 3
+    # for keg_x in ranged_kegs.values():
+    #     print(f"{keg_x.keg_label=} {keg_x.gogo_calc=} {keg_x.stop_calc=} ")
+    assert len(ranged_kegs) == 3
 
 
-def test_BeliefUnit_get_plan_ranged_kids_ReturnsSomeChildrenScenario2():
+def test_BeliefUnit_get_keg_ranged_kids_ReturnsSomeChildrenScenario2():
     # ESTABLISH
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
     wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
-    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
-    yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
+    wk_keg = kegunit_shop(exx.wk, begin=0, close=10800)
+    yao_beliefunit.set_keg_obj(wk_keg, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
     thu_str = "Thur"
     fri_str = "Fri"
     sat_str = "Sat"
     sun_str = "Sun"
-    mon_plan = planunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
-    tue_plan = planunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
-    wed_plan = planunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
-    thu_plan = planunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
-    fri_plan = planunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
-    sat_plan = planunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
-    sun_plan = planunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
-    yao_beliefunit.set_plan_obj(mon_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(tue_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(wed_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(thu_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(fri_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sat_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sun_plan, wk_rope)
+    mon_keg = kegunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
+    tue_keg = kegunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
+    wed_keg = kegunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
+    thu_keg = kegunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
+    fri_keg = kegunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
+    sat_keg = kegunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
+    sun_keg = kegunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
+    yao_beliefunit.set_keg_obj(mon_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(tue_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(wed_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(thu_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(fri_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sat_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sun_keg, wk_rope)
     yao_beliefunit.cashout()
 
     # WHEN / THEN
-    assert len(yao_beliefunit.get_plan_ranged_kids(wk_rope, 0, 1440)) == 1
-    assert len(yao_beliefunit.get_plan_ranged_kids(wk_rope, 0, 2000)) == 2
-    assert len(yao_beliefunit.get_plan_ranged_kids(wk_rope, 0, 3000)) == 3
+    assert len(yao_beliefunit.get_keg_ranged_kids(wk_rope, 0, 1440)) == 1
+    assert len(yao_beliefunit.get_keg_ranged_kids(wk_rope, 0, 2000)) == 2
+    assert len(yao_beliefunit.get_keg_ranged_kids(wk_rope, 0, 3000)) == 3
 
 
-def test_BeliefUnit_get_plan_ranged_kids_ReturnsSomeChildrenScenario3():
+def test_BeliefUnit_get_keg_ranged_kids_ReturnsSomeChildrenScenario3():
     # ESTABLISH
     yao_beliefunit = beliefunit_shop("Yao")
     ziet_rope = yao_beliefunit.make_l1_rope("ziet")
     tech_rope = yao_beliefunit.make_rope(ziet_rope, "tech")
     wk_rope = yao_beliefunit.make_rope(tech_rope, exx.wk)
-    wk_plan = planunit_shop(exx.wk, begin=0, close=10800)
-    yao_beliefunit.set_plan_obj(wk_plan, tech_rope)
+    wk_keg = kegunit_shop(exx.wk, begin=0, close=10800)
+    yao_beliefunit.set_keg_obj(wk_keg, tech_rope)
     mon_str = "Mon"
     tue_str = "Tue"
     thu_str = "Thur"
     fri_str = "Fri"
     sat_str = "Sat"
     sun_str = "Sun"
-    mon_plan = planunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
-    tue_plan = planunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
-    wed_plan = planunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
-    thu_plan = planunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
-    fri_plan = planunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
-    sat_plan = planunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
-    sun_plan = planunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
-    yao_beliefunit.set_plan_obj(mon_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(tue_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(wed_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(thu_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(fri_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sat_plan, wk_rope)
-    yao_beliefunit.set_plan_obj(sun_plan, wk_rope)
+    mon_keg = kegunit_shop(mon_str, gogo_want=1440 * 0, stop_want=1440 * 1)
+    tue_keg = kegunit_shop(tue_str, gogo_want=1440 * 1, stop_want=1440 * 2)
+    wed_keg = kegunit_shop(exx.wed, gogo_want=1440 * 2, stop_want=1440 * 3)
+    thu_keg = kegunit_shop(thu_str, gogo_want=1440 * 3, stop_want=1440 * 4)
+    fri_keg = kegunit_shop(fri_str, gogo_want=1440 * 4, stop_want=1440 * 5)
+    sat_keg = kegunit_shop(sat_str, gogo_want=1440 * 5, stop_want=1440 * 6)
+    sun_keg = kegunit_shop(sun_str, gogo_want=1440 * 6, stop_want=1440 * 7)
+    yao_beliefunit.set_keg_obj(mon_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(tue_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(wed_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(thu_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(fri_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sat_keg, wk_rope)
+    yao_beliefunit.set_keg_obj(sun_keg, wk_rope)
     yao_beliefunit.cashout()
 
     # WHEN / THEN
-    assert len(yao_beliefunit.get_plan_ranged_kids(wk_rope, 0)) == 1
-    assert len(yao_beliefunit.get_plan_ranged_kids(wk_rope, 1440)) == 1
+    assert len(yao_beliefunit.get_keg_ranged_kids(wk_rope, 0)) == 1
+    assert len(yao_beliefunit.get_keg_ranged_kids(wk_rope, 1440)) == 1
 
     # ESTABLISH
-    wks_plan = planunit_shop(exx.wk, gogo_want=0, stop_want=1440 * 5)
-    yao_beliefunit.set_plan_obj(wks_plan, wk_rope)
+    wks_keg = kegunit_shop(exx.wk, gogo_want=0, stop_want=1440 * 5)
+    yao_beliefunit.set_keg_obj(wks_keg, wk_rope)
 
     # WHEN
     yao_beliefunit.cashout()
 
     # THEN
-    assert len(yao_beliefunit.get_plan_ranged_kids(wk_rope, 1440)) == 2
+    assert len(yao_beliefunit.get_keg_ranged_kids(wk_rope, 1440)) == 2

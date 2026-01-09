@@ -113,8 +113,8 @@ def test_cellunit_shop_ReturnsObj_Scenario2_Withreason_contexts():
     # ESTABLISH
     sue_belief = beliefunit_shop(wx.sue, wx.a23)
     clean_fact = clean_factunit()
-    sue_belief.add_plan(clean_factunit().fact_state)
-    sue_belief.add_plan(wx.mop_rope, pledge=True)
+    sue_belief.add_keg(clean_factunit().fact_state)
+    sue_belief.add_keg(wx.mop_rope, pledge=True)
     sue_belief.edit_reason(wx.mop_rope, clean_fact.fact_context, clean_fact.fact_state)
 
     # WHEN
@@ -131,17 +131,17 @@ def test_cellunit_shop_ReturnsObj_Scenario3_clear_facts():
     # ESTABLISH
     sue_belief = beliefunit_shop(wx.sue, wx.a23)
     clean_fact = clean_factunit()
-    sue_belief.add_plan(clean_factunit().fact_state)
-    sue_belief.add_plan(wx.mop_rope, pledge=True)
+    sue_belief.add_keg(clean_factunit().fact_state)
+    sue_belief.add_keg(wx.mop_rope, pledge=True)
     sue_belief.edit_reason(wx.mop_rope, clean_fact.fact_context, clean_fact.fact_state)
     sue_belief.add_fact(clean_fact.fact_context, clean_fact.fact_state)
-    assert len(sue_belief.get_planroot_factunits_dict()) == 1
+    assert len(sue_belief.get_kegroot_factunits_dict()) == 1
 
     # WHEN
     x_cellunit = cellunit_shop(wx.sue, beliefadjust=sue_belief)
 
     # THEN
-    assert len(x_cellunit.beliefadjust.get_planroot_factunits_dict()) == 0
+    assert len(x_cellunit.beliefadjust.get_kegroot_factunits_dict()) == 0
     assert x_cellunit.beliefadjust != sue_belief
 
 
@@ -190,11 +190,11 @@ def test_CellUnit_eval_beliefspark_SetsAttr_Scenario1():
     clean_fact = clean_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     clean_fact = clean_factunit()
-    yao_belief.add_plan(clean_fact.fact_state)
-    yao_belief.add_plan(wx.mop_rope, pledge=True)
+    yao_belief.add_keg(clean_fact.fact_state)
+    yao_belief.add_keg(wx.mop_rope, pledge=True)
     yao_belief.edit_reason(wx.mop_rope, clean_fact.fact_context, clean_fact.fact_state)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_cellunit = cellunit_shop(wx.yao)
     assert yao_cellunit.beliefspark_facts == {}
@@ -211,10 +211,10 @@ def test_CellUnit_eval_beliefspark_SetsAttr_Scenario1():
     expected_adjust_belief = copy_deepcopy(yao_belief)
     expected_adjust_belief.del_fact(clean_fact.fact_context)
     expected_adjust_belief.cashout()
-    expected_planroot = expected_adjust_belief.planroot
-    generated_planroot = yao_cellunit.beliefadjust.planroot
+    expected_kegroot = expected_adjust_belief.kegroot
+    generated_kegroot = yao_cellunit.beliefadjust.kegroot
     assert yao_cellunit.beliefadjust.to_dict() != yao_belief.to_dict()
-    assert generated_planroot.to_dict() == expected_planroot.to_dict()
+    assert generated_kegroot.to_dict() == expected_kegroot.to_dict()
     assert yao_cellunit.beliefadjust.to_dict() == expected_adjust_belief.to_dict()
 
 
@@ -275,7 +275,7 @@ def test_CellUnit_set_found_facts_from_dict_SetsAttr():
     clean_fact = clean_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(wx.yao)
@@ -294,7 +294,7 @@ def test_CellUnit_set_beliefspark_facts_from_dict_SetsAttr():
     clean_fact = clean_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(wx.yao)
@@ -313,7 +313,7 @@ def test_CellUnit_set_boss_facts_from_other_facts_SetsAttr_Scenario0_found_facts
     clean_fact = clean_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(wx.yao)
@@ -337,7 +337,7 @@ def test_CellUnit_set_boss_facts_from_other_facts_SetsAttr_Scenario1_beliefspark
     clean_fact = clean_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(wx.yao)
@@ -362,7 +362,7 @@ def test_CellUnit_set_boss_facts_from_other_facts_SetsAttr_Scenario2_beliefspark
     sky_fact = sky_blue_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_beliefspark_fact_dict = {sky_fact.fact_context: sky_fact.to_dict()}
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
@@ -390,7 +390,7 @@ def test_CellUnit_add_other_facts_to_boss_facts_SetsAttr_Scenario0_found_facts_o
     clean_fact = clean_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(wx.yao)
@@ -413,7 +413,7 @@ def test_CellUnit_add_other_facts_to_boss_facts_SetsAttr_Scenario1_beliefspark_f
     clean_fact = clean_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(wx.yao)
@@ -438,7 +438,7 @@ def test_CellUnit_add_other_facts_to_boss_facts_SetsAttr_Scenario2_beliefspark_f
     sky_fact = sky_blue_factunit()
     yao_belief = beliefunit_shop(wx.yao, wx.a23)
     yao_belief.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
     )
     run_rope = yao_belief.make_l1_rope("run")
     run_fact = factunit_shop(run_rope, run_rope)
@@ -572,13 +572,13 @@ def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario0():
         sue_quota300,
         beliefadjust=sue_belief,
     )
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() == {}
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_beliefadjust_facts()
 
     # THEN
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() == {}
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() == {}
 
 
 def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario1():
@@ -592,7 +592,7 @@ def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario1():
     casa_clean_fact = clean_factunit()
     clean_facts = {casa_clean_fact.fact_context: casa_clean_fact}
     sue_belief = beliefunit_shop(wx.sue, wx.a23)
-    sue_belief.add_plan(casa_clean_fact.fact_state)
+    sue_belief.add_keg(casa_clean_fact.fact_state)
     sue_cell = cellunit_shop(
         sue_bud_belief,
         sue_ancestors,
@@ -603,14 +603,14 @@ def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario1():
         beliefadjust=sue_belief,
         beliefspark_facts=clean_facts,
     )
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() == {}
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_beliefadjust_facts()
 
     # THEN
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() != {}
-    sue_belief_facts = sue_cell.beliefadjust.get_planroot_factunits_dict()
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() != {}
+    sue_belief_facts = sue_cell.beliefadjust.get_kegroot_factunits_dict()
     sue_belief_casa_fact_dict = sue_belief_facts.get(wx.casa_rope)
     assert sue_belief_casa_fact_dict.get(kw.fact_state) == casa_clean_fact.fact_state
 
@@ -628,8 +628,8 @@ def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario2():
     clean_facts = {casa_clean_fact.fact_context: casa_clean_fact}
     dirty_facts = {casa_dirty_fact.fact_context: casa_dirty_fact}
     sue_belief = beliefunit_shop(wx.sue, wx.a23)
-    sue_belief.add_plan(casa_clean_fact.fact_state)
-    sue_belief.add_plan(casa_dirty_fact.fact_state)
+    sue_belief.add_keg(casa_clean_fact.fact_state)
+    sue_belief.add_keg(casa_dirty_fact.fact_state)
     sue_cell = cellunit_shop(
         sue_bud_belief,
         sue_ancestors,
@@ -641,14 +641,14 @@ def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario2():
         beliefspark_facts=clean_facts,
         found_facts=dirty_facts,
     )
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() == {}
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_beliefadjust_facts()
 
     # THEN
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() != {}
-    sue_belief_facts = sue_cell.beliefadjust.get_planroot_factunits_dict()
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() != {}
+    sue_belief_facts = sue_cell.beliefadjust.get_kegroot_factunits_dict()
     sue_belief_casa_fact_dict = sue_belief_facts.get(wx.casa_rope)
     assert sue_belief_casa_fact_dict.get(kw.fact_state) == casa_dirty_fact.fact_state
 
@@ -668,9 +668,9 @@ def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario3():
     dirty_facts = {casa_dirty_fact.fact_context: casa_dirty_fact}
     grimy_facts = {casa_grimy_fact.fact_context: casa_grimy_fact}
     sue_belief = beliefunit_shop(wx.sue, wx.a23)
-    sue_belief.add_plan(casa_clean_fact.fact_state)
-    sue_belief.add_plan(casa_dirty_fact.fact_state)
-    sue_belief.add_plan(casa_grimy_fact.fact_state)
+    sue_belief.add_keg(casa_clean_fact.fact_state)
+    sue_belief.add_keg(casa_dirty_fact.fact_state)
+    sue_belief.add_keg(casa_grimy_fact.fact_state)
     sue_cell = cellunit_shop(
         sue_bud_belief,
         sue_ancestors,
@@ -683,14 +683,14 @@ def test_CellUnit_set_beliefadjust_facts_ReturnsObj_Scenario3():
         found_facts=dirty_facts,
         boss_facts=grimy_facts,
     )
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() == {}
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_beliefadjust_facts()
 
     # THEN
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() != {}
-    sue_belief_facts = sue_cell.beliefadjust.get_planroot_factunits_dict()
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() != {}
+    sue_belief_facts = sue_cell.beliefadjust.get_kegroot_factunits_dict()
     sue_belief_casa_fact_dict = sue_belief_facts.get(wx.casa_rope)
     assert sue_belief_casa_fact_dict.get(kw.fact_state) == casa_grimy_fact.fact_state
 
@@ -775,12 +775,12 @@ def test_CellUnit_calc_voice_mandate_ledger_ReturnsObj_Scenario0():
     sue_belief.add_voiceunit(wx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
-    sue_belief.add_plan(clean_fact.fact_state)
-    sue_belief.add_plan(dirty_fact.fact_state)
-    sue_belief.add_plan(wx.mop_rope, 1, pledge=True)
+    sue_belief.add_keg(clean_fact.fact_state)
+    sue_belief.add_keg(dirty_fact.fact_state)
+    sue_belief.add_keg(wx.mop_rope, 1, pledge=True)
     sue_belief.edit_reason(wx.mop_rope, dirty_fact.fact_context, dirty_fact.fact_state)
     sue_belief.add_fact(
-        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_plans=True
+        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_kegs=True
     )
     sky_blue_fact = sky_blue_factunit()
     sue_beliefspark_factunits = {clean_fact.fact_context: clean_fact}
@@ -802,7 +802,7 @@ def test_CellUnit_calc_voice_mandate_ledger_ReturnsObj_Scenario0():
     sue_cell.reason_contexts = set()
     assert not sue_cell.reason_contexts
     assert sue_cell.boss_facts == {sky_blue_fact.fact_context: sky_blue_fact}
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() == {}
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() == {}
     assert sue_cell._voice_mandate_ledger == {}
 
     # WHEN
@@ -811,13 +811,13 @@ def test_CellUnit_calc_voice_mandate_ledger_ReturnsObj_Scenario0():
     # THEN
     assert sue_cell.reason_contexts == {clean_fact.fact_context}
     assert sue_cell.boss_facts == {}
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() != {}
-    assert set(sue_cell.beliefadjust.get_planroot_factunits_dict().keys()) == {
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() != {}
+    assert set(sue_cell.beliefadjust.get_kegroot_factunits_dict().keys()) == {
         clean_fact.fact_context
     }
-    # plan_dict = sue_cell.beliefadjust.get_plan_dict()
-    # for plan_rope, plan_obj in plan_dict.items():
-    #     print(f"{plan_rope=} {plan_obj.fund_onset=} {plan_obj.fund_cease}")
+    # keg_dict = sue_cell.beliefadjust.get_keg_dict()
+    # for keg_rope, keg_obj in keg_dict.items():
+    #     print(f"{keg_rope=} {keg_obj.fund_onset=} {keg_obj.fund_cease}")
     assert sue_cell._voice_mandate_ledger != {}
     assert sue_cell._voice_mandate_ledger == {wx.yao: 311, wx.sue: 133}
 
@@ -915,10 +915,10 @@ def test_create_child_cellunits_ReturnsObj_Scenario2_boss_facts():
     yao_belief.add_voiceunit(wx.yao, 7, 2)
     yao_belief.add_voiceunit(wx.bob, 0, 2)
     clean_fact = clean_factunit()
-    yao_belief.add_plan(wx.casa_rope, 1)
-    yao_belief.add_plan(wx.mop_rope, 1, pledge=True)
-    yao_belief.add_plan(clean_fact.fact_state)
-    yao_belief.add_plan(dirty_fact.fact_state)
+    yao_belief.add_keg(wx.casa_rope, 1)
+    yao_belief.add_keg(wx.mop_rope, 1, pledge=True)
+    yao_belief.add_keg(clean_fact.fact_state)
+    yao_belief.add_keg(dirty_fact.fact_state)
     yao_belief.edit_reason(wx.mop_rope, dirty_fact.fact_context, dirty_fact.fact_state)
     yao_cell = cellunit_shop(
         wx.yao, celldepth=yao_celldepth, quota=yao_quota, beliefadjust=yao_belief
@@ -954,12 +954,12 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     sue_belief.add_voiceunit(wx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
-    sue_belief.add_plan(clean_fact.fact_state)
-    sue_belief.add_plan(dirty_fact.fact_state)
-    sue_belief.add_plan(wx.mop_rope, 1, pledge=True)
+    sue_belief.add_keg(clean_fact.fact_state)
+    sue_belief.add_keg(dirty_fact.fact_state)
+    sue_belief.add_keg(wx.mop_rope, 1, pledge=True)
     sue_belief.edit_reason(wx.mop_rope, dirty_fact.fact_context, dirty_fact.fact_state)
     sue_belief.add_fact(
-        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_plans=True
+        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_kegs=True
     )
     sky_blue_fact = sky_blue_factunit()
     sue_beliefspark_factunits = {clean_fact.fact_context: clean_fact}
@@ -980,7 +980,7 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     sue_cell.reason_contexts = set()
     assert not sue_cell.reason_contexts
     assert sue_cell.boss_facts == {sky_blue_fact.fact_context: sky_blue_fact}
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() == {}
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() == {}
     assert sue_cell._voice_mandate_ledger == {}
 
     # WHEN
@@ -992,13 +992,13 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     # # THEN
     assert sue_cell.reason_contexts == {dirty_fact.fact_context}
     assert sue_cell.boss_facts == {}
-    assert sue_cell.beliefadjust.get_planroot_factunits_dict() != {}
-    assert set(sue_cell.beliefadjust.get_planroot_factunits_dict().keys()) == {
+    assert sue_cell.beliefadjust.get_kegroot_factunits_dict() != {}
+    assert set(sue_cell.beliefadjust.get_kegroot_factunits_dict().keys()) == {
         dirty_fact.fact_context
     }
-    # plan_dict = sue_cell.beliefadjust.get_plan_dict()
-    # for plan_rope, plan_obj in plan_dict.items():
-    #     print(f"{plan_rope=} {plan_obj.fund_onset=} {plan_obj.fund_cease}")
+    # keg_dict = sue_cell.beliefadjust.get_keg_dict()
+    # for keg_rope, keg_obj in keg_dict.items():
+    #     print(f"{keg_rope=} {keg_obj.fund_onset=} {keg_obj.fund_cease}")
     assert sue_cell._voice_mandate_ledger != {}
     assert sue_cell._voice_mandate_ledger == {wx.yao: 311, wx.sue: 133}
 

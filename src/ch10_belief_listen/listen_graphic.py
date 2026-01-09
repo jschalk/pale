@@ -8,7 +8,7 @@ from src.ch01_py.plotly_toolbox import (
     conditional_fig_show,
 )
 from src.ch02_allot.allot import default_pool_num
-from src.ch07_belief_logic.belief_graphic import display_plantree
+from src.ch07_belief_logic.belief_graphic import display_kegtree
 from src.ch07_belief_logic.belief_main import BeliefUnit
 
 
@@ -274,7 +274,7 @@ def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
 def fund_graph13(
     x_belief: BeliefUnit, mode: str = None, graphics_bool: bool = False
 ) -> plotly_Figure:
-    fig = display_plantree(x_belief, mode, False)
+    fig = display_kegtree(x_belief, mode, False)
     fig.update_xaxes(range=[-1, 11])
     fig.update_yaxes(range=[-5, 3])
 

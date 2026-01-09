@@ -1,5 +1,5 @@
 {
-  "belief_plan_awardunit": {
+  "belief_keg_awardunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 11, 
     "idea_category": "belief", 
@@ -8,12 +8,12 @@
       "belief_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
-      "plan_rope": {}, 
+      "keg_rope": {}, 
       "spark_num": {}
     }, 
     "jvalues": {"give_force": {}, "take_force": {}}
   }, 
-  "belief_plan_factunit": {
+  "belief_keg_factunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 12, 
     "idea_category": "belief", 
@@ -22,12 +22,12 @@
       "face_name": {}, 
       "fact_context": {}, 
       "moment_label": {}, 
-      "plan_rope": {}, 
+      "keg_rope": {}, 
       "spark_num": {}
     }, 
     "jvalues": {"fact_lower": {}, "fact_state": {}, "fact_upper": {}}
   }, 
-  "belief_plan_healerunit": {
+  "belief_keg_healerunit": {
     "allowed_crud": "delete_insert", 
     "build_order": 15, 
     "idea_category": "belief", 
@@ -36,12 +36,12 @@
       "face_name": {}, 
       "healer_name": {}, 
       "moment_label": {}, 
-      "plan_rope": {}, 
+      "keg_rope": {}, 
       "spark_num": {}
     }, 
     "jvalues": {}
   }, 
-  "belief_plan_partyunit": {
+  "belief_keg_partyunit": {
     "allowed_crud": "delete_insert", 
     "build_order": 14, 
     "idea_category": "belief", 
@@ -50,12 +50,12 @@
       "face_name": {}, 
       "moment_label": {}, 
       "party_title": {}, 
-      "plan_rope": {}, 
+      "keg_rope": {}, 
       "spark_num": {}
     }, 
     "jvalues": {"solo": {}}
   }, 
-  "belief_plan_reason_caseunit": {
+  "belief_keg_reason_caseunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 16, 
     "idea_category": "belief", 
@@ -63,14 +63,14 @@
       "belief_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
-      "plan_rope": {}, 
+      "keg_rope": {}, 
       "reason_context": {}, 
       "reason_state": {}, 
       "spark_num": {}
     }, 
     "jvalues": {"reason_divisor": {}, "reason_lower": {}, "reason_upper": {}}
   }, 
-  "belief_plan_reasonunit": {
+  "belief_keg_reasonunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 17, 
     "idea_category": "belief", 
@@ -78,13 +78,13 @@
       "belief_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
-      "plan_rope": {}, 
+      "keg_rope": {}, 
       "reason_context": {}, 
       "spark_num": {}
     }, 
     "jvalues": {"active_requisite": {}}
   }, 
-  "belief_planunit": {
+  "belief_kegunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 18, 
     "idea_category": "belief", 
@@ -92,7 +92,7 @@
       "belief_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
-      "plan_rope": {}, 
+      "keg_rope": {}, 
       "spark_num": {}
     }, 
     "jvalues": {

@@ -43,13 +43,13 @@ def test_get_belief_config_dict_ReturnsObj_CheckLevel0Keys():
     assert kw.beliefunit in belief_config_keys
     assert kw.belief_voiceunit in belief_config_keys
     assert kw.belief_voice_membership in belief_config_keys
-    assert kw.belief_planunit in belief_config_keys
-    assert kw.belief_plan_awardunit in belief_config_keys
-    assert kw.belief_plan_reasonunit in belief_config_keys
-    assert kw.belief_plan_reason_caseunit in belief_config_keys
-    assert kw.belief_plan_partyunit in belief_config_keys
-    assert kw.belief_plan_healerunit in belief_config_keys
-    assert kw.belief_plan_factunit in belief_config_keys
+    assert kw.belief_kegunit in belief_config_keys
+    assert kw.belief_keg_awardunit in belief_config_keys
+    assert kw.belief_keg_reasonunit in belief_config_keys
+    assert kw.belief_keg_reason_caseunit in belief_config_keys
+    assert kw.belief_keg_partyunit in belief_config_keys
+    assert kw.belief_keg_healerunit in belief_config_keys
+    assert kw.belief_keg_factunit in belief_config_keys
     assert kw.belief_groupunit in belief_config_keys
     assert len(get_belief_config_dict()) == 11
 
@@ -96,19 +96,19 @@ def test_get_belief_config_dict_ReturnsObj_CheckAbbreviations():
     blfunit_attribute = belief_config.get(kw.beliefunit)
     blfvoce_attribute = belief_config.get(kw.belief_voiceunit)
     blfmemb_attribute = belief_config.get(kw.belief_voice_membership)
-    blfplan_attribute = belief_config.get(kw.belief_planunit)
-    blfawar_attribute = belief_config.get(kw.belief_plan_awardunit)
-    blfreas_attribute = belief_config.get(kw.belief_plan_reasonunit)
-    blfcase_attribute = belief_config.get(kw.belief_plan_reason_caseunit)
-    blflabo_attribute = belief_config.get(kw.belief_plan_partyunit)
-    blfheal_attribute = belief_config.get(kw.belief_plan_healerunit)
-    blffact_attribute = belief_config.get(kw.belief_plan_factunit)
+    blfkegg_attribute = belief_config.get(kw.belief_kegunit)
+    blfawar_attribute = belief_config.get(kw.belief_keg_awardunit)
+    blfreas_attribute = belief_config.get(kw.belief_keg_reasonunit)
+    blfcase_attribute = belief_config.get(kw.belief_keg_reason_caseunit)
+    blflabo_attribute = belief_config.get(kw.belief_keg_partyunit)
+    blfheal_attribute = belief_config.get(kw.belief_keg_healerunit)
+    blffact_attribute = belief_config.get(kw.belief_keg_factunit)
     blfgrou_attribute = belief_config.get(kw.belief_groupunit)
     abbr_str = "abbreviation"
     assert blfunit_attribute.get(abbr_str) == "blfunit"
     assert blfvoce_attribute.get(abbr_str) == "blfvoce"
     assert blfmemb_attribute.get(abbr_str) == "blfmemb"
-    assert blfplan_attribute.get(abbr_str) == "blfplan"
+    assert blfkegg_attribute.get(abbr_str) == "blfkegg"
     assert blfawar_attribute.get(abbr_str) == "blfawar"
     assert blfreas_attribute.get(abbr_str) == "blfreas"
     assert blfcase_attribute.get(abbr_str) == "blfcase"
@@ -125,10 +125,10 @@ def test_get_all_belief_calc_args_ReturnsObj():
     # THEN
     assert all_belief_calc_args
     assert kw.stop_want in all_belief_calc_args
-    assert kw.plan_rope in all_belief_calc_args
+    assert kw.keg_rope in all_belief_calc_args
     assert "fund_give" in all_belief_calc_args
     assert all_belief_calc_args.get("fund_give") == {
-        "belief_plan_awardunit",
+        "belief_keg_awardunit",
         "belief_voice_membership",
         "belief_groupunit",
         "belief_voiceunit",
@@ -166,13 +166,13 @@ def test_get_belief_calc_dimens_ReturnsObj():
         kw.beliefunit,
         kw.belief_voiceunit,
         kw.belief_voice_membership,
-        kw.belief_planunit,
-        kw.belief_plan_awardunit,
-        kw.belief_plan_reasonunit,
-        kw.belief_plan_reason_caseunit,
-        kw.belief_plan_partyunit,
-        kw.belief_plan_healerunit,
-        kw.belief_plan_factunit,
+        kw.belief_kegunit,
+        kw.belief_keg_awardunit,
+        kw.belief_keg_reasonunit,
+        kw.belief_keg_reason_caseunit,
+        kw.belief_keg_partyunit,
+        kw.belief_keg_healerunit,
+        kw.belief_keg_factunit,
         kw.belief_groupunit,
     }
     assert belief_calc_dimens == expected_belief_calc_dimens
@@ -182,7 +182,7 @@ def test_get_belief_calc_dimens_ReturnsObj():
 def test_get_belief_calc_dimen_args_ReturnsObj():
     # ESTABLISH / WHEN
     belief_voiceunit_args = get_belief_calc_dimen_args(kw.belief_voiceunit)
-    belief_planunit_args = get_belief_calc_dimen_args(kw.belief_planunit)
+    belief_kegunit_args = get_belief_calc_dimen_args(kw.belief_kegunit)
     belief_groupunit_args = get_belief_calc_dimen_args(kw.belief_groupunit)
 
     #  THEN
@@ -209,7 +209,7 @@ def test_get_belief_calc_dimen_args_ReturnsObj():
         kw.irrational_voice_debt_lumen,
         kw.groupmark,
     }
-    assert belief_planunit_args == {
+    assert belief_kegunit_args == {
         kw.moment_label,
         kw.belief_name,
         kw.morph,
@@ -222,7 +222,7 @@ def test_get_belief_calc_dimen_args_ReturnsObj():
         kw.stop_want,
         kw.gogo_calc,
         kw.stop_calc,
-        kw.plan_active,
+        kw.keg_active,
         kw.fund_onset,
         kw.fund_cease,
         kw.descendant_pledge_count,
@@ -236,7 +236,7 @@ def test_get_belief_calc_dimen_args_ReturnsObj():
         kw.range_evaluated,
         kw.problem_bool,
         kw.gogo_want,
-        kw.plan_rope,
+        kw.keg_rope,
         kw.begin,
     }
     print(f"{belief_groupunit_args=}")
@@ -306,13 +306,13 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     mmtunit = kw.beliefunit
     blfvoce = kw.belief_voiceunit
     blfmemb = kw.belief_voice_membership
-    blfplan = kw.belief_planunit
-    blfawar = kw.belief_plan_awardunit
-    blfreas = kw.belief_plan_reasonunit
-    blfcase = kw.belief_plan_reason_caseunit
-    blflabo = kw.belief_plan_partyunit
-    blfheal = kw.belief_plan_healerunit
-    blffact = kw.belief_plan_factunit
+    blfkegg = kw.belief_kegunit
+    blfawar = kw.belief_keg_awardunit
+    blfreas = kw.belief_keg_reasonunit
+    blfcase = kw.belief_keg_reason_caseunit
+    blflabo = kw.belief_keg_partyunit
+    blfheal = kw.belief_keg_healerunit
+    blffact = kw.belief_keg_factunit
     blfgrou = kw.belief_groupunit
     assert g_class_type(cfig, blfmemb, jk, kw.voice_name) == kw.NameTerm
     assert g_sqlitetype(cfig, blfmemb, jk, kw.voice_name) == "TEXT"
@@ -450,9 +450,9 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blfawar, jk, kw.awardee_title) == "TEXT"
     assert g_popcashout(cfig, blfawar, jk, kw.awardee_title) == False
 
-    assert g_class_type(cfig, blfawar, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blfawar, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blfawar, jk, kw.plan_rope) == False
+    assert g_class_type(cfig, blfawar, jk, kw.keg_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfawar, jk, kw.keg_rope) == "TEXT"
+    assert g_popcashout(cfig, blfawar, jk, kw.keg_rope) == False
 
     assert g_class_type(cfig, blfawar, jv, kw.fund_give) == "float"
     assert g_sqlitetype(cfig, blfawar, jv, kw.fund_give) == "REAL"
@@ -474,9 +474,9 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blffact, jk, kw.fact_context) == "TEXT"
     assert g_popcashout(cfig, blffact, jk, kw.fact_context) == False
 
-    assert g_class_type(cfig, blffact, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blffact, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blffact, jk, kw.plan_rope) == False
+    assert g_class_type(cfig, blffact, jk, kw.keg_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blffact, jk, kw.keg_rope) == "TEXT"
+    assert g_popcashout(cfig, blffact, jk, kw.keg_rope) == False
 
     assert g_class_type(cfig, blffact, jv, kw.fact_upper) == kw.FactNum
     assert g_sqlitetype(cfig, blffact, jv, kw.fact_upper) == "REAL"
@@ -494,9 +494,9 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blfheal, jk, kw.healer_name) == "TEXT"
     assert g_popcashout(cfig, blfheal, jk, kw.healer_name) == False
 
-    assert g_class_type(cfig, blfheal, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blfheal, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blfheal, jk, kw.plan_rope) == False
+    assert g_class_type(cfig, blfheal, jk, kw.keg_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfheal, jk, kw.keg_rope) == "TEXT"
+    assert g_popcashout(cfig, blfheal, jk, kw.keg_rope) == False
 
     assert g_class_type(cfig, blfcase, jk, kw.reason_context) == kw.RopeTerm
     assert g_sqlitetype(cfig, blfcase, jk, kw.reason_context) == "TEXT"
@@ -506,9 +506,9 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blfcase, jk, kw.reason_state) == "TEXT"
     assert g_popcashout(cfig, blfcase, jk, kw.reason_state) == False
 
-    assert g_class_type(cfig, blfcase, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blfcase, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blfcase, jk, kw.plan_rope) == False
+    assert g_class_type(cfig, blfcase, jk, kw.keg_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfcase, jk, kw.keg_rope) == "TEXT"
+    assert g_popcashout(cfig, blfcase, jk, kw.keg_rope) == False
 
     assert g_class_type(cfig, blfcase, jv, kw.case_active) == "int"
     assert g_sqlitetype(cfig, blfcase, jv, kw.case_active) == "INTEGER"
@@ -534,9 +534,9 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blfreas, jk, kw.reason_context) == "TEXT"
     assert g_popcashout(cfig, blfreas, jk, kw.reason_context) == False
 
-    assert g_class_type(cfig, blfreas, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blfreas, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blfreas, jk, kw.plan_rope) == False
+    assert g_class_type(cfig, blfreas, jk, kw.keg_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blfreas, jk, kw.keg_rope) == "TEXT"
+    assert g_popcashout(cfig, blfreas, jk, kw.keg_rope) == False
 
     assert g_class_type(cfig, blfreas, jv, kw.parent_heir_active) == "int"
     assert g_sqlitetype(cfig, blfreas, jv, kw.parent_heir_active) == "INTEGER"
@@ -554,9 +554,9 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blfreas, jv, kw.active_requisite) == "INTEGER"
     assert g_popcashout(cfig, blfreas, jv, kw.active_requisite) == False
 
-    assert g_class_type(cfig, blflabo, jk, kw.plan_rope) == kw.RopeTerm
-    assert g_sqlitetype(cfig, blflabo, jk, kw.plan_rope) == "TEXT"
-    assert g_popcashout(cfig, blflabo, jk, kw.plan_rope) == False
+    assert g_class_type(cfig, blflabo, jk, kw.keg_rope) == kw.RopeTerm
+    assert g_sqlitetype(cfig, blflabo, jk, kw.keg_rope) == "TEXT"
+    assert g_popcashout(cfig, blflabo, jk, kw.keg_rope) == False
 
     assert g_class_type(cfig, blflabo, jk, kw.party_title) == kw.TitleTerm
     assert g_sqlitetype(cfig, blflabo, jk, kw.party_title) == "TEXT"
@@ -566,105 +566,105 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, blflabo, jv, "belief_name_is_labor") == "INTEGER"
     assert g_popcashout(cfig, blflabo, jv, "belief_name_is_labor") == True
 
-    assert g_class_type(cfig, blfplan, jv, "plan_active") == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, "plan_active") == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, "plan_active") == True
+    assert g_class_type(cfig, blfkegg, jv, "keg_active") == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, "keg_active") == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, "keg_active") == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.all_voice_cred) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.all_voice_cred) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.all_voice_cred) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.all_voice_cred) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.all_voice_cred) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.all_voice_cred) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.all_voice_debt) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.all_voice_debt) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.all_voice_debt) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.all_voice_debt) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.all_voice_debt) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.all_voice_debt) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.descendant_pledge_count) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.descendant_pledge_count) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.descendant_pledge_count) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.descendant_pledge_count) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.descendant_pledge_count) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.descendant_pledge_count) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.fund_cease) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_cease) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.fund_cease) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.fund_cease) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.fund_cease) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.fund_cease) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.fund_grain) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_grain) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.fund_grain) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.fund_grain) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.fund_grain) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.fund_grain) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.fund_onset) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_onset) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.fund_onset) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.fund_onset) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.fund_onset) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.fund_onset) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.fund_ratio) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.fund_ratio) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.fund_ratio) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.fund_ratio) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.fund_ratio) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.fund_ratio) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.gogo_calc) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.gogo_calc) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.gogo_calc) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.gogo_calc) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.gogo_calc) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.gogo_calc) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.healerunit_ratio) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.healerunit_ratio) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.healerunit_ratio) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.healerunit_ratio) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.healerunit_ratio) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.healerunit_ratio) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.tree_level) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.tree_level) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.tree_level) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.tree_level) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.tree_level) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.tree_level) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.range_evaluated) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.range_evaluated) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.range_evaluated) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.range_evaluated) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.range_evaluated) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.range_evaluated) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.stop_calc) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.stop_calc) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.stop_calc) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.stop_calc) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.stop_calc) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.stop_calc) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.task) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.task) == True
+    assert g_class_type(cfig, blfkegg, jv, kw.task) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.task) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.task) == True
 
-    assert g_class_type(cfig, blfplan, jv, kw.addin) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.addin) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.addin) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.addin) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.addin) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.addin) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.begin) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.begin) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.begin) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.begin) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.begin) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.begin) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.close) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.close) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.close) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.close) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.close) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.close) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.denom) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.denom) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.denom) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.denom) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.denom) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.denom) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.gogo_want) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.gogo_want) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.gogo_want) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.gogo_want) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.gogo_want) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.gogo_want) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.star) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.star) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.star) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.star) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.star) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.star) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.morph) == "bool"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.morph) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.morph) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.morph) == "bool"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.morph) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.morph) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.numor) == "int"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.numor) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.numor) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.numor) == "int"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.numor) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.numor) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.pledge) == "bool"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.pledge) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.pledge) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.pledge) == "bool"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.pledge) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.pledge) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.problem_bool) == "bool"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.problem_bool) == "INTEGER"
-    assert g_popcashout(cfig, blfplan, jv, kw.problem_bool) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.problem_bool) == "bool"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.problem_bool) == "INTEGER"
+    assert g_popcashout(cfig, blfkegg, jv, kw.problem_bool) == False
 
-    assert g_class_type(cfig, blfplan, jv, kw.stop_want) == "float"
-    assert g_sqlitetype(cfig, blfplan, jv, kw.stop_want) == "REAL"
-    assert g_popcashout(cfig, blfplan, jv, kw.stop_want) == False
+    assert g_class_type(cfig, blfkegg, jv, kw.stop_want) == "float"
+    assert g_sqlitetype(cfig, blfkegg, jv, kw.stop_want) == "REAL"
+    assert g_popcashout(cfig, blfkegg, jv, kw.stop_want) == False
 
     assert g_class_type(cfig, mmtunit, jv, "keeps_buildable") == "int"
     assert g_sqlitetype(cfig, mmtunit, jv, "keeps_buildable") == "INTEGER"
@@ -682,11 +682,9 @@ def test_get_belief_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, mmtunit, jv, kw.rational) == "INTEGER"
     assert g_popcashout(cfig, mmtunit, jv, kw.rational) == True
 
-    assert (
-        g_class_type(cfig, mmtunit, jv, kw.sum_healerunit_plans_fund_total) == "float"
-    )
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.sum_healerunit_plans_fund_total) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.sum_healerunit_plans_fund_total) == True
+    assert g_class_type(cfig, mmtunit, jv, kw.sum_healerunit_kegs_fund_total) == "float"
+    assert g_sqlitetype(cfig, mmtunit, jv, kw.sum_healerunit_kegs_fund_total) == "REAL"
+    assert g_popcashout(cfig, mmtunit, jv, kw.sum_healerunit_kegs_fund_total) == True
 
     assert g_class_type(cfig, mmtunit, jv, kw.tree_traverse_count) == "int"
     assert g_sqlitetype(cfig, mmtunit, jv, kw.tree_traverse_count) == "INTEGER"
@@ -825,7 +823,7 @@ def test_get_belief_calc_args_type_dict_ReturnsObj():
     assert belief_calc_args_type_dict.get(kw.problem_bool) == "bool"
     assert belief_calc_args_type_dict.get(kw.stop_want) == "float"
     assert belief_calc_args_type_dict.get(kw.awardee_title) == kw.TitleTerm
-    assert belief_calc_args_type_dict.get(kw.plan_rope) == kw.RopeTerm
+    assert belief_calc_args_type_dict.get(kw.keg_rope) == kw.RopeTerm
     assert belief_calc_args_type_dict.get(kw.give_force) == "float"
     assert belief_calc_args_type_dict.get(kw.take_force) == "float"
     assert belief_calc_args_type_dict.get(kw.reason_context) == kw.RopeTerm
@@ -843,7 +841,7 @@ def test_get_belief_calc_args_type_dict_ReturnsObj():
     assert belief_calc_args_type_dict.get(kw.active_requisite) == "bool"
     assert belief_calc_args_type_dict.get(kw.party_title) == kw.TitleTerm
     assert belief_calc_args_type_dict.get("belief_name_is_labor") == "int"
-    assert belief_calc_args_type_dict.get(kw.plan_active) == "int"
+    assert belief_calc_args_type_dict.get(kw.keg_active) == "int"
     assert belief_calc_args_type_dict.get(kw.all_voice_cred) == "int"
     assert belief_calc_args_type_dict.get(kw.all_voice_debt) == "int"
     assert belief_calc_args_type_dict.get(kw.descendant_pledge_count) == "int"
@@ -859,7 +857,7 @@ def test_get_belief_calc_args_type_dict_ReturnsObj():
     assert belief_calc_args_type_dict.get(kw.keeps_justified) == "int"
     assert belief_calc_args_type_dict.get(kw.offtrack_fund) == "int"
     assert belief_calc_args_type_dict.get(kw.rational) == "bool"
-    assert belief_calc_args_type_dict.get(kw.sum_healerunit_plans_fund_total) == "float"
+    assert belief_calc_args_type_dict.get(kw.sum_healerunit_kegs_fund_total) == "float"
     assert belief_calc_args_type_dict.get(kw.tree_traverse_count) == "int"
     assert belief_calc_args_type_dict.get(kw.credor_respect) == "float"
     assert belief_calc_args_type_dict.get(kw.debtor_respect) == "float"

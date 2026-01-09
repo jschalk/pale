@@ -66,13 +66,13 @@ def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
         # "br00006": "moment_label,offi_time,_offi_time_max\n",
         "br00020": "moment_label,belief_name,voice_name,group_title,group_cred_lumen,group_debt_lumen\n",
         "br00021": "moment_label,belief_name,voice_name,voice_cred_lumen,voice_debt_lumen\n",
-        "br00022": "moment_label,belief_name,plan_rope,awardee_title,give_force,take_force\n",
-        "br00023": "moment_label,belief_name,plan_rope,fact_context,fact_state,fact_lower,fact_upper\n",
-        "br00024": "moment_label,belief_name,plan_rope,party_title,solo\n",
-        "br00025": "moment_label,belief_name,plan_rope,healer_name\n",
-        "br00026": "moment_label,belief_name,plan_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor\n",
-        "br00027": "moment_label,belief_name,plan_rope,reason_context,active_requisite\n",
-        "br00028": "moment_label,belief_name,plan_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool\n",
+        "br00022": "moment_label,belief_name,keg_rope,awardee_title,give_force,take_force\n",
+        "br00023": "moment_label,belief_name,keg_rope,fact_context,fact_state,fact_lower,fact_upper\n",
+        "br00024": "moment_label,belief_name,keg_rope,party_title,solo\n",
+        "br00025": "moment_label,belief_name,keg_rope,healer_name\n",
+        "br00026": "moment_label,belief_name,keg_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor\n",
+        "br00027": "moment_label,belief_name,keg_rope,reason_context,active_requisite\n",
+        "br00028": "moment_label,belief_name,keg_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool\n",
         "br00029": "moment_label,belief_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,tally,fund_grain,mana_grain,respect_grain\n",
         "br00042": "otx_title,inx_title,otx_knot,inx_knot,unknown_str\n",
         "br00043": "otx_name,inx_name,otx_knot,inx_knot,unknown_str\n",
@@ -325,8 +325,8 @@ def test_add_belief_to_br00022_csv_ReturnsObj():
     yao_give_force = 55
     yao_take_force = 77
     casa_awardunit = awardunit_shop(exx.yao, yao_give_force, yao_take_force)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.edit_keg_attr(casa_rope, awardunit=casa_awardunit)
     csv_header = x_ideas.get("br00022")
     print(f"{csv_header=}")
 
@@ -349,8 +349,8 @@ def test_add_belief_to_br00023_csv_ReturnsObj():
     clean_rope = bob_belief.make_rope(casa_rope, "clean")
     clean_fact_lower = 55
     clean_fact_upper = 77
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(clean_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(clean_rope)
     bob_belief.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
     csv_header = x_ideas.get("br00023")
     print(f"{csv_header=}")
@@ -369,10 +369,10 @@ def test_add_belief_to_br00024_csv_ReturnsObj():
     x_ideas = create_init_stance_idea_csv_strs()
     bob_belief = beliefunit_shop(exx.bob, exx.a23)
     casa_rope = bob_belief.make_l1_rope("casa")
-    bob_belief.add_plan(casa_rope)
-    casa_plan = bob_belief.get_plan_obj(casa_rope)
+    bob_belief.add_keg(casa_rope)
+    casa_keg = bob_belief.get_keg_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_plan.laborunit.add_party(cleaners_str)
+    casa_keg.laborunit.add_party(cleaners_str)
     csv_header = x_ideas.get("br00024")
     print(f"{csv_header=}")
 
@@ -391,10 +391,10 @@ def test_add_belief_to_br00025_csv_ReturnsObj():
     x_ideas = create_init_stance_idea_csv_strs()
     bob_belief = beliefunit_shop(exx.bob, exx.a23)
     casa_rope = bob_belief.make_l1_rope("casa")
-    bob_belief.add_plan(casa_rope)
-    casa_plan = bob_belief.get_plan_obj(casa_rope)
+    bob_belief.add_keg(casa_rope)
+    casa_keg = bob_belief.get_keg_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_plan.healerunit.set_healer_name(cleaners_str)
+    casa_keg.healerunit.set_healer_name(cleaners_str)
     csv_header = x_ideas.get("br00025")
     print(f"{csv_header=}")
 
@@ -418,10 +418,10 @@ def test_add_belief_to_br00026_csv_ReturnsObj():
     clean_reason_lower = 22
     clean_reason_upper = 55
     clean_reason_divisor = 77
-    bob_belief.add_plan(mop_rope)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(clean_rope)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(mop_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(clean_rope)
+    bob_belief.edit_keg_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_case=clean_rope,
@@ -448,9 +448,9 @@ def test_add_belief_to_br00027_csv_ReturnsObj():
     bob_belief = beliefunit_shop(exx.bob, exx.a23)
     mop_rope = bob_belief.make_l1_rope("mop")
     casa_rope = bob_belief.make_l1_rope("casa")
-    bob_belief.add_plan(mop_rope)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(mop_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.edit_keg_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_requisite_active=True,
@@ -486,9 +486,9 @@ def test_add_belief_to_br00028_csv_ReturnsObj():
     casa_star = 2
     casa_pledge = False
     casa_problem_bool = False
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(mop_rope)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(mop_rope)
+    bob_belief.edit_keg_attr(
         mop_rope,
         begin=casa_begin,
         close=casa_close,
@@ -553,14 +553,12 @@ def test_add_beliefunit_to_stance_csv_strs_ReturnsObj():
     mop_rope = bob_belief.make_l1_rope("mop")
     casa_rope = bob_belief.make_l1_rope("casa")
     clean_rope = bob_belief.make_rope(casa_rope, "clean")
-    bob_belief.add_plan(mop_rope)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(clean_rope)
-    bob_belief.edit_plan_attr(
-        mop_rope, reason_context=casa_rope, reason_case=clean_rope
-    )
-    bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
+    bob_belief.add_keg(mop_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(clean_rope)
+    bob_belief.edit_keg_attr(mop_rope, reason_context=casa_rope, reason_case=clean_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
     bob_belief.add_fact(casa_rope, clean_rope)
 
     br00020_header = x_ideas.get("br00020")
@@ -653,8 +651,8 @@ def test_add_lesson_to_br00022_csv_ReturnsObj():
     yao_give_force = 55
     yao_take_force = 77
     casa_awardunit = awardunit_shop(exx.yao, yao_give_force, yao_take_force)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.edit_keg_attr(casa_rope, awardunit=casa_awardunit)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
     spark7 = 7
@@ -681,8 +679,8 @@ def test_add_lesson_to_br00023_csv_ReturnsObj():
     clean_rope = bob_belief.make_rope(casa_rope, "clean")
     clean_fact_lower = 55
     clean_fact_upper = 77
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(clean_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(clean_rope)
     bob_belief.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
@@ -709,10 +707,10 @@ def test_add_lesson_to_br00024_csv_ReturnsObj():
     x_ideas = create_init_stance_idea_csv_strs()
     bob_belief = beliefunit_shop(exx.bob, exx.a23)
     casa_rope = bob_belief.make_l1_rope("casa")
-    bob_belief.add_plan(casa_rope)
-    casa_plan = bob_belief.get_plan_obj(casa_rope)
+    bob_belief.add_keg(casa_rope)
+    casa_keg = bob_belief.get_keg_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_plan.laborunit.add_party(cleaners_str)
+    casa_keg.laborunit.add_party(cleaners_str)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
     spark7 = 7
@@ -740,10 +738,10 @@ def test_add_lesson_to_br00025_csv_ReturnsObj():
     x_ideas = create_init_stance_idea_csv_strs()
     bob_belief = beliefunit_shop(exx.bob, exx.a23)
     casa_rope = bob_belief.make_l1_rope("casa")
-    bob_belief.add_plan(casa_rope)
-    casa_plan = bob_belief.get_plan_obj(casa_rope)
+    bob_belief.add_keg(casa_rope)
+    casa_keg = bob_belief.get_keg_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_plan.healerunit.set_healer_name(cleaners_str)
+    casa_keg.healerunit.set_healer_name(cleaners_str)
     bob_beliefdelta = beliefdelta_shop()
     bob_beliefdelta.add_all_beliefatoms(bob_belief)
     spark7 = 7
@@ -773,10 +771,10 @@ def test_add_lesson_to_br00026_csv_ReturnsObj():
     clean_reason_lower = 22
     clean_reason_upper = 55
     clean_reason_divisor = 77
-    bob_belief.add_plan(mop_rope)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(clean_rope)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(mop_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(clean_rope)
+    bob_belief.edit_keg_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_case=clean_rope,
@@ -807,9 +805,9 @@ def test_add_lesson_to_br00027_csv_ReturnsObj():
     bob_belief = beliefunit_shop(exx.bob, exx.a23)
     mop_rope = bob_belief.make_l1_rope("mop")
     casa_rope = bob_belief.make_l1_rope("casa")
-    bob_belief.add_plan(mop_rope)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(mop_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.edit_keg_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_requisite_active=True,
@@ -849,9 +847,9 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
     casa_star = 2
     casa_pledge = False
     casa_problem_bool = False
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(mop_rope)
-    bob_belief.edit_plan_attr(
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(mop_rope)
+    bob_belief.edit_keg_attr(
         mop_rope,
         begin=casa_begin,
         close=casa_close,
@@ -928,14 +926,12 @@ def test_add_lessonunit_to_stance_csv_strs_ReturnsObj():
     mop_rope = bob_belief.make_l1_rope("mop")
     casa_rope = bob_belief.make_l1_rope("casa")
     clean_rope = bob_belief.make_rope(casa_rope, "clean")
-    bob_belief.add_plan(mop_rope)
-    bob_belief.add_plan(casa_rope)
-    bob_belief.add_plan(clean_rope)
-    bob_belief.edit_plan_attr(
-        mop_rope, reason_context=casa_rope, reason_case=clean_rope
-    )
-    bob_belief.add_plan(casa_rope)
-    bob_belief.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
+    bob_belief.add_keg(mop_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.add_keg(clean_rope)
+    bob_belief.edit_keg_attr(mop_rope, reason_context=casa_rope, reason_case=clean_rope)
+    bob_belief.add_keg(casa_rope)
+    bob_belief.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
     bob_belief.add_fact(casa_rope, clean_rope)
     bob_belief.credor_respect = 444
     bob_belief.debtor_respect = 556

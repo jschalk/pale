@@ -9,8 +9,8 @@ What does each one do?
 - **ch03_voice**: Defines debt and cred to Voices and Memberships to Groups.
 - **ch04_rope**: Defines Term Classes: Knots, Labels, RopeTerms, FirstLabels
 - **ch05_reason**: Defines ReasonUnits, FactUnits, and Facts decide if a Reason is Active
-- **ch06_plan**: Defines PlanUnits with sub-plans, Awardees, Labor, Reasons, Facts, etc.
-- **ch07_belief_logic**: Defines a BeliefUnit as a PlanUnit and VoiceUnits capable of producing an agenda.
+- **ch06_keg**: Defines KegUnits with sub-kegs, Awardees, Labor, Reasons, Facts, etc.
+- **ch07_belief_logic**: Defines a BeliefUnit as a KegUnit and VoiceUnits capable of producing an agenda.
 - **ch08_belief_atom**: Defines BeliefAtoms: Irreducible units of change for a BeliefUnit.
 - **ch09_belief_lesson**: Defines lessons which are collections of BeliefAtoms by FaceName
 - **ch10_belief_listen**: These tools describe how one BeliefUnit listens to another.

@@ -110,7 +110,7 @@ def test_get_moment_guts_agenda_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
     agenda_colums = {
         kw.belief_name,
         kw.fund_ratio,
-        kw.plan_label,
+        kw.keg_label,
         kw.parent_rope,
         kw.begin,
         kw.close,
@@ -149,7 +149,7 @@ def test_get_moment_jobs_agenda_dataframe_ReturnsObj(temp_dir_setup):
     agenda_colums = {
         kw.belief_name,
         kw.fund_ratio,
-        kw.plan_label,
+        kw.keg_label,
         kw.parent_rope,
         kw.begin,
         kw.close,

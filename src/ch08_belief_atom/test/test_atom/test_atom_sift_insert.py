@@ -52,44 +52,44 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_voice_membership():
     assert not new_yao_run_beliefatom
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_planunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_kegunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    root_rope = sue_belief.planroot.get_plan_rope()
+    root_rope = sue_belief.kegroot.get_keg_rope()
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_rope = sue_belief.make_rope(casa_rope, exx.clean)
     sweep_str = "sweep"
     sweep_rope = sue_belief.make_rope(clean_rope, sweep_str)
 
-    root_atom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    root_atom.set_arg(kw.plan_rope, root_rope)
-    casa_atom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    casa_atom.set_arg(kw.plan_rope, casa_rope)
-    clean_atom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    clean_atom.set_arg(kw.plan_rope, clean_rope)
-    sweep_atom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    sweep_atom.set_arg(kw.plan_rope, sweep_rope)
+    root_atom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    root_atom.set_arg(kw.keg_rope, root_rope)
+    casa_atom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    casa_atom.set_arg(kw.keg_rope, casa_rope)
+    clean_atom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    clean_atom.set_arg(kw.keg_rope, clean_rope)
+    sweep_atom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    sweep_atom.set_arg(kw.keg_rope, sweep_rope)
     assert not sift_beliefatom(sue_belief, root_atom)
     assert sift_beliefatom(sue_belief, casa_atom)
     assert sift_beliefatom(sue_belief, clean_atom)
     assert sift_beliefatom(sue_belief, sweep_atom)
 
     # WHEN
-    sue_belief.add_plan(casa_rope)
+    sue_belief.add_keg(casa_rope)
     # THEN
     assert not sift_beliefatom(sue_belief, casa_atom)
     assert sift_beliefatom(sue_belief, clean_atom)
     assert sift_beliefatom(sue_belief, sweep_atom)
 
     # WHEN
-    sue_belief.add_plan(clean_rope)
+    sue_belief.add_keg(clean_rope)
     # THEN
     assert not sift_beliefatom(sue_belief, casa_atom)
     assert not sift_beliefatom(sue_belief, clean_atom)
     assert sift_beliefatom(sue_belief, sweep_atom)
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_awardunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_keg_awardunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
@@ -98,33 +98,33 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_awardunit():
 
     casa_swim_atom = create_xxx_swim_atom(casa_rope, swim_str)
     clean_swim_atom = create_xxx_swim_atom(clean_rope, swim_str)
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(clean_rope)
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(clean_rope)
     assert sift_beliefatom(sue_belief, casa_swim_atom)
     assert sift_beliefatom(sue_belief, clean_swim_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(swim_str))
+    sue_belief.get_keg_obj(casa_rope).set_awardunit(awardunit_shop(swim_str))
 
     # THEN
     assert not sift_beliefatom(sue_belief, casa_swim_atom)
     assert sift_beliefatom(sue_belief, clean_swim_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(clean_rope).set_awardunit(awardunit_shop(swim_str))
+    sue_belief.get_keg_obj(clean_rope).set_awardunit(awardunit_shop(swim_str))
     # THEN
     assert not sift_beliefatom(sue_belief, casa_swim_atom)
     assert not sift_beliefatom(sue_belief, clean_swim_atom)
 
 
 def create_xxx_swim_atom(x_rope, swim_str):
-    result = beliefatom_shop(kw.belief_plan_awardunit, kw.INSERT)
-    result.set_arg(kw.plan_rope, x_rope)
+    result = beliefatom_shop(kw.belief_keg_awardunit, kw.INSERT)
+    result.set_arg(kw.keg_rope, x_rope)
     result.set_arg(kw.awardee_title, swim_str)
     return result
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_reasonunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_keg_reasonunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
@@ -133,33 +133,33 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_reasonunit():
 
     casa_wk_atom = create_wk_atom(casa_rope, wk_rope)
     clean_wk_atom = create_wk_atom(clean_rope, wk_rope)
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(clean_rope)
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(clean_rope)
     assert sift_beliefatom(sue_belief, casa_wk_atom)
     assert sift_beliefatom(sue_belief, clean_wk_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
+    sue_belief.get_keg_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
 
     # THEN
     assert not sift_beliefatom(sue_belief, casa_wk_atom)
     assert sift_beliefatom(sue_belief, clean_wk_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(clean_rope).set_reasonunit(reasonunit_shop(wk_rope))
+    sue_belief.get_keg_obj(clean_rope).set_reasonunit(reasonunit_shop(wk_rope))
     # THEN
     assert not sift_beliefatom(sue_belief, casa_wk_atom)
     assert not sift_beliefatom(sue_belief, clean_wk_atom)
 
 
 def create_wk_atom(casa_rope, wk_rope):
-    result = beliefatom_shop(kw.belief_plan_reasonunit, kw.INSERT)
-    result.set_arg(kw.plan_rope, casa_rope)
+    result = beliefatom_shop(kw.belief_keg_reasonunit, kw.INSERT)
+    result.set_arg(kw.keg_rope, casa_rope)
     result.set_arg(kw.reason_context, wk_rope)
     return result
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_reason_caseunit_Exists():
+def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_keg_reason_caseunit_Exists():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
@@ -168,129 +168,129 @@ def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_reason_caseunit_Exis
     thur_str = "thur"
     thur_rope = sue_belief.make_rope(wk_rope, thur_str)
 
-    casa_wk_atom = beliefatom_shop(kw.belief_plan_reason_caseunit, kw.INSERT)
-    casa_wk_atom.set_arg(kw.plan_rope, casa_rope)
+    casa_wk_atom = beliefatom_shop(kw.belief_keg_reason_caseunit, kw.INSERT)
+    casa_wk_atom.set_arg(kw.keg_rope, casa_rope)
     casa_wk_atom.set_arg(kw.reason_context, wk_rope)
     casa_wk_atom.set_arg(kw.reason_state, thur_rope)
-    clean_wk_atom = beliefatom_shop(kw.belief_plan_reason_caseunit, kw.INSERT)
-    clean_wk_atom.set_arg(kw.plan_rope, clean_rope)
+    clean_wk_atom = beliefatom_shop(kw.belief_keg_reason_caseunit, kw.INSERT)
+    clean_wk_atom.set_arg(kw.keg_rope, clean_rope)
     clean_wk_atom.set_arg(kw.reason_context, wk_rope)
     clean_wk_atom.set_arg(kw.reason_state, thur_rope)
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(clean_rope)
-    casa_plan = sue_belief.get_plan_obj(casa_rope)
-    clean_plan = sue_belief.get_plan_obj(clean_rope)
-    casa_plan.set_reasonunit(reasonunit_shop(wk_rope))
-    clean_plan.set_reasonunit(reasonunit_shop(wk_rope))
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(clean_rope)
+    casa_keg = sue_belief.get_keg_obj(casa_rope)
+    clean_keg = sue_belief.get_keg_obj(clean_rope)
+    casa_keg.set_reasonunit(reasonunit_shop(wk_rope))
+    clean_keg.set_reasonunit(reasonunit_shop(wk_rope))
     assert sift_beliefatom(sue_belief, casa_wk_atom)
     assert sift_beliefatom(sue_belief, clean_wk_atom)
 
     # WHEN
-    casa_plan.get_reasonunit(wk_rope).set_case(thur_rope)
+    casa_keg.get_reasonunit(wk_rope).set_case(thur_rope)
 
     # THEN
     assert not sift_beliefatom(sue_belief, casa_wk_atom)
     assert sift_beliefatom(sue_belief, clean_wk_atom)
 
     # WHEN
-    clean_plan.get_reasonunit(wk_rope).set_case(thur_rope)
+    clean_keg.get_reasonunit(wk_rope).set_case(thur_rope)
 
     # THEN
     assert not sift_beliefatom(sue_belief, casa_wk_atom)
     assert not sift_beliefatom(sue_belief, clean_wk_atom)
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_partyunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_keg_partyunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_rope = sue_belief.make_rope(casa_rope, exx.clean)
     swim_str = "Swim"
 
-    casa_swim_atom = beliefatom_shop(kw.belief_plan_partyunit, kw.INSERT)
-    casa_swim_atom.set_arg(kw.plan_rope, casa_rope)
+    casa_swim_atom = beliefatom_shop(kw.belief_keg_partyunit, kw.INSERT)
+    casa_swim_atom.set_arg(kw.keg_rope, casa_rope)
     casa_swim_atom.set_arg(kw.party_title, swim_str)
-    clean_swim_atom = beliefatom_shop(kw.belief_plan_partyunit, kw.INSERT)
-    clean_swim_atom.set_arg(kw.plan_rope, clean_rope)
+    clean_swim_atom = beliefatom_shop(kw.belief_keg_partyunit, kw.INSERT)
+    clean_swim_atom.set_arg(kw.keg_rope, clean_rope)
     clean_swim_atom.set_arg(kw.party_title, swim_str)
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(clean_rope)
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(clean_rope)
     assert sift_beliefatom(sue_belief, casa_swim_atom)
     assert sift_beliefatom(sue_belief, clean_swim_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(casa_rope).laborunit.add_party(swim_str)
+    sue_belief.get_keg_obj(casa_rope).laborunit.add_party(swim_str)
 
     # THEN
     assert not sift_beliefatom(sue_belief, casa_swim_atom)
     assert sift_beliefatom(sue_belief, clean_swim_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(clean_rope).laborunit.add_party(swim_str)
+    sue_belief.get_keg_obj(clean_rope).laborunit.add_party(swim_str)
     # THEN
     assert not sift_beliefatom(sue_belief, casa_swim_atom)
     assert not sift_beliefatom(sue_belief, clean_swim_atom)
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_healerunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_keg_healerunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_rope = sue_belief.make_rope(casa_rope, exx.clean)
     swim_str = "Swim"
 
-    casa_swim_atom = beliefatom_shop(kw.belief_plan_healerunit, kw.INSERT)
-    casa_swim_atom.set_arg(kw.plan_rope, casa_rope)
+    casa_swim_atom = beliefatom_shop(kw.belief_keg_healerunit, kw.INSERT)
+    casa_swim_atom.set_arg(kw.keg_rope, casa_rope)
     casa_swim_atom.set_arg(kw.healer_name, swim_str)
-    clean_swim_atom = beliefatom_shop(kw.belief_plan_healerunit, kw.INSERT)
-    clean_swim_atom.set_arg(kw.plan_rope, clean_rope)
+    clean_swim_atom = beliefatom_shop(kw.belief_keg_healerunit, kw.INSERT)
+    clean_swim_atom.set_arg(kw.keg_rope, clean_rope)
     clean_swim_atom.set_arg(kw.healer_name, swim_str)
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(clean_rope)
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(clean_rope)
     assert sift_beliefatom(sue_belief, casa_swim_atom)
     assert sift_beliefatom(sue_belief, clean_swim_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(casa_rope).healerunit.set_healer_name(swim_str)
+    sue_belief.get_keg_obj(casa_rope).healerunit.set_healer_name(swim_str)
 
     # THEN
     assert not sift_beliefatom(sue_belief, casa_swim_atom)
     assert sift_beliefatom(sue_belief, clean_swim_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(clean_rope).healerunit.set_healer_name(swim_str)
+    sue_belief.get_keg_obj(clean_rope).healerunit.set_healer_name(swim_str)
     # THEN
     assert not sift_beliefatom(sue_belief, casa_swim_atom)
     assert not sift_beliefatom(sue_belief, clean_swim_atom)
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_plan_factunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_INSERT_belief_keg_factunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     clean_rope = sue_belief.make_rope(casa_rope, exx.clean)
     wk_rope = sue_belief.make_l1_rope("wk")
 
-    casa_wk_atom = beliefatom_shop(kw.belief_plan_factunit, kw.INSERT)
-    casa_wk_atom.set_arg(kw.plan_rope, casa_rope)
+    casa_wk_atom = beliefatom_shop(kw.belief_keg_factunit, kw.INSERT)
+    casa_wk_atom.set_arg(kw.keg_rope, casa_rope)
     casa_wk_atom.set_arg(kw.fact_context, wk_rope)
-    clean_wk_atom = beliefatom_shop(kw.belief_plan_factunit, kw.INSERT)
-    clean_wk_atom.set_arg(kw.plan_rope, clean_rope)
+    clean_wk_atom = beliefatom_shop(kw.belief_keg_factunit, kw.INSERT)
+    clean_wk_atom.set_arg(kw.keg_rope, clean_rope)
     clean_wk_atom.set_arg(kw.fact_context, wk_rope)
-    sue_belief.add_plan(casa_rope)
-    sue_belief.add_plan(clean_rope)
+    sue_belief.add_keg(casa_rope)
+    sue_belief.add_keg(clean_rope)
     assert sift_beliefatom(sue_belief, casa_wk_atom)
     assert sift_beliefatom(sue_belief, clean_wk_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
+    sue_belief.get_keg_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
 
     # THEN
     assert not sift_beliefatom(sue_belief, casa_wk_atom)
     assert sift_beliefatom(sue_belief, clean_wk_atom)
 
     # WHEN
-    sue_belief.get_plan_obj(clean_rope).set_factunit(factunit_shop(wk_rope))
+    sue_belief.get_keg_obj(clean_rope).set_factunit(factunit_shop(wk_rope))
     # THEN
     assert not sift_beliefatom(sue_belief, casa_wk_atom)
     assert not sift_beliefatom(sue_belief, clean_wk_atom)

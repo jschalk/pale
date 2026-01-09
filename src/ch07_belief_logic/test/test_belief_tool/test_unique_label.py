@@ -11,21 +11,21 @@ def test_get_belief_unique_short_ropes_ReturnsObj_Scenario0_RootOnly():
     unique_short_ropes = get_belief_unique_short_ropes(sue_belief)
 
     # THEN
-    assert unique_short_ropes == {sue_belief.planroot.get_plan_rope(): exx.a23}
+    assert unique_short_ropes == {sue_belief.kegroot.get_keg_rope(): exx.a23}
 
 
-def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabels():
+def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_KegsWithUniqueLabels():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue", exx.a23)
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
-    sue_belief.add_plan(mop_rope)
+    sue_belief.add_keg(mop_rope)
 
     # WHEN
     unique_short_ropes = get_belief_unique_short_ropes(sue_belief)
 
     # THEN
-    root_rope = sue_belief.planroot.get_plan_rope()
+    root_rope = sue_belief.kegroot.get_keg_rope()
     assert unique_short_ropes == {
         root_rope: exx.a23,
         casa_rope: exx.casa,
@@ -33,7 +33,7 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabe
     }
 
 
-def test_get_belief_unique_short_ropess_ReturnsObj_Scenario2_PlansWithCommonLabels():
+def test_get_belief_unique_short_ropess_ReturnsObj_Scenario2_KegsWithCommonLabels():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue", exx.a23)
     casa_rope = sue_belief.make_l1_rope(exx.casa)
@@ -41,14 +41,14 @@ def test_get_belief_unique_short_ropess_ReturnsObj_Scenario2_PlansWithCommonLabe
     sports_str = "sports"
     sports_rope = sue_belief.make_l1_rope(sports_str)
     sports_mop_rope = sue_belief.make_rope(sports_rope, exx.mop)
-    sue_belief.add_plan(casa_mop_rope)
-    sue_belief.add_plan(sports_mop_rope)
+    sue_belief.add_keg(casa_mop_rope)
+    sue_belief.add_keg(sports_mop_rope)
 
     # WHEN
     unique_short_ropes = get_belief_unique_short_ropes(sue_belief)
 
     # THEN
-    root_rope = sue_belief.planroot.get_plan_rope()
+    root_rope = sue_belief.kegroot.get_keg_rope()
     knot = sue_belief.knot
     expected_short_casa_mop = f"{exx.casa}{knot}{exx.mop}"
     assert unique_short_ropes.get(casa_mop_rope) == expected_short_casa_mop

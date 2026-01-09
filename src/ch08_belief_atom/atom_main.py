@@ -5,7 +5,7 @@ from src.ch03_voice.group import awardunit_shop
 from src.ch03_voice.voice import voiceunit_shop
 from src.ch04_rope.rope import create_rope, get_parent_rope, get_tail_label
 from src.ch05_reason.reason_main import factunit_shop
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import BeliefUnit
 from src.ch07_belief_logic.belief_tool import belief_attr_exists, belief_get_obj
 from src.ch08_belief_atom._ref.ch08_semantic_types import (
@@ -225,15 +225,15 @@ def _modify_belief_voice_membership_insert(x_belief: BeliefUnit, x_atom: BeliefA
     x_voiceunit.add_membership(x_group_title, x_group_cred_lumen, x_group_debt_lumen)
 
 
-def _modify_belief_planunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    plan_rope = create_rope(x_atom.get_value("plan_rope"), knot=x_belief.knot)
-    x_belief.del_plan_obj(plan_rope, del_children=x_atom.get_value("del_children"))
+def _modify_belief_kegunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    keg_rope = create_rope(x_atom.get_value("keg_rope"), knot=x_belief.knot)
+    x_belief.del_keg_obj(keg_rope, del_children=x_atom.get_value("del_children"))
 
 
-def _modify_belief_planunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    plan_rope = create_rope(x_atom.get_value("plan_rope"), knot=x_belief.knot)
-    x_belief.edit_plan_attr(
-        plan_rope,
+def _modify_belief_kegunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    keg_rope = create_rope(x_atom.get_value("keg_rope"), knot=x_belief.knot)
+    x_belief.edit_keg_attr(
+        keg_rope,
         addin=x_atom.get_value("addin"),
         begin=x_atom.get_value("begin"),
         gogo_want=x_atom.get_value("gogo_want"),
@@ -247,13 +247,13 @@ def _modify_belief_planunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
     )
 
 
-def _modify_belief_planunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    plan_rope = x_atom.get_value("plan_rope")
-    plan_label = get_tail_label(plan_rope)
-    plan_parent_rope = get_parent_rope(plan_rope)
-    x_belief.set_plan_obj(
-        plan_kid=planunit_shop(
-            plan_label=plan_label,
+def _modify_belief_kegunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    keg_rope = x_atom.get_value("keg_rope")
+    keg_label = get_tail_label(keg_rope)
+    keg_parent_rope = get_parent_rope(keg_rope)
+    x_belief.set_keg_obj(
+        keg_kid=kegunit_shop(
+            keg_label=keg_label,
             addin=x_atom.get_value("addin"),
             begin=x_atom.get_value("begin"),
             close=x_atom.get_value("close"),
@@ -263,49 +263,49 @@ def _modify_belief_planunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
             numor=x_atom.get_value("numor"),
             pledge=x_atom.get_value("pledge"),
         ),
-        parent_rope=plan_parent_rope,
-        create_missing_plans=False,
+        parent_rope=keg_parent_rope,
+        create_missing_kegs=False,
         get_rid_of_missing_awardunits_awardee_titles=False,
         create_missing_ancestors=True,
     )
 
 
-def _modify_belief_plan_awardunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_belief.edit_plan_attr(
-        x_atom.get_value("plan_rope"),
+def _modify_belief_keg_awardunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_belief.edit_keg_attr(
+        x_atom.get_value("keg_rope"),
         awardunit_del=x_atom.get_value("awardee_title"),
     )
 
 
-def _modify_belief_plan_awardunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_plan = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_awardunit = x_plan.awardunits.get(x_atom.get_value("awardee_title"))
+def _modify_belief_keg_awardunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_keg = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_awardunit = x_keg.awardunits.get(x_atom.get_value("awardee_title"))
     x_give_force = x_atom.get_value("give_force")
     if x_give_force is not None and x_awardunit.give_force != x_give_force:
         x_awardunit.give_force = x_give_force
     x_take_force = x_atom.get_value("take_force")
     if x_take_force is not None and x_awardunit.take_force != x_take_force:
         x_awardunit.take_force = x_take_force
-    x_belief.edit_plan_attr(x_atom.get_value("plan_rope"), awardunit=x_awardunit)
+    x_belief.edit_keg_attr(x_atom.get_value("keg_rope"), awardunit=x_awardunit)
 
 
-def _modify_belief_plan_awardunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_keg_awardunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
     x_awardunit = awardunit_shop(
         awardee_title=x_atom.get_value("awardee_title"),
         give_force=x_atom.get_value("give_force"),
         take_force=x_atom.get_value("take_force"),
     )
-    x_belief.edit_plan_attr(x_atom.get_value("plan_rope"), awardunit=x_awardunit)
+    x_belief.edit_keg_attr(x_atom.get_value("keg_rope"), awardunit=x_awardunit)
 
 
-def _modify_belief_plan_factunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_planunit.del_factunit(x_atom.get_value("fact_context"))
+def _modify_belief_keg_factunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_kegunit.del_factunit(x_atom.get_value("fact_context"))
 
 
-def _modify_belief_plan_factunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_factunit = x_planunit.factunits.get(x_atom.get_value("fact_context"))
+def _modify_belief_keg_factunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_factunit = x_kegunit.factunits.get(x_atom.get_value("fact_context"))
     x_factunit.set_attr(
         fact_state=x_atom.get_value("fact_state"),
         fact_lower=x_atom.get_value("fact_lower"),
@@ -313,9 +313,9 @@ def _modify_belief_plan_factunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom
     )
 
 
-def _modify_belief_plan_factunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_belief.edit_plan_attr(
-        x_atom.get_value("plan_rope"),
+def _modify_belief_keg_factunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_belief.edit_keg_attr(
+        x_atom.get_value("keg_rope"),
         factunit=factunit_shop(
             fact_context=x_atom.get_value("fact_context"),
             fact_state=x_atom.get_value("fact_state"),
@@ -325,42 +325,38 @@ def _modify_belief_plan_factunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom
     )
 
 
-def _modify_belief_plan_reasonunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_planunit.del_reasonunit_reason_context(x_atom.get_value("reason_context"))
+def _modify_belief_keg_reasonunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_kegunit.del_reasonunit_reason_context(x_atom.get_value("reason_context"))
 
 
-def _modify_belief_plan_reasonunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_belief.edit_plan_attr(
-        x_atom.get_value("plan_rope"),
+def _modify_belief_keg_reasonunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_belief.edit_keg_attr(
+        x_atom.get_value("keg_rope"),
         reason_context=x_atom.get_value("reason_context"),
         reason_requisite_active=x_atom.get_value("active_requisite"),
     )
 
 
-def _modify_belief_plan_reasonunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_belief.edit_plan_attr(
-        x_atom.get_value("plan_rope"),
+def _modify_belief_keg_reasonunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_belief.edit_keg_attr(
+        x_atom.get_value("keg_rope"),
         reason_context=x_atom.get_value("reason_context"),
         reason_requisite_active=x_atom.get_value("active_requisite"),
     )
 
 
-def _modify_belief_plan_reason_caseunit_delete(
-    x_belief: BeliefUnit, x_atom: BeliefAtom
-):
-    x_belief.edit_plan_attr(
-        x_atom.get_value("plan_rope"),
+def _modify_belief_keg_reason_caseunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_belief.edit_keg_attr(
+        x_atom.get_value("keg_rope"),
         reason_del_case_reason_context=x_atom.get_value("reason_context"),
         reason_del_case_reason_state=x_atom.get_value("reason_state"),
     )
 
 
-def _modify_belief_plan_reason_caseunit_update(
-    x_belief: BeliefUnit, x_atom: BeliefAtom
-):
-    x_belief.edit_plan_attr(
-        x_atom.get_value("plan_rope"),
+def _modify_belief_keg_reason_caseunit_update(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_belief.edit_keg_attr(
+        x_atom.get_value("keg_rope"),
         reason_context=x_atom.get_value("reason_context"),
         reason_case=x_atom.get_value("reason_state"),
         reason_lower=x_atom.get_value("reason_lower"),
@@ -369,11 +365,9 @@ def _modify_belief_plan_reason_caseunit_update(
     )
 
 
-def _modify_belief_plan_reason_caseunit_insert(
-    x_belief: BeliefUnit, x_atom: BeliefAtom
-):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_planunit.set_reason_case(
+def _modify_belief_keg_reason_caseunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_kegunit.set_reason_case(
         reason_context=x_atom.get_value("reason_context"),
         case=x_atom.get_value("reason_state"),
         reason_lower=x_atom.get_value("reason_lower"),
@@ -382,24 +376,24 @@ def _modify_belief_plan_reason_caseunit_insert(
     )
 
 
-def _modify_belief_plan_partyunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_planunit.laborunit.del_partyunit(party_title=x_atom.get_value("party_title"))
+def _modify_belief_keg_partyunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_kegunit.laborunit.del_partyunit(party_title=x_atom.get_value("party_title"))
 
 
-def _modify_belief_plan_partyunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_planunit.laborunit.add_party(party_title=x_atom.get_value("party_title"))
+def _modify_belief_keg_partyunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_kegunit.laborunit.add_party(party_title=x_atom.get_value("party_title"))
 
 
-def _modify_belief_plan_healerunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_planunit.healerunit.del_healer_name(x_atom.get_value("healer_name"))
+def _modify_belief_keg_healerunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_kegunit.healerunit.del_healer_name(x_atom.get_value("healer_name"))
 
 
-def _modify_belief_plan_healerunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
-    x_planunit = x_belief.get_plan_obj(x_atom.get_value("plan_rope"))
-    x_planunit.healerunit.set_healer_name(x_atom.get_value("healer_name"))
+def _modify_belief_keg_healerunit_insert(x_belief: BeliefUnit, x_atom: BeliefAtom):
+    x_kegunit = x_belief.get_keg_obj(x_atom.get_value("keg_rope"))
+    x_kegunit.healerunit.set_healer_name(x_atom.get_value("healer_name"))
 
 
 def _modify_belief_voiceunit_delete(x_belief: BeliefUnit, x_atom: BeliefAtom):
@@ -438,63 +432,63 @@ def _modify_belief_voice_membership(x_belief: BeliefUnit, x_atom: BeliefAtom):
         _modify_belief_voice_membership_insert(x_belief, x_atom)
 
 
-def _modify_belief_planunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_kegunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_belief_planunit_delete(x_belief, x_atom)
+        _modify_belief_kegunit_delete(x_belief, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_belief_planunit_update(x_belief, x_atom)
+        _modify_belief_kegunit_update(x_belief, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_belief_planunit_insert(x_belief, x_atom)
+        _modify_belief_kegunit_insert(x_belief, x_atom)
 
 
-def _modify_belief_plan_awardunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_keg_awardunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_belief_plan_awardunit_delete(x_belief, x_atom)
+        _modify_belief_keg_awardunit_delete(x_belief, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_belief_plan_awardunit_update(x_belief, x_atom)
+        _modify_belief_keg_awardunit_update(x_belief, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_belief_plan_awardunit_insert(x_belief, x_atom)
+        _modify_belief_keg_awardunit_insert(x_belief, x_atom)
 
 
-def _modify_belief_plan_factunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_keg_factunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_belief_plan_factunit_delete(x_belief, x_atom)
+        _modify_belief_keg_factunit_delete(x_belief, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_belief_plan_factunit_update(x_belief, x_atom)
+        _modify_belief_keg_factunit_update(x_belief, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_belief_plan_factunit_insert(x_belief, x_atom)
+        _modify_belief_keg_factunit_insert(x_belief, x_atom)
 
 
-def _modify_belief_plan_reasonunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_keg_reasonunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_belief_plan_reasonunit_delete(x_belief, x_atom)
+        _modify_belief_keg_reasonunit_delete(x_belief, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_belief_plan_reasonunit_update(x_belief, x_atom)
+        _modify_belief_keg_reasonunit_update(x_belief, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_belief_plan_reasonunit_insert(x_belief, x_atom)
+        _modify_belief_keg_reasonunit_insert(x_belief, x_atom)
 
 
-def _modify_belief_plan_reason_caseunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_keg_reason_caseunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_belief_plan_reason_caseunit_delete(x_belief, x_atom)
+        _modify_belief_keg_reason_caseunit_delete(x_belief, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_belief_plan_reason_caseunit_update(x_belief, x_atom)
+        _modify_belief_keg_reason_caseunit_update(x_belief, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_belief_plan_reason_caseunit_insert(x_belief, x_atom)
+        _modify_belief_keg_reason_caseunit_insert(x_belief, x_atom)
 
 
-def _modify_belief_plan_partyunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_keg_partyunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_belief_plan_partyunit_delete(x_belief, x_atom)
+        _modify_belief_keg_partyunit_delete(x_belief, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_belief_plan_partyunit_insert(x_belief, x_atom)
+        _modify_belief_keg_partyunit_insert(x_belief, x_atom)
 
 
-def _modify_belief_plan_healerunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
+def _modify_belief_keg_healerunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_belief_plan_healerunit_delete(x_belief, x_atom)
+        _modify_belief_keg_healerunit_delete(x_belief, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_belief_plan_healerunit_insert(x_belief, x_atom)
+        _modify_belief_keg_healerunit_insert(x_belief, x_atom)
 
 
 def _modify_belief_voiceunit(x_belief: BeliefUnit, x_atom: BeliefAtom):
@@ -511,20 +505,20 @@ def modify_belief_with_beliefatom(x_belief: BeliefUnit, x_atom: BeliefAtom):
         _modify_belief_beliefunit(x_belief, x_atom)
     elif x_atom.dimen == "belief_voice_membership":
         _modify_belief_voice_membership(x_belief, x_atom)
-    elif x_atom.dimen == "belief_planunit":
-        _modify_belief_planunit(x_belief, x_atom)
-    elif x_atom.dimen == "belief_plan_awardunit":
-        _modify_belief_plan_awardunit(x_belief, x_atom)
-    elif x_atom.dimen == "belief_plan_factunit":
-        _modify_belief_plan_factunit(x_belief, x_atom)
-    elif x_atom.dimen == "belief_plan_reasonunit":
-        _modify_belief_plan_reasonunit(x_belief, x_atom)
-    elif x_atom.dimen == "belief_plan_reason_caseunit":
-        _modify_belief_plan_reason_caseunit(x_belief, x_atom)
-    elif x_atom.dimen == "belief_plan_healerunit":
-        _modify_belief_plan_healerunit(x_belief, x_atom)
-    elif x_atom.dimen == "belief_plan_partyunit":
-        _modify_belief_plan_partyunit(x_belief, x_atom)
+    elif x_atom.dimen == "belief_kegunit":
+        _modify_belief_kegunit(x_belief, x_atom)
+    elif x_atom.dimen == "belief_keg_awardunit":
+        _modify_belief_keg_awardunit(x_belief, x_atom)
+    elif x_atom.dimen == "belief_keg_factunit":
+        _modify_belief_keg_factunit(x_belief, x_atom)
+    elif x_atom.dimen == "belief_keg_reasonunit":
+        _modify_belief_keg_reasonunit(x_belief, x_atom)
+    elif x_atom.dimen == "belief_keg_reason_caseunit":
+        _modify_belief_keg_reason_caseunit(x_belief, x_atom)
+    elif x_atom.dimen == "belief_keg_healerunit":
+        _modify_belief_keg_healerunit(x_belief, x_atom)
+    elif x_atom.dimen == "belief_keg_partyunit":
+        _modify_belief_keg_partyunit(x_belief, x_atom)
     elif x_atom.dimen == "belief_voiceunit":
         _modify_belief_voiceunit(x_belief, x_atom)
 
@@ -544,11 +538,11 @@ def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
         return (x_obj.group_cred_lumen != y_obj.group_cred_lumen) or (
             x_obj.group_debt_lumen != y_obj.group_debt_lumen
         )
-    elif dimen in {"belief_plan_awardunit"}:
+    elif dimen in {"belief_keg_awardunit"}:
         return (x_obj.give_force != y_obj.give_force) or (
             x_obj.take_force != y_obj.take_force
         )
-    elif dimen == "belief_planunit":
+    elif dimen == "belief_kegunit":
         return (
             x_obj.addin != y_obj.addin
             or x_obj.begin != y_obj.begin
@@ -559,15 +553,15 @@ def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
             or x_obj.star != y_obj.star
             or x_obj.pledge != y_obj.pledge
         )
-    elif dimen == "belief_plan_factunit":
+    elif dimen == "belief_keg_factunit":
         return (
             (x_obj.fact_state != y_obj.fact_state)
             or (x_obj.reason_lower != y_obj.reason_lower)
             or (x_obj.reason_upper != y_obj.reason_upper)
         )
-    elif dimen == "belief_plan_reasonunit":
+    elif dimen == "belief_keg_reasonunit":
         return x_obj.active_requisite != y_obj.active_requisite
-    elif dimen == "belief_plan_reason_caseunit":
+    elif dimen == "belief_keg_reason_caseunit":
         return (
             x_obj.reason_lower != y_obj.reason_lower
             or x_obj.reason_upper != y_obj.reason_upper
@@ -633,7 +627,7 @@ class AtomRow:
     fact_state: RopeTerm = None
     pledge: bool = None
     problem_bool: bool = None
-    plan_rope: RopeTerm = None
+    keg_rope: RopeTerm = None
     solo: int = None
     stop_want: float = None
     take_force: float = None

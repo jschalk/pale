@@ -58,6 +58,6 @@ def test_etl_moment_guts_to_moment_jobs_SetsFiles_Scenario0(
     # assert generated_job.get_voice(yao_inx) == expected_job.get_voice(yao_inx)
     assert generated_job.voices.keys() == expected_job.voices.keys()
     # assert generated_job.voices == expected_job.voices
-    # assert generated_job.get_plan_dict() == expected_job.to_dict()
+    # assert generated_job.get_keg_dict() == expected_job.to_dict()
     # assert generated_job.to_dict() == expected_job.to_dict()
     # assert generated_job == expected_job

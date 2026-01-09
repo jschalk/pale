@@ -253,11 +253,11 @@ def test_get_voice_mandate_ledger_ReturnsObj_Scenario5_Zero_fund_agenda_give():
     clean_rope = sue_belief.make_rope(floor_rope, exx.clean)
     dirty_rope = sue_belief.make_rope(floor_rope, dirty_str)
     mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
-    sue_belief.add_plan(floor_rope)
-    sue_belief.add_plan(clean_rope)
-    sue_belief.add_plan(dirty_rope)
-    sue_belief.add_plan(mop_rope, pledge=True)
-    sue_belief.edit_plan_attr(
+    sue_belief.add_keg(floor_rope)
+    sue_belief.add_keg(clean_rope)
+    sue_belief.add_keg(dirty_rope)
+    sue_belief.add_keg(mop_rope, pledge=True)
+    sue_belief.edit_keg_attr(
         mop_rope, reason_context=floor_rope, reason_case=clean_rope
     )
     sue_belief.add_voiceunit(exx.yao, 13, 5)

@@ -142,8 +142,8 @@ def test_save_arbitrary_beliefspark_SetsFile_Scenario1_includes_facts(
     )
     gen_sue_belief = open_belief_file(beliefspark_path)
     assert (
-        gen_sue_belief.get_planroot_factunits_dict()
-        == expected_sue_belief.get_planroot_factunits_dict()
+        gen_sue_belief.get_kegroot_factunits_dict()
+        == expected_sue_belief.get_kegroot_factunits_dict()
     )
     assert gen_sue_belief.to_dict() == expected_sue_belief.to_dict()
 
@@ -166,7 +166,7 @@ def test_get_beliefspark_obj_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     casa_rope = sue_belief.make_l1_rope("casa")
     clean_rope = sue_belief.make_l1_rope("clean")
     dirty_rope = sue_belief.make_l1_rope("dirty")
-    sue_belief.add_fact(casa_rope, dirty_rope, create_missing_plans=True)
+    sue_belief.add_fact(casa_rope, dirty_rope, create_missing_kegs=True)
     save_belief_file(t3_json_path, None, sue_belief)
 
     # WHEN
@@ -492,14 +492,14 @@ def test_create_cell_voice_mandate_ledger_json_CreatesFile_Scenario1(
     sue_belief.add_voiceunit(exx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
-    sue_belief.add_plan(clean_fact.fact_state)
-    sue_belief.add_plan(dirty_fact.fact_state)
+    sue_belief.add_keg(clean_fact.fact_state)
+    sue_belief.add_keg(dirty_fact.fact_state)
     casa_rope = sue_belief.make_l1_rope("casa")
     mop_rope = sue_belief.make_rope(casa_rope, "mop")
-    sue_belief.add_plan(mop_rope, 1, pledge=True)
+    sue_belief.add_keg(mop_rope, 1, pledge=True)
     sue_belief.edit_reason(mop_rope, dirty_fact.fact_context, dirty_fact.fact_state)
     sue_belief.add_fact(
-        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_plans=True
+        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_kegs=True
     )
     sky_blue_fact = sky_blue_factunit()
     sue_beliefspark_factunits = {clean_fact.fact_context: clean_fact}

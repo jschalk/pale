@@ -1,7 +1,7 @@
 from src.ch03_voice.group import awardunit_shop
 from src.ch03_voice.voice import voiceunit_shop
 from src.ch04_rope.rope import create_rope_from_labels
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import beliefunit_v001
 from src.ref.keywords import ExampleStrs as exx
@@ -21,7 +21,7 @@ def test_BeliefUnit_get_tree_metrics_Exists():
     assert zia_belief_tree_metrics.awardunits_metrics is not None
 
 
-def test_BeliefUnit_get_tree_metrics_get_plan_uid_max_GetsMaxPlanUID():
+def test_BeliefUnit_get_tree_metrics_get_keg_uid_max_GetsMaxKegUID():
     # ESTABLISH
     yao_belief = beliefunit_v001()
 
@@ -30,10 +30,10 @@ def test_BeliefUnit_get_tree_metrics_get_plan_uid_max_GetsMaxPlanUID():
 
     # THEN
     assert tree_metrics_x.uid_max == 279
-    assert yao_belief.get_plan_uid_max() == 279
+    assert yao_belief.get_keg_uid_max() == 279
 
 
-def test_BeliefUnit_get_tree_metrics_SetsBoolean_all_plan_uids_are_unique():
+def test_BeliefUnit_get_tree_metrics_SetsBoolean_all_keg_uids_are_unique():
     # ESTABLISH
     yao_belief = beliefunit_v001()
 
@@ -41,57 +41,57 @@ def test_BeliefUnit_get_tree_metrics_SetsBoolean_all_plan_uids_are_unique():
     tree_metrics_x = yao_belief.get_tree_metrics()
 
     # THEN
-    assert tree_metrics_x.all_plan_uids_are_unique is False
+    assert tree_metrics_x.all_keg_uids_are_unique is False
     assert len(tree_metrics_x.uid_dict) == 219
 
 
-def test_BeliefUnit_get_tree_set_all_plan_uids_unique():
+def test_BeliefUnit_get_tree_set_all_keg_uids_unique():
     # ESTABLISH
     yao_belief = beliefunit_v001()
     tree_metrics_before = yao_belief.get_tree_metrics()
     assert len(tree_metrics_before.uid_dict) == 219
 
     # WHEN
-    yao_belief.set_all_plan_uids_unique()
+    yao_belief.set_all_keg_uids_unique()
 
     # THEN
     tree_metrics_after = yao_belief.get_tree_metrics()
     # for uid, uid_count in tree_metrics_after.uid_dict.items():
-    #     # print(f"{uid=} {uid_count=} {len(yao_belief.get_plan_dict())=}")
+    #     # print(f"{uid=} {uid_count=} {len(yao_belief.get_keg_dict())=}")
     #     print(f"{uid=} {uid_count=} ")
     assert len(tree_metrics_after.uid_dict) == 252
-    assert tree_metrics_after.all_plan_uids_are_unique is True
+    assert tree_metrics_after.all_keg_uids_are_unique is True
 
 
-def test_BeliefUnit_set_all_plan_uids_unique_SetsUIDs():
+def test_BeliefUnit_set_all_keg_uids_unique_SetsUIDs():
     # ESTABLISH
     zia_belief = beliefunit_shop(belief_name=exx.zia)
     sports_str = "sports"
-    zia_belief.set_l1_plan(planunit_shop(exx.swim, uid=None))
-    zia_belief.set_l1_plan(planunit_shop(sports_str, uid=2))
+    zia_belief.set_l1_keg(kegunit_shop(exx.swim, uid=None))
+    zia_belief.set_l1_keg(kegunit_shop(sports_str, uid=2))
     swim_rope = zia_belief.make_l1_rope(exx.swim)
-    assert zia_belief.get_plan_obj(swim_rope).uid is None
+    assert zia_belief.get_keg_obj(swim_rope).uid is None
 
     # WHEN
-    zia_belief.set_all_plan_uids_unique()
+    zia_belief.set_all_keg_uids_unique()
 
     # THEN
-    assert zia_belief.get_plan_obj(swim_rope).uid is not None
+    assert zia_belief.get_keg_obj(swim_rope).uid is not None
 
 
-def test_BeliefUnit_get_tree_metrics_ReturnsANone_pledge_PlanRopeTerm():
+def test_BeliefUnit_get_tree_metrics_ReturnsANone_pledge_KegRopeTerm():
     # ESTABLISH
     nia_str = "Nia"
     nia_belief = beliefunit_shop(nia_str, tally=10)
     wk = "wk"
-    nia_belief.set_l1_plan(planunit_shop(wk, star=40))
+    nia_belief.set_l1_keg(kegunit_shop(wk, star=40))
     tree_metrics_before = nia_belief.get_tree_metrics()
 
     # WHEN / THEN
-    assert tree_metrics_before.last_evaluated_pledge_plan_rope is None
+    assert tree_metrics_before.last_evaluated_pledge_keg_rope is None
 
 
-def test_BeliefUnit_get_tree_metrics_Returns_pledge_PlanRopeTerm():
+def test_BeliefUnit_get_tree_metrics_Returns_pledge_KegRopeTerm():
     # ESTABLISH
     yao_belief = beliefunit_v001()
     yao_tree_metrics = yao_belief.get_tree_metrics()
@@ -99,14 +99,14 @@ def test_BeliefUnit_get_tree_metrics_Returns_pledge_PlanRopeTerm():
     # WHEN / THEN
     traain_rope = create_rope_from_labels(
         [
-            yao_belief.planroot.plan_label,
+            yao_belief.kegroot.keg_label,
             "ACME",
             "ACME Employee Responsiblities",
             "Know Abuse Deterrence and Reporting guildlines",
             "Accomplish Fall 2021 traaining",
         ]
     )
-    assert yao_tree_metrics.last_evaluated_pledge_plan_rope == traain_rope
+    assert yao_tree_metrics.last_evaluated_pledge_keg_rope == traain_rope
 
 
 def test_BeliefUnit_get_tree_metrics_TracksReasonsThatHaveNoFactreason_contexts():
@@ -148,7 +148,7 @@ def test_BeliefUnit_get_missing_fact_reason_contexts_ReturnsAllreason_contextsNo
     assert len(missing_reason_contexts) == 11
 
 
-def test_BeliefUnit_3AdvocatesNoplanunit_shop():
+def test_BeliefUnit_3AdvocatesNokegunit_shop():
     # ESTABLISH
 
     zia_beliefunit = beliefunit_shop("Zia")
@@ -159,9 +159,9 @@ def test_BeliefUnit_3AdvocatesNoplanunit_shop():
     zia_beliefunit.set_voiceunit(yao_voiceunit)
     zia_beliefunit.set_voiceunit(sue_voiceunit)
     zia_beliefunit.set_voiceunit(zia_voiceunit)
-    zia_beliefunit.planroot.set_awardunit(awardunit_shop(exx.yao, give_force=10))
-    zia_beliefunit.planroot.set_awardunit(awardunit_shop(exx.sue, give_force=10))
-    zia_beliefunit.planroot.set_awardunit(awardunit_shop(exx.zia, give_force=10))
+    zia_beliefunit.kegroot.set_awardunit(awardunit_shop(exx.yao, give_force=10))
+    zia_beliefunit.kegroot.set_awardunit(awardunit_shop(exx.sue, give_force=10))
+    zia_beliefunit.kegroot.set_awardunit(awardunit_shop(exx.zia, give_force=10))
 
     # WHEN
     assert zia_beliefunit.get_awardunits_metrics() is not None

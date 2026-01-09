@@ -3,7 +3,7 @@ from src.ch01_py.dict_toolbox import get_empty_list_if_None, get_from_nested_dic
 from src.ch03_voice.group import awardunit_shop
 from src.ch03_voice.voice import voiceunit_shop
 from src.ch05_reason.reason_main import factunit_shop
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import get_beliefunit_with_4_levels
 from src.ch09_belief_lesson.delta import BeliefDelta, beliefdelta_shop
@@ -309,70 +309,70 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_voice_memb
     assert get_beliefatom_total_count(sue_beliefdelta) == 3
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_delete():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_delete():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     street_str = "street ball"
     street_rope = before_sue_belief.make_rope(ball_rope, street_str)
-    before_sue_belief.set_plan_obj(planunit_shop(street_str), ball_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(street_str), ball_rope)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_belief.make_rope(sports_rope, disc_str)
     amy45_str = "amy45"
-    before_sue_belief.set_l1_plan(planunit_shop(amy45_str))
-    before_sue_belief.set_plan_obj(planunit_shop(disc_str), sports_rope)
-    # create after without ball_plan and street_plan
+    before_sue_belief.set_l1_keg(kegunit_shop(amy45_str))
+    before_sue_belief.set_keg_obj(kegunit_shop(disc_str), sports_rope)
+    # create after without ball_keg and street_keg
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_sue_belief.del_plan_obj(ball_rope)
+    after_sue_belief.del_keg_obj(ball_rope)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
     sue_beliefdelta.add_all_different_beliefatoms(before_sue_belief, after_sue_belief)
 
     # THEN
-    x_dimen = kw.belief_planunit
+    x_dimen = kw.belief_kegunit
     print(f"{sue_beliefdelta.beliefatoms.get(kw.DELETE).get(x_dimen).keys()=}")
 
-    x_keylist = [kw.DELETE, kw.belief_planunit, street_rope]
+    x_keylist = [kw.DELETE, kw.belief_kegunit, street_rope]
     street_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert street_beliefatom.get_value(kw.plan_rope) == street_rope
+    assert street_beliefatom.get_value(kw.keg_rope) == street_rope
 
-    x_keylist = [kw.DELETE, kw.belief_planunit, ball_rope]
+    x_keylist = [kw.DELETE, kw.belief_kegunit, ball_rope]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
 
     print(f"{get_beliefatom_total_count(sue_beliefdelta)=}")
     assert get_beliefatom_total_count(sue_beliefdelta) == 2
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_insert():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_insert():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     street_str = "street ball"
     street_rope = before_sue_belief.make_rope(ball_rope, street_str)
-    before_sue_belief.set_plan_obj(planunit_shop(street_str), ball_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(street_str), ball_rope)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
     disc_str = "Ultimate Disc"
     disc_rope = after_sue_belief.make_rope(sports_rope, disc_str)
-    after_sue_belief.set_plan_obj(planunit_shop(disc_str), sports_rope)
+    after_sue_belief.set_keg_obj(kegunit_shop(disc_str), sports_rope)
     amy45_str = "amy45"
     amy_begin = 34
     amy_close = 78
     amy_star = 55
     amy_pledge = True
     amy_rope = after_sue_belief.make_l1_rope(amy45_str)
-    after_sue_belief.set_l1_plan(
-        planunit_shop(
+    after_sue_belief.set_l1_keg(
+        kegunit_shop(
             amy45_str,
             begin=amy_begin,
             close=amy_close,
@@ -388,14 +388,14 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_inser
     # THEN
     print_beliefatom_keys(sue_beliefdelta)
 
-    x_keylist = [kw.INSERT, kw.belief_planunit, disc_rope]
+    x_keylist = [kw.INSERT, kw.belief_kegunit, disc_rope]
     street_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert street_beliefatom.get_value(kw.plan_rope) == disc_rope
+    assert street_beliefatom.get_value(kw.keg_rope) == disc_rope
 
     a45_rope = after_sue_belief.make_l1_rope(amy45_str)
-    x_keylist = [kw.INSERT, kw.belief_planunit, a45_rope]
+    x_keylist = [kw.INSERT, kw.belief_kegunit, a45_rope]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == a45_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == a45_rope
     assert ball_beliefatom.get_value(kw.begin) == amy_begin
     assert ball_beliefatom.get_value(kw.close) == amy_close
     assert ball_beliefatom.get_value(kw.star) == amy_star
@@ -404,7 +404,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_inser
     assert get_beliefatom_total_count(sue_beliefdelta) == 2
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_update():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_update():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
@@ -416,8 +416,8 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_updat
     before_amy_star = 55
     before_amy_pledge = True
     amy_rope = before_sue_belief.make_l1_rope(amy45_str)
-    before_sue_belief.set_l1_plan(
-        planunit_shop(
+    before_sue_belief.set_l1_keg(
+        kegunit_shop(
             amy45_str,
             begin=before_amy_begin,
             close=before_amy_close,
@@ -431,7 +431,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_updat
     after_amy_close = 111
     after_amy_star = 22
     after_amy_pledge = False
-    after_sue_belief.edit_plan_attr(
+    after_sue_belief.edit_keg_attr(
         amy_rope,
         begin=after_amy_begin,
         close=after_amy_close,
@@ -446,9 +446,9 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_updat
     # THEN
     print_beliefatom_keys(sue_beliefdelta)
 
-    x_keylist = [kw.UPDATE, kw.belief_planunit, amy45_rope]
+    x_keylist = [kw.UPDATE, kw.belief_kegunit, amy45_rope]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == amy45_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == amy45_rope
     assert ball_beliefatom.get_value(kw.begin) == after_amy_begin
     assert ball_beliefatom.get_value(kw.close) == after_amy_close
     assert ball_beliefatom.get_value(kw.star) == after_amy_star
@@ -457,7 +457,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_updat
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_awardunit_delete():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_awardunit_delete():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     before_sue_au.add_voiceunit(exx.xio)
@@ -478,15 +478,15 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_au.make_rope(sports_rope, disc_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_sue_au.set_plan_obj(planunit_shop(disc_str), sports_rope)
-    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(fly_str))
-    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(fly_str))
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(disc_str), sports_rope)
+    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(fly_str))
+    before_sue_au.edit_keg_attr(disc_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_au.edit_keg_attr(disc_rope, awardunit=awardunit_shop(fly_str))
 
     after_sue_belief = copy_deepcopy(before_sue_au)
-    after_sue_belief.edit_plan_attr(disc_rope, awardunit_del=exx.run)
+    after_sue_belief.edit_keg_attr(disc_rope, awardunit_del=exx.run)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -495,15 +495,15 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
 
-    x_keylist = [kw.DELETE, kw.belief_plan_awardunit, disc_rope, exx.run]
+    x_keylist = [kw.DELETE, kw.belief_keg_awardunit, disc_rope, exx.run]
     run_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert run_beliefatom.get_value(kw.plan_rope) == disc_rope
+    assert run_beliefatom.get_value(kw.keg_rope) == disc_rope
     assert run_beliefatom.get_value(kw.awardee_title) == exx.run
 
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_awardunit_insert():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_awardunit_insert():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     before_sue_au.add_voiceunit(exx.xio)
@@ -524,16 +524,16 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_au.make_rope(sports_rope, disc_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_sue_au.set_plan_obj(planunit_shop(disc_str), sports_rope)
-    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(fly_str))
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_au.set_keg_obj(kegunit_shop(disc_str), sports_rope)
+    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_au.edit_keg_attr(disc_rope, awardunit=awardunit_shop(fly_str))
     after_sue_au = copy_deepcopy(before_sue_au)
-    after_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(fly_str))
+    after_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(fly_str))
     after_run_give_force = 44
     after_run_take_force = 66
     x_awardunit = awardunit_shop(exx.run, after_run_give_force, after_run_take_force)
-    after_sue_au.edit_plan_attr(disc_rope, awardunit=x_awardunit)
+    after_sue_au.edit_keg_attr(disc_rope, awardunit=x_awardunit)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -542,11 +542,11 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
 
-    x_keylist = [kw.INSERT, kw.belief_plan_awardunit, disc_rope, exx.run]
+    x_keylist = [kw.INSERT, kw.belief_keg_awardunit, disc_rope, exx.run]
     run_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert run_beliefatom.get_value(kw.plan_rope) == disc_rope
+    assert run_beliefatom.get_value(kw.keg_rope) == disc_rope
     assert run_beliefatom.get_value(kw.awardee_title) == exx.run
-    assert run_beliefatom.get_value(kw.plan_rope) == disc_rope
+    assert run_beliefatom.get_value(kw.keg_rope) == disc_rope
     assert run_beliefatom.get_value(kw.awardee_title) == exx.run
     assert run_beliefatom.get_value(kw.give_force) == after_run_give_force
     assert run_beliefatom.get_value(kw.take_force) == after_run_take_force
@@ -554,7 +554,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     assert get_beliefatom_total_count(sue_beliefdelta) == 2
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_awardunit_update():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_awardunit_update():
     # ESTABLISH
     before_sue_au = beliefunit_shop(exx.sue)
     before_sue_au.add_voiceunit(exx.xio)
@@ -565,14 +565,14 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    run_awardunit = before_sue_au.get_plan_obj(ball_rope).awardunits.get(exx.run)
+    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    run_awardunit = before_sue_au.get_keg_obj(ball_rope).awardunits.get(exx.run)
 
     after_sue_belief = copy_deepcopy(before_sue_au)
     after_give_force = 55
     after_take_force = 66
-    after_sue_belief.edit_plan_attr(
+    after_sue_belief.edit_keg_attr(
         ball_rope,
         awardunit=awardunit_shop(
             awardee_title=exx.run,
@@ -587,38 +587,38 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_award
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
 
-    x_keylist = [kw.UPDATE, kw.belief_plan_awardunit, ball_rope, exx.run]
+    x_keylist = [kw.UPDATE, kw.belief_keg_awardunit, ball_rope, exx.run]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.awardee_title) == exx.run
     assert ball_beliefatom.get_value(kw.give_force) == after_give_force
     assert ball_beliefatom.get_value(kw.take_force) == after_take_force
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factunit_update():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_factunit_update():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
     bend_str = "bendable"
     bend_rope = before_sue_belief.make_rope(knee_rope, bend_str)
-    before_sue_belief.set_plan_obj(planunit_shop(bend_str), knee_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(bend_str), knee_rope)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_belief.make_rope(knee_rope, damaged_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
-    before_sue_belief.set_plan_obj(planunit_shop(damaged_str), knee_rope)
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_belief.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
     before_fact_lower = 11
     before_fact_upper = 22
     before_fact = factunit_shop(
         knee_rope, bend_rope, before_fact_lower, before_fact_upper
     )
-    before_sue_belief.edit_plan_attr(ball_rope, factunit=before_fact)
+    before_sue_belief.edit_keg_attr(ball_rope, factunit=before_fact)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
     after_fact_lower = 55
@@ -626,7 +626,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
     knee_fact = factunit_shop(
         knee_rope, damaged_rope, after_fact_lower, after_fact_upper
     )
-    after_sue_belief.edit_plan_attr(ball_rope, factunit=knee_fact)
+    after_sue_belief.edit_keg_attr(ball_rope, factunit=knee_fact)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -635,9 +635,9 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
 
-    x_keylist = [kw.UPDATE, kw.belief_plan_factunit, ball_rope, knee_rope]
+    x_keylist = [kw.UPDATE, kw.belief_keg_factunit, ball_rope, knee_rope]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.fact_context) == knee_rope
     assert ball_beliefatom.get_value(kw.fact_state) == damaged_rope
     assert ball_beliefatom.get_value(kw.fact_lower) == after_fact_lower
@@ -645,20 +645,20 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factunit_insert():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_factunit_insert():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_belief.make_rope(knee_rope, damaged_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
-    before_sue_belief.set_plan_obj(planunit_shop(damaged_str), knee_rope)
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_belief.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
     after_fact_lower = 55
@@ -666,7 +666,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
     after_fact = factunit_shop(
         knee_rope, damaged_rope, after_fact_lower, after_fact_upper
     )
-    after_sue_belief.edit_plan_attr(ball_rope, factunit=after_fact)
+    after_sue_belief.edit_keg_attr(ball_rope, factunit=after_fact)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -674,10 +674,10 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
 
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
-    x_keylist = [kw.INSERT, kw.belief_plan_factunit, ball_rope, knee_rope]
+    x_keylist = [kw.INSERT, kw.belief_keg_factunit, ball_rope, knee_rope]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
     print(f"{ball_beliefatom=}")
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.fact_context) == knee_rope
     assert ball_beliefatom.get_value(kw.fact_state) == damaged_rope
     assert ball_beliefatom.get_value(kw.fact_lower) == after_fact_lower
@@ -685,20 +685,20 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factunit_delete():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_factunit_delete():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_belief.make_rope(knee_rope, damaged_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
-    before_sue_belief.set_plan_obj(planunit_shop(damaged_str), knee_rope)
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_belief.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
     before_damaged_reason_lower = 55
@@ -709,7 +709,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
         fact_lower=before_damaged_reason_lower,
         fact_upper=before_damaged_reason_upper,
     )
-    before_sue_belief.edit_plan_attr(ball_rope, factunit=before_fact)
+    before_sue_belief.edit_keg_attr(ball_rope, factunit=before_fact)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -717,31 +717,31 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_factu
 
     # THEN
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
-    x_keylist = [kw.DELETE, kw.belief_plan_factunit, ball_rope, knee_rope]
+    x_keylist = [kw.DELETE, kw.belief_keg_factunit, ball_rope, knee_rope]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.fact_context) == knee_rope
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reason_caseunit_insert():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_reason_caseunit_insert():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_belief.make_rope(knee_rope, damaged_str)
-    before_sue_belief.set_plan_obj(planunit_shop(damaged_str), knee_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
     bend_str = "bend"
     bend_rope = before_sue_belief.make_rope(knee_rope, bend_str)
-    before_sue_belief.set_plan_obj(planunit_shop(bend_str), knee_rope)
-    before_sue_belief.edit_plan_attr(
+    before_sue_belief.set_keg_obj(kegunit_shop(bend_str), knee_rope)
+    before_sue_belief.edit_keg_attr(
         ball_rope, reason_context=knee_rope, reason_case=bend_rope
     )
 
@@ -749,7 +749,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     damaged_reason_lower = 45
     damaged_reason_upper = 77
     damaged_reason_divisor = 3
-    after_sue_belief.edit_plan_attr(
+    after_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -766,13 +766,13 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.belief_plan_reason_caseunit,
+        kw.belief_keg_reason_caseunit,
         ball_rope,
         knee_rope,
         damaged_rope,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.reason_context) == knee_rope
     assert ball_beliefatom.get_value(kw.reason_state) == damaged_rope
     assert ball_beliefatom.get_value(kw.reason_lower) == damaged_reason_lower
@@ -781,30 +781,30 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reason_caseunit_delete():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_reason_caseunit_delete():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_belief.make_rope(knee_rope, damaged_str)
-    before_sue_belief.set_plan_obj(planunit_shop(damaged_str), knee_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
     bend_str = "bend"
     bend_rope = before_sue_belief.make_rope(knee_rope, bend_str)
-    before_sue_belief.set_plan_obj(planunit_shop(bend_str), knee_rope)
-    before_sue_belief.edit_plan_attr(
+    before_sue_belief.set_keg_obj(kegunit_shop(bend_str), knee_rope)
+    before_sue_belief.edit_keg_attr(
         ball_rope, reason_context=knee_rope, reason_case=bend_rope
     )
     damaged_reason_lower = 45
     damaged_reason_upper = 77
     damaged_reason_divisor = 3
-    before_sue_belief.edit_plan_attr(
+    before_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -813,7 +813,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
         reason_divisor=damaged_reason_divisor,
     )
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_sue_belief.edit_plan_attr(
+    after_sue_belief.edit_keg_attr(
         ball_rope,
         reason_del_case_reason_context=knee_rope,
         reason_del_case_reason_state=damaged_rope,
@@ -827,42 +827,42 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.belief_plan_reason_caseunit,
+        kw.belief_keg_reason_caseunit,
         ball_rope,
         knee_rope,
         damaged_rope,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.reason_context) == knee_rope
     assert ball_beliefatom.get_value(kw.reason_state) == damaged_rope
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reason_caseunit_update():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_reason_caseunit_update():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_belief.make_rope(knee_rope, damaged_str)
-    before_sue_belief.set_plan_obj(planunit_shop(damaged_str), knee_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
     bend_str = "bend"
     bend_rope = before_sue_belief.make_rope(knee_rope, bend_str)
-    before_sue_belief.set_plan_obj(planunit_shop(bend_str), knee_rope)
-    before_sue_belief.edit_plan_attr(
+    before_sue_belief.set_keg_obj(kegunit_shop(bend_str), knee_rope)
+    before_sue_belief.edit_keg_attr(
         ball_rope, reason_context=knee_rope, reason_case=bend_rope
     )
     before_damaged_reason_lower = 111
     before_damaged_reason_upper = 777
     before_damaged_reason_divisor = 13
-    before_sue_belief.edit_plan_attr(
+    before_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -875,7 +875,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     after_damaged_reason_lower = 333
     after_damaged_reason_upper = 555
     after_damaged_reason_divisor = 78
-    after_sue_belief.edit_plan_attr(
+    after_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -892,13 +892,13 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.UPDATE,
-        kw.belief_plan_reason_caseunit,
+        kw.belief_keg_reason_caseunit,
         ball_rope,
         knee_rope,
         damaged_rope,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.reason_context) == knee_rope
     assert ball_beliefatom.get_value(kw.reason_state) == damaged_rope
     assert ball_beliefatom.get_value(kw.reason_lower) == after_damaged_reason_lower
@@ -907,24 +907,24 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reasonunit_insert():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_reasonunit_insert():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_belief.make_rope(knee_rope, medical_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
-    before_sue_belief.set_plan_obj(planunit_shop(medical_str), knee_rope)
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_belief.set_keg_obj(kegunit_shop(medical_str), knee_rope)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
     after_medical_active_requisite = False
-    after_sue_belief.edit_plan_attr(
+    after_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=after_medical_active_requisite,
@@ -938,13 +938,13 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.belief_plan_reasonunit,
+        kw.belief_keg_reasonunit,
         ball_rope,
         medical_rope,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
 
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value("reason_context") == medical_rope
     assert (
         ball_beliefatom.get_value(kw.active_requisite) == after_medical_active_requisite
@@ -952,22 +952,22 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reasonunit_update():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_reasonunit_update():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_belief.make_rope(knee_rope, medical_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
-    before_sue_belief.set_plan_obj(planunit_shop(medical_str), knee_rope)
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_belief.set_keg_obj(kegunit_shop(medical_str), knee_rope)
     before_medical_active_requisite = True
-    before_sue_belief.edit_plan_attr(
+    before_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=before_medical_active_requisite,
@@ -975,7 +975,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
     after_medical_active_requisite = False
-    after_sue_belief.edit_plan_attr(
+    after_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=after_medical_active_requisite,
@@ -989,12 +989,12 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.UPDATE,
-        kw.belief_plan_reasonunit,
+        kw.belief_keg_reasonunit,
         ball_rope,
         medical_rope,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value("reason_context") == medical_rope
     assert (
         ball_beliefatom.get_value(kw.active_requisite) == after_medical_active_requisite
@@ -1002,30 +1002,30 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reasonunit_delete():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_reasonunit_delete():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_belief.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_belief.make_rope(knee_rope, medical_str)
-    before_sue_belief.set_l1_plan(planunit_shop(knee_str))
-    before_sue_belief.set_plan_obj(planunit_shop(medical_str), knee_rope)
+    before_sue_belief.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_belief.set_keg_obj(kegunit_shop(medical_str), knee_rope)
     before_medical_active_requisite = True
-    before_sue_belief.edit_plan_attr(
+    before_sue_belief.edit_keg_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=before_medical_active_requisite,
     )
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_ball_plan = after_sue_belief.get_plan_obj(ball_rope)
-    after_ball_plan.del_reasonunit_reason_context(medical_rope)
+    after_ball_keg = after_sue_belief.get_keg_obj(ball_rope)
+    after_ball_keg.del_reasonunit_reason_context(medical_rope)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -1035,17 +1035,17 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_reaso
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.belief_plan_reasonunit,
+        kw.belief_keg_reasonunit,
         ball_rope,
         medical_rope,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value("reason_context") == medical_rope
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_partyunit_insert():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_partyunit_insert():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     before_sue_belief.add_voiceunit(exx.xio)
@@ -1053,11 +1053,11 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_party
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_ball_planunit = after_sue_belief.get_plan_obj(ball_rope)
-    after_ball_planunit.laborunit.add_party(exx.xio)
+    after_ball_kegunit = after_sue_belief.get_keg_obj(ball_rope)
+    after_ball_kegunit.laborunit.add_party(exx.xio)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -1067,17 +1067,17 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_party
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.belief_plan_partyunit,
+        kw.belief_keg_partyunit,
         ball_rope,
         exx.xio,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.party_title) == exx.xio
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_partyunit_delete():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_partyunit_delete():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     before_sue_belief.add_voiceunit(exx.xio)
@@ -1085,13 +1085,13 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_party
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_planunit = before_sue_belief.get_plan_obj(ball_rope)
-    before_ball_planunit.laborunit.add_party(exx.xio)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_kegunit = before_sue_belief.get_keg_obj(ball_rope)
+    before_ball_kegunit.laborunit.add_party(exx.xio)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_ball_planunit = after_sue_belief.get_plan_obj(ball_rope)
-    after_ball_planunit.laborunit.del_partyunit(exx.xio)
+    after_ball_kegunit = after_sue_belief.get_keg_obj(ball_rope)
+    after_ball_kegunit.laborunit.del_partyunit(exx.xio)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -1101,17 +1101,17 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_party
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.belief_plan_partyunit,
+        kw.belief_keg_partyunit,
         ball_rope,
         exx.xio,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.party_title) == exx.xio
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_healerunit_insert_PlanUnitUpdate():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_healerunit_insert_KegUnitUpdate():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     before_sue_belief.add_voiceunit(exx.xio)
@@ -1119,11 +1119,11 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_ball_planunit = after_sue_belief.get_plan_obj(ball_rope)
-    after_ball_planunit.healerunit.set_healer_name(exx.xio)
+    after_ball_kegunit = after_sue_belief.get_keg_obj(ball_rope)
+    after_ball_kegunit.healerunit.set_healer_name(exx.xio)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -1133,17 +1133,17 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.belief_plan_healerunit,
+        kw.belief_keg_healerunit,
         ball_rope,
         exx.xio,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist)
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.healer_name) == exx.xio
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_healerunit_insert_PlanUnitInsert():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_healerunit_insert_KegUnitInsert():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     before_sue_belief.add_voiceunit(exx.xio)
@@ -1153,9 +1153,9 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    after_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    after_ball_planunit = after_sue_belief.get_plan_obj(ball_rope)
-    after_ball_planunit.healerunit.set_healer_name(exx.xio)
+    after_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    after_ball_kegunit = after_sue_belief.get_keg_obj(ball_rope)
+    after_ball_kegunit.healerunit.set_healer_name(exx.xio)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -1165,18 +1165,18 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.belief_plan_healerunit,
+        kw.belief_keg_healerunit,
         ball_rope,
         exx.xio,
     ]
     ball_beliefatom = get_from_nested_dict(sue_beliefdelta.beliefatoms, x_keylist, True)
     assert ball_beliefatom
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.healer_name) == exx.xio
     assert get_beliefatom_total_count(sue_beliefdelta) == 3
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_healerunit_delete_PlanUnitUpdate():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_healerunit_delete_KegUnitUpdate():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     before_sue_belief.add_voiceunit(exx.xio)
@@ -1184,13 +1184,13 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_planunit = before_sue_belief.get_plan_obj(ball_rope)
-    before_ball_planunit.healerunit.set_healer_name(exx.xio)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_kegunit = before_sue_belief.get_keg_obj(ball_rope)
+    before_ball_kegunit.healerunit.set_healer_name(exx.xio)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_ball_planunit = after_sue_belief.get_plan_obj(ball_rope)
-    after_ball_planunit.healerunit.del_healer_name(exx.xio)
+    after_ball_kegunit = after_sue_belief.get_keg_obj(ball_rope)
+    after_ball_kegunit.healerunit.del_healer_name(exx.xio)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -1200,7 +1200,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.belief_plan_healerunit,
+        kw.belief_keg_healerunit,
         ball_rope,
         exx.xio,
     ]
@@ -1208,12 +1208,12 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
         sue_beliefdelta.beliefatoms, x_keylist, if_missing_return_None=True
     )
     assert ball_beliefatom
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.healer_name) == exx.xio
     assert get_beliefatom_total_count(sue_beliefdelta) == 1
 
 
-def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_healerunit_delete_PlanUnitDelete():
+def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_keg_healerunit_delete_KegUnitDelete():
     # ESTABLISH
     before_sue_belief = beliefunit_shop(exx.sue)
     before_sue_belief.add_voiceunit(exx.xio)
@@ -1221,12 +1221,12 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     sports_rope = before_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_belief.make_rope(sports_rope, ball_str)
-    before_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    before_ball_planunit = before_sue_belief.get_plan_obj(ball_rope)
-    before_ball_planunit.healerunit.set_healer_name(exx.xio)
+    before_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_ball_kegunit = before_sue_belief.get_keg_obj(ball_rope)
+    before_ball_kegunit.healerunit.set_healer_name(exx.xio)
 
     after_sue_belief = copy_deepcopy(before_sue_belief)
-    after_sue_belief.del_plan_obj(ball_rope)
+    after_sue_belief.del_keg_obj(ball_rope)
 
     # WHEN
     sue_beliefdelta = beliefdelta_shop()
@@ -1236,7 +1236,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
     print(f"{print_beliefatom_keys(sue_beliefdelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.belief_plan_healerunit,
+        kw.belief_keg_healerunit,
         ball_rope,
         exx.xio,
     ]
@@ -1244,7 +1244,7 @@ def test_BeliefDelta_add_all_different_beliefatoms_Creates_BeliefAtom_plan_heale
         sue_beliefdelta.beliefatoms, x_keylist, if_missing_return_None=True
     )
     assert ball_beliefatom
-    assert ball_beliefatom.get_value(kw.plan_rope) == ball_rope
+    assert ball_beliefatom.get_value(kw.keg_rope) == ball_rope
     assert ball_beliefatom.get_value(kw.healer_name) == exx.xio
     assert get_beliefatom_total_count(sue_beliefdelta) == 2
 
@@ -1259,9 +1259,9 @@ def test_BeliefDelta_add_all_beliefatoms_Creates_BeliefAtoms():
     sports_rope = after_sue_belief.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = after_sue_belief.make_rope(sports_rope, ball_str)
-    after_sue_belief.set_plan_obj(planunit_shop(ball_str), sports_rope)
-    after_ball_planunit = after_sue_belief.get_plan_obj(ball_rope)
-    after_ball_planunit.laborunit.add_party(exx.xio)
+    after_sue_belief.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    after_ball_kegunit = after_sue_belief.get_keg_obj(ball_rope)
+    after_ball_kegunit.laborunit.add_party(exx.xio)
 
     before_sue_belief = beliefunit_shop(exx.sue)
     sue1_beliefdelta = beliefdelta_shop()

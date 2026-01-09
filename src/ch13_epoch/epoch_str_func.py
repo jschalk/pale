@@ -23,12 +23,12 @@ def get_reason_case_readable_str(
     epoch_rope = create_rope(time_rope, epoch_label)
     week_rope = create_rope(epoch_rope, "week")
     if reason_context == week_rope:
-        week_plan = beliefunit.get_plan_obj(week_rope)
-        for weekday_plan in week_plan.kids.values():
-            week_lower_bool = caseunit.reason_lower == weekday_plan.gogo_want
-            week_upper_bool = caseunit.reason_upper == weekday_plan.stop_want
+        week_keg = beliefunit.get_keg_obj(week_rope)
+        for weekday_keg in week_keg.kids.values():
+            week_lower_bool = caseunit.reason_lower == weekday_keg.gogo_want
+            week_upper_bool = caseunit.reason_upper == weekday_keg.stop_want
             if week_lower_bool and week_upper_bool:
-                return f"case: every {weekday_plan.plan_label}"
+                return f"case: every {weekday_keg.keg_label}"
 
     x_str = f"case: {caseunit.reason_state.replace(reason_context, "", 1)}"
     if caseunit.reason_divisor:

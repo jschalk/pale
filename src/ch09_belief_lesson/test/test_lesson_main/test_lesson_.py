@@ -16,7 +16,7 @@ from src.ch09_belief_lesson.lesson_main import (
     lessonunit_shop,
 )
 from src.ch09_belief_lesson.test._util.ch09_examples import (
-    get_atom_example_planunit_sports,
+    get_atom_example_kegunit_sports,
     get_beliefdelta_sue_example,
 )
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
@@ -154,7 +154,7 @@ def test_LessonUnit_set_beliefdelta_SetsAttribute():
 
     # WHEN
     x_beliefdelta = beliefdelta_shop()
-    x_beliefdelta.set_beliefatom(get_atom_example_planunit_sports())
+    x_beliefdelta.set_beliefatom(get_atom_example_kegunit_sports())
     bob_lessonunit.set_beliefdelta(x_beliefdelta)
 
     # THEN
@@ -181,7 +181,7 @@ def test_LessonUnit_beliefatom_exists_ReturnsObj():
     bob_lessonunit.set_beliefdelta(x_beliefdelta)
 
     # WHEN
-    sports_beliefatom = get_atom_example_planunit_sports()
+    sports_beliefatom = get_atom_example_kegunit_sports()
 
     # THEN
     assert bob_lessonunit.beliefatom_exists(sports_beliefatom) is False
@@ -197,7 +197,7 @@ def test_LessonUnit_beliefatom_exists_ReturnsObj():
 def test_LessonUnit_del_beliefdelta_SetsAttribute():
     # ESTABLISH
     x_beliefdelta = beliefdelta_shop()
-    x_beliefdelta.set_beliefatom(get_atom_example_planunit_sports())
+    x_beliefdelta.set_beliefatom(get_atom_example_kegunit_sports())
     bob_lessonunit = lessonunit_shop(belief_name=exx.bob, _beliefdelta=x_beliefdelta)
     assert bob_lessonunit._beliefdelta != beliefdelta_shop()
     assert bob_lessonunit._beliefdelta == x_beliefdelta

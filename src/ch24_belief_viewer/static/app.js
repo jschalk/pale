@@ -1,5 +1,5 @@
 // Global state
-let planTreeData = null;
+let kegTreeData = null;
 let show_voices = true;
 let show_voice_cred_lumen = false;
 let show_voice_debt_lumen = false;
@@ -24,7 +24,7 @@ let show_voice_membership_fund_agenda_ratio_take = false;
 let show_voice_membership_fund_agenda_take = false;
 let show_voice_membership_fund_give = false;
 let show_voice_membership_fund_take = false;
-let show_planroot = true;
+let show_kegroot = true;
 let show_awardunits = false;
 let show_awardheirs = false;
 let show_awardlines = false;
@@ -41,7 +41,7 @@ let show_reasonunits = false;
 let show_reasonheirs = false;
 let show_factunits = false;
 let show_factheirs = false;
-let show_plan_fund_total = false;
+let show_keg_fund_total = false;
 let show_fund_onset = false;
 let show_fund_cease = false;
 let show_fund_grain = false;
@@ -89,7 +89,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     const show_voice_membership_fund_agenda_takeCheckbox = document.getElementById('show_voice_membership_fund_agenda_take')
     const show_voice_membership_fund_giveCheckbox = document.getElementById('show_voice_membership_fund_give')
     const show_voice_membership_fund_takeCheckbox = document.getElementById('show_voice_membership_fund_take')
-    const show_planrootCheckbox = document.getElementById('show_planroot');
+    const show_kegrootCheckbox = document.getElementById('show_kegroot');
     const show_awardunitsCheckbox = document.getElementById('show_awardunits');
     const show_awardheirsCheckbox = document.getElementById('show_awardheirs');
     const show_awardlinesCheckbox = document.getElementById('show_awardlines');
@@ -106,7 +106,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     const show_reasonheirsCheckbox = document.getElementById('show_reasonheirs');
     const show_factunitsCheckbox = document.getElementById('show_factunits');
     const show_factheirsCheckbox = document.getElementById('show_factheirs');
-    const show_plan_fund_totalCheckbox = document.getElementById('show_plan_fund_total');
+    const show_keg_fund_totalCheckbox = document.getElementById('show_keg_fund_total');
     const show_fund_onsetCheckbox = document.getElementById('show_fund_onset');
     const show_fund_ceaseCheckbox = document.getElementById('show_fund_cease');
     const show_fund_grainCheckbox = document.getElementById('show_fund_grain');
@@ -153,44 +153,44 @@ document.addSparkListener('DOMContentLoaded', function () {
     show_voice_membership_fund_agenda_takeCheckbox.addSparkListener('change', function () { show_voice_membership_fund_agenda_take = this.checked; renderVoicesData(); });
     show_voice_membership_fund_giveCheckbox.addSparkListener('change', function () { show_voice_membership_fund_give = this.checked; renderVoicesData(); });
     show_voice_membership_fund_takeCheckbox.addSparkListener('change', function () { show_voice_membership_fund_take = this.checked; renderVoicesData(); });
-    show_planrootCheckbox.addSparkListener('change', function () { show_planroot = this.checked; renderPlanTree(); });
-    show_awardunitsCheckbox.addSparkListener('change', function () { show_awardunits = this.checked; renderPlanTree(); });
-    show_awardheirsCheckbox.addSparkListener('change', function () { show_awardheirs = this.checked; renderPlanTree(); });
-    show_awardlinesCheckbox.addSparkListener('change', function () { show_awardlines = this.checked; renderPlanTree(); });
-    show_laborunitCheckbox.addSparkListener('change', function () { show_laborunit = this.checked; renderPlanTree(); });
-    show_laborheirCheckbox.addSparkListener('change', function () { show_laborheir = this.checked; renderPlanTree(); });
-    show_levelCheckbox.addSparkListener('change', function () { show_level = this.checked; renderPlanTree(); });
-    show_moment_labelCheckbox.addSparkListener('change', function () { show_moment_label = this.checked; renderPlanTree(); });
-    show_pledgeCheckbox.addSparkListener('change', function () { show_pledge = this.checked; renderPlanTree(); });
-    show_descendant_pledge_countCheckbox.addSparkListener('change', function () { show_descendant_pledge_count = this.checked; renderPlanTree(); });
-    show_activeCheckbox.addSparkListener('change', function () { show_active = this.checked; renderPlanTree(); });
-    show_taskCheckbox.addSparkListener('change', function () { show_task = this.checked; renderPlanTree(); });
-    show_starCheckbox.addSparkListener('change', function () { show_star = this.checked; renderPlanTree(); });
-    show_reasonunitsCheckbox.addSparkListener('change', function () { show_reasonunits = this.checked; renderPlanTree(); });
-    show_reasonheirsCheckbox.addSparkListener('change', function () { show_reasonheirs = this.checked; renderPlanTree(); });
-    show_factunitsCheckbox.addSparkListener('change', function () { show_factunits = this.checked; renderPlanTree(); });
-    show_factheirsCheckbox.addSparkListener('change', function () { show_factheirs = this.checked; renderPlanTree(); });
-    show_plan_fund_totalCheckbox.addSparkListener('change', function () { show_plan_fund_total = this.checked; renderPlanTree(); });
-    show_fund_onsetCheckbox.addSparkListener('change', function () { show_fund_onset = this.checked; renderPlanTree(); });
-    show_fund_ceaseCheckbox.addSparkListener('change', function () { show_fund_cease = this.checked; renderPlanTree(); });
-    show_fund_grainCheckbox.addSparkListener('change', function () { show_fund_grain = this.checked; renderPlanTree(); });
-    show_fund_ratioCheckbox.addSparkListener('change', function () { show_fund_ratio = this.checked; renderPlanTree(); });
-    show_all_voice_credCheckbox.addSparkListener('change', function () { show_all_voice_cred = this.checked; renderPlanTree(); });
-    show_all_voice_debtCheckbox.addSparkListener('change', function () { show_all_voice_debt = this.checked; renderPlanTree(); });
-    show_gogo_wantCheckbox.addSparkListener('change', function () { show_gogo_want = this.checked; renderPlanTree(); });
-    show_stop_wantCheckbox.addSparkListener('change', function () { show_stop_want = this.checked; renderPlanTree(); });
-    show_gogo_calcCheckbox.addSparkListener('change', function () { show_gogo_calc = this.checked; renderPlanTree(); });
-    show_stop_calcCheckbox.addSparkListener('change', function () { show_stop_calc = this.checked; renderPlanTree(); });
-    show_addinCheckbox.addSparkListener('change', function () { show_addin = this.checked; renderPlanTree(); });
-    show_beginCheckbox.addSparkListener('change', function () { show_begin = this.checked; renderPlanTree(); });
-    show_closeCheckbox.addSparkListener('change', function () { show_close = this.checked; renderPlanTree(); });
-    show_denomCheckbox.addSparkListener('change', function () { show_denom = this.checked; renderPlanTree(); });
-    show_morphCheckbox.addSparkListener('change', function () { show_morph = this.checked; renderPlanTree(); });
-    show_numorCheckbox.addSparkListener('change', function () { show_numor = this.checked; renderPlanTree(); });
-    show_active_hxCheckbox.addSparkListener('change', function () { show_active_hx = this.checked; renderPlanTree(); });
-    show_parent_ropeCheckbox.addSparkListener('change', function () { show_parent_rope = this.checked; renderPlanTree(); });
-    show_root_booleanCheckbox.addSparkListener('change', function () { show_root_boolean = this.checked; renderPlanTree(); });
-    show_uidCheckbox.addSparkListener('change', function () { show_uid = this.checked; renderPlanTree(); });
+    show_kegrootCheckbox.addSparkListener('change', function () { show_kegroot = this.checked; renderKegTree(); });
+    show_awardunitsCheckbox.addSparkListener('change', function () { show_awardunits = this.checked; renderKegTree(); });
+    show_awardheirsCheckbox.addSparkListener('change', function () { show_awardheirs = this.checked; renderKegTree(); });
+    show_awardlinesCheckbox.addSparkListener('change', function () { show_awardlines = this.checked; renderKegTree(); });
+    show_laborunitCheckbox.addSparkListener('change', function () { show_laborunit = this.checked; renderKegTree(); });
+    show_laborheirCheckbox.addSparkListener('change', function () { show_laborheir = this.checked; renderKegTree(); });
+    show_levelCheckbox.addSparkListener('change', function () { show_level = this.checked; renderKegTree(); });
+    show_moment_labelCheckbox.addSparkListener('change', function () { show_moment_label = this.checked; renderKegTree(); });
+    show_pledgeCheckbox.addSparkListener('change', function () { show_pledge = this.checked; renderKegTree(); });
+    show_descendant_pledge_countCheckbox.addSparkListener('change', function () { show_descendant_pledge_count = this.checked; renderKegTree(); });
+    show_activeCheckbox.addSparkListener('change', function () { show_active = this.checked; renderKegTree(); });
+    show_taskCheckbox.addSparkListener('change', function () { show_task = this.checked; renderKegTree(); });
+    show_starCheckbox.addSparkListener('change', function () { show_star = this.checked; renderKegTree(); });
+    show_reasonunitsCheckbox.addSparkListener('change', function () { show_reasonunits = this.checked; renderKegTree(); });
+    show_reasonheirsCheckbox.addSparkListener('change', function () { show_reasonheirs = this.checked; renderKegTree(); });
+    show_factunitsCheckbox.addSparkListener('change', function () { show_factunits = this.checked; renderKegTree(); });
+    show_factheirsCheckbox.addSparkListener('change', function () { show_factheirs = this.checked; renderKegTree(); });
+    show_keg_fund_totalCheckbox.addSparkListener('change', function () { show_keg_fund_total = this.checked; renderKegTree(); });
+    show_fund_onsetCheckbox.addSparkListener('change', function () { show_fund_onset = this.checked; renderKegTree(); });
+    show_fund_ceaseCheckbox.addSparkListener('change', function () { show_fund_cease = this.checked; renderKegTree(); });
+    show_fund_grainCheckbox.addSparkListener('change', function () { show_fund_grain = this.checked; renderKegTree(); });
+    show_fund_ratioCheckbox.addSparkListener('change', function () { show_fund_ratio = this.checked; renderKegTree(); });
+    show_all_voice_credCheckbox.addSparkListener('change', function () { show_all_voice_cred = this.checked; renderKegTree(); });
+    show_all_voice_debtCheckbox.addSparkListener('change', function () { show_all_voice_debt = this.checked; renderKegTree(); });
+    show_gogo_wantCheckbox.addSparkListener('change', function () { show_gogo_want = this.checked; renderKegTree(); });
+    show_stop_wantCheckbox.addSparkListener('change', function () { show_stop_want = this.checked; renderKegTree(); });
+    show_gogo_calcCheckbox.addSparkListener('change', function () { show_gogo_calc = this.checked; renderKegTree(); });
+    show_stop_calcCheckbox.addSparkListener('change', function () { show_stop_calc = this.checked; renderKegTree(); });
+    show_addinCheckbox.addSparkListener('change', function () { show_addin = this.checked; renderKegTree(); });
+    show_beginCheckbox.addSparkListener('change', function () { show_begin = this.checked; renderKegTree(); });
+    show_closeCheckbox.addSparkListener('change', function () { show_close = this.checked; renderKegTree(); });
+    show_denomCheckbox.addSparkListener('change', function () { show_denom = this.checked; renderKegTree(); });
+    show_morphCheckbox.addSparkListener('change', function () { show_morph = this.checked; renderKegTree(); });
+    show_numorCheckbox.addSparkListener('change', function () { show_numor = this.checked; renderKegTree(); });
+    show_active_hxCheckbox.addSparkListener('change', function () { show_active_hx = this.checked; renderKegTree(); });
+    show_parent_ropeCheckbox.addSparkListener('change', function () { show_parent_rope = this.checked; renderKegTree(); });
+    show_root_booleanCheckbox.addSparkListener('change', function () { show_root_boolean = this.checked; renderKegTree(); });
+    show_uidCheckbox.addSparkListener('change', function () { show_uid = this.checked; renderKegTree(); });
 
     // Load initial tree data
     loadBeliefData();
@@ -201,14 +201,14 @@ async function loadBeliefData() {
     try {
         const response = await fetch('/api/beliefunit_view');
         beliefViewData = await response.json();
-        planTreeData = beliefViewData.planroot;
+        kegTreeData = beliefViewData.kegroot;
         voicesData = beliefViewData.voices;
-        renderPlanTree();
+        renderKegTree();
         renderVoicesData();
     } catch (error) {
         console.error('Error loading tree data:', error);
-        document.getElementById('planTreeContainer').innerHTML = '<p>Error loading tree data</p>';
-        document.getElementById('planTreeContainer').innerHTML = '<p>Error loading tree data</p>';
+        document.getElementById('kegTreeContainer').innerHTML = '<p>Error loading tree data</p>';
+        document.getElementById('kegTreeContainer').innerHTML = '<p>Error loading tree data</p>';
     }
 }
 
@@ -262,51 +262,51 @@ function buildVoicesHtml(voicesData) {
 }
 
 // Render the tree structure
-function renderPlanTree() {
-    if (!planTreeData) {
+function renderKegTree() {
+    if (!kegTreeData) {
         return;
     }
 
-    const container = document.getElementById('planTreeContainer');
-    container.innerHTML = renderPlanUnit(planTreeData, 0);
+    const container = document.getElementById('kegTreeContainer');
+    container.innerHTML = renderKegUnit(kegTreeData, 0);
 }
 
-// Recursively render a PlanUnit and its children
-function renderPlanUnit(planUnit, level) {
-    if (!show_planroot) {
+// Recursively render a KegUnit and its children
+function renderKegUnit(kegUnit, level) {
+    if (!show_kegroot) {
         return "";
     }
     const indent = '&nbsp;'.repeat(level * 2);
-    const levelIndicator = show_level ? ` level${planUnit.tree_level}` : '';
-    const pledgeIndicator = planUnit.pledge && show_pledge ? ' PLEDGE' : '';
-    const descendant_pledge_countIndicator = show_descendant_pledge_count ? ` pledges: ${planUnit.descendant_pledge_count}` : '';
-    const activeIndicator = planUnit.plan_active && show_active ? '-ACTIVE' : '';
-    const taskIndicator = planUnit.task && show_task ? '-task' : '';
-    const starIndicator = show_star ? ` star${planUnit.star}` : '';
-    const plan_fund_totalIndicator = show_plan_fund_total ? ` [${planUnit.plan_fund_total}]` : '';
-    const uidIndicator = planUnit.uid && show_uid ? ` uid${planUnit.uid}` : '';
+    const levelIndicator = show_level ? ` level${kegUnit.tree_level}` : '';
+    const pledgeIndicator = kegUnit.pledge && show_pledge ? ' PLEDGE' : '';
+    const descendant_pledge_countIndicator = show_descendant_pledge_count ? ` pledges: ${kegUnit.descendant_pledge_count}` : '';
+    const activeIndicator = kegUnit.keg_active && show_active ? '-ACTIVE' : '';
+    const taskIndicator = kegUnit.task && show_task ? '-task' : '';
+    const starIndicator = show_star ? ` star${kegUnit.star}` : '';
+    const keg_fund_totalIndicator = show_keg_fund_total ? ` [${kegUnit.keg_fund_total}]` : '';
+    const uidIndicator = kegUnit.uid && show_uid ? ` uid${kegUnit.uid}` : '';
 
-    const fund_onsetIndicator = show_fund_onset ? ` onset-${planUnit.fund_onset}` : '';
-    const fund_ceaseIndicator = show_fund_cease ? ` cease-${planUnit.fund_cease}` : '';
-    const fund_grainIndicator = show_fund_grain ? ` (iota: ${planUnit.fund_grain})` : '';
-    const fund_ratioIndicator = show_fund_ratio ? ` ratio-${planUnit.fund_ratio}` : '';
+    const fund_onsetIndicator = show_fund_onset ? ` onset-${kegUnit.fund_onset}` : '';
+    const fund_ceaseIndicator = show_fund_cease ? ` cease-${kegUnit.fund_cease}` : '';
+    const fund_grainIndicator = show_fund_grain ? ` (iota: ${kegUnit.fund_grain})` : '';
+    const fund_ratioIndicator = show_fund_ratio ? ` ratio-${kegUnit.fund_ratio}` : '';
 
 
     // Build award links HTML using separate function
-    const moment_labelHtml = render_moment_label(planUnit.moment_label, planUnit.knot, show_moment_label);
+    const moment_labelHtml = render_moment_label(kegUnit.moment_label, kegUnit.knot, show_moment_label);
 
     // Start with current node
     let html = `
   <div>
     ${indent}• 
     ${moment_labelHtml}
-    ${planUnit.plan_label}
+    ${kegUnit.keg_label}
     <i>${levelIndicator}
     ${starIndicator}
     ${uidIndicator}
     ${pledgeIndicator}
     ${descendant_pledge_countIndicator}
-    ${plan_fund_totalIndicator}
+    ${keg_fund_totalIndicator}
     ${fund_onsetIndicator}
     ${fund_ceaseIndicator}
     ${fund_grainIndicator}
@@ -314,36 +314,36 @@ function renderPlanUnit(planUnit, level) {
     ${activeIndicator}
     ${taskIndicator}
     ${root_booleanIndicator}</i>
-    ${render_with_indent(planUnit.voices, indent, show_voices)}
-    ${render_with_indent(planUnit.parent_rope, indent, show_parent_rope)}
-    ${renderFlatReadableJson(planUnit.awardunits, indent, show_awardunits)}
-    ${renderFlatReadableJson(planUnit.awardheirs, indent, show_awardheirs)}
-    ${renderFlatReadableJson(planUnit.awardlines, indent, show_awardlines)}
-    ${renderFlatReadableJson(planUnit.laborunit.partys, indent, show_laborunit)}
-    ${renderFlatReadableJson(planUnit.laborheir.partys, indent, show_laborheir)}
-    ${renderReasonReadableJson(planUnit.reasonunits, indent, show_reasonunits)}
-    ${renderReasonReadableJson(planUnit.reasonheirs, indent, show_reasonheirs)}
-    ${renderFlatReadableJson(planUnit.factunits, indent, show_factunits)}
-    ${renderFlatReadableJson(planUnit.factheirs, indent, show_factheirs)}
-    ${render_with_indent(planUnit.all_voice_cred, indent, show_all_voice_cred)}
-    ${render_with_indent(planUnit.all_voice_debt, indent, show_all_voice_debt)}
-    ${render_with_indent(planUnit.gogo_want, indent, show_gogo_want)}
-    ${render_with_indent(planUnit.stop_want, indent, show_stop_want)}
-    ${render_with_indent(planUnit.gogo_calc, indent, show_gogo_calc)}
-    ${render_with_indent(planUnit.stop_calc, indent, show_stop_calc)}
-    ${render_with_indent(planUnit.addin, indent, show_addin)}
-    ${render_with_indent(planUnit.begin, indent, show_begin)}
-    ${render_with_indent(planUnit.close, indent, show_close)}
-    ${render_with_indent(planUnit.denom, indent, show_denom)}
-    ${render_with_indent(planUnit.morph, indent, show_morph)}
-    ${render_with_indent(planUnit.numor, indent, show_numor)}
-    ${render_with_indent(planUnit.plan_active_hx, indent, show_active_hx)}
+    ${render_with_indent(kegUnit.voices, indent, show_voices)}
+    ${render_with_indent(kegUnit.parent_rope, indent, show_parent_rope)}
+    ${renderFlatReadableJson(kegUnit.awardunits, indent, show_awardunits)}
+    ${renderFlatReadableJson(kegUnit.awardheirs, indent, show_awardheirs)}
+    ${renderFlatReadableJson(kegUnit.awardlines, indent, show_awardlines)}
+    ${renderFlatReadableJson(kegUnit.laborunit.partys, indent, show_laborunit)}
+    ${renderFlatReadableJson(kegUnit.laborheir.partys, indent, show_laborheir)}
+    ${renderReasonReadableJson(kegUnit.reasonunits, indent, show_reasonunits)}
+    ${renderReasonReadableJson(kegUnit.reasonheirs, indent, show_reasonheirs)}
+    ${renderFlatReadableJson(kegUnit.factunits, indent, show_factunits)}
+    ${renderFlatReadableJson(kegUnit.factheirs, indent, show_factheirs)}
+    ${render_with_indent(kegUnit.all_voice_cred, indent, show_all_voice_cred)}
+    ${render_with_indent(kegUnit.all_voice_debt, indent, show_all_voice_debt)}
+    ${render_with_indent(kegUnit.gogo_want, indent, show_gogo_want)}
+    ${render_with_indent(kegUnit.stop_want, indent, show_stop_want)}
+    ${render_with_indent(kegUnit.gogo_calc, indent, show_gogo_calc)}
+    ${render_with_indent(kegUnit.stop_calc, indent, show_stop_calc)}
+    ${render_with_indent(kegUnit.addin, indent, show_addin)}
+    ${render_with_indent(kegUnit.begin, indent, show_begin)}
+    ${render_with_indent(kegUnit.close, indent, show_close)}
+    ${render_with_indent(kegUnit.denom, indent, show_denom)}
+    ${render_with_indent(kegUnit.morph, indent, show_morph)}
+    ${render_with_indent(kegUnit.numor, indent, show_numor)}
+    ${render_with_indent(kegUnit.keg_active_hx, indent, show_active_hx)}
   </div>\n
 `;
     // Add children
-    if (planUnit.kids) {
-        Object.values(planUnit.kids).forEach(child => {
-            html += renderPlanUnit(child, level + 1);
+    if (kegUnit.kids) {
+        Object.values(kegUnit.kids).forEach(child => {
+            html += renderKegUnit(child, level + 1);
         });
     }
     return html;

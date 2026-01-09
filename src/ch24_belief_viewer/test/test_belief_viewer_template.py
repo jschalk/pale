@@ -9,8 +9,8 @@ def test_get_belief_viewer_template_ReturnsObj():
     # THEN
     assert template_str
     expected_strs_in_template = {
-        kw.plan_active_hx,
-        kw.plan_active,
+        kw.keg_active_hx,
+        kw.keg_active,
         kw.all_voice_cred,
         kw.all_voice_debt,
         kw.awardheirs,
@@ -38,7 +38,7 @@ def test_get_belief_viewer_template_ReturnsObj():
         kw.denom,
         kw.factunits,
         kw.fund_grain,
-        kw.plan_fund_total,
+        kw.keg_fund_total,
         kw.gogo_want,
         # kw.healerunit,
         # kw.knot,
@@ -47,8 +47,8 @@ def test_get_belief_viewer_template_ReturnsObj():
         kw.numor,
         kw.parent_rope,
         kw.voices,
-        kw.plan_label,
-        kw.planroot,
+        kw.keg_label,
+        kw.kegroot,
         # kw.problem_bool,
         kw.reasonunits,
         kw.star,

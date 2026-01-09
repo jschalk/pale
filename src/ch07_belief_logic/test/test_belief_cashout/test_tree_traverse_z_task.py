@@ -1,9 +1,9 @@
 from src.ch02_allot.allot import default_pool_num
 from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason_main import caseunit_shop, reasonheir_shop, reasonunit_shop
-from src.ch06_plan.healer import healerunit_shop
-from src.ch06_plan.plan import planunit_shop
-from src.ch07_belief_logic.belief_graphic import display_plantree
+from src.ch06_keg.healer import healerunit_shop
+from src.ch06_keg.keg import kegunit_shop
+from src.ch07_belief_logic.belief_graphic import display_kegtree
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.test._util.ch07_examples import (
     beliefunit_v001,
@@ -22,21 +22,21 @@ def test_BeliefUnit_cashout_Sets_active_WhenFactSaysNo():
     sun_str = "Sun"
     sun_rope = sue_beliefunit.make_rope(wk_rope, sun_str)
 
-    # for plan in sue_beliefunit._plan_dict.values():
-    #     print(f"{casa_rope=} {plan.get_plan_rope()=}")
+    # for keg in sue_beliefunit._keg_dict.values():
+    #     print(f"{casa_rope=} {keg.get_keg_rope()=}")
     casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
-    assert sue_beliefunit.get_plan_obj(casa_rope).plan_active is None
+    assert sue_beliefunit.get_keg_obj(casa_rope).keg_active is None
 
     # WHEN
     sue_beliefunit.add_fact(fact_context=wk_rope, fact_state=sun_rope)
     sue_beliefunit.cashout()
 
     # THEN
-    assert sue_beliefunit._plan_dict != {}
-    assert len(sue_beliefunit._plan_dict) == 17
-    # for plan in sue_beliefunit._plan_dict.values():
-    #     print(f"{casa_rope=} {plan.get_plan_rope()=}")
-    assert sue_beliefunit.get_plan_obj(casa_rope).plan_active is False
+    assert sue_beliefunit._keg_dict != {}
+    assert len(sue_beliefunit._keg_dict) == 17
+    # for keg in sue_beliefunit._keg_dict.values():
+    #     print(f"{casa_rope=} {keg.get_keg_rope()=}")
+    assert sue_beliefunit.get_keg_obj(casa_rope).keg_active is False
 
 
 def test_BeliefUnit_cashout_Sets_active_WhenFactModifies():
@@ -53,9 +53,9 @@ def test_BeliefUnit_cashout_Sets_active_WhenFactModifies():
 
     # THEN
     sue_beliefunit.cashout()
-    assert sue_beliefunit._plan_dict
-    assert len(sue_beliefunit._plan_dict) == 17
-    assert sue_beliefunit._plan_dict.get(casa_rope).plan_active is False
+    assert sue_beliefunit._keg_dict
+    assert len(sue_beliefunit._keg_dict) == 17
+    assert sue_beliefunit._keg_dict.get(casa_rope).keg_active is False
 
     # WHEN
     nation_str = "nation"
@@ -66,9 +66,9 @@ def test_BeliefUnit_cashout_Sets_active_WhenFactModifies():
 
     # THEN
     sue_beliefunit.cashout()
-    assert sue_beliefunit._plan_dict
-    assert len(sue_beliefunit._plan_dict) == 17
-    assert sue_beliefunit._plan_dict.get(casa_rope).plan_active
+    assert sue_beliefunit._keg_dict
+    assert len(sue_beliefunit._keg_dict) == 17
+    assert sue_beliefunit._keg_dict.get(casa_rope).keg_active
 
     # WHEN
     france_str = "France"
@@ -77,12 +77,12 @@ def test_BeliefUnit_cashout_Sets_active_WhenFactModifies():
 
     # THEN
     sue_beliefunit.cashout()
-    assert sue_beliefunit._plan_dict
-    assert len(sue_beliefunit._plan_dict) == 17
-    assert sue_beliefunit._plan_dict.get(casa_rope).plan_active is False
+    assert sue_beliefunit._keg_dict
+    assert len(sue_beliefunit._keg_dict) == 17
+    assert sue_beliefunit._keg_dict.get(casa_rope).keg_active is False
 
 
-def test_BeliefUnit_cashout_Sets_plan_dict():
+def test_BeliefUnit_cashout_Sets_keg_dict():
     # ESTABLISH
     sue_beliefunit = get_beliefunit_with_4_levels_and_2reasons()
     wk_str = "sem_jours"
@@ -96,15 +96,15 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
     sue_beliefunit.add_fact(fact_context=nation_rope, fact_state=france_rope)
 
     casa_rope = sue_beliefunit.make_l1_rope(exx.casa)
-    casa_plan = sue_beliefunit.get_plan_obj(casa_rope)
-    print(f"{sue_beliefunit.belief_name=} {len(casa_plan.reasonunits)=}")
-    # print(f"{casa_plan.reasonunits=}")
-    print(f"{sue_beliefunit.belief_name=} {len(sue_beliefunit.planroot.factunits)=}")
-    # print(f"{sue_beliefunit.planroot.factunits=}")
+    casa_keg = sue_beliefunit.get_keg_obj(casa_rope)
+    print(f"{sue_beliefunit.belief_name=} {len(casa_keg.reasonunits)=}")
+    # print(f"{casa_keg.reasonunits=}")
+    print(f"{sue_beliefunit.belief_name=} {len(sue_beliefunit.kegroot.factunits)=}")
+    # print(f"{sue_beliefunit.kegroot.factunits=}")
 
     sue_beliefunit.cashout()
-    assert sue_beliefunit._plan_dict
-    assert len(sue_beliefunit._plan_dict) == 17
+    assert sue_beliefunit._keg_dict
+    assert len(sue_beliefunit._keg_dict) == 17
 
     usa_str = "USA"
     usa_rope = sue_beliefunit.make_rope(nation_rope, usa_str)
@@ -149,25 +149,25 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
     sue_beliefunit.cashout()
 
     # THEN
-    casa_plan = sue_beliefunit._plan_dict.get(casa_rope)
-    print(f"\nlook at {casa_plan.get_plan_rope()=}")
-    assert casa_plan.parent_rope == sue_beliefunit.planroot.get_plan_rope()
-    assert casa_plan.kids == {}
-    assert casa_plan.star == 30
-    assert casa_plan.plan_label == exx.casa
-    assert casa_plan.tree_level == 1
-    assert casa_plan.plan_active
-    assert casa_plan.pledge
-    # print(f"{casa_plan.reasonheirs=}")
-    nation_reasonheir = casa_plan.reasonheirs[nation_rope]
+    casa_keg = sue_beliefunit._keg_dict.get(casa_rope)
+    print(f"\nlook at {casa_keg.get_keg_rope()=}")
+    assert casa_keg.parent_rope == sue_beliefunit.kegroot.get_keg_rope()
+    assert casa_keg.kids == {}
+    assert casa_keg.star == 30
+    assert casa_keg.keg_label == exx.casa
+    assert casa_keg.tree_level == 1
+    assert casa_keg.keg_active
+    assert casa_keg.pledge
+    # print(f"{casa_keg.reasonheirs=}")
+    nation_reasonheir = casa_keg.reasonheirs[nation_rope]
     print(f"  {nation_reasonheir=}")
     print(f"  {nation_reasonheir.reason_active=}\n")
-    # assert casa_plan.reasonheirs == x1_reasonheirs
+    # assert casa_keg.reasonheirs == x1_reasonheirs
 
-    assert len(casa_plan.reasonheirs) == len(x1_reasonheirs)
-    wk_reasonheir = casa_plan.reasonheirs.get(wk_rope)
+    assert len(casa_keg.reasonheirs) == len(x1_reasonheirs)
+    wk_reasonheir = casa_keg.reasonheirs.get(wk_rope)
     # usa_case = wk_reasonheir.cases.get(usa_rope)
-    print(f"    {casa_plan.plan_label=}")
+    print(f"    {casa_keg.keg_label=}")
     # print(f"    {usa_case.reason_context=}")
     # print(f"    {usa_case.task=}")
     # print(f"    {usa_case.task=}")
@@ -179,21 +179,21 @@ def test_BeliefUnit_cashout_Sets_plan_dict():
     # assert usa_case.case_active == w_state.reason_active
     # assert wk_reasonheir.cases == wk_reasonheir.cases
 
-    # assert casa_plan.reasonunits == x1_reasonunits
+    # assert casa_keg.reasonunits == x1_reasonunits
 
-    # print("iterate through every plan...")
-    # for x_plan in plan_dict:
-    #     if str(type(x_plan)).find(".plan.PlanUnit'>") > 0:
-    #         assert x_plan.plan_active is not None
+    # print("iterate through every keg...")
+    # for x_keg in keg_dict:
+    #     if str(type(x_keg)).find(".keg.KegUnit'>") > 0:
+    #         assert x_keg.keg_active is not None
 
     #     # print("")
-    #     # print(f"{x_plan.plan_label=}")
-    #     # print(f"{len(x_plan.reasonunits)=}")
+    #     # print(f"{x_keg.keg_label=}")
+    #     # print(f"{len(x_keg.reasonunits)=}")
     #     print(
-    #         f"  {x_plan.plan_label} iterate through every reasonheir... {len(x_plan.reasonheirs)=} {x_plan.plan_label=}"
+    #         f"  {x_keg.keg_label} iterate through every reasonheir... {len(x_keg.reasonheirs)=} {x_keg.keg_label=}"
     #     )
-    #     # print(f"{x_plan.reasonheirs=}")
-    #     for reason in x_plan.reasonheirs.values():
+    #     # print(f"{x_keg.reasonheirs=}")
+    #     for reason in x_keg.reasonheirs.values():
     #         assert str(type(reason)).find(".reason.ReasonHeir'>") > 0
     #         print(f"    {reason.reason_context=}")
     #         assert reason.reason_active is not None
@@ -221,7 +221,7 @@ def test_BeliefUnit_cashout_CalculatesRangeAttributes():
     house_rope = sue_beliefunit.make_l1_rope(house_str)
     clean_str = "clean table"
     clean_rope = sue_beliefunit.make_rope(house_rope, clean_str)
-    assert sue_beliefunit._plan_dict.get(clean_rope).plan_active is False
+    assert sue_beliefunit._keg_dict.get(clean_rope).keg_active is False
 
     # set facts as midevening to 8am
     ziet_str = "ziettech"
@@ -243,26 +243,26 @@ def test_BeliefUnit_cashout_CalculatesRangeAttributes():
 
     # THEN
     sue_beliefunit.cashout()
-    assert sue_beliefunit._plan_dict.get(clean_rope).plan_active
+    assert sue_beliefunit._keg_dict.get(clean_rope).keg_active
 
     # WHEN
     # set facts as 8am to 10am
     x24hr_reason_lower = 8.0
     x24hr_reason_upper = 10.0
-    print(sue_beliefunit.planroot.factunits[x24hr_rope])
+    print(sue_beliefunit.kegroot.factunits[x24hr_rope])
     sue_beliefunit.add_fact(
         x24hr_reason_context,
         fact_state=x24hr_fact_state,
         fact_lower=x24hr_reason_lower,
         fact_upper=x24hr_reason_upper,
     )
-    print(sue_beliefunit.planroot.factunits[x24hr_rope])
-    print(sue_beliefunit.planroot.kids[house_str].kids[clean_str].reasonunits)
-    # sue_beliefunit.planroot.kids["houseadministration"].kids[clean_str].plan_active = None
+    print(sue_beliefunit.kegroot.factunits[x24hr_rope])
+    print(sue_beliefunit.kegroot.kids[house_str].kids[clean_str].reasonunits)
+    # sue_beliefunit.kegroot.kids["houseadministration"].kids[clean_str].keg_active = None
 
     # THEN
     sue_beliefunit.cashout()
-    assert sue_beliefunit._plan_dict.get(clean_rope).plan_active is False
+    assert sue_beliefunit._keg_dict.get(clean_rope).keg_active is False
 
 
 def test_BeliefUnit_get_agenda_dict_ReturnsObj_WithSinglePledge():
@@ -270,12 +270,12 @@ def test_BeliefUnit_get_agenda_dict_ReturnsObj_WithSinglePledge():
     sue_beliefunit = get_beliefunit_with_4_levels_and_2reasons()
 
     # WHEN
-    pledge_plans = sue_beliefunit.get_agenda_dict()
+    pledge_kegs = sue_beliefunit.get_agenda_dict()
 
     # THEN
-    assert pledge_plans is not None
-    assert len(pledge_plans) > 0
-    assert len(pledge_plans) == 1
+    assert pledge_kegs is not None
+    assert len(pledge_kegs) > 0
+    assert len(pledge_kegs) == 1
 
 
 def test_BeliefUnit_cashout_SetsData_beliefunit_v001():
@@ -304,39 +304,39 @@ def test_BeliefUnit_cashout_SetsData_beliefunit_v001():
     yao_beliefunit.add_fact(fact_context=web_rope, fact_state=web_rope)
     assert yao_beliefunit is not None
     # print(f"{yao_beliefunit.belief_name=}")
-    # print(f"{len(yao_beliefunit.planroot.kids)=}")
+    # print(f"{len(yao_beliefunit.kegroot.kids)=}")
     ulty_str = "Ultimate Frisbee"
     ulty_rope = yao_beliefunit.make_l1_rope(ulty_str)
 
-    # if yao_beliefunit.planroot.kids["Ultimate Frisbee"].plan_label == "Ultimate Frisbee":
-    assert yao_beliefunit.planroot.kids[ulty_str].reasonunits is not None
+    # if yao_beliefunit.kegroot.kids["Ultimate Frisbee"].keg_label == "Ultimate Frisbee":
+    assert yao_beliefunit.kegroot.kids[ulty_str].reasonunits is not None
     assert yao_beliefunit.belief_name is not None
 
-    # for fact in yao_beliefunit.planroot.factunits.values():
+    # for fact in yao_beliefunit.kegroot.factunits.values():
     #     print(f"{fact=}")
 
     # WHEN
     yao_beliefunit.cashout()
 
     # THEN
-    # print(f"{str(type(plan))=}")
-    # print(f"{len(plan_dict)=}")
+    # print(f"{str(type(keg))=}")
+    # print(f"{len(keg_dict)=}")
     laundry_str = "laundry mon"
     casa_rope = yao_beliefunit.make_l1_rope("casa")
     cleaning_rope = yao_beliefunit.make_rope(casa_rope, "cleaning")
     laundry_rope = yao_beliefunit.make_rope(cleaning_rope, laundry_str)
 
-    # for plan in plan_dict:
+    # for keg in keg_dict:
     #     assert (
-    #         str(type(plan)).find(".plan.PlanUnit'>") > 0
-    #         or str(type(plan)).find(".plan.PlanUnit'>") > 0
+    #         str(type(keg)).find(".keg.KegUnit'>") > 0
+    #         or str(type(keg)).find(".keg.KegUnit'>") > 0
     #     )
-    #     # print(f"{plan.plan_label=}")
-    #     if plan.plan_label == laundry_str:
-    #         for reason in plan.reasonunits.values():
-    #             print(f"{plan.plan_label=} {reason.reason_context=}")  # {reason.cases=}")
-    # assert plan.plan_active is False
-    assert yao_beliefunit._plan_dict.get(laundry_rope).plan_active is False
+    #     # print(f"{keg.keg_label=}")
+    #     if keg.keg_label == laundry_str:
+    #         for reason in keg.reasonunits.values():
+    #             print(f"{keg.keg_label=} {reason.reason_context=}")  # {reason.cases=}")
+    # assert keg.keg_active is False
+    assert yao_beliefunit._keg_dict.get(laundry_rope).keg_active is False
 
     # WHEN
     wk_str = "sem_jours"
@@ -347,7 +347,7 @@ def test_BeliefUnit_cashout_SetsData_beliefunit_v001():
     yao_beliefunit.cashout()
 
     # THEN
-    assert yao_beliefunit._plan_dict.get(laundry_rope).plan_active is False
+    assert yao_beliefunit._keg_dict.get(laundry_rope).keg_active is False
 
 
 def test_BeliefUnit_cashout_OptionWeekJoursReturnsObj_beliefunit_v001():
@@ -413,12 +413,12 @@ def test_BeliefUnit_cashout_OptionWeekJoursReturnsObj_beliefunit_v001():
     }
     mt_reasonunit = reasonunit_shop(wk_rope, cases=mt_cases)
     mt_reasonheir = reasonheir_shop(wk_rope, cases=mt_cases, reason_active=False)
-    x_planroot = yao_beliefunit.planroot
-    x_planroot.set_reasonunit(reason=mt_reasonunit)
+    x_kegroot = yao_beliefunit.kegroot
+    x_kegroot.set_reasonunit(reason=mt_reasonunit)
     # print(f"{yao_beliefunit.reasonunits[wk_rope].reason_context=}")
     # print(f"{yao_beliefunit.reasonunits[wk_rope].cases[mon_rope].reason_state=}")
     # print(f"{yao_beliefunit.reasonunits[wk_rope].cases[tue_rope].reason_state=}")
-    wk_reasonunit = x_planroot.reasonunits[wk_rope]
+    wk_reasonunit = x_kegroot.reasonunits[wk_rope]
     print(f"{wk_reasonunit.cases=}")
     case_mon = wk_reasonunit.cases.get(mon_rope)
     case_tue = wk_reasonunit.cases.get(tue_rope)
@@ -429,10 +429,10 @@ def test_BeliefUnit_cashout_OptionWeekJoursReturnsObj_beliefunit_v001():
     assert wk_reasonunit == mt_reasonunit
 
     # WHEN
-    plan_dict = yao_beliefunit.get_plan_dict()
+    keg_dict = yao_beliefunit.get_keg_dict()
 
     # THEN
-    gen_wk_reasonheir = x_planroot.get_reasonheir(wk_rope)
+    gen_wk_reasonheir = x_kegroot.get_reasonheir(wk_rope)
     gen_mon_case = gen_wk_reasonheir.cases.get(mon_rope)
     assert gen_mon_case.case_active == mt_reasonheir.cases.get(mon_rope).case_active
     assert gen_mon_case == mt_reasonheir.cases.get(mon_rope)
@@ -442,10 +442,10 @@ def test_BeliefUnit_cashout_OptionWeekJoursReturnsObj_beliefunit_v001():
     casa_rope = yao_beliefunit.make_l1_rope(exx.casa)
     bird_str = "say hi to birds"
     bird_rope = yao_beliefunit.make_rope(casa_rope, bird_str)
-    assert from_list_get_active(bird_rope, plan_dict) is False
+    assert from_list_get_active(bird_rope, keg_dict) is False
 
 
-def test_BeliefUnit_cashout_SetsPlanUnitsActiveWithEvery6WeeksReason_beliefunit_v001():
+def test_BeliefUnit_cashout_SetsKegUnitsActiveWithEvery6WeeksReason_beliefunit_v001():
     # ESTABLISH
     yao_beliefunit = beliefunit_v001()
     hr_num_str = "hr_number"
@@ -468,38 +468,38 @@ def test_BeliefUnit_cashout_SetsPlanUnitsActiveWithEvery6WeeksReason_beliefunit_
     reason_divisor = None
     reason_lower = None
     reason_upper = None
-    print(f"{len(yao_beliefunit._plan_dict)=}")
+    print(f"{len(yao_beliefunit._keg_dict)=}")
 
     casa_rope = yao_beliefunit.make_l1_rope("casa")
     cleaning_rope = yao_beliefunit.make_rope(casa_rope, "cleaning")
     clean_couch_rope = yao_beliefunit.make_rope(
         cleaning_rope, "clean sheets couch blankets"
     )
-    clean_sheet_plan = yao_beliefunit.get_plan_obj(clean_couch_rope)
-    # print(f"{clean_sheet_plan.reasonunits.values()=}")
-    ced_wk_reason = clean_sheet_plan.reasonunits.get(ced_wk_reason_context)
+    clean_sheet_keg = yao_beliefunit.get_keg_obj(clean_couch_rope)
+    # print(f"{clean_sheet_keg.reasonunits.values()=}")
+    ced_wk_reason = clean_sheet_keg.reasonunits.get(ced_wk_reason_context)
     ced_wk_case = ced_wk_reason.cases.get(ced_wk_reason_context)
     print(
-        f"{clean_sheet_plan.plan_label=} {ced_wk_reason.reason_context=} {ced_wk_case.reason_state=}"
+        f"{clean_sheet_keg.keg_label=} {ced_wk_reason.reason_context=} {ced_wk_case.reason_state=}"
     )
-    # print(f"{clean_sheet_plan.plan_label=} {ced_wk_reason.reason_context=} {case_x=}")
+    # print(f"{clean_sheet_keg.keg_label=} {ced_wk_reason.reason_context=} {case_x=}")
     reason_divisor = ced_wk_case.reason_divisor
     reason_lower = ced_wk_case.reason_lower
     reason_upper = ced_wk_case.reason_upper
-    # print(f"{plan.reasonunits=}")
-    assert clean_sheet_plan.plan_active is False
+    # print(f"{keg.reasonunits=}")
+    assert clean_sheet_keg.keg_active is False
 
-    # for plan in plan_dict:
-    #     # print(f"{plan.parent_rope=}")
-    #     if plan.plan_label == "clean sheets couch blankets":
-    #         print(f"{plan.get_plan_rope()=}")
+    # for keg in keg_dict:
+    #     # print(f"{keg.parent_rope=}")
+    #     if keg.keg_label == "clean sheets couch blankets":
+    #         print(f"{keg.get_keg_rope()=}")
 
     assert reason_divisor == 6
     assert reason_lower == 1
     print(
-        f"There exists a plan with a reason_context {ced_wk_reason_context} that also has lemmet div =6 and reason_lower/reason_upper =1"
+        f"There exists a keg with a reason_context {ced_wk_reason_context} that also has lemmet div =6 and reason_lower/reason_upper =1"
     )
-    # print(f"{len(plan_dict)=}")
+    # print(f"{len(keg_dict)=}")
     ced_wk_reason_lower = 6001
 
     # WHEN
@@ -515,7 +515,7 @@ def test_BeliefUnit_cashout_SetsPlanUnitsActiveWithEvery6WeeksReason_beliefunit_
     print(
         f"Nation set and also fact set: {ced_wk_reason_context=} with {ced_wk_reason_lower=} and {ced_wk_reason_lower=}"
     )
-    print(f"{yao_beliefunit.planroot.factunits=}")
+    print(f"{yao_beliefunit.kegroot.factunits=}")
     yao_beliefunit.cashout()
 
     # THEN
@@ -525,14 +525,14 @@ def test_BeliefUnit_cashout_SetsPlanUnitsActiveWithEvery6WeeksReason_beliefunit_
     cleaning_rope = yao_beliefunit.make_rope(casa_rope, "cleaning")
     clean_couch_str = "clean sheets couch blankets"
     clean_couch_rope = yao_beliefunit.make_rope(cleaning_rope, clean_couch_str)
-    clean_couch_plan = yao_beliefunit.get_plan_obj(rope=clean_couch_rope)
-    wk_reason = clean_couch_plan.reasonunits.get(wk_rope)
+    clean_couch_keg = yao_beliefunit.get_keg_obj(rope=clean_couch_rope)
+    wk_reason = clean_couch_keg.reasonunits.get(wk_rope)
     wk_case = wk_reason.cases.get(wk_rope)
-    print(f"{clean_couch_plan.plan_label=} {wk_reason.reason_context=} {wk_case=}")
+    print(f"{clean_couch_keg.keg_label=} {wk_reason.reason_context=} {wk_case=}")
     assert wk_case.reason_divisor == 6 and wk_case.reason_lower == 1
 
 
-def test_BeliefUnit_cashout_SetsAttr_PlanUnits_active_beliefunit_v001():
+def test_BeliefUnit_cashout_SetsAttr_KegUnits_active_beliefunit_v001():
     # ESTABLISH
     yao_beliefunit = beliefunit_v001()
 
@@ -540,36 +540,36 @@ def test_BeliefUnit_cashout_SetsAttr_PlanUnits_active_beliefunit_v001():
     yao_beliefunit.cashout()
 
     # THEN
-    print(f"{len(yao_beliefunit._plan_dict)=}")
-    # first_plan_kid_count = 0
-    # first_plan_kid_none_count = 0
-    # first_plan_kid_true_count = 0
-    # first_plan_kid_false_count = 0
-    # for plan in plan_list:
-    #     if str(type(plan)).find(".plan.PlanUnit'>") > 0:
-    #         first_plan_kid_count += 1
-    #         if plan.plan_active is None:
-    #             first_plan_kid_none_count += 1
-    #         elif plan.plan_active:
-    #             first_plan_kid_true_count += 1
-    #         elif plan.plan_active is False:
-    #             first_plan_kid_false_count += 1
+    print(f"{len(yao_beliefunit._keg_dict)=}")
+    # first_keg_kid_count = 0
+    # first_keg_kid_none_count = 0
+    # first_keg_kid_true_count = 0
+    # first_keg_kid_false_count = 0
+    # for keg in keg_list:
+    #     if str(type(keg)).find(".keg.KegUnit'>") > 0:
+    #         first_keg_kid_count += 1
+    #         if keg.keg_active is None:
+    #             first_keg_kid_none_count += 1
+    #         elif keg.keg_active:
+    #             first_keg_kid_true_count += 1
+    #         elif keg.keg_active is False:
+    #             first_keg_kid_false_count += 1
 
-    # print(f"{first_plan_kid_count=}")
-    # print(f"{first_plan_kid_none_count=}")
-    # print(f"{first_plan_kid_true_count=}")
-    # print(f"{first_plan_kid_false_count=}")
+    # print(f"{first_keg_kid_count=}")
+    # print(f"{first_keg_kid_none_count=}")
+    # print(f"{first_keg_kid_true_count=}")
+    # print(f"{first_keg_kid_false_count=}")
 
-    # plan_kid_count = 0
-    # for plan in plan_list_without_planroot:
-    #     plan_kid_count += 1
-    #     print(f"{plan.plan_label=} {plan_kid_count=}")
-    #     assert plan.plan_active is not None
-    #     assert plan.plan_active in (True, False)
-    # assert plan_kid_count == len(plan_list_without_planroot)
+    # keg_kid_count = 0
+    # for keg in keg_list_without_kegroot:
+    #     keg_kid_count += 1
+    #     print(f"{keg.keg_label=} {keg_kid_count=}")
+    #     assert keg.keg_active is not None
+    #     assert keg.keg_active in (True, False)
+    # assert keg_kid_count == len(keg_list_without_kegroot)
 
-    assert len(yao_beliefunit._plan_dict) == sum(
-        plan.plan_active is not None for plan in yao_beliefunit._plan_dict.values()
+    assert len(yao_beliefunit._keg_dict) == sum(
+        keg.keg_active is not None for keg in yao_beliefunit._keg_dict.values()
     )
 
 
@@ -599,15 +599,15 @@ def test_BeliefUnit_cashout_EveryTwoMonthReturnsObj_beliefunit_v001():
     sem_jours_str = "sem_jours"
     sem_jours_rope = yao_beliefunit.make_l1_rope(sem_jours_str)
     yao_beliefunit.add_fact(fact_context=sem_jours_rope, fact_state=sem_jours_rope)
-    plan_dict = yao_beliefunit.get_plan_dict()
-    print(f"{len(plan_dict)=}")
+    keg_dict = yao_beliefunit.get_keg_dict()
+    print(f"{len(keg_dict)=}")
 
     casa_rope = yao_beliefunit.make_l1_rope(exx.casa)
     clean_str = "cleaning"
     clean_rope = yao_beliefunit.make_rope(casa_rope, clean_str)
-    mat_plan_label = "deep clean play mat"
-    mat_rope = yao_beliefunit.make_rope(clean_rope, mat_plan_label)
-    assert from_list_get_active(mat_rope, plan_dict) is False
+    mat_keg_label = "deep clean play mat"
+    mat_rope = yao_beliefunit.make_rope(clean_rope, mat_keg_label)
+    assert from_list_get_active(mat_rope, keg_dict) is False
 
     yr_month_reason_context = yao_beliefunit.make_l1_rope("yr_month")
     print(f"{yr_month_reason_context=}, {yr_month_reason_context=}")
@@ -626,26 +626,26 @@ def test_BeliefUnit_cashout_EveryTwoMonthReturnsObj_beliefunit_v001():
     yao_beliefunit.cashout()
 
     # THEN
-    print(f"{len(plan_dict)=}")
-    print(f"{len(yao_beliefunit.planroot.factunits)=}")
-    assert from_list_get_active(mat_rope, yao_beliefunit._plan_dict)
+    print(f"{len(keg_dict)=}")
+    print(f"{len(yao_beliefunit.kegroot.factunits)=}")
+    assert from_list_get_active(mat_rope, yao_beliefunit._keg_dict)
 
 
-def test_BeliefUnit_cashout_SetsEmpty_sum_healerunit_plans_fund_total():
+def test_BeliefUnit_cashout_SetsEmpty_sum_healerunit_kegs_fund_total():
     # ESTABLISH
     sue_beliefunit = beliefunit_shop("Sue")
-    assert sue_beliefunit.sum_healerunit_plans_fund_total == 0
+    assert sue_beliefunit.sum_healerunit_kegs_fund_total == 0
     assert sue_beliefunit._keep_dict == {}
 
     # WHEN
     sue_beliefunit.cashout()
 
     # THEN
-    assert sue_beliefunit.sum_healerunit_plans_fund_total == 0
+    assert sue_beliefunit.sum_healerunit_kegs_fund_total == 0
     assert sue_beliefunit._keep_dict == {}
 
 
-def test_BeliefUnit_cashout_Sets_sum_healerunit_plans_fund_total(graphics_bool):
+def test_BeliefUnit_cashout_Sets_sum_healerunit_kegs_fund_total(graphics_bool):
     # ESTABLISH
     sue_beliefunit = get_beliefunit_with_4_levels_and_2reasons()
     sue_beliefunit.add_voiceunit("Sue")
@@ -654,77 +654,76 @@ def test_BeliefUnit_cashout_Sets_sum_healerunit_plans_fund_total(graphics_bool):
     usa_rope = sue_beliefunit.make_rope(nation_rope, "USA")
     oregon_rope = sue_beliefunit.make_rope(usa_rope, "Oregon")
     sue_healerunit = healerunit_shop({"Sue"})
-    sue_beliefunit.edit_plan_attr(
+    sue_beliefunit.edit_keg_attr(
         oregon_rope, problem_bool=True, healerunit=sue_healerunit
     )
-    oregon_plan = sue_beliefunit.get_plan_obj(oregon_rope)
-    print(f"{oregon_plan.fund_ratio=}")
-    assert sue_beliefunit.sum_healerunit_plans_fund_total == 0
-    assert oregon_plan.healerunit_ratio == 0
+    oregon_keg = sue_beliefunit.get_keg_obj(oregon_rope)
+    print(f"{oregon_keg.fund_ratio=}")
+    assert sue_beliefunit.sum_healerunit_kegs_fund_total == 0
+    assert oregon_keg.healerunit_ratio == 0
 
     # WHEN
     sue_beliefunit.cashout()
     # THEN
     assert (
-        sue_beliefunit.sum_healerunit_plans_fund_total
+        sue_beliefunit.sum_healerunit_kegs_fund_total
         == 0.038461539 * default_pool_num()
     )
-    assert oregon_plan.healerunit_ratio == 1
+    assert oregon_keg.healerunit_ratio == 1
 
     # WHEN
     wk_rope = sue_beliefunit.make_l1_rope("sem_jours")
-    sue_beliefunit.edit_plan_attr(wk_rope, problem_bool=True)
+    sue_beliefunit.edit_keg_attr(wk_rope, problem_bool=True)
     mon_rope = sue_beliefunit.make_rope(wk_rope, "Mon")
-    sue_beliefunit.edit_plan_attr(mon_rope, healerunit=sue_healerunit)
-    mon_plan = sue_beliefunit.get_plan_obj(mon_rope)
-    # print(f"{mon_plan.problem_bool=} {mon_plan.fund_ratio=}")
+    sue_beliefunit.edit_keg_attr(mon_rope, healerunit=sue_healerunit)
+    mon_keg = sue_beliefunit.get_keg_obj(mon_rope)
+    # print(f"{mon_keg.problem_bool=} {mon_keg.fund_ratio=}")
     sue_beliefunit.cashout()
     # THEN
     assert (
-        sue_beliefunit.sum_healerunit_plans_fund_total
+        sue_beliefunit.sum_healerunit_kegs_fund_total
         != 0.038461539 * default_pool_num()
     )
     assert (
-        sue_beliefunit.sum_healerunit_plans_fund_total
-        == 0.06923077 * default_pool_num()
+        sue_beliefunit.sum_healerunit_kegs_fund_total == 0.06923077 * default_pool_num()
     )
-    assert oregon_plan.healerunit_ratio == 0.5555555571604938
-    assert mon_plan.healerunit_ratio == 0.4444444428395062
+    assert oregon_keg.healerunit_ratio == 0.5555555571604938
+    assert mon_keg.healerunit_ratio == 0.4444444428395062
 
     # WHEN
     tue_rope = sue_beliefunit.make_rope(wk_rope, "Tue")
-    sue_beliefunit.edit_plan_attr(tue_rope, healerunit=sue_healerunit)
-    tue_plan = sue_beliefunit.get_plan_obj(tue_rope)
-    # print(f"{tue_plan.problem_bool=} {tue_plan.fund_ratio=}")
+    sue_beliefunit.edit_keg_attr(tue_rope, healerunit=sue_healerunit)
+    tue_keg = sue_beliefunit.get_keg_obj(tue_rope)
+    # print(f"{tue_keg.problem_bool=} {tue_keg.fund_ratio=}")
     # sat_rope = sue_beliefunit.make_rope(wk_rope, "Sat")
-    # sat_plan = sue_beliefunit.get_plan_obj(sat_rope)
-    # print(f"{sat_plan.problem_bool=} {sat_plan.fund_ratio=}")
+    # sat_keg = sue_beliefunit.get_keg_obj(sat_rope)
+    # print(f"{sat_keg.problem_bool=} {sat_keg.fund_ratio=}")
     sue_beliefunit.cashout()
 
     # THEN
     assert (
-        sue_beliefunit.sum_healerunit_plans_fund_total
+        sue_beliefunit.sum_healerunit_kegs_fund_total
         != 0.06923076923076923 * default_pool_num()
     )
     assert (
-        sue_beliefunit.sum_healerunit_plans_fund_total
+        sue_beliefunit.sum_healerunit_kegs_fund_total
         == 0.100000001 * default_pool_num()
     )
-    assert oregon_plan.healerunit_ratio == 0.38461538615384616
-    assert mon_plan.healerunit_ratio == 0.3076923069230769
-    assert tue_plan.healerunit_ratio == 0.3076923069230769
+    assert oregon_keg.healerunit_ratio == 0.38461538615384616
+    assert mon_keg.healerunit_ratio == 0.3076923069230769
+    assert tue_keg.healerunit_ratio == 0.3076923069230769
 
     # WHEN
-    sue_beliefunit.edit_plan_attr(wk_rope, healerunit=sue_healerunit)
-    wk_plan = sue_beliefunit.get_plan_obj(wk_rope)
-    print(f"{wk_plan.plan_label=} {wk_plan.problem_bool=} {wk_plan.fund_ratio=}")
+    sue_beliefunit.edit_keg_attr(wk_rope, healerunit=sue_healerunit)
+    wk_keg = sue_beliefunit.get_keg_obj(wk_rope)
+    print(f"{wk_keg.keg_label=} {wk_keg.problem_bool=} {wk_keg.fund_ratio=}")
     sue_beliefunit.cashout()
     # THEN
-    display_plantree(sue_beliefunit, "Keep", graphics_bool)
-    assert sue_beliefunit.sum_healerunit_plans_fund_total == 0
-    assert oregon_plan.healerunit_ratio == 0
-    assert mon_plan.healerunit_ratio == 0
-    assert tue_plan.healerunit_ratio == 0
+    display_kegtree(sue_beliefunit, "Keep", graphics_bool)
+    assert sue_beliefunit.sum_healerunit_kegs_fund_total == 0
+    assert oregon_keg.healerunit_ratio == 0
+    assert mon_keg.healerunit_ratio == 0
+    assert tue_keg.healerunit_ratio == 0
 
 
 def test_BeliefUnit_cashout_Sets_keep_dict_v1(graphics_bool):
@@ -736,7 +735,7 @@ def test_BeliefUnit_cashout_Sets_keep_dict_v1(graphics_bool):
     usa_rope = sue_beliefunit.make_rope(nation_rope, "USA")
     oregon_rope = sue_beliefunit.make_rope(usa_rope, "Oregon")
     sue_healerunit = healerunit_shop({"Sue"})
-    sue_beliefunit.edit_plan_attr(
+    sue_beliefunit.edit_keg_attr(
         oregon_rope, problem_bool=True, healerunit=sue_healerunit
     )
     assert len(sue_beliefunit._keep_dict) == 0
@@ -750,11 +749,11 @@ def test_BeliefUnit_cashout_Sets_keep_dict_v1(graphics_bool):
 
     # WHEN
     wk_rope = sue_beliefunit.make_l1_rope("sem_jours")
-    sue_beliefunit.edit_plan_attr(wk_rope, problem_bool=True)
+    sue_beliefunit.edit_keg_attr(wk_rope, problem_bool=True)
     mon_rope = sue_beliefunit.make_rope(wk_rope, "Mon")
-    sue_beliefunit.edit_plan_attr(mon_rope, healerunit=sue_healerunit)
-    # mon_plan = sue_beliefunit.get_plan_obj(mon_rope)
-    # print(f"{mon_plan.problem_bool=} {mon_plan.fund_ratio=}")
+    sue_beliefunit.edit_keg_attr(mon_rope, healerunit=sue_healerunit)
+    # mon_keg = sue_beliefunit.get_keg_obj(mon_rope)
+    # print(f"{mon_keg.problem_bool=} {mon_keg.fund_ratio=}")
     sue_beliefunit.cashout()
     # THEN
     assert len(sue_beliefunit._keep_dict) == 2
@@ -763,12 +762,12 @@ def test_BeliefUnit_cashout_Sets_keep_dict_v1(graphics_bool):
 
     # WHEN
     tue_rope = sue_beliefunit.make_rope(wk_rope, "Tue")
-    sue_beliefunit.edit_plan_attr(tue_rope, healerunit=sue_healerunit)
-    # tue_plan = sue_beliefunit.get_plan_obj(tue_rope)
-    # print(f"{tue_plan.problem_bool=} {tue_plan.fund_ratio=}")
+    sue_beliefunit.edit_keg_attr(tue_rope, healerunit=sue_healerunit)
+    # tue_keg = sue_beliefunit.get_keg_obj(tue_rope)
+    # print(f"{tue_keg.problem_bool=} {tue_keg.fund_ratio=}")
     # sat_rope = sue_beliefunit.make_rope(wk_rope, "Sat")
-    # sat_plan = sue_beliefunit.get_plan_obj(sat_rope)
-    # print(f"{sat_plan.problem_bool=} {sat_plan.fund_ratio=}")
+    # sat_keg = sue_beliefunit.get_keg_obj(sat_rope)
+    # print(f"{sat_keg.problem_bool=} {sat_keg.fund_ratio=}")
     sue_beliefunit.cashout()
 
     # THEN
@@ -778,12 +777,12 @@ def test_BeliefUnit_cashout_Sets_keep_dict_v1(graphics_bool):
     assert sue_beliefunit._keep_dict.get(tue_rope) is not None
 
     # WHEN
-    sue_beliefunit.edit_plan_attr(wk_rope, healerunit=sue_healerunit)
-    wk_plan = sue_beliefunit.get_plan_obj(wk_rope)
-    print(f"{wk_plan.plan_label=} {wk_plan.problem_bool=} {wk_plan.fund_ratio=}")
+    sue_beliefunit.edit_keg_attr(wk_rope, healerunit=sue_healerunit)
+    wk_keg = sue_beliefunit.get_keg_obj(wk_rope)
+    print(f"{wk_keg.keg_label=} {wk_keg.problem_bool=} {wk_keg.fund_ratio=}")
     sue_beliefunit.cashout()
     # THEN
-    display_plantree(sue_beliefunit, "Keep", graphics_bool)
+    display_kegtree(sue_beliefunit, "Keep", graphics_bool)
     assert len(sue_beliefunit._keep_dict) == 0
     assert sue_beliefunit._keep_dict == {}
 
@@ -805,13 +804,13 @@ def test_BeliefUnit_cashout_Sets_healers_dict():
     usa_rope = sue_beliefunit.make_rope(nation_rope, "USA")
     oregon_keep_rope = sue_beliefunit.make_rope(usa_rope, "Oregon")
     sue_healerunit = healerunit_shop({exx.sue})
-    sue_beliefunit.edit_plan_attr(
+    sue_beliefunit.edit_keg_attr(
         oregon_keep_rope, problem_bool=True, healerunit=sue_healerunit
     )
 
     wk_rope = sue_beliefunit.make_l1_rope("sem_jours")
     bob_healerunit = healerunit_shop({exx.bob})
-    sue_beliefunit.edit_plan_attr(wk_rope, problem_bool=True, healerunit=bob_healerunit)
+    sue_beliefunit.edit_keg_attr(wk_rope, problem_bool=True, healerunit=bob_healerunit)
     assert sue_beliefunit._healers_dict == {}
 
     # WHEN
@@ -819,10 +818,10 @@ def test_BeliefUnit_cashout_Sets_healers_dict():
 
     # THEN
     assert len(sue_beliefunit._healers_dict) == 2
-    wk_plan = sue_beliefunit.get_plan_obj(wk_rope)
-    assert sue_beliefunit._healers_dict.get(exx.bob) == {wk_rope: wk_plan}
-    oregon_plan = sue_beliefunit.get_plan_obj(oregon_keep_rope)
-    assert sue_beliefunit._healers_dict.get(exx.sue) == {oregon_keep_rope: oregon_plan}
+    wk_keg = sue_beliefunit.get_keg_obj(wk_rope)
+    assert sue_beliefunit._healers_dict.get(exx.bob) == {wk_rope: wk_keg}
+    oregon_keg = sue_beliefunit.get_keg_obj(oregon_keep_rope)
+    assert sue_beliefunit._healers_dict.get(exx.sue) == {oregon_keep_rope: oregon_keg}
 
 
 def test_BeliefUnit_cashout_Sets_keeps_buildable_True():
@@ -842,13 +841,13 @@ def test_BeliefUnit_cashout_Sets_keeps_buildable_True():
     usa_rope = sue_beliefunit.make_rope(nation_rope, "USA")
     oregon_rope = sue_beliefunit.make_rope(usa_rope, "Oregon")
     sue_healerunit = healerunit_shop({exx.sue})
-    sue_beliefunit.edit_plan_attr(
+    sue_beliefunit.edit_keg_attr(
         oregon_rope, problem_bool=True, healerunit=sue_healerunit
     )
 
     wk_rope = sue_beliefunit.make_l1_rope("sem_jours")
     bob_healerunit = healerunit_shop({exx.bob})
-    sue_beliefunit.edit_plan_attr(wk_rope, problem_bool=True, healerunit=bob_healerunit)
+    sue_beliefunit.edit_keg_attr(wk_rope, problem_bool=True, healerunit=bob_healerunit)
 
     # WHEN
     sue_beliefunit.cashout()
@@ -874,9 +873,9 @@ def test_BeliefUnit_cashout_Sets_keeps_buildable_False():
     oregon_rope = sue_beliefunit.make_rope(usa_rope, "Oregon")
     bend_str = "Be/nd"
     bend_rope = sue_beliefunit.make_rope(oregon_rope, bend_str)
-    sue_beliefunit.set_plan_obj(planunit_shop(bend_str), oregon_rope)
+    sue_beliefunit.set_keg_obj(kegunit_shop(bend_str), oregon_rope)
     sue_healerunit = healerunit_shop({exx.sue})
-    sue_beliefunit.edit_plan_attr(
+    sue_beliefunit.edit_keg_attr(
         bend_rope, problem_bool=True, healerunit=sue_healerunit
     )
     assert sue_beliefunit.keeps_buildable

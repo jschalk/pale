@@ -231,18 +231,18 @@ def test_LessonFileHandler_append_lessons_to_gut_file_AddsLessonsTogutFile(
     sue_lessonfilehandler.initialize_lesson_gut_files()
     sue_lessonfilehandler.save_lesson_file(sue_2beliefatoms_lessonunit())
     gut_belief = open_gut_file(env_dir(), exx.a23, exx.sue)
-    # gut_belief.add_plan(gut_belief.make_l1_rope("sports"))
+    # gut_belief.add_keg(gut_belief.make_l1_rope("sports"))
     sports_str = "sports"
     sports_rope = gut_belief.make_l1_rope(sports_str)
     knee_str = "knee"
     knee_rope = gut_belief.make_rope(sports_rope, knee_str)
-    assert gut_belief.plan_exists(sports_rope) is False
-    assert gut_belief.plan_exists(knee_rope) is False
+    assert gut_belief.keg_exists(sports_rope) is False
+    assert gut_belief.keg_exists(knee_rope) is False
 
     # WHEN
     new_belief = sue_lessonfilehandler.append_lessons_to_gut_file()
 
     # THEN
     assert new_belief != gut_belief
-    assert new_belief.plan_exists(sports_rope)
-    assert new_belief.plan_exists(knee_rope)
+    assert new_belief.keg_exists(sports_rope)
+    assert new_belief.keg_exists(knee_rope)

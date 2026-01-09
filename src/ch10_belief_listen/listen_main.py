@@ -2,7 +2,7 @@ from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from src.ch02_allot.allot import allot_scale
 from src.ch04_rope.rope import get_ancestor_ropes, get_first_label_from_rope
-from src.ch06_plan.plan import PlanUnit
+from src.ch06_keg.keg import KegUnit
 from src.ch07_belief_logic.belief_main import BeliefUnit, VoiceUnit
 from src.ch09_belief_lesson.lesson_filehandler import LessonFileHandler, open_gut_file
 from src.ch10_belief_listen._ref.ch10_semantic_types import BeliefName, RopeTerm
@@ -26,19 +26,19 @@ class Missing_debtor_respectException(Exception):
     pass
 
 
-def generate_perspective_agenda(perspective_belief: BeliefUnit) -> list[PlanUnit]:
-    for x_factunit in perspective_belief.planroot.factunits.values():
+def generate_perspective_agenda(perspective_belief: BeliefUnit) -> list[KegUnit]:
+    for x_factunit in perspective_belief.kegroot.factunits.values():
         x_factunit.set_fact_state_to_fact_context()
     return list(perspective_belief.get_agenda_dict().values())
 
 
 def _ingest_perspective_agenda(
-    listener: BeliefUnit, agenda: list[PlanUnit]
+    listener: BeliefUnit, agenda: list[KegUnit]
 ) -> BeliefUnit:
     debtor_respect = listener.debtor_respect
     ingest_list = generate_ingest_list(agenda, debtor_respect, listener.respect_grain)
-    for ingest_planunit in ingest_list:
-        _ingest_single_planunit(listener, ingest_planunit)
+    for ingest_kegunit in ingest_list:
+        _ingest_single_kegunit(listener, ingest_kegunit)
     return listener
 
 
@@ -62,27 +62,27 @@ def _allocate_inallocable_voice_debt_lumen(
 
 
 def generate_ingest_list(
-    plan_list: list[PlanUnit], debtor_respect: float, respect_grain: float
-) -> list[PlanUnit]:
-    plan_ledger = {x_plan.get_plan_rope(): x_plan.star for x_plan in plan_list}
-    star_allot = allot_scale(plan_ledger, debtor_respect, respect_grain)
-    for x_planunit in plan_list:
-        x_planunit.star = star_allot.get(x_planunit.get_plan_rope())
-    return plan_list
+    keg_list: list[KegUnit], debtor_respect: float, respect_grain: float
+) -> list[KegUnit]:
+    keg_ledger = {x_keg.get_keg_rope(): x_keg.star for x_keg in keg_list}
+    star_allot = allot_scale(keg_ledger, debtor_respect, respect_grain)
+    for x_kegunit in keg_list:
+        x_kegunit.star = star_allot.get(x_kegunit.get_keg_rope())
+    return keg_list
 
 
-def _ingest_single_planunit(listener: BeliefUnit, ingest_planunit: PlanUnit):
-    star_data = _create_star_data(listener, ingest_planunit.get_plan_rope())
+def _ingest_single_kegunit(listener: BeliefUnit, ingest_kegunit: KegUnit):
+    star_data = _create_star_data(listener, ingest_kegunit.get_keg_rope())
 
-    if listener.plan_exists(ingest_planunit.get_plan_rope()) is False:
-        x_parent_rope = ingest_planunit.parent_rope
-        listener.set_plan_obj(ingest_planunit, x_parent_rope, create_missing_plans=True)
+    if listener.keg_exists(ingest_kegunit.get_keg_rope()) is False:
+        x_parent_rope = ingest_kegunit.parent_rope
+        listener.set_keg_obj(ingest_kegunit, x_parent_rope, create_missing_kegs=True)
 
-    _add_and_replace_planunit_stars(
+    _add_and_replace_kegunit_stars(
         listener=listener,
         replace_star_list=star_data.replace_star_list,
         add_to_star_list=star_data.add_to_star_list,
-        x_star=ingest_planunit.star,
+        x_star=ingest_kegunit.star,
     )
 
 
@@ -100,24 +100,24 @@ def _create_star_data(listener: BeliefUnit, x_rope: RopeTerm) -> list:
     root_rope = get_first_label_from_rope(x_rope, listener.knot)
     for ancestor_rope in ancestor_ropes:
         if ancestor_rope != root_rope:
-            if listener.plan_exists(ancestor_rope):
+            if listener.keg_exists(ancestor_rope):
                 star_data.add_to_star_list.append(ancestor_rope)
             else:
                 star_data.replace_star_list.append(ancestor_rope)
     return star_data
 
 
-def _add_and_replace_planunit_stars(
+def _add_and_replace_kegunit_stars(
     listener: BeliefUnit,
     replace_star_list: list[RopeTerm],
     add_to_star_list: list[RopeTerm],
     x_star: float,
 ) -> None:
-    for plan_rope in replace_star_list:
-        listener.edit_plan_attr(plan_rope, star=x_star)
-    for plan_rope in add_to_star_list:
-        x_planunit = listener.get_plan_obj(plan_rope)
-        x_planunit.star += x_star
+    for keg_rope in replace_star_list:
+        listener.edit_keg_attr(keg_rope, star=x_star)
+    for keg_rope in add_to_star_list:
+        x_kegunit = listener.get_keg_obj(keg_rope)
+        x_kegunit.star += x_star
 
 
 def get_debtors_roll(x_duty: BeliefUnit) -> list[VoiceUnit]:
@@ -137,17 +137,15 @@ def get_ordered_debtors_roll(x_belief: BeliefUnit) -> list[VoiceUnit]:
 
 
 def migrate_all_facts(src_listener: BeliefUnit, dst_listener: BeliefUnit):
-    for x_factunit in src_listener.planroot.factunits.values():
+    for x_factunit in src_listener.kegroot.factunits.values():
         fact_context_rope = x_factunit.fact_context
         fact_state_rope = x_factunit.fact_state
-        if dst_listener.plan_exists(fact_context_rope) is False:
-            reason_context_plan = src_listener.get_plan_obj(fact_context_rope)
-            dst_listener.set_plan_obj(
-                reason_context_plan, reason_context_plan.parent_rope
-            )
-        if dst_listener.plan_exists(fact_state_rope) is False:
-            fact_state_plan = src_listener.get_plan_obj(fact_state_rope)
-            dst_listener.set_plan_obj(fact_state_plan, fact_state_plan.parent_rope)
+        if dst_listener.keg_exists(fact_context_rope) is False:
+            reason_context_keg = src_listener.get_keg_obj(fact_context_rope)
+            dst_listener.set_keg_obj(reason_context_keg, reason_context_keg.parent_rope)
+        if dst_listener.keg_exists(fact_state_rope) is False:
+            fact_state_keg = src_listener.get_keg_obj(fact_state_rope)
+            dst_listener.set_keg_obj(fact_state_keg, fact_state_keg.parent_rope)
         dst_listener.add_fact(fact_context_rope, fact_state_rope)
 
 
@@ -166,7 +164,7 @@ def listen_to_speaker_fact(
                 fact_state=x_factunit.fact_state,
                 fact_lower=x_factunit.fact_lower,
                 fact_upper=x_factunit.fact_upper,
-                create_missing_plans=True,
+                create_missing_kegs=True,
             )
 
 
@@ -394,13 +392,13 @@ def fact_state_keep_vision_and_listen(
 
 
 def listen_to_vision_agenda(listener: BeliefUnit, vision: BeliefUnit):
-    for x_plan in vision._plan_dict.values():
-        if listener.plan_exists(x_plan.get_plan_rope()) is False:
-            listener.set_plan_obj(x_plan, x_plan.parent_rope)
-        if listener.get_fact(x_plan.get_plan_rope()) is False:
-            listener.set_plan_obj(x_plan, x_plan.parent_rope)
-    for x_fact_rope, x_fact_unit in vision.planroot.factunits.items():
-        listener.planroot.set_factunit(x_fact_unit)
+    for x_keg in vision._keg_dict.values():
+        if listener.keg_exists(x_keg.get_keg_rope()) is False:
+            listener.set_keg_obj(x_keg, x_keg.parent_rope)
+        if listener.get_fact(x_keg.get_keg_rope()) is False:
+            listener.set_keg_obj(x_keg, x_keg.parent_rope)
+    for x_fact_rope, x_fact_unit in vision.kegroot.factunits.items():
+        listener.kegroot.set_factunit(x_fact_unit)
     listener.cashout()
 
 

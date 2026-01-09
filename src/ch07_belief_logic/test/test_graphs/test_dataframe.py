@@ -81,7 +81,7 @@ def test_get_belief_agenda_dataframe_ReturnsDataFrame():
     voiceunit_colums = {
         kw.belief_name,
         "fund_ratio",
-        kw.plan_label,
+        kw.keg_label,
         kw.parent_rope,
         kw.begin,
         kw.close,
@@ -109,7 +109,7 @@ def test_get_belief_agenda_dataframe_ReturnsEmptyDataFrame():
     voiceunit_colums = {
         kw.belief_name,
         "fund_ratio",
-        kw.plan_label,
+        kw.keg_label,
         kw.parent_rope,
         kw.begin,
         kw.close,

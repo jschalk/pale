@@ -96,7 +96,7 @@ def get_atom_args_class_types() -> dict[str, str]:
         "pledge": "bool",
         "problem_bool": "bool",
         "respect_grain": "float",
-        "plan_rope": "RopeTerm",
+        "keg_rope": "RopeTerm",
         "star": "int",
         "stop_want": "float",
         "solo": "int",
@@ -230,13 +230,13 @@ def get_belief_dimens() -> set:
         "beliefunit",
         "belief_voiceunit",
         "belief_voice_membership",
-        "belief_planunit",
-        "belief_plan_awardunit",
-        "belief_plan_reasonunit",
-        "belief_plan_reason_caseunit",
-        "belief_plan_partyunit",
-        "belief_plan_healerunit",
-        "belief_plan_factunit",
+        "belief_kegunit",
+        "belief_keg_awardunit",
+        "belief_keg_reasonunit",
+        "belief_keg_reason_caseunit",
+        "belief_keg_partyunit",
+        "belief_keg_healerunit",
+        "belief_keg_factunit",
     }
 
 
@@ -250,7 +250,7 @@ def get_all_belief_dimen_keys() -> set:
         "healer_name",
         "reason_state",
         "belief_name",
-        "plan_rope",
+        "keg_rope",
         "party_title",
     }
 
@@ -269,7 +269,7 @@ def get_all_belief_dimen_delete_keys() -> set:
         "healer_name_ERASE",
         "reason_state_ERASE",
         "belief_name_ERASE",
-        "plan_rope_ERASE",
+        "keg_rope_ERASE",
         "party_title_ERASE",
     }
 

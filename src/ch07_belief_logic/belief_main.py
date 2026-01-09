@@ -33,13 +33,13 @@ from src.ch04_rope.rope import (
     to_rope,
 )
 from src.ch05_reason.reason_main import FactUnit, ReasonUnit, RopeTerm, factunit_shop
-from src.ch06_plan.healer import HealerUnit
-from src.ch06_plan.plan import (
-    PlanAttrHolder,
-    PlanUnit,
-    get_obj_from_plan_dict,
-    planattrholder_shop,
-    planunit_shop,
+from src.ch06_keg.healer import HealerUnit
+from src.ch06_keg.keg import (
+    KegAttrHolder,
+    KegUnit,
+    get_obj_from_keg_dict,
+    kegattrholder_shop,
+    kegunit_shop,
 )
 from src.ch07_belief_logic._ref.ch07_semantic_types import (
     BeliefName,
@@ -117,20 +117,20 @@ class BeliefUnit:
     mana_grain: ManaGrain = None
     tally: float = None
     voices: dict[VoiceName, VoiceUnit] = None
-    planroot: PlanUnit = None
+    kegroot: KegUnit = None
     credor_respect: RespectNum = None
     debtor_respect: RespectNum = None
     max_tree_traverse: int = None
     last_lesson_id: int = None
     # fields calculated by cashout
-    _plan_dict: dict[RopeTerm, PlanUnit] = None
-    _keep_dict: dict[RopeTerm, PlanUnit] = None
-    _healers_dict: dict[HealerName, dict[RopeTerm, PlanUnit]] = None
+    _keg_dict: dict[RopeTerm, KegUnit] = None
+    _keep_dict: dict[RopeTerm, KegUnit] = None
+    _healers_dict: dict[HealerName, dict[RopeTerm, KegUnit]] = None
     tree_traverse_count: int = None
     rational: bool = None
     keeps_justified: bool = None
     keeps_buildable: bool = None
-    sum_healerunit_plans_fund_total: float = None
+    sum_healerunit_kegs_fund_total: float = None
     groupunits: dict[GroupTitle, GroupUnit] = None
     offtrack_kids_star_set: set[RopeTerm] = None
     offtrack_fund: float = None
@@ -182,20 +182,20 @@ class BeliefUnit:
         )
 
     def make_l1_rope(self, l1_label: LabelTerm):
-        return self.make_rope(self.planroot.plan_label, l1_label)
+        return self.make_rope(self.kegroot.keg_label, l1_label)
 
     def set_knot(self, new_knot: KnotTerm):
         self.cashout()
         if self.knot != new_knot:
-            for x_plan_rope in self._plan_dict.keys():
-                if is_string_in_rope(new_knot, x_plan_rope):
-                    exception_str = f"Cannot modify knot to '{new_knot}' because it exists an plan plan_label '{x_plan_rope}'"
+            for x_keg_rope in self._keg_dict.keys():
+                if is_string_in_rope(new_knot, x_keg_rope):
+                    exception_str = f"Cannot modify knot to '{new_knot}' because it exists an keg keg_label '{x_keg_rope}'"
                     raise NewKnotException(exception_str)
 
-            # modify all rope attrs in planunits
+            # modify all rope attrs in kegunits
             self.knot = default_knot_if_None(new_knot)
-            for x_plan in self._plan_dict.values():
-                x_plan.set_knot(self.knot)
+            for x_keg in self._keg_dict.values():
+                x_keg.set_knot(self.knot)
 
     def set_max_tree_traverse(self, x_int: int):
         if x_int < 2 or not float(x_int).is_integer():
@@ -218,8 +218,8 @@ class BeliefUnit:
         # nice to avoid infinite loops from programming errors though...
         while to_evaluate_list != []:
             x_rope = to_evaluate_list.pop()
-            x_plan = self.get_plan_obj(x_rope)
-            for reasonunit_obj in x_plan.reasonunits.values():
+            x_keg = self.get_keg_obj(x_rope)
+            for reasonunit_obj in x_keg.reasonunits.values():
                 reason_context = reasonunit_obj.reason_context
                 self._evaluate_relevancy(
                     to_evaluate_list=to_evaluate_list,
@@ -251,10 +251,10 @@ class BeliefUnit:
             to_evaluate_hx_dict[to_evaluate_rope] = rope_type
 
             if rope_type == "reasonunit_reason_context":
-                ru_reason_context_plan = self.get_plan_obj(to_evaluate_rope)
+                ru_reason_context_keg = self.get_keg_obj(to_evaluate_rope)
                 for (
                     descendant_rope
-                ) in ru_reason_context_plan.get_descendant_ropes_from_kids():
+                ) in ru_reason_context_keg.get_descendant_ropes_from_kids():
                     self._evaluate_relevancy(
                         to_evaluate_list=to_evaluate_list,
                         to_evaluate_hx_dict=to_evaluate_hx_dict,
@@ -262,10 +262,10 @@ class BeliefUnit:
                         rope_type="reasonunit_descendant",
                     )
 
-    def all_plans_relevant_to_pledge_plan(self, rope: RopeTerm) -> bool:
-        pledge_plan_assoc_set = set(self._get_relevant_ropes({rope}))
-        all_plans_set = set(self.get_plan_tree_ordered_rope_list())
-        return all_plans_set == all_plans_set & (pledge_plan_assoc_set)
+    def all_kegs_relevant_to_pledge_keg(self, rope: RopeTerm) -> bool:
+        pledge_keg_assoc_set = set(self._get_relevant_ropes({rope}))
+        all_kegs_set = set(self.get_keg_tree_ordered_rope_list())
+        return all_kegs_set == all_kegs_set & (pledge_keg_assoc_set)
 
     def get_awardunits_metrics(self) -> dict[GroupTitle, AwardUnit]:
         tree_metrics = self.get_tree_metrics()
@@ -397,18 +397,18 @@ class BeliefUnit:
         all_group_titles = set(self.groupunits.keys())
         return all_group_titles.difference(x_voiceunit_group_titles)
 
-    def _is_plan_rangeroot(self, plan_rope: RopeTerm) -> bool:
-        parent_rope = get_parent_rope(plan_rope)
-        parent_plan = self.get_plan_obj(parent_rope)
-        return not parent_plan.has_begin_close()
+    def _is_keg_rangeroot(self, keg_rope: RopeTerm) -> bool:
+        parent_rope = get_parent_rope(keg_rope)
+        parent_keg = self.get_keg_obj(parent_rope)
+        return not parent_keg.has_begin_close()
 
     def _get_rangeroot_factunits(self) -> list[FactUnit]:
         return [
             fact
-            for fact in self.planroot.factunits.values()
+            for fact in self.kegroot.factunits.values()
             if fact.fact_lower is not None
             and fact.fact_upper is not None
-            and self._is_plan_rangeroot(plan_rope=fact.fact_context)
+            and self._is_keg_rangeroot(keg_rope=fact.fact_context)
         ]
 
     def add_fact(
@@ -417,24 +417,24 @@ class BeliefUnit:
         fact_state: RopeTerm = None,
         fact_lower: FactNum = None,
         fact_upper: FactNum = None,
-        create_missing_plans: bool = None,
+        create_missing_kegs: bool = None,
     ):
-        """Sets planroot factunit"""
+        """Sets kegroot factunit"""
         fact_state = fact_context if fact_state is None else fact_state
-        if create_missing_plans:
-            self._create_plankid_if_empty(rope=fact_context)
-            self._create_plankid_if_empty(rope=fact_state)
+        if create_missing_kegs:
+            self._create_kegkid_if_empty(rope=fact_context)
+            self._create_kegkid_if_empty(rope=fact_state)
 
-        fact_context_plan = self.get_plan_obj(fact_context)
-        x_planroot = self.planroot
+        fact_context_keg = self.get_keg_obj(fact_context)
+        x_kegroot = self.kegroot
         x_fact_lower = None
         if fact_upper is not None and fact_lower is None:
-            x_fact_lower = x_planroot.factunits.get(fact_context).fact_lower
+            x_fact_lower = x_kegroot.factunits.get(fact_context).fact_lower
         else:
             x_fact_lower = fact_lower
         x_fact_upper = None
         if fact_lower is not None and fact_upper is None:
-            x_fact_upper = x_planroot.factunits.get(fact_context).fact_upper
+            x_fact_upper = x_kegroot.factunits.get(fact_context).fact_upper
         else:
             x_fact_upper = fact_upper
         x_factunit = factunit_shop(
@@ -444,20 +444,20 @@ class BeliefUnit:
             fact_upper=x_fact_upper,
         )
 
-        if fact_context_plan.has_begin_close() is False:
-            x_planroot.set_factunit(x_factunit)
-        # if fact's plan no range or is a "rangeroot" then allow fact to be set
+        if fact_context_keg.has_begin_close() is False:
+            x_kegroot.set_factunit(x_factunit)
+        # if fact's keg no range or is a "rangeroot" then allow fact to be set
         elif (
-            fact_context_plan.has_begin_close()
-            and self._is_plan_rangeroot(fact_context) is False
+            fact_context_keg.has_begin_close()
+            and self._is_keg_rangeroot(fact_context) is False
         ):
             raise InvalidBeliefException(
                 f"Non rangeroot fact:{fact_context} can only be set by rangeroot fact"
             )
-        elif fact_context_plan.has_begin_close() and self._is_plan_rangeroot(
+        elif fact_context_keg.has_begin_close() and self._is_keg_rangeroot(
             fact_context
         ):
-            # WHEN plan is "rangeroot" identify any reason.reason_contexts that are descendants
+            # WHEN keg is "rangeroot" identify any reason.reason_contexts that are descendants
             # calculate and set those descendant facts
             # example: zietline range (0-, 1.5e9) is rangeroot
             # example: "zietline,wks" (spllt 10080) is range-descendant
@@ -467,76 +467,70 @@ class BeliefUnit:
             # should not set "zietline,wks" fact, only "zietline" fact and
             # "zietline,wks" should be set automatica_lly since there exists a reason
             # that has that reason_context.
-            x_planroot.set_factunit(x_factunit)
+            x_kegroot.set_factunit(x_factunit)
 
     def get_fact(self, fact_context: RopeTerm) -> FactUnit:
-        return self.planroot.factunits.get(fact_context)
+        return self.kegroot.factunits.get(fact_context)
 
     def del_fact(self, fact_context: RopeTerm):
-        self.planroot.del_factunit(fact_context)
+        self.kegroot.del_factunit(fact_context)
 
-    def get_plan_dict(self, problem: bool = None) -> dict[RopeTerm, PlanUnit]:
+    def get_keg_dict(self, problem: bool = None) -> dict[RopeTerm, KegUnit]:
         self.cashout()
         if not problem:
-            return self._plan_dict
+            return self._keg_dict
         if self.keeps_justified is False:
             exception_str = f"Cannot return problem set because keeps_justified={self.keeps_justified}."
             raise keeps_justException(exception_str)
 
-        x_plans = self._plan_dict.values()
-        return {
-            x_plan.get_plan_rope(): x_plan for x_plan in x_plans if x_plan.problem_bool
-        }
+        x_kegs = self._keg_dict.values()
+        return {x_keg.get_keg_rope(): x_keg for x_keg in x_kegs if x_keg.problem_bool}
 
     def get_tree_metrics(self) -> TreeMetrics:
         self.cashout()
         tree_metrics = treemetrics_shop()
         tree_metrics.evaluate_label(
-            tree_level=self.planroot.tree_level,
-            reasons=self.planroot.reasonunits,
-            awardunits=self.planroot.awardunits,
-            uid=self.planroot.uid,
-            pledge=self.planroot.pledge,
-            plan_rope=self.planroot.get_plan_rope(),
+            tree_level=self.kegroot.tree_level,
+            reasons=self.kegroot.reasonunits,
+            awardunits=self.kegroot.awardunits,
+            uid=self.kegroot.uid,
+            pledge=self.kegroot.pledge,
+            keg_rope=self.kegroot.get_keg_rope(),
         )
 
-        x_plan_list = [self.planroot]
-        while x_plan_list != []:
-            parent_plan = x_plan_list.pop()
-            for plan_kid in parent_plan.kids.values():
-                self._eval_tree_metrics(
-                    parent_plan, plan_kid, tree_metrics, x_plan_list
-                )
+        x_keg_list = [self.kegroot]
+        while x_keg_list != []:
+            parent_keg = x_keg_list.pop()
+            for keg_kid in parent_keg.kids.values():
+                self._eval_tree_metrics(parent_keg, keg_kid, tree_metrics, x_keg_list)
         return tree_metrics
 
-    def _eval_tree_metrics(self, parent_plan, plan_kid, tree_metrics, x_plan_list):
-        plan_kid.tree_level = parent_plan.tree_level + 1
+    def _eval_tree_metrics(self, parent_keg, keg_kid, tree_metrics, x_keg_list):
+        keg_kid.tree_level = parent_keg.tree_level + 1
         tree_metrics.evaluate_label(
-            tree_level=plan_kid.tree_level,
-            reasons=plan_kid.reasonunits,
-            awardunits=plan_kid.awardunits,
-            uid=plan_kid.uid,
-            pledge=plan_kid.pledge,
-            plan_rope=plan_kid.get_plan_rope(),
+            tree_level=keg_kid.tree_level,
+            reasons=keg_kid.reasonunits,
+            awardunits=keg_kid.awardunits,
+            uid=keg_kid.uid,
+            pledge=keg_kid.pledge,
+            keg_rope=keg_kid.get_keg_rope(),
         )
-        x_plan_list.append(plan_kid)
+        x_keg_list.append(keg_kid)
 
-    def get_plan_uid_max(self) -> int:
+    def get_keg_uid_max(self) -> int:
         tree_metrics = self.get_tree_metrics()
         return tree_metrics.uid_max
 
-    def set_all_plan_uids_unique(self):
+    def set_all_keg_uids_unique(self):
         tree_metrics = self.get_tree_metrics()
-        plan_uid_max = tree_metrics.uid_max
-        plan_uid_dict = tree_metrics.uid_dict
+        keg_uid_max = tree_metrics.uid_max
+        keg_uid_dict = tree_metrics.uid_dict
 
-        for x_plan in self.get_plan_dict().values():
-            if x_plan.uid is None or plan_uid_dict.get(x_plan.uid) > 1:
-                new_plan_uid_max = plan_uid_max + 1
-                self.edit_plan_attr(
-                    plan_rope=x_plan.get_plan_rope(), uid=new_plan_uid_max
-                )
-                plan_uid_max = new_plan_uid_max
+        for x_keg in self.get_keg_dict().values():
+            if x_keg.uid is None or keg_uid_dict.get(x_keg.uid) > 1:
+                new_keg_uid_max = keg_uid_max + 1
+                self.edit_keg_attr(keg_rope=x_keg.get_keg_rope(), uid=new_keg_uid_max)
+                keg_uid_max = new_keg_uid_max
 
     def get_reason_contexts(self) -> set[RopeTerm]:
         return set(self.get_tree_metrics().reason_contexts.keys())
@@ -547,216 +541,214 @@ class BeliefUnit:
         missing_reason_contexts = {}
         for reason_context, reason_context_count in reason_contexts.items():
             try:
-                self.planroot.factunits[reason_context]
+                self.kegroot.factunits[reason_context]
             except KeyError:
                 missing_reason_contexts[reason_context] = reason_context_count
         return missing_reason_contexts
 
-    def add_plan(
-        self, plan_rope: RopeTerm, star: float = None, pledge: bool = None
-    ) -> PlanUnit:
+    def add_keg(
+        self, keg_rope: RopeTerm, star: float = None, pledge: bool = None
+    ) -> KegUnit:
         """default star is 0, pledges will have weight of 0 if star is not passed"""
-        x_plan_label = get_tail_label(plan_rope, self.knot)
-        x_parent_rope = get_parent_rope(plan_rope, self.knot)
-        x_planunit = planunit_shop(x_plan_label, star=star)
+        x_keg_label = get_tail_label(keg_rope, self.knot)
+        x_parent_rope = get_parent_rope(keg_rope, self.knot)
+        x_kegunit = kegunit_shop(x_keg_label, star=star)
         if pledge:
-            x_planunit.pledge = True
-        self.set_plan_obj(x_planunit, x_parent_rope)
-        return x_planunit
+            x_kegunit.pledge = True
+        self.set_keg_obj(x_kegunit, x_parent_rope)
+        return x_kegunit
 
-    def set_l1_plan(
+    def set_l1_keg(
         self,
-        plan_kid: PlanUnit,
-        create_missing_plans: bool = None,
+        keg_kid: KegUnit,
+        create_missing_kegs: bool = None,
         get_rid_of_missing_awardunits_awardee_titles: bool = None,
         adoptees: list[str] = None,
         bundling: bool = True,
         create_missing_ancestors: bool = True,
     ):
-        self.set_plan_obj(
-            plan_kid=plan_kid,
-            parent_rope=self.planroot.get_plan_rope(),
-            create_missing_plans=create_missing_plans,
+        self.set_keg_obj(
+            keg_kid=keg_kid,
+            parent_rope=self.kegroot.get_keg_rope(),
+            create_missing_kegs=create_missing_kegs,
             get_rid_of_missing_awardunits_awardee_titles=get_rid_of_missing_awardunits_awardee_titles,
             adoptees=adoptees,
             bundling=bundling,
             create_missing_ancestors=create_missing_ancestors,
         )
 
-    def set_plan_obj(
+    def set_keg_obj(
         self,
-        plan_kid: PlanUnit,
+        keg_kid: KegUnit,
         parent_rope: RopeTerm,
         get_rid_of_missing_awardunits_awardee_titles: bool = None,
-        create_missing_plans: bool = None,
+        create_missing_kegs: bool = None,
         adoptees: list[str] = None,
         bundling: bool = True,
         create_missing_ancestors: bool = True,
     ):
         parent_rope = to_rope(parent_rope, self.knot)
-        if LabelTerm(plan_kid.plan_label).is_label(self.knot) is False:
-            x_str = (
-                f"set_plan failed because '{plan_kid.plan_label}' is not a LabelTerm."
-            )
+        if LabelTerm(keg_kid.keg_label).is_label(self.knot) is False:
+            x_str = f"set_keg failed because '{keg_kid.keg_label}' is not a LabelTerm."
             raise InvalidBeliefException(x_str)
 
         x_first_label = get_first_label_from_rope(parent_rope, self.knot)
-        if self.planroot.plan_label != x_first_label:
-            exception_str = f"set_plan failed because parent_rope '{parent_rope}' has an invalid root rope. Should be {self.planroot.get_plan_rope()}."
+        if self.kegroot.keg_label != x_first_label:
+            exception_str = f"set_keg failed because parent_rope '{parent_rope}' has an invalid root rope. Should be {self.kegroot.get_keg_rope()}."
             raise InvalidBeliefException(exception_str)
 
-        plan_kid.knot = self.knot
-        if plan_kid.fund_grain != self.fund_grain:
-            plan_kid.fund_grain = self.fund_grain
+        keg_kid.knot = self.knot
+        if keg_kid.fund_grain != self.fund_grain:
+            keg_kid.fund_grain = self.fund_grain
         if not get_rid_of_missing_awardunits_awardee_titles:
-            plan_kid = self._get_filtered_awardunits_plan(plan_kid)
-        plan_kid.set_parent_rope(parent_rope=parent_rope)
+            keg_kid = self._get_filtered_awardunits_keg(keg_kid)
+        keg_kid.set_parent_rope(parent_rope=parent_rope)
 
-        # create any missing plans
-        if not create_missing_ancestors and self.plan_exists(parent_rope) is False:
-            x_str = f"set_plan failed because '{parent_rope}' plan does not exist."
+        # create any missing kegs
+        if not create_missing_ancestors and self.keg_exists(parent_rope) is False:
+            x_str = f"set_keg failed because '{parent_rope}' keg does not exist."
             raise InvalidBeliefException(x_str)
-        parent_rope_plan = self.get_plan_obj(parent_rope, create_missing_ancestors)
-        parent_rope_plan.add_kid(plan_kid)
+        parent_rope_keg = self.get_keg_obj(parent_rope, create_missing_ancestors)
+        parent_rope_keg.add_kid(keg_kid)
 
-        kid_rope = self.make_rope(parent_rope, plan_kid.plan_label)
+        kid_rope = self.make_rope(parent_rope, keg_kid.keg_label)
         if adoptees is not None:
             star_sum = 0
-            for adoptee_plan_label in adoptees:
-                adoptee_rope = self.make_rope(parent_rope, adoptee_plan_label)
-                adoptee_plan = self.get_plan_obj(adoptee_rope)
-                star_sum += adoptee_plan.star
-                new_adoptee_parent_rope = self.make_rope(kid_rope, adoptee_plan_label)
-                self.set_plan_obj(adoptee_plan, new_adoptee_parent_rope)
-                self.edit_plan_attr(new_adoptee_parent_rope, star=adoptee_plan.star)
-                self.del_plan_obj(adoptee_rope)
+            for adoptee_keg_label in adoptees:
+                adoptee_rope = self.make_rope(parent_rope, adoptee_keg_label)
+                adoptee_keg = self.get_keg_obj(adoptee_rope)
+                star_sum += adoptee_keg.star
+                new_adoptee_parent_rope = self.make_rope(kid_rope, adoptee_keg_label)
+                self.set_keg_obj(adoptee_keg, new_adoptee_parent_rope)
+                self.edit_keg_attr(new_adoptee_parent_rope, star=adoptee_keg.star)
+                self.del_keg_obj(adoptee_rope)
 
             if bundling:
-                self.edit_plan_attr(kid_rope, star=star_sum)
+                self.edit_keg_attr(kid_rope, star=star_sum)
 
-        if create_missing_plans:
-            self._create_missing_plans(rope=kid_rope)
+        if create_missing_kegs:
+            self._create_missing_kegs(rope=kid_rope)
 
-    def _get_filtered_awardunits_plan(self, x_plan: PlanUnit) -> PlanUnit:
+    def _get_filtered_awardunits_keg(self, x_keg: KegUnit) -> KegUnit:
         awardunits_to_delete = [
             awardunit_awardee_title
-            for awardunit_awardee_title in x_plan.awardunits.keys()
+            for awardunit_awardee_title in x_keg.awardunits.keys()
             if self.get_voiceunit_group_titles_dict().get(awardunit_awardee_title)
             is None
         ]
         for awardunit_awardee_title in awardunits_to_delete:
-            x_plan.awardunits.pop(awardunit_awardee_title)
-        if x_plan.laborunit is not None:
+            x_keg.awardunits.pop(awardunit_awardee_title)
+        if x_keg.laborunit is not None:
             partys_to_delete = [
                 _partyunit_party_title
-                for _partyunit_party_title in x_plan.laborunit.partys
+                for _partyunit_party_title in x_keg.laborunit.partys
                 if self.get_voiceunit_group_titles_dict().get(_partyunit_party_title)
                 is None
             ]
             for _partyunit_party_title in partys_to_delete:
-                x_plan.laborunit.del_partyunit(_partyunit_party_title)
-        return x_plan
+                x_keg.laborunit.del_partyunit(_partyunit_party_title)
+        return x_keg
 
-    def _create_missing_plans(self, rope):
-        self._set_plan_dict()
-        posted_plan = self.get_plan_obj(rope)
+    def _create_missing_kegs(self, rope):
+        self._set_keg_dict()
+        posted_keg = self.get_keg_obj(rope)
 
-        for x_reason in posted_plan.reasonunits.values():
-            self._create_plankid_if_empty(rope=x_reason.reason_context)
+        for x_reason in posted_keg.reasonunits.values():
+            self._create_kegkid_if_empty(rope=x_reason.reason_context)
             for case_x in x_reason.cases.values():
-                self._create_plankid_if_empty(rope=case_x.reason_state)
+                self._create_kegkid_if_empty(rope=case_x.reason_state)
 
-    def _create_plankid_if_empty(self, rope: RopeTerm):
-        if self.plan_exists(rope) is False:
-            self.add_plan(rope)
+    def _create_kegkid_if_empty(self, rope: RopeTerm):
+        if self.keg_exists(rope) is False:
+            self.add_keg(rope)
 
-    def del_plan_obj(self, rope: RopeTerm, del_children: bool = True):
-        if rope == self.planroot.get_plan_rope():
-            raise InvalidBeliefException("Planroot cannot be deleted")
+    def del_keg_obj(self, rope: RopeTerm, del_children: bool = True):
+        if rope == self.kegroot.get_keg_rope():
+            raise InvalidBeliefException("Kegroot cannot be deleted")
         parent_rope = get_parent_rope(rope)
-        if self.plan_exists(rope):
+        if self.keg_exists(rope):
             if not del_children:
-                self._shift_plan_kids(x_rope=rope)
-            parent_plan = self.get_plan_obj(parent_rope)
-            parent_plan.del_kid(get_tail_label(rope, self.knot))
+                self._shift_keg_kids(x_rope=rope)
+            parent_keg = self.get_keg_obj(parent_rope)
+            parent_keg.del_kid(get_tail_label(rope, self.knot))
         self.cashout()
 
-    def _shift_plan_kids(self, x_rope: RopeTerm):
+    def _shift_keg_kids(self, x_rope: RopeTerm):
         parent_rope = get_parent_rope(x_rope)
-        d_temp_plan = self.get_plan_obj(x_rope)
-        for kid in d_temp_plan.kids.values():
-            self.set_plan_obj(kid, parent_rope=parent_rope)
+        d_temp_keg = self.get_keg_obj(x_rope)
+        for kid in d_temp_keg.kids.values():
+            self.set_keg_obj(kid, parent_rope=parent_rope)
 
     def set_belief_name(self, new_belief_name):
         self.belief_name = new_belief_name
 
-    def edit_plan_label(self, old_rope: RopeTerm, new_plan_label: LabelTerm):
-        if self.knot in new_plan_label:
-            exception_str = f"Cannot modify '{old_rope}' because new_plan_label {new_plan_label} contains knot {self.knot}"
+    def edit_keg_label(self, old_rope: RopeTerm, new_keg_label: LabelTerm):
+        if self.knot in new_keg_label:
+            exception_str = f"Cannot modify '{old_rope}' because new_keg_label {new_keg_label} contains knot {self.knot}"
             raise InvalidLabelException(exception_str)
-        if self.plan_exists(old_rope) is False:
-            raise InvalidBeliefException(f"Plan {old_rope=} does not exist")
+        if self.keg_exists(old_rope) is False:
+            raise InvalidBeliefException(f"Keg {old_rope=} does not exist")
 
         parent_rope = get_parent_rope(rope=old_rope)
         new_rope = (
-            self.make_rope(new_plan_label)
+            self.make_rope(new_keg_label)
             if parent_rope == ""
-            else self.make_rope(parent_rope, new_plan_label)
+            else self.make_rope(parent_rope, new_keg_label)
         )
         if old_rope != new_rope:
             if parent_rope == "":
-                self.planroot.set_plan_label(new_plan_label)
+                self.kegroot.set_keg_label(new_keg_label)
             else:
-                self._non_root_plan_label_edit(old_rope, new_plan_label, parent_rope)
-            self._planroot_find_replace_rope(old_rope=old_rope, new_rope=new_rope)
+                self._non_root_keg_label_edit(old_rope, new_keg_label, parent_rope)
+            self._kegroot_find_replace_rope(old_rope=old_rope, new_rope=new_rope)
 
-    def _non_root_plan_label_edit(
-        self, old_rope: RopeTerm, new_plan_label: LabelTerm, parent_rope: RopeTerm
+    def _non_root_keg_label_edit(
+        self, old_rope: RopeTerm, new_keg_label: LabelTerm, parent_rope: RopeTerm
     ):
-        x_plan = self.get_plan_obj(old_rope)
-        x_plan.set_plan_label(new_plan_label)
-        x_plan.parent_rope = parent_rope
-        plan_parent = self.get_plan_obj(get_parent_rope(old_rope))
-        plan_parent.kids.pop(get_tail_label(old_rope, self.knot))
-        plan_parent.kids[x_plan.plan_label] = x_plan
+        x_keg = self.get_keg_obj(old_rope)
+        x_keg.set_keg_label(new_keg_label)
+        x_keg.parent_rope = parent_rope
+        keg_parent = self.get_keg_obj(get_parent_rope(old_rope))
+        keg_parent.kids.pop(get_tail_label(old_rope, self.knot))
+        keg_parent.kids[x_keg.keg_label] = x_keg
 
-    def _planroot_find_replace_rope(self, old_rope: RopeTerm, new_rope: RopeTerm):
-        self.planroot.find_replace_rope(old_rope=old_rope, new_rope=new_rope)
+    def _kegroot_find_replace_rope(self, old_rope: RopeTerm, new_rope: RopeTerm):
+        self.kegroot.find_replace_rope(old_rope=old_rope, new_rope=new_rope)
 
-        plan_iter_list = [self.planroot]
-        while plan_iter_list != []:
-            listed_plan = plan_iter_list.pop()
-            # add all plan_children in plan list
-            if listed_plan.kids is not None:
-                for plan_kid in listed_plan.kids.values():
-                    plan_iter_list.append(plan_kid)
-                    if is_sub_rope(plan_kid.parent_rope, sub_rope=old_rope):
-                        plan_kid.parent_rope = rebuild_rope(
-                            subj_rope=plan_kid.parent_rope,
+        keg_iter_list = [self.kegroot]
+        while keg_iter_list != []:
+            listed_keg = keg_iter_list.pop()
+            # add all keg_children in keg list
+            if listed_keg.kids is not None:
+                for keg_kid in listed_keg.kids.values():
+                    keg_iter_list.append(keg_kid)
+                    if is_sub_rope(keg_kid.parent_rope, sub_rope=old_rope):
+                        keg_kid.parent_rope = rebuild_rope(
+                            subj_rope=keg_kid.parent_rope,
                             old_rope=old_rope,
                             new_rope=new_rope,
                         )
-                    plan_kid.find_replace_rope(old_rope=old_rope, new_rope=new_rope)
+                    keg_kid.find_replace_rope(old_rope=old_rope, new_rope=new_rope)
 
-    def _set_planattrholder_case_ranges(self, x_planattrholder: PlanAttrHolder):
-        case_plan = self.get_plan_obj(x_planattrholder.reason_case)
-        x_planattrholder.set_case_range_influenced_by_case_plan(
-            reason_lower=case_plan.begin,
-            reason_upper=case_plan.close,
-            case_denom=case_plan.denom,
+    def _set_kegattrholder_case_ranges(self, x_kegattrholder: KegAttrHolder):
+        case_keg = self.get_keg_obj(x_kegattrholder.reason_case)
+        x_kegattrholder.set_case_range_influenced_by_case_keg(
+            reason_lower=case_keg.begin,
+            reason_upper=case_keg.close,
+            case_denom=case_keg.denom,
         )
 
     def edit_reason(
         self,
-        plan_rope: RopeTerm,
+        keg_rope: RopeTerm,
         reason_context: RopeTerm = None,
         reason_case: RopeTerm = None,
         reason_lower: ReasonNum = None,
         reason_upper: ReasonNum = None,
         reason_divisor: int = None,
     ):
-        self.edit_plan_attr(
-            plan_rope=plan_rope,
+        self.edit_keg_attr(
+            keg_rope=keg_rope,
             reason_context=reason_context,
             reason_case=reason_case,
             reason_lower=reason_lower,
@@ -764,9 +756,9 @@ class BeliefUnit:
             reason_divisor=reason_divisor,
         )
 
-    def edit_plan_attr(
+    def edit_keg_attr(
         self,
-        plan_rope: RopeTerm,
+        keg_rope: RopeTerm,
         star: int = None,
         uid: int = None,
         reason: ReasonUnit = None,
@@ -798,7 +790,7 @@ class BeliefUnit:
         if healerunit is not None:
             for x_healer_name in healerunit._healer_names:
                 if self.get_voiceunit_group_titles_dict().get(x_healer_name) is None:
-                    exception_str = f"Plan cannot edit healerunit because group_title '{x_healer_name}' does not exist as group in Belief"
+                    exception_str = f"Keg cannot edit healerunit because group_title '{x_healer_name}' does not exist as group in Belief"
                     raise healerunit_group_title_Exception(exception_str)
 
         if (
@@ -807,12 +799,12 @@ class BeliefUnit:
             and not is_sub_rope(reason_case, reason_context)
         ):
             raise reason_caseException(
-                f"""Plan cannot edit reason because reason_case is not sub_rope to reason_context 
+                f"""Keg cannot edit reason because reason_case is not sub_rope to reason_context 
 reason_context: {reason_context}
 reason_case:    {reason_case}"""
             )
 
-        x_planattrholder = planattrholder_shop(
+        x_kegattrholder = kegattrholder_shop(
             star=star,
             uid=uid,
             reason=reason,
@@ -842,28 +834,28 @@ reason_case:    {reason_case}"""
             problem_bool=problem_bool,
         )
         if reason_case is not None:
-            self._set_planattrholder_case_ranges(x_planattrholder)
-        x_plan = self.get_plan_obj(plan_rope)
-        x_plan._set_attrs_to_planunit(plan_attr=x_planattrholder)
+            self._set_kegattrholder_case_ranges(x_kegattrholder)
+        x_keg = self.get_keg_obj(keg_rope)
+        x_keg._set_attrs_to_kegunit(keg_attr=x_kegattrholder)
 
     def get_agenda_dict(
         self, necessary_reason_context: RopeTerm = None
-    ) -> dict[RopeTerm, PlanUnit]:
+    ) -> dict[RopeTerm, KegUnit]:
         self.cashout()
         return {
-            x_plan.get_plan_rope(): x_plan
-            for x_plan in self._plan_dict.values()
-            if x_plan.is_agenda_plan(necessary_reason_context)
+            x_keg.get_keg_rope(): x_keg
+            for x_keg in self._keg_dict.values()
+            if x_keg.is_agenda_keg(necessary_reason_context)
         }
 
-    def get_all_pledges(self) -> dict[RopeTerm, PlanUnit]:
+    def get_all_pledges(self) -> dict[RopeTerm, KegUnit]:
         self.cashout()
-        all_plans = self._plan_dict.values()
-        return {x_plan.get_plan_rope(): x_plan for x_plan in all_plans if x_plan.pledge}
+        all_kegs = self._keg_dict.values()
+        return {x_keg.get_keg_rope(): x_keg for x_keg in all_kegs if x_keg.pledge}
 
     def set_agenda_task_complete(self, task_rope: RopeTerm, reason_context: RopeTerm):
-        pledge_plan = self.get_plan_obj(task_rope)
-        pledge_plan.set_factunit_to_complete(self.planroot.factunits[reason_context])
+        pledge_keg = self.get_keg_obj(task_rope)
+        pledge_keg.set_factunit_to_complete(self.kegroot.factunits[reason_context])
 
     def get_credit_ledger_debt_ledger(
         self,
@@ -888,13 +880,13 @@ reason_case:    {reason_case}"""
             voiceunit.get_voice_debt_lumen() for voiceunit in self.voices.values()
         )
 
-    def _add_to_voiceunits_fund_give_take(self, plan_plan_fund_total: float):
+    def _add_to_voiceunits_fund_give_take(self, keg_keg_fund_total: float):
         credor_ledger, debtor_ledger = self.get_credit_ledger_debt_ledger()
         fund_give_allot = allot_scale(
-            credor_ledger, plan_plan_fund_total, self.fund_grain
+            credor_ledger, keg_keg_fund_total, self.fund_grain
         )
         fund_take_allot = allot_scale(
-            debtor_ledger, plan_plan_fund_total, self.fund_grain
+            debtor_ledger, keg_keg_fund_total, self.fund_grain
         )
         for x_voice_name, voice_fund_give in fund_give_allot.items():
             self.get_voice(x_voice_name).add_fund_give(voice_fund_give)
@@ -907,13 +899,13 @@ reason_case:    {reason_case}"""
             if not self.reason_contexts:
                 self.get_voice(x_voice_name).add_fund_agenda_take(voice_fund_take)
 
-    def _add_to_voiceunits_fund_agenda_give_take(self, plan_plan_fund_total: float):
+    def _add_to_voiceunits_fund_agenda_give_take(self, keg_keg_fund_total: float):
         credor_ledger, debtor_ledger = self.get_credit_ledger_debt_ledger()
         fund_give_allot = allot_scale(
-            credor_ledger, plan_plan_fund_total, self.fund_grain
+            credor_ledger, keg_keg_fund_total, self.fund_grain
         )
         fund_take_allot = allot_scale(
-            debtor_ledger, plan_plan_fund_total, self.fund_grain
+            debtor_ledger, keg_keg_fund_total, self.fund_grain
         )
         for x_voice_name, voice_fund_give in fund_give_allot.items():
             self.get_voice(x_voice_name).add_fund_agenda_give(voice_fund_give)
@@ -924,7 +916,7 @@ reason_case:    {reason_case}"""
         for groupunit_obj in self.groupunits.values():
             groupunit_obj.clear_group_fund_give_take()
 
-    def _set_groupunits_plan_fund_total(self, awardheirs: dict[GroupTitle, AwardUnit]):
+    def _set_groupunits_keg_fund_total(self, awardheirs: dict[GroupTitle, AwardUnit]):
         for awardunit_obj in awardheirs.values():
             x_awardee_title = awardunit_obj.awardee_title
             if not self.groupunit_exists(x_awardee_title):
@@ -936,14 +928,14 @@ reason_case:    {reason_case}"""
             )
 
     def _allot_fund_belief_agenda(self):
-        for plan in self._plan_dict.values():
-            # If there are no awardlines associated with plan
-            # allot plan_fund_total via general voiceunit
+        for keg in self._keg_dict.values():
+            # If there are no awardlines associated with keg
+            # allot keg_fund_total via general voiceunit
             # cred ratio and debt ratio
-            # if plan.is_agenda_plan() and plan.awardlines == {}:
-            if plan.is_agenda_plan():
-                if plan.awardheir_exists():
-                    for x_awardline in plan.awardlines.values():
+            # if keg.is_agenda_keg() and keg.awardlines == {}:
+            if keg.is_agenda_keg():
+                if keg.awardheir_exists():
+                    for x_awardline in keg.awardlines.values():
                         self.add_to_groupunit_fund_agenda_give_take(
                             group_title=x_awardline.awardee_title,
                             awardline_fund_give=x_awardline.fund_give,
@@ -951,7 +943,7 @@ reason_case:    {reason_case}"""
                         )
                 else:
                     self._add_to_voiceunits_fund_agenda_give_take(
-                        plan.get_plan_fund_total()
+                        keg.get_keg_fund_total()
                     )
 
     def _allot_groupunits_fund(self):
@@ -987,115 +979,115 @@ reason_case:    {reason_case}"""
         for voiceunit in self.voices.values():
             voiceunit.clear_fund_give_take()
 
-    def plan_exists(self, rope: RopeTerm) -> bool:
+    def keg_exists(self, rope: RopeTerm) -> bool:
         if rope in {"", None}:
             return False
-        root_rope_plan_label = get_first_label_from_rope(rope, self.knot)
-        if root_rope_plan_label != self.planroot.plan_label:
+        root_rope_keg_label = get_first_label_from_rope(rope, self.knot)
+        if root_rope_keg_label != self.kegroot.keg_label:
             return False
 
         labels = get_all_rope_labels(rope, knot=self.knot)
-        root_rope_plan_label = labels.pop(0)
+        root_rope_keg_label = labels.pop(0)
         if labels == []:
             return True
 
-        plan_label = labels.pop(0)
-        x_plan = self.planroot.get_kid(plan_label)
-        if x_plan is None:
+        keg_label = labels.pop(0)
+        x_keg = self.kegroot.get_kid(keg_label)
+        if x_keg is None:
             return False
         while labels != []:
-            plan_label = labels.pop(0)
-            x_plan = x_plan.get_kid(plan_label)
-            if x_plan is None:
+            keg_label = labels.pop(0)
+            x_keg = x_keg.get_kid(keg_label)
+            if x_keg is None:
                 return False
         return True
 
-    def get_plan_obj(self, rope: RopeTerm, if_missing_create: bool = False) -> PlanUnit:
+    def get_keg_obj(self, rope: RopeTerm, if_missing_create: bool = False) -> KegUnit:
         if rope is None:
-            raise InvalidBeliefException("get_plan_obj received rope=None")
-        if self.plan_exists(rope) is False and not if_missing_create:
-            raise InvalidBeliefException(f"get_plan_obj failed. no plan at '{rope}'")
+            raise InvalidBeliefException("get_keg_obj received rope=None")
+        if self.keg_exists(rope) is False and not if_missing_create:
+            raise InvalidBeliefException(f"get_keg_obj failed. no keg at '{rope}'")
         labelterms = get_all_rope_labels(rope, knot=self.knot)
         if len(labelterms) == 1:
-            return self.planroot
+            return self.kegroot
 
         labelterms.pop(0)
-        plan_label = labelterms.pop(0)
-        x_plan = self.planroot.get_kid(plan_label, if_missing_create)
+        keg_label = labelterms.pop(0)
+        x_keg = self.kegroot.get_kid(keg_label, if_missing_create)
         while labelterms != []:
-            x_plan = x_plan.get_kid(labelterms.pop(0), if_missing_create)
+            x_keg = x_keg.get_kid(labelterms.pop(0), if_missing_create)
 
-        return x_plan
+        return x_keg
 
-    def get_plan_ranged_kids(
-        self, plan_rope: str, x_gogo_calc: float = None, x_stop_calc: float = None
-    ) -> dict[PlanUnit]:
-        x_plan = self.get_plan_obj(plan_rope)
-        return x_plan.get_kids_in_range(x_gogo_calc, x_stop_calc)
+    def get_keg_ranged_kids(
+        self, keg_rope: str, x_gogo_calc: float = None, x_stop_calc: float = None
+    ) -> dict[KegUnit]:
+        x_keg = self.get_keg_obj(keg_rope)
+        return x_keg.get_kids_in_range(x_gogo_calc, x_stop_calc)
 
-    def get_inheritor_plan_list(
+    def get_inheritor_keg_list(
         self, range_rope: RopeTerm, inheritor_rope: RopeTerm
-    ) -> list[PlanUnit]:
-        plan_ropes = all_ropes_between(range_rope, inheritor_rope)
-        return [self.get_plan_obj(x_plan_rope) for x_plan_rope in plan_ropes]
+    ) -> list[KegUnit]:
+        keg_ropes = all_ropes_between(range_rope, inheritor_rope)
+        return [self.get_keg_obj(x_keg_rope) for x_keg_rope in keg_ropes]
 
-    def _set_plan_dict(self):
-        plan_list = [self.planroot]
-        while plan_list != []:
-            x_plan = plan_list.pop()
-            x_plan.clear_gogo_calc_stop_calc()
-            for plan_kid in x_plan.kids.values():
-                plan_kid.set_parent_rope(x_plan.get_plan_rope())
-                plan_kid.set_tree_level(x_plan.tree_level)
-                plan_list.append(plan_kid)
-            self._plan_dict[x_plan.get_plan_rope()] = x_plan
-            for x_reason_context in x_plan.reasonunits.keys():
+    def _set_keg_dict(self):
+        keg_list = [self.kegroot]
+        while keg_list != []:
+            x_keg = keg_list.pop()
+            x_keg.clear_gogo_calc_stop_calc()
+            for keg_kid in x_keg.kids.values():
+                keg_kid.set_parent_rope(x_keg.get_keg_rope())
+                keg_kid.set_tree_level(x_keg.tree_level)
+                keg_list.append(keg_kid)
+            self._keg_dict[x_keg.get_keg_rope()] = x_keg
+            for x_reason_context in x_keg.reasonunits.keys():
                 self.reason_contexts.add(x_reason_context)
 
-    def _raise_gogo_calc_stop_calc_exception(self, plan_rope: RopeTerm):
-        exception_str = f"Error has occurred, Plan '{plan_rope}' is having gogo_calc and stop_calc set twice"
+    def _raise_gogo_calc_stop_calc_exception(self, keg_rope: RopeTerm):
+        exception_str = f"Error has occurred, Keg '{keg_rope}' is having gogo_calc and stop_calc set twice"
         raise gogo_calc_stop_calc_Exception(exception_str)
 
-    def _distribute_range_attrs(self, rangeroot_plan: PlanUnit):
-        """Populates BeliefUnit.range_inheritors, sets PlanUnit.gogo_calc, PlanUnit.stop_calc"""
-        single_rangeroot_plan_list = [rangeroot_plan]
-        while single_rangeroot_plan_list != []:
-            x_planunit = single_rangeroot_plan_list.pop()
-            x_plan_rope = x_planunit.get_plan_rope()
-            if x_planunit.range_evaluated:
-                self._raise_gogo_calc_stop_calc_exception(x_plan_rope)
-            if x_planunit.has_begin_close():
-                x_planunit.gogo_calc = x_planunit.begin
-                x_planunit.stop_calc = x_planunit.close
+    def _distribute_range_attrs(self, rangeroot_keg: KegUnit):
+        """Populates BeliefUnit.range_inheritors, sets KegUnit.gogo_calc, KegUnit.stop_calc"""
+        single_rangeroot_keg_list = [rangeroot_keg]
+        while single_rangeroot_keg_list != []:
+            x_kegunit = single_rangeroot_keg_list.pop()
+            x_keg_rope = x_kegunit.get_keg_rope()
+            if x_kegunit.range_evaluated:
+                self._raise_gogo_calc_stop_calc_exception(x_keg_rope)
+            if x_kegunit.has_begin_close():
+                x_kegunit.gogo_calc = x_kegunit.begin
+                x_kegunit.stop_calc = x_kegunit.close
             else:
-                parent_rope = get_parent_rope(x_plan_rope, x_planunit.knot)
-                parent_plan = self.get_plan_obj(parent_rope)
-                x_planunit.gogo_calc = parent_plan.gogo_calc
-                x_planunit.stop_calc = parent_plan.stop_calc
-                self.range_inheritors[x_plan_rope] = rangeroot_plan.get_plan_rope()
-            x_planunit._mold_gogo_calc_stop_calc()
-            single_rangeroot_plan_list.extend(iter(x_planunit.kids.values()))
+                parent_rope = get_parent_rope(x_keg_rope, x_kegunit.knot)
+                parent_keg = self.get_keg_obj(parent_rope)
+                x_kegunit.gogo_calc = parent_keg.gogo_calc
+                x_kegunit.stop_calc = parent_keg.stop_calc
+                self.range_inheritors[x_keg_rope] = rangeroot_keg.get_keg_rope()
+            x_kegunit._mold_gogo_calc_stop_calc()
+            single_rangeroot_keg_list.extend(iter(x_kegunit.kids.values()))
 
-    def _set_plantree_range_attrs(self):
-        for x_plan in self._plan_dict.values():
-            if x_plan.has_begin_close():
-                self._distribute_range_attrs(x_plan)
+    def _set_kegtree_range_attrs(self):
+        for x_keg in self._keg_dict.values():
+            if x_keg.has_begin_close():
+                self._distribute_range_attrs(x_keg)
 
             if (
-                not x_plan.is_kidless()
-                and x_plan.get_kids_star_sum() == 0
-                and x_plan.star != 0
+                not x_keg.is_kidless()
+                and x_keg.get_kids_star_sum() == 0
+                and x_keg.star != 0
             ):
-                self.offtrack_kids_star_set.add(x_plan.get_plan_rope())
+                self.offtrack_kids_star_set.add(x_keg.get_keg_rope())
 
     def _set_groupunit_voiceunit_funds(self, keep_exceptions):
-        for x_plan in self._plan_dict.values():
-            x_plan.set_awardheirs_fund_give_fund_take()
-            if x_plan.is_kidless():
+        for x_keg in self._keg_dict.values():
+            x_keg.set_awardheirs_fund_give_fund_take()
+            if x_keg.is_kidless():
                 self._set_ancestors_pledge_fund_keep_attrs(
-                    x_plan.get_plan_rope(), keep_exceptions
+                    x_keg.get_keg_rope(), keep_exceptions
                 )
-                self._allot_plan_fund_total(x_plan)
+                self._allot_keg_fund_total(x_keg)
 
     def _set_ancestors_pledge_fund_keep_attrs(
         self, rope: RopeTerm, keep_exceptions: bool = False
@@ -1109,63 +1101,63 @@ reason_case:    {reason_case}"""
 
         while ancestor_ropes != []:
             youngest_rope = ancestor_ropes.pop(0)
-            x_plan_obj = self.get_plan_obj(youngest_rope)
-            x_plan_obj.add_to_descendant_pledge_count(x_descendant_pledge_count)
-            if x_plan_obj.is_kidless():
-                x_plan_obj.set_kidless_awardlines()
-                child_awardlines = x_plan_obj.awardlines
+            x_keg_obj = self.get_keg_obj(youngest_rope)
+            x_keg_obj.add_to_descendant_pledge_count(x_descendant_pledge_count)
+            if x_keg_obj.is_kidless():
+                x_keg_obj.set_kidless_awardlines()
+                child_awardlines = x_keg_obj.awardlines
             else:
-                x_plan_obj.set_awardlines(child_awardlines)
+                x_keg_obj.set_awardlines(child_awardlines)
 
-            if x_plan_obj.task:
+            if x_keg_obj.task:
                 x_descendant_pledge_count += 1
 
             if (
                 group_everyone != False
-                and x_plan_obj.all_voice_cred != False
-                and x_plan_obj.all_voice_debt != False
-                and x_plan_obj.awardheirs != {}
+                and x_keg_obj.all_voice_cred != False
+                and x_keg_obj.all_voice_debt != False
+                and x_keg_obj.awardheirs != {}
             ) or (
                 group_everyone != False
-                and x_plan_obj.all_voice_cred is False
-                and x_plan_obj.all_voice_debt is False
+                and x_keg_obj.all_voice_cred is False
+                and x_keg_obj.all_voice_debt is False
             ):
                 group_everyone = False
             elif group_everyone != False:
                 group_everyone = True
-            x_plan_obj.all_voice_cred = group_everyone
-            x_plan_obj.all_voice_debt = group_everyone
+            x_keg_obj.all_voice_cred = group_everyone
+            x_keg_obj.all_voice_debt = group_everyone
 
-            if x_plan_obj.healerunit.any_healer_name_exists():
+            if x_keg_obj.healerunit.any_healer_name_exists():
                 keep_justified_by_problem = False
                 healerunit_count += 1
-                self.sum_healerunit_plans_fund_total += x_plan_obj.get_plan_fund_total()
-            if x_plan_obj.problem_bool:
+                self.sum_healerunit_kegs_fund_total += x_keg_obj.get_keg_fund_total()
+            if x_keg_obj.problem_bool:
                 keep_justified_by_problem = True
 
         if keep_justified_by_problem is False or healerunit_count > 1:
             if keep_exceptions:
-                exception_str = f"PlanUnit '{rope}' cannot sponsor ancestor keeps."
+                exception_str = f"KegUnit '{rope}' cannot sponsor ancestor keeps."
                 raise keeps_justException(exception_str)
             self.keeps_justified = False
 
-    def _clear_plantree_fund_and_plan_active(self):
-        for x_plan in self._plan_dict.values():
-            x_plan.clear_awardlines()
-            x_plan.clear_descendant_pledge_count()
-            x_plan.clear_all_voice_cred_debt()
+    def _clear_kegtree_fund_and_keg_active(self):
+        for x_keg in self._keg_dict.values():
+            x_keg.clear_awardlines()
+            x_keg.clear_descendant_pledge_count()
+            x_keg.clear_all_voice_cred_debt()
 
-    def _set_kids_plan_active(self, x_plan: PlanUnit, parent_plan: PlanUnit):
-        x_plan.set_reasonheirs(self._plan_dict, parent_plan.reasonheirs)
-        x_plan.set_range_inheritors_factheirs(self._plan_dict, self.range_inheritors)
+    def _set_kids_keg_active(self, x_keg: KegUnit, parent_keg: KegUnit):
+        x_keg.set_reasonheirs(self._keg_dict, parent_keg.reasonheirs)
+        x_keg.set_range_inheritors_factheirs(self._keg_dict, self.range_inheritors)
         tt_count = self.tree_traverse_count
-        x_plan.set_plan_active(tt_count, self.groupunits, self.belief_name)
+        x_keg.set_keg_active(tt_count, self.groupunits, self.belief_name)
 
-    def _allot_plan_fund_total(self, plan: PlanUnit):
-        if plan.awardheir_exists():
-            self._set_groupunits_plan_fund_total(plan.awardheirs)
-        elif plan.awardheir_exists() is False:
-            self._add_to_voiceunits_fund_give_take(plan.get_plan_fund_total())
+    def _allot_keg_fund_total(self, keg: KegUnit):
+        if keg.awardheir_exists():
+            self._set_groupunits_keg_fund_total(keg.awardheirs)
+        elif keg.awardheir_exists() is False:
+            self._add_to_voiceunits_fund_give_take(keg.get_keg_fund_total())
 
     def _create_groupunits_metrics(self):
         self.groupunits = {}
@@ -1196,8 +1188,8 @@ reason_case:    {reason_case}"""
         self._create_groupunits_metrics()
         self._reset_voiceunit_fund_give_take()
 
-    def _clear_plan_dict_and_belief_obj_settle_attrs(self):
-        self._plan_dict = {self.planroot.get_plan_rope(): self.planroot}
+    def _clear_keg_dict_and_belief_obj_settle_attrs(self):
+        self._keg_dict = {self.kegroot.get_keg_rope(): self.kegroot}
         self.rational = False
         self.tree_traverse_count = 0
         self.offtrack_kids_star_set = set()
@@ -1205,89 +1197,89 @@ reason_case:    {reason_case}"""
         self.range_inheritors = {}
         self.keeps_justified = True
         self.keeps_buildable = False
-        self.sum_healerunit_plans_fund_total = 0
+        self.sum_healerunit_kegs_fund_total = 0
         self._keep_dict = {}
         self._healers_dict = {}
 
-    def _set_plantree_factheirs_laborheir_awardheirs(self):
-        for x_plan in get_sorted_plan_list(self._plan_dict):
-            if x_plan == self.planroot:
-                x_plan.set_factheirs(x_plan.factunits)
-                x_plan.set_root_plan_reasonheirs()
-                x_plan.set_laborheir(None, self.groupunits)
-                x_plan.inherit_awardheirs()
+    def _set_kegtree_factheirs_laborheir_awardheirs(self):
+        for x_keg in get_sorted_keg_list(self._keg_dict):
+            if x_keg == self.kegroot:
+                x_keg.set_factheirs(x_keg.factunits)
+                x_keg.set_root_keg_reasonheirs()
+                x_keg.set_laborheir(None, self.groupunits)
+                x_keg.inherit_awardheirs()
             else:
-                parent_plan = self.get_plan_obj(x_plan.parent_rope)
-                x_plan.set_factheirs(parent_plan.factheirs)
-                x_plan.set_laborheir(parent_plan.laborheir, self.groupunits)
-                x_plan.inherit_awardheirs(parent_plan.awardheirs)
-            x_plan.set_awardheirs_fund_give_fund_take()
+                parent_keg = self.get_keg_obj(x_keg.parent_rope)
+                x_keg.set_factheirs(parent_keg.factheirs)
+                x_keg.set_laborheir(parent_keg.laborheir, self.groupunits)
+                x_keg.inherit_awardheirs(parent_keg.awardheirs)
+            x_keg.set_awardheirs_fund_give_fund_take()
 
     def cashout(self, keep_exceptions: bool = False):
-        self._clear_plan_dict_and_belief_obj_settle_attrs()
-        self._set_plan_dict()
-        self._set_plantree_range_attrs()
+        self._clear_keg_dict_and_belief_obj_settle_attrs()
+        self._set_keg_dict()
+        self._set_kegtree_range_attrs()
         self._set_voiceunit_groupunit_respect_ledgers()
         self._clear_voiceunit_fund_attrs()
-        self._clear_plantree_fund_and_plan_active()
-        self._set_plantree_factheirs_laborheir_awardheirs()
+        self._clear_kegtree_fund_and_keg_active()
+        self._set_kegtree_factheirs_laborheir_awardheirs()
 
         max_count = self.max_tree_traverse
         while not self.rational and self.tree_traverse_count < max_count:
-            self._set_plantree_plan_active()
+            self._set_kegtree_keg_active()
             self._set_rational_attr()
             self.tree_traverse_count += 1
 
-        self._set_plantree_fund_attrs(self.planroot)
+        self._set_kegtree_fund_attrs(self.kegroot)
         self._set_groupunit_voiceunit_funds(keep_exceptions)
         self._set_voiceunit_fund_related_attrs()
         self._set_belief_keep_attrs()
 
-    def _set_plantree_plan_active(self):
-        """For every planunit in the PlanTree set plan_active to True or False.
-        Assumes self.range_inheritors is set with set of ropes for all PlanUnits that
-        inherit from a ranged PlanUnit.
+    def _set_kegtree_keg_active(self):
+        """For every kegunit in the KegTree set keg_active to True or False.
+        Assumes self.range_inheritors is set with set of ropes for all KegUnits that
+        inherit from a ranged KegUnit.
         """
 
-        for x_plan in get_sorted_plan_list(self._plan_dict):
-            if x_plan == self.planroot:
+        for x_keg in get_sorted_keg_list(self._keg_dict):
+            if x_keg == self.kegroot:
                 tt_count = self.tree_traverse_count
-                root_plan = self.planroot
-                root_plan.set_plan_active(tt_count, self.groupunits, self.belief_name)
+                root_keg = self.kegroot
+                root_keg.set_keg_active(tt_count, self.groupunits, self.belief_name)
             else:
-                parent_plan = self.get_plan_obj(x_plan.parent_rope)
-                self._set_kids_plan_active(x_plan, parent_plan)
+                parent_keg = self.get_keg_obj(x_keg.parent_rope)
+                self._set_kids_keg_active(x_keg, parent_keg)
 
-    def _set_plantree_fund_attrs(self, root_plan: PlanUnit):
-        root_plan.set_fund_attr(0, self.fund_pool, self.fund_pool)
+    def _set_kegtree_fund_attrs(self, root_keg: KegUnit):
+        root_keg.set_fund_attr(0, self.fund_pool, self.fund_pool)
         # no function recursion, recursion by iterateing over list that can be added to by iterations
-        cache_plan_list = [root_plan]
-        while cache_plan_list != []:
-            parent_plan = cache_plan_list.pop()
-            kids_plans = parent_plan.kids.items()
-            x_ledger = {x_rope: plan_kid.star for x_rope, plan_kid in kids_plans}
-            parent_fund_num = parent_plan.fund_cease - parent_plan.fund_onset
+        cache_keg_list = [root_keg]
+        while cache_keg_list != []:
+            parent_keg = cache_keg_list.pop()
+            kids_kegs = parent_keg.kids.items()
+            x_ledger = {x_rope: keg_kid.star for x_rope, keg_kid in kids_kegs}
+            parent_fund_num = parent_keg.fund_cease - parent_keg.fund_onset
             alloted_fund_num = allot_scale(x_ledger, parent_fund_num, self.fund_grain)
 
             fund_onset = None
             fund_cease = None
-            for x_plan in parent_plan.kids.values():
+            for x_keg in parent_keg.kids.values():
                 if fund_onset is None:
-                    fund_onset = parent_plan.fund_onset
-                    fund_cease = fund_onset + alloted_fund_num.get(x_plan.plan_label)
+                    fund_onset = parent_keg.fund_onset
+                    fund_cease = fund_onset + alloted_fund_num.get(x_keg.keg_label)
                 else:
                     fund_onset = fund_cease
-                    fund_cease += alloted_fund_num.get(x_plan.plan_label)
-                x_plan.set_fund_attr(fund_onset, fund_cease, self.fund_pool)
-                cache_plan_list.append(x_plan)
+                    fund_cease += alloted_fund_num.get(x_keg.keg_label)
+                x_keg.set_fund_attr(fund_onset, fund_cease, self.fund_pool)
+                cache_keg_list.append(x_keg)
 
     def _set_rational_attr(self):
-        any_plan_active_has_altered = False
-        for plan in self._plan_dict.values():
-            if plan.plan_active_hx.get(self.tree_traverse_count) is not None:
-                any_plan_active_has_altered = True
+        any_keg_active_has_altered = False
+        for keg in self._keg_dict.values():
+            if keg.keg_active_hx.get(self.tree_traverse_count) is not None:
+                any_keg_active_has_altered = True
 
-        if any_plan_active_has_altered is False:
+        if any_keg_active_has_altered is False:
             self.rational = True
 
     def _set_voiceunit_fund_related_attrs(self):
@@ -1304,27 +1296,27 @@ reason_case:    {reason_case}"""
 
     def _set_keep_dict(self):
         if self.keeps_justified is False:
-            self.sum_healerunit_plans_fund_total = 0
-        for x_plan in self._plan_dict.values():
-            if self.sum_healerunit_plans_fund_total == 0:
-                x_plan.healerunit_ratio = 0
+            self.sum_healerunit_kegs_fund_total = 0
+        for x_keg in self._keg_dict.values():
+            if self.sum_healerunit_kegs_fund_total == 0:
+                x_keg.healerunit_ratio = 0
             else:
-                x_sum = self.sum_healerunit_plans_fund_total
-                x_plan.healerunit_ratio = x_plan.get_plan_fund_total() / x_sum
-            if self.keeps_justified and x_plan.healerunit.any_healer_name_exists():
-                self._keep_dict[x_plan.get_plan_rope()] = x_plan
+                x_sum = self.sum_healerunit_kegs_fund_total
+                x_keg.healerunit_ratio = x_keg.get_keg_fund_total() / x_sum
+            if self.keeps_justified and x_keg.healerunit.any_healer_name_exists():
+                self._keep_dict[x_keg.get_keg_rope()] = x_keg
 
-    def _get_healers_dict(self) -> dict[HealerName, dict[RopeTerm, PlanUnit]]:
+    def _get_healers_dict(self) -> dict[HealerName, dict[RopeTerm, KegUnit]]:
         _healers_dict = {}
-        for x_keep_rope, x_keep_plan in self._keep_dict.items():
-            for x_healer_name in x_keep_plan.healerunit._healer_names:
+        for x_keep_rope, x_keep_keg in self._keep_dict.items():
+            for x_healer_name in x_keep_keg.healerunit._healer_names:
                 x_groupunit = self.get_groupunit(x_healer_name)
                 for x_voice_name in x_groupunit.memberships.keys():
                     if _healers_dict.get(x_voice_name) is None:
-                        _healers_dict[x_voice_name] = {x_keep_rope: x_keep_plan}
+                        _healers_dict[x_voice_name] = {x_keep_rope: x_keep_keg}
                     else:
                         healer_dict = _healers_dict.get(x_voice_name)
-                        healer_dict[x_keep_rope] = x_keep_plan
+                        healer_dict[x_keep_rope] = x_keep_keg
         return _healers_dict
 
     def _get_buildable_keeps(self) -> bool:
@@ -1337,12 +1329,12 @@ reason_case:    {reason_case}"""
         self._reset_groupunits_fund_give_take()
         self._reset_voiceunit_fund_give_take()
 
-    def get_plan_tree_ordered_rope_list(
+    def get_keg_tree_ordered_rope_list(
         self, no_range_descendants: bool = False
     ) -> list[RopeTerm]:
-        plan_list = list(self.get_plan_dict().values())
+        keg_list = list(self.get_keg_dict().values())
         label_dict = {
-            plan.get_plan_rope().lower(): plan.get_plan_rope() for plan in plan_list
+            keg.get_keg_rope().lower(): keg.get_keg_rope() for keg in keg_list
         }
         label_same_capitalization_ordered_list = sorted(list(label_dict))
         label_orginalcapitalization_ordered_list = [
@@ -1358,19 +1350,19 @@ reason_case:    {reason_case}"""
                 if len(anc_list) == 1:
                     list_x.append(rope)
                 elif len(anc_list) == 2:
-                    if self.planroot.begin is None and self.planroot.close is None:
+                    if self.kegroot.begin is None and self.kegroot.close is None:
                         list_x.append(rope)
                 else:
-                    parent_plan = self.get_plan_obj(rope=anc_list[1])
-                    if parent_plan.begin is None and parent_plan.close is None:
+                    parent_keg = self.get_keg_obj(rope=anc_list[1])
+                    if parent_keg.begin is None and parent_keg.close is None:
                         list_x.append(rope)
 
         return list_x
 
-    def get_planroot_factunits_dict(self) -> dict[str, str]:
+    def get_kegroot_factunits_dict(self) -> dict[str, str]:
         x_dict = {}
-        if self.planroot.factunits is not None:
-            for fact_rope, fact_obj in self.planroot.factunits.items():
+        if self.kegroot.factunits is not None:
+            for fact_rope, fact_obj in self.kegroot.factunits.items():
                 x_dict[fact_rope] = fact_obj.to_dict()
         return x_dict
 
@@ -1391,7 +1383,7 @@ reason_case:    {reason_case}"""
             "knot": self.knot,
             "mana_grain": self.mana_grain,
             "max_tree_traverse": self.max_tree_traverse,
-            "planroot": self.planroot.to_dict(),
+            "kegroot": self.kegroot.to_dict(),
             "respect_grain": self.respect_grain,
             "tally": self.tally,
             "voices": self.get_voiceunits_dict(),
@@ -1405,19 +1397,19 @@ reason_case:    {reason_case}"""
 
         return x_dict
 
-    def set_dominate_pledge_plan(self, plan_kid: PlanUnit):
-        plan_kid.pledge = True
-        self.set_plan_obj(
-            plan_kid=plan_kid,
-            parent_rope=self.make_rope(plan_kid.parent_rope),
+    def set_dominate_pledge_keg(self, keg_kid: KegUnit):
+        keg_kid.pledge = True
+        self.set_keg_obj(
+            keg_kid=keg_kid,
+            parent_rope=self.make_rope(keg_kid.parent_rope),
             get_rid_of_missing_awardunits_awardee_titles=True,
-            create_missing_plans=True,
+            create_missing_kegs=True,
         )
 
     def set_offtrack_fund(self) -> float:
         star_set = self.offtrack_kids_star_set
         self.offtrack_fund = sum(
-            self.get_plan_obj(rope).get_plan_fund_total() for rope in star_set
+            self.get_keg_obj(rope).get_keg_fund_total() for rope in star_set
         )
 
 
@@ -1432,13 +1424,11 @@ def beliefunit_shop(
     tally: float = None,
 ) -> BeliefUnit:
     belief_name = "" if belief_name is None else belief_name
-    root_plan_label = (
-        get_default_first_label() if moment_label is None else moment_label
-    )
+    root_keg_label = get_default_first_label() if moment_label is None else moment_label
     x_belief = BeliefUnit(
         belief_name=belief_name,
         tally=get_1_if_None(tally),
-        moment_label=root_plan_label,
+        moment_label=root_keg_label,
         voices=get_empty_dict_if_None(),
         groupunits={},
         knot=default_knot_if_None(knot),
@@ -1448,18 +1438,18 @@ def beliefunit_shop(
         fund_grain=default_grain_num_if_None(fund_grain),
         respect_grain=default_grain_num_if_None(respect_grain),
         mana_grain=default_grain_num_if_None(mana_grain),
-        _plan_dict=get_empty_dict_if_None(),
+        _keg_dict=get_empty_dict_if_None(),
         _keep_dict=get_empty_dict_if_None(),
         _healers_dict=get_empty_dict_if_None(),
         keeps_justified=get_False_if_None(),
         keeps_buildable=get_False_if_None(),
-        sum_healerunit_plans_fund_total=get_0_if_None(),
+        sum_healerunit_kegs_fund_total=get_0_if_None(),
         offtrack_kids_star_set=set(),
         reason_contexts=set(),
         range_inheritors={},
     )
-    x_belief.planroot = planunit_shop(
-        plan_label=root_plan_label,
+    x_belief.kegroot = kegunit_shop(
+        keg_label=root_keg_label,
         uid=1,
         tree_level=0,
         knot=x_belief.knot,
@@ -1478,7 +1468,7 @@ def get_beliefunit_from_dict(belief_dict: dict) -> BeliefUnit:
     x_belief.set_max_tree_traverse(
         obj_from_belief_dict(belief_dict, "max_tree_traverse")
     )
-    x_belief.moment_label = belief_dict.get("planroot").get("plan_label")
+    x_belief.moment_label = belief_dict.get("kegroot").get("keg_label")
     belief_knot = obj_from_belief_dict(belief_dict, "knot")
     x_belief.knot = default_knot_if_None(belief_knot)
     x_belief.fund_pool = validate_pool_num(
@@ -1500,75 +1490,75 @@ def get_beliefunit_from_dict(belief_dict: dict) -> BeliefUnit:
     x_voices = obj_from_belief_dict(belief_dict, "voices", x_knot).values()
     for x_voiceunit in x_voices:
         x_belief.set_voiceunit(x_voiceunit)
-    create_planroot_from_belief_dict(x_belief, belief_dict)
+    create_kegroot_from_belief_dict(x_belief, belief_dict)
     return x_belief
 
 
-def create_planroot_from_belief_dict(x_belief: BeliefUnit, belief_dict: dict):
-    planroot_dict = belief_dict.get("planroot")
-    x_belief.planroot = planunit_shop(
-        plan_label=get_obj_from_plan_dict(planroot_dict, "plan_label"),
+def create_kegroot_from_belief_dict(x_belief: BeliefUnit, belief_dict: dict):
+    kegroot_dict = belief_dict.get("kegroot")
+    x_belief.kegroot = kegunit_shop(
+        keg_label=get_obj_from_keg_dict(kegroot_dict, "keg_label"),
         parent_rope="",
         tree_level=0,
-        uid=get_obj_from_plan_dict(planroot_dict, "uid"),
-        star=get_obj_from_plan_dict(planroot_dict, "star"),
-        begin=get_obj_from_plan_dict(planroot_dict, "begin"),
-        close=get_obj_from_plan_dict(planroot_dict, "close"),
-        numor=get_obj_from_plan_dict(planroot_dict, "numor"),
-        denom=get_obj_from_plan_dict(planroot_dict, "denom"),
-        morph=get_obj_from_plan_dict(planroot_dict, "morph"),
-        gogo_want=get_obj_from_plan_dict(planroot_dict, "gogo_want"),
-        stop_want=get_obj_from_plan_dict(planroot_dict, "stop_want"),
-        problem_bool=get_obj_from_plan_dict(planroot_dict, "problem_bool"),
-        reasonunits=get_obj_from_plan_dict(planroot_dict, "reasonunits"),
-        laborunit=get_obj_from_plan_dict(planroot_dict, "laborunit"),
-        healerunit=get_obj_from_plan_dict(planroot_dict, "healerunit"),
-        factunits=get_obj_from_plan_dict(planroot_dict, "factunits"),
-        awardunits=get_obj_from_plan_dict(planroot_dict, "awardunits"),
-        is_expanded=get_obj_from_plan_dict(planroot_dict, "is_expanded"),
+        uid=get_obj_from_keg_dict(kegroot_dict, "uid"),
+        star=get_obj_from_keg_dict(kegroot_dict, "star"),
+        begin=get_obj_from_keg_dict(kegroot_dict, "begin"),
+        close=get_obj_from_keg_dict(kegroot_dict, "close"),
+        numor=get_obj_from_keg_dict(kegroot_dict, "numor"),
+        denom=get_obj_from_keg_dict(kegroot_dict, "denom"),
+        morph=get_obj_from_keg_dict(kegroot_dict, "morph"),
+        gogo_want=get_obj_from_keg_dict(kegroot_dict, "gogo_want"),
+        stop_want=get_obj_from_keg_dict(kegroot_dict, "stop_want"),
+        problem_bool=get_obj_from_keg_dict(kegroot_dict, "problem_bool"),
+        reasonunits=get_obj_from_keg_dict(kegroot_dict, "reasonunits"),
+        laborunit=get_obj_from_keg_dict(kegroot_dict, "laborunit"),
+        healerunit=get_obj_from_keg_dict(kegroot_dict, "healerunit"),
+        factunits=get_obj_from_keg_dict(kegroot_dict, "factunits"),
+        awardunits=get_obj_from_keg_dict(kegroot_dict, "awardunits"),
+        is_expanded=get_obj_from_keg_dict(kegroot_dict, "is_expanded"),
         knot=x_belief.knot,
         fund_grain=default_grain_num_if_None(x_belief.fund_grain),
     )
-    create_planroot_kids_from_dict(x_belief, planroot_dict)
+    create_kegroot_kids_from_dict(x_belief, kegroot_dict)
 
 
-def create_planroot_kids_from_dict(x_belief: BeliefUnit, planroot_dict: dict):
-    to_evaluate_plan_dicts = []
+def create_kegroot_kids_from_dict(x_belief: BeliefUnit, kegroot_dict: dict):
+    to_evaluate_keg_dicts = []
     parent_rope_str = "parent_rope"
     # for every kid dict, set parent_rope in dict, add to to_evaluate_list
-    for x_dict in get_obj_from_plan_dict(planroot_dict, "kids").values():
-        x_dict[parent_rope_str] = x_belief.planroot.get_plan_rope()
-        to_evaluate_plan_dicts.append(x_dict)
+    for x_dict in get_obj_from_keg_dict(kegroot_dict, "kids").values():
+        x_dict[parent_rope_str] = x_belief.kegroot.get_keg_rope()
+        to_evaluate_keg_dicts.append(x_dict)
 
-    while to_evaluate_plan_dicts != []:
-        plan_dict = to_evaluate_plan_dicts.pop(0)
+    while to_evaluate_keg_dicts != []:
+        keg_dict = to_evaluate_keg_dicts.pop(0)
         # for every kid dict, set parent_rope in dict, add to to_evaluate_list
-        for kid_dict in get_obj_from_plan_dict(plan_dict, "kids").values():
-            parent_rope = get_obj_from_plan_dict(plan_dict, parent_rope_str)
-            kid_plan_label = get_obj_from_plan_dict(plan_dict, "plan_label")
-            kid_dict[parent_rope_str] = x_belief.make_rope(parent_rope, kid_plan_label)
-            to_evaluate_plan_dicts.append(kid_dict)
-        x_plankid = planunit_shop(
-            plan_label=get_obj_from_plan_dict(plan_dict, "plan_label"),
-            star=get_obj_from_plan_dict(plan_dict, "star"),
-            uid=get_obj_from_plan_dict(plan_dict, "uid"),
-            begin=get_obj_from_plan_dict(plan_dict, "begin"),
-            close=get_obj_from_plan_dict(plan_dict, "close"),
-            numor=get_obj_from_plan_dict(plan_dict, "numor"),
-            denom=get_obj_from_plan_dict(plan_dict, "denom"),
-            morph=get_obj_from_plan_dict(plan_dict, "morph"),
-            gogo_want=get_obj_from_plan_dict(plan_dict, "gogo_want"),
-            stop_want=get_obj_from_plan_dict(plan_dict, "stop_want"),
-            pledge=get_obj_from_plan_dict(plan_dict, "pledge"),
-            problem_bool=get_obj_from_plan_dict(plan_dict, "problem_bool"),
-            reasonunits=get_obj_from_plan_dict(plan_dict, "reasonunits"),
-            laborunit=get_obj_from_plan_dict(plan_dict, "laborunit"),
-            healerunit=get_obj_from_plan_dict(plan_dict, "healerunit"),
-            awardunits=get_obj_from_plan_dict(plan_dict, "awardunits"),
-            factunits=get_obj_from_plan_dict(plan_dict, "factunits"),
-            is_expanded=get_obj_from_plan_dict(plan_dict, "is_expanded"),
+        for kid_dict in get_obj_from_keg_dict(keg_dict, "kids").values():
+            parent_rope = get_obj_from_keg_dict(keg_dict, parent_rope_str)
+            kid_keg_label = get_obj_from_keg_dict(keg_dict, "keg_label")
+            kid_dict[parent_rope_str] = x_belief.make_rope(parent_rope, kid_keg_label)
+            to_evaluate_keg_dicts.append(kid_dict)
+        x_kegkid = kegunit_shop(
+            keg_label=get_obj_from_keg_dict(keg_dict, "keg_label"),
+            star=get_obj_from_keg_dict(keg_dict, "star"),
+            uid=get_obj_from_keg_dict(keg_dict, "uid"),
+            begin=get_obj_from_keg_dict(keg_dict, "begin"),
+            close=get_obj_from_keg_dict(keg_dict, "close"),
+            numor=get_obj_from_keg_dict(keg_dict, "numor"),
+            denom=get_obj_from_keg_dict(keg_dict, "denom"),
+            morph=get_obj_from_keg_dict(keg_dict, "morph"),
+            gogo_want=get_obj_from_keg_dict(keg_dict, "gogo_want"),
+            stop_want=get_obj_from_keg_dict(keg_dict, "stop_want"),
+            pledge=get_obj_from_keg_dict(keg_dict, "pledge"),
+            problem_bool=get_obj_from_keg_dict(keg_dict, "problem_bool"),
+            reasonunits=get_obj_from_keg_dict(keg_dict, "reasonunits"),
+            laborunit=get_obj_from_keg_dict(keg_dict, "laborunit"),
+            healerunit=get_obj_from_keg_dict(keg_dict, "healerunit"),
+            awardunits=get_obj_from_keg_dict(keg_dict, "awardunits"),
+            factunits=get_obj_from_keg_dict(keg_dict, "factunits"),
+            is_expanded=get_obj_from_keg_dict(keg_dict, "is_expanded"),
         )
-        x_belief.set_plan_obj(x_plankid, parent_rope=plan_dict[parent_rope_str])
+        x_belief.set_keg_obj(x_kegkid, parent_rope=keg_dict[parent_rope_str])
 
 
 def obj_from_belief_dict(
@@ -1594,12 +1584,12 @@ def get_dict_of_belief_from_dict(x_dict: dict[str, dict]) -> dict[str, BeliefUni
     return beliefunits
 
 
-def get_sorted_plan_list(
-    x_dict: dict[RopeTerm, PlanUnit], sorting_key: str = None
-) -> list[PlanUnit]:
+def get_sorted_keg_list(
+    x_dict: dict[RopeTerm, KegUnit], sorting_key: str = None
+) -> list[KegUnit]:
     x_list = list(x_dict.values())
     if sorting_key in {"fund_ratio"}:
         x_list.sort(key=lambda x: x.fund_ratio, reverse=True)
     else:
-        x_list.sort(key=lambda x: x.get_plan_rope(), reverse=False)
+        x_list.sort(key=lambda x: x.get_keg_rope(), reverse=False)
     return x_list

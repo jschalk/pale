@@ -1,5 +1,5 @@
 {
-  "belief_plan_awardunit": {
+  "belief_keg_awardunit": {
     "DELETE": {"atom_order": 21}, 
     "INSERT": {"atom_order": 3}, 
     "UPDATE": {"atom_order": 12}, 
@@ -10,7 +10,7 @@
         "nesting_order": 1, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -23,7 +23,7 @@
     }, 
     "normal_specs": {"normal_table_name": "awardunit"}
   }, 
-  "belief_plan_factunit": {
+  "belief_keg_factunit": {
     "DELETE": {"atom_order": 18}, 
     "INSERT": {"atom_order": 6}, 
     "UPDATE": {"atom_order": 13}, 
@@ -34,7 +34,7 @@
         "nesting_order": 1, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -48,7 +48,7 @@
     }, 
     "normal_specs": {"normal_table_name": "fact"}
   }, 
-  "belief_plan_healerunit": {
+  "belief_keg_healerunit": {
     "DELETE": {"atom_order": 20}, 
     "INSERT": {"atom_order": 5}, 
     "jkeys": {
@@ -58,7 +58,7 @@
         "nesting_order": 1, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -68,7 +68,7 @@
     "jvalues": {}, 
     "normal_specs": {"normal_table_name": "healerunit"}
   }, 
-  "belief_plan_partyunit": {
+  "belief_keg_partyunit": {
     "DELETE": {"atom_order": 19}, 
     "INSERT": {"atom_order": 4}, 
     "jkeys": {
@@ -78,7 +78,7 @@
         "nesting_order": 1, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -95,12 +95,12 @@
     }, 
     "normal_specs": {"normal_table_name": "partyunit"}
   }, 
-  "belief_plan_reason_caseunit": {
+  "belief_keg_reason_caseunit": {
     "DELETE": {"atom_order": 16}, 
     "INSERT": {"atom_order": 8}, 
     "UPDATE": {"atom_order": 14}, 
     "jkeys": {
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -126,12 +126,12 @@
     }, 
     "normal_specs": {"normal_table_name": "case"}
   }, 
-  "belief_plan_reasonunit": {
+  "belief_keg_reasonunit": {
     "DELETE": {"atom_order": 17}, 
     "INSERT": {"atom_order": 7}, 
     "UPDATE": {"atom_order": 15}, 
     "jkeys": {
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -149,12 +149,12 @@
     }, 
     "normal_specs": {"normal_table_name": "reason"}
   }, 
-  "belief_planunit": {
+  "belief_kegunit": {
     "DELETE": {"atom_order": 22}, 
     "INSERT": {"atom_order": 2}, 
     "UPDATE": {"atom_order": 11}, 
     "jkeys": {
-      "plan_rope": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -174,7 +174,7 @@
       "star"        : { "class_type": "int"  , "column_order":  3, "sqlite_datatype": "INTEGER" }, 
       "stop_want"   : { "class_type": "float", "column_order": 12, "sqlite_datatype": "REAL"    }
     }, 
-    "normal_specs": {"normal_table_name": "plan"}
+    "normal_specs": {"normal_table_name": "keg"}
   }, 
   "belief_voice_membership": {
     "DELETE": {"atom_order": 23}, 

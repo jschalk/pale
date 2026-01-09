@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template_string
-from src.ch13_epoch.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
+from src.ch13_epoch.epoch_main import add_epoch_kegunit, get_default_epoch_config_dict
 from src.ch24_belief_viewer.belief_viewer_example import (
     get_beliefunit_irrational_example,
     get_sue_belief_with_facts_and_reasons,
@@ -19,8 +19,8 @@ def get_belief_viewer_template() -> str:
         <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
-        <h1>Belief Voices and Plan Tree</h1>
-        <h5>Each node has a plan_label</h5>
+        <h1>Belief Voices and Keg Tree</h1>
+        <h5>Each node has a keg_label</h5>
         
         <div class="voices_controls">
             <input type="checkbox" id="show_voices"><label for="show_voices">voices</label>
@@ -50,17 +50,17 @@ def get_belief_viewer_template() -> str:
             <input type="checkbox" id="show_voice_membership_fund_take"><label for="show_voice_membership_fund_take">membership_fund_take</label>
             
         </div>
-        <div id="voicesContainer" class="plan_tree_display"></div>
-        <div class="plan_controls">
-            <input type="checkbox" id="show_planroot"><label for="show_planroot">planroot</label>
+        <div id="voicesContainer" class="keg_tree_display"></div>
+        <div class="keg_controls">
+            <input type="checkbox" id="show_kegroot"><label for="show_kegroot">kegroot</label>
             <input type="checkbox" id="show_level"><label for="show_level">level</label>
             <input type="checkbox" id="show_moment_label"><label for="show_moment_label">moment_label</label>
             <input type="checkbox" id="show_pledge"><label for="show_pledge">pledge</label>
             <input type="checkbox" id="show_descendant_pledge_count"><label for="show_descendant_pledge_count">descendant_pledge_count</label>
-            <input type="checkbox" id="show_plan_active"><label for="show_plan_active">plan_active</label>
+            <input type="checkbox" id="show_keg_active"><label for="show_keg_active">keg_active</label>
             <input type="checkbox" id="show_task"><label for="show_task">task</label>
             <input type="checkbox" id="show_star"><label for="show_star">star</label>
-            <input type="checkbox" id="show_plan_fund_total"><label for="show_plan_fund_total">plan_fund_total</label>
+            <input type="checkbox" id="show_keg_fund_total"><label for="show_keg_fund_total">keg_fund_total</label>
             <input type="checkbox" id="show_fund_onset"><label for="show_fund_onset">fund_onset</label>
             <input type="checkbox" id="show_fund_cease"><label for="show_fund_cease">fund_cease</label>
             <input type="checkbox" id="show_fund_grain"><label for="show_fund_grain">fund_grain</label>
@@ -89,10 +89,10 @@ def get_belief_viewer_template() -> str:
             <input type="checkbox" id="show_denom"><label for="show_denom">denom</label>
             <input type="checkbox" id="show_morph"><label for="show_morph">morph</label>
             <input type="checkbox" id="show_numor"><label for="show_numor">numor</label>
-            <input type="checkbox" id="show_plan_active_hx"><label for="show_plan_active_hx">plan_active_hx</label>
+            <input type="checkbox" id="show_keg_active_hx"><label for="show_keg_active_hx">keg_active_hx</label>
         </div>
         
-        <div id="planTreeContainer" class="plan_tree_display"></div>
+        <div id="kegTreeContainer" class="keg_tree_display"></div>
         
         <script src="/static/app.js"></script>
     </body>
@@ -111,7 +111,7 @@ def get_beliefunit_view():
     """API endpoint to get the BeliefUnit data with readable strings as JSON"""
     # return jsonify(root.to_dict())
     sue_belief = get_sue_belief_with_facts_and_reasons()
-    add_epoch_planunit(sue_belief, get_default_epoch_config_dict())
+    add_epoch_kegunit(sue_belief, get_default_epoch_config_dict())
     sue_belief.cashout()
     belief_view_dict = get_belief_view_dict(sue_belief)
     return jsonify(belief_view_dict)

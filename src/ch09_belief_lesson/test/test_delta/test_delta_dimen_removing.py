@@ -1,4 +1,4 @@
-from src.ch06_plan.plan import planunit_shop
+from src.ch06_keg.keg import kegunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch09_belief_lesson.delta import beliefdelta_shop, get_dimens_cruds_beliefdelta
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
@@ -12,7 +12,7 @@ def test_BeliefDelta_get_dimens_cruds_beliefdelta_ReturnsObjWithCorrectDimensAnd
     bob_voice_cred_lumen = 33
     bob_voice_debt_lumen = 44
     after_sue_belief.add_voiceunit(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    after_sue_belief.set_l1_plan(planunit_shop("casa"))
+    after_sue_belief.set_l1_keg(kegunit_shop("casa"))
     old_beliefdelta = beliefdelta_shop()
     old_beliefdelta.add_all_different_beliefatoms(before_sue_belief, after_sue_belief)
 

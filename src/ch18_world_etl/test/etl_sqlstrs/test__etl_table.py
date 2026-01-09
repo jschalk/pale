@@ -50,7 +50,7 @@ def test_remove_staging_columns_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert remove_staging_columns({"fizz", "buzz"}) == {"fizz", "buzz"}
     assert remove_staging_columns({"fizz", "inx_epoch_diff"}) == {"fizz"}
-    assert remove_staging_columns({"context_plan_close", "inx_buzz"}) == {"inx_buzz"}
+    assert remove_staging_columns({"context_keg_close", "inx_buzz"}) == {"inx_buzz"}
 
 
 def test_ALL_DIMEN_ABBV7_has_all_dimens():
@@ -66,13 +66,13 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     blfvoce_dimen = kw.belief_voiceunit
     blfmemb_dimen = kw.belief_voice_membership
     blfgrou_dimen = kw.belief_groupunit
-    blfplan_dimen = kw.belief_planunit
-    blfawar_dimen = kw.belief_plan_awardunit
-    blfreas_dimen = kw.belief_plan_reasonunit
-    blfcase_dimen = kw.belief_plan_reason_caseunit
-    blflabo_dimen = kw.belief_plan_partyunit
-    blfheal_dimen = kw.belief_plan_healerunit
-    blffact_dimen = kw.belief_plan_factunit
+    blfkegg_dimen = kw.belief_kegunit
+    blfawar_dimen = kw.belief_keg_awardunit
+    blfreas_dimen = kw.belief_keg_reasonunit
+    blfcase_dimen = kw.belief_keg_reason_caseunit
+    blflabo_dimen = kw.belief_keg_partyunit
+    blfheal_dimen = kw.belief_keg_healerunit
+    blffact_dimen = kw.belief_keg_factunit
     mmtunit_dimen = kw.momentunit
     mmtpayy_dimen = kw.moment_paybook
     mmtbudd_dimen = kw.moment_budunit
@@ -96,7 +96,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     blfunit_s_agg_table = create_prime_tablename("beliefunit", "s", agg_str, put_str)
     blfvoce_s_agg_table = create_prime_tablename("blfvoce", "s", agg_str, put_str)
     blfmemb_s_agg_table = create_prime_tablename("blfmemb", "s", agg_str, put_str)
-    blfplan_s_agg_table = create_prime_tablename("blfplan", "s", agg_str, put_str)
+    blfkegg_s_agg_table = create_prime_tablename("blfkegg", "s", agg_str, put_str)
     blfawar_s_agg_table = create_prime_tablename("blfawar", "s", agg_str, put_str)
     blfreas_s_agg_table = create_prime_tablename("blfreas", "s", agg_str, put_str)
     blfcase_s_agg_table = create_prime_tablename("blfcase", "s", agg_str, put_str)
@@ -129,7 +129,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert blfunit_s_agg_table == f"{blfunit_dimen}_s_put_agg"
     assert blfvoce_s_agg_table == f"{blfvoce_dimen}_s_put_agg"
     assert blfmemb_s_agg_table == f"{blfmemb_dimen}_s_put_agg"
-    assert blfplan_s_agg_table == f"{blfplan_dimen}_s_put_agg"
+    assert blfkegg_s_agg_table == f"{blfkegg_dimen}_s_put_agg"
     assert blfawar_s_agg_table == f"{blfawar_dimen}_s_put_agg"
     assert blfreas_s_agg_table == f"{blfreas_dimen}_s_put_agg"
     assert blfcase_s_agg_table == f"{blfcase_dimen}_s_put_agg"
@@ -331,7 +331,7 @@ def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args(
 
 def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_ContextNabuableArgs():
     # ESTABLISH
-    x_dimen = kw.belief_plan_reason_caseunit
+    x_dimen = kw.belief_keg_reason_caseunit
     table_keylist = ["h", "agg", "put"]
     config_dict = etl_idea_category_config_dict()
 
@@ -342,21 +342,21 @@ def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_
     print(f"{blfcase_h_agg_columns=}")
     assert blfcase_h_agg_columns
     expected_added_columns = {
-        f"context_plan_{kw.close}",
-        f"context_plan_{kw.denom}",
-        f"context_plan_{kw.morph}",
+        f"context_keg_{kw.close}",
+        f"context_keg_{kw.denom}",
+        f"context_keg_{kw.morph}",
         kw.inx_epoch_diff,
     }
     assert expected_added_columns.issubset(blfcase_h_agg_columns)
     assert blfcase_h_agg_columns == {
         kw.belief_name,
-        f"context_plan_{kw.close}",
-        f"context_plan_{kw.denom}",
-        f"context_plan_{kw.morph}",
+        f"context_keg_{kw.close}",
+        f"context_keg_{kw.denom}",
+        f"context_keg_{kw.morph}",
         kw.face_name,
         kw.inx_epoch_diff,
         kw.moment_label,
-        kw.plan_rope,
+        kw.keg_rope,
         kw.reason_context,
         kw.reason_state,
         kw.reason_divisor,

@@ -1,7 +1,7 @@
 from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
-from src.ch13_epoch.epoch_main import add_epoch_planunit
+from src.ch13_epoch.epoch_main import add_epoch_kegunit
 from src.ch13_epoch.epoch_str_func import (
     get_fact_state_readable_str,
     get_reason_case_readable_str,
@@ -126,25 +126,25 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario3_CaseRangeAnd_reason_d
 def test_get_reason_case_readable_str_ReturnsObj_Scenario4_Time_creg():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
-    add_epoch_planunit(sue_belief, get_creg_config())
+    add_epoch_kegunit(sue_belief, get_creg_config())
     time_rope = sue_belief.make_l1_rope(kw.time)
     creg_rope = sue_belief.make_rope(time_rope, kw.creg)
     week_rope = sue_belief.make_rope(creg_rope, kw.week)
     thu_rope = sue_belief.make_rope(week_rope, get_thu())
-    thu_plan = sue_belief.get_plan_obj(thu_rope)
+    thu_keg = sue_belief.get_keg_obj(thu_rope)
 
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     mop_rope = sue_belief.make_rope(casa_rope, exx.mop)
-    sue_belief.add_plan(mop_rope, pledge=True)
-    sue_belief.edit_plan_attr(
+    sue_belief.add_keg(mop_rope, pledge=True)
+    sue_belief.edit_keg_attr(
         mop_rope,
         reason_context=week_rope,
         reason_case=week_rope,
         reason_lower=1440,
         reason_upper=2880,
     )
-    mop_plan = sue_belief.get_plan_obj(mop_rope)
-    week_reason = mop_plan.get_reasonunit(week_rope)
+    mop_keg = sue_belief.get_keg_obj(mop_rope)
+    week_reason = mop_keg.get_reasonunit(week_rope)
     week_case = week_reason.get_case(week_rope)
 
     # WHEN
@@ -233,9 +233,9 @@ def test_get_fact_state_readable_str_ReturnsObj_Scenario3_Time_creg():
     sue_belief = beliefunit_shop("Sue")
     time_rope = sue_belief.make_l1_rope(kw.time)
     creg_rope = sue_belief.make_rope(time_rope, kw.creg)
-    add_epoch_planunit(sue_belief, get_creg_config())
+    add_epoch_kegunit(sue_belief, get_creg_config())
     sue_belief.add_fact(creg_rope, creg_rope, 1234567890, 1334567890)
-    root_creg_fact = sue_belief.planroot.factunits.get(creg_rope)
+    root_creg_fact = sue_belief.kegroot.factunits.get(creg_rope)
     print(f"{root_creg_fact=}")
 
     # WHEN

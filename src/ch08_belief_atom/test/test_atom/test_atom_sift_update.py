@@ -2,9 +2,9 @@ from src.ch03_voice.group import awardunit_shop
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch07_belief_logic.belief_tool import (
-    belief_plan_factunit_get_obj,
-    belief_plan_reason_caseunit_get_obj as caseunit_get_obj,
-    belief_plan_reasonunit_get_obj,
+    belief_keg_factunit_get_obj,
+    belief_keg_reason_caseunit_get_obj as caseunit_get_obj,
+    belief_keg_reasonunit_get_obj,
 )
 from src.ch08_belief_atom.atom_main import beliefatom_shop, sift_beliefatom
 from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
@@ -14,10 +14,10 @@ def test_sift_atom_ReturnsNoneIfGivenBeliefAtomIsUPDATE():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
-    casa_atom = beliefatom_shop(kw.belief_planunit, kw.UPDATE)
-    casa_atom.set_arg(kw.parent_rope, sue_belief.planroot.plan_label)
-    casa_atom.set_arg(kw.plan_label, exx.casa)
+    sue_belief.add_keg(casa_rope)
+    casa_atom = beliefatom_shop(kw.belief_kegunit, kw.UPDATE)
+    casa_atom.set_arg(kw.parent_rope, sue_belief.kegroot.keg_label)
+    casa_atom.set_arg(kw.keg_label, exx.casa)
     casa_atom.set_arg(kw.star, 8)
 
     # WHEN
@@ -112,11 +112,11 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_voice_membership():
     assert zia_jvalues == {kw.group_debt_lumen: zia_run_group_debt_lumen}
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_planunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_kegunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
+    sue_belief.add_keg(casa_rope)
 
     sue_addin = 23
     sue_begin = 37
@@ -129,8 +129,8 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_planunit():
     sue_pledge = 97
     sue_problem_bool = True
     sue_stop_want = 107
-    old_casa_atom = beliefatom_shop(kw.belief_planunit, kw.INSERT)
-    old_casa_atom.set_arg(kw.plan_rope, casa_rope)
+    old_casa_atom = beliefatom_shop(kw.belief_kegunit, kw.INSERT)
+    old_casa_atom.set_arg(kw.keg_rope, casa_rope)
     old_casa_atom.set_arg(kw.addin, sue_addin)
     old_casa_atom.set_arg(kw.begin, sue_begin)
     old_casa_atom.set_arg(kw.close, sue_close)
@@ -164,17 +164,17 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_planunit():
     assert zia_jvalues.get(kw.stop_want) == sue_stop_want
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_awardunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_keg_awardunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
+    sue_belief.add_keg(casa_rope)
     zia_run_give_force = 72
     zia_run_take_force = 76
-    sue_belief.get_plan_obj(casa_rope).set_awardunit(awardunit_shop(exx.run, 2, 3))
+    sue_belief.get_keg_obj(casa_rope).set_awardunit(awardunit_shop(exx.run, 2, 3))
 
-    zia_atom = beliefatom_shop(kw.belief_plan_awardunit, kw.INSERT)
-    zia_atom.set_arg(kw.plan_rope, casa_rope)
+    zia_atom = beliefatom_shop(kw.belief_keg_awardunit, kw.INSERT)
+    zia_atom.set_arg(kw.keg_rope, casa_rope)
     zia_atom.set_arg(kw.awardee_title, exx.run)
     zia_atom.set_arg(kw.give_force, zia_run_give_force)
     zia_atom.set_arg(kw.take_force, zia_run_take_force)
@@ -191,21 +191,21 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_awardunit():
     assert zia_jvalues.get(kw.take_force) == zia_run_take_force
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reasonunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_keg_reasonunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope(exx.casa)
-    sue_belief.add_plan(casa_rope)
-    sue_belief.get_plan_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
+    sue_belief.add_keg(casa_rope)
+    sue_belief.get_keg_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
 
     new_active_requisite = True
-    casa_atom = beliefatom_shop(kw.belief_plan_reasonunit, kw.INSERT)
-    casa_atom.set_arg(kw.plan_rope, casa_rope)
+    casa_atom = beliefatom_shop(kw.belief_keg_reasonunit, kw.INSERT)
+    casa_atom.set_arg(kw.keg_rope, casa_rope)
     casa_atom.set_arg(kw.reason_context, wk_rope)
     casa_atom.set_arg(kw.active_requisite, new_active_requisite)
     casa_jkeys = casa_atom.get_jkeys_dict()
-    casa_reasonunit = belief_plan_reasonunit_get_obj(sue_belief, casa_jkeys)
+    casa_reasonunit = belief_keg_reasonunit_get_obj(sue_belief, casa_jkeys)
     assert casa_reasonunit.active_requisite != new_active_requisite
     assert casa_reasonunit.active_requisite is None
 
@@ -221,7 +221,7 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reasonunit():
     assert zia_requisite_value == new_active_requisite
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reason_caseunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_keg_reason_caseunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
@@ -229,15 +229,15 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reason_caseunit():
     wk_rope = sue_belief.make_l1_rope("wk")
     thur_str = "thur"
     thur_rope = sue_belief.make_rope(wk_rope, thur_str)
-    sue_belief.add_plan(clean_rope)
-    sue_belief.get_plan_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
-    clean_plan = sue_belief.get_plan_obj(clean_rope)
-    clean_plan.set_reasonunit(reasonunit_shop(wk_rope))
-    clean_plan.get_reasonunit(wk_rope).set_case(thur_rope)
+    sue_belief.add_keg(clean_rope)
+    sue_belief.get_keg_obj(casa_rope).set_reasonunit(reasonunit_shop(wk_rope))
+    clean_keg = sue_belief.get_keg_obj(clean_rope)
+    clean_keg.set_reasonunit(reasonunit_shop(wk_rope))
+    clean_keg.get_reasonunit(wk_rope).set_case(thur_rope)
 
     thur_reason_divisor = 39
-    thur_atom = beliefatom_shop(kw.belief_plan_reason_caseunit, kw.INSERT)
-    thur_atom.set_arg(kw.plan_rope, clean_rope)
+    thur_atom = beliefatom_shop(kw.belief_keg_reason_caseunit, kw.INSERT)
+    thur_atom.set_arg(kw.keg_rope, clean_rope)
     thur_atom.set_arg(kw.reason_context, wk_rope)
     thur_atom.set_arg(kw.reason_state, thur_rope)
     assert thur_atom.is_valid()
@@ -258,21 +258,21 @@ def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_reason_caseunit():
     assert zia_jvalues.get(kw.reason_divisor) == thur_reason_divisor
 
 
-def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_plan_factunit():
+def test_sift_atom_ReturnsObj_BeliefAtom_UPDATE_belief_keg_factunit():
     # ESTABLISH
     sue_belief = beliefunit_shop("Sue")
     casa_rope = sue_belief.make_l1_rope(exx.casa)
     wk_rope = sue_belief.make_l1_rope("wk")
-    sue_belief.add_plan(casa_rope)
-    sue_belief.get_plan_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
+    sue_belief.add_keg(casa_rope)
+    sue_belief.get_keg_obj(casa_rope).set_factunit(factunit_shop(wk_rope))
 
     casa_fact_lower = 32
-    casa_atom = beliefatom_shop(kw.belief_plan_factunit, kw.INSERT)
-    casa_atom.set_arg(kw.plan_rope, casa_rope)
+    casa_atom = beliefatom_shop(kw.belief_keg_factunit, kw.INSERT)
+    casa_atom.set_arg(kw.keg_rope, casa_rope)
     casa_atom.set_arg(kw.fact_context, wk_rope)
     casa_atom.set_arg(kw.fact_lower, casa_fact_lower)
     casa_jkeys = casa_atom.get_jkeys_dict()
-    casa_factunit = belief_plan_factunit_get_obj(sue_belief, casa_jkeys)
+    casa_factunit = belief_keg_factunit_get_obj(sue_belief, casa_jkeys)
     assert casa_factunit.fact_lower != casa_fact_lower
     assert casa_factunit.fact_lower is None
 

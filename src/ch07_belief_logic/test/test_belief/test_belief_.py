@@ -16,7 +16,7 @@ def test_BeliefUnit_Exists():
     assert x_belief.belief_name is None
     assert x_belief.tally is None
     assert x_belief.voices is None
-    assert x_belief.planroot is None
+    assert x_belief.kegroot is None
     assert x_belief.credor_respect is None
     assert x_belief.debtor_respect is None
     assert x_belief.max_tree_traverse is None
@@ -27,23 +27,23 @@ def test_BeliefUnit_Exists():
     assert x_belief.mana_grain is None
     assert x_belief.last_lesson_id is None
     # calculated attr
-    assert x_belief._plan_dict is None
+    assert x_belief._keg_dict is None
     assert x_belief._keep_dict is None
     assert x_belief._healers_dict is None
     assert x_belief.tree_traverse_count is None
     assert x_belief.rational is None
     assert x_belief.keeps_justified is None
     assert x_belief.keeps_buildable is None
-    assert x_belief.sum_healerunit_plans_fund_total is None
+    assert x_belief.sum_healerunit_kegs_fund_total is None
     assert x_belief.offtrack_kids_star_set is None
     assert x_belief.offtrack_fund is None
     assert x_belief.reason_contexts is None
     assert x_belief.range_inheritors is None
-    assert str(type(x_belief.planroot)).find("None") == 8
+    assert str(type(x_belief.kegroot)).find("None") == 8
     obj_attrs = set(x_belief.__dict__.keys())
     print(sorted(list(obj_attrs)))
     assert obj_attrs == {
-        "_plan_dict",
+        "_keg_dict",
         "_healers_dict",
         "_keep_dict",
         kw.keeps_buildable,
@@ -53,11 +53,11 @@ def test_BeliefUnit_Exists():
         kw.range_inheritors,
         kw.rational,
         kw.reason_contexts,
-        kw.sum_healerunit_plans_fund_total,
+        kw.sum_healerunit_kegs_fund_total,
         kw.tree_traverse_count,
         kw.voices,
         kw.knot,
-        kw.planroot,
+        kw.kegroot,
         kw.credor_respect,
         kw.debtor_respect,
         kw.groupunits,
@@ -99,7 +99,7 @@ def test_beliefunit_shop_ReturnsObjectWithFilledFields():
     assert x_belief.moment_label == iowa_str
     assert x_belief.tally == 1
     assert x_belief.voices == {}
-    assert x_belief.planroot is not None
+    assert x_belief.kegroot is not None
     assert x_belief.max_tree_traverse == 3
     assert x_belief.knot == slash_knot
     assert x_belief.fund_pool == x_fund_pool
@@ -110,20 +110,20 @@ def test_beliefunit_shop_ReturnsObjectWithFilledFields():
     assert x_belief.debtor_respect == RespectNum(validate_pool_num())
     assert not x_belief.last_lesson_id
     # calculated attr
-    assert x_belief._plan_dict == {}
+    assert x_belief._keg_dict == {}
     assert x_belief._keep_dict == {}
     assert x_belief._healers_dict == {}
     assert not x_belief.tree_traverse_count
     assert x_belief.rational is False
     assert x_belief.keeps_justified is False
     assert x_belief.keeps_buildable is False
-    assert x_belief.sum_healerunit_plans_fund_total == 0
+    assert x_belief.sum_healerunit_kegs_fund_total == 0
     assert x_belief.offtrack_kids_star_set == set()
     assert not x_belief.offtrack_fund
     assert x_belief.reason_contexts == set()
     assert x_belief.range_inheritors == {}
-    print(f"{type(x_belief.planroot)=}") == 0
-    assert str(type(x_belief.planroot)).find(".plan.PlanUnit'>") > 0
+    print(f"{type(x_belief.kegroot)=}") == 0
+    assert str(type(x_belief.kegroot)).find(".keg.KegUnit'>") > 0
 
 
 def test_beliefunit_shop_ReturnsObjectWithCorrectEmptyField():
@@ -138,12 +138,12 @@ def test_beliefunit_shop_ReturnsObjectWithCorrectEmptyField():
     assert x_belief.fund_grain == default_grain_num_if_None()
     assert x_belief.respect_grain == default_grain_num_if_None()
     assert x_belief.mana_grain == default_grain_num_if_None()
-    assert x_belief.planroot.fund_grain == x_belief.fund_grain
-    assert x_belief.planroot.knot == x_belief.knot
-    assert x_belief.planroot.uid == 1
-    assert x_belief.planroot.tree_level == 0
-    assert x_belief.planroot.knot == x_belief.knot
-    assert x_belief.planroot.parent_rope == ""
+    assert x_belief.kegroot.fund_grain == x_belief.fund_grain
+    assert x_belief.kegroot.knot == x_belief.knot
+    assert x_belief.kegroot.uid == 1
+    assert x_belief.kegroot.tree_level == 0
+    assert x_belief.kegroot.knot == x_belief.knot
+    assert x_belief.kegroot.parent_rope == ""
 
 
 def test_BeliefUnit_set_max_tree_traverse_SetsInt():

@@ -38,13 +38,13 @@ def create_keep_rope_path(
     keep_rope: LabelTerm,
     knot: KnotTerm,
 ) -> str:
-    """Returns path: moment_mstr_dir\\moments\\moment_label\\beliefs\\belief_name\\keeps\\planroot\\level1_label"""
+    """Returns path: moment_mstr_dir\\moments\\moment_label\\beliefs\\belief_name\\keeps\\kegroot\\level1_label"""
     if keep_rope is None:
         raise _keep_ropeMissingException(
             f"'{belief_name}' cannot save to keep_path because it does not have keep_rope."
         )
 
-    keep_root = "planroot"
+    keep_root = "kegroot"
     keep_rope = rebuild_rope(keep_rope, moment_label, keep_root)
     x_list = get_all_rope_labels(keep_rope, knot)
     keep_sub_path = create_directory_path(x_list=[*x_list])

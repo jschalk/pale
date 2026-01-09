@@ -368,7 +368,7 @@ def get_ex02_atom_dataframe() -> DataFrame:
         "group_title",
         kw.party_title,
         kw.awardee_title,
-        "plan_rope",
+        "keg_rope",
     ]
     x_dt = DataFrame(columns=ex02_columns)
     # x_dt.loc[0] = ["Fay2", "Bob1", False, 10]
@@ -392,7 +392,7 @@ def get_ex02_atom_dataframe() -> DataFrame:
 
 
 def get_ex02_atom_csv() -> str:
-    return """voice_name,group_title,plan_rope,party_title,awardee_title,healer_name
+    return """voice_name,group_title,keg_rope,party_title,awardee_title,healer_name
 sue1,;swim1,amy45;casa,;labor5,aw1,;yao4
 sue1,;swim1,amy45;casa;clean,;labor4,aw1,;yao3
 sue1,;swim2,amy45;casa,;labor5,aw1,;yao4

@@ -8,66 +8,66 @@ from src.ch17_idea.idea_db_tool import create_idea_sorted_table, get_default_sor
 from src.ch18_world_etl._ref.ch18_semantic_types import KnotTerm
 from src.ch18_world_etl.etl_config import create_prime_tablename
 
-CREATE_BLFAWAR_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title_ERASE TEXT)"""
-CREATE_BLFAWAR_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, awardee_title_ERASE_otx TEXT, awardee_title_ERASE_inx TEXT)"""
-CREATE_BLFAWAR_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title_ERASE TEXT)"""
-CREATE_BLFAWAR_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL)"""
-CREATE_BLFAWAR_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, awardee_title_otx TEXT, awardee_title_inx TEXT, give_force REAL, take_force REAL)"""
-CREATE_BLFAWAR_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL)"""
-CREATE_BLFAWAR_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title_ERASE TEXT, error_message TEXT)"""
-CREATE_BLFAWAR_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title_ERASE TEXT)"""
-CREATE_BLFAWAR_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title_ERASE TEXT)"""
-CREATE_BLFAWAR_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL, error_message TEXT)"""
-CREATE_BLFAWAR_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL, error_message TEXT)"""
-CREATE_BLFAWAR_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL)"""
-CREATE_BLFCASE_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
-CREATE_BLFCASE_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, reason_state_ERASE_otx TEXT, reason_state_ERASE_inx TEXT)"""
-CREATE_BLFCASE_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
-CREATE_BLFCASE_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower_otx REAL, reason_lower_inx REAL, reason_upper_otx REAL, reason_upper_inx REAL, reason_divisor INTEGER, context_plan_close TEXT, context_plan_denom TEXT, context_plan_morph TEXT, inx_epoch_diff INTEGER)"""
-CREATE_BLFCASE_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, reason_state_otx TEXT, reason_state_inx TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER)"""
-CREATE_BLFCASE_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER)"""
-CREATE_BLFCASE_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT, error_message TEXT)"""
-CREATE_BLFCASE_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
-CREATE_BLFCASE_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
-CREATE_BLFCASE_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"""
-CREATE_BLFCASE_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"""
-CREATE_BLFCASE_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER)"""
-CREATE_BLFFACT_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT)"""
-CREATE_BLFFACT_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, fact_context_ERASE_otx TEXT, fact_context_ERASE_inx TEXT)"""
-CREATE_BLFFACT_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT)"""
-CREATE_BLFFACT_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower_otx REAL, fact_lower_inx REAL, fact_upper_otx REAL, fact_upper_inx REAL, context_plan_close TEXT, context_plan_denom TEXT, context_plan_morph TEXT, inx_epoch_diff INTEGER)"""
-CREATE_BLFFACT_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, fact_context_otx TEXT, fact_context_inx TEXT, fact_state_otx TEXT, fact_state_inx TEXT, fact_lower REAL, fact_upper REAL)"""
-CREATE_BLFFACT_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
-CREATE_BLFFACT_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT, error_message TEXT)"""
-CREATE_BLFFACT_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT)"""
-CREATE_BLFFACT_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context_ERASE TEXT)"""
-CREATE_BLFFACT_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL, error_message TEXT)"""
-CREATE_BLFFACT_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL, error_message TEXT)"""
-CREATE_BLFFACT_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
-CREATE_BLFHEAL_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name_ERASE TEXT)"""
-CREATE_BLFHEAL_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, healer_name_ERASE_otx TEXT, healer_name_ERASE_inx TEXT)"""
-CREATE_BLFHEAL_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name_ERASE TEXT)"""
-CREATE_BLFHEAL_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name TEXT)"""
-CREATE_BLFHEAL_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, healer_name_otx TEXT, healer_name_inx TEXT)"""
-CREATE_BLFHEAL_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name TEXT)"""
-CREATE_BLFHEAL_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name_ERASE TEXT, error_message TEXT)"""
-CREATE_BLFHEAL_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name_ERASE TEXT)"""
-CREATE_BLFHEAL_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name_ERASE TEXT)"""
-CREATE_BLFHEAL_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name TEXT, error_message TEXT)"""
-CREATE_BLFHEAL_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name TEXT, error_message TEXT)"""
-CREATE_BLFHEAL_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name TEXT)"""
-CREATE_BLFLABO_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title_ERASE TEXT)"""
-CREATE_BLFLABO_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, party_title_ERASE_otx TEXT, party_title_ERASE_inx TEXT)"""
-CREATE_BLFLABO_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title_ERASE TEXT)"""
-CREATE_BLFLABO_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title TEXT, solo INTEGER)"""
-CREATE_BLFLABO_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, party_title_otx TEXT, party_title_inx TEXT, solo INTEGER)"""
-CREATE_BLFLABO_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title TEXT, solo INTEGER)"""
-CREATE_BLFLABO_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title_ERASE TEXT, error_message TEXT)"""
-CREATE_BLFLABO_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title_ERASE TEXT)"""
-CREATE_BLFLABO_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title_ERASE TEXT)"""
-CREATE_BLFLABO_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title TEXT, solo INTEGER, error_message TEXT)"""
-CREATE_BLFLABO_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title TEXT, solo INTEGER, error_message TEXT)"""
-CREATE_BLFLABO_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title TEXT, solo INTEGER)"""
+CREATE_BLFAWAR_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title_ERASE TEXT)"""
+CREATE_BLFAWAR_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, awardee_title_ERASE_otx TEXT, awardee_title_ERASE_inx TEXT)"""
+CREATE_BLFAWAR_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title_ERASE TEXT)"""
+CREATE_BLFAWAR_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL)"""
+CREATE_BLFAWAR_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, awardee_title_otx TEXT, awardee_title_inx TEXT, give_force REAL, take_force REAL)"""
+CREATE_BLFAWAR_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL)"""
+CREATE_BLFAWAR_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title_ERASE TEXT, error_message TEXT)"""
+CREATE_BLFAWAR_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title_ERASE TEXT)"""
+CREATE_BLFAWAR_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title_ERASE TEXT)"""
+CREATE_BLFAWAR_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL, error_message TEXT)"""
+CREATE_BLFAWAR_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL, error_message TEXT)"""
+CREATE_BLFAWAR_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL)"""
+CREATE_BLFCASE_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
+CREATE_BLFCASE_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, reason_state_ERASE_otx TEXT, reason_state_ERASE_inx TEXT)"""
+CREATE_BLFCASE_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
+CREATE_BLFCASE_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower_otx REAL, reason_lower_inx REAL, reason_upper_otx REAL, reason_upper_inx REAL, reason_divisor INTEGER, context_keg_close TEXT, context_keg_denom TEXT, context_keg_morph TEXT, inx_epoch_diff INTEGER)"""
+CREATE_BLFCASE_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, reason_state_otx TEXT, reason_state_inx TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER)"""
+CREATE_BLFCASE_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER)"""
+CREATE_BLFCASE_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT, error_message TEXT)"""
+CREATE_BLFCASE_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
+CREATE_BLFCASE_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state_ERASE TEXT)"""
+CREATE_BLFCASE_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"""
+CREATE_BLFCASE_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"""
+CREATE_BLFCASE_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER)"""
+CREATE_BLFFACT_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context_ERASE TEXT)"""
+CREATE_BLFFACT_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, fact_context_ERASE_otx TEXT, fact_context_ERASE_inx TEXT)"""
+CREATE_BLFFACT_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context_ERASE TEXT)"""
+CREATE_BLFFACT_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower_otx REAL, fact_lower_inx REAL, fact_upper_otx REAL, fact_upper_inx REAL, context_keg_close TEXT, context_keg_denom TEXT, context_keg_morph TEXT, inx_epoch_diff INTEGER)"""
+CREATE_BLFFACT_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, fact_context_otx TEXT, fact_context_inx TEXT, fact_state_otx TEXT, fact_state_inx TEXT, fact_lower REAL, fact_upper REAL)"""
+CREATE_BLFFACT_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
+CREATE_BLFFACT_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context_ERASE TEXT, error_message TEXT)"""
+CREATE_BLFFACT_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context_ERASE TEXT)"""
+CREATE_BLFFACT_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context_ERASE TEXT)"""
+CREATE_BLFFACT_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL, error_message TEXT)"""
+CREATE_BLFFACT_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL, error_message TEXT)"""
+CREATE_BLFFACT_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
+CREATE_BLFHEAL_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name_ERASE TEXT)"""
+CREATE_BLFHEAL_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, healer_name_ERASE_otx TEXT, healer_name_ERASE_inx TEXT)"""
+CREATE_BLFHEAL_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name_ERASE TEXT)"""
+CREATE_BLFHEAL_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name TEXT)"""
+CREATE_BLFHEAL_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, healer_name_otx TEXT, healer_name_inx TEXT)"""
+CREATE_BLFHEAL_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name TEXT)"""
+CREATE_BLFHEAL_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name_ERASE TEXT, error_message TEXT)"""
+CREATE_BLFHEAL_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name_ERASE TEXT)"""
+CREATE_BLFHEAL_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name_ERASE TEXT)"""
+CREATE_BLFHEAL_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name TEXT, error_message TEXT)"""
+CREATE_BLFHEAL_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name TEXT, error_message TEXT)"""
+CREATE_BLFHEAL_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name TEXT)"""
+CREATE_BLFLABO_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title_ERASE TEXT)"""
+CREATE_BLFLABO_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, party_title_ERASE_otx TEXT, party_title_ERASE_inx TEXT)"""
+CREATE_BLFLABO_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title_ERASE TEXT)"""
+CREATE_BLFLABO_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title TEXT, solo INTEGER)"""
+CREATE_BLFLABO_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, party_title_otx TEXT, party_title_inx TEXT, solo INTEGER)"""
+CREATE_BLFLABO_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title TEXT, solo INTEGER)"""
+CREATE_BLFLABO_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title_ERASE TEXT, error_message TEXT)"""
+CREATE_BLFLABO_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title_ERASE TEXT)"""
+CREATE_BLFLABO_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title_ERASE TEXT)"""
+CREATE_BLFLABO_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title TEXT, solo INTEGER, error_message TEXT)"""
+CREATE_BLFLABO_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title TEXT, solo INTEGER, error_message TEXT)"""
+CREATE_BLFLABO_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title TEXT, solo INTEGER)"""
 CREATE_BLFMEMB_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice_membership_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, group_title_ERASE TEXT)"""
 CREATE_BLFMEMB_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice_membership_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, voice_name_otx TEXT, voice_name_inx TEXT, group_title_ERASE_otx TEXT, group_title_ERASE_inx TEXT)"""
 CREATE_BLFMEMB_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice_membership_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, group_title_ERASE TEXT)"""
@@ -80,30 +80,30 @@ CREATE_BLFMEMB_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice
 CREATE_BLFMEMB_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice_membership_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, group_title TEXT, group_cred_lumen REAL, group_debt_lumen REAL, error_message TEXT)"""
 CREATE_BLFMEMB_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice_membership_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, group_title TEXT, group_cred_lumen REAL, group_debt_lumen REAL, error_message TEXT)"""
 CREATE_BLFMEMB_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice_membership_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, voice_name TEXT, group_title TEXT, group_cred_lumen REAL, group_debt_lumen REAL)"""
-CREATE_BLFPLAN_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope_ERASE TEXT)"""
-CREATE_BLFPLAN_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_ERASE_otx TEXT, plan_rope_ERASE_inx TEXT)"""
-CREATE_BLFPLAN_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope_ERASE TEXT)"""
-CREATE_BLFPLAN_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
-CREATE_BLFPLAN_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
-CREATE_BLFPLAN_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
-CREATE_BLFPLAN_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope_ERASE TEXT, error_message TEXT)"""
-CREATE_BLFPLAN_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope_ERASE TEXT)"""
-CREATE_BLFPLAN_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope_ERASE TEXT)"""
-CREATE_BLFPLAN_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER, error_message TEXT)"""
-CREATE_BLFPLAN_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER, error_message TEXT)"""
-CREATE_BLFPLAN_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
-CREATE_BLFREAS_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context_ERASE TEXT)"""
-CREATE_BLFREAS_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, reason_context_ERASE_otx TEXT, reason_context_ERASE_inx TEXT)"""
-CREATE_BLFREAS_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context_ERASE TEXT)"""
-CREATE_BLFREAS_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, active_requisite INTEGER)"""
-CREATE_BLFREAS_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, plan_rope_otx TEXT, plan_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, active_requisite INTEGER)"""
-CREATE_BLFREAS_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, active_requisite INTEGER)"""
-CREATE_BLFREAS_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context_ERASE TEXT, error_message TEXT)"""
-CREATE_BLFREAS_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context_ERASE TEXT)"""
-CREATE_BLFREAS_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context_ERASE TEXT)"""
-CREATE_BLFREAS_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, active_requisite INTEGER, error_message TEXT)"""
-CREATE_BLFREAS_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, active_requisite INTEGER, error_message TEXT)"""
-CREATE_BLFREAS_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, active_requisite INTEGER)"""
+CREATE_BLFKEGG_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope_ERASE TEXT)"""
+CREATE_BLFKEGG_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_ERASE_otx TEXT, keg_rope_ERASE_inx TEXT)"""
+CREATE_BLFKEGG_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope_ERASE TEXT)"""
+CREATE_BLFKEGG_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
+CREATE_BLFKEGG_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
+CREATE_BLFKEGG_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
+CREATE_BLFKEGG_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope_ERASE TEXT, error_message TEXT)"""
+CREATE_BLFKEGG_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope_ERASE TEXT)"""
+CREATE_BLFKEGG_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope_ERASE TEXT)"""
+CREATE_BLFKEGG_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER, error_message TEXT)"""
+CREATE_BLFKEGG_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER, error_message TEXT)"""
+CREATE_BLFKEGG_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER)"""
+CREATE_BLFREAS_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context_ERASE TEXT)"""
+CREATE_BLFREAS_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, reason_context_ERASE_otx TEXT, reason_context_ERASE_inx TEXT)"""
+CREATE_BLFREAS_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context_ERASE TEXT)"""
+CREATE_BLFREAS_HEARD_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_h_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, active_requisite INTEGER)"""
+CREATE_BLFREAS_HEARD_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_h_put_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_otx TEXT, belief_name_inx TEXT, keg_rope_otx TEXT, keg_rope_inx TEXT, reason_context_otx TEXT, reason_context_inx TEXT, active_requisite INTEGER)"""
+CREATE_BLFREAS_HEARD_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_h_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, active_requisite INTEGER)"""
+CREATE_BLFREAS_SOUND_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_s_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context_ERASE TEXT, error_message TEXT)"""
+CREATE_BLFREAS_SOUND_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_s_del_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context_ERASE TEXT)"""
+CREATE_BLFREAS_SOUND_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_s_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context_ERASE TEXT)"""
+CREATE_BLFREAS_SOUND_PUT_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_s_put_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, active_requisite INTEGER, error_message TEXT)"""
+CREATE_BLFREAS_SOUND_PUT_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, active_requisite INTEGER, error_message TEXT)"""
+CREATE_BLFREAS_SOUND_PUT_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_s_put_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, active_requisite INTEGER)"""
 CREATE_BLFUNIT_HEARD_DEL_AGG_SQLSTR = """CREATE TABLE IF NOT EXISTS beliefunit_h_del_agg (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name_ERASE TEXT)"""
 CREATE_BLFUNIT_HEARD_DEL_RAW_SQLSTR = """CREATE TABLE IF NOT EXISTS beliefunit_h_del_raw (translate_spark_num INTEGER, spark_num INTEGER, face_name_otx TEXT, face_name_inx TEXT, moment_label_otx TEXT, moment_label_inx TEXT, belief_name_ERASE_otx TEXT, belief_name_ERASE_inx TEXT)"""
 CREATE_BLFUNIT_HEARD_DEL_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS beliefunit_h_del_vld (spark_num INTEGER, face_name TEXT, moment_label TEXT, belief_name_ERASE TEXT)"""
@@ -194,90 +194,90 @@ CREATE_TRLTITL_SOUND_VLD_SQLSTR = """CREATE TABLE IF NOT EXISTS translate_title_
 
 def get_prime_create_table_sqlstrs() -> dict[str, str]:
     return {
-        "belief_plan_awardunit_h_del_agg": CREATE_BLFAWAR_HEARD_DEL_AGG_SQLSTR,
-        "belief_plan_awardunit_h_del_raw": CREATE_BLFAWAR_HEARD_DEL_RAW_SQLSTR,
-        "belief_plan_awardunit_h_del_vld": CREATE_BLFAWAR_HEARD_DEL_VLD_SQLSTR,
-        "belief_plan_awardunit_h_put_agg": CREATE_BLFAWAR_HEARD_PUT_AGG_SQLSTR,
-        "belief_plan_awardunit_h_put_raw": CREATE_BLFAWAR_HEARD_PUT_RAW_SQLSTR,
-        "belief_plan_awardunit_h_put_vld": CREATE_BLFAWAR_HEARD_PUT_VLD_SQLSTR,
-        "belief_plan_awardunit_s_del_agg": CREATE_BLFAWAR_SOUND_DEL_AGG_SQLSTR,
-        "belief_plan_awardunit_s_del_raw": CREATE_BLFAWAR_SOUND_DEL_RAW_SQLSTR,
-        "belief_plan_awardunit_s_del_vld": CREATE_BLFAWAR_SOUND_DEL_VLD_SQLSTR,
-        "belief_plan_awardunit_s_put_agg": CREATE_BLFAWAR_SOUND_PUT_AGG_SQLSTR,
-        "belief_plan_awardunit_s_put_raw": CREATE_BLFAWAR_SOUND_PUT_RAW_SQLSTR,
-        "belief_plan_awardunit_s_put_vld": CREATE_BLFAWAR_SOUND_PUT_VLD_SQLSTR,
-        "belief_plan_factunit_h_del_agg": CREATE_BLFFACT_HEARD_DEL_AGG_SQLSTR,
-        "belief_plan_factunit_h_del_raw": CREATE_BLFFACT_HEARD_DEL_RAW_SQLSTR,
-        "belief_plan_factunit_h_del_vld": CREATE_BLFFACT_HEARD_DEL_VLD_SQLSTR,
-        "belief_plan_factunit_h_put_agg": CREATE_BLFFACT_HEARD_PUT_AGG_SQLSTR,
-        "belief_plan_factunit_h_put_raw": CREATE_BLFFACT_HEARD_PUT_RAW_SQLSTR,
-        "belief_plan_factunit_h_put_vld": CREATE_BLFFACT_HEARD_PUT_VLD_SQLSTR,
-        "belief_plan_factunit_s_del_agg": CREATE_BLFFACT_SOUND_DEL_AGG_SQLSTR,
-        "belief_plan_factunit_s_del_raw": CREATE_BLFFACT_SOUND_DEL_RAW_SQLSTR,
-        "belief_plan_factunit_s_del_vld": CREATE_BLFFACT_SOUND_DEL_VLD_SQLSTR,
-        "belief_plan_factunit_s_put_agg": CREATE_BLFFACT_SOUND_PUT_AGG_SQLSTR,
-        "belief_plan_factunit_s_put_raw": CREATE_BLFFACT_SOUND_PUT_RAW_SQLSTR,
-        "belief_plan_factunit_s_put_vld": CREATE_BLFFACT_SOUND_PUT_VLD_SQLSTR,
-        "belief_plan_healerunit_h_del_agg": CREATE_BLFHEAL_HEARD_DEL_AGG_SQLSTR,
-        "belief_plan_healerunit_h_del_raw": CREATE_BLFHEAL_HEARD_DEL_RAW_SQLSTR,
-        "belief_plan_healerunit_h_del_vld": CREATE_BLFHEAL_HEARD_DEL_VLD_SQLSTR,
-        "belief_plan_healerunit_h_put_agg": CREATE_BLFHEAL_HEARD_PUT_AGG_SQLSTR,
-        "belief_plan_healerunit_h_put_raw": CREATE_BLFHEAL_HEARD_PUT_RAW_SQLSTR,
-        "belief_plan_healerunit_h_put_vld": CREATE_BLFHEAL_HEARD_PUT_VLD_SQLSTR,
-        "belief_plan_healerunit_s_del_agg": CREATE_BLFHEAL_SOUND_DEL_AGG_SQLSTR,
-        "belief_plan_healerunit_s_del_raw": CREATE_BLFHEAL_SOUND_DEL_RAW_SQLSTR,
-        "belief_plan_healerunit_s_del_vld": CREATE_BLFHEAL_SOUND_DEL_VLD_SQLSTR,
-        "belief_plan_healerunit_s_put_agg": CREATE_BLFHEAL_SOUND_PUT_AGG_SQLSTR,
-        "belief_plan_healerunit_s_put_raw": CREATE_BLFHEAL_SOUND_PUT_RAW_SQLSTR,
-        "belief_plan_healerunit_s_put_vld": CREATE_BLFHEAL_SOUND_PUT_VLD_SQLSTR,
-        "belief_plan_partyunit_h_del_agg": CREATE_BLFLABO_HEARD_DEL_AGG_SQLSTR,
-        "belief_plan_partyunit_h_del_raw": CREATE_BLFLABO_HEARD_DEL_RAW_SQLSTR,
-        "belief_plan_partyunit_h_del_vld": CREATE_BLFLABO_HEARD_DEL_VLD_SQLSTR,
-        "belief_plan_partyunit_h_put_agg": CREATE_BLFLABO_HEARD_PUT_AGG_SQLSTR,
-        "belief_plan_partyunit_h_put_raw": CREATE_BLFLABO_HEARD_PUT_RAW_SQLSTR,
-        "belief_plan_partyunit_h_put_vld": CREATE_BLFLABO_HEARD_PUT_VLD_SQLSTR,
-        "belief_plan_partyunit_s_del_agg": CREATE_BLFLABO_SOUND_DEL_AGG_SQLSTR,
-        "belief_plan_partyunit_s_del_raw": CREATE_BLFLABO_SOUND_DEL_RAW_SQLSTR,
-        "belief_plan_partyunit_s_del_vld": CREATE_BLFLABO_SOUND_DEL_VLD_SQLSTR,
-        "belief_plan_partyunit_s_put_agg": CREATE_BLFLABO_SOUND_PUT_AGG_SQLSTR,
-        "belief_plan_partyunit_s_put_raw": CREATE_BLFLABO_SOUND_PUT_RAW_SQLSTR,
-        "belief_plan_partyunit_s_put_vld": CREATE_BLFLABO_SOUND_PUT_VLD_SQLSTR,
-        "belief_plan_reason_caseunit_h_del_agg": CREATE_BLFCASE_HEARD_DEL_AGG_SQLSTR,
-        "belief_plan_reason_caseunit_h_del_raw": CREATE_BLFCASE_HEARD_DEL_RAW_SQLSTR,
-        "belief_plan_reason_caseunit_h_del_vld": CREATE_BLFCASE_HEARD_DEL_VLD_SQLSTR,
-        "belief_plan_reason_caseunit_h_put_agg": CREATE_BLFCASE_HEARD_PUT_AGG_SQLSTR,
-        "belief_plan_reason_caseunit_h_put_raw": CREATE_BLFCASE_HEARD_PUT_RAW_SQLSTR,
-        "belief_plan_reason_caseunit_h_put_vld": CREATE_BLFCASE_HEARD_PUT_VLD_SQLSTR,
-        "belief_plan_reason_caseunit_s_del_agg": CREATE_BLFCASE_SOUND_DEL_AGG_SQLSTR,
-        "belief_plan_reason_caseunit_s_del_raw": CREATE_BLFCASE_SOUND_DEL_RAW_SQLSTR,
-        "belief_plan_reason_caseunit_s_del_vld": CREATE_BLFCASE_SOUND_DEL_VLD_SQLSTR,
-        "belief_plan_reason_caseunit_s_put_agg": CREATE_BLFCASE_SOUND_PUT_AGG_SQLSTR,
-        "belief_plan_reason_caseunit_s_put_raw": CREATE_BLFCASE_SOUND_PUT_RAW_SQLSTR,
-        "belief_plan_reason_caseunit_s_put_vld": CREATE_BLFCASE_SOUND_PUT_VLD_SQLSTR,
-        "belief_plan_reasonunit_h_del_agg": CREATE_BLFREAS_HEARD_DEL_AGG_SQLSTR,
-        "belief_plan_reasonunit_h_del_raw": CREATE_BLFREAS_HEARD_DEL_RAW_SQLSTR,
-        "belief_plan_reasonunit_h_del_vld": CREATE_BLFREAS_HEARD_DEL_VLD_SQLSTR,
-        "belief_plan_reasonunit_h_put_agg": CREATE_BLFREAS_HEARD_PUT_AGG_SQLSTR,
-        "belief_plan_reasonunit_h_put_raw": CREATE_BLFREAS_HEARD_PUT_RAW_SQLSTR,
-        "belief_plan_reasonunit_h_put_vld": CREATE_BLFREAS_HEARD_PUT_VLD_SQLSTR,
-        "belief_plan_reasonunit_s_del_agg": CREATE_BLFREAS_SOUND_DEL_AGG_SQLSTR,
-        "belief_plan_reasonunit_s_del_raw": CREATE_BLFREAS_SOUND_DEL_RAW_SQLSTR,
-        "belief_plan_reasonunit_s_del_vld": CREATE_BLFREAS_SOUND_DEL_VLD_SQLSTR,
-        "belief_plan_reasonunit_s_put_agg": CREATE_BLFREAS_SOUND_PUT_AGG_SQLSTR,
-        "belief_plan_reasonunit_s_put_raw": CREATE_BLFREAS_SOUND_PUT_RAW_SQLSTR,
-        "belief_plan_reasonunit_s_put_vld": CREATE_BLFREAS_SOUND_PUT_VLD_SQLSTR,
-        "belief_planunit_h_del_agg": CREATE_BLFPLAN_HEARD_DEL_AGG_SQLSTR,
-        "belief_planunit_h_del_raw": CREATE_BLFPLAN_HEARD_DEL_RAW_SQLSTR,
-        "belief_planunit_h_del_vld": CREATE_BLFPLAN_HEARD_DEL_VLD_SQLSTR,
-        "belief_planunit_h_put_agg": CREATE_BLFPLAN_HEARD_PUT_AGG_SQLSTR,
-        "belief_planunit_h_put_raw": CREATE_BLFPLAN_HEARD_PUT_RAW_SQLSTR,
-        "belief_planunit_h_put_vld": CREATE_BLFPLAN_HEARD_PUT_VLD_SQLSTR,
-        "belief_planunit_s_del_agg": CREATE_BLFPLAN_SOUND_DEL_AGG_SQLSTR,
-        "belief_planunit_s_del_raw": CREATE_BLFPLAN_SOUND_DEL_RAW_SQLSTR,
-        "belief_planunit_s_del_vld": CREATE_BLFPLAN_SOUND_DEL_VLD_SQLSTR,
-        "belief_planunit_s_put_agg": CREATE_BLFPLAN_SOUND_PUT_AGG_SQLSTR,
-        "belief_planunit_s_put_raw": CREATE_BLFPLAN_SOUND_PUT_RAW_SQLSTR,
-        "belief_planunit_s_put_vld": CREATE_BLFPLAN_SOUND_PUT_VLD_SQLSTR,
+        "belief_keg_awardunit_h_del_agg": CREATE_BLFAWAR_HEARD_DEL_AGG_SQLSTR,
+        "belief_keg_awardunit_h_del_raw": CREATE_BLFAWAR_HEARD_DEL_RAW_SQLSTR,
+        "belief_keg_awardunit_h_del_vld": CREATE_BLFAWAR_HEARD_DEL_VLD_SQLSTR,
+        "belief_keg_awardunit_h_put_agg": CREATE_BLFAWAR_HEARD_PUT_AGG_SQLSTR,
+        "belief_keg_awardunit_h_put_raw": CREATE_BLFAWAR_HEARD_PUT_RAW_SQLSTR,
+        "belief_keg_awardunit_h_put_vld": CREATE_BLFAWAR_HEARD_PUT_VLD_SQLSTR,
+        "belief_keg_awardunit_s_del_agg": CREATE_BLFAWAR_SOUND_DEL_AGG_SQLSTR,
+        "belief_keg_awardunit_s_del_raw": CREATE_BLFAWAR_SOUND_DEL_RAW_SQLSTR,
+        "belief_keg_awardunit_s_del_vld": CREATE_BLFAWAR_SOUND_DEL_VLD_SQLSTR,
+        "belief_keg_awardunit_s_put_agg": CREATE_BLFAWAR_SOUND_PUT_AGG_SQLSTR,
+        "belief_keg_awardunit_s_put_raw": CREATE_BLFAWAR_SOUND_PUT_RAW_SQLSTR,
+        "belief_keg_awardunit_s_put_vld": CREATE_BLFAWAR_SOUND_PUT_VLD_SQLSTR,
+        "belief_keg_factunit_h_del_agg": CREATE_BLFFACT_HEARD_DEL_AGG_SQLSTR,
+        "belief_keg_factunit_h_del_raw": CREATE_BLFFACT_HEARD_DEL_RAW_SQLSTR,
+        "belief_keg_factunit_h_del_vld": CREATE_BLFFACT_HEARD_DEL_VLD_SQLSTR,
+        "belief_keg_factunit_h_put_agg": CREATE_BLFFACT_HEARD_PUT_AGG_SQLSTR,
+        "belief_keg_factunit_h_put_raw": CREATE_BLFFACT_HEARD_PUT_RAW_SQLSTR,
+        "belief_keg_factunit_h_put_vld": CREATE_BLFFACT_HEARD_PUT_VLD_SQLSTR,
+        "belief_keg_factunit_s_del_agg": CREATE_BLFFACT_SOUND_DEL_AGG_SQLSTR,
+        "belief_keg_factunit_s_del_raw": CREATE_BLFFACT_SOUND_DEL_RAW_SQLSTR,
+        "belief_keg_factunit_s_del_vld": CREATE_BLFFACT_SOUND_DEL_VLD_SQLSTR,
+        "belief_keg_factunit_s_put_agg": CREATE_BLFFACT_SOUND_PUT_AGG_SQLSTR,
+        "belief_keg_factunit_s_put_raw": CREATE_BLFFACT_SOUND_PUT_RAW_SQLSTR,
+        "belief_keg_factunit_s_put_vld": CREATE_BLFFACT_SOUND_PUT_VLD_SQLSTR,
+        "belief_keg_healerunit_h_del_agg": CREATE_BLFHEAL_HEARD_DEL_AGG_SQLSTR,
+        "belief_keg_healerunit_h_del_raw": CREATE_BLFHEAL_HEARD_DEL_RAW_SQLSTR,
+        "belief_keg_healerunit_h_del_vld": CREATE_BLFHEAL_HEARD_DEL_VLD_SQLSTR,
+        "belief_keg_healerunit_h_put_agg": CREATE_BLFHEAL_HEARD_PUT_AGG_SQLSTR,
+        "belief_keg_healerunit_h_put_raw": CREATE_BLFHEAL_HEARD_PUT_RAW_SQLSTR,
+        "belief_keg_healerunit_h_put_vld": CREATE_BLFHEAL_HEARD_PUT_VLD_SQLSTR,
+        "belief_keg_healerunit_s_del_agg": CREATE_BLFHEAL_SOUND_DEL_AGG_SQLSTR,
+        "belief_keg_healerunit_s_del_raw": CREATE_BLFHEAL_SOUND_DEL_RAW_SQLSTR,
+        "belief_keg_healerunit_s_del_vld": CREATE_BLFHEAL_SOUND_DEL_VLD_SQLSTR,
+        "belief_keg_healerunit_s_put_agg": CREATE_BLFHEAL_SOUND_PUT_AGG_SQLSTR,
+        "belief_keg_healerunit_s_put_raw": CREATE_BLFHEAL_SOUND_PUT_RAW_SQLSTR,
+        "belief_keg_healerunit_s_put_vld": CREATE_BLFHEAL_SOUND_PUT_VLD_SQLSTR,
+        "belief_keg_partyunit_h_del_agg": CREATE_BLFLABO_HEARD_DEL_AGG_SQLSTR,
+        "belief_keg_partyunit_h_del_raw": CREATE_BLFLABO_HEARD_DEL_RAW_SQLSTR,
+        "belief_keg_partyunit_h_del_vld": CREATE_BLFLABO_HEARD_DEL_VLD_SQLSTR,
+        "belief_keg_partyunit_h_put_agg": CREATE_BLFLABO_HEARD_PUT_AGG_SQLSTR,
+        "belief_keg_partyunit_h_put_raw": CREATE_BLFLABO_HEARD_PUT_RAW_SQLSTR,
+        "belief_keg_partyunit_h_put_vld": CREATE_BLFLABO_HEARD_PUT_VLD_SQLSTR,
+        "belief_keg_partyunit_s_del_agg": CREATE_BLFLABO_SOUND_DEL_AGG_SQLSTR,
+        "belief_keg_partyunit_s_del_raw": CREATE_BLFLABO_SOUND_DEL_RAW_SQLSTR,
+        "belief_keg_partyunit_s_del_vld": CREATE_BLFLABO_SOUND_DEL_VLD_SQLSTR,
+        "belief_keg_partyunit_s_put_agg": CREATE_BLFLABO_SOUND_PUT_AGG_SQLSTR,
+        "belief_keg_partyunit_s_put_raw": CREATE_BLFLABO_SOUND_PUT_RAW_SQLSTR,
+        "belief_keg_partyunit_s_put_vld": CREATE_BLFLABO_SOUND_PUT_VLD_SQLSTR,
+        "belief_keg_reason_caseunit_h_del_agg": CREATE_BLFCASE_HEARD_DEL_AGG_SQLSTR,
+        "belief_keg_reason_caseunit_h_del_raw": CREATE_BLFCASE_HEARD_DEL_RAW_SQLSTR,
+        "belief_keg_reason_caseunit_h_del_vld": CREATE_BLFCASE_HEARD_DEL_VLD_SQLSTR,
+        "belief_keg_reason_caseunit_h_put_agg": CREATE_BLFCASE_HEARD_PUT_AGG_SQLSTR,
+        "belief_keg_reason_caseunit_h_put_raw": CREATE_BLFCASE_HEARD_PUT_RAW_SQLSTR,
+        "belief_keg_reason_caseunit_h_put_vld": CREATE_BLFCASE_HEARD_PUT_VLD_SQLSTR,
+        "belief_keg_reason_caseunit_s_del_agg": CREATE_BLFCASE_SOUND_DEL_AGG_SQLSTR,
+        "belief_keg_reason_caseunit_s_del_raw": CREATE_BLFCASE_SOUND_DEL_RAW_SQLSTR,
+        "belief_keg_reason_caseunit_s_del_vld": CREATE_BLFCASE_SOUND_DEL_VLD_SQLSTR,
+        "belief_keg_reason_caseunit_s_put_agg": CREATE_BLFCASE_SOUND_PUT_AGG_SQLSTR,
+        "belief_keg_reason_caseunit_s_put_raw": CREATE_BLFCASE_SOUND_PUT_RAW_SQLSTR,
+        "belief_keg_reason_caseunit_s_put_vld": CREATE_BLFCASE_SOUND_PUT_VLD_SQLSTR,
+        "belief_keg_reasonunit_h_del_agg": CREATE_BLFREAS_HEARD_DEL_AGG_SQLSTR,
+        "belief_keg_reasonunit_h_del_raw": CREATE_BLFREAS_HEARD_DEL_RAW_SQLSTR,
+        "belief_keg_reasonunit_h_del_vld": CREATE_BLFREAS_HEARD_DEL_VLD_SQLSTR,
+        "belief_keg_reasonunit_h_put_agg": CREATE_BLFREAS_HEARD_PUT_AGG_SQLSTR,
+        "belief_keg_reasonunit_h_put_raw": CREATE_BLFREAS_HEARD_PUT_RAW_SQLSTR,
+        "belief_keg_reasonunit_h_put_vld": CREATE_BLFREAS_HEARD_PUT_VLD_SQLSTR,
+        "belief_keg_reasonunit_s_del_agg": CREATE_BLFREAS_SOUND_DEL_AGG_SQLSTR,
+        "belief_keg_reasonunit_s_del_raw": CREATE_BLFREAS_SOUND_DEL_RAW_SQLSTR,
+        "belief_keg_reasonunit_s_del_vld": CREATE_BLFREAS_SOUND_DEL_VLD_SQLSTR,
+        "belief_keg_reasonunit_s_put_agg": CREATE_BLFREAS_SOUND_PUT_AGG_SQLSTR,
+        "belief_keg_reasonunit_s_put_raw": CREATE_BLFREAS_SOUND_PUT_RAW_SQLSTR,
+        "belief_keg_reasonunit_s_put_vld": CREATE_BLFREAS_SOUND_PUT_VLD_SQLSTR,
+        "belief_kegunit_h_del_agg": CREATE_BLFKEGG_HEARD_DEL_AGG_SQLSTR,
+        "belief_kegunit_h_del_raw": CREATE_BLFKEGG_HEARD_DEL_RAW_SQLSTR,
+        "belief_kegunit_h_del_vld": CREATE_BLFKEGG_HEARD_DEL_VLD_SQLSTR,
+        "belief_kegunit_h_put_agg": CREATE_BLFKEGG_HEARD_PUT_AGG_SQLSTR,
+        "belief_kegunit_h_put_raw": CREATE_BLFKEGG_HEARD_PUT_RAW_SQLSTR,
+        "belief_kegunit_h_put_vld": CREATE_BLFKEGG_HEARD_PUT_VLD_SQLSTR,
+        "belief_kegunit_s_del_agg": CREATE_BLFKEGG_SOUND_DEL_AGG_SQLSTR,
+        "belief_kegunit_s_del_raw": CREATE_BLFKEGG_SOUND_DEL_RAW_SQLSTR,
+        "belief_kegunit_s_del_vld": CREATE_BLFKEGG_SOUND_DEL_VLD_SQLSTR,
+        "belief_kegunit_s_put_agg": CREATE_BLFKEGG_SOUND_PUT_AGG_SQLSTR,
+        "belief_kegunit_s_put_raw": CREATE_BLFKEGG_SOUND_PUT_RAW_SQLSTR,
+        "belief_kegunit_s_put_vld": CREATE_BLFKEGG_SOUND_PUT_VLD_SQLSTR,
         "belief_voice_membership_h_del_agg": CREATE_BLFMEMB_HEARD_DEL_AGG_SQLSTR,
         "belief_voice_membership_h_del_raw": CREATE_BLFMEMB_HEARD_DEL_RAW_SQLSTR,
         "belief_voice_membership_h_del_vld": CREATE_BLFMEMB_HEARD_DEL_VLD_SQLSTR,
@@ -385,20 +385,20 @@ def get_moment_belief_sound_agg_tablenames():
         "belief_voice_membership_s_put_agg",
         "belief_voiceunit_s_del_agg",
         "belief_voiceunit_s_put_agg",
-        "belief_plan_awardunit_s_del_agg",
-        "belief_plan_awardunit_s_put_agg",
-        "belief_plan_factunit_s_del_agg",
-        "belief_plan_factunit_s_put_agg",
-        "belief_plan_healerunit_s_del_agg",
-        "belief_plan_healerunit_s_put_agg",
-        "belief_plan_partyunit_s_del_agg",
-        "belief_plan_partyunit_s_put_agg",
-        "belief_plan_reason_caseunit_s_del_agg",
-        "belief_plan_reason_caseunit_s_put_agg",
-        "belief_plan_reasonunit_s_del_agg",
-        "belief_plan_reasonunit_s_put_agg",
-        "belief_planunit_s_del_agg",
-        "belief_planunit_s_put_agg",
+        "belief_keg_awardunit_s_del_agg",
+        "belief_keg_awardunit_s_put_agg",
+        "belief_keg_factunit_s_del_agg",
+        "belief_keg_factunit_s_put_agg",
+        "belief_keg_healerunit_s_del_agg",
+        "belief_keg_healerunit_s_put_agg",
+        "belief_keg_partyunit_s_del_agg",
+        "belief_keg_partyunit_s_put_agg",
+        "belief_keg_reason_caseunit_s_del_agg",
+        "belief_keg_reason_caseunit_s_put_agg",
+        "belief_keg_reasonunit_s_del_agg",
+        "belief_keg_reasonunit_s_put_agg",
+        "belief_kegunit_s_del_agg",
+        "belief_kegunit_s_put_agg",
         "beliefunit_s_del_agg",
         "beliefunit_s_put_agg",
         "moment_paybook_s_agg",
@@ -415,15 +415,15 @@ def get_moment_belief_sound_agg_tablenames():
 def get_belief_heard_vld_tablenames() -> set[str]:
     return {
         "beliefunit_h_put_vld",
-        "belief_plan_healerunit_h_put_vld",
+        "belief_keg_healerunit_h_put_vld",
         "belief_voiceunit_h_put_vld",
-        "belief_plan_reason_caseunit_h_put_vld",
-        "belief_plan_partyunit_h_put_vld",
-        "belief_plan_reasonunit_h_put_vld",
-        "belief_plan_factunit_h_put_vld",
+        "belief_keg_reason_caseunit_h_put_vld",
+        "belief_keg_partyunit_h_put_vld",
+        "belief_keg_reasonunit_h_put_vld",
+        "belief_keg_factunit_h_put_vld",
         "belief_voice_membership_h_put_vld",
-        "belief_planunit_h_put_vld",
-        "belief_plan_awardunit_h_put_vld",
+        "belief_kegunit_h_put_vld",
+        "belief_keg_awardunit_h_put_vld",
     }
 
 
@@ -686,20 +686,20 @@ INSERT_BLFMEMB_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_voice_membership_s_put
 INSERT_BLFMEMB_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_voice_membership_s_del_vld (spark_num, face_name, moment_label, belief_name, voice_name, group_title_ERASE) SELECT spark_num, face_name, moment_label, belief_name, voice_name, group_title_ERASE FROM belief_voice_membership_s_del_agg WHERE error_message IS NULL"
 INSERT_BLFVOCE_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_voiceunit_s_put_vld (spark_num, face_name, moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen) SELECT spark_num, face_name, moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen FROM belief_voiceunit_s_put_agg WHERE error_message IS NULL"
 INSERT_BLFVOCE_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_voiceunit_s_del_vld (spark_num, face_name, moment_label, belief_name, voice_name_ERASE) SELECT spark_num, face_name, moment_label, belief_name, voice_name_ERASE FROM belief_voiceunit_s_del_agg WHERE error_message IS NULL"
-INSERT_BLFAWAR_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_plan_awardunit_s_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force FROM belief_plan_awardunit_s_put_agg WHERE error_message IS NULL"
-INSERT_BLFAWAR_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_plan_awardunit_s_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE FROM belief_plan_awardunit_s_del_agg WHERE error_message IS NULL"
-INSERT_BLFFACT_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_plan_factunit_s_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper FROM belief_plan_factunit_s_put_agg WHERE error_message IS NULL"
-INSERT_BLFFACT_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_plan_factunit_s_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context_ERASE) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, fact_context_ERASE FROM belief_plan_factunit_s_del_agg WHERE error_message IS NULL"
-INSERT_BLFHEAL_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_plan_healerunit_s_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, healer_name FROM belief_plan_healerunit_s_put_agg WHERE error_message IS NULL"
-INSERT_BLFHEAL_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_plan_healerunit_s_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name_ERASE) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, healer_name_ERASE FROM belief_plan_healerunit_s_del_agg WHERE error_message IS NULL"
-INSERT_BLFCASE_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_plan_reason_caseunit_s_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor FROM belief_plan_reason_caseunit_s_put_agg WHERE error_message IS NULL"
-INSERT_BLFCASE_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_plan_reason_caseunit_s_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state_ERASE) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state_ERASE FROM belief_plan_reason_caseunit_s_del_agg WHERE error_message IS NULL"
-INSERT_BLFREAS_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_plan_reasonunit_s_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, active_requisite) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, active_requisite FROM belief_plan_reasonunit_s_put_agg WHERE error_message IS NULL"
-INSERT_BLFREAS_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_plan_reasonunit_s_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context_ERASE) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context_ERASE FROM belief_plan_reasonunit_s_del_agg WHERE error_message IS NULL"
-INSERT_BLFLABO_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_plan_partyunit_s_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, party_title, solo) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, party_title, solo FROM belief_plan_partyunit_s_put_agg WHERE error_message IS NULL"
-INSERT_BLFLABO_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_plan_partyunit_s_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, party_title_ERASE) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, party_title_ERASE FROM belief_plan_partyunit_s_del_agg WHERE error_message IS NULL"
-INSERT_BLFPLAN_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_planunit_s_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool FROM belief_planunit_s_put_agg WHERE error_message IS NULL"
-INSERT_BLFPLAN_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_planunit_s_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope_ERASE) SELECT spark_num, face_name, moment_label, belief_name, plan_rope_ERASE FROM belief_planunit_s_del_agg WHERE error_message IS NULL"
+INSERT_BLFAWAR_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_keg_awardunit_s_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, give_force, take_force) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, give_force, take_force FROM belief_keg_awardunit_s_put_agg WHERE error_message IS NULL"
+INSERT_BLFAWAR_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_keg_awardunit_s_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE FROM belief_keg_awardunit_s_del_agg WHERE error_message IS NULL"
+INSERT_BLFFACT_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_keg_factunit_s_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, fact_context, fact_state, fact_lower, fact_upper) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, fact_context, fact_state, fact_lower, fact_upper FROM belief_keg_factunit_s_put_agg WHERE error_message IS NULL"
+INSERT_BLFFACT_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_keg_factunit_s_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, fact_context_ERASE) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, fact_context_ERASE FROM belief_keg_factunit_s_del_agg WHERE error_message IS NULL"
+INSERT_BLFHEAL_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_keg_healerunit_s_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, healer_name) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, healer_name FROM belief_keg_healerunit_s_put_agg WHERE error_message IS NULL"
+INSERT_BLFHEAL_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_keg_healerunit_s_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, healer_name_ERASE) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, healer_name_ERASE FROM belief_keg_healerunit_s_del_agg WHERE error_message IS NULL"
+INSERT_BLFCASE_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_keg_reason_caseunit_s_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor FROM belief_keg_reason_caseunit_s_put_agg WHERE error_message IS NULL"
+INSERT_BLFCASE_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_keg_reason_caseunit_s_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state_ERASE) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state_ERASE FROM belief_keg_reason_caseunit_s_del_agg WHERE error_message IS NULL"
+INSERT_BLFREAS_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_keg_reasonunit_s_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, active_requisite) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, active_requisite FROM belief_keg_reasonunit_s_put_agg WHERE error_message IS NULL"
+INSERT_BLFREAS_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_keg_reasonunit_s_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context_ERASE) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context_ERASE FROM belief_keg_reasonunit_s_del_agg WHERE error_message IS NULL"
+INSERT_BLFLABO_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_keg_partyunit_s_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, party_title, solo) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, party_title, solo FROM belief_keg_partyunit_s_put_agg WHERE error_message IS NULL"
+INSERT_BLFLABO_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_keg_partyunit_s_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, party_title_ERASE) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, party_title_ERASE FROM belief_keg_partyunit_s_del_agg WHERE error_message IS NULL"
+INSERT_BLFKEGG_SOUND_VLD_PUT_SQLSTR = "INSERT INTO belief_kegunit_s_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool FROM belief_kegunit_s_put_agg WHERE error_message IS NULL"
+INSERT_BLFKEGG_SOUND_VLD_DEL_SQLSTR = "INSERT INTO belief_kegunit_s_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope_ERASE) SELECT spark_num, face_name, moment_label, belief_name, keg_rope_ERASE FROM belief_kegunit_s_del_agg WHERE error_message IS NULL"
 INSERT_BLFUNIT_SOUND_VLD_PUT_SQLSTR = "INSERT INTO beliefunit_s_put_vld (spark_num, face_name, moment_label, belief_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain) SELECT spark_num, face_name, moment_label, belief_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain FROM beliefunit_s_put_agg WHERE error_message IS NULL"
 INSERT_BLFUNIT_SOUND_VLD_DEL_SQLSTR = "INSERT INTO beliefunit_s_del_vld (spark_num, face_name, moment_label, belief_name_ERASE) SELECT spark_num, face_name, moment_label, belief_name_ERASE FROM beliefunit_s_del_agg WHERE error_message IS NULL"
 
@@ -720,20 +720,20 @@ def get_insert_into_sound_vld_sqlstrs() -> dict[str, str]:
         "belief_voice_membership_s_del_vld": INSERT_BLFMEMB_SOUND_VLD_DEL_SQLSTR,
         "belief_voiceunit_s_put_vld": INSERT_BLFVOCE_SOUND_VLD_PUT_SQLSTR,
         "belief_voiceunit_s_del_vld": INSERT_BLFVOCE_SOUND_VLD_DEL_SQLSTR,
-        "belief_plan_awardunit_s_put_vld": INSERT_BLFAWAR_SOUND_VLD_PUT_SQLSTR,
-        "belief_plan_awardunit_s_del_vld": INSERT_BLFAWAR_SOUND_VLD_DEL_SQLSTR,
-        "belief_plan_factunit_s_put_vld": INSERT_BLFFACT_SOUND_VLD_PUT_SQLSTR,
-        "belief_plan_factunit_s_del_vld": INSERT_BLFFACT_SOUND_VLD_DEL_SQLSTR,
-        "belief_plan_healerunit_s_put_vld": INSERT_BLFHEAL_SOUND_VLD_PUT_SQLSTR,
-        "belief_plan_healerunit_s_del_vld": INSERT_BLFHEAL_SOUND_VLD_DEL_SQLSTR,
-        "belief_plan_reason_caseunit_s_put_vld": INSERT_BLFCASE_SOUND_VLD_PUT_SQLSTR,
-        "belief_plan_reason_caseunit_s_del_vld": INSERT_BLFCASE_SOUND_VLD_DEL_SQLSTR,
-        "belief_plan_reasonunit_s_put_vld": INSERT_BLFREAS_SOUND_VLD_PUT_SQLSTR,
-        "belief_plan_reasonunit_s_del_vld": INSERT_BLFREAS_SOUND_VLD_DEL_SQLSTR,
-        "belief_plan_partyunit_s_put_vld": INSERT_BLFLABO_SOUND_VLD_PUT_SQLSTR,
-        "belief_plan_partyunit_s_del_vld": INSERT_BLFLABO_SOUND_VLD_DEL_SQLSTR,
-        "belief_planunit_s_put_vld": INSERT_BLFPLAN_SOUND_VLD_PUT_SQLSTR,
-        "belief_planunit_s_del_vld": INSERT_BLFPLAN_SOUND_VLD_DEL_SQLSTR,
+        "belief_keg_awardunit_s_put_vld": INSERT_BLFAWAR_SOUND_VLD_PUT_SQLSTR,
+        "belief_keg_awardunit_s_del_vld": INSERT_BLFAWAR_SOUND_VLD_DEL_SQLSTR,
+        "belief_keg_factunit_s_put_vld": INSERT_BLFFACT_SOUND_VLD_PUT_SQLSTR,
+        "belief_keg_factunit_s_del_vld": INSERT_BLFFACT_SOUND_VLD_DEL_SQLSTR,
+        "belief_keg_healerunit_s_put_vld": INSERT_BLFHEAL_SOUND_VLD_PUT_SQLSTR,
+        "belief_keg_healerunit_s_del_vld": INSERT_BLFHEAL_SOUND_VLD_DEL_SQLSTR,
+        "belief_keg_reason_caseunit_s_put_vld": INSERT_BLFCASE_SOUND_VLD_PUT_SQLSTR,
+        "belief_keg_reason_caseunit_s_del_vld": INSERT_BLFCASE_SOUND_VLD_DEL_SQLSTR,
+        "belief_keg_reasonunit_s_put_vld": INSERT_BLFREAS_SOUND_VLD_PUT_SQLSTR,
+        "belief_keg_reasonunit_s_del_vld": INSERT_BLFREAS_SOUND_VLD_DEL_SQLSTR,
+        "belief_keg_partyunit_s_put_vld": INSERT_BLFLABO_SOUND_VLD_PUT_SQLSTR,
+        "belief_keg_partyunit_s_del_vld": INSERT_BLFLABO_SOUND_VLD_DEL_SQLSTR,
+        "belief_kegunit_s_put_vld": INSERT_BLFKEGG_SOUND_VLD_PUT_SQLSTR,
+        "belief_kegunit_s_del_vld": INSERT_BLFKEGG_SOUND_VLD_DEL_SQLSTR,
         "beliefunit_s_put_vld": INSERT_BLFUNIT_SOUND_VLD_PUT_SQLSTR,
         "beliefunit_s_del_vld": INSERT_BLFUNIT_SOUND_VLD_DEL_SQLSTR,
         "moment_paybook_s_vld": INSERT_MMTPAYY_SOUND_VLD_SQLSTR,
@@ -759,20 +759,20 @@ INSERT_BLFMEMB_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_voice_membership_h_put
 INSERT_BLFMEMB_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_voice_membership_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, voice_name_otx, group_title_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, voice_name, group_title_ERASE FROM belief_voice_membership_s_del_vld "
 INSERT_BLFVOCE_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_voiceunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, voice_name_otx, voice_cred_lumen, voice_debt_lumen) SELECT spark_num, face_name, moment_label, belief_name, voice_name, voice_cred_lumen, voice_debt_lumen FROM belief_voiceunit_s_put_vld "
 INSERT_BLFVOCE_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_voiceunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, voice_name_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, voice_name_ERASE FROM belief_voiceunit_s_del_vld "
-INSERT_BLFAWAR_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_plan_awardunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, awardee_title_otx, give_force, take_force) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force FROM belief_plan_awardunit_s_put_vld "
-INSERT_BLFAWAR_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_plan_awardunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, awardee_title_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE FROM belief_plan_awardunit_s_del_vld "
-INSERT_BLFFACT_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_plan_factunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, fact_context_otx, fact_state_otx, fact_lower, fact_upper) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper FROM belief_plan_factunit_s_put_vld "
-INSERT_BLFFACT_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_plan_factunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, fact_context_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, fact_context_ERASE FROM belief_plan_factunit_s_del_vld "
-INSERT_BLFHEAL_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_plan_healerunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, healer_name_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, healer_name FROM belief_plan_healerunit_s_put_vld "
-INSERT_BLFHEAL_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_plan_healerunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, healer_name_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, healer_name_ERASE FROM belief_plan_healerunit_s_del_vld "
-INSERT_BLFCASE_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_plan_reason_caseunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, reason_context_otx, reason_state_otx, reason_lower, reason_upper, reason_divisor) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor FROM belief_plan_reason_caseunit_s_put_vld "
-INSERT_BLFCASE_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_plan_reason_caseunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, reason_context_otx, reason_state_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state_ERASE FROM belief_plan_reason_caseunit_s_del_vld "
-INSERT_BLFREAS_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_plan_reasonunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, reason_context_otx, active_requisite) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, active_requisite FROM belief_plan_reasonunit_s_put_vld "
-INSERT_BLFREAS_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_plan_reasonunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, reason_context_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, reason_context_ERASE FROM belief_plan_reasonunit_s_del_vld "
-INSERT_BLFLABO_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_plan_partyunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, party_title_otx, solo) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, party_title, solo FROM belief_plan_partyunit_s_put_vld "
-INSERT_BLFLABO_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_plan_partyunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, party_title_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, party_title_ERASE FROM belief_plan_partyunit_s_del_vld "
-INSERT_BLFPLAN_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_planunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_otx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool) SELECT spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool FROM belief_planunit_s_put_vld "
-INSERT_BLFPLAN_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_planunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, plan_rope_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, plan_rope_ERASE FROM belief_planunit_s_del_vld "
+INSERT_BLFAWAR_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_keg_awardunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, awardee_title_otx, give_force, take_force) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, give_force, take_force FROM belief_keg_awardunit_s_put_vld "
+INSERT_BLFAWAR_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_keg_awardunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, awardee_title_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE FROM belief_keg_awardunit_s_del_vld "
+INSERT_BLFFACT_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_keg_factunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, fact_context_otx, fact_state_otx, fact_lower, fact_upper) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, fact_context, fact_state, fact_lower, fact_upper FROM belief_keg_factunit_s_put_vld "
+INSERT_BLFFACT_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_keg_factunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, fact_context_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, fact_context_ERASE FROM belief_keg_factunit_s_del_vld "
+INSERT_BLFHEAL_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_keg_healerunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, healer_name_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, healer_name FROM belief_keg_healerunit_s_put_vld "
+INSERT_BLFHEAL_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_keg_healerunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, healer_name_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, healer_name_ERASE FROM belief_keg_healerunit_s_del_vld "
+INSERT_BLFCASE_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_keg_reason_caseunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, reason_context_otx, reason_state_otx, reason_lower, reason_upper, reason_divisor) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor FROM belief_keg_reason_caseunit_s_put_vld "
+INSERT_BLFCASE_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_keg_reason_caseunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, reason_context_otx, reason_state_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state_ERASE FROM belief_keg_reason_caseunit_s_del_vld "
+INSERT_BLFREAS_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_keg_reasonunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, reason_context_otx, active_requisite) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, active_requisite FROM belief_keg_reasonunit_s_put_vld "
+INSERT_BLFREAS_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_keg_reasonunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, reason_context_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, reason_context_ERASE FROM belief_keg_reasonunit_s_del_vld "
+INSERT_BLFLABO_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_keg_partyunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, party_title_otx, solo) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, party_title, solo FROM belief_keg_partyunit_s_put_vld "
+INSERT_BLFLABO_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_keg_partyunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, party_title_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, party_title_ERASE FROM belief_keg_partyunit_s_del_vld "
+INSERT_BLFKEGG_HEARD_RAW_PUT_SQLSTR = "INSERT INTO belief_kegunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_otx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool) SELECT spark_num, face_name, moment_label, belief_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool FROM belief_kegunit_s_put_vld "
+INSERT_BLFKEGG_HEARD_RAW_DEL_SQLSTR = "INSERT INTO belief_kegunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, keg_rope_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name, keg_rope_ERASE FROM belief_kegunit_s_del_vld "
 INSERT_BLFUNIT_HEARD_RAW_PUT_SQLSTR = "INSERT INTO beliefunit_h_put_raw (spark_num, face_name_otx, moment_label_otx, belief_name_otx, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain) SELECT spark_num, face_name, moment_label, belief_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain FROM beliefunit_s_put_vld "
 INSERT_BLFUNIT_HEARD_RAW_DEL_SQLSTR = "INSERT INTO beliefunit_h_del_raw (spark_num, face_name_otx, moment_label_otx, belief_name_ERASE_otx) SELECT spark_num, face_name, moment_label, belief_name_ERASE FROM beliefunit_s_del_vld "
 
@@ -793,20 +793,20 @@ def get_insert_into_heard_raw_sqlstrs() -> dict[str, str]:
         "belief_voice_membership_h_del_raw": INSERT_BLFMEMB_HEARD_RAW_DEL_SQLSTR,
         "belief_voiceunit_h_put_raw": INSERT_BLFVOCE_HEARD_RAW_PUT_SQLSTR,
         "belief_voiceunit_h_del_raw": INSERT_BLFVOCE_HEARD_RAW_DEL_SQLSTR,
-        "belief_plan_awardunit_h_put_raw": INSERT_BLFAWAR_HEARD_RAW_PUT_SQLSTR,
-        "belief_plan_awardunit_h_del_raw": INSERT_BLFAWAR_HEARD_RAW_DEL_SQLSTR,
-        "belief_plan_factunit_h_put_raw": INSERT_BLFFACT_HEARD_RAW_PUT_SQLSTR,
-        "belief_plan_factunit_h_del_raw": INSERT_BLFFACT_HEARD_RAW_DEL_SQLSTR,
-        "belief_plan_healerunit_h_put_raw": INSERT_BLFHEAL_HEARD_RAW_PUT_SQLSTR,
-        "belief_plan_healerunit_h_del_raw": INSERT_BLFHEAL_HEARD_RAW_DEL_SQLSTR,
-        "belief_plan_reason_caseunit_h_put_raw": INSERT_BLFCASE_HEARD_RAW_PUT_SQLSTR,
-        "belief_plan_reason_caseunit_h_del_raw": INSERT_BLFCASE_HEARD_RAW_DEL_SQLSTR,
-        "belief_plan_reasonunit_h_put_raw": INSERT_BLFREAS_HEARD_RAW_PUT_SQLSTR,
-        "belief_plan_reasonunit_h_del_raw": INSERT_BLFREAS_HEARD_RAW_DEL_SQLSTR,
-        "belief_plan_partyunit_h_put_raw": INSERT_BLFLABO_HEARD_RAW_PUT_SQLSTR,
-        "belief_plan_partyunit_h_del_raw": INSERT_BLFLABO_HEARD_RAW_DEL_SQLSTR,
-        "belief_planunit_h_put_raw": INSERT_BLFPLAN_HEARD_RAW_PUT_SQLSTR,
-        "belief_planunit_h_del_raw": INSERT_BLFPLAN_HEARD_RAW_DEL_SQLSTR,
+        "belief_keg_awardunit_h_put_raw": INSERT_BLFAWAR_HEARD_RAW_PUT_SQLSTR,
+        "belief_keg_awardunit_h_del_raw": INSERT_BLFAWAR_HEARD_RAW_DEL_SQLSTR,
+        "belief_keg_factunit_h_put_raw": INSERT_BLFFACT_HEARD_RAW_PUT_SQLSTR,
+        "belief_keg_factunit_h_del_raw": INSERT_BLFFACT_HEARD_RAW_DEL_SQLSTR,
+        "belief_keg_healerunit_h_put_raw": INSERT_BLFHEAL_HEARD_RAW_PUT_SQLSTR,
+        "belief_keg_healerunit_h_del_raw": INSERT_BLFHEAL_HEARD_RAW_DEL_SQLSTR,
+        "belief_keg_reason_caseunit_h_put_raw": INSERT_BLFCASE_HEARD_RAW_PUT_SQLSTR,
+        "belief_keg_reason_caseunit_h_del_raw": INSERT_BLFCASE_HEARD_RAW_DEL_SQLSTR,
+        "belief_keg_reasonunit_h_put_raw": INSERT_BLFREAS_HEARD_RAW_PUT_SQLSTR,
+        "belief_keg_reasonunit_h_del_raw": INSERT_BLFREAS_HEARD_RAW_DEL_SQLSTR,
+        "belief_keg_partyunit_h_put_raw": INSERT_BLFLABO_HEARD_RAW_PUT_SQLSTR,
+        "belief_keg_partyunit_h_del_raw": INSERT_BLFLABO_HEARD_RAW_DEL_SQLSTR,
+        "belief_kegunit_h_put_raw": INSERT_BLFKEGG_HEARD_RAW_PUT_SQLSTR,
+        "belief_kegunit_h_del_raw": INSERT_BLFKEGG_HEARD_RAW_DEL_SQLSTR,
         "beliefunit_h_put_raw": INSERT_BLFUNIT_HEARD_RAW_PUT_SQLSTR,
         "beliefunit_h_del_raw": INSERT_BLFUNIT_HEARD_RAW_DEL_SQLSTR,
     }
@@ -862,46 +862,46 @@ WHERE {column_prefix}_inx IS NULL
 
 
 BLFAWAR_HEARD_AGG_DEL_INSERT_SQLSTR = """
-INSERT INTO belief_plan_awardunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_ERASE_inx
-FROM belief_plan_awardunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_ERASE_inx
+INSERT INTO belief_keg_awardunit_h_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_ERASE_inx
+FROM belief_keg_awardunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_ERASE_inx
 """
 BLFFACT_HEARD_AGG_DEL_INSERT_SQLSTR = """
-INSERT INTO belief_plan_factunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_ERASE_inx
-FROM belief_plan_factunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_ERASE_inx
+INSERT INTO belief_keg_factunit_h_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, fact_context_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_ERASE_inx
+FROM belief_keg_factunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_ERASE_inx
 """
 BLFHEAL_HEARD_AGG_DEL_INSERT_SQLSTR = """
-INSERT INTO belief_plan_healerunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_ERASE_inx
-FROM belief_plan_healerunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_ERASE_inx
+INSERT INTO belief_keg_healerunit_h_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, healer_name_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_ERASE_inx
+FROM belief_keg_healerunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_ERASE_inx
 """
 BLFLABO_HEARD_AGG_DEL_INSERT_SQLSTR = """
-INSERT INTO belief_plan_partyunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, party_title_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_ERASE_inx
-FROM belief_plan_partyunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_ERASE_inx
+INSERT INTO belief_keg_partyunit_h_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, party_title_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_ERASE_inx
+FROM belief_keg_partyunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_ERASE_inx
 """
 BLFCASE_HEARD_AGG_DEL_INSERT_SQLSTR = """
-INSERT INTO belief_plan_reason_caseunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_ERASE_inx
-FROM belief_plan_reason_caseunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_ERASE_inx
+INSERT INTO belief_keg_reason_caseunit_h_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_ERASE_inx
+FROM belief_keg_reason_caseunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_ERASE_inx
 """
 BLFREAS_HEARD_AGG_DEL_INSERT_SQLSTR = """
-INSERT INTO belief_plan_reasonunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_ERASE_inx
-FROM belief_plan_reasonunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_ERASE_inx
+INSERT INTO belief_keg_reasonunit_h_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_ERASE_inx
+FROM belief_keg_reasonunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_ERASE_inx
 """
-BLFPLAN_HEARD_AGG_DEL_INSERT_SQLSTR = """
-INSERT INTO belief_planunit_h_del_agg (spark_num, face_name, moment_label, belief_name, plan_rope_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_ERASE_inx
-FROM belief_planunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_ERASE_inx
+BLFKEGG_HEARD_AGG_DEL_INSERT_SQLSTR = """
+INSERT INTO belief_kegunit_h_del_agg (spark_num, face_name, moment_label, belief_name, keg_rope_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_ERASE_inx
+FROM belief_kegunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_ERASE_inx
 """
 BLFMEMB_HEARD_AGG_DEL_INSERT_SQLSTR = """
 INSERT INTO belief_voice_membership_h_del_agg (spark_num, face_name, moment_label, belief_name, voice_name, group_title_ERASE)
@@ -922,46 +922,46 @@ FROM beliefunit_h_del_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_ERASE_inx
 """
 BLFAWAR_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_awardunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_inx, give_force, take_force
-FROM belief_plan_awardunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_inx, give_force, take_force
+INSERT INTO belief_keg_awardunit_h_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, give_force, take_force)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_inx, give_force, take_force
+FROM belief_keg_awardunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_inx, give_force, take_force
 """
 BLFFACT_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_factunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower_otx, fact_upper_otx)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
-FROM belief_plan_factunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
+INSERT INTO belief_keg_factunit_h_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, fact_context, fact_state, fact_lower_otx, fact_upper_otx)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
+FROM belief_keg_factunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
 """
 BLFHEAL_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_healerunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_inx
-FROM belief_plan_healerunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_inx
+INSERT INTO belief_keg_healerunit_h_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, healer_name)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_inx
+FROM belief_keg_healerunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_inx
 """
 BLFLABO_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_partyunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, party_title, solo)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_inx, solo
-FROM belief_plan_partyunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_inx, solo
+INSERT INTO belief_keg_partyunit_h_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, party_title, solo)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_inx, solo
+FROM belief_keg_partyunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_inx, solo
 """
 BLFCASE_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_lower_otx, reason_upper_otx, reason_divisor)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
-FROM belief_plan_reason_caseunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
+INSERT INTO belief_keg_reason_caseunit_h_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state, reason_lower_otx, reason_upper_otx, reason_divisor)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
+FROM belief_keg_reason_caseunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
 """
 BLFREAS_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_plan_reasonunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, active_requisite)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, active_requisite
-FROM belief_plan_reasonunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, active_requisite
+INSERT INTO belief_keg_reasonunit_h_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, active_requisite)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, active_requisite
+FROM belief_keg_reasonunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, active_requisite
 """
-BLFPLAN_HEARD_AGG_PUT_INSERT_SQLSTR = """
-INSERT INTO belief_planunit_h_put_agg (spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
-FROM belief_planunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
+BLFKEGG_HEARD_AGG_PUT_INSERT_SQLSTR = """
+INSERT INTO belief_kegunit_h_put_agg (spark_num, face_name, moment_label, belief_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
+FROM belief_kegunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
 """
 BLFMEMB_HEARD_AGG_PUT_INSERT_SQLSTR = """
 INSERT INTO belief_voice_membership_h_put_agg (spark_num, face_name, moment_label, belief_name, voice_name, group_title, group_cred_lumen, group_debt_lumen)
@@ -1033,23 +1033,23 @@ GROUP BY spark_num, face_name_inx, moment_label_inx, otx_time, inx_time
 
 def get_insert_heard_agg_sqlstrs() -> dict[str, str]:
     return {
-        "belief_plan_awardunit_h_del_agg": BLFAWAR_HEARD_AGG_DEL_INSERT_SQLSTR,
-        "belief_plan_factunit_h_del_agg": BLFFACT_HEARD_AGG_DEL_INSERT_SQLSTR,
-        "belief_plan_healerunit_h_del_agg": BLFHEAL_HEARD_AGG_DEL_INSERT_SQLSTR,
-        "belief_plan_partyunit_h_del_agg": BLFLABO_HEARD_AGG_DEL_INSERT_SQLSTR,
-        "belief_plan_reason_caseunit_h_del_agg": BLFCASE_HEARD_AGG_DEL_INSERT_SQLSTR,
-        "belief_plan_reasonunit_h_del_agg": BLFREAS_HEARD_AGG_DEL_INSERT_SQLSTR,
-        "belief_planunit_h_del_agg": BLFPLAN_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_keg_awardunit_h_del_agg": BLFAWAR_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_keg_factunit_h_del_agg": BLFFACT_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_keg_healerunit_h_del_agg": BLFHEAL_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_keg_partyunit_h_del_agg": BLFLABO_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_keg_reason_caseunit_h_del_agg": BLFCASE_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_keg_reasonunit_h_del_agg": BLFREAS_HEARD_AGG_DEL_INSERT_SQLSTR,
+        "belief_kegunit_h_del_agg": BLFKEGG_HEARD_AGG_DEL_INSERT_SQLSTR,
         "belief_voice_membership_h_del_agg": BLFMEMB_HEARD_AGG_DEL_INSERT_SQLSTR,
         "belief_voiceunit_h_del_agg": BLFVOCE_HEARD_AGG_DEL_INSERT_SQLSTR,
         "beliefunit_h_del_agg": BLFUNIT_HEARD_AGG_DEL_INSERT_SQLSTR,
-        "belief_plan_awardunit_h_put_agg": BLFAWAR_HEARD_AGG_PUT_INSERT_SQLSTR,
-        "belief_plan_factunit_h_put_agg": BLFFACT_HEARD_AGG_PUT_INSERT_SQLSTR,
-        "belief_plan_healerunit_h_put_agg": BLFHEAL_HEARD_AGG_PUT_INSERT_SQLSTR,
-        "belief_plan_partyunit_h_put_agg": BLFLABO_HEARD_AGG_PUT_INSERT_SQLSTR,
-        "belief_plan_reason_caseunit_h_put_agg": BLFCASE_HEARD_AGG_PUT_INSERT_SQLSTR,
-        "belief_plan_reasonunit_h_put_agg": BLFREAS_HEARD_AGG_PUT_INSERT_SQLSTR,
-        "belief_planunit_h_put_agg": BLFPLAN_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_keg_awardunit_h_put_agg": BLFAWAR_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_keg_factunit_h_put_agg": BLFFACT_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_keg_healerunit_h_put_agg": BLFHEAL_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_keg_partyunit_h_put_agg": BLFLABO_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_keg_reason_caseunit_h_put_agg": BLFCASE_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_keg_reasonunit_h_put_agg": BLFREAS_HEARD_AGG_PUT_INSERT_SQLSTR,
+        "belief_kegunit_h_put_agg": BLFKEGG_HEARD_AGG_PUT_INSERT_SQLSTR,
         "belief_voice_membership_h_put_agg": BLFMEMB_HEARD_AGG_PUT_INSERT_SQLSTR,
         "belief_voiceunit_h_put_agg": BLFVOCE_HEARD_AGG_PUT_INSERT_SQLSTR,
         "beliefunit_h_put_agg": BLFUNIT_HEARD_AGG_PUT_INSERT_SQLSTR,
@@ -1117,7 +1117,7 @@ def get_update_heard_agg_epochtime_sqlstrs() -> dict[str]:
 # reason_lower, reason_upper, fact_lower, fact_upper, tran_time, bud_time,
 def get_update_blfcase_inx_epoch_diff_sqlstr() -> str:
     nabepoc_tablename = create_prime_tablename("nabu_epochtime", "h", "agg")
-    blfcase_abbv = "belief_plan_reason_caseunit"
+    blfcase_abbv = "belief_keg_reason_caseunit"
     blfcase_tablename = create_prime_tablename(blfcase_abbv, "h", "agg", "put")
     return f"""
 WITH spark_inx_epoch_diff AS (
@@ -1154,42 +1154,42 @@ WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_di
 """
 
 
-def get_update_blfcase_context_plan_sqlstr() -> str:
+def get_update_blfcase_context_keg_sqlstr() -> str:
     blfcase_tablename = create_prime_tablename("blfcase", "h", "agg", "put")
-    blfplan_tablename = create_prime_tablename("blfplan", "h", "agg", "put")
+    blfkegg_tablename = create_prime_tablename("blfkegg", "h", "agg", "put")
     return f"""
-WITH spark_blfplan AS (
+WITH spark_blfkegg AS (
     SELECT spark_num, close, denom, morph
-    FROM {blfplan_tablename}
+    FROM {blfkegg_tablename}
     GROUP BY spark_num, close, denom, morph
 )
 UPDATE {blfcase_tablename}
 SET 
-  context_plan_close = spark_blfplan.close
-, context_plan_denom = spark_blfplan.denom
-, context_plan_morph = spark_blfplan.morph
-FROM spark_blfplan
-WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfplan)
+  context_keg_close = spark_blfkegg.close
+, context_keg_denom = spark_blfkegg.denom
+, context_keg_morph = spark_blfkegg.morph
+FROM spark_blfkegg
+WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfkegg)
 ;
 """
 
 
-def get_update_blffact_context_plan_sqlstr() -> str:
+def get_update_blffact_context_keg_sqlstr() -> str:
     blffact_tablename = create_prime_tablename("blffact", "h", "agg", "put")
-    blfplan_tablename = create_prime_tablename("blfplan", "h", "agg", "put")
+    blfkegg_tablename = create_prime_tablename("blfkegg", "h", "agg", "put")
     return f"""
-WITH spark_blfplan AS (
+WITH spark_blfkegg AS (
     SELECT spark_num, close, denom, morph
-    FROM {blfplan_tablename}
+    FROM {blfkegg_tablename}
     GROUP BY spark_num, close, denom, morph
 )
 UPDATE {blffact_tablename}
 SET 
-  context_plan_close = spark_blfplan.close
-, context_plan_denom = spark_blfplan.denom
-, context_plan_morph = spark_blfplan.morph
-FROM spark_blfplan
-WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_blfplan)
+  context_keg_close = spark_blfkegg.close
+, context_keg_denom = spark_blfkegg.denom
+, context_keg_morph = spark_blfkegg.morph
+FROM spark_blfkegg
+WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_blfkegg)
 ;
 """
 
@@ -1200,10 +1200,10 @@ def get_update_blfcase_range_sqlstr() -> str:
 WITH spark_blfcase AS (
     SELECT 
       spark_num
-    , IFNULL(reason_divisor, IFNULL(context_plan_close, context_plan_denom)) modulus
-    , CASE WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_plan_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
+    , IFNULL(reason_divisor, IFNULL(context_keg_close, context_keg_denom)) modulus
+    , CASE WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_keg_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
     FROM {blfcase_tablename}
-    GROUP BY spark_num, reason_divisor, context_plan_close, context_plan_denom, context_plan_morph
+    GROUP BY spark_num, reason_divisor, context_keg_close, context_keg_denom, context_keg_morph
 )
 UPDATE {blfcase_tablename}
 SET 
@@ -1221,10 +1221,10 @@ def get_update_blffact_range_sqlstr() -> str:
 WITH spark_blffact AS (
     SELECT 
       spark_num
-    , IFNULL(reason_divisor, IFNULL(context_plan_close, context_plan_denom)) modulus
-    , FACT WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_plan_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
+    , IFNULL(reason_divisor, IFNULL(context_keg_close, context_keg_denom)) modulus
+    , FACT WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_keg_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
     FROM {blffact_tablename}
-    GROUP BY spark_num, reason_divisor, context_plan_close, context_plan_denom, context_plan_morph
+    GROUP BY spark_num, reason_divisor, context_keg_close, context_keg_denom, context_keg_morph
 )
 UPDATE {blffact_tablename}
 SET 
@@ -1309,88 +1309,88 @@ FROM belief_voiceunit_h_del_raw
 GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, voice_name_ERASE_inx
 """
 INSERT_BLFAWAR_HEARD_VLD_PUT_SQLSTR = """
-INSERT INTO belief_plan_awardunit_h_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title, give_force, take_force)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_inx, give_force, take_force
-FROM belief_plan_awardunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_inx, give_force, take_force
+INSERT INTO belief_keg_awardunit_h_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title, give_force, take_force)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_inx, give_force, take_force
+FROM belief_keg_awardunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_inx, give_force, take_force
 """
 INSERT_BLFAWAR_HEARD_VLD_DEL_SQLSTR = """
-INSERT INTO belief_plan_awardunit_h_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, awardee_title_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_ERASE_inx
-FROM belief_plan_awardunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, awardee_title_ERASE_inx
+INSERT INTO belief_keg_awardunit_h_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, awardee_title_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_ERASE_inx
+FROM belief_keg_awardunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, awardee_title_ERASE_inx
 """
 INSERT_BLFFACT_HEARD_VLD_PUT_SQLSTR = """
-INSERT INTO belief_plan_factunit_h_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
-FROM belief_plan_factunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
+INSERT INTO belief_keg_factunit_h_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, fact_context, fact_state, fact_lower, fact_upper)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
+FROM belief_keg_factunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_inx, fact_state_inx, fact_lower, fact_upper
 """
 INSERT_BLFFACT_HEARD_VLD_DEL_SQLSTR = """
-INSERT INTO belief_plan_factunit_h_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, fact_context_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_ERASE_inx
-FROM belief_plan_factunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, fact_context_ERASE_inx
+INSERT INTO belief_keg_factunit_h_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, fact_context_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_ERASE_inx
+FROM belief_keg_factunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, fact_context_ERASE_inx
 """
 INSERT_BLFHEAL_HEARD_VLD_PUT_SQLSTR = """
-INSERT INTO belief_plan_healerunit_h_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_inx
-FROM belief_plan_healerunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_inx
+INSERT INTO belief_keg_healerunit_h_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, healer_name)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_inx
+FROM belief_keg_healerunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_inx
 """
 INSERT_BLFHEAL_HEARD_VLD_DEL_SQLSTR = """
-INSERT INTO belief_plan_healerunit_h_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, healer_name_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_ERASE_inx
-FROM belief_plan_healerunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, healer_name_ERASE_inx
+INSERT INTO belief_keg_healerunit_h_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, healer_name_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_ERASE_inx
+FROM belief_keg_healerunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, healer_name_ERASE_inx
 """
 INSERT_BLFCASE_HEARD_VLD_PUT_SQLSTR = """
-INSERT INTO belief_plan_reason_caseunit_h_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
-FROM belief_plan_reason_caseunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
+INSERT INTO belief_keg_reason_caseunit_h_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
+FROM belief_keg_reason_caseunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_inx, reason_lower, reason_upper, reason_divisor
 """
 INSERT_BLFCASE_HEARD_VLD_DEL_SQLSTR = """
-INSERT INTO belief_plan_reason_caseunit_h_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, reason_state_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_ERASE_inx
-FROM belief_plan_reason_caseunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, reason_state_ERASE_inx
+INSERT INTO belief_keg_reason_caseunit_h_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, reason_state_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_ERASE_inx
+FROM belief_keg_reason_caseunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, reason_state_ERASE_inx
 """
 INSERT_BLFREAS_HEARD_VLD_PUT_SQLSTR = """
-INSERT INTO belief_plan_reasonunit_h_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context, active_requisite)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, active_requisite
-FROM belief_plan_reasonunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_inx, active_requisite
+INSERT INTO belief_keg_reasonunit_h_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context, active_requisite)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, active_requisite
+FROM belief_keg_reasonunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_inx, active_requisite
 """
 INSERT_BLFREAS_HEARD_VLD_DEL_SQLSTR = """
-INSERT INTO belief_plan_reasonunit_h_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, reason_context_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_ERASE_inx
-FROM belief_plan_reasonunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, reason_context_ERASE_inx
+INSERT INTO belief_keg_reasonunit_h_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, reason_context_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_ERASE_inx
+FROM belief_keg_reasonunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, reason_context_ERASE_inx
 """
 INSERT_BLFLABO_HEARD_VLD_PUT_SQLSTR = """
-INSERT INTO belief_plan_partyunit_h_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, party_title, solo)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_inx, solo
-FROM belief_plan_partyunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_inx, solo
+INSERT INTO belief_keg_partyunit_h_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, party_title, solo)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_inx, solo
+FROM belief_keg_partyunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_inx, solo
 """
 INSERT_BLFLABO_HEARD_VLD_DEL_SQLSTR = """
-INSERT INTO belief_plan_partyunit_h_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope, party_title_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_ERASE_inx
-FROM belief_plan_partyunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, party_title_ERASE_inx
+INSERT INTO belief_keg_partyunit_h_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope, party_title_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_ERASE_inx
+FROM belief_keg_partyunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, party_title_ERASE_inx
 """
-INSERT_BLFPLAN_HEARD_VLD_PUT_SQLSTR = """
-INSERT INTO belief_planunit_h_put_vld (spark_num, face_name, moment_label, belief_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
-FROM belief_planunit_h_put_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
+INSERT_BLFKEGG_HEARD_VLD_PUT_SQLSTR = """
+INSERT INTO belief_kegunit_h_put_vld (spark_num, face_name, moment_label, belief_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
+FROM belief_kegunit_h_put_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_inx, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
 """
-INSERT_BLFPLAN_HEARD_VLD_DEL_SQLSTR = """
-INSERT INTO belief_planunit_h_del_vld (spark_num, face_name, moment_label, belief_name, plan_rope_ERASE)
-SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_ERASE_inx
-FROM belief_planunit_h_del_raw
-GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, plan_rope_ERASE_inx
+INSERT_BLFKEGG_HEARD_VLD_DEL_SQLSTR = """
+INSERT INTO belief_kegunit_h_del_vld (spark_num, face_name, moment_label, belief_name, keg_rope_ERASE)
+SELECT spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_ERASE_inx
+FROM belief_kegunit_h_del_raw
+GROUP BY spark_num, face_name_inx, moment_label_inx, belief_name_inx, keg_rope_ERASE_inx
 """
 INSERT_BLFUNIT_HEARD_VLD_PUT_SQLSTR = """
 INSERT INTO beliefunit_h_put_vld (spark_num, face_name, moment_label, belief_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain)
@@ -1419,20 +1419,20 @@ def get_insert_heard_vld_sqlstrs() -> dict[str, str]:
         "belief_voice_membership_h_del_vld": INSERT_BLFMEMB_HEARD_VLD_DEL_SQLSTR,
         "belief_voiceunit_h_put_vld": INSERT_BLFVOCE_HEARD_VLD_PUT_SQLSTR,
         "belief_voiceunit_h_del_vld": INSERT_BLFVOCE_HEARD_VLD_DEL_SQLSTR,
-        "belief_plan_awardunit_h_put_vld": INSERT_BLFAWAR_HEARD_VLD_PUT_SQLSTR,
-        "belief_plan_awardunit_h_del_vld": INSERT_BLFAWAR_HEARD_VLD_DEL_SQLSTR,
-        "belief_plan_factunit_h_put_vld": INSERT_BLFFACT_HEARD_VLD_PUT_SQLSTR,
-        "belief_plan_factunit_h_del_vld": INSERT_BLFFACT_HEARD_VLD_DEL_SQLSTR,
-        "belief_plan_healerunit_h_put_vld": INSERT_BLFHEAL_HEARD_VLD_PUT_SQLSTR,
-        "belief_plan_healerunit_h_del_vld": INSERT_BLFHEAL_HEARD_VLD_DEL_SQLSTR,
-        "belief_plan_reason_caseunit_h_put_vld": INSERT_BLFCASE_HEARD_VLD_PUT_SQLSTR,
-        "belief_plan_reason_caseunit_h_del_vld": INSERT_BLFCASE_HEARD_VLD_DEL_SQLSTR,
-        "belief_plan_reasonunit_h_put_vld": INSERT_BLFREAS_HEARD_VLD_PUT_SQLSTR,
-        "belief_plan_reasonunit_h_del_vld": INSERT_BLFREAS_HEARD_VLD_DEL_SQLSTR,
-        "belief_plan_partyunit_h_put_vld": INSERT_BLFLABO_HEARD_VLD_PUT_SQLSTR,
-        "belief_plan_partyunit_h_del_vld": INSERT_BLFLABO_HEARD_VLD_DEL_SQLSTR,
-        "belief_planunit_h_put_vld": INSERT_BLFPLAN_HEARD_VLD_PUT_SQLSTR,
-        "belief_planunit_h_del_vld": INSERT_BLFPLAN_HEARD_VLD_DEL_SQLSTR,
+        "belief_keg_awardunit_h_put_vld": INSERT_BLFAWAR_HEARD_VLD_PUT_SQLSTR,
+        "belief_keg_awardunit_h_del_vld": INSERT_BLFAWAR_HEARD_VLD_DEL_SQLSTR,
+        "belief_keg_factunit_h_put_vld": INSERT_BLFFACT_HEARD_VLD_PUT_SQLSTR,
+        "belief_keg_factunit_h_del_vld": INSERT_BLFFACT_HEARD_VLD_DEL_SQLSTR,
+        "belief_keg_healerunit_h_put_vld": INSERT_BLFHEAL_HEARD_VLD_PUT_SQLSTR,
+        "belief_keg_healerunit_h_del_vld": INSERT_BLFHEAL_HEARD_VLD_DEL_SQLSTR,
+        "belief_keg_reason_caseunit_h_put_vld": INSERT_BLFCASE_HEARD_VLD_PUT_SQLSTR,
+        "belief_keg_reason_caseunit_h_del_vld": INSERT_BLFCASE_HEARD_VLD_DEL_SQLSTR,
+        "belief_keg_reasonunit_h_put_vld": INSERT_BLFREAS_HEARD_VLD_PUT_SQLSTR,
+        "belief_keg_reasonunit_h_del_vld": INSERT_BLFREAS_HEARD_VLD_DEL_SQLSTR,
+        "belief_keg_partyunit_h_put_vld": INSERT_BLFLABO_HEARD_VLD_PUT_SQLSTR,
+        "belief_keg_partyunit_h_del_vld": INSERT_BLFLABO_HEARD_VLD_DEL_SQLSTR,
+        "belief_kegunit_h_put_vld": INSERT_BLFKEGG_HEARD_VLD_PUT_SQLSTR,
+        "belief_kegunit_h_del_vld": INSERT_BLFKEGG_HEARD_VLD_DEL_SQLSTR,
         "beliefunit_h_put_vld": INSERT_BLFUNIT_HEARD_VLD_PUT_SQLSTR,
         "beliefunit_h_del_vld": INSERT_BLFUNIT_HEARD_VLD_DEL_SQLSTR,
     }
@@ -1477,8 +1477,8 @@ def get_idea_stageble_put_dimens() -> dict[str, list[str]]:
             "beliefunit",
             "momentunit",
         ],
-        "br00013": ["belief_planunit", "beliefunit", "momentunit"],
-        "br00019": ["belief_planunit", "beliefunit", "momentunit"],
+        "br00013": ["belief_kegunit", "beliefunit", "momentunit"],
+        "br00019": ["belief_kegunit", "beliefunit", "momentunit"],
         "br00020": [
             "belief_voice_membership",
             "belief_voiceunit",
@@ -1487,47 +1487,47 @@ def get_idea_stageble_put_dimens() -> dict[str, list[str]]:
         ],
         "br00021": ["belief_voiceunit", "beliefunit", "momentunit"],
         "br00022": [
-            "belief_plan_awardunit",
-            "belief_planunit",
+            "belief_keg_awardunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
         "br00023": [
-            "belief_plan_factunit",
-            "belief_planunit",
+            "belief_keg_factunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
         "br00024": [
-            "belief_plan_partyunit",
-            "belief_planunit",
+            "belief_keg_partyunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
         "br00025": [
-            "belief_plan_healerunit",
-            "belief_planunit",
+            "belief_keg_healerunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
         "br00026": [
-            "belief_plan_reason_caseunit",
-            "belief_plan_reasonunit",
-            "belief_planunit",
+            "belief_keg_reason_caseunit",
+            "belief_keg_reasonunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
         "br00027": [
-            "belief_plan_reasonunit",
-            "belief_planunit",
+            "belief_keg_reasonunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
-        "br00028": ["belief_planunit", "beliefunit", "momentunit"],
+        "br00028": ["belief_kegunit", "beliefunit", "momentunit"],
         "br00029": ["beliefunit", "momentunit"],
         "br00036": [
-            "belief_plan_healerunit",
-            "belief_planunit",
+            "belief_keg_healerunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
@@ -1537,17 +1537,17 @@ def get_idea_stageble_put_dimens() -> dict[str, list[str]]:
         "br00045": [],
         "br00050": ["belief_voiceunit", "beliefunit", "momentunit"],
         "br00051": ["beliefunit", "momentunit"],
-        "br00052": ["belief_planunit", "beliefunit", "momentunit"],
-        "br00053": ["belief_planunit", "beliefunit", "momentunit"],
-        "br00054": ["belief_planunit", "beliefunit", "momentunit"],
-        "br00055": ["belief_planunit", "beliefunit", "momentunit"],
+        "br00052": ["belief_kegunit", "beliefunit", "momentunit"],
+        "br00053": ["belief_kegunit", "beliefunit", "momentunit"],
+        "br00054": ["belief_kegunit", "beliefunit", "momentunit"],
+        "br00055": ["belief_kegunit", "beliefunit", "momentunit"],
         "br00056": [
-            "belief_plan_reasonunit",
-            "belief_planunit",
+            "belief_keg_reasonunit",
+            "belief_kegunit",
             "beliefunit",
             "momentunit",
         ],
-        "br00057": ["belief_planunit", "beliefunit", "momentunit"],
+        "br00057": ["belief_kegunit", "beliefunit", "momentunit"],
         "br00058": ["beliefunit", "momentunit"],
         "br00059": ["momentunit"],
         "br00070": ["momentunit", "nabu_epochtime"],
@@ -1561,13 +1561,13 @@ def get_idea_stageble_put_dimens() -> dict[str, list[str]]:
 IDEA_STAGEBLE_DEL_DIMENS = {
     "br00050": ["belief_voice_membership"],
     "br00051": ["belief_voiceunit"],
-    "br00052": ["belief_plan_awardunit"],
-    "br00053": ["belief_plan_factunit"],
-    "br00054": ["belief_plan_partyunit"],
-    "br00055": ["belief_plan_healerunit"],
-    "br00056": ["belief_plan_reason_caseunit"],
-    "br00057": ["belief_plan_reasonunit"],
-    "br00058": ["belief_planunit"],
+    "br00052": ["belief_keg_awardunit"],
+    "br00053": ["belief_keg_factunit"],
+    "br00054": ["belief_keg_partyunit"],
+    "br00055": ["belief_keg_healerunit"],
+    "br00056": ["belief_keg_reason_caseunit"],
+    "br00057": ["belief_keg_reasonunit"],
+    "br00058": ["belief_kegunit"],
     "br00059": ["beliefunit"],
 }
 
@@ -1602,14 +1602,14 @@ ORDER BY moment_label, belief_name, spark_num, bud_time
 CREATE_JOB_BLFMEMB_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voice_membership_job (moment_label TEXT, belief_name TEXT, voice_name TEXT, group_title TEXT, group_cred_lumen REAL, group_debt_lumen REAL, credor_pool REAL, debtor_pool REAL, fund_give REAL, fund_take REAL, fund_agenda_give REAL, fund_agenda_take REAL, fund_agenda_ratio_give REAL, fund_agenda_ratio_take REAL)"""
 CREATE_JOB_BLFVOCE_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_voiceunit_job (moment_label TEXT, belief_name TEXT, voice_name TEXT, voice_cred_lumen REAL, voice_debt_lumen REAL, groupmark TEXT, credor_pool REAL, debtor_pool REAL, fund_give REAL, fund_take REAL, fund_agenda_give REAL, fund_agenda_take REAL, fund_agenda_ratio_give REAL, fund_agenda_ratio_take REAL, inallocable_voice_debt_lumen REAL, irrational_voice_debt_lumen REAL)"""
 CREATE_JOB_BLFGROU_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_groupunit_job (moment_label TEXT, belief_name TEXT, group_title TEXT, fund_grain REAL, credor_pool REAL, debtor_pool REAL, fund_give REAL, fund_take REAL, fund_agenda_give REAL, fund_agenda_take REAL)"""
-CREATE_JOB_BLFAWAR_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_awardunit_job (moment_label TEXT, belief_name TEXT, plan_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL, fund_give REAL, fund_take REAL)"""
-CREATE_JOB_BLFFACT_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_factunit_job (moment_label TEXT, belief_name TEXT, plan_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
-CREATE_JOB_BLFHEAL_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_healerunit_job (moment_label TEXT, belief_name TEXT, plan_rope TEXT, healer_name TEXT)"""
-CREATE_JOB_BLFCASE_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reason_caseunit_job (moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, task INTEGER, case_active INTEGER)"""
-CREATE_JOB_BLFREAS_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_reasonunit_job (moment_label TEXT, belief_name TEXT, plan_rope TEXT, reason_context TEXT, active_requisite INTEGER, task INTEGER, reason_active INTEGER, parent_heir_active INTEGER)"""
-CREATE_JOB_BLFLABO_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_plan_partyunit_job (moment_label TEXT, belief_name TEXT, plan_rope TEXT, party_title TEXT, solo INTEGER, belief_name_is_labor INTEGER)"""
-CREATE_JOB_BLFPLAN_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_planunit_job (moment_label TEXT, belief_name TEXT, plan_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER, fund_grain REAL, plan_active INTEGER, task INTEGER, fund_onset REAL, fund_cease REAL, fund_ratio REAL, gogo_calc REAL, stop_calc REAL, tree_level INTEGER, range_evaluated INTEGER, descendant_pledge_count INTEGER, healerunit_ratio REAL, all_voice_cred INTEGER, all_voice_debt INTEGER)"""
-CREATE_JOB_BLFUNIT_SQLSTR = """CREATE TABLE IF NOT EXISTS beliefunit_job (moment_label TEXT, belief_name TEXT, credor_respect REAL, debtor_respect REAL, fund_pool REAL, max_tree_traverse INTEGER, tally INTEGER, fund_grain REAL, mana_grain REAL, respect_grain REAL, rational INTEGER, keeps_justified INTEGER, offtrack_fund REAL, sum_healerunit_plans_fund_total REAL, keeps_buildable INTEGER, tree_traverse_count INTEGER)"""
+CREATE_JOB_BLFAWAR_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_awardunit_job (moment_label TEXT, belief_name TEXT, keg_rope TEXT, awardee_title TEXT, give_force REAL, take_force REAL, fund_give REAL, fund_take REAL)"""
+CREATE_JOB_BLFFACT_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_factunit_job (moment_label TEXT, belief_name TEXT, keg_rope TEXT, fact_context TEXT, fact_state TEXT, fact_lower REAL, fact_upper REAL)"""
+CREATE_JOB_BLFHEAL_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_healerunit_job (moment_label TEXT, belief_name TEXT, keg_rope TEXT, healer_name TEXT)"""
+CREATE_JOB_BLFCASE_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reason_caseunit_job (moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, task INTEGER, case_active INTEGER)"""
+CREATE_JOB_BLFREAS_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_reasonunit_job (moment_label TEXT, belief_name TEXT, keg_rope TEXT, reason_context TEXT, active_requisite INTEGER, task INTEGER, reason_active INTEGER, parent_heir_active INTEGER)"""
+CREATE_JOB_BLFLABO_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_keg_partyunit_job (moment_label TEXT, belief_name TEXT, keg_rope TEXT, party_title TEXT, solo INTEGER, belief_name_is_labor INTEGER)"""
+CREATE_JOB_BLFKEGG_SQLSTR = """CREATE TABLE IF NOT EXISTS belief_kegunit_job (moment_label TEXT, belief_name TEXT, keg_rope TEXT, begin REAL, close REAL, addin REAL, numor INTEGER, denom INTEGER, morph INTEGER, gogo_want REAL, stop_want REAL, star INTEGER, pledge INTEGER, problem_bool INTEGER, fund_grain REAL, keg_active INTEGER, task INTEGER, fund_onset REAL, fund_cease REAL, fund_ratio REAL, gogo_calc REAL, stop_calc REAL, tree_level INTEGER, range_evaluated INTEGER, descendant_pledge_count INTEGER, healerunit_ratio REAL, all_voice_cred INTEGER, all_voice_debt INTEGER)"""
+CREATE_JOB_BLFUNIT_SQLSTR = """CREATE TABLE IF NOT EXISTS beliefunit_job (moment_label TEXT, belief_name TEXT, credor_respect REAL, debtor_respect REAL, fund_pool REAL, max_tree_traverse INTEGER, tally INTEGER, fund_grain REAL, mana_grain REAL, respect_grain REAL, rational INTEGER, keeps_justified INTEGER, offtrack_fund REAL, sum_healerunit_kegs_fund_total REAL, keeps_buildable INTEGER, tree_traverse_count INTEGER)"""
 
 
 def get_job_create_table_sqlstrs() -> dict[str, str]:
@@ -1617,13 +1617,13 @@ def get_job_create_table_sqlstrs() -> dict[str, str]:
         "belief_voice_membership_job": CREATE_JOB_BLFMEMB_SQLSTR,
         "belief_voiceunit_job": CREATE_JOB_BLFVOCE_SQLSTR,
         "belief_groupunit_job": CREATE_JOB_BLFGROU_SQLSTR,
-        "belief_plan_awardunit_job": CREATE_JOB_BLFAWAR_SQLSTR,
-        "belief_plan_factunit_job": CREATE_JOB_BLFFACT_SQLSTR,
-        "belief_plan_healerunit_job": CREATE_JOB_BLFHEAL_SQLSTR,
-        "belief_plan_reason_caseunit_job": CREATE_JOB_BLFCASE_SQLSTR,
-        "belief_plan_reasonunit_job": CREATE_JOB_BLFREAS_SQLSTR,
-        "belief_plan_partyunit_job": CREATE_JOB_BLFLABO_SQLSTR,
-        "belief_planunit_job": CREATE_JOB_BLFPLAN_SQLSTR,
+        "belief_keg_awardunit_job": CREATE_JOB_BLFAWAR_SQLSTR,
+        "belief_keg_factunit_job": CREATE_JOB_BLFFACT_SQLSTR,
+        "belief_keg_healerunit_job": CREATE_JOB_BLFHEAL_SQLSTR,
+        "belief_keg_reason_caseunit_job": CREATE_JOB_BLFCASE_SQLSTR,
+        "belief_keg_reasonunit_job": CREATE_JOB_BLFREAS_SQLSTR,
+        "belief_keg_partyunit_job": CREATE_JOB_BLFLABO_SQLSTR,
+        "belief_kegunit_job": CREATE_JOB_BLFKEGG_SQLSTR,
         "beliefunit_job": CREATE_JOB_BLFUNIT_SQLSTR,
     }
 

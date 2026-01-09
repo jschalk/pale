@@ -74,7 +74,7 @@ def test_set_cell_trees_found_facts_Scenario2_ChildNodeWithOneFactIsAssignedToAn
     bob5_beliefspark.add_voiceunit(exx.yao)
     bob5_yao_beliefspark.add_voiceunit(exx.sue)
     bob5_yao_sue_beliefspark.add_voiceunit(exx.bob)
-    bob5_yao_sue_beliefspark.add_plan(clean_fact.fact_state, 1)
+    bob5_yao_sue_beliefspark.add_keg(clean_fact.fact_state, 1)
     bob5_yao_sue_beliefspark.add_fact(clean_fact.fact_context, clean_fact.fact_state)
     bob5_cell = cellunit_shop(exx.bob, das, beliefadjust=bob5_beliefspark)
     bob5_yao_cell = cellunit_shop(exx.bob, das_y, beliefadjust=bob5_yao_beliefspark)

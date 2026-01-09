@@ -2,7 +2,7 @@ from src.ch07_belief_logic.belief_main import beliefunit_shop
 from src.ch11_bud.bud_main import beliefbudhistory_shop, tranbook_shop
 from src.ch13_epoch.epoch_main import (
     EpochHolder,
-    add_epoch_planunit,
+    add_epoch_kegunit,
     epochholder_shop,
     get_epoch_length,
     get_epoch_rope,
@@ -24,8 +24,8 @@ def get_moment_epochholder(momentunit: MomentUnit) -> EpochHolder:
     )
     moment_epoch_label = momentunit.epoch.epoch_label
     moment_epoch_config = momentunit.epoch.to_dict()
-    # create epoch plan from momentunit.epoch_config
-    add_epoch_planunit(x_beliefunit, moment_epoch_config)
+    # create epoch keg from momentunit.epoch_config
+    add_epoch_kegunit(x_beliefunit, moment_epoch_config)
     x_epochholder = epochholder_shop(x_beliefunit, moment_epoch_label, 0)
     x_epochholder.calc_epoch()
     return x_epochholder
