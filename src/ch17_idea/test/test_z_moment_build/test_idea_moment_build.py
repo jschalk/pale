@@ -75,7 +75,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
     )
     expected_amy23_momentunit.add_paypurchase(
         plan_name="Zia",
-        voice_name="Bob",
+        person_name="Bob",
         tran_time=777,
         amount=888,
     )

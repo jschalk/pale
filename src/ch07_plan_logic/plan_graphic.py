@@ -14,7 +14,7 @@ from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit
 from src.ch07_plan_logic.plan_report import (
     get_plan_agenda_dataframe,
-    get_plan_voiceunits_dataframe,
+    get_plan_personunits_dataframe,
 )
 
 
@@ -148,19 +148,19 @@ def display_kegtree(
         return x_fig
 
 
-def get_plan_voices_plotly_fig(x_plan: PlanUnit) -> plotly_Figure:
+def get_plan_persons_plotly_fig(x_plan: PlanUnit) -> plotly_Figure:
     column_header_list = [
-        "voice_name",
+        "person_name",
         "_credor_respect",
-        "voice_cred_lumen",
+        "person_cred_lumen",
         "_debtor_respect",
-        "voice_debt_lumen",
+        "person_debt_lumen",
         "fund_give",
         "fund_take",
         "fund_agenda_give",
         "fund_agenda_take",
     ]
-    df = get_plan_voiceunits_dataframe(x_plan)
+    df = get_plan_personunits_dataframe(x_plan)
     df.insert(1, "_credor_respect", x_plan.credor_respect)
     df.insert(4, "_debtor_respect", x_plan.debtor_respect)
     header_dict = dict(
@@ -170,11 +170,11 @@ def get_plan_voices_plotly_fig(x_plan: PlanUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.voice_name,
+                df.person_name,
                 df._credor_respect,
-                df.voice_cred_lumen,
+                df.person_cred_lumen,
                 df._debtor_respect,
-                df.voice_debt_lumen,
+                df.person_debt_lumen,
                 df.fund_give,
                 df.fund_take,
                 df.fund_agenda_give,
@@ -186,7 +186,7 @@ def get_plan_voices_plotly_fig(x_plan: PlanUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"PlanName '{x_plan.plan_name}' plan voices metrics"
+    fig_label = f"PlanName '{x_plan.plan_name}' plan persons metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -390,10 +390,10 @@ def planunit_graph1(graphics_bool) -> plotly_Figure:
     add_group_rect(fig, base_w, base_h, 2, 0.2, 0.4, "group2")
     add_group_rect(fig, base_w, base_h, 2, 0.4, 0.6, "group3")
     add_group_rect(fig, base_w, base_h, 2, 0.6, 1, "group4")
-    add_people_rect(fig, base_w, base_h, 0, 0, 0.3, "voice0")
-    add_people_rect(fig, base_w, base_h, 0, 0.3, 0.5, "voice1")
-    add_people_rect(fig, base_w, base_h, 0, 0.5, 0.7, "voice2")
-    add_people_rect(fig, base_w, base_h, 0, 0.7, 1, "voice3")
+    add_people_rect(fig, base_w, base_h, 0, 0, 0.3, "person0")
+    add_people_rect(fig, base_w, base_h, 0, 0.3, 0.5, "person1")
+    add_people_rect(fig, base_w, base_h, 0, 0.5, 0.7, "person2")
+    add_people_rect(fig, base_w, base_h, 0, 0.7, 1, "person3")
 
     fig.add_trace(
         plotly_Scatter(
@@ -527,7 +527,7 @@ def fund_graph0(
     add_keep__rect(fig, -0.5, -4.5, 10, 2.3, d_sue1_label, "", "", "")
     d_sue1_p0 = "Fund Source is KegRoot. Each Keg fund range calculated by star "
     d_sue1_p1 = "KegRoot Fund ranges: Black arrows. Sum of childless Keg's fund(s) equal kegroot's fund "
-    d_sue1_p2 = "Regular Fund: Green arrows, all fund_grains end up at VoiceUnits"
+    d_sue1_p2 = "Regular Fund: Green arrows, all fund_grains end up at PersonUnits"
     d_sue1_p3 = "Agenda Fund: Blue arrows, fund_grains from active tasks"
     d_sue1_p4 = f"fund_pool = {x_plan.fund_pool} "
     fig.add_trace(
@@ -561,13 +561,13 @@ def fund_graph0(
     add_rect_arrow(fig, 7, -0.6, 6.25, -0.6, green_str)
     add_rect_arrow(fig, 9, -0.4, 7.75, -0.4, blue_str)
     add_rect_arrow(fig, 9, -0.6, 7.75, -0.6, green_str)
-    voiceunit_str = "voiceunit"
+    personunit_str = "personunit"
     purple_str = "purple"
-    add_simp_rect(fig, 9, -0.4, 9.75, 0.2, voiceunit_str, "gold")
-    add_simp_rect(fig, 9, -1.0, 9.75, -0.4, voiceunit_str, "gold")
-    add_simp_rect(fig, 9, -1.6, 9.75, -1.0, voiceunit_str, "gold")
-    add_simp_rect(fig, 9, -2.2, 9.75, -1.6, voiceunit_str, "gold")
-    add_simp_rect(fig, 9, -4.0, 9.75, -2.2, voiceunit_str, "gold")
+    add_simp_rect(fig, 9, -0.4, 9.75, 0.2, personunit_str, "gold")
+    add_simp_rect(fig, 9, -1.0, 9.75, -0.4, personunit_str, "gold")
+    add_simp_rect(fig, 9, -1.6, 9.75, -1.0, personunit_str, "gold")
+    add_simp_rect(fig, 9, -2.2, 9.75, -1.6, personunit_str, "gold")
+    add_simp_rect(fig, 9, -4.0, 9.75, -2.2, personunit_str, "gold")
 
     fund_t0 = "PlanUnit.fund_pool"
     fund_t1_0 = "KegUnit.fund_onset"
@@ -585,10 +585,10 @@ def fund_graph0(
     fund_trace4_2 = "MemberShip.fund_agenda_give"
     fund_trace4_3 = "MemberShip.fund_agenda_take"
 
-    fund_trace5_0 = "VoiceUnit.fund_give"
-    fund_trace5_1 = "VoiceUnit.fund_take"
-    fund_trace5_2 = "VoiceUnit.fund_agenda_give"
-    fund_trace5_3 = "VoiceUnit.fund_agenda_take"
+    fund_trace5_0 = "PersonUnit.fund_give"
+    fund_trace5_1 = "PersonUnit.fund_take"
+    fund_trace5_2 = "PersonUnit.fund_agenda_give"
+    fund_trace5_3 = "PersonUnit.fund_agenda_take"
 
     tracex_list = [fund_t0, fund_t1_0, fund_t1_1, fund_t2_0, fund_t2_1]
     fig.add_trace(

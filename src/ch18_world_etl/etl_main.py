@@ -89,7 +89,7 @@ from src.ch18_world_etl._ref.ch18_path import (
 from src.ch18_world_etl._ref.ch18_semantic_types import FaceName, SparkInt
 from src.ch18_world_etl.etl_sqlstr import (
     CREATE_MOMENT_OTE1_AGG_SQLSTR,
-    CREATE_MOMENT_VOICE_NETS_SQLSTR,
+    CREATE_MOMENT_PERSON_NETS_SQLSTR,
     INSERT_MOMENT_OTE1_AGG_FROM_HEARD_SQLSTR,
     create_insert_into_translate_core_raw_sqlstr,
     create_insert_missing_face_name_into_translate_core_vld_sqlstr,
@@ -932,30 +932,30 @@ def etl_moment_job_jsons_to_job_tables(cursor: sqlite3_Cursor, moment_mstr_dir: 
             insert_job_obj(cursor, job_obj)
 
 
-def insert_tranunit_voices_net(cursor: sqlite3_Cursor, tranbook: TranBook):
+def insert_tranunit_persons_net(cursor: sqlite3_Cursor, tranbook: TranBook):
     """
-    Insert the net amounts for each voice in the tranbook into the specified table.
+    Insert the net amounts for each person in the tranbook into the specified table.
 
     :param cursor: SQLite cursor object
     :param tranbook: TranBook object containing transaction units
     :param dst_tablename: Name of the destination table
     """
-    voices_net_array = tranbook._get_voices_net_array()
+    persons_net_array = tranbook._get_persons_net_array()
     cursor.executemany(
-        f"INSERT INTO moment_voice_nets (moment_label, plan_name, plan_net_amount) VALUES ('{tranbook.moment_label}', ?, ?)",
-        voices_net_array,
+        f"INSERT INTO moment_person_nets (moment_label, plan_name, plan_net_amount) VALUES ('{tranbook.moment_label}', ?, ?)",
+        persons_net_array,
     )
 
 
-def etl_moment_json_voice_nets_to_moment_voice_nets_table(
+def etl_moment_json_person_nets_to_moment_person_nets_table(
     cursor: sqlite3_Cursor, moment_mstr_dir: str
 ):
-    cursor.execute(CREATE_MOMENT_VOICE_NETS_SQLSTR)
+    cursor.execute(CREATE_MOMENT_PERSON_NETS_SQLSTR)
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_label)
         x_momentunit.set_all_tranbook()
-        insert_tranunit_voices_net(cursor, x_momentunit.all_tranbook)
+        insert_tranunit_persons_net(cursor, x_momentunit.all_tranbook)
 
 
 def create_last_run_metrics_json(cursor: sqlite3_Cursor, moment_mstr_dir: str):

@@ -1,4 +1,4 @@
-from src.ch03_voice.group import awardunit_shop
+from src.ch03_person.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -11,8 +11,8 @@ from src.ch07_plan_logic.plan_tool import (
     plan_keg_reason_caseunit_exists as caseunit_exists,
     plan_keg_reasonunit_exists,
     plan_kegunit_exists,
-    plan_voice_membership_exists,
-    plan_voiceunit_exists,
+    plan_person_membership_exists,
+    plan_personunit_exists,
     planunit_exists,
 )
 from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
@@ -24,49 +24,49 @@ def test_planunit_exists_ReturnsObj():
     assert planunit_exists(planunit_shop("Sue"))
 
 
-def test_plan_voiceunit_exists_ReturnsObj():
+def test_plan_personunit_exists_ReturnsObj():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    jkeys = {kw.voice_name: exx.yao}
+    jkeys = {kw.person_name: exx.yao}
 
     # WHEN / THEN
-    assert not plan_voiceunit_exists(None, {})
-    assert not plan_voiceunit_exists(sue_plan, jkeys)
+    assert not plan_personunit_exists(None, {})
+    assert not plan_personunit_exists(sue_plan, jkeys)
 
     # WHEN
-    sue_plan.add_voiceunit(exx.yao)
+    sue_plan.add_personunit(exx.yao)
 
     # THEN
-    assert plan_voiceunit_exists(sue_plan, jkeys)
+    assert plan_personunit_exists(sue_plan, jkeys)
 
 
-def test_plan_voice_membership_exists_ReturnsObj():
+def test_plan_person_membership_exists_ReturnsObj():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     swim_str = ";swim"
     sue_plan = planunit_shop("Sue")
-    jkeys = {kw.voice_name: exx.yao, kw.group_title: swim_str}
+    jkeys = {kw.person_name: exx.yao, kw.group_title: swim_str}
 
     # WHEN / THEN
-    assert not plan_voice_membership_exists(None, {})
-    assert not plan_voice_membership_exists(sue_plan, jkeys)
+    assert not plan_person_membership_exists(None, {})
+    assert not plan_person_membership_exists(sue_plan, jkeys)
 
     # WHEN
-    sue_plan.add_voiceunit(exx.yao)
+    sue_plan.add_personunit(exx.yao)
     # THEN
-    assert not plan_voice_membership_exists(sue_plan, jkeys)
+    assert not plan_person_membership_exists(sue_plan, jkeys)
 
     # WHEN
-    yao_keg = sue_plan.get_voice(exx.yao)
+    yao_keg = sue_plan.get_person(exx.yao)
     yao_keg.add_membership(";run")
     # THEN
-    assert not plan_voice_membership_exists(sue_plan, jkeys)
+    assert not plan_person_membership_exists(sue_plan, jkeys)
 
     # WHEN
-    yao_keg = sue_plan.get_voice(exx.yao)
+    yao_keg = sue_plan.get_person(exx.yao)
     yao_keg.add_membership(swim_str)
     # THEN
-    assert plan_voice_membership_exists(sue_plan, jkeys)
+    assert plan_person_membership_exists(sue_plan, jkeys)
 
 
 def test_plan_kegunit_exists_ReturnsObj():
@@ -306,46 +306,46 @@ def test_plan_attr_exists_ReturnsObj_planunit():
     assert plan_attr_exists(kw.planunit, planunit_shop("Sue"), {})
 
 
-def test_plan_attr_exists_ReturnsObj_plan_voiceunit():
+def test_plan_attr_exists_ReturnsObj_plan_personunit():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    x_jkeys = {kw.voice_name: exx.yao}
+    x_jkeys = {kw.person_name: exx.yao}
 
     # WHEN / THEN
-    assert not plan_attr_exists(kw.plan_voiceunit, None, {})
-    assert not plan_attr_exists(kw.plan_voiceunit, sue_plan, x_jkeys)
+    assert not plan_attr_exists(kw.plan_personunit, None, {})
+    assert not plan_attr_exists(kw.plan_personunit, sue_plan, x_jkeys)
 
     # WHEN
-    sue_plan.add_voiceunit(exx.yao)
+    sue_plan.add_personunit(exx.yao)
 
     # THEN
-    assert plan_attr_exists(kw.plan_voiceunit, sue_plan, x_jkeys)
+    assert plan_attr_exists(kw.plan_personunit, sue_plan, x_jkeys)
 
 
-def test_plan_attr_exists_ReturnsObj_plan_voice_membership():
+def test_plan_attr_exists_ReturnsObj_plan_person_membership():
     # ESTABLISH
     swim_str = ";swim"
     sue_plan = planunit_shop("Sue")
-    x_jkeys = {kw.voice_name: exx.yao, kw.group_title: swim_str}
-    x_dimen = kw.plan_voice_membership
+    x_jkeys = {kw.person_name: exx.yao, kw.group_title: swim_str}
+    x_dimen = kw.plan_person_membership
 
     # WHEN / THEN
     assert not plan_attr_exists(x_dimen, None, {})
     assert not plan_attr_exists(x_dimen, sue_plan, x_jkeys)
 
     # WHEN
-    sue_plan.add_voiceunit(exx.yao)
+    sue_plan.add_personunit(exx.yao)
     # THEN
     assert not plan_attr_exists(x_dimen, sue_plan, x_jkeys)
 
     # WHEN
-    yao_keg = sue_plan.get_voice(exx.yao)
+    yao_keg = sue_plan.get_person(exx.yao)
     yao_keg.add_membership(";run")
     # THEN
     assert not plan_attr_exists(x_dimen, sue_plan, x_jkeys)
 
     # WHEN
-    yao_keg = sue_plan.get_voice(exx.yao)
+    yao_keg = sue_plan.get_person(exx.yao)
     yao_keg.add_membership(swim_str)
     # THEN
     assert plan_attr_exists(x_dimen, sue_plan, x_jkeys)

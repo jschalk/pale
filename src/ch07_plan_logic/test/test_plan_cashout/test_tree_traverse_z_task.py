@@ -648,7 +648,7 @@ def test_PlanUnit_cashout_SetsEmpty_sum_healerunit_kegs_fund_total():
 def test_PlanUnit_cashout_Sets_sum_healerunit_kegs_fund_total(graphics_bool):
     # ESTABLISH
     sue_planunit = get_planunit_with_4_levels_and_2reasons()
-    sue_planunit.add_voiceunit("Sue")
+    sue_planunit.add_personunit("Sue")
     sue_planunit.cashout()
     nation_rope = sue_planunit.make_l1_rope("nation")
     usa_rope = sue_planunit.make_rope(nation_rope, "USA")
@@ -726,7 +726,7 @@ def test_PlanUnit_cashout_Sets_sum_healerunit_kegs_fund_total(graphics_bool):
 def test_PlanUnit_cashout_Sets_keep_dict_v1(graphics_bool):
     # ESTABLISH
     sue_planunit = get_planunit_with_4_levels_and_2reasons()
-    sue_planunit.add_voiceunit("Sue")
+    sue_planunit.add_personunit("Sue")
     sue_planunit.cashout()
     nation_rope = sue_planunit.make_l1_rope("nation")
     usa_rope = sue_planunit.make_rope(nation_rope, "USA")
@@ -787,8 +787,8 @@ def test_PlanUnit_cashout_Sets_keep_dict_v1(graphics_bool):
 def test_PlanUnit_cashout_Sets_healers_dict():
     # ESTABLISH
     sue_planunit = get_planunit_with_4_levels_and_2reasons()
-    sue_planunit.add_voiceunit(exx.sue)
-    sue_planunit.add_voiceunit(exx.bob)
+    sue_planunit.add_personunit(exx.sue)
+    sue_planunit.add_personunit(exx.bob)
     assert sue_planunit._healers_dict == {}
 
     # WHEN
@@ -824,8 +824,8 @@ def test_PlanUnit_cashout_Sets_healers_dict():
 def test_PlanUnit_cashout_Sets_keeps_buildable_True():
     # ESTABLISH
     sue_planunit = get_planunit_with_4_levels_and_2reasons()
-    sue_planunit.add_voiceunit(exx.sue)
-    sue_planunit.add_voiceunit(exx.bob)
+    sue_planunit.add_personunit(exx.sue)
+    sue_planunit.add_personunit(exx.bob)
     assert sue_planunit.keeps_buildable is False
 
     # WHEN
@@ -855,8 +855,8 @@ def test_PlanUnit_cashout_Sets_keeps_buildable_True():
 def test_PlanUnit_cashout_Sets_keeps_buildable_False():
     # ESTABLISH
     sue_planunit = get_planunit_with_4_levels_and_2reasons()
-    sue_planunit.add_voiceunit(exx.sue)
-    sue_planunit.add_voiceunit(exx.bob)
+    sue_planunit.add_personunit(exx.sue)
+    sue_planunit.add_personunit(exx.bob)
     assert sue_planunit.keeps_buildable is False
 
     # WHEN

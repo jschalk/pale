@@ -24,14 +24,14 @@ def create_empty_plan_from_plan(
 
 def create_listen_basis(x_plan: PlanUnit) -> PlanUnit:
     x_listen = create_empty_plan_from_plan(x_plan, x_plan.plan_name)
-    x_listen.voices = x_plan.voices
+    x_listen.persons = x_plan.persons
     x_listen.set_max_tree_traverse(x_plan.max_tree_traverse)
     if x_plan.credor_respect is not None:
         x_listen.set_credor_respect(x_plan.credor_respect)
     if x_plan.debtor_respect is not None:
         x_listen.set_debtor_respect(x_plan.debtor_respect)
-    for x_voiceunit in x_listen.voices.values():
-        x_voiceunit.reset_listen_calculated_attrs()
+    for x_personunit in x_listen.persons.values():
+        x_personunit.reset_listen_calculated_attrs()
     return x_listen
 
 

@@ -2,14 +2,14 @@ from pandas import DataFrame, concat as pandas_concat
 from plotly.graph_objects import Figure as plotly_Figure, Table as plotly_Table
 from src.ch07_plan_logic.plan_report import (
     get_plan_agenda_dataframe,
-    get_plan_voiceunits_dataframe,
+    get_plan_personunits_dataframe,
 )
 from src.ch09_plan_lesson.lesson_filehandler import open_gut_file
 from src.ch10_plan_listen.keep_tool import open_job_file
 from src.ch14_moment.moment_main import MomentUnit
 
 
-def get_moment_guts_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
+def get_moment_guts_persons_dataframe(x_moment: MomentUnit) -> DataFrame:
     # get list of all plan paths
     moment_plan_names = x_moment._get_plan_dir_names()
     # for all plans get gut
@@ -19,24 +19,24 @@ def get_moment_guts_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
             x_moment.moment_mstr_dir, x_moment.moment_label, plan_name
         )
         gut_plan.cashout()
-        df = get_plan_voiceunits_dataframe(gut_plan)
+        df = get_plan_personunits_dataframe(gut_plan)
         df.insert(0, "plan_name", gut_plan.plan_name)
         gut_dfs.append(df)
     return pandas_concat(gut_dfs, ignore_index=True)
 
 
-def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
+def get_moment_guts_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
         "plan_name",
-        "voice_name",
-        "voice_cred_lumen",
-        "voice_debt_lumen",
+        "person_name",
+        "person_cred_lumen",
+        "person_debt_lumen",
         "fund_give",
         "fund_take",
         "fund_agenda_give",
         "fund_agenda_take",
     ]
-    df = get_moment_guts_voices_dataframe(x_moment)
+    df = get_moment_guts_persons_dataframe(x_moment)
     header_dict = dict(
         values=column_header_list, fill_color="paleturquoise", align="left"
     )
@@ -45,9 +45,9 @@ def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         cells=dict(
             values=[
                 df.plan_name,
-                df.voice_name,
-                df.voice_cred_lumen,
-                df.voice_debt_lumen,
+                df.person_name,
+                df.person_cred_lumen,
+                df.person_debt_lumen,
                 df.fund_give,
                 df.fund_take,
                 df.fund_agenda_give,
@@ -59,7 +59,7 @@ def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', gut voices metrics"
+    fig_label = f"moment '{x_moment.moment_label}', gut persons metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -67,7 +67,7 @@ def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     return fig
 
 
-def get_moment_jobs_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
+def get_moment_jobs_persons_dataframe(x_moment: MomentUnit) -> DataFrame:
     # get list of all plan paths
     moment_plan_names = x_moment._get_plan_dir_names()
     # for all plans get gut
@@ -75,24 +75,24 @@ def get_moment_jobs_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
     for plan_name in moment_plan_names:
         job = open_job_file(x_moment.moment_mstr_dir, x_moment.moment_label, plan_name)
         job.cashout()
-        job_df = get_plan_voiceunits_dataframe(job)
+        job_df = get_plan_personunits_dataframe(job)
         job_df.insert(0, "plan_name", job.plan_name)
         job_dfs.append(job_df)
     return pandas_concat(job_dfs, ignore_index=True)
 
 
-def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
+def get_moment_jobs_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
         "plan_name",
-        "voice_name",
-        "voice_cred_lumen",
-        "voice_debt_lumen",
+        "person_name",
+        "person_cred_lumen",
+        "person_debt_lumen",
         "fund_give",
         "fund_take",
         "fund_agenda_give",
         "fund_agenda_take",
     ]
-    df = get_moment_jobs_voices_dataframe(x_moment)
+    df = get_moment_jobs_persons_dataframe(x_moment)
     header_dict = dict(
         values=column_header_list, fill_color="paleturquoise", align="left"
     )
@@ -101,9 +101,9 @@ def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         cells=dict(
             values=[
                 df.plan_name,
-                df.voice_name,
-                df.voice_cred_lumen,
-                df.voice_debt_lumen,
+                df.person_name,
+                df.person_cred_lumen,
+                df.person_debt_lumen,
                 df.fund_give,
                 df.fund_take,
                 df.fund_agenda_give,
@@ -115,7 +115,7 @@ def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', job voices metrics"
+    fig_label = f"moment '{x_moment.moment_label}', job persons metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)

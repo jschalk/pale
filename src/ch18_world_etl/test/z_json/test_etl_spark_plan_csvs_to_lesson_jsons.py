@@ -58,8 +58,8 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     credit77 = 77
     credit88 = 88
     debt_empty = ""
-    plnvoce_str = kw.plan_voiceunit
-    put_agg_tablename = create_prime_tablename(plnvoce_str, "h", "vld", "put")
+    plnprsn_str = kw.plan_personunit
+    put_agg_tablename = create_prime_tablename(plnprsn_str, "h", "vld", "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
     moment_mstr_dir = get_temp_dir()
     # a23_bob_dir = create_path(a23_dir, bob_inx)
@@ -67,10 +67,10 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     # a23_bob_e7_dir = create_path(a23_bob_dir, spark7)
     a23_bob_e3_dir = plan_spark_dir(moment_mstr_dir, exx.a23, bob_inx, spark3)
     a23_bob_e7_dir = plan_spark_dir(moment_mstr_dir, exx.a23, bob_inx, spark7)
-    e3_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.voice_name},{kw.voice_cred_lumen},{kw.voice_debt_lumen}
+    e3_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen},{kw.person_debt_lumen}
 {spark3},{sue_inx},{exx.a23},{bob_inx},{bob_inx},{credit77},{debt_empty}
 """
-    e7_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.voice_name},{kw.voice_cred_lumen},{kw.voice_debt_lumen}
+    e7_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen},{kw.person_debt_lumen}
 {spark7},{sue_inx},{exx.a23},{bob_inx},{bob_inx},{credit77},{debt_empty}
 {spark7},{sue_inx},{exx.a23},{bob_inx},{sue_inx},{credit88},{debt_empty}
 """
@@ -99,24 +99,24 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     # e7_lesson = lessonunit_shop(bob_inx, sue_inx, exx.a23, lessons_dir, atoms_dir, spark7)
     expected_e3_lesson = lessonunit_shop(bob_inx, None, exx.a23, spark_num=spark3)
     expected_e7_lesson = lessonunit_shop(bob_inx, None, exx.a23, spark_num=spark7)
-    plnvoce_dimen = kw.plan_voiceunit
+    plnprsn_dimen = kw.plan_personunit
     expected_e3_lesson._plandelta.add_planatom(
-        plnvoce_dimen,
+        plnprsn_dimen,
         kw.INSERT,
-        jkeys={kw.voice_name: bob_inx},
-        jvalues={kw.voice_cred_lumen: credit77, kw.voice_debt_lumen: None},
+        jkeys={kw.person_name: bob_inx},
+        jvalues={kw.person_cred_lumen: credit77, kw.person_debt_lumen: None},
     )
     expected_e7_lesson._plandelta.add_planatom(
-        plnvoce_dimen,
+        plnprsn_dimen,
         kw.INSERT,
-        jkeys={kw.voice_name: bob_inx},
-        jvalues={kw.voice_cred_lumen: credit77, kw.voice_debt_lumen: None},
+        jkeys={kw.person_name: bob_inx},
+        jvalues={kw.person_cred_lumen: credit77, kw.person_debt_lumen: None},
     )
     expected_e7_lesson._plandelta.add_planatom(
-        plnvoce_dimen,
+        plnprsn_dimen,
         kw.INSERT,
-        jkeys={kw.voice_name: sue_inx},
-        jvalues={kw.voice_cred_lumen: credit88, kw.voice_debt_lumen: None},
+        jkeys={kw.person_name: sue_inx},
+        jvalues={kw.person_cred_lumen: credit88, kw.person_debt_lumen: None},
     )
     e3_lessonunit = get_lessonunit_from_dict(open_json(e3_all_lesson_path))
     e7_lessonunit = get_lessonunit_from_dict(open_json(e7_all_lesson_path))
@@ -129,11 +129,11 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     assert e3_lessonunit == expected_e3_lesson
     e7_insert = e7_lessonunit._plandelta.planatoms.get("INSERT")
     expected_e7_insert = expected_e7_lesson._plandelta.planatoms.get("INSERT")
-    # print(e7_insert.get("plan_voiceunit").keys())
-    # print(expected_e7_insert.get("plan_voiceunit").keys())
-    e7_plnvoce = e7_insert.get("plan_voiceunit")
-    expected_e7_plnvoce = expected_e7_insert.get("plan_voiceunit")
-    assert e7_plnvoce.keys() == expected_e7_plnvoce.keys()
+    # print(e7_insert.get("plan_personunit").keys())
+    # print(expected_e7_insert.get("plan_personunit").keys())
+    e7_plnprsn = e7_insert.get("plan_personunit")
+    expected_e7_plnprsn = expected_e7_insert.get("plan_personunit")
+    assert e7_plnprsn.keys() == expected_e7_plnprsn.keys()
     # print(f"{expected_e7_insert.keys()=}")
     assert e7_insert == expected_e7_insert
     assert e7_lessonunit._plandelta == expected_e7_lesson._plandelta

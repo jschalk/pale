@@ -20,8 +20,8 @@ from src.ch07_plan_logic.plan_main import (
 from src.ch07_plan_logic.plan_tool import (
     clear_factunits_from_plan,
     get_credit_ledger,
+    get_person_mandate_ledger,
     get_plan_root_facts_dict as get_facts_dict,
-    get_voice_mandate_ledger,
 )
 from src.ch11_bud._ref.ch11_semantic_types import (
     FundNum,
@@ -48,7 +48,7 @@ class CellUnit:
     found_facts: dict[RopeTerm, FactUnit] = None
     boss_facts: dict[RopeTerm, FactUnit] = None
     reason_contexts: set[RopeTerm] = None
-    _voice_mandate_ledger: dict[PlanName, FundNum] = None
+    _person_mandate_ledger: dict[PlanName, FundNum] = None
 
     def get_cell_plan_name(self) -> PlanName:
         return self.bud_plan_name if self.ancestors == [] else self.ancestors[-1]
@@ -137,15 +137,15 @@ class CellUnit:
                 True,
             )
 
-    def _set_voice_mandate_ledger(self):
+    def _set_person_mandate_ledger(self):
         self.planadjust.set_fund_pool(self.mandate)
-        self._voice_mandate_ledger = get_voice_mandate_ledger(self.planadjust, True)
+        self._person_mandate_ledger = get_person_mandate_ledger(self.planadjust, True)
 
-    def calc_voice_mandate_ledger(self):
+    def calc_person_mandate_ledger(self):
         self.reason_contexts = self.planadjust.get_reason_contexts()
         self.filter_facts_by_reason_contexts()
         self.set_planadjust_facts()
-        self._set_voice_mandate_ledger()
+        self._set_person_mandate_ledger()
 
     def to_dict(self) -> dict[str, str | dict]:
         """Returns dict that is serializable to JSON."""
@@ -204,7 +204,7 @@ def cellunit_shop(
         found_facts=get_empty_dict_if_None(found_facts),
         boss_facts=get_empty_dict_if_None(boss_facts),
         reason_contexts=reason_contexts,
-        _voice_mandate_ledger={},
+        _person_mandate_ledger={},
     )
 
 
@@ -243,10 +243,10 @@ def cellunit_get_from_dict(x_dict: dict) -> CellUnit:
 
 
 def create_child_cellunits(parent_cell: CellUnit) -> list[CellUnit]:
-    parent_cell.calc_voice_mandate_ledger()
+    parent_cell.calc_person_mandate_ledger()
     x_list = []
-    for child_plan_name in sorted(parent_cell._voice_mandate_ledger):
-        child_mandate = parent_cell._voice_mandate_ledger.get(child_plan_name)
+    for child_plan_name in sorted(parent_cell._person_mandate_ledger):
+        child_mandate = parent_cell._person_mandate_ledger.get(child_plan_name)
         if child_mandate > 0 and parent_cell.celldepth > 0:
             child_ancestors = copy_deepcopy(parent_cell.ancestors)
             child_ancestors.append(child_plan_name)

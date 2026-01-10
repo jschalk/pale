@@ -12,97 +12,97 @@ from src.ref.keywords import ExampleStrs as exx
 def test_get_debtors_roll_ReturnsObj():
     # ESTABLISH
     yao_duty = planunit_shop(exx.yao)
-    zia_voice_cred_lumen = 47
-    zia_voice_debt_lumen = 41
-    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
+    zia_person_cred_lumen = 47
+    zia_person_debt_lumen = 41
+    yao_duty.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
     yao_duty.cashout()
 
     # WHEN
     yao_roll = get_debtors_roll(yao_duty)
 
     # THEN
-    zia_voiceunit = yao_duty.get_voice(exx.zia)
-    assert yao_roll == [zia_voiceunit]
+    zia_personunit = yao_duty.get_person(exx.zia)
+    assert yao_roll == [zia_personunit]
 
 
-def test_get_debtors_roll_ReturnsObjIgnoresZero_voice_debt_lumen():
+def test_get_debtors_roll_ReturnsObjIgnoresZero_person_debt_lumen():
     # ESTABLISH
     yao_duty = planunit_shop(exx.yao)
-    zia_voice_cred_lumen = 47
-    zia_voice_debt_lumen = 41
+    zia_person_cred_lumen = 47
+    zia_person_debt_lumen = 41
     wei_str = "Wei"
-    wei_voice_cred_lumen = 67
-    wei_voice_debt_lumen = 0
-    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_duty.add_voiceunit(wei_str, wei_voice_cred_lumen, wei_voice_debt_lumen)
+    wei_person_cred_lumen = 67
+    wei_person_debt_lumen = 0
+    yao_duty.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_duty.add_personunit(wei_str, wei_person_cred_lumen, wei_person_debt_lumen)
     yao_duty.cashout()
 
     # WHEN
     yao_roll = get_debtors_roll(yao_duty)
 
     # THEN
-    zia_voiceunit = yao_duty.get_voice(exx.zia)
-    assert yao_roll == [zia_voiceunit]
+    zia_personunit = yao_duty.get_person(exx.zia)
+    assert yao_roll == [zia_personunit]
 
 
 def test_get_ordered_debtors_roll_ReturnsObj_InOrder():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    zia_voice_cred_lumen = 47
-    zia_voice_debt_lumen = 41
-    sue_voice_cred_lumen = 57
-    sue_voice_debt_lumen = 51
-    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_plan.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    zia_person_cred_lumen = 47
+    zia_person_debt_lumen = 41
+    sue_person_cred_lumen = 57
+    sue_person_debt_lumen = 51
+    yao_plan.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_plan.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     yao_pool = 92
-    yao_plan.set_voice_respect(yao_pool)
+    yao_plan.set_person_respect(yao_pool)
 
     # WHEN
-    ordered_voices1 = get_ordered_debtors_roll(yao_plan)
+    ordered_persons1 = get_ordered_debtors_roll(yao_plan)
 
     # THEN
-    zia_voice = yao_plan.get_voice(exx.zia)
-    sue_voice = yao_plan.get_voice(exx.sue)
-    assert ordered_voices1[0].to_dict() == sue_voice.to_dict()
-    assert ordered_voices1 == [sue_voice, zia_voice]
+    zia_person = yao_plan.get_person(exx.zia)
+    sue_person = yao_plan.get_person(exx.sue)
+    assert ordered_persons1[0].to_dict() == sue_person.to_dict()
+    assert ordered_persons1 == [sue_person, zia_person]
 
     # ESTABLISH
-    bob_voice_debt_lumen = 75
-    yao_plan.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
-    bob_voice = yao_plan.get_voice(exx.bob)
+    bob_person_debt_lumen = 75
+    yao_plan.add_personunit(exx.bob, 0, bob_person_debt_lumen)
+    bob_person = yao_plan.get_person(exx.bob)
 
     # WHEN
-    ordered_voices2 = get_ordered_debtors_roll(yao_plan)
+    ordered_persons2 = get_ordered_debtors_roll(yao_plan)
 
     # THEN
-    assert ordered_voices2[0].to_dict() == bob_voice.to_dict()
-    assert ordered_voices2 == [bob_voice, sue_voice, zia_voice]
+    assert ordered_persons2[0].to_dict() == bob_person.to_dict()
+    assert ordered_persons2 == [bob_person, sue_person, zia_person]
 
 
-def test_get_ordered_debtors_roll_DoesNotReturnZero_voice_debt_lumen():
+def test_get_ordered_debtors_roll_DoesNotReturnZero_person_debt_lumen():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    zia_voice_debt_lumen = 41
-    sue_voice_debt_lumen = 51
+    zia_person_debt_lumen = 41
+    sue_person_debt_lumen = 51
     yao_pool = 92
-    yao_plan.set_voice_respect(yao_pool)
-    bob_voice_debt_lumen = 75
-    yao_plan.add_voiceunit(exx.zia, 0, zia_voice_debt_lumen)
-    yao_plan.add_voiceunit(exx.sue, 0, sue_voice_debt_lumen)
-    yao_plan.add_voiceunit(exx.bob, 0, bob_voice_debt_lumen)
-    yao_plan.add_voiceunit(exx.yao, 0, 0)
-    yao_plan.add_voiceunit(exx.xio, 0, 0)
+    yao_plan.set_person_respect(yao_pool)
+    bob_person_debt_lumen = 75
+    yao_plan.add_personunit(exx.zia, 0, zia_person_debt_lumen)
+    yao_plan.add_personunit(exx.sue, 0, sue_person_debt_lumen)
+    yao_plan.add_personunit(exx.bob, 0, bob_person_debt_lumen)
+    yao_plan.add_personunit(exx.yao, 0, 0)
+    yao_plan.add_personunit(exx.xio, 0, 0)
 
     # WHEN
-    ordered_voices2 = get_ordered_debtors_roll(yao_plan)
+    ordered_persons2 = get_ordered_debtors_roll(yao_plan)
 
     # THEN
-    assert len(ordered_voices2) == 3
-    zia_voice = yao_plan.get_voice(exx.zia)
-    sue_voice = yao_plan.get_voice(exx.sue)
-    bob_voice = yao_plan.get_voice(exx.bob)
-    assert ordered_voices2[0].to_dict() == bob_voice.to_dict()
-    assert ordered_voices2 == [bob_voice, sue_voice, zia_voice]
+    assert len(ordered_persons2) == 3
+    zia_person = yao_plan.get_person(exx.zia)
+    sue_person = yao_plan.get_person(exx.sue)
+    bob_person = yao_plan.get_person(exx.bob)
+    assert ordered_persons2[0].to_dict() == bob_person.to_dict()
+    assert ordered_persons2 == [bob_person, sue_person, zia_person]
 
 
 def test_set_listen_to_speaker_fact_SetsFact():
@@ -117,8 +117,8 @@ def test_set_listen_to_speaker_fact_SetsFact():
     sweep_str = "sweep"
     sweep_rope = yao_listener.make_rope(casa_rope, sweep_str)
 
-    yao_listener.add_voiceunit(exx.yao)
-    yao_listener.set_voice_respect(20)
+    yao_listener.add_personunit(exx.yao)
+    yao_listener.set_person_respect(20)
     yao_listener.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
     yao_listener.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
     yao_listener.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
@@ -143,8 +143,8 @@ def test_set_listen_to_speaker_fact_SetsFact():
 def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
     # ESTABLISH
     yao_listener = planunit_shop(exx.yao)
-    yao_listener.add_voiceunit(exx.yao)
-    yao_listener.set_voice_respect(20)
+    yao_listener.add_personunit(exx.yao)
+    yao_listener.set_person_respect(20)
     casa_rope = yao_listener.make_l1_rope(exx.casa)
     situation_str = "situation"
     situation_rope = yao_listener.make_rope(casa_rope, situation_str)
@@ -208,8 +208,8 @@ def test_migrate_all_facts_AddsKegUnitsAndSetsFactUnits():
     snow_str = "snow"
     snow_rope = yao_src.make_rope(weather_rope, snow_str)
 
-    yao_src.add_voiceunit(exx.yao)
-    yao_src.set_voice_respect(20)
+    yao_src.add_personunit(exx.yao)
+    yao_src.set_person_respect(20)
     yao_src.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
     yao_src.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
     yao_src.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)

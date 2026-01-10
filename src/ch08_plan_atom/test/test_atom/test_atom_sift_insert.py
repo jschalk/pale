@@ -1,4 +1,4 @@
-from src.ch03_voice.group import awardunit_shop
+from src.ch03_person.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -6,15 +6,15 @@ from src.ch08_plan_atom.atom_main import planatom_shop, sift_planatom
 from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 
 
-def test_sift_atom_ReturnsObj_PlanAtom_INSERT_plan_voiceunit():
+def test_sift_atom_ReturnsObj_PlanAtom_INSERT_plan_personunit():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_voiceunit(exx.zia)
+    sue_plan.add_personunit(exx.zia)
 
-    bob_atom = planatom_shop(kw.plan_voiceunit, kw.INSERT)
-    bob_atom.set_arg(kw.voice_name, exx.bob)
-    zia_atom = planatom_shop(kw.plan_voiceunit, kw.INSERT)
-    zia_atom.set_arg(kw.voice_name, exx.zia)
+    bob_atom = planatom_shop(kw.plan_personunit, kw.INSERT)
+    bob_atom.set_arg(kw.person_name, exx.bob)
+    zia_atom = planatom_shop(kw.plan_personunit, kw.INSERT)
+    zia_atom.set_arg(kw.person_name, exx.zia)
 
     # WHEN
     new_bob_planatom = sift_planatom(sue_plan, bob_atom)
@@ -26,20 +26,20 @@ def test_sift_atom_ReturnsObj_PlanAtom_INSERT_plan_voiceunit():
     assert not new_zia_planatom
 
 
-def test_sift_atom_ReturnsObj_PlanAtom_INSERT_plan_voice_membership():
+def test_sift_atom_ReturnsObj_PlanAtom_INSERT_plan_person_membership():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_voiceunit(exx.yao)
-    sue_plan.add_voiceunit(exx.bob)
-    yao_voiceunit = sue_plan.get_voice(exx.yao)
-    yao_voiceunit.add_membership(exx.run)
-    print(f"{yao_voiceunit.memberships.keys()=}")
+    sue_plan.add_personunit(exx.yao)
+    sue_plan.add_personunit(exx.bob)
+    yao_personunit = sue_plan.get_person(exx.yao)
+    yao_personunit.add_membership(exx.run)
+    print(f"{yao_personunit.memberships.keys()=}")
 
-    bob_run_atom = planatom_shop(kw.plan_voice_membership, kw.INSERT)
-    bob_run_atom.set_arg(kw.voice_name, exx.bob)
+    bob_run_atom = planatom_shop(kw.plan_person_membership, kw.INSERT)
+    bob_run_atom.set_arg(kw.person_name, exx.bob)
     bob_run_atom.set_arg(kw.group_title, exx.run)
-    yao_run_atom = planatom_shop(kw.plan_voice_membership, kw.INSERT)
-    yao_run_atom.set_arg(kw.voice_name, exx.yao)
+    yao_run_atom = planatom_shop(kw.plan_person_membership, kw.INSERT)
+    yao_run_atom.set_arg(kw.person_name, exx.yao)
     yao_run_atom.set_arg(kw.group_title, exx.run)
 
     # WHEN

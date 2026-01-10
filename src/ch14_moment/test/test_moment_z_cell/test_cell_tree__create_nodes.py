@@ -65,17 +65,17 @@ def test_create_cell_tree_Scenaro2_LedgerDepth1(temp_dir_setup):
     x_cell = cellunit_shop(exx.bob, [], spark56, x_celldepth, quota=x_quota)
     bob37_dir = cell_dir(moment_mstr_dir, exx.a23, exx.bob, tp37, [])
     cellunit_save_to_dir(bob37_dir, x_cell)
-    bob_voices = [[exx.yao], [exx.bob], [exx.zia]]
-    yao_voices = [[exx.zia]]
-    zia_voices = [[exx.bob], [exx.yao]]
+    bob_persons = [[exx.yao], [exx.bob], [exx.zia]]
+    yao_persons = [[exx.zia]]
+    zia_persons = [[exx.bob], [exx.yao]]
     bob_e56_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.bob, spark56, bob_voices
+        moment_mstr_dir, exx.a23, exx.bob, spark56, bob_persons
     )
     yao_e56_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.yao, spark56, yao_voices
+        moment_mstr_dir, exx.a23, exx.yao, spark56, yao_persons
     )
     zia_e56_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.zia, spark56, zia_voices
+        moment_mstr_dir, exx.a23, exx.zia, spark56, zia_persons
     )
     assert os_path_exists(bob_e56_path)
     assert os_path_exists(yao_e56_path)
@@ -154,20 +154,20 @@ def test_create_cell_tree_Scenaro3_LedgerDepth1_MostRecentSpark(temp_dir_setup):
     x_cell = cellunit_shop(exx.bob, [], spark55, x_celldepth, quota=x_quota)
     bob37_dir = cell_dir(moment_mstr_dir, exx.a23, exx.bob, tp37, [])
     cellunit_save_to_dir(bob37_dir, x_cell)
-    bob_voices = [[exx.yao], [exx.bob], [exx.zia]]
-    yao_voices = [[exx.zia]]
-    zia_voices = [[exx.bob], [exx.yao]]
+    bob_persons = [[exx.yao], [exx.bob], [exx.zia]]
+    yao_persons = [[exx.zia]]
+    zia_persons = [[exx.bob], [exx.yao]]
     bob_e55_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.bob, spark55, bob_voices
+        moment_mstr_dir, exx.a23, exx.bob, spark55, bob_persons
     )
     yao_e44_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.yao, spark44, yao_voices
+        moment_mstr_dir, exx.a23, exx.yao, spark44, yao_persons
     )
     yao_e33_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.yao, spark33, yao_voices
+        moment_mstr_dir, exx.a23, exx.yao, spark33, yao_persons
     )
     zia_e33_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.zia, spark33, zia_voices
+        moment_mstr_dir, exx.a23, exx.zia, spark33, zia_persons
     )
     assert os_path_exists(bob_e55_path)
     assert os_path_exists(yao_e44_path)
@@ -248,20 +248,20 @@ def test_create_cell_tree_Scenaro4_LedgerDepth1_OnePlanHasNoPast_planspark(
     x_cell = cellunit_shop(exx.bob, [], spark55, x_celldepth, quota=x_quota)
     bob37_dir = cell_dir(moment_mstr_dir, exx.a23, exx.bob, tp37, [])
     cellunit_save_to_dir(bob37_dir, x_cell)
-    bob_voices = [[exx.yao], [exx.bob], [exx.zia]]
-    yao_voices = [[exx.zia]]
-    zia_voices = [[exx.bob], [exx.yao]]
+    bob_persons = [[exx.yao], [exx.bob], [exx.zia]]
+    yao_persons = [[exx.zia]]
+    zia_persons = [[exx.bob], [exx.yao]]
     bob_e55_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.bob, spark55, bob_voices
+        moment_mstr_dir, exx.a23, exx.bob, spark55, bob_persons
     )
     yao_e44_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.yao, spark44, yao_voices
+        moment_mstr_dir, exx.a23, exx.yao, spark44, yao_persons
     )
     yao_e33_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.yao, spark33, yao_voices
+        moment_mstr_dir, exx.a23, exx.yao, spark33, yao_persons
     )
     zia_e66_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.zia, spark66, zia_voices
+        moment_mstr_dir, exx.a23, exx.zia, spark66, zia_persons
     )
     assert os_path_exists(bob_e55_path)
     assert os_path_exists(yao_e44_path)
@@ -326,20 +326,20 @@ def test_create_cell_tree_Scenaro5_LedgerDepth1_ZeroQuotaDoesNotGetCreated(
     x_cell = cellunit_shop(exx.bob, [], spark55, x_celldepth, quota=x_quota)
     bob37_dir = cell_dir(moment_mstr_dir, exx.a23, exx.bob, tp37, [])
     cellunit_save_to_dir(bob37_dir, x_cell)
-    bob_voices = [[exx.yao], [exx.bob], [exx.zia]]
-    yao_voices = [[exx.zia]]
-    zia_voices = [[exx.bob], [exx.yao]]
+    bob_persons = [[exx.yao], [exx.bob], [exx.zia]]
+    yao_persons = [[exx.zia]]
+    zia_persons = [[exx.bob], [exx.yao]]
     bob_e55_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.bob, spark55, bob_voices
+        moment_mstr_dir, exx.a23, exx.bob, spark55, bob_persons
     )
     yao_e44_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.yao, spark44, yao_voices
+        moment_mstr_dir, exx.a23, exx.yao, spark44, yao_persons
     )
     yao_e33_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.yao, spark33, yao_voices
+        moment_mstr_dir, exx.a23, exx.yao, spark33, yao_persons
     )
     zia_e33_path = save_planspark(
-        moment_mstr_dir, exx.a23, exx.zia, spark33, zia_voices
+        moment_mstr_dir, exx.a23, exx.zia, spark33, zia_persons
     )
     assert os_path_exists(bob_e55_path)
     assert os_path_exists(yao_e44_path)

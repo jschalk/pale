@@ -1,20 +1,20 @@
 def get_create_kpi001_sqlstr() -> str:
     """
-    Returns the SQL string for creating the KPI001 voice nets table.
+    Returns the SQL string for creating the KPI001 person nets table.
     """
     return """
-CREATE TABLE moment_kpi001_voice_nets AS
+CREATE TABLE moment_kpi001_person_nets AS
 SELECT
-  moment_voice_nets.moment_label
-, moment_voice_nets.plan_name
+  moment_person_nets.moment_label
+, moment_person_nets.plan_name
 , plan_net_amount AS bnet_funds
 , RANK() OVER (ORDER BY plan_net_amount DESC) AS fund_rank
 , IFNULL(SUM(plan_kegunit_job.pledge), 0) AS pledges_count
-FROM moment_voice_nets
+FROM moment_person_nets
 LEFT JOIN plan_kegunit_job ON
-  plan_kegunit_job.moment_label = moment_voice_nets.moment_label
-  AND plan_kegunit_job.plan_name = moment_voice_nets.plan_name
-GROUP BY moment_voice_nets.moment_label, moment_voice_nets.plan_name
+  plan_kegunit_job.moment_label = moment_person_nets.moment_label
+  AND plan_kegunit_job.plan_name = moment_person_nets.plan_name
+GROUP BY moment_person_nets.moment_label, moment_person_nets.plan_name
 ;
 """
 

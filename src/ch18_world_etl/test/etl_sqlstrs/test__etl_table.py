@@ -63,8 +63,8 @@ def test_ALL_DIMEN_ABBV7_has_all_dimens():
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # ESTABLISH
     plnunit_dimen = kw.planunit
-    plnvoce_dimen = kw.plan_voiceunit
-    plnmemb_dimen = kw.plan_voice_membership
+    plnprsn_dimen = kw.plan_personunit
+    plnmemb_dimen = kw.plan_person_membership
     plngrou_dimen = kw.plan_groupunit
     plnkegg_dimen = kw.plan_kegunit
     plnawar_dimen = kw.plan_keg_awardunit
@@ -94,7 +94,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
 
     # WHEN
     plnunit_s_agg_table = create_prime_tablename("planunit", "s", agg_str, put_str)
-    plnvoce_s_agg_table = create_prime_tablename("plnvoce", "s", agg_str, put_str)
+    plnprsn_s_agg_table = create_prime_tablename("plnprsn", "s", agg_str, put_str)
     plnmemb_s_agg_table = create_prime_tablename("plnmemb", "s", agg_str, put_str)
     plnkegg_s_agg_table = create_prime_tablename("plnkegg", "s", agg_str, put_str)
     plnawar_s_agg_table = create_prime_tablename("plnawar", "s", agg_str, put_str)
@@ -121,13 +121,13 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     trltitl_s_val_table = create_prime_tablename("trltitl", "s", vld_str)
     trlcore_s_raw_table = create_prime_tablename("trlcore", "s", raw_str)
     trlcore_s_agg_table = create_prime_tablename("trlcore", "s", agg_str)
-    plnvoce_job_table = create_prime_tablename("plnvoce", kw.job, None)
-    x_plnvoce_raw = create_prime_tablename("plnvoce", "k", raw_str)
+    plnprsn_job_table = create_prime_tablename("plnprsn", kw.job, None)
+    x_plnprsn_raw = create_prime_tablename("plnprsn", "k", raw_str)
     plngrou_job_table = create_prime_tablename("plngrou", kw.job, None)
 
     # THEN
     assert plnunit_s_agg_table == f"{plnunit_dimen}_s_put_agg"
-    assert plnvoce_s_agg_table == f"{plnvoce_dimen}_s_put_agg"
+    assert plnprsn_s_agg_table == f"{plnprsn_dimen}_s_put_agg"
     assert plnmemb_s_agg_table == f"{plnmemb_dimen}_s_put_agg"
     assert plnkegg_s_agg_table == f"{plnkegg_dimen}_s_put_agg"
     assert plnawar_s_agg_table == f"{plnawar_dimen}_s_put_agg"
@@ -154,9 +154,9 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert trltitl_s_val_table == f"{trltitl_dimen}_s_vld"
     assert trlcore_s_raw_table == f"{trlcore_dimen}_s_raw"
     assert trlcore_s_agg_table == f"{trlcore_dimen}_s_agg"
-    assert plnvoce_job_table == f"{plnvoce_dimen}_job"
+    assert plnprsn_job_table == f"{plnprsn_dimen}_job"
     assert plngrou_job_table == f"{plngrou_dimen}_job"
-    assert x_plnvoce_raw == "plan_voiceunit_raw"
+    assert x_plnprsn_raw == "plan_personunit_raw"
 
 
 def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():

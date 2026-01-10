@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch01_py.dict_toolbox import get_json_from_dict
-from src.ch03_voice.voice import voiceunit_shop
+from src.ch03_person.person import personunit_shop
 from src.ch07_plan_logic.plan_main import get_default_first_label, planunit_shop
 from src.ch08_plan_atom.atom_main import planatom_shop
 from src.ch09_plan_lesson._ref.ch09_semantic_types import FaceName, default_knot_if_None
@@ -337,8 +337,8 @@ def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario1_WithPlanDelt
   "delta": {
     "0": {
       "crud": "DELETE", 
-      "dimen": "plan_voiceunit", 
-      "jkeys": {"voice_name": "Sue"}, 
+      "dimen": "plan_personunit", 
+      "jkeys": {"person_name": "Sue"}, 
       "jvalues": {}
     }, 
     "1": {
@@ -423,24 +423,26 @@ def test_LessonUnit_get_deltametric_dict_ReturnsObj():
     assert x_dict.get(delta_max_str) is None
 
 
-def test_LessonUnit_add_p_planatom_Sets_PlanUnit_voiceunits():
+def test_LessonUnit_add_p_planatom_Sets_PlanUnit_personunits():
     # ESTABLISH
     bob_lessonunit = lessonunit_shop(exx.bob)
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    cw_str = kw.voice_cred_lumen
-    dw_str = kw.voice_debt_lumen
-    print(f"{bob_voiceunit.to_dict()=}")
-    bob_required_dict = {kw.voice_name: bob_voiceunit.to_dict().get(kw.voice_name)}
-    bob_optional_dict = {cw_str: bob_voiceunit.to_dict().get(cw_str)}
-    bob_optional_dict[dw_str] = bob_voiceunit.to_dict().get(dw_str)
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    bob_personunit = personunit_shop(
+        exx.bob, bob_person_cred_lumen, bob_person_debt_lumen
+    )
+    cw_str = kw.person_cred_lumen
+    dw_str = kw.person_debt_lumen
+    print(f"{bob_personunit.to_dict()=}")
+    bob_required_dict = {kw.person_name: bob_personunit.to_dict().get(kw.person_name)}
+    bob_optional_dict = {cw_str: bob_personunit.to_dict().get(cw_str)}
+    bob_optional_dict[dw_str] = bob_personunit.to_dict().get(dw_str)
     print(f"{bob_required_dict=}")
     assert bob_lessonunit._plandelta.planatoms == {}
 
     # WHEN
     bob_lessonunit.add_p_planatom(
-        dimen=kw.plan_voiceunit,
+        dimen=kw.plan_personunit,
         crud_str=kw.INSERT,
         jkeys=bob_required_dict,
         jvalues=bob_optional_dict,
@@ -450,27 +452,27 @@ def test_LessonUnit_add_p_planatom_Sets_PlanUnit_voiceunits():
     assert len(bob_lessonunit._plandelta.planatoms) == 1
     assert (
         bob_lessonunit._plandelta.planatoms.get(kw.INSERT)
-        .get(kw.plan_voiceunit)
+        .get(kw.plan_personunit)
         .get(exx.bob)
         is not None
     )
 
 
-def test_LessonUnit_get_edited_plan_ReturnsObj_PlanUnit_insert_voice():
+def test_LessonUnit_get_edited_plan_ReturnsObj_PlanUnit_insert_person():
     # ESTABLISH
     sue_lessonunit = lessonunit_shop(exx.sue)
 
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_voiceunit(exx.yao)
-    assert before_sue_planunit.voice_exists(exx.yao)
-    assert before_sue_planunit.voice_exists(exx.zia) is False
-    dimen = kw.plan_voiceunit
+    before_sue_planunit.add_personunit(exx.yao)
+    assert before_sue_planunit.person_exists(exx.yao)
+    assert before_sue_planunit.person_exists(exx.zia) is False
+    dimen = kw.plan_personunit
     x_planatom = planatom_shop(dimen, kw.INSERT)
-    x_planatom.set_jkey(kw.voice_name, exx.zia)
-    x_voice_cred_lumen = 55
-    x_voice_debt_lumen = 66
-    x_planatom.set_jvalue("voice_cred_lumen", x_voice_cred_lumen)
-    x_planatom.set_jvalue("voice_debt_lumen", x_voice_debt_lumen)
+    x_planatom.set_jkey(kw.person_name, exx.zia)
+    x_person_cred_lumen = 55
+    x_person_debt_lumen = 66
+    x_planatom.set_jvalue("person_cred_lumen", x_person_cred_lumen)
+    x_planatom.set_jvalue("person_debt_lumen", x_person_debt_lumen)
     sue_lessonunit._plandelta.set_planatom(x_planatom)
     print(f"{sue_lessonunit._plandelta.planatoms.keys()=}")
 
@@ -478,12 +480,12 @@ def test_LessonUnit_get_edited_plan_ReturnsObj_PlanUnit_insert_voice():
     after_sue_planunit = sue_lessonunit.get_lesson_edited_plan(before_sue_planunit)
 
     # THEN
-    yao_voiceunit = after_sue_planunit.get_voice(exx.yao)
-    zia_voiceunit = after_sue_planunit.get_voice(exx.zia)
-    assert yao_voiceunit is not None
-    assert zia_voiceunit is not None
-    assert zia_voiceunit.voice_cred_lumen == x_voice_cred_lumen
-    assert zia_voiceunit.voice_debt_lumen == x_voice_debt_lumen
+    yao_personunit = after_sue_planunit.get_person(exx.yao)
+    zia_personunit = after_sue_planunit.get_person(exx.zia)
+    assert yao_personunit is not None
+    assert zia_personunit is not None
+    assert zia_personunit.person_cred_lumen == x_person_cred_lumen
+    assert zia_personunit.person_debt_lumen == x_person_debt_lumen
 
 
 def test_LessonUnit_get_edited_plan_RaisesErrorWhenlessonAttrsAndPlanAttrsAreNotTheSame():
@@ -505,22 +507,24 @@ def test_LessonUnit_get_edited_plan_RaisesErrorWhenlessonAttrsAndPlanAttrsAreNot
 def test_LessonUnit_is_empty_ReturnsObj():
     # ESTABLISH
     bob_lessonunit = lessonunit_shop(exx.bob)
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    cw_str = kw.voice_cred_lumen
-    dw_str = kw.voice_debt_lumen
-    print(f"{bob_voiceunit.to_dict()=}")
-    bob_required_dict = {kw.voice_name: bob_voiceunit.to_dict().get(kw.voice_name)}
-    bob_optional_dict = {cw_str: bob_voiceunit.to_dict().get(cw_str)}
-    bob_optional_dict[dw_str] = bob_voiceunit.to_dict().get(dw_str)
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    bob_personunit = personunit_shop(
+        exx.bob, bob_person_cred_lumen, bob_person_debt_lumen
+    )
+    cw_str = kw.person_cred_lumen
+    dw_str = kw.person_debt_lumen
+    print(f"{bob_personunit.to_dict()=}")
+    bob_required_dict = {kw.person_name: bob_personunit.to_dict().get(kw.person_name)}
+    bob_optional_dict = {cw_str: bob_personunit.to_dict().get(cw_str)}
+    bob_optional_dict[dw_str] = bob_personunit.to_dict().get(dw_str)
     print(f"{bob_required_dict=}")
     assert bob_lessonunit._plandelta.planatoms == {}
     assert bob_lessonunit.is_empty()
 
     # WHEN
     bob_lessonunit.add_p_planatom(
-        dimen=kw.plan_voiceunit,
+        dimen=kw.plan_personunit,
         crud_str=kw.INSERT,
         jkeys=bob_required_dict,
         jvalues=bob_optional_dict,
@@ -539,7 +543,7 @@ def test_LessonUnit_is_empty_ReturnsObj():
     # Test for UPDATE_str operation
     bob_lessonunit_update = lessonunit_shop(exx.bob)
     bob_lessonunit_update.add_p_planatom(
-        dimen=kw.plan_voiceunit,
+        dimen=kw.plan_personunit,
         crud_str=kw.UPDATE,
         jkeys=bob_required_dict,
         jvalues=bob_optional_dict,
@@ -550,7 +554,7 @@ def test_LessonUnit_is_empty_ReturnsObj():
     # Test for DELETE_str operation
     bob_lessonunit_delete = lessonunit_shop(exx.bob)
     bob_lessonunit_delete.add_p_planatom(
-        dimen=kw.plan_voiceunit,
+        dimen=kw.plan_personunit,
         crud_str=kw.DELETE,
         jkeys=bob_required_dict,
         jvalues={},

@@ -46,10 +46,10 @@ from src.ch14_moment._ref.ch14_semantic_types import (
     KnotTerm,
     ManaGrain,
     MomentLabel,
+    PersonName,
     PlanName,
     RespectGrain,
     SparkInt,
-    VoiceName,
     default_knot_if_None,
 )
 
@@ -273,7 +273,7 @@ class MomentUnit:
     def add_paypurchase(
         self,
         plan_name: PlanName,
-        voice_name: VoiceName,
+        person_name: PersonName,
         tran_time: EpochTime,
         amount: FundNum,
         blocked_tran_times: set[EpochTime] = None,
@@ -281,7 +281,7 @@ class MomentUnit:
     ) -> None:
         self.paybook.add_tranunit(
             plan_name=plan_name,
-            voice_name=voice_name,
+            person_name=person_name,
             tran_time=tran_time,
             amount=amount,
             blocked_tran_times=blocked_tran_times,
@@ -289,17 +289,17 @@ class MomentUnit:
         )
 
     def paypurchase_exists(
-        self, src: PlanName, dst: VoiceName, x_tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, x_tran_time: EpochTime
     ) -> bool:
         return self.paybook.tranunit_exists(src, dst, x_tran_time)
 
     def get_paypurchase(
-        self, src: PlanName, dst: VoiceName, x_tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, x_tran_time: EpochTime
     ) -> TranUnit:
         return self.paybook.get_tranunit(src, dst, x_tran_time)
 
     def del_paypurchase(
-        self, src: PlanName, dst: VoiceName, x_tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, x_tran_time: EpochTime
     ) -> TranUnit:
         return self.paybook.del_tranunit(src, dst, x_tran_time)
 
@@ -332,8 +332,10 @@ class MomentUnit:
         x_tranbook = tranbook_shop(self.moment_label, x_tranunits)
         for plan_name, x_planbudhistory in self.planbudhistorys.items():
             for x_bud_time, x_budunit in x_planbudhistory.buds.items():
-                for voice_name, x_amount in x_budunit._bud_voice_nets.items():
-                    x_tranbook.add_tranunit(plan_name, voice_name, x_bud_time, x_amount)
+                for person_name, x_amount in x_budunit._bud_person_nets.items():
+                    x_tranbook.add_tranunit(
+                        plan_name, person_name, x_bud_time, x_amount
+                    )
         self.all_tranbook = x_tranbook
 
     def create_buds_root_cells(

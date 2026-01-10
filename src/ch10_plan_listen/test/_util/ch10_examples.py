@@ -62,14 +62,14 @@ def get_example_zia_speaker() -> PlanUnit:
     zia_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_speaker.set_keg_obj(kegunit_shop(hungry_str()), a23_eat_rope())
     zia_speaker.set_keg_obj(kegunit_shop(full_str()), a23_eat_rope())
-    zia_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
+    zia_speaker.add_personunit(exx.yao, person_debt_lumen=12)
     cuisine_kegunit = zia_speaker.get_keg_obj(a23_cuisine_rope())
     cuisine_kegunit.laborunit.add_party(exx.yao)
     zia_speaker.edit_keg_attr(
         a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     zia_speaker.add_fact(a23_eat_rope(), a23_full_rope())
-    zia_speaker.set_voice_respect(100)
+    zia_speaker.set_person_respect(100)
     return zia_speaker
 
 
@@ -78,23 +78,23 @@ def get_example_bob_speaker() -> PlanUnit:
     bob_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     bob_speaker.set_keg_obj(kegunit_shop(hungry_str()), a23_eat_rope())
     bob_speaker.set_keg_obj(kegunit_shop(full_str()), a23_eat_rope())
-    bob_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
+    bob_speaker.add_personunit(exx.yao, person_debt_lumen=12)
     cuisine_kegunit = bob_speaker.get_keg_obj(a23_cuisine_rope())
     cuisine_kegunit.laborunit.add_party(exx.yao)
     bob_speaker.edit_keg_attr(
         a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     bob_speaker.add_fact(a23_eat_rope(), a23_hungry_rope())
-    bob_speaker.set_voice_respect(100)
+    bob_speaker.set_person_respect(100)
     return bob_speaker
 
 
 def get_example_yao_speaker() -> PlanUnit:
     yao_speaker = planunit_shop(exx.yao, exx.a23)
-    yao_speaker.add_voiceunit(exx.yao, voice_debt_lumen=12)
-    yao_speaker.add_voiceunit(exx.zia, voice_debt_lumen=36)
-    yao_speaker.add_voiceunit(exx.bob, voice_debt_lumen=48)
-    yao_speaker.set_voice_respect(100)
+    yao_speaker.add_personunit(exx.yao, person_debt_lumen=12)
+    yao_speaker.add_personunit(exx.zia, person_debt_lumen=36)
+    yao_speaker.add_personunit(exx.bob, person_debt_lumen=48)
+    yao_speaker.set_person_respect(100)
     yao_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     yao_speaker.set_keg_obj(kegunit_shop(hungry_str()), a23_eat_rope())
     yao_speaker.set_keg_obj(kegunit_shop(full_str()), a23_eat_rope())

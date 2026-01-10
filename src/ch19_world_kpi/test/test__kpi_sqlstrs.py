@@ -16,18 +16,18 @@ def test_get_create_kpi001_sqlstr_ReturnsObj():
 
     # THEN
     expected_kpi001_sqlstr = f"""
-CREATE TABLE {kw.moment_kpi001_voice_nets} AS
+CREATE TABLE {kw.moment_kpi001_person_nets} AS
 SELECT
-  {kw.moment_voice_nets}.{kw.moment_label}
-, {kw.moment_voice_nets}.{kw.plan_name}
+  {kw.moment_person_nets}.{kw.moment_label}
+, {kw.moment_person_nets}.{kw.plan_name}
 , {kw.plan_net_amount} AS {kw.bnet_funds}
 , RANK() OVER (ORDER BY {kw.plan_net_amount} DESC) AS {kw.fund_rank}
 , IFNULL(SUM({plnkegg_job}.{kw.pledge}), 0) AS {kw.pledges_count}
-FROM {kw.moment_voice_nets}
+FROM {kw.moment_person_nets}
 LEFT JOIN {plnkegg_job} ON
-  {plnkegg_job}.{kw.moment_label} = {kw.moment_voice_nets}.{kw.moment_label}
-  AND {plnkegg_job}.{kw.plan_name} = {kw.moment_voice_nets}.{kw.plan_name}
-GROUP BY {kw.moment_voice_nets}.{kw.moment_label}, {kw.moment_voice_nets}.{kw.plan_name}
+  {plnkegg_job}.{kw.moment_label} = {kw.moment_person_nets}.{kw.moment_label}
+  AND {plnkegg_job}.{kw.plan_name} = {kw.moment_person_nets}.{kw.plan_name}
+GROUP BY {kw.moment_person_nets}.{kw.moment_label}, {kw.moment_person_nets}.{kw.plan_name}
 ;
 """
     assert kpi001_sqlstr == expected_kpi001_sqlstr

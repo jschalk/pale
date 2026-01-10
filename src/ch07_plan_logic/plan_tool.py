@@ -5,8 +5,8 @@ from src.ch01_py.dict_toolbox import (
     modular_addition,
 )
 from src.ch02_allot.allot import allot_scale
-from src.ch03_voice.group import AwardUnit, MemberShip
-from src.ch03_voice.voice import VoiceUnit, calc_give_take_net
+from src.ch03_person.group import AwardUnit, MemberShip
+from src.ch03_person.person import PersonUnit, calc_give_take_net
 from src.ch04_rope.rope import get_unique_short_ropes, is_sub_rope
 from src.ch05_reason.reason_main import (
     CaseUnit,
@@ -17,9 +17,9 @@ from src.ch05_reason.reason_main import (
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic._ref.ch07_semantic_types import (
     FundNum,
+    PersonName,
     RespectNum,
     RopeTerm,
-    VoiceName,
 )
 from src.ch07_plan_logic.plan_main import PlanUnit
 
@@ -28,17 +28,17 @@ def planunit_exists(x_plan: PlanUnit) -> bool:
     return x_plan is not None
 
 
-def plan_voiceunit_exists(x_plan: PlanUnit, jkeys: dict[str, any]) -> bool:
-    x_voice_name = jkeys.get("voice_name")
-    return False if x_plan is None else x_plan.voice_exists(x_voice_name)
+def plan_personunit_exists(x_plan: PlanUnit, jkeys: dict[str, any]) -> bool:
+    x_person_name = jkeys.get("person_name")
+    return False if x_plan is None else x_plan.person_exists(x_person_name)
 
 
-def plan_voice_membership_exists(x_plan: PlanUnit, jkeys: dict[str, any]) -> bool:
-    x_voice_name = jkeys.get("voice_name")
+def plan_person_membership_exists(x_plan: PlanUnit, jkeys: dict[str, any]) -> bool:
+    x_person_name = jkeys.get("person_name")
     x_group_title = jkeys.get("group_title")
     return bool(
-        plan_voiceunit_exists(x_plan, jkeys)
-        and x_plan.get_voice(x_voice_name).membership_exists(x_group_title)
+        plan_personunit_exists(x_plan, jkeys)
+        and x_plan.get_person(x_person_name).membership_exists(x_group_title)
     )
 
 
@@ -105,10 +105,10 @@ def plan_keg_factunit_exists(x_plan: PlanUnit, jkeys: dict[str, any]) -> bool:
 
 
 def plan_attr_exists(x_dimen: str, x_plan: PlanUnit, jkeys: dict[str, any]) -> bool:
-    if x_dimen == "plan_voice_membership":
-        return plan_voice_membership_exists(x_plan, jkeys)
-    elif x_dimen == "plan_voiceunit":
-        return plan_voiceunit_exists(x_plan, jkeys)
+    if x_dimen == "plan_person_membership":
+        return plan_person_membership_exists(x_plan, jkeys)
+    elif x_dimen == "plan_personunit":
+        return plan_personunit_exists(x_plan, jkeys)
     elif x_dimen == "plan_keg_awardunit":
         return plan_keg_awardunit_exists(x_plan, jkeys)
     elif x_dimen == "plan_keg_factunit":
@@ -128,16 +128,16 @@ def plan_attr_exists(x_dimen: str, x_plan: PlanUnit, jkeys: dict[str, any]) -> b
     return True
 
 
-def plan_voiceunit_get_obj(x_plan: PlanUnit, jkeys: dict[str, any]) -> VoiceUnit:
-    return x_plan.get_voice(jkeys.get("voice_name"))
+def plan_personunit_get_obj(x_plan: PlanUnit, jkeys: dict[str, any]) -> PersonUnit:
+    return x_plan.get_person(jkeys.get("person_name"))
 
 
-def plan_voice_membership_get_obj(
+def plan_person_membership_get_obj(
     x_plan: PlanUnit, jkeys: dict[str, any]
 ) -> MemberShip:
-    x_voice_name = jkeys.get("voice_name")
+    x_person_name = jkeys.get("person_name")
     x_group_title = jkeys.get("group_title")
-    return x_plan.get_voice(x_voice_name).get_membership(x_group_title)
+    return x_plan.get_person(x_person_name).get_membership(x_group_title)
 
 
 def plan_kegunit_get_obj(x_plan: PlanUnit, jkeys: dict[str, any]) -> KegUnit:
@@ -183,8 +183,8 @@ def plan_get_obj(x_dimen: str, x_plan: PlanUnit, jkeys: dict[str, any]) -> any:
         return x_plan
 
     x_dimens = {
-        "plan_voiceunit": plan_voiceunit_get_obj,
-        "plan_voice_membership": plan_voice_membership_get_obj,
+        "plan_personunit": plan_personunit_get_obj,
+        "plan_person_membership": plan_person_membership_get_obj,
         "plan_kegunit": plan_kegunit_get_obj,
         "plan_keg_awardunit": plan_keg_awardunit_get_obj,
         "plan_keg_reasonunit": plan_keg_reasonunit_get_obj,
@@ -195,7 +195,7 @@ def plan_get_obj(x_dimen: str, x_plan: PlanUnit, jkeys: dict[str, any]) -> any:
         return x_func(x_plan, jkeys)
 
 
-def get_plan_voice_agenda_award_array(
+def get_plan_person_agenda_award_array(
     x_plan: PlanUnit, cashout: bool = None
 ) -> list[list]:
     if cashout:
@@ -203,34 +203,36 @@ def get_plan_voice_agenda_award_array(
 
     x_list = [
         [
-            x_voice.voice_name,
-            x_voice.fund_agenda_take,
-            x_voice.fund_agenda_give,
+            x_person.person_name,
+            x_person.fund_agenda_take,
+            x_person.fund_agenda_give,
         ]
-        for x_voice in x_plan.voices.values()
+        for x_person in x_plan.persons.values()
     ]
     x_list.sort(key=lambda y: y[0], reverse=False)
     return x_list
 
 
-def get_plan_voice_agenda_award_csv(x_plan: PlanUnit, cashout: bool = None) -> str:
-    x_voice_agenda_award_array = get_plan_voice_agenda_award_array(x_plan, cashout)
-    x_headers = ["voice_name", "fund_agenda_take", "fund_agenda_give"]
-    return create_csv(x_headers, x_voice_agenda_award_array)
+def get_plan_person_agenda_award_csv(x_plan: PlanUnit, cashout: bool = None) -> str:
+    x_person_agenda_award_array = get_plan_person_agenda_award_array(x_plan, cashout)
+    x_headers = ["person_name", "fund_agenda_take", "fund_agenda_give"]
+    return create_csv(x_headers, x_person_agenda_award_array)
 
 
-def get_voice_mandate_ledger(
+def get_person_mandate_ledger(
     x_plan: PlanUnit, cashout: bool = None
-) -> dict[VoiceName, FundNum]:
+) -> dict[PersonName, FundNum]:
     if not x_plan:
         return {}
-    if len(x_plan.voices) == 0:
+    if len(x_plan.persons) == 0:
         return {x_plan.plan_name: x_plan.fund_pool}
 
     if cashout:
         x_plan.cashout()
-    plan_voices = x_plan.voices.values()
-    mandates = {x_voice.voice_name: x_voice.fund_agenda_give for x_voice in plan_voices}
+    plan_persons = x_plan.persons.values()
+    mandates = {
+        x_person.person_name: x_person.fund_agenda_give for x_person in plan_persons
+    }
     mandate_sum = sum(mandates.values())
     if mandate_sum == 0:
         mandates = reset_mandates_to_minimum(mandates, x_plan.mana_grain)
@@ -240,33 +242,33 @@ def get_voice_mandate_ledger(
 
 
 def reset_mandates_to_minimum(
-    mandates: dict[VoiceName, FundNum], mana_grain: FundNum
-) -> dict[VoiceName, FundNum]:
+    mandates: dict[PersonName, FundNum], mana_grain: FundNum
+) -> dict[PersonName, FundNum]:
     """Reset all mandates to the minimum value (mana_grain)."""
 
-    voice_names = set(mandates.keys())
-    for voice_name in voice_names:
-        mandates[voice_name] = mana_grain
+    person_names = set(mandates.keys())
+    for person_name in person_names:
+        mandates[person_name] = mana_grain
     return mandates
 
 
-def get_voice_agenda_net_ledger(
+def get_person_agenda_net_ledger(
     x_plan: PlanUnit, cashout: bool = None
-) -> dict[VoiceName, FundNum]:
+) -> dict[PersonName, FundNum]:
     if cashout:
         x_plan.cashout()
 
     x_dict = {}
-    for x_voice in x_plan.voices.values():
+    for x_person in x_plan.persons.values():
         settle_net = calc_give_take_net(
-            x_voice.fund_agenda_give, x_voice.fund_agenda_take
+            x_person.fund_agenda_give, x_person.fund_agenda_take
         )
         if settle_net != 0:
-            x_dict[x_voice.voice_name] = settle_net
+            x_dict[x_person.person_name] = settle_net
     return x_dict
 
 
-def get_credit_ledger(x_plan: PlanUnit) -> dict[VoiceUnit, RespectNum]:
+def get_credit_ledger(x_plan: PlanUnit) -> dict[PersonUnit, RespectNum]:
     credit_ledger, debt_ledger = x_plan.get_credit_ledger_debt_ledger()
     return credit_ledger
 

@@ -136,7 +136,7 @@ def _add_paybook_to_br00002_csv(
     spark_num: int = None,
 ) -> str:
     for plan_name, tranunit in x_moment.paybook.tranunits.items():
-        for voice_name, time_dict in tranunit.items():
+        for person_name, time_dict in tranunit.items():
             for tran_time, amount in time_dict.items():
                 moment_label = x_moment.moment_label
                 x_row = [
@@ -144,7 +144,7 @@ def _add_paybook_to_br00002_csv(
                     if_none_str(spark_num),
                     moment_label,
                     plan_name,
-                    voice_name,
+                    person_name,
                     str(tran_time),
                     str(amount),
                 ]
@@ -220,14 +220,14 @@ def add_plan_to_br00020_csv(
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for voiceunit in x_plan.voices.values():
-        for membership in voiceunit.memberships.values():
+    for personunit in x_plan.persons.values():
+        for membership in personunit.memberships.values():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
                 x_plan.moment_label,
                 x_plan.plan_name,
-                voiceunit.voice_name,
+                personunit.person_name,
                 membership.group_title,
                 if_none_str(membership.group_cred_lumen),
                 if_none_str(membership.group_debt_lumen),
@@ -244,15 +244,15 @@ def add_plan_to_br00021_csv(
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for voiceunit in x_plan.voices.values():
+    for personunit in x_plan.persons.values():
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
             x_plan.moment_label,
             x_plan.plan_name,
-            voiceunit.voice_name,
-            if_none_str(voiceunit.voice_cred_lumen),
-            if_none_str(voiceunit.voice_debt_lumen),
+            personunit.person_name,
+            if_none_str(personunit.person_cred_lumen),
+            if_none_str(personunit.person_debt_lumen),
         ]
         x_csv += csv_delimiter.join(x_row)
         x_csv += "\n"
@@ -498,13 +498,13 @@ def add_lesson_to_br00020_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
     for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_voice_membership":
+        if planatom.dimen == "plan_person_membership":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
                 x_lessonunit.plan_name,
-                planatom.jkeys.get("voice_name"),
+                planatom.jkeys.get("person_name"),
                 planatom.jkeys.get("group_title"),
                 if_none_str(planatom.jvalues.get("group_cred_lumen")),
                 if_none_str(planatom.jvalues.get("group_debt_lumen")),
@@ -518,15 +518,15 @@ def add_lesson_to_br00021_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
     for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_voiceunit":
+        if planatom.dimen == "plan_personunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_label,
                 x_lessonunit.plan_name,
-                planatom.jkeys.get("voice_name"),
-                if_none_str(planatom.jvalues.get("voice_cred_lumen")),
-                if_none_str(planatom.jvalues.get("voice_debt_lumen")),
+                planatom.jkeys.get("person_name"),
+                if_none_str(planatom.jvalues.get("person_cred_lumen")),
+                if_none_str(planatom.jvalues.get("person_debt_lumen")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"

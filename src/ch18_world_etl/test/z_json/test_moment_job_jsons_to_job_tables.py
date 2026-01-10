@@ -2,8 +2,8 @@ from os.path import exists as os_path_exists
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import db_table_exists, get_row_count
 from src.ch01_py.file_toolbox import save_json
-from src.ch03_voice.group import awardunit_shop
-from src.ch03_voice.labor import laborunit_shop
+from src.ch03_person.group import awardunit_shop
+from src.ch03_person.labor import laborunit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_job_path, create_moment_json_path
@@ -22,9 +22,9 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     m23_moment_mstr_dir = get_temp_dir()
     m23_str = "music23"
     sue_plan = planunit_shop(exx.sue, exx.a23)
-    sue_plan.add_voiceunit(exx.sue)
-    sue_plan.add_voiceunit(exx.bob)
-    sue_plan.get_voice(exx.bob).add_membership(exx.run)
+    sue_plan.add_personunit(exx.sue)
+    sue_plan.add_personunit(exx.bob)
+    sue_plan.get_person(exx.bob).add_membership(exx.run)
     casa_rope = sue_plan.make_l1_rope("casa")
     situation_rope = sue_plan.make_l1_rope(kw.reason_active)
     clean_rope = sue_plan.make_rope(situation_rope, "clean")
@@ -48,7 +48,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         plnmemb_job_table = prime_table("plnmemb", kw.job, None)
-        plnvoce_job_table = prime_table("plnvoce", kw.job, None)
+        plnprsn_job_table = prime_table("plnprsn", kw.job, None)
         plngrou_job_table = prime_table("plngrou", kw.job, None)
         plnawar_job_table = prime_table("plnawar", kw.job, None)
         plnfact_job_table = prime_table("plnfact", kw.job, None)
@@ -60,7 +60,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         plnunit_job_table = prime_table("plnunit", kw.job, None)
         assert not db_table_exists(cursor, plnunit_job_table)
         assert not db_table_exists(cursor, plnkegg_job_table)
-        assert not db_table_exists(cursor, plnvoce_job_table)
+        assert not db_table_exists(cursor, plnprsn_job_table)
         assert not db_table_exists(cursor, plnmemb_job_table)
         assert not db_table_exists(cursor, plngrou_job_table)
         assert not db_table_exists(cursor, plnawar_job_table)
@@ -76,7 +76,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         # THEN
         assert get_row_count(cursor, plnunit_job_table) == 1
         assert get_row_count(cursor, plnkegg_job_table) == 5
-        assert get_row_count(cursor, plnvoce_job_table) == 2
+        assert get_row_count(cursor, plnprsn_job_table) == 2
         assert get_row_count(cursor, plnmemb_job_table) == 3
         assert get_row_count(cursor, plngrou_job_table) == 3
         assert get_row_count(cursor, plnawar_job_table) == 1
@@ -99,11 +99,11 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     credit88 = 88
     moment_mstr_dir = get_temp_dir()
     bob_job = planunit_shop(bob_inx, exx.a23)
-    bob_job.add_voiceunit(bob_inx, credit77)
-    bob_job.add_voiceunit(yao_inx, credit44)
-    bob_job.add_voiceunit(bob_inx, credit77)
-    bob_job.add_voiceunit(sue_inx, credit88)
-    bob_job.add_voiceunit(yao_inx, credit44)
+    bob_job.add_personunit(bob_inx, credit77)
+    bob_job.add_personunit(yao_inx, credit44)
+    bob_job.add_personunit(bob_inx, credit77)
+    bob_job.add_personunit(sue_inx, credit88)
+    bob_job.add_personunit(yao_inx, credit44)
     save_job_file(moment_mstr_dir, bob_job)
     moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
     moment_dict = momentunit_shop(exx.a23, moment_mstr_dir).to_dict()
@@ -113,15 +113,15 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     assert os_path_exists(a23_bob_job_path)
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        plnvoce_job_tablename = prime_table("plnvoce", kw.job, None)
-        assert not db_table_exists(cursor, plnvoce_job_tablename)
+        plnprsn_job_tablename = prime_table("plnprsn", kw.job, None)
+        assert not db_table_exists(cursor, plnprsn_job_tablename)
 
         # WHEN
         etl_moment_job_jsons_to_job_tables(cursor, moment_mstr_dir)
 
         # THEN
-        assert get_row_count(cursor, plnvoce_job_tablename) == 3
-        rows = cursor.execute(f"SELECT * FROM {plnvoce_job_tablename}").fetchall()
+        assert get_row_count(cursor, plnprsn_job_tablename) == 3
+        rows = cursor.execute(f"SELECT * FROM {plnprsn_job_tablename}").fetchall()
         print(rows)
         assert rows == [
             (

@@ -275,7 +275,7 @@ from src.ref.keywords import Ch15Keywords as kw, ExampleStrs as exx
 #     assert not sue_epochnabu.otx2inx_exists(x0_epoch_length, x0_epoch_diff)
 
 
-# def test_EpochNabu_reveal_inx_ReturnsObjAndSetsAttr_voice_name():
+# def test_EpochNabu_reveal_inx_ReturnsObjAndSetsAttr_person_name():
 #     # ESTABLISH
 #     sue_epochnabu = epochnabu_shop(exx.sue)
 #     x0_epoch_length = 660

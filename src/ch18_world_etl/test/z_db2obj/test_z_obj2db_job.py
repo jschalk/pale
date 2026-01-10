@@ -1,13 +1,13 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch01_py.db_toolbox import get_row_count
-from src.ch03_voice.group import (
+from src.ch03_person.group import (
     awardheir_shop,
     awardunit_shop,
     groupunit_shop,
     membership_shop,
 )
-from src.ch03_voice.labor import laborheir_shop, laborunit_shop, partyheir_shop
-from src.ch03_voice.voice import voiceunit_shop
+from src.ch03_person.labor import laborheir_shop, laborunit_shop, partyheir_shop
+from src.ch03_person.person import personunit_shop
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import caseunit_shop, factheir_shop, reasonheir_shop
 from src.ch06_keg.healer import healerunit_shop
@@ -25,9 +25,9 @@ from src.ch18_world_etl.obj2db_plan import (
     insert_job_plnkegg,
     insert_job_plnlabo,
     insert_job_plnmemb,
+    insert_job_plnprsn,
     insert_job_plnreas,
     insert_job_plnunit,
-    insert_job_plnvoce,
 )
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
@@ -42,7 +42,7 @@ def test_ObjKeysHolder_Exists():
     assert not x_objkeyholder.plan_name
     assert not x_objkeyholder.rope
     assert not x_objkeyholder.reason_context
-    assert not x_objkeyholder.voice_name
+    assert not x_objkeyholder.person_name
     assert not x_objkeyholder.membership
     assert not x_objkeyholder.group_title
     assert not x_objkeyholder.fact_rope
@@ -163,8 +163,8 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
     x_range_evaluated = 25
     x_descendant_pledge_count = 26
     x_healerunit_ratio = 27.0
-    x_all_voice_cred = 28
-    x_all_voice_debt = 29
+    x_all_person_cred = 28
+    x_all_person_debt = 29
     x_keg = kegunit_shop(exx.casa)
     x_keg.parent_rope = x_parent_rope
     x_keg.keg_label = x_keg_label
@@ -191,8 +191,8 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
     x_keg.range_evaluated = x_range_evaluated
     x_keg.descendant_pledge_count = x_descendant_pledge_count
     x_keg.healerunit_ratio = x_healerunit_ratio
-    x_keg.all_voice_cred = x_all_voice_cred
-    x_keg.all_voice_debt = x_all_voice_debt
+    x_keg.all_person_cred = x_all_person_cred
+    x_keg.all_person_debt = x_all_person_debt
     x_keg.begin = x_begin
     x_keg.close = x_close
     x_keg.addin = x_addin
@@ -216,8 +216,8 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
     x_keg.range_evaluated = x_range_evaluated
     x_keg.descendant_pledge_count = x_descendant_pledge_count
     x_keg.healerunit_ratio = x_healerunit_ratio
-    x_keg.all_voice_cred = x_all_voice_cred
-    x_keg.all_voice_debt = x_all_voice_debt
+    x_keg.all_person_cred = x_all_person_cred
+    x_keg.all_person_debt = x_all_person_debt
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
@@ -264,8 +264,8 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
             x_range_evaluated,
             x_descendant_pledge_count,
             x_healerunit_ratio,
-            x_all_voice_cred,
-            x_all_voice_debt,
+            x_all_person_cred,
+            x_all_person_debt,
         )
         expected_data = [expected_row1]
         assert rows == expected_data
@@ -405,7 +405,7 @@ def test_insert_job_plncase_CreatesTableRowsFor_plncase_job():
 def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_voice_membership")
+    # x_args = get_plan_calc_dimen_args("plan_person_membership")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -419,7 +419,7 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
 
     x_moment_label = 1
     x_plan_name = 2
-    x_voice_name = 3
+    x_person_name = 3
     x_group_title = 4
     x_group_cred_lumen = 5.0
     x_group_debt_lumen = 6.0
@@ -432,7 +432,7 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
     x_fund_agenda_ratio_give = 13.0
     x_fund_agenda_ratio_take = 14.0
     x_membership = membership_shop(x_group_title)
-    x_membership.voice_name = x_voice_name
+    x_membership.person_name = x_person_name
     x_membership.group_cred_lumen = x_group_cred_lumen
     x_membership.group_debt_lumen = x_group_debt_lumen
     x_membership.credor_pool = x_credor_pool
@@ -447,7 +447,7 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_voice_membership_job"
+        x_table_name = "plan_person_membership_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
             moment_label=x_moment_label, plan_name=x_plan_name
@@ -464,7 +464,7 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
         expected_row1 = (
             str(x_moment_label),
             str(x_plan_name),
-            str(x_voice_name),
+            str(x_person_name),
             str(x_group_title),
             x_group_cred_lumen,
             x_group_debt_lumen,
@@ -481,26 +481,26 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnvoce_CreatesTableRowsFor_plnvoce_job():
+def test_insert_job_plnprsn_CreatesTableRowsFor_plnprsn_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_voiceunit")
+    # x_args = get_plan_calc_dimen_args("plan_personunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
     #     print(f"    x_{x_arg} = {x_count}")
     # print("")
     # for x_arg in get_default_sorted_list(x_args):
-    #     print(f"""    x_voice.{x_arg} = x_{x_arg}""")
+    #     print(f"""    x_person.{x_arg} = x_{x_arg}""")
     # print("")
     # for x_arg in get_default_sorted_list(x_args):
     #     print(f"""            x_{x_arg},""")
 
     x_moment_label = 1
     x_plan_name = 2
-    x_voice_name = 3
-    x_voice_cred_lumen = 4
-    x_voice_debt_lumen = 5
+    x_person_name = 3
+    x_person_cred_lumen = 4
+    x_person_debt_lumen = 5
     x_credor_pool = 6
     x_debtor_pool = 7
     x_fund_give = 8
@@ -509,36 +509,36 @@ def test_insert_job_plnvoce_CreatesTableRowsFor_plnvoce_job():
     x_fund_agenda_take = 11
     x_fund_agenda_ratio_give = 12
     x_fund_agenda_ratio_take = 13
-    x_inallocable_voice_debt_lumen = 14
-    x_irrational_voice_debt_lumen = 15
+    x_inallocable_person_debt_lumen = 14
+    x_irrational_person_debt_lumen = 15
     x_groupmark = 16
-    x_voice = voiceunit_shop(x_voice_name)
-    x_voice.voice_name = x_voice_name
-    x_voice.voice_cred_lumen = x_voice_cred_lumen
-    x_voice.voice_debt_lumen = x_voice_debt_lumen
-    x_voice.credor_pool = x_credor_pool
-    x_voice.debtor_pool = x_debtor_pool
-    x_voice.fund_give = x_fund_give
-    x_voice.fund_take = x_fund_take
-    x_voice.fund_agenda_give = x_fund_agenda_give
-    x_voice.fund_agenda_take = x_fund_agenda_take
-    x_voice.fund_agenda_ratio_give = x_fund_agenda_ratio_give
-    x_voice.fund_agenda_ratio_take = x_fund_agenda_ratio_take
-    x_voice.inallocable_voice_debt_lumen = x_inallocable_voice_debt_lumen
-    x_voice.irrational_voice_debt_lumen = x_irrational_voice_debt_lumen
-    x_voice.groupmark = x_groupmark
+    x_person = personunit_shop(x_person_name)
+    x_person.person_name = x_person_name
+    x_person.person_cred_lumen = x_person_cred_lumen
+    x_person.person_debt_lumen = x_person_debt_lumen
+    x_person.credor_pool = x_credor_pool
+    x_person.debtor_pool = x_debtor_pool
+    x_person.fund_give = x_fund_give
+    x_person.fund_take = x_fund_take
+    x_person.fund_agenda_give = x_fund_agenda_give
+    x_person.fund_agenda_take = x_fund_agenda_take
+    x_person.fund_agenda_ratio_give = x_fund_agenda_ratio_give
+    x_person.fund_agenda_ratio_take = x_fund_agenda_ratio_take
+    x_person.inallocable_person_debt_lumen = x_inallocable_person_debt_lumen
+    x_person.irrational_person_debt_lumen = x_irrational_person_debt_lumen
+    x_person.groupmark = x_groupmark
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_voiceunit_job"
+        x_table_name = "plan_personunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
             moment_label=x_moment_label, plan_name=x_plan_name
         )
 
         # WHEN
-        insert_job_plnvoce(cursor, x_objkeysholder, x_voice)
+        insert_job_plnprsn(cursor, x_objkeysholder, x_person)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -548,9 +548,9 @@ def test_insert_job_plnvoce_CreatesTableRowsFor_plnvoce_job():
         expected_row1 = (
             str(x_moment_label),
             str(x_plan_name),
-            str(x_voice_name),
-            x_voice_cred_lumen,
-            x_voice_debt_lumen,
+            str(x_person_name),
+            x_person_cred_lumen,
+            x_person_debt_lumen,
             str(x_groupmark),
             x_credor_pool,
             x_debtor_pool,
@@ -560,8 +560,8 @@ def test_insert_job_plnvoce_CreatesTableRowsFor_plnvoce_job():
             x_fund_agenda_take,
             x_fund_agenda_ratio_give,
             x_fund_agenda_ratio_take,
-            x_inallocable_voice_debt_lumen,
-            x_irrational_voice_debt_lumen,
+            x_inallocable_person_debt_lumen,
+            x_irrational_person_debt_lumen,
         )
         expected_data = [expected_row1]
         assert rows == expected_data
@@ -877,9 +877,9 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     # sourcery skip: extract-method
     # ESTABLISH
     sue_plan = planunit_shop(exx.sue, exx.a23)
-    sue_plan.add_voiceunit(exx.sue)
-    sue_plan.add_voiceunit(exx.bob)
-    sue_plan.get_voice(exx.bob).add_membership(exx.run)
+    sue_plan.add_personunit(exx.sue)
+    sue_plan.add_personunit(exx.bob)
+    sue_plan.get_person(exx.bob).add_membership(exx.run)
     casa_rope = sue_plan.make_l1_rope("casa")
     situation_rope = sue_plan.make_l1_rope(kw.reason_active)
     clean_rope = sue_plan.make_rope(situation_rope, "clean")
@@ -900,8 +900,8 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        plnmemb_job_table = f"{kw.plan_voice_membership}_job"
-        plnvoce_job_table = f"{kw.plan_voiceunit}_job"
+        plnmemb_job_table = f"{kw.plan_person_membership}_job"
+        plnprsn_job_table = f"{kw.plan_personunit}_job"
         plngrou_job_table = f"{kw.plan_groupunit}_job"
         plnawar_job_table = f"{kw.plan_keg_awardunit}_job"
         plnfact_job_table = f"{kw.plan_keg_factunit}_job"
@@ -913,7 +913,7 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
         plnunit_job_table = f"{kw.planunit}_job"
         assert get_row_count(cursor, plnunit_job_table) == 0
         assert get_row_count(cursor, plnkegg_job_table) == 0
-        assert get_row_count(cursor, plnvoce_job_table) == 0
+        assert get_row_count(cursor, plnprsn_job_table) == 0
         assert get_row_count(cursor, plnmemb_job_table) == 0
         assert get_row_count(cursor, plngrou_job_table) == 0
         assert get_row_count(cursor, plnawar_job_table) == 0
@@ -929,7 +929,7 @@ def test_insert_job_obj_CreatesTableRows_Scenario0():
         # THEN
         assert get_row_count(cursor, plnunit_job_table) == 1
         assert get_row_count(cursor, plnkegg_job_table) == 5
-        assert get_row_count(cursor, plnvoce_job_table) == 2
+        assert get_row_count(cursor, plnprsn_job_table) == 2
         assert get_row_count(cursor, plnmemb_job_table) == 3
         assert get_row_count(cursor, plngrou_job_table) == 3
         assert get_row_count(cursor, plnawar_job_table) == 1

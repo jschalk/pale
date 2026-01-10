@@ -36,7 +36,7 @@ def test_CellUnit_Exists():
     assert not x_cellunit.mandate
     assert not x_cellunit.planadjust
     assert not x_cellunit.reason_contexts
-    assert not x_cellunit._voice_mandate_ledger
+    assert not x_cellunit._person_mandate_ledger
     assert not x_cellunit.planspark_facts
     assert not x_cellunit.found_facts
     assert not x_cellunit.boss_facts
@@ -56,7 +56,7 @@ def test_cellunit_shop_ReturnsObj_Scenario0_WithoutParameters():
     assert x_cellunit.planadjust.to_dict() == planunit_shop(wx.bob).to_dict()
     assert x_cellunit.planspark_facts == {}
     assert x_cellunit.reason_contexts == set()
-    assert x_cellunit._voice_mandate_ledger == {}
+    assert x_cellunit._person_mandate_ledger == {}
     assert x_cellunit.found_facts == {}
     assert x_cellunit.boss_facts == {}
 
@@ -71,7 +71,7 @@ def test_cellunit_shop_ReturnsObj_Scenario1_WithParameters():
     bob_sue_quota300 = 300
     bob_sue_mandate = 444
     bob_sue_plan = planunit_shop(wx.sue)
-    bob_sue_plan.add_voiceunit(wx.bob, 7, 13)
+    bob_sue_plan.add_personunit(wx.bob, 7, 13)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
     sky_blue_fact = sky_blue_factunit()
@@ -232,8 +232,8 @@ def test_CellUnit_get_plansparks_credit_ledger_ReturnsObj_Scenario0_NoPlan():
 def test_get_plansparks_credit_ledger_ReturnsObj_Scenario1_FileExists():
     # ESTABLISH
     sue_plan = planunit_shop(wx.sue, wx.a23)
-    sue_plan.add_voiceunit(wx.sue, 3, 5)
-    sue_plan.add_voiceunit(wx.yao, 7, 2)
+    sue_plan.add_personunit(wx.sue, 3, 5)
+    sue_plan.add_personunit(wx.yao, 7, 2)
     sue_cell = cellunit_shop(wx.yao, planadjust=sue_plan)
 
     # WHEN
@@ -258,8 +258,8 @@ def test_CellUnit_get_plansparks_quota_ledger_ReturnsObj_Scenario0_NoPlan():
 def test_get_plansparks_quota_ledger_ReturnsObj_Scenario1_FileExists():
     # ESTABLISH
     sue_plan = planunit_shop(wx.sue, wx.a23)
-    sue_plan.add_voiceunit(wx.sue, 3, 5)
-    sue_plan.add_voiceunit(wx.yao, 7, 2)
+    sue_plan.add_personunit(wx.sue, 3, 5)
+    sue_plan.add_personunit(wx.yao, 7, 2)
     sue_cell = cellunit_shop(wx.yao, quota=55, planadjust=sue_plan)
 
     # WHEN
@@ -695,7 +695,7 @@ def test_CellUnit_set_planadjust_facts_ReturnsObj_Scenario3():
     assert sue_plan_casa_fact_dict.get(kw.fact_state) == casa_grimy_fact.fact_state
 
 
-def test_CellUnit_set_voice_mandate_ledger_ReturnsObj_Scenario0():
+def test_CellUnit_set_person_mandate_ledger_ReturnsObj_Scenario0():
     # ESTABLISH
     sue_ancestors = [wx.sue]
     sue_spark7 = 7
@@ -716,18 +716,18 @@ def test_CellUnit_set_voice_mandate_ledger_ReturnsObj_Scenario0():
     )
     assert sue_cell.planadjust.fund_pool != sue_quota300
     assert sue_cell.planadjust.fund_pool != sue_mandate
-    assert sue_cell._voice_mandate_ledger == {}
+    assert sue_cell._person_mandate_ledger == {}
 
     # WHEN
-    sue_cell._set_voice_mandate_ledger()
+    sue_cell._set_person_mandate_ledger()
 
     # THEN
     assert sue_cell.planadjust.fund_pool != sue_quota300
     assert sue_cell.planadjust.fund_pool == sue_mandate
-    assert sue_cell._voice_mandate_ledger == {wx.sue: sue_mandate}
+    assert sue_cell._person_mandate_ledger == {wx.sue: sue_mandate}
 
 
-def test_CellUnit_set_voice_mandate_ledger_ReturnsObj_Scenario1():
+def test_CellUnit_set_person_mandate_ledger_ReturnsObj_Scenario1():
     # ESTABLISH
     sue_ancestors = [wx.sue]
     sue_spark7 = 7
@@ -736,8 +736,8 @@ def test_CellUnit_set_voice_mandate_ledger_ReturnsObj_Scenario1():
     sue_quota300 = 300
     sue_mandate = 444
     sue_plan = planunit_shop(wx.sue, wx.a23)
-    sue_plan.add_voiceunit(wx.sue, 3, 5)
-    sue_plan.add_voiceunit(wx.yao, 7, 2)
+    sue_plan.add_personunit(wx.sue, 3, 5)
+    sue_plan.add_personunit(wx.yao, 7, 2)
     sue_cell = cellunit_shop(
         wx.yao,
         sue_ancestors,
@@ -750,19 +750,19 @@ def test_CellUnit_set_voice_mandate_ledger_ReturnsObj_Scenario1():
     )
     assert sue_cell.planadjust.fund_pool != sue_quota300
     assert sue_cell.planadjust.fund_pool != sue_mandate
-    assert sue_cell._voice_mandate_ledger == {}
+    assert sue_cell._person_mandate_ledger == {}
 
     # WHEN
-    sue_cell._set_voice_mandate_ledger()
+    sue_cell._set_person_mandate_ledger()
 
     # THEN
     assert sue_cell.planadjust.fund_pool != sue_quota300
     assert sue_cell.planadjust.fund_pool == sue_mandate
-    assert sue_cell._voice_mandate_ledger != {}
-    assert sue_cell._voice_mandate_ledger == {wx.yao: 311, wx.sue: 133}
+    assert sue_cell._person_mandate_ledger != {}
+    assert sue_cell._person_mandate_ledger == {wx.yao: 311, wx.sue: 133}
 
 
-def test_CellUnit_calc_voice_mandate_ledger_ReturnsObj_Scenario0():
+def test_CellUnit_calc_person_mandate_ledger_ReturnsObj_Scenario0():
     # ESTABLISH
     sue_ancestors = [wx.sue]
     sue_spark7 = 7
@@ -771,8 +771,8 @@ def test_CellUnit_calc_voice_mandate_ledger_ReturnsObj_Scenario0():
     sue_quota300 = 300
     sue_mandate = 444
     sue_plan = planunit_shop(wx.sue, wx.a23)
-    sue_plan.add_voiceunit(wx.sue, 3, 5)
-    sue_plan.add_voiceunit(wx.yao, 7, 2)
+    sue_plan.add_personunit(wx.sue, 3, 5)
+    sue_plan.add_personunit(wx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
     sue_plan.add_keg(clean_fact.fact_state)
@@ -803,10 +803,10 @@ def test_CellUnit_calc_voice_mandate_ledger_ReturnsObj_Scenario0():
     assert not sue_cell.reason_contexts
     assert sue_cell.boss_facts == {sky_blue_fact.fact_context: sky_blue_fact}
     assert sue_cell.planadjust.get_kegroot_factunits_dict() == {}
-    assert sue_cell._voice_mandate_ledger == {}
+    assert sue_cell._person_mandate_ledger == {}
 
     # WHEN
-    sue_cell.calc_voice_mandate_ledger()
+    sue_cell.calc_person_mandate_ledger()
 
     # THEN
     assert sue_cell.reason_contexts == {clean_fact.fact_context}
@@ -818,8 +818,8 @@ def test_CellUnit_calc_voice_mandate_ledger_ReturnsObj_Scenario0():
     # keg_dict = sue_cell.planadjust.get_keg_dict()
     # for keg_rope, keg_obj in keg_dict.items():
     #     print(f"{keg_rope=} {keg_obj.fund_onset=} {keg_obj.fund_cease}")
-    assert sue_cell._voice_mandate_ledger != {}
-    assert sue_cell._voice_mandate_ledger == {wx.yao: 311, wx.sue: 133}
+    assert sue_cell._person_mandate_ledger != {}
+    assert sue_cell._person_mandate_ledger == {wx.yao: 311, wx.sue: 133}
 
 
 def test_create_child_cellunits_ReturnsObj_Scenario0():
@@ -831,9 +831,9 @@ def test_create_child_cellunits_ReturnsObj_Scenario0():
     sue_quota300 = 300
     sue_mandate = 444
     sue_plan = planunit_shop(wx.sue, wx.a23)
-    sue_plan.add_voiceunit(wx.sue, 3, 5)
-    sue_plan.add_voiceunit(wx.yao, 7, 2)
-    sue_plan.add_voiceunit(wx.bob, 0, 2)
+    sue_plan.add_personunit(wx.sue, 3, 5)
+    sue_plan.add_personunit(wx.yao, 7, 2)
+    sue_plan.add_personunit(wx.bob, 0, 2)
     sue_cell = cellunit_shop(
         wx.yao,
         sue_ancestors,
@@ -884,9 +884,9 @@ def test_create_child_cellunits_ReturnsObj_Scenario1_BudDepth0():
     sue_mana_grain2 = 2
     sue_quota300 = 300
     sue_plan = planunit_shop(wx.sue, wx.a23)
-    sue_plan.add_voiceunit(wx.sue, 3, 5)
-    sue_plan.add_voiceunit(wx.yao, 7, 2)
-    sue_plan.add_voiceunit(wx.bob, 0, 2)
+    sue_plan.add_personunit(wx.sue, 3, 5)
+    sue_plan.add_personunit(wx.yao, 7, 2)
+    sue_plan.add_personunit(wx.bob, 0, 2)
     sue_cell = cellunit_shop(
         wx.yao,
         sue_ancestors,
@@ -911,9 +911,9 @@ def test_create_child_cellunits_ReturnsObj_Scenario2_boss_facts():
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
     yao_plan = planunit_shop(wx.yao, wx.a23)
-    yao_plan.add_voiceunit(wx.sue, 3, 5)
-    yao_plan.add_voiceunit(wx.yao, 7, 2)
-    yao_plan.add_voiceunit(wx.bob, 0, 2)
+    yao_plan.add_personunit(wx.sue, 3, 5)
+    yao_plan.add_personunit(wx.yao, 7, 2)
+    yao_plan.add_personunit(wx.bob, 0, 2)
     clean_fact = clean_factunit()
     yao_plan.add_keg(wx.casa_rope, 1)
     yao_plan.add_keg(wx.mop_rope, 1, pledge=True)
@@ -924,7 +924,7 @@ def test_create_child_cellunits_ReturnsObj_Scenario2_boss_facts():
         wx.yao, celldepth=yao_celldepth, quota=yao_quota, planadjust=yao_plan
     )
     yao_cell.planspark_facts = {dirty_fact.fact_context: dirty_fact}
-    # sue_cell._voice_mandate_ledger = {wx.yao: 210, wx.sue: 90, wx.bob: 0}
+    # sue_cell._person_mandate_ledger = {wx.yao: 210, wx.sue: 90, wx.bob: 0}
 
     # WHEN
     sue_child_cellunits = create_child_cellunits(yao_cell)
@@ -950,8 +950,8 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     sue_mana_grain2 = 2
     sue_mandate = 444
     sue_plan = planunit_shop(wx.sue, wx.a23)
-    sue_plan.add_voiceunit(wx.sue, 3, 5)
-    sue_plan.add_voiceunit(wx.yao, 7, 2)
+    sue_plan.add_personunit(wx.sue, 3, 5)
+    sue_plan.add_personunit(wx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
     sue_plan.add_keg(clean_fact.fact_state)
@@ -981,13 +981,13 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     assert not sue_cell.reason_contexts
     assert sue_cell.boss_facts == {sky_blue_fact.fact_context: sky_blue_fact}
     assert sue_cell.planadjust.get_kegroot_factunits_dict() == {}
-    assert sue_cell._voice_mandate_ledger == {}
+    assert sue_cell._person_mandate_ledger == {}
 
     # WHEN
     sue_child_cellunits = create_child_cellunits(sue_cell)
 
     # # WHEN
-    # sue_cell.calc_voice_mandate_ledger()
+    # sue_cell.calc_person_mandate_ledger()
 
     # # THEN
     assert sue_cell.reason_contexts == {dirty_fact.fact_context}
@@ -999,8 +999,8 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     # keg_dict = sue_cell.planadjust.get_keg_dict()
     # for keg_rope, keg_obj in keg_dict.items():
     #     print(f"{keg_rope=} {keg_obj.fund_onset=} {keg_obj.fund_cease}")
-    assert sue_cell._voice_mandate_ledger != {}
-    assert sue_cell._voice_mandate_ledger == {wx.yao: 311, wx.sue: 133}
+    assert sue_cell._person_mandate_ledger != {}
+    assert sue_cell._person_mandate_ledger == {wx.yao: 311, wx.sue: 133}
 
     # THEN
     assert len(sue_child_cellunits) == 2

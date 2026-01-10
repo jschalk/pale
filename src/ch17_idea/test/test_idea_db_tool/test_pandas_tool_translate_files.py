@@ -7,8 +7,8 @@ from src.ch16_translate.test._util.ch16_examples import (
     get_casa_maison_rope_otx_dt,
     get_casa_maison_translateunit_set_by_label,
     get_suita_namemap,
-    get_suita_voice_name_inx_dt,
-    get_suita_voice_name_otx_dt,
+    get_suita_person_name_inx_dt,
+    get_suita_person_name_otx_dt,
 )
 from src.ch16_translate.translate_config import get_translate_filename
 from src.ch16_translate.translate_main import translateunit_shop
@@ -42,12 +42,12 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario0_Single
     translateunit_file_path = create_path(sue_dir, get_translate_filename())
     print(f"{sue_dir=}")
     save_json(sue_dir, get_translate_filename(), sue_translateunit.to_dict())
-    sue_otx_dt = get_suita_voice_name_otx_dt()
-    sue_inx_dt = get_suita_voice_name_inx_dt()
+    sue_otx_dt = get_suita_person_name_otx_dt()
+    sue_inx_dt = get_suita_person_name_inx_dt()
     otx_dir = create_path(sue_dir, "otx")
     inx_dir = create_path(sue_dir, "inx")
 
-    example_filename = "voice_name_example.csv"
+    example_filename = "person_name_example.csv"
     otx_file_path = create_path(otx_dir, example_filename)
     inx_file_path = create_path(inx_dir, example_filename)
     save_dataframe_to_csv(sue_otx_dt, otx_dir, example_filename)
@@ -63,21 +63,21 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario0_Single
     assert os_path_exists(otx_file_path)
     assert os_path_exists(inx_file_path)
     gen_inx_dt = open_csv(inx_dir, example_filename)
-    assert gen_inx_dt.iloc[0][kw.voice_name] == bob_inx
-    assert gen_inx_dt.iloc[3][kw.voice_name] == zia_otx
+    assert gen_inx_dt.iloc[0][kw.person_name] == bob_inx
+    assert gen_inx_dt.iloc[3][kw.person_name] == zia_otx
     assert gen_inx_dt.to_csv() != sue_otx_dt.to_csv()
-    static_inx_dt = DataFrame(columns=[kw.voice_name])
-    static_inx_dt.loc[0, kw.voice_name] = bob_inx
-    static_inx_dt.loc[1, kw.voice_name] = sue_inx
-    static_inx_dt.loc[2, kw.voice_name] = xio_inx
-    static_inx_dt.loc[3, kw.voice_name] = zia_otx
-    assert gen_inx_dt.iloc[0][kw.voice_name] == static_inx_dt.iloc[0][kw.voice_name]
-    assert gen_inx_dt.iloc[1][kw.voice_name] == static_inx_dt.iloc[1][kw.voice_name]
-    assert gen_inx_dt.iloc[2][kw.voice_name] == static_inx_dt.iloc[2][kw.voice_name]
-    assert gen_inx_dt.iloc[3][kw.voice_name] == static_inx_dt.iloc[3][kw.voice_name]
+    static_inx_dt = DataFrame(columns=[kw.person_name])
+    static_inx_dt.loc[0, kw.person_name] = bob_inx
+    static_inx_dt.loc[1, kw.person_name] = sue_inx
+    static_inx_dt.loc[2, kw.person_name] = xio_inx
+    static_inx_dt.loc[3, kw.person_name] = zia_otx
+    assert gen_inx_dt.iloc[0][kw.person_name] == static_inx_dt.iloc[0][kw.person_name]
+    assert gen_inx_dt.iloc[1][kw.person_name] == static_inx_dt.iloc[1][kw.person_name]
+    assert gen_inx_dt.iloc[2][kw.person_name] == static_inx_dt.iloc[2][kw.person_name]
+    assert gen_inx_dt.iloc[3][kw.person_name] == static_inx_dt.iloc[3][kw.person_name]
     print(f"{gen_inx_dt.to_csv(index=False)=}")
-    gen_csv = gen_inx_dt.sort_values(kw.voice_name).to_csv(index=False)
-    sue_inx_csv = sue_inx_dt.sort_values(kw.voice_name).to_csv(index=False)
+    gen_csv = gen_inx_dt.sort_values(kw.person_name).to_csv(index=False)
+    sue_inx_csv = sue_inx_dt.sort_values(kw.person_name).to_csv(index=False)
     assert gen_csv == sue_inx_csv
     assert gen_inx_dt.to_csv() == static_inx_dt.to_csv()
 
@@ -160,24 +160,24 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario2_TwoFil
     translateunit_file_path = create_path(sue_dir, get_translate_filename())
     print(f"{sue_dir=}")
     save_json(sue_dir, get_translate_filename(), sue_translateunit.to_dict())
-    sue_otx_dt = get_suita_voice_name_otx_dt()
+    sue_otx_dt = get_suita_person_name_otx_dt()
     otx_dir = create_path(sue_dir, "otx")
     inx_dir = create_path(sue_dir, "inx")
 
-    voice_name_filename = "voice_name_example.csv"
-    voice_name_otx_file_path = create_path(otx_dir, voice_name_filename)
-    voice_name_inx_file_path = create_path(inx_dir, voice_name_filename)
+    person_name_filename = "person_name_example.csv"
+    person_name_otx_file_path = create_path(otx_dir, person_name_filename)
+    person_name_inx_file_path = create_path(inx_dir, person_name_filename)
     rope1_otx_dt = get_casa_maison_rope_otx_dt()
     rope1_filename = "rope1_example.csv"
     rope1_otx_file_path = create_path(otx_dir, rope1_filename)
     rope1_inx_file_path = create_path(inx_dir, rope1_filename)
     save_dataframe_to_csv(rope1_otx_dt, otx_dir, rope1_filename)
-    save_dataframe_to_csv(sue_otx_dt, otx_dir, voice_name_filename)
+    save_dataframe_to_csv(sue_otx_dt, otx_dir, person_name_filename)
     assert os_path_exists(rope1_otx_file_path)
     assert os_path_exists(rope1_inx_file_path) is False
     assert os_path_exists(translateunit_file_path)
-    assert os_path_exists(voice_name_otx_file_path)
-    assert os_path_exists(voice_name_inx_file_path) is False
+    assert os_path_exists(person_name_otx_file_path)
+    assert os_path_exists(person_name_inx_file_path) is False
 
     # WHEN
     move_otx_csvs_to_translate_inx(sue_dir)
@@ -186,12 +186,12 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario2_TwoFil
     assert os_path_exists(rope1_otx_file_path)
     assert os_path_exists(rope1_inx_file_path)
     assert os_path_exists(translateunit_file_path)
-    assert os_path_exists(voice_name_otx_file_path)
-    assert os_path_exists(voice_name_inx_file_path)
-    voice_inx_dt = open_csv(inx_dir, voice_name_filename)
-    gen_csv = voice_inx_dt.sort_values(kw.voice_name).to_csv(index=False)
-    sue_inx_dt = get_suita_voice_name_inx_dt()
-    assert gen_csv == sue_inx_dt.sort_values(kw.voice_name).to_csv(index=False)
+    assert os_path_exists(person_name_otx_file_path)
+    assert os_path_exists(person_name_inx_file_path)
+    person_inx_dt = open_csv(inx_dir, person_name_filename)
+    gen_csv = person_inx_dt.sort_values(kw.person_name).to_csv(index=False)
+    sue_inx_dt = get_suita_person_name_inx_dt()
+    assert gen_csv == sue_inx_dt.sort_values(kw.person_name).to_csv(index=False)
 
     gen_rope1_inx_dt = open_csv(inx_dir, rope1_filename)
     rope1_inx_dt = get_casa_maison_rope_inx_dt()

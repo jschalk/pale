@@ -176,7 +176,7 @@
     }, 
     "normal_specs": {"normal_table_name": "keg"}
   }, 
-  "plan_voice_membership": {
+  "plan_person_membership": {
     "DELETE": {"atom_order": 23}, 
     "INSERT": {"atom_order": 1}, 
     "UPDATE": {"atom_order": 10}, 
@@ -187,7 +187,7 @@
         "nesting_order": 1, 
         "sqlite_datatype": "TEXT"
       }, 
-      "voice_name": {
+      "person_name": {
         "class_type": "NameTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
@@ -200,18 +200,18 @@
     }, 
     "normal_specs": {"normal_table_name": "membership"}
   }, 
-  "plan_voiceunit": {
+  "plan_personunit": {
     "DELETE": {"atom_order": 24}, 
     "INSERT": {"atom_order": 0}, 
     "UPDATE": {"atom_order": 9}, 
     "jkeys": {
-      "voice_name": {"class_type": "NameTerm", "column_order": 0, "sqlite_datatype": "TEXT"}
+      "person_name": {"class_type": "NameTerm", "column_order": 0, "sqlite_datatype": "TEXT"}
     }, 
     "jvalues": {
-      "voice_cred_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }, 
-      "voice_debt_lumen": { "class_type": "float", "column_order": 1, "sqlite_datatype": "REAL" }
+      "person_cred_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }, 
+      "person_debt_lumen": { "class_type": "float", "column_order": 1, "sqlite_datatype": "REAL" }
     }, 
-    "normal_specs": {"normal_table_name": "voiceunit"}
+    "normal_specs": {"normal_table_name": "personunit"}
   }, 
   "planunit": {
     "UPDATE": {"atom_order": 25}, 

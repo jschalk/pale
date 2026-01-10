@@ -8,9 +8,9 @@ from src.ch08_plan_atom.normal_model import (
     KegTable,
     LaborLinkTable,
     MemberShipTable,
+    PersonUnitTable,
     PlanTable,
     ReasonTable,
-    VoiceUnitTable,
 )
 from src.ref.keywords import Ch08Keywords as kw
 
@@ -67,22 +67,22 @@ def test_normalized_table_PlanTable_Exists():
     all_columns_are_as_config_requires(mapper, config_dimen)
 
 
-def test_normalized_table_VoiceUnitTable_Exists():
+def test_normalized_table_PersonUnitTable_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_plan_table_build().get(kw.plan_voiceunit)
-    mapper = inspect(VoiceUnitTable)
+    config_dimen = get_normalized_plan_table_build().get(kw.plan_personunit)
+    mapper = inspect(PersonUnitTable)
     # print_out_expected_class_attribute_declarations(config_dimen)
 
     # WHEN / THEN
     config_table_name = get_config_table_name(config_dimen)
-    assert config_table_name == "voiceunit"
-    assert config_table_name == VoiceUnitTable.__tablename__
+    assert config_table_name == "personunit"
+    assert config_table_name == PersonUnitTable.__tablename__
     all_columns_are_as_config_requires(mapper, config_dimen)
 
 
 def test_normalized_table_MemberShipTable_membership_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_plan_table_build().get(kw.plan_voice_membership)
+    config_dimen = get_normalized_plan_table_build().get(kw.plan_person_membership)
     mapper = inspect(MemberShipTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 

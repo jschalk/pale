@@ -99,18 +99,18 @@ def save_arbitrary_planspark(
     moment_label: str,
     plan_name: str,
     spark_num: int,
-    voices: list[list] = None,
+    persons: list[list] = None,
     facts: list[tuple[RopeTerm, RopeTerm, float, float]] = None,
 ) -> str:
-    voices = get_empty_list_if_None(voices)
+    persons = get_empty_list_if_None(persons)
     facts = get_empty_list_if_None(facts)
     x_planunit = planunit_shop(plan_name, moment_label)
-    for voice_list in voices:
+    for person_list in persons:
         try:
-            voice_cred_lumen = voice_list[1]
+            person_cred_lumen = person_list[1]
         except Exception:
-            voice_cred_lumen = None
-        x_planunit.add_voiceunit(voice_list[0], voice_cred_lumen)
+            person_cred_lumen = None
+        x_planunit.add_personunit(person_list[0], person_cred_lumen)
     for fact_tup in facts:
         x_reason_context = fact_tup[0]
         x_fact_state = fact_tup[1]
@@ -156,10 +156,12 @@ def cellunit_get_from_dir(dirpath: str) -> CellUnit:
         return cellunit_get_from_dict(open_json(cell_json_path))
 
 
-def create_cell_voice_mandate_ledger_json(dirpath: str):
+def create_cell_person_mandate_ledger_json(dirpath: str):
     if cell := cellunit_get_from_dir(dirpath):
-        cell.calc_voice_mandate_ledger()
-        save_json(dirpath, "cell_voice_mandate_ledger.json", cell._voice_mandate_ledger)
+        cell.calc_person_mandate_ledger()
+        save_json(
+            dirpath, "cell_person_mandate_ledger.json", cell._person_mandate_ledger
+        )
 
 
 def save_bud_file(

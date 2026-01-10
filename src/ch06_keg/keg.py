@@ -8,7 +8,7 @@ from src.ch01_py.dict_toolbox import (
     get_positive_int,
 )
 from src.ch02_allot.allot import allot_scale, default_grain_num_if_None
-from src.ch03_voice.group import (
+from src.ch03_person.group import (
     AwardHeir,
     AwardLine,
     AwardUnit,
@@ -17,7 +17,7 @@ from src.ch03_voice.group import (
     awardline_shop,
     get_awardunits_from_dict,
 )
-from src.ch03_voice.labor import (
+from src.ch03_person.labor import (
     LaborHeir,
     LaborUnit,
     get_laborunit_from_dict,
@@ -54,9 +54,9 @@ from src.ch06_keg._ref.ch06_semantic_types import (
     GroupTitle,
     KnotTerm,
     LabelTerm,
+    PersonName,
     ReasonNum,
     RopeTerm,
-    VoiceName,
     default_knot_if_None,
 )
 from src.ch06_keg.healer import HealerUnit, get_healerunit_from_dict, healerunit_shop
@@ -226,8 +226,8 @@ class KegUnit:
 
     active : bool that describes if the keg pledge is keg_active, calculated by PlanUnit.
     active_hx : dict[int, bool] Historical record of active state, used to calcualte if changes have occured
-    all_voice_cred : bool Flag indicating there are not explicitley defined awardunits
-    all_voice_debt : bool Flag indicating there are not explicitley defined awardunits
+    all_person_cred : bool Flag indicating there are not explicitley defined awardunits
+    all_person_debt : bool Flag indicating there are not explicitley defined awardunits
     awardheirs : dict[GroupTitle, AwardHeir] parent keg provided awards.
     awardlines : dict[GroupTitle, AwardLine] child keg provided awards.
     descendant_pledge_count : int Count of descendant kegs marked as pledges.
@@ -271,8 +271,8 @@ class KegUnit:
     # Calculated fields
     keg_active: bool = None
     keg_active_hx: dict[int, bool] = None
-    all_voice_cred: bool = None
-    all_voice_debt: bool = None
+    all_person_cred: bool = None
+    all_person_debt: bool = None
     awardheirs: dict[GroupTitle, AwardHeir] = None
     awardlines: dict[GroupTitle, AwardLine] = None
     descendant_pledge_count: int = None
@@ -459,9 +459,9 @@ class KegUnit:
 
         return descendant_ropes
 
-    def clear_all_voice_cred_debt(self):
-        self.all_voice_cred = None
-        self.all_voice_debt = None
+    def clear_all_person_cred_debt(self):
+        self.all_person_cred = None
+        self.all_person_debt = None
 
     def set_tree_level(self, parent_tree_level):
         self.tree_level = parent_tree_level + 1
@@ -792,7 +792,7 @@ class KegUnit:
         self,
         tree_traverse_count: int,
         groupunits: dict[GroupTitle, GroupUnit] = None,
-        plan_name: VoiceName = None,
+        plan_name: PersonName = None,
     ):
         prev_to_now_active = deepcopy(self.keg_active)
         self.keg_active = self._create_active_bool(groupunits, plan_name)
@@ -815,7 +815,7 @@ class KegUnit:
     def _create_active_bool(
         self,
         groupunits: dict[GroupTitle, GroupUnit],
-        plan_name: VoiceName,
+        plan_name: PersonName,
     ) -> bool:
         self.set_reasonheirs_reason_active()
         active_bool = self.all_reasonheirs_are_active()
@@ -1039,8 +1039,8 @@ def kegunit_shop(
     task: bool = None,
     keg_active: bool = None,
     descendant_pledge_count: int = None,
-    all_voice_cred: bool = None,
-    all_voice_debt: bool = None,
+    all_person_cred: bool = None,
+    all_person_debt: bool = None,
     is_expanded: bool = True,
     keg_active_hx: dict[int, bool] = None,
     knot: KnotTerm = None,
@@ -1083,8 +1083,8 @@ def kegunit_shop(
         task=task,
         keg_active=keg_active,
         descendant_pledge_count=descendant_pledge_count,
-        all_voice_cred=all_voice_cred,
-        all_voice_debt=all_voice_debt,
+        all_person_cred=all_person_cred,
+        all_person_debt=all_person_debt,
         is_expanded=is_expanded,
         keg_active_hx=get_empty_dict_if_None(keg_active_hx),
         knot=default_knot_if_None(knot),

@@ -14,8 +14,8 @@ from src.ch11_bud._ref.ch11_semantic_types import (
     EpochTime,
     FundNum,
     MomentLabel,
+    PersonName,
     PlanName,
-    VoiceName,
 )
 
 
@@ -33,13 +33,13 @@ DEFAULT_CELLDEPTH = 2
 @dataclass
 class TranUnit:
     src: PlanName = None
-    dst: VoiceName = None
+    dst: PersonName = None
     tran_time: EpochTime = None
     amount: FundNum = None
 
 
 def tranunit_shop(
-    src: PlanName, dst: VoiceName, tran_time: EpochTime, amount: FundNum
+    src: PlanName, dst: PersonName, tran_time: EpochTime, amount: FundNum
 ) -> TranUnit:
     return TranUnit(src=src, dst=dst, tran_time=tran_time, amount=amount)
 
@@ -47,8 +47,8 @@ def tranunit_shop(
 @dataclass
 class TranBook:
     moment_label: MomentLabel = None
-    tranunits: dict[PlanName, dict[VoiceName, dict[EpochTime, FundNum]]] = None
-    _voices_net: dict[PlanName, dict[VoiceName, FundNum]] = None
+    tranunits: dict[PlanName, dict[PersonName, dict[EpochTime, FundNum]]] = None
+    _persons_net: dict[PlanName, dict[PersonName, FundNum]] = None
 
     def set_tranunit(
         self,
@@ -58,7 +58,7 @@ class TranBook:
     ):
         self.add_tranunit(
             plan_name=tranunit.src,
-            voice_name=tranunit.dst,
+            person_name=tranunit.dst,
             tran_time=tranunit.tran_time,
             amount=tranunit.amount,
             blocked_tran_times=blocked_tran_times,
@@ -68,7 +68,7 @@ class TranBook:
     def add_tranunit(
         self,
         plan_name: PlanName,
-        voice_name: VoiceName,
+        person_name: PersonName,
         tran_time: EpochTime,
         amount: FundNum,
         blocked_tran_times: set[EpochTime] = None,
@@ -82,28 +82,28 @@ class TranBook:
         if offi_time_max != None and tran_time >= offi_time_max:
             exception_str = f"Cannot set tranunit for tran_time={tran_time}, EpochTime is greater than current time={offi_time_max}"
             raise tran_time_Exception(exception_str)
-        x_keylist = [plan_name, voice_name, tran_time]
+        x_keylist = [plan_name, person_name, tran_time]
         set_in_nested_dict(self.tranunits, x_keylist, amount)
 
     def tranunit_exists(
-        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, tran_time: EpochTime
     ) -> bool:
         return get_from_nested_dict(self.tranunits, [src, dst, tran_time], True) != None
 
     def get_tranunit(
-        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, tran_time: EpochTime
     ) -> TranUnit:
         x_amount = get_from_nested_dict(self.tranunits, [src, dst, tran_time], True)
         if x_amount != None:
             return tranunit_shop(src, dst, tran_time, x_amount)
 
     def get_amount(
-        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, tran_time: EpochTime
     ) -> TranUnit:
         return get_from_nested_dict(self.tranunits, [src, dst, tran_time], True)
 
     def del_tranunit(
-        self, src: PlanName, dst: VoiceName, tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, tran_time: EpochTime
     ) -> TranUnit:
         x_keylist = [src, dst, tran_time]
         if exists_in_nested_dict(self.tranunits, x_keylist):
@@ -116,53 +116,53 @@ class TranBook:
                 x_set.update(set(tran_time_dict.keys()))
         return x_set
 
-    def get_plans_voices_net(
+    def get_plans_persons_net(
         self,
-    ) -> dict[PlanName, dict[VoiceName, FundNum]]:
-        plans_voices_net_dict = {}
+    ) -> dict[PlanName, dict[PersonName, FundNum]]:
+        plans_persons_net_dict = {}
         for plan_name, plan_dict in self.tranunits.items():
-            for voice_name, voice_dict in plan_dict.items():
-                if plans_voices_net_dict.get(plan_name) is None:
-                    plans_voices_net_dict[plan_name] = {}
-                plan_net_dict = plans_voices_net_dict.get(plan_name)
-                plan_net_dict[voice_name] = sum(voice_dict.values())
-        return plans_voices_net_dict
+            for person_name, person_dict in plan_dict.items():
+                if plans_persons_net_dict.get(plan_name) is None:
+                    plans_persons_net_dict[plan_name] = {}
+                plan_net_dict = plans_persons_net_dict.get(plan_name)
+                plan_net_dict[person_name] = sum(person_dict.values())
+        return plans_persons_net_dict
 
-    def get_voices_net_dict(self) -> dict[VoiceName, FundNum]:
-        voices_net_dict = {}
+    def get_persons_net_dict(self) -> dict[PersonName, FundNum]:
+        persons_net_dict = {}
         for plan_dict in self.tranunits.values():
-            for voice_name, voice_dict in sorted(plan_dict.items()):
-                if voices_net_dict.get(voice_name) is None:
-                    voices_net_dict[voice_name] = sum(voice_dict.values())
+            for person_name, person_dict in sorted(plan_dict.items()):
+                if persons_net_dict.get(person_name) is None:
+                    persons_net_dict[person_name] = sum(person_dict.values())
                 else:
-                    voices_net_dict[voice_name] += sum(voice_dict.values())
-        return voices_net_dict
+                    persons_net_dict[person_name] += sum(person_dict.values())
+        return persons_net_dict
 
-    def _get_voices_headers(self) -> list:
-        return ["voice_name", "net_amount"]
+    def _get_persons_headers(self) -> list:
+        return ["person_name", "net_amount"]
 
-    def _get_voices_net_array(self) -> list[list]:
-        x_kegs = self.get_voices_net_dict().items()
-        return [[voice_name, net_amount] for voice_name, net_amount in x_kegs]
+    def _get_persons_net_array(self) -> list[list]:
+        x_kegs = self.get_persons_net_dict().items()
+        return [[person_name, net_amount] for person_name, net_amount in x_kegs]
 
-    def get_voices_net_csv(self) -> str:
-        return create_csv(self._get_voices_headers(), self._get_voices_net_array())
+    def get_persons_net_csv(self) -> str:
+        return create_csv(self._get_persons_headers(), self._get_persons_net_array())
 
     def join(self, x_tranbook):
         sorted_tranunits = sorted(
             x_tranbook.tranunits.items(),
             key=lambda x: next(iter(next(iter(x[1].values())).keys())),
         )
-        for src_voice_name, dst_dict in sorted_tranunits:
-            for dst_voice_name, tran_time_dict in dst_dict.items():
+        for src_person_name, dst_dict in sorted_tranunits:
+            for dst_person_name, tran_time_dict in dst_dict.items():
                 for x_tran_time, x_amount in tran_time_dict.items():
                     self.add_tranunit(
-                        src_voice_name, dst_voice_name, x_tran_time, x_amount
+                        src_person_name, dst_person_name, x_tran_time, x_amount
                     )
 
     def to_dict(
         self,
-    ) -> dict[MomentLabel, dict[PlanName, dict[VoiceName, dict[EpochTime, FundNum]]]]:
+    ) -> dict[MomentLabel, dict[PlanName, dict[PersonName, dict[EpochTime, FundNum]]]]:
         """Returns dict that is serializable to JSON."""
 
         return {"moment_label": self.moment_label, "tranunits": self.tranunits}
@@ -170,22 +170,22 @@ class TranBook:
 
 def tranbook_shop(
     x_moment_label: MomentLabel,
-    x_tranunits: dict[PlanName, dict[VoiceName, dict[EpochTime, FundNum]]] = None,
+    x_tranunits: dict[PlanName, dict[PersonName, dict[EpochTime, FundNum]]] = None,
 ):
     return TranBook(
         moment_label=x_moment_label,
         tranunits=get_empty_dict_if_None(x_tranunits),
-        _voices_net={},
+        _persons_net={},
     )
 
 
 def get_tranbook_from_dict(x_dict: dict) -> TranBook:
     x_tranunits = x_dict.get("tranunits")
     new_tranunits = {}
-    for x_plan_name, x_voice_dict in x_tranunits.items():
-        for x_voice_name, x_tran_time_dict in x_voice_dict.items():
+    for x_plan_name, x_person_dict in x_tranunits.items():
+        for x_person_name, x_tran_time_dict in x_person_dict.items():
             for x_tran_time, x_amount in x_tran_time_dict.items():
-                x_key_list = [x_plan_name, x_voice_name, int(x_tran_time)]
+                x_key_list = [x_plan_name, x_person_name, int(x_tran_time)]
                 set_in_nested_dict(new_tranunits, x_key_list, x_amount)
     return tranbook_shop(x_dict.get("moment_label"), new_tranunits)
 
@@ -196,26 +196,26 @@ class BudUnit:
     quota: FundNum = None
     celldepth: int = None  # non-negative
     _magnitude: FundNum = None  # how much of the actual quota is distributed
-    _bud_voice_nets: dict[VoiceName, FundNum] = None  # ledger of bud outcome
+    _bud_person_nets: dict[PersonName, FundNum] = None  # ledger of bud outcome
 
-    def set_bud_voice_net(self, x_voice_name: VoiceName, bud_voice_net: FundNum):
-        self._bud_voice_nets[x_voice_name] = bud_voice_net
+    def set_bud_person_net(self, x_person_name: PersonName, bud_person_net: FundNum):
+        self._bud_person_nets[x_person_name] = bud_person_net
 
-    def bud_voice_net_exists(self, x_voice_name: VoiceName) -> bool:
-        return self._bud_voice_nets.get(x_voice_name) != None
+    def bud_person_net_exists(self, x_person_name: PersonName) -> bool:
+        return self._bud_person_nets.get(x_person_name) != None
 
-    def get_bud_voice_net(self, x_voice_name: VoiceName) -> FundNum:
-        return self._bud_voice_nets.get(x_voice_name)
+    def get_bud_person_net(self, x_person_name: PersonName) -> FundNum:
+        return self._bud_person_nets.get(x_person_name)
 
-    def del_bud_voice_net(self, x_voice_name: VoiceName):
-        self._bud_voice_nets.pop(x_voice_name)
+    def del_bud_person_net(self, x_person_name: PersonName):
+        self._bud_person_nets.pop(x_person_name)
 
     def calc_magnitude(self):
-        bud_voice_nets = self._bud_voice_nets.values()
-        x_cred_sum = sum(da_net for da_net in bud_voice_nets if da_net > 0)
-        x_debt_sum = sum(da_net for da_net in bud_voice_nets if da_net < 0)
+        bud_person_nets = self._bud_person_nets.values()
+        x_cred_sum = sum(da_net for da_net in bud_person_nets if da_net > 0)
+        x_debt_sum = sum(da_net for da_net in bud_person_nets if da_net < 0)
         if x_cred_sum + x_debt_sum != 0:
-            exception_str = f"magnitude cannot be calculated: debt_bud_voice_net={x_debt_sum}, cred_bud_voice_net={x_cred_sum}"
+            exception_str = f"magnitude cannot be calculated: debt_bud_person_net={x_debt_sum}, cred_bud_person_net={x_cred_sum}"
             raise calc_magnitudeException(exception_str)
         self._magnitude = x_cred_sum
 
@@ -223,8 +223,8 @@ class BudUnit:
         """Returns dict that is serializable to JSON."""
 
         x_dict = {"bud_time": self.bud_time, "quota": self.quota}
-        if self._bud_voice_nets:
-            x_dict["bud_voice_nets"] = self._bud_voice_nets
+        if self._bud_person_nets:
+            x_dict["bud_person_nets"] = self._bud_person_nets
         if self._magnitude:
             x_dict["magnitude"] = self._magnitude
         if self.celldepth != DEFAULT_CELLDEPTH:
@@ -235,7 +235,7 @@ class BudUnit:
 def budunit_shop(
     bud_time: EpochTime,
     quota: FundNum = None,
-    bud_voice_nets: dict[VoiceName, FundNum] = None,
+    bud_person_nets: dict[PersonName, FundNum] = None,
     magnitude: FundNum = None,
     celldepth: int = None,
 ) -> BudUnit:
@@ -248,7 +248,7 @@ def budunit_shop(
         bud_time=bud_time,
         quota=quota,
         celldepth=celldepth,
-        _bud_voice_nets=get_empty_dict_if_None(bud_voice_nets),
+        _bud_person_nets=get_empty_dict_if_None(bud_person_nets),
         _magnitude=get_0_if_None(magnitude),
     )
 
@@ -259,7 +259,7 @@ class PlanBudHistory:
     buds: dict[EpochTime, BudUnit] = None
     # calculated fields
     _sum_budunit_quota: FundNum = None
-    _sum_voice_bud_nets: int = None
+    _sum_person_bud_nets: int = None
     _bud_time_min: EpochTime = None
     _bud_time_max: EpochTime = None
 
@@ -302,10 +302,10 @@ class PlanBudHistory:
     def get_tranbook(self, moment_label: MomentLabel) -> TranBook:
         x_tranbook = tranbook_shop(moment_label)
         for x_bud_time, x_bud in self.buds.items():
-            for dst_voice_name, x_quota in x_bud._bud_voice_nets.items():
+            for dst_person_name, x_quota in x_bud._bud_person_nets.items():
                 x_tranbook.add_tranunit(
                     plan_name=self.plan_name,
-                    voice_name=dst_voice_name,
+                    person_name=dst_person_name,
                     tran_time=x_bud_time,
                     amount=x_quota,
                 )
@@ -313,13 +313,13 @@ class PlanBudHistory:
 
 
 def planbudhistory_shop(plan_name: PlanName) -> PlanBudHistory:
-    return PlanBudHistory(plan_name=plan_name, buds={}, _sum_voice_bud_nets={})
+    return PlanBudHistory(plan_name=plan_name, buds={}, _sum_person_bud_nets={})
 
 
 def get_budunit_from_dict(x_dict: dict) -> BudUnit:
     x_bud_time = x_dict.get("bud_time")
     x_quota = x_dict.get("quota")
-    x_bud_net = x_dict.get("bud_voice_nets")
+    x_bud_net = x_dict.get("bud_person_nets")
     x_magnitude = x_dict.get("magnitude")
     x_celldepth = x_dict.get("celldepth")
     return budunit_shop(

@@ -2,9 +2,9 @@ from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from sqlite3 import Cursor as sqlite3_Cursor
 from src.ch01_py.db_toolbox import sqlite_obj_str
-from src.ch03_voice.group import AwardHeir, GroupUnit, MemberShip
-from src.ch03_voice.labor import LaborHeir
-from src.ch03_voice.voice import VoiceUnit
+from src.ch03_person.group import AwardHeir, GroupUnit, MemberShip
+from src.ch03_person.labor import LaborHeir
+from src.ch03_person.person import PersonUnit
 from src.ch05_reason.reason_main import CaseUnit, FactHeir, ReasonHeir
 from src.ch06_keg.keg import HealerUnit, KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit
@@ -12,17 +12,17 @@ from src.ch11_bud.bud_main import MomentLabel
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     FaceName,
     GroupTitle,
+    PersonName,
     PlanName,
     RopeTerm,
     SparkInt,
-    VoiceName,
 )
 
 
 def create_plnmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
-    voice_name = values_dict.get("voice_name")
+    person_name = values_dict.get("person_name")
     group_title = values_dict.get("group_title")
     group_cred_lumen = values_dict.get("group_cred_lumen")
     group_debt_lumen = values_dict.get("group_debt_lumen")
@@ -35,11 +35,11 @@ def create_plnmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
     real_str = "REAL"
-    return f"""INSERT INTO plan_voice_membership_job (moment_label, plan_name, voice_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
+    return f"""INSERT INTO plan_person_membership_job (moment_label, plan_name, person_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
 VALUES (
   {sqlite_obj_str(moment_label, "TEXT")}
 , {sqlite_obj_str(plan_name, "TEXT")}
-, {sqlite_obj_str(voice_name, "TEXT")}
+, {sqlite_obj_str(person_name, "TEXT")}
 , {sqlite_obj_str(group_title, "TEXT")}
 , {sqlite_obj_str(group_cred_lumen, real_str)}
 , {sqlite_obj_str(group_debt_lumen, real_str)}
@@ -56,12 +56,12 @@ VALUES (
 """
 
 
-def create_plnvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnprsn_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
-    voice_name = values_dict.get("voice_name")
-    voice_cred_lumen = values_dict.get("voice_cred_lumen")
-    voice_debt_lumen = values_dict.get("voice_debt_lumen")
+    person_name = values_dict.get("person_name")
+    person_cred_lumen = values_dict.get("person_cred_lumen")
+    person_debt_lumen = values_dict.get("person_debt_lumen")
     groupmark = values_dict.get("groupmark")
     credor_pool = values_dict.get("credor_pool")
     debtor_pool = values_dict.get("debtor_pool")
@@ -71,16 +71,16 @@ def create_plnvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
     fund_agenda_take = values_dict.get("fund_agenda_take")
     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
-    inallocable_voice_debt_lumen = values_dict.get("inallocable_voice_debt_lumen")
-    irrational_voice_debt_lumen = values_dict.get("irrational_voice_debt_lumen")
+    inallocable_person_debt_lumen = values_dict.get("inallocable_person_debt_lumen")
+    irrational_person_debt_lumen = values_dict.get("irrational_person_debt_lumen")
     real_str = "REAL"
-    return f"""INSERT INTO plan_voiceunit_job (moment_label, plan_name, voice_name, voice_cred_lumen, voice_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_voice_debt_lumen, irrational_voice_debt_lumen)
+    return f"""INSERT INTO plan_personunit_job (moment_label, plan_name, person_name, person_cred_lumen, person_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_person_debt_lumen, irrational_person_debt_lumen)
 VALUES (
   {sqlite_obj_str(moment_label, "TEXT")}
 , {sqlite_obj_str(plan_name, "TEXT")}
-, {sqlite_obj_str(voice_name, "TEXT")}
-, {sqlite_obj_str(voice_cred_lumen, real_str)}
-, {sqlite_obj_str(voice_debt_lumen, real_str)}
+, {sqlite_obj_str(person_name, "TEXT")}
+, {sqlite_obj_str(person_cred_lumen, real_str)}
+, {sqlite_obj_str(person_debt_lumen, real_str)}
 , {sqlite_obj_str(groupmark, "TEXT")}
 , {sqlite_obj_str(credor_pool, real_str)}
 , {sqlite_obj_str(debtor_pool, real_str)}
@@ -90,8 +90,8 @@ VALUES (
 , {sqlite_obj_str(fund_agenda_take, real_str)}
 , {sqlite_obj_str(fund_agenda_ratio_give, real_str)}
 , {sqlite_obj_str(fund_agenda_ratio_take, real_str)}
-, {sqlite_obj_str(inallocable_voice_debt_lumen, real_str)}
-, {sqlite_obj_str(irrational_voice_debt_lumen, real_str)}
+, {sqlite_obj_str(inallocable_person_debt_lumen, real_str)}
+, {sqlite_obj_str(irrational_person_debt_lumen, real_str)}
 )
 ;
 """
@@ -287,12 +287,12 @@ def create_plnkegg_metrics_insert_sqlstr(values_dict: dict[str,]):
     range_evaluated = values_dict.get("range_evaluated")
     descendant_pledge_count = values_dict.get("descendant_pledge_count")
     healerunit_ratio = values_dict.get("healerunit_ratio")
-    all_voice_cred = values_dict.get("all_voice_cred")
-    all_voice_debt = values_dict.get("all_voice_debt")
+    all_person_cred = values_dict.get("all_person_cred")
+    all_person_debt = values_dict.get("all_person_debt")
     integer_str = "INTEGER"
     real_str = "REAL"
 
-    return f"""INSERT INTO plan_kegunit_job (moment_label, plan_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, keg_active, task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_voice_cred, all_voice_debt)
+    return f"""INSERT INTO plan_kegunit_job (moment_label, plan_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, keg_active, task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_person_cred, all_person_debt)
 VALUES (
   {sqlite_obj_str(moment_label, "TEXT")}
 , {sqlite_obj_str(plan_name, "TEXT")}
@@ -320,8 +320,8 @@ VALUES (
 , {sqlite_obj_str(range_evaluated, "INTEGER")}
 , {sqlite_obj_str(descendant_pledge_count, "INTEGER")}
 , {sqlite_obj_str(healerunit_ratio, real_str)}
-, {sqlite_obj_str(all_voice_cred, real_str)}
-, {sqlite_obj_str(all_voice_debt, real_str)}
+, {sqlite_obj_str(all_person_cred, real_str)}
+, {sqlite_obj_str(all_person_debt, real_str)}
 )
 ;
 """
@@ -378,7 +378,7 @@ class ObjKeysHolder:
     plan_name: PlanName = None
     rope: RopeTerm = None
     reason_context: RopeTerm = None
-    voice_name: VoiceName = None
+    person_name: PersonName = None
     membership: GroupTitle = None
     group_title: GroupTitle = None
     fact_rope: RopeTerm = None
@@ -396,15 +396,15 @@ def insert_job_plnmemb(
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_plnvoce(
+def insert_job_plnprsn(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
-    x_voice: VoiceUnit,
+    x_person: PersonUnit,
 ):
-    x_dict = copy_deepcopy(x_voice.__dict__)
+    x_dict = copy_deepcopy(x_person.__dict__)
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_plnvoce_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnprsn_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -545,9 +545,9 @@ def insert_job_obj(cursor: sqlite3_Cursor, job_plan: PlanUnit):
             for prem in reasonheir.cases.values():
                 insert_job_plncase(cursor, x_objkeysholder, prem)
 
-    for x_voice in job_plan.voices.values():
-        insert_job_plnvoce(cursor, x_objkeysholder, x_voice)
-        for x_membership in x_voice.memberships.values():
+    for x_person in job_plan.persons.values():
+        insert_job_plnprsn(cursor, x_objkeysholder, x_person)
+        for x_membership in x_person.memberships.values():
             insert_job_plnmemb(cursor, x_objkeysholder, x_membership)
 
     for x_groupunit in job_plan.groupunits.values():
@@ -732,14 +732,14 @@ VALUES (
 """
 
 
-def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnprsn_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
 # def create_plnmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
-#     voice_name = values_dict.get("voice_name")
+#     person_name = values_dict.get("person_name")
 #     group_title = values_dict.get("group_title")
 #     group_cred_lumen = values_dict.get("group_cred_lumen")
 #     group_debt_lumen = values_dict.get("group_debt_lumen")
@@ -752,13 +752,13 @@ def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
 #     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
 #     real_str = "REAL"
-#     return f"""INSERT INTO plan_voice_membership_h_put_agg (spark_num, face_name, moment_label, plan_name, voice_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
+#     return f"""INSERT INTO plan_person_membership_h_put_agg (spark_num, face_name, moment_label, plan_name, person_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
 # , {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(plan_name, "TEXT")}
-# , {sqlite_obj_str(voice_name, "TEXT")}
+# , {sqlite_obj_str(person_name, "TEXT")}
 # , {sqlite_obj_str(group_title, "TEXT")}
 # , {sqlite_obj_str(group_cred_lumen, real_str)}
 # , {sqlite_obj_str(group_debt_lumen, real_str)}
@@ -775,12 +775,12 @@ def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_plnvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnprsn_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
-#     voice_name = values_dict.get("voice_name")
-#     voice_cred_lumen = values_dict.get("voice_cred_lumen")
-#     voice_debt_lumen = values_dict.get("voice_debt_lumen")
+#     person_name = values_dict.get("person_name")
+#     person_cred_lumen = values_dict.get("person_cred_lumen")
+#     person_debt_lumen = values_dict.get("person_debt_lumen")
 #     groupmark = values_dict.get("groupmark")
 #     credor_pool = values_dict.get("credor_pool")
 #     debtor_pool = values_dict.get("debtor_pool")
@@ -790,18 +790,18 @@ def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fund_agenda_take = values_dict.get("fund_agenda_take")
 #     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
 #     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
-#     inallocable_voice_debt_lumen = values_dict.get("inallocable_voice_debt_lumen")
-#     irrational_voice_debt_lumen = values_dict.get("irrational_voice_debt_lumen")
+#     inallocable_person_debt_lumen = values_dict.get("inallocable_person_debt_lumen")
+#     irrational_person_debt_lumen = values_dict.get("irrational_person_debt_lumen")
 #     real_str = "REAL"
-#     return f"""INSERT INTO plan_voiceunit_h_put_agg (spark_num, face_name, moment_label, plan_name, voice_name, voice_cred_lumen, voice_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_voice_debt_lumen, irrational_voice_debt_lumen)
+#     return f"""INSERT INTO plan_personunit_h_put_agg (spark_num, face_name, moment_label, plan_name, person_name, person_cred_lumen, person_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_person_debt_lumen, irrational_person_debt_lumen)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
 # , {sqlite_obj_str(moment_label, "TEXT")}
 # , {sqlite_obj_str(plan_name, "TEXT")}
-# , {sqlite_obj_str(voice_name, "TEXT")}
-# , {sqlite_obj_str(voice_cred_lumen, real_str)}
-# , {sqlite_obj_str(voice_debt_lumen, real_str)}
+# , {sqlite_obj_str(person_name, "TEXT")}
+# , {sqlite_obj_str(person_cred_lumen, real_str)}
+# , {sqlite_obj_str(person_debt_lumen, real_str)}
 # , {sqlite_obj_str(groupmark, "TEXT")}
 # , {sqlite_obj_str(credor_pool, real_str)}
 # , {sqlite_obj_str(debtor_pool, real_str)}
@@ -811,8 +811,8 @@ def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # , {sqlite_obj_str(fund_agenda_take, real_str)}
 # , {sqlite_obj_str(fund_agenda_ratio_give, real_str)}
 # , {sqlite_obj_str(fund_agenda_ratio_take, real_str)}
-# , {sqlite_obj_str(inallocable_voice_debt_lumen, real_str)}
-# , {sqlite_obj_str(irrational_voice_debt_lumen, real_str)}
+# , {sqlite_obj_str(inallocable_person_debt_lumen, real_str)}
+# , {sqlite_obj_str(irrational_person_debt_lumen, real_str)}
 # )
 # ;
 # """
@@ -992,12 +992,12 @@ def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     range_evaluated = values_dict.get("range_evaluated")
 #     descendant_pledge_count = values_dict.get("descendant_pledge_count")
 #     healerunit_ratio = values_dict.get("healerunit_ratio")
-#     all_voice_cred = values_dict.get("all_voice_cred")
-#     all_voice_debt = values_dict.get("all_voice_debt")
+#     all_person_cred = values_dict.get("all_person_cred")
+#     all_person_debt = values_dict.get("all_person_debt")
 #     integer_str = "INTEGER"
 #     real_str = "REAL"
 
-#     return f"""INSERT INTO plan_kegunit_h_put_agg (spark_num, face_name, moment_label, plan_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, keg_active, task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_voice_cred, all_voice_debt)
+#     return f"""INSERT INTO plan_kegunit_h_put_agg (spark_num, face_name, moment_label, plan_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, keg_active, task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_person_cred, all_person_debt)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -1027,8 +1027,8 @@ def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # , {sqlite_obj_str(range_evaluated, "INTEGER")}
 # , {sqlite_obj_str(descendant_pledge_count, "INTEGER")}
 # , {sqlite_obj_str(healerunit_ratio, real_str)}
-# , {sqlite_obj_str(all_voice_cred, real_str)}
-# , {sqlite_obj_str(all_voice_debt, real_str)}
+# , {sqlite_obj_str(all_person_cred, real_str)}
+# , {sqlite_obj_str(all_person_debt, real_str)}
 # )
 # ;
 # """
@@ -1048,17 +1048,17 @@ def insert_h_agg_plnmemb(
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_plnvoce(
+def insert_h_agg_plnprsn(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
-    x_voice: VoiceUnit,
+    x_person: PersonUnit,
 ):
-    x_dict = copy_deepcopy(x_voice.__dict__)
+    x_dict = copy_deepcopy(x_person.__dict__)
     x_dict["spark_num"] = x_objkeysholder.spark_num
     x_dict["face_name"] = x_objkeysholder.face_name
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_plnvoce_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnprsn_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -1227,9 +1227,9 @@ def insert_h_agg_obj(
             for prem in reasonheir.cases.values():
                 insert_h_agg_plncase(cursor, x_objkeysholder, prem)
 
-    # for x_voice in job_plan.voices.values():
-    #     insert_h_agg_plnvoce(cursor, x_objkeysholder, x_voice)
-    #     for x_membership in x_voice.memberships.values():
+    # for x_person in job_plan.persons.values():
+    #     insert_h_agg_plnprsn(cursor, x_objkeysholder, x_person)
+    #     for x_membership in x_person.memberships.values():
     #         insert_h_agg_plnmemb(cursor, x_objkeysholder, x_membership)
 
     # for x_groupunit in job_plan.groupunits.values():

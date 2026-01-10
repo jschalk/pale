@@ -12,16 +12,16 @@ def create_legible_list(x_delta: PlanDelta, x_plan: PlanUnit) -> list[str]:
     atoms_dict = x_delta.planatoms
     planunit_atom = get_leg_obj(atoms_dict, ["UPDATE", "planunit"])
 
-    voiceunit_insert_dict = get_leg_obj(atoms_dict, ["INSERT", "plan_voiceunit"])
-    voiceunit_update_dict = get_leg_obj(atoms_dict, ["UPDATE", "plan_voiceunit"])
-    voiceunit_delete_dict = get_leg_obj(atoms_dict, ["DELETE", "plan_voiceunit"])
+    personunit_insert_dict = get_leg_obj(atoms_dict, ["INSERT", "plan_personunit"])
+    personunit_update_dict = get_leg_obj(atoms_dict, ["UPDATE", "plan_personunit"])
+    personunit_delete_dict = get_leg_obj(atoms_dict, ["DELETE", "plan_personunit"])
 
-    x_list = ["INSERT", "plan_voice_membership"]
-    voice_membership_insert_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["UPDATE", "plan_voice_membership"]
-    voice_membership_update_dict = get_leg_obj(atoms_dict, x_list)
-    x_list = ["DELETE", "plan_voice_membership"]
-    voice_membership_delete_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["INSERT", "plan_person_membership"]
+    person_membership_insert_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["UPDATE", "plan_person_membership"]
+    person_membership_update_dict = get_leg_obj(atoms_dict, x_list)
+    x_list = ["DELETE", "plan_person_membership"]
+    person_membership_delete_dict = get_leg_obj(atoms_dict, x_list)
 
     x_list = ["INSERT", "plan_kegunit"]
     plan_kegunit_insert_dict = get_leg_obj(atoms_dict, x_list)
@@ -71,30 +71,30 @@ def create_legible_list(x_delta: PlanDelta, x_plan: PlanUnit) -> list[str]:
     leg_list = []
     if planunit_atom is not None:
         add_planunit_legible_list(leg_list, planunit_atom, x_plan)
-    if voiceunit_insert_dict is not None:
-        add_plan_voiceunit_insert_to_legible_list(
-            leg_list, voiceunit_insert_dict, x_plan
+    if personunit_insert_dict is not None:
+        add_plan_personunit_insert_to_legible_list(
+            leg_list, personunit_insert_dict, x_plan
         )
-    if voiceunit_update_dict is not None:
-        add_plan_voiceunit_update_to_legible_list(
-            leg_list, voiceunit_update_dict, x_plan
+    if personunit_update_dict is not None:
+        add_plan_personunit_update_to_legible_list(
+            leg_list, personunit_update_dict, x_plan
         )
-    if voiceunit_delete_dict is not None:
-        add_plan_voiceunit_delete_to_legible_list(
-            leg_list, voiceunit_delete_dict, x_plan
+    if personunit_delete_dict is not None:
+        add_plan_personunit_delete_to_legible_list(
+            leg_list, personunit_delete_dict, x_plan
         )
 
-    if voice_membership_insert_dict is not None:
-        add_plan_voice_membership_insert_to_legible_list(
-            leg_list, voice_membership_insert_dict, x_plan
+    if person_membership_insert_dict is not None:
+        add_plan_person_membership_insert_to_legible_list(
+            leg_list, person_membership_insert_dict, x_plan
         )
-    if voice_membership_update_dict is not None:
-        add_plan_voice_membership_update_to_legible_list(
-            leg_list, voice_membership_update_dict, x_plan
+    if person_membership_update_dict is not None:
+        add_plan_person_membership_update_to_legible_list(
+            leg_list, person_membership_update_dict, x_plan
         )
-    if voice_membership_delete_dict is not None:
-        add_plan_voice_membership_delete_to_legible_list(
-            leg_list, voice_membership_delete_dict, x_plan
+    if person_membership_delete_dict is not None:
+        add_plan_person_membership_delete_to_legible_list(
+            leg_list, person_membership_delete_dict, x_plan
         )
 
     if plan_kegunit_insert_dict is not None:
@@ -215,90 +215,98 @@ def add_planunit_legible_list(
         legible_list.append(x_str)
 
 
-def add_plan_voiceunit_insert_to_legible_list(
-    legible_list: list[str], voiceunit_dict: PlanAtom, x_plan: PlanUnit
+def add_plan_personunit_insert_to_legible_list(
+    legible_list: list[str], personunit_dict: PlanAtom, x_plan: PlanUnit
 ):
-    for voiceunit_atom in voiceunit_dict.values():
-        voice_name = voiceunit_atom.get_value("voice_name")
-        voice_cred_lumen_value = voiceunit_atom.get_value("voice_cred_lumen")
-        voice_debt_lumen_value = voiceunit_atom.get_value("voice_debt_lumen")
-        x_str = f"{voice_name} was added with {voice_cred_lumen_value} score credit and {voice_debt_lumen_value} score debt"
+    for personunit_atom in personunit_dict.values():
+        person_name = personunit_atom.get_value("person_name")
+        person_cred_lumen_value = personunit_atom.get_value("person_cred_lumen")
+        person_debt_lumen_value = personunit_atom.get_value("person_debt_lumen")
+        x_str = f"{person_name} was added with {person_cred_lumen_value} score credit and {person_debt_lumen_value} score debt"
         legible_list.append(x_str)
 
 
-def add_plan_voiceunit_update_to_legible_list(
-    legible_list: list[str], voiceunit_dict: PlanAtom, x_plan: PlanUnit
+def add_plan_personunit_update_to_legible_list(
+    legible_list: list[str], personunit_dict: PlanAtom, x_plan: PlanUnit
 ):
-    for voiceunit_atom in voiceunit_dict.values():
-        voice_name = voiceunit_atom.get_value("voice_name")
-        voice_cred_lumen_value = voiceunit_atom.get_value("voice_cred_lumen")
-        voice_debt_lumen_value = voiceunit_atom.get_value("voice_debt_lumen")
-        if voice_cred_lumen_value is not None and voice_debt_lumen_value is not None:
-            x_str = f"{voice_name} now has {voice_cred_lumen_value} score credit and {voice_debt_lumen_value} score debt."
-        elif voice_cred_lumen_value is not None:
-            x_str = f"{voice_name} now has {voice_cred_lumen_value} score credit."
-        elif voice_debt_lumen_value is not None:
-            x_str = f"{voice_name} now has {voice_debt_lumen_value} score debt."
+    for personunit_atom in personunit_dict.values():
+        person_name = personunit_atom.get_value("person_name")
+        person_cred_lumen_value = personunit_atom.get_value("person_cred_lumen")
+        person_debt_lumen_value = personunit_atom.get_value("person_debt_lumen")
+        if person_cred_lumen_value is not None and person_debt_lumen_value is not None:
+            x_str = f"{person_name} now has {person_cred_lumen_value} score credit and {person_debt_lumen_value} score debt."
+        elif person_cred_lumen_value is not None:
+            x_str = f"{person_name} now has {person_cred_lumen_value} score credit."
+        elif person_debt_lumen_value is not None:
+            x_str = f"{person_name} now has {person_debt_lumen_value} score debt."
         legible_list.append(x_str)
 
 
-def add_plan_voiceunit_delete_to_legible_list(
-    legible_list: list[str], voiceunit_dict: PlanAtom, x_plan: PlanUnit
+def add_plan_personunit_delete_to_legible_list(
+    legible_list: list[str], personunit_dict: PlanAtom, x_plan: PlanUnit
 ):
-    for voiceunit_atom in voiceunit_dict.values():
-        voice_name = voiceunit_atom.get_value("voice_name")
-        x_str = f"{voice_name} was removed from score voices."
+    for personunit_atom in personunit_dict.values():
+        person_name = personunit_atom.get_value("person_name")
+        x_str = f"{person_name} was removed from score persons."
         legible_list.append(x_str)
 
 
-def add_plan_voice_membership_insert_to_legible_list(
+def add_plan_person_membership_insert_to_legible_list(
     legible_list: list[str],
-    voice_membership_insert_dict: dict,
+    person_membership_insert_dict: dict,
     x_plan: PlanUnit,
 ):
-    for voice_membership_dict in voice_membership_insert_dict.values():
-        for voice_membership_atom in voice_membership_dict.values():
-            group_title = voice_membership_atom.get_value("group_title")
-            voice_name = voice_membership_atom.get_value("voice_name")
-            group_cred_lumen_value = voice_membership_atom.get_value("group_cred_lumen")
-            group_debt_lumen_value = voice_membership_atom.get_value("group_debt_lumen")
-            x_str = f"Group '{group_title}' has new membership {voice_name} with group_cred_lumen_value{group_cred_lumen_value} and group_debt_lumen_value={group_debt_lumen_value}."
+    for person_membership_dict in person_membership_insert_dict.values():
+        for person_membership_atom in person_membership_dict.values():
+            group_title = person_membership_atom.get_value("group_title")
+            person_name = person_membership_atom.get_value("person_name")
+            group_cred_lumen_value = person_membership_atom.get_value(
+                "group_cred_lumen"
+            )
+            group_debt_lumen_value = person_membership_atom.get_value(
+                "group_debt_lumen"
+            )
+            x_str = f"Group '{group_title}' has new membership {person_name} with group_cred_lumen_value{group_cred_lumen_value} and group_debt_lumen_value={group_debt_lumen_value}."
             legible_list.append(x_str)
 
 
-def add_plan_voice_membership_update_to_legible_list(
+def add_plan_person_membership_update_to_legible_list(
     legible_list: list[str],
-    voice_membership_update_dict: dict,
+    person_membership_update_dict: dict,
     x_plan: PlanUnit,
 ):
-    for voice_membership_dict in voice_membership_update_dict.values():
-        for voice_membership_atom in voice_membership_dict.values():
-            group_title = voice_membership_atom.get_value("group_title")
-            voice_name = voice_membership_atom.get_value("voice_name")
-            group_cred_lumen_value = voice_membership_atom.get_value("group_cred_lumen")
-            group_debt_lumen_value = voice_membership_atom.get_value("group_debt_lumen")
+    for person_membership_dict in person_membership_update_dict.values():
+        for person_membership_atom in person_membership_dict.values():
+            group_title = person_membership_atom.get_value("group_title")
+            person_name = person_membership_atom.get_value("person_name")
+            group_cred_lumen_value = person_membership_atom.get_value(
+                "group_cred_lumen"
+            )
+            group_debt_lumen_value = person_membership_atom.get_value(
+                "group_debt_lumen"
+            )
             if (
                 group_cred_lumen_value is not None
                 and group_debt_lumen_value is not None
             ):
-                x_str = f"Group '{group_title}' membership {voice_name} has new group_cred_lumen_value{group_cred_lumen_value} and group_debt_lumen_value={group_debt_lumen_value}."
+                x_str = f"Group '{group_title}' membership {person_name} has new group_cred_lumen_value{group_cred_lumen_value} and group_debt_lumen_value={group_debt_lumen_value}."
             elif group_cred_lumen_value is not None:
-                x_str = f"Group '{group_title}' membership {voice_name} has new group_cred_lumen_value{group_cred_lumen_value}."
+                x_str = f"Group '{group_title}' membership {person_name} has new group_cred_lumen_value{group_cred_lumen_value}."
             elif group_debt_lumen_value is not None:
-                x_str = f"Group '{group_title}' membership {voice_name} has new group_debt_lumen_value={group_debt_lumen_value}."
+                x_str = f"Group '{group_title}' membership {person_name} has new group_debt_lumen_value={group_debt_lumen_value}."
             legible_list.append(x_str)
 
 
-def add_plan_voice_membership_delete_to_legible_list(
+def add_plan_person_membership_delete_to_legible_list(
     legible_list: list[str],
-    voice_membership_delete_dict: dict,
+    person_membership_delete_dict: dict,
     x_plan: PlanUnit,
 ):
-    for voice_membership_dict in voice_membership_delete_dict.values():
-        for voice_membership_atom in voice_membership_dict.values():
-            group_title = voice_membership_atom.get_value("group_title")
-            voice_name = voice_membership_atom.get_value("voice_name")
-            x_str = f"Group '{group_title}' no longer has membership {voice_name}."
+    for person_membership_dict in person_membership_delete_dict.values():
+        for person_membership_atom in person_membership_dict.values():
+            group_title = person_membership_atom.get_value("group_title")
+            person_name = person_membership_atom.get_value("person_name")
+            x_str = f"Group '{group_title}' no longer has membership {person_name}."
             legible_list.append(x_str)
 
 

@@ -3264,16 +3264,16 @@
   }, 
   "respect_grain": 1, 
   "tally": null, 
-  "voices": {
+  "persons": {
     "A a ron Jones": {
       "memberships": {
         ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
         ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
         "A a ron Jones": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "A a ron Jones" }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "A a ron Jones"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "A a ron Jones"
     }, 
     "America": {
       "memberships": {
@@ -3282,9 +3282,9 @@
         ";Friends" : { "group_cred_lumen": 6.10, "group_debt_lumen": 1, "group_title": ";Friends"  }, 
         "America"  : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "America"   }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "America"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "America"
     }, 
     "Anna": {
       "memberships": {
@@ -3292,9 +3292,9 @@
         ";Family"  : { "group_cred_lumen": 6.2, "group_debt_lumen": 1, "group_title": ";Family"   }, 
         "Anna"     : { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": "Anna"      }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Anna"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Anna"
     }, 
     "Benjamin Stoddert": {
       "memberships": {
@@ -3307,9 +3307,9 @@
           "group_title": "Benjamin Stoddert"
         }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Benjamin Stoddert"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Benjamin Stoddert"
     }, 
     "Bob302": {
       "memberships": {
@@ -3322,9 +3322,9 @@
         }, 
         "Bob302": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Bob302"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Bob302"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Bob302"
     }, 
     "Chuck Lee": {
       "memberships": {
@@ -3333,9 +3333,9 @@
         ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
         "Chuck Lee"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Chuck Lee"     }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Chuck Lee"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Chuck Lee"
     }, 
     "Ernesto Chavez": {
       "memberships": {
@@ -3343,9 +3343,9 @@
         ";Philosophy": {"group_cred_lumen": 6.5, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
         "Ernesto Chavez": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Ernesto Chavez"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Ernesto Chavez"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Ernesto Chavez"
     }, 
     "Jacque Chirac": {
       "memberships": {
@@ -3353,9 +3353,9 @@
         ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
         "Jacque Chirac": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jacque Chirac" }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Jacque Chirac"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Jacque Chirac"
     }, 
     "Jane Randolph": {
       "memberships": {
@@ -3363,9 +3363,9 @@
         ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
         "Jane Randolph": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jane Randolph" }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Jane Randolph"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Jane Randolph"
     }, 
     "Maria Reynolds": {
       "memberships": {
@@ -3373,9 +3373,9 @@
         ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
         "Maria Reynolds": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Maria Reynolds"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Maria Reynolds"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Maria Reynolds"
     }, 
     "Martha Doubs": {
       "memberships": {
@@ -3384,9 +3384,9 @@
         ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
         "Martha Doubs" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Martha Doubs"  }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Martha Doubs"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Martha Doubs"
     }, 
     "Mikayla": {
       "memberships": {
@@ -3395,9 +3395,9 @@
         ";Philosophy" : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Philosophy"  }, 
         "Mikayla"     : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": "Mikayla"      }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Mikayla"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Mikayla"
     }, 
     "Norberto": {
       "memberships": {
@@ -3405,9 +3405,9 @@
         ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
         "Norberto"     : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Norberto"      }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Norberto"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Norberto"
     }, 
     "Perrison": {
       "memberships": {
@@ -3420,9 +3420,9 @@
         }, 
         "Perrison": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Perrison"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Perrison"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Perrison"
     }, 
     "Philipa": {
       "memberships": {
@@ -3431,9 +3431,9 @@
         ";Philosophy": {"group_cred_lumen": 52, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
         "Philipa": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Philipa"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Philipa"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Philipa"
     }, 
     "Prashant": {
       "memberships": {
@@ -3445,9 +3445,9 @@
         }, 
         "Prashant": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Prashant"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Prashant"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Prashant"
     }, 
     "Renee Elise Goldsberry": {
       "memberships": {
@@ -3477,9 +3477,9 @@
           "group_title": "Renee Elise Goldsberry"
         }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Renee Elise Goldsberry"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Renee Elise Goldsberry"
     }, 
     "Sam zamora": {
       "memberships": {
@@ -3488,9 +3488,9 @@
         ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
         "Sam zamora"   : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Sam zamora"    }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Sam zamora"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Sam zamora"
     }, 
     "Shadwell Harris": {
       "memberships": {
@@ -3498,9 +3498,9 @@
         ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
         "Shadwell Harris": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Shadwell Harris"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Shadwell Harris"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Shadwell Harris"
     }, 
     "Thomas OSU": {
       "memberships": {
@@ -3508,9 +3508,9 @@
         ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
         "Thomas OSU": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Thomas OSU"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Thomas OSU"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Thomas OSU"
     }, 
     "Travis Fox": {
       "memberships": {
@@ -3518,9 +3518,9 @@
         ";Family"   : { "group_cred_lumen": 6.35, "group_debt_lumen": 1, "group_title": ";Family"    }, 
         "Travis Fox": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "Travis Fox" }
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "Travis Fox"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "Travis Fox"
     }, 
     "WIlliam Wellace": {
       "memberships": {
@@ -3528,9 +3528,9 @@
         ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
         "WIlliam Wellace": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "WIlliam Wellace"}
       }, 
-      "voice_cred_lumen": 1, 
-      "voice_debt_lumen": 1, 
-      "voice_name": "WIlliam Wellace"
+      "person_cred_lumen": 1, 
+      "person_debt_lumen": 1, 
+      "person_name": "WIlliam Wellace"
     }
   }
 }

@@ -7,8 +7,8 @@ from src.ch01_py.dict_toolbox import (
     get_from_nested_dict,
     set_in_nested_dict,
 )
-from src.ch03_voice.group import MemberShip
-from src.ch03_voice.voice import MemberShip, VoiceName, VoiceUnit
+from src.ch03_person.group import MemberShip
+from src.ch03_person.person import MemberShip, PersonName, PersonUnit
 from src.ch05_reason.reason_main import FactUnit, ReasonUnit
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
@@ -123,7 +123,7 @@ class PlanDelta:
         before_plan.cashout()
         after_plan.cashout()
         self.add_planatoms_planunit_simple_attrs(before_plan, after_plan)
-        self.add_planatoms_voices(before_plan, after_plan)
+        self.add_planatoms_persons(before_plan, after_plan)
         self.add_planatoms_kegs(before_plan, after_plan)
 
     def add_planatoms_planunit_simple_attrs(
@@ -148,146 +148,148 @@ class PlanDelta:
             x_planatom.set_jvalue("respect_grain", after_plan.respect_grain)
         self.set_planatom(x_planatom)
 
-    def add_planatoms_voices(self, before_plan: PlanUnit, after_plan: PlanUnit):
-        before_voice_names = set(before_plan.voices.keys())
-        after_voice_names = set(after_plan.voices.keys())
+    def add_planatoms_persons(self, before_plan: PlanUnit, after_plan: PlanUnit):
+        before_person_names = set(before_plan.persons.keys())
+        after_person_names = set(after_plan.persons.keys())
 
-        self.add_planatom_voiceunit_inserts(
+        self.add_planatom_personunit_inserts(
             after_plan=after_plan,
-            insert_voice_names=after_voice_names.difference(before_voice_names),
+            insert_person_names=after_person_names.difference(before_person_names),
         )
-        self.add_planatom_voiceunit_deletes(
+        self.add_planatom_personunit_deletes(
             before_plan=before_plan,
-            delete_voice_names=before_voice_names.difference(after_voice_names),
+            delete_person_names=before_person_names.difference(after_person_names),
         )
-        self.add_planatom_voiceunit_updates(
+        self.add_planatom_personunit_updates(
             before_plan=before_plan,
             after_plan=after_plan,
-            update_voice_names=before_voice_names & (after_voice_names),
+            update_person_names=before_person_names & (after_person_names),
         )
 
-    def add_planatom_voiceunit_inserts(
-        self, after_plan: PlanUnit, insert_voice_names: set
+    def add_planatom_personunit_inserts(
+        self, after_plan: PlanUnit, insert_person_names: set
     ):
-        for insert_voice_name in insert_voice_names:
-            insert_voiceunit = after_plan.get_voice(insert_voice_name)
-            x_planatom = planatom_shop("plan_voiceunit", "INSERT")
-            x_planatom.set_jkey("voice_name", insert_voiceunit.voice_name)
-            if insert_voiceunit.voice_cred_lumen is not None:
+        for insert_person_name in insert_person_names:
+            insert_personunit = after_plan.get_person(insert_person_name)
+            x_planatom = planatom_shop("plan_personunit", "INSERT")
+            x_planatom.set_jkey("person_name", insert_personunit.person_name)
+            if insert_personunit.person_cred_lumen is not None:
                 x_planatom.set_jvalue(
-                    "voice_cred_lumen", insert_voiceunit.voice_cred_lumen
+                    "person_cred_lumen", insert_personunit.person_cred_lumen
                 )
-            if insert_voiceunit.voice_debt_lumen is not None:
+            if insert_personunit.person_debt_lumen is not None:
                 x_planatom.set_jvalue(
-                    "voice_debt_lumen", insert_voiceunit.voice_debt_lumen
+                    "person_debt_lumen", insert_personunit.person_debt_lumen
                 )
             self.set_planatom(x_planatom)
-            all_group_titles = set(insert_voiceunit.memberships.keys())
+            all_group_titles = set(insert_personunit.memberships.keys())
             self.add_planatom_memberships_inserts(
-                after_voiceunit=insert_voiceunit,
+                after_personunit=insert_personunit,
                 insert_membership_group_titles=all_group_titles,
             )
 
-    def add_planatom_voiceunit_updates(
+    def add_planatom_personunit_updates(
         self,
         before_plan: PlanUnit,
         after_plan: PlanUnit,
-        update_voice_names: set,
+        update_person_names: set,
     ):
-        for voice_name in update_voice_names:
-            after_voiceunit = after_plan.get_voice(voice_name)
-            before_voiceunit = before_plan.get_voice(voice_name)
-            if jvalues_different("plan_voiceunit", after_voiceunit, before_voiceunit):
-                x_planatom = planatom_shop("plan_voiceunit", "UPDATE")
-                x_planatom.set_jkey("voice_name", after_voiceunit.voice_name)
+        for person_name in update_person_names:
+            after_personunit = after_plan.get_person(person_name)
+            before_personunit = before_plan.get_person(person_name)
+            if jvalues_different(
+                "plan_personunit", after_personunit, before_personunit
+            ):
+                x_planatom = planatom_shop("plan_personunit", "UPDATE")
+                x_planatom.set_jkey("person_name", after_personunit.person_name)
                 if (
-                    before_voiceunit.voice_cred_lumen
-                    != after_voiceunit.voice_cred_lumen
+                    before_personunit.person_cred_lumen
+                    != after_personunit.person_cred_lumen
                 ):
                     x_planatom.set_jvalue(
-                        "voice_cred_lumen", after_voiceunit.voice_cred_lumen
+                        "person_cred_lumen", after_personunit.person_cred_lumen
                     )
                 if (
-                    before_voiceunit.voice_debt_lumen
-                    != after_voiceunit.voice_debt_lumen
+                    before_personunit.person_debt_lumen
+                    != after_personunit.person_debt_lumen
                 ):
                     x_planatom.set_jvalue(
-                        "voice_debt_lumen", after_voiceunit.voice_debt_lumen
+                        "person_debt_lumen", after_personunit.person_debt_lumen
                     )
                 self.set_planatom(x_planatom)
-            self.add_planatom_voiceunit_update_memberships(
-                after_voiceunit=after_voiceunit,
-                before_voiceunit=before_voiceunit,
+            self.add_planatom_personunit_update_memberships(
+                after_personunit=after_personunit,
+                before_personunit=before_personunit,
             )
 
-    def add_planatom_voiceunit_deletes(
-        self, before_plan: PlanUnit, delete_voice_names: set
+    def add_planatom_personunit_deletes(
+        self, before_plan: PlanUnit, delete_person_names: set
     ):
-        for delete_voice_name in delete_voice_names:
-            x_planatom = planatom_shop("plan_voiceunit", "DELETE")
-            x_planatom.set_jkey("voice_name", delete_voice_name)
+        for delete_person_name in delete_person_names:
+            x_planatom = planatom_shop("plan_personunit", "DELETE")
+            x_planatom.set_jkey("person_name", delete_person_name)
             self.set_planatom(x_planatom)
-            delete_voiceunit = before_plan.get_voice(delete_voice_name)
+            delete_personunit = before_plan.get_person(delete_person_name)
             non_mirror_group_titles = {
                 x_group_title
-                for x_group_title in delete_voiceunit.memberships.keys()
-                if x_group_title != delete_voice_name
+                for x_group_title in delete_personunit.memberships.keys()
+                if x_group_title != delete_person_name
             }
             self.add_planatom_memberships_delete(
-                delete_voice_name, non_mirror_group_titles
+                delete_person_name, non_mirror_group_titles
             )
 
-    def add_planatom_voiceunit_update_memberships(
-        self, after_voiceunit: VoiceUnit, before_voiceunit: VoiceUnit
+    def add_planatom_personunit_update_memberships(
+        self, after_personunit: PersonUnit, before_personunit: PersonUnit
     ):
         # before_non_mirror_group_titles
         before_group_titles = {
             x_group_title
-            for x_group_title in before_voiceunit.memberships.keys()
-            if x_group_title != before_voiceunit.voice_name
+            for x_group_title in before_personunit.memberships.keys()
+            if x_group_title != before_personunit.person_name
         }
         # after_non_mirror_group_titles
         after_group_titles = {
             x_group_title
-            for x_group_title in after_voiceunit.memberships.keys()
-            if x_group_title != after_voiceunit.voice_name
+            for x_group_title in after_personunit.memberships.keys()
+            if x_group_title != after_personunit.person_name
         }
 
         self.add_planatom_memberships_inserts(
-            after_voiceunit=after_voiceunit,
+            after_personunit=after_personunit,
             insert_membership_group_titles=after_group_titles.difference(
                 before_group_titles
             ),
         )
 
         self.add_planatom_memberships_delete(
-            before_voice_name=after_voiceunit.voice_name,
+            before_person_name=after_personunit.person_name,
             before_group_titles=before_group_titles.difference(after_group_titles),
         )
 
         update_group_titles = before_group_titles & (after_group_titles)
-        for update_voice_name in update_group_titles:
-            before_membership = before_voiceunit.get_membership(update_voice_name)
-            after_membership = after_voiceunit.get_membership(update_voice_name)
+        for update_person_name in update_group_titles:
+            before_membership = before_personunit.get_membership(update_person_name)
+            after_membership = after_personunit.get_membership(update_person_name)
             if jvalues_different(
-                "plan_voice_membership", before_membership, after_membership
+                "plan_person_membership", before_membership, after_membership
             ):
                 self.add_planatom_membership_update(
-                    voice_name=after_voiceunit.voice_name,
+                    person_name=after_personunit.person_name,
                     before_membership=before_membership,
                     after_membership=after_membership,
                 )
 
     def add_planatom_memberships_inserts(
         self,
-        after_voiceunit: VoiceUnit,
+        after_personunit: PersonUnit,
         insert_membership_group_titles: list[TitleTerm],
     ):
-        after_voice_name = after_voiceunit.voice_name
+        after_person_name = after_personunit.person_name
         for insert_group_title in insert_membership_group_titles:
-            after_membership = after_voiceunit.get_membership(insert_group_title)
-            x_planatom = planatom_shop("plan_voice_membership", "INSERT")
-            x_planatom.set_jkey("voice_name", after_voice_name)
+            after_membership = after_personunit.get_membership(insert_group_title)
+            x_planatom = planatom_shop("plan_person_membership", "INSERT")
+            x_planatom.set_jkey("person_name", after_person_name)
             x_planatom.set_jkey("group_title", after_membership.group_title)
             if after_membership.group_cred_lumen is not None:
                 x_planatom.set_jvalue(
@@ -301,12 +303,12 @@ class PlanDelta:
 
     def add_planatom_membership_update(
         self,
-        voice_name: VoiceName,
+        person_name: PersonName,
         before_membership: MemberShip,
         after_membership: MemberShip,
     ):
-        x_planatom = planatom_shop("plan_voice_membership", "UPDATE")
-        x_planatom.set_jkey("voice_name", voice_name)
+        x_planatom = planatom_shop("plan_person_membership", "UPDATE")
+        x_planatom.set_jkey("person_name", person_name)
         x_planatom.set_jkey("group_title", after_membership.group_title)
         if after_membership.group_cred_lumen != before_membership.group_cred_lumen:
             x_planatom.set_jvalue("group_cred_lumen", after_membership.group_cred_lumen)
@@ -315,11 +317,11 @@ class PlanDelta:
         self.set_planatom(x_planatom)
 
     def add_planatom_memberships_delete(
-        self, before_voice_name: VoiceName, before_group_titles: TitleTerm
+        self, before_person_name: PersonName, before_group_titles: TitleTerm
     ):
         for delete_group_title in before_group_titles:
-            x_planatom = planatom_shop("plan_voice_membership", "DELETE")
-            x_planatom.set_jkey("voice_name", before_voice_name)
+            x_planatom = planatom_shop("plan_person_membership", "DELETE")
+            x_planatom.set_jkey("person_name", before_person_name)
             x_planatom.set_jkey("group_title", delete_group_title)
             self.set_planatom(x_planatom)
 

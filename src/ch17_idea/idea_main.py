@@ -297,7 +297,7 @@ def _add_paypurchases_from_df(x_momentunit: MomentUnit, br00002_df: DataFrame):
     for index, row in br00002_df.query(query_str).iterrows():
         x_momentunit.add_paypurchase(
             plan_name=row["plan_name"],
-            voice_name=row["voice_name"],
+            person_name=row["person_name"],
             tran_time=row["tran_time"],
             amount=row["amount"],
         )

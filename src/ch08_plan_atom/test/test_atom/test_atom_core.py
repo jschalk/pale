@@ -1,4 +1,4 @@
-from src.ch03_voice.voice import voiceunit_shop
+from src.ch03_person.person import personunit_shop
 from src.ch08_plan_atom.atom_main import PlanAtom, planatom_shop
 from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 
@@ -17,19 +17,21 @@ def test_PlanAtom_Exists():
 
 def test_planatom_shop_ReturnsObj():
     # ESTABLISH
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    cw_str = "_voice_cred_lumen"
-    dw_str = "_voice_debt_lumen"
-    bob_required_dict = {kw.voice_name: "huh"}
-    bob_optional_dict = {cw_str: bob_voiceunit.to_dict().get(cw_str)}
-    bob_optional_dict[dw_str] = bob_voiceunit.to_dict().get(dw_str)
-    voiceunit_str = kw.plan_voiceunit
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    bob_personunit = personunit_shop(
+        exx.bob, bob_person_cred_lumen, bob_person_debt_lumen
+    )
+    cw_str = "_person_cred_lumen"
+    dw_str = "_person_debt_lumen"
+    bob_required_dict = {kw.person_name: "huh"}
+    bob_optional_dict = {cw_str: bob_personunit.to_dict().get(cw_str)}
+    bob_optional_dict[dw_str] = bob_personunit.to_dict().get(dw_str)
+    personunit_str = kw.plan_personunit
 
     # WHEN
     x_planatom = planatom_shop(
-        dimen=voiceunit_str,
+        dimen=personunit_str,
         crud_str=kw.INSERT,
         jkeys=bob_required_dict,
         jvalues=bob_optional_dict,
@@ -37,7 +39,7 @@ def test_planatom_shop_ReturnsObj():
 
     # THEN
     print(f"{x_planatom=}")
-    assert x_planatom.dimen == voiceunit_str
+    assert x_planatom.dimen == personunit_str
     assert x_planatom.crud_str == kw.INSERT
     assert x_planatom.jkeys == bob_required_dict
     assert x_planatom.jvalues == bob_optional_dict
@@ -45,54 +47,54 @@ def test_planatom_shop_ReturnsObj():
 
 def test_PlanAtom_set_jkey_SetsAttr():
     # ESTABLISH
-    voiceunit_str = kw.plan_voiceunit
-    voiceunit_planatom = planatom_shop(voiceunit_str, kw.INSERT)
-    assert voiceunit_planatom.jkeys == {}
+    personunit_str = kw.plan_personunit
+    personunit_planatom = planatom_shop(personunit_str, kw.INSERT)
+    assert personunit_planatom.jkeys == {}
 
     # WHEN
-    voiceunit_planatom.set_jkey(x_key=kw.voice_name, x_value=exx.bob)
+    personunit_planatom.set_jkey(x_key=kw.person_name, x_value=exx.bob)
 
     # THEN
-    assert voiceunit_planatom.jkeys == {kw.voice_name: exx.bob}
+    assert personunit_planatom.jkeys == {kw.person_name: exx.bob}
 
 
 def test_PlanAtom_set_jvalue_SetsAttr():
     # ESTABLISH
-    voiceunit_str = kw.plan_voiceunit
-    voiceunit_planatom = planatom_shop(voiceunit_str, kw.INSERT)
-    assert voiceunit_planatom.jvalues == {}
+    personunit_str = kw.plan_personunit
+    personunit_planatom = planatom_shop(personunit_str, kw.INSERT)
+    assert personunit_planatom.jvalues == {}
 
     # WHEN
-    voiceunit_planatom.set_jvalue(x_key=kw.voice_name, x_value=exx.bob)
+    personunit_planatom.set_jvalue(x_key=kw.person_name, x_value=exx.bob)
 
     # THEN
-    assert voiceunit_planatom.jvalues == {kw.voice_name: exx.bob}
+    assert personunit_planatom.jvalues == {kw.person_name: exx.bob}
 
 
 def test_PlanAtom_get_value_ReturnsObj_Scenario0():
     # ESTABLISH
-    voiceunit_str = kw.plan_voiceunit
-    voiceunit_planatom = planatom_shop(voiceunit_str, kw.INSERT)
-    voiceunit_planatom.set_jkey(x_key=kw.voice_name, x_value=exx.bob)
+    personunit_str = kw.plan_personunit
+    personunit_planatom = planatom_shop(personunit_str, kw.INSERT)
+    personunit_planatom.set_jkey(x_key=kw.person_name, x_value=exx.bob)
 
     # WHEN / THEN
-    assert voiceunit_planatom.get_value(kw.voice_name) == exx.bob
+    assert personunit_planatom.get_value(kw.person_name) == exx.bob
 
 
 def test_PlanAtom_is_jvalues_valid_ReturnsBoolean():
     # ESTABLISH / WHEN
-    voiceunit_str = kw.plan_voiceunit
-    bob_insert_planatom = planatom_shop(voiceunit_str, crud_str=kw.INSERT)
+    personunit_str = kw.plan_personunit
+    bob_insert_planatom = planatom_shop(personunit_str, crud_str=kw.INSERT)
     assert bob_insert_planatom.is_jvalues_valid()
 
     # WHEN
-    bob_insert_planatom.set_jvalue(kw.voice_cred_lumen, 55)
+    bob_insert_planatom.set_jvalue(kw.person_cred_lumen, 55)
     # THEN
     assert len(bob_insert_planatom.jvalues) == 1
     assert bob_insert_planatom.is_jvalues_valid()
 
     # WHEN
-    bob_insert_planatom.set_jvalue(kw.voice_debt_lumen, 66)
+    bob_insert_planatom.set_jvalue(kw.person_debt_lumen, 66)
     # THEN
     assert len(bob_insert_planatom.jvalues) == 2
     assert bob_insert_planatom.is_jvalues_valid()
@@ -104,15 +106,17 @@ def test_PlanAtom_is_jvalues_valid_ReturnsBoolean():
     assert bob_insert_planatom.is_jvalues_valid() is False
 
 
-def test_PlanAtom_is_valid_ReturnsBoolean_VoiceUnit_INSERT():
+def test_PlanAtom_is_valid_ReturnsBoolean_PersonUnit_INSERT():
     # ESTABLISH
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    voiceunit_str = kw.plan_voiceunit
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    bob_personunit = personunit_shop(
+        exx.bob, bob_person_cred_lumen, bob_person_debt_lumen
+    )
+    personunit_str = kw.plan_personunit
 
     # WHEN
-    bob_insert_planatom = planatom_shop(voiceunit_str, crud_str=kw.INSERT)
+    bob_insert_planatom = planatom_shop(personunit_str, crud_str=kw.INSERT)
 
     # THEN
     assert bob_insert_planatom.is_jkeys_valid() is False
@@ -128,7 +132,7 @@ def test_PlanAtom_is_valid_ReturnsBoolean_VoiceUnit_INSERT():
     assert bob_insert_planatom.is_valid() is False
 
     # WHEN
-    bob_insert_planatom.set_jkey(kw.voice_name, exx.bob)
+    bob_insert_planatom.set_jkey(kw.person_name, exx.bob)
 
     # THEN
     assert bob_insert_planatom.is_jkeys_valid()
@@ -137,10 +141,10 @@ def test_PlanAtom_is_valid_ReturnsBoolean_VoiceUnit_INSERT():
 
     # WHEN
     bob_insert_planatom.jvalues = {}
-    cw_str = kw.voice_cred_lumen
-    dw_str = kw.voice_debt_lumen
-    bob_insert_planatom.set_jvalue(cw_str, bob_voiceunit.to_dict().get(cw_str))
-    bob_insert_planatom.set_jvalue(dw_str, bob_voiceunit.to_dict().get(dw_str))
+    cw_str = kw.person_cred_lumen
+    dw_str = kw.person_debt_lumen
+    bob_insert_planatom.set_jvalue(cw_str, bob_personunit.to_dict().get(cw_str))
+    bob_insert_planatom.set_jvalue(dw_str, bob_personunit.to_dict().get(dw_str))
 
     # THEN
     assert bob_insert_planatom.is_jkeys_valid()
@@ -164,40 +168,42 @@ def test_PlanAtom_is_valid_ReturnsBoolean_VoiceUnit_INSERT():
 
 def test_PlanAtom_get_value_ReturnsObj_Scenario1():
     # ESTABLISH
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    voiceunit_str = kw.plan_voiceunit
-    bob_insert_planatom = planatom_shop(voiceunit_str, kw.INSERT)
-    cw_str = kw.voice_cred_lumen
-    dw_str = kw.voice_debt_lumen
-    print(f"{bob_voiceunit.to_dict()=}")
-    # bob_voiceunit_dict = {kw.voice_name: bob_voiceunit.to_dict().get(kw.voice_name)}
-    # print(f"{bob_voiceunit_dict=}")
-    bob_insert_planatom.set_jkey(kw.voice_name, exx.bob)
-    bob_insert_planatom.set_jvalue(cw_str, bob_voiceunit.to_dict().get(cw_str))
-    bob_insert_planatom.set_jvalue(dw_str, bob_voiceunit.to_dict().get(dw_str))
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    bob_personunit = personunit_shop(
+        exx.bob, bob_person_cred_lumen, bob_person_debt_lumen
+    )
+    personunit_str = kw.plan_personunit
+    bob_insert_planatom = planatom_shop(personunit_str, kw.INSERT)
+    cw_str = kw.person_cred_lumen
+    dw_str = kw.person_debt_lumen
+    print(f"{bob_personunit.to_dict()=}")
+    # bob_personunit_dict = {kw.person_name: bob_personunit.to_dict().get(kw.person_name)}
+    # print(f"{bob_personunit_dict=}")
+    bob_insert_planatom.set_jkey(kw.person_name, exx.bob)
+    bob_insert_planatom.set_jvalue(cw_str, bob_personunit.to_dict().get(cw_str))
+    bob_insert_planatom.set_jvalue(dw_str, bob_personunit.to_dict().get(dw_str))
     assert bob_insert_planatom.is_valid()
 
     # WHEN / THEN
-    assert bob_insert_planatom.get_value(cw_str) == bob_voice_cred_lumen
-    assert bob_insert_planatom.get_value(dw_str) == bob_voice_debt_lumen
+    assert bob_insert_planatom.get_value(cw_str) == bob_person_cred_lumen
+    assert bob_insert_planatom.get_value(dw_str) == bob_person_debt_lumen
 
 
-def test_PlanAtom_is_valid_ReturnsBoolean_VoiceUnit_DELETE():
+def test_PlanAtom_is_valid_ReturnsBoolean_PersonUnit_DELETE():
     # ESTABLISH
-    voiceunit_str = kw.plan_voiceunit
+    personunit_str = kw.plan_personunit
     delete_str = kw.DELETE
 
     # WHEN
-    bob_delete_planatom = planatom_shop(voiceunit_str, crud_str=delete_str)
+    bob_delete_planatom = planatom_shop(personunit_str, crud_str=delete_str)
 
     # THEN
     assert bob_delete_planatom.is_jkeys_valid() is False
     assert bob_delete_planatom.is_valid() is False
 
     # WHEN
-    bob_delete_planatom.set_jkey(kw.voice_name, exx.bob)
+    bob_delete_planatom.set_jkey(kw.person_name, exx.bob)
 
     # THEN
     assert bob_delete_planatom.is_jkeys_valid()
@@ -222,48 +228,48 @@ def test_PlanAtom_is_valid_ReturnsBoolean_planunit():
 
 def test_PlanAtom_set_atom_order_SetsAttr():
     # ESTABLISH
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    voiceunit_str = kw.plan_voiceunit
-    bob_insert_planatom = planatom_shop(voiceunit_str, kw.INSERT)
-    cw_str = kw.voice_cred_lumen
-    dw_str = kw.voice_debt_lumen
-    bob_insert_planatom.set_jkey(kw.voice_name, exx.bob)
-    bob_insert_planatom.set_jvalue(cw_str, bob_voice_cred_lumen)
-    bob_insert_planatom.set_jvalue(dw_str, bob_voice_debt_lumen)
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    personunit_str = kw.plan_personunit
+    bob_insert_planatom = planatom_shop(personunit_str, kw.INSERT)
+    cw_str = kw.person_cred_lumen
+    dw_str = kw.person_debt_lumen
+    bob_insert_planatom.set_jkey(kw.person_name, exx.bob)
+    bob_insert_planatom.set_jvalue(cw_str, bob_person_cred_lumen)
+    bob_insert_planatom.set_jvalue(dw_str, bob_person_debt_lumen)
     assert bob_insert_planatom.is_valid()
 
     # WHEN / THEN
-    assert bob_insert_planatom.get_value(cw_str) == bob_voice_cred_lumen
-    assert bob_insert_planatom.get_value(dw_str) == bob_voice_debt_lumen
+    assert bob_insert_planatom.get_value(cw_str) == bob_person_cred_lumen
+    assert bob_insert_planatom.get_value(dw_str) == bob_person_debt_lumen
 
 
 def test_PlanAtom_set_arg_SetsAny_jkey_jvalue():
     # ESTABLISH
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    voiceunit_str = kw.plan_voiceunit
-    bob_insert_planatom = planatom_shop(voiceunit_str, kw.INSERT)
-    cw_str = kw.voice_cred_lumen
-    dw_str = kw.voice_debt_lumen
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    personunit_str = kw.plan_personunit
+    bob_insert_planatom = planatom_shop(personunit_str, kw.INSERT)
+    cw_str = kw.person_cred_lumen
+    dw_str = kw.person_debt_lumen
 
     # WHEN
-    bob_insert_planatom.set_arg(kw.voice_name, exx.bob)
-    bob_insert_planatom.set_arg(cw_str, bob_voice_cred_lumen)
-    bob_insert_planatom.set_arg(dw_str, bob_voice_debt_lumen)
+    bob_insert_planatom.set_arg(kw.person_name, exx.bob)
+    bob_insert_planatom.set_arg(cw_str, bob_person_cred_lumen)
+    bob_insert_planatom.set_arg(dw_str, bob_person_debt_lumen)
 
     # THEN
-    assert bob_insert_planatom.get_value(kw.voice_name) == exx.bob
-    assert bob_insert_planatom.get_value(cw_str) == bob_voice_cred_lumen
-    assert bob_insert_planatom.get_value(dw_str) == bob_voice_debt_lumen
-    assert bob_insert_planatom.get_value(kw.voice_name) == exx.bob
+    assert bob_insert_planatom.get_value(kw.person_name) == exx.bob
+    assert bob_insert_planatom.get_value(cw_str) == bob_person_cred_lumen
+    assert bob_insert_planatom.get_value(dw_str) == bob_person_debt_lumen
+    assert bob_insert_planatom.get_value(kw.person_name) == exx.bob
     assert bob_insert_planatom.is_valid()
 
 
-def test_PlanAtom_get_nesting_order_args_ReturnsObj_plan_voiceunit():
+def test_PlanAtom_get_nesting_order_args_ReturnsObj_plan_personunit():
     # ESTABLISH
-    sue_insert_planatom = planatom_shop(kw.plan_voiceunit, kw.INSERT)
-    sue_insert_planatom.set_arg(kw.voice_name, exx.sue)
+    sue_insert_planatom = planatom_shop(kw.plan_personunit, kw.INSERT)
+    sue_insert_planatom.set_arg(kw.person_name, exx.sue)
     print(f"{sue_insert_planatom.jkeys=}")
 
     # WHEN / THEN
@@ -271,12 +277,12 @@ def test_PlanAtom_get_nesting_order_args_ReturnsObj_plan_voiceunit():
     assert sue_insert_planatom.get_nesting_order_args() == ordered_jkeys
 
 
-def test_PlanAtom_get_nesting_order_args_ReturnsObj_plan_voice_membership():
+def test_PlanAtom_get_nesting_order_args_ReturnsObj_plan_person_membership():
     # ESTABLISH
     iowa_str = ";Iowa"
-    sue_insert_planatom = planatom_shop(kw.plan_voice_membership, kw.INSERT)
+    sue_insert_planatom = planatom_shop(kw.plan_person_membership, kw.INSERT)
     sue_insert_planatom.set_arg(kw.group_title, iowa_str)
-    sue_insert_planatom.set_arg(kw.voice_name, exx.sue)
+    sue_insert_planatom.set_arg(kw.person_name, exx.sue)
     print(f"{sue_insert_planatom.jkeys=}")
 
     # WHEN / THEN

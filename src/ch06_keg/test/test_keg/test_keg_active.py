@@ -1,5 +1,5 @@
-from src.ch03_voice.group import awardheir_shop, awardunit_shop
-from src.ch03_voice.labor import laborheir_shop, laborunit_shop
+from src.ch03_person.group import awardheir_shop, awardunit_shop
+from src.ch03_person.labor import laborheir_shop, laborunit_shop
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import (
     caseunit_shop,
@@ -12,19 +12,19 @@ from src.ch06_keg.keg import kegunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_KegUnit_clear_all_voice_cred_debt_ClearsAttrs():
+def test_KegUnit_clear_all_person_cred_debt_ClearsAttrs():
     # ESTABLISH
     ball_str = "ball"
-    ball_keg = kegunit_shop(ball_str, all_voice_cred=55, all_voice_debt=33)
-    assert ball_keg.all_voice_cred == 55
-    assert ball_keg.all_voice_debt == 33
+    ball_keg = kegunit_shop(ball_str, all_person_cred=55, all_person_debt=33)
+    assert ball_keg.all_person_cred == 55
+    assert ball_keg.all_person_debt == 33
 
     # WHEN
-    ball_keg.clear_all_voice_cred_debt()
+    ball_keg.clear_all_person_cred_debt()
 
     # THEN
-    assert ball_keg.all_voice_cred is None
-    assert ball_keg.all_voice_debt is None
+    assert ball_keg.all_person_cred is None
+    assert ball_keg.all_person_debt is None
 
 
 def test_KegUnit_set_fund_attr_ReturnsObj():

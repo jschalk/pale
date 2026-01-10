@@ -134,10 +134,10 @@ def test_RiverCylce_create_cylceledger_ReturnsObjTwoRiverBooks():
     assert one_cylceledger == {exx.yao: yao_mana, exx.bob: bob_mana}
 
 
-def test_create_init_rivercycle_ReturnsObj_Scenario1_voiceunit():
+def test_create_init_rivercycle_ReturnsObj_Scenario1_personunit():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_voiceunit(exx.yao)
+    yao_plan.add_personunit(exx.yao)
     yao_patientledger = get_patientledger(yao_plan)
     keep_patientledgers = {exx.yao: yao_patientledger}
     keep_magnitude = 1200
@@ -156,13 +156,13 @@ def test_create_init_rivercycle_ReturnsObj_Scenario1_voiceunit():
 
 def test_create_init_rivercycle_ReturnsObj_Scenario2_magnitude_Default():
     # ESTABLISH
-    yao_voice_cred_lumen = 7
-    bob_voice_cred_lumen = 3
-    zia_voice_cred_lumen = 10
+    yao_person_cred_lumen = 7
+    bob_person_cred_lumen = 3
+    zia_person_cred_lumen = 10
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen)
-    yao_plan.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen)
+    yao_plan.add_personunit(exx.yao, yao_person_cred_lumen)
+    yao_plan.add_personunit(exx.bob, bob_person_cred_lumen)
+    yao_plan.add_personunit(exx.zia, zia_person_cred_lumen)
     yao_patientledger = get_patientledger(yao_plan)
     keep_patientledgers = {exx.yao: yao_patientledger}
     print(f"{keep_patientledgers=}")
@@ -181,15 +181,15 @@ def test_create_init_rivercycle_ReturnsObj_Scenario2_magnitude_Default():
     assert yao_riverbook.rivercares.get(exx.zia) == 500000000
 
 
-def test_create_init_rivercycle_ReturnsObj_Scenario3_voiceunit():
+def test_create_init_rivercycle_ReturnsObj_Scenario3_personunit():
     # ESTABLISH
-    yao_voice_cred_lumen = 7
-    bob_voice_cred_lumen = 3
-    zia_voice_cred_lumen = 10
+    yao_person_cred_lumen = 7
+    bob_person_cred_lumen = 3
+    zia_person_cred_lumen = 10
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen)
-    yao_plan.add_voiceunit(exx.bob, bob_voice_cred_lumen)
-    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen)
+    yao_plan.add_personunit(exx.yao, yao_person_cred_lumen)
+    yao_plan.add_personunit(exx.bob, bob_person_cred_lumen)
+    yao_plan.add_personunit(exx.zia, zia_person_cred_lumen)
     yao_patientledger = get_patientledger(yao_plan)
     keep_patientledgers = {exx.yao: yao_patientledger}
     print(f"{keep_patientledgers=}")
@@ -210,7 +210,7 @@ def test_create_init_rivercycle_ReturnsObj_Scenario3_voiceunit():
     assert yao_riverbook.rivercares.get(exx.zia) == 501
 
 
-def test_create_next_rivercycle_ReturnsObj_ScenarioThree_voiceunit():
+def test_create_next_rivercycle_ReturnsObj_ScenarioThree_personunit():
     # ESTABLISH
     yao_patientledger = example_yao_patientledger()
     bob_patientledger = example_bob_patientledger()

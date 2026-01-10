@@ -11,17 +11,17 @@ def test_AtomRow_Exists():
     # THEN
     assert x_atomrow._atom_dimens is None
     assert x_atomrow._crud_command is None
-    assert x_atomrow.voice_name is None
+    assert x_atomrow.person_name is None
     assert x_atomrow.addin is None
     assert x_atomrow.reason_context is None
     assert x_atomrow.active_requisite is None
     assert x_atomrow.begin is None
     assert x_atomrow.respect_grain is None
     assert x_atomrow.close is None
-    assert x_atomrow.voice_cred_lumen is None
+    assert x_atomrow.person_cred_lumen is None
     assert x_atomrow.group_cred_lumen is None
     assert x_atomrow.credor_respect is None
-    assert x_atomrow.voice_debt_lumen is None
+    assert x_atomrow.person_debt_lumen is None
     assert x_atomrow.group_debt_lumen is None
     assert x_atomrow.debtor_respect is None
     assert x_atomrow.denom is None
@@ -63,7 +63,7 @@ def test_AtomRow_Exists():
 
 def test_atomrow_shop_ReturnsObj():
     # ESTABLISH
-    x_atom_dimens = {kw.plan_voiceunit}
+    x_atom_dimens = {kw.plan_personunit}
 
     # WHEN
     x_atomrow = atomrow_shop(x_atom_dimens, kw.INSERT)
@@ -75,44 +75,44 @@ def test_atomrow_shop_ReturnsObj():
 
 def test_AtomRow_set_atom_dimen_SetsAttr():
     # ESTABLISH
-    x_atomrow = atomrow_shop({kw.plan_voiceunit}, kw.INSERT)
-    assert kw.plan_voice_membership not in x_atomrow._atom_dimens
+    x_atomrow = atomrow_shop({kw.plan_personunit}, kw.INSERT)
+    assert kw.plan_person_membership not in x_atomrow._atom_dimens
 
     # WHEN
-    x_atomrow.set_atom_dimen(kw.plan_voice_membership)
+    x_atomrow.set_atom_dimen(kw.plan_person_membership)
 
     # THEN
-    assert kw.plan_voice_membership in x_atomrow._atom_dimens
+    assert kw.plan_person_membership in x_atomrow._atom_dimens
 
 
 def test_AtomRow_atom_dimen_exists_ReturnsObj():
     # ESTABLISH
     x_atomrow = atomrow_shop(set(), kw.INSERT)
-    assert not x_atomrow.atom_dimen_exists(kw.plan_voiceunit)
-    assert not x_atomrow.atom_dimen_exists(kw.plan_voice_membership)
+    assert not x_atomrow.atom_dimen_exists(kw.plan_personunit)
+    assert not x_atomrow.atom_dimen_exists(kw.plan_person_membership)
 
     # WHEN
-    x_atomrow.set_atom_dimen(kw.plan_voice_membership)
+    x_atomrow.set_atom_dimen(kw.plan_person_membership)
 
     # THEN
-    assert not x_atomrow.atom_dimen_exists(kw.plan_voiceunit)
-    assert x_atomrow.atom_dimen_exists(kw.plan_voice_membership)
+    assert not x_atomrow.atom_dimen_exists(kw.plan_personunit)
+    assert x_atomrow.atom_dimen_exists(kw.plan_person_membership)
 
 
 def test_AtomRow_delete_atom_dimen_SetsAttr():
     # ESTABLISH
-    x_atomrow = atomrow_shop({kw.plan_voiceunit}, kw.INSERT)
-    x_atomrow.set_atom_dimen(kw.plan_voiceunit)
-    x_atomrow.set_atom_dimen(kw.plan_voice_membership)
-    assert x_atomrow.atom_dimen_exists(kw.plan_voiceunit)
-    assert x_atomrow.atom_dimen_exists(kw.plan_voice_membership)
+    x_atomrow = atomrow_shop({kw.plan_personunit}, kw.INSERT)
+    x_atomrow.set_atom_dimen(kw.plan_personunit)
+    x_atomrow.set_atom_dimen(kw.plan_person_membership)
+    assert x_atomrow.atom_dimen_exists(kw.plan_personunit)
+    assert x_atomrow.atom_dimen_exists(kw.plan_person_membership)
 
     # WHEN
-    x_atomrow.delete_atom_dimen(kw.plan_voice_membership)
+    x_atomrow.delete_atom_dimen(kw.plan_person_membership)
 
     # THEN
-    assert x_atomrow.atom_dimen_exists(kw.plan_voiceunit)
-    assert not x_atomrow.atom_dimen_exists(kw.plan_voice_membership)
+    assert x_atomrow.atom_dimen_exists(kw.plan_personunit)
+    assert not x_atomrow.atom_dimen_exists(kw.plan_person_membership)
 
 
 def test_AtomRow_set_class_types_SetsAttr():
@@ -140,11 +140,11 @@ def test_AtomRow_set_class_types_SetsAttr():
     assert x_atomrow.morph == x_morph_bool
 
 
-def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_str_INSERT_Scenario0():
+def test_AtomRow_get_planatoms_ReturnsObj_plan_personunit_str_INSERT_Scenario0():
     # ESTABLISH
-    x_dimen = kw.plan_voiceunit
+    x_dimen = kw.plan_personunit
     x_atomrow = atomrow_shop({x_dimen}, kw.INSERT)
-    x_atomrow.voice_name = "Bob"
+    x_atomrow.person_name = "Bob"
 
     # WHEN
     x_planatoms = x_atomrow.get_planatoms()
@@ -152,16 +152,16 @@ def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_str_INSERT_Scenario0():
     # THEN
     assert len(x_planatoms) == 1
     static_atom = planatom_shop(x_dimen, kw.INSERT)
-    static_atom.set_arg(kw.voice_name, "Bob")
+    static_atom.set_arg(kw.person_name, "Bob")
     assert x_planatoms[0] == static_atom
 
 
-def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_str_INSERT_Scenario1():
+def test_AtomRow_get_planatoms_ReturnsObj_plan_personunit_str_INSERT_Scenario1():
     # ESTABLISH
-    x_dimen = kw.plan_voiceunit
+    x_dimen = kw.plan_personunit
     x_atomrow = atomrow_shop({x_dimen}, kw.INSERT)
-    x_atomrow.voice_name = "Bob"
-    x_atomrow.voice_cred_lumen = 5
+    x_atomrow.person_name = "Bob"
+    x_atomrow.person_cred_lumen = 5
 
     # WHEN
     x_planatoms = x_atomrow.get_planatoms()
@@ -169,14 +169,14 @@ def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_str_INSERT_Scenario1():
     # THEN
     assert len(x_planatoms) == 1
     static_atom = planatom_shop(x_dimen, kw.INSERT)
-    static_atom.set_arg(kw.voice_name, "Bob")
-    static_atom.set_arg("voice_cred_lumen", 5)
+    static_atom.set_arg(kw.person_name, "Bob")
+    static_atom.set_arg("person_cred_lumen", 5)
     assert x_planatoms[0] == static_atom
 
 
-def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_NSERT_Fails():
+def test_AtomRow_get_planatoms_ReturnsObj_plan_personunit_NSERT_Fails():
     # ESTABLISH
-    x_dimen = kw.plan_voiceunit
+    x_dimen = kw.plan_personunit
     x_atomrow = atomrow_shop({x_dimen}, kw.INSERT)
 
     # WHEN
@@ -186,13 +186,13 @@ def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_NSERT_Fails():
     assert len(x_planatoms) == 0
 
 
-def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_INSERT_Scenario2():
+def test_AtomRow_get_planatoms_ReturnsObj_plan_personunit_INSERT_Scenario2():
     # ESTABLISH
-    x_dimen = kw.plan_voiceunit
+    x_dimen = kw.plan_personunit
     x_atomrow = atomrow_shop({x_dimen}, kw.INSERT)
-    x_atomrow.voice_name = "Bob"
+    x_atomrow.person_name = "Bob"
     four_str = "4"
-    x_atomrow.voice_cred_lumen = four_str
+    x_atomrow.person_cred_lumen = four_str
 
     # WHEN
     x_planatoms = x_atomrow.get_planatoms()
@@ -200,26 +200,26 @@ def test_AtomRow_get_planatoms_ReturnsObj_plan_voiceunit_INSERT_Scenario2():
     # THEN
     assert len(x_planatoms) == 1
     static_atom = planatom_shop(x_dimen, kw.INSERT)
-    static_atom.set_arg(kw.voice_name, "Bob")
+    static_atom.set_arg(kw.person_name, "Bob")
     four_int = 4
-    static_atom.set_arg("voice_cred_lumen", four_int)
+    static_atom.set_arg("person_cred_lumen", four_int)
     assert x_planatoms[0] == static_atom
 
 
 def test_AtomRow_get_planatoms_ReturnsObjIfDimenIsCorrect():
     # ESTABLISH
     x_atomrow = atomrow_shop(set(), kw.INSERT)
-    x_atomrow.voice_name = "Bob"
+    x_atomrow.person_name = "Bob"
     four_str = "4"
-    x_atomrow.voice_cred_lumen = four_str
+    x_atomrow.person_cred_lumen = four_str
     assert len(x_atomrow.get_planatoms()) == 0
 
     # WHEN / THEN
-    x_atomrow.set_atom_dimen(kw.plan_voice_membership)
+    x_atomrow.set_atom_dimen(kw.plan_person_membership)
     assert len(x_atomrow.get_planatoms()) == 0
 
     # THEN
-    x_atomrow.set_atom_dimen(kw.plan_voiceunit)
+    x_atomrow.set_atom_dimen(kw.plan_personunit)
     assert len(x_atomrow.get_planatoms()) == 1
 
 

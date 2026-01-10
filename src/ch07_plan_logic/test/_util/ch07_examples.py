@@ -1,6 +1,6 @@
 from enum import Enum
 from src.ch01_py.file_toolbox import open_json
-from src.ch03_voice.labor import laborunit_shop
+from src.ch03_person.labor import laborunit_shop
 from src.ch04_rope.rope import RopeTerm
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch06_keg.keg import kegunit_shop
@@ -336,8 +336,8 @@ def get_mop_with_reason_planunit_example1():
 def get_planunit_laundry_example1() -> PlanUnit:
     yao_plan = planunit_shop(exx.yao)
     cali_str = "Cali"
-    yao_plan.add_voiceunit(exx.yao)
-    yao_plan.add_voiceunit(cali_str)
+    yao_plan.add_personunit(exx.yao)
+    yao_plan.add_personunit(cali_str)
 
     basket_str = "laundry basket situation"
     b_full_str = "full"

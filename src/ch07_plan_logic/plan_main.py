@@ -12,9 +12,13 @@ from src.ch02_allot.allot import (
     valid_allotment_ratio,
     validate_pool_num,
 )
-from src.ch03_voice.group import AwardUnit, GroupUnit, groupunit_shop, membership_shop
-from src.ch03_voice.labor import LaborUnit
-from src.ch03_voice.voice import VoiceUnit, voiceunit_shop, voiceunits_get_from_dict
+from src.ch03_person.group import AwardUnit, GroupUnit, groupunit_shop, membership_shop
+from src.ch03_person.labor import LaborUnit
+from src.ch03_person.person import (
+    PersonUnit,
+    personunit_shop,
+    personunits_get_from_dict,
+)
 from src.ch04_rope.rope import (
     all_ropes_between,
     create_rope,
@@ -51,12 +55,12 @@ from src.ch07_plan_logic._ref.ch07_semantic_types import (
     LabelTerm,
     ManaGrain,
     MomentLabel,
+    PersonName,
     PlanName,
     ReasonNum,
     RespectGrain,
     RespectNum,
     RopeTerm,
-    VoiceName,
 )
 from src.ch07_plan_logic.plan_config import max_tree_traverse_default
 from src.ch07_plan_logic.tree_metric import TreeMetrics, treemetrics_shop
@@ -78,11 +82,11 @@ class reason_caseException(Exception):
     pass
 
 
-class VoiceUnitsCredorDebtorSumException(Exception):
+class PersonUnitsCredorDebtorSumException(Exception):
     pass
 
 
-class VoiceMissingException(Exception):
+class PersonMissingException(Exception):
     pass
 
 
@@ -116,7 +120,7 @@ class PlanUnit:
     respect_grain: RespectGrain = None
     mana_grain: ManaGrain = None
     tally: float = None
-    voices: dict[VoiceName, VoiceUnit] = None
+    persons: dict[PersonName, PersonUnit] = None
     kegroot: KegUnit = None
     credor_respect: RespectNum = None
     debtor_respect: RespectNum = None
@@ -153,10 +157,10 @@ class PlanUnit:
 
         self.fund_pool = validate_pool_num(x_fund_pool)
 
-    def set_voice_respect(self, x_voice_pool: int):
-        self.set_credor_respect(x_voice_pool)
-        self.set_debtor_respect(x_voice_pool)
-        self.set_fund_pool(x_voice_pool)
+    def set_person_respect(self, x_person_pool: int):
+        self.set_credor_respect(x_person_pool)
+        self.set_debtor_respect(x_person_pool)
+        self.set_fund_pool(x_person_pool)
 
     def set_credor_respect(self, new_credor_respect: int):
         if valid_allotment_ratio(new_credor_respect, self.respect_grain) is False:
@@ -293,81 +297,83 @@ class PlanUnit:
             x_groupunit.fund_agenda_give += awardline_fund_give
             x_groupunit.fund_agenda_take += awardline_fund_take
 
-    def add_to_voiceunit_fund_give_take(
+    def add_to_personunit_fund_give_take(
         self,
-        voiceunit_voice_name: VoiceName,
+        personunit_person_name: PersonName,
         fund_give,
         fund_take: float,
         fund_agenda_give: float,
         fund_agenda_take: float,
     ):
-        x_voiceunit = self.get_voice(voiceunit_voice_name)
-        x_voiceunit.add_voice_fund_give_take(
+        x_personunit = self.get_person(personunit_person_name)
+        x_personunit.add_person_fund_give_take(
             fund_give=fund_give,
             fund_take=fund_take,
             fund_agenda_give=fund_agenda_give,
             fund_agenda_take=fund_agenda_take,
         )
 
-    def del_voiceunit(self, voice_name: str):
-        self.voices.pop(voice_name)
+    def del_personunit(self, person_name: str):
+        self.persons.pop(person_name)
 
-    def add_voiceunit(
+    def add_personunit(
         self,
-        voice_name: VoiceName,
-        voice_cred_lumen: int = None,
-        voice_debt_lumen: int = None,
+        person_name: PersonName,
+        person_cred_lumen: int = None,
+        person_debt_lumen: int = None,
     ):
         x_knot = self.knot
-        voiceunit = voiceunit_shop(
-            voice_name, voice_cred_lumen, voice_debt_lumen, x_knot
+        personunit = personunit_shop(
+            person_name, person_cred_lumen, person_debt_lumen, x_knot
         )
-        self.set_voiceunit(voiceunit)
+        self.set_personunit(personunit)
 
-    def set_voiceunit(self, x_voiceunit: VoiceUnit, auto_set_membership: bool = True):
-        if x_voiceunit.groupmark != self.knot:
-            x_voiceunit.groupmark = self.knot
-        if x_voiceunit.respect_grain != self.respect_grain:
-            x_voiceunit.respect_grain = self.respect_grain
-        if auto_set_membership and x_voiceunit.memberships_exist() is False:
-            x_voiceunit.add_membership(x_voiceunit.voice_name)
-        self.voices[x_voiceunit.voice_name] = x_voiceunit
-
-    def voice_exists(self, voice_name: VoiceName) -> bool:
-        return self.get_voice(voice_name) is not None
-
-    def edit_voiceunit(
-        self,
-        voice_name: VoiceName,
-        voice_cred_lumen: int = None,
-        voice_debt_lumen: int = None,
+    def set_personunit(
+        self, x_personunit: PersonUnit, auto_set_membership: bool = True
     ):
-        if self.voices.get(voice_name) is None:
-            raise VoiceMissingException(f"VoiceUnit '{voice_name}' does not exist.")
-        x_voiceunit = self.get_voice(voice_name)
-        if voice_cred_lumen is not None:
-            x_voiceunit.set_voice_cred_lumen(voice_cred_lumen)
-        if voice_debt_lumen is not None:
-            x_voiceunit.set_voice_debt_lumen(voice_debt_lumen)
-        self.set_voiceunit(x_voiceunit)
+        if x_personunit.groupmark != self.knot:
+            x_personunit.groupmark = self.knot
+        if x_personunit.respect_grain != self.respect_grain:
+            x_personunit.respect_grain = self.respect_grain
+        if auto_set_membership and x_personunit.memberships_exist() is False:
+            x_personunit.add_membership(x_personunit.person_name)
+        self.persons[x_personunit.person_name] = x_personunit
 
-    def clear_voiceunits_memberships(self):
-        for x_voiceunit in self.voices.values():
-            x_voiceunit.clear_memberships()
+    def person_exists(self, person_name: PersonName) -> bool:
+        return self.get_person(person_name) is not None
 
-    def get_voice(self, voice_name: VoiceName) -> VoiceUnit:
-        return self.voices.get(voice_name)
+    def edit_personunit(
+        self,
+        person_name: PersonName,
+        person_cred_lumen: int = None,
+        person_debt_lumen: int = None,
+    ):
+        if self.persons.get(person_name) is None:
+            raise PersonMissingException(f"PersonUnit '{person_name}' does not exist.")
+        x_personunit = self.get_person(person_name)
+        if person_cred_lumen is not None:
+            x_personunit.set_person_cred_lumen(person_cred_lumen)
+        if person_debt_lumen is not None:
+            x_personunit.set_person_debt_lumen(person_debt_lumen)
+        self.set_personunit(x_personunit)
 
-    def get_voiceunit_group_titles_dict(self) -> dict[GroupTitle, set[VoiceName]]:
+    def clear_personunits_memberships(self):
+        for x_personunit in self.persons.values():
+            x_personunit.clear_memberships()
+
+    def get_person(self, person_name: PersonName) -> PersonUnit:
+        return self.persons.get(person_name)
+
+    def get_personunit_group_titles_dict(self) -> dict[GroupTitle, set[PersonName]]:
         x_dict = {}
-        for x_voiceunit in self.voices.values():
-            for x_group_title in x_voiceunit.memberships.keys():
-                voice_name_set = x_dict.get(x_group_title)
-                if voice_name_set is None:
-                    x_dict[x_group_title] = {x_voiceunit.voice_name}
+        for x_personunit in self.persons.values():
+            for x_group_title in x_personunit.memberships.keys():
+                person_name_set = x_dict.get(x_group_title)
+                if person_name_set is None:
+                    x_dict[x_group_title] = {x_personunit.person_name}
                 else:
-                    voice_name_set.add(x_voiceunit.voice_name)
-                    x_dict[x_group_title] = voice_name_set
+                    person_name_set.add(x_personunit.person_name)
+                    x_dict[x_group_title] = person_name_set
         return x_dict
 
     def set_groupunit(self, x_groupunit: GroupUnit):
@@ -382,20 +388,20 @@ class PlanUnit:
 
     def create_symmetry_groupunit(self, x_group_title: GroupTitle) -> GroupUnit:
         x_groupunit = groupunit_shop(x_group_title)
-        for x_voiceunit in self.voices.values():
+        for x_personunit in self.persons.values():
             x_membership = membership_shop(
                 group_title=x_group_title,
-                group_cred_lumen=x_voiceunit.voice_cred_lumen,
-                group_debt_lumen=x_voiceunit.voice_debt_lumen,
-                voice_name=x_voiceunit.voice_name,
+                group_cred_lumen=x_personunit.person_cred_lumen,
+                group_debt_lumen=x_personunit.person_debt_lumen,
+                person_name=x_personunit.person_name,
             )
             x_groupunit.set_g_membership(x_membership)
         return x_groupunit
 
     def get_tree_traverse_generated_groupunits(self) -> set[GroupTitle]:
-        x_voiceunit_group_titles = set(self.get_voiceunit_group_titles_dict().keys())
+        x_personunit_group_titles = set(self.get_personunit_group_titles_dict().keys())
         all_group_titles = set(self.groupunits.keys())
-        return all_group_titles.difference(x_voiceunit_group_titles)
+        return all_group_titles.difference(x_personunit_group_titles)
 
     def _is_keg_rangeroot(self, keg_rope: RopeTerm) -> bool:
         parent_rope = get_parent_rope(keg_rope)
@@ -633,7 +639,7 @@ class PlanUnit:
         awardunits_to_delete = [
             awardunit_awardee_title
             for awardunit_awardee_title in x_keg.awardunits.keys()
-            if self.get_voiceunit_group_titles_dict().get(awardunit_awardee_title)
+            if self.get_personunit_group_titles_dict().get(awardunit_awardee_title)
             is None
         ]
         for awardunit_awardee_title in awardunits_to_delete:
@@ -642,7 +648,7 @@ class PlanUnit:
             partys_to_delete = [
                 _partyunit_party_title
                 for _partyunit_party_title in x_keg.laborunit.partys
-                if self.get_voiceunit_group_titles_dict().get(_partyunit_party_title)
+                if self.get_personunit_group_titles_dict().get(_partyunit_party_title)
                 is None
             ]
             for _partyunit_party_title in partys_to_delete:
@@ -789,7 +795,7 @@ class PlanUnit:
     ):
         if healerunit is not None:
             for x_healer_name in healerunit._healer_names:
-                if self.get_voiceunit_group_titles_dict().get(x_healer_name) is None:
+                if self.get_personunit_group_titles_dict().get(x_healer_name) is None:
                     exception_str = f"Keg cannot edit healerunit because group_title '{x_healer_name}' does not exist as group in Plan"
                     raise healerunit_group_title_Exception(exception_str)
 
@@ -862,25 +868,25 @@ reason_case:    {reason_case}"""
     ) -> tuple[dict[str, float], dict[str, float]]:
         credit_ledger = {}
         debt_ledger = {}
-        for x_voiceunit in self.voices.values():
-            credit_ledger[x_voiceunit.voice_name] = x_voiceunit.voice_cred_lumen
-            debt_ledger[x_voiceunit.voice_name] = x_voiceunit.voice_debt_lumen
+        for x_personunit in self.persons.values():
+            credit_ledger[x_personunit.person_name] = x_personunit.person_cred_lumen
+            debt_ledger[x_personunit.person_name] = x_personunit.person_debt_lumen
         return credit_ledger, debt_ledger
 
     def _allot_offtrack_fund(self):
-        self._add_to_voiceunits_fund_give_take(self.offtrack_fund)
+        self._add_to_personunits_fund_give_take(self.offtrack_fund)
 
-    def get_voiceunits_voice_cred_lumen_sum(self) -> float:
+    def get_personunits_person_cred_lumen_sum(self) -> float:
         return sum(
-            voiceunit.get_voice_cred_lumen() for voiceunit in self.voices.values()
+            personunit.get_person_cred_lumen() for personunit in self.persons.values()
         )
 
-    def get_voiceunits_voice_debt_lumen_sum(self) -> float:
+    def get_personunits_person_debt_lumen_sum(self) -> float:
         return sum(
-            voiceunit.get_voice_debt_lumen() for voiceunit in self.voices.values()
+            personunit.get_person_debt_lumen() for personunit in self.persons.values()
         )
 
-    def _add_to_voiceunits_fund_give_take(self, keg_keg_fund_total: float):
+    def _add_to_personunits_fund_give_take(self, keg_keg_fund_total: float):
         credor_ledger, debtor_ledger = self.get_credit_ledger_debt_ledger()
         fund_give_allot = allot_scale(
             credor_ledger, keg_keg_fund_total, self.fund_grain
@@ -888,18 +894,18 @@ reason_case:    {reason_case}"""
         fund_take_allot = allot_scale(
             debtor_ledger, keg_keg_fund_total, self.fund_grain
         )
-        for x_voice_name, voice_fund_give in fund_give_allot.items():
-            self.get_voice(x_voice_name).add_fund_give(voice_fund_give)
+        for x_person_name, person_fund_give in fund_give_allot.items():
+            self.get_person(x_person_name).add_fund_give(person_fund_give)
             # if there is no differentiated agenda (what factunits exist do not change agenda)
             if not self.reason_contexts:
-                self.get_voice(x_voice_name).add_fund_agenda_give(voice_fund_give)
-        for x_voice_name, voice_fund_take in fund_take_allot.items():
-            self.get_voice(x_voice_name).add_fund_take(voice_fund_take)
+                self.get_person(x_person_name).add_fund_agenda_give(person_fund_give)
+        for x_person_name, person_fund_take in fund_take_allot.items():
+            self.get_person(x_person_name).add_fund_take(person_fund_take)
             # if there is no differentiated agenda (what factunits exist do not change agenda)
             if not self.reason_contexts:
-                self.get_voice(x_voice_name).add_fund_agenda_take(voice_fund_take)
+                self.get_person(x_person_name).add_fund_agenda_take(person_fund_take)
 
-    def _add_to_voiceunits_fund_agenda_give_take(self, keg_keg_fund_total: float):
+    def _add_to_personunits_fund_agenda_give_take(self, keg_keg_fund_total: float):
         credor_ledger, debtor_ledger = self.get_credit_ledger_debt_ledger()
         fund_give_allot = allot_scale(
             credor_ledger, keg_keg_fund_total, self.fund_grain
@@ -907,10 +913,10 @@ reason_case:    {reason_case}"""
         fund_take_allot = allot_scale(
             debtor_ledger, keg_keg_fund_total, self.fund_grain
         )
-        for x_voice_name, voice_fund_give in fund_give_allot.items():
-            self.get_voice(x_voice_name).add_fund_agenda_give(voice_fund_give)
-        for x_voice_name, voice_fund_take in fund_take_allot.items():
-            self.get_voice(x_voice_name).add_fund_agenda_take(voice_fund_take)
+        for x_person_name, person_fund_give in fund_give_allot.items():
+            self.get_person(x_person_name).add_fund_agenda_give(person_fund_give)
+        for x_person_name, person_fund_take in fund_take_allot.items():
+            self.get_person(x_person_name).add_fund_agenda_take(person_fund_take)
 
     def _reset_groupunits_fund_give_take(self):
         for groupunit_obj in self.groupunits.values():
@@ -930,7 +936,7 @@ reason_case:    {reason_case}"""
     def _allot_fund_plan_agenda(self):
         for keg in self._keg_dict.values():
             # If there are no awardlines associated with keg
-            # allot keg_fund_total via general voiceunit
+            # allot keg_fund_total via general personunit
             # cred ratio and debt ratio
             # if keg.is_agenda_keg() and keg.awardlines == {}:
             if keg.is_agenda_keg():
@@ -942,7 +948,7 @@ reason_case:    {reason_case}"""
                             awardline_fund_take=x_awardline.fund_take,
                         )
                 else:
-                    self._add_to_voiceunits_fund_agenda_give_take(
+                    self._add_to_personunits_fund_agenda_give_take(
                         keg.get_keg_fund_total()
                     )
 
@@ -950,34 +956,38 @@ reason_case:    {reason_case}"""
         for x_groupunit in self.groupunits.values():
             x_groupunit._set_membership_fund_give_fund_take()
             for x_membership in x_groupunit.memberships.values():
-                self.add_to_voiceunit_fund_give_take(
-                    voiceunit_voice_name=x_membership.voice_name,
+                self.add_to_personunit_fund_give_take(
+                    personunit_person_name=x_membership.person_name,
                     fund_give=x_membership.fund_give,
                     fund_take=x_membership.fund_take,
                     fund_agenda_give=x_membership.fund_agenda_give,
                     fund_agenda_take=x_membership.fund_agenda_take,
                 )
 
-    def _set_voiceunits_fund_agenda_ratios(self):
+    def _set_personunits_fund_agenda_ratios(self):
         fund_agenda_ratio_give_sum = sum(
-            x_voiceunit.fund_agenda_give for x_voiceunit in self.voices.values()
+            x_personunit.fund_agenda_give for x_personunit in self.persons.values()
         )
         fund_agenda_ratio_take_sum = sum(
-            x_voiceunit.fund_agenda_take for x_voiceunit in self.voices.values()
+            x_personunit.fund_agenda_take for x_personunit in self.persons.values()
         )
-        x_voiceunits_voice_cred_lumen_sum = self.get_voiceunits_voice_cred_lumen_sum()
-        x_voiceunits_voice_debt_lumen_sum = self.get_voiceunits_voice_debt_lumen_sum()
-        for x_voiceunit in self.voices.values():
-            x_voiceunit.set_fund_agenda_ratio_give_take(
+        x_personunits_person_cred_lumen_sum = (
+            self.get_personunits_person_cred_lumen_sum()
+        )
+        x_personunits_person_debt_lumen_sum = (
+            self.get_personunits_person_debt_lumen_sum()
+        )
+        for x_personunit in self.persons.values():
+            x_personunit.set_fund_agenda_ratio_give_take(
                 fund_agenda_ratio_give_sum=fund_agenda_ratio_give_sum,
                 fund_agenda_ratio_take_sum=fund_agenda_ratio_take_sum,
-                voiceunits_voice_cred_lumen_sum=x_voiceunits_voice_cred_lumen_sum,
-                voiceunits_voice_debt_lumen_sum=x_voiceunits_voice_debt_lumen_sum,
+                personunits_person_cred_lumen_sum=x_personunits_person_cred_lumen_sum,
+                personunits_person_debt_lumen_sum=x_personunits_person_debt_lumen_sum,
             )
 
-    def _reset_voiceunit_fund_give_take(self):
-        for voiceunit in self.voices.values():
-            voiceunit.clear_fund_give_take()
+    def _reset_personunit_fund_give_take(self):
+        for personunit in self.persons.values():
+            personunit.clear_fund_give_take()
 
     def keg_exists(self, rope: RopeTerm) -> bool:
         if rope in {"", None}:
@@ -1080,7 +1090,7 @@ reason_case:    {reason_case}"""
             ):
                 self.offtrack_kids_star_set.add(x_keg.get_keg_rope())
 
-    def _set_groupunit_voiceunit_funds(self, keep_exceptions):
+    def _set_groupunit_personunit_funds(self, keep_exceptions):
         for x_keg in self._keg_dict.values():
             x_keg.set_awardheirs_fund_give_fund_take()
             if x_keg.is_kidless():
@@ -1114,19 +1124,19 @@ reason_case:    {reason_case}"""
 
             if (
                 group_everyone != False
-                and x_keg_obj.all_voice_cred != False
-                and x_keg_obj.all_voice_debt != False
+                and x_keg_obj.all_person_cred != False
+                and x_keg_obj.all_person_debt != False
                 and x_keg_obj.awardheirs != {}
             ) or (
                 group_everyone != False
-                and x_keg_obj.all_voice_cred is False
-                and x_keg_obj.all_voice_debt is False
+                and x_keg_obj.all_person_cred is False
+                and x_keg_obj.all_person_debt is False
             ):
                 group_everyone = False
             elif group_everyone != False:
                 group_everyone = True
-            x_keg_obj.all_voice_cred = group_everyone
-            x_keg_obj.all_voice_debt = group_everyone
+            x_keg_obj.all_person_cred = group_everyone
+            x_keg_obj.all_person_debt = group_everyone
 
             if x_keg_obj.healerunit.any_healer_name_exists():
                 keep_justified_by_problem = False
@@ -1145,7 +1155,7 @@ reason_case:    {reason_case}"""
         for x_keg in self._keg_dict.values():
             x_keg.clear_awardlines()
             x_keg.clear_descendant_pledge_count()
-            x_keg.clear_all_voice_cred_debt()
+            x_keg.clear_all_person_cred_debt()
 
     def _set_kids_keg_active(self, x_keg: KegUnit, parent_keg: KegUnit):
         x_keg.set_reasonheirs(self._keg_dict, parent_keg.reasonheirs)
@@ -1157,21 +1167,23 @@ reason_case:    {reason_case}"""
         if keg.awardheir_exists():
             self._set_groupunits_keg_fund_total(keg.awardheirs)
         elif keg.awardheir_exists() is False:
-            self._add_to_voiceunits_fund_give_take(keg.get_keg_fund_total())
+            self._add_to_personunits_fund_give_take(keg.get_keg_fund_total())
 
     def _create_groupunits_metrics(self):
         self.groupunits = {}
         for (
             group_title,
-            voice_name_set,
-        ) in self.get_voiceunit_group_titles_dict().items():
+            person_name_set,
+        ) in self.get_personunit_group_titles_dict().items():
             x_groupunit = groupunit_shop(group_title)
-            for x_voice_name in voice_name_set:
-                x_membership = self.get_voice(x_voice_name).get_membership(group_title)
+            for x_person_name in person_name_set:
+                x_membership = self.get_person(x_person_name).get_membership(
+                    group_title
+                )
                 x_groupunit.set_g_membership(x_membership)
                 self.set_groupunit(x_groupunit)
 
-    def _set_voiceunit_groupunit_respect_ledgers(self):
+    def _set_personunit_groupunit_respect_ledgers(self):
         self.credor_respect = RespectNum(validate_pool_num(self.credor_respect))
         self.debtor_respect = RespectNum(validate_pool_num(self.debtor_respect))
         credor_ledger, debtor_ledger = self.get_credit_ledger_debt_ledger()
@@ -1181,12 +1193,12 @@ reason_case:    {reason_case}"""
         debtor_allot = allot_scale(
             debtor_ledger, self.debtor_respect, self.respect_grain
         )
-        for x_voice_name, voice_credor_pool in credor_allot.items():
-            self.get_voice(x_voice_name).set_credor_pool(voice_credor_pool)
-        for x_voice_name, voice_debtor_pool in debtor_allot.items():
-            self.get_voice(x_voice_name).set_debtor_pool(voice_debtor_pool)
+        for x_person_name, person_credor_pool in credor_allot.items():
+            self.get_person(x_person_name).set_credor_pool(person_credor_pool)
+        for x_person_name, person_debtor_pool in debtor_allot.items():
+            self.get_person(x_person_name).set_debtor_pool(person_debtor_pool)
         self._create_groupunits_metrics()
-        self._reset_voiceunit_fund_give_take()
+        self._reset_personunit_fund_give_take()
 
     def _clear_keg_dict_and_plan_obj_settle_attrs(self):
         self._keg_dict = {self.kegroot.get_keg_rope(): self.kegroot}
@@ -1219,8 +1231,8 @@ reason_case:    {reason_case}"""
         self._clear_keg_dict_and_plan_obj_settle_attrs()
         self._set_keg_dict()
         self._set_kegtree_range_attrs()
-        self._set_voiceunit_groupunit_respect_ledgers()
-        self._clear_voiceunit_fund_attrs()
+        self._set_personunit_groupunit_respect_ledgers()
+        self._clear_personunit_fund_attrs()
         self._clear_kegtree_fund_and_keg_active()
         self._set_kegtree_factheirs_laborheir_awardheirs()
 
@@ -1231,8 +1243,8 @@ reason_case:    {reason_case}"""
             self.tree_traverse_count += 1
 
         self._set_kegtree_fund_attrs(self.kegroot)
-        self._set_groupunit_voiceunit_funds(keep_exceptions)
-        self._set_voiceunit_fund_related_attrs()
+        self._set_groupunit_personunit_funds(keep_exceptions)
+        self._set_personunit_fund_related_attrs()
         self._set_plan_keep_attrs()
 
     def _set_kegtree_keg_active(self):
@@ -1282,12 +1294,12 @@ reason_case:    {reason_case}"""
         if any_keg_active_has_altered is False:
             self.rational = True
 
-    def _set_voiceunit_fund_related_attrs(self):
+    def _set_personunit_fund_related_attrs(self):
         self.set_offtrack_fund()
         self._allot_offtrack_fund()
         self._allot_fund_plan_agenda()
         self._allot_groupunits_fund()
-        self._set_voiceunits_fund_agenda_ratios()
+        self._set_personunits_fund_agenda_ratios()
 
     def _set_plan_keep_attrs(self):
         self._set_keep_dict()
@@ -1311,11 +1323,11 @@ reason_case:    {reason_case}"""
         for x_keep_rope, x_keep_keg in self._keep_dict.items():
             for x_healer_name in x_keep_keg.healerunit._healer_names:
                 x_groupunit = self.get_groupunit(x_healer_name)
-                for x_voice_name in x_groupunit.memberships.keys():
-                    if _healers_dict.get(x_voice_name) is None:
-                        _healers_dict[x_voice_name] = {x_keep_rope: x_keep_keg}
+                for x_person_name in x_groupunit.memberships.keys():
+                    if _healers_dict.get(x_person_name) is None:
+                        _healers_dict[x_person_name] = {x_keep_rope: x_keep_keg}
                     else:
-                        healer_dict = _healers_dict.get(x_voice_name)
+                        healer_dict = _healers_dict.get(x_person_name)
                         healer_dict[x_keep_rope] = x_keep_keg
         return _healers_dict
 
@@ -1325,9 +1337,9 @@ reason_case:    {reason_case}"""
             for keep_rope in self._keep_dict.keys()
         )
 
-    def _clear_voiceunit_fund_attrs(self):
+    def _clear_personunit_fund_attrs(self):
         self._reset_groupunits_fund_give_take()
-        self._reset_voiceunit_fund_give_take()
+        self._reset_personunit_fund_give_take()
 
     def get_keg_tree_ordered_rope_list(
         self, no_range_descendants: bool = False
@@ -1366,11 +1378,11 @@ reason_case:    {reason_case}"""
                 x_dict[fact_rope] = fact_obj.to_dict()
         return x_dict
 
-    def get_voiceunits_dict(self, all_attrs: bool = False) -> dict[str, str]:
+    def get_personunits_dict(self, all_attrs: bool = False) -> dict[str, str]:
         x_dict = {}
-        if self.voices is not None:
-            for voice_name, voice_obj in self.voices.items():
-                x_dict[voice_name] = voice_obj.to_dict(all_attrs)
+        if self.persons is not None:
+            for person_name, person_obj in self.persons.items():
+                x_dict[person_name] = person_obj.to_dict(all_attrs)
         return x_dict
 
     def to_dict(self) -> dict[str, str]:
@@ -1386,7 +1398,7 @@ reason_case:    {reason_case}"""
             "kegroot": self.kegroot.to_dict(),
             "respect_grain": self.respect_grain,
             "tally": self.tally,
-            "voices": self.get_voiceunits_dict(),
+            "persons": self.get_personunits_dict(),
         }
         if self.credor_respect is not None:
             x_dict["credor_respect"] = self.credor_respect
@@ -1429,7 +1441,7 @@ def planunit_shop(
         plan_name=plan_name,
         tally=get_1_if_None(tally),
         moment_label=root_keg_label,
-        voices=get_empty_dict_if_None(),
+        persons=get_empty_dict_if_None(),
         groupunits={},
         knot=default_knot_if_None(knot),
         credor_respect=RespectNum(validate_pool_num()),
@@ -1483,9 +1495,9 @@ def get_planunit_from_dict(plan_dict: dict) -> PlanUnit:
     x_plan.debtor_respect = obj_from_plan_dict(plan_dict, "debtor_respect")
     x_plan.last_lesson_id = obj_from_plan_dict(plan_dict, "last_lesson_id")
     x_knot = x_plan.knot
-    x_voices = obj_from_plan_dict(plan_dict, "voices", x_knot).values()
-    for x_voiceunit in x_voices:
-        x_plan.set_voiceunit(x_voiceunit)
+    x_persons = obj_from_plan_dict(plan_dict, "persons", x_knot).values()
+    for x_personunit in x_persons:
+        x_plan.set_personunit(x_personunit)
     create_kegroot_from_plan_dict(x_plan, plan_dict)
     return x_plan
 
@@ -1560,8 +1572,8 @@ def create_kegroot_kids_from_dict(x_plan: PlanUnit, kegroot_dict: dict):
 def obj_from_plan_dict(
     x_dict: dict[str, dict], dict_key: str, _knot: KnotTerm = None
 ) -> any:
-    if dict_key == "voices":
-        return voiceunits_get_from_dict(x_dict[dict_key], _knot)
+    if dict_key == "persons":
+        return personunits_get_from_dict(x_dict[dict_key], _knot)
     elif dict_key == "_max_tree_traverse":
         return (
             x_dict[dict_key]

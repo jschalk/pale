@@ -37,7 +37,7 @@
       "plan_name" : { "class_type": "NameTerm"  }, 
       "moment_label": { "class_type": "LabelTerm" }, 
       "tran_time"   : { "class_type": "EpochTime" }, 
-      "voice_name"  : { "class_type": "NameTerm"  }
+      "person_name"  : { "class_type": "NameTerm"  }
     }, 
     "jvalues": { "amount": {"class_type": "float"} }, 
     "moment_static": "True"

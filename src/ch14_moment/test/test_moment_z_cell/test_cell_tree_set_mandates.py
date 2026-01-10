@@ -2,7 +2,7 @@ from os.path import exists as os_path_exists
 from src.ch01_py.file_toolbox import open_json
 from src.ch11_bud._ref.ch11_path import (
     create_cell_dir_path as cell_dir,
-    create_cell_voice_mandate_ledger_path as mandate_path,
+    create_cell_person_mandate_ledger_path as mandate_path,
 )
 from src.ch11_bud.bud_filehandler import cellunit_save_to_dir
 from src.ch11_bud.cell_main import cellunit_shop
@@ -114,7 +114,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_sue_ancs = [exx.sue]
 #     e7 = 7
 #     bob_planadjust = get_bob_mop_without_reason_planunit_example()
-#     bob_planadjust.add_voiceunit(exx.sue, 1)
+#     bob_planadjust.add_personunit(exx.sue, 1)
 #     bob_sue_planadjust = planunit_shop(exx.sue, exx.a23)
 #     # create cell file
 #     bob_cell = cellunit_shop(
@@ -151,7 +151,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_sue_ancs = [exx.sue]
 #     e7 = 7
 #     bob_planadjust = get_bob_mop_with_reason_planunit_example()
-#     bob_planadjust.add_voiceunit(exx.sue, 1)
+#     bob_planadjust.add_personunit(exx.sue, 1)
 #     bob_sue_planadjust = get_bob_mop_with_reason_planunit_example()
 #     bob_sue_planadjust.set_plan_name(exx.sue)
 #     # create cell file
@@ -200,13 +200,13 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_planadjust = get_bob_mop_with_reason_planunit_example()
-#     bob_planadjust.add_voiceunit(exx.sue, 1)
+#     bob_planadjust.add_personunit(exx.sue, 1)
 #     b_sue_ba = get_bob_mop_with_reason_planunit_example()
 #     b_sue_ba.set_plan_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
+#     b_sue_ba.add_personunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
 #     bs_yao_ba.set_plan_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
 #     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
 #     bsy_zia_ba.set_plan_name(exx.zia)
 #     # create cell file
@@ -263,13 +263,13 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_planadjust = get_bob_mop_with_reason_planunit_example()
-#     bob_planadjust.add_voiceunit(exx.sue, 1)
+#     bob_planadjust.add_personunit(exx.sue, 1)
 #     b_sue_ba = get_bob_mop_with_reason_planunit_example()
 #     b_sue_ba.set_plan_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
+#     b_sue_ba.add_personunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
 #     bs_yao_ba.set_plan_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
 #     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
 #     bsy_zia_ba.set_plan_name(exx.zia)
 #     # create cell file
@@ -326,13 +326,13 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_planadjust = get_bob_mop_with_reason_planunit_example()
-#     bob_planadjust.add_voiceunit(exx.sue, 1)
+#     bob_planadjust.add_personunit(exx.sue, 1)
 #     b_sue_ba = planunit_shop(exx.sue, exx.a23)
 #     b_sue_ba.set_plan_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
+#     b_sue_ba.add_personunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
 #     bs_yao_ba.set_plan_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
 #     clean_fact = example_casa_clean_factunit()
 #     bs_yao_ba.add_fact(clean_fact.fact_context, clean_fact.fact_state)
 #     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
@@ -393,13 +393,13 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
 #     bob_planadjust = get_bob_mop_with_reason_planunit_example()
-#     bob_planadjust.add_voiceunit(exx.sue, 1)
+#     bob_planadjust.add_personunit(exx.sue, 1)
 #     b_sue_ba = get_bob_mop_with_reason_planunit_example()
 #     b_sue_ba.set_plan_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
+#     b_sue_ba.add_personunit(exx.yao, 1)
 #     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
 #     bs_yao_ba.set_plan_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
 #     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
 #     bsy_zia_ba.set_plan_name(exx.zia)
 #     # create cell file

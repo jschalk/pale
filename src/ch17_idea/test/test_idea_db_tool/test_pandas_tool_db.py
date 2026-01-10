@@ -30,7 +30,7 @@ def setup_database_and_csv() -> tuple[sqlite3_Connection, str, str]:  # type: ig
     #         spark_num INTEGER,
     #         moment_label TEXT,
     #         plan_name TEXT,
-    #         voice_name TEXT,
+    #         person_name TEXT,
     #         group_title TEXT,
     #         gogo_want REAL
     #     )
@@ -41,7 +41,7 @@ def setup_database_and_csv() -> tuple[sqlite3_Connection, str, str]:  # type: ig
     # Create a test CSV file
     with open(test_csv_filepath, "w", newline="", encoding="utf-8") as csv_file:
         csv_file.write(
-            f"{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.voice_name},{kw.group_title},{kw.gogo_want}\n"
+            f"{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.group_title},{kw.gogo_want}\n"
         )
         csv_file.write("3,Sue,Amy43,Bob,Bob,;runners,6.5\n")
         csv_file.write("3,Sue,Amy43,Yao,Bob,;runners,7.5\n")
@@ -83,7 +83,7 @@ def test_create_idea_table_from_csv_ChangesDBState(
         (1, kw.face_name, "TEXT", 0, None, 0),
         (2, kw.moment_label, "TEXT", 0, None, 0),
         (3, kw.plan_name, "TEXT", 0, None, 0),
-        (4, kw.voice_name, "TEXT", 0, None, 0),
+        (4, kw.person_name, "TEXT", 0, None, 0),
         (5, kw.group_title, "TEXT", 0, None, 0),
         (6, kw.gogo_want, "REAL", 0, None, 0),
     ]
@@ -94,7 +94,7 @@ def test_create_idea_table_from_csv_ChangesDBState(
         (1, kw.face_name, column_types.get(kw.face_name), 0, None, 0),
         (2, kw.moment_label, column_types.get(kw.moment_label), 0, None, 0),
         (3, kw.plan_name, column_types.get(kw.plan_name), 0, None, 0),
-        (4, kw.voice_name, column_types.get(kw.voice_name), 0, None, 0),
+        (4, kw.person_name, column_types.get(kw.person_name), 0, None, 0),
         (5, kw.group_title, column_types.get(kw.group_title), 0, None, 0),
         (6, kw.gogo_want, column_types.get(kw.gogo_want), 0, None, 0),
     ]
@@ -136,7 +136,7 @@ def test_insert_idea_csv_ChangesDBState_Inserts(
     zia_csv_filepath = "zia_brXXXXX.csv"
     with open(zia_csv_filepath, "w", newline="", encoding="utf-8") as csv_file:
         csv_file.write(
-            f"{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.voice_name},{kw.group_title},{kw.gogo_want}\n"
+            f"{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.group_title},{kw.gogo_want}\n"
         )
         csv_file.write("7,Zia,Amy55,Yao,Zia,;swimmers,10.2\n")
         csv_file.write("8,Zia,Amy43,Zia,Bob,;runners,11.1\n")
@@ -180,7 +180,7 @@ def test_insert_idea_csv_ChangesDBState_CanCreateTable(
     zia_csv_filepath = "zia_brXXXXX.csv"
     with open(zia_csv_filepath, "w", newline="", encoding="utf-8") as csv_file:
         csv_file.write(
-            f"{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.voice_name},{kw.group_title},{kw.gogo_want}\n"
+            f"{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.group_title},{kw.gogo_want}\n"
         )
         csv_file.write("7,Zia,Amy55,Yao,Zia,;swimmers,10.2\n")
         csv_file.write("8,Zia,Amy43,Zia,Bob,;runners,11.1\n")

@@ -20,19 +20,19 @@ class PlanTable(Base):
     tally = Column(Integer)
 
 
-class VoiceUnitTable(Base):
-    __tablename__ = "voiceunit"
+class PersonUnitTable(Base):
+    __tablename__ = "personunit"
     uid = Column(Integer, primary_key=True)
-    voice_name = Column(String)
-    voice_cred_lumen = Column(Float)
-    voice_debt_lumen = Column(Float)
+    person_name = Column(String)
+    person_cred_lumen = Column(Float)
+    person_debt_lumen = Column(Float)
 
 
 class MemberShipTable(Base):
     __tablename__ = "membership"
     uid = Column(Integer, primary_key=True)
     group_title = Column(String)
-    voice_name = Column(String)
+    person_name = Column(String)
     group_cred_lumen = Column(Float)
     group_debt_lumen = Column(Float)
 

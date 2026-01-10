@@ -17,9 +17,9 @@ from src.ch12_keep._ref.ch12_semantic_types import (
     LabelTerm,
     ManaGrain,
     ManaNum,
+    PersonName,
     PlanName,
     RopeTerm,
-    VoiceName,
     default_knot_if_None,
 )
 from src.ch12_keep.rivercycle import (
@@ -40,12 +40,12 @@ class RiverRun:
     keep_point_magnitude: ManaNum = None
     mana_grain: ManaGrain = None
     number: int = None
-    keep_patientledgers: dict[PlanName : dict[VoiceName, float]] = None
-    need_dues: dict[VoiceName, float] = None
+    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None
+    need_dues: dict[PersonName, float] = None
     cycle_max: int = None
     # calculated fields
-    cares: dict[VoiceName, float] = None
-    need_yields: dict[VoiceName, float] = None
+    cares: dict[PersonName, float] = None
+    need_yields: dict[PersonName, float] = None
     need_got_prev: float = None
     need_got_curr: float = None
     cycle_count: int = None
@@ -53,7 +53,7 @@ class RiverRun:
     cycle_carees_curr: set = None
     doctor_count: int = None
     patient_count: int = None
-    rivergrades: dict[VoiceName, RiverGrade] = None
+    rivergrades: dict[PersonName, RiverGrade] = None
 
     def set_cycle_max(self, x_cycle_max: int):
         self.cycle_max = get_positive_int(x_cycle_max)
@@ -61,33 +61,33 @@ class RiverRun:
     def set_keep_patientledger(
         self,
         plan_name: PlanName,
-        voice_name: VoiceName,
+        person_name: PersonName,
         mana_ledger: float,
     ):
         set_in_nested_dict(
             x_dict=self.keep_patientledgers,
-            x_keylist=[plan_name, voice_name],
+            x_keylist=[plan_name, person_name],
             x_obj=mana_ledger,
         )
 
     def delete_keep_patientledgers_plan(self, plan_name: PlanName):
         self.keep_patientledgers.pop(plan_name)
 
-    def get_all_keep_patientledger_voice_names(self):
+    def get_all_keep_patientledger_person_names(self):
         x_set = set()
         for plan_name, plan_dict in self.keep_patientledgers.items():
             if plan_name not in x_set:
                 x_set.add(plan_name)
-            for voice_name in plan_dict.keys():
-                if voice_name not in x_set:
-                    x_set.add(voice_name)
+            for person_name in plan_dict.keys():
+                if person_name not in x_set:
+                    x_set.add(person_name)
         return x_set
 
-    def levy_need_dues(self, cycleledger: tuple[dict[VoiceName, float], float]):
+    def levy_need_dues(self, cycleledger: tuple[dict[PersonName, float], float]):
         delete_from_cycleledger = []
         need_got_total = 0
         for caree, caree_amount in cycleledger.items():
-            if self.voice_has_need_due(caree):
+            if self.person_has_need_due(caree):
                 excess_carer_points, need_got = self.levy_need_due(caree, caree_amount)
                 need_got_total += need_got
                 if excess_carer_points == 0:
@@ -99,45 +99,45 @@ class RiverRun:
             cycleledger.pop(caree_to_delete)
         return cycleledger, need_got_total
 
-    def set_voice_need_due(self, x_voice_name: VoiceName, need_due: float):
-        self.need_dues[x_voice_name] = need_due
+    def set_person_need_due(self, x_person_name: PersonName, need_due: float):
+        self.need_dues[x_person_name] = need_due
 
     def need_dues_unpaid(self) -> bool:
         return len(self.need_dues) != 0
 
-    def set_need_dues(self, doctorledger: dict[VoiceName, float]):
+    def set_need_dues(self, doctorledger: dict[PersonName, float]):
         x_amount = self.keep_point_magnitude
         self.need_dues = allot_scale(doctorledger, x_amount, self.mana_grain)
 
-    def voice_has_need_due(self, x_voice_name: VoiceName) -> bool:
-        return self.need_dues.get(x_voice_name) is not None
+    def person_has_need_due(self, x_person_name: PersonName) -> bool:
+        return self.need_dues.get(x_person_name) is not None
 
-    def get_voice_need_due(self, x_voice_name: VoiceName) -> float:
-        x_need_due = self.need_dues.get(x_voice_name)
+    def get_person_need_due(self, x_person_name: PersonName) -> float:
+        x_need_due = self.need_dues.get(x_person_name)
         return 0 if x_need_due is None else x_need_due
 
-    def delete_need_due(self, x_voice_name: VoiceName):
-        self.need_dues.pop(x_voice_name)
+    def delete_need_due(self, x_person_name: PersonName):
+        self.need_dues.pop(x_person_name)
 
-    def levy_need_due(self, x_voice_name: VoiceName, carer_points: float) -> float:
-        if self.voice_has_need_due(x_voice_name) is False:
+    def levy_need_due(self, x_person_name: PersonName, carer_points: float) -> float:
+        if self.person_has_need_due(x_person_name) is False:
             return carer_points, 0
-        x_need_due = self.get_voice_need_due(x_voice_name)
+        x_need_due = self.get_person_need_due(x_person_name)
         if x_need_due > carer_points:
             left_over_care = x_need_due - carer_points
-            self.set_voice_need_due(x_voice_name, left_over_care)
-            self.add_voice_need_yield(x_voice_name, carer_points)
+            self.set_person_need_due(x_person_name, left_over_care)
+            self.add_person_need_yield(x_person_name, carer_points)
             return 0, carer_points
         else:
-            self.delete_need_due(x_voice_name)
-            self.add_voice_need_yield(x_voice_name, x_need_due)
+            self.delete_need_due(x_person_name)
+            self.add_person_need_yield(x_person_name, x_need_due)
             return carer_points - x_need_due, x_need_due
 
-    def get_ledger_dict(self) -> dict[VoiceName, float]:
+    def get_ledger_dict(self) -> dict[PersonName, float]:
         return self.need_dues
 
-    def set_voice_need_yield(self, x_voice_name: VoiceName, need_yield: float):
-        self.need_yields[x_voice_name] = need_yield
+    def set_person_need_yield(self, x_person_name: PersonName, need_yield: float):
+        self.need_yields[x_person_name] = need_yield
 
     def need_yields_is_empty(self) -> bool:
         return len(self.need_yields) == 0
@@ -145,58 +145,58 @@ class RiverRun:
     def reset_need_yields(self):
         self.need_yields = {}
 
-    def voice_has_need_yield(self, x_voice_name: VoiceName) -> bool:
-        return self.need_yields.get(x_voice_name) is not None
+    def person_has_need_yield(self, x_person_name: PersonName) -> bool:
+        return self.need_yields.get(x_person_name) is not None
 
-    def get_voice_need_yield(self, x_voice_name: VoiceName) -> float:
-        x_need_yield = self.need_yields.get(x_voice_name)
+    def get_person_need_yield(self, x_person_name: PersonName) -> float:
+        x_need_yield = self.need_yields.get(x_person_name)
         return 0 if x_need_yield is None else x_need_yield
 
-    def delete_need_yield(self, x_voice_name: VoiceName):
-        self.need_yields.pop(x_voice_name)
+    def delete_need_yield(self, x_person_name: PersonName):
+        self.need_yields.pop(x_person_name)
 
-    def add_voice_need_yield(self, x_voice_name: VoiceName, x_need_yield: float):
-        if self.voice_has_need_yield(x_voice_name):
-            x_need_yield = self.get_voice_need_yield(x_voice_name) + x_need_yield
-        self.set_voice_need_yield(x_voice_name, x_need_yield)
+    def add_person_need_yield(self, x_person_name: PersonName, x_need_yield: float):
+        if self.person_has_need_yield(x_person_name):
+            x_need_yield = self.get_person_need_yield(x_person_name) + x_need_yield
+        self.set_person_need_yield(x_person_name, x_need_yield)
 
-    def get_rivergrade(self, voice_name: VoiceName) -> RiverGrade:
-        return self.rivergrades.get(voice_name)
+    def get_rivergrade(self, person_name: PersonName) -> RiverGrade:
+        return self.rivergrades.get(person_name)
 
     def rivergrades_is_empty(self) -> bool:
         return self.rivergrades == {}
 
-    def rivergrade_exists(self, voice_name: VoiceName) -> bool:
-        return self.rivergrades.get(voice_name) is not None
+    def rivergrade_exists(self, person_name: PersonName) -> bool:
+        return self.rivergrades.get(person_name) is not None
 
-    def _get_voice_care(self, voice_name: VoiceName) -> float:
-        return get_0_if_None(self.cares.get(voice_name))
+    def _get_person_care(self, person_name: PersonName) -> float:
+        return get_0_if_None(self.cares.get(person_name))
 
-    def set_initial_rivergrade(self, voice_name: VoiceName):
+    def set_initial_rivergrade(self, person_name: PersonName):
         x_rivergrade = rivergrade_shop(
             self.moment_label,
             self.plan_name,
             self.keep_rope,
-            voice_name,
+            person_name,
             self.number,
         )
         x_rivergrade.doctor_count = self.doctor_count
         x_rivergrade.patient_count = self.patient_count
-        x_rivergrade.care_amount = self._get_voice_care(voice_name)
-        self.rivergrades[voice_name] = x_rivergrade
+        x_rivergrade.care_amount = self._get_person_care(person_name)
+        self.rivergrades[person_name] = x_rivergrade
 
     def set_all_initial_rivergrades(self):
         self.rivergrades = {}
-        all_voice_names = self.get_all_keep_patientledger_voice_names()
-        for voice_name in all_voice_names:
-            self.set_initial_rivergrade(voice_name)
+        all_person_names = self.get_all_keep_patientledger_person_names()
+        for person_name in all_person_names:
+            self.set_initial_rivergrade(person_name)
 
     def _set_post_loop_rivergrade_attrs(self):
-        for x_voice_name, voice_rivergrade in self.rivergrades.items():
-            need_due_leftover = self.get_voice_need_due(x_voice_name)
-            need_due_paid = self.get_voice_need_yield(x_voice_name)
-            voice_rivergrade.set_need_bill_amount(need_due_paid + need_due_leftover)
-            voice_rivergrade.set_need_paid_amount(need_due_paid)
+        for x_person_name, person_rivergrade in self.rivergrades.items():
+            need_due_leftover = self.get_person_need_due(x_person_name)
+            need_due_paid = self.get_person_need_yield(x_person_name)
+            person_rivergrade.set_need_bill_amount(need_due_paid + need_due_leftover)
+            person_rivergrade.set_need_paid_amount(need_due_paid)
 
     def calc_metrics(self):
         self._set_doctor_count_patient_count()
@@ -222,9 +222,9 @@ class RiverRun:
         self._set_post_loop_rivergrade_attrs()
 
     def _set_doctor_count_patient_count(self):
-        need_dues_voices = set(self.need_dues.keys())
-        need_yields_voices = set(self.need_yields.keys())
-        self.doctor_count = len(need_dues_voices.union(need_yields_voices))
+        need_dues_persons = set(self.need_dues.keys())
+        need_yields_persons = set(self.need_yields.keys())
+        self.doctor_count = len(need_dues_persons.union(need_yields_persons))
         self.patient_count = len(self.keep_patientledgers.get(self.plan_name))
 
     def _set_cares(self):
@@ -235,21 +235,21 @@ class RiverRun:
             grain_unit=self.mana_grain,
         )
 
-    def _save_rivergrade_file(self, voice_name: VoiceName):
-        rivergrade = self.get_rivergrade(voice_name)
+    def _save_rivergrade_file(self, person_name: PersonName):
+        rivergrade = self.get_rivergrade(person_name)
         grade_path = create_keep_grade_path(
             moment_mstr_dir=self.moment_mstr_dir,
             plan_name=self.plan_name,
             moment_label=self.moment_label,
             keep_rope=self.keep_rope,
             knot=self.knot,
-            grade_plan_name=voice_name,
+            grade_plan_name=person_name,
         )
         save_json(grade_path, None, rivergrade.to_dict())
 
     def save_rivergrade_files(self):
-        for rivergrade_voice in self.rivergrades.keys():
-            self._save_rivergrade_file(rivergrade_voice)
+        for rivergrade_person in self.rivergrades.keys():
+            self._save_rivergrade_file(rivergrade_person)
 
     def _cycle_carees_vary(self) -> bool:
         return self.cycle_carees_prev != self.cycle_carees_curr
@@ -274,8 +274,8 @@ def riverrun_shop(
     keep_point_magnitude: ManaNum = None,
     mana_grain: ManaGrain = None,
     number: int = None,
-    keep_patientledgers: dict[PlanName : dict[VoiceName, float]] = None,
-    need_dues: dict[VoiceName, float] = None,
+    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None,
+    need_dues: dict[PersonName, float] = None,
     cycle_max: int = None,
 ):
     x_riverun = RiverRun(

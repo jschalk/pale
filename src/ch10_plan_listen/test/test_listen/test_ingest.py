@@ -1,34 +1,34 @@
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch10_plan_listen.listen_main import (
-    _allocate_irrational_voice_debt_lumen,
+    _allocate_irrational_person_debt_lumen,
     generate_ingest_list,
     generate_perspective_agenda,
 )
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_allocate_irrational_voice_debt_lumen_SetsPlanAttr():
+def test_allocate_irrational_person_debt_lumen_SetsPlanAttr():
     # ESTABLISH
-    zia_voice_cred_lumen = 47
-    zia_voice_debt_lumen = 41
+    zia_person_cred_lumen = 47
+    zia_person_debt_lumen = 41
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    zia_voiceunit = yao_plan.get_voice(exx.zia)
-    assert zia_voiceunit.irrational_voice_debt_lumen == 0
+    yao_plan.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    zia_personunit = yao_plan.get_person(exx.zia)
+    assert zia_personunit.irrational_person_debt_lumen == 0
 
     # WHEN
-    _allocate_irrational_voice_debt_lumen(yao_plan, exx.zia)
+    _allocate_irrational_person_debt_lumen(yao_plan, exx.zia)
 
     # THEN
-    assert zia_voiceunit.irrational_voice_debt_lumen == zia_voice_debt_lumen
+    assert zia_personunit.irrational_person_debt_lumen == zia_person_debt_lumen
 
 
 def test_generate_perspective_agenda_GrabsAgendatasks():
     # ESTABLISH
     yao_speaker = planunit_shop(exx.yao)
-    yao_speaker.add_voiceunit(exx.yao)
-    yao_speaker.set_voice_respect(20)
+    yao_speaker.add_personunit(exx.yao)
+    yao_speaker.set_person_respect(20)
     casa_rope = yao_speaker.make_l1_rope(exx.casa)
     situation_str = "situation"
     situation_rope = yao_speaker.make_rope(casa_rope, situation_str)

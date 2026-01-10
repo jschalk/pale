@@ -3,7 +3,7 @@ from src.ch07_plan_logic.plan_graphic import (
     display_kegtree,
     fund_graph0,
     get_plan_agenda_plotly_fig,
-    get_plan_voices_plotly_fig,
+    get_plan_persons_plotly_fig,
 )
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch07_plan_logic.test._util.ch07_examples import (
@@ -48,20 +48,20 @@ def test_display_kegtree_Scenario1_shows_tasks(graphics_bool):
     display_kegtree(a_plan, mode=kw.task, graphics_bool=graphics_bool)
 
 
-def test_get_plan_voices_plotly_fig_DisplaysInfo(graphics_bool):
+def test_get_plan_persons_plotly_fig_DisplaysInfo(graphics_bool):
     # ESTABLISH
     luca_plan = planunit_shop()
     luca_plan.set_credor_respect(500)
     luca_plan.set_debtor_respect(400)
-    yao_voice_cred_lumen = 66
-    yao_voice_debt_lumen = 77
-    luca_plan.add_voiceunit(exx.yao, yao_voice_cred_lumen, yao_voice_debt_lumen)
-    sue_voice_cred_lumen = 434
-    sue_voice_debt_lumen = 323
-    luca_plan.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    yao_person_cred_lumen = 66
+    yao_person_debt_lumen = 77
+    luca_plan.add_personunit(exx.yao, yao_person_cred_lumen, yao_person_debt_lumen)
+    sue_person_cred_lumen = 434
+    sue_person_debt_lumen = 323
+    luca_plan.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
 
     # WHEN
-    x_fig = get_plan_voices_plotly_fig(luca_plan)
+    x_fig = get_plan_persons_plotly_fig(luca_plan)
 
     # THEN
     conditional_fig_show(x_fig, graphics_bool)

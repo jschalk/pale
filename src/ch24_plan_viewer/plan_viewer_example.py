@@ -1,5 +1,5 @@
-from src.ch03_voice.group import awardunit_shop
-from src.ch03_voice.labor import laborunit_shop
+from src.ch03_person.group import awardunit_shop
+from src.ch03_person.labor import laborunit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch07_plan_logic.plan_tool import plan_keg_reason_caseunit_set_obj
 from src.ch07_plan_logic.test._util.ch07_examples import get_planunit_irrational_example
@@ -51,15 +51,15 @@ def get_sue_planunit() -> PlanUnit:
     sue_debt_lumen = 13
     bob_cred_lumen = 23
     bob_debt_lumen = 29
-    sue_plan.add_voiceunit(sue2_str(), sue_cred_lumen, sue_debt_lumen)
-    sue_plan.add_voiceunit(bob2_str(), bob_cred_lumen, bob_debt_lumen)
-    sue_voice = sue_plan.get_voice(sue2_str())
+    sue_plan.add_personunit(sue2_str(), sue_cred_lumen, sue_debt_lumen)
+    sue_plan.add_personunit(bob2_str(), bob_cred_lumen, bob_debt_lumen)
+    sue_person = sue_plan.get_person(sue2_str())
     swim_str = ";swimmers"
     team_str = ";Team Administrator"
-    sue_voice.add_membership(swim_str, 77, 51)
-    bob_voice = sue_plan.get_voice(bob2_str())
-    bob_voice.add_membership(swim_str, 12, 37)
-    bob_voice.add_membership(team_str, 51, 91)
+    sue_person.add_membership(swim_str, 77, 51)
+    bob_person = sue_plan.get_person(bob2_str())
+    bob_person.add_membership(swim_str, 12, 37)
+    bob_person.add_membership(team_str, 51, 91)
 
     casa_rope = sue_plan.make_l1_rope("casa")
     clean_rope = sue_plan.make_rope(casa_rope, "clean")

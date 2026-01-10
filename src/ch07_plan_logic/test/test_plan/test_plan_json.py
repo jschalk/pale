@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch03_voice.labor import laborunit_shop, partyunit_shop
+from src.ch03_person.labor import laborunit_shop, partyunit_shop
 from src.ch04_rope.rope import default_knot_if_None
 from src.ch05_reason.reason_main import factunit_shop
 from src.ch06_keg.healer import healerunit_shop
@@ -46,8 +46,8 @@ def test_PlanUnit_to_dict_ReturnsObj_Scenario0():
     assert plan_dict[kw.credor_respect] == yao_plan.credor_respect
     assert plan_dict[kw.debtor_respect] == yao_plan.debtor_respect
     assert plan_dict[kw.last_lesson_id] == yao_plan.last_lesson_id
-    assert len(plan_dict[kw.voices]) == len(yao_plan.voices)
-    assert len(plan_dict[kw.voices]) != 12
+    assert len(plan_dict[kw.persons]) == len(yao_plan.persons)
+    assert len(plan_dict[kw.persons]) != 12
 
     x_kegroot = yao_plan.kegroot
     kegroot_dict = plan_dict[kw.kegroot]
@@ -85,9 +85,9 @@ def test_PlanUnit_to_dict_ReturnsObj_Scenario1_kegroot_laborunit():
 def test_PlanUnit_to_dict_ReturnsObj_Scenario2_With_kegroot_healerunit():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_voiceunit(exx.yao)
-    yao_voiceunit = sue_plan.get_voice(exx.yao)
-    yao_voiceunit.add_membership(exx.run)
+    sue_plan.add_personunit(exx.yao)
+    yao_personunit = sue_plan.get_person(exx.yao)
+    yao_personunit.add_membership(exx.run)
     run_healerunit = healerunit_shop()
     run_healerunit.set_healer_name(x_healer_name=exx.run)
     root_rope = sue_plan.kegroot.get_keg_rope()
@@ -104,9 +104,9 @@ def test_PlanUnit_to_dict_ReturnsObj_Scenario2_With_kegroot_healerunit():
 def test_PlanUnit_to_dict_ReturnsObj_Scenario3_kegkid_LaborUnit():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_voiceunit(exx.yao)
-    yao_voiceunit = sue_plan.get_voice(exx.yao)
-    yao_voiceunit.add_membership(exx.run)
+    sue_plan.add_personunit(exx.yao)
+    yao_personunit = sue_plan.get_person(exx.yao)
+    yao_personunit.add_membership(exx.run)
 
     morn_str = "morning"
     morn_rope = sue_plan.make_l1_rope(morn_str)
@@ -139,9 +139,9 @@ def test_PlanUnit_to_dict_ReturnsObj_Scenario4_kegunit_WithLevels():
     x_mana_grain = 0.3
     zia_plan.mana_grain = x_mana_grain
     override_str = "override"
-    zia_plan.add_voiceunit(exx.yao)
-    yao_voiceunit = zia_plan.get_voice(exx.yao)
-    yao_voiceunit.add_membership(exx.run)
+    zia_plan.add_personunit(exx.yao)
+    yao_personunit = zia_plan.get_person(exx.yao)
+    yao_personunit.add_membership(exx.run)
     run_healerunit = healerunit_shop({exx.run})
     root_rope = zia_plan.kegroot.get_keg_rope()
     zia_plan.edit_keg_attr(root_rope, healerunit=run_healerunit)
@@ -244,10 +244,10 @@ def test_PlanUnit_to_dict_ReturnsJSON_Scenario5_BigExample():
     assert len(ulti_reasonunits_dict) == len(ulti_keg.reasonunits)
 
     anna_str = "Anna"
-    anna_voiceunit = yao_plan.get_voice(anna_str)
-    assert anna_voiceunit.get_membership(";Family").group_cred_lumen == 6.2
-    assert yao_plan.voices is not None
-    assert len(yao_plan.voices) == 22
+    anna_personunit = yao_plan.get_person(anna_str)
+    assert anna_personunit.get_membership(";Family").group_cred_lumen == 6.2
+    assert yao_plan.persons is not None
+    assert len(yao_plan.persons) == 22
 
 
 def test_get_planunit_from_dict_ReturnsKegRoot():
@@ -284,20 +284,20 @@ def test_get_planunit_from_dict_ReturnsObj_knot_Example():
     assert after_bob_plan.knot == before_bob_plan.knot
 
 
-def test_get_planunit_from_dict_ReturnsObj_knot_VoiceExample():
+def test_get_planunit_from_dict_ReturnsObj_knot_PersonExample():
     # ESTABLISH
     slash_knot = "/"
     before_bob_plan = planunit_shop("Bob", knot=slash_knot)
     bob_comma_str = ",Bob"
-    before_bob_plan.add_voiceunit(bob_comma_str)
-    assert before_bob_plan.voice_exists(bob_comma_str)
+    before_bob_plan.add_personunit(bob_comma_str)
+    assert before_bob_plan.person_exists(bob_comma_str)
 
     # WHEN
     after_bob_plan = get_planunit_from_dict(before_bob_plan.to_dict())
 
     # THEN
-    after_bob_voiceunit = after_bob_plan.get_voice(bob_comma_str)
-    assert after_bob_voiceunit.groupmark == slash_knot
+    after_bob_personunit = after_bob_plan.get_person(bob_comma_str)
+    assert after_bob_personunit.groupmark == slash_knot
 
 
 def test_get_planunit_from_dict_ReturnsObj_knot_GroupExample():
@@ -305,16 +305,16 @@ def test_get_planunit_from_dict_ReturnsObj_knot_GroupExample():
     slash_knot = "/"
     before_bob_plan = planunit_shop("Bob", knot=slash_knot)
     swim_str = f"{slash_knot}Swimmers"
-    before_bob_plan.add_voiceunit(exx.yao)
-    yao_voiceunit = before_bob_plan.get_voice(exx.yao)
-    yao_voiceunit.add_membership(swim_str)
+    before_bob_plan.add_personunit(exx.yao)
+    yao_personunit = before_bob_plan.get_person(exx.yao)
+    yao_personunit.add_membership(swim_str)
 
     # WHEN
     after_bob_plan = get_planunit_from_dict(before_bob_plan.to_dict())
 
     # THEN
-    after_yao_voiceunit = after_bob_plan.get_voice(exx.yao)
-    assert after_yao_voiceunit.groupmark == slash_knot
+    after_yao_personunit = after_bob_plan.get_person(exx.yao)
+    assert after_yao_personunit.groupmark == slash_knot
 
 
 def test_get_planunit_from_dict_ReturnsObj_Scenario7_kegroot_knot_IsApplied():
@@ -398,8 +398,8 @@ def test_get_dict_of_plan_from_dict_ReturnsDictOfPlanUnits():
     ccn_plan1 = ccn_dict_of_obj.get(x1_plan.plan_name)
     assert ccn_plan1._keg_dict == x1_plan._keg_dict
     philipa_str = "Philipa"
-    ccn_philipa_voiceunit = ccn_plan1.get_voice(philipa_str)
-    x1_philipa_voiceunit = x1_plan.get_voice(philipa_str)
-    assert ccn_philipa_voiceunit.memberships == x1_philipa_voiceunit.memberships
+    ccn_philipa_personunit = ccn_plan1.get_person(philipa_str)
+    x1_philipa_personunit = x1_plan.get_person(philipa_str)
+    assert ccn_philipa_personunit.memberships == x1_philipa_personunit.memberships
     assert ccn_plan1 == x1_plan
     assert ccn_dict_of_obj.get(x1_plan.plan_name) == x1_plan

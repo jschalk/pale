@@ -13,7 +13,7 @@ from src.ch24_plan_viewer.plan_viewer_example import (
     play_swim_str,
 )
 from src.ch24_plan_viewer.plan_viewer_tool import add_small_dot, get_groups_view_dict
-from src.ch24_plan_viewer.test.test__voices_view_dict import add_readable
+from src.ch24_plan_viewer.test.test__persons_view_dict import add_readable
 from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 
 
@@ -38,17 +38,17 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     yao_debt_lumen = 130
 #     bob_cred_lumen = 230
 #     bob_debt_lumen = 290
-#     sue_believer.add_voiceunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
-#     sue_believer.add_voiceunit(bob_str, bob_cred_lumen, bob_debt_lumen)
+#     sue_believer.add_personunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
+#     sue_believer.add_personunit(bob_str, bob_cred_lumen, bob_debt_lumen)
 #     swim_str = ";swimmers"
 #     bob_swim_cred_lumen = 66
 #     bob_swim_debt_lumen = 77
 #     yao_swim_cred_lumen = 88
 #     yao_swim_debt_lumen = 99
-#     yao_voice = sue_believer.get_voice(exx.yao)
-#     bob_voice = sue_believer.get_voice(bob_str)
-#     yao_voice.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
-#     bob_voice.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
+#     yao_person = sue_believer.get_person(exx.yao)
+#     bob_person = sue_believer.get_person(bob_str)
+#     yao_person.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
+#     bob_person.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
 #     sue_believer.cashout()
 
 #     # WHEN
@@ -125,12 +125,12 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     # ESTABLISH
 #     sue_believer = planunit_shop(exx.sue)
 #     exx.yao = "Yao"
-#     sue_believer.add_voiceunit(exx.yao)
+#     sue_believer.add_personunit(exx.yao)
 #     swim_str = ";swimmers"
 #     yao_swim_cred_lumen = 311
 #     yao_swim_debt_lumen = 313
-#     yao_voiceunit = sue_believer.get_voice(exx.yao)
-#     yao_voiceunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
+#     yao_personunit = sue_believer.get_person(exx.yao)
+#     yao_personunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
 #     sue_believer.cashout()
 
 #     # WHEN
@@ -138,9 +138,9 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 
 #     # THEN
 #     assert set(groups_view_dict.keys()) == {exx.yao}
-#     yao_voice_dict = groups_view_dict.get(exx.yao)
-#     assert kw.memberships in set(yao_voice_dict.keys())
-#     yao_memberships_dict = yao_voice_dict.get(kw.memberships)
+#     yao_person_dict = groups_view_dict.get(exx.yao)
+#     assert kw.memberships in set(yao_person_dict.keys())
+#     yao_memberships_dict = yao_person_dict.get(kw.memberships)
 #     assert {swim_str, exx.yao} == set(yao_memberships_dict.keys())
 #     yao_swim_dict = yao_memberships_dict.get(swim_str)
 
@@ -156,7 +156,7 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     fund_give_readable_key = add_readable(kw.fund_give)
 #     fund_take_readable_key = add_readable(kw.fund_take)
 #     assert set(yao_swim_dict.keys()) == {
-#         kw.voice_name,
+#         kw.person_name,
 #        kw.group_title,
 #        kw.group_cred_lumen,
 #        kw.group_debt_lumen,
@@ -180,7 +180,7 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #         fund_give_readable_key,
 #         fund_take_readable_key,
 #     }
-#     yao_swim_mu = yao_voiceunit.get_membership(swim_str)
+#     yao_swim_mu = yao_personunit.get_membership(swim_str)
 #     expected_group_title_readable = f"{kw.group_title}: {yao_swim_mu.group_title}"
 #     expected_group_cred_lumen_readable = (
 #         f"{kw.group_cred_lumen}: {yao_swim_mu.group_cred_lumen}"
@@ -205,7 +205,7 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     expected_fund_give_readable = f"{kw.fund_give}: {yao_swim_mu.fund_give}"
 #     expected_fund_take_readable = f"{kw.fund_take}: {yao_swim_mu.fund_take}"
 
-#     assert yao_swim_dict.get(kw.voice_name) == yao_swim_mu.voice_name
+#     assert yao_swim_dict.get(kw.person_name) == yao_swim_mu.person_name
 #     assert yao_swim_dict.get(kw.group_title) == yao_swim_mu.group_title
 #     assert yao_swim_dict.get(kw.group_cred_lumen) == yao_swim_mu.group_cred_lumen
 #     assert yao_swim_dict.get(kw.group_debt_lumen) == yao_swim_mu.group_debt_lumen
@@ -264,8 +264,8 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     # yao_debt_lumen = 130
 #     # bob_cred_lumen = 230
 #     # bob_debt_lumen = 290
-#     # sue_believer.add_voiceunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
-#     # sue_believer.add_voiceunit(bob_str, bob_cred_lumen, bob_debt_lumen)
+#     # sue_believer.add_personunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
+#     # sue_believer.add_personunit(bob_str, bob_cred_lumen, bob_debt_lumen)
 #     # swim_str = ";swimmers"
 #     # yao_swim_cred_lumen = 311
 #     # yao_swim_debt_lumen = 313
@@ -274,9 +274,9 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     # clea_str = ";cleaners"
 #     # cleaners_cred_lumen = 511
 #     # cleaners_debt_lumen = 513
-#     # yao_voiceunit = sue_believer.get_voice(exx.yao)
-#     # bob_voiceunit = sue_believer.get_voice(bob_str)
-#     # bob_voiceunit.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
-#     # yao_voiceunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
-#     # yao_voiceunit.add_membership(clea_str, cleaners_cred_lumen, cleaners_debt_lumen)
-#     # sue_believer.get_voice(exx.yao).add_membership()
+#     # yao_personunit = sue_believer.get_person(exx.yao)
+#     # bob_personunit = sue_believer.get_person(bob_str)
+#     # bob_personunit.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
+#     # yao_personunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
+#     # yao_personunit.add_membership(clea_str, cleaners_cred_lumen, cleaners_debt_lumen)
+#     # sue_believer.get_person(exx.yao).add_membership()

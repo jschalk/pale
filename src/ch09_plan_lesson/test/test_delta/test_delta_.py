@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch03_voice.voice import voiceunit_shop
+from src.ch03_person.person import personunit_shop
 from src.ch04_rope.rope import create_rope, to_rope
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch08_plan_atom.atom_main import planatom_shop
@@ -64,7 +64,7 @@ def test_PlanDelta_set_planatom_Sets_PlanUnitSimpleAttrs():
 def test_PlanDelta_set_planatom_RaisesErrorWhen_is_valid_IsFalse():
     # ESTABLISH
     ex1_plandelta = plandelta_shop()
-    x_dimen = kw.plan_voiceunit
+    x_dimen = kw.plan_personunit
     plan_star_planatom = planatom_shop(x_dimen, kw.UPDATE)
 
     # WHEN
@@ -78,11 +78,11 @@ def test_PlanDelta_set_planatom_RaisesErrorWhen_is_valid_IsFalse():
     assert str(excinfo.value) == exception_str
 
 
-def test_ChangUnit_c_planatom_exists_ReturnsObj_plan_voiceunit_str():
+def test_ChangUnit_c_planatom_exists_ReturnsObj_plan_personunit_str():
     # ESTABLISH
     x_plandelta = plandelta_shop()
-    bob_planatom = planatom_shop(kw.plan_voiceunit, kw.INSERT)
-    bob_planatom.set_arg(kw.voice_name, exx.bob)
+    bob_planatom = planatom_shop(kw.plan_personunit, kw.INSERT)
+    bob_planatom.set_arg(kw.person_name, exx.bob)
     assert not x_plandelta.c_planatom_exists(bob_planatom)
 
     # WHEN
@@ -92,13 +92,13 @@ def test_ChangUnit_c_planatom_exists_ReturnsObj_plan_voiceunit_str():
     assert x_plandelta.c_planatom_exists(bob_planatom)
 
 
-def test_ChangUnit_c_planatom_exists_ReturnsObj_plan_voice_membership_str():
+def test_ChangUnit_c_planatom_exists_ReturnsObj_plan_person_membership_str():
     # ESTABLISH
     iowa_str = ";Iowa"
     x_plandelta = plandelta_shop()
-    bob_iowa_planatom = planatom_shop(kw.plan_voice_membership, kw.INSERT)
+    bob_iowa_planatom = planatom_shop(kw.plan_person_membership, kw.INSERT)
     bob_iowa_planatom.set_arg(kw.group_title, iowa_str)
-    bob_iowa_planatom.set_arg(kw.voice_name, exx.bob)
+    bob_iowa_planatom.set_arg(kw.person_name, exx.bob)
     assert not x_plandelta.c_planatom_exists(bob_iowa_planatom)
 
     # WHEN
@@ -149,25 +149,27 @@ def test_PlanDelta_add_planatom_Sets_PlanUnitSimpleAttrs():
     assert x_planatom.dimen == kw.planunit
 
 
-def test_PlanDelta_add_planatom_Sets_PlanUnit_voiceunits():
+def test_PlanDelta_add_planatom_Sets_PlanUnit_personunits():
     # ESTABLISH
     ex1_plandelta = plandelta_shop()
     assert ex1_plandelta.planatoms == {}
 
     # WHEN
-    bob_voice_cred_lumen = 55
-    bob_voice_debt_lumen = 66
-    bob_voiceunit = voiceunit_shop(exx.bob, bob_voice_cred_lumen, bob_voice_debt_lumen)
-    cw_str = kw.voice_cred_lumen
-    dw_str = kw.voice_debt_lumen
-    print(f"{bob_voiceunit.to_dict()=}")
-    bob_required_dict = {kw.voice_name: bob_voiceunit.to_dict().get(kw.voice_name)}
-    bob_optional_dict = {cw_str: bob_voiceunit.to_dict().get(cw_str)}
-    bob_optional_dict[dw_str] = bob_voiceunit.to_dict().get(dw_str)
+    bob_person_cred_lumen = 55
+    bob_person_debt_lumen = 66
+    bob_personunit = personunit_shop(
+        exx.bob, bob_person_cred_lumen, bob_person_debt_lumen
+    )
+    cw_str = kw.person_cred_lumen
+    dw_str = kw.person_debt_lumen
+    print(f"{bob_personunit.to_dict()=}")
+    bob_required_dict = {kw.person_name: bob_personunit.to_dict().get(kw.person_name)}
+    bob_optional_dict = {cw_str: bob_personunit.to_dict().get(cw_str)}
+    bob_optional_dict[dw_str] = bob_personunit.to_dict().get(dw_str)
     print(f"{bob_required_dict=}")
-    voiceunit_str = kw.plan_voiceunit
+    personunit_str = kw.plan_personunit
     ex1_plandelta.add_planatom(
-        dimen=voiceunit_str,
+        dimen=personunit_str,
         crud_str=kw.INSERT,
         jkeys=bob_required_dict,
         jvalues=bob_optional_dict,
@@ -175,7 +177,7 @@ def test_PlanDelta_add_planatom_Sets_PlanUnit_voiceunits():
     # THEN
     assert len(ex1_plandelta.planatoms) == 1
     assert (
-        ex1_plandelta.planatoms.get(kw.INSERT).get(voiceunit_str).get(exx.bob)
+        ex1_plandelta.planatoms.get(kw.INSERT).get(personunit_str).get(exx.bob)
         is not None
     )
 
@@ -221,9 +223,9 @@ def test_PlanDelta_get_dimen_sorted_planatoms_list_ReturnsObj_Scenario0_rope():
     assert sue_atoms_list[0] == update_dict.get(kw.planunit)
     z_atom = sue_atoms_list[1]
     print(f"{z_atom=}")
-    print(delete_dict.get(kw.plan_voiceunit).keys())
-    zia_voiceunit_delete = delete_dict.get(kw.plan_voiceunit).get("Zia")
-    assert sue_atoms_list[1] == zia_voiceunit_delete
+    print(delete_dict.get(kw.plan_personunit).keys())
+    zia_personunit_delete = delete_dict.get(kw.plan_personunit).get("Zia")
+    assert sue_atoms_list[1] == zia_personunit_delete
 
 
 # def test_PlanDelta_add_planatom_Sets_PlanUnit_max_tree_traverse():
@@ -287,7 +289,7 @@ def test_PlanDelta_get_sorted_planatoms_ReturnsObj():
     print(f"atom_order 28 {ex1_plandelta.planatoms.get(kw.UPDATE).keys()=}")
     delete_dict = ex1_plandelta.planatoms.get(kw.DELETE)
     assert len(delete_dict.keys()) == 1
-    assert delete_dict.get(kw.plan_voiceunit) is not None
+    assert delete_dict.get(kw.plan_personunit) is not None
     print(f"atom_order 26 {ex1_plandelta.planatoms.get(kw.DELETE).keys()=}")
 
     # WHEN
@@ -295,11 +297,11 @@ def test_PlanDelta_get_sorted_planatoms_ReturnsObj():
 
     # THEN
     assert len(sue_atom_order_list) == 2
-    print(delete_dict.get(kw.plan_voiceunit).keys())
-    zia_voiceunit_delete = delete_dict.get(kw.plan_voiceunit).get("Zia")
+    print(delete_dict.get(kw.plan_personunit).keys())
+    zia_personunit_delete = delete_dict.get(kw.plan_personunit).get("Zia")
     # for planatom in sue_atom_order_list:
     #     print(f"{planatom.atom_order=}")
-    assert sue_atom_order_list[0] == zia_voiceunit_delete
+    assert sue_atom_order_list[0] == zia_personunit_delete
     assert sue_atom_order_list[1] == update_dict.get(kw.planunit)
     # for crud_str, atom_list in sue_atom_order_dict.items():
     #     print(f"{crud_str=}")
@@ -386,10 +388,10 @@ def test_plan_built_from_delta_is_valid_ReturnsObjEstablishWithNoPlan_Scenario1(
     x_planatom.set_jvalue(x_attribute, 100)
     sue_plandelta.set_planatom(x_planatom)
 
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     x_planatom = planatom_shop(dimen, kw.INSERT)
-    x_planatom.set_arg(kw.voice_name, exx.zia)
-    x_planatom.set_arg(kw.voice_cred_lumen, "70 is the number")
+    x_planatom.set_arg(kw.person_name, exx.zia)
+    x_planatom.set_arg(kw.person_cred_lumen, "70 is the number")
     sue_plandelta.set_planatom(x_planatom)
     print(f"{sue_plandelta=}")
 
@@ -401,11 +403,11 @@ def test_plan_built_from_delta_is_valid_ReturnsObjEstablishWithNoPlan_Scenario2(
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_plandelta = plandelta_shop()
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     # WHEN
     x_planatom = planatom_shop(dimen, kw.INSERT)
-    x_planatom.set_arg(kw.voice_name, exx.yao)
-    x_planatom.set_arg(kw.voice_cred_lumen, 30)
+    x_planatom.set_arg(kw.person_name, exx.yao)
+    x_planatom.set_arg(kw.person_cred_lumen, 30)
     sue_plandelta.set_planatom(x_planatom)
 
     # THEN
@@ -413,8 +415,8 @@ def test_plan_built_from_delta_is_valid_ReturnsObjEstablishWithNoPlan_Scenario2(
 
     # WHEN
     x_planatom = planatom_shop(dimen, kw.INSERT)
-    x_planatom.set_arg(kw.voice_name, exx.bob)
-    x_planatom.set_arg(kw.voice_cred_lumen, "70 is the number")
+    x_planatom.set_arg(kw.person_name, exx.bob)
+    x_planatom.set_arg(kw.person_cred_lumen, "70 is the number")
     sue_plandelta.set_planatom(x_planatom)
 
     # THEN
@@ -429,16 +431,16 @@ def test_PlanDelta_get_ordered_planatoms_ReturnsObj_EstablishWithNoStartingNumbe
     pool_attribute = kw.credor_respect
     pool_planatom.set_jvalue(pool_attribute, 100)
     sue_plandelta.set_planatom(pool_planatom)
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     zia_planatom = planatom_shop(dimen, kw.INSERT)
-    zia_planatom.set_arg(kw.voice_name, exx.zia)
-    zia_planatom.set_arg(kw.voice_cred_lumen, 70)
+    zia_planatom.set_arg(kw.person_name, exx.zia)
+    zia_planatom.set_arg(kw.person_cred_lumen, 70)
     sue_plandelta.set_planatom(zia_planatom)
     sue_plan = planunit_shop(exx.sue)
     sue_plan.set_credor_respect(100)
     yao_planatom = planatom_shop(dimen, kw.INSERT)
-    yao_planatom.set_arg(kw.voice_name, exx.yao)
-    yao_planatom.set_arg(kw.voice_cred_lumen, 30)
+    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.person_cred_lumen, 30)
     sue_plandelta.set_planatom(yao_planatom)
 
     sue_plan = planunit_shop(exx.sue)
@@ -467,16 +469,16 @@ def test_PlanDelta_get_ordered_planatoms_ReturnsObj_EstablishWithStartingNumber(
     pool_attribute = kw.credor_respect
     pool_planatom.set_jvalue(pool_attribute, 100)
     sue_plandelta.set_planatom(pool_planatom)
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     zia_planatom = planatom_shop(dimen, kw.INSERT)
-    zia_planatom.set_arg(kw.voice_name, exx.zia)
-    zia_planatom.set_arg(kw.voice_cred_lumen, 70)
+    zia_planatom.set_arg(kw.person_name, exx.zia)
+    zia_planatom.set_arg(kw.person_cred_lumen, 70)
     sue_plandelta.set_planatom(zia_planatom)
     sue_plan = planunit_shop(exx.sue)
     sue_plan.set_credor_respect(100)
     yao_planatom = planatom_shop(dimen, kw.INSERT)
-    yao_planatom.set_arg(kw.voice_name, exx.yao)
-    yao_planatom.set_arg(kw.voice_cred_lumen, 30)
+    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.person_cred_lumen, 30)
     sue_plandelta.set_planatom(yao_planatom)
 
     sue_plan = planunit_shop(exx.sue)
@@ -505,16 +507,16 @@ def test_PlanDelta_get_ordered_dict_ReturnsObj_Scenario0_EstablishWithStartingNu
     pool_attribute = kw.credor_respect
     pool_planatom.set_jvalue(pool_attribute, 100)
     sue_plandelta.set_planatom(pool_planatom)
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     zia_planatom = planatom_shop(dimen, kw.INSERT)
-    zia_planatom.set_arg(kw.voice_name, exx.zia)
-    zia_planatom.set_arg(kw.voice_cred_lumen, 70)
+    zia_planatom.set_arg(kw.person_name, exx.zia)
+    zia_planatom.set_arg(kw.person_cred_lumen, 70)
     sue_plandelta.set_planatom(zia_planatom)
     sue_plan = planunit_shop(exx.sue)
     sue_plan.set_credor_respect(100)
     yao_planatom = planatom_shop(dimen, kw.INSERT)
-    yao_planatom.set_arg(kw.voice_name, exx.yao)
-    yao_planatom.set_arg(kw.voice_cred_lumen, 30)
+    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.person_cred_lumen, 30)
     sue_plandelta.set_planatom(yao_planatom)
 
     sue_plan = planunit_shop(exx.sue)
@@ -542,14 +544,14 @@ def test_PlanDelta_get_ordered_dict_ReturnsObj_Scenario1():
     pool_attribute = kw.credor_respect
     pool_planatom.set_jvalue(pool_attribute, 100)
     sue_plandelta.set_planatom(pool_planatom)
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     zia_planatom = planatom_shop(dimen, kw.INSERT)
-    zia_planatom.set_arg(kw.voice_name, exx.zia)
-    zia_planatom.set_arg(kw.voice_cred_lumen, 70)
+    zia_planatom.set_arg(kw.person_name, exx.zia)
+    zia_planatom.set_arg(kw.person_cred_lumen, 70)
     sue_plandelta.set_planatom(zia_planatom)
     yao_planatom = planatom_shop(dimen, kw.INSERT)
-    yao_planatom.set_arg(kw.voice_name, exx.yao)
-    yao_planatom.set_arg(kw.voice_cred_lumen, 30)
+    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.person_cred_lumen, 30)
     sue_plandelta.set_planatom(yao_planatom)
 
     # WHEN
@@ -568,16 +570,16 @@ def test_get_plandelta_from_ordered_dict_ReturnsObj():
     pool_attribute = kw.credor_respect
     pool_planatom.set_jvalue(pool_attribute, 100)
     expected_plandelta.set_planatom(pool_planatom)
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     zia_planatom = planatom_shop(dimen, kw.INSERT)
-    zia_planatom.set_arg(kw.voice_name, exx.zia)
-    zia_planatom.set_arg(kw.voice_cred_lumen, 70)
+    zia_planatom.set_arg(kw.person_name, exx.zia)
+    zia_planatom.set_arg(kw.person_cred_lumen, 70)
     expected_plandelta.set_planatom(zia_planatom)
     sue_plan = planunit_shop(exx.sue)
     sue_plan.set_credor_respect(100)
     yao_planatom = planatom_shop(dimen, kw.INSERT)
-    yao_planatom.set_arg(kw.voice_name, exx.yao)
-    yao_planatom.set_arg(kw.voice_cred_lumen, 30)
+    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.person_cred_lumen, 30)
     expected_plandelta.set_planatom(yao_planatom)
     plandelta_dict = expected_plandelta.get_ordered_dict(5)
 
@@ -602,10 +604,10 @@ def test_PlanDelta_c_planatom_exists_ReturnsObj():
     x_plandelta = plandelta_shop()
 
     # WHEN / THEN
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     zia_planatom = planatom_shop(dimen, kw.INSERT)
-    zia_planatom.set_arg(kw.voice_name, exx.zia)
-    zia_planatom.set_arg(kw.voice_cred_lumen, 70)
+    zia_planatom.set_arg(kw.person_name, exx.zia)
+    zia_planatom.set_arg(kw.person_cred_lumen, 70)
     assert x_plandelta.c_planatom_exists(zia_planatom) is False
 
     # WHEN
@@ -620,10 +622,10 @@ def test_PlanDelta_is_empty_ReturnsObj():
     x_plandelta = plandelta_shop()
 
     # WHEN / THEN
-    dimen = kw.plan_voiceunit
+    dimen = kw.plan_personunit
     zia_planatom = planatom_shop(dimen, kw.INSERT)
-    zia_planatom.set_arg(kw.voice_name, exx.zia)
-    zia_planatom.set_arg(kw.voice_cred_lumen, 70)
+    zia_planatom.set_arg(kw.person_name, exx.zia)
+    zia_planatom.set_arg(kw.person_cred_lumen, 70)
     assert x_plandelta.atoms_empty()
 
     # WHEN

@@ -1,7 +1,7 @@
 from copy import deepcopy as copy_deepcopy
 from src.ch01_py.dict_toolbox import get_empty_list_if_None, get_from_nested_dict
-from src.ch03_voice.group import awardunit_shop
-from src.ch03_voice.voice import voiceunit_shop
+from src.ch03_person.group import awardunit_shop
+from src.ch03_person.person import personunit_shop
 from src.ch05_reason.reason_main import factunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -53,41 +53,43 @@ def test_PlanDelta_create_planatoms_EmptyPlans():
     assert sue_plandelta.planatoms == {}
 
 
-def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voiceunit_insert():
+def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_personunit_insert():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
     after_sue_plan = copy_deepcopy(before_sue_plan)
-    xio_voice_cred_lumen = 33
-    xio_voice_debt_lumen = 44
-    xio_voiceunit = voiceunit_shop(exx.xio, xio_voice_cred_lumen, xio_voice_debt_lumen)
-    after_sue_plan.set_voiceunit(xio_voiceunit, auto_set_membership=False)
+    xio_person_cred_lumen = 33
+    xio_person_debt_lumen = 44
+    xio_personunit = personunit_shop(
+        exx.xio, xio_person_cred_lumen, xio_person_debt_lumen
+    )
+    after_sue_plan.set_personunit(xio_personunit, auto_set_membership=False)
 
     # WHEN
     sue_plandelta = plandelta_shop()
     sue_plandelta.add_all_different_planatoms(before_sue_plan, after_sue_plan)
 
     # THEN
-    assert len(sue_plandelta.planatoms.get(kw.INSERT).get(kw.plan_voiceunit)) == 1
+    assert len(sue_plandelta.planatoms.get(kw.INSERT).get(kw.plan_personunit)) == 1
     sue_insert_dict = sue_plandelta.planatoms.get(kw.INSERT)
-    sue_voiceunit_dict = sue_insert_dict.get(kw.plan_voiceunit)
-    xio_planatom = sue_voiceunit_dict.get(exx.xio)
-    assert xio_planatom.get_value(kw.voice_name) == exx.xio
-    assert xio_planatom.get_value("voice_cred_lumen") == xio_voice_cred_lumen
-    assert xio_planatom.get_value("voice_debt_lumen") == xio_voice_debt_lumen
+    sue_personunit_dict = sue_insert_dict.get(kw.plan_personunit)
+    xio_planatom = sue_personunit_dict.get(exx.xio)
+    assert xio_planatom.get_value(kw.person_name) == exx.xio
+    assert xio_planatom.get_value("person_cred_lumen") == xio_person_cred_lumen
+    assert xio_planatom.get_value("person_debt_lumen") == xio_person_debt_lumen
 
     print(f"{get_planatom_total_count(sue_plandelta)=}")
     assert get_planatom_total_count(sue_plandelta) == 1
 
 
-def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voiceunit_delete():
+def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_personunit_delete():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit("Yao")
-    before_sue_plan.add_voiceunit("Zia")
+    before_sue_plan.add_personunit("Yao")
+    before_sue_plan.add_personunit("Zia")
 
     after_sue_plan = copy_deepcopy(before_sue_plan)
 
-    before_sue_plan.add_voiceunit(exx.xio)
+    before_sue_plan.add_personunit(exx.xio)
 
     # WHEN
     sue_plandelta = plandelta_shop()
@@ -96,34 +98,34 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voiceunit_delete
     # THEN
     xio_planatom = get_from_nested_dict(
         sue_plandelta.planatoms,
-        [kw.DELETE, kw.plan_voiceunit, exx.xio],
+        [kw.DELETE, kw.plan_personunit, exx.xio],
     )
-    assert xio_planatom.get_value(kw.voice_name) == exx.xio
+    assert xio_planatom.get_value(kw.person_name) == exx.xio
 
     print(f"{get_planatom_total_count(sue_plandelta)=}")
     print_planatom_keys(sue_plandelta)
     assert get_planatom_total_count(sue_plandelta) == 1
 
 
-def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voiceunit_update():
+def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_personunit_update():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
     after_sue_plan = copy_deepcopy(before_sue_plan)
-    before_sue_plan.add_voiceunit(exx.xio)
-    xio_voice_cred_lumen = 33
-    xio_voice_debt_lumen = 44
-    after_sue_plan.add_voiceunit(exx.xio, xio_voice_cred_lumen, xio_voice_debt_lumen)
+    before_sue_plan.add_personunit(exx.xio)
+    xio_person_cred_lumen = 33
+    xio_person_debt_lumen = 44
+    after_sue_plan.add_personunit(exx.xio, xio_person_cred_lumen, xio_person_debt_lumen)
 
     # WHEN
     sue_plandelta = plandelta_shop()
     sue_plandelta.add_all_different_planatoms(before_sue_plan, after_sue_plan)
 
     # THEN
-    x_keylist = [kw.UPDATE, kw.plan_voiceunit, exx.xio]
+    x_keylist = [kw.UPDATE, kw.plan_personunit, exx.xio]
     xio_planatom = get_from_nested_dict(sue_plandelta.planatoms, x_keylist)
-    assert xio_planatom.get_value(kw.voice_name) == exx.xio
-    assert xio_planatom.get_value("voice_cred_lumen") == xio_voice_cred_lumen
-    assert xio_planatom.get_value("voice_debt_lumen") == xio_voice_debt_lumen
+    assert xio_planatom.get_value(kw.person_name) == exx.xio
+    assert xio_planatom.get_value("person_cred_lumen") == xio_person_cred_lumen
+    assert xio_planatom.get_value("person_debt_lumen") == xio_person_debt_lumen
 
     print(f"{get_planatom_total_count(sue_plandelta)=}")
     assert get_planatom_total_count(sue_plandelta) == 1
@@ -167,45 +169,45 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_PlanUnit_simple_
     assert get_planatom_total_count(sue_plandelta) == 1
 
 
-def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voice_membership_insert():
+def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_person_membership_insert():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
     after_sue_plan = copy_deepcopy(before_sue_plan)
-    temp_yao_voiceunit = voiceunit_shop(exx.yao)
-    temp_zia_voiceunit = voiceunit_shop(exx.zia)
-    after_sue_plan.set_voiceunit(temp_yao_voiceunit, auto_set_membership=False)
-    after_sue_plan.set_voiceunit(temp_zia_voiceunit, auto_set_membership=False)
-    after_yao_voiceunit = after_sue_plan.get_voice(exx.yao)
-    after_zia_voiceunit = after_sue_plan.get_voice(exx.zia)
+    temp_yao_personunit = personunit_shop(exx.yao)
+    temp_zia_personunit = personunit_shop(exx.zia)
+    after_sue_plan.set_personunit(temp_yao_personunit, auto_set_membership=False)
+    after_sue_plan.set_personunit(temp_zia_personunit, auto_set_membership=False)
+    after_yao_personunit = after_sue_plan.get_person(exx.yao)
+    after_zia_personunit = after_sue_plan.get_person(exx.zia)
     zia_run_credit_w = 77
     zia_run_debt_w = 88
-    after_zia_voiceunit.add_membership(exx.run, zia_run_credit_w, zia_run_debt_w)
-    print(f"{after_sue_plan.get_voiceunit_group_titles_dict()=}")
+    after_zia_personunit.add_membership(exx.run, zia_run_credit_w, zia_run_debt_w)
+    print(f"{after_sue_plan.get_personunit_group_titles_dict()=}")
 
     # WHEN
     sue_plandelta = plandelta_shop()
-    print(f"{after_sue_plan.get_voice(exx.zia).memberships=}")
+    print(f"{after_sue_plan.get_person(exx.zia).memberships=}")
     sue_plandelta.add_all_different_planatoms(before_sue_plan, after_sue_plan)
     # print(f"{sue_plandelta.planatoms.get(kw.INSERT).keys()=}")
     # print(
-    #     sue_plandelta.planatoms.get(kw.INSERT).get(kw.plan_voice_membership).keys()
+    #     sue_plandelta.planatoms.get(kw.INSERT).get(kw.plan_person_membership).keys()
     # )
 
     # THEN
-    x_keylist = [kw.INSERT, kw.plan_voiceunit, exx.yao]
+    x_keylist = [kw.INSERT, kw.plan_personunit, exx.yao]
     yao_planatom = get_from_nested_dict(sue_plandelta.planatoms, x_keylist)
-    assert yao_planatom.get_value(kw.voice_name) == exx.yao
+    assert yao_planatom.get_value(kw.person_name) == exx.yao
 
-    x_keylist = [kw.INSERT, kw.plan_voiceunit, exx.zia]
+    x_keylist = [kw.INSERT, kw.plan_personunit, exx.zia]
     zia_planatom = get_from_nested_dict(sue_plandelta.planatoms, x_keylist)
-    assert zia_planatom.get_value(kw.voice_name) == exx.zia
+    assert zia_planatom.get_value(kw.person_name) == exx.zia
     print(f"\n{sue_plandelta.planatoms=}")
     # print(f"\n{zia_planatom=}")
 
-    x_keylist = [kw.INSERT, kw.plan_voice_membership, exx.zia, exx.run]
+    x_keylist = [kw.INSERT, kw.plan_person_membership, exx.zia, exx.run]
     run_planatom = get_from_nested_dict(sue_plandelta.planatoms, x_keylist)
-    assert run_planatom.get_value(kw.voice_name) == exx.zia
+    assert run_planatom.get_value(kw.person_name) == exx.zia
     assert run_planatom.get_value(kw.group_title) == exx.run
     assert run_planatom.get_value(kw.group_cred_lumen) == zia_run_credit_w
     assert run_planatom.get_value(kw.group_debt_lumen) == zia_run_debt_w
@@ -218,35 +220,35 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voice_membership
     assert get_planatom_total_count(sue_plandelta) == 3
 
 
-def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voice_membership_update():
+def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_person_membership_update():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
-    before_sue_plan.add_voiceunit(exx.zia)
+    before_sue_plan.add_personunit(exx.xio)
+    before_sue_plan.add_personunit(exx.zia)
     before_xio_credit_w = 77
     before_xio_debt_w = 88
-    before_xio_voice = before_sue_plan.get_voice(exx.xio)
-    before_xio_voice.add_membership(exx.run, before_xio_credit_w, before_xio_debt_w)
+    before_xio_person = before_sue_plan.get_person(exx.xio)
+    before_xio_person.add_membership(exx.run, before_xio_credit_w, before_xio_debt_w)
     after_sue_plan = copy_deepcopy(before_sue_plan)
-    after_xio_voiceunit = after_sue_plan.get_voice(exx.xio)
+    after_xio_personunit = after_sue_plan.get_person(exx.xio)
     after_xio_credit_w = 55
     after_xio_debt_w = 66
-    after_xio_voiceunit.add_membership(exx.run, after_xio_credit_w, after_xio_debt_w)
+    after_xio_personunit.add_membership(exx.run, after_xio_credit_w, after_xio_debt_w)
 
     # WHEN
     sue_plandelta = plandelta_shop()
     sue_plandelta.add_all_different_planatoms(before_sue_plan, after_sue_plan)
 
     # THEN
-    # x_keylist = [kw.UPDATE, kw.plan_voiceunit, exx.xio]
+    # x_keylist = [kw.UPDATE, kw.plan_personunit, exx.xio]
     # xio_planatom = get_from_nested_dict(sue_plandelta.planatoms, x_keylist)
-    # assert xio_planatom.get_value(kw.voice_name) == exx.xio
+    # assert xio_planatom.get_value(kw.person_name) == exx.xio
     # print(f"\n{sue_plandelta.planatoms=}")
     # print(f"\n{xio_planatom=}")
 
-    x_keylist = [kw.UPDATE, kw.plan_voice_membership, exx.xio, exx.run]
+    x_keylist = [kw.UPDATE, kw.plan_person_membership, exx.xio, exx.run]
     xio_planatom = get_from_nested_dict(sue_plandelta.planatoms, x_keylist)
-    assert xio_planatom.get_value(kw.voice_name) == exx.xio
+    assert xio_planatom.get_value(kw.person_name) == exx.xio
     assert xio_planatom.get_value(kw.group_title) == exx.run
     assert xio_planatom.get_value(kw.group_cred_lumen) == after_xio_credit_w
     assert xio_planatom.get_value(kw.group_debt_lumen) == after_xio_debt_w
@@ -255,31 +257,31 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voice_membership
     assert get_planatom_total_count(sue_plandelta) == 1
 
 
-def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voice_membership_delete():
+def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_person_membership_delete():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
-    before_sue_plan.add_voiceunit(exx.zia)
-    before_sue_plan.add_voiceunit(exx.bob)
-    before_xio_voiceunit = before_sue_plan.get_voice(exx.xio)
-    before_zia_voiceunit = before_sue_plan.get_voice(exx.zia)
-    before_bob_voiceunit = before_sue_plan.get_voice(exx.bob)
-    before_xio_voiceunit.add_membership(exx.run)
-    before_zia_voiceunit.add_membership(exx.run)
+    before_sue_plan.add_personunit(exx.xio)
+    before_sue_plan.add_personunit(exx.zia)
+    before_sue_plan.add_personunit(exx.bob)
+    before_xio_personunit = before_sue_plan.get_person(exx.xio)
+    before_zia_personunit = before_sue_plan.get_person(exx.zia)
+    before_bob_personunit = before_sue_plan.get_person(exx.bob)
+    before_xio_personunit.add_membership(exx.run)
+    before_zia_personunit.add_membership(exx.run)
     fly_str = ";flyers"
-    before_xio_voiceunit.add_membership(fly_str)
-    before_zia_voiceunit.add_membership(fly_str)
-    before_bob_voiceunit.add_membership(fly_str)
-    before_group_titles_dict = before_sue_plan.get_voiceunit_group_titles_dict()
+    before_xio_personunit.add_membership(fly_str)
+    before_zia_personunit.add_membership(fly_str)
+    before_bob_personunit.add_membership(fly_str)
+    before_group_titles_dict = before_sue_plan.get_personunit_group_titles_dict()
 
     after_sue_plan = copy_deepcopy(before_sue_plan)
-    after_xio_voiceunit = after_sue_plan.get_voice(exx.xio)
-    after_zia_voiceunit = after_sue_plan.get_voice(exx.zia)
-    after_bob_voiceunit = after_sue_plan.get_voice(exx.bob)
-    after_xio_voiceunit.delete_membership(exx.run)
-    after_zia_voiceunit.delete_membership(exx.run)
-    after_bob_voiceunit.delete_membership(fly_str)
-    after_group_titles_dict = after_sue_plan.get_voiceunit_group_titles_dict()
+    after_xio_personunit = after_sue_plan.get_person(exx.xio)
+    after_zia_personunit = after_sue_plan.get_person(exx.zia)
+    after_bob_personunit = after_sue_plan.get_person(exx.bob)
+    after_xio_personunit.delete_membership(exx.run)
+    after_zia_personunit.delete_membership(exx.run)
+    after_bob_personunit.delete_membership(fly_str)
+    after_group_titles_dict = after_sue_plan.get_personunit_group_titles_dict()
     assert len(before_group_titles_dict.get(fly_str)) == 3
     assert len(before_group_titles_dict.get(exx.run)) == 2
     assert len(after_group_titles_dict.get(fly_str)) == 2
@@ -290,9 +292,9 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_voice_membership
     sue_plandelta.add_all_different_planatoms(before_sue_plan, after_sue_plan)
 
     # THEN
-    x_keylist = [kw.DELETE, kw.plan_voice_membership, exx.bob, fly_str]
+    x_keylist = [kw.DELETE, kw.plan_person_membership, exx.bob, fly_str]
     xio_planatom = get_from_nested_dict(sue_plandelta.planatoms, x_keylist)
-    assert xio_planatom.get_value(kw.voice_name) == exx.bob
+    assert xio_planatom.get_value(kw.person_name) == exx.bob
     assert xio_planatom.get_value(kw.group_title) == fly_str
 
     print(f"{get_planatom_total_count(sue_plandelta)=}")
@@ -454,18 +456,18 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_update():
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_awardunit_delete():
     # ESTABLISH
     before_sue_au = planunit_shop(exx.sue)
-    before_sue_au.add_voiceunit(exx.xio)
-    before_sue_au.add_voiceunit(exx.zia)
-    before_sue_au.add_voiceunit(exx.bob)
-    xio_voiceunit = before_sue_au.get_voice(exx.xio)
-    zia_voiceunit = before_sue_au.get_voice(exx.zia)
-    bob_voiceunit = before_sue_au.get_voice(exx.bob)
-    xio_voiceunit.add_membership(exx.run)
-    zia_voiceunit.add_membership(exx.run)
+    before_sue_au.add_personunit(exx.xio)
+    before_sue_au.add_personunit(exx.zia)
+    before_sue_au.add_personunit(exx.bob)
+    xio_personunit = before_sue_au.get_person(exx.xio)
+    zia_personunit = before_sue_au.get_person(exx.zia)
+    bob_personunit = before_sue_au.get_person(exx.bob)
+    xio_personunit.add_membership(exx.run)
+    zia_personunit.add_membership(exx.run)
     fly_str = ";flyers"
-    xio_voiceunit.add_membership(fly_str)
-    zia_voiceunit.add_membership(fly_str)
-    bob_voiceunit.add_membership(fly_str)
+    xio_personunit.add_membership(fly_str)
+    zia_personunit.add_membership(fly_str)
+    bob_personunit.add_membership(fly_str)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -500,18 +502,18 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_awardunit_de
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_awardunit_insert():
     # ESTABLISH
     before_sue_au = planunit_shop(exx.sue)
-    before_sue_au.add_voiceunit(exx.xio)
-    before_sue_au.add_voiceunit(exx.zia)
-    before_sue_au.add_voiceunit(exx.bob)
-    xio_voiceunit = before_sue_au.get_voice(exx.xio)
-    zia_voiceunit = before_sue_au.get_voice(exx.zia)
-    bob_voiceunit = before_sue_au.get_voice(exx.bob)
-    xio_voiceunit.add_membership(exx.run)
-    zia_voiceunit.add_membership(exx.run)
+    before_sue_au.add_personunit(exx.xio)
+    before_sue_au.add_personunit(exx.zia)
+    before_sue_au.add_personunit(exx.bob)
+    xio_personunit = before_sue_au.get_person(exx.xio)
+    zia_personunit = before_sue_au.get_person(exx.zia)
+    bob_personunit = before_sue_au.get_person(exx.bob)
+    xio_personunit.add_membership(exx.run)
+    zia_personunit.add_membership(exx.run)
     fly_str = ";flyers"
-    xio_voiceunit.add_membership(fly_str)
-    zia_voiceunit.add_membership(fly_str)
-    bob_voiceunit.add_membership(fly_str)
+    xio_personunit.add_membership(fly_str)
+    zia_personunit.add_membership(fly_str)
+    bob_personunit.add_membership(fly_str)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -551,10 +553,10 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_awardunit_in
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_awardunit_update():
     # ESTABLISH
     before_sue_au = planunit_shop(exx.sue)
-    before_sue_au.add_voiceunit(exx.xio)
-    before_sue_au.add_voiceunit(exx.zia)
-    xio_voiceunit = before_sue_au.get_voice(exx.xio)
-    xio_voiceunit.add_membership(exx.run)
+    before_sue_au.add_personunit(exx.xio)
+    before_sue_au.add_personunit(exx.zia)
+    xio_personunit = before_sue_au.get_person(exx.xio)
+    xio_personunit.add_membership(exx.run)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -1042,7 +1044,7 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_reasonunit_d
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_partyunit_insert():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
+    before_sue_plan.add_personunit(exx.xio)
     sports_str = "sports"
     sports_rope = before_sue_plan.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -1074,7 +1076,7 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_partyunit_in
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_partyunit_delete():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
+    before_sue_plan.add_personunit(exx.xio)
     sports_str = "sports"
     sports_rope = before_sue_plan.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -1108,7 +1110,7 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_partyunit_de
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_healerunit_insert_KegUnitUpdate():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
+    before_sue_plan.add_personunit(exx.xio)
     sports_str = "sports"
     sports_rope = before_sue_plan.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -1140,7 +1142,7 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_healerunit_i
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_healerunit_insert_KegUnitInsert():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
+    before_sue_plan.add_personunit(exx.xio)
 
     after_sue_plan = copy_deepcopy(before_sue_plan)
     sports_str = "sports"
@@ -1173,7 +1175,7 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_healerunit_i
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_healerunit_delete_KegUnitUpdate():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
+    before_sue_plan.add_personunit(exx.xio)
     sports_str = "sports"
     sports_rope = before_sue_plan.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -1210,7 +1212,7 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_healerunit_d
 def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_keg_healerunit_delete_KegUnitDelete():
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
-    before_sue_plan.add_voiceunit(exx.xio)
+    before_sue_plan.add_personunit(exx.xio)
     sports_str = "sports"
     sports_rope = before_sue_plan.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -1247,8 +1249,8 @@ def test_PlanDelta_add_all_planatoms_Creates_PlanAtoms():
     # ESTABLISH
 
     after_sue_plan = planunit_shop(exx.sue)
-    temp_xio_voiceunit = voiceunit_shop(exx.xio)
-    after_sue_plan.set_voiceunit(temp_xio_voiceunit, auto_set_membership=False)
+    temp_xio_personunit = personunit_shop(exx.xio)
+    after_sue_plan.set_personunit(temp_xio_personunit, auto_set_membership=False)
     sports_str = "sports"
     sports_rope = after_sue_plan.make_l1_rope(sports_str)
     ball_str = "basketball"

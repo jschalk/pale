@@ -28,7 +28,7 @@ from src.ch18_world_etl.etl_main import (
     etl_input_dfs_to_brick_raw_tables,
     etl_moment_guts_to_moment_jobs,
     etl_moment_job_jsons_to_job_tables,
-    etl_moment_json_voice_nets_to_moment_voice_nets_table,
+    etl_moment_json_person_nets_to_moment_person_nets_table,
     etl_moment_ote1_agg_csvs_to_jsons,
     etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs,
     etl_set_cell_tree_cell_mandates,
@@ -100,7 +100,7 @@ class WorldUnit:
         set_dir(self._brick_dir)
         set_dir(self._moment_mstr_dir)
 
-    def calc_moment_bud_voice_mandate_net_ledgers(self):
+    def calc_moment_bud_person_mandate_net_ledgers(self):
         mstr_dir = self._moment_mstr_dir
         etl_create_buds_root_cells(mstr_dir)
         etl_create_moment_cell_trees(mstr_dir)
@@ -161,14 +161,14 @@ class WorldUnit:
         etl_heard_raw_tables_to_moment_ote1_agg(cursor)
         etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs(cursor, mstr_dir)
         etl_moment_ote1_agg_csvs_to_jsons(mstr_dir)
-        self.calc_moment_bud_voice_mandate_net_ledgers()
+        self.calc_moment_bud_person_mandate_net_ledgers()
         etl_moment_job_jsons_to_job_tables(cursor, mstr_dir)
-        etl_moment_json_voice_nets_to_moment_voice_nets_table(cursor, mstr_dir)
+        etl_moment_json_person_nets_to_moment_person_nets_table(cursor, mstr_dir)
         populate_kpi_bundle(cursor)
         create_last_run_metrics_json(cursor, mstr_dir)
 
         # # create all moment_job and mandate reports
-        # self.calc_moment_bud_voice_mandate_net_ledgers()
+        # self.calc_moment_bud_person_mandate_net_ledgers()
 
         # if store_tracing_files:
 

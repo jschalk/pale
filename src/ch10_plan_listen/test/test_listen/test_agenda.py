@@ -19,15 +19,15 @@ def test_listen_to_speaker_agenda_RaisesErrorIfPoolIsNotSet():
         listen_to_speaker_agenda(yao_planunit, zia_planunit)
 
     # THEN
-    assertion_fail_str = f"listener '{exx.yao}' plan is assumed to have {zia_planunit.plan_name} voiceunit."
+    assertion_fail_str = f"listener '{exx.yao}' plan is assumed to have {zia_planunit.plan_name} personunit."
     assert str(excinfo.value) == assertion_fail_str
 
 
 def test_listen_to_speaker_agenda_ReturnsEqualPlan():
     # ESTABLISH
     yao_planunit = planunit_shop(exx.yao)
-    yao_planunit.add_voiceunit(exx.zia)
-    yao_planunit.set_voice_respect(100)
+    yao_planunit.add_personunit(exx.zia)
+    yao_planunit.set_person_respect(100)
     zia_planunit = planunit_shop(exx.zia)
 
     # WHEN
@@ -40,13 +40,13 @@ def test_listen_to_speaker_agenda_ReturnsEqualPlan():
 def test_listen_to_speaker_agenda_ReturnsSingletaskPlan():
     # ESTABLISH
     before_yao_planunit = planunit_shop(exx.yao)
-    before_yao_planunit.add_voiceunit(exx.zia)
-    yao_voice_voice_debt_lumen = 77
-    before_yao_planunit.set_voice_respect(yao_voice_voice_debt_lumen)
+    before_yao_planunit.add_personunit(exx.zia)
+    yao_person_person_debt_lumen = 77
+    before_yao_planunit.set_person_respect(yao_person_person_debt_lumen)
     zia_clean_kegunit = kegunit_shop(exx.clean, pledge=True)
     zia_clean_kegunit.laborunit.add_party(exx.yao)
     zia_planunit = planunit_shop(exx.zia)
-    zia_planunit.add_voiceunit(exx.yao)
+    zia_planunit.add_personunit(exx.yao)
     zia_planunit.set_l1_keg(zia_clean_kegunit)
     assert len(zia_planunit.get_agenda_dict()) == 0
     zia_yao_planunit = copy_deepcopy(zia_planunit)
@@ -62,7 +62,7 @@ def test_listen_to_speaker_agenda_ReturnsSingletaskPlan():
     yao_clean_kegunit = after_yao_planunit.get_keg_obj(clean_rope)
     print(f"{yao_clean_kegunit.star=}")
     assert yao_clean_kegunit.star != zia_clean_kegunit.star
-    assert yao_clean_kegunit.star == yao_voice_voice_debt_lumen
+    assert yao_clean_kegunit.star == yao_person_person_debt_lumen
     assert after_yao_planunit == before_yao_planunit
     assert len(after_yao_planunit.get_agenda_dict()) == 1
 
@@ -70,11 +70,11 @@ def test_listen_to_speaker_agenda_ReturnsSingletaskPlan():
 def test_listen_to_speaker_agenda_ReturnsLevel2taskPlan():
     # ESTABLISH
     before_yao_planunit = planunit_shop(exx.yao)
-    before_yao_planunit.add_voiceunit(exx.zia)
-    yao_voice_debt_lumen = 77
-    before_yao_planunit.set_voice_respect(yao_voice_debt_lumen)
+    before_yao_planunit.add_personunit(exx.zia)
+    yao_person_debt_lumen = 77
+    before_yao_planunit.set_person_respect(yao_person_debt_lumen)
     zia_planunit = planunit_shop(exx.zia)
-    zia_planunit.add_voiceunit(exx.yao)
+    zia_planunit.add_personunit(exx.yao)
     zia_clean_kegunit = kegunit_shop(exx.clean, pledge=True)
     zia_clean_kegunit.laborunit.add_party(exx.yao)
     casa_rope = zia_planunit.make_l1_rope("casa")
@@ -93,11 +93,11 @@ def test_listen_to_speaker_agenda_ReturnsLevel2taskPlan():
     yao_clean_kegunit = after_yao_planunit.get_keg_obj(clean_rope)
     print(f"{yao_clean_kegunit.star=}")
     assert yao_clean_kegunit.star != zia_clean_kegunit.star
-    assert yao_clean_kegunit.star == yao_voice_debt_lumen
+    assert yao_clean_kegunit.star == yao_person_debt_lumen
     after_casa_kegunit = after_yao_planunit.get_keg_obj(casa_rope)
     print(f"{after_casa_kegunit.star=}")
     assert after_casa_kegunit.star != 1
-    assert after_casa_kegunit.star == yao_voice_debt_lumen
+    assert after_casa_kegunit.star == yao_person_debt_lumen
     assert after_yao_planunit == before_yao_planunit
     assert len(after_yao_planunit.get_agenda_dict()) == 1
 
@@ -105,12 +105,12 @@ def test_listen_to_speaker_agenda_ReturnsLevel2taskPlan():
 def test_listen_to_speaker_agenda_Returns2AgendaKegsLevel2taskPlan():
     # ESTABLISH
     before_yao_planunit = planunit_shop(exx.yao)
-    before_yao_planunit.add_voiceunit(exx.zia)
-    yao_voice_debt_lumen = 55
-    before_yao_planunit.set_voice_respect(yao_voice_debt_lumen)
+    before_yao_planunit.add_personunit(exx.zia)
+    yao_person_debt_lumen = 55
+    before_yao_planunit.set_person_respect(yao_person_debt_lumen)
 
     zia_planunit = planunit_shop(exx.zia)
-    zia_planunit.add_voiceunit(exx.yao)
+    zia_planunit.add_personunit(exx.yao)
     fly_str = "fly"
     yao_clean_kegunit = kegunit_shop(exx.clean, pledge=True)
     yao_clean_kegunit.laborunit.add_party(exx.yao)
@@ -156,11 +156,11 @@ def test_listen_to_speaker_agenda_Returns2AgendaKegsLevel2taskPlan():
 def test_listen_to_speaker_agenda_Returns2AgendaKegsLevel2taskPlanWhereAnKegUnitExistsInAdvance():
     # ESTABLISH
     before_yao_planunit = planunit_shop(exx.yao)
-    before_yao_planunit.add_voiceunit(exx.zia)
-    yao_voice_debt_lumen = 55
-    before_yao_planunit.set_voice_respect(yao_voice_debt_lumen)
+    before_yao_planunit.add_personunit(exx.zia)
+    yao_person_debt_lumen = 55
+    before_yao_planunit.set_person_respect(yao_person_debt_lumen)
     zia_planunit = planunit_shop(exx.zia)
-    zia_planunit.add_voiceunit(exx.yao)
+    zia_planunit.add_personunit(exx.yao)
     dish_str = "dish"
     fly_str = "fly"
     yao_dish_kegunit = kegunit_shop(dish_str, pledge=True)
@@ -211,14 +211,14 @@ def test_listen_to_speaker_agenda_Returns2AgendaKegsLevel2taskPlanWhereAnKegUnit
 def test_listen_to_speaker_agenda_ProcessesIrrationalPlan():
     # ESTABLISH
     yao_duty = planunit_shop(exx.yao)
-    zia_voice_cred_lumen = 47
-    zia_voice_debt_lumen = 41
-    sue_voice_cred_lumen = 57
-    sue_voice_debt_lumen = 51
-    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    zia_person_cred_lumen = 47
+    zia_person_debt_lumen = 41
+    sue_person_cred_lumen = 57
+    sue_person_debt_lumen = 51
+    yao_duty.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_duty.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     yao_pool = 92
-    yao_duty.set_voice_respect(yao_pool)
+    yao_duty.set_person_respect(yao_pool)
 
     sue_planunit = planunit_shop(exx.sue)
     sue_planunit.set_max_tree_traverse(6)
@@ -254,51 +254,51 @@ def test_listen_to_speaker_agenda_ProcessesIrrationalPlan():
 
     # WHEN
     yao_vision = create_empty_plan_from_plan(yao_duty, exx.yao)
-    yao_vision.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_vision.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
-    yao_vision.set_voice_respect(yao_pool)
+    yao_vision.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_vision.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
+    yao_vision.set_person_respect(yao_pool)
     yao_vision = listen_to_speaker_agenda(yao_vision, sue_planunit)
     yao_vision.cashout()
 
     # THEN irrational plan is ignored
     assert len(yao_vision.get_agenda_dict()) != 3
     assert len(yao_vision.get_agenda_dict()) == 0
-    zia_voiceunit = yao_vision.get_voice(exx.zia)
-    sue_voiceunit = yao_vision.get_voice(exx.sue)
-    print(f"{sue_voiceunit.voice_debt_lumen=}")
-    print(f"{sue_voiceunit.irrational_voice_debt_lumen=}")
-    assert zia_voiceunit.irrational_voice_debt_lumen == 0
-    assert sue_voiceunit.irrational_voice_debt_lumen == 51
+    zia_personunit = yao_vision.get_person(exx.zia)
+    sue_personunit = yao_vision.get_person(exx.sue)
+    print(f"{sue_personunit.person_debt_lumen=}")
+    print(f"{sue_personunit.irrational_person_debt_lumen=}")
+    assert zia_personunit.irrational_person_debt_lumen == 0
+    assert sue_personunit.irrational_person_debt_lumen == 51
 
 
 def test_listen_to_speaker_agenda_ProcessesBarrenPlan():
     # ESTABLISH
     yao_duty = planunit_shop(exx.yao)
-    zia_voice_cred_lumen = 47
-    zia_voice_debt_lumen = 41
-    sue_voice_cred_lumen = 57
-    sue_voice_debt_lumen = 51
-    yao_duty.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_duty.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
+    zia_person_cred_lumen = 47
+    zia_person_debt_lumen = 41
+    sue_person_cred_lumen = 57
+    sue_person_debt_lumen = 51
+    yao_duty.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_duty.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     yao_pool = 92
-    yao_duty.set_voice_respect(yao_pool)
+    yao_duty.set_person_respect(yao_pool)
 
     # WHEN
     sue_vision = create_empty_plan_from_plan(yao_duty, exx.sue)
     yao_vision = create_empty_plan_from_plan(yao_duty, exx.yao)
-    yao_vision.add_voiceunit(exx.zia, zia_voice_cred_lumen, zia_voice_debt_lumen)
-    yao_vision.add_voiceunit(exx.sue, sue_voice_cred_lumen, sue_voice_debt_lumen)
-    yao_vision.set_voice_respect(yao_pool)
+    yao_vision.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_vision.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
+    yao_vision.set_person_respect(yao_pool)
     yao_vision = listen_to_speaker_agenda(yao_vision, speaker=sue_vision)
 
     # THEN irrational plan is ignored
     assert len(yao_vision.get_agenda_dict()) != 3
     assert len(yao_vision.get_agenda_dict()) == 0
-    zia_voiceunit = yao_vision.get_voice(exx.zia)
-    sue_voiceunit = yao_vision.get_voice(exx.sue)
-    print(f"{sue_voiceunit.voice_debt_lumen=}")
-    print(f"{sue_voiceunit.irrational_voice_debt_lumen=}")
-    assert zia_voiceunit.irrational_voice_debt_lumen == 0
-    assert zia_voiceunit.inallocable_voice_debt_lumen == 0
-    assert sue_voiceunit.irrational_voice_debt_lumen == 0
-    assert sue_voiceunit.inallocable_voice_debt_lumen == 51
+    zia_personunit = yao_vision.get_person(exx.zia)
+    sue_personunit = yao_vision.get_person(exx.sue)
+    print(f"{sue_personunit.person_debt_lumen=}")
+    print(f"{sue_personunit.irrational_person_debt_lumen=}")
+    assert zia_personunit.irrational_person_debt_lumen == 0
+    assert zia_personunit.inallocable_person_debt_lumen == 0
+    assert sue_personunit.irrational_person_debt_lumen == 0
+    assert sue_personunit.inallocable_person_debt_lumen == 51

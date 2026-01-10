@@ -6,8 +6,8 @@
     "moment_label": { "otx_key": true  }, 
     "otx_title"   : { "otx_key": true  }, 
     "spark_num"   : { "otx_key": true  }, 
-    "voice_name"  : { "otx_key": true  }
+    "person_name"  : { "otx_key": true  }
   }, 
-  "dimens": ["translate_title", "plan_voiceunit", "planunit", "momentunit"], 
+  "dimens": ["translate_title", "plan_personunit", "planunit", "momentunit"], 
   "idea_number": "br00115"
 }

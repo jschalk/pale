@@ -1,7 +1,7 @@
 import dataclasses
 from src.ch01_py.dict_toolbox import get_serializable_dict
-from src.ch03_voice.group import AwardHeir, AwardLine, AwardUnit
-from src.ch03_voice.labor import PartyHeir, PartyUnit
+from src.ch03_person.group import AwardHeir, AwardLine, AwardUnit
+from src.ch03_person.labor import PartyHeir, PartyUnit
 from src.ch05_reason.reason_main import (
     CaseUnit,
     FactHeir,
@@ -110,12 +110,12 @@ def set_readable_keg_values(x_keg: KegUnit, result: dict):
         else add_small_dot("Root Keg parent_rope is empty str")
     )
     result["keg_fund_total"] = x_keg.get_keg_fund_total()
-    all_voice_cred_str = f"all_voice_cred = {x_keg.all_voice_cred}"
-    all_voice_debt_str = f"all_voice_debt = {x_keg.all_voice_debt}"
-    all_voice_cred_str = add_small_dot(all_voice_cred_str)
-    all_voice_debt_str = add_small_dot(all_voice_debt_str)
-    result["all_voice_cred"] = all_voice_cred_str
-    result["all_voice_debt"] = all_voice_debt_str
+    all_person_cred_str = f"all_person_cred = {x_keg.all_person_cred}"
+    all_person_debt_str = f"all_person_debt = {x_keg.all_person_debt}"
+    all_person_cred_str = add_small_dot(all_person_cred_str)
+    all_person_debt_str = add_small_dot(all_person_debt_str)
+    result["all_person_cred"] = all_person_cred_str
+    result["all_person_debt"] = all_person_debt_str
     result["fund_ratio"] = readable_percent(result.get("fund_ratio"))
     result_gogo_want = result.get("gogo_want")
     result_stop_want = result.get("stop_want")
@@ -147,34 +147,34 @@ def get_keg_view_dict(x_keg: KegUnit) -> dict[str,]:
     return get_serializable_dict(plan_objs_asdict(x_keg))
 
 
-def get_voices_view_dict(plan: PlanUnit) -> dict[str,]:
-    voices_dict = {}
-    for voice in plan.voices.values():
+def get_persons_view_dict(plan: PlanUnit) -> dict[str,]:
+    persons_dict = {}
+    for person in plan.persons.values():
 
-        voice_cred_lumen_readable = f"voice_cred_lumen: {voice.voice_cred_lumen}"
-        voice_debt_lumen_readable = f"voice_debt_lumen: {voice.voice_debt_lumen}"
-        memberships_readable = f"memberships: {voice.memberships}"
-        credor_pool_readable = f"credor_pool: {voice.credor_pool}"
-        debtor_pool_readable = f"debtor_pool: {voice.debtor_pool}"
-        irrational_voice_debt_lumen_readable = (
-            f"irrational_voice_debt_lumen: {voice.irrational_voice_debt_lumen}"
+        person_cred_lumen_readable = f"person_cred_lumen: {person.person_cred_lumen}"
+        person_debt_lumen_readable = f"person_debt_lumen: {person.person_debt_lumen}"
+        memberships_readable = f"memberships: {person.memberships}"
+        credor_pool_readable = f"credor_pool: {person.credor_pool}"
+        debtor_pool_readable = f"debtor_pool: {person.debtor_pool}"
+        irrational_person_debt_lumen_readable = (
+            f"irrational_person_debt_lumen: {person.irrational_person_debt_lumen}"
         )
-        inallocable_voice_debt_lumen_readable = (
-            f"inallocable_voice_debt_lumen: {voice.inallocable_voice_debt_lumen}"
+        inallocable_person_debt_lumen_readable = (
+            f"inallocable_person_debt_lumen: {person.inallocable_person_debt_lumen}"
         )
-        fund_give_readable = f"fund_give: {voice.fund_give}"
-        fund_take_readable = f"fund_take: {voice.fund_take}"
-        fund_agenda_give_readable = f"fund_agenda_give: {voice.fund_agenda_give}"
-        fund_agenda_take_readable = f"fund_agenda_take: {voice.fund_agenda_take}"
+        fund_give_readable = f"fund_give: {person.fund_give}"
+        fund_take_readable = f"fund_take: {person.fund_take}"
+        fund_agenda_give_readable = f"fund_agenda_give: {person.fund_agenda_give}"
+        fund_agenda_take_readable = f"fund_agenda_take: {person.fund_agenda_take}"
         fund_agenda_ratio_give_readable = (
-            f"fund_agenda_ratio_give: {voice.fund_agenda_ratio_give}"
+            f"fund_agenda_ratio_give: {person.fund_agenda_ratio_give}"
         )
         fund_agenda_ratio_take_readable = (
-            f"fund_agenda_ratio_take: {voice.fund_agenda_ratio_take}"
+            f"fund_agenda_ratio_take: {person.fund_agenda_ratio_take}"
         )
         x_members_dict = {
             x_membership.group_title: {
-                "voice_name": x_membership.voice_name,
+                "person_name": x_membership.person_name,
                 "group_title": x_membership.group_title,
                 "group_cred_lumen": x_membership.group_cred_lumen,
                 "group_debt_lumen": x_membership.group_debt_lumen,
@@ -220,30 +220,30 @@ def get_voices_view_dict(plan: PlanUnit) -> dict[str,]:
                     f"fund_take: {x_membership.fund_take}"
                 ),
             }
-            for x_membership in voice.memberships.values()
+            for x_membership in person.memberships.values()
         }
-        voice_dict = {
-            "voice_name": voice.voice_name,
-            "voice_cred_lumen": voice.voice_cred_lumen,
-            "voice_debt_lumen": voice.voice_debt_lumen,
+        person_dict = {
+            "person_name": person.person_name,
+            "person_cred_lumen": person.person_cred_lumen,
+            "person_debt_lumen": person.person_debt_lumen,
             "memberships": x_members_dict,
-            "credor_pool": voice.credor_pool,
-            "debtor_pool": voice.debtor_pool,
-            "irrational_voice_debt_lumen": voice.irrational_voice_debt_lumen,
-            "inallocable_voice_debt_lumen": voice.inallocable_voice_debt_lumen,
-            "fund_give": voice.fund_give,
-            "fund_take": voice.fund_take,
-            "fund_agenda_give": voice.fund_agenda_give,
-            "fund_agenda_take": voice.fund_agenda_take,
-            "fund_agenda_ratio_give": voice.fund_agenda_ratio_give,
-            "fund_agenda_ratio_take": voice.fund_agenda_ratio_take,
-            "voice_cred_lumen_readable": voice_cred_lumen_readable,
-            "voice_debt_lumen_readable": voice_debt_lumen_readable,
+            "credor_pool": person.credor_pool,
+            "debtor_pool": person.debtor_pool,
+            "irrational_person_debt_lumen": person.irrational_person_debt_lumen,
+            "inallocable_person_debt_lumen": person.inallocable_person_debt_lumen,
+            "fund_give": person.fund_give,
+            "fund_take": person.fund_take,
+            "fund_agenda_give": person.fund_agenda_give,
+            "fund_agenda_take": person.fund_agenda_take,
+            "fund_agenda_ratio_give": person.fund_agenda_ratio_give,
+            "fund_agenda_ratio_take": person.fund_agenda_ratio_take,
+            "person_cred_lumen_readable": person_cred_lumen_readable,
+            "person_debt_lumen_readable": person_debt_lumen_readable,
             "memberships_readable": memberships_readable,
             "credor_pool_readable": credor_pool_readable,
             "debtor_pool_readable": debtor_pool_readable,
-            "irrational_voice_debt_lumen_readable": irrational_voice_debt_lumen_readable,
-            "inallocable_voice_debt_lumen_readable": inallocable_voice_debt_lumen_readable,
+            "irrational_person_debt_lumen_readable": irrational_person_debt_lumen_readable,
+            "inallocable_person_debt_lumen_readable": inallocable_person_debt_lumen_readable,
             "fund_give_readable": fund_give_readable,
             "fund_take_readable": fund_take_readable,
             "fund_agenda_give_readable": fund_agenda_give_readable,
@@ -251,9 +251,9 @@ def get_voices_view_dict(plan: PlanUnit) -> dict[str,]:
             "fund_agenda_ratio_give_readable": fund_agenda_ratio_give_readable,
             "fund_agenda_ratio_take_readable": fund_agenda_ratio_take_readable,
         }
-        voices_dict[voice.voice_name] = voice_dict
+        persons_dict[person.person_name] = person_dict
 
-    return voices_dict
+    return persons_dict
 
 
 def get_groups_view_dict(plan: PlanUnit) -> dict[str,]:
@@ -286,8 +286,8 @@ def get_groups_view_dict(plan: PlanUnit) -> dict[str,]:
         #     group_debtor_pool_readable = f"debtor_pool_readable: {group.debtor_pool}"
 
         #     x_members_dict = {
-        #         # x_membership.voice_name: {
-        #         #     "voice_name": x_membership.voice_name,
+        #         # x_membership.person_name: {
+        #         #     "person_name": x_membership.person_name,
         #         #     "group_title": x_membership.group_title,
         #         #     "group_cred_lumen": x_membership.group_cred_lumen,
         #         #     "group_debt_lumen": x_membership.group_debt_lumen,
@@ -299,8 +299,8 @@ def get_groups_view_dict(plan: PlanUnit) -> dict[str,]:
         #         #     "fund_agenda_take": x_membership.fund_agenda_take,
         #         #     "fund_give": x_membership.fund_give,
         #         #     "fund_take": x_membership.fund_take,
-        #         #     "voice_name_readable": add_small_dot(
-        #         #         f"voice name: {x_membership.voice_name}"
+        #         #     "person_name_readable": add_small_dot(
+        #         #         f"person name: {x_membership.person_name}"
         #         #     ),
         #         #     "group_cred_lumen_readable": add_small_dot(
         #         #         f"group_cred_lumen: {x_membership.group_cred_lumen}"
@@ -337,7 +337,7 @@ def get_groups_view_dict(plan: PlanUnit) -> dict[str,]:
         #     }
         group_dict = {
             "group_title": group.group_title,
-            #         "voice_name": 1,
+            #         "person_name": 1,
             #         "group_title": 1,
             #         "group_cred_lumen": 1,
             #         "group_debt_lumen": 1,
@@ -370,5 +370,5 @@ def get_groups_view_dict(plan: PlanUnit) -> dict[str,]:
 def get_plan_view_dict(plan: PlanUnit) -> dict[str,]:
     return {
         "kegroot": get_keg_view_dict(plan.kegroot),
-        "voices": get_voices_view_dict(plan),
+        "persons": get_persons_view_dict(plan),
     }

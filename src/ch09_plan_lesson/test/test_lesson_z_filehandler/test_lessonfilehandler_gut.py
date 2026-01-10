@@ -122,7 +122,7 @@ def test_LessonFileHandler_create_initial_lesson_files_from_gut_SavesOnlyLessonF
     # ESTABLISH
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     sue_gut_plan = sue_lessonfilehandler.default_gut_plan()
-    sue_gut_plan.add_voiceunit(exx.bob)
+    sue_gut_plan.add_personunit(exx.bob)
     assert gut_file_exists(env_dir(), exx.a23, exx.sue) is False
     save_gut_file(env_dir(), sue_gut_plan)
     assert gut_file_exists(env_dir(), exx.a23, exx.sue)
@@ -203,7 +203,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
     )
     sue_lessonfilehandler.initialize_lesson_gut_files()
     sue_gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
-    sue_gut_plan.add_voiceunit(exx.bob)
+    sue_gut_plan.add_personunit(exx.bob)
     save_gut_file(env_dir(), sue_gut_plan)
     assert gut_file_exists(env_dir(), exx.a23, exx.sue)
     init_lesson_file_path = create_path(
@@ -219,7 +219,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
     assert sue_gut_plan.moment_label == exx.a23
     assert sue_gut_plan.plan_name == exx.sue
     assert sue_gut_plan.respect_grain == seven_int
-    assert sue_gut_plan.voice_exists(exx.bob)
+    assert sue_gut_plan.person_exists(exx.bob)
     assert os_path_exists(init_lesson_file_path)
 
 

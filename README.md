@@ -30,7 +30,7 @@ For beto all data must have *spark_num*, *face_name*, *moment_label*. These are 
 `beto` is a python library for listening to the needs of my neighbors and in turn letting them know what I need. Needs can be expressed in Excel sheets that range in complexity from a simple five column single row (example below) to 10+ columns that include configuration options that are usually set to defaults. Each row is translated and used to build the "clarity" data set. Even sheet with a single row like the example 0.1.0 below can be processed by beto. 
 
 # Input Example Excel file 0.1.0: fizz0.xlsx with sheet "br00000_buzz" 
-| spark_num | face_name | moment_label | plan_name | voice_name | tran_time | amount |
+| spark_num | face_name | moment_label | plan_name | person_name | tran_time | amount |
 |-----------|-----------|-----------|------------|-----------|-----------|--------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |    891    |  7000  |
 
@@ -42,13 +42,13 @@ When beto processes example 0.1.0 it creates a Moment labeled "OxboxDean" that c
 
 
 Output stance: emmanuel_stance.xlsx, sheet "br00000"
-| spark_num | face_name | moment_label | plan_name | voice_name | tran_time | amount |
+| spark_num | face_name | moment_label | plan_name | person_name | tran_time | amount |
 |-----------|-----------|--------------|---------------|-----------|-----------|--------|
 |    77     | Emmanuel  |   OxboxDean  |    Emmanuel   |    Dean   |    891    |  7000  |
 
 
 <!-- # Input Example Excel file 0.1.2: fizz2.xlsx with sheet "br00000_buzz2" 
-| spark_num | face_name | moment_label | plan_name | voice_name | voice_cred_points | voice_debt_points |
+| spark_num | face_name | moment_label | plan_name | person_name | person_cred_points | person_debt_points |
 |-----------|-----------|-----------|------------|-----------|---------------|---------------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |      100      |      15       |
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |  Emmanuel |       50      |      75       |
@@ -62,7 +62,7 @@ positions are aggregated by a listener into a coherant agenda that can include p
 to do and pledges of  of existence. Listening and acting on it.
 
 A person's agenda in the community is built by the the stared intreprtation of
-1. Voice persons agendas 
+1. Other persons' agendas 
 2. Their own independent agenda
 
 Each agenda is saved as a JSON file. 
@@ -104,7 +104,7 @@ base attributes vs reason attributess
 
 PlanUnit objects
 
-PlanUnit VoiceUnit objects
+PlanUnit PersonUnit objects
 
 PlanUnit GroupUnit objects
 
