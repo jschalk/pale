@@ -1268,12 +1268,12 @@ def test_populate_translate_core_vld_with_missing_face_names_Scenario0_Populates
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_str = kw.plan_voiceunit
-        blfvoce_s_agg_tablename = create_prime_tablename(blfvoce_str, "s", "agg", "put")
-        insert_blfvoce_sqlstr = f"""
-INSERT INTO {blfvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
+        plnvoce_str = kw.plan_voiceunit
+        plnvoce_s_agg_tablename = create_prime_tablename(plnvoce_str, "s", "agg", "put")
+        insert_plnvoce_sqlstr = f"""
+INSERT INTO {plnvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}');"""
-        cursor.execute(insert_blfvoce_sqlstr)
+        cursor.execute(insert_plnvoce_sqlstr)
 
         trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s", "vld")
         assert get_row_count(cursor, trlcore_s_vld_tablename) == 0
@@ -1301,12 +1301,12 @@ def test_populate_translate_core_vld_with_missing_face_names_Scenario1_Populates
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_str = kw.plan_voiceunit
-        blfvoce_s_agg_tablename = create_prime_tablename(blfvoce_str, "s", "agg", "put")
-        insert_blfvoce_sqlstr = f"""
-INSERT INTO {blfvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
+        plnvoce_str = kw.plan_voiceunit
+        plnvoce_s_agg_tablename = create_prime_tablename(plnvoce_str, "s", "agg", "put")
+        insert_plnvoce_sqlstr = f"""
+INSERT INTO {plnvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}'), ({spark1}, '{exx.yao}', '{exx.yao}', '{exx.yao}');"""
-        cursor.execute(insert_blfvoce_sqlstr)
+        cursor.execute(insert_plnvoce_sqlstr)
 
         trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s", "vld")
         insert_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
@@ -1342,12 +1342,12 @@ def test_etl_translate_sound_agg_tables_to_translate_sound_vld_tables_Scenario2_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_str = kw.plan_voiceunit
-        blfvoce_s_agg_tablename = create_prime_tablename(blfvoce_str, "s", "agg", "put")
-        insert_blfvoce_sqlstr = f"""
-INSERT INTO {blfvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
+        plnvoce_str = kw.plan_voiceunit
+        plnvoce_s_agg_tablename = create_prime_tablename(plnvoce_str, "s", "agg", "put")
+        insert_plnvoce_sqlstr = f"""
+INSERT INTO {plnvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}');"""
-        cursor.execute(insert_blfvoce_sqlstr)
+        cursor.execute(insert_plnvoce_sqlstr)
 
         trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s", "vld")
         assert get_row_count(cursor, trlcore_s_vld_tablename) == 0
@@ -1375,12 +1375,12 @@ def test_etl_translate_sound_agg_tables_to_translate_sound_vld_tables_Scenario3_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_str = kw.plan_voiceunit
-        blfvoce_s_agg_tablename = create_prime_tablename(blfvoce_str, "s", "agg", "put")
-        insert_blfvoce_sqlstr = f"""
-INSERT INTO {blfvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
+        plnvoce_str = kw.plan_voiceunit
+        plnvoce_s_agg_tablename = create_prime_tablename(plnvoce_str, "s", "agg", "put")
+        insert_plnvoce_sqlstr = f"""
+INSERT INTO {plnvoce_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.plan_name}, {kw.voice_name})
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}'), ({spark1}, '{exx.yao}', '{exx.yao}', '{exx.yao}');"""
-        cursor.execute(insert_blfvoce_sqlstr)
+        cursor.execute(insert_plnvoce_sqlstr)
 
         trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s", "vld")
         insert_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (

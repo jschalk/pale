@@ -19,7 +19,7 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
 )
 
 
-def create_blfmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     voice_name = values_dict.get("voice_name")
@@ -56,7 +56,7 @@ VALUES (
 """
 
 
-def create_blfvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     voice_name = values_dict.get("voice_name")
@@ -97,7 +97,7 @@ VALUES (
 """
 
 
-def create_blfgrou_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plngrou_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     group_title = values_dict.get("group_title")
@@ -126,7 +126,7 @@ VALUES (
 """
 
 
-def create_blfawar_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnawar_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     rope = values_dict.get("keg_rope")
@@ -150,7 +150,7 @@ VALUES (
 """
 
 
-def create_blffact_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnfact_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     rope = values_dict.get("keg_rope")
@@ -172,7 +172,7 @@ VALUES (
 """
 
 
-def create_blfheal_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnheal_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     rope = values_dict.get("keg_rope")
@@ -188,7 +188,7 @@ VALUES (
 """
 
 
-def create_blfcase_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plncase_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     rope = values_dict.get("keg_rope")
@@ -216,7 +216,7 @@ VALUES (
 """
 
 
-def create_blfreas_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnreas_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     rope = values_dict.get("keg_rope")
@@ -240,7 +240,7 @@ VALUES (
 """
 
 
-def create_blflabo_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnlabo_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     rope = values_dict.get("keg_rope")
@@ -260,7 +260,7 @@ VALUES (
 """
 
 
-def create_blfkegg_metrics_insert_sqlstr(values_dict: dict[str,]):
+def create_plnkegg_metrics_insert_sqlstr(values_dict: dict[str,]):
     moment_label = values_dict.get("moment_label")
     plan_name = values_dict.get("plan_name")
     rope = values_dict.get("keg_rope")
@@ -384,7 +384,7 @@ class ObjKeysHolder:
     fact_rope: RopeTerm = None
 
 
-def insert_job_blfmemb(
+def insert_job_plnmemb(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_membership: MemberShip,
@@ -392,11 +392,11 @@ def insert_job_blfmemb(
     x_dict = copy_deepcopy(x_membership.__dict__)
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfmemb_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnmemb_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfvoce(
+def insert_job_plnvoce(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_voice: VoiceUnit,
@@ -404,11 +404,11 @@ def insert_job_blfvoce(
     x_dict = copy_deepcopy(x_voice.__dict__)
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfvoce_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnvoce_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfgrou(
+def insert_job_plngrou(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_groupunit: GroupUnit,
@@ -416,11 +416,11 @@ def insert_job_blfgrou(
     x_dict = copy_deepcopy(x_groupunit.__dict__)
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfgrou_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plngrou_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfawar(
+def insert_job_plnawar(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_awardheir: AwardHeir,
@@ -429,11 +429,11 @@ def insert_job_blfawar(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
     x_dict["keg_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blfawar_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnawar_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blffact(
+def insert_job_plnfact(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_factheir: FactHeir,
@@ -442,11 +442,11 @@ def insert_job_blffact(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
     x_dict["keg_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blffact_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnfact_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfheal(
+def insert_job_plnheal(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_healer: HealerUnit,
@@ -458,11 +458,11 @@ def insert_job_blfheal(
     }
     for healer_name in sorted(x_healer._healer_names):
         x_dict["healer_name"] = healer_name
-        insert_sqlstr = create_blfheal_metrics_insert_sqlstr(x_dict)
+        insert_sqlstr = create_plnheal_metrics_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfcase(
+def insert_job_plncase(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_caseunit: CaseUnit,
@@ -472,11 +472,11 @@ def insert_job_blfcase(
     x_dict["plan_name"] = x_objkeysholder.plan_name
     x_dict["keg_rope"] = x_objkeysholder.rope
     x_dict["reason_context"] = x_objkeysholder.reason_context
-    insert_sqlstr = create_blfcase_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plncase_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfreas(
+def insert_job_plnreas(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_reasonheir: ReasonHeir,
@@ -485,11 +485,11 @@ def insert_job_blfreas(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
     x_dict["keg_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blfreas_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnreas_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blflabo(
+def insert_job_plnlabo(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_laborheir: LaborHeir,
@@ -502,21 +502,21 @@ def insert_job_blflabo(
         partyheir = x_laborheir.partys.get(party_title)
         x_dict["party_title"] = partyheir.party_title
         x_dict["solo"] = partyheir.solo
-        insert_sqlstr = create_blflabo_metrics_insert_sqlstr(x_dict)
+        insert_sqlstr = create_plnlabo_metrics_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfkegg(
+def insert_job_plnkegg(
     cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_keg: KegUnit
 ):
     x_dict = copy_deepcopy(x_keg.__dict__)
     x_dict["keg_rope"] = x_keg.get_keg_rope()
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfkegg_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnkegg_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_job_blfunit(
+def insert_job_plnunit(
     cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_plan: PlanUnit
 ):
     x_dict = copy_deepcopy(x_plan.__dict__)
@@ -529,40 +529,40 @@ def insert_job_obj(cursor: sqlite3_Cursor, job_plan: PlanUnit):
     x_objkeysholder = ObjKeysHolder(
         moment_label=job_plan.moment_label, plan_name=job_plan.plan_name
     )
-    insert_job_blfunit(cursor, x_objkeysholder, job_plan)
+    insert_job_plnunit(cursor, x_objkeysholder, job_plan)
     for x_keg in job_plan.get_keg_dict().values():
         x_objkeysholder.rope = x_keg.get_keg_rope()
         healerunit = x_keg.healerunit
         laborheir = x_keg.laborheir
-        insert_job_blfkegg(cursor, x_objkeysholder, x_keg)
-        insert_job_blfheal(cursor, x_objkeysholder, healerunit)
-        insert_job_blflabo(cursor, x_objkeysholder, laborheir)
+        insert_job_plnkegg(cursor, x_objkeysholder, x_keg)
+        insert_job_plnheal(cursor, x_objkeysholder, healerunit)
+        insert_job_plnlabo(cursor, x_objkeysholder, laborheir)
         for x_awardheir in x_keg.awardheirs.values():
-            insert_job_blfawar(cursor, x_objkeysholder, x_awardheir)
+            insert_job_plnawar(cursor, x_objkeysholder, x_awardheir)
         for reason_context, reasonheir in x_keg.reasonheirs.items():
-            insert_job_blfreas(cursor, x_objkeysholder, reasonheir)
+            insert_job_plnreas(cursor, x_objkeysholder, reasonheir)
             x_objkeysholder.reason_context = reason_context
             for prem in reasonheir.cases.values():
-                insert_job_blfcase(cursor, x_objkeysholder, prem)
+                insert_job_plncase(cursor, x_objkeysholder, prem)
 
     for x_voice in job_plan.voices.values():
-        insert_job_blfvoce(cursor, x_objkeysholder, x_voice)
+        insert_job_plnvoce(cursor, x_objkeysholder, x_voice)
         for x_membership in x_voice.memberships.values():
-            insert_job_blfmemb(cursor, x_objkeysholder, x_membership)
+            insert_job_plnmemb(cursor, x_objkeysholder, x_membership)
 
     for x_groupunit in job_plan.groupunits.values():
-        insert_job_blfgrou(cursor, x_objkeysholder, x_groupunit)
+        insert_job_plngrou(cursor, x_objkeysholder, x_groupunit)
 
     for x_factheir in job_plan.kegroot.factheirs.values():
         x_objkeysholder.fact_rope = job_plan.kegroot.get_keg_rope()
-        insert_job_blffact(cursor, x_objkeysholder, x_factheir)
+        insert_job_plnfact(cursor, x_objkeysholder, x_factheir)
 
 
-def create_blfawar_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnawar_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_blfcase_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plncase_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     moment_label = values_dict.get("moment_label")
@@ -590,7 +590,7 @@ VALUES (
 """
 
 
-def create_blffact_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnfact_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     moment_label = values_dict.get("moment_label")
@@ -616,23 +616,23 @@ VALUES (
 """
 
 
-def create_blfgrou_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plngrou_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_blfheal_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnheal_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_blflabo_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnlabo_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_blfmemb_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnmemb_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_blfkegg_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnkegg_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     moment_label = values_dict.get("moment_label")
@@ -675,7 +675,7 @@ VALUES (
 """
 
 
-def create_blfreas_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnreas_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     moment_label = values_dict.get("moment_label")
@@ -697,7 +697,7 @@ VALUES (
 """
 
 
-def create_blfunit_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnunit_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     moment_label = values_dict.get("moment_label")
@@ -732,11 +732,11 @@ VALUES (
 """
 
 
-def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_plnvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-# def create_blfmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnmemb_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     voice_name = values_dict.get("voice_name")
@@ -775,7 +775,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blfvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnvoce_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     voice_name = values_dict.get("voice_name")
@@ -818,7 +818,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blfgrou_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plngrou_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     group_title = values_dict.get("group_title")
@@ -849,7 +849,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blfawar_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnawar_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     rope = values_dict.get("keg_rope")
@@ -875,7 +875,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blffact_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnfact_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     rope = values_dict.get("keg_rope")
@@ -899,7 +899,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blfheal_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnheal_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     rope = values_dict.get("keg_rope")
@@ -917,7 +917,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blfreas_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnreas_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     rope = values_dict.get("keg_rope")
@@ -943,7 +943,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blflabo_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnlabo_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     rope = values_dict.get("keg_rope")
@@ -965,7 +965,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-# def create_blfkegg_metrics_insert_sqlstr(values_dict: dict[str,]):
+# def create_plnkegg_metrics_insert_sqlstr(values_dict: dict[str,]):
 #     moment_label = values_dict.get("moment_label")
 #     plan_name = values_dict.get("plan_name")
 #     rope = values_dict.get("keg_rope")
@@ -1034,7 +1034,7 @@ def create_blfvoce_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 # """
 
 
-def insert_h_agg_blfmemb(
+def insert_h_agg_plnmemb(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_membership: MemberShip,
@@ -1044,11 +1044,11 @@ def insert_h_agg_blfmemb(
     x_dict["face_name"] = x_objkeysholder.face_name
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfmemb_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnmemb_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfvoce(
+def insert_h_agg_plnvoce(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_voice: VoiceUnit,
@@ -1058,11 +1058,11 @@ def insert_h_agg_blfvoce(
     x_dict["face_name"] = x_objkeysholder.face_name
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfvoce_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnvoce_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfgrou(
+def insert_h_agg_plngrou(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_groupunit: GroupUnit,
@@ -1072,11 +1072,11 @@ def insert_h_agg_blfgrou(
     x_dict["face_name"] = x_objkeysholder.face_name
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfgrou_metrics_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plngrou_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfawar(
+def insert_h_agg_plnawar(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_awardheir: AwardHeir,
@@ -1087,11 +1087,11 @@ def insert_h_agg_blfawar(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
     x_dict["keg_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blfawar_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnawar_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blffact(
+def insert_h_agg_plnfact(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_factheir: FactHeir,
@@ -1104,11 +1104,11 @@ def insert_h_agg_blffact(
     x_dict["keg_rope"] = x_objkeysholder.rope
     x_dict["fact_upper_otx"] = x_dict["fact_upper"]
     x_dict["fact_lower_otx"] = x_dict["fact_lower"]
-    insert_sqlstr = create_blffact_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnfact_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfheal(
+def insert_h_agg_plnheal(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_healer: HealerUnit,
@@ -1120,11 +1120,11 @@ def insert_h_agg_blfheal(
     }
     for healer_name in sorted(x_healer._healer_names):
         x_dict["healer_name"] = healer_name
-        insert_sqlstr = create_blfheal_h_put_agg_insert_sqlstr(x_dict)
+        insert_sqlstr = create_plnheal_h_put_agg_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfcase(
+def insert_h_agg_plncase(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_caseunit: CaseUnit,
@@ -1138,11 +1138,11 @@ def insert_h_agg_blfcase(
     x_dict["reason_context"] = x_objkeysholder.reason_context
     x_dict["reason_lower_otx"] = x_dict["reason_lower"]
     x_dict["reason_upper_otx"] = x_dict["reason_upper"]
-    insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plncase_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfreas(
+def insert_h_agg_plnreas(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_reasonheir: ReasonHeir,
@@ -1153,11 +1153,11 @@ def insert_h_agg_blfreas(
     x_dict["moment_label"] = x_objkeysholder.moment_label
     x_dict["plan_name"] = x_objkeysholder.plan_name
     x_dict["keg_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_blfreas_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnreas_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blflabo(
+def insert_h_agg_plnlabo(
     cursor: sqlite3_Cursor,
     x_objkeysholder: ObjKeysHolder,
     x_laborheir: LaborHeir,
@@ -1172,11 +1172,11 @@ def insert_h_agg_blflabo(
         partyheir = x_laborheir.partys.get(party_title)
         x_dict["party_title"] = partyheir.party_title
         x_dict["solo"] = partyheir.solo
-        insert_sqlstr = create_blflabo_h_put_agg_insert_sqlstr(x_dict)
+        insert_sqlstr = create_plnlabo_h_put_agg_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfkegg(
+def insert_h_agg_plnkegg(
     cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_keg: KegUnit
 ):
     x_dict = copy_deepcopy(x_keg.__dict__)
@@ -1184,17 +1184,17 @@ def insert_h_agg_blfkegg(
     x_dict["face_name"] = x_objkeysholder.face_name
     x_dict["keg_rope"] = x_keg.get_keg_rope()
     x_dict["plan_name"] = x_objkeysholder.plan_name
-    insert_sqlstr = create_blfkegg_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnkegg_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
-def insert_h_agg_blfunit(
+def insert_h_agg_plnunit(
     cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_plan: PlanUnit
 ):
     x_dict = copy_deepcopy(x_plan.__dict__)
     x_dict["spark_num"] = x_objkeysholder.spark_num
     x_dict["face_name"] = x_objkeysholder.face_name
-    insert_sqlstr = create_blfunit_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_plnunit_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -1211,30 +1211,30 @@ def insert_h_agg_obj(
         moment_label=job_plan.moment_label,
         plan_name=job_plan.plan_name,
     )
-    insert_h_agg_blfunit(cursor, x_objkeysholder, job_plan)
+    insert_h_agg_plnunit(cursor, x_objkeysholder, job_plan)
     for x_keg in job_plan.get_keg_dict().values():
         x_objkeysholder.rope = x_keg.get_keg_rope()
-        insert_h_agg_blfkegg(cursor, x_objkeysholder, x_keg)
+        insert_h_agg_plnkegg(cursor, x_objkeysholder, x_keg)
         # healerunit = x_keg.healerunit
         # laborheir = x_keg.laborheir
-        # insert_h_agg_blfheal(cursor, x_objkeysholder, healerunit)
-        # insert_h_agg_blflabo(cursor, x_objkeysholder, laborheir)
+        # insert_h_agg_plnheal(cursor, x_objkeysholder, healerunit)
+        # insert_h_agg_plnlabo(cursor, x_objkeysholder, laborheir)
         # for x_awardheir in x_keg.awardheirs.values():
-        #     insert_h_agg_blfawar(cursor, x_objkeysholder, x_awardheir)
+        #     insert_h_agg_plnawar(cursor, x_objkeysholder, x_awardheir)
         for reason_context, reasonheir in x_keg.reasonheirs.items():
-            insert_h_agg_blfreas(cursor, x_objkeysholder, reasonheir)
+            insert_h_agg_plnreas(cursor, x_objkeysholder, reasonheir)
             x_objkeysholder.reason_context = reason_context
             for prem in reasonheir.cases.values():
-                insert_h_agg_blfcase(cursor, x_objkeysholder, prem)
+                insert_h_agg_plncase(cursor, x_objkeysholder, prem)
 
     # for x_voice in job_plan.voices.values():
-    #     insert_h_agg_blfvoce(cursor, x_objkeysholder, x_voice)
+    #     insert_h_agg_plnvoce(cursor, x_objkeysholder, x_voice)
     #     for x_membership in x_voice.memberships.values():
-    #         insert_h_agg_blfmemb(cursor, x_objkeysholder, x_membership)
+    #         insert_h_agg_plnmemb(cursor, x_objkeysholder, x_membership)
 
     # for x_groupunit in job_plan.groupunits.values():
-    #     insert_h_agg_blfgrou(cursor, x_objkeysholder, x_groupunit)
+    #     insert_h_agg_plngrou(cursor, x_objkeysholder, x_groupunit)
 
     for x_factheir in job_plan.kegroot.factheirs.values():
         x_objkeysholder.fact_rope = job_plan.kegroot.get_keg_rope()
-        insert_h_agg_blffact(cursor, x_objkeysholder, x_factheir)
+        insert_h_agg_plnfact(cursor, x_objkeysholder, x_factheir)

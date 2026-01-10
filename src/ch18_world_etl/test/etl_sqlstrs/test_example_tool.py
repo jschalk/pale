@@ -19,13 +19,13 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
 from src.ch18_world_etl.etl_config import create_prime_tablename as prime_tbl
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.test._util.ch18_examples import (
-    insert_blfcase_special_h_agg,
     insert_mmtoffi_special_offi_time_otx,
     insert_mmtunit_special_c400_number,
     insert_nabepoc_h_agg_otx_inx_time,
-    select_blfcase_special_h_agg,
+    insert_plncase_special_h_agg,
     select_mmtoffi_special_offi_time_inx,
     select_nabepoc_h_agg_otx_inx_time,
+    select_plncase_special_h_agg,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
@@ -191,19 +191,19 @@ FROM {mmtoffi_h_agg_tablename}
         assert rows == [(spark1, exx.sue, exx.a23, x_offi_time_otx)]
 
 
-def test_insert_blfcase_special_h_agg_PopulatesTable_Scenario0():
+def test_insert_plncase_special_h_agg_PopulatesTable_Scenario0():
     # ESTABLISH
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfcase_h_agg = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+        plncase_h_agg = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
         spark1 = 1
         s1_reason_upper = 500
         s1_reason_lower = 600
-        assert get_row_count(cursor, blfcase_h_agg) == 0
+        assert get_row_count(cursor, plncase_h_agg) == 0
 
         # WHEN
-        insert_blfcase_special_h_agg(
+        insert_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
             x_moment_label=exx.sue,
@@ -216,7 +216,7 @@ def test_insert_blfcase_special_h_agg_PopulatesTable_Scenario0():
         )
 
         # THEN
-        assert get_row_count(cursor, blfcase_h_agg) == 1
+        assert get_row_count(cursor, plncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_label}
@@ -226,7 +226,7 @@ def test_insert_blfcase_special_h_agg_PopulatesTable_Scenario0():
 , {kw.reason_state}
 , {kw.reason_upper}_otx
 , {kw.reason_lower}_otx
-FROM {blfcase_h_agg}
+FROM {plncase_h_agg}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -244,16 +244,16 @@ FROM {blfcase_h_agg}
         assert rows == [expected_row]
 
 
-def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
+def test_select_plncase_special_h_agg_PopulatesTable_Scenario0():
     # ESTABLISH
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfcase_h_agg = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+        plncase_h_agg = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
         spark1 = 1
         s1_reason_upper = 500
         s1_reason_lower = 600
-        insert_blfcase_special_h_agg(
+        insert_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
             x_moment_label=exx.a23,
@@ -266,7 +266,7 @@ def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
         )
 
         # WHEN
-        gen_rows = select_blfcase_special_h_agg(
+        gen_rows = select_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
             x_moment_label=exx.a23,
@@ -291,7 +291,7 @@ def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
         assert not gen_row0.reason_lower_inx
         print(f"{gen_rows=}")
         print(f"{[gen_row0]=}")
-        assert get_row_count(cursor, blfcase_h_agg) == 1
+        assert get_row_count(cursor, plncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_label}
@@ -301,7 +301,7 @@ def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
 , {kw.reason_state}
 , {kw.reason_lower}_otx
 , {kw.reason_upper}_otx
-FROM {blfcase_h_agg}
+FROM {plncase_h_agg}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -319,7 +319,7 @@ FROM {blfcase_h_agg}
         assert rows == [expected_row]
 
 
-# def insert_blfcase_special_h_agg(
+# def insert_plncase_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
@@ -333,7 +333,7 @@ FROM {blfcase_h_agg}
 #     pass
 
 
-# def select_blfcase_special_h_agg(
+# def select_plncase_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
@@ -345,7 +345,7 @@ FROM {blfcase_h_agg}
 #     pass
 
 
-# def insert_blffact_special_h_agg(
+# def insert_plnfact_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
@@ -359,7 +359,7 @@ FROM {blfcase_h_agg}
 #     pass
 
 
-# def select_blffact_special_h_agg(
+# def select_plnfact_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
@@ -370,7 +370,7 @@ FROM {blfcase_h_agg}
 #     pass
 
 
-# def insert_blfkegg_special_h_agg(
+# def insert_plnkegg_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,

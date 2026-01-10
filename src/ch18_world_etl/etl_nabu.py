@@ -47,7 +47,7 @@ def add_frame_to_db_caseunit(
     keg_morph: float,
 ):
     update_sql = get_add_frame_to_db_caseunit_sqlstr()
-    # UPDATE BLFCASE WHERE SPARK_NUM is equal to blfcase_obj using rules from "add_frame_to_caseunit"
+    # UPDATE PLNCASE WHERE SPARK_NUM is equal to plncase_obj using rules from "add_frame_to_caseunit"
     cursor.execute(update_sql)
 
 

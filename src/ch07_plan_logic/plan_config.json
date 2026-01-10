@@ -1,6 +1,6 @@
 {
   "plan_groupunit": {
-    "abbreviation": "blfgrou", 
+    "abbreviation": "plngrou", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -29,7 +29,7 @@
     }
   }, 
   "plan_keg_awardunit": {
-    "abbreviation": "blfawar", 
+    "abbreviation": "plnawar", 
     "jkeys": {
       "awardee_title": {
         "class_type": "TitleTerm", 
@@ -60,7 +60,7 @@
     }
   }, 
   "plan_keg_factunit": {
-    "abbreviation": "blffact", 
+    "abbreviation": "plnfact", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -102,7 +102,7 @@
     }
   }, 
   "plan_keg_healerunit": {
-    "abbreviation": "blfheal", 
+    "abbreviation": "plnheal", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -128,7 +128,7 @@
     "jvalues": {}
   }, 
   "plan_keg_partyunit": {
-    "abbreviation": "blflabo", 
+    "abbreviation": "plnlabo", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -161,7 +161,7 @@
     }
   }, 
   "plan_keg_reason_caseunit": {
-    "abbreviation": "blfcase", 
+    "abbreviation": "plncase", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -210,7 +210,7 @@
     }
   }, 
   "plan_keg_reasonunit": {
-    "abbreviation": "blfreas", 
+    "abbreviation": "plnreas", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -245,7 +245,7 @@
     }
   }, 
   "plan_kegunit": {
-    "abbreviation": "blfkegg", 
+    "abbreviation": "plnkegg", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -316,7 +316,7 @@
     }
   }, 
   "plan_voice_membership": {
-    "abbreviation": "blfmemb", 
+    "abbreviation": "plnmemb", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -353,7 +353,7 @@
     }
   }, 
   "plan_voiceunit": {
-    "abbreviation": "blfvoce", 
+    "abbreviation": "plnvoce", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 
@@ -388,7 +388,7 @@
     }
   }, 
   "planunit": {
-    "abbreviation": "blfunit", 
+    "abbreviation": "plnunit", 
     "jkeys": {
       "plan_name": {
         "class_type": "NameTerm", 

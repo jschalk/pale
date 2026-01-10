@@ -31,8 +31,8 @@ def test_etl_heard_vld_to_spark_plan_csvs_PopulatesPlanPulabelTables(
     a23_bob_e7_dir = create_plan_spark_dir_path(
         x_moment_mstr_dir, exx.a23, bob_inx, spark7
     )
-    a23_e3_blfvoce_put_path = create_path(a23_bob_e3_dir, put_agg_csv)
-    a23_e7_blfvoce_put_path = create_path(a23_bob_e7_dir, put_agg_csv)
+    a23_e3_plnvoce_put_path = create_path(a23_bob_e3_dir, put_agg_csv)
+    a23_e7_plnvoce_put_path = create_path(a23_bob_e7_dir, put_agg_csv)
 
     with sqlite3_connect(":memory:") as plan_db_conn:
         cursor = plan_db_conn.cursor()
@@ -47,17 +47,17 @@ VALUES
 """
         print(insert_raw_sqlstr)
         cursor.execute(insert_raw_sqlstr)
-        assert os_path_exists(a23_e3_blfvoce_put_path) is False
-        assert os_path_exists(a23_e7_blfvoce_put_path) is False
+        assert os_path_exists(a23_e3_plnvoce_put_path) is False
+        assert os_path_exists(a23_e7_plnvoce_put_path) is False
 
         # WHEN
         etl_heard_vld_to_spark_plan_csvs(cursor, x_moment_mstr_dir)
 
         # THEN
-        assert os_path_exists(a23_e3_blfvoce_put_path)
-        assert os_path_exists(a23_e7_blfvoce_put_path)
-        e3_put_csv = open_file(a23_e3_blfvoce_put_path)
-        e7_put_csv = open_file(a23_e7_blfvoce_put_path)
+        assert os_path_exists(a23_e3_plnvoce_put_path)
+        assert os_path_exists(a23_e7_plnvoce_put_path)
+        e3_put_csv = open_file(a23_e3_plnvoce_put_path)
+        e7_put_csv = open_file(a23_e7_plnvoce_put_path)
         print(f"{e3_put_csv=}")
         print(f"{e7_put_csv=}")
         expected_e3_put_csv = """spark_num,face_name,moment_label,plan_name,voice_name,voice_cred_lumen,voice_debt_lumen

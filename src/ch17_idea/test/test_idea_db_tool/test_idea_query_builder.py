@@ -22,30 +22,30 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_plan_keg_partyunit()
             kw.voice_name,
             kw.amount,
         ]
-        blflabo_cat = "plan_keg_partyunit"
+        plnlabo_cat = "plan_keg_partyunit"
         src_table = f"{idea_number}_raw"
-        dst_table = f"{blflabo_cat}_raw"
+        dst_table = f"{plnlabo_cat}_raw"
         idea_config = get_idea_config_dict()
-        blflabo_config = idea_config.get(blflabo_cat)
-        print(f"{blflabo_cat=}")
-        print(f"{blflabo_config=}")
-        blflabo_jkeys = blflabo_config.get(kw.jkeys)
-        blflabo_jvals = blflabo_config.get(kw.jvalues)
-        blflabo_args = set(blflabo_jkeys.keys()).union(set(blflabo_jvals.keys()))
-        blflabo_args = get_default_sorted_list(blflabo_args)
-        print(f"{blflabo_jkeys=}")
-        print(f"{blflabo_jvals=}")
+        plnlabo_config = idea_config.get(plnlabo_cat)
+        print(f"{plnlabo_cat=}")
+        print(f"{plnlabo_config=}")
+        plnlabo_jkeys = plnlabo_config.get(kw.jkeys)
+        plnlabo_jvals = plnlabo_config.get(kw.jvalues)
+        plnlabo_args = set(plnlabo_jkeys.keys()).union(set(plnlabo_jvals.keys()))
+        plnlabo_args = get_default_sorted_list(plnlabo_args)
+        print(f"{plnlabo_jkeys=}")
+        print(f"{plnlabo_jvals=}")
         create_idea_sorted_table(conn, src_table, idea_cols)
-        create_idea_sorted_table(conn, dst_table, blflabo_args)
+        create_idea_sorted_table(conn, dst_table, plnlabo_args)
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, blflabo_cat, blflabo_jkeys
+            conn, idea_number, plnlabo_cat, plnlabo_jkeys
         )
 
         # THEN
         columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.plan_name}, {kw.keg_rope}, {kw.party_title}"
-        expected_sqlstr = f"""INSERT INTO {blflabo_cat}_raw ({kw.idea_number}, {columns_str})
+        expected_sqlstr = f"""INSERT INTO {plnlabo_cat}_raw ({kw.idea_number}, {columns_str})
 SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
 FROM {idea_number}_raw
 WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_label} IS NOT NULL AND {kw.plan_name} IS NOT NULL AND {kw.keg_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
@@ -75,20 +75,20 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_plan_voiceunit():
             kw.amount,
         ]
         src_table = f"{idea_number}_raw"
-        blfvoce_table = f"{kw.plan_voiceunit}_raw"
+        plnvoce_table = f"{kw.plan_voiceunit}_raw"
         idea_config = get_idea_config_dict()
-        blfvoce_config = idea_config.get(kw.plan_voiceunit)
-        blfvoce_jkeys = blfvoce_config.get(kw.jkeys)
-        blfvoce_jvals = blfvoce_config.get(kw.jvalues)
-        blfvoce_args = set(blfvoce_jkeys.keys()).union(set(blfvoce_jvals.keys()))
-        print(f"{blfvoce_jkeys=}")
-        print(f"{blfvoce_jvals=}")
+        plnvoce_config = idea_config.get(kw.plan_voiceunit)
+        plnvoce_jkeys = plnvoce_config.get(kw.jkeys)
+        plnvoce_jvals = plnvoce_config.get(kw.jvalues)
+        plnvoce_args = set(plnvoce_jkeys.keys()).union(set(plnvoce_jvals.keys()))
+        print(f"{plnvoce_jkeys=}")
+        print(f"{plnvoce_jvals=}")
         create_idea_sorted_table(conn, src_table, idea_cols)
-        create_idea_sorted_table(conn, blfvoce_table, list(blfvoce_args))
+        create_idea_sorted_table(conn, plnvoce_table, list(plnvoce_args))
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, kw.plan_voiceunit, blfvoce_jkeys
+            conn, idea_number, kw.plan_voiceunit, plnvoce_jkeys
         )
 
         # THEN
@@ -123,20 +123,20 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_plan_voiceunit():
             kw.amount,
         ]
         src_table = f"{idea_number}_raw"
-        blfvoce_table = f"{kw.plan_voiceunit}_raw"
+        plnvoce_table = f"{kw.plan_voiceunit}_raw"
         idea_config = get_idea_config_dict()
-        blfvoce_config = idea_config.get(kw.plan_voiceunit)
-        blfvoce_jkeys = blfvoce_config.get(kw.jkeys)
-        blfvoce_jvals = blfvoce_config.get(kw.jvalues)
-        blfvoce_args = set(blfvoce_jkeys.keys()).union(set(blfvoce_jvals.keys()))
-        print(f"{blfvoce_jkeys=}")
-        print(f"{blfvoce_jvals=}")
+        plnvoce_config = idea_config.get(kw.plan_voiceunit)
+        plnvoce_jkeys = plnvoce_config.get(kw.jkeys)
+        plnvoce_jvals = plnvoce_config.get(kw.jvalues)
+        plnvoce_args = set(plnvoce_jkeys.keys()).union(set(plnvoce_jvals.keys()))
+        print(f"{plnvoce_jkeys=}")
+        print(f"{plnvoce_jvals=}")
         create_idea_sorted_table(conn, src_table, idea_cols)
-        create_idea_sorted_table(conn, blfvoce_table, list(blfvoce_args))
+        create_idea_sorted_table(conn, plnvoce_table, list(plnvoce_args))
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, kw.plan_voiceunit, blfvoce_jkeys
+            conn, idea_number, kw.plan_voiceunit, plnvoce_jkeys
         )
 
         # THEN

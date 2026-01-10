@@ -47,40 +47,40 @@ def test_create_job_tables_CreatesTables():
         cursor = moment_db_conn.cursor()
         assert len(get_db_tables(cursor)) == 0
 
-        blfmemb_job_table = prime_table(kw.plan_voice_membership, kw.job, None)
-        blfvoce_job_table = prime_table(kw.plan_voiceunit, kw.job, None)
-        blfgrou_job_table = prime_table(kw.plan_groupunit, kw.job, None)
-        blfawar_job_table = prime_table(kw.plan_keg_awardunit, kw.job, None)
-        blffact_job_table = prime_table(kw.plan_keg_factunit, kw.job, None)
-        blfheal_job_table = prime_table(kw.plan_keg_healerunit, kw.job, None)
-        blfcase_job_table = prime_table(kw.plan_keg_reason_caseunit, kw.job, None)
+        plnmemb_job_table = prime_table(kw.plan_voice_membership, kw.job, None)
+        plnvoce_job_table = prime_table(kw.plan_voiceunit, kw.job, None)
+        plngrou_job_table = prime_table(kw.plan_groupunit, kw.job, None)
+        plnawar_job_table = prime_table(kw.plan_keg_awardunit, kw.job, None)
+        plnfact_job_table = prime_table(kw.plan_keg_factunit, kw.job, None)
+        plnheal_job_table = prime_table(kw.plan_keg_healerunit, kw.job, None)
+        plncase_job_table = prime_table(kw.plan_keg_reason_caseunit, kw.job, None)
         planares_job_table = prime_table(kw.plan_keg_reasonunit, kw.job, None)
-        blflabo_job_table = prime_table(kw.plan_keg_partyunit, kw.job, None)
-        blfkegg_job_table = prime_table(kw.plan_kegunit, kw.job, None)
-        blfunit_job_table = prime_table(kw.planunit, kw.job, None)
-        # blfmemb_job_table = f"{kw.plan_voice_membership}_job"
-        # blfvoce_job_table = f"{kw.plan_voiceunit}_job"
-        # blfgrou_job_table = f"{kw.plan_groupunit}_job"
-        # blfawar_job_table = f"{kw.plan_keg_awardunit}_job"
-        # blffact_job_table = f"{kw.plan_keg_factunit}_job"
-        # blfheal_job_table = f"{kw.plan_keg_healerunit}_job"
-        # blfcase_job_table = f"{kw.plan_keg_reason_caseunit}_job"
+        plnlabo_job_table = prime_table(kw.plan_keg_partyunit, kw.job, None)
+        plnkegg_job_table = prime_table(kw.plan_kegunit, kw.job, None)
+        plnunit_job_table = prime_table(kw.planunit, kw.job, None)
+        # plnmemb_job_table = f"{kw.plan_voice_membership}_job"
+        # plnvoce_job_table = f"{kw.plan_voiceunit}_job"
+        # plngrou_job_table = f"{kw.plan_groupunit}_job"
+        # plnawar_job_table = f"{kw.plan_keg_awardunit}_job"
+        # plnfact_job_table = f"{kw.plan_keg_factunit}_job"
+        # plnheal_job_table = f"{kw.plan_keg_healerunit}_job"
+        # plncase_job_table = f"{kw.plan_keg_reason_caseunit}_job"
         # planares_job_table = f"{kw.plan_keg_reasonunit}_job"
-        # blflabo_job_table = f"{kw.plan_keg_partyunit}_job"
-        # blfkegg_job_table = f"{kw.plan_kegunit}_job"
-        # blfunit_job_table = f"{kw.planunit}_job"
+        # plnlabo_job_table = f"{kw.plan_keg_partyunit}_job"
+        # plnkegg_job_table = f"{kw.plan_kegunit}_job"
+        # plnunit_job_table = f"{kw.planunit}_job"
 
-        assert db_table_exists(cursor, blfmemb_job_table) is False
-        assert db_table_exists(cursor, blfvoce_job_table) is False
-        assert db_table_exists(cursor, blfgrou_job_table) is False
-        assert db_table_exists(cursor, blfawar_job_table) is False
-        assert db_table_exists(cursor, blffact_job_table) is False
-        assert db_table_exists(cursor, blfheal_job_table) is False
-        assert db_table_exists(cursor, blfcase_job_table) is False
+        assert db_table_exists(cursor, plnmemb_job_table) is False
+        assert db_table_exists(cursor, plnvoce_job_table) is False
+        assert db_table_exists(cursor, plngrou_job_table) is False
+        assert db_table_exists(cursor, plnawar_job_table) is False
+        assert db_table_exists(cursor, plnfact_job_table) is False
+        assert db_table_exists(cursor, plnheal_job_table) is False
+        assert db_table_exists(cursor, plncase_job_table) is False
         assert db_table_exists(cursor, planares_job_table) is False
-        assert db_table_exists(cursor, blflabo_job_table) is False
-        assert db_table_exists(cursor, blfkegg_job_table) is False
-        assert db_table_exists(cursor, blfunit_job_table) is False
+        assert db_table_exists(cursor, plnlabo_job_table) is False
+        assert db_table_exists(cursor, plnkegg_job_table) is False
+        assert db_table_exists(cursor, plnunit_job_table) is False
 
         # WHEN
         create_job_tables(cursor)
@@ -92,15 +92,15 @@ def test_create_job_tables_CreatesTables():
         # for x_row in cursor.fetchall():
         #     print(f"{x_count} {x_row[1]=}")
         #     x_count += 1
-        assert db_table_exists(cursor, blfmemb_job_table)
-        assert db_table_exists(cursor, blfvoce_job_table)
-        assert db_table_exists(cursor, blfgrou_job_table)
-        assert db_table_exists(cursor, blfawar_job_table)
-        assert db_table_exists(cursor, blffact_job_table)
-        assert db_table_exists(cursor, blfheal_job_table)
-        assert db_table_exists(cursor, blfcase_job_table)
+        assert db_table_exists(cursor, plnmemb_job_table)
+        assert db_table_exists(cursor, plnvoce_job_table)
+        assert db_table_exists(cursor, plngrou_job_table)
+        assert db_table_exists(cursor, plnawar_job_table)
+        assert db_table_exists(cursor, plnfact_job_table)
+        assert db_table_exists(cursor, plnheal_job_table)
+        assert db_table_exists(cursor, plncase_job_table)
         assert db_table_exists(cursor, planares_job_table)
-        assert db_table_exists(cursor, blflabo_job_table)
-        assert db_table_exists(cursor, blfkegg_job_table)
-        assert db_table_exists(cursor, blfunit_job_table)
+        assert db_table_exists(cursor, plnlabo_job_table)
+        assert db_table_exists(cursor, plnkegg_job_table)
+        assert db_table_exists(cursor, plnunit_job_table)
         assert len(get_db_tables(cursor)) == 11

@@ -58,8 +58,8 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     credit77 = 77
     credit88 = 88
     debt_empty = ""
-    blfvoce_str = kw.plan_voiceunit
-    put_agg_tablename = create_prime_tablename(blfvoce_str, "h", "vld", "put")
+    plnvoce_str = kw.plan_voiceunit
+    put_agg_tablename = create_prime_tablename(plnvoce_str, "h", "vld", "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
     moment_mstr_dir = get_temp_dir()
     # a23_bob_dir = create_path(a23_dir, bob_inx)
@@ -99,21 +99,21 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     # e7_lesson = lessonunit_shop(bob_inx, sue_inx, exx.a23, lessons_dir, atoms_dir, spark7)
     expected_e3_lesson = lessonunit_shop(bob_inx, None, exx.a23, spark_num=spark3)
     expected_e7_lesson = lessonunit_shop(bob_inx, None, exx.a23, spark_num=spark7)
-    blfvoce_dimen = kw.plan_voiceunit
+    plnvoce_dimen = kw.plan_voiceunit
     expected_e3_lesson._plandelta.add_planatom(
-        blfvoce_dimen,
+        plnvoce_dimen,
         kw.INSERT,
         jkeys={kw.voice_name: bob_inx},
         jvalues={kw.voice_cred_lumen: credit77, kw.voice_debt_lumen: None},
     )
     expected_e7_lesson._plandelta.add_planatom(
-        blfvoce_dimen,
+        plnvoce_dimen,
         kw.INSERT,
         jkeys={kw.voice_name: bob_inx},
         jvalues={kw.voice_cred_lumen: credit77, kw.voice_debt_lumen: None},
     )
     expected_e7_lesson._plandelta.add_planatom(
-        blfvoce_dimen,
+        plnvoce_dimen,
         kw.INSERT,
         jkeys={kw.voice_name: sue_inx},
         jvalues={kw.voice_cred_lumen: credit88, kw.voice_debt_lumen: None},
@@ -131,9 +131,9 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     expected_e7_insert = expected_e7_lesson._plandelta.planatoms.get("INSERT")
     # print(e7_insert.get("plan_voiceunit").keys())
     # print(expected_e7_insert.get("plan_voiceunit").keys())
-    e7_blfvoce = e7_insert.get("plan_voiceunit")
-    expected_e7_blfvoce = expected_e7_insert.get("plan_voiceunit")
-    assert e7_blfvoce.keys() == expected_e7_blfvoce.keys()
+    e7_plnvoce = e7_insert.get("plan_voiceunit")
+    expected_e7_plnvoce = expected_e7_insert.get("plan_voiceunit")
+    assert e7_plnvoce.keys() == expected_e7_plnvoce.keys()
     # print(f"{expected_e7_insert.keys()=}")
     assert e7_insert == expected_e7_insert
     assert e7_lessonunit._plandelta == expected_e7_lesson._plandelta

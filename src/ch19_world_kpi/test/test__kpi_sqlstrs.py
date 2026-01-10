@@ -8,8 +8,8 @@ from src.ref.keywords import Ch19Keywords as kw
 
 def test_get_create_kpi001_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfkegg_str = kw.plan_kegunit
-    blfkegg_job = create_prime_tablename(blfkegg_str, "job", None)
+    plnkegg_str = kw.plan_kegunit
+    plnkegg_job = create_prime_tablename(plnkegg_str, "job", None)
 
     # WHEN
     kpi001_sqlstr = get_create_kpi001_sqlstr()
@@ -22,11 +22,11 @@ SELECT
 , {kw.moment_voice_nets}.{kw.plan_name}
 , {kw.plan_net_amount} AS {kw.bnet_funds}
 , RANK() OVER (ORDER BY {kw.plan_net_amount} DESC) AS {kw.fund_rank}
-, IFNULL(SUM({blfkegg_job}.{kw.pledge}), 0) AS {kw.pledges_count}
+, IFNULL(SUM({plnkegg_job}.{kw.pledge}), 0) AS {kw.pledges_count}
 FROM {kw.moment_voice_nets}
-LEFT JOIN {blfkegg_job} ON
-  {blfkegg_job}.{kw.moment_label} = {kw.moment_voice_nets}.{kw.moment_label}
-  AND {blfkegg_job}.{kw.plan_name} = {kw.moment_voice_nets}.{kw.plan_name}
+LEFT JOIN {plnkegg_job} ON
+  {plnkegg_job}.{kw.moment_label} = {kw.moment_voice_nets}.{kw.moment_label}
+  AND {plnkegg_job}.{kw.plan_name} = {kw.moment_voice_nets}.{kw.plan_name}
 GROUP BY {kw.moment_voice_nets}.{kw.moment_label}, {kw.moment_voice_nets}.{kw.plan_name}
 ;
 """
@@ -35,8 +35,8 @@ GROUP BY {kw.moment_voice_nets}.{kw.moment_label}, {kw.moment_voice_nets}.{kw.pl
 
 def test_get_create_kpi002_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfkegg_str = kw.plan_kegunit
-    blfkegg_job = create_prime_tablename(blfkegg_str, "job", None)
+    plnkegg_str = kw.plan_kegunit
+    plnkegg_job = create_prime_tablename(plnkegg_str, "job", None)
 
     # WHEN
     kpi002_sqlstr = get_create_kpi002_sqlstr()
@@ -51,7 +51,7 @@ SELECT
 , {kw.pledge}
 , {kw.keg_active}
 , {kw.task}
-FROM {blfkegg_job}
+FROM {plnkegg_job}
 WHERE {kw.pledge} == 1 AND {kw.keg_active} == 1
 ;
 """

@@ -47,44 +47,44 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
-        blfmemb_job_table = prime_table("blfmemb", kw.job, None)
-        blfvoce_job_table = prime_table("blfvoce", kw.job, None)
-        blfgrou_job_table = prime_table("blfgrou", kw.job, None)
-        blfawar_job_table = prime_table("blfawar", kw.job, None)
-        blffact_job_table = prime_table("blffact", kw.job, None)
-        blfheal_job_table = prime_table("blfheal", kw.job, None)
-        blfcase_job_table = prime_table("blfcase", kw.job, None)
-        blfreas_job_table = prime_table("blfreas", kw.job, None)
-        blflabo_job_table = prime_table("blflabo", kw.job, None)
-        blfkegg_job_table = prime_table("blfkegg", kw.job, None)
-        blfunit_job_table = prime_table("blfunit", kw.job, None)
-        assert not db_table_exists(cursor, blfunit_job_table)
-        assert not db_table_exists(cursor, blfkegg_job_table)
-        assert not db_table_exists(cursor, blfvoce_job_table)
-        assert not db_table_exists(cursor, blfmemb_job_table)
-        assert not db_table_exists(cursor, blfgrou_job_table)
-        assert not db_table_exists(cursor, blfawar_job_table)
-        assert not db_table_exists(cursor, blffact_job_table)
-        assert not db_table_exists(cursor, blfheal_job_table)
-        assert not db_table_exists(cursor, blfreas_job_table)
-        assert not db_table_exists(cursor, blfcase_job_table)
-        assert not db_table_exists(cursor, blflabo_job_table)
+        plnmemb_job_table = prime_table("plnmemb", kw.job, None)
+        plnvoce_job_table = prime_table("plnvoce", kw.job, None)
+        plngrou_job_table = prime_table("plngrou", kw.job, None)
+        plnawar_job_table = prime_table("plnawar", kw.job, None)
+        plnfact_job_table = prime_table("plnfact", kw.job, None)
+        plnheal_job_table = prime_table("plnheal", kw.job, None)
+        plncase_job_table = prime_table("plncase", kw.job, None)
+        plnreas_job_table = prime_table("plnreas", kw.job, None)
+        plnlabo_job_table = prime_table("plnlabo", kw.job, None)
+        plnkegg_job_table = prime_table("plnkegg", kw.job, None)
+        plnunit_job_table = prime_table("plnunit", kw.job, None)
+        assert not db_table_exists(cursor, plnunit_job_table)
+        assert not db_table_exists(cursor, plnkegg_job_table)
+        assert not db_table_exists(cursor, plnvoce_job_table)
+        assert not db_table_exists(cursor, plnmemb_job_table)
+        assert not db_table_exists(cursor, plngrou_job_table)
+        assert not db_table_exists(cursor, plnawar_job_table)
+        assert not db_table_exists(cursor, plnfact_job_table)
+        assert not db_table_exists(cursor, plnheal_job_table)
+        assert not db_table_exists(cursor, plnreas_job_table)
+        assert not db_table_exists(cursor, plncase_job_table)
+        assert not db_table_exists(cursor, plnlabo_job_table)
 
         # WHEN
         etl_moment_job_jsons_to_job_tables(cursor, m23_moment_mstr_dir)
 
         # THEN
-        assert get_row_count(cursor, blfunit_job_table) == 1
-        assert get_row_count(cursor, blfkegg_job_table) == 5
-        assert get_row_count(cursor, blfvoce_job_table) == 2
-        assert get_row_count(cursor, blfmemb_job_table) == 3
-        assert get_row_count(cursor, blfgrou_job_table) == 3
-        assert get_row_count(cursor, blfawar_job_table) == 1
-        assert get_row_count(cursor, blffact_job_table) == 1
-        assert get_row_count(cursor, blfheal_job_table) == 1
-        assert get_row_count(cursor, blfreas_job_table) == 1
-        assert get_row_count(cursor, blfcase_job_table) == 1
-        assert get_row_count(cursor, blflabo_job_table) == 1
+        assert get_row_count(cursor, plnunit_job_table) == 1
+        assert get_row_count(cursor, plnkegg_job_table) == 5
+        assert get_row_count(cursor, plnvoce_job_table) == 2
+        assert get_row_count(cursor, plnmemb_job_table) == 3
+        assert get_row_count(cursor, plngrou_job_table) == 3
+        assert get_row_count(cursor, plnawar_job_table) == 1
+        assert get_row_count(cursor, plnfact_job_table) == 1
+        assert get_row_count(cursor, plnheal_job_table) == 1
+        assert get_row_count(cursor, plnreas_job_table) == 1
+        assert get_row_count(cursor, plncase_job_table) == 1
+        assert get_row_count(cursor, plnlabo_job_table) == 1
 
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
@@ -113,15 +113,15 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     assert os_path_exists(a23_bob_job_path)
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        blfvoce_job_tablename = prime_table("blfvoce", kw.job, None)
-        assert not db_table_exists(cursor, blfvoce_job_tablename)
+        plnvoce_job_tablename = prime_table("plnvoce", kw.job, None)
+        assert not db_table_exists(cursor, plnvoce_job_tablename)
 
         # WHEN
         etl_moment_job_jsons_to_job_tables(cursor, moment_mstr_dir)
 
         # THEN
-        assert get_row_count(cursor, blfvoce_job_tablename) == 3
-        rows = cursor.execute(f"SELECT * FROM {blfvoce_job_tablename}").fetchall()
+        assert get_row_count(cursor, plnvoce_job_tablename) == 3
+        rows = cursor.execute(f"SELECT * FROM {plnvoce_job_tablename}").fetchall()
         print(rows)
         assert rows == [
             (

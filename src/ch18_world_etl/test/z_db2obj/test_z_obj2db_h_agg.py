@@ -16,24 +16,24 @@ from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.obj2db_plan import (
     ObjKeysHolder,
-    insert_h_agg_blfawar,
-    insert_h_agg_blfcase,
-    insert_h_agg_blffact,
-    insert_h_agg_blfgrou,
-    insert_h_agg_blfheal,
-    insert_h_agg_blfkegg,
-    insert_h_agg_blflabo,
-    insert_h_agg_blfmemb,
-    insert_h_agg_blfreas,
-    insert_h_agg_blfunit,
-    insert_h_agg_blfvoce,
     insert_h_agg_obj,
+    insert_h_agg_plnawar,
+    insert_h_agg_plncase,
+    insert_h_agg_plnfact,
+    insert_h_agg_plngrou,
+    insert_h_agg_plnheal,
+    insert_h_agg_plnkegg,
+    insert_h_agg_plnlabo,
+    insert_h_agg_plnmemb,
+    insert_h_agg_plnreas,
+    insert_h_agg_plnunit,
+    insert_h_agg_plnvoce,
 )
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_insert_h_agg_blfunit_CreatesTableRowsFor_planunit_h_agg():
+def test_insert_h_agg_plnunit_CreatesTableRowsFor_planunit_h_agg():
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -67,7 +67,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_planunit_h_agg():
         objkeysholder = ObjKeysHolder(x_spark_num, x_face_name)
 
         # WHEN
-        insert_h_agg_blfunit(cursor, objkeysholder, sue_plan)
+        insert_h_agg_plnunit(cursor, objkeysholder, sue_plan)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -92,7 +92,7 @@ def test_insert_h_agg_blfunit_CreatesTableRowsFor_planunit_h_agg():
         assert rows == expected_data
 
 
-def test_insert_h_agg_blfkegg_CreatesTableRowsFor_blfkegg_h_agg():
+def test_insert_h_agg_plnkegg_CreatesTableRowsFor_plnkegg_h_agg():
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -152,7 +152,7 @@ def test_insert_h_agg_blfkegg_CreatesTableRowsFor_blfkegg_h_agg():
         )
 
         # WHEN
-        insert_h_agg_blfkegg(cursor, x_objkeysholder, x_keg)
+        insert_h_agg_plnkegg(cursor, x_objkeysholder, x_keg)
 
         # THEN
         clean_rope = create_rope(casa_rope, "clean")
@@ -182,7 +182,7 @@ def test_insert_h_agg_blfkegg_CreatesTableRowsFor_blfkegg_h_agg():
         assert rows == expected_data
 
 
-def test_insert_h_agg_blfreas_CreatesTableRowsFor_blfreas_h_agg():
+def test_insert_h_agg_plnreas_CreatesTableRowsFor_plnreas_h_agg():
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -210,7 +210,7 @@ def test_insert_h_agg_blfreas_CreatesTableRowsFor_blfreas_h_agg():
         )
 
         # WHEN
-        insert_h_agg_blfreas(cursor, x_objkeysholder, x_reasonheir)
+        insert_h_agg_plnreas(cursor, x_objkeysholder, x_reasonheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -230,7 +230,7 @@ def test_insert_h_agg_blfreas_CreatesTableRowsFor_blfreas_h_agg():
         assert rows == expected_data
 
 
-def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
+def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -269,7 +269,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
         )
 
         # WHEN
-        insert_h_agg_blfcase(cursor, x_objkeysholder, x_caseunit)
+        insert_h_agg_plncase(cursor, x_objkeysholder, x_caseunit)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -299,7 +299,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
         assert rows == expected_data
 
 
-# def test_insert_h_agg_blfmemb_CreatesTableRowsFor_blfmemb_h_agg():
+# def test_insert_h_agg_plnmemb_CreatesTableRowsFor_plnmemb_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     # x_args = get_plan_calc_dimen_args("plan_voice_membership")
@@ -351,7 +351,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, plan_name=x_plan_name)
 
 #         # WHEN
-#         insert_h_agg_blfmemb(cursor, x_objkeysholder, x_membership)
+#         insert_h_agg_plnmemb(cursor, x_objkeysholder, x_membership)
 
 #         # THEN
 #         assert get_row_count(cursor, x_table_name) == 1
@@ -380,7 +380,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         assert rows == expected_data
 
 
-# def test_insert_h_agg_blfvoce_CreatesTableRowsFor_blfvoce_h_agg():
+# def test_insert_h_agg_plnvoce_CreatesTableRowsFor_plnvoce_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     # x_args = get_plan_calc_dimen_args("plan_voiceunit")
@@ -437,7 +437,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, plan_name=x_plan_name)
 
 #         # WHEN
-#         insert_h_agg_blfvoce(cursor, x_objkeysholder, x_voice)
+#         insert_h_agg_plnvoce(cursor, x_objkeysholder, x_voice)
 
 #         # THEN
 #         assert get_row_count(cursor, x_table_name) == 1
@@ -468,7 +468,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         assert rows == expected_data
 
 
-# def test_insert_h_agg_blfgrou_CreatesTableRowsFor_blfgrou_h_agg():
+# def test_insert_h_agg_plngrou_CreatesTableRowsFor_plngrou_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     # x_args = get_plan_calc_dimen_args("plan_groupunit")
@@ -513,7 +513,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, plan_name=x_plan_name)
 
 #         # WHEN
-#         insert_h_agg_blfgrou(cursor, x_objkeysholder, x_group)
+#         insert_h_agg_plngrou(cursor, x_objkeysholder, x_group)
 
 #         # THEN
 #         assert get_row_count(cursor, x_table_name) == 1
@@ -538,7 +538,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         assert rows == expected_data
 
 
-# def test_insert_h_agg_blfawar_CreatesTableRowsFor_blfawar_h_agg():
+# def test_insert_h_agg_plnawar_CreatesTableRowsFor_plnawar_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     # x_args = get_plan_calc_dimen_args("plan_keg_awardunit")
@@ -578,7 +578,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, plan_name=x_plan_name, rope=x_rope)
 
 #         # WHEN
-#         insert_h_agg_blfawar(cursor, x_objkeysholder, x_awardheir)
+#         insert_h_agg_plnawar(cursor, x_objkeysholder, x_awardheir)
 
 #         # THEN
 #         assert get_row_count(cursor, x_table_name) == 1
@@ -601,7 +601,7 @@ def test_insert_h_agg_blfcase_CreatesTableRowsFor_blfcase_h_agg():
 #         assert rows == expected_data
 
 
-def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
+def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -635,7 +635,7 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
         )
 
         # WHEN
-        insert_h_agg_blffact(cursor, x_objkeysholder, x_factheir)
+        insert_h_agg_plnfact(cursor, x_objkeysholder, x_factheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -666,7 +666,7 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
         assert rows == expected_data
 
 
-# def test_insert_h_agg_blfheal_CreatesTableRowsFor_blfheal_h_agg():
+# def test_insert_h_agg_plnheal_CreatesTableRowsFor_plnheal_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     # x_args = get_plan_calc_dimen_args("plan_keg_healerunit")
@@ -698,7 +698,7 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, plan_name=x_plan_name, rope=x_rope)
 
 #         # WHEN
-#         insert_h_agg_blfheal(cursor, x_objkeysholder, x_healerunit)
+#         insert_h_agg_plnheal(cursor, x_objkeysholder, x_healerunit)
 
 #         # THEN
 #         assert get_row_count(cursor, x_table_name) == 2
@@ -723,7 +723,7 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
 #         assert rows == expected_data
 
 
-# def test_insert_h_agg_blflabo_CreatesTableRowsFor_blflabo_h_agg():
+# def test_insert_h_agg_plnlabo_CreatesTableRowsFor_plnlabo_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     # x_args = get_plan_calc_dimen_args("plan_keg_partyunit")
@@ -760,7 +760,7 @@ def test_insert_h_agg_blffact_CreatesTableRowsFor_blffact_h_agg():
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_label=x_moment_label, plan_name=x_plan_name, rope=x_rope)
 
 #         # WHEN
-#         insert_h_agg_blflabo(cursor, x_objkeysholder, x_laborheir)
+#         insert_h_agg_plnlabo(cursor, x_objkeysholder, x_laborheir)
 
 #         # THEN
 #         assert get_row_count(cursor, x_table_name) == 2
@@ -816,29 +816,29 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blffact_h_agg_table = f"{kw.plan_keg_factunit}_h_put_agg"
-        blfcase_h_agg_table = f"{kw.plan_keg_reason_caseunit}_h_put_agg"
-        blfreas_h_agg_table = f"{kw.plan_keg_reasonunit}_h_put_agg"
-        blfkegg_h_agg_table = f"{kw.plan_kegunit}_h_put_agg"
-        blfunit_h_agg_table = f"{kw.planunit}_h_put_agg"
-        assert get_row_count(cursor, blfunit_h_agg_table) == 0
-        assert get_row_count(cursor, blfkegg_h_agg_table) == 0
-        assert get_row_count(cursor, blffact_h_agg_table) == 0
-        assert get_row_count(cursor, blfreas_h_agg_table) == 0
-        assert get_row_count(cursor, blfcase_h_agg_table) == 0
+        plnfact_h_agg_table = f"{kw.plan_keg_factunit}_h_put_agg"
+        plncase_h_agg_table = f"{kw.plan_keg_reason_caseunit}_h_put_agg"
+        plnreas_h_agg_table = f"{kw.plan_keg_reasonunit}_h_put_agg"
+        plnkegg_h_agg_table = f"{kw.plan_kegunit}_h_put_agg"
+        plnunit_h_agg_table = f"{kw.planunit}_h_put_agg"
+        assert get_row_count(cursor, plnunit_h_agg_table) == 0
+        assert get_row_count(cursor, plnkegg_h_agg_table) == 0
+        assert get_row_count(cursor, plnfact_h_agg_table) == 0
+        assert get_row_count(cursor, plnreas_h_agg_table) == 0
+        assert get_row_count(cursor, plncase_h_agg_table) == 0
 
         # WHEN
         spark7 = 7
         insert_h_agg_obj(cursor, sue_plan, spark7, face_name=exx.yao)
 
         # THEN
-        assert get_row_count(cursor, blfunit_h_agg_table) == 1
-        assert get_row_count(cursor, blfkegg_h_agg_table) == 5
-        assert get_row_count(cursor, blffact_h_agg_table) == 1
-        assert get_row_count(cursor, blfreas_h_agg_table) == 1
-        assert get_row_count(cursor, blfcase_h_agg_table) == 1
+        assert get_row_count(cursor, plnunit_h_agg_table) == 1
+        assert get_row_count(cursor, plnkegg_h_agg_table) == 5
+        assert get_row_count(cursor, plnfact_h_agg_table) == 1
+        assert get_row_count(cursor, plnreas_h_agg_table) == 1
+        assert get_row_count(cursor, plncase_h_agg_table) == 1
         select_case_sqlstr = (
-            f"""SELECT spark_num, face_name, moment_label FROM {blfcase_h_agg_table};"""
+            f"""SELECT spark_num, face_name, moment_label FROM {plncase_h_agg_table};"""
         )
         cursor.execute(select_case_sqlstr)
         assert cursor.fetchall() == [(spark7, exx.yao, exx.a23)]
@@ -871,41 +871,41 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         blfmemb_h_agg_table = f"{kw.plan_voice_membership}_h_put_agg"
-#         blfvoce_h_agg_table = f"{kw.plan_voiceunit}_h_put_agg"
-#         blfgrou_h_agg_table = f"{kw.plan_groupunit}_h_put_agg"
-#         blfawar_h_agg_table = f"{kw.plan_keg_awardunit}_h_put_agg"
-#         blffact_h_agg_table = f"{kw.plan_keg_factunit}_h_put_agg"
-#         blfheal_h_agg_table = f"{kw.plan_keg_healerunit}_h_put_agg"
-#         blfcase_h_agg_table = f"{kw.plan_keg_reason_caseunit}_h_put_agg"
-#         blfreas_h_agg_table = f"{kw.plan_keg_reasonunit}_h_put_agg"
-#         blflabo_h_agg_table = f"{kw.plan_keg_partyunit}_h_put_agg"
-#         blfkegg_h_agg_table = f"{kw.plan_kegunit}_h_put_agg"
-#         blfunit_h_agg_table = f"{kw.planunit}_h_put_agg"
-#         assert get_row_count(cursor, blfunit_h_agg_table) == 0
-#         assert get_row_count(cursor, blfkegg_h_agg_table) == 0
-#         assert get_row_count(cursor, blfvoce_h_agg_table) == 0
-#         assert get_row_count(cursor, blfmemb_h_agg_table) == 0
-#         assert get_row_count(cursor, blfgrou_h_agg_table) == 0
-#         assert get_row_count(cursor, blfawar_h_agg_table) == 0
-#         assert get_row_count(cursor, blffact_h_agg_table) == 0
-#         assert get_row_count(cursor, blfheal_h_agg_table) == 0
-#         assert get_row_count(cursor, blfreas_h_agg_table) == 0
-#         assert get_row_count(cursor, blfcase_h_agg_table) == 0
-#         assert get_row_count(cursor, blflabo_h_agg_table) == 0
+#         plnmemb_h_agg_table = f"{kw.plan_voice_membership}_h_put_agg"
+#         plnvoce_h_agg_table = f"{kw.plan_voiceunit}_h_put_agg"
+#         plngrou_h_agg_table = f"{kw.plan_groupunit}_h_put_agg"
+#         plnawar_h_agg_table = f"{kw.plan_keg_awardunit}_h_put_agg"
+#         plnfact_h_agg_table = f"{kw.plan_keg_factunit}_h_put_agg"
+#         plnheal_h_agg_table = f"{kw.plan_keg_healerunit}_h_put_agg"
+#         plncase_h_agg_table = f"{kw.plan_keg_reason_caseunit}_h_put_agg"
+#         plnreas_h_agg_table = f"{kw.plan_keg_reasonunit}_h_put_agg"
+#         plnlabo_h_agg_table = f"{kw.plan_keg_partyunit}_h_put_agg"
+#         plnkegg_h_agg_table = f"{kw.plan_kegunit}_h_put_agg"
+#         plnunit_h_agg_table = f"{kw.planunit}_h_put_agg"
+#         assert get_row_count(cursor, plnunit_h_agg_table) == 0
+#         assert get_row_count(cursor, plnkegg_h_agg_table) == 0
+#         assert get_row_count(cursor, plnvoce_h_agg_table) == 0
+#         assert get_row_count(cursor, plnmemb_h_agg_table) == 0
+#         assert get_row_count(cursor, plngrou_h_agg_table) == 0
+#         assert get_row_count(cursor, plnawar_h_agg_table) == 0
+#         assert get_row_count(cursor, plnfact_h_agg_table) == 0
+#         assert get_row_count(cursor, plnheal_h_agg_table) == 0
+#         assert get_row_count(cursor, plnreas_h_agg_table) == 0
+#         assert get_row_count(cursor, plncase_h_agg_table) == 0
+#         assert get_row_count(cursor, plnlabo_h_agg_table) == 0
 
 #         # WHEN
 #         insert_h_agg_obj(cursor, sue_plan)
 
 #         # THEN
-#         assert get_row_count(cursor, blfunit_h_agg_table) == 1
-#         assert get_row_count(cursor, blfkegg_h_agg_table) == 5
-#         assert get_row_count(cursor, blfvoce_h_agg_table) == 2
-#         assert get_row_count(cursor, blfmemb_h_agg_table) == 3
-#         assert get_row_count(cursor, blfgrou_h_agg_table) == 3
-#         assert get_row_count(cursor, blfawar_h_agg_table) == 1
-#         assert get_row_count(cursor, blffact_h_agg_table) == 1
-#         assert get_row_count(cursor, blfheal_h_agg_table) == 1
-#         assert get_row_count(cursor, blfreas_h_agg_table) == 1
-#         assert get_row_count(cursor, blfcase_h_agg_table) == 1
-#         assert get_row_count(cursor, blflabo_h_agg_table) == 1
+#         assert get_row_count(cursor, plnunit_h_agg_table) == 1
+#         assert get_row_count(cursor, plnkegg_h_agg_table) == 5
+#         assert get_row_count(cursor, plnvoce_h_agg_table) == 2
+#         assert get_row_count(cursor, plnmemb_h_agg_table) == 3
+#         assert get_row_count(cursor, plngrou_h_agg_table) == 3
+#         assert get_row_count(cursor, plnawar_h_agg_table) == 1
+#         assert get_row_count(cursor, plnfact_h_agg_table) == 1
+#         assert get_row_count(cursor, plnheal_h_agg_table) == 1
+#         assert get_row_count(cursor, plnreas_h_agg_table) == 1
+#         assert get_row_count(cursor, plncase_h_agg_table) == 1
+#         assert get_row_count(cursor, plnlabo_h_agg_table) == 1

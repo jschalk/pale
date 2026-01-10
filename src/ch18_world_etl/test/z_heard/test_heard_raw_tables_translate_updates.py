@@ -25,10 +25,10 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario0_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfawar_dimen = kw.plan_keg_awardunit
-        blfawar_h_raw_put_tablename = prime_tbl(blfawar_dimen, "h", "raw", "put")
-        # print(f"{get_table_columns(cursor, blfawar_h_raw_put_tablename)=}")
-        insert_face_name_only_sqlstr = f"""INSERT INTO {blfawar_h_raw_put_tablename} 
+        plnawar_dimen = kw.plan_keg_awardunit
+        plnawar_h_raw_put_tablename = prime_tbl(plnawar_dimen, "h", "raw", "put")
+        # print(f"{get_table_columns(cursor, plnawar_h_raw_put_tablename)=}")
+        insert_face_name_only_sqlstr = f"""INSERT INTO {plnawar_h_raw_put_tablename} 
         ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
         VALUES
           ({spark1}, '{sue_otx}', NULL)
@@ -51,19 +51,19 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario0_
         """
         cursor.execute(insert_trlname_sqlstr)
 
-        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {blfawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
+        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {plnawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
         assert cursor.execute(face_name_inx_count_sql).fetchone()[0] == 0
 
         # WHEN
         update_sqlstr = create_update_heard_raw_existing_inx_col_sqlstr(
-            "name", blfawar_h_raw_put_tablename, kw.face_name
+            "name", plnawar_h_raw_put_tablename, kw.face_name
         )
         print(update_sqlstr)
         cursor.execute(update_sqlstr)
 
         # THEN
         assert cursor.execute(face_name_inx_count_sql).fetchone()[0] == 3
-        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {blfawar_h_raw_put_tablename}"""
+        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {plnawar_h_raw_put_tablename}"""
         cursor.execute(select_face_name_only_sqlstr)
         rows = cursor.fetchall()
         print(rows)
@@ -90,9 +90,9 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario1_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfawar_dimen = kw.plan_keg_awardunit
-        blfawar_h_raw_put_tablename = prime_tbl(blfawar_dimen, "h", "raw", "put")
-        insert_face_name_only_sqlstr = f"""INSERT INTO {blfawar_h_raw_put_tablename}
+        plnawar_dimen = kw.plan_keg_awardunit
+        plnawar_h_raw_put_tablename = prime_tbl(plnawar_dimen, "h", "raw", "put")
+        insert_face_name_only_sqlstr = f"""INSERT INTO {plnawar_h_raw_put_tablename}
         ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
         VALUES
           ({spark1}, '{sue_otx}', NULL)
@@ -113,18 +113,18 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario1_
         """
         cursor.execute(insert_trlname_sqlstr)
 
-        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {blfawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
+        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {plnawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
         assert cursor.execute(face_name_inx_count_sql).fetchone()[0] == 0
 
         # WHEN
         update_sqlstr = create_update_heard_raw_existing_inx_col_sqlstr(
-            "name", blfawar_h_raw_put_tablename, kw.face_name
+            "name", plnawar_h_raw_put_tablename, kw.face_name
         )
         print(update_sqlstr)
         cursor.execute(update_sqlstr)
 
         # THEN
-        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {blfawar_h_raw_put_tablename}"""
+        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {plnawar_h_raw_put_tablename}"""
         cursor.execute(select_face_name_only_sqlstr)
         rows = cursor.fetchall()
         print(rows)
@@ -157,10 +157,10 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario2_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfawar_dimen = kw.plan_keg_awardunit
-        blfawar_h_raw_put_tablename = prime_tbl(blfawar_dimen, "h", "raw", "put")
-        print(f"{get_table_columns(cursor, blfawar_h_raw_put_tablename)=}")
-        insert_face_name_only_sqlstr = f"""INSERT INTO {blfawar_h_raw_put_tablename}
+        plnawar_dimen = kw.plan_keg_awardunit
+        plnawar_h_raw_put_tablename = prime_tbl(plnawar_dimen, "h", "raw", "put")
+        print(f"{get_table_columns(cursor, plnawar_h_raw_put_tablename)=}")
+        insert_face_name_only_sqlstr = f"""INSERT INTO {plnawar_h_raw_put_tablename}
         ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
         VALUES
           ({spark0}, '{bob_otx}', NULL)
@@ -188,18 +188,18 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario2_
         """
         cursor.execute(insert_trlname_sqlstr)
 
-        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {blfawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
+        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {plnawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
         assert cursor.execute(face_name_inx_count_sql).fetchone()[0] == 0
 
         # WHEN
         update_sqlstr = create_update_heard_raw_existing_inx_col_sqlstr(
-            "name", blfawar_h_raw_put_tablename, kw.face_name
+            "name", plnawar_h_raw_put_tablename, kw.face_name
         )
         print(update_sqlstr)
         cursor.execute(update_sqlstr)
 
         # THEN
-        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {blfawar_h_raw_put_tablename}"""
+        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {plnawar_h_raw_put_tablename}"""
         cursor.execute(select_face_name_only_sqlstr)
         rows = cursor.fetchall()
         print(rows)
@@ -233,10 +233,10 @@ def test_create_update_heard_raw_empty_inx_col_sqlstr_UpdatesTable_Scenario0_Emp
         print(f"{trlname_s_vld_tablename=}")
         print(f"{get_table_columns(cursor, trlname_s_vld_tablename)=}")
 
-        blfawar_dimen = kw.plan_keg_awardunit
-        blfawar_h_raw_put_tablename = prime_tbl(blfawar_dimen, "h", "raw", "put")
-        print(f"{get_table_columns(cursor, blfawar_h_raw_put_tablename)=}")
-        insert_face_name_only_sqlstr = f"""INSERT INTO {blfawar_h_raw_put_tablename} ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
+        plnawar_dimen = kw.plan_keg_awardunit
+        plnawar_h_raw_put_tablename = prime_tbl(plnawar_dimen, "h", "raw", "put")
+        print(f"{get_table_columns(cursor, plnawar_h_raw_put_tablename)=}")
+        insert_face_name_only_sqlstr = f"""INSERT INTO {plnawar_h_raw_put_tablename} ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
 VALUES
   ({spark1}, '{sue_otx}', '{sue_inx}')
 , ({spark2}, '{yao_otx}', NULL)
@@ -245,19 +245,19 @@ VALUES
 ;
 """
         cursor.execute(insert_face_name_only_sqlstr)
-        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {blfawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
+        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {plnawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
         assert cursor.execute(face_name_inx_count_sql).fetchone()[0] == 2
 
         # WHEN
         update_sqlstr = create_update_heard_raw_empty_inx_col_sqlstr(
-            blfawar_h_raw_put_tablename, kw.face_name
+            plnawar_h_raw_put_tablename, kw.face_name
         )
         print(update_sqlstr)
         cursor.execute(update_sqlstr)
 
         # THEN
         assert cursor.execute(face_name_inx_count_sql).fetchone()[0] == 4
-        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {blfawar_h_raw_put_tablename}"""
+        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {plnawar_h_raw_put_tablename}"""
         cursor.execute(select_face_name_only_sqlstr)
         rows = cursor.fetchall()
         print(rows)
@@ -290,10 +290,10 @@ def test_set_all_heard_raw_inx_columns_Scenario0_empty_tables():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfawar_dimen = kw.plan_keg_awardunit
-        blfawar_h_raw_put_tablename = prime_tbl(blfawar_dimen, "h", "raw", "put")
-        print(f"{get_table_columns(cursor, blfawar_h_raw_put_tablename)=}")
-        insert_face_name_only_sqlstr = f"""INSERT INTO {blfawar_h_raw_put_tablename}
+        plnawar_dimen = kw.plan_keg_awardunit
+        plnawar_h_raw_put_tablename = prime_tbl(plnawar_dimen, "h", "raw", "put")
+        print(f"{get_table_columns(cursor, plnawar_h_raw_put_tablename)=}")
+        insert_face_name_only_sqlstr = f"""INSERT INTO {plnawar_h_raw_put_tablename}
         ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
         VALUES
           ({spark0}, '{bob_otx}', NULL)
@@ -321,14 +321,14 @@ def test_set_all_heard_raw_inx_columns_Scenario0_empty_tables():
         """
         cursor.execute(insert_trlname_sqlstr)
 
-        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {blfawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
+        face_name_inx_count_sql = f"SELECT COUNT(*) FROM {plnawar_h_raw_put_tablename} WHERE {kw.face_name}_inx IS NOT NULL"
         assert cursor.execute(face_name_inx_count_sql).fetchone()[0] == 0
 
         # WHEN
         set_all_heard_raw_inx_columns(cursor)
 
         # THEN
-        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {blfawar_h_raw_put_tablename}"""
+        select_face_name_only_sqlstr = f"""SELECT {kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx FROM {plnawar_h_raw_put_tablename}"""
         cursor.execute(select_face_name_only_sqlstr)
         rows = cursor.fetchall()
         print(rows)

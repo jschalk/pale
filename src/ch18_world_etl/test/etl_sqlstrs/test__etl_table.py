@@ -62,17 +62,17 @@ def test_ALL_DIMEN_ABBV7_has_all_dimens():
 
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # ESTABLISH
-    blfunit_dimen = kw.planunit
-    blfvoce_dimen = kw.plan_voiceunit
-    blfmemb_dimen = kw.plan_voice_membership
-    blfgrou_dimen = kw.plan_groupunit
-    blfkegg_dimen = kw.plan_kegunit
-    blfawar_dimen = kw.plan_keg_awardunit
-    blfreas_dimen = kw.plan_keg_reasonunit
-    blfcase_dimen = kw.plan_keg_reason_caseunit
-    blflabo_dimen = kw.plan_keg_partyunit
-    blfheal_dimen = kw.plan_keg_healerunit
-    blffact_dimen = kw.plan_keg_factunit
+    plnunit_dimen = kw.planunit
+    plnvoce_dimen = kw.plan_voiceunit
+    plnmemb_dimen = kw.plan_voice_membership
+    plngrou_dimen = kw.plan_groupunit
+    plnkegg_dimen = kw.plan_kegunit
+    plnawar_dimen = kw.plan_keg_awardunit
+    plnreas_dimen = kw.plan_keg_reasonunit
+    plncase_dimen = kw.plan_keg_reason_caseunit
+    plnlabo_dimen = kw.plan_keg_partyunit
+    plnheal_dimen = kw.plan_keg_healerunit
+    plnfact_dimen = kw.plan_keg_factunit
     mmtunit_dimen = kw.momentunit
     mmtpayy_dimen = kw.moment_paybook
     mmtbudd_dimen = kw.moment_budunit
@@ -93,17 +93,17 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     del_str = "del"
 
     # WHEN
-    blfunit_s_agg_table = create_prime_tablename("planunit", "s", agg_str, put_str)
-    blfvoce_s_agg_table = create_prime_tablename("blfvoce", "s", agg_str, put_str)
-    blfmemb_s_agg_table = create_prime_tablename("blfmemb", "s", agg_str, put_str)
-    blfkegg_s_agg_table = create_prime_tablename("blfkegg", "s", agg_str, put_str)
-    blfawar_s_agg_table = create_prime_tablename("blfawar", "s", agg_str, put_str)
-    blfreas_s_agg_table = create_prime_tablename("blfreas", "s", agg_str, put_str)
-    blfcase_s_agg_table = create_prime_tablename("blfcase", "s", agg_str, put_str)
-    blflabo_s_agg_table = create_prime_tablename("blflabo", "s", agg_str, put_str)
-    blfheal_s_agg_table = create_prime_tablename("blfheal", "s", agg_str, put_str)
-    blffact_s_agg_table = create_prime_tablename("blffact", "s", agg_str, put_str)
-    blffact_s_del_table = create_prime_tablename("blffact", "s", agg_str, del_str)
+    plnunit_s_agg_table = create_prime_tablename("planunit", "s", agg_str, put_str)
+    plnvoce_s_agg_table = create_prime_tablename("plnvoce", "s", agg_str, put_str)
+    plnmemb_s_agg_table = create_prime_tablename("plnmemb", "s", agg_str, put_str)
+    plnkegg_s_agg_table = create_prime_tablename("plnkegg", "s", agg_str, put_str)
+    plnawar_s_agg_table = create_prime_tablename("plnawar", "s", agg_str, put_str)
+    plnreas_s_agg_table = create_prime_tablename("plnreas", "s", agg_str, put_str)
+    plncase_s_agg_table = create_prime_tablename("plncase", "s", agg_str, put_str)
+    plnlabo_s_agg_table = create_prime_tablename("plnlabo", "s", agg_str, put_str)
+    plnheal_s_agg_table = create_prime_tablename("plnheal", "s", agg_str, put_str)
+    plnfact_s_agg_table = create_prime_tablename("plnfact", "s", agg_str, put_str)
+    plnfact_s_del_table = create_prime_tablename("plnfact", "s", agg_str, del_str)
     mmtunit_s_agg_table = create_prime_tablename("mmtunit", "s", agg_str)
     mmtpayy_s_agg_table = create_prime_tablename("mmtpayy", "s", agg_str)
     mmtbudd_s_agg_table = create_prime_tablename("mmtbudd", "s", agg_str)
@@ -121,22 +121,22 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     trltitl_s_val_table = create_prime_tablename("trltitl", "s", vld_str)
     trlcore_s_raw_table = create_prime_tablename("trlcore", "s", raw_str)
     trlcore_s_agg_table = create_prime_tablename("trlcore", "s", agg_str)
-    blfvoce_job_table = create_prime_tablename("blfvoce", kw.job, None)
-    x_blfvoce_raw = create_prime_tablename("blfvoce", "k", raw_str)
-    blfgrou_job_table = create_prime_tablename("blfgrou", kw.job, None)
+    plnvoce_job_table = create_prime_tablename("plnvoce", kw.job, None)
+    x_plnvoce_raw = create_prime_tablename("plnvoce", "k", raw_str)
+    plngrou_job_table = create_prime_tablename("plngrou", kw.job, None)
 
     # THEN
-    assert blfunit_s_agg_table == f"{blfunit_dimen}_s_put_agg"
-    assert blfvoce_s_agg_table == f"{blfvoce_dimen}_s_put_agg"
-    assert blfmemb_s_agg_table == f"{blfmemb_dimen}_s_put_agg"
-    assert blfkegg_s_agg_table == f"{blfkegg_dimen}_s_put_agg"
-    assert blfawar_s_agg_table == f"{blfawar_dimen}_s_put_agg"
-    assert blfreas_s_agg_table == f"{blfreas_dimen}_s_put_agg"
-    assert blfcase_s_agg_table == f"{blfcase_dimen}_s_put_agg"
-    assert blflabo_s_agg_table == f"{blflabo_dimen}_s_put_agg"
-    assert blfheal_s_agg_table == f"{blfheal_dimen}_s_put_agg"
-    assert blffact_s_agg_table == f"{blffact_dimen}_s_put_agg"
-    assert blffact_s_del_table == f"{blffact_dimen}_s_del_agg"
+    assert plnunit_s_agg_table == f"{plnunit_dimen}_s_put_agg"
+    assert plnvoce_s_agg_table == f"{plnvoce_dimen}_s_put_agg"
+    assert plnmemb_s_agg_table == f"{plnmemb_dimen}_s_put_agg"
+    assert plnkegg_s_agg_table == f"{plnkegg_dimen}_s_put_agg"
+    assert plnawar_s_agg_table == f"{plnawar_dimen}_s_put_agg"
+    assert plnreas_s_agg_table == f"{plnreas_dimen}_s_put_agg"
+    assert plncase_s_agg_table == f"{plncase_dimen}_s_put_agg"
+    assert plnlabo_s_agg_table == f"{plnlabo_dimen}_s_put_agg"
+    assert plnheal_s_agg_table == f"{plnheal_dimen}_s_put_agg"
+    assert plnfact_s_agg_table == f"{plnfact_dimen}_s_put_agg"
+    assert plnfact_s_del_table == f"{plnfact_dimen}_s_del_agg"
     assert mmtunit_s_agg_table == f"{mmtunit_dimen}_s_agg"
     assert mmtpayy_s_agg_table == f"{mmtpayy_dimen}_s_agg"
     assert mmtbudd_s_agg_table == f"{mmtbudd_dimen}_s_agg"
@@ -154,9 +154,9 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert trltitl_s_val_table == f"{trltitl_dimen}_s_vld"
     assert trlcore_s_raw_table == f"{trlcore_dimen}_s_raw"
     assert trlcore_s_agg_table == f"{trlcore_dimen}_s_agg"
-    assert blfvoce_job_table == f"{blfvoce_dimen}_job"
-    assert blfgrou_job_table == f"{blfgrou_dimen}_job"
-    assert x_blfvoce_raw == "plan_voiceunit_raw"
+    assert plnvoce_job_table == f"{plnvoce_dimen}_job"
+    assert plngrou_job_table == f"{plngrou_dimen}_job"
+    assert x_plnvoce_raw == "plan_voiceunit_raw"
 
 
 def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():
@@ -336,19 +336,19 @@ def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
-    blfcase_h_agg_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
+    plncase_h_agg_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
 
     # THEN
-    print(f"{blfcase_h_agg_columns=}")
-    assert blfcase_h_agg_columns
+    print(f"{plncase_h_agg_columns=}")
+    assert plncase_h_agg_columns
     expected_added_columns = {
         f"context_keg_{kw.close}",
         f"context_keg_{kw.denom}",
         f"context_keg_{kw.morph}",
         kw.inx_epoch_diff,
     }
-    assert expected_added_columns.issubset(blfcase_h_agg_columns)
-    assert blfcase_h_agg_columns == {
+    assert expected_added_columns.issubset(plncase_h_agg_columns)
+    assert plncase_h_agg_columns == {
         kw.plan_name,
         f"context_keg_{kw.close}",
         f"context_keg_{kw.denom}",

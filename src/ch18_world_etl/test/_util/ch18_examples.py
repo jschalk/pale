@@ -137,7 +137,7 @@ WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_label} == '{x_moment_label}
     return cursor.fetchall()
 
 
-def insert_blfcase_special_h_agg(
+def insert_plncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
@@ -148,7 +148,7 @@ def insert_blfcase_special_h_agg(
     x_reason_lower: ReasonNum,
     x_reason_upper: ReasonNum,
 ) -> list[tuple]:
-    blfcase_tbl = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+    plncase_tbl = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
     values_dict = {
         "spark_num": x_spark_num,
         "moment_label": x_moment_label,
@@ -159,12 +159,12 @@ def insert_blfcase_special_h_agg(
         "reason_upper_otx": x_reason_upper,
         "reason_lower_otx": x_reason_lower,
     }
-    insert_sqlstr = create_insert_query(cursor, blfcase_tbl, values_dict)
+    insert_sqlstr = create_insert_query(cursor, plncase_tbl, values_dict)
     cursor.execute(insert_sqlstr)
 
 
 @dataclass
-class BLFCASEHEARDAGG:
+class PLNCASEHEARDAGG:
     spark_num: SparkInt
     moment_label: MomentLabel
     plan_name: PlanName
@@ -182,7 +182,7 @@ class BLFCASEHEARDAGG:
     inx_epoch_diff: int
 
 
-def select_blfcase_special_h_agg(
+def select_plncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
@@ -190,9 +190,9 @@ def select_blfcase_special_h_agg(
     x_keg_rope: RopeTerm,
     x_reason_context: RopeTerm,
     x_reason_state: RopeTerm,
-) -> list[BLFCASEHEARDAGG]:
+) -> list[PLNCASEHEARDAGG]:
     x_dimen = kw.plan_keg_reason_caseunit
-    blfcase_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
+    plncase_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_label}
@@ -209,7 +209,7 @@ def select_blfcase_special_h_agg(
 , context_keg_denom
 , context_keg_morph
 , inx_epoch_diff
-FROM {blfcase_h_agg_tablename}
+FROM {plncase_h_agg_tablename}
 WHERE {kw.spark_num} = {x_spark_num} 
     AND {kw.moment_label} = '{x_moment_label}'
     AND {kw.plan_name} = '{x_plan_name}'
@@ -219,9 +219,9 @@ WHERE {kw.spark_num} = {x_spark_num}
 ;
 """
     cursor.execute(select_sqlstr)
-    blfcase_heard_aggs = []
+    plncase_heard_aggs = []
     for row in cursor.fetchall():
-        x_blfcase_h_agg = BLFCASEHEARDAGG(
+        x_plncase_h_agg = PLNCASEHEARDAGG(
             spark_num=row[0],
             moment_label=row[1],
             plan_name=row[2],
@@ -238,11 +238,11 @@ WHERE {kw.spark_num} = {x_spark_num}
             context_keg_morph=row[13],
             inx_epoch_diff=row[14],
         )
-        blfcase_heard_aggs.append(x_blfcase_h_agg)
-    return blfcase_heard_aggs
+        plncase_heard_aggs.append(x_plncase_h_agg)
+    return plncase_heard_aggs
 
 
-def insert_blffact_special_h_agg(
+def insert_plnfact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
@@ -256,7 +256,7 @@ def insert_blffact_special_h_agg(
     pass
 
 
-def select_blffact_special_h_agg(
+def select_plnfact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
@@ -267,7 +267,7 @@ def select_blffact_special_h_agg(
     pass
 
 
-def insert_blfkegg_special_h_agg(
+def insert_plnkegg_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,

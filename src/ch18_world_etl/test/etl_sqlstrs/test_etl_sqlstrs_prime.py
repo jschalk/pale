@@ -219,11 +219,11 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         vld_str = "vld"
         put_str = "put"
         del_str = "del"
-        blfunit_s_put_agg_table = prime_tbl("planunit", "s", agg_str, put_str)
-        blfvoce_s_put_agg_table = prime_tbl("blfvoce", "s", agg_str, put_str)
-        blfmemb_s_put_agg_table = prime_tbl("blfmemb", "s", agg_str, put_str)
-        blffact_s_del_agg_table = prime_tbl("blffact", "s", agg_str, del_str)
-        blffact_s_del_vld_table = prime_tbl("blffact", "s", vld_str, del_str)
+        plnunit_s_put_agg_table = prime_tbl("planunit", "s", agg_str, put_str)
+        plnvoce_s_put_agg_table = prime_tbl("plnvoce", "s", agg_str, put_str)
+        plnmemb_s_put_agg_table = prime_tbl("plnmemb", "s", agg_str, put_str)
+        plnfact_s_del_agg_table = prime_tbl("plnfact", "s", agg_str, del_str)
+        plnfact_s_del_vld_table = prime_tbl("plnfact", "s", vld_str, del_str)
         momentunit_s_agg_table = prime_tbl(kw.momentunit, "s", agg_str)
         momentunit_s_vld_table = prime_tbl(kw.momentunit, "s", vld_str)
         trltitl_s_agg_table = prime_tbl("trltitl", "s", agg_str)
@@ -234,11 +234,11 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         trlcore_s_agg_table = prime_tbl("trlcore", "s", agg_str)
         trlcore_s_vld_table = prime_tbl("trlcore", "s", vld_str)
 
-        assert not db_table_exists(cursor, blfunit_s_put_agg_table)
-        assert not db_table_exists(cursor, blfvoce_s_put_agg_table)
-        assert not db_table_exists(cursor, blfmemb_s_put_agg_table)
-        assert not db_table_exists(cursor, blffact_s_del_agg_table)
-        assert not db_table_exists(cursor, blffact_s_del_vld_table)
+        assert not db_table_exists(cursor, plnunit_s_put_agg_table)
+        assert not db_table_exists(cursor, plnvoce_s_put_agg_table)
+        assert not db_table_exists(cursor, plnmemb_s_put_agg_table)
+        assert not db_table_exists(cursor, plnfact_s_del_agg_table)
+        assert not db_table_exists(cursor, plnfact_s_del_vld_table)
         assert not db_table_exists(cursor, momentunit_s_agg_table)
         assert not db_table_exists(cursor, momentunit_s_vld_table)
         assert not db_table_exists(cursor, trltitl_s_agg_table)
@@ -259,11 +259,11 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         # for x_row in cursor.fetchall():
         #     print(f"{x_count} {x_row[1]=}")
         #     x_count += 1
-        assert db_table_exists(cursor, blfunit_s_put_agg_table)
-        assert db_table_exists(cursor, blfvoce_s_put_agg_table)
-        assert db_table_exists(cursor, blfmemb_s_put_agg_table)
-        assert db_table_exists(cursor, blffact_s_del_agg_table)
-        assert db_table_exists(cursor, blffact_s_del_vld_table)
+        assert db_table_exists(cursor, plnunit_s_put_agg_table)
+        assert db_table_exists(cursor, plnvoce_s_put_agg_table)
+        assert db_table_exists(cursor, plnmemb_s_put_agg_table)
+        assert db_table_exists(cursor, plnfact_s_del_agg_table)
+        assert db_table_exists(cursor, plnfact_s_del_vld_table)
         assert db_table_exists(cursor, momentunit_s_agg_table)
         assert db_table_exists(cursor, momentunit_s_vld_table)
         assert db_table_exists(cursor, trltitl_s_agg_table)
@@ -716,11 +716,11 @@ def test_create_insert_missing_face_name_into_translate_core_vld_sqlstr_ReturnsO
     # ESTABLISH
     default_knot = "|"
     default_unknown_str = "unknown2"
-    blfvoce_s_agg_tablename = prime_tbl(kw.plan_voiceunit, "s", "agg")
+    plnvoce_s_agg_tablename = prime_tbl(kw.plan_voiceunit, "s", "agg")
 
     # WHEN
     insert_sqlstr = create_insert_missing_face_name_into_translate_core_vld_sqlstr(
-        default_knot, default_unknown_str, blfvoce_s_agg_tablename
+        default_knot, default_unknown_str, plnvoce_s_agg_tablename
     )
 
     # THEN
@@ -728,14 +728,14 @@ def test_create_insert_missing_face_name_into_translate_core_vld_sqlstr_ReturnsO
     translate_core_s_vld_tablename = prime_tbl(trlcore_dimen, "s", "vld")
     expected_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (face_name, otx_knot, inx_knot, unknown_str)
 SELECT
-  {blfvoce_s_agg_tablename}.face_name
+  {plnvoce_s_agg_tablename}.face_name
 , '{default_knot}'
 , '{default_knot}'
 , '{default_unknown_str}'
-FROM {blfvoce_s_agg_tablename} 
-LEFT JOIN translate_core_s_vld ON translate_core_s_vld.face_name = {blfvoce_s_agg_tablename}.face_name
+FROM {plnvoce_s_agg_tablename} 
+LEFT JOIN translate_core_s_vld ON translate_core_s_vld.face_name = {plnvoce_s_agg_tablename}.face_name
 WHERE translate_core_s_vld.face_name IS NULL
-GROUP BY {blfvoce_s_agg_tablename}.face_name
+GROUP BY {plnvoce_s_agg_tablename}.face_name
 ;
 """
     print(expected_sqlstr)

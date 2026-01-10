@@ -3,17 +3,17 @@ from src.ch01_py.db_toolbox import create_insert_query
 from src.ch07_plan_logic.plan_config import get_plan_calc_dimen_args
 from src.ch18_world_etl.etl_sqlstr import create_job_tables
 from src.ch18_world_etl.obj2db_plan import (
-    create_blfawar_metrics_insert_sqlstr,
-    create_blfcase_metrics_insert_sqlstr,
-    create_blffact_metrics_insert_sqlstr,
-    create_blfgrou_metrics_insert_sqlstr,
-    create_blfheal_metrics_insert_sqlstr,
-    create_blfkegg_metrics_insert_sqlstr,
-    create_blflabo_metrics_insert_sqlstr,
-    create_blfmemb_metrics_insert_sqlstr,
-    create_blfreas_metrics_insert_sqlstr,
-    create_blfvoce_metrics_insert_sqlstr,
     create_planunit_metrics_insert_sqlstr,
+    create_plnawar_metrics_insert_sqlstr,
+    create_plncase_metrics_insert_sqlstr,
+    create_plnfact_metrics_insert_sqlstr,
+    create_plngrou_metrics_insert_sqlstr,
+    create_plnheal_metrics_insert_sqlstr,
+    create_plnkegg_metrics_insert_sqlstr,
+    create_plnlabo_metrics_insert_sqlstr,
+    create_plnmemb_metrics_insert_sqlstr,
+    create_plnreas_metrics_insert_sqlstr,
+    create_plnvoce_metrics_insert_sqlstr,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
@@ -78,7 +78,7 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfkegg_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_kegunit")
@@ -154,7 +154,7 @@ def test_create_blfkegg_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfkegg_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnkegg_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -169,7 +169,7 @@ def test_create_blfkegg_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_keg_reasonunit")
@@ -214,7 +214,7 @@ def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfreas_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnreas_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -229,7 +229,7 @@ def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_keg_reason_caseunit")
@@ -281,7 +281,7 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfcase_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plncase_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -296,7 +296,7 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_keg_awardunit")
@@ -344,7 +344,7 @@ def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfawar_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnawar_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -359,7 +359,7 @@ def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_keg_factunit")
@@ -405,7 +405,7 @@ def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blffact_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnfact_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -420,7 +420,7 @@ def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnheal_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_keg_healerunit")
@@ -460,7 +460,7 @@ def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfheal_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnheal_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -475,7 +475,7 @@ def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnlabo_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_keg_partyunit")
@@ -519,7 +519,7 @@ def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blflabo_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnlabo_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -535,7 +535,7 @@ def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnvoce_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_voiceunit")
@@ -599,7 +599,7 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfvoce_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnvoce_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -614,7 +614,7 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_voice_membership")
@@ -674,7 +674,7 @@ def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfmemb_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnmemb_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -689,7 +689,7 @@ def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_plan_calc_dimen_args("plan_groupunit")
@@ -741,7 +741,7 @@ def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfgrou_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plngrou_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr

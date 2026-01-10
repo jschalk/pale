@@ -31,24 +31,24 @@ from src.ch18_world_etl.etl_nabu import (
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
-    get_update_blfcase_context_keg_sqlstr,
-    get_update_blfcase_inx_epoch_diff_sqlstr,
-    get_update_blfcase_range_sqlstr,
-    get_update_blffact_context_keg_sqlstr,
-    get_update_blffact_inx_epoch_diff_sqlstr,
-    get_update_blffact_range_sqlstr,
     get_update_heard_agg_epochtime_sqlstr,
     get_update_heard_agg_epochtime_sqlstrs,
+    get_update_plncase_context_keg_sqlstr,
+    get_update_plncase_inx_epoch_diff_sqlstr,
+    get_update_plncase_range_sqlstr,
+    get_update_plnfact_context_keg_sqlstr,
+    get_update_plnfact_inx_epoch_diff_sqlstr,
+    get_update_plnfact_range_sqlstr,
     update_heard_agg_epochtime_columns,
 )
 from src.ch18_world_etl.obj2db_plan import insert_h_agg_obj
 from src.ch18_world_etl.test._util.ch18_examples import (
-    insert_blfcase_special_h_agg as insert_blfcase,
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
     insert_mmtunit_special_c400_number as insert_c400_number,
     insert_nabepoc_h_agg_otx_inx_time as insert_otx_inx_time,
-    select_blfcase_special_h_agg as select_blfcase,
+    insert_plncase_special_h_agg as insert_plncase,
     select_mmtoffi_special_offi_time_inx as select_offi_time_inx,
+    select_plncase_special_h_agg as select_plncase,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
@@ -58,13 +58,13 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 # update semantic_type: ReasonNum plan_keg_factunit_h_agg_put fact_lower, fact_upper
 
 
-def test_get_update_blfcase_inx_epoch_diff_sqlstr_ReturnsObj():
+def test_get_update_plncase_inx_epoch_diff_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfcase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+    plncase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
     nabepoc_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
 
     # WHEN
-    update_sqlstr = get_update_blfcase_inx_epoch_diff_sqlstr()
+    update_sqlstr = get_update_plncase_inx_epoch_diff_sqlstr()
 
     # THEN
     assert update_sqlstr
@@ -76,23 +76,23 @@ WITH spark_inx_epoch_diff AS (
     FROM {nabepoc_tablename}
     GROUP BY spark_num, otx_time, inx_time
 )
-UPDATE {blfcase_tablename}
+UPDATE {plncase_tablename}
 SET inx_epoch_diff = spark_inx_epoch_diff.inx_epoch_diff
 FROM spark_inx_epoch_diff
-WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
+WHERE {plncase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
 ;
 """
     print(expected_update_sqlstr)
     assert update_sqlstr == expected_update_sqlstr
 
 
-def test_get_update_blffact_inx_epoch_diff_sqlstr_ReturnsObj():
+def test_get_update_plnfact_inx_epoch_diff_sqlstr_ReturnsObj():
     # ESTABLISH
-    blffact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
+    plnfact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
     nabepoc_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
 
     # WHEN
-    update_sqlstr = get_update_blffact_inx_epoch_diff_sqlstr()
+    update_sqlstr = get_update_plnfact_inx_epoch_diff_sqlstr()
 
     # THEN
     assert update_sqlstr
@@ -104,128 +104,128 @@ WITH spark_inx_epoch_diff AS (
     FROM {nabepoc_tablename}
     GROUP BY spark_num, otx_time, inx_time
 )
-UPDATE {blffact_tablename}
+UPDATE {plnfact_tablename}
 SET inx_epoch_diff = spark_inx_epoch_diff.inx_epoch_diff
 FROM spark_inx_epoch_diff
-WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
+WHERE {plnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
 ;
 """
     print(expected_update_sqlstr)
     assert update_sqlstr == expected_update_sqlstr
 
 
-def test_get_update_blfcase_context_keg_sqlstr_ReturnsObj():
+def test_get_update_plncase_context_keg_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfcase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
-    blfkegg_tablename = prime_tbl(kw.plan_kegunit, "h", "agg", "put")
+    plncase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+    plnkegg_tablename = prime_tbl(kw.plan_kegunit, "h", "agg", "put")
 
     # WHEN
-    update_sqlstr = get_update_blfcase_context_keg_sqlstr()
+    update_sqlstr = get_update_plncase_context_keg_sqlstr()
 
     # THEN
     assert update_sqlstr
     expected_update_sqlstr = f"""
-WITH spark_blfkegg AS (
+WITH spark_plnkegg AS (
     SELECT spark_num, close, denom, morph
-    FROM {blfkegg_tablename}
+    FROM {plnkegg_tablename}
     GROUP BY spark_num, close, denom, morph
 )
-UPDATE {blfcase_tablename}
+UPDATE {plncase_tablename}
 SET 
-  context_keg_close = spark_blfkegg.close
-, context_keg_denom = spark_blfkegg.denom
-, context_keg_morph = spark_blfkegg.morph
-FROM spark_blfkegg
-WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfkegg)
+  context_keg_close = spark_plnkegg.close
+, context_keg_denom = spark_plnkegg.denom
+, context_keg_morph = spark_plnkegg.morph
+FROM spark_plnkegg
+WHERE {plncase_tablename}.spark_num IN (SELECT spark_num FROM spark_plnkegg)
 ;
 """
     print(expected_update_sqlstr)
     assert update_sqlstr == expected_update_sqlstr
 
 
-def test_get_update_blffact_context_keg_sqlstr_ReturnsObj():
+def test_get_update_plnfact_context_keg_sqlstr_ReturnsObj():
     # ESTABLISH
-    blffact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
-    blfkegg_tablename = prime_tbl(kw.plan_kegunit, "h", "agg", "put")
+    plnfact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
+    plnkegg_tablename = prime_tbl(kw.plan_kegunit, "h", "agg", "put")
 
     # WHEN
-    update_sqlstr = get_update_blffact_context_keg_sqlstr()
+    update_sqlstr = get_update_plnfact_context_keg_sqlstr()
 
     # THEN
     assert update_sqlstr
     expected_update_sqlstr = f"""
-WITH spark_blfkegg AS (
+WITH spark_plnkegg AS (
     SELECT spark_num, close, denom, morph
-    FROM {blfkegg_tablename}
+    FROM {plnkegg_tablename}
     GROUP BY spark_num, close, denom, morph
 )
-UPDATE {blffact_tablename}
+UPDATE {plnfact_tablename}
 SET 
-  context_keg_close = spark_blfkegg.close
-, context_keg_denom = spark_blfkegg.denom
-, context_keg_morph = spark_blfkegg.morph
-FROM spark_blfkegg
-WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_blfkegg)
+  context_keg_close = spark_plnkegg.close
+, context_keg_denom = spark_plnkegg.denom
+, context_keg_morph = spark_plnkegg.morph
+FROM spark_plnkegg
+WHERE {plnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_plnkegg)
 ;
 """
     print(expected_update_sqlstr)
     assert update_sqlstr == expected_update_sqlstr
 
 
-def test_get_update_blfcase_range_sqlstr_ReturnsObj():
+def test_get_update_plncase_range_sqlstr_ReturnsObj():
     # ESTABLISH
-    blfcase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+    plncase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
 
     # WHEN
-    update_sqlstr = get_update_blfcase_range_sqlstr()
+    update_sqlstr = get_update_plncase_range_sqlstr()
 
     # THEN
     assert update_sqlstr
     expected_update_sqlstr = f"""
-WITH spark_blfcase AS (
+WITH spark_plncase AS (
     SELECT 
       spark_num
     , IFNULL(reason_divisor, IFNULL(context_keg_close, context_keg_denom)) modulus
     , CASE WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_keg_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
-    FROM {blfcase_tablename}
+    FROM {plncase_tablename}
     GROUP BY spark_num, reason_divisor, context_keg_close, context_keg_denom, context_keg_morph
 )
-UPDATE {blfcase_tablename}
+UPDATE {plncase_tablename}
 SET 
-  reason_lower_inx = (reason_lower_otx + spark_blfcase.calc_epoch_diff) % spark_blfcase.modulus
-, reason_upper_inx = (reason_upper_otx + spark_blfcase.calc_epoch_diff) % spark_blfcase.modulus
-FROM spark_blfcase
-WHERE {blfcase_tablename}.spark_num IN (SELECT spark_num FROM spark_blfcase)
+  reason_lower_inx = (reason_lower_otx + spark_plncase.calc_epoch_diff) % spark_plncase.modulus
+, reason_upper_inx = (reason_upper_otx + spark_plncase.calc_epoch_diff) % spark_plncase.modulus
+FROM spark_plncase
+WHERE {plncase_tablename}.spark_num IN (SELECT spark_num FROM spark_plncase)
 ;
 """
     print(expected_update_sqlstr)
     assert update_sqlstr == expected_update_sqlstr
 
 
-def test_get_update_blffact_range_sqlstr_ReturnsObj():
+def test_get_update_plnfact_range_sqlstr_ReturnsObj():
     # ESTABLISH
-    blffact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
+    plnfact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
 
     # WHEN
-    update_sqlstr = get_update_blffact_range_sqlstr()
+    update_sqlstr = get_update_plnfact_range_sqlstr()
 
     # THEN
     assert update_sqlstr
     expected_update_sqlstr = f"""
-WITH spark_blffact AS (
+WITH spark_plnfact AS (
     SELECT 
       spark_num
     , IFNULL(reason_divisor, IFNULL(context_keg_close, context_keg_denom)) modulus
     , FACT WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_keg_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
-    FROM {blffact_tablename}
+    FROM {plnfact_tablename}
     GROUP BY spark_num, reason_divisor, context_keg_close, context_keg_denom, context_keg_morph
 )
-UPDATE {blffact_tablename}
+UPDATE {plnfact_tablename}
 SET 
-  reason_lower_inx = (reason_lower_otx + spark_blffact.calc_epoch_diff) % spark_blffact.modulus
-, reason_upper_inx = (reason_upper_otx + spark_blffact.calc_epoch_diff) % spark_blffact.modulus
-FROM spark_blffact
-WHERE {blffact_tablename}.spark_num IN (SELECT spark_num FROM spark_blffact)
+  reason_lower_inx = (reason_lower_otx + spark_plnfact.calc_epoch_diff) % spark_plnfact.modulus
+, reason_upper_inx = (reason_upper_otx + spark_plnfact.calc_epoch_diff) % spark_plnfact.modulus
+FROM spark_plnfact
+WHERE {plnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_plnfact)
 ;
 """
     print(expected_update_sqlstr)

@@ -8,22 +8,22 @@ from src.ch18_world_etl.etl_config import (
 )
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.obj2db_plan import (
-    create_blfawar_h_put_agg_insert_sqlstr,
-    create_blfcase_h_put_agg_insert_sqlstr,
-    create_blffact_h_put_agg_insert_sqlstr,
-    create_blfgrou_h_put_agg_insert_sqlstr,
-    create_blfheal_h_put_agg_insert_sqlstr,
-    create_blfkegg_h_put_agg_insert_sqlstr,
-    create_blflabo_h_put_agg_insert_sqlstr,
-    create_blfmemb_h_put_agg_insert_sqlstr,
-    create_blfreas_h_put_agg_insert_sqlstr,
-    create_blfunit_h_put_agg_insert_sqlstr,
-    create_blfvoce_h_put_agg_insert_sqlstr,
+    create_plnawar_h_put_agg_insert_sqlstr,
+    create_plncase_h_put_agg_insert_sqlstr,
+    create_plnfact_h_put_agg_insert_sqlstr,
+    create_plngrou_h_put_agg_insert_sqlstr,
+    create_plnheal_h_put_agg_insert_sqlstr,
+    create_plnkegg_h_put_agg_insert_sqlstr,
+    create_plnlabo_h_put_agg_insert_sqlstr,
+    create_plnmemb_h_put_agg_insert_sqlstr,
+    create_plnreas_h_put_agg_insert_sqlstr,
+    create_plnunit_h_put_agg_insert_sqlstr,
+    create_plnvoce_h_put_agg_insert_sqlstr,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_plnunit_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = exx.a23
@@ -51,14 +51,14 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
         kw.tally: x_tally,
     }
     etl_config = get_etl_config()
-    blfunit = kw.planunit
-    dst_columns = get_prime_columns(blfunit, ["h", "agg", "put"], etl_config)
+    plnunit = kw.planunit
+    dst_columns = get_prime_columns(plnunit, ["h", "agg", "put"], etl_config)
     print(f"{dst_columns=}")
     # all args included in values dict
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfunit_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnunit_h_put_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -73,7 +73,7 @@ def test_create_blfunit_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfkegg_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_plnkegg_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = exx.a23
@@ -130,7 +130,7 @@ def test_create_blfkegg_h_put_agg_insert_sqlstr_ReturnsObj():
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfkegg_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnkegg_h_put_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -145,7 +145,7 @@ def test_create_blfkegg_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_plnreas_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = exx.a23
@@ -170,7 +170,7 @@ def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfreas_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnreas_h_put_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -185,7 +185,7 @@ def test_create_blfreas_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_plncase_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = exx.a23
@@ -218,7 +218,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfcase_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plncase_h_put_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -233,7 +233,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfawar_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_plnawar_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_label = exx.a23
 #     x_plan_name = "Sue"
@@ -263,7 +263,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_blfawar_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_plnawar_h_put_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
@@ -278,7 +278,7 @@ def test_create_blfcase_h_put_agg_insert_sqlstr_ReturnsObj():
 #         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_label = exx.a23
@@ -309,7 +309,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blffact_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnfact_h_put_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
@@ -324,7 +324,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfheal_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_plnheal_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_label = exx.a23
 #     x_plan_name = "Sue"
@@ -346,7 +346,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_blfheal_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_plnheal_h_put_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
@@ -361,7 +361,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blflabo_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_plnlabo_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_label = exx.a23
 #     x_plan_name = "Sue"
@@ -387,7 +387,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_blflabo_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_plnlabo_h_put_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
@@ -403,7 +403,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfvoce_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_plnvoce_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_label = exx.a23
 #     x_plan_name = "Sue"
@@ -449,7 +449,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_blfvoce_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_plnvoce_h_put_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
@@ -464,7 +464,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfmemb_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_plnmemb_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_label = exx.a23
 #     x_plan_name = "Sue"
@@ -506,7 +506,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_blfmemb_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_plnmemb_h_put_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
@@ -521,7 +521,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_blfgrou_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_plngrou_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_label = exx.a23
 #     x_plan_name = "Sue"
@@ -555,7 +555,7 @@ def test_create_blffact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_blfgrou_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_plngrou_h_put_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
