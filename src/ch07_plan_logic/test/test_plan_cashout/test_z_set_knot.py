@@ -1,0 +1,160 @@
+from pytest import raises as pytest_raises
+from src.ch04_rope.rope import create_rope
+from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
+from src.ch06_keg.keg import kegunit_shop
+from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch07_plan_logic.test._util.ch07_examples import get_planunit_with_4_levels
+from src.ref.keywords import ExampleStrs as exx
+
+
+def test_PlanUnit_set_keg_SetsAttrs_Scenario0_fund_grain():
+    # ESTABLISH'
+    x_fund_grain = 500
+    sue_plan = get_planunit_with_4_levels()
+    sue_plan.fund_grain = x_fund_grain
+    casa_rope = sue_plan.make_l1_rope("casa")
+    clean_rope = sue_plan.make_rope(casa_rope, "cleaning")
+    cuisine_keg = kegunit_shop("cuisine to use")
+    assert cuisine_keg.fund_grain != x_fund_grain
+
+    # WHEN
+    sue_plan.set_keg_obj(cuisine_keg, clean_rope)
+
+    # THEN
+    assert cuisine_keg.fund_grain == x_fund_grain
+
+
+def test_plan_set_knot_RaisesErrorIfNew_knot_IsAnKeg_label():
+    # ESTABLISH
+    zia_plan = planunit_shop("Zia", "Texas")
+    print(f"{zia_plan.max_tree_traverse=}")
+    casa_rope = zia_plan.make_l1_rope(exx.casa)
+    zia_plan.set_l1_keg(kegunit_shop(exx.casa))
+    casa_str = f"casa cuisine{exx.slash}clean"
+    zia_plan.set_keg_obj(kegunit_shop(casa_str), parent_rope=casa_rope)
+
+    # WHEN / THEN
+    casa_rope = zia_plan.make_rope(casa_rope, casa_str)
+    print(f"{casa_rope=}")
+    with pytest_raises(Exception) as excinfo:
+        zia_plan.set_knot(exx.slash)
+    assert (
+        str(excinfo.value)
+        == f"Cannot modify knot to '{exx.slash}' because it exists an keg keg_label '{casa_rope}'"
+    )
+
+
+def test_plan_set_knot_Modifies_parent_rope():
+    # ESTABLISH
+    zia_plan = planunit_shop("Zia", "Texas")
+    zia_plan.set_l1_keg(kegunit_shop(exx.casa))
+    semicolon_casa_rope = zia_plan.make_l1_rope(exx.casa)
+    zia_plan.set_keg_obj(kegunit_shop(exx.cuisine), semicolon_casa_rope)
+    semicolon_cuisine_rope = zia_plan.make_rope(semicolon_casa_rope, exx.cuisine)
+    cuisine_keg = zia_plan.get_keg_obj(semicolon_cuisine_rope)
+    semicolon_str = ";"
+    assert zia_plan.knot == semicolon_str
+    semicolon_cuisine_rope = zia_plan.make_rope(semicolon_casa_rope, exx.cuisine)
+    # print(f"{cuisine_keg.parent_rope=} {cuisine_keg.keg_label=}")
+    # semicolon_casa_keg = zia_plan.get_keg_obj(semicolon_casa_rope)
+    # print(f"{semicolon_casa_keg.parent_rope=} {semicolon_casa_keg.keg_label=}")
+    assert cuisine_keg.get_keg_rope() == semicolon_cuisine_rope
+
+    # WHEN
+    zia_plan.set_knot(exx.slash)
+
+    # THEN
+    assert cuisine_keg.get_keg_rope() != semicolon_cuisine_rope
+    zia_moment_label = zia_plan.kegroot.keg_label
+    slash_casa_rope = create_rope(zia_moment_label, exx.casa, knot=exx.slash)
+    slash_cuisine_rope = create_rope(slash_casa_rope, exx.cuisine, knot=exx.slash)
+    assert cuisine_keg.get_keg_rope() == slash_cuisine_rope
+
+
+def test_plan_set_knot_ModifiesReasonUnit():
+    # sourcery skip: extract-duplicate-method
+    # ESTABLISH
+    zia_plan = planunit_shop("Zia", "Texas")
+    zia_plan.set_l1_keg(kegunit_shop(exx.casa))
+    ziet_str = "ziet"
+    semicolon_ziet_rope = zia_plan.make_l1_rope(ziet_str)
+    _8am_str = "8am"
+    semicolon_8am_rope = zia_plan.make_rope(semicolon_ziet_rope, _8am_str)
+
+    semicolon_ziet_reasonunit = reasonunit_shop(reason_context=semicolon_ziet_rope)
+    semicolon_ziet_reasonunit.set_case(semicolon_8am_rope)
+
+    semicolon_casa_rope = zia_plan.make_l1_rope(exx.casa)
+    zia_plan.edit_keg_attr(semicolon_casa_rope, reason=semicolon_ziet_reasonunit)
+    casa_keg = zia_plan.get_keg_obj(semicolon_casa_rope)
+    assert casa_keg.reasonunits.get(semicolon_ziet_rope) is not None
+    gen_ziet_reasonunit = casa_keg.reasonunits.get(semicolon_ziet_rope)
+    assert gen_ziet_reasonunit.cases.get(semicolon_8am_rope) is not None
+
+    # WHEN
+    zia_plan.set_knot(exx.slash)
+
+    # THEN
+    slash_ziet_rope = zia_plan.make_l1_rope(ziet_str)
+    slash_8am_rope = zia_plan.make_rope(slash_ziet_rope, _8am_str)
+    slash_casa_rope = zia_plan.make_l1_rope(exx.casa)
+    casa_keg = zia_plan.get_keg_obj(slash_casa_rope)
+    slash_ziet_rope = zia_plan.make_l1_rope(ziet_str)
+    slash_8am_rope = zia_plan.make_rope(slash_ziet_rope, _8am_str)
+    assert casa_keg.reasonunits.get(slash_ziet_rope) is not None
+    gen_ziet_reasonunit = casa_keg.reasonunits.get(slash_ziet_rope)
+    assert gen_ziet_reasonunit.cases.get(slash_8am_rope) is not None
+
+    assert casa_keg.reasonunits.get(semicolon_ziet_rope) is None
+    assert gen_ziet_reasonunit.cases.get(semicolon_8am_rope) is None
+
+
+def test_plan_set_knot_ModifiesFactUnit():
+    # ESTABLISH
+    zia_plan = planunit_shop("Zia", "Texas")
+    zia_plan.set_l1_keg(kegunit_shop(exx.casa))
+    ziet_str = "ziet"
+    semicolon_ziet_rope = zia_plan.make_l1_rope(ziet_str)
+    _8am_str = "8am"
+    semicolon_8am_rope = zia_plan.make_rope(semicolon_ziet_rope, _8am_str)
+    semicolon_ziet_factunit = factunit_shop(semicolon_ziet_rope, semicolon_8am_rope)
+
+    semicolon_casa_rope = zia_plan.make_l1_rope(exx.casa)
+    zia_plan.edit_keg_attr(semicolon_casa_rope, factunit=semicolon_ziet_factunit)
+    casa_keg = zia_plan.get_keg_obj(semicolon_casa_rope)
+    print(f"{casa_keg.factunits=} {semicolon_ziet_rope=}")
+    assert casa_keg.factunits.get(semicolon_ziet_rope) is not None
+    gen_ziet_factunit = casa_keg.factunits.get(semicolon_ziet_rope)
+
+    # WHEN
+    zia_plan.set_knot(exx.slash)
+
+    # THEN
+    slash_ziet_rope = zia_plan.make_l1_rope(ziet_str)
+    slash_casa_rope = zia_plan.make_l1_rope(exx.casa)
+    casa_keg = zia_plan.get_keg_obj(slash_casa_rope)
+    slash_ziet_rope = zia_plan.make_l1_rope(ziet_str)
+    slash_8am_rope = zia_plan.make_rope(slash_ziet_rope, _8am_str)
+    assert casa_keg.factunits.get(slash_ziet_rope) is not None
+    gen_ziet_factunit = casa_keg.factunits.get(slash_ziet_rope)
+    assert gen_ziet_factunit.fact_context is not None
+    assert gen_ziet_factunit.fact_context == slash_ziet_rope
+    assert gen_ziet_factunit.fact_state is not None
+    assert gen_ziet_factunit.fact_state == slash_8am_rope
+
+    assert casa_keg.factunits.get(semicolon_ziet_rope) is None
+
+
+def test_PlanUnit_set_knot_SetsAttr():
+    # ESTABLISH
+    a45_str = "amy45"
+    slash_knot = "/"
+    sue_plan = planunit_shop(exx.sue, a45_str, knot=slash_knot)
+    assert sue_plan.knot == slash_knot
+
+    # WHEN
+    at_label_knot = "@"
+    sue_plan.set_knot(new_knot=at_label_knot)
+
+    # THEN
+    assert sue_plan.knot == at_label_knot

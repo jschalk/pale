@@ -1,6 +1,6 @@
 from os import getcwd as os_getcwd
-from src.ch01_py.dict_toolbox import get_from_nested_dict
-from src.ch01_py.file_toolbox import create_path, open_json
+from src.ch00_py.dict_toolbox import get_from_nested_dict
+from src.ch00_py.file_toolbox import create_path, open_json
 
 
 def moment_config_path() -> str:
@@ -57,7 +57,7 @@ def get_moment_args_dimen_mapping() -> dict[str, str]:
 
 def get_moment_args_class_types() -> dict[str, str]:
     return {
-        "voice_name": "NameTerm",
+        "person_name": "NameTerm",
         "amount": "float",
         "knot": "str",
         "celldepth": "int",
@@ -72,7 +72,7 @@ def get_moment_args_class_types() -> dict[str, str]:
         "monthday_index": "int",
         "mana_grain": "float",
         "offi_time": "EpochTime",
-        "belief_name": "NameTerm",
+        "plan_name": "NameTerm",
         "quota": "int",
         "job_listen_rotations": "int",
         "respect_grain": "float",
@@ -86,7 +86,7 @@ def get_moment_args_class_types() -> dict[str, str]:
 
 def get_moment_args_set() -> set[str]:
     return {
-        "voice_name",
+        "person_name",
         "amount",
         "knot",
         "c400_number",
@@ -102,7 +102,7 @@ def get_moment_args_set() -> set[str]:
         "job_listen_rotations",
         "mana_grain",
         "offi_time",
-        "belief_name",
+        "plan_name",
         "quota",
         "respect_grain",
         "tran_time",

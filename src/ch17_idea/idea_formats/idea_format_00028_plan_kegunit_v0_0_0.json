@@ -1,0 +1,22 @@
+{
+  "attributes": {
+    "addin"       : { "otx_key": false }, 
+    "begin"       : { "otx_key": false }, 
+    "plan_name" : { "otx_key": true  }, 
+    "close"       : { "otx_key": false }, 
+    "denom"       : { "otx_key": false }, 
+    "face_name"   : { "otx_key": true  }, 
+    "gogo_want"   : { "otx_key": false }, 
+    "moment_label": { "otx_key": true  }, 
+    "morph"       : { "otx_key": false }, 
+    "numor"       : { "otx_key": false }, 
+    "keg_rope"   : { "otx_key": true  }, 
+    "pledge"      : { "otx_key": false }, 
+    "problem_bool": { "otx_key": false }, 
+    "spark_num"   : { "otx_key": true  }, 
+    "star"        : { "otx_key": false }, 
+    "stop_want"   : { "otx_key": false }
+  }, 
+  "dimens": ["momentunit", "planunit", "plan_kegunit"], 
+  "idea_number": "br00028"
+}

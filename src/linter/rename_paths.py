@@ -1,6 +1,6 @@
 from os import getcwd as os_getcwd
 from os.path import isdir as os_path_isdir
-from src.ch01_py.file_toolbox import create_path, open_json, save_json
+from src.ch00_py.file_toolbox import create_path, open_json, save_json
 from src.linter.chapter_migration_tools import (
     first_level_dirs_with_prefix,
     rename_files_and_dirs_4times,

@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import db_table_exists, get_row_count
+from src.ch00_py.db_toolbox import db_table_exists, get_row_count
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table
 from src.ch18_world_etl.etl_main import etl_brick_valid_tables_to_sound_raw_tables
 from src.ch18_world_etl.etl_sqlstr import create_prime_tablename
@@ -30,8 +30,8 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
             kw.spark_num,
             kw.face_name,
             kw.moment_label,
-            kw.belief_name,
-            kw.voice_name,
+            kw.plan_name,
+            kw.person_name,
             kw.otx_rope,
             kw.inx_rope,
         ]
@@ -40,8 +40,8 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
   {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
-, {kw.voice_name}
+, {kw.plan_name}
+, {kw.person_name}
 , {kw.otx_rope}
 , {kw.inx_rope}
 )"""
@@ -84,16 +84,16 @@ VALUES
         assert get_row_count(cursor, br00117_valid_tablename) == 2
         assert get_row_count(cursor, br00045_valid_tablename) == 3
         trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s", "raw")
-        blfvoce_s_put_raw_tblname = create_prime_tablename("BLFVOCE", "s", "raw", "put")
+        plnprsn_s_put_raw_tblname = create_prime_tablename("PLNPRSN", "s", "raw", "put")
         assert not db_table_exists(cursor, trlrope_s_raw_tablename)
-        assert not db_table_exists(cursor, blfvoce_s_put_raw_tblname)
+        assert not db_table_exists(cursor, plnprsn_s_put_raw_tblname)
 
         # WHEN
         etl_brick_valid_tables_to_sound_raw_tables(cursor)
 
         # THEN
         assert get_row_count(cursor, trlrope_s_raw_tablename) == 5
-        assert get_row_count(cursor, blfvoce_s_put_raw_tblname) == 2
+        assert get_row_count(cursor, plnprsn_s_put_raw_tblname) == 2
         b117 = "br00117"
         b045 = "br00045"
         ex_rope0 = (b117, spark1, exx.sue, exx.yao, yao_inx, None, None, None, None)
@@ -112,7 +112,7 @@ VALUES
         assert rows[3] == ex_rope0
         assert rows[4] == ex_rope1
 
-        select_agg_sqlstr = f"""SELECT * FROM {blfvoce_s_put_raw_tblname};"""
+        select_agg_sqlstr = f"""SELECT * FROM {plnprsn_s_put_raw_tblname};"""
         cursor.execute(select_agg_sqlstr)
         rows = cursor.fetchall()
         print(rows)

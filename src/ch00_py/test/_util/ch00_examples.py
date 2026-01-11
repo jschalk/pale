@@ -1,0 +1,21 @@
+from enum import Enum
+from src.ch00_py.file_toolbox import open_json
+
+
+class CommonExampleStrs(str, Enum):
+    bob = "Bob"
+    sue = "Sue"
+    SueZia = "SueZia"
+    yao = "Yao"
+    xio = "Xio"
+    zia = "Zia"
+    SueAndZia = "SueAndZia"
+    casa = "casa"
+    clean_str = "clean"
+    dirtyness_str = "dirtyness"
+    slash_str = "/"
+    swim = "swim"
+    wk_str = "wk"
+
+    def __str__(self):
+        return self.value

@@ -1,59 +1,59 @@
 from dataclasses import dataclass
-from src.ch01_py.dict_toolbox import get_0_if_None, get_empty_dict_if_None
-from src.ch02_allot.allot import (
+from src.ch00_py.dict_toolbox import get_0_if_None, get_empty_dict_if_None
+from src.ch01_allot.allot import (
     allot_scale,
     default_grain_num_if_None,
     validate_pool_num,
 )
-from src.ch07_belief_logic.belief_main import BeliefUnit
+from src.ch07_plan_logic.plan_main import PlanUnit
 from src.ch12_keep._ref.ch12_semantic_types import (
-    BeliefName,
     ManaGrain,
     ManaNum,
     MomentLabel,
+    PersonName,
+    PlanName,
     RespectNum,
     RopeTerm,
-    VoiceName,
 )
 
 
-def get_patientledger(x_belief: BeliefUnit) -> dict[VoiceName, RespectNum]:
+def get_patientledger(x_plan: PlanUnit) -> dict[PersonName, RespectNum]:
     return {
-        voiceunit.voice_name: voiceunit.voice_cred_lumen
-        for voiceunit in x_belief.voices.values()
-        if voiceunit.voice_cred_lumen > 0
+        personunit.person_name: personunit.person_cred_lumen
+        for personunit in x_plan.persons.values()
+        if personunit.person_cred_lumen > 0
     }
 
 
-def get_doctorledger(x_belief: BeliefUnit) -> dict[VoiceName, RespectNum]:
+def get_doctorledger(x_plan: PlanUnit) -> dict[PersonName, RespectNum]:
     return {
-        voiceunit.voice_name: voiceunit.voice_debt_lumen
-        for voiceunit in x_belief.voices.values()
-        if voiceunit.voice_debt_lumen > 0
+        personunit.person_name: personunit.person_debt_lumen
+        for personunit in x_plan.persons.values()
+        if personunit.person_debt_lumen > 0
     }
 
 
 @dataclass
 class RiverBook:
-    belief_name: BeliefName = None
-    rivercares: dict[VoiceName, float] = None
+    plan_name: PlanName = None
+    rivercares: dict[PersonName, float] = None
     mana_grain: ManaGrain = None
 
 
-def riverbook_shop(belief_name: BeliefName, mana_grain: ManaGrain = None):
-    x_riverbook = RiverBook(belief_name)
+def riverbook_shop(plan_name: PlanName, mana_grain: ManaGrain = None):
+    x_riverbook = RiverBook(plan_name)
     x_riverbook.rivercares = {}
     x_riverbook.mana_grain = default_grain_num_if_None(mana_grain)
     return x_riverbook
 
 
 def create_riverbook(
-    belief_name: BeliefName,
+    plan_name: PlanName,
     keep_patientledger: dict,
     book_point_amount: int,
     mana_grain: ManaGrain = None,
 ) -> RiverBook:
-    x_riverbook = riverbook_shop(belief_name, mana_grain)
+    x_riverbook = riverbook_shop(plan_name, mana_grain)
     x_riverbook.rivercares = allot_scale(
         ledger=keep_patientledger,
         scale_number=book_point_amount,
@@ -64,31 +64,31 @@ def create_riverbook(
 
 @dataclass
 class RiverCycle:
-    healer_name: BeliefName = None
+    healer_name: PlanName = None
     number: int = None
-    keep_patientledgers: dict[BeliefName : dict[VoiceName, float]] = None
-    riverbooks: dict[VoiceName, RiverBook] = None
+    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None
+    riverbooks: dict[PersonName, RiverBook] = None
     mana_grain: ManaGrain = None
 
     def _set_complete_riverbook(self, x_riverbook: RiverBook):
-        self.riverbooks[x_riverbook.belief_name] = x_riverbook
+        self.riverbooks[x_riverbook.plan_name] = x_riverbook
 
     def set_riverbook(
         self,
-        book_voice_name: VoiceName,
+        book_person_name: PersonName,
         book_point_amount: float,
     ):
-        belief_patientledger = self.keep_patientledgers.get(book_voice_name)
-        if belief_patientledger is not None:
+        plan_patientledger = self.keep_patientledgers.get(book_person_name)
+        if plan_patientledger is not None:
             x_riverbook = create_riverbook(
-                belief_name=book_voice_name,
-                keep_patientledger=belief_patientledger,
+                plan_name=book_person_name,
+                keep_patientledger=plan_patientledger,
                 book_point_amount=book_point_amount,
                 mana_grain=default_grain_num_if_None(self.mana_grain),
             )
             self._set_complete_riverbook(x_riverbook)
 
-    def create_cylceledger(self) -> dict[VoiceName, float]:
+    def create_cylceledger(self) -> dict[PersonName, float]:
         x_dict = {}
         for x_riverbook in self.riverbooks.values():
             for caree, charge_amount in x_riverbook.rivercares.items():
@@ -100,9 +100,9 @@ class RiverCycle:
 
 
 def rivercycle_shop(
-    healer_name: BeliefName,
+    healer_name: PlanName,
     number: int,
-    keep_patientledgers: dict[BeliefName : dict[VoiceName, float]] = None,
+    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None,
     mana_grain: ManaGrain = None,
 ):
     return RiverCycle(
@@ -115,8 +115,8 @@ def rivercycle_shop(
 
 
 def create_init_rivercycle(
-    healer_name: BeliefName,
-    keep_patientledgers: dict[BeliefName : dict[VoiceName, float]],
+    healer_name: PlanName,
+    keep_patientledgers: dict[PlanName : dict[PersonName, float]],
     keep_point_magnitude: ManaNum = None,
     mana_grain: ManaGrain = None,
 ) -> RiverCycle:
@@ -129,7 +129,7 @@ def create_init_rivercycle(
 
 def create_next_rivercycle(
     prev_rivercycle: RiverCycle,
-    prev_cycle_cycleledger_post_need: dict[VoiceName, float],
+    prev_cycle_cycleledger_post_need: dict[PersonName, float],
 ) -> RiverCycle:
     next_rivercycle = rivercycle_shop(
         healer_name=prev_rivercycle.healer_name,
@@ -145,9 +145,9 @@ def create_next_rivercycle(
 @dataclass
 class RiverGrade:
     moment_label: MomentLabel = None
-    belief_name: BeliefName = None
+    plan_name: PlanName = None
     keep_rope: RopeTerm = None
-    voice_name: VoiceName = None
+    person_name: PersonName = None
     number: int = None
     need_bill_amount: float = None
     care_amount: float = None
@@ -183,7 +183,7 @@ class RiverGrade:
 
         return {
             "moment_label": self.moment_label,
-            "healer_name": self.belief_name,
+            "healer_name": self.plan_name,
             "keep_rope": self.keep_rope,
             "need_bill_amount": self.need_bill_amount,
             "care_amount": self.care_amount,
@@ -204,18 +204,18 @@ class RiverGrade:
 
 def rivergrade_shop(
     moment_label: MomentLabel,
-    belief_name: BeliefName,
+    plan_name: PlanName,
     keep_rope: RopeTerm,
-    voice_name: VoiceName,
+    person_name: PersonName,
     number: float = None,
     doctor_count: int = None,
     patient_count: int = None,
 ):
     return RiverGrade(
         moment_label=moment_label,
-        belief_name=belief_name,
+        plan_name=plan_name,
         keep_rope=keep_rope,
-        voice_name=voice_name,
+        person_name=person_name,
         number=get_0_if_None(number),
         doctor_count=doctor_count,
         patient_count=patient_count,

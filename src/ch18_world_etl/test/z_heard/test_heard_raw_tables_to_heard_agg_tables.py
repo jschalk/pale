@@ -1,6 +1,6 @@
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_row_count, get_table_columns
-from src.ch01_py.dict_toolbox import get_empty_set_if_None
+from src.ch00_py.db_toolbox import get_row_count, get_table_columns
+from src.ch00_py.dict_toolbox import get_empty_set_if_None
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
@@ -120,16 +120,16 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
-        print(f"{get_table_columns(cursor, blfvoce_h_raw_put_tablename)=}")
-        insert_into_clause = f"""INSERT INTO {blfvoce_h_raw_put_tablename} (
+        plnprsn_h_raw_put_tablename = prime_tbl(kw.plan_personunit, "h", "raw", "put")
+        print(f"{get_table_columns(cursor, plnprsn_h_raw_put_tablename)=}")
+        insert_into_clause = f"""INSERT INTO {plnprsn_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_label}_inx
-, {kw.belief_name}_inx
-, {kw.voice_name}_inx
-, {kw.voice_cred_lumen}
-, {kw.voice_debt_lumen}
+, {kw.plan_name}_inx
+, {kw.person_name}_inx
+, {kw.person_cred_lumen}
+, {kw.person_debt_lumen}
 )
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}','{exx.yao}', '{yao_inx}', {x44_credit}, {x22_debt})
@@ -140,25 +140,25 @@ VALUES
 ;
 """
         cursor.execute(insert_into_clause)
-        assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 5
-        blfvoce_h_agg_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "agg", "put")
-        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 0
+        assert get_row_count(cursor, plnprsn_h_raw_put_tablename) == 5
+        plnprsn_h_agg_put_tablename = prime_tbl(kw.plan_personunit, "h", "agg", "put")
+        assert get_row_count(cursor, plnprsn_h_agg_put_tablename) == 0
 
         # WHEN
-        sqlstr = get_insert_heard_agg_sqlstrs().get(blfvoce_h_agg_put_tablename)
+        sqlstr = get_insert_heard_agg_sqlstrs().get(plnprsn_h_agg_put_tablename)
         print(sqlstr)
         cursor.execute(sqlstr)
 
         # THEN
-        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 4
+        assert get_row_count(cursor, plnprsn_h_agg_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
-, {kw.voice_name}
-, {kw.voice_cred_lumen}
-, {kw.voice_debt_lumen}
-FROM {blfvoce_h_agg_put_tablename}
+, {kw.plan_name}
+, {kw.person_name}
+, {kw.person_cred_lumen}
+, {kw.person_debt_lumen}
+FROM {plnprsn_h_agg_put_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -186,16 +186,16 @@ def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfvoce_h_raw_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "raw", "put")
-        print(f"{get_table_columns(cursor, blfvoce_h_raw_put_tablename)=}")
-        insert_into_clause = f"""INSERT INTO {blfvoce_h_raw_put_tablename} (
+        plnprsn_h_raw_put_tablename = prime_tbl(kw.plan_personunit, "h", "raw", "put")
+        print(f"{get_table_columns(cursor, plnprsn_h_raw_put_tablename)=}")
+        insert_into_clause = f"""INSERT INTO {plnprsn_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_label}_inx
-, {kw.belief_name}_inx
-, {kw.voice_name}_inx
-, {kw.voice_cred_lumen}
-, {kw.voice_debt_lumen}
+, {kw.plan_name}_inx
+, {kw.person_name}_inx
+, {kw.person_cred_lumen}
+, {kw.person_debt_lumen}
 )
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}','{exx.yao}', '{yao_inx}', {x44_credit}, {x22_debt})
@@ -206,23 +206,23 @@ VALUES
 ;
 """
         cursor.execute(insert_into_clause)
-        assert get_row_count(cursor, blfvoce_h_raw_put_tablename) == 5
-        blfvoce_h_agg_put_tablename = prime_tbl(kw.belief_voiceunit, "h", "agg", "put")
-        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 0
+        assert get_row_count(cursor, plnprsn_h_raw_put_tablename) == 5
+        plnprsn_h_agg_put_tablename = prime_tbl(kw.plan_personunit, "h", "agg", "put")
+        assert get_row_count(cursor, plnprsn_h_agg_put_tablename) == 0
 
         # WHEN
         etl_heard_raw_tables_to_heard_agg_tables(cursor)
 
         # THEN
-        assert get_row_count(cursor, blfvoce_h_agg_put_tablename) == 4
+        assert get_row_count(cursor, plnprsn_h_agg_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_label}
-, {kw.belief_name}
-, {kw.voice_name}
-, {kw.voice_cred_lumen}
-, {kw.voice_debt_lumen}
-FROM {blfvoce_h_agg_put_tablename}
+, {kw.plan_name}
+, {kw.person_name}
+, {kw.person_cred_lumen}
+, {kw.person_debt_lumen}
+FROM {plnprsn_h_agg_put_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()

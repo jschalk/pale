@@ -1,6 +1,6 @@
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import count_files, create_path, save_json
-from src.ch09_belief_lesson._ref.ch09_path import create_moment_json_path
+from src.ch00_py.file_toolbox import count_files, create_path, save_json
+from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch13_epoch.epoch_main import epochunit_shop
 from src.ch13_epoch.test._util.ch13_examples import (
     get_creg_config,
@@ -69,8 +69,8 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #         kw.spark_num,
 #         kw.face_name,
 #         kw.moment_label,
-#         kw.belief_name,
-#         kw.voice_name
+#         kw.plan_name,
+#         kw.person_name
 #     ]
 #     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -86,5 +86,5 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 
 #     # THEN
 #     assert os_path_exists(a23_calendar_md_path)
-#     expected_csv_str = "moment_label,belief_name,funds,fund_rank,pledges_count\n"
+#     expected_csv_str = "moment_label,plan_name,funds,fund_rank,pledges_count\n"
 #     assert open(a23_calendar_md_path).read() == expected_csv_str

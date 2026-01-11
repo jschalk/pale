@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import db_table_exists, get_row_count
+from src.ch00_py.db_toolbox import db_table_exists, get_row_count
 from src.ch18_world_etl.etl_main import (
     create_sound_and_heard_tables,
     etl_heard_raw_tables_to_moment_ote1_agg,
@@ -22,7 +22,7 @@ def test_etl_heard_raw_tables_to_moment_ote1_agg_SetsTableAttr():
         create_sound_and_heard_tables(cursor)
         momentbud_h_raw_table = create_prime_tablename(kw.moment_budunit, "h", "raw")
         insert_raw_sqlstr = f"""
-INSERT INTO {momentbud_h_raw_table} ({kw.spark_num}, {kw.moment_label}_inx, {kw.belief_name}_inx, {kw.bud_time})
+INSERT INTO {momentbud_h_raw_table} ({kw.spark_num}, {kw.moment_label}_inx, {kw.plan_name}_inx, {kw.bud_time})
 VALUES
   ({spark3}, '{exx.a23}', '{exx.bob}', {epochtime55})
 , ({spark3}, '{exx.a23}', '{exx.bob}', {epochtime55})

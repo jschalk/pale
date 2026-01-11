@@ -1,0 +1,14 @@
+{
+  "attributes": {
+    "plan_name"     : { "otx_key": true  }, 
+    "face_name"       : { "otx_key": true  }, 
+    "group_cred_lumen": { "otx_key": false }, 
+    "group_debt_lumen": { "otx_key": false }, 
+    "group_title"     : { "otx_key": true  }, 
+    "moment_label"    : { "otx_key": true  }, 
+    "spark_num"       : { "otx_key": true  }, 
+    "person_name"      : { "otx_key": true  }
+  }, 
+  "dimens": ["plan_personunit", "plan_person_membership", "planunit", "momentunit"], 
+  "idea_number": "br00020"
+}

@@ -1,16 +1,16 @@
 from dataclasses import dataclass
 from datetime import datetime
 from os import getcwd as os_getcwd
-from src.ch01_py.dict_toolbox import get_1_if_None
-from src.ch01_py.file_toolbox import create_path, open_json
+from src.ch00_py.dict_toolbox import get_1_if_None
+from src.ch00_py.file_toolbox import create_path, open_json
 from src.ch04_rope.rope import create_rope, get_first_label_from_rope
-from src.ch06_plan.plan import (
-    PlanUnit,
-    all_plans_between,
-    get_rangeunit_from_lineage_of_plans as calc_range,
-    planunit_shop,
+from src.ch06_keg.keg import (
+    KegUnit,
+    all_kegs_between,
+    get_rangeunit_from_lineage_of_kegs as calc_range,
+    kegunit_shop,
 )
-from src.ch07_belief_logic.belief_main import BeliefUnit
+from src.ch07_plan_logic.plan_main import PlanUnit
 from src.ch13_epoch._ref.ch13_semantic_types import (
     EpochLabel,
     EpochTime,
@@ -49,44 +49,44 @@ def day_length() -> int:
     return 1440
 
 
-def stan_c400_leap_planunit() -> PlanUnit:
+def stan_c400_leap_kegunit() -> KegUnit:
     x_denom = get_c400_constants().c400_leap_length
-    return planunit_shop("c400_leap", denom=x_denom, morph=True)
+    return kegunit_shop("c400_leap", denom=x_denom, morph=True)
 
 
-def stan_c400_clean_planunit() -> PlanUnit:
+def stan_c400_clean_kegunit() -> KegUnit:
     x_denom = get_c400_constants().c400_clean_length
-    return planunit_shop("c400_clean", denom=x_denom, morph=True)
+    return kegunit_shop("c400_clean", denom=x_denom, morph=True)
 
 
-def stan_c100_planunit() -> PlanUnit:
+def stan_c100_kegunit() -> KegUnit:
     x_denom = get_c400_constants().c100_length
-    return planunit_shop("c100", denom=x_denom, morph=True)
+    return kegunit_shop("c100", denom=x_denom, morph=True)
 
 
-def stan_yr4_leap_planunit() -> PlanUnit:
+def stan_yr4_leap_kegunit() -> KegUnit:
     x_denom = get_c400_constants().yr4_leap_length
-    return planunit_shop("yr4_leap", denom=x_denom, morph=True)
+    return kegunit_shop("yr4_leap", denom=x_denom, morph=True)
 
 
-def stan_yr4_clean_planunit() -> PlanUnit:
+def stan_yr4_clean_kegunit() -> KegUnit:
     x_denom = get_c400_constants().yr4_clean_length
-    return planunit_shop("yr4_clean", denom=x_denom, morph=True)
+    return kegunit_shop("yr4_clean", denom=x_denom, morph=True)
 
 
-def stan_year_planunit() -> PlanUnit:
+def stan_year_kegunit() -> KegUnit:
     x_denom = get_c400_constants().year_length
-    return planunit_shop("year", denom=x_denom, morph=True)
+    return kegunit_shop("year", denom=x_denom, morph=True)
 
 
-def stan_day_planunit() -> PlanUnit:
+def stan_day_kegunit() -> KegUnit:
     x_denom = get_c400_constants().day_length
-    return planunit_shop("day", denom=x_denom, morph=True)
+    return kegunit_shop("day", denom=x_denom, morph=True)
 
 
-def stan_days_planunit() -> PlanUnit:
+def stan_days_kegunit() -> KegUnit:
     x_denom = get_c400_constants().day_length
-    return planunit_shop("days", denom=x_denom)
+    return kegunit_shop("days", denom=x_denom)
 
 
 def week_length(x_int: int) -> int:
@@ -94,21 +94,21 @@ def week_length(x_int: int) -> int:
     return day_length() * x_int
 
 
-def create_weekday_planunits(x_weekdays: list[str]) -> dict[str, PlanUnit]:
+def create_weekday_kegunits(x_weekdays: list[str]) -> dict[str, KegUnit]:
     x_dict = {}
     for x_weekday_num in range(len(x_weekdays)):
-        x_plan = planunit_shop(
+        x_keg = kegunit_shop(
             x_weekdays[x_weekday_num],
             gogo_want=x_weekday_num * day_length(),
             stop_want=(x_weekday_num + 1) * day_length(),
         )
-        x_dict[x_weekdays[x_weekday_num]] = x_plan
+        x_dict[x_weekdays[x_weekday_num]] = x_keg
     return x_dict
 
 
-def create_month_planunits(
+def create_month_kegunits(
     x_months_list: list[list[str, int]], monthday_index: int
-) -> dict[str, PlanUnit]:
+) -> dict[str, KegUnit]:
     x_dict = {}
     current_day = 0
     for x_month_list in x_months_list:
@@ -117,39 +117,39 @@ def create_month_planunits(
         x_gogo = current_day * day_length()
         x_stop = x_month_days * day_length()
         x_addin = monthday_index * day_length()
-        x_plan = planunit_shop(
+        x_keg = kegunit_shop(
             x_month_str, gogo_want=x_gogo, stop_want=x_stop, addin=x_addin
         )
-        x_dict[x_month_str] = x_plan
+        x_dict[x_month_str] = x_keg
         current_day = x_month_days
     return x_dict
 
 
-def create_hour_planunits(x_hours_list: list[str]) -> dict[str, PlanUnit]:
+def create_hour_kegunits(x_hours_list: list[str]) -> dict[str, KegUnit]:
     x_dict = {}
     current_min = 0
     for x_hour_list in x_hours_list:
         x_hour_str = x_hour_list[0]
         x_stop = x_hour_list[1]
-        x_plan = planunit_shop(x_hour_str, gogo_want=current_min, stop_want=x_stop)
-        x_dict[x_hour_str] = x_plan
+        x_keg = kegunit_shop(x_hour_str, gogo_want=current_min, stop_want=x_stop)
+        x_dict[x_hour_str] = x_keg
         current_min = x_stop
     return x_dict
 
 
-def create_week_planunits(x_weekdays_list) -> dict[str, PlanUnit]:
+def create_week_kegunits(x_weekdays_list) -> dict[str, KegUnit]:
     x_week_lenth = week_length(len(x_weekdays_list))
     week_str = "week"
     weeks_str = "weeks"
     return {
-        week_str: planunit_shop(week_str, denom=x_week_lenth, morph=True),
-        weeks_str: planunit_shop(weeks_str, denom=x_week_lenth),
+        week_str: kegunit_shop(week_str, denom=x_week_lenth, morph=True),
+        weeks_str: kegunit_shop(weeks_str, denom=x_week_lenth),
     }
 
 
-def new_epoch_planunit(epoch_label: EpochLabel, c400_number: int) -> PlanUnit:
+def new_epoch_kegunit(epoch_label: EpochLabel, c400_number: int) -> KegUnit:
     epoch_length = c400_number * get_c400_constants().c400_leap_length
-    return planunit_shop(epoch_label, begin=0, close=epoch_length)
+    return kegunit_shop(epoch_label, begin=0, close=epoch_length)
 
 
 def get_epoch_rope(
@@ -164,9 +164,9 @@ def get_epoch_length(epoch_config: dict) -> int:
     return c400_number * get_c400_constants().c400_leap_length
 
 
-def add_epoch_planunit(x_beliefunit: BeliefUnit, epoch_config: dict):
-    """ "Add epoch to BeliefUnit given epoch_config"""
-    x_plan_label = epoch_config.get("epoch_label")
+def add_epoch_kegunit(x_planunit: PlanUnit, epoch_config: dict):
+    """ "Add epoch to PlanUnit given epoch_config"""
+    x_keg_label = epoch_config.get("epoch_label")
     x_c400_number = epoch_config.get("c400_number")
     x_months = epoch_config.get("months_config")
     x_mday = epoch_config.get("monthday_index")
@@ -174,103 +174,103 @@ def add_epoch_planunit(x_beliefunit: BeliefUnit, epoch_config: dict):
     x_weekdays_list = epoch_config.get("weekdays_config")
     x_yr1_jan1_offset = epoch_config.get("yr1_jan1_offset")
 
-    planroot_label = get_first_label_from_rope(
-        rope=x_beliefunit.planroot.get_plan_rope(), knot=x_beliefunit.knot
+    kegroot_label = get_first_label_from_rope(
+        rope=x_planunit.kegroot.get_keg_rope(), knot=x_planunit.knot
     )
     epoch_rope = get_epoch_rope(
-        moment_label=planroot_label,
-        epoch_label=x_plan_label,
-        knot=x_beliefunit.knot,
+        moment_label=kegroot_label,
+        epoch_label=x_keg_label,
+        knot=x_planunit.knot,
     )
-    day_rope = x_beliefunit.make_rope(epoch_rope, "day")
-    week_rope = x_beliefunit.make_rope(epoch_rope, "week")
-    year_rope = get_year_rope(x_beliefunit, x_plan_label)
+    day_rope = x_planunit.make_rope(epoch_rope, "day")
+    week_rope = x_planunit.make_rope(epoch_rope, "week")
+    year_rope = get_year_rope(x_planunit, x_keg_label)
 
-    add_stan_planunits(x_beliefunit, x_plan_label, x_c400_number)
-    add_planunits(x_beliefunit, day_rope, create_hour_planunits(x_hours_list))
-    add_planunits(x_beliefunit, epoch_rope, create_week_planunits(x_weekdays_list))
-    add_planunits(x_beliefunit, week_rope, create_weekday_planunits(x_weekdays_list))
-    add_planunits(x_beliefunit, year_rope, create_month_planunits(x_months, x_mday))
-    offset_plan = planunit_shop("yr1_jan1_offset", addin=x_yr1_jan1_offset)
-    x_beliefunit.set_plan_obj(offset_plan, epoch_rope)
+    add_stan_kegunits(x_planunit, x_keg_label, x_c400_number)
+    add_kegunits(x_planunit, day_rope, create_hour_kegunits(x_hours_list))
+    add_kegunits(x_planunit, epoch_rope, create_week_kegunits(x_weekdays_list))
+    add_kegunits(x_planunit, week_rope, create_weekday_kegunits(x_weekdays_list))
+    add_kegunits(x_planunit, year_rope, create_month_kegunits(x_months, x_mday))
+    offset_keg = kegunit_shop("yr1_jan1_offset", addin=x_yr1_jan1_offset)
+    x_planunit.set_keg_obj(offset_keg, epoch_rope)
 
 
-def add_planunits(
-    x_beliefunit: BeliefUnit,
+def add_kegunits(
+    x_planunit: PlanUnit,
     parent_rope: RopeTerm,
-    config_dict: dict[str, PlanUnit],
+    config_dict: dict[str, KegUnit],
 ):
-    for x_time_planunit in config_dict.values():
-        x_beliefunit.set_plan_obj(x_time_planunit, parent_rope)
+    for x_time_kegunit in config_dict.values():
+        x_planunit.set_keg_obj(x_time_kegunit, parent_rope)
 
 
-def add_stan_planunits(
-    x_beliefunit: BeliefUnit,
+def add_stan_kegunits(
+    x_planunit: PlanUnit,
     epoch_label: EpochLabel,
     epoch_c400_number: int,
 ):
-    time_rope = x_beliefunit.make_l1_rope("time")
-    planroot_label = get_first_label_from_rope(
-        rope=x_beliefunit.planroot.get_plan_rope(), knot=x_beliefunit.knot
+    time_rope = x_planunit.make_l1_rope("time")
+    kegroot_label = get_first_label_from_rope(
+        rope=x_planunit.kegroot.get_keg_rope(), knot=x_planunit.knot
     )
     epoch_rope = get_epoch_rope(
-        moment_label=planroot_label,
+        moment_label=kegroot_label,
         epoch_label=epoch_label,
-        knot=x_beliefunit.knot,
+        knot=x_planunit.knot,
     )
-    c400_leap_rope = x_beliefunit.make_rope(epoch_rope, "c400_leap")
-    c400_clean_rope = x_beliefunit.make_rope(c400_leap_rope, "c400_clean")
-    c100_rope = x_beliefunit.make_rope(c400_clean_rope, "c100")
-    yr4_leap_rope = x_beliefunit.make_rope(c100_rope, "yr4_leap")
-    yr4_clean_rope = x_beliefunit.make_rope(yr4_leap_rope, "yr4_clean")
+    c400_leap_rope = x_planunit.make_rope(epoch_rope, "c400_leap")
+    c400_clean_rope = x_planunit.make_rope(c400_leap_rope, "c400_clean")
+    c100_rope = x_planunit.make_rope(c400_clean_rope, "c100")
+    yr4_leap_rope = x_planunit.make_rope(c100_rope, "yr4_leap")
+    yr4_clean_rope = x_planunit.make_rope(yr4_leap_rope, "yr4_clean")
 
-    if not x_beliefunit.plan_exists(time_rope):
-        x_beliefunit.set_l1_plan(planunit_shop("time"))
-    epoch_planunit = new_epoch_planunit(epoch_label, epoch_c400_number)
-    x_beliefunit.set_plan_obj(epoch_planunit, time_rope)
-    x_beliefunit.set_plan_obj(stan_c400_leap_planunit(), epoch_rope)
-    x_beliefunit.set_plan_obj(stan_c400_clean_planunit(), c400_leap_rope)
-    x_beliefunit.set_plan_obj(stan_c100_planunit(), c400_clean_rope)
-    x_beliefunit.set_plan_obj(stan_yr4_leap_planunit(), c100_rope)
-    x_beliefunit.set_plan_obj(stan_yr4_clean_planunit(), yr4_leap_rope)
-    x_beliefunit.set_plan_obj(stan_year_planunit(), yr4_clean_rope)
-    x_beliefunit.set_plan_obj(stan_day_planunit(), epoch_rope)
-    x_beliefunit.set_plan_obj(stan_days_planunit(), epoch_rope)
-
-
-def get_c400_clean_rope(x_beliefunit: BeliefUnit, epoch_label: LabelTerm) -> RopeTerm:
-    root_plan_rope = x_beliefunit.planroot.get_plan_rope()
-    epoch_rope = get_epoch_rope(root_plan_rope, epoch_label, x_beliefunit.knot)
-    c400_leap_rope = x_beliefunit.make_rope(epoch_rope, "c400_leap")
-    return x_beliefunit.make_rope(c400_leap_rope, "c400_clean")
+    if not x_planunit.keg_exists(time_rope):
+        x_planunit.set_l1_keg(kegunit_shop("time"))
+    epoch_kegunit = new_epoch_kegunit(epoch_label, epoch_c400_number)
+    x_planunit.set_keg_obj(epoch_kegunit, time_rope)
+    x_planunit.set_keg_obj(stan_c400_leap_kegunit(), epoch_rope)
+    x_planunit.set_keg_obj(stan_c400_clean_kegunit(), c400_leap_rope)
+    x_planunit.set_keg_obj(stan_c100_kegunit(), c400_clean_rope)
+    x_planunit.set_keg_obj(stan_yr4_leap_kegunit(), c100_rope)
+    x_planunit.set_keg_obj(stan_yr4_clean_kegunit(), yr4_leap_rope)
+    x_planunit.set_keg_obj(stan_year_kegunit(), yr4_clean_rope)
+    x_planunit.set_keg_obj(stan_day_kegunit(), epoch_rope)
+    x_planunit.set_keg_obj(stan_days_kegunit(), epoch_rope)
 
 
-def get_c100_rope(x_beliefunit: BeliefUnit, epoch_label: LabelTerm) -> RopeTerm:
-    c400_clean_rope = get_c400_clean_rope(x_beliefunit, epoch_label)
-    return x_beliefunit.make_rope(c400_clean_rope, "c100")
+def get_c400_clean_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+    root_keg_rope = x_planunit.kegroot.get_keg_rope()
+    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_planunit.knot)
+    c400_leap_rope = x_planunit.make_rope(epoch_rope, "c400_leap")
+    return x_planunit.make_rope(c400_leap_rope, "c400_clean")
 
 
-def get_yr4_clean_rope(x_beliefunit: BeliefUnit, epoch_label: LabelTerm) -> RopeTerm:
-    c100_rope = get_c100_rope(x_beliefunit, epoch_label)
-    yr4_leap_rope = x_beliefunit.make_rope(c100_rope, "yr4_leap")
-    return x_beliefunit.make_rope(yr4_leap_rope, "yr4_clean")
+def get_c100_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+    c400_clean_rope = get_c400_clean_rope(x_planunit, epoch_label)
+    return x_planunit.make_rope(c400_clean_rope, "c100")
 
 
-def get_year_rope(x_beliefunit: BeliefUnit, epoch_label: LabelTerm) -> RopeTerm:
-    yr4_clean_rope = get_yr4_clean_rope(x_beliefunit, epoch_label)
-    return x_beliefunit.make_rope(yr4_clean_rope, "year")
+def get_yr4_clean_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+    c100_rope = get_c100_rope(x_planunit, epoch_label)
+    yr4_leap_rope = x_planunit.make_rope(c100_rope, "yr4_leap")
+    return x_planunit.make_rope(yr4_leap_rope, "yr4_clean")
 
 
-def get_week_rope(x_beliefunit: BeliefUnit, epoch_label: LabelTerm) -> RopeTerm:
-    root_plan_rope = x_beliefunit.planroot.get_plan_rope()
-    epoch_rope = get_epoch_rope(root_plan_rope, epoch_label, x_beliefunit.knot)
-    return x_beliefunit.make_rope(epoch_rope, "week")
+def get_year_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+    yr4_clean_rope = get_yr4_clean_rope(x_planunit, epoch_label)
+    return x_planunit.make_rope(yr4_clean_rope, "year")
 
 
-def get_day_rope(x_beliefunit: BeliefUnit, epoch_label: LabelTerm) -> RopeTerm:
-    root_plan_rope = x_beliefunit.planroot.get_plan_rope()
-    epoch_rope = get_epoch_rope(root_plan_rope, epoch_label, x_beliefunit.knot)
-    return x_beliefunit.make_rope(epoch_rope, "day")
+def get_week_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+    root_keg_rope = x_planunit.kegroot.get_keg_rope()
+    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_planunit.knot)
+    return x_planunit.make_rope(epoch_rope, "week")
+
+
+def get_day_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+    root_keg_rope = x_planunit.kegroot.get_keg_rope()
+    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_planunit.knot)
+    return x_planunit.make_rope(epoch_rope, "day")
 
 
 def validate_epoch_config(config_dict: dict) -> bool:
@@ -428,11 +428,11 @@ def get_min_from_dt_offset(dt: datetime, yr1_jan1_offset: int) -> int:
 
 
 def get_epoch_min_from_dt(
-    x_belief: BeliefUnit, epoch_rope: RopeTerm, x_datetime: datetime
+    x_plan: PlanUnit, epoch_rope: RopeTerm, x_datetime: datetime
 ) -> int:
-    offset_rope = x_belief.make_rope(epoch_rope, "yr1_jan1_offset")
-    offset_plan = x_belief.get_plan_obj(offset_rope)
-    offset_addin = offset_plan.addin
+    offset_rope = x_plan.make_rope(epoch_rope, "yr1_jan1_offset")
+    offset_keg = x_plan.get_keg_obj(offset_rope)
+    offset_addin = offset_keg.addin
     return get_min_from_dt_offset(x_datetime, offset_addin)
 
 
@@ -444,7 +444,7 @@ def get_epoch_min_difference(epoch_config0: dict, epoch_config1: dict) -> int:
 
 @dataclass
 class EpochHolder:
-    """Given belief, epoch_rope, and EpochTime, returns time technology attrs
+    """Given plan, epoch_rope, and EpochTime, returns time technology attrs
     _c400_number: count of 400 year cycles
     _c100_count: count of 100 year cycles after _c400_number years removed
     _hour
@@ -455,14 +455,14 @@ class EpochHolder:
     _year_count:  1 year after _c100_count, _c100_count, _yr4_count years removed
     _year_num: calculated year from c400, c100, yr4, year_count
     _weekday
-    _epoch_plan PlanUnit
-    readable time blurb from BeliefUnit, epoch_label, and minute integer."""
+    _epoch_keg KegUnit
+    readable time blurb from PlanUnit, epoch_label, and minute integer."""
 
-    x_beliefunit: BeliefUnit = None
+    x_planunit: PlanUnit = None
     epoch_label: LabelTerm = None
     x_min: EpochTime = None
     # calculated fields
-    _epoch_plan: PlanUnit = None
+    _epoch_keg: KegUnit = None
     _weekday: str = None
     _monthday: str = None
     _month: str = None
@@ -474,85 +474,85 @@ class EpochHolder:
     _year_count: str = None
     _year_num: str = None
 
-    def _set_epoch_plan(self):
+    def _set_epoch_keg(self):
         epoch_rope = get_epoch_rope(
-            self.x_beliefunit.planroot.plan_label,
+            self.x_planunit.kegroot.keg_label,
             self.epoch_label,
-            self.x_beliefunit.knot,
+            self.x_planunit.knot,
         )
-        self._epoch_plan = self.x_beliefunit.get_plan_obj(epoch_rope)
+        self._epoch_keg = self.x_planunit.get_keg_obj(epoch_rope)
 
     def _set_weekday(self):
-        week_rope = get_week_rope(self.x_beliefunit, self.epoch_label)
-        week_plan = self.x_beliefunit.get_plan_obj(week_rope)
-        x_plan_list = [self._epoch_plan, week_plan]
-        reason_lower_rangeunit = calc_range(x_plan_list, self.x_min, self.x_min)
-        reason_lower_weekday_dict = week_plan.get_kids_in_range(
+        week_rope = get_week_rope(self.x_planunit, self.epoch_label)
+        week_keg = self.x_planunit.get_keg_obj(week_rope)
+        x_keg_list = [self._epoch_keg, week_keg]
+        reason_lower_rangeunit = calc_range(x_keg_list, self.x_min, self.x_min)
+        reason_lower_weekday_dict = week_keg.get_kids_in_range(
             reason_lower_rangeunit.gogo
         )
         for x_weekday in reason_lower_weekday_dict.keys():
             self._weekday = x_weekday
 
     def _set_month(self):
-        year_rope = get_year_rope(self.x_beliefunit, self.epoch_label)
-        year_plan = self.x_beliefunit.get_plan_obj(year_rope)
-        moment_label = self.x_beliefunit.planroot.plan_label
-        x_knot = self.x_beliefunit.knot
+        year_rope = get_year_rope(self.x_planunit, self.epoch_label)
+        year_keg = self.x_planunit.get_keg_obj(year_rope)
+        moment_label = self.x_planunit.kegroot.keg_label
+        x_knot = self.x_planunit.knot
         epoch_rope = get_epoch_rope(moment_label, self.epoch_label, x_knot)
-        x_plan_dict = self.x_beliefunit._plan_dict
-        plan_list = all_plans_between(x_plan_dict, epoch_rope, year_rope, x_knot)
-        reason_lower_rangeunit = calc_range(plan_list, self.x_min, self.x_min)
-        gogo_month_dict = year_plan.get_kids_in_range(reason_lower_rangeunit.gogo)
-        month_plan = None
-        for x_monthname, month_plan in gogo_month_dict.items():
+        x_keg_dict = self.x_planunit._keg_dict
+        keg_list = all_kegs_between(x_keg_dict, epoch_rope, year_rope, x_knot)
+        reason_lower_rangeunit = calc_range(keg_list, self.x_min, self.x_min)
+        gogo_month_dict = year_keg.get_kids_in_range(reason_lower_rangeunit.gogo)
+        month_keg = None
+        for x_monthname, month_keg in gogo_month_dict.items():
             self._month = x_monthname
-            month_plan = month_plan
+            month_keg = month_keg
 
         self._monthday = (
-            reason_lower_rangeunit.gogo - month_plan.gogo_calc + month_plan.addin
+            reason_lower_rangeunit.gogo - month_keg.gogo_calc + month_keg.addin
         )
         self._monthday = self._monthday // 1440
 
     def _set_hour(self):
-        day_rope = get_day_rope(self.x_beliefunit, self.epoch_label)
-        day_plan = self.x_beliefunit.get_plan_obj(day_rope)
-        x_plan_list = [self._epoch_plan, day_plan]
-        rangeunit = calc_range(x_plan_list, self.x_min, self.x_min)
-        hour_dict = day_plan.get_kids_in_range(rangeunit.gogo)
-        for x_hour, hour_plan in hour_dict.items():
+        day_rope = get_day_rope(self.x_planunit, self.epoch_label)
+        day_keg = self.x_planunit.get_keg_obj(day_rope)
+        x_keg_list = [self._epoch_keg, day_keg]
+        rangeunit = calc_range(x_keg_list, self.x_min, self.x_min)
+        hour_dict = day_keg.get_kids_in_range(rangeunit.gogo)
+        for x_hour, hour_keg in hour_dict.items():
             self._hour = x_hour
-            hour_plan = hour_plan
+            hour_keg = hour_keg
 
-        self._minute = rangeunit.gogo - hour_plan.gogo_calc
+        self._minute = rangeunit.gogo - hour_keg.gogo_calc
 
     def _set_year(self):
         c400_constants = get_c400_constants()
-        x_time_rope = self.x_beliefunit.make_l1_rope("time")
-        x_plan_dict = self.x_beliefunit._plan_dict
+        x_time_rope = self.x_planunit.make_l1_rope("time")
+        x_keg_dict = self.x_planunit._keg_dict
         # count 400 year blocks
         self._c400_number = self.x_min // c400_constants.c400_leap_length
 
         # count 100 year blocks
-        c400_clean_rope = get_c400_clean_rope(self.x_beliefunit, self.epoch_label)
-        c400_clean_plan_list = all_plans_between(
-            x_plan_dict, x_time_rope, c400_clean_rope, knot=self.x_beliefunit.knot
+        c400_clean_rope = get_c400_clean_rope(self.x_planunit, self.epoch_label)
+        c400_clean_keg_list = all_kegs_between(
+            x_keg_dict, x_time_rope, c400_clean_rope, knot=self.x_planunit.knot
         )
-        c400_clean_range = calc_range(c400_clean_plan_list, self.x_min, self.x_min)
+        c400_clean_range = calc_range(c400_clean_keg_list, self.x_min, self.x_min)
         self._c100_count = c400_clean_range.gogo // c400_constants.c100_length
         # count 4 year blocks
-        c100_rope = get_c100_rope(self.x_beliefunit, self.epoch_label)
-        c100_plan_list = all_plans_between(
-            x_plan_dict, x_time_rope, c100_rope, knot=self.x_beliefunit.knot
+        c100_rope = get_c100_rope(self.x_planunit, self.epoch_label)
+        c100_keg_list = all_kegs_between(
+            x_keg_dict, x_time_rope, c100_rope, knot=self.x_planunit.knot
         )
-        c100_range = calc_range(c100_plan_list, self.x_min, self.x_min)
+        c100_range = calc_range(c100_keg_list, self.x_min, self.x_min)
         self._yr4_count = c100_range.gogo // c400_constants.yr4_leap_length
 
         # count 1 year blocks
-        yr4_clean_rope = get_yr4_clean_rope(self.x_beliefunit, self.epoch_label)
-        yr4_clean_plans = all_plans_between(
-            x_plan_dict, x_time_rope, yr4_clean_rope, knot=self.x_beliefunit.knot
+        yr4_clean_rope = get_yr4_clean_rope(self.x_planunit, self.epoch_label)
+        yr4_clean_kegs = all_kegs_between(
+            x_keg_dict, x_time_rope, yr4_clean_rope, knot=self.x_planunit.knot
         )
-        yr4_clean_range = calc_range(yr4_clean_plans, self.x_min, self.x_min)
+        yr4_clean_range = calc_range(yr4_clean_kegs, self.x_min, self.x_min)
         self._year_count = yr4_clean_range.gogo // c400_constants.year_length
 
         self._year_num = self._c400_number * 400
@@ -561,8 +561,8 @@ class EpochHolder:
         self._year_num += self._year_count
 
     def calc_epoch(self):
-        self.x_beliefunit.cashout()
-        self._set_epoch_plan()
+        self.x_planunit.cashout()
+        self._set_epoch_keg()
         self._set_weekday()
         self._set_month()
         self._set_hour()
@@ -578,8 +578,8 @@ class EpochHolder:
         return x_str
 
 
-def epochholder_shop(x_beliefunit: BeliefUnit, epoch_label: LabelTerm, x_min: int):
-    return EpochHolder(x_beliefunit, epoch_label, x_min=x_min)
+def epochholder_shop(x_planunit: PlanUnit, epoch_label: LabelTerm, x_min: int):
+    return EpochHolder(x_planunit, epoch_label, x_min=x_min)
 
 
 def epoch_config_path() -> str:

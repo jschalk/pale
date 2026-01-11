@@ -1,0 +1,259 @@
+from os.path import exists as os_path_exists
+from src.ch00_py.file_toolbox import create_path, open_json
+from src.ch09_plan_lesson.delta import plandelta_shop
+from src.ch09_plan_lesson.lesson_main import (
+    create_lessonunit_from_files,
+    lessonunit_shop,
+)
+from src.ch09_plan_lesson.test._util.ch09_env import (
+    get_temp_dir as moments_dir,
+    temp_dir_setup,
+)
+from src.ch09_plan_lesson.test._util.ch09_examples import (
+    get_atom_example_kegunit_ball,
+    get_atom_example_kegunit_knee,
+    get_atom_example_kegunit_sports,
+)
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
+
+
+def test_LessonUnit_save_atom_file_SavesCorrectFile(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_atoms_dir = create_path(sue_plan_dir, "atoms")
+    two_int = 2
+    six_int = 6
+    two_filename = f"{two_int}.json"
+    six_filename = f"{six_int}.json"
+    sue_atom2_path = create_path(sue_atoms_dir, two_filename)
+    sue_atom6_path = create_path(sue_atoms_dir, six_filename)
+    print(f"{sue_atom2_path=}")
+    print(f"{sue_atom6_path=}")
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
+    assert os_path_exists(sue_atom2_path) is False
+    assert os_path_exists(sue_atom6_path) is False
+
+    # WHEN
+    sports_atom = get_atom_example_kegunit_sports()
+    sue_lessonunit._save_atom_file(two_int, sports_atom)
+
+    # THEN
+    assert os_path_exists(sue_atom2_path)
+    assert os_path_exists(sue_atom6_path) is False
+    two_file_dict = open_json(sue_atoms_dir, two_filename)
+    assert two_file_dict == sports_atom.to_dict()
+
+
+def test_LessonUnit_atom_file_exists_ReturnsObj(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_atoms_dir = create_path(sue_plan_dir, "atoms")
+    two_int = 2
+    six_int = 6
+    two_filename = f"{two_int}.json"
+    six_filename = f"{six_int}.json"
+    sue_atom2_path = create_path(sue_atoms_dir, two_filename)
+    sue_atom6_path = create_path(sue_atoms_dir, six_filename)
+    print(f"{sue_atom2_path=}")
+    print(f"{sue_atom6_path=}")
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
+    assert os_path_exists(sue_atom2_path) is False
+    assert sue_lessonunit.atom_file_exists(two_int) is False
+
+    # WHEN
+    sports_atom = get_atom_example_kegunit_sports()
+    sue_lessonunit._save_atom_file(two_int, sports_atom)
+
+    # THEN
+    assert sue_lessonunit.atom_file_exists(two_int)
+
+
+def test_LessonUnit_open_atom_file_ReturnsObj(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_atoms_dir = create_path(sue_plan_dir, "atoms")
+    two_int = 2
+    six_int = 6
+    two_filename = f"{two_int}.json"
+    six_filename = f"{six_int}.json"
+    sue_atom2_path = create_path(sue_atoms_dir, two_filename)
+    sue_atom6_path = create_path(sue_atoms_dir, six_filename)
+    print(f"{sue_atom2_path=}")
+    print(f"{sue_atom6_path=}")
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
+    sports_atom = get_atom_example_kegunit_sports()
+    sue_lessonunit._save_atom_file(two_int, sports_atom)
+    assert sue_lessonunit.atom_file_exists(two_int)
+
+    # WHEN
+    file_atom = sue_lessonunit._open_atom_file(two_int)
+
+    # THEN
+    assert file_atom == sports_atom
+
+
+def test_LessonUnit_save_lesson_file_SavesCorrectFile(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_lesson_id = 2
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_lessons_dir = create_path(sue_plan_dir, "lessons")
+    two_int = 2
+    six_int = 6
+    two_filename = f"{two_int}.json"
+    six_filename = f"{six_int}.json"
+    sue_lesson2_path = create_path(sue_lessons_dir, two_filename)
+    sue_lesson6_path = create_path(sue_lessons_dir, six_filename)
+    print(f"{sue_lesson2_path=}")
+    print(f"{sue_lesson6_path=}")
+    sue_lessonunit = lessonunit_shop(
+        exx.sue, None, None, sue_lesson_id, lessons_dir=sue_lessons_dir
+    )
+    assert os_path_exists(sue_lesson2_path) is False
+    assert os_path_exists(sue_lesson6_path) is False
+
+    # WHEN
+    sue_lessonunit._save_lesson_file()
+
+    # THEN
+    assert os_path_exists(sue_lesson2_path)
+    assert os_path_exists(sue_lesson6_path) is False
+    lesson_file_dict = open_json(sue_lessons_dir, two_filename)
+    print(f"{lesson_file_dict=}")
+    assert lesson_file_dict.get("delta_atom_numbers") == []
+    assert lesson_file_dict.get(kw.plan_name) == exx.sue
+    assert lesson_file_dict.get(kw.face_name) is None
+    print(f"{lesson_file_dict.keys()=}")
+
+
+def test_LessonUnit_lesson_file_exists_ReturnsObj(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_lessons_dir = create_path(sue_plan_dir, "lessons")
+    two_int = 2
+    six_int = 6
+    two_filename = f"{two_int}.json"
+    six_filename = f"{six_int}.json"
+    sue_lesson2_path = create_path(sue_lessons_dir, two_filename)
+    sue_lesson6_path = create_path(sue_lessons_dir, six_filename)
+    print(f"{sue_lesson2_path=}")
+    print(f"{sue_lesson6_path=}")
+    sue_lessonunit = lessonunit_shop(exx.sue, lessons_dir=sue_lessons_dir)
+    assert os_path_exists(sue_lesson2_path) is False
+    assert sue_lessonunit.lesson_file_exists() is False
+
+    # WHEN
+    sue_lessonunit._save_lesson_file()
+
+    # THEN
+    assert sue_lessonunit.lesson_file_exists()
+
+
+def test_LessonUnit_save_files_SavesFiles(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_atoms_dir = create_path(sue_plan_dir, "atoms")
+    sue_lessons_dir = create_path(sue_plan_dir, "lessons")
+
+    sue_delta_start = 4
+    sue_lessonunit = lessonunit_shop(
+        exx.sue, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
+    )
+    sue_lessonunit.set_delta_start(sue_delta_start)
+    sue_lessonunit.set_face(exx.zia)
+    sue_lessonunit.set_face(exx.yao)
+    int4 = 4
+    int5 = 5
+    sports_atom = get_atom_example_kegunit_sports()
+    knee_atom = get_atom_example_kegunit_knee()
+    sue_lessonunit._plandelta.set_planatom(sports_atom)
+    sue_lessonunit._plandelta.set_planatom(knee_atom)
+    assert sue_lessonunit.lesson_file_exists() is False
+    assert sue_lessonunit.atom_file_exists(int4) is False
+    assert sue_lessonunit.atom_file_exists(int5) is False
+
+    # WHEN
+    sue_lessonunit.save_files()
+
+    # THEN
+    assert sue_lessonunit.lesson_file_exists()
+    assert sue_lessonunit.atom_file_exists(int4)
+    assert sue_lessonunit.atom_file_exists(int5)
+
+
+def test_LessonUnit_create_plandelta_from_atom_files_SetsAttr(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_atoms_dir = create_path(sue_plan_dir, "atoms")
+
+    sue_lessonunit = lessonunit_shop(exx.sue, atoms_dir=sue_atoms_dir)
+    int4 = 4
+    int5 = 5
+    int9 = 9
+    spor_atom = get_atom_example_kegunit_sports()
+    knee_atom = get_atom_example_kegunit_knee()
+    ball_atom = get_atom_example_kegunit_ball()
+    sue_lessonunit._save_atom_file(int4, spor_atom)
+    sue_lessonunit._save_atom_file(int5, knee_atom)
+    sue_lessonunit._save_atom_file(int9, ball_atom)
+    assert sue_lessonunit._plandelta == plandelta_shop()
+
+    # WHEN
+    atoms_list = [int4, int5, int9]
+    sue_lessonunit._create_plandelta_from_atom_files(atoms_list)
+
+    # THEN
+    static_plandelta = plandelta_shop()
+    static_plandelta.set_planatom(spor_atom)
+    static_plandelta.set_planatom(knee_atom)
+    static_plandelta.set_planatom(ball_atom)
+    assert sue_lessonunit._plandelta != plandelta_shop()
+    assert sue_lessonunit._plandelta == static_plandelta
+
+
+def test_create_lessonunit_from_files_ReturnsObj(temp_dir_setup):
+    # ESTABLISH
+    x_moment_dir = create_path(moments_dir(), exx.a23)
+    x_plans_dir = create_path(x_moment_dir, "plans")
+    sue_plan_dir = create_path(x_plans_dir, exx.sue)
+    sue_atoms_dir = create_path(sue_plan_dir, "atoms")
+    sue_lessons_dir = create_path(sue_plan_dir, "lessons")
+
+    sue_delta_start = 4
+    src_sue_lessonunit = lessonunit_shop(
+        exx.sue, atoms_dir=sue_atoms_dir, lessons_dir=sue_lessons_dir
+    )
+    src_sue_lessonunit.set_delta_start(sue_delta_start)
+    src_sue_lessonunit.set_face(exx.yao)
+    sports_atom = get_atom_example_kegunit_sports()
+    knee_atom = get_atom_example_kegunit_knee()
+    ball_atom = get_atom_example_kegunit_ball()
+    src_sue_lessonunit._plandelta.set_planatom(sports_atom)
+    src_sue_lessonunit._plandelta.set_planatom(knee_atom)
+    src_sue_lessonunit._plandelta.set_planatom(ball_atom)
+    src_sue_lessonunit.save_files()
+
+    # WHEN
+    new_sue_lessonunit = create_lessonunit_from_files(
+        lessons_dir=sue_lessons_dir,
+        lesson_id=src_sue_lessonunit._lesson_id,
+        atoms_dir=sue_atoms_dir,
+    )
+
+    # THEN
+    assert src_sue_lessonunit.plan_name == new_sue_lessonunit.plan_name
+    assert src_sue_lessonunit.face_name == new_sue_lessonunit.face_name
+    assert src_sue_lessonunit._plandelta == new_sue_lessonunit._plandelta

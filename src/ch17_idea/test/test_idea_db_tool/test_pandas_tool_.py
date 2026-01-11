@@ -1,6 +1,6 @@
 from os.path import exists as os_path_exists
 from pandas import DataFrame
-from src.ch01_py.file_toolbox import create_path, open_file
+from src.ch00_py.file_toolbox import create_path, open_file
 from src.ch17_idea.idea_db_tool import (
     get_ordered_csv,
     get_relevant_columns_dataframe,
@@ -155,7 +155,7 @@ def test_get_relevant_columns_dataframe_ReturnsObj_Scenario3_ColumnOrderCorrect(
 
 def test_get_relevant_columns_dataframe_ReturnsObj_Scenario4_ColumnOrderCorrect():
     # ESTABLISH
-    df1 = DataFrame([["AAA", "BBB"]], columns=[kw.group_title, kw.voice_name])
+    df1 = DataFrame([["AAA", "BBB"]], columns=[kw.group_title, kw.person_name])
 
     # WHEN
     relevant_dataframe = get_relevant_columns_dataframe(df1)
@@ -163,8 +163,8 @@ def test_get_relevant_columns_dataframe_ReturnsObj_Scenario4_ColumnOrderCorrect(
     # THEN
     assert relevant_dataframe is not None
     print(f"{relevant_dataframe.columns=}")
-    assert relevant_dataframe.columns.to_list()[0] == kw.voice_name
+    assert relevant_dataframe.columns.to_list()[0] == kw.person_name
     assert relevant_dataframe.columns.to_list() == [
-        kw.voice_name,
+        kw.person_name,
         kw.group_title,
     ]

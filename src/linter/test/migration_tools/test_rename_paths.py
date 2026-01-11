@@ -4,7 +4,7 @@ from os.path import (
     exists as os_path_exists,
     join as os_path_join,
 )
-from src.ch01_py.file_toolbox import create_path, get_dir_file_strs, save_file
+from src.ch00_py.file_toolbox import create_path, get_dir_file_strs, save_file
 from src.linter.chapter_migration_tools import (
     delete_if_empty_or_pycache_only,
     first_level_dirs_with_prefix,
@@ -18,21 +18,21 @@ from tempfile import TemporaryDirectory as tempfile_TemporaryDirectory
 def test_first_level_dirs_with_prefix_ReturnsObj():
     with tempfile_TemporaryDirectory() as tmpdir:
         # Setup directories
-        os_mkdir(os_path_join(tmpdir, "ch03_yahoo"))
-        os_mkdir(os_path_join(tmpdir, "ch03_google"))
-        os_mkdir(os_path_join(tmpdir, "ch03_yahoo_temp"))
+        os_mkdir(os_path_join(tmpdir, "ch02_yahoo"))
+        os_mkdir(os_path_join(tmpdir, "ch02_google"))
+        os_mkdir(os_path_join(tmpdir, "ch02_yahoo_temp"))
         os_mkdir(os_path_join(tmpdir, "other_dir"))
 
         # Nested dir should not be included
-        nested_dir = os_path_join(tmpdir, "ch03_yahoo", "temp")
+        nested_dir = os_path_join(tmpdir, "ch02_yahoo", "temp")
         os_mkdir(nested_dir)
 
-        # Test prefix "ch03"
-        prefix_path = os_path_join(tmpdir, "ch03")
+        # Test prefix "ch02"
+        prefix_path = os_path_join(tmpdir, "ch02")
         result = first_level_dirs_with_prefix(prefix_path)
         result_names = [os_path_basename(p) for p in result]
 
-        assert set(result_names) == {"ch03_yahoo", "ch03_google", "ch03_yahoo_temp"}
+        assert set(result_names) == {"ch02_yahoo", "ch02_google", "ch02_yahoo_temp"}
         # nested dir should not appear
         assert "temp" not in result_names
 
@@ -224,7 +224,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_directory(
     # GIVEN
     env_dir = get_temp_dir()
     dolphine_text = "dolphin"
-    dolphin_dir = f"{env_dir}/{dolphine_text}"
+    dolphin_dir = create_path(env_dir, dolphine_text)
     dolphin_file_name = f"{dolphine_text}.json"
     lopster_file_name = "lopster.json"
     dolphin_file_text = "trying this"
@@ -236,7 +236,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_directory(
     assert dolphin_files_dict.get(dolphin_file_name) == dolphin_file_text
     assert dolphin_files_dict.get(lopster_file_name) == lopster_file_text
     bobphin_text = "bobphin"
-    bobphin_dir = f"{env_dir}/{bobphin_text}"
+    bobphin_dir = create_path(env_dir, bobphin_text)
     assert os_path_exists(dolphin_dir)
     assert os_path_exists(bobphin_dir) == False
 
@@ -260,7 +260,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_delete_old_directorys(
     # GIVEN
     env_dir = get_temp_dir()
     dolphine_text = "dolphin"
-    dolphin_dir = f"{env_dir}/{dolphine_text}"
+    dolphin_dir = create_path(env_dir, dolphine_text)
     dolphin_file_name = f"{dolphine_text}.json"
     lopster_file_name = "lopster.json"
     dolphin_file_text = "trying this"
@@ -273,7 +273,7 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_delete_old_directorys(
     assert dolphin_files_dict.get(dolphin_file_name) == dolphin_file_text
     assert dolphin_files_dict.get(lopster_file_name) == lopster_file_text
     bobphin_text = "bobphin"
-    bobphin_dir = f"{env_dir}/{bobphin_text}"
+    bobphin_dir = create_path(env_dir, bobphin_text)
     assert os_path_exists(dolphin_dir)
     assert os_path_exists(bobphin_dir) == False
 

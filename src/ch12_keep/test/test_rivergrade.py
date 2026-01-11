@@ -7,45 +7,45 @@ def test_RiverGrade_Exists():
     x_rivergrade = RiverGrade()
 
     # THEN
-    #: Healer gut get_voice._voice_debt_lumen (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
+    #: Healer gut get_person._person_debt_lumen (SELECT need_due_amount FROM person WHERE person_name = exx.bob)
     assert not x_rivergrade.moment_label
-    assert not x_rivergrade.belief_name
+    assert not x_rivergrade.plan_name
     assert not x_rivergrade.keep_rope
-    assert not x_rivergrade.voice_name
+    assert not x_rivergrade.person_name
     assert not x_rivergrade.number
-    #: Healer gut get_voice._voice_debt_lumen (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
+    #: Healer gut get_person._person_debt_lumen (SELECT need_due_amount FROM person WHERE person_name = exx.bob)
     assert x_rivergrade.need_bill_amount is None
-    #: Healer gut get_voice._voice_cred_lumen (SELECT care_amount FROM voice WHERE voice_name = exx.bob)
+    #: Healer gut get_person._person_cred_lumen (SELECT care_amount FROM person WHERE person_name = exx.bob)
     assert x_rivergrade.care_amount is None
-    #: SELECT COUNT(*) FROM voice WHERE need_due_amount > (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
+    #: SELECT COUNT(*) FROM person WHERE need_due_amount > (SELECT need_due_amount FROM person WHERE person_name = exx.bob)
     assert x_rivergrade.doctor_rank_num is None
-    #: SELECT COUNT(*) FROM voice WHERE care_amount > (SELECT need_due_amount FROM voice WHERE voice_name = exx.bob)
+    #: SELECT COUNT(*) FROM person WHERE care_amount > (SELECT need_due_amount FROM person WHERE person_name = exx.bob)
     assert x_rivergrade.patient_rank_num is None
-    #: SELECT amount_paid FROM need_ledger WHERE voice_name = exx.bob
+    #: SELECT amount_paid FROM need_ledger WHERE person_name = exx.bob
     assert x_rivergrade.need_paid_amount is None
     #: bool (if need_due_amount == need_paid_amount)
     assert x_rivergrade.need_paid_bool is None
-    #: SELECT COUNT(*) FROM voice WHERE need_paid_amount > (SELECT need_paid_amount FROM voice WHERE voice_name = exx.bob)
+    #: SELECT COUNT(*) FROM person WHERE need_paid_amount > (SELECT need_paid_amount FROM person WHERE person_name = exx.bob)
     assert x_rivergrade.need_paid_rank_num is None
-    #: need_paid_rank_num / (SELECT COUNT(*) FROM voice WHERE need_paid_amount>0)
+    #: need_paid_rank_num / (SELECT COUNT(*) FROM person WHERE need_paid_amount>0)
     assert x_rivergrade.need_paid_rank_percent is None
-    #: SELECT COUNT(*) FROM voice WHERE need_due_amount > 0
+    #: SELECT COUNT(*) FROM person WHERE need_due_amount > 0
     assert x_rivergrade.doctor_count is None
-    #: SELECT COUNT(*) FROM voice WHERE care_amount > 0
+    #: SELECT COUNT(*) FROM person WHERE care_amount > 0
     assert x_rivergrade.patient_count is None
-    #: doctor_rank_num / SELECT COUNT(*) FROM voice WHERE need_due_amount > 0
+    #: doctor_rank_num / SELECT COUNT(*) FROM person WHERE need_due_amount > 0
     assert x_rivergrade.doctor_rank_percent is None
-    #: patient_rank_num / SELECT COUNT(*) FROM voice WHERE care_amount > 0
+    #: patient_rank_num / SELECT COUNT(*) FROM person WHERE care_amount > 0
     assert x_rivergrade.patient_rank_percent is None
-    # SELECT COUNT(*) FROM rewards WHERE dst_voice_name = exx.bob
+    # SELECT COUNT(*) FROM rewards WHERE dst_person_name = exx.bob
     assert x_rivergrade.rewards_count is None
-    # SELECT SUM(mana_amount) FROM rewards WHERE dst_voice_name = exx.bob
+    # SELECT SUM(mana_amount) FROM rewards WHERE dst_person_name = exx.bob
     assert x_rivergrade.rewards_magnitude is None
     assert set(x_rivergrade.__dict__.keys()) == {
         kw.moment_label,
-        kw.belief_name,
+        kw.plan_name,
         kw.keep_rope,
-        kw.voice_name,
+        kw.person_name,
         "number",
         kw.need_bill_amount,
         kw.care_amount,
@@ -78,9 +78,9 @@ def test_rivergrade_shop_ReturnsObjWithArg():
 
     # THEN
     assert x_rivergrade.moment_label == exx.a23
-    assert x_rivergrade.belief_name == exx.yao
+    assert x_rivergrade.plan_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
-    assert x_rivergrade.voice_name == exx.bob
+    assert x_rivergrade.person_name == exx.bob
     assert x_rivergrade.number == ten_int
     assert not x_rivergrade.need_bill_amount
     assert not x_rivergrade.care_amount
@@ -107,9 +107,9 @@ def test_rivergrade_shop_ReturnsObjWithoutArgs():
 
     # THEN
     assert x_rivergrade.moment_label == exx.a23
-    assert x_rivergrade.belief_name == exx.yao
+    assert x_rivergrade.plan_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
-    assert x_rivergrade.voice_name == exx.bob
+    assert x_rivergrade.person_name == exx.bob
     assert x_rivergrade.number == 0
     assert not x_rivergrade.need_bill_amount
     assert not x_rivergrade.care_amount

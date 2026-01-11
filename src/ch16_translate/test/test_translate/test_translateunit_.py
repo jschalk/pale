@@ -1,6 +1,6 @@
 from src.ch04_rope.rope import default_knot_if_None
-from src.ch08_belief_atom.atom_config import (
-    get_all_belief_dimen_delete_keys,
+from src.ch08_plan_atom.atom_config import (
+    get_all_plan_dimen_delete_keys,
     get_atom_args_class_types,
 )
 from src.ch14_moment.moment_config import get_moment_args_class_types
@@ -30,7 +30,7 @@ def test_get_translate_args_class_types_ReturnsObj():
     translate_args_class_types = get_translate_args_class_types()
 
     # THEN
-    assert translate_args_class_types.get(kw.voice_name) == kw.NameTerm
+    assert translate_args_class_types.get(kw.person_name) == kw.NameTerm
     assert translate_args_class_types.get(kw.addin) == "float"
     assert translate_args_class_types.get(kw.amount) == "float"
     assert translate_args_class_types.get(kw.awardee_title) == kw.TitleTerm
@@ -39,12 +39,12 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.begin) == "float"
     assert translate_args_class_types.get(kw.c400_number) == "int"
     assert translate_args_class_types.get(kw.close) == "float"
-    assert translate_args_class_types.get(kw.voice_cred_lumen) == "float"
+    assert translate_args_class_types.get(kw.person_cred_lumen) == "float"
     assert translate_args_class_types.get(kw.group_cred_lumen) == "float"
     assert translate_args_class_types.get(kw.credor_respect) == "float"
     assert translate_args_class_types.get(kw.cumulative_day) == "int"
     assert translate_args_class_types.get(kw.cumulative_minute) == "int"
-    assert translate_args_class_types.get(kw.voice_debt_lumen) == "float"
+    assert translate_args_class_types.get(kw.person_debt_lumen) == "float"
     assert translate_args_class_types.get(kw.group_debt_lumen) == "float"
     assert translate_args_class_types.get(kw.debtor_respect) == "float"
     assert translate_args_class_types.get(kw.denom) == "int"
@@ -70,7 +70,7 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.reason_upper) == kw.ReasonNum
     assert translate_args_class_types.get(kw.numor) == "int"
     assert translate_args_class_types.get(kw.offi_time) == kw.EpochTime
-    assert translate_args_class_types.get(kw.belief_name) == kw.NameTerm
+    assert translate_args_class_types.get(kw.plan_name) == kw.NameTerm
     assert translate_args_class_types.get(kw.reason_lower) == kw.ReasonNum
     assert translate_args_class_types.get(kw.mana_grain) == "float"
     assert translate_args_class_types.get(kw.fact_state) == kw.RopeTerm
@@ -78,7 +78,7 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.problem_bool) == "bool"
     assert translate_args_class_types.get(kw.quota) == "int"
     assert translate_args_class_types.get(kw.respect_grain) == "float"
-    assert translate_args_class_types.get(kw.plan_rope) == kw.RopeTerm
+    assert translate_args_class_types.get(kw.keg_rope) == kw.RopeTerm
     assert translate_args_class_types.get(kw.celldepth) == "int"
     assert translate_args_class_types.get(kw.stop_want) == "float"
     assert translate_args_class_types.get(kw.take_force) == "float"
@@ -100,7 +100,7 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert atom_args.issubset(translate_args)
     assert moment_args.issubset(translate_args)
     assert atom_args & (moment_args) == {
-        kw.voice_name,
+        kw.person_name,
         kw.fund_grain,
         kw.mana_grain,
         kw.respect_grain,
@@ -167,7 +167,7 @@ def test_get_translateable_args_ReturnsObj():
     assert len(get_translateable_args()) == 17
     assert get_translateable_args() == {
         kw.awardee_title,
-        kw.belief_name,
+        kw.plan_name,
         kw.epoch_label,
         kw.face_name,
         kw.fact_context,
@@ -177,11 +177,11 @@ def test_get_translateable_args_ReturnsObj():
         kw.hour_label,
         kw.moment_label,
         kw.month_label,
-        kw.plan_rope,
+        kw.keg_rope,
         kw.party_title,
         kw.reason_context,
         kw.reason_state,
-        kw.voice_name,
+        kw.person_name,
         kw.weekday_label,
     }
 
@@ -203,17 +203,17 @@ def test_set_translateable_otx_inx_args_ReturnsObj_Scenario0_All_translateable_a
     assert otx_inx_args == expected_otx_inx_args
 
 
-def test_set_translateable_otx_inx_args_ReturnsObj_Scenario1_belief_dimen_delete_keys():
+def test_set_translateable_otx_inx_args_ReturnsObj_Scenario1_plan_dimen_delete_keys():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    belief_dimen_delete_keys = get_all_belief_dimen_delete_keys()
+    plan_dimen_delete_keys = get_all_plan_dimen_delete_keys()
 
     # WHEN
-    otx_inx_args = set_translateable_otx_inx_args(belief_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(plan_dimen_delete_keys)
 
     # THEN
     expected_otx_inx_args = set()
-    for translateable_arg in belief_dimen_delete_keys:
+    for translateable_arg in plan_dimen_delete_keys:
         expected_otx_inx_args.add(f"{translateable_arg}_otx")
         expected_otx_inx_args.add(f"{translateable_arg}_inx")
     print(f"{otx_inx_args=}")
@@ -224,15 +224,15 @@ def test_set_translateable_otx_inx_args_ReturnsObj_Scenario2_OtherArgsAreUntouch
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     run_str = "run"
-    given_belief_dimen_delete_keys = get_all_belief_dimen_delete_keys()
-    given_belief_dimen_delete_keys.add(run_str)
+    given_plan_dimen_delete_keys = get_all_plan_dimen_delete_keys()
+    given_plan_dimen_delete_keys.add(run_str)
 
     # WHEN
-    otx_inx_args = set_translateable_otx_inx_args(given_belief_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(given_plan_dimen_delete_keys)
 
     # THEN
     expected_otx_inx_args = set()
-    for translateable_arg in get_all_belief_dimen_delete_keys():
+    for translateable_arg in get_all_plan_dimen_delete_keys():
         expected_otx_inx_args.add(f"{translateable_arg}_otx")
         expected_otx_inx_args.add(f"{translateable_arg}_inx")
     expected_otx_inx_args.add(run_str)
@@ -244,10 +244,10 @@ def test_set_translateable_otx_inx_args_ReturnsObj_Scenario3_PartialSets():
     # ESTABLISH
     healer_name_ERASE_str = f"{kw.healer_name}_ERASE"
     run_str = "run"
-    given_belief_dimen_delete_keys = {run_str, healer_name_ERASE_str}
+    given_plan_dimen_delete_keys = {run_str, healer_name_ERASE_str}
 
     # WHEN
-    otx_inx_args = set_translateable_otx_inx_args(given_belief_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(given_plan_dimen_delete_keys)
 
     # THEN
     healer_name_ERASE_str = f"{kw.healer_name}_ERASE"
@@ -266,10 +266,10 @@ def test_get_translate_nameterm_args_ReturnsObj():
 
     # THEN
     assert translate_NameTerm_args == {
-        kw.voice_name,
+        kw.person_name,
         kw.face_name,
         kw.healer_name,
-        kw.belief_name,
+        kw.plan_name,
     }
     expected_args = {
         x_arg
@@ -325,7 +325,7 @@ def test_get_translate_ropeterm_args_ReturnsObj():
     assert translate_RopeTerm_args == {
         kw.fact_state,
         kw.fact_context,
-        kw.plan_rope,
+        kw.keg_rope,
         kw.reason_context,
         kw.reason_state,
     }

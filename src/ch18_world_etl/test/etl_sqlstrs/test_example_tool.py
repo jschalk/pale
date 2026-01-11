@@ -1,39 +1,39 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_row_count, get_table_columns
-from src.ch01_py.dict_toolbox import get_empty_set_if_None
+from src.ch00_py.db_toolbox import get_row_count, get_table_columns
+from src.ch00_py.dict_toolbox import get_empty_set_if_None
 from src.ch05_reason.reason_main import caseunit_shop
 from src.ch13_epoch.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
-    get_bob_five_belief,
+    get_bob_five_plan,
 )
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
 from src.ch18_world_etl._ref.ch18_semantic_types import (
-    BeliefName,
     EpochTime,
     FaceName,
     MomentLabel,
+    PlanName,
     SparkInt,
 )
 from src.ch18_world_etl.etl_config import create_prime_tablename as prime_tbl
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.test._util.ch18_examples import (
-    insert_blfcase_special_h_agg,
     insert_mmtoffi_special_offi_time_otx,
     insert_mmtunit_special_c400_number,
     insert_nabepoc_h_agg_otx_inx_time,
-    select_blfcase_special_h_agg,
+    insert_plncase_special_h_agg,
     select_mmtoffi_special_offi_time_inx,
     select_nabepoc_h_agg_otx_inx_time,
+    select_plncase_special_h_agg,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 # TODO create function that updates all nabuable otx fields.
 # identify the change
 #
-# update semantic_type: ReasonNum belief_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: ReasonNum belief_plan_factunit_h_agg_put fact_lower, fact_upper
+# update semantic_type: ReasonNum plan_keg_reason_caseunit_h_agg_put reason_lower, reason_upper
+# update semantic_type: ReasonNum plan_keg_factunit_h_agg_put fact_lower, fact_upper
 # update semantic_type: EpochTime moment_paybook_h_agg tran_time
 # update semantic_type: EpochTime moment_budunit_h_agg bud_time
 # update semantic_type: EpochTime moment_timeh_agg time
@@ -191,24 +191,24 @@ FROM {mmtoffi_h_agg_tablename}
         assert rows == [(spark1, exx.sue, exx.a23, x_offi_time_otx)]
 
 
-def test_insert_blfcase_special_h_agg_PopulatesTable_Scenario0():
+def test_insert_plncase_special_h_agg_PopulatesTable_Scenario0():
     # ESTABLISH
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfcase_h_agg = prime_tbl(kw.belief_plan_reason_caseunit, "h", "agg", "put")
+        plncase_h_agg = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
         spark1 = 1
         s1_reason_upper = 500
         s1_reason_lower = 600
-        assert get_row_count(cursor, blfcase_h_agg) == 0
+        assert get_row_count(cursor, plncase_h_agg) == 0
 
         # WHEN
-        insert_blfcase_special_h_agg(
+        insert_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
             x_moment_label=exx.sue,
-            x_belief_name=exx.a23,
-            x_plan_rope=wx.clean_rope,
+            x_plan_name=exx.a23,
+            x_keg_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
             x_reason_state=wx.days_rope,
             x_reason_lower=s1_reason_lower,
@@ -216,17 +216,17 @@ def test_insert_blfcase_special_h_agg_PopulatesTable_Scenario0():
         )
 
         # THEN
-        assert get_row_count(cursor, blfcase_h_agg) == 1
+        assert get_row_count(cursor, plncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_label}
-, {kw.belief_name}
-, {kw.plan_rope}
+, {kw.plan_name}
+, {kw.keg_rope}
 , {kw.reason_context}
 , {kw.reason_state}
 , {kw.reason_upper}_otx
 , {kw.reason_lower}_otx
-FROM {blfcase_h_agg}
+FROM {plncase_h_agg}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -244,21 +244,21 @@ FROM {blfcase_h_agg}
         assert rows == [expected_row]
 
 
-def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
+def test_select_plncase_special_h_agg_PopulatesTable_Scenario0():
     # ESTABLISH
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        blfcase_h_agg = prime_tbl(kw.belief_plan_reason_caseunit, "h", "agg", "put")
+        plncase_h_agg = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
         spark1 = 1
         s1_reason_upper = 500
         s1_reason_lower = 600
-        insert_blfcase_special_h_agg(
+        insert_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
             x_moment_label=exx.a23,
-            x_belief_name=exx.sue,
-            x_plan_rope=wx.clean_rope,
+            x_plan_name=exx.sue,
+            x_keg_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
             x_reason_state=wx.days_rope,
             x_reason_lower=s1_reason_lower,
@@ -266,12 +266,12 @@ def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
         )
 
         # WHEN
-        gen_rows = select_blfcase_special_h_agg(
+        gen_rows = select_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
             x_moment_label=exx.a23,
-            x_belief_name=exx.sue,
-            x_plan_rope=wx.clean_rope,
+            x_plan_name=exx.sue,
+            x_keg_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
             x_reason_state=wx.days_rope,
         )
@@ -281,8 +281,8 @@ def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
         gen_row0 = gen_rows[0]
         assert gen_row0.spark_num == spark1
         assert gen_row0.moment_label == exx.a23
-        assert gen_row0.belief_name == exx.sue
-        assert gen_row0.plan_rope == wx.clean_rope
+        assert gen_row0.plan_name == exx.sue
+        assert gen_row0.keg_rope == wx.clean_rope
         assert gen_row0.reason_context == wx.day_rope
         assert gen_row0.reason_state == wx.days_rope
         assert gen_row0.reason_lower_otx == s1_reason_lower
@@ -291,17 +291,17 @@ def test_select_blfcase_special_h_agg_PopulatesTable_Scenario0():
         assert not gen_row0.reason_lower_inx
         print(f"{gen_rows=}")
         print(f"{[gen_row0]=}")
-        assert get_row_count(cursor, blfcase_h_agg) == 1
+        assert get_row_count(cursor, plncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_label}
-, {kw.belief_name}
-, {kw.plan_rope}
+, {kw.plan_name}
+, {kw.keg_rope}
 , {kw.reason_context}
 , {kw.reason_state}
 , {kw.reason_lower}_otx
 , {kw.reason_upper}_otx
-FROM {blfcase_h_agg}
+FROM {plncase_h_agg}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -319,12 +319,12 @@ FROM {blfcase_h_agg}
         assert rows == [expected_row]
 
 
-# def insert_blfcase_special_h_agg(
+# def insert_plncase_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
-#     x_belief_name: BeliefName,
-#     x_plan_rope: RopeTerm,
+#     x_plan_name: PlanName,
+#     x_keg_rope: RopeTerm,
 #     x_reason_context: RopeTerm,
 #     x_reason_state: RopeTerm,
 #     x_reason_lower: ReasonNum,
@@ -333,24 +333,24 @@ FROM {blfcase_h_agg}
 #     pass
 
 
-# def select_blfcase_special_h_agg(
+# def select_plncase_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
-#     x_belief_name: BeliefName,
-#     x_plan_rope: RopeTerm,
+#     x_plan_name: PlanName,
+#     x_keg_rope: RopeTerm,
 #     x_reason_context: RopeTerm,
 #     x_reason_state: RopeTerm,
 # ) -> list[tuple]:
 #     pass
 
 
-# def insert_blffact_special_h_agg(
+# def insert_plnfact_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
-#     x_belief_name: BeliefName,
-#     x_plan_rope: RopeTerm,
+#     x_plan_name: PlanName,
+#     x_keg_rope: RopeTerm,
 #     x_fact_context: RopeTerm,
 #     x_fact_state: RopeTerm,
 #     x_fact_upper: FactNum,
@@ -359,23 +359,23 @@ FROM {blfcase_h_agg}
 #     pass
 
 
-# def select_blffact_special_h_agg(
+# def select_plnfact_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
-#     x_belief_name: BeliefName,
-#     x_plan_rope: RopeTerm,
+#     x_plan_name: PlanName,
+#     x_keg_rope: RopeTerm,
 #     x_fact_context: RopeTerm,
 # ) -> list[tuple]:
 #     pass
 
 
-# def insert_blfplan_special_h_agg(
+# def insert_plnkegg_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_label: MomentLabel,
-#     x_belief_name: BeliefName,
-#     x_plan_rope: RopeTerm,
+#     x_plan_name: PlanName,
+#     x_keg_rope: RopeTerm,
 #     x_denom: int,
 # ) -> list[tuple]:
 #     pass

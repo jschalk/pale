@@ -1,5 +1,5 @@
-from src.ch01_py.file_toolbox import open_json, save_json
-from src.ch11_bud.bud_main import beliefbudhistory_shop
+from src.ch00_py.file_toolbox import open_json, save_json
+from src.ch11_bud.bud_main import planbudhistory_shop
 from src.ch13_epoch.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
     epochunit_shop,
@@ -62,20 +62,20 @@ def test_get_moment_epochholder_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs(
 
     assert sue_epochholder
     # assert sue_epochholder.x_min == sue_offi_time_max
-    sue_beliefunit = sue_epochholder.x_beliefunit
-    assert sue_beliefunit.belief_name == "for_EpochHolder_calculation"
-    assert sue_beliefunit.moment_label == sue_momentunit.moment_label
-    assert sue_beliefunit.knot == sue_momentunit.knot
-    assert sue_beliefunit.fund_grain == sue_momentunit.fund_grain
-    assert sue_beliefunit.respect_grain == sue_momentunit.respect_grain
-    assert sue_beliefunit.mana_grain == sue_momentunit.mana_grain
+    sue_planunit = sue_epochholder.x_planunit
+    assert sue_planunit.plan_name == "for_EpochHolder_calculation"
+    assert sue_planunit.moment_label == sue_momentunit.moment_label
+    assert sue_planunit.knot == sue_momentunit.knot
+    assert sue_planunit.fund_grain == sue_momentunit.fund_grain
+    assert sue_planunit.respect_grain == sue_momentunit.respect_grain
+    assert sue_planunit.mana_grain == sue_momentunit.mana_grain
     assert sue_epochholder._month == "March"
     assert sue_epochholder._hour == "12am"
     assert sue_epochholder._minute == 0
     assert sue_epochholder._monthday == 1
     assert sue_epochholder._c400_number == 0
     assert sue_epochholder._year_num == 0
-    #  beliefunit_shop()
+    #  planunit_shop()
     #  epochholder_shop()
 
 
@@ -160,9 +160,9 @@ def test_add_epoch_frame_to_momentunit_SetsAttr_Scenario4_bud_time():
     t55_time = 55
     epoch_frame_min = 10
     t65_time = t55_time + epoch_frame_min
-    sue_bud_hx = beliefbudhistory_shop(exx.sue)
+    sue_bud_hx = planbudhistory_shop(exx.sue)
     sue_bud_hx.add_bud(x_bud_time=t55_time, x_quota=t55_quota)
-    sue_momentunit.set_beliefbudhistory(sue_bud_hx)
+    sue_momentunit.set_planbudhistory(sue_bud_hx)
     assert sue_momentunit.bud_quota_exists(exx.sue, t55_time, t55_quota)
     assert not sue_momentunit.bud_quota_exists(exx.sue, t65_time, t55_quota)
 
@@ -183,9 +183,9 @@ def test_add_epoch_frame_to_momentunit_SetsAttr_Scenario5_bud_time_ModularAdditi
     epoch_frame_min = 10
     epoch_length = get_epoch_length(get_creg_config())
     t0x_time = t55_time + epoch_frame_min + epoch_length
-    sue_bud_hx = beliefbudhistory_shop(exx.sue)
+    sue_bud_hx = planbudhistory_shop(exx.sue)
     sue_bud_hx.add_bud(x_bud_time=t55_time, x_quota=t55_quota)
-    sue_momentunit.set_beliefbudhistory(sue_bud_hx)
+    sue_momentunit.set_planbudhistory(sue_bud_hx)
     assert sue_momentunit.bud_quota_exists(exx.sue, t55_time, t55_quota)
     assert not sue_momentunit.bud_quota_exists(exx.sue, t0x_time, t55_quota)
 

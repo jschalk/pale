@@ -1,5 +1,5 @@
 from plotly.graph_objects import Figure as plotly_Figure, Scatter as plotly_Scatter
-from src.ch01_py.plotly_toolbox import conditional_fig_show
+from src.ch00_py.plotly_toolbox import conditional_fig_show
 from src.ch12_keep.keep_graphic import (
     add_keep_str,
     get_light_sea_green_str,
@@ -42,7 +42,7 @@ def add_river_mana_col(fig, num_dict: dict, mana_amt, x0, y0, c_len):
     row_len = row_y1 - row_y0
     num_sum = sum(num_dict.values())
     ratio_dict = {
-        voice_name: voicex / num_sum for voice_name, voicex in num_dict.items()
+        person_name: personx / num_sum for person_name, personx in num_dict.items()
     }
     for careee in num_dict:
         new_y1 = row_y0 + row_len * ratio_dict.get(careee)

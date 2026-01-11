@@ -2,7 +2,7 @@ from os.path import exists as os_path_exists
 from pandas import DataFrame, read_excel as pandas_read_excel
 from pandas.testing import assert_frame_equal
 from shutil import copy2 as shutil_copy2
-from src.ch01_py.file_toolbox import create_path, set_dir
+from src.ch00_py.file_toolbox import create_path, set_dir
 from src.ch17_idea.idea_db_tool import get_sheet_names, upsert_sheet
 from src.ch18_world_etl._ref.ch18_path import (
     create_stance0001_path,
@@ -46,8 +46,8 @@ def test_WorldUnit_create_stances_Senario1_Add_CreatesFile(temp_dir_setup):
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
-        kw.voice_name,
+        kw.plan_name,
+        kw.person_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -82,8 +82,8 @@ def test_WorldUnit_create_stances_Senario2_CreatedStanceCanBeIdeasForOtherWorldU
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
-        kw.voice_name,
+        kw.plan_name,
+        kw.person_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -134,8 +134,8 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
-        kw.voice_name,
+        kw.plan_name,
+        kw.person_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -177,7 +177,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #         kw.face_name,
 #         kw.spark_num,
 #         kw.moment_label,
-#         kw.belief_name,
+#         kw.plan_name,
 #         bud_time(),
 #         kw.quota,
 #         kw.celldepth,
@@ -204,8 +204,8 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #         kw.face_name,
 #         kw.spark_num,
 #         kw.moment_label,
-#         kw.belief_name,
-#         kw.voice_name,
+#         kw.plan_name,
+#         kw.person_name,
 #     ]
 #     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)

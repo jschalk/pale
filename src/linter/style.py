@@ -12,12 +12,11 @@ from os import walk as os_walk
 from os.path import join as os_path_join
 from pathlib import Path as pathlib_Path
 from re import compile as re_compile
-from src.ch01_py.dict_toolbox import uppercase_in_str, uppercase_is_first
-from src.ch01_py.file_toolbox import create_path, get_dir_filenames, open_file
-from src.ch01_py.keyword_class_builder import get_example_strs_config
+from src.ch00_py.dict_toolbox import uppercase_in_str, uppercase_is_first
+from src.ch00_py.file_toolbox import create_path, get_dir_filenames, open_file
+from src.ch00_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_desc_prefix,
-    get_chapter_desc_str_number,
     get_chapter_descs,
     get_func_names_and_class_bases_from_file,
 )

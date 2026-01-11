@@ -1,17 +1,17 @@
 from datetime import datetime
 from enum import Enum
 from plotly.graph_objects import Figure as plotly_Figure, Scatter as plotly_Scatter
-from src.ch01_py.file_toolbox import open_json
-from src.ch01_py.plotly_toolbox import conditional_fig_show
-from src.ch06_plan.plan import PlanUnit
-from src.ch07_belief_logic.belief_main import BeliefUnit, beliefunit_shop
+from src.ch00_py.file_toolbox import open_json
+from src.ch00_py.plotly_toolbox import conditional_fig_show
+from src.ch06_keg.keg import KegUnit
+from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch13_epoch._ref.ch13_semantic_types import LabelTerm
 from src.ch13_epoch.epoch_main import (
-    add_epoch_planunit,
-    create_weekday_planunits,
+    add_epoch_kegunit,
+    create_weekday_kegunits,
     epochholder_shop,
     get_min_from_dt_offset,
-    new_epoch_planunit,
+    new_epoch_kegunit,
 )
 from src.ref.keywords import Ch13Keywords as kw
 
@@ -24,23 +24,23 @@ MOP_STR = "mop"
 WK_STR = "wk"
 WED_STR = "Wed"
 
-BOB_BELIEF = beliefunit_shop(BOB_STR)
-MOP_ROPE = BOB_BELIEF.make_l1_rope(MOP_STR)
-CLEAN_ROPE = BOB_BELIEF.make_l1_rope(CLEAN_STR)
-DIRTYNESS_ROPE = BOB_BELIEF.make_rope(CLEAN_ROPE, DIRTYNESS_STR)
-TIME_ROPE = BOB_BELIEF.make_l1_rope(kw.time)
-FIVE_ROPE = BOB_BELIEF.make_rope(TIME_ROPE, FIVE_STR)
-FIVE_DAY_ROPE = BOB_BELIEF.make_rope(FIVE_ROPE, kw.day)
-FIVE_DAYS_ROPE = BOB_BELIEF.make_rope(FIVE_ROPE, kw.days)
-FIVE_WEEK_ROPE = BOB_BELIEF.make_rope(FIVE_ROPE, kw.week)
-FIVE_WEEKS_ROPE = BOB_BELIEF.make_rope(FIVE_ROPE, kw.weeks)
+BOB_PLAN = planunit_shop(BOB_STR)
+MOP_ROPE = BOB_PLAN.make_l1_rope(MOP_STR)
+CLEAN_ROPE = BOB_PLAN.make_l1_rope(CLEAN_STR)
+DIRTYNESS_ROPE = BOB_PLAN.make_rope(CLEAN_ROPE, DIRTYNESS_STR)
+TIME_ROPE = BOB_PLAN.make_l1_rope(kw.time)
+FIVE_ROPE = BOB_PLAN.make_rope(TIME_ROPE, FIVE_STR)
+FIVE_DAY_ROPE = BOB_PLAN.make_rope(FIVE_ROPE, kw.day)
+FIVE_DAYS_ROPE = BOB_PLAN.make_rope(FIVE_ROPE, kw.days)
+FIVE_WEEK_ROPE = BOB_PLAN.make_rope(FIVE_ROPE, kw.week)
+FIVE_WEEKS_ROPE = BOB_PLAN.make_rope(FIVE_ROPE, kw.weeks)
 
-FIVE_C400_LEAP_ROPE = BOB_BELIEF.make_rope(FIVE_ROPE, kw.c400_leap)
-FIVE_C400_CLEAN_ROPE = BOB_BELIEF.make_rope(FIVE_C400_LEAP_ROPE, kw.c400_clean)
-FIVE_C100_ROPE = BOB_BELIEF.make_rope(FIVE_C400_CLEAN_ROPE, kw.c100)
-FIVE_YR4_LEAP_ROPE = BOB_BELIEF.make_rope(FIVE_C100_ROPE, kw.yr4_leap)
-FIVE_YR4_CLEAN_ROPE = BOB_BELIEF.make_rope(FIVE_YR4_LEAP_ROPE, kw.yr4_clean)
-FIVE_YEAR_ROPE = BOB_BELIEF.make_rope(FIVE_YR4_CLEAN_ROPE, kw.year)
+FIVE_C400_LEAP_ROPE = BOB_PLAN.make_rope(FIVE_ROPE, kw.c400_leap)
+FIVE_C400_CLEAN_ROPE = BOB_PLAN.make_rope(FIVE_C400_LEAP_ROPE, kw.c400_clean)
+FIVE_C100_ROPE = BOB_PLAN.make_rope(FIVE_C400_CLEAN_ROPE, kw.c100)
+FIVE_YR4_LEAP_ROPE = BOB_PLAN.make_rope(FIVE_C100_ROPE, kw.yr4_leap)
+FIVE_YR4_CLEAN_ROPE = BOB_PLAN.make_rope(FIVE_YR4_LEAP_ROPE, kw.yr4_clean)
+FIVE_YEAR_ROPE = BOB_PLAN.make_rope(FIVE_YR4_CLEAN_ROPE, kw.year)
 
 
 class Ch13ExampleStrs(str, Enum):
@@ -82,12 +82,12 @@ class Ch13ExampleStrs(str, Enum):
         return self.value
 
 
-def get_bob_five_belief() -> BeliefUnit:
-    """Returns BeliefUnit with belief_name=Bob, mop as pledge plan, and five_epoch"""
-    bob_belief = beliefunit_shop(BOB_STR)
-    bob_belief.add_plan(MOP_ROPE, pledge=True)
-    add_epoch_planunit(bob_belief, get_five_config())
-    return bob_belief
+def get_bob_five_plan() -> PlanUnit:
+    """Returns PlanUnit with plan_name=Bob, mop as pledge keg, and five_epoch"""
+    bob_plan = planunit_shop(BOB_STR)
+    bob_plan.add_keg(MOP_ROPE, pledge=True)
+    add_epoch_kegunit(bob_plan, get_five_config())
+    return bob_plan
 
 
 def get_example_epoch_config(epoch_label: LabelTerm) -> dict:
@@ -112,9 +112,9 @@ def get_lizzy9_config() -> dict:
     return get_example_epoch_config("lizzy9")
 
 
-def cregtime_planunit() -> PlanUnit:
+def cregtime_kegunit() -> KegUnit:
     c400_number = get_creg_config().get(kw.c400_number)
-    return new_epoch_planunit(kw.creg, c400_number)
+    return new_epoch_kegunit(kw.creg, c400_number)
 
 
 def get_wed():
@@ -153,30 +153,30 @@ def creg_weekdays_list() -> list[str]:
     return get_creg_config().get(kw.weekdays_config)
 
 
-def creg_weekday_planunits() -> dict[str, PlanUnit]:
-    return create_weekday_planunits(creg_weekdays_list())
+def creg_weekday_kegunits() -> dict[str, KegUnit]:
+    return create_weekday_kegunits(creg_weekdays_list())
 
 
 def creg_hour_int_label(x_int: int) -> str:
     return creg_hours_list()[x_int][0]
 
 
-def add_time_creg_planunit(x_beliefunit: BeliefUnit) -> BeliefUnit:
-    """Add creg epoch planunit to beliefunit"""
-    add_epoch_planunit(x_beliefunit, get_creg_config())
-    return x_beliefunit
+def add_time_creg_kegunit(x_planunit: PlanUnit) -> PlanUnit:
+    """Add creg epoch kegunit to planunit"""
+    add_epoch_kegunit(x_planunit, get_creg_config())
+    return x_planunit
 
 
-def add_time_five_planunit(x_beliefunit: BeliefUnit) -> BeliefUnit:
-    """Add five epoch planunit to beliefunit"""
-    add_epoch_planunit(x_beliefunit, get_five_config())
-    return x_beliefunit
+def add_time_five_kegunit(x_planunit: PlanUnit) -> PlanUnit:
+    """Add five epoch kegunit to planunit"""
+    add_epoch_kegunit(x_planunit, get_five_config())
+    return x_planunit
 
 
-def add_time_squirt_planunit(x_beliefunit: BeliefUnit) -> BeliefUnit:
-    """Add squirt epoch planunit to beliefunit"""
-    add_epoch_planunit(x_beliefunit, get_squirt_config())
-    return x_beliefunit
+def add_time_squirt_kegunit(x_planunit: PlanUnit) -> PlanUnit:
+    """Add squirt epoch kegunit to planunit"""
+    add_epoch_kegunit(x_planunit, get_squirt_config())
+    return x_planunit
 
 
 def get_creg_min_from_dt(dt: datetime) -> int:
@@ -222,13 +222,13 @@ def display_current_creg_five_min(graphics_bool: bool):
 def display_current_creg_five_time_attrs(graphics_bool: bool):
     if graphics_bool:
         current_datetime = datetime.now()
-        sue_belief = beliefunit_shop("Sue")
-        sue_belief = add_time_creg_planunit(sue_belief)
-        sue_belief = add_time_five_planunit(sue_belief)
+        sue_plan = planunit_shop("Sue")
+        sue_plan = add_time_creg_kegunit(sue_plan)
+        sue_plan = add_time_five_kegunit(sue_plan)
         creg_min = get_creg_min_from_dt(current_datetime)
         five_min = get_five_min_from_dt(current_datetime)
-        creg_EpochTime = epochholder_shop(sue_belief, kw.creg, creg_min)
-        five_EpochTime = epochholder_shop(sue_belief, kw.five, five_min)
+        creg_EpochTime = epochholder_shop(sue_plan, kw.creg, creg_min)
+        five_EpochTime = epochholder_shop(sue_plan, kw.five, five_min)
         creg_EpochTime.calc_epoch()
         five_EpochTime.calc_epoch()
         creg_blurb = f"<b>{creg_EpochTime.get_blurb()}</b>"
@@ -256,18 +256,18 @@ def display_current_creg_five_time_attrs(graphics_bool: bool):
 def display_creg_five_squirt_time_attrs(graphics_bool: bool):
     if graphics_bool:
         current_datetime = datetime(2031, 2, 17, 7, 47)
-        sue_belief = beliefunit_shop("Sue")
-        sue_belief = add_time_creg_planunit(sue_belief)
-        sue_belief = add_time_five_planunit(sue_belief)
-        sue_belief = add_time_squirt_planunit(sue_belief)
-        time_rope = sue_belief.make_l1_rope(kw.time)
-        squirt_rope = sue_belief.make_rope(time_rope, "squirt")
+        sue_plan = planunit_shop("Sue")
+        sue_plan = add_time_creg_kegunit(sue_plan)
+        sue_plan = add_time_five_kegunit(sue_plan)
+        sue_plan = add_time_squirt_kegunit(sue_plan)
+        time_rope = sue_plan.make_l1_rope(kw.time)
+        squirt_rope = sue_plan.make_rope(time_rope, "squirt")
         creg_min = get_creg_min_from_dt(current_datetime)
         five_min = get_five_min_from_dt(current_datetime)
         squirt_min = get_squirt_min_from_dt(current_datetime)
-        creg_EpochTime = epochholder_shop(sue_belief, kw.creg, creg_min)
-        five_EpochTime = epochholder_shop(sue_belief, kw.five, five_min)
-        squirt_EpochTime = epochholder_shop(sue_belief, "squirt", squirt_min)
+        creg_EpochTime = epochholder_shop(sue_plan, kw.creg, creg_min)
+        five_EpochTime = epochholder_shop(sue_plan, kw.five, five_min)
+        squirt_EpochTime = epochholder_shop(sue_plan, "squirt", squirt_min)
         creg_EpochTime.calc_epoch()
         five_EpochTime.calc_epoch()
         squirt_EpochTime.calc_epoch()

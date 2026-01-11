@@ -1,0 +1,39 @@
+from src.ch01_allot._ref.ch01_semantic_types import GrainNum, PoolNum, WeightNum
+from src.ch02_person._ref.ch02_semantic_types import (
+    FundGrain,
+    FundNum,
+    GroupMark,
+    GroupTitle,
+    HealerName,
+    NameTerm,
+    PersonName,
+    RespectGrain,
+    RespectNum,
+    TitleTerm,
+)
+from src.ch04_rope._ref.ch04_semantic_types import (
+    FirstLabel,
+    KnotTerm,
+    LabelTerm,
+    RopeTerm,
+    default_knot_if_None,
+)
+from src.ch05_reason._ref.ch05_semantic_types import FactNum, ReasonNum
+
+
+class MomentLabel(LabelTerm):  # Created to help track the object class relations
+    """A LabelTerm for a Moment. Cannot contain knot."""
+
+    pass
+
+
+class PlanName(NameTerm):
+    """A NameTerm used to identify a PlanUnit's plan"""
+
+    pass
+
+
+class ManaGrain(float):
+    """Smallest Unit of Mana"""
+
+    pass

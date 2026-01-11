@@ -5,30 +5,20 @@ from ast import (
     parse as ast_parse,
     walk as ast_walk,
 )
-from src.ch01_py.chapter_desc_main import get_chapter_desc_prefix, get_chapter_descs
-from src.ch01_py.file_toolbox import (
+from src.ch00_py.chapter_desc_main import get_chapter_desc_prefix, get_chapter_descs
+from src.ch00_py.file_toolbox import (
     create_path,
     get_dir_filenames,
     open_json,
     save_file,
     save_json,
 )
-from src.ch01_py.keyword_class_builder import (
+from src.ch00_py.keyword_class_builder import (
     create_src_example_strs_path,
     create_src_keywords_path,
 )
 from src.ch04_rope._ref.ch04_doc_builder import get_ropeterm_description_md
 from src.ch17_idea._ref.ch17_doc_builder import get_brick_formats_md, get_idea_brick_mds
-
-
-def get_chapter_num_descs() -> dict[int, str]:
-    """Returns dict [Chapter_num as Int, chapter_desc]"""
-    chapter_descs = get_chapter_descs()
-    chapter_prefix_descs = {}
-    for chapter_desc in chapter_descs:
-        chapter_prefix = get_chapter_desc_prefix(chapter_desc)
-        chapter_prefix_descs[chapter_prefix] = chapter_desc
-    return chapter_prefix_descs
 
 
 def get_func_names_and_class_bases_from_file(
@@ -54,14 +44,6 @@ def get_func_names_and_class_bases_from_file(
     return file_funcs, class_bases
 
 
-def get_chapter_desc_str_number(chapter_desc: str) -> str:
-    """Returns chapter number in 2 character string."""
-    if chapter_desc.startswith("a"):
-        return chapter_desc[1:3]
-    elif chapter_desc.startswith("ch"):
-        return chapter_desc[2:4]
-
-
 def get_chapter_blurbs_md() -> str:
     lines = ["# Chapter Overview\n", "What does each one do?\n", ""]
     for chapter_desc, chapter_dir in get_chapter_descs().items():
@@ -84,7 +66,7 @@ def save_chapter_blurbs_md(x_dir: str):
 
 
 def save_ropeterm_description_md(x_dir: str):
-    save_file(x_dir, "ropeterm_explanation.md", get_ropeterm_description_md())
+    save_file(x_dir, "ropeterm_exkegation.md", get_ropeterm_description_md())
 
 
 def save_idea_brick_mds(dest_dir: str):

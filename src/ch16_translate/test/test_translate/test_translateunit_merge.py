@@ -106,9 +106,9 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario6_namemap_Inheri
 
     # THEN
     assert merged_translateunit
-    merged_voicebrigde = get_suita_namemap()
-    merged_voicebrigde.spark_num = spark1
-    assert merged_translateunit.namemap == merged_voicebrigde
+    merged_personbrigde = get_suita_namemap()
+    merged_personbrigde.spark_num = spark1
+    assert merged_translateunit.namemap == merged_personbrigde
     merged_groupbrigde = get_swim_titlemap()
     merged_groupbrigde.spark_num = spark1
     assert merged_translateunit.titlemap == merged_groupbrigde
@@ -140,10 +140,10 @@ def test_TranslateUnit_inherit_translateunit_ReturnsObj_Scenario7_namemap_Inheri
     # THEN
     assert merged_translateunit
     assert new_translateunit.nameterm_exists(bob_otx, bob_inx)
-    merged_voicebrigde = get_suita_namemap()
-    merged_voicebrigde.spark_num = spark1
-    merged_voicebrigde.set_otx2inx(bob_otx, bob_inx)
-    assert merged_translateunit.namemap == merged_voicebrigde
+    merged_personbrigde = get_suita_namemap()
+    merged_personbrigde.spark_num = spark1
+    merged_personbrigde.set_otx2inx(bob_otx, bob_inx)
+    assert merged_translateunit.namemap == merged_personbrigde
     merged_groupbrigde = get_swim_titlemap()
     merged_groupbrigde.spark_num = spark1
     assert merged_translateunit.titlemap == merged_groupbrigde

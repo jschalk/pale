@@ -1,12 +1,12 @@
-from src.ch01_py.dict_toolbox import get_max_key
+from src.ch00_py.dict_toolbox import get_max_key
 from src.ch05_reason.reason_main import FactUnit, get_factunit_from_tuple
-from src.ch11_bud._ref.ch11_semantic_types import BeliefName, RopeTerm
+from src.ch11_bud._ref.ch11_semantic_types import PlanName, RopeTerm
 
 
 def get_nodes_with_weighted_facts(
-    nodes_facts_dict: dict[tuple[BeliefName], dict[RopeTerm, FactUnit]],
-    nodes_quota_ledger_dict: dict[tuple[BeliefName], dict[BeliefName, float]],
-) -> dict[tuple[BeliefName], dict[RopeTerm, FactUnit]]:
+    nodes_facts_dict: dict[tuple[PlanName], dict[RopeTerm, FactUnit]],
+    nodes_quota_ledger_dict: dict[tuple[PlanName], dict[PlanName, float]],
+) -> dict[tuple[PlanName], dict[RopeTerm, FactUnit]]:
 
     sorted_node_addrs = sorted(nodes_facts_dict.keys(), key=len)
     while sorted_node_addrs != []:
@@ -16,9 +16,9 @@ def get_nodes_with_weighted_facts(
         quota_ledger = nodes_quota_ledger_dict.get(node_addr)
 
         to_eval_temp = {}
-        for child_belief, child_quota in quota_ledger.items():
+        for child_plan, child_quota in quota_ledger.items():
             node_addr_list = list(node_addr)
-            node_addr_list.append(child_belief)
+            node_addr_list.append(child_plan)
             child_addr = tuple(node_addr_list)
             child_facts = nodes_facts_dict.get(child_addr)
             if child_facts is None:

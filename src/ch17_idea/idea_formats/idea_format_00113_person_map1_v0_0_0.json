@@ -1,0 +1,13 @@
+{
+  "attributes": {
+    "plan_name" : { "otx_key": true  }, 
+    "face_name"   : { "otx_key": true  }, 
+    "inx_name"    : { "otx_key": false }, 
+    "moment_label": { "otx_key": true  }, 
+    "otx_name"    : { "otx_key": true  }, 
+    "spark_num"   : { "otx_key": true  }, 
+    "person_name"  : { "otx_key": true  }
+  }, 
+  "dimens": ["translate_name", "plan_personunit", "momentunit", "planunit"], 
+  "idea_number": "br00113"
+}

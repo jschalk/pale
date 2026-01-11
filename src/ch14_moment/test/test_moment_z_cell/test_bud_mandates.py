@@ -1,12 +1,12 @@
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import open_json, save_json
-from src.ch09_belief_lesson._ref.ch09_path import create_moment_json_path
+from src.ch00_py.file_toolbox import open_json, save_json
+from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch11_bud._ref.ch11_path import (
-    create_cell_voice_mandate_ledger_path as cell_mandate_path,
+    create_cell_person_mandate_ledger_path as cell_mandate_path,
 )
 from src.ch11_bud.bud_main import tranbook_shop
 from src.ch14_moment._ref.ch14_path import (
-    create_bud_voice_mandate_ledger_path as bud_mandate_path,
+    create_bud_person_mandate_ledger_path as bud_mandate_path,
 )
 from src.ch14_moment.moment_cell import create_bud_mandate_ledgers
 from src.ch14_moment.moment_main import get_momentunit_from_dict, momentunit_shop
@@ -47,25 +47,25 @@ def test_create_bud_mandate_ledgers_Scenaro1_BudExists(temp_dir_setup):
     bob37_bud_mandate_path = bud_mandate_path(mstr_dir, exx.a23, exx.bob, tp37)
     assert os_path_exists(bob37_bud_mandate_path) is False
     bob37_budunit = amy23_moment.get_budunit(exx.bob, tp37)
-    assert bob37_budunit._bud_voice_nets == {}
+    assert bob37_budunit._bud_person_nets == {}
 
     # WHEN
     create_bud_mandate_ledgers(mstr_dir, exx.a23)
 
     # THEN
     assert os_path_exists(bob37_bud_mandate_path)
-    expected_bud_voice_nets = {exx.bob: bud1_quota}
-    assert open_json(bob37_bud_mandate_path) == expected_bud_voice_nets
+    expected_bud_person_nets = {exx.bob: bud1_quota}
+    assert open_json(bob37_bud_mandate_path) == expected_bud_person_nets
     gen_a23_momentunit = get_momentunit_from_dict(open_json(a23_json_path))
     gen_a23_momentunit.set_all_tranbook()
     gen_bob37_budunit = gen_a23_momentunit.get_budunit(exx.bob, tp37)
-    assert gen_bob37_budunit._bud_voice_nets == expected_bud_voice_nets
+    assert gen_bob37_budunit._bud_person_nets == expected_bud_person_nets
     expected_a23_all_tranbook = tranbook_shop(exx.a23)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.bob, tp37, 450)
     assert gen_a23_momentunit.all_tranbook == expected_a23_all_tranbook
 
 
-def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_voice_mandate_ledgers(
+def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_person_mandate_ledgers(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -88,24 +88,24 @@ def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_voice_mandate_ledgers
     bob37_bud_mandate_path = bud_mandate_path(mstr_dir, exx.a23, exx.bob, tp37)
     assert os_path_exists(bob37_bud_mandate_path) is False
     bob37_budunit = amy23_moment.get_budunit(exx.bob, tp37)
-    assert bob37_budunit._bud_voice_nets == {}
+    assert bob37_budunit._bud_person_nets == {}
 
     # WHEN
     create_bud_mandate_ledgers(mstr_dir, exx.a23)
 
     # THEN
     assert os_path_exists(bob37_bud_mandate_path)
-    expected_bud_voice_nets = {
+    expected_bud_person_nets = {
         exx.yao: 254,
         exx.xio: 84,
         exx.sue: 84,
         exx.zia: 28,
     }
     print(f"{open_json(bob37_bud_mandate_path)=}")
-    assert open_json(bob37_bud_mandate_path) == expected_bud_voice_nets
+    assert open_json(bob37_bud_mandate_path) == expected_bud_person_nets
     gen_a23_momentunit = get_momentunit_from_dict(open_json(a23_json_path))
     gen_bob37_budunit = gen_a23_momentunit.get_budunit(exx.bob, tp37)
-    assert gen_bob37_budunit._bud_voice_nets == expected_bud_voice_nets
+    assert gen_bob37_budunit._bud_person_nets == expected_bud_person_nets
     expected_a23_all_tranbook = tranbook_shop(exx.a23)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.sue, tp37, 84)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.xio, tp37, 84)

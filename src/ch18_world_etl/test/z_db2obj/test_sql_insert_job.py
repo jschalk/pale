@@ -1,37 +1,37 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import create_insert_query
-from src.ch07_belief_logic.belief_config import get_belief_calc_dimen_args
+from src.ch00_py.db_toolbox import create_insert_query
+from src.ch07_plan_logic.plan_config import get_plan_calc_dimen_args
 from src.ch18_world_etl.etl_sqlstr import create_job_tables
-from src.ch18_world_etl.obj2db_belief import (
-    create_beliefunit_metrics_insert_sqlstr,
-    create_blfawar_metrics_insert_sqlstr,
-    create_blfcase_metrics_insert_sqlstr,
-    create_blffact_metrics_insert_sqlstr,
-    create_blfgrou_metrics_insert_sqlstr,
-    create_blfheal_metrics_insert_sqlstr,
-    create_blflabo_metrics_insert_sqlstr,
-    create_blfmemb_metrics_insert_sqlstr,
-    create_blfplan_metrics_insert_sqlstr,
-    create_blfreas_metrics_insert_sqlstr,
-    create_blfvoce_metrics_insert_sqlstr,
+from src.ch18_world_etl.obj2db_plan import (
+    create_planunit_metrics_insert_sqlstr,
+    create_plnawar_metrics_insert_sqlstr,
+    create_plncase_metrics_insert_sqlstr,
+    create_plnfact_metrics_insert_sqlstr,
+    create_plngrou_metrics_insert_sqlstr,
+    create_plnheal_metrics_insert_sqlstr,
+    create_plnkegg_metrics_insert_sqlstr,
+    create_plnlabo_metrics_insert_sqlstr,
+    create_plnmemb_metrics_insert_sqlstr,
+    create_plnprsn_metrics_insert_sqlstr,
+    create_plnreas_metrics_insert_sqlstr,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
+def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("beliefunit")
+    x_args = get_plan_calc_dimen_args("planunit")
     # for x_arg in sorted(x_args):
     #     print(f"{x_arg=}")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_keeps_buildable = True
     x_keeps_justified = False
     x_offtrack_fund = 55.5
     x_rational = True
-    x_sum_healerunit_plans_fund_total = 66.6
+    x_sum_healerunit_kegs_fund_total = 66.6
     x_tree_traverse_count = 7
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -43,12 +43,12 @@ def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
     x_tally = 6
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
+        kw.plan_name: x_plan_name,
         kw.keeps_buildable: x_keeps_buildable,
         kw.keeps_justified: x_keeps_justified,
         kw.offtrack_fund: x_offtrack_fund,
         kw.rational: x_rational,
-        kw.sum_healerunit_plans_fund_total: x_sum_healerunit_plans_fund_total,
+        kw.sum_healerunit_kegs_fund_total: x_sum_healerunit_kegs_fund_total,
         kw.tree_traverse_count: x_tree_traverse_count,
         kw.credor_respect: x_credor_respect,
         kw.debtor_respect: x_debtor_respect,
@@ -63,14 +63,14 @@ def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_beliefunit_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_planunit_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "beliefunit_job"
+        table_name = "planunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -78,10 +78,10 @@ def test_create_beliefunit_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_planunit")
+    x_args = get_plan_calc_dimen_args("plan_kegunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -93,10 +93,10 @@ def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
     #     # print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_active = 1
-    x_all_voice_cred = 2
-    x_all_voice_debt = 3
+    x_all_person_cred = 2
+    x_all_person_debt = 3
     x_descendant_pledge_count = 4
     x_fund_cease = 5
     x_fund_grain = 6
@@ -122,10 +122,10 @@ def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
     x_stop_want = 27
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.plan_active: x_active,
-        kw.all_voice_cred: x_all_voice_cred,
-        kw.all_voice_debt: x_all_voice_debt,
+        kw.plan_name: x_plan_name,
+        kw.keg_active: x_active,
+        kw.all_person_cred: x_all_person_cred,
+        kw.all_person_debt: x_all_person_debt,
         kw.descendant_pledge_count: x_descendant_pledge_count,
         kw.fund_cease: x_fund_cease,
         kw.fund_grain: x_fund_grain,
@@ -145,7 +145,7 @@ def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
         kw.star: x_star,
         kw.morph: x_morph,
         kw.numor: x_numor,
-        kw.plan_rope: x_rope,
+        kw.keg_rope: x_rope,
         kw.pledge: x_pledge,
         kw.problem_bool: x_problem_bool,
         kw.stop_want: x_stop_want,
@@ -154,14 +154,14 @@ def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfplan_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnkegg_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_planunit_job"
+        table_name = "plan_kegunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -169,10 +169,10 @@ def test_create_blfplan_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_plan_reasonunit")
+    x_args = get_plan_calc_dimen_args("plan_keg_reasonunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -193,7 +193,7 @@ def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_rope = 1
     x_reason_context = 2
     x_active_requisite = 3
@@ -202,8 +202,8 @@ def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
     x__heir_active = 6
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.plan_rope: x_rope,
+        kw.plan_name: x_plan_name,
+        kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.active_requisite: x_active_requisite,
         kw.task: x_task,
@@ -214,14 +214,14 @@ def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfreas_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnreas_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_plan_reasonunit_job"
+        table_name = "plan_keg_reasonunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -229,10 +229,10 @@ def test_create_blfreas_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_plan_reason_caseunit")
+    x_args = get_plan_calc_dimen_args("plan_keg_reason_caseunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -256,7 +256,7 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_rope = 1
     x_reason_context = 2
     x_reason_state = 3
@@ -267,8 +267,8 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
     x_case_active = 8
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.plan_rope: x_rope,
+        kw.plan_name: x_plan_name,
+        kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.reason_state: x_reason_state,
         kw.reason_lower: x_reason_lower,
@@ -281,14 +281,14 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfcase_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plncase_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_plan_reason_caseunit_job"
+        table_name = "plan_keg_reason_caseunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         # print(expected_sqlstr)
         print("")
@@ -296,10 +296,10 @@ def test_create_blfcase_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_plan_awardunit")
+    x_args = get_plan_calc_dimen_args("plan_keg_awardunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -323,7 +323,7 @@ def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_rope = 1
     x_awardee_title = 2
     x_give_force = 3
@@ -332,8 +332,8 @@ def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
     x_fund_take = 6
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.plan_rope: x_rope,
+        kw.plan_name: x_plan_name,
+        kw.keg_rope: x_rope,
         kw.awardee_title: x_awardee_title,
         kw.give_force: x_give_force,
         kw.take_force: x_take_force,
@@ -344,14 +344,14 @@ def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfawar_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnawar_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_plan_awardunit_job"
+        table_name = "plan_keg_awardunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -359,10 +359,10 @@ def test_create_blfawar_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_plan_factunit")
+    x_args = get_plan_calc_dimen_args("plan_keg_factunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -386,7 +386,7 @@ def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_rope = 1
     x_fact_context = 2
     x_fact_state = 3
@@ -394,8 +394,8 @@ def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
     x_fact_upper = 5
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.plan_rope: x_rope,
+        kw.plan_name: x_plan_name,
+        kw.keg_rope: x_rope,
         kw.fact_context: x_fact_context,
         kw.fact_state: x_fact_state,
         kw.fact_lower: x_fact_lower,
@@ -405,14 +405,14 @@ def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blffact_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnfact_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_plan_factunit_job"
+        table_name = "plan_keg_factunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -420,10 +420,10 @@ def test_create_blffact_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnheal_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_plan_healerunit")
+    x_args = get_plan_calc_dimen_args("plan_keg_healerunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -447,27 +447,27 @@ def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_rope = 1
     x_healer_name = 2
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.plan_rope: x_rope,
+        kw.plan_name: x_plan_name,
+        kw.keg_rope: x_rope,
         kw.healer_name: x_healer_name,
     }
     # all args included in values dict
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfheal_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnheal_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_plan_healerunit_job"
+        table_name = "plan_keg_healerunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -475,10 +475,10 @@ def test_create_blfheal_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnlabo_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_plan_partyunit")
+    x_args = get_plan_calc_dimen_args("plan_keg_partyunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -502,31 +502,31 @@ def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_rope = 1
     x_party_title = 2
     x_solo = 4
-    x__belief_name_is_labor = 3
+    x__plan_name_is_labor = 3
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.plan_rope: x_rope,
+        kw.plan_name: x_plan_name,
+        kw.keg_rope: x_rope,
         kw.party_title: x_party_title,
         kw.solo: x_solo,
-        kw.belief_name_is_labor: x__belief_name_is_labor,
+        kw.plan_name_is_labor: x__plan_name_is_labor,
     }
     # all args included in values dict
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blflabo_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnlabo_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_plan_partyunit_job"
+        table_name = "plan_keg_partyunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -535,10 +535,10 @@ def test_create_blflabo_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnprsn_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_voiceunit")
+    x_args = get_plan_calc_dimen_args("plan_personunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -562,10 +562,10 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
-    x_voice_name = 1
-    x_voice_cred_lumen = 2
-    x_voice_debt_lumen = 3
+    x_plan_name = "Sue"
+    x_person_name = 1
+    x_person_cred_lumen = 2
+    x_person_debt_lumen = 3
     x_credor_pool = 4
     x_debtor_pool = 5
     x_fund_give = 6
@@ -574,15 +574,15 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
     x_fund_agenda_take = 9
     x_fund_agenda_ratio_give = 10
     x_fund_agenda_ratio_take = 11
-    x_inallocable_voice_debt_lumen = 12
-    x_irrational_voice_debt_lumen = 13
+    x_inallocable_person_debt_lumen = 12
+    x_irrational_person_debt_lumen = 13
     x_groupmark = 13
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.voice_name: x_voice_name,
-        kw.voice_cred_lumen: x_voice_cred_lumen,
-        kw.voice_debt_lumen: x_voice_debt_lumen,
+        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
+        kw.person_cred_lumen: x_person_cred_lumen,
+        kw.person_debt_lumen: x_person_debt_lumen,
         kw.credor_pool: x_credor_pool,
         kw.debtor_pool: x_debtor_pool,
         kw.fund_give: x_fund_give,
@@ -591,22 +591,22 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
         kw.fund_agenda_take: x_fund_agenda_take,
         kw.fund_agenda_ratio_give: x_fund_agenda_ratio_give,
         kw.fund_agenda_ratio_take: x_fund_agenda_ratio_take,
-        kw.inallocable_voice_debt_lumen: x_inallocable_voice_debt_lumen,
-        kw.irrational_voice_debt_lumen: x_irrational_voice_debt_lumen,
+        kw.inallocable_person_debt_lumen: x_inallocable_person_debt_lumen,
+        kw.irrational_person_debt_lumen: x_irrational_person_debt_lumen,
         kw.groupmark: x_groupmark,
     }
     # all args included in values dict
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfvoce_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnprsn_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_voiceunit_job"
+        table_name = "plan_personunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -614,10 +614,10 @@ def test_create_blfvoce_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_voice_membership")
+    x_args = get_plan_calc_dimen_args("plan_person_membership")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -641,8 +641,8 @@ def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
-    x_voice_name = 1
+    x_plan_name = "Sue"
+    x_person_name = 1
     x_group_title = 2
     x_group_cred_lumen = 3
     x_group_debt_lumen = 4
@@ -656,8 +656,8 @@ def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
     x_fund_agenda_ratio_take = 12
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
-        kw.voice_name: x_voice_name,
+        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.group_title: x_group_title,
         kw.group_cred_lumen: x_group_cred_lumen,
         kw.group_debt_lumen: x_group_debt_lumen,
@@ -674,14 +674,14 @@ def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfmemb_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plnmemb_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_voice_membership_job"
+        table_name = "plan_person_membership_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -689,10 +689,10 @@ def test_create_blfmemb_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
+def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_belief_calc_dimen_args("belief_groupunit")
+    x_args = get_plan_calc_dimen_args("plan_groupunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -716,7 +716,7 @@ def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_label = exx.a23
-    x_belief_name = "Sue"
+    x_plan_name = "Sue"
     x_group_title = 1
     x_credor_pool = 2
     x_debtor_pool = 3
@@ -727,7 +727,7 @@ def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
     x_fund_agenda_take = 8
     values_dict = {
         kw.moment_label: x_moment_label,
-        kw.belief_name: x_belief_name,
+        kw.plan_name: x_plan_name,
         kw.group_title: x_group_title,
         kw.credor_pool: x_credor_pool,
         kw.debtor_pool: x_debtor_pool,
@@ -741,14 +741,14 @@ def test_create_blfgrou_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_blfgrou_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_plngrou_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "belief_groupunit_job"
+        table_name = "plan_groupunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)

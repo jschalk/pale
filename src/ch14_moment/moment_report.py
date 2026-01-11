@@ -1,42 +1,42 @@
 from pandas import DataFrame, concat as pandas_concat
 from plotly.graph_objects import Figure as plotly_Figure, Table as plotly_Table
-from src.ch07_belief_logic.belief_report import (
-    get_belief_agenda_dataframe,
-    get_belief_voiceunits_dataframe,
+from src.ch07_plan_logic.plan_report import (
+    get_plan_agenda_dataframe,
+    get_plan_personunits_dataframe,
 )
-from src.ch09_belief_lesson.lesson_filehandler import open_gut_file
-from src.ch10_belief_listen.keep_tool import open_job_file
+from src.ch09_plan_lesson.lesson_filehandler import open_gut_file
+from src.ch10_plan_listen.keep_tool import open_job_file
 from src.ch14_moment.moment_main import MomentUnit
 
 
-def get_moment_guts_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all belief paths
-    moment_belief_names = x_moment._get_belief_dir_names()
-    # for all beliefs get gut
+def get_moment_guts_persons_dataframe(x_moment: MomentUnit) -> DataFrame:
+    # get list of all plan paths
+    moment_plan_names = x_moment._get_plan_dir_names()
+    # for all plans get gut
     gut_dfs = []
-    for belief_name in moment_belief_names:
-        gut_belief = open_gut_file(
-            x_moment.moment_mstr_dir, x_moment.moment_label, belief_name
+    for plan_name in moment_plan_names:
+        gut_plan = open_gut_file(
+            x_moment.moment_mstr_dir, x_moment.moment_label, plan_name
         )
-        gut_belief.cashout()
-        df = get_belief_voiceunits_dataframe(gut_belief)
-        df.insert(0, "belief_name", gut_belief.belief_name)
+        gut_plan.cashout()
+        df = get_plan_personunits_dataframe(gut_plan)
+        df.insert(0, "plan_name", gut_plan.plan_name)
         gut_dfs.append(df)
     return pandas_concat(gut_dfs, ignore_index=True)
 
 
-def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
+def get_moment_guts_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "belief_name",
-        "voice_name",
-        "voice_cred_lumen",
-        "voice_debt_lumen",
+        "plan_name",
+        "person_name",
+        "person_cred_lumen",
+        "person_debt_lumen",
         "fund_give",
         "fund_take",
         "fund_agenda_give",
         "fund_agenda_take",
     ]
-    df = get_moment_guts_voices_dataframe(x_moment)
+    df = get_moment_guts_persons_dataframe(x_moment)
     header_dict = dict(
         values=column_header_list, fill_color="paleturquoise", align="left"
     )
@@ -44,10 +44,10 @@ def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.belief_name,
-                df.voice_name,
-                df.voice_cred_lumen,
-                df.voice_debt_lumen,
+                df.plan_name,
+                df.person_name,
+                df.person_cred_lumen,
+                df.person_debt_lumen,
                 df.fund_give,
                 df.fund_take,
                 df.fund_agenda_give,
@@ -59,7 +59,7 @@ def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', gut voices metrics"
+    fig_label = f"moment '{x_moment.moment_label}', gut persons metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -67,34 +67,32 @@ def get_moment_guts_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     return fig
 
 
-def get_moment_jobs_voices_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all belief paths
-    moment_belief_names = x_moment._get_belief_dir_names()
-    # for all beliefs get gut
+def get_moment_jobs_persons_dataframe(x_moment: MomentUnit) -> DataFrame:
+    # get list of all plan paths
+    moment_plan_names = x_moment._get_plan_dir_names()
+    # for all plans get gut
     job_dfs = []
-    for belief_name in moment_belief_names:
-        job = open_job_file(
-            x_moment.moment_mstr_dir, x_moment.moment_label, belief_name
-        )
+    for plan_name in moment_plan_names:
+        job = open_job_file(x_moment.moment_mstr_dir, x_moment.moment_label, plan_name)
         job.cashout()
-        job_df = get_belief_voiceunits_dataframe(job)
-        job_df.insert(0, "belief_name", job.belief_name)
+        job_df = get_plan_personunits_dataframe(job)
+        job_df.insert(0, "plan_name", job.plan_name)
         job_dfs.append(job_df)
     return pandas_concat(job_dfs, ignore_index=True)
 
 
-def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
+def get_moment_jobs_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "belief_name",
-        "voice_name",
-        "voice_cred_lumen",
-        "voice_debt_lumen",
+        "plan_name",
+        "person_name",
+        "person_cred_lumen",
+        "person_debt_lumen",
         "fund_give",
         "fund_take",
         "fund_agenda_give",
         "fund_agenda_take",
     ]
-    df = get_moment_jobs_voices_dataframe(x_moment)
+    df = get_moment_jobs_persons_dataframe(x_moment)
     header_dict = dict(
         values=column_header_list, fill_color="paleturquoise", align="left"
     )
@@ -102,10 +100,10 @@ def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.belief_name,
-                df.voice_name,
-                df.voice_cred_lumen,
-                df.voice_debt_lumen,
+                df.plan_name,
+                df.person_name,
+                df.person_cred_lumen,
+                df.person_debt_lumen,
                 df.fund_give,
                 df.fund_take,
                 df.fund_agenda_give,
@@ -117,7 +115,7 @@ def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', job voices metrics"
+    fig_label = f"moment '{x_moment.moment_label}', job persons metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -125,25 +123,25 @@ def get_moment_jobs_voices_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 
 
 def get_moment_guts_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all belief paths
-    moment_belief_names = x_moment._get_belief_dir_names()
-    # for all beliefs get gut
+    # get list of all plan paths
+    moment_plan_names = x_moment._get_plan_dir_names()
+    # for all plans get gut
     gut_dfs = []
-    for belief_name in moment_belief_names:
-        gut_belief = open_gut_file(
-            x_moment.moment_mstr_dir, x_moment.moment_label, belief_name
+    for plan_name in moment_plan_names:
+        gut_plan = open_gut_file(
+            x_moment.moment_mstr_dir, x_moment.moment_label, plan_name
         )
-        gut_belief.cashout()
-        df = get_belief_agenda_dataframe(gut_belief)
+        gut_plan.cashout()
+        df = get_plan_agenda_dataframe(gut_plan)
         gut_dfs.append(df)
     return pandas_concat(gut_dfs, ignore_index=True)
 
 
 def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "belief_name",
+        "plan_name",
         "fund_ratio",
-        "plan_label",
+        "keg_label",
         "parent_rope",
         "begin",
         "close",
@@ -160,9 +158,9 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.belief_name,
+                df.plan_name,
                 df.fund_ratio,
-                df.plan_label,
+                df.keg_label,
                 df.parent_rope,
                 df.begin,
                 df.close,
@@ -185,24 +183,24 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 
 
 def get_moment_jobs_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all belief paths
+    # get list of all plan paths
     job_dfs = []
-    for x_belief_name in x_moment._get_belief_dir_names():
+    for x_plan_name in x_moment._get_plan_dir_names():
 
         job = open_job_file(
-            x_moment.moment_mstr_dir, x_moment.moment_label, x_belief_name
+            x_moment.moment_mstr_dir, x_moment.moment_label, x_plan_name
         )
         job.cashout()
-        job_df = get_belief_agenda_dataframe(job)
+        job_df = get_plan_agenda_dataframe(job)
         job_dfs.append(job_df)
     return pandas_concat(job_dfs, ignore_index=True)
 
 
 def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "belief_name",
+        "plan_name",
         "fund_ratio",
-        "plan_label",
+        "keg_label",
         "parent_rope",
         "begin",
         "close",
@@ -219,9 +217,9 @@ def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.belief_name,
+                df.plan_name,
                 df.fund_ratio,
-                df.plan_label,
+                df.keg_label,
                 df.parent_rope,
                 df.begin,
                 df.close,

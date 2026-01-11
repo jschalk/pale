@@ -312,11 +312,11 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario0_WhenFactUnitIsNull():
     after_str = "afternoon"
     after_rope = create_rope(wk_rope, after_str)
     x_caseunit = caseunit_shop(after_rope)
-    belief_fact_2 = None
+    plan_fact_2 = None
     assert x_caseunit.case_active is None
 
     # WHEN
-    x_caseunit.set_case_active(x_factheir=belief_fact_2)
+    x_caseunit.set_case_active(x_factheir=plan_fact_2)
 
     # THEN
     assert x_caseunit.case_active is False
@@ -327,11 +327,11 @@ def test_CaseUnit_set_case_active_SetsAttr_Scenario1_case_active_OfSimple():
     wk_rope = create_rope(exx.a23, exx.wk)
     wed_rope = create_rope(wk_rope, exx.wed)
     wed_case = caseunit_shop(wed_rope)
-    belief_fact = factheir_shop(wk_rope, wed_rope)
+    plan_fact = factheir_shop(wk_rope, wed_rope)
     assert wed_case.case_active is None
 
     # WHEN
-    wed_case.set_case_active(x_factheir=belief_fact)
+    wed_case.set_case_active(x_factheir=plan_fact)
 
     # THEN
     assert wed_case.case_active
@@ -602,8 +602,8 @@ def test_CaseUnit_set_case_active_SetAttrs_Scenario03():
     assert hr24_case.case_active is None
 
     # WHEN
-    belief_fact = factheir_shop(hr24_rope, hr24_rope, fact_lower=8, fact_upper=10)
-    hr24_case.set_case_active(x_factheir=belief_fact)
+    plan_fact = factheir_shop(hr24_rope, hr24_rope, fact_lower=8, fact_upper=10)
+    hr24_case.set_case_active(x_factheir=plan_fact)
 
     # THEN
     assert hr24_case.case_active is False
@@ -637,11 +637,11 @@ def test_CaseUnit_set_case_active_SetAttrs_Scenario5_CEDWeek_case_active_True():
     wk_case = caseunit_shop(
         reason_state=wk_rope, reason_divisor=6, reason_lower=1, reason_upper=1
     )
-    belief_fact = factheir_shop(wk_rope, wk_rope, fact_lower=7, fact_upper=7)
+    plan_fact = factheir_shop(wk_rope, wk_rope, fact_lower=7, fact_upper=7)
     assert wk_case.case_active is None
 
     # WHEN
-    wk_case.set_case_active(x_factheir=belief_fact)
+    wk_case.set_case_active(x_factheir=plan_fact)
 
     # THEN
     assert wk_case.case_active

@@ -1,5 +1,5 @@
 from sqlite3 import Cursor as sqlite3_Cursor
-from src.ch01_py.dict_toolbox import set_in_nested_dict
+from src.ch00_py.dict_toolbox import set_in_nested_dict
 from src.ch11_bud.bud_main import MomentLabel
 from src.ch18_world_etl.etl_sqlstr import get_moment_heard_select1_sqlstrs
 
@@ -75,34 +75,34 @@ def _set_moment_dict_mmtpayy(
     tranunits_dict = {}
     for mmtpayy_row in cursor.fetchall():
         row_moment_label = mmtpayy_row[0]
-        row_belief_name = mmtpayy_row[1]
-        row_voice_name = mmtpayy_row[2]
+        row_plan_name = mmtpayy_row[1]
+        row_person_name = mmtpayy_row[2]
         row_tran_time = mmtpayy_row[3]
         row_amount = mmtpayy_row[4]
-        keylist = [row_belief_name, row_voice_name, row_tran_time]
+        keylist = [row_plan_name, row_person_name, row_tran_time]
         set_in_nested_dict(tranunits_dict, keylist, row_amount)
     paybook_dict = {"moment_label": x_moment_label, "tranunits": tranunits_dict}
     moment_dict["paybook"] = paybook_dict
 
 
 def _set_moment_dict_momentbud(cursor: sqlite3_Cursor, moment_dict: dict):
-    beliefbudhistorys_dict = {}
+    planbudhistorys_dict = {}
     for mmtpayy_row in cursor.fetchall():
         row_moment_label = mmtpayy_row[0]
-        row_belief_name = mmtpayy_row[1]
+        row_plan_name = mmtpayy_row[1]
         row_bud_time = mmtpayy_row[2]
         row_quota = mmtpayy_row[3]
         row_celldepth = mmtpayy_row[4]
-        belief_keylist = [row_belief_name, "belief_name"]
-        set_in_nested_dict(beliefbudhistorys_dict, belief_keylist, row_belief_name)
-        keylist = [row_belief_name, "buds", row_bud_time]
+        plan_keylist = [row_plan_name, "plan_name"]
+        set_in_nested_dict(planbudhistorys_dict, plan_keylist, row_plan_name)
+        keylist = [row_plan_name, "buds", row_bud_time]
         bud_epochtime_dict = {
             "bud_time": row_bud_time,
             "quota": row_quota,
             "celldepth": row_celldepth,
         }
-        set_in_nested_dict(beliefbudhistorys_dict, keylist, bud_epochtime_dict)
-    moment_dict["beliefbudhistorys"] = beliefbudhistorys_dict
+        set_in_nested_dict(planbudhistorys_dict, keylist, bud_epochtime_dict)
+    moment_dict["planbudhistorys"] = planbudhistorys_dict
 
 
 def _set_moment_dict_mmthour(cursor: sqlite3_Cursor, moment_dict: dict):

@@ -1,13 +1,13 @@
-from src.ch01_py.plotly_toolbox import conditional_fig_show
+from src.ch00_py.plotly_toolbox import conditional_fig_show
 from src.ch14_moment.moment_report import (
     get_moment_guts_agenda_dataframe,
     get_moment_guts_agenda_plotly_fig,
-    get_moment_guts_voices_dataframe,
-    get_moment_guts_voices_plotly_fig,
+    get_moment_guts_persons_dataframe,
+    get_moment_guts_persons_plotly_fig,
     get_moment_jobs_agenda_dataframe,
     get_moment_jobs_agenda_plotly_fig,
-    get_moment_jobs_voices_dataframe,
-    get_moment_jobs_voices_plotly_fig,
+    get_moment_jobs_persons_dataframe,
+    get_moment_jobs_persons_plotly_fig,
 )
 from src.ch14_moment.test._util.ch14_env import temp_dir_setup
 from src.ch14_moment.test._util.ch14_examples import (
@@ -18,19 +18,19 @@ from src.ch14_moment.test._util.ch14_examples import (
 from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
 
 
-def test_get_moment_guts_voices_dataframe_ReturnsObj(temp_dir_setup, graphics_bool):
+def test_get_moment_guts_persons_dataframe_ReturnsObj(temp_dir_setup, graphics_bool):
     # ESTABLISH
     amy_moment = create_example_moment2()
 
     # WHEN
-    x_df = get_moment_guts_voices_dataframe(amy_moment)
+    x_df = get_moment_guts_persons_dataframe(amy_moment)
 
     # THEN
-    voiceunit_colums = {
-        kw.belief_name,
-        kw.voice_name,
-        kw.voice_cred_lumen,
-        kw.voice_debt_lumen,
+    personunit_colums = {
+        kw.plan_name,
+        kw.person_name,
+        kw.person_cred_lumen,
+        kw.person_debt_lumen,
         kw.memberships,
         kw.fund_give,
         kw.fund_take,
@@ -42,35 +42,35 @@ def test_get_moment_guts_voices_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
     print(f"{set(x_df.columns)=}")
     print(x_df)
 
-    assert set(x_df.columns) == voiceunit_colums
+    assert set(x_df.columns) == personunit_colums
     assert x_df.shape[0] == 8
 
 
-def test_get_moment_guts_voices_plotly_fig_DisplaysInfo(temp_dir_setup, graphics_bool):
+def test_get_moment_guts_persons_plotly_fig_DisplaysInfo(temp_dir_setup, graphics_bool):
     # ESTABLISH
     amy_moment = create_example_moment2()
 
     # WHEN
-    x_fig = get_moment_guts_voices_plotly_fig(amy_moment)
+    x_fig = get_moment_guts_persons_plotly_fig(amy_moment)
 
     # THEN
     conditional_fig_show(x_fig, graphics_bool)
 
 
-def test_get_moment_jobs_voices_dataframe_ReturnsObj(temp_dir_setup, graphics_bool):
+def test_get_moment_jobs_persons_dataframe_ReturnsObj(temp_dir_setup, graphics_bool):
     # ESTABLISH
     amy_moment = create_example_moment2()
     amy_moment.generate_all_jobs()
 
     # WHEN
-    x_df = get_moment_jobs_voices_dataframe(amy_moment)
+    x_df = get_moment_jobs_persons_dataframe(amy_moment)
 
     # THEN
-    voiceunit_colums = {
-        kw.belief_name,
-        kw.voice_name,
-        kw.voice_cred_lumen,
-        kw.voice_debt_lumen,
+    personunit_colums = {
+        kw.plan_name,
+        kw.person_name,
+        kw.person_cred_lumen,
+        kw.person_debt_lumen,
         kw.memberships,
         kw.fund_give,
         kw.fund_take,
@@ -78,22 +78,22 @@ def test_get_moment_jobs_voices_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
         kw.fund_agenda_take,
         kw.fund_agenda_ratio_give,
         kw.fund_agenda_ratio_take,
-        kw.inallocable_voice_debt_lumen,
+        kw.inallocable_person_debt_lumen,
     }
     print(f"{set(x_df.columns)=}")
     print(x_df)
 
     assert x_df.shape[0] == 8
-    assert set(x_df.columns) == voiceunit_colums
+    assert set(x_df.columns) == personunit_colums
 
 
-def test_get_moment_jobs_voices_plotly_fig_DisplaysInfo(temp_dir_setup, graphics_bool):
+def test_get_moment_jobs_persons_plotly_fig_DisplaysInfo(temp_dir_setup, graphics_bool):
     # ESTABLISH
     amy_moment = create_example_moment2()
     amy_moment.generate_all_jobs()
 
     # WHEN
-    x_fig = get_moment_jobs_voices_plotly_fig(amy_moment)
+    x_fig = get_moment_jobs_persons_plotly_fig(amy_moment)
 
     # THEN
     conditional_fig_show(x_fig, graphics_bool)
@@ -108,9 +108,9 @@ def test_get_moment_guts_agenda_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
 
     # THEN
     agenda_colums = {
-        kw.belief_name,
+        kw.plan_name,
         kw.fund_ratio,
-        kw.plan_label,
+        kw.keg_label,
         kw.parent_rope,
         kw.begin,
         kw.close,
@@ -147,9 +147,9 @@ def test_get_moment_jobs_agenda_dataframe_ReturnsObj(temp_dir_setup):
 
     # THEN
     agenda_colums = {
-        kw.belief_name,
+        kw.plan_name,
         kw.fund_ratio,
-        kw.plan_label,
+        kw.keg_label,
         kw.parent_rope,
         kw.begin,
         kw.close,

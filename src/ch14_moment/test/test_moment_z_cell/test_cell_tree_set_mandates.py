@@ -1,8 +1,8 @@
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import open_json
+from src.ch00_py.file_toolbox import open_json
 from src.ch11_bud._ref.ch11_path import (
     create_cell_dir_path as cell_dir,
-    create_cell_voice_mandate_ledger_path as mandate_path,
+    create_cell_person_mandate_ledger_path as mandate_path,
 )
 from src.ch11_bud.bud_filehandler import cellunit_save_to_dir
 from src.ch11_bud.cell_main import cellunit_shop
@@ -40,7 +40,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
     assert open_json(bob_bob_mandate_path) == {exx.bob: 1000}
 
 
-# def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario1_Depth0AndOne_beliefspark_fact(
+# def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario1_Depth0AndOne_planspark_fact(
 #     temp_dir_setup,
 # ):
 #     # ESTABLISH
@@ -50,12 +50,12 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     exx.bob = "Bob"
 #     das = []
 #     spark7 = 7
-#     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
+#     bob_planadjust = get_bob_mop_with_reason_planunit_example()
 #     # create cell file
 #     clean_fact = example_casa_clean_factunit()
 #     clean_facts = {clean_fact.fact_context: clean_fact}
 #     bob_cell = cellunit_shop(
-#         exx.bob, [], spark7, 0, beliefadjust=bob_beliefadjust, beliefspark_facts=clean_facts
+#         exx.bob, [], spark7, 0, planadjust=bob_planadjust, planspark_facts=clean_facts
 #     )
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
@@ -78,7 +78,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     exx.bob = "Bob"
 #     das = []
 #     spark7 = 7
-#     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
+#     bob_planadjust = get_bob_mop_with_reason_planunit_example()
 #     # create cell file
 #     clean_fact = example_casa_clean_factunit()
 #     clean_facts = {clean_fact.fact_context: clean_fact}
@@ -87,7 +87,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         [],
 #         spark7,
 #         celldepth=0,
-#         beliefadjust=bob_beliefadjust,
+#         planadjust=bob_planadjust,
 #         found_facts=clean_facts,
 #     )
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
@@ -113,15 +113,15 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_ancs = []
 #     bob_sue_ancs = [exx.sue]
 #     e7 = 7
-#     bob_beliefadjust = get_bob_mop_without_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     bob_sue_beliefadjust = beliefunit_shop(exx.sue, exx.a23)
+#     bob_planadjust = get_bob_mop_without_reason_planunit_example()
+#     bob_planadjust.add_personunit(exx.sue, 1)
+#     bob_sue_planadjust = planunit_shop(exx.sue, exx.a23)
 #     # create cell file
 #     bob_cell = cellunit_shop(
-#         exx.bob, bob_ancs, spark_num=e7, celldepth=2, beliefadjust=bob_beliefadjust
+#         exx.bob, bob_ancs, spark_num=e7, celldepth=2, planadjust=bob_planadjust
 #     )
 #     bob_sue_cell = cellunit_shop(
-#         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
+#         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, planadjust=bob_sue_planadjust
 #     )
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
 #     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
@@ -150,10 +150,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_ancs = []
 #     bob_sue_ancs = [exx.sue]
 #     e7 = 7
-#     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     bob_sue_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_sue_beliefadjust.set_belief_name(exx.sue)
+#     bob_planadjust = get_bob_mop_with_reason_planunit_example()
+#     bob_planadjust.add_personunit(exx.sue, 1)
+#     bob_sue_planadjust = get_bob_mop_with_reason_planunit_example()
+#     bob_sue_planadjust.set_plan_name(exx.sue)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
@@ -162,11 +162,11 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=2,
-#         beliefadjust=bob_beliefadjust,
-#         beliefspark_facts=dirty_facts,
+#         planadjust=bob_planadjust,
+#         planspark_facts=dirty_facts,
 #     )
 #     bob_sue_cell = cellunit_shop(
-#         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, beliefadjust=bob_sue_beliefadjust
+#         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, planadjust=bob_sue_planadjust
 #     )
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
 #     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
@@ -199,16 +199,16 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bs_yao_ancs = [exx.sue, exx.yao]
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
-#     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     b_sue_ba = get_bob_mop_with_reason_beliefunit_example()
-#     b_sue_ba.set_belief_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
-#     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
-#     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(exx.zia)
+#     bob_planadjust = get_bob_mop_with_reason_planunit_example()
+#     bob_planadjust.add_personunit(exx.sue, 1)
+#     b_sue_ba = get_bob_mop_with_reason_planunit_example()
+#     b_sue_ba.set_plan_name(exx.sue)
+#     b_sue_ba.add_personunit(exx.yao, 1)
+#     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
+#     bs_yao_ba.set_plan_name(exx.yao)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
+#     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
+#     bsy_zia_ba.set_plan_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
@@ -217,12 +217,12 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=4,
-#         beliefadjust=bob_beliefadjust,
-#         beliefspark_facts=dirty_facts,
+#         planadjust=bob_planadjust,
+#         planspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
-#     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
+#     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
 #     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
 #     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
@@ -262,16 +262,16 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bs_yao_ancs = [exx.sue, exx.yao]
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
-#     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     b_sue_ba = get_bob_mop_with_reason_beliefunit_example()
-#     b_sue_ba.set_belief_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
-#     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
-#     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(exx.zia)
+#     bob_planadjust = get_bob_mop_with_reason_planunit_example()
+#     bob_planadjust.add_personunit(exx.sue, 1)
+#     b_sue_ba = get_bob_mop_with_reason_planunit_example()
+#     b_sue_ba.set_plan_name(exx.sue)
+#     b_sue_ba.add_personunit(exx.yao, 1)
+#     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
+#     bs_yao_ba.set_plan_name(exx.yao)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
+#     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
+#     bsy_zia_ba.set_plan_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
@@ -280,12 +280,12 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=2,
-#         beliefadjust=bob_beliefadjust,
-#         beliefspark_facts=dirty_facts,
+#         planadjust=bob_planadjust,
+#         planspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
-#     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
+#     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
 #     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
 #     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
@@ -325,18 +325,18 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bs_yao_ancs = [exx.sue, exx.yao]
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
-#     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     b_sue_ba = beliefunit_shop(exx.sue, exx.a23)
-#     b_sue_ba.set_belief_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
-#     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
+#     bob_planadjust = get_bob_mop_with_reason_planunit_example()
+#     bob_planadjust.add_personunit(exx.sue, 1)
+#     b_sue_ba = planunit_shop(exx.sue, exx.a23)
+#     b_sue_ba.set_plan_name(exx.sue)
+#     b_sue_ba.add_personunit(exx.yao, 1)
+#     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
+#     bs_yao_ba.set_plan_name(exx.yao)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
 #     clean_fact = example_casa_clean_factunit()
 #     bs_yao_ba.add_fact(clean_fact.fact_context, clean_fact.fact_state)
-#     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(exx.zia)
+#     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
+#     bsy_zia_ba.set_plan_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
@@ -345,13 +345,13 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=3,
-#         beliefadjust=bob_beliefadjust,
-#         beliefspark_facts=dirty_facts,
+#         planadjust=bob_planadjust,
+#         planspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
 #     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0)
-#     bs_yao_cell.eval_beliefspark(bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     bs_yao_cell.eval_planspark(bs_yao_ba)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
 #     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
 #     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
@@ -376,7 +376,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == clean_facts
 
 
-# def test_set_cell_tree_cell_mandates_SetsChildCells_Scenario7_NoCell_GetBeliefSpark(
+# def test_set_cell_tree_cell_mandates_SetsChildCells_Scenario7_NoCell_GetPlanSpark(
 #     temp_dir_setup,
 # ):
 #     # ESTABLISH
@@ -392,16 +392,16 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bs_yao_ancs = [exx.sue, exx.yao]
 #     bsy_zia_ancs = [exx.sue, exx.yao, exx.zia]
 #     e7 = 7
-#     bob_beliefadjust = get_bob_mop_with_reason_beliefunit_example()
-#     bob_beliefadjust.add_voiceunit(exx.sue, 1)
-#     b_sue_ba = get_bob_mop_with_reason_beliefunit_example()
-#     b_sue_ba.set_belief_name(exx.sue)
-#     b_sue_ba.add_voiceunit(exx.yao, 1)
-#     bs_yao_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bs_yao_ba.set_belief_name(exx.yao)
-#     bs_yao_ba.add_voiceunit(exx.zia, 1)
-#     bsy_zia_ba = get_bob_mop_with_reason_beliefunit_example()
-#     bsy_zia_ba.set_belief_name(exx.zia)
+#     bob_planadjust = get_bob_mop_with_reason_planunit_example()
+#     bob_planadjust.add_personunit(exx.sue, 1)
+#     b_sue_ba = get_bob_mop_with_reason_planunit_example()
+#     b_sue_ba.set_plan_name(exx.sue)
+#     b_sue_ba.add_personunit(exx.yao, 1)
+#     bs_yao_ba = get_bob_mop_with_reason_planunit_example()
+#     bs_yao_ba.set_plan_name(exx.yao)
+#     bs_yao_ba.add_personunit(exx.zia, 1)
+#     bsy_zia_ba = get_bob_mop_with_reason_planunit_example()
+#     bsy_zia_ba.set_plan_name(exx.zia)
 #     # create cell file
 #     dirty_fact = example_casa_dirty_factunit()
 #     dirty_facts = {dirty_fact.fact_context: dirty_fact}
@@ -410,20 +410,20 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         bob_ancs,
 #         spark_num=e7,
 #         celldepth=4,
-#         beliefadjust=bob_beliefadjust,
-#         beliefspark_facts=dirty_facts,
+#         planadjust=bob_planadjust,
+#         planspark_facts=dirty_facts,
 #     )
-#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, beliefadjust=b_sue_ba)
-#     # bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, beliefadjust=bs_yao_ba)
-#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, beliefadjust=bsy_zia_ba)
+#     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
+#     # bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
+#     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
 #     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
 #     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
 #     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
 #     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
-#     beliefspark_path = create_beliefspark_path(mstr_dir, exx.a23, exx.yao, e7)
-#     save_belief_file(beliefspark_path, None, bs_yao_ba)
+#     planspark_path = create_planspark_path(mstr_dir, exx.a23, exx.yao, e7)
+#     save_plan_file(planspark_path, None, bs_yao_ba)
 #     # cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
 #     cellunit_save_to_dir(bob_sue_yao_zia_dir, bsy_zia_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}

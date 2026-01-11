@@ -1,6 +1,6 @@
 {
-  "chapter_blurb": "Defines BeliefBudHistory: BeliefName, BudUnits (EpochTime, quota, celldepth)", 
-  "chapter_content": "Defines a budget and the tools necessary to create one. Budgets are created when a beliefunit is empowered with funds that must be distributed", 
+  "chapter_blurb": "Defines PlanBudHistory: PlanName, BudUnits (EpochTime, quota, celldepth)", 
+  "chapter_content": "Defines a budget and the tools necessary to create one. Budgets are created when a planunit is empowered with funds that must be distributed", 
   "chapter_description": "ch11_bud", 
   "chapter_number": 11
 }

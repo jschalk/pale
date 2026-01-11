@@ -1,4 +1,4 @@
-from src.ch01_py.file_toolbox import create_path
+from src.ch00_py.file_toolbox import create_path
 from src.ch17_idea.test._util.ch17_env import (
     get_temp_dir,
     idea_moments_dir,
@@ -7,12 +7,15 @@ from src.ch17_idea.test._util.ch17_env import (
 
 
 def test_get_temp_dir_ReturnsObj():
-    # ESTABLISH / WHEN / THEN
-    assert get_temp_dir() == f"{src_chapter_dir()}/test/_util/idea_examples"
+    # ESTABLISH
+    test_dir = create_path(src_chapter_dir(), "test")
+    util_dir = create_path(test_dir, "_util")
+
+    # WHEN / THEN
+    assert get_temp_dir() == create_path(util_dir, "idea_examples")
 
 
 def test_idea_moments_dir_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     moment_mstr_dir = create_path(get_temp_dir(), "moment_mstr")
-    # assert idea_moments_dir() == create_path(moment_mstr_dir, "moments")
-    assert idea_moments_dir() == f"{get_temp_dir()}/moment_mstr/moments"
+    assert idea_moments_dir() == create_path(moment_mstr_dir, "moments")

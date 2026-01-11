@@ -1,4 +1,4 @@
-from src.ch01_py.file_toolbox import get_dir_file_strs
+from src.ch00_py.file_toolbox import create_path, get_dir_file_strs
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
     get_idea_elements_sort_order,
@@ -6,10 +6,10 @@ from src.ch17_idea.idea_config import (
     get_idea_format_headers,
     get_idea_formats_dir,
     get_idearef_from_file,
-    idea_format_00013_planunit_v0_0_0,
-    idea_format_00019_planunit_v0_0_0,
-    idea_format_00020_belief_voice_membership_v0_0_0,
-    idea_format_00021_belief_voiceunit_v0_0_0,
+    idea_format_00013_kegunit_v0_0_0,
+    idea_format_00019_kegunit_v0_0_0,
+    idea_format_00020_plan_person_membership_v0_0_0,
+    idea_format_00021_plan_personunit_v0_0_0,
 )
 from src.ch17_idea.idea_main import (
     _generate_idea_dataframe,
@@ -22,12 +22,12 @@ from src.ref.keywords import Ch17Keywords as kw
 
 def test_config_str_functions_ReturnsObj():
     # ESTABLISH / WHEN / THEN
-    x00021_idea = "idea_format_00021_belief_voiceunit_v0_0_0"
-    assert idea_format_00021_belief_voiceunit_v0_0_0() == x00021_idea
-    x00020_idea = "idea_format_00020_belief_voice_membership_v0_0_0"
-    assert idea_format_00020_belief_voice_membership_v0_0_0() == x00020_idea
-    x0003_idea = "idea_format_00013_planunit_v0_0_0"
-    assert idea_format_00013_planunit_v0_0_0() == x0003_idea
+    x00021_idea = "idea_format_00021_plan_personunit_v0_0_0"
+    assert idea_format_00021_plan_personunit_v0_0_0() == x00021_idea
+    x00020_idea = "idea_format_00020_plan_person_membership_v0_0_0"
+    assert idea_format_00020_plan_person_membership_v0_0_0() == x00020_idea
+    x0003_idea = "idea_format_00013_kegunit_v0_0_0"
+    assert idea_format_00013_kegunit_v0_0_0() == x0003_idea
 
 
 def test_get_idea_formats_dir_ReturnsObj():
@@ -36,13 +36,12 @@ def test_get_idea_formats_dir_ReturnsObj():
     # THEN
     print(f"{idea_dir=}")
     print(f"{src_chapter_dir()=}")
-    # assert idea_dir == create_path(src_chapter_dir(), "idea_formats")
-    assert idea_dir == f"{src_chapter_dir()}/idea_formats"
+    assert idea_dir == create_path(src_chapter_dir(), "idea_formats")
 
 
 def test_get_idearef_obj_ReturnsObj():
     # ESTABLISH
-    idea_name_00021 = idea_format_00021_belief_voiceunit_v0_0_0()
+    idea_name_00021 = idea_format_00021_plan_personunit_v0_0_0()
 
     # WHEN
     x_idearef = get_idearef_obj(idea_name_00021)
@@ -50,8 +49,8 @@ def test_get_idearef_obj_ReturnsObj():
     # THEN
     assert x_idearef.idea_name == idea_name_00021
     assert set(x_idearef.dimens) == {
-        kw.belief_voiceunit,
-        kw.beliefunit,
+        kw.plan_personunit,
+        kw.planunit,
         kw.momentunit,
     }
     assert x_idearef._attributes != {}
@@ -60,9 +59,7 @@ def test_get_idearef_obj_ReturnsObj():
 
 def test_get_headers_list_ReturnsObj():
     # ESTABLISH / WHEN
-    format_00021_headers = _get_headers_list(
-        idea_format_00021_belief_voiceunit_v0_0_0()
-    )
+    format_00021_headers = _get_headers_list(idea_format_00021_plan_personunit_v0_0_0())
 
     # THEN
     # print(f"{format_00001_headers=}")
@@ -70,10 +67,10 @@ def test_get_headers_list_ReturnsObj():
         kw.spark_num,
         kw.face_name,
         kw.moment_label,
-        kw.belief_name,
-        kw.voice_name,
-        kw.voice_cred_lumen,
-        kw.voice_debt_lumen,
+        kw.plan_name,
+        kw.person_name,
+        kw.person_cred_lumen,
+        kw.person_debt_lumen,
     ]
 
 
@@ -88,29 +85,29 @@ def get_sorted_headers_str(idea_filename):
     # print(f"{idea_attributes=}")
     header_str = "".join(f",{x_header}" for x_header in idea_attributes)
     return header_str[1:]
-    # return create_sorted_planatenated_str(list(idea_attributes))
+    # return create_sorted_kegatenated_str(list(idea_attributes))
 
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
     # ESTABLISH
-    file_name = idea_format_00021_belief_voiceunit_v0_0_0()
+    file_name = idea_format_00021_plan_personunit_v0_0_0()
 
     # WHEN
     br00021_headers = get_sorted_headers_str(file_name)
 
     # THEN
-    expected_br00021_headers_str = f"{kw.moment_label},{kw.belief_name},{kw.voice_name},{kw.voice_cred_lumen},{kw.voice_debt_lumen}"
+    expected_br00021_headers_str = f"{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen},{kw.person_debt_lumen}"
     assert br00021_headers == expected_br00021_headers_str
 
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario1_SingleExample():
     # ESTABLISH / WHEN
-    br00019_headers = get_sorted_headers_str(idea_format_00019_planunit_v0_0_0())
+    br00019_headers = get_sorted_headers_str(idea_format_00019_kegunit_v0_0_0())
 
     # THEN
     print(f"{br00019_headers=}")
-    expected_plan_headers_str = f"{kw.moment_label},{kw.belief_name},{kw.plan_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
-    assert br00019_headers == expected_plan_headers_str
+    expected_keg_headers_str = f"{kw.moment_label},{kw.plan_name},{kw.keg_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
+    assert br00019_headers == expected_keg_headers_str
 
 
 def check_sorted_headers_exist(idea_format_filename: str, x_headers: dict):
@@ -140,10 +137,10 @@ def test__generate_idea_dataframe_ReturnsObj():
     empty_d2 = []
     # WHEN
     x_df = _generate_idea_dataframe(
-        empty_d2, idea_format_00021_belief_voiceunit_v0_0_0()
+        empty_d2, idea_format_00021_plan_personunit_v0_0_0()
     )
     # THEN
-    headers_list = _get_headers_list(idea_format_00021_belief_voiceunit_v0_0_0())
+    headers_list = _get_headers_list(idea_format_00021_plan_personunit_v0_0_0())
     assert list(x_df.columns) == headers_list
 
 
@@ -178,9 +175,9 @@ def test_idea_FilesExist():
     assert len(idea_filenames) == len(get_idea_format_filenames())
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00021_belief_voiceunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00021_plan_personunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00021_belief_voiceunit_v0_0_0()
+    idea_name = idea_format_00021_plan_personunit_v0_0_0()
 
     # WHEN
     format_00001_idearef = get_idearef_obj(idea_name)
@@ -188,27 +185,27 @@ def test_get_idearef_obj_HasAttrs_idea_format_00021_belief_voiceunit_v0_0_0():
     # THEN
     assert len(format_00001_idearef._attributes) == 7
     assert format_00001_idearef._attributes == {
-        kw.voice_name: {kw.otx_key: True},
-        kw.voice_cred_lumen: {kw.otx_key: False},
-        kw.voice_debt_lumen: {kw.otx_key: False},
+        kw.person_name: {kw.otx_key: True},
+        kw.person_cred_lumen: {kw.otx_key: False},
+        kw.person_debt_lumen: {kw.otx_key: False},
         kw.spark_num: {kw.otx_key: True},
         kw.face_name: {kw.otx_key: True},
         kw.moment_label: {kw.otx_key: True},
-        kw.belief_name: {kw.otx_key: True},
+        kw.plan_name: {kw.otx_key: True},
     }
     headers_list = format_00001_idearef.get_headers_list()
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_label
-    assert headers_list[3] == kw.belief_name
-    assert headers_list[4] == kw.voice_name
-    assert headers_list[5] == kw.voice_cred_lumen
-    assert headers_list[6] == kw.voice_debt_lumen
+    assert headers_list[3] == kw.plan_name
+    assert headers_list[4] == kw.person_name
+    assert headers_list[5] == kw.person_cred_lumen
+    assert headers_list[6] == kw.person_debt_lumen
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00020_belief_voice_membership_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00020_plan_person_membership_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00020_belief_voice_membership_v0_0_0()
+    idea_name = idea_format_00020_plan_person_membership_v0_0_0()
 
     # WHEN
     format_00021_idearef = get_idearef_obj(idea_name)
@@ -219,16 +216,16 @@ def test_get_idearef_obj_HasAttrs_idea_format_00020_belief_voice_membership_v0_0
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_label
-    assert headers_list[3] == kw.belief_name
-    assert headers_list[4] == kw.voice_name
+    assert headers_list[3] == kw.plan_name
+    assert headers_list[4] == kw.person_name
     assert headers_list[5] == kw.group_title
     assert headers_list[6] == kw.group_cred_lumen
     assert headers_list[7] == kw.group_debt_lumen
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00013_planunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00013_kegunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00013_planunit_v0_0_0()
+    idea_name = idea_format_00013_kegunit_v0_0_0()
 
     # WHEN
     format_00003_idearef = get_idearef_obj(idea_name)
@@ -239,15 +236,15 @@ def test_get_idearef_obj_HasAttrs_idea_format_00013_planunit_v0_0_0():
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_label
-    assert headers_list[3] == kw.belief_name
-    assert headers_list[4] == kw.plan_rope
+    assert headers_list[3] == kw.plan_name
+    assert headers_list[4] == kw.keg_rope
     assert headers_list[5] == kw.star
     assert headers_list[6] == kw.pledge
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00019_planunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00019_kegunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00019_planunit_v0_0_0()
+    idea_name = idea_format_00019_kegunit_v0_0_0()
 
     # WHEN
     format_00019_idearef = get_idearef_obj(idea_name)
@@ -258,8 +255,8 @@ def test_get_idearef_obj_HasAttrs_idea_format_00019_planunit_v0_0_0():
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_label
-    assert headers_list[3] == kw.belief_name
-    assert headers_list[4] == kw.plan_rope
+    assert headers_list[3] == kw.plan_name
+    assert headers_list[4] == kw.keg_rope
     assert headers_list[5] == kw.begin
     assert headers_list[6] == kw.close
     assert headers_list[7] == kw.addin

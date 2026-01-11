@@ -1,7 +1,7 @@
 from copy import deepcopy as copy_deepcopy
 from inspect import getdoc as inspect_getdoc
 from src.ch04_rope.rope import create_rope, default_knot_if_None
-from src.ch07_belief_logic.belief_main import beliefunit_shop
+from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch13_epoch._ref.ch13_semantic_types import EpochLabel
 from src.ch13_epoch.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
@@ -386,42 +386,42 @@ def test_epoch_config_shop_ReturnsObj_NoParameters():
 def test_get_year_rope_ReturnsObj():
     # ESTABLISH
     epoch_fay_str = "Fay34"
-    sue_beliefunit = beliefunit_shop("Sue")
-    time_rope = sue_beliefunit.make_l1_rope(kw.time)
-    fay_rope = sue_beliefunit.make_rope(time_rope, epoch_fay_str)
-    c400_leap_rope = sue_beliefunit.make_rope(fay_rope, kw.c400_leap)
-    c400_clean_rope = sue_beliefunit.make_rope(c400_leap_rope, kw.c400_clean)
-    c100_rope = sue_beliefunit.make_rope(c400_clean_rope, kw.c100)
-    yr4_leap_rope = sue_beliefunit.make_rope(c100_rope, kw.yr4_leap)
-    yr4_clean_rope = sue_beliefunit.make_rope(yr4_leap_rope, kw.yr4_clean)
-    year_rope = sue_beliefunit.make_rope(yr4_clean_rope, kw.year)
+    sue_planunit = planunit_shop("Sue")
+    time_rope = sue_planunit.make_l1_rope(kw.time)
+    fay_rope = sue_planunit.make_rope(time_rope, epoch_fay_str)
+    c400_leap_rope = sue_planunit.make_rope(fay_rope, kw.c400_leap)
+    c400_clean_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_clean)
+    c100_rope = sue_planunit.make_rope(c400_clean_rope, kw.c100)
+    yr4_leap_rope = sue_planunit.make_rope(c100_rope, kw.yr4_leap)
+    yr4_clean_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_clean)
+    year_rope = sue_planunit.make_rope(yr4_clean_rope, kw.year)
 
     # WHEN / THEN
-    assert year_rope == get_year_rope(sue_beliefunit, epoch_fay_str)
+    assert year_rope == get_year_rope(sue_planunit, epoch_fay_str)
 
 
 def test_get_week_rope_ReturnsObj():
     # ESTABLISH
     epoch_fay_str = "Fay34"
-    sue_beliefunit = beliefunit_shop("Sue")
-    time_rope = sue_beliefunit.make_l1_rope(kw.time)
-    fay_rope = sue_beliefunit.make_rope(time_rope, epoch_fay_str)
-    week_rope = sue_beliefunit.make_rope(fay_rope, kw.week)
+    sue_planunit = planunit_shop("Sue")
+    time_rope = sue_planunit.make_l1_rope(kw.time)
+    fay_rope = sue_planunit.make_rope(time_rope, epoch_fay_str)
+    week_rope = sue_planunit.make_rope(fay_rope, kw.week)
 
     # WHEN / THEN
-    assert week_rope == get_week_rope(sue_beliefunit, epoch_fay_str)
+    assert week_rope == get_week_rope(sue_planunit, epoch_fay_str)
 
 
 def test_get_day_rope_ReturnsObj():
     # ESTABLISH
     epoch_fay_str = "Fay34"
-    sue_beliefunit = beliefunit_shop("Sue")
-    time_rope = sue_beliefunit.make_l1_rope(kw.time)
-    fay_rope = sue_beliefunit.make_rope(time_rope, epoch_fay_str)
-    day_rope = sue_beliefunit.make_rope(fay_rope, kw.day)
+    sue_planunit = planunit_shop("Sue")
+    time_rope = sue_planunit.make_l1_rope(kw.time)
+    fay_rope = sue_planunit.make_rope(time_rope, epoch_fay_str)
+    day_rope = sue_planunit.make_rope(fay_rope, kw.day)
 
     # WHEN / THEN
-    assert day_rope == get_day_rope(sue_beliefunit, epoch_fay_str)
+    assert day_rope == get_day_rope(sue_planunit, epoch_fay_str)
 
 
 def test_EpochUnit_Exists():
