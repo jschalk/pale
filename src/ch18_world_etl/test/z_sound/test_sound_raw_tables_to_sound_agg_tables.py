@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_row_count, get_table_columns
+from src.ch00_py.db_toolbox import get_row_count, get_table_columns
 from src.ch18_world_etl.etl_main import (
     etl_sound_raw_tables_to_sound_agg_tables,
     insert_sound_raw_selects_into_sound_agg_tables,

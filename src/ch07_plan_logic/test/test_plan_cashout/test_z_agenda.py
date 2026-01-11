@@ -1,4 +1,4 @@
-from src.ch03_person.labor import laborunit_shop
+from src.ch03_labor.labor import laborunit_shop
 from src.ch04_rope.rope import RopeTerm
 from src.ch06_keg.keg import KegUnit, kegunit_shop
 from src.ch07_plan_logic.plan_main import get_planunit_from_dict, planunit_shop

@@ -1,14 +1,14 @@
 from copy import deepcopy
 from dataclasses import dataclass
-from src.ch01_py.dict_toolbox import (
+from src.ch00_py.dict_toolbox import (
     get_0_if_None,
     get_1_if_None,
     get_empty_dict_if_None,
     get_False_if_None,
     get_positive_int,
 )
-from src.ch02_allot.allot import allot_scale, default_grain_num_if_None
-from src.ch03_person.group import (
+from src.ch01_allot.allot import allot_scale, default_grain_num_if_None
+from src.ch02_person.group import (
     AwardHeir,
     AwardLine,
     AwardUnit,
@@ -17,7 +17,7 @@ from src.ch03_person.group import (
     awardline_shop,
     get_awardunits_from_dict,
 )
-from src.ch03_person.labor import (
+from src.ch03_labor.labor import (
     LaborHeir,
     LaborUnit,
     get_laborunit_from_dict,

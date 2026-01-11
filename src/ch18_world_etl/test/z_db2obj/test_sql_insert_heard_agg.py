@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import create_insert_query
+from src.ch00_py.db_toolbox import create_insert_query
 from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict as get_etl_config,
     get_prime_columns,

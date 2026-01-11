@@ -1,6 +1,6 @@
-from src.ch02_allot.allot import default_grain_num_if_None
-from src.ch03_person.group import awardunit_shop
-from src.ch03_person.labor import laborunit_shop
+from src.ch01_allot.allot import default_grain_num_if_None
+from src.ch02_person.group import awardunit_shop
+from src.ch03_labor.labor import laborunit_shop
 from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import KegUnit, kegunit_shop

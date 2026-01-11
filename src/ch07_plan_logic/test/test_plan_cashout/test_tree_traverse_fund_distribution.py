@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from pytest import raises as pytest_raises
-from src.ch02_allot.allot import default_pool_num
-from src.ch03_person.group import awardline_shop, awardunit_shop
-from src.ch03_person.person import personunit_shop
+from src.ch01_allot.allot import default_pool_num
+from src.ch02_person.group import awardline_shop, awardunit_shop
+from src.ch02_person.person import personunit_shop
 from src.ch04_rope.rope import RopeTerm, to_rope
 from src.ch06_keg.keg import KegUnit, kegunit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop

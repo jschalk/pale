@@ -1,10 +1,10 @@
 # Keywords by Chapter
 
 ## Keywords by Chapter
-- ch00_intro: 
-- ch01_py: INSERT, UPDATE, ch01, sqlite_datatype
-- ch02_allot: FirstLabel, GrainNum, LabelTerm, PoolNum, RopeTerm, WeightNum, ch02, parent_rope
-- ch03_person: FundGrain, FundNum, GroupMark, GroupTitle, HealerName, NameTerm, PersonName, RespectGrain, RespectNum, TitleTerm, awardee_title, awardunits, cashout, ch03, credor_pool, debtor_pool, fund_agenda_give, fund_agenda_ratio_give, fund_agenda_ratio_take, fund_agenda_take, fund_give, fund_grain, fund_take, give_force, group_cred_lumen, group_debt_lumen, group_title, groupmark, groupunits, inallocable_person_debt_lumen, irrational_person_debt_lumen, laborheir, laborunit, memberships, parent_solo, party_title, partys, person_cred_lumen, person_debt_lumen, person_name, plan, plan_name, plan_name_is_labor, rational, respect_grain, solo, take_force
+- ch00_py: INSERT, UPDATE, ch00, sqlite_datatype
+- ch01_allot: FirstLabel, GrainNum, LabelTerm, PoolNum, RopeTerm, WeightNum, ch01, parent_rope
+- ch02_person: FundGrain, FundNum, GroupMark, GroupTitle, HealerName, NameTerm, PersonName, RespectGrain, RespectNum, TitleTerm, awardee_title, awardunits, cashout, ch02, credor_pool, debtor_pool, fund_agenda_give, fund_agenda_ratio_give, fund_agenda_ratio_take, fund_agenda_take, fund_give, fund_grain, fund_take, give_force, group_cred_lumen, group_debt_lumen, group_title, groupmark, groupunits, inallocable_person_debt_lumen, irrational_person_debt_lumen, laborheir, laborunit, memberships, parent_solo, party_title, partys, person_cred_lumen, person_debt_lumen, person_name, rational, respect_grain, solo, take_force
+- ch03_labor: plan, plan_name, plan_name_is_labor
 - ch04_rope: FactNum, KnotTerm, ManaGrain, ReasonNum, ch04, knot, mana_grain
 - ch05_reason: active_requisite, case_active, cases, ch05, fact_context, fact_lower, fact_state, fact_upper, factheirs, factunits, parent_heir_active, reason_active, reason_context, reason_divisor, reason_lower, reason_state, reason_upper, reasonunits, task
 - ch06_keg: addin, all_person_cred, all_person_debt, awardheirs, awardlines, begin, ch06, close, denom, descendant_pledge_count, fund_cease, fund_onset, fund_pool, fund_ratio, gogo_calc, gogo_want, healer_name, healerunit, healerunit_ratio, is_expanded, keg, keg_active, keg_active_hx, keg_fund_total, keg_label, keg_rope, kids, morph, numor, pledge, problem_bool, range_evaluated, range_inheritors, reasonheirs, star, stop_calc, stop_want, tree_level, tree_traverse_count, uid

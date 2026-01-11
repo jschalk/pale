@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import create_insert_query
+from src.ch00_py.db_toolbox import create_insert_query
 from src.ch07_plan_logic.plan_config import get_plan_calc_dimen_args
 from src.ch18_world_etl.etl_sqlstr import create_job_tables
 from src.ch18_world_etl.obj2db_plan import (

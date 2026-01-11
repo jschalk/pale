@@ -1,5 +1,5 @@
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import count_dirs_files, create_path, open_file
+from src.ch00_py.file_toolbox import count_dirs_files, create_path, open_file
 from src.ch04_rope._ref.ch04_doc_builder import get_ropeterm_description_md
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_blurbs_md,
@@ -18,7 +18,7 @@ def test_get_chapter_blurbs_md_ReturnsObj():
 
     # THEN
     assert chapter_blurbs_md
-    assert chapter_blurbs_md.find("ch03") > 0
+    assert chapter_blurbs_md.find("ch02") > 0
 
 
 def test_save_chapter_blurbs_md_CreatesFile(temp_dir_setup):

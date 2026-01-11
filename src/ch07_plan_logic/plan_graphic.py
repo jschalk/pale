@@ -3,7 +3,7 @@ from plotly.graph_objects import (
     Scatter as plotly_Scatter,
     Table as plotly_Table,
 )
-from src.ch01_py.plotly_toolbox import (
+from src.ch00_py.plotly_toolbox import (
     add_keep__rect,
     add_rect_arrow,
     add_simp_rect,

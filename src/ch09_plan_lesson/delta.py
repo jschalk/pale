@@ -1,14 +1,14 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
-from src.ch01_py.dict_toolbox import (
+from src.ch00_py.dict_toolbox import (
     get_0_if_None,
     get_all_nondictionary_objs,
     get_empty_dict_if_None,
     get_from_nested_dict,
     set_in_nested_dict,
 )
-from src.ch03_person.group import MemberShip
-from src.ch03_person.person import MemberShip, PersonName, PersonUnit
+from src.ch02_person.group import MemberShip
+from src.ch02_person.person import MemberShip, PersonName, PersonUnit
 from src.ch05_reason.reason_main import FactUnit, ReasonUnit
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop

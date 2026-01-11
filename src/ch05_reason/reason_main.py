@@ -1,6 +1,6 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
-from src.ch01_py.dict_toolbox import get_empty_dict_if_None
+from src.ch00_py.dict_toolbox import get_empty_dict_if_None
 from src.ch04_rope.rope import (
     KnotTerm,
     RopeTerm,

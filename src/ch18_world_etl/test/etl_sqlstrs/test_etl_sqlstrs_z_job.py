@@ -1,5 +1,5 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import (
+from src.ch00_py.db_toolbox import (
     db_table_exists,
     get_create_table_sqlstr,
     get_db_tables,

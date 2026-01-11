@@ -1,24 +1,24 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
-from src.ch01_py.dict_toolbox import (
+from src.ch00_py.dict_toolbox import (
     get_0_if_None,
     get_1_if_None,
     get_empty_dict_if_None,
     get_False_if_None,
 )
-from src.ch02_allot.allot import (
+from src.ch01_allot.allot import (
     allot_scale,
     default_grain_num_if_None,
     valid_allotment_ratio,
     validate_pool_num,
 )
-from src.ch03_person.group import AwardUnit, GroupUnit, groupunit_shop, membership_shop
-from src.ch03_person.labor import LaborUnit
-from src.ch03_person.person import (
+from src.ch02_person.group import AwardUnit, GroupUnit, groupunit_shop, membership_shop
+from src.ch02_person.person import (
     PersonUnit,
     personunit_shop,
     personunits_get_from_dict,
 )
+from src.ch03_labor.labor import LaborUnit
 from src.ch04_rope.rope import (
     all_ropes_between,
     create_rope,

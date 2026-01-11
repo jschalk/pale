@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch02_allot.allot import default_grain_num_if_None, validate_pool_num
+from src.ch01_allot.allot import default_grain_num_if_None, validate_pool_num
 from src.ch04_rope.rope import default_knot_if_None, get_default_first_label
 from src.ch07_plan_logic._ref.ch07_semantic_types import RespectNum
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop

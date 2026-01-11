@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
-from src.ch03_person.group import awardunit_shop
-from src.ch03_person.labor import laborunit_shop
+from src.ch02_person.group import awardunit_shop
+from src.ch03_labor.labor import laborunit_shop
 from src.ch04_rope.rope import create_rope, default_knot_if_None, is_sub_rope, to_rope
 from src.ch05_reason.reason_main import caseunit_shop, factunit_shop, reasonunit_shop
 from src.ch06_keg.healer import healerunit_shop

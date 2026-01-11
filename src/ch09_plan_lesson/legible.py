@@ -1,4 +1,4 @@
-from src.ch01_py.dict_toolbox import get_from_nested_dict
+from src.ch00_py.dict_toolbox import get_from_nested_dict
 from src.ch07_plan_logic.plan_main import PlanUnit
 from src.ch08_plan_atom.atom_main import PlanAtom
 from src.ch09_plan_lesson.delta import PlanDelta

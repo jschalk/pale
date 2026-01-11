@@ -1,7 +1,7 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import (
+from src.ch00_py.file_toolbox import (
     create_path,
     delete_dir,
     get_dict_from_json,
@@ -12,7 +12,7 @@ from src.ch01_py.file_toolbox import (
     open_json,
     save_json,
 )
-from src.ch02_allot.allot import default_grain_num_if_None, validate_pool_num
+from src.ch01_allot.allot import default_grain_num_if_None, validate_pool_num
 from src.ch04_rope.rope import validate_labelterm
 from src.ch07_plan_logic.plan_main import (
     PlanUnit,

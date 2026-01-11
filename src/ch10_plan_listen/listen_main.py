@@ -1,6 +1,6 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
-from src.ch02_allot.allot import allot_scale
+from src.ch01_allot.allot import allot_scale
 from src.ch04_rope.rope import get_ancestor_ropes, get_first_label_from_rope
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PersonUnit, PlanUnit

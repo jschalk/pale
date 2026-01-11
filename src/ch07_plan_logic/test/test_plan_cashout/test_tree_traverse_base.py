@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch03_person.group import awardunit_shop
+from src.ch02_person.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason_main import factheir_shop
 from src.ch06_keg.keg import kegunit_shop

@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_rowdata
+from src.ch00_py.db_toolbox import get_rowdata
 from src.ch04_rope.rope import create_rope
 from src.ch08_plan_atom.atom_main import get_planatom_from_rowdata, planatom_shop
 from src.ref.keywords import Ch08Keywords as kw

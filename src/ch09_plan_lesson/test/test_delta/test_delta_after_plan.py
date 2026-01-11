@@ -1,4 +1,4 @@
-from src.ch03_person.group import awardunit_shop
+from src.ch02_person.group import awardunit_shop
 from src.ch05_reason.reason_main import factunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop

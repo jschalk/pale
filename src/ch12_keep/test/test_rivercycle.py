@@ -1,4 +1,4 @@
-from src.ch02_allot.allot import default_grain_num_if_None
+from src.ch01_allot.allot import default_grain_num_if_None
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch12_keep.rivercycle import (
     RiverCycle,

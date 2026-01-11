@@ -1,6 +1,6 @@
 from copy import deepcopy as copy_deepcopy
-from src.ch01_py.file_toolbox import create_path
-from src.ch03_person.group import awardunit_shop
+from src.ch00_py.file_toolbox import create_path
+from src.ch02_person.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson.delta import plandelta_shop

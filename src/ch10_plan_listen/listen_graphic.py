@@ -1,5 +1,5 @@
 from plotly.graph_objects import Figure as plotly_Figure, Scatter as plotly_Scatter
-from src.ch01_py.plotly_toolbox import (
+from src.ch00_py.plotly_toolbox import (
     add_2_curve,
     add_direc_rect,
     add_keep__rect,
@@ -7,7 +7,7 @@ from src.ch01_py.plotly_toolbox import (
     add_simp_rect,
     conditional_fig_show,
 )
-from src.ch02_allot.allot import default_pool_num
+from src.ch01_allot.allot import default_pool_num
 from src.ch07_plan_logic.plan_graphic import display_kegtree
 from src.ch07_plan_logic.plan_main import PlanUnit
 

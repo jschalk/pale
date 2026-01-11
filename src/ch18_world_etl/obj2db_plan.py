@@ -1,10 +1,10 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from sqlite3 import Cursor as sqlite3_Cursor
-from src.ch01_py.db_toolbox import sqlite_obj_str
-from src.ch03_person.group import AwardHeir, GroupUnit, MemberShip
-from src.ch03_person.labor import LaborHeir
-from src.ch03_person.person import PersonUnit
+from src.ch00_py.db_toolbox import sqlite_obj_str
+from src.ch02_person.group import AwardHeir, GroupUnit, MemberShip
+from src.ch02_person.person import PersonUnit
+from src.ch03_labor.labor import LaborHeir
 from src.ch05_reason.reason_main import CaseUnit, FactHeir, ReasonHeir
 from src.ch06_keg.keg import HealerUnit, KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit

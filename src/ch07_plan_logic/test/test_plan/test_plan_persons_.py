@@ -1,6 +1,6 @@
 from copy import deepcopy as copy_deepcopy
 from pytest import raises as pytest_raises
-from src.ch03_person.person import personunit_shop
+from src.ch02_person.person import personunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ref.keywords import ExampleStrs as exx
 

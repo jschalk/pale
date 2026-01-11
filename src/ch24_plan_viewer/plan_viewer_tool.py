@@ -1,7 +1,7 @@
 import dataclasses
-from src.ch01_py.dict_toolbox import get_serializable_dict
-from src.ch03_person.group import AwardHeir, AwardLine, AwardUnit
-from src.ch03_person.labor import PartyHeir, PartyUnit
+from src.ch00_py.dict_toolbox import get_serializable_dict
+from src.ch02_person.group import AwardHeir, AwardLine, AwardUnit
+from src.ch03_labor.labor import PartyHeir, PartyUnit
 from src.ch05_reason.reason_main import (
     CaseUnit,
     FactHeir,

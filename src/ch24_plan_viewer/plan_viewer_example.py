@@ -1,5 +1,5 @@
-from src.ch03_person.group import awardunit_shop
-from src.ch03_person.labor import laborunit_shop
+from src.ch02_person.group import awardunit_shop
+from src.ch03_labor.labor import laborunit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch07_plan_logic.plan_tool import plan_keg_reason_caseunit_set_obj
 from src.ch07_plan_logic.test._util.ch07_examples import get_planunit_irrational_example

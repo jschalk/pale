@@ -1,4 +1,4 @@
-from src.ch03_person.labor import laborheir_shop, laborunit_shop
+from src.ch03_labor.labor import laborheir_shop, laborunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ref.keywords import ExampleStrs as exx
@@ -46,16 +46,16 @@ def test_PlanUnit_cashout_Set_child_keg_laborheir_FromParent_laborunit():
     assert run_keg.laborheir
     assert run_keg.laborheir.plan_name_is_labor
 
-    x_laborheir = laborheir_shop()
-    x_laborheir.set_partys(
+    expected_laborheir = laborheir_shop()
+    expected_laborheir.set_partys(
         parent_laborheir=None,
         laborunit=x_laborunit,
         groupunits=bob_plan.groupunits,
     )
-    x_laborheir.set_plan_name_is_labor(bob_plan.groupunits, bob_plan.plan_name)
-    print(f"{x_laborheir.plan_name_is_labor=}")
-    assert run_keg.laborheir.plan_name_is_labor == x_laborheir.plan_name_is_labor
-    assert run_keg.laborheir == x_laborheir
+    expected_laborheir.set_plan_name_is_labor(bob_plan.groupunits, bob_plan.plan_name)
+    print(f"{expected_laborheir.plan_name_is_labor=}")
+    assert run_keg.laborheir.plan_name_is_labor == expected_laborheir.plan_name_is_labor
+    assert run_keg.laborheir == expected_laborheir
 
 
 def test_PlanUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_Scenario0():

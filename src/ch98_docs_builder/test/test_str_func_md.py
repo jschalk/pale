@@ -1,6 +1,6 @@
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import create_path, open_file
-from src.ch01_py.keyword_class_builder import (
+from src.ch00_py.file_toolbox import create_path, open_file
+from src.ch00_py.keyword_class_builder import (
     get_keywords_by_chapter_md,
     save_keywords_by_chapter_md,
 )

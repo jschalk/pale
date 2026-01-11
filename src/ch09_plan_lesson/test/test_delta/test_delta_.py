@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch03_person.person import personunit_shop
+from src.ch02_person.person import personunit_shop
 from src.ch04_rope.rope import create_rope, to_rope
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch08_plan_atom.atom_main import planatom_shop

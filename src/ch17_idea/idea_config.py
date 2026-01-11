@@ -1,6 +1,6 @@
 from os import getcwd as os_getcwd
-from src.ch01_py.db_toolbox import get_sorted_cols_only_list
-from src.ch01_py.file_toolbox import create_path, get_json_filename, open_json
+from src.ch00_py.db_toolbox import get_sorted_cols_only_list
+from src.ch00_py.file_toolbox import create_path, get_json_filename, open_json
 
 
 def idea_config_path() -> str:

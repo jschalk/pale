@@ -1,4 +1,4 @@
-from src.ch01_py.file_toolbox import get_dir_file_strs
+from src.ch00_py.file_toolbox import get_dir_file_strs
 from src.linter.style import get_chapter_descs, get_filenames_with_wrong_style
 
 

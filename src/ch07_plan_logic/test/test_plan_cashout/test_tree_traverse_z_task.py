@@ -1,4 +1,4 @@
-from src.ch02_allot.allot import default_pool_num
+from src.ch01_allot.allot import default_pool_num
 from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason_main import caseunit_shop, reasonheir_shop, reasonunit_shop
 from src.ch06_keg.healer import healerunit_shop

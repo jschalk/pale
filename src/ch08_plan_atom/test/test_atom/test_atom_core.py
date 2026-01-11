@@ -1,4 +1,4 @@
-from src.ch03_person.person import personunit_shop
+from src.ch02_person.person import personunit_shop
 from src.ch08_plan_atom.atom_main import PlanAtom, planatom_shop
 from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 

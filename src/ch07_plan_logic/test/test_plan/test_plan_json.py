@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch03_person.labor import laborunit_shop, partyunit_shop
+from src.ch03_labor.labor import laborunit_shop, partyunit_shop
 from src.ch04_rope.rope import default_knot_if_None
 from src.ch05_reason.reason_main import factunit_shop
 from src.ch06_keg.healer import healerunit_shop

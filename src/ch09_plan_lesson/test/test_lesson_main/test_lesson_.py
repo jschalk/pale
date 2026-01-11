@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
-from src.ch01_py.dict_toolbox import get_json_from_dict
-from src.ch03_person.person import personunit_shop
+from src.ch00_py.dict_toolbox import get_json_from_dict
+from src.ch02_person.person import personunit_shop
 from src.ch07_plan_logic.plan_main import get_default_first_label, planunit_shop
 from src.ch08_plan_atom.atom_main import planatom_shop
 from src.ch09_plan_lesson._ref.ch09_semantic_types import FaceName, default_knot_if_None

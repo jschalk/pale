@@ -1,5 +1,5 @@
-from src.ch03_person.group import awardheir_shop, awardunit_shop
-from src.ch03_person.labor import laborheir_shop, laborunit_shop
+from src.ch02_person.group import awardheir_shop, awardunit_shop
+from src.ch03_labor.labor import laborheir_shop, laborunit_shop
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import (
     caseunit_shop,

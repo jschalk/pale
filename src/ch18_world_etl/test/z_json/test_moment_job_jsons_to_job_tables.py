@@ -1,9 +1,9 @@
 from os.path import exists as os_path_exists
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import db_table_exists, get_row_count
-from src.ch01_py.file_toolbox import save_json
-from src.ch03_person.group import awardunit_shop
-from src.ch03_person.labor import laborunit_shop
+from src.ch00_py.db_toolbox import db_table_exists, get_row_count
+from src.ch00_py.file_toolbox import save_json
+from src.ch02_person.group import awardunit_shop
+from src.ch03_labor.labor import laborunit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_job_path, create_moment_json_path

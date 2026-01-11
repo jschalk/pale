@@ -1,7 +1,7 @@
 from copy import deepcopy as copy_deepcopy
-from src.ch01_py.dict_toolbox import get_empty_list_if_None, get_from_nested_dict
-from src.ch03_person.group import awardunit_shop
-from src.ch03_person.person import personunit_shop
+from src.ch00_py.dict_toolbox import get_empty_list_if_None, get_from_nested_dict
+from src.ch02_person.group import awardunit_shop
+from src.ch02_person.person import personunit_shop
 from src.ch05_reason.reason_main import factunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop

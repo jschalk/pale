@@ -3,10 +3,10 @@
 What does each one do?
 
 
-- **ch00_intro**: Introduces why Beto has been created.
-- **ch01_py**: Creates boring tools for computer data manipulation.
-- **ch02_allot**: Defines how to allot a pool number to a weighted ledger.
-- **ch03_person**: Defines debt and cred to Persons and Memberships to Groups.
+- **ch00_py**: Creates boring tools for computer data manipulation.
+- **ch01_allot**: Defines how to allot a pool number to a weighted ledger.
+- **ch02_person**: Defines debt and cred to Persons and Memberships to Groups.
+- **ch03_intro**: Introduces why Beto has been created.
 - **ch04_rope**: Defines Term Classes: Knots, Labels, RopeTerms, FirstLabels
 - **ch05_reason**: Defines ReasonUnits, FactUnits, and Facts decide if a Reason is Active
 - **ch06_keg**: Defines KegUnits with sub-kegs, Awardees, Labor, Reasons, Facts, etc.

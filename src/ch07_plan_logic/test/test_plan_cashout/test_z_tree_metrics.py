@@ -1,5 +1,5 @@
-from src.ch03_person.group import awardunit_shop
-from src.ch03_person.person import personunit_shop
+from src.ch02_person.group import awardunit_shop
+from src.ch02_person.person import personunit_shop
 from src.ch04_rope.rope import create_rope_from_labels
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop

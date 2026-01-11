@@ -4,7 +4,7 @@ from os.path import (
     exists as os_path_exists,
     join as os_path_join,
 )
-from src.ch01_py.file_toolbox import create_path, get_dir_file_strs, save_file
+from src.ch00_py.file_toolbox import create_path, get_dir_file_strs, save_file
 from src.linter.chapter_migration_tools import (
     delete_if_empty_or_pycache_only,
     first_level_dirs_with_prefix,
@@ -18,21 +18,21 @@ from tempfile import TemporaryDirectory as tempfile_TemporaryDirectory
 def test_first_level_dirs_with_prefix_ReturnsObj():
     with tempfile_TemporaryDirectory() as tmpdir:
         # Setup directories
-        os_mkdir(os_path_join(tmpdir, "ch03_yahoo"))
-        os_mkdir(os_path_join(tmpdir, "ch03_google"))
-        os_mkdir(os_path_join(tmpdir, "ch03_yahoo_temp"))
+        os_mkdir(os_path_join(tmpdir, "ch02_yahoo"))
+        os_mkdir(os_path_join(tmpdir, "ch02_google"))
+        os_mkdir(os_path_join(tmpdir, "ch02_yahoo_temp"))
         os_mkdir(os_path_join(tmpdir, "other_dir"))
 
         # Nested dir should not be included
-        nested_dir = os_path_join(tmpdir, "ch03_yahoo", "temp")
+        nested_dir = os_path_join(tmpdir, "ch02_yahoo", "temp")
         os_mkdir(nested_dir)
 
-        # Test prefix "ch03"
-        prefix_path = os_path_join(tmpdir, "ch03")
+        # Test prefix "ch02"
+        prefix_path = os_path_join(tmpdir, "ch02")
         result = first_level_dirs_with_prefix(prefix_path)
         result_names = [os_path_basename(p) for p in result]
 
-        assert set(result_names) == {"ch03_yahoo", "ch03_google", "ch03_yahoo_temp"}
+        assert set(result_names) == {"ch02_yahoo", "ch02_google", "ch02_yahoo_temp"}
         # nested dir should not appear
         assert "temp" not in result_names
 

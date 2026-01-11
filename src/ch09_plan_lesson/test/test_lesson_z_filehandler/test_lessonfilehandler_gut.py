@@ -1,5 +1,5 @@
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import create_path, delete_dir
+from src.ch00_py.file_toolbox import create_path, delete_dir
 from src.ch09_plan_lesson.lesson_filehandler import (
     create_gut_path,
     gut_file_exists,

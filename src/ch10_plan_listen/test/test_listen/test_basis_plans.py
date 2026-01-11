@@ -1,5 +1,5 @@
-from src.ch02_allot.allot import default_pool_num, validate_pool_num
-from src.ch03_person.person import RespectNum
+from src.ch01_allot.allot import default_pool_num, validate_pool_num
+from src.ch02_person.person import RespectNum
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch10_plan_listen.basis_plan import (

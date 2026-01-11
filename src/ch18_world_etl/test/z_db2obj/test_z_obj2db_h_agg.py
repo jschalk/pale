@@ -1,13 +1,13 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch01_py.db_toolbox import get_row_count, get_table_columns
-from src.ch03_person.group import (
+from src.ch00_py.db_toolbox import get_row_count, get_table_columns
+from src.ch02_person.group import (
     awardheir_shop,
     awardunit_shop,
     groupunit_shop,
     membership_shop,
 )
-from src.ch03_person.labor import laborheir_shop, laborunit_shop, partyheir_shop
-from src.ch03_person.person import personunit_shop
+from src.ch02_person.person import personunit_shop
+from src.ch03_labor.labor import laborheir_shop, laborunit_shop, partyheir_shop
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import caseunit_shop, factheir_shop, reasonheir_shop
 from src.ch06_keg.healer import healerunit_shop
