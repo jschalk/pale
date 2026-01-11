@@ -1,6 +1,10 @@
 from enum import Enum
 from src.ch01_py._ref.ch01_path import create_keywords_classes_file_path
-from src.ch01_py.chapter_desc_main import get_chapter_desc_prefix
+from src.ch01_py.chapter_desc_main import (
+    get_chapter_desc_prefix,
+    get_chapter_desc_str_number,
+    valid_chapter_numbers,
+)
 from src.ch01_py.file_toolbox import open_file, save_file
 from src.ch01_py.keyword_class_builder import (
     create_all_enum_keyword_classes_str,
@@ -24,6 +28,21 @@ def test_get_chapter_desc_prefix_ReturnsObj():
     assert get_chapter_desc_prefix(f"{ch_str}99") == f"{ch_str}99"
     assert get_chapter_desc_prefix(f"{ch_str}XX") == f"{ch_str}XX"
     assert get_chapter_desc_prefix(f"{ch_str}a01") != f"{ch_str}02"
+
+
+def test_get_chapter_desc_str_number_ReturnsObj():
+    # sourcery skip: extract-duplicate-method
+    # ESTABLISH
+    ch_str = "ch"
+    # WHEN / THEN
+    assert get_chapter_desc_str_number(f"{ch_str}04") == "04"
+    assert get_chapter_desc_str_number(f"{ch_str}99") == "99"
+    assert get_chapter_desc_str_number("aXX") != "XX"
+    assert get_chapter_desc_str_number("aa01") != "01"
+    assert get_chapter_desc_str_number(f"{ch_str}03") == "03"
+    assert get_chapter_desc_str_number(f"{ch_str}99") == "99"
+    assert get_chapter_desc_str_number(f"{ch_str}XX") == "XX"
+    assert get_chapter_desc_str_number(f"{ch_str}a01") != "01"
 
 
 def test_get_example_strs_config_ReturnsObj():
@@ -171,6 +190,8 @@ class Ch00Key"""
 
 def test_SpecialTestThatBuildsKeywordEnumClasses():
     # ESTABLISH
+    chapter_descs = get_chapter_descs()
+    assert valid_chapter_numbers(chapter_descs), chapter_descs.keys()
     # save file for all Enum class references
     keywords_classes_file_path = create_keywords_classes_file_path("src")
     enum_classes_str = create_all_enum_keyword_classes_str()
@@ -180,8 +201,8 @@ def test_SpecialTestThatBuildsKeywordEnumClasses():
         "Create and save Enum classes, fail test if there are any changes so changes can apply to next test run. "
     )
     save_file(keywords_classes_file_path, None, enum_classes_str)
-    assertion_failure_str = "Special case: keywords.py was changed. Run test again."
 
     # WHEN / THEN
     prev_and_curr_classes_file_are_same = enum_classes_str == current_classes_file_str
+    assertion_failure_str = "Special case: keywords.py was changed. Run test again."
     assert prev_and_curr_classes_file_are_same, assertion_failure_str

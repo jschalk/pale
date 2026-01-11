@@ -1,10 +1,10 @@
 from os.path import exists as os_path_exists
-from src.ch01_py.file_toolbox import create_path, get_dir_filenames
-from src.ch98_docs_builder.doc_builder import (
+from src.ch01_py.chapter_desc_main import (
     get_chapter_desc_prefix,
     get_chapter_desc_str_number,
-    get_chapter_descs,
 )
+from src.ch01_py.file_toolbox import create_path, get_dir_filenames
+from src.ch98_docs_builder.doc_builder import get_chapter_descs
 from src.linter.style import (
     check_all_test_functions_are_formatted,
     check_path_funcs_HasDocString_TestsExist,

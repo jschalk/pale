@@ -17,7 +17,6 @@ from src.ch01_py.file_toolbox import create_path, get_dir_filenames, open_file
 from src.ch01_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
     get_chapter_desc_prefix,
-    get_chapter_desc_str_number,
     get_chapter_descs,
     get_func_names_and_class_bases_from_file,
 )

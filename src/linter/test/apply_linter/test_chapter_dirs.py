@@ -1,23 +1,12 @@
 from os import listdir as os_listdir, walk as os_walk
 from os.path import basename as os_path_basename, exists as os_path_exists
 from pathlib import Path as pathlib_Path
-from src.ch01_py.file_toolbox import (
-    create_path,
-    get_dir_file_strs,
-    get_level1_dirs,
-    open_json,
-)
-from src.ch98_docs_builder.doc_builder import (
-    get_chapter_desc_prefix,
-    get_chapter_desc_str_number,
-)
+from src.ch01_py.chapter_desc_main import get_chapter_desc_str_number
+from src.ch01_py.file_toolbox import create_path, get_level1_dirs, open_json
+from src.ch98_docs_builder.doc_builder import get_chapter_desc_prefix
 from src.linter.style import (
-    check_if_chapter_keywords_by_chapter_is_sorted,
-    check_keywords_by_chapter_are_not_duplicated,
     env_file_has_required_elements,
     get_chapter_descs,
-    get_func_names_and_class_bases_from_file,
-    get_imports_from_file,
     get_python_files_with_flag,
     get_semantic_types_filename,
 )

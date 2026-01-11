@@ -19,3 +19,20 @@ def get_chapter_desc_prefix(chapter_desc: str) -> str:
     """Returns chapter number in 2 character string."""
     if chapter_desc[:2] == "ch":
         return chapter_desc[:4]
+
+
+def get_chapter_desc_str_number(chapter_desc: str) -> str:
+    # sourcery skip: str-prefix-suffix
+    """Returns chapter number in 2 character string."""
+    if chapter_desc[:2] == "ch":
+        return chapter_desc[2:4]
+
+
+def valid_chapter_numbers(chapter_descs: dict[str, str]) -> bool:
+    x_chapter_numbers = set()
+    for chapter_desc in chapter_descs:
+        chapter_number = int(get_chapter_desc_str_number(chapter_desc))
+        if chapter_number in x_chapter_numbers:
+            return False
+        x_chapter_numbers.add(chapter_number)
+    return True

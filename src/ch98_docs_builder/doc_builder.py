@@ -21,16 +21,6 @@ from src.ch04_rope._ref.ch04_doc_builder import get_ropeterm_description_md
 from src.ch17_idea._ref.ch17_doc_builder import get_brick_formats_md, get_idea_brick_mds
 
 
-def get_chapter_num_descs() -> dict[int, str]:
-    """Returns dict [Chapter_num as Int, chapter_desc]"""
-    chapter_descs = get_chapter_descs()
-    chapter_prefix_descs = {}
-    for chapter_desc in chapter_descs:
-        chapter_prefix = get_chapter_desc_prefix(chapter_desc)
-        chapter_prefix_descs[chapter_prefix] = chapter_desc
-    return chapter_prefix_descs
-
-
 def get_func_names_and_class_bases_from_file(
     file_path: str, suffix: str = None
 ) -> tuple[list, dict[str, bool]]:
@@ -52,14 +42,6 @@ def get_func_names_and_class_bases_from_file(
             bases = [b.id for b in n.bases if isinstance(b, ast_Name)]
             class_bases[n.name] = bases
     return file_funcs, class_bases
-
-
-def get_chapter_desc_str_number(chapter_desc: str) -> str:
-    """Returns chapter number in 2 character string."""
-    if chapter_desc.startswith("a"):
-        return chapter_desc[1:3]
-    elif chapter_desc.startswith("ch"):
-        return chapter_desc[2:4]
 
 
 def get_chapter_blurbs_md() -> str:
