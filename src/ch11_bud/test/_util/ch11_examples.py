@@ -1,42 +1,7 @@
-from enum import Enum
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import FactUnit, factunit_shop
-from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch11_bud.bud_main import BudUnit, budunit_shop
-from src.ref.keywords import Ch11Keywords as kw, ExampleStrs as exx
-
-A23_STR = exx.a23
-CASA_STR = "casa"
-CLEAN_STR = "clean"
-DIRTY_STR = "dirty"
-GRIMY_STR = "grimy"
-BOB_STR = "Bob"
-SUE_STR = "Sue"
-YAO_STR = "Yao"
-BLUE_STR = "blue"
-MOOP_STR = "mop"
-
-SUE_PLAN = planunit_shop(SUE_STR, A23_STR)
-CASA_ROPE = SUE_PLAN.make_l1_rope(CASA_STR)
-MOP_ROPE = SUE_PLAN.make_rope(CASA_ROPE, MOOP_STR)
-
-
-class Ch11ExampleStrs(str, Enum):
-    a23 = A23_STR
-    casa = CASA_STR
-    casa_rope = CASA_ROPE
-    mop_rope = MOP_ROPE
-    clean = CLEAN_STR
-    dirty = DIRTY_STR
-    grimy = GRIMY_STR
-    bob = BOB_STR
-    sue = SUE_STR
-    yao = YAO_STR
-    blue = BLUE_STR
-    mop = MOOP_STR
-
-    def __str__(self):
-        return self.value
+from src.ref.keywords import ExampleStrs as exx
 
 
 def get_ch11_example_moment_label() -> str:
