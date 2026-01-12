@@ -213,7 +213,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario05():
     assert yao_rivergrade.need_paid_bool
 
 
-def test_RiverRun_calc_metrics_EachTimeResets_need_yield():
+def test_RiverRun_calc_metrics_Resets_need_yield():
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
     yao_person_cred_lumen = 500

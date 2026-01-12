@@ -214,7 +214,7 @@ def save_plantime_file(
     x_plantime.cashout()
     if x_plantime.rational is False:
         raise _save_valid_plantime_Exception(
-            "PlanTime could not be saved PlanUnit.rational is False"
+            "plantime could not be saved PlanUnit.rational is False"
         )
     plantime_json_path = create_plantime_path(
         moment_mstr_dir,

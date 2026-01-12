@@ -13,20 +13,16 @@ from src.ch13_epoch.epoch_main import (
     get_min_from_dt_offset,
     new_epoch_kegunit,
 )
-from src.ref.keywords import Ch13Keywords as kw
+from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
-BOB_STR = "Bob"
-CASA_STR = "casa"
-CLEAN_STR = "clean"
 DIRTYNESS_STR = "dirtyness"
 FIVE_STR = "five"
-MOP_STR = "mop"
 WK_STR = "wk"
 WED_STR = "Wed"
 
-BOB_PLAN = planunit_shop(BOB_STR)
-MOP_ROPE = BOB_PLAN.make_l1_rope(MOP_STR)
-CLEAN_ROPE = BOB_PLAN.make_l1_rope(CLEAN_STR)
+BOB_PLAN = planunit_shop(exx.bob)
+MOP_ROPE = BOB_PLAN.make_l1_rope(exx.mop)
+CLEAN_ROPE = BOB_PLAN.make_l1_rope(exx.clean)
 DIRTYNESS_ROPE = BOB_PLAN.make_rope(CLEAN_ROPE, DIRTYNESS_STR)
 TIME_ROPE = BOB_PLAN.make_l1_rope(kw.time)
 FIVE_ROPE = BOB_PLAN.make_rope(TIME_ROPE, FIVE_STR)
@@ -44,12 +40,12 @@ FIVE_YEAR_ROPE = BOB_PLAN.make_rope(FIVE_YR4_CLEAN_ROPE, kw.year)
 
 
 class Ch13ExampleStrs(str, Enum):
-    Bob = BOB_STR
-    casa_str = CASA_STR
-    clean_str = CLEAN_STR
+    Bob = exx.bob
+    casa_str = exx.casa
+    clean_str = exx.clean
     dirtyness_str = DIRTYNESS_STR
-    five_str = "five"
-    mop_str = MOP_STR
+    five_str = FIVE_STR
+    mop_str = exx.mop
     wk_str = WK_STR
     wed_str = WED_STR
     mop_rope = MOP_ROPE
@@ -84,7 +80,7 @@ class Ch13ExampleStrs(str, Enum):
 
 def get_bob_five_plan() -> PlanUnit:
     """Returns PlanUnit with plan_name=Bob, mop as pledge keg, and five_epoch"""
-    bob_plan = planunit_shop(BOB_STR)
+    bob_plan = planunit_shop(exx.bob)
     bob_plan.add_keg(MOP_ROPE, pledge=True)
     add_epoch_kegunit(bob_plan, get_five_config())
     return bob_plan

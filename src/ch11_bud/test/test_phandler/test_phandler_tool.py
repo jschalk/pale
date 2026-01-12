@@ -619,7 +619,7 @@ def test_save_plantime_file_RaisesError(temp_dir_setup):
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         save_plantime_file(mstr_dir, irrational_plantime, t55_bud_time)
-    exception_str = "PlanTime could not be saved PlanUnit.rational is False"
+    exception_str = "plantime could not be saved PlanUnit.rational is False"
     assert str(excinfo.value) == exception_str
 
 

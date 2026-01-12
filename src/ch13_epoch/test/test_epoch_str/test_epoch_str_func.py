@@ -123,7 +123,7 @@ def test_get_reason_case_readable_str_ReturnsObj_Scenario3_CaseRangeAnd_reason_d
     assert dirty_floors_state_str == expected_str
 
 
-def test_get_reason_case_readable_str_ReturnsObj_Scenario4_Time_creg():
+def test_get_reason_case_readable_str_ReturnsObj_Scenario4_creg_config():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
     add_epoch_kegunit(sue_plan, get_creg_config())
@@ -226,7 +226,7 @@ def test_get_fact_state_readable_str_ReturnsObj_Scenario2_CaseRange():
     assert dirty_fact_str == expected_str
 
 
-def test_get_fact_state_readable_str_ReturnsObj_Scenario3_Time_creg():
+def test_get_fact_state_readable_str_ReturnsObj_Scenario3_creg_config():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
     time_rope = sue_plan.make_l1_rope(kw.time)
