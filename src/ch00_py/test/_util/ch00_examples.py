@@ -1,8 +1,7 @@
 from enum import Enum
-from src.ch00_py.file_toolbox import open_json
 
 
-class CommonExampleStrs(str, Enum):
+class DictToolExampleStrs(str, Enum):
     bob = "Bob"
     sue = "Sue"
     SueZia = "SueZia"

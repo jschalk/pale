@@ -107,7 +107,6 @@ def test_create_listen_basis_ReturnsObj():
 
 def test_get_default_job_ReturnsObj():
     # ESTABLISH
-    blue_str = "blue"
     x_fund_pool = 99000
     x_fund_grain = 80
     x_respect_grain = 5
@@ -115,7 +114,7 @@ def test_get_default_job_ReturnsObj():
     last_lesson_id = 7
     sue_max_tree_traverse = 9
     sue_planunit = planunit_shop(
-        exx.sue, blue_str, exx.slash, x_fund_pool, x_fund_grain, x_respect_grain
+        exx.sue, exx.blue, exx.slash, x_fund_pool, x_fund_grain, x_respect_grain
     )
     sue_planunit.set_last_lesson_id(last_lesson_id)
     sue_planunit.add_personunit(exx.bob, 3, 4)
@@ -133,7 +132,7 @@ def test_get_default_job_ReturnsObj():
     assert default_job.plan_name == sue_planunit.plan_name
     assert default_job.plan_name == exx.sue
     assert default_job.moment_label == sue_planunit.moment_label
-    assert default_job.moment_label == blue_str
+    assert default_job.moment_label == exx.blue
     assert default_job.knot == exx.slash
     assert default_job.fund_pool == sue_person_pool
     assert default_job.fund_grain == x_fund_grain

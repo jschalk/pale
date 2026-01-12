@@ -563,9 +563,7 @@ def test_validate_labelterm_Scenario1_RaisesErrorWhenLabelTerm():
     # WHEN
     comma_str = ","
     with pytest_raises(Exception) as excinfo:
-        bob_str == validate_labelterm(
-            bob_str, x_knot=comma_str, not_labelterm_required=True
-        )
+        validate_labelterm(bob_str, x_knot=comma_str, not_labelterm_required=True)
 
     # THEN
     assertion_failure_str = (

@@ -32,20 +32,19 @@ def test_PlanUnit_find_replace_rope_Modifies_kids_Scenario1():
     old_bloomers_rope = yao_plan.make_rope(old_casa_rope, bloomers_str)
     tulips_str = "tulips"
     old_tulips_rope = yao_plan.make_rope(old_bloomers_rope, tulips_str)
-    red_str = "red"
-    old_red_rope = yao_plan.make_rope(old_tulips_rope, red_str)
+    old_red_rope = yao_plan.make_rope(old_tulips_rope, exx.red)
 
     yao_plan.set_l1_keg(kegunit_shop(casa_old_str))
     yao_plan.set_keg_obj(kegunit_shop(bloomers_str), parent_rope=old_casa_rope)
     yao_plan.set_keg_obj(kegunit_shop(tulips_str), parent_rope=old_bloomers_rope)
-    yao_plan.set_keg_obj(kegunit_shop(red_str), parent_rope=old_tulips_rope)
+    yao_plan.set_keg_obj(kegunit_shop(exx.red), parent_rope=old_tulips_rope)
     r_keg_tulips = yao_plan.get_keg_obj(old_tulips_rope)
     r_keg_bloomers = yao_plan.get_keg_obj(old_bloomers_rope)
 
     assert r_keg_bloomers.kids.get(tulips_str)
     assert r_keg_tulips.parent_rope == old_bloomers_rope
-    assert r_keg_tulips.kids.get(red_str)
-    r_keg_red = r_keg_tulips.kids.get(red_str)
+    assert r_keg_tulips.kids.get(exx.red)
+    r_keg_red = r_keg_tulips.kids.get(exx.red)
     assert r_keg_red.parent_rope == old_tulips_rope
 
     # WHEN
@@ -63,8 +62,8 @@ def test_PlanUnit_find_replace_rope_Modifies_kids_Scenario1():
     r_keg_tulips = r_keg_bloomers.kids.get(tulips_str)
     new_bloomers_rope = yao_plan.make_rope(new_casa_rope, bloomers_str)
     assert r_keg_tulips.parent_rope == new_bloomers_rope
-    assert r_keg_tulips.kids.get(red_str) is not None
-    r_keg_red = r_keg_tulips.kids.get(red_str)
+    assert r_keg_tulips.kids.get(exx.red) is not None
+    r_keg_red = r_keg_tulips.kids.get(exx.red)
     new_tulips_rope = yao_plan.make_rope(new_bloomers_rope, tulips_str)
     assert r_keg_red.parent_rope == new_tulips_rope
 

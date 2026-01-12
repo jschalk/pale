@@ -4,7 +4,7 @@ from pytest import raises as pytest_raises
 from src.ch00_py.csv_toolbox import open_csv_with_types
 from src.ch00_py.plotly_toolbox import conditional_fig_show
 from src.ch05_reason.reason_main import CaseActiveFinder, caseactivefinder_shop
-from src.ref.keywords import Ch05Keywords as kw
+from src.ref.keywords import Ch05Keywords as kw, ExampleStrs as exx
 
 
 def test_CaseActiveFinder_Exists():
@@ -223,23 +223,22 @@ def add_traces(
     reason_divisor: float = 1,
 ) -> plotly_figure:
     fact_str = "FactUnit range"
-    blue_str = "Blue"
     pink_str = "Pink"
     sl = showlegend
 
     if x_csf.reason_lower <= x_csf.reason_upper:
         add_trace(
-            fig, x_csf.reason_lower, x_csf.reason_upper, y_int, case_str, blue_str, sl
+            fig, x_csf.reason_lower, x_csf.reason_upper, y_int, case_str, exx.blue, sl
         )
     else:
-        add_trace(fig, 0, x_csf.reason_upper, y_int, case_str, blue_str, sl)
+        add_trace(fig, 0, x_csf.reason_upper, y_int, case_str, exx.blue, sl)
         add_trace(
             fig,
             x_csf.reason_lower,
             x_csf.reason_divisor,
             y_int,
             case_str,
-            blue_str,
+            exx.blue,
             sl,
         )
 

@@ -40,7 +40,7 @@ from src.ch00_py.dict_toolbox import (
     uppercase_in_str,
     uppercase_is_first,
 )
-from src.ch00_py.test._util.ch00_examples import CommonExampleStrs as ex0
+from src.ch00_py.test._util.ch00_examples import DictToolExampleStrs as ex0
 
 
 def test_uppercase_in_str_ReturnsObj():

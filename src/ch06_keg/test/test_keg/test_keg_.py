@@ -254,14 +254,11 @@ def test_kegunit_shop_ReturnsObjWithParameters():
 
 
 def test_KegUnit_get_obj_key_ReturnsInfo():
-    # ESTABLISH
-    red_str = "red"
-
-    # WHEN
-    red_keg = kegunit_shop(red_str)
+    # ESTABLISH / WHEN
+    red_keg = kegunit_shop(exx.red)
 
     # THEN
-    assert red_keg.get_obj_key() == red_str
+    assert red_keg.get_obj_key() == exx.red
 
 
 def test_KegUnit_set_knot_SetsAttr():

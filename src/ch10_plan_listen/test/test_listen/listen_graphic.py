@@ -66,13 +66,12 @@ def get_listen_structures1_fig(graphics_bool: bool = False) -> plotly_Figure:
         dir_gut_str = f"guts dir"
 
         green_str = "Green"
-        blue_str = "blue"
         add_simp_rect(fig, 1.0, 7.0, 2.0, 8.0, sue_gut_str, green_str)
         add_direc_rect(fig, 0.7, 6.7, 2.3, 8.3, dir_gut_str)
-        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 7.4,5.1 7.5,5", color=blue_str)
-        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 5.4,5.2 5.5,5", color=blue_str)
-        add_2_curve(fig, path="M 1.75,6.8 C 2,5.5 3.4,5.2 3.5,5", color=blue_str)
-        add_rect_arrow(fig, 1.85, 6.5, 1.75, 6.8, blue_str)
+        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 7.4,5.1 7.5,5", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 5.4,5.2 5.5,5", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,6.8 C 2,5.5 3.4,5.2 3.5,5", color=exx.blue)
+        add_rect_arrow(fig, 1.85, 6.5, 1.75, 6.8, exx.blue)
 
         sue_duty_str = f"{exx.sue} duty"
         sue_vision_str = f"{exx.sue} vision"
@@ -131,20 +130,19 @@ def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
         dir_gut_str = f"guts dir"
 
         green_str = "Green"
-        blue_str = "blue"
         add_simp_rect(fig, 1.0, 7.0, 2.0, 8.0, sue_gut_str, green_str)
         add_direc_rect(fig, 0.7, 6.7, 2.3, 8.3, dir_gut_str)
         add_simp_rect(fig, 1.0, -2.0, 2.0, -1.0, sue_job_str, green_str)
         add_direc_rect(fig, 0.7, -2.3, 2.3, -0.7, dir_job_str)
 
-        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 7.4,5.1 7.5,5", color=blue_str)
-        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 5.4,5.2 5.5,5", color=blue_str)
-        add_2_curve(fig, path="M 1.75,6.8 C 2,5.5 3.4,5.2 3.5,5", color=blue_str)
-        add_rect_arrow(fig, 1.85, 6.5, 1.75, 6.8, blue_str)
-        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 7.4,0.4 7.5,1", color=blue_str)
-        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 5.4,0.4 5.5,1", color=blue_str)
-        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 3.4,0.4 3.5,1", color=blue_str)
-        add_rect_arrow(fig, 1.71, -1.0, 1.75, -0.8, blue_str)
+        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 7.4,5.1 7.5,5", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,6.8 C 2,5.4 5.4,5.2 5.5,5", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,6.8 C 2,5.5 3.4,5.2 3.5,5", color=exx.blue)
+        add_rect_arrow(fig, 1.85, 6.5, 1.75, 6.8, exx.blue)
+        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 7.4,0.4 7.5,1", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 5.4,0.4 5.5,1", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 3.4,0.4 3.5,1", color=exx.blue)
+        add_rect_arrow(fig, 1.71, -1.0, 1.75, -0.8, exx.blue)
 
         sue_duty_str = f"{exx.sue} duty"
         sue_vision_str = f"{exx.sue} vision"
@@ -207,22 +205,20 @@ def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
         dir_gut_str = f"guts dir"
 
         green_str = "Green"
-        blue_str = "blue"
-        blue_str = "blue"
         add_simp_rect(fig, 1.0, 7.0, 2.0, 8.0, sue_gut_str, green_str)
         add_direc_rect(fig, 0.7, 6.7, 2.3, 8.3, dir_gut_str)
         add_simp_rect(fig, 1.0, -2.0, 2.0, -1.0, sue_job_str, green_str)
         add_direc_rect(fig, 0.7, -2.3, 2.3, -0.7, dir_job_str)
 
-        add_rect_arrow(fig, 3.85, 3.8, 4, 3.6, blue_str)
-        add_2_curve(fig, path="M 4,3.6 C 4.3,3.4 7.4,2.1 7.5,2", color=blue_str)
-        add_2_curve(fig, path="M 4,3.6 C 4.3,3.4 5.4,2.2 5.5,2", color=blue_str)
-        add_2_curve(fig, path="M 1.75,6.8 C 2,5.5 3.4,5.2 3.5,5", color=blue_str)
-        add_rect_arrow(fig, 1.85, 6.5, 1.75, 6.8, blue_str)
-        # add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 7.4,0.4 7.5,1", color=blue_str)
-        # add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 5.4,0.4 5.5,1", color=blue_str)
-        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 3.4,0.4 3.5,1", color=blue_str)
-        add_rect_arrow(fig, 1.71, -1.0, 1.75, -0.8, blue_str)
+        add_rect_arrow(fig, 3.85, 3.8, 4, 3.6, exx.blue)
+        add_2_curve(fig, path="M 4,3.6 C 4.3,3.4 7.4,2.1 7.5,2", color=exx.blue)
+        add_2_curve(fig, path="M 4,3.6 C 4.3,3.4 5.4,2.2 5.5,2", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,6.8 C 2,5.5 3.4,5.2 3.5,5", color=exx.blue)
+        add_rect_arrow(fig, 1.85, 6.5, 1.75, 6.8, exx.blue)
+        # add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 7.4,0.4 7.5,1", color=exx.blue)
+        # add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 5.4,0.4 5.5,1", color=exx.blue)
+        add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 3.4,0.4 3.5,1", color=exx.blue)
+        add_rect_arrow(fig, 1.71, -1.0, 1.75, -0.8, exx.blue)
 
         sue_duty_str = f"{exx.sue} duty"
         sue_vision_str = f"{exx.sue} vision"
@@ -267,8 +263,6 @@ def fund_graph13(
     fig.update_yaxes(range=[-5, 3])
 
     green_str = "Green"
-    blue_str = "blue"
-    blue_str = "blue"
     d_sue1_p1 = "How fund is distributed."
     d_sue1_p2 = "Regular Fund: Green arrows, all fund_grains end up at PersonUnits"
     d_sue1_p3 = "Agenda Fund: Blue arrows, fund_grains from active tasks"
@@ -276,10 +270,10 @@ def fund_graph13(
     laborunit_str = "      AwardUnits"
     add_simp_rect(fig, 2, -0.3, 3, 0.3, laborunit_str)
     add_rect_arrow(fig, 2, 0.1, 1.2, 0.1, green_str)
-    add_rect_arrow(fig, 2, -0.1, 1.2, -0.1, blue_str)
+    add_rect_arrow(fig, 2, -0.1, 1.2, -0.1, exx.blue)
     add_simp_rect(fig, 4, -1.2, 5, -0.8, laborunit_str)
     add_rect_arrow(fig, 4, -0.9, 3.1, -0.9, green_str)
-    add_rect_arrow(fig, 4, -1.1, 3.1, -1.1, blue_str)
+    add_rect_arrow(fig, 4, -1.1, 3.1, -1.1, exx.blue)
     add_simp_rect(fig, 4, -3.2, 5, -2.8, laborunit_str)
     add_rect_arrow(fig, 4, -2.9, 3.1, -2.9, green_str)
     add_keep__rect(fig, -0.5, -4.5, 10, 2.3, d_sue1_p1, d_sue1_p2, d_sue1_p3, d_sue1_p4)
@@ -290,11 +284,11 @@ def fund_graph13(
     add_simp_rect(fig, 5.5, -1.4, 6.25, -0.8, groupunit_str, orange_str)
     add_rect_arrow(fig, 9, -3.9, 3.1, -3.9, green_str)
     add_rect_arrow(fig, 9, -1.9, 3.1, -1.9, green_str)
-    add_rect_arrow(fig, 9, -2.1, 3.1, -2.1, blue_str)
+    add_rect_arrow(fig, 9, -2.1, 3.1, -2.1, exx.blue)
     add_rect_arrow(fig, 5.5, 0.1, 3, 0.1, green_str)
-    add_rect_arrow(fig, 5.5, -0.1, 3, -0.1, blue_str)
+    add_rect_arrow(fig, 5.5, -0.1, 3, -0.1, exx.blue)
     add_rect_arrow(fig, 5.5, -0.9, 5, -0.9, green_str)
-    add_rect_arrow(fig, 5.5, -1.1, 5, -1.1, blue_str)
+    add_rect_arrow(fig, 5.5, -1.1, 5, -1.1, exx.blue)
     add_rect_arrow(fig, 5.5, -1.3, 5, -2.9, green_str)
     membership_str = "membership"
     darkred_str = "DarkRed"
@@ -302,9 +296,9 @@ def fund_graph13(
     add_simp_rect(fig, 7, -0.2, 7.75, 0.4, membership_str, darkred_str)
     add_simp_rect(fig, 7, -0.8, 7.75, -0.2, membership_str, darkred_str)
     add_simp_rect(fig, 7, -1.4, 7.75, -0.8, membership_str, darkred_str)
-    add_rect_arrow(fig, 7, -0.4, 6.25, -0.4, blue_str)
+    add_rect_arrow(fig, 7, -0.4, 6.25, -0.4, exx.blue)
     add_rect_arrow(fig, 7, -0.6, 6.25, -0.6, green_str)
-    add_rect_arrow(fig, 9, -0.4, 7.75, -0.4, blue_str)
+    add_rect_arrow(fig, 9, -0.4, 7.75, -0.4, exx.blue)
     add_rect_arrow(fig, 9, -0.6, 7.75, -0.6, green_str)
     personunit_str = "personunit"
     purple_str = "purple"

@@ -1,29 +1,19 @@
-from enum import Enum
 from src.ch00_py.dict_toolbox import get_serializable_dict
-
-
-class Color(Enum):
-    RED = "red"
-    BLUE = "blue"
-
-
-class Shape(Enum):
-    CIRCLE = "circle"
-    SQUARE = "square"
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_get_serializable_dict_ReturnsObj_Scenario0_FlatDict():
     # ESTABLISH
-    data = {"color": Color.RED, "shape": Shape.SQUARE, "name": "box"}
+    data = {"color": exx.red, "shape": exx.square, "name": "box"}
     # WHEN
     result = get_serializable_dict(data)
     # THEN
-    assert result == {"color": "red", "shape": "square", "name": "box"}
+    assert result == {"color": exx.red, "shape": "square", "name": "box"}
 
 
 def test_get_serializable_dict_ReturnsObj_Scenario1_NestedDict():
     # ESTABLISH
-    data = {"outer": {"inner": {"color": Color.BLUE, "count": 5}}}
+    data = {"outer": {"inner": {"color": exx.blue, "count": 5}}}
     # WHEN
     result = get_serializable_dict(data)
     # THEN
@@ -32,35 +22,35 @@ def test_get_serializable_dict_ReturnsObj_Scenario1_NestedDict():
 
 def test_get_serializable_dict_ReturnsObj_Scenario2_List():
     # ESTABLISH
-    data = [Color.RED, Color.BLUE, "plain"]
+    data = [exx.red, exx.blue, "plain"]
     # WHEN
     result = get_serializable_dict(data)
     # THEN
-    assert result == ["red", "blue", "plain"]
+    assert result == [exx.red, "blue", "plain"]
 
 
 def test_get_serializable_dict_ReturnsObj_Scenario3_Set():
     # ESTABLISH
-    data = {Color.RED, Color.BLUE, "plain"}
+    data = {exx.red, exx.blue, "plain"}
     # WHEN
     result = get_serializable_dict(data)
     # THEN
-    assert result == ["blue", "plain", "red"]
+    assert result == ["blue", "plain", exx.red]
 
 
 def test_get_serializable_dict_ReturnsObj_Scenario4_Mixed():
     # ESTABLISH
     data = {
-        "colors": [Color.RED, Color.BLUE],
-        "shapes": {"main": Shape.CIRCLE, "alt": "triangle"},
+        "colors": [exx.red, exx.blue],
+        "shapes": {"main": exx.square, "alt": "triangle"},
         "count": 3,
     }
     # WHEN
     result = get_serializable_dict(data)
     # THEN
     assert result == {
-        "colors": ["red", "blue"],
-        "shapes": {"main": "circle", "alt": "triangle"},
+        "colors": [exx.red, "blue"],
+        "shapes": {"main": exx.square, "alt": "triangle"},
         "count": 3,
     }
 

@@ -3,14 +3,17 @@ from enum import Enum
 
 class ExampleStrs(str, Enum):
     a23 = "Amy23"
+    blue = "blue"
     bob = "Bob"
     casa = "casa"
     clean = "clean"
     cuisine = "cuisine"
     dirtyness = "dirtyness"
     mop = "mop"
+    red = "red"
     run = ";runners"
     slash = "/"
+    square = "square"
     sue = "Sue"
     swim = "swim"
     wed = "Wed"
