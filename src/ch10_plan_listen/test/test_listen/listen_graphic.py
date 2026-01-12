@@ -10,6 +10,7 @@ from src.ch00_py.plotly_toolbox import (
 from src.ch01_allot.allot import default_pool_num
 from src.ch07_plan_logic.plan_graphic import display_kegtree
 from src.ch07_plan_logic.plan_main import PlanUnit
+from src.ref.keywords import ExampleStrs as exx
 
 
 def get_lessonfilehandler_base_fig() -> plotly_Figure:
@@ -21,14 +22,11 @@ def get_lessonfilehandler_base_fig() -> plotly_Figure:
 
 def get_listen_structures0_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
-        bob_str = "Bob"
-        sue_str = "Sue"
-        exx.yao = "Yao"
         fig = get_lessonfilehandler_base_fig()
-        sue_gut_str = f"{sue_str}.gut"
-        sue_job_str = f"{sue_str}.job"
+        sue_gut_str = f"{exx.sue}.gut"
+        sue_job_str = f"{exx.sue}.job"
         yao_job_str = f"{exx.yao}.job"
-        bob_job_str = f"{bob_str}.job"
+        bob_job_str = f"{exx.bob}.job"
         dir_job_str = f"jobs directory"
         dir_gut_str = f"guts directory"
 
@@ -63,11 +61,8 @@ def get_listen_structures0_fig(graphics_bool: bool = False) -> plotly_Figure:
 
 def get_listen_structures1_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
-        bob_str = "Bob"
-        sue_str = "Sue"
-        exx.yao = "Yao"
         fig = get_lessonfilehandler_base_fig()
-        sue_gut_str = f"{sue_str}.gut"
+        sue_gut_str = f"{exx.sue}.gut"
         dir_gut_str = f"guts dir"
 
         green_str = "Green"
@@ -79,17 +74,17 @@ def get_listen_structures1_fig(graphics_bool: bool = False) -> plotly_Figure:
         add_2_curve(fig, path="M 1.75,6.8 C 2,5.5 3.4,5.2 3.5,5", color=blue_str)
         add_rect_arrow(fig, 1.85, 6.5, 1.75, 6.8, blue_str)
 
-        sue_duty_str = f"{sue_str} duty"
-        sue_vision_str = f"{sue_str} vision"
-        d_sue1_p1 = f"Healer = {sue_str} "
+        sue_duty_str = f"{exx.sue} duty"
+        sue_vision_str = f"{exx.sue} vision"
+        d_sue1_p1 = f"Healer = {exx.sue} "
         d_sue1_p2 = "Problem = problem1"
         d_sue1_p3 = "Keep = keep1"
         d_sue1_p4 = f"Mana = {default_pool_num()} "
-        d_bob1_p1 = f"Healer = {bob_str} "
+        d_bob1_p1 = f"Healer = {exx.bob} "
         d_bob1_p2 = "Problem = problem1"
         d_bob1_p3 = "Keep = keep1"
         d_bob1_p4 = f"Mana = {default_pool_num()} "
-        d_sue2_p1 = f"Healer = {sue_str} "
+        d_sue2_p1 = f"Healer = {exx.sue} "
         d_sue2_p2 = "Problem = problem2"
         d_sue2_p3 = "Keep = keep3"
         d_sue2_p4 = f"Mana={default_pool_num()} "
@@ -128,13 +123,10 @@ def get_listen_structures1_fig(graphics_bool: bool = False) -> plotly_Figure:
 
 def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
-        bob_str = "Bob"
-        sue_str = "Sue"
-        exx.yao = "Yao"
         fig = get_lessonfilehandler_base_fig()
         fig.update_yaxes(range=[-4, 10])
-        sue_gut_str = f"{sue_str}.gut"
-        sue_job_str = f"{sue_str}.job"
+        sue_gut_str = f"{exx.sue}.gut"
+        sue_job_str = f"{exx.sue}.job"
         dir_job_str = f"jobs dir"
         dir_gut_str = f"guts dir"
 
@@ -154,17 +146,17 @@ def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
         add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 3.4,0.4 3.5,1", color=blue_str)
         add_rect_arrow(fig, 1.71, -1.0, 1.75, -0.8, blue_str)
 
-        sue_duty_str = f"{sue_str} duty"
-        sue_vision_str = f"{sue_str} vision"
-        d_sue1_p1 = f"Healer = {sue_str} "
+        sue_duty_str = f"{exx.sue} duty"
+        sue_vision_str = f"{exx.sue} vision"
+        d_sue1_p1 = f"Healer = {exx.sue} "
         d_sue1_p2 = "Problem = problem1"
         d_sue1_p3 = "Keep = keep1"
         d_sue1_p4 = f"Mana = {default_pool_num()} "
-        d_bob1_p1 = f"Healer = {bob_str} "
+        d_bob1_p1 = f"Healer = {exx.bob} "
         d_bob1_p2 = "Problem = problem1"
         d_bob1_p3 = "Keep = keep1"
         d_bob1_p4 = f"Mana = {default_pool_num()} "
-        d_sue2_p1 = f"Healer = {sue_str} "
+        d_sue2_p1 = f"Healer = {exx.sue} "
         d_sue2_p2 = "Problem = problem2"
         d_sue2_p3 = "Keep = keep3"
         d_sue2_p4 = f"Mana={default_pool_num()} "
@@ -207,14 +199,10 @@ def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
 
 def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
     if graphics_bool:
-        bob_str = "Bob"
-        sue_str = "Sue"
-        exx.yao = "Yao"
         fig = get_lessonfilehandler_base_fig()
         fig.update_yaxes(range=[-4, 10])
-        exx.yao = "Yao"
-        sue_gut_str = f"{sue_str}.gut"
-        sue_job_str = f"{sue_str}.job"
+        sue_gut_str = f"{exx.sue}.gut"
+        sue_job_str = f"{exx.sue}.job"
         dir_job_str = f"jobs dir"
         dir_gut_str = f"guts dir"
 
@@ -236,11 +224,11 @@ def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
         add_2_curve(fig, path="M 1.75,-0.8 C 2,-0.2 3.4,0.4 3.5,1", color=blue_str)
         add_rect_arrow(fig, 1.71, -1.0, 1.75, -0.8, blue_str)
 
-        sue_duty_str = f"{sue_str} duty"
-        sue_vision_str = f"{sue_str} vision"
-        bob_vision_str = f"{bob_str} vision"
+        sue_duty_str = f"{exx.sue} duty"
+        sue_vision_str = f"{exx.sue} vision"
+        bob_vision_str = f"{exx.bob} vision"
         yao_vision_str = f"{exx.yao} vision"
-        d_sue1_p1 = f"Healer = {sue_str} "
+        d_sue1_p1 = f"Healer = {exx.sue} "
         d_sue1_p2 = "Problem = problem1"
         d_sue1_p3 = "Keep = keep1"
         d_sue1_p4 = f"Mana = {default_pool_num()} "

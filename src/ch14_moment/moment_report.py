@@ -37,9 +37,7 @@ def get_moment_guts_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         "fund_agenda_take",
     ]
     df = get_moment_guts_persons_dataframe(x_moment)
-    header_dict = dict(
-        values=column_header_list, fill_color="paleturquoise", align="left"
-    )
+    header_dict = dict(values=column_header_list, fill_color="powderblue", align="left")
     x_table = plotly_Table(
         header=header_dict,
         cells=dict(
@@ -93,9 +91,7 @@ def get_moment_jobs_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         "fund_agenda_take",
     ]
     df = get_moment_jobs_persons_dataframe(x_moment)
-    header_dict = dict(
-        values=column_header_list, fill_color="paleturquoise", align="left"
-    )
+    header_dict = dict(values=column_header_list, fill_color="powderblue", align="left")
     x_table = plotly_Table(
         header=header_dict,
         cells=dict(
@@ -151,9 +147,7 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         "morph",
     ]
     df = get_moment_guts_agenda_dataframe(x_moment)
-    header_dict = dict(
-        values=column_header_list, fill_color="paleturquoise", align="left"
-    )
+    header_dict = dict(values=column_header_list, fill_color="powderblue", align="left")
     x_table = plotly_Table(
         header=header_dict,
         cells=dict(
@@ -210,9 +204,7 @@ def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         "morph",
     ]
     df = get_moment_jobs_agenda_dataframe(x_moment)
-    header_dict = dict(
-        values=column_header_list, fill_color="paleturquoise", align="left"
-    )
+    header_dict = dict(values=column_header_list, fill_color="powderblue", align="left")
     x_table = plotly_Table(
         header=header_dict,
         cells=dict(

@@ -1,9 +1,9 @@
 {
   "moment_budunit": {
     "jkeys": {
-      "plan_name" : { "class_type": "NameTerm"  }, 
       "bud_time"    : { "class_type": "EpochTime" }, 
-      "moment_label": { "class_type": "LabelTerm" }
+      "moment_label": { "class_type": "LabelTerm" }, 
+      "plan_name"   : { "class_type": "NameTerm"  }
     }, 
     "jvalues": { "celldepth": {"class_type": "int"}, "quota": {"class_type": "int"} }, 
     "moment_static": "True"
@@ -34,10 +34,10 @@
   }, 
   "moment_paybook": {
     "jkeys": {
-      "plan_name" : { "class_type": "NameTerm"  }, 
       "moment_label": { "class_type": "LabelTerm" }, 
-      "tran_time"   : { "class_type": "EpochTime" }, 
-      "person_name"  : { "class_type": "NameTerm"  }
+      "person_name" : { "class_type": "NameTerm"  }, 
+      "plan_name"   : { "class_type": "NameTerm"  }, 
+      "tran_time"   : { "class_type": "EpochTime" }
     }, 
     "jvalues": { "amount": {"class_type": "float"} }, 
     "moment_static": "True"

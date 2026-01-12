@@ -1,11 +1,11 @@
 {
   "attributes": {
-    "plan_name" : { "otx_key": true  }, 
     "face_name"   : { "otx_key": true  }, 
     "healer_name" : { "otx_key": true  }, 
+    "keg_label"   : { "otx_key": true  }, 
+    "keg_rope"    : { "otx_key": true  }, 
     "moment_label": { "otx_key": true  }, 
-    "keg_label"  : { "otx_key": true  }, 
-    "keg_rope"   : { "otx_key": true  }, 
+    "plan_name"   : { "otx_key": true  }, 
     "problem_bool": { "otx_key": false }, 
     "spark_num"   : { "otx_key": true  }
   }, 

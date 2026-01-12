@@ -1,10 +1,10 @@
 {
   "attributes": {
-    "plan_name" : { "otx_key": true  }, 
     "face_name"   : { "otx_key": true  }, 
+    "keg_rope"    : { "otx_key": true  }, 
     "moment_label": { "otx_key": true  }, 
     "party_title" : { "otx_key": true  }, 
-    "keg_rope"   : { "otx_key": true  }, 
+    "plan_name"   : { "otx_key": true  }, 
     "solo"        : { "otx_key": false }, 
     "spark_num"   : { "otx_key": true  }
   }, 

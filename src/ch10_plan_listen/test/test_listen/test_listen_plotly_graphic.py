@@ -1,11 +1,11 @@
-from src.ch10_plan_listen.listen_graphic import (
+from src.ch10_plan_listen.test._util.ch10_examples import get_fund_breakdown_plan
+from src.ch10_plan_listen.test.test_listen.listen_graphic import (
     fund_graph13,
     get_listen_structures0_fig,
     get_listen_structures1_fig,
     get_listen_structures2_fig,
     get_listen_structures3_fig,
 )
-from src.ch10_plan_listen.test._util.ch10_examples import get_fund_breakdown_plan
 from src.ref.keywords import Ch10Keywords as kw
 
 
