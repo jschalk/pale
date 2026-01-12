@@ -163,9 +163,7 @@ def get_plan_persons_plotly_fig(x_plan: PlanUnit) -> plotly_Figure:
     df = get_plan_personunits_dataframe(x_plan)
     df.insert(1, "_credor_respect", x_plan.credor_respect)
     df.insert(4, "_debtor_respect", x_plan.debtor_respect)
-    header_dict = dict(
-        values=column_header_list, fill_color="paleturquoise", align="left"
-    )
+    header_dict = dict(values=column_header_list, fill_color="powderblue", align="left")
     x_table = plotly_Table(
         header=header_dict,
         cells=dict(
@@ -202,9 +200,7 @@ def get_plan_agenda_plotly_fig(x_plan: PlanUnit) -> plotly_Figure:
         "parent_rope",
     ]
     df = get_plan_agenda_dataframe(x_plan)
-    header_dict = dict(
-        values=column_header_list, fill_color="paleturquoise", align="left"
-    )
+    header_dict = dict(values=column_header_list, fill_color="powderblue", align="left")
     x_table = plotly_Table(
         header=header_dict,
         cells=dict(
