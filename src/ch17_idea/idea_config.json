@@ -1,166 +1,13 @@
 {
-  "plan_keg_awardunit": {
-    "allowed_crud": "delete_insert_update", 
-    "build_order": 11, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "awardee_title": {}, 
-      "plan_name": {}, 
-      "face_name": {}, 
-      "moment_label": {}, 
-      "keg_rope": {}, 
-      "spark_num": {}
-    }, 
-    "jvalues": {"give_force": {}, "take_force": {}}
-  }, 
-  "plan_keg_factunit": {
-    "allowed_crud": "delete_insert_update", 
-    "build_order": 12, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "fact_context": {}, 
-      "moment_label": {}, 
-      "keg_rope": {}, 
-      "spark_num": {}
-    }, 
-    "jvalues": {"fact_lower": {}, "fact_state": {}, "fact_upper": {}}
-  }, 
-  "plan_keg_healerunit": {
-    "allowed_crud": "delete_insert", 
-    "build_order": 15, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "healer_name": {}, 
-      "moment_label": {}, 
-      "keg_rope": {}, 
-      "spark_num": {}
-    }, 
-    "jvalues": {}
-  }, 
-  "plan_keg_partyunit": {
-    "allowed_crud": "delete_insert", 
-    "build_order": 14, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "moment_label": {}, 
-      "party_title": {}, 
-      "keg_rope": {}, 
-      "spark_num": {}
-    }, 
-    "jvalues": {"solo": {}}
-  }, 
-  "plan_keg_reason_caseunit": {
-    "allowed_crud": "delete_insert_update", 
-    "build_order": 16, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "moment_label": {}, 
-      "keg_rope": {}, 
-      "reason_context": {}, 
-      "reason_state": {}, 
-      "spark_num": {}
-    }, 
-    "jvalues": {"reason_divisor": {}, "reason_lower": {}, "reason_upper": {}}
-  }, 
-  "plan_keg_reasonunit": {
-    "allowed_crud": "delete_insert_update", 
-    "build_order": 17, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "moment_label": {}, 
-      "keg_rope": {}, 
-      "reason_context": {}, 
-      "spark_num": {}
-    }, 
-    "jvalues": {"active_requisite": {}}
-  }, 
-  "plan_kegunit": {
-    "allowed_crud": "delete_insert_update", 
-    "build_order": 18, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "moment_label": {}, 
-      "keg_rope": {}, 
-      "spark_num": {}
-    }, 
-    "jvalues": {
-      "addin": {}, 
-      "begin": {}, 
-      "close": {}, 
-      "denom": {}, 
-      "gogo_want": {}, 
-      "morph": {}, 
-      "numor": {}, 
-      "pledge": {}, 
-      "problem_bool": {}, 
-      "star": {}, 
-      "stop_want": {}
-    }
-  }, 
-  "plan_person_membership": {
-    "allowed_crud": "delete_insert_update", 
-    "build_order": 9, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "group_title": {}, 
-      "moment_label": {}, 
-      "spark_num": {}, 
-      "person_name": {}
-    }, 
-    "jvalues": {"group_cred_lumen": {}, "group_debt_lumen": {}}
-  }, 
-  "plan_personunit": {
-    "allowed_crud": "delete_insert_update", 
-    "build_order": 10, 
-    "idea_category": "plan", 
-    "jkeys": {
-      "plan_name": {}, 
-      "face_name": {}, 
-      "moment_label": {}, 
-      "spark_num": {}, 
-      "person_name": {}
-    }, 
-    "jvalues": {"person_cred_lumen": {}, "person_debt_lumen": {}}
-  }, 
-  "planunit": {
-    "allowed_crud": "UPDATE", 
-    "build_order": 19, 
-    "idea_category": "plan", 
-    "jkeys": {"plan_name": {}, "face_name": {}, "moment_label": {}, "spark_num": {}}, 
-    "jvalues": {
-      "credor_respect": {}, 
-      "debtor_respect": {}, 
-      "fund_grain": {}, 
-      "fund_pool": {}, 
-      "mana_grain": {}, 
-      "max_tree_traverse": {}, 
-      "respect_grain": {}, 
-      "tally": {}
-    }
-  }, 
   "moment_budunit": {
     "allowed_crud": "insert_multiple", 
     "build_order": 20, 
     "idea_category": "moment", 
     "jkeys": {
-      "plan_name": {}, 
       "bud_time": {}, 
       "face_name": {}, 
       "moment_label": {}, 
+      "plan_name": {}, 
       "spark_num": {}
     }, 
     "jvalues": {"celldepth": {}, "quota": {}}
@@ -191,12 +38,12 @@
     "build_order": 21, 
     "idea_category": "moment", 
     "jkeys": {
-      "plan_name": {}, 
       "face_name": {}, 
       "moment_label": {}, 
+      "person_name": {}, 
+      "plan_name": {}, 
       "spark_num": {}, 
-      "tran_time": {}, 
-      "person_name": {}
+      "tran_time": {}
     }, 
     "jvalues": {"amount": {}}
   }, 
@@ -230,6 +77,159 @@
     "idea_category": "nabu", 
     "jkeys": {"face_name": {}, "moment_label": {}, "otx_time": {}, "spark_num": {}}, 
     "jvalues": {"inx_time": {}}
+  }, 
+  "plan_keg_awardunit": {
+    "allowed_crud": "delete_insert_update", 
+    "build_order": 11, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "awardee_title": {}, 
+      "face_name": {}, 
+      "keg_rope": {}, 
+      "moment_label": {}, 
+      "plan_name": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {"give_force": {}, "take_force": {}}
+  }, 
+  "plan_keg_factunit": {
+    "allowed_crud": "delete_insert_update", 
+    "build_order": 12, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "fact_context": {}, 
+      "keg_rope": {}, 
+      "moment_label": {}, 
+      "plan_name": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {"fact_lower": {}, "fact_state": {}, "fact_upper": {}}
+  }, 
+  "plan_keg_healerunit": {
+    "allowed_crud": "delete_insert", 
+    "build_order": 15, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "healer_name": {}, 
+      "keg_rope": {}, 
+      "moment_label": {}, 
+      "plan_name": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {}
+  }, 
+  "plan_keg_partyunit": {
+    "allowed_crud": "delete_insert", 
+    "build_order": 14, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "keg_rope": {}, 
+      "moment_label": {}, 
+      "party_title": {}, 
+      "plan_name": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {"solo": {}}
+  }, 
+  "plan_keg_reason_caseunit": {
+    "allowed_crud": "delete_insert_update", 
+    "build_order": 16, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "keg_rope": {}, 
+      "moment_label": {}, 
+      "plan_name": {}, 
+      "reason_context": {}, 
+      "reason_state": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {"reason_divisor": {}, "reason_lower": {}, "reason_upper": {}}
+  }, 
+  "plan_keg_reasonunit": {
+    "allowed_crud": "delete_insert_update", 
+    "build_order": 17, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "keg_rope": {}, 
+      "moment_label": {}, 
+      "plan_name": {}, 
+      "reason_context": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {"active_requisite": {}}
+  }, 
+  "plan_kegunit": {
+    "allowed_crud": "delete_insert_update", 
+    "build_order": 18, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "keg_rope": {}, 
+      "moment_label": {}, 
+      "plan_name": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {
+      "addin": {}, 
+      "begin": {}, 
+      "close": {}, 
+      "denom": {}, 
+      "gogo_want": {}, 
+      "morph": {}, 
+      "numor": {}, 
+      "pledge": {}, 
+      "problem_bool": {}, 
+      "star": {}, 
+      "stop_want": {}
+    }
+  }, 
+  "plan_person_membership": {
+    "allowed_crud": "delete_insert_update", 
+    "build_order": 9, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "group_title": {}, 
+      "moment_label": {}, 
+      "person_name": {}, 
+      "plan_name": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {"group_cred_lumen": {}, "group_debt_lumen": {}}
+  }, 
+  "plan_personunit": {
+    "allowed_crud": "delete_insert_update", 
+    "build_order": 10, 
+    "idea_category": "plan", 
+    "jkeys": {
+      "face_name": {}, 
+      "moment_label": {}, 
+      "person_name": {}, 
+      "plan_name": {}, 
+      "spark_num": {}
+    }, 
+    "jvalues": {"person_cred_lumen": {}, "person_debt_lumen": {}}
+  }, 
+  "planunit": {
+    "allowed_crud": "UPDATE", 
+    "build_order": 19, 
+    "idea_category": "plan", 
+    "jkeys": {"face_name": {}, "moment_label": {}, "plan_name": {}, "spark_num": {}}, 
+    "jvalues": {
+      "credor_respect": {}, 
+      "debtor_respect": {}, 
+      "fund_grain": {}, 
+      "fund_pool": {}, 
+      "mana_grain": {}, 
+      "max_tree_traverse": {}, 
+      "respect_grain": {}, 
+      "tally": {}
+    }
   }, 
   "translate_label": {
     "allowed_crud": "insert_one_time", 

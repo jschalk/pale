@@ -1,34 +1,4 @@
 {
-  "plan": {
-    "stages": {
-      "h": {
-        "agg": {
-          "del": {
-            "exclude_from_insert": ["translate_spark_num", "error_message"], 
-            "exclude_otx_from_insert": true
-          }, 
-          "put": {
-            "exclude_from_insert": ["translate_spark_num", "error_message"], 
-            "exclude_otx_from_insert": true, 
-            "set_nabuable_otx_inx_args": true
-          }
-        }, 
-        "raw": {
-          "del": { "add": ["translate_spark_num"], "set_translateable_otx_inx_args": true }, 
-          "put": { "add": ["translate_spark_num"], "set_translateable_otx_inx_args": true }
-        }, 
-        "vld": {"del": {}, "put": {}}
-      }, 
-      "s": {
-        "agg": { "del": { "add": ["error_message"] }, "put": { "add": ["error_message"] } }, 
-        "raw": {
-          "del": { "add": ["idea_number"]                  }, 
-          "put": { "add": ["idea_number", "error_message"] }
-        }, 
-        "vld": {"del": {}, "put": {}}
-      }
-    }
-  }, 
   "moment": {
     "stages": {
       "h": {
@@ -57,6 +27,36 @@
         "agg": { "add": ["error_message"] }, 
         "raw": { "add": ["idea_number", "error_message"] }, 
         "vld": {}
+      }
+    }
+  }, 
+  "plan": {
+    "stages": {
+      "h": {
+        "agg": {
+          "del": {
+            "exclude_from_insert": ["translate_spark_num", "error_message"], 
+            "exclude_otx_from_insert": true
+          }, 
+          "put": {
+            "exclude_from_insert": ["translate_spark_num", "error_message"], 
+            "exclude_otx_from_insert": true, 
+            "set_nabuable_otx_inx_args": true
+          }
+        }, 
+        "raw": {
+          "del": { "add": ["translate_spark_num"], "set_translateable_otx_inx_args": true }, 
+          "put": { "add": ["translate_spark_num"], "set_translateable_otx_inx_args": true }
+        }, 
+        "vld": {"del": {}, "put": {}}
+      }, 
+      "s": {
+        "agg": { "del": { "add": ["error_message"] }, "put": { "add": ["error_message"] } }, 
+        "raw": {
+          "del": { "add": ["idea_number"]                  }, 
+          "put": { "add": ["idea_number", "error_message"] }
+        }, 
+        "vld": {"del": {}, "put": {}}
       }
     }
   }, 

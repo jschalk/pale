@@ -1,9 +1,9 @@
 {
   "attributes": {
+    "face_name"      : { "otx_key": true }, 
+    "moment_label"   : { "otx_key": true }, 
     "plan_name_ERASE": { "otx_key": true }, 
-    "face_name"        : { "otx_key": true }, 
-    "moment_label"     : { "otx_key": true }, 
-    "spark_num"        : { "otx_key": true }
+    "spark_num"      : { "otx_key": true }
   }, 
   "dimens": ["planunit", "momentunit"], 
   "idea_number": "br00059"

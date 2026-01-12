@@ -2,11 +2,6 @@
   "plan_groupunit": {
     "abbreviation": "plngrou", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
-        "populate_by_cashout": true, 
-        "sqlite_datatype": "TEXT"
-      }, 
       "group_title": {
         "class_type": "TitleTerm", 
         "populate_by_cashout": true, 
@@ -14,6 +9,11 @@
       }, 
       "moment_label": {
         "class_type": "LabelTerm", 
+        "populate_by_cashout": true, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": true, 
         "sqlite_datatype": "TEXT"
       }
@@ -36,8 +36,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_name": {
-        "class_type": "NameTerm", 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -46,8 +46,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "keg_rope": {
-        "class_type": "RopeTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -62,12 +62,12 @@
   "plan_keg_factunit": {
     "abbreviation": "plnfact", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
+      "fact_context": {
+        "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "fact_context": {
+      "keg_rope": {
         "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -77,8 +77,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "keg_rope": {
-        "class_type": "RopeTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -104,13 +104,13 @@
   "plan_keg_healerunit": {
     "abbreviation": "plnheal", 
     "jkeys": {
-      "plan_name": {
+      "healer_name": {
         "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "healer_name": {
-        "class_type": "NameTerm", 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -119,8 +119,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "keg_rope": {
-        "class_type": "RopeTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -130,8 +130,8 @@
   "plan_keg_partyunit": {
     "abbreviation": "plnlabo", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -145,8 +145,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "keg_rope": {
-        "class_type": "RopeTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -163,8 +163,8 @@
   "plan_keg_reason_caseunit": {
     "abbreviation": "plncase", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -173,8 +173,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "keg_rope": {
-        "class_type": "RopeTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -212,8 +212,8 @@
   "plan_keg_reasonunit": {
     "abbreviation": "plnreas", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -222,8 +222,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "keg_rope": {
-        "class_type": "RopeTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -247,8 +247,8 @@
   "plan_kegunit": {
     "abbreviation": "plnkegg", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
+      "keg_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -257,8 +257,8 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "keg_rope": {
-        "class_type": "RopeTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -282,6 +282,7 @@
       "gogo_calc": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
       "gogo_want": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}, 
       "healerunit_ratio": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
+      "keg_active": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
       "morph": {
         "class_type": "bool", 
         "populate_by_cashout": false, 
@@ -292,7 +293,6 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "INTEGER"
       }, 
-      "keg_active": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
       "pledge": {
         "class_type": "bool", 
         "populate_by_cashout": false, 
@@ -318,11 +318,6 @@
   "plan_person_membership": {
     "abbreviation": "plnmemb", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
-        "populate_by_cashout": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
       "group_title": {
         "class_type": "TitleTerm", 
         "populate_by_cashout": false, 
@@ -334,6 +329,11 @@
         "sqlite_datatype": "TEXT"
       }, 
       "person_name": {
+        "class_type": "NameTerm", 
+        "populate_by_cashout": false, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "plan_name": {
         "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -355,17 +355,17 @@
   "plan_personunit": {
     "abbreviation": "plnprsn", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
-        "populate_by_cashout": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
       "moment_label": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
       "person_name": {
+        "class_type": "NameTerm", 
+        "populate_by_cashout": false, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "plan_name": {
         "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -390,13 +390,13 @@
   "planunit": {
     "abbreviation": "plnunit", 
     "jkeys": {
-      "plan_name": {
-        "class_type": "NameTerm", 
+      "moment_label": {
+        "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
-        "class_type": "LabelTerm", 
+      "plan_name": {
+        "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }

@@ -72,16 +72,16 @@
     "DELETE": {"atom_order": 19}, 
     "INSERT": {"atom_order": 4}, 
     "jkeys": {
-      "party_title": {
-        "class_type": "TitleTerm", 
-        "column_order": 1, 
-        "nesting_order": 1, 
-        "sqlite_datatype": "TEXT"
-      }, 
       "keg_rope": {
         "class_type": "RopeTerm", 
         "column_order": 0, 
         "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "party_title": {
+        "class_type": "TitleTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
         "sqlite_datatype": "TEXT"
       }
     }, 
