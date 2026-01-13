@@ -49,9 +49,9 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
 
     # Create MomentUnit with bob bud at time 37
     amy23_moment = momentunit_shop(exx.a23, mstr_dir)
-    epochtime37 = 37
+    timenum37 = 37
     bud1_quota = 450
-    amy23_moment.add_budunit(exx.bob, epochtime37, bud1_quota)
+    amy23_moment.add_budunit(exx.bob, timenum37, bud1_quota)
     a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
@@ -59,11 +59,11 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
     # Create spark time mapping plan_time_agg for time 37
     spark3 = 3
     spark7 = 7
-    epochtime66 = 66
-    a23_ote1_dict = {exx.bob: {str(epochtime37): spark3, str(epochtime66): spark7}}
+    timenum66 = 66
+    a23_ote1_dict = {exx.bob: {str(timenum37): spark3, str(timenum66): spark7}}
 
-    # epochtime37 cell path
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, epochtime37)
+    # timenum37 cell path
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, timenum37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN
@@ -87,9 +87,9 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoPlanExistsInSp
 
     # Create MomentUnit with bob bud at time 37
     amy23_moment = momentunit_shop(exx.a23, mstr_dir)
-    epochtime37 = 37
+    timenum37 = 37
     bud1_quota = 450
-    amy23_moment.add_budunit(exx.bob, epochtime37, bud1_quota)
+    amy23_moment.add_budunit(exx.bob, timenum37, bud1_quota)
     a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
@@ -97,10 +97,10 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoPlanExistsInSp
     # Create spark time mapping plan_time_agg for time 37
     spark3 = 3
     spark7 = 7
-    epochtime40 = 40
-    epochtime66 = 66
-    a23_ote1_dict = {exx.bob: {str(epochtime40): spark3, str(epochtime66): spark7}}
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, epochtime37)
+    timenum40 = 40
+    timenum66 = 66
+    a23_ote1_dict = {exx.bob: {str(timenum40): spark3, str(timenum66): spark7}}
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, timenum37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN
@@ -127,10 +127,10 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
     # Create MomentUnit with bob bud at time 37
     amy23_moment = momentunit_shop(exx.a23, mstr_dir, mana_grain=a23_mana_grain)
     print(f"{amy23_moment.mana_grain=}")
-    epochtime37 = 37
+    timenum37 = 37
     bud1_quota = 450
     bud1_celldepth = 3
-    amy23_moment.add_budunit(exx.bob, epochtime37, bud1_quota, celldepth=bud1_celldepth)
+    amy23_moment.add_budunit(exx.bob, timenum37, bud1_quota, celldepth=bud1_celldepth)
     a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
@@ -138,12 +138,12 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
     # Create spark time mapping plan_time_agg for time 37
     spark3 = 3
     spark7 = 7
-    epochtime30 = 30
-    epochtime66 = 66
-    a23_ote1_dict = {exx.bob: {str(epochtime30): spark3, str(epochtime66): spark7}}
+    timenum30 = 30
+    timenum66 = 66
+    a23_ote1_dict = {exx.bob: {str(timenum30): spark3, str(timenum66): spark7}}
 
     # destination of cell json
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, epochtime37)
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, timenum37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN

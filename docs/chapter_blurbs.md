@@ -14,9 +14,9 @@ What does each one do?
 - **ch08_plan_atom**: Defines PlanAtoms: Irreducible units of change for a PlanUnit.
 - **ch09_plan_lesson**: Defines lessons which are collections of PlanAtoms by FaceName
 - **ch10_plan_listen**: These tools describe how one PlanUnit listens to another.
-- **ch11_bud**: Defines PlanBudHistory: PlanName, BudUnits (EpochTime, quota, celldepth)
+- **ch11_bud**: Defines PlanBudHistory: PlanName, BudUnits (TimeNum, quota, celldepth)
 - **ch12_keep**: Builds a simulation that describes how much credit a healer has earned.
-- **ch13_epoch**: Defines how time is handled by PlanUnits. Allows for arbitrary time structures.
+- **ch13_time**: Defines how time is handled by PlanUnits. Allows for arbitrary time structures.
 - **ch14_moment**: Defines MomentUnits: common time tech, ledger, PersonNames, history of PlanUnits.
 - **ch15_nabu**: Defines NabuUnit tools that interpret numeric values into inside accounting.
 - **ch16_translate**: Defines TranslateUnit tools that translate MomentUnits into inside language.

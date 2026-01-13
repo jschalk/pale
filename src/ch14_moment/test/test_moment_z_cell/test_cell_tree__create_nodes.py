@@ -15,7 +15,7 @@ from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_create_cell_tree_Scenaro0_epochtime_Empty(temp_dir_setup):
+def test_create_cell_tree_Scenaro0_timenum_Empty(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = create_path(get_temp_dir(), "Fay_mstr")
     tp37 = 37
@@ -34,7 +34,7 @@ def test_create_cell_tree_Scenaro0_epochtime_Empty(temp_dir_setup):
 def test_create_cell_tree_Scenaro1_LedgerDepth0(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = create_path(get_temp_dir(), "Fay_mstr")
-    tp37 = 37  # epochtime
+    tp37 = 37  # timenum
     bud1_quota = 450
     bud1_celldepth = 0
     spark56 = 56
@@ -58,7 +58,7 @@ def test_create_cell_tree_Scenaro1_LedgerDepth0(temp_dir_setup):
 def test_create_cell_tree_Scenaro2_LedgerDepth1(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = create_path(get_temp_dir(), "Fay_mstr")
-    tp37 = 37  # epochtime
+    tp37 = 37  # timenum
     x_quota = 450
     x_celldepth = 1
     spark56 = 56
@@ -145,7 +145,7 @@ def test_create_cell_tree_Scenaro2_LedgerDepth1(temp_dir_setup):
 def test_create_cell_tree_Scenaro3_LedgerDepth1_MostRecentSpark(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = create_path(get_temp_dir(), "Fay_mstr")
-    tp37 = 37  # epochtime
+    tp37 = 37  # timenum
     x_quota = 450
     x_celldepth = 1
     spark33 = 33
@@ -238,7 +238,7 @@ def test_create_cell_tree_Scenaro4_LedgerDepth1_OnePlanHasNoPast_planspark(
 ):
     # ESTABLISH
     moment_mstr_dir = create_path(get_temp_dir(), "Fay_mstr")
-    tp37 = 37  # epochtime
+    tp37 = 37  # timenum
     x_quota = 450
     x_celldepth = 1
     spark33 = 33
@@ -317,7 +317,7 @@ def test_create_cell_tree_Scenaro5_LedgerDepth1_ZeroQuotaDoesNotGetCreated(
 ):
     # ESTABLISH
     moment_mstr_dir = create_path(get_temp_dir(), "Fay_mstr")
-    tp37 = 37  # epochtime
+    tp37 = 37  # timenum
     x_quota = 2
     x_celldepth = 1
     spark33 = 33

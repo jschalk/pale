@@ -1,8 +1,8 @@
 from datetime import datetime
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
-from src.ch13_epoch.epoch_main import get_year_rope
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.epoch_main import get_year_rope
+from src.ch13_time.test._util.ch13_examples import (
     add_time_creg_kegunit,
     creg_weekday_kegunits,
     get_creg_min_from_dt,

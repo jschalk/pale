@@ -25,7 +25,7 @@ from src.ch07_plan_logic._ref.ch07_semantic_types import (
 )
 from src.ch08_plan_atom._ref.ch08_semantic_types import CRUD_command
 from src.ch09_plan_lesson._ref.ch09_semantic_types import FaceName
-from src.ch11_bud._ref.ch11_semantic_types import EpochTime, SparkInt
+from src.ch11_bud._ref.ch11_semantic_types import SparkInt, TimeNum
 
 
 class ManaNum(float):

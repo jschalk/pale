@@ -71,7 +71,7 @@
       "yr1_jan1_offset": {}
     }
   }, 
-  "nabu_epochtime": {
+  "nabu_timenum": {
     "allowed_crud": "insert_one_time", 
     "build_order": 4, 
     "idea_category": "nabu", 

@@ -9,13 +9,13 @@ from src.ch07_plan_logic.plan_tool import (
     plan_keg_reasonunit_get_obj,
     plan_kegunit_get_obj,
 )
-from src.ch13_epoch.epoch_main import (
+from src.ch13_time.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
     add_epoch_kegunit,
     get_c400_constants,
 )
-from src.ch13_epoch.epoch_reason import set_epoch_cases_by_args_dict
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.epoch_reason import set_epoch_cases_by_args_dict
+from src.ch13_time.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
     get_bob_five_plan,
     get_lizzy9_config,
@@ -32,10 +32,10 @@ from src.ch18_world_etl.etl_nabu import (
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
-    get_update_heard_agg_epochtime_sqlstr,
-    get_update_heard_agg_epochtime_sqlstrs,
+    get_update_heard_agg_timenum_sqlstr,
+    get_update_heard_agg_timenum_sqlstrs,
     get_update_plncase_inx_epoch_diff_sqlstr,
-    update_heard_agg_epochtime_columns,
+    update_heard_agg_timenum_columns,
 )
 from src.ch18_world_etl.obj2db_plan import insert_h_agg_obj
 from src.ch18_world_etl.test._util.ch18_examples import (
@@ -438,10 +438,10 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 
 #     print(f"{monthday_case.reason_divisor=}")
 #     x_epoch_frame_min = 500
-#     geo_5_EpochTime = 43200
-#     geo_8_EpochTime = 47520
-#     assert monthday_case.reason_lower == geo_5_EpochTime
-#     assert monthday_case.reason_upper == geo_8_EpochTime
+#     geo_5_TimeNum = 43200
+#     geo_8_TimeNum = 47520
+#     assert monthday_case.reason_lower == geo_5_TimeNum
+#     assert monthday_case.reason_upper == geo_8_TimeNum
 
 #     # WHEN
 #     add_frame_to_db_caseunit(
@@ -453,10 +453,10 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     )
 
 #     # THEN
-#     assert monthday_case.reason_lower != geo_5_EpochTime
-#     assert monthday_case.reason_upper != geo_8_EpochTime
-#     assert monthday_case.reason_lower == geo_5_EpochTime + x_epoch_frame_min
-#     assert monthday_case.reason_upper == geo_8_EpochTime + x_epoch_frame_min
+#     assert monthday_case.reason_lower != geo_5_TimeNum
+#     assert monthday_case.reason_upper != geo_8_TimeNum
+#     assert monthday_case.reason_lower == geo_5_TimeNum + x_epoch_frame_min
+#     assert monthday_case.reason_upper == geo_8_TimeNum + x_epoch_frame_min
 
 
 # def test_add_frame_to_db_caseunit_SetsAttr_Scenario10_adds_epoch_frame_Wraps_monthday():
@@ -477,10 +477,10 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     monthday_case = plan_keg_reason_caseunit_get_obj(bob_plan, mop_monthday_args)
 #     year_keg = plan_kegunit_get_obj(bob_plan, {kw.keg_rope: wx.five_year_rope})
 #     x_epoch_frame_min = 5000000
-#     geo_5_EpochTime = 43200
-#     geo_8_EpochTime = 47520
-#     assert monthday_case.reason_lower == geo_5_EpochTime
-#     assert monthday_case.reason_upper == geo_8_EpochTime
+#     geo_5_TimeNum = 43200
+#     geo_8_TimeNum = 47520
+#     assert monthday_case.reason_lower == geo_5_TimeNum
+#     assert monthday_case.reason_upper == geo_8_TimeNum
 
 #     # WHEN
 #     add_frame_to_db_caseunit(
@@ -492,12 +492,12 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     )
 
 #     # THEN
-#     assert monthday_case.reason_lower != geo_5_EpochTime
-#     assert monthday_case.reason_upper != geo_8_EpochTime
-#     print(f"{(geo_5_EpochTime + x_epoch_frame_min) % 525600=}")
-#     print(f"{(geo_8_EpochTime + x_epoch_frame_min) % 525600=}")
-#     assert monthday_case.reason_lower == (geo_5_EpochTime + x_epoch_frame_min) % 525600
-#     assert monthday_case.reason_upper == (geo_8_EpochTime + x_epoch_frame_min) % 525600
+#     assert monthday_case.reason_lower != geo_5_TimeNum
+#     assert monthday_case.reason_upper != geo_8_TimeNum
+#     print(f"{(geo_5_TimeNum + x_epoch_frame_min) % 525600=}")
+#     print(f"{(geo_8_TimeNum + x_epoch_frame_min) % 525600=}")
+#     assert monthday_case.reason_lower == (geo_5_TimeNum + x_epoch_frame_min) % 525600
+#     assert monthday_case.reason_upper == (geo_8_TimeNum + x_epoch_frame_min) % 525600
 
 
 # def test_add_frame_to_db_caseunit_SetsAttr_Scenario11_adds_epoch_frame_NoWrap_monthly():
@@ -523,10 +523,10 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 
 #     print(f"{geo_case.reason_divisor=}")
 #     x_epoch_frame_min = 500
-#     geo_5_EpochTime = 43200
-#     geo_8_EpochTime = 47520
-#     assert geo_case.reason_lower == geo_5_EpochTime
-#     assert geo_case.reason_upper == geo_8_EpochTime
+#     geo_5_TimeNum = 43200
+#     geo_8_TimeNum = 47520
+#     assert geo_case.reason_lower == geo_5_TimeNum
+#     assert geo_case.reason_upper == geo_8_TimeNum
 
 #     # WHEN
 #     add_frame_to_db_caseunit(
@@ -534,10 +534,10 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     )
 
 #     # THEN
-#     assert geo_case.reason_lower != geo_5_EpochTime
-#     assert geo_case.reason_upper != geo_8_EpochTime
-#     assert geo_case.reason_lower == geo_5_EpochTime + x_epoch_frame_min
-#     assert geo_case.reason_upper == geo_8_EpochTime + x_epoch_frame_min
+#     assert geo_case.reason_lower != geo_5_TimeNum
+#     assert geo_case.reason_upper != geo_8_TimeNum
+#     assert geo_case.reason_lower == geo_5_TimeNum + x_epoch_frame_min
+#     assert geo_case.reason_upper == geo_8_TimeNum + x_epoch_frame_min
 
 
 # def test_add_frame_to_db_caseunit_SetsAttr_Scenario12_adds_epoch_frame_Wraps_monthly():
@@ -561,10 +561,10 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     geo_case = plan_keg_reason_caseunit_get_obj(bob_plan, geo_month_args)
 #     year_keg = plan_kegunit_get_obj(bob_plan, {kw.keg_rope: wx.five_year_rope})
 #     x_epoch_frame_min = 5000000
-#     geo_5_EpochTime = 43200
-#     geo_8_EpochTime = 47520
-#     assert geo_case.reason_lower == geo_5_EpochTime
-#     assert geo_case.reason_upper == geo_8_EpochTime
+#     geo_5_TimeNum = 43200
+#     geo_8_TimeNum = 47520
+#     assert geo_case.reason_lower == geo_5_TimeNum
+#     assert geo_case.reason_upper == geo_8_TimeNum
 
 #     # WHEN
 #     add_frame_to_db_caseunit(
@@ -572,12 +572,12 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     )
 
 #     # THEN
-#     assert geo_case.reason_lower != geo_5_EpochTime
-#     assert geo_case.reason_upper != geo_8_EpochTime
-#     print(f"{(geo_5_EpochTime + x_epoch_frame_min) % 525600=}")
-#     print(f"{(geo_8_EpochTime + x_epoch_frame_min) % 525600=}")
-#     assert geo_case.reason_lower == (geo_5_EpochTime + x_epoch_frame_min) % 525600
-#     assert geo_case.reason_upper == (geo_8_EpochTime + x_epoch_frame_min) % 525600
+#     assert geo_case.reason_lower != geo_5_TimeNum
+#     assert geo_case.reason_upper != geo_8_TimeNum
+#     print(f"{(geo_5_TimeNum + x_epoch_frame_min) % 525600=}")
+#     print(f"{(geo_8_TimeNum + x_epoch_frame_min) % 525600=}")
+#     assert geo_case.reason_lower == (geo_5_TimeNum + x_epoch_frame_min) % 525600
+#     assert geo_case.reason_upper == (geo_8_TimeNum + x_epoch_frame_min) % 525600
 
 
 # def test_add_frame_to_db_caseunit_SetsAttr_Scenario13_adds_epoch_frame_NoWrap_range():

@@ -1,12 +1,12 @@
 from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch13_epoch.epoch_main import add_epoch_kegunit
-from src.ch13_epoch.epoch_str_func import (
+from src.ch13_time.epoch_main import add_epoch_kegunit
+from src.ch13_time.epoch_str_func import (
     get_fact_state_readable_str,
     get_reason_case_readable_str,
 )
-from src.ch13_epoch.test._util.ch13_examples import get_creg_config, get_thu
+from src.ch13_time.test._util.ch13_examples import get_creg_config, get_thu
 from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
 

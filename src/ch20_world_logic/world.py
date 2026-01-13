@@ -3,7 +3,7 @@ from os.path import exists as os_path_exists
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch00_py.dict_toolbox import get_0_if_None, get_empty_set_if_None
 from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
-from src.ch11_bud.bud_main import EpochTime
+from src.ch11_bud.bud_main import TimeNum
 from src.ch14_moment.moment_main import MomentUnit
 from src.ch17_idea.idea_db_tool import update_spark_num_in_excel_files
 from src.ch18_world_etl._ref.ch18_path import (
@@ -63,7 +63,7 @@ class WorldUnit:
     world_name: WorldName = None
     worlds_dir: str = None
     output_dir: str = None
-    world_time_reason_upper: EpochTime = None
+    world_time_reason_upper: TimeNum = None
     _world_dir: str = None
     _input_dir: str = None
     _brick_dir: str = None
@@ -147,7 +147,7 @@ class WorldUnit:
         etl_sound_vld_tables_to_heard_raw_tables(cursor)
         # heard raw to moment/plan jsons
         etl_heard_raw_tables_to_heard_agg_tables(cursor)
-        # TODO add step to convert EpochTime and ReasonNum in heard_agg_tables, use rules defined in Nabu chapter
+        # TODO add step to convert TimeNum and ReasonNum in heard_agg_tables, use rules defined in Nabu chapter
         # TODO change "etl_heard_raw_tables_to_heard_vld_tables" to "etl_heard_agg_tables_to_heard_vld_tables"
         etl_heard_raw_tables_to_heard_vld_tables(cursor)
         # etl_heard_vld_nabu_updates
@@ -198,7 +198,7 @@ def worldunit_shop(
     worlds_dir: str,
     output_dir: str = None,
     input_dir: str = None,
-    world_time_reason_upper: EpochTime = None,
+    world_time_reason_upper: TimeNum = None,
     _momentunits: set[MomentLabel] = None,
 ) -> WorldUnit:
     x_worldunit = WorldUnit(

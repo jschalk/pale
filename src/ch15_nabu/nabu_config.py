@@ -19,7 +19,7 @@ def get_quick_nabus_column_ref():
 
 
 def get_nabu_dimens() -> set:
-    return {"nabu_epochtime"}
+    return {"nabu_timenum"}
 
 
 def get_nabu_args() -> set:

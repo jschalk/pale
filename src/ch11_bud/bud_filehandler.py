@@ -23,11 +23,11 @@ from src.ch11_bud._ref.ch11_path import (
     create_plantime_path,
 )
 from src.ch11_bud._ref.ch11_semantic_types import (
-    EpochTime,
     LabelTerm,
     PlanName,
     RopeTerm,
     SparkInt,
+    TimeNum,
 )
 from src.ch11_bud.bud_main import BudUnit, get_budunit_from_dict
 from src.ch11_bud.cell_main import CellUnit, cellunit_get_from_dict, cellunit_shop
@@ -181,7 +181,7 @@ def bud_file_exists(
     moment_mstr_dir: str,
     moment_label: str,
     plan_name: PlanName,
-    x_bud_time: EpochTime = None,
+    x_bud_time: TimeNum = None,
 ) -> bool:
     bud_json_path = create_budunit_json_path(
         moment_mstr_dir, moment_label, plan_name, x_bud_time
@@ -193,7 +193,7 @@ def open_bud_file(
     moment_mstr_dir: str,
     moment_label: str,
     plan_name: PlanName,
-    x_bud_time: EpochTime = None,
+    x_bud_time: TimeNum = None,
 ) -> BudUnit:
     bud_json_path = create_budunit_json_path(
         moment_mstr_dir, moment_label, plan_name, x_bud_time
@@ -209,7 +209,7 @@ class _save_valid_plantime_Exception(Exception):
 def save_plantime_file(
     moment_mstr_dir: str,
     x_plantime: PlanUnit,
-    x_bud_time: EpochTime = None,
+    x_bud_time: TimeNum = None,
 ):
     x_plantime.cashout()
     if x_plantime.rational is False:
@@ -229,7 +229,7 @@ def plantime_file_exists(
     moment_mstr_dir: str,
     moment_label: str,
     plan_name: PlanName,
-    x_bud_time: EpochTime = None,
+    x_bud_time: TimeNum = None,
 ) -> bool:
     plantime_json_path = create_plantime_path(
         moment_mstr_dir, moment_label, plan_name, x_bud_time
@@ -241,7 +241,7 @@ def open_plantime_file(
     moment_mstr_dir: str,
     moment_label: str,
     plan_name: PlanName,
-    x_bud_time: EpochTime = None,
+    x_bud_time: TimeNum = None,
 ) -> bool:
     plantime_json_path = create_plantime_path(
         moment_mstr_dir, moment_label, plan_name, x_bud_time
@@ -250,9 +250,9 @@ def open_plantime_file(
     return open_plan_file(plantime_json_path)
 
 
-def get_epochtime_dirs(
+def get_timenum_dirs(
     moment_mstr_dir: str, moment_label: str, plan_name: PlanName
-) -> list[EpochTime]:
+) -> list[TimeNum]:
     buds_dir = create_buds_dir_path(moment_mstr_dir, moment_label, plan_name)
     x_dict = get_dir_file_strs(buds_dir, include_dirs=True, include_files=False)
-    return [int(x_epochtime) for x_epochtime in sorted(list(x_dict.keys()))]
+    return [int(x_timenum) for x_timenum in sorted(list(x_dict.keys()))]

@@ -1,7 +1,7 @@
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson.lesson_filehandler import open_gut_file, save_gut_file
-from src.ch13_epoch.epoch_main import epochunit_shop, get_default_epoch_config_dict
-from src.ch13_epoch.test._util.ch13_examples import get_five_config
+from src.ch13_time.epoch_main import epochunit_shop, get_default_epoch_config_dict
+from src.ch13_time.test._util.ch13_examples import get_five_config
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx

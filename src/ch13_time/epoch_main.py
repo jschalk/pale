@@ -11,12 +11,12 @@ from src.ch06_keg.keg import (
     kegunit_shop,
 )
 from src.ch07_plan_logic.plan_main import PlanUnit
-from src.ch13_epoch._ref.ch13_semantic_types import (
+from src.ch13_time._ref.ch13_semantic_types import (
     EpochLabel,
-    EpochTime,
     KnotTerm,
     LabelTerm,
     RopeTerm,
+    TimeNum,
 )
 
 
@@ -32,7 +32,7 @@ class C400Constants:
 
 
 def get_c400_constants() -> C400Constants:
-    c400_constants_path = create_path("src/ch13_epoch", "c400_constants.json")
+    c400_constants_path = create_path("src/ch13_time", "c400_constants.json")
     c400_dict = open_json(c400_constants_path)
     return C400Constants(
         day_length=c400_dict.get("day_length"),
@@ -444,7 +444,7 @@ def get_epoch_min_difference(epoch_config0: dict, epoch_config1: dict) -> int:
 
 @dataclass
 class EpochHolder:
-    """Given plan, epoch_rope, and EpochTime, returns time technology attrs
+    """Given plan, epoch_rope, and TimeNum, returns time technology attrs
     _c400_number: count of 400 year cycles
     _c100_count: count of 100 year cycles after _c400_number years removed
     _hour
@@ -460,7 +460,7 @@ class EpochHolder:
 
     x_planunit: PlanUnit = None
     epoch_label: LabelTerm = None
-    x_min: EpochTime = None
+    x_min: TimeNum = None
     # calculated fields
     _epoch_keg: KegUnit = None
     _weekday: str = None
@@ -583,10 +583,10 @@ def epochholder_shop(x_planunit: PlanUnit, epoch_label: LabelTerm, x_min: int):
 
 
 def epoch_config_path() -> str:
-    "Returns path: ch13_epoch/default_epoch_config.json"
+    "Returns path: ch13_time/default_epoch_config.json"
 
     src_dir = create_path(os_getcwd(), "src")
-    chapter_dir = create_path(src_dir, "ch13_epoch")
+    chapter_dir = create_path(src_dir, "ch13_time")
     return create_path(chapter_dir, "default_epoch_config.json")
 
 

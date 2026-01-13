@@ -80,7 +80,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     mmtmont_dimen = kw.moment_epoch_month
     mmtweek_dimen = kw.moment_epoch_weekday
     mmtoffi_dimen = kw.moment_timeoffi
-    nabepoc_dimen = kw.nabu_epochtime
+    nabepoc_dimen = kw.nabu_timenum
     trlname_dimen = kw.translate_name
     trllabe_dimen = kw.translate_label
     trlrope_dimen = kw.translate_rope

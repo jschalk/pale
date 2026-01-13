@@ -12,41 +12,37 @@ from src.ch04_rope.rope import (
     get_parent_rope,
     get_tail_label,
 )
-from src.ch15_nabu._ref.ch15_semantic_types import EpochTime, FaceName, SparkInt
+from src.ch15_nabu._ref.ch15_semantic_types import FaceName, SparkInt, TimeNum
 
 
 @dataclass
-class EpochNabu:
+class NabuTime:
     face_name: FaceName = None
     spark_num: SparkInt = None
     # otx2inx dict key 'otx_epoch_length', key can be None is only inx_epoch_diff is given
     # otx2inx dict value 'inx_epoch_diff'
-    otx2inx: dict[EpochTime, EpochTime] = None
+    otx2inx: dict[TimeNum, TimeNum] = None
 
-    def set_all_otx2inx(self, otx2inx: dict[EpochTime, EpochTime]):
+    def set_all_otx2inx(self, otx2inx: dict[TimeNum, TimeNum]):
         self.otx2inx = set_modular_dict_values(get_empty_dict_if_None(otx2inx))
 
-    def set_otx2inx(self, epoch_length: EpochTime, inx_epoch_diff: EpochTime):
+    def set_otx2inx(self, epoch_length: TimeNum, inx_epoch_diff: TimeNum):
         self.otx2inx[epoch_length] = inx_epoch_diff
         self.otx2inx = set_modular_dict_values(get_empty_dict_if_None(self.otx2inx))
 
-    def get_inx_value(self, otx_epoch_length: EpochTime) -> EpochTime:
+    def get_inx_value(self, otx_epoch_length: TimeNum) -> TimeNum:
         return self.otx2inx.get(otx_epoch_length)
 
-    def otx2inx_exists(
-        self, epoch_length: EpochTime, inx_epoch_diff: EpochTime
-    ) -> bool:
+    def otx2inx_exists(self, epoch_length: TimeNum, inx_epoch_diff: TimeNum) -> bool:
         return self.otx2inx.get(epoch_length) == inx_epoch_diff
 
-    def otx_exists(self, epoch_length: EpochTime) -> bool:
+    def otx_exists(self, epoch_length: TimeNum) -> bool:
         return self.otx2inx.get(epoch_length) != None
 
-    def del_otx2inx(self, epoch_length: EpochTime):
+    def del_otx2inx(self, epoch_length: TimeNum):
         self.otx2inx.pop(epoch_length)
 
-    def reveal_inx(
-        self, otx_epoch_length: EpochTime, otx_value: EpochTime
-    ) -> EpochTime:
+    def reveal_inx(self, otx_epoch_length: TimeNum, otx_value: TimeNum) -> TimeNum:
         if inx_epoch_diff := self.get_inx_value(otx_epoch_length):
             otx_value += inx_epoch_diff
         otx_value = otx_value % otx_epoch_length
@@ -61,35 +57,35 @@ class EpochNabu:
         }
 
 
-def epochnabu_shop(
+def timenabu_shop(
     face_name: FaceName,
     spark_num: SparkInt = None,
-    otx2inx: dict[EpochTime, EpochTime] = None,
+    otx2inx: dict[TimeNum, TimeNum] = None,
 ):
-    x_epochnabu = EpochNabu(face_name=face_name, spark_num=get_0_if_None(spark_num))
-    x_epochnabu.set_all_otx2inx(otx2inx)
-    return x_epochnabu
+    x_timenabu = NabuTime(face_name=face_name, spark_num=get_0_if_None(spark_num))
+    x_timenabu.set_all_otx2inx(otx2inx)
+    return x_timenabu
 
 
-def get_epochnabu_from_dict(x_dict: dict) -> EpochNabu:
-    return epochnabu_shop(
+def get_timenabu_from_dict(x_dict: dict) -> NabuTime:
+    return timenabu_shop(
         face_name=x_dict.get("face_name"),
         spark_num=x_dict.get("spark_num"),
         otx2inx=x_dict.get("otx2inx"),
     )
 
 
-class inherit_epochnabuException(Exception):
+class inherit_timenabuException(Exception):
     pass
 
 
-def inherit_epochnabu(new: EpochNabu, old: EpochNabu):
+def inherit_timenabu(new: NabuTime, old: NabuTime):
     if new.face_name != old.face_name:
         exception_str = "Core attrs in conflict"
-        raise inherit_epochnabuException(exception_str)
+        raise inherit_timenabuException(exception_str)
     if new.spark_num <= old.spark_num:
-        exception_str = "older EpochNabu is not older"
-        raise inherit_epochnabuException(exception_str)
+        exception_str = "older NabuTime is not older"
+        raise inherit_timenabuException(exception_str)
     for otx_epoch_length, inx_epoch_diff in old.otx2inx.items():
         if not new.otx_exists(otx_epoch_length):
             new.set_otx2inx(otx_epoch_length, inx_epoch_diff)

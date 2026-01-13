@@ -4,14 +4,14 @@ from src.ch02_person.group import awardunit_shop
 from src.ch05_reason.reason_main import reasonunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch13_epoch.epoch_main import (
+from src.ch13_time.epoch_main import (
     add_epoch_kegunit,
     get_c400_constants,
     get_epoch_min_difference,
     get_epoch_min_from_dt,
     get_year_rope,
 )
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.test._util.ch13_examples import (
     add_time_creg_kegunit,
     add_time_five_kegunit,
     creg_hour_int_label,

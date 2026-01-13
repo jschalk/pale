@@ -14,9 +14,9 @@ def test_etl_heard_raw_tables_to_moment_ote1_agg_SetsTableAttr():
     spark7 = 7
     amy45_str = "amy45"
     amy55_str = "amy55"
-    epochtime55 = 55
-    epochtime66 = 66
-    epochtime77 = 77
+    timenum55 = 55
+    timenum66 = 66
+    timenum77 = 77
     with sqlite3_connect(":memory:") as moment_db_conn:
         cursor = moment_db_conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -24,10 +24,10 @@ def test_etl_heard_raw_tables_to_moment_ote1_agg_SetsTableAttr():
         insert_raw_sqlstr = f"""
 INSERT INTO {momentbud_h_raw_table} ({kw.spark_num}, {kw.moment_label}_inx, {kw.plan_name}_inx, {kw.bud_time})
 VALUES
-  ({spark3}, '{exx.a23}', '{exx.bob}', {epochtime55})
-, ({spark3}, '{exx.a23}', '{exx.bob}', {epochtime55})
-, ({spark3}, '{amy45_str}', '{exx.sue}', {epochtime55})
-, ({spark7}, '{amy45_str}', '{exx.sue}', {epochtime66})
+  ({spark3}, '{exx.a23}', '{exx.bob}', {timenum55})
+, ({spark3}, '{exx.a23}', '{exx.bob}', {timenum55})
+, ({spark3}, '{amy45_str}', '{exx.sue}', {timenum55})
+, ({spark7}, '{amy45_str}', '{exx.sue}', {timenum66})
 ;
 """
         cursor.execute(insert_raw_sqlstr)
@@ -42,9 +42,9 @@ VALUES
         assert get_row_count(cursor, kw.moment_ote1_agg) == 3
         cursor.execute(f"SELECT * FROM {kw.moment_ote1_agg};")
         momentunit_agg_rows = cursor.fetchall()
-        ex_row0 = (exx.a23, exx.bob, spark3, epochtime55, None)
-        ex_row1 = (amy45_str, exx.sue, spark3, epochtime55, None)
-        ex_row2 = (amy45_str, exx.sue, spark7, epochtime66, None)
+        ex_row0 = (exx.a23, exx.bob, spark3, timenum55, None)
+        ex_row1 = (amy45_str, exx.sue, spark3, timenum55, None)
+        ex_row2 = (amy45_str, exx.sue, spark7, timenum66, None)
         print(f"{momentunit_agg_rows[0]=}")
         print(f"{momentunit_agg_rows[1]=}")
         print(f"{momentunit_agg_rows[2]=}")

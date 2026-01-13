@@ -8,8 +8,8 @@
   "Eastday": {"init_chapter": "ch13"}, 
   "Epoch": {"init_chapter": "ch11"}, 
   "EpochLabel": {"init_chapter": "ch13", "semantic_type": "str"}, 
-  "EpochNabu": {"init_chapter": "ch15"}, 
-  "EpochTime": {"init_chapter": "ch11", "semantic_type": "int"}, 
+  "NabuTime": {"init_chapter": "ch15"}, 
+  "TimeNum": {"init_chapter": "ch11", "semantic_type": "int"}, 
   "Event": {"init_chapter": "ch24"}, 
   "FaceName": {"init_chapter": "ch09", "semantic_type": "str"}, 
   "FactNum": {"init_chapter": "ch04", "semantic_type": "float"}, 
@@ -160,7 +160,7 @@
     "init_chapter": "ch13", 
     "note": "Total number of minutes in a Epoch. Calculated by number of minutes in C400_leap times Epoch's c400_number"
   }, 
-  "epochnabu": {"init_chapter": "ch15"}, 
+  "timenabu": {"init_chapter": "ch15"}, 
   "error_message": {"init_chapter": "ch17"}, 
   "every_xdays": {
     "init_chapter": "ch13", 
@@ -287,7 +287,7 @@
   "months_config": {"init_chapter": "ch13"}, 
   "morph": {"init_chapter": "ch06"}, 
   "nabu": {"init_chapter": "ch15"}, 
-  "nabu_epochtime": {"init_chapter": "ch15"}, 
+  "nabu_timenum": {"init_chapter": "ch15"}, 
   "namemap": {"init_chapter": "ch16"}, 
   "need_bill_amount": {"init_chapter": "ch12"}, 
   "need_dues": {"init_chapter": "ch12"}, 

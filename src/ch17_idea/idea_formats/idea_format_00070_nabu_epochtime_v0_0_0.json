@@ -6,6 +6,6 @@
     "otx_time"    : { "otx_key": true  }, 
     "spark_num"   : { "otx_key": true  }
   }, 
-  "dimens": ["nabu_epochtime", "momentunit"], 
+  "dimens": ["nabu_timenum", "momentunit"], 
   "idea_number": "br00070"
 }

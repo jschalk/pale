@@ -20,8 +20,8 @@ def test_create_bud_mandate_ledgers_Scenaro0_BudEmpty(temp_dir_setup):
     amy23_moment = momentunit_shop(exx.a23, mstr_dir)
     a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
     save_json(a23_json_path, None, amy23_moment.to_dict())
-    epochtime9 = 9
-    bob9_bud_mandate_path = bud_mandate_path(mstr_dir, exx.a23, exx.bob, epochtime9)
+    timenum9 = 9
+    bob9_bud_mandate_path = bud_mandate_path(mstr_dir, exx.a23, exx.bob, timenum9)
     assert os_path_exists(bob9_bud_mandate_path) is False
 
     # WHEN

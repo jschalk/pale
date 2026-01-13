@@ -5,8 +5,8 @@ from src.ch00_py.file_toolbox import open_json
 from src.ch00_py.plotly_toolbox import conditional_fig_show
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
-from src.ch13_epoch._ref.ch13_semantic_types import LabelTerm
-from src.ch13_epoch.epoch_main import (
+from src.ch13_time._ref.ch13_semantic_types import LabelTerm
+from src.ch13_time.epoch_main import (
     add_epoch_kegunit,
     create_weekday_kegunits,
     epochholder_shop,
@@ -87,7 +87,7 @@ def get_bob_five_plan() -> PlanUnit:
 
 
 def get_example_epoch_config(epoch_label: LabelTerm) -> dict:
-    x_dir = "src/ch13_epoch/test/_util"
+    x_dir = "src/ch13_time/test/_util"
     x_filename = f"epoch_config_{epoch_label}.json"
     return open_json(x_dir, x_filename)
 
@@ -223,12 +223,12 @@ def display_current_creg_five_time_attrs(graphics_bool: bool):
         sue_plan = add_time_five_kegunit(sue_plan)
         creg_min = get_creg_min_from_dt(current_datetime)
         five_min = get_five_min_from_dt(current_datetime)
-        creg_EpochTime = epochholder_shop(sue_plan, kw.creg, creg_min)
-        five_EpochTime = epochholder_shop(sue_plan, kw.five, five_min)
-        creg_EpochTime.calc_epoch()
-        five_EpochTime.calc_epoch()
-        creg_blurb = f"<b>{creg_EpochTime.get_blurb()}</b>"
-        five_blurb = f"<b>{five_EpochTime.get_blurb()}</b>"
+        creg_TimeNum = epochholder_shop(sue_plan, kw.creg, creg_min)
+        five_TimeNum = epochholder_shop(sue_plan, kw.five, five_min)
+        creg_TimeNum.calc_epoch()
+        five_TimeNum.calc_epoch()
+        creg_blurb = f"<b>{creg_TimeNum.get_blurb()}</b>"
+        five_blurb = f"<b>{five_TimeNum.get_blurb()}</b>"
 
         datetime_str = current_datetime.strftime("%H:%M, %A, %d %B, %Y")
         dt_str = f"python : {datetime_str}"
@@ -261,15 +261,15 @@ def display_creg_five_squirt_time_attrs(graphics_bool: bool):
         creg_min = get_creg_min_from_dt(current_datetime)
         five_min = get_five_min_from_dt(current_datetime)
         squirt_min = get_squirt_min_from_dt(current_datetime)
-        creg_EpochTime = epochholder_shop(sue_plan, kw.creg, creg_min)
-        five_EpochTime = epochholder_shop(sue_plan, kw.five, five_min)
-        squirt_EpochTime = epochholder_shop(sue_plan, "squirt", squirt_min)
-        creg_EpochTime.calc_epoch()
-        five_EpochTime.calc_epoch()
-        squirt_EpochTime.calc_epoch()
-        creg_blurb = f"<b>{creg_EpochTime.get_blurb()}</b>"
-        five_blurb = f"<b>{five_EpochTime.get_blurb()}</b>"
-        squirt_blurb = f"<b>{squirt_EpochTime.get_blurb()}</b>"
+        creg_TimeNum = epochholder_shop(sue_plan, kw.creg, creg_min)
+        five_TimeNum = epochholder_shop(sue_plan, kw.five, five_min)
+        squirt_TimeNum = epochholder_shop(sue_plan, "squirt", squirt_min)
+        creg_TimeNum.calc_epoch()
+        five_TimeNum.calc_epoch()
+        squirt_TimeNum.calc_epoch()
+        creg_blurb = f"<b>{creg_TimeNum.get_blurb()}</b>"
+        five_blurb = f"<b>{five_TimeNum.get_blurb()}</b>"
+        squirt_blurb = f"<b>{squirt_TimeNum.get_blurb()}</b>"
 
         datetime_str = current_datetime.strftime("%H:%M, %A, %d %B, %Y")
         dt_str = f"python : {datetime_str}"

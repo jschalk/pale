@@ -11,7 +11,7 @@ from src.ch05_reason.reason_main import (
 )
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit
-from src.ch13_epoch.epoch_str_func import (
+from src.ch13_time.epoch_str_func import (
     get_fact_state_readable_str,
     get_reason_case_readable_str,
 )

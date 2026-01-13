@@ -11,7 +11,6 @@ from src.ch17_idea.idea_config import (
     get_idea_sqlite_types,
 )
 from src.ch18_world_etl._ref.ch18_semantic_types import (
-    EpochTime,
     FaceName,
     FactNum,
     MomentLabel,
@@ -19,6 +18,7 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
     ReasonNum,
     RopeTerm,
     SparkInt,
+    TimeNum,
 )
 from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict,
@@ -41,10 +41,10 @@ def insert_nabepoc_h_agg_otx_inx_time(
     x_spark_num: SparkInt,
     x_face_name: FaceName,
     x_moment_label: MomentLabel,
-    x_otx_time: EpochTime,
-    x_inx_time: EpochTime,
+    x_otx_time: TimeNum,
+    x_inx_time: TimeNum,
 ):
-    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
+    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
     select_sqlstr = f"""INSERT INTO {nabepoc_h_agg_tablename} (
   {kw.spark_num}
 , {kw.face_name}
@@ -64,7 +64,7 @@ def select_nabepoc_h_agg_otx_inx_time(
     x_spark_num: SparkInt,
     x_moment_label: MomentLabel,
 ) -> list[tuple]:
-    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
+    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_label}

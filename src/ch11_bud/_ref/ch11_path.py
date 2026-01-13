@@ -40,10 +40,10 @@ def create_budunit_json_path(
     bud_time: int,
 ) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_label\\plans\\plan_name\\buds\n\\bud_time\\budunit.json"""
-    epochtime_dir = create_bud_dir_path(
+    timenum_dir = create_bud_dir_path(
         moment_mstr_dir, moment_label, plan_name, bud_time
     )
-    return create_path(epochtime_dir, "budunit.json")
+    return create_path(timenum_dir, "budunit.json")
 
 
 def create_plantime_path(
@@ -53,10 +53,10 @@ def create_plantime_path(
     bud_time: int,
 ) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_label\\plans\\plan_name\\buds\n\\bud_time\\plantime.json"""
-    epochtime_dir = create_bud_dir_path(
+    timenum_dir = create_bud_dir_path(
         moment_mstr_dir, moment_label, plan_name, bud_time
     )
-    return create_path(epochtime_dir, "plantime.json")
+    return create_path(timenum_dir, "plantime.json")
 
 
 def create_cell_dir_path(

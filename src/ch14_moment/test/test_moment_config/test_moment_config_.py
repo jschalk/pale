@@ -76,7 +76,7 @@ def test_get_moment_config_dict_ReturnsObj():
 def _validate_moment_config(moment_config: dict):
     accepted_class_typees = get_allowed_class_types()
     accepted_class_typees.add("str")
-    accepted_class_typees.add(kw.EpochTime)
+    accepted_class_typees.add(kw.TimeNum)
 
     # for every moment_format file there exists a unique moment_number with leading zeros to make 5 digits
     for moment_dimen, dimen_dict in moment_config.items():

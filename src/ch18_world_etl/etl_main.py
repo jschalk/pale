@@ -115,7 +115,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_insert_into_sound_vld_sqlstrs,
     get_moment_plan_sound_agg_tablenames,
     get_plan_heard_vld_tablenames,
-    update_heard_agg_epochtime_columns,
+    update_heard_agg_timenum_columns,
 )
 from src.ch18_world_etl.idea_collector import IdeaFileRef, get_all_idea_dataframes
 from src.ch18_world_etl.obj2db_moment import get_moment_dict_from_heard_tables

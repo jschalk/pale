@@ -27,8 +27,8 @@ from src.ch08_plan_atom._ref.ch08_semantic_types import CRUD_command
 from src.ch09_plan_lesson._ref.ch09_semantic_types import FaceName
 
 
-class EpochTime(int):
-    """An Integar that can represent a instant on the EpochTimeLine"""
+class TimeNum(int):
+    """An Integar that can represent a instant on the TimeNumLine"""
 
     pass
 

@@ -24,9 +24,9 @@ from src.ch11_bud.bud_filehandler import (
     cellunit_save_to_dir,
     collect_plan_spark_dir_sets,
     create_cell_person_mandate_ledger_json,
-    get_epochtime_dirs,
     get_plans_downhill_spark_nums,
     get_planspark_obj,
+    get_timenum_dirs,
     open_bud_file,
     open_plan_file,
     open_plantime_file,
@@ -664,7 +664,7 @@ def test_open_plantime_file_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     assert file_plantime.to_dict() == t55_plantime.to_dict()
 
 
-def test_get_epochtime_dirs_ReturnsObj_Scenario0(temp_dir_setup):
+def test_get_timenum_dirs_ReturnsObj_Scenario0(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
     t55_bud_time = 55
@@ -674,7 +674,7 @@ def test_get_epochtime_dirs_ReturnsObj_Scenario0(temp_dir_setup):
     save_plantime_file(mstr_dir, plantime, t77_bud_time)
 
     # WHEN
-    epochtime_dirs = get_epochtime_dirs(mstr_dir, exx.a23, exx.sue)
+    timenum_dirs = get_timenum_dirs(mstr_dir, exx.a23, exx.sue)
 
     # THEN
-    assert epochtime_dirs == [t55_bud_time, t77_bud_time]
+    assert timenum_dirs == [t55_bud_time, t77_bud_time]

@@ -50,9 +50,9 @@ def test_TranBook_Exists():
 
 def test_tranbook_shop_WithParametersReturnsObj():
     # ESTABLISH
-    x_EpochTime = 5505
+    x_TimeNum = 5505
     x_fundnum = -45
-    x_tranunits = {exx.sue: {exx.yao: {x_EpochTime: x_fundnum}}}
+    x_tranunits = {exx.sue: {exx.yao: {x_TimeNum: x_fundnum}}}
 
     # WHEN
     x_tranbook = tranbook_shop(exx.a23, x_tranunits)
@@ -168,7 +168,7 @@ def test_TranBook_set_tranunit_SetsAttrWithBlocktran_time_RaisesError():
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         x_tranbook.set_tranunit(sue_yao_t55_tranunit, x_blocked_tran_times)
-    exception_str = f"Cannot set tranunit for tran_time={t55_t}, EpochTime is blocked"
+    exception_str = f"Cannot set tranunit for tran_time={t55_t}, TimeNum is blocked"
     assert str(excinfo.value) == exception_str
 
 
@@ -200,13 +200,13 @@ def test_TranBook_set_tranunit_SetsAttrWithCurrenttran_time_RaisesError():
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         x_tranbook.set_tranunit(sue_yao_t55_tranunit, offi_time_max=t55_t)
-    exception_str = f"Cannot set tranunit for tran_time={t55_t}, EpochTime is greater than current time={t55_t}"
+    exception_str = f"Cannot set tranunit for tran_time={t55_t}, TimeNum is greater than current time={t55_t}"
     assert str(excinfo.value) == exception_str
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         x_tranbook.set_tranunit(sue_yao_t55_tranunit, offi_time_max=33)
-    exception_str = f"Cannot set tranunit for tran_time={t55_t}, EpochTime is greater than current time=33"
+    exception_str = f"Cannot set tranunit for tran_time={t55_t}, TimeNum is greater than current time=33"
     assert str(excinfo.value) == exception_str
 
 
@@ -537,9 +537,9 @@ def test_TranBook_get_persons_csv_ReturnsObj():
 
 def test_TranBook_to_dict_ReturnsObj():
     # ESTABLISH
-    x_EpochTime = 5505
+    x_TimeNum = 5505
     x_fundnum = -45
-    all_tranunits = {exx.sue: {exx.yao: {x_EpochTime: x_fundnum}}}
+    all_tranunits = {exx.sue: {exx.yao: {x_TimeNum: x_fundnum}}}
     x_tranbook = tranbook_shop(exx.a23, all_tranunits)
 
     # WHEN
@@ -555,7 +555,7 @@ def test_TranBook_to_dict_ReturnsObj():
     assert tranunits_dict.get(exx.sue)
     sue_trans_dict = tranunits_dict.get(exx.sue)
     assert sue_trans_dict.get(exx.yao)
-    assert sue_trans_dict.get(exx.yao) == {x_EpochTime: x_fundnum}
+    assert sue_trans_dict.get(exx.yao) == {x_TimeNum: x_fundnum}
     assert tranunits_dict == all_tranunits
 
 

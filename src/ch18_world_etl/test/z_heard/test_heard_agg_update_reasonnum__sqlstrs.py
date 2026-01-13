@@ -8,13 +8,13 @@ from src.ch07_plan_logic.plan_tool import (
     plan_keg_reasonunit_get_obj,
     plan_kegunit_get_obj,
 )
-from src.ch13_epoch.epoch_main import (
+from src.ch13_time.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
     add_epoch_kegunit,
     get_c400_constants,
 )
-from src.ch13_epoch.epoch_reason import set_epoch_cases_by_args_dict
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.epoch_reason import set_epoch_cases_by_args_dict
+from src.ch13_time.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
     get_bob_five_plan,
     get_lizzy9_config,
@@ -31,15 +31,15 @@ from src.ch18_world_etl.etl_nabu import (
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
-    get_update_heard_agg_epochtime_sqlstr,
-    get_update_heard_agg_epochtime_sqlstrs,
+    get_update_heard_agg_timenum_sqlstr,
+    get_update_heard_agg_timenum_sqlstrs,
     get_update_plncase_context_keg_sqlstr,
     get_update_plncase_inx_epoch_diff_sqlstr,
     get_update_plncase_range_sqlstr,
     get_update_plnfact_context_keg_sqlstr,
     get_update_plnfact_inx_epoch_diff_sqlstr,
     get_update_plnfact_range_sqlstr,
-    update_heard_agg_epochtime_columns,
+    update_heard_agg_timenum_columns,
 )
 from src.ch18_world_etl.obj2db_plan import insert_h_agg_obj
 from src.ch18_world_etl.test._util.ch18_examples import (
@@ -61,7 +61,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_get_update_plncase_inx_epoch_diff_sqlstr_ReturnsObj():
     # ESTABLISH
     plncase_tablename = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
-    nabepoc_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
+    nabepoc_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
 
     # WHEN
     update_sqlstr = get_update_plncase_inx_epoch_diff_sqlstr()
@@ -89,7 +89,7 @@ WHERE {plncase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_di
 def test_get_update_plnfact_inx_epoch_diff_sqlstr_ReturnsObj():
     # ESTABLISH
     plnfact_tablename = prime_tbl(kw.plan_keg_factunit, "h", "agg", "put")
-    nabepoc_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
+    nabepoc_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
 
     # WHEN
     update_sqlstr = get_update_plnfact_inx_epoch_diff_sqlstr()

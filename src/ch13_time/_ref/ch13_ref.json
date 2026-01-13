@@ -1,6 +1,6 @@
 {
   "chapter_blurb": "Defines how time is handled by PlanUnits. Allows for arbitrary time structures.", 
   "chapter_content": "Allows arbitrary calendars to be defined for each planunit with minimal configuration.", 
-  "chapter_description": "ch13_epoch", 
+  "chapter_description": "ch13_time", 
   "chapter_number": 13
 }

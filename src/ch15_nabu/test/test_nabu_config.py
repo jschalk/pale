@@ -1,6 +1,6 @@
 from os import getcwd as os_getcwd
 from src.ch00_py.file_toolbox import create_path
-from src.ch15_nabu._ref.ch15_semantic_types import EpochTime
+from src.ch15_nabu._ref.ch15_semantic_types import TimeNum
 from src.ch15_nabu.nabu_config import (
     get_context_nabuable_args,
     get_nabu_args,
@@ -28,7 +28,7 @@ def test_get_nabu_config_dict_ReturnsObj():
     # THEN
     assert nabu_config
     nabu_config_dimens = set(nabu_config.keys())
-    assert kw.nabu_epochtime in nabu_config_dimens
+    assert kw.nabu_timenum in nabu_config_dimens
     assert len(nabu_config) == 1
 
     _validate_nabu_config(nabu_config)
@@ -52,11 +52,11 @@ def _validate_nabu_config(nabu_config: dict):
         assert dimen_dict.get("affected_semantic_types") is not None
         for attr_key, attrs_dict in dimen_dict.items():
             if attr_key == "affected_semantic_types":
-                if kw.EpochTime in set(attrs_dict.keys()):
-                    EpochTime_dict = attrs_dict.get(kw.EpochTime)
-                    EpochTime_args = EpochTime_dict.get("nabuable_values")
-                    expected_EpochTime_args = {kw.tran_time, kw.offi_time, kw.bud_time}
-                    assert set(EpochTime_args.keys()) == expected_EpochTime_args
+                if kw.TimeNum in set(attrs_dict.keys()):
+                    TimeNum_dict = attrs_dict.get(kw.TimeNum)
+                    TimeNum_args = TimeNum_dict.get("nabuable_values")
+                    expected_TimeNum_args = {kw.tran_time, kw.offi_time, kw.bud_time}
+                    assert set(TimeNum_args.keys()) == expected_TimeNum_args
                 if kw.ReasonNum in set(attrs_dict.keys()):
                     ReasonNum_dict = attrs_dict.get(kw.ReasonNum)
                     ReasonNum_args = ReasonNum_dict.get("nabuable_values")
@@ -94,7 +94,7 @@ def test_get_nabu_dimens_ReturnsObj():
     nabu_config_dimens = get_nabu_dimens()
 
     # THEN
-    assert kw.nabu_epochtime in nabu_config_dimens
+    assert kw.nabu_timenum in nabu_config_dimens
     assert len(nabu_config_dimens) == 1
     gen_nabu_dimens = set(get_nabu_config_dict().keys())
     assert gen_nabu_dimens == get_nabu_dimens()

@@ -466,7 +466,7 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
     assert kw.plan_keg_reasonunit in idea_config_dimens
     assert kw.plan_kegunit in idea_config_dimens
     assert kw.planunit in idea_config_dimens
-    assert kw.nabu_epochtime in idea_config_dimens
+    assert kw.nabu_timenum in idea_config_dimens
     assert kw.translate_name in idea_config_dimens
     assert kw.translate_title in idea_config_dimens
     assert kw.translate_label in idea_config_dimens
@@ -529,7 +529,7 @@ def _validate_idea_config(x_idea_config: dict):
             kw.moment_epoch_weekday,
             kw.momentunit,
             "map_otx2inx",
-            kw.nabu_epochtime,
+            kw.nabu_timenum,
             kw.translate_title,
             kw.translate_name,
             kw.translate_label,
@@ -774,7 +774,7 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     assert x_idea_config.get(kw.translate_title).get(bo) == 1
     assert x_idea_config.get(kw.translate_label).get(bo) == 2
     assert x_idea_config.get(kw.translate_rope).get(bo) == 3
-    assert x_idea_config.get(kw.nabu_epochtime).get(bo) == 4
+    assert x_idea_config.get(kw.nabu_timenum).get(bo) == 4
     assert x_idea_config.get(kw.momentunit).get(bo) == 5
     assert x_idea_config.get(kw.moment_epoch_hour).get(bo) == 6
     assert x_idea_config.get(kw.moment_epoch_month).get(bo) == 7
@@ -813,7 +813,7 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_Plan():
     assert not plan_idea_config.get(kw.translate_title)
     assert not plan_idea_config.get(kw.translate_label)
     assert not plan_idea_config.get(kw.translate_rope)
-    assert not plan_idea_config.get(kw.nabu_epochtime)
+    assert not plan_idea_config.get(kw.nabu_timenum)
     assert not plan_idea_config.get(kw.momentunit)
     assert not plan_idea_config.get(kw.moment_epoch_hour)
     assert not plan_idea_config.get(kw.moment_epoch_month)

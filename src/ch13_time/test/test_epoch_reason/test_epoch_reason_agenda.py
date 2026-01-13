@@ -1,12 +1,12 @@
 from src.ch06_keg.test._util.ch06_examples import get_range_attrs
 from src.ch07_plan_logic.plan_main import KegUnit, PlanUnit, RopeTerm
-from src.ch13_epoch._ref.ch13_semantic_types import FactNum, ReasonNum
-from src.ch13_epoch.epoch_reason import (
+from src.ch13_time._ref.ch13_semantic_types import FactNum, ReasonNum
+from src.ch13_time.epoch_reason import (
     set_epoch_base_case_dayly,
     set_epoch_cases_for_monthly,
     set_epoch_cases_for_yearly_monthday,
 )
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
     get_bob_five_plan,
 )

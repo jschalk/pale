@@ -6,7 +6,7 @@ from src.ch07_plan_logic.plan_tool import (
     plan_keg_reasonunit_exists,
     plan_keg_reasonunit_get_obj,
 )
-from src.ch13_epoch.epoch_reason import (
+from src.ch13_time.epoch_reason import (
     del_epoch_reason,
     set_epoch_base_case_dayly,
     set_epoch_base_case_monthday,
@@ -16,7 +16,7 @@ from src.ch13_epoch.epoch_reason import (
     set_epoch_base_case_xdays,
     set_epoch_base_case_xweeks,
 )
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
     get_bob_five_plan,
 )

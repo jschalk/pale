@@ -1,5 +1,5 @@
 from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.test._util.ch13_examples import (
     add_time_creg_kegunit,
     get_fri,
     get_mon,

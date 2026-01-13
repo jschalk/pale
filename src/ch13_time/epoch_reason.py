@@ -14,8 +14,8 @@ from src.ch07_plan_logic.plan_tool import (
     plan_kegunit_exists,
     plan_kegunit_get_obj,
 )
-from src.ch13_epoch._ref.ch13_semantic_types import EpochTime, LabelTerm, RopeTerm
-from src.ch13_epoch.epoch_main import (
+from src.ch13_time._ref.ch13_semantic_types import LabelTerm, RopeTerm, TimeNum
+from src.ch13_time.epoch_main import (
     get_day_rope,
     get_epoch_rope,
     get_week_rope,

@@ -2,7 +2,7 @@ from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, open_file
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.test._util.ch13_examples import (
     add_time_creg_kegunit,
     add_time_five_kegunit,
 )

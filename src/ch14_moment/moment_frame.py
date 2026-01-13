@@ -1,6 +1,6 @@
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch11_bud.bud_main import planbudhistory_shop, tranbook_shop
-from src.ch13_epoch.epoch_main import (
+from src.ch13_time.epoch_main import (
     EpochHolder,
     add_epoch_kegunit,
     epochholder_shop,

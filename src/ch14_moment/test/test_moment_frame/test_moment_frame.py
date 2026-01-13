@@ -1,11 +1,11 @@
 from src.ch00_py.file_toolbox import open_json, save_json
 from src.ch11_bud.bud_main import planbudhistory_shop
-from src.ch13_epoch.epoch_main import (
+from src.ch13_time.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
     epochunit_shop,
     get_epoch_length,
 )
-from src.ch13_epoch.test._util.ch13_examples import get_creg_config
+from src.ch13_time.test._util.ch13_examples import get_creg_config
 from src.ch14_moment.moment_frame import (
     add_epoch_frame_to_momentunit,
     get_moment_epochholder,

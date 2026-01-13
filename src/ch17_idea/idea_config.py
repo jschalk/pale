@@ -932,7 +932,7 @@ def get_idea_dimen_ref() -> dict[str, set[str]]:
             "br00116",
             "br00117",
         },
-        "nabu_epochtime": {"br00070"},
+        "nabu_timenum": {"br00070"},
         "translate_title": {"br00042", "br00115"},
         "translate_name": {"br00043", "br00113"},
         "translate_rope": {"br00045", "br00117"},

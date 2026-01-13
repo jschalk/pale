@@ -12,11 +12,11 @@ from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
 def test_create_bud_person_mandate_ledger_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    epochtime7 = 7
+    timenum7 = 7
 
     # WHEN
     gen_bud_path = create_bud_person_mandate_ledger_path(
-        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, timenum7
     )
 
     # THEN
@@ -25,8 +25,8 @@ def test_create_bud_person_mandate_ledger_path_ReturnsObj():
     plans_dir = create_path(amy23_dir, "plans")
     sue_dir = create_path(plans_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
-    epochtime_dir = create_path(buds_dir, epochtime7)
-    expected_bud_path_dir = create_path(epochtime_dir, BUD_MANDATE_FILENAME)
+    timenum_dir = create_path(buds_dir, timenum7)
+    expected_bud_path_dir = create_path(timenum_dir, BUD_MANDATE_FILENAME)
     assert gen_bud_path == expected_bud_path_dir
 
 

@@ -62,14 +62,14 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_tranunit_tran_time_GreaterTh
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         x_moment.set_paypurchase(sue_bob_t77_tranunit)
-    exception_str = f"Cannot set tranunit for tran_time={t77_t}, EpochTime is greater than current time={t6606_offi_time_max}"
+    exception_str = f"Cannot set tranunit for tran_time={t77_t}, TimeNum is greater than current time={t6606_offi_time_max}"
     assert str(excinfo.value) == exception_str
 
     # WHEN / THEN
     sue_bob_t6606 = tranunit_shop(exx.sue, exx.bob, t6606_offi_time_max, t77_amount)
     with pytest_raises(Exception) as excinfo:
         x_moment.set_paypurchase(sue_bob_t6606)
-    exception_str = f"Cannot set tranunit for tran_time={t6606_offi_time_max}, EpochTime is greater than current time={t6606_offi_time_max}"
+    exception_str = f"Cannot set tranunit for tran_time={t6606_offi_time_max}, TimeNum is greater than current time={t6606_offi_time_max}"
     assert str(excinfo.value) == exception_str
 
 
@@ -89,7 +89,7 @@ def test_MomentUnit_set_paypurchase_RaisesErrorWhen_BudUnitHas_tran_time():
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         x_moment.set_paypurchase(sue_bob_t55_tranunit)
-    exception_str = f"Cannot set tranunit for tran_time={t55_t}, EpochTime is blocked"
+    exception_str = f"Cannot set tranunit for tran_time={t55_t}, TimeNum is blocked"
     assert str(excinfo.value) == exception_str
 
 

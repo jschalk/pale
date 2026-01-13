@@ -7,7 +7,7 @@ from src.ch04_rope.rope import (
 )
 from src.ch05_reason.reason_main import CaseUnit, FactUnit
 from src.ch07_plan_logic.plan_main import PlanUnit
-from src.ch13_epoch.epoch_main import epochholder_shop
+from src.ch13_time.epoch_main import epochholder_shop
 
 
 def get_reason_case_readable_str(
@@ -56,8 +56,8 @@ def get_fact_state_readable_str(
     moment_label = get_first_label_from_rope(context_rope)
     time_rope = create_rope(moment_label, "time")
     if factunit.fact_context == create_rope(time_rope, epoch_label):
-        lower_blurb = get_epochtime_blurb(planunit, epoch_label, lower_float)
-        upper_blurb = get_epochtime_blurb(planunit, epoch_label, upper_float)
+        lower_blurb = get_timenum_blurb(planunit, epoch_label, lower_float)
+        upper_blurb = get_timenum_blurb(planunit, epoch_label, upper_float)
         return f"from {lower_blurb} to {upper_blurb}"
 
     if lower_float is not None and upper_float is not None:
@@ -66,7 +66,7 @@ def get_fact_state_readable_str(
     return x_str
 
 
-def get_epochtime_blurb(planunit: PlanUnit, epoch_rope: RopeTerm, x_min: int) -> str:
+def get_timenum_blurb(planunit: PlanUnit, epoch_rope: RopeTerm, x_min: int) -> str:
     lower_btlp = epochholder_shop(planunit, epoch_rope, x_min)
     lower_btlp.calc_epoch()
     return lower_btlp.get_blurb()

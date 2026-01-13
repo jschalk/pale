@@ -34,9 +34,9 @@ from src.ch11_bud.bud_main import (
     tranbook_shop,
 )
 from src.ch11_bud.cell_main import cellunit_shop
-from src.ch13_epoch.epoch_main import (
-    EpochTime,
+from src.ch13_time.epoch_main import (
     EpochUnit,
+    TimeNum,
     add_epoch_kegunit,
     epochunit_shop,
 )
@@ -88,14 +88,14 @@ class MomentUnit:
     epoch: EpochUnit = None
     planbudhistorys: dict[PlanName, PlanBudHistory] = None
     paybook: TranBook = None
-    offi_times: set[EpochTime] = None
+    offi_times: set[TimeNum] = None
     knot: KnotTerm = None
     fund_grain: FundGrain = None
     respect_grain: RespectGrain = None
     mana_grain: ManaGrain = None
     job_listen_rotations: int = None
     # calculated fields
-    offi_time_max: EpochTime = None
+    offi_time_max: TimeNum = None
     moment_dir: str = None
     plans_dir: str = None
     lessons_dir: str = None
@@ -202,7 +202,7 @@ class MomentUnit:
     def add_budunit(
         self,
         plan_name: PlanName,
-        bud_time: EpochTime,
+        bud_time: TimeNum,
         quota: int,
         allow_prev_to_offi_time_max_entry: bool = False,
         celldepth: int = None,
@@ -219,7 +219,7 @@ class MomentUnit:
     def bud_quota_exists(
         self,
         plan_name: PlanName,
-        bud_time: EpochTime,
+        bud_time: TimeNum,
         quota: int,
     ) -> bool:
         planbudhistory = self.get_planbudhistory(plan_name)
@@ -228,7 +228,7 @@ class MomentUnit:
         budunit = planbudhistory.get_bud(bud_time)
         return budunit.quota == quota if budunit else False
 
-    def get_budunit(self, plan_name: PlanName, bud_time: EpochTime) -> BudUnit:
+    def get_budunit(self, plan_name: PlanName, bud_time: TimeNum) -> BudUnit:
         if not self.get_planbudhistory(plan_name):
             return None
         x_planbudhistory = self.get_planbudhistory(plan_name)
@@ -257,7 +257,7 @@ class MomentUnit:
             x_bud.plan_name: x_bud.to_dict() for x_bud in self.planbudhistorys.values()
         }
 
-    def get_planbudhistorys_bud_times(self) -> set[EpochTime]:
+    def get_planbudhistorys_bud_times(self) -> set[TimeNum]:
         all_budunit_bud_times = set()
         for x_planbudhistory in self.planbudhistorys.values():
             all_budunit_bud_times.update(x_planbudhistory.get_bud_times())
@@ -274,10 +274,10 @@ class MomentUnit:
         self,
         plan_name: PlanName,
         person_name: PersonName,
-        tran_time: EpochTime,
+        tran_time: TimeNum,
         amount: FundNum,
-        blocked_tran_times: set[EpochTime] = None,
-        offi_time_max: EpochTime = None,
+        blocked_tran_times: set[TimeNum] = None,
+        offi_time_max: TimeNum = None,
     ) -> None:
         self.paybook.add_tranunit(
             plan_name=plan_name,
@@ -289,29 +289,29 @@ class MomentUnit:
         )
 
     def paypurchase_exists(
-        self, src: PlanName, dst: PersonName, x_tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, x_tran_time: TimeNum
     ) -> bool:
         return self.paybook.tranunit_exists(src, dst, x_tran_time)
 
     def get_paypurchase(
-        self, src: PlanName, dst: PersonName, x_tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, x_tran_time: TimeNum
     ) -> TranUnit:
         return self.paybook.get_tranunit(src, dst, x_tran_time)
 
     def del_paypurchase(
-        self, src: PlanName, dst: PersonName, x_tran_time: EpochTime
+        self, src: PlanName, dst: PersonName, x_tran_time: TimeNum
     ) -> TranUnit:
         return self.paybook.del_tranunit(src, dst, x_tran_time)
 
     def clear_paypurchases(self):
         self.paybook = tranbook_shop(self.moment_label)
 
-    # def set_offi_time(self, offi_time: EpochTime):
+    # def set_offi_time(self, offi_time: TimeNum):
     #     self.offi_time = offi_time
     #     if self.offi_time_max < self.offi_time:
     #         self.offi_time_max = self.offi_time
 
-    def set_offi_time_max(self, x_offi_time_max: EpochTime):
+    def set_offi_time_max(self, x_offi_time_max: TimeNum):
         x_tran_times = self.paybook.get_tran_times()
         if x_tran_times != set() and max(x_tran_times) >= x_offi_time_max:
             exception_str = f"Cannot set offi_time_max {x_offi_time_max}, paypurchase with greater tran_time exists"
@@ -322,7 +322,7 @@ class MomentUnit:
         self.offi_time_max = x_offi_time_max
 
     # def set_offi_time(
-    #     self, offi_time: EpochTime, offi_time_max: EpochTime
+    #     self, offi_time: TimeNum, offi_time_max: TimeNum
     # ):
     #     self.set_offi_time(offi_time)
     #     self.set_offi_time_max(_offi_time_max)
@@ -340,7 +340,7 @@ class MomentUnit:
 
     def create_buds_root_cells(
         self,
-        ote1_dict: dict[PlanName, dict[EpochTime, SparkInt]],
+        ote1_dict: dict[PlanName, dict[TimeNum, SparkInt]],
     ) -> None:
         for plan_name, planbudhistory in self.planbudhistorys.items():
             for bud_time in planbudhistory.buds.keys():
@@ -349,8 +349,8 @@ class MomentUnit:
     def _create_bud_root_cell(
         self,
         plan_name: PlanName,
-        ote1_dict: dict[PlanName, dict[EpochTime, SparkInt]],
-        bud_time: EpochTime,
+        ote1_dict: dict[PlanName, dict[TimeNum, SparkInt]],
+        bud_time: TimeNum,
     ) -> None:
         past_spark_num = _get_ote1_max_past_spark_num(plan_name, ote1_dict, bud_time)
         budunit = self.get_budunit(plan_name, bud_time)
@@ -390,17 +390,17 @@ def _get_ote1_max_past_spark_num(
     ote1_plan_dict = ote1_dict.get(plan_name)
     if not ote1_plan_dict:
         return None
-    spark_epochtimes = set(ote1_plan_dict.keys())
-    if past_epochtimes := {tp for tp in spark_epochtimes if int(tp) <= bud_time}:
-        max_past_epochtime = max(past_epochtimes)
-        return ote1_plan_dict.get(max_past_epochtime)
+    spark_timenums = set(ote1_plan_dict.keys())
+    if past_timenums := {tp for tp in spark_timenums if int(tp) <= bud_time}:
+        max_past_timenum = max(past_timenums)
+        return ote1_plan_dict.get(max_past_timenum)
 
 
 def momentunit_shop(
     moment_label: MomentLabel,
     moment_mstr_dir: str,
     epoch: EpochUnit = None,
-    offi_times: set[EpochTime] = None,
+    offi_times: set[TimeNum] = None,
     knot: KnotTerm = None,
     fund_grain: float = None,
     respect_grain: float = None,

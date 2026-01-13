@@ -12,7 +12,6 @@ from src.ch17_idea.idea_config import (
     get_idea_sqlite_types,
 )
 from src.ch18_world_etl._ref.ch18_semantic_types import (
-    EpochTime,
     FaceName,
     FactNum,
     MomentLabel,
@@ -20,6 +19,7 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
     ReasonNum,
     RopeTerm,
     SparkInt,
+    TimeNum,
 )
 from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict,

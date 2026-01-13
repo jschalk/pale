@@ -1,7 +1,7 @@
 {
-  "nabu_epochtime": {
+  "nabu_timenum": {
     "affected_semantic_types": {
-      "EpochTime": {
+      "TimeNum": {
         "nabuable_values": {"bud_time": {}, "offi_time": {}, "tran_time": {}}, 
         "note": "otx_time is the only required input, inx_time and moment_label can be provided. moment_label is used to provide epoch_length and then modular math calculates changes to all nabuable_values"
       }, 

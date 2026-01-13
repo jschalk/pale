@@ -73,7 +73,7 @@ def get_translate_args_class_types() -> dict[str, str]:
         "awardee_title": "TitleTerm",
         "begin": "float",
         "plan_name": "NameTerm",
-        "bud_time": "EpochTime",
+        "bud_time": "TimeNum",
         "c400_number": "int",
         "celldepth": "int",
         "close": "float",
@@ -106,7 +106,7 @@ def get_translate_args_class_types() -> dict[str, str]:
         "monthday_index": "int",
         "morph": "bool",
         "numor": "int",
-        "offi_time": "EpochTime",
+        "offi_time": "TimeNum",
         "quota": "int",
         "party_title": "TitleTerm",
         "keg_rope": "RopeTerm",
@@ -123,7 +123,7 @@ def get_translate_args_class_types() -> dict[str, str]:
         "stop_want": "float",
         "take_force": "float",
         "tally": "int",
-        "tran_time": "EpochTime",
+        "tran_time": "TimeNum",
         "person_name": "NameTerm",
         "person_cred_lumen": "float",
         "person_debt_lumen": "float",
@@ -244,5 +244,5 @@ def get_translate_ropeterm_args() -> set[str]:
     }
 
 
-def get_translate_epochtime_args() -> set[str]:
+def get_translate_timenum_args() -> set[str]:
     return {"bud_time", "offi_time", "tran_time"}

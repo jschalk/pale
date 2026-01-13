@@ -12,7 +12,7 @@ def create_bud_person_mandate_ledger_path(
     bud_time: int,
 ) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_label\\plans\\plan_name\\buds\n\\bud_time\\bud_person_mandate_ledger.json"""
-    epochtime_dir = create_bud_dir_path(
+    timenum_dir = create_bud_dir_path(
         moment_mstr_dir, moment_label, plan_name, bud_time
     )
-    return create_path(epochtime_dir, "bud_person_mandate_ledger.json")
+    return create_path(timenum_dir, "bud_person_mandate_ledger.json")

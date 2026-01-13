@@ -14,7 +14,7 @@ from src.ch09_plan_lesson.delta import (
     get_dimens_cruds_plandelta,
     plandelta_shop,
 )
-from src.ch13_epoch.epoch_main import epochunit_shop
+from src.ch13_time.epoch_main import epochunit_shop
 from src.ch14_moment.moment_main import MomentUnit, momentunit_shop
 from src.ch17_idea._ref.ch17_semantic_types import MomentLabel, PlanName
 from src.ch17_idea.idea_config import get_idea_format_headers, get_idearef_from_file

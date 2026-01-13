@@ -45,11 +45,11 @@ def test_create_buds_dir_path_ReturnsObj():
 def test_create_bud_dir_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    epochtime7 = 7
+    timenum7 = 7
 
     # WHEN
-    generated_epochtime_dir = create_bud_dir_path(
-        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
+    generated_timenum_dir = create_bud_dir_path(
+        x_moment_mstr_dir, exx.a23, exx.sue, timenum7
     )
 
     # THEN
@@ -58,18 +58,18 @@ def test_create_bud_dir_path_ReturnsObj():
     plans_dir = create_path(amy23_dir, "plans")
     sue_dir = create_path(plans_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
-    expected_epochtime_dir = create_path(buds_dir, epochtime7)
-    assert generated_epochtime_dir == expected_epochtime_dir
+    expected_timenum_dir = create_path(buds_dir, timenum7)
+    assert generated_timenum_dir == expected_timenum_dir
 
 
 def test_create_budunit_json_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    epochtime7 = 7
+    timenum7 = 7
 
     # WHEN
     gen_bud_path = create_budunit_json_path(
-        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, timenum7
     )
 
     # THEN
@@ -78,19 +78,19 @@ def test_create_budunit_json_path_ReturnsObj():
     plans_dir = create_path(amy23_dir, "plans")
     sue_dir = create_path(plans_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
-    epochtime_dir = create_path(buds_dir, epochtime7)
-    expected_bud_path_dir = create_path(epochtime_dir, BUDUNIT_FILENAME)
+    timenum_dir = create_path(buds_dir, timenum7)
+    expected_bud_path_dir = create_path(timenum_dir, BUDUNIT_FILENAME)
     assert gen_bud_path == expected_bud_path_dir
 
 
 def test_create_plantime_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    epochtime7 = 7
+    timenum7 = 7
 
     # WHEN
     gen_plantime_path = create_plantime_path(
-        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, timenum7
     )
 
     # THEN
@@ -99,8 +99,8 @@ def test_create_plantime_path_ReturnsObj():
     plans_dir = create_path(amy23_dir, "plans")
     sue_dir = create_path(plans_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
-    epochtime_dir = create_path(buds_dir, epochtime7)
-    expected_plantime_path_dir = create_path(epochtime_dir, PLANTIME_FILENAME)
+    timenum_dir = create_path(buds_dir, timenum7)
+    expected_plantime_path_dir = create_path(timenum_dir, PLANTIME_FILENAME)
     assert gen_plantime_path == expected_plantime_path_dir
 
 
@@ -113,8 +113,8 @@ def test_create_cell_dir_path_ReturnsObj_Scenario0_No_bud_ancestors():
     gen_cell_dir = create_cell_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7, [])
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
-    assert gen_cell_dir == epochtime_dir
+    timenum_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
+    assert gen_cell_dir == timenum_dir
 
 
 def test_create_cell_dir_path_ReturnsObj_Scenario1_One_bud_ancestors():
@@ -129,8 +129,8 @@ def test_create_cell_dir_path_ReturnsObj_Scenario1_One_bud_ancestors():
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
-    tp_yao_dir = create_path(epochtime_dir, exx.yao)
+    timenum_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
+    tp_yao_dir = create_path(timenum_dir, exx.yao)
     assert gen_cell_dir == tp_yao_dir
 
 
@@ -146,8 +146,8 @@ def test_create_cell_dir_path_ReturnsObj_Scenario2_Three_bud_ancestors():
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
-    tp_yao_dir = create_path(epochtime_dir, exx.yao)
+    timenum_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
+    tp_yao_dir = create_path(timenum_dir, exx.yao)
     tp_yao_bob_dir = create_path(tp_yao_dir, exx.bob)
     expected_tp_yao_bob_zia_dir = create_path(tp_yao_bob_dir, exx.zia)
     assert gen_bud_celldepth_dir_path == expected_tp_yao_bob_zia_dir
@@ -156,11 +156,11 @@ def test_create_cell_dir_path_ReturnsObj_Scenario2_Three_bud_ancestors():
 def test_create_cell_json_path_ReturnsObj_Scenario0_Empty_bud_ancestors():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    epochtime7 = 7
+    timenum7 = 7
 
     # WHEN
     gen_cell_json_path = create_cell_json_path(
-        x_moment_mstr_dir, exx.a23, exx.sue, epochtime7
+        x_moment_mstr_dir, exx.a23, exx.sue, timenum7
     )
 
     # THEN
@@ -169,8 +169,8 @@ def test_create_cell_json_path_ReturnsObj_Scenario0_Empty_bud_ancestors():
     plans_dir = create_path(amy23_dir, "plans")
     sue_dir = create_path(plans_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
-    epochtime_dir = create_path(buds_dir, epochtime7)
-    expected_cell_json_path = create_path(epochtime_dir, CELLNODE_FILENAME)
+    timenum_dir = create_path(buds_dir, timenum7)
+    expected_cell_json_path = create_path(timenum_dir, CELLNODE_FILENAME)
     assert gen_cell_json_path == expected_cell_json_path
 
 
@@ -186,8 +186,8 @@ def test_create_cell_json_path_ReturnsObj_Scenario1_Three_bud_ancestors():
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
-    tp_yao_dir = create_path(epochtime_dir, exx.yao)
+    timenum_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
+    tp_yao_dir = create_path(timenum_dir, exx.yao)
     tp_yao_bob_dir = create_path(tp_yao_dir, exx.bob)
     expected_cell_json_path = create_path(tp_yao_bob_dir, CELLNODE_FILENAME)
     assert gen_cell_json_path == expected_cell_json_path
@@ -205,8 +205,8 @@ def test_create_cell_person_mandate_ledger_path_ReturnsObj_Scenario1_Three_bud_a
     )
 
     # THEN
-    epochtime_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
-    tp_yao_dir = create_path(epochtime_dir, exx.yao)
+    timenum_dir = create_bud_dir_path(x_moment_mstr_dir, exx.a23, exx.sue, tp7)
+    tp_yao_dir = create_path(timenum_dir, exx.yao)
     tp_yao_bob_dir = create_path(tp_yao_dir, exx.bob)
     expected_cell_json_path = create_path(tp_yao_bob_dir, CELL_MANDATE_FILENAME)
     assert gen_cell_json_path == expected_cell_json_path

@@ -379,7 +379,7 @@ WHERE inconsistency_rows.moment_label = moment_epoch_hour_s_raw.moment_label
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario2_NabuDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = kw.nabu_epochtime
+    dimen = kw.nabu_timenum
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -412,15 +412,15 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
 SELECT moment_label, otx_time
-FROM nabu_epochtime_s_raw
+FROM nabu_timenum_s_raw
 GROUP BY moment_label, otx_time
 HAVING MIN(inx_time) != MAX(inx_time)
 )
-UPDATE nabu_epochtime_s_raw
+UPDATE nabu_timenum_s_raw
 SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
-WHERE inconsistency_rows.moment_label = nabu_epochtime_s_raw.moment_label
-    AND inconsistency_rows.otx_time = nabu_epochtime_s_raw.otx_time
+WHERE inconsistency_rows.moment_label = nabu_timenum_s_raw.moment_label
+    AND inconsistency_rows.otx_time = nabu_timenum_s_raw.otx_time
 ;
 """
         # print(update_sqlstr)
@@ -561,7 +561,7 @@ GROUP BY spark_num, face_name, moment_label, cumulative_minute
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen():
     # sourcery skip: extract-method
     # ESTABLISH
-    dimen = kw.nabu_epochtime
+    dimen = kw.nabu_timenum
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
@@ -588,9 +588,9 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen():
         print(expected_insert_sqlstr)
         assert update_sqlstrs[0] == expected_insert_sqlstr
 
-        static_example_sqlstr = """INSERT INTO nabu_epochtime_s_agg (spark_num, face_name, moment_label, otx_time, inx_time)
+        static_example_sqlstr = """INSERT INTO nabu_timenum_s_agg (spark_num, face_name, moment_label, otx_time, inx_time)
 SELECT spark_num, face_name, moment_label, otx_time, MAX(inx_time)
-FROM nabu_epochtime_s_raw
+FROM nabu_timenum_s_raw
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name, moment_label, otx_time
 ;

@@ -2,7 +2,7 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count, get_table_columns
 from src.ch00_py.dict_toolbox import get_empty_set_if_None
 from src.ch05_reason.reason_main import caseunit_shop
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
     get_bob_five_plan,
 )
@@ -10,11 +10,11 @@ from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
 from src.ch18_world_etl._ref.ch18_semantic_types import (
-    EpochTime,
     FaceName,
     MomentLabel,
     PlanName,
     SparkInt,
+    TimeNum,
 )
 from src.ch18_world_etl.etl_config import create_prime_tablename as prime_tbl
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
@@ -34,9 +34,9 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 #
 # update semantic_type: ReasonNum plan_keg_reason_caseunit_h_agg_put reason_lower, reason_upper
 # update semantic_type: ReasonNum plan_keg_factunit_h_agg_put fact_lower, fact_upper
-# update semantic_type: EpochTime moment_paybook_h_agg tran_time
-# update semantic_type: EpochTime moment_budunit_h_agg bud_time
-# update semantic_type: EpochTime moment_timeh_agg time
+# update semantic_type: TimeNum moment_paybook_h_agg tran_time
+# update semantic_type: TimeNum moment_budunit_h_agg bud_time
+# update semantic_type: TimeNum moment_timeh_agg time
 
 
 def test_insert_nabepoc_h_agg_otx_inx_time_PopulatesTable_Scenario0():
@@ -46,7 +46,7 @@ def test_insert_nabepoc_h_agg_otx_inx_time_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        nabepoc_h_agg_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
+        nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
         otx_time = 5
         inx_time = 8
         assert get_row_count(cursor, nabepoc_h_agg_tablename) == 0
@@ -79,7 +79,7 @@ def test_select_nabepoc_h_agg_otx_inx_time_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        nabepoc_h_agg_tablename = prime_tbl(kw.nabu_epochtime, "h", "agg")
+        nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
         otx_time = 5
         inx_time = 8
         assert not select_nabepoc_h_agg_otx_inx_time(cursor, spark1, exx.a23)

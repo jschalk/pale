@@ -1,8 +1,8 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import count_files, create_path, save_json
 from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
-from src.ch13_epoch.epoch_main import epochunit_shop
-from src.ch13_epoch.test._util.ch13_examples import (
+from src.ch13_time.epoch_main import epochunit_shop
+from src.ch13_time.test._util.ch13_examples import (
     get_creg_config,
     get_expected_creg_year0_markdown,
 )
