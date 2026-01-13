@@ -711,7 +711,7 @@ def test_PlanUnit_create_agenda_keg_CreatesAllPlanAttributes():
     assert len(sue_plan.kegroot.kids) == 3
 
 
-def test_KegCore_get_agenda_dict_ReturnsObj_BugFindAndFix_active_SettingError():  # https://github.com/jschalk/beto/issues/69
+def test_KegCore_get_agenda_dict_ReturnsObj_BugFindAndFix_active_SettingError():  # https://github.com/jschalk/pale/issues/69
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
     add_time_creg_kegunit(sue_plan)

@@ -1,5 +1,5 @@
 """
-Beto
+Pale
 
 A Python package for communiticating across cultures.
 """

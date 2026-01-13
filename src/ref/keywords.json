@@ -78,7 +78,7 @@
   "c400_leap": {"init_chapter": "ch13", "note": "400 years with the extra leap day."}, 
   "c400_number": {
     "init_chapter": "ch13", 
-    "note": "Beto epoch tech is that any Epoch can be created in 400 year units. This is the number of 400_year_leap units the Epoch will have."
+    "note": "Pale epoch tech is that any Epoch can be created in 400 year units. This is the number of 400_year_leap units the Epoch will have."
   }, 
   "care_amount": {"init_chapter": "ch12"}, 
   "cares": {"init_chapter": "ch12"}, 

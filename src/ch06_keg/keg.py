@@ -187,7 +187,7 @@ def kegattrholder_shop(
 @dataclass
 class KegUnit:
     """
-    Represents a kegual unit within beto. Can represent a pledge, a task, a different keg's
+    Represents a kegual unit within pale. Can represent a pledge, a task, a different keg's
     reason or fact, a parent keg of other kegs.
     Funds: Funds come from the parent keg and go to the child kegs.
     Awards: Desribes whom the funding comes from and whome it goes to.

@@ -6,7 +6,7 @@ What does each one do?
 - **ch00_py**: Creates boring tools for computer data manipulation.
 - **ch01_allot**: Defines how to allot a pool number to a weighted ledger.
 - **ch02_person**: Defines debt and cred to Persons and Memberships to Groups.
-- **ch03_intro**: Introduces why Beto has been created.
+- **ch03_intro**: Introduces why Pale has been created.
 - **ch04_rope**: Defines Term Classes: Knots, Labels, RopeTerms, FirstLabels
 - **ch05_reason**: Defines ReasonUnits, FactUnits, and Facts decide if a Reason is Active
 - **ch06_keg**: Defines KegUnits with sub-kegs, Awardees, Labor, Reasons, Facts, etc.
@@ -27,4 +27,4 @@ What does each one do?
 - **ch21_lobby**: Defines Lobby Tools for gifts, World Scenarios.
 - **ch22_finance**: Defines Finance Tools for 
 - **ch24_plan_viewer**: Tools for Visualizing PlanUnits
-- **ch98_docs_builder**: Defines Tools that create Beto documentation.
+- **ch98_docs_builder**: Defines Tools that create Pale documentation.
