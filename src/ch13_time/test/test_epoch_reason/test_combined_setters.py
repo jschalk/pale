@@ -5,8 +5,6 @@ from src.ch07_plan_logic.plan_tool import (
     plan_keg_reasonunit_get_obj,
 )
 from src.ch13_time.epoch_reason import (
-    del_epoch_reason,
-    set_epoch_base_case_range,
     set_epoch_cases_by_args_dict,
     set_epoch_cases_for_dayly,
     set_epoch_cases_for_monthly,
@@ -16,9 +14,6 @@ from src.ch13_time.epoch_reason import (
 from src.ch13_time.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
     get_bob_five_plan,
-    get_creg_config,
-    get_five_config,
-    get_lizzy9_config,
 )
 from src.ref.keywords import Ch13Keywords as kw
 

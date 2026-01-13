@@ -23,22 +23,6 @@ from src.ch13_time.epoch_main import (
 )
 
 
-def del_epoch_reason(
-    x_plan: PlanUnit,
-    keg_rope: RopeTerm,
-    epoch_label: LabelTerm,
-):
-    time_rope = x_plan.make_l1_rope("time")
-    epoch_rope = x_plan.make_rope(time_rope, epoch_label)
-    keg_args = {"keg_rope": keg_rope}
-    if plan_kegunit_exists(x_plan, keg_args):
-        x_keg = plan_kegunit_get_obj(x_plan, keg_args)
-        reason_contexts = set(x_keg.reasonunits.keys())
-        for reason_context in reason_contexts:
-            if is_sub_rope(reason_context, epoch_rope):
-                x_keg.del_reasonunit_reason_context(reason_context)
-
-
 def calculate_dayly_lower_min(dayly_lower_min: int, day_keg_denom: int) -> int:
     return dayly_lower_min % day_keg_denom
 

@@ -7,7 +7,6 @@ from src.ch07_plan_logic.plan_tool import (
     plan_keg_reasonunit_get_obj,
 )
 from src.ch13_time.epoch_reason import (
-    del_epoch_reason,
     set_epoch_base_case_dayly,
     set_epoch_base_case_monthday,
     set_epoch_base_case_monthly,
@@ -774,50 +773,3 @@ def test_set_epoch_base_case_monthly_SetsAttr_Scenario2_ParametersAreNone():
 
     # THEN
     assert not plan_keg_reasonunit_exists(bob_plan, mop_year_args)
-
-
-def test_del_epoch_reason_SetsAttr_Scenario0_NoReasonUnitExists():
-    # ESTABLISH
-    bob_plan = planunit_shop(wx.Bob)
-    bob_plan.add_keg(wx.mop_rope)
-    mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
-        kw.reason_context: wx.day_rope,
-        kw.reason_state: wx.day_rope,
-    }
-    assert bob_plan.keg_exists(wx.mop_rope)
-    assert not plan_keg_reasonunit_exists(bob_plan, mop_dayly_args)
-
-    # WHEN
-    del_epoch_reason(bob_plan, wx.mop_rope, epoch_label=wx.five_str)
-
-    # THEN
-    assert not plan_keg_reasonunit_exists(bob_plan, mop_dayly_args)
-
-
-def test_del_epoch_reason_SetsAttr_Scenario1_ReasonUnitExists():
-    # ESTABLISH
-    bob_plan = get_bob_five_plan()
-    bob_plan.cashout()
-    mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
-        kw.reason_context: wx.day_rope,
-        kw.reason_state: wx.day_rope,
-    }
-    mop_dayly_lower_min = 600
-    mop_day_duration = 90
-    # WHEN
-    set_epoch_base_case_dayly(
-        x_plan=bob_plan,
-        keg_rope=wx.mop_rope,
-        epoch_label=wx.five_str,
-        dayly_lower_min=mop_dayly_lower_min,
-        dayly_duration_min=mop_day_duration,
-    )
-    assert plan_keg_reasonunit_exists(bob_plan, mop_dayly_args)
-
-    # WHEN
-    del_epoch_reason(bob_plan, wx.mop_rope, epoch_label=wx.five_str)
-
-    # THEN
-    assert not plan_keg_reasonunit_exists(bob_plan, mop_dayly_args)
