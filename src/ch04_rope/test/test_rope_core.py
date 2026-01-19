@@ -557,13 +557,13 @@ def test_validate_labelterm_Scenario1_RaisesErrorWhenLabelTerm():
     # ESTABLISH
     bob_str = f"Bob{exx.slash}Tom"
     assert bob_str == validate_labelterm(
-        bob_str, x_knot=exx.slash, not_labelterm_required=True
+        bob_str, x_knot=exx.slash, ropeterm_required=True
     )
 
     # WHEN
     comma_str = ","
     with pytest_raises(Exception) as excinfo:
-        validate_labelterm(bob_str, x_knot=comma_str, not_labelterm_required=True)
+        validate_labelterm(bob_str, x_knot=comma_str, ropeterm_required=True)
 
     # THEN
     assertion_failure_str = (
