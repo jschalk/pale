@@ -101,9 +101,9 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[5] == kw.face_name
     assert table_sorting_priority[6] == f"{kw.face_name}_otx"
     assert table_sorting_priority[7] == f"{kw.face_name}_inx"
-    assert table_sorting_priority[8] == kw.moment_label
-    assert table_sorting_priority[9] == f"{kw.moment_label}_otx"
-    assert table_sorting_priority[10] == f"{kw.moment_label}_inx"
+    assert table_sorting_priority[8] == kw.moment_rope
+    assert table_sorting_priority[9] == f"{kw.moment_rope}_otx"
+    assert table_sorting_priority[10] == f"{kw.moment_rope}_inx"
     assert table_sorting_priority[11] == kw.epoch_label
     assert table_sorting_priority[12] == f"{kw.epoch_label}_otx"
     assert table_sorting_priority[13] == f"{kw.epoch_label}_inx"
@@ -346,7 +346,7 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert sqlite_types.get(kw.face_name) == "TEXT"
     assert sqlite_types.get(kw.translate_spark_num) == "INTEGER"
     assert sqlite_types.get(kw.spark_num) == "INTEGER"
-    assert sqlite_types.get(kw.moment_label) == "TEXT"
+    assert sqlite_types.get(kw.moment_rope) == "TEXT"
     assert sqlite_types.get(kw.plan_name) == "TEXT"
     assert sqlite_types.get(kw.person_name) == "TEXT"
     assert sqlite_types.get(kw.group_title) == "TEXT"
@@ -562,9 +562,9 @@ def _validate_idea_config(x_idea_config: dict):
         assert kw.face_name in idea_jkeys_keys
         assert kw.spark_num in idea_jkeys_keys
         if idea_dict.get(kw.idea_category) in {kw.plan, kw.moment}:
-            assert kw.moment_label in idea_jkeys_keys
+            assert kw.moment_rope in idea_jkeys_keys
         if idea_dict.get(kw.idea_category) == kw.plan:
-            idea_jkeys_keys.remove(kw.moment_label)
+            idea_jkeys_keys.remove(kw.moment_rope)
             idea_jkeys_keys.remove(kw.plan_name)
         idea_jkeys_keys.remove(kw.face_name)
         idea_jkeys_keys.remove(kw.spark_num)
@@ -573,8 +573,8 @@ def _validate_idea_config(x_idea_config: dict):
 
         sub_jvalues_keys = set(sub_dimen.get(kw.jvalues).keys())
         # print(f"{idea_dimen=}")
-        # if kw.moment_label in sub_jvalues_keys:
-        #     sub_jvalues_keys.remove(kw.moment_label)
+        # if kw.moment_rope in sub_jvalues_keys:
+        #     sub_jvalues_keys.remove(kw.moment_rope)
 
         idea_jvalues_dict = idea_dict.get(kw.jvalues)
         idea_jvalues_keys = set(idea_jvalues_dict.keys())
@@ -852,7 +852,7 @@ def test_get_quick_ideas_column_ref_ReturnsObj():
         kw.spark_num,
         kw.face_name,
         kw.c400_number,
-        kw.moment_label,
+        kw.moment_rope,
         kw.fund_grain,
         kw.monthday_index,
         kw.mana_grain,

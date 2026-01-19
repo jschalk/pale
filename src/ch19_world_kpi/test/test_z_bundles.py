@@ -20,7 +20,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario0_WithDefaultBundleID():
         cursor.execute(CREATE_MOMENT_PERSON_NETS_SQLSTR)
         moment_person_nets_tablename = kw.moment_person_nets
         plnkegg_job_tablename = create_prime_tablename("PLNKEGG", "job", None)
-        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_label}, {kw.plan_name}, {kw.plan_net_amount})
+        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_rope}, {kw.plan_name}, {kw.plan_net_amount})
 VALUES
   ('{exx.a23}', '{exx.bob}', {bob_person_net})
 , ('{exx.a23}', '{exx.yao}', {yao_person_net})
@@ -59,7 +59,7 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario1_WithNoBundleID():
         cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
         cursor.execute(CREATE_MOMENT_PERSON_NETS_SQLSTR)
         moment_person_nets_tablename = kw.moment_person_nets
-        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_label}, {kw.plan_name}, {kw.plan_net_amount})
+        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_rope}, {kw.plan_name}, {kw.plan_net_amount})
 VALUES
   ('{exx.a23}', '{exx.bob}', {bob_person_net})
 , ('{exx.a23}', '{exx.yao}', {yao_person_net})

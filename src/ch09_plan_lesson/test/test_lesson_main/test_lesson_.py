@@ -43,7 +43,7 @@ def test_LessonUnit_Exists():
 
     # THEN
     assert not x_lessonunit.face_name
-    assert not x_lessonunit.moment_label
+    assert not x_lessonunit.moment_rope
     assert not x_lessonunit.plan_name
     assert not x_lessonunit._lesson_id
     assert not x_lessonunit._plandelta
@@ -61,7 +61,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithEmptyArgs():
 
     # THEN
     assert not bob_lessonunit.face_name
-    assert bob_lessonunit.moment_label == get_default_first_label()
+    assert bob_lessonunit.moment_rope == get_default_first_label()
     assert bob_lessonunit.plan_name == exx.bob
     assert bob_lessonunit._lesson_id == 0
     assert bob_lessonunit._plandelta == plandelta_shop()
@@ -85,7 +85,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
     bob_lessonunit = lessonunit_shop(
         face_name=exx.sue,
         plan_name=exx.bob,
-        moment_label=amy45_str,
+        moment_rope=amy45_str,
         _lesson_id=bob_lesson_id,
         _plandelta=bob_plandelta,
         _delta_start=bob_delta_start,
@@ -97,7 +97,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
     # THEN
     assert bob_lessonunit.face_name == exx.sue
     assert bob_lessonunit.plan_name == exx.bob
-    assert bob_lessonunit.moment_label == amy45_str
+    assert bob_lessonunit.moment_rope == amy45_str
     assert bob_lessonunit._lesson_id == bob_lesson_id
     assert bob_lessonunit._plandelta == bob_plandelta
     assert bob_lessonunit._delta_start == bob_delta_start
@@ -211,7 +211,7 @@ def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
     amy45_str = "amy45"
     amy45_e5_int = 5
     bob_lessonunit = lessonunit_shop(
-        moment_label=amy45_str, plan_name=exx.bob, spark_num=amy45_e5_int
+        moment_rope=amy45_str, plan_name=exx.bob, spark_num=amy45_e5_int
     )
     bob_lessonunit.set_face(exx.sue)
 
@@ -219,8 +219,8 @@ def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
     x_dict = bob_lessonunit.get_step_dict()
 
     # THEN
-    assert x_dict.get(kw.moment_label) is not None
-    assert x_dict.get(kw.moment_label) == amy45_str
+    assert x_dict.get(kw.moment_rope) is not None
+    assert x_dict.get(kw.moment_rope) == amy45_str
     assert x_dict.get(kw.plan_name) is not None
     assert x_dict.get(kw.plan_name) == exx.bob
     assert x_dict.get(kw.face_name) is not None
@@ -286,7 +286,7 @@ def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Simple():
     amy45_str = "amy45"
     amy45_e5_int = 5
     bob_lessonunit = lessonunit_shop(
-        moment_label=amy45_str, plan_name=exx.bob, spark_num=amy45_e5_int
+        moment_rope=amy45_str, plan_name=exx.bob, spark_num=amy45_e5_int
     )
     bob_lessonunit.set_face(exx.sue)
 
@@ -294,8 +294,8 @@ def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Simple():
     total_dict = bob_lessonunit.get_serializable_step_dict()
 
     # THEN
-    assert total_dict.get(kw.moment_label) is not None
-    assert total_dict.get(kw.moment_label) == amy45_str
+    assert total_dict.get(kw.moment_rope) is not None
+    assert total_dict.get(kw.moment_rope) == amy45_str
     assert total_dict.get(kw.plan_name) is not None
     assert total_dict.get(kw.plan_name) == exx.bob
     assert total_dict.get(kw.face_name) is not None
@@ -349,7 +349,7 @@ def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario1_WithPlanDelt
     }
   }, 
   "face_name": null, 
-  "moment_label": "YY", 
+  "moment_rope": "YY", 
   "plan_name": "Bob", 
   "spark_num": null
 }"""
@@ -370,7 +370,7 @@ def test_get_lessonunit_from_dict_ReturnsObj_WithPlanDeltaPopulated():
     assert generated_bob_lessonunit
     assert generated_bob_lessonunit.face_name == bob_lessonunit.face_name
     assert generated_bob_lessonunit.spark_num == bob_lessonunit.spark_num
-    assert generated_bob_lessonunit.moment_label == bob_lessonunit.moment_label
+    assert generated_bob_lessonunit.moment_rope == bob_lessonunit.moment_rope
     assert generated_bob_lessonunit._plandelta == bob_lessonunit._plandelta
     assert generated_bob_lessonunit == bob_lessonunit
 
@@ -491,9 +491,9 @@ def test_LessonUnit_get_edited_plan_ReturnsObj_PlanUnit_insert_person():
 def test_LessonUnit_get_edited_plan_RaisesErrorWhenlessonAttrsAndPlanAttrsAreNotTheSame():
     # ESTABLISH
     xia_str = "Xia"
-    bob_lessonunit = lessonunit_shop(exx.yao, xia_str, moment_label=exx.a23)
+    bob_lessonunit = lessonunit_shop(exx.yao, xia_str, moment_rope=exx.a23)
     amy45_str = "amy45"
-    before_sue_planunit = planunit_shop(exx.sue, moment_label=amy45_str)
+    before_sue_planunit = planunit_shop(exx.sue, moment_rope=amy45_str)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:

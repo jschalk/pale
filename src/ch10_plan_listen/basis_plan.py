@@ -13,7 +13,7 @@ def create_empty_plan_from_plan(
     x_mana_grain = ref_plan.mana_grain
     return planunit_shop(
         plan_name=x_plan_name,
-        moment_label=ref_plan.moment_label,
+        moment_rope=ref_plan.moment_rope,
         knot=x_knot,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,

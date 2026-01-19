@@ -140,7 +140,7 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_plan_raw_del(
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}_ERASE
 )"""
@@ -225,7 +225,7 @@ VALUES
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -301,7 +301,7 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}_ERASE
 )"""
@@ -385,7 +385,7 @@ VALUES
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}

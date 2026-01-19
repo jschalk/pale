@@ -15,7 +15,7 @@ from src.ch10_plan_listen.keep_tool import (
     treasury_db_file_exists,
 )
 from src.ch10_plan_listen.test._util.ch10_env import get_temp_dir, temp_dir_setup
-from src.ch10_plan_listen.test._util.ch10_examples import ch10_example_moment_label
+from src.ch10_plan_listen.test._util.ch10_examples import ch10_example_moment_rope
 from src.ref.keywords import ExampleStrs as exx
 
 
@@ -24,7 +24,7 @@ def test_create_keep_path_dir_if_missing_CreatesDirectory(
 ):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope(ch10_example_moment_label(), nation_str)
+    nation_rope = create_rope(ch10_example_moment_rope(), nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
@@ -45,11 +45,11 @@ def test_create_keep_path_dir_if_missing_CreatesDirectory(
 def test_treasury_db_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
-    texas_rope = create_rope(ch10_example_moment_label(), "Texas")
+    texas_rope = create_rope(ch10_example_moment_rope(), "Texas")
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -57,7 +57,7 @@ def test_treasury_db_file_exists_ReturnsObj(temp_dir_setup):
         treasury_db_file_exists(
             moment_mstr_dir,
             plan_name=exx.sue,
-            moment_label=exx.a23,
+            moment_rope=exx.a23,
             keep_rope=texas_rope,
             knot=None,
         )
@@ -71,7 +71,7 @@ def test_treasury_db_file_exists_ReturnsObj(temp_dir_setup):
     assert treasury_db_file_exists(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -86,7 +86,7 @@ def test_create_treasury_db_file_CreatesDatabase(
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -96,7 +96,7 @@ def test_create_treasury_db_file_CreatesDatabase(
     create_treasury_db_file(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -114,7 +114,7 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -122,7 +122,7 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
     create_treasury_db_file(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -141,7 +141,7 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
     create_treasury_db_file(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -153,7 +153,7 @@ def test_create_treasury_db_DoesNotOverWriteDBIfExists(
 def test_save_duty_plan_SavesFile(temp_dir_setup):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope(ch10_example_moment_label(), nation_str)
+    nation_rope = create_rope(ch10_example_moment_rope(), nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
@@ -164,7 +164,7 @@ def test_save_duty_plan_SavesFile(temp_dir_setup):
     keep_duty_path = create_keep_duty_path(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
         duty_plan=exx.bob,
@@ -175,7 +175,7 @@ def test_save_duty_plan_SavesFile(temp_dir_setup):
     save_duty_plan(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
         duty_plan=bob_plan,
@@ -188,7 +188,7 @@ def test_save_duty_plan_SavesFile(temp_dir_setup):
 def test_get_duty_plan_reason_lowersFile(temp_dir_setup):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope(ch10_example_moment_label(), nation_str)
+    nation_rope = create_rope(ch10_example_moment_rope(), nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
@@ -199,7 +199,7 @@ def test_get_duty_plan_reason_lowersFile(temp_dir_setup):
     save_duty_plan(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
         duty_plan=bob_plan,
@@ -209,7 +209,7 @@ def test_get_duty_plan_reason_lowersFile(temp_dir_setup):
     gen_bob_duty = get_duty_plan(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=texas_rope,
         knot=None,
         duty_plan_name=exx.bob,

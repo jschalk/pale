@@ -52,7 +52,7 @@ from src.ch19_world_kpi.kpi_mstr import (
 )
 from src.ch20_world_logic._ref.ch20_semantic_types import (
     FaceName,
-    MomentLabel,
+    MomentRope,
     SparkInt,
     WorldName,
 )
@@ -68,7 +68,7 @@ class WorldUnit:
     _input_dir: str = None
     _brick_dir: str = None
     _moment_mstr_dir: str = None
-    _momentunits: set[MomentLabel] = None
+    _momentunits: set[MomentRope] = None
     _sparks: dict[SparkInt, FaceName] = None
     _translate_sparks: dict[FaceName, set[SparkInt]] = None
 
@@ -199,7 +199,7 @@ def worldunit_shop(
     output_dir: str = None,
     input_dir: str = None,
     world_time_reason_upper: TimeNum = None,
-    _momentunits: set[MomentLabel] = None,
+    _momentunits: set[MomentRope] = None,
 ) -> WorldUnit:
     x_worldunit = WorldUnit(
         world_name=world_name,

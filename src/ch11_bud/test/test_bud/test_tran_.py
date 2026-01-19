@@ -43,7 +43,7 @@ def test_TranBook_Exists():
 
     # THEN
     assert x_tranbook
-    assert not x_tranbook.moment_label
+    assert not x_tranbook.moment_rope
     assert not x_tranbook.tranunits
     assert not x_tranbook._persons_net
 
@@ -59,7 +59,7 @@ def test_tranbook_shop_WithParametersReturnsObj():
 
     # THEN
     assert x_tranbook
-    assert x_tranbook.moment_label == exx.a23
+    assert x_tranbook.moment_rope == exx.a23
     assert x_tranbook.tranunits == x_tranunits
     assert x_tranbook._persons_net == {}
 
@@ -72,7 +72,7 @@ def test_tranbook_shop_WithoutParametersReturnsObj():
 
     # THEN
     assert x_tranbook
-    assert x_tranbook.moment_label == exx.a23
+    assert x_tranbook.moment_rope == exx.a23
     assert x_tranbook.tranunits == {}
     assert x_tranbook._persons_net == {}
 
@@ -548,8 +548,8 @@ def test_TranBook_to_dict_ReturnsObj():
     # THEN
     tranunits_str = "tranunits"
     assert x_dict
-    assert kw.moment_label in x_dict.keys()
-    assert x_dict.get(kw.moment_label) == exx.a23
+    assert kw.moment_rope in x_dict.keys()
+    assert x_dict.get(kw.moment_rope) == exx.a23
     assert tranunits_str in x_dict.keys()
     tranunits_dict = x_dict.get(tranunits_str)
     assert tranunits_dict.get(exx.sue)
@@ -587,7 +587,7 @@ def test_get_tranbook_from_dict_ReturnsObj_Sccenario0():
 
     # THEN
     assert generated_tranbook
-    assert generated_tranbook.moment_label == exx.a23
+    assert generated_tranbook.moment_rope == exx.a23
     assert generated_tranbook.tranunits == amy23_tranbook.tranunits
     assert generated_tranbook == amy23_tranbook
 
@@ -608,7 +608,7 @@ def test_get_tranbook_from_dict_ReturnsObj_Sccenario1():
     amy23_tranbook.add_tranunit(exx.yao, exx.yao, t77_tran_time, t77_yao_amount)
 
     str_tran_time_amy23_dict = {
-        kw.moment_label: exx.a23,
+        kw.moment_rope: exx.a23,
         "tranunits": {
             exx.sue: {
                 exx.yao: {
@@ -626,6 +626,6 @@ def test_get_tranbook_from_dict_ReturnsObj_Sccenario1():
 
     # THEN
     assert generated_tranbook
-    assert generated_tranbook.moment_label == exx.a23
+    assert generated_tranbook.moment_rope == exx.a23
     assert generated_tranbook.tranunits == amy23_tranbook.tranunits
     assert generated_tranbook == amy23_tranbook

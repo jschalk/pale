@@ -21,7 +21,7 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
         cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
         job_plnkegg_tablename = create_prime_tablename("PLNKEGG", "job", None)
         insert_sqlstr = f"""INSERT INTO {job_plnkegg_tablename} (
-  {kw.moment_label}
+  {kw.moment_rope}
 , {kw.plan_name}
 , {kw.keg_rope}
 , {kw.pledge}
@@ -43,7 +43,7 @@ VALUES
         # THEN
         assert db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
         assert get_table_columns(cursor, moment_kpi002_plan_pledges_tablename) == [
-            kw.moment_label,
+            kw.moment_rope,
             kw.plan_name,
             kw.keg_rope,
             kw.pledge,
@@ -69,7 +69,7 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
         cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
         job_plnkegg_tablename = create_prime_tablename("PLNKEGG", "job", None)
         insert_sqlstr = f"""INSERT INTO {job_plnkegg_tablename} (
-  {kw.moment_label}
+  {kw.moment_rope}
 , {kw.plan_name}
 , {kw.keg_rope}
 , {kw.pledge}
@@ -93,7 +93,7 @@ VALUES
         # THEN
         assert db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
         assert get_table_columns(cursor, moment_kpi002_plan_pledges_tablename) == [
-            kw.moment_label,
+            kw.moment_rope,
             kw.plan_name,
             kw.keg_rope,
             kw.pledge,

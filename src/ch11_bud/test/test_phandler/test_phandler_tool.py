@@ -340,7 +340,7 @@ def test_cellunit_add_json_file_SetsFile_Scenario0(temp_dir_setup):
     # WHEN
     cellunit_add_json_file(
         moment_mstr_dir=moment_mstr_dir,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         time_plan_name=exx.sue,
         bud_time=time7,
         quota=quota500,
@@ -598,7 +598,7 @@ def test_save_plantime_file_SavesFile(temp_dir_setup):
     t55_plantime = get_planunit_with_4_levels()
     t55_bud_time = 55
     t55_plantime_path = create_plantime_path(mstr_dir, exx.a23, exx.sue, t55_bud_time)
-    print(f"{t55_plantime.moment_label=}")
+    print(f"{t55_plantime.moment_rope=}")
     print(f"               {mstr_dir=}")
     print(f"      {t55_plantime_path=}")
     assert os_path_exists(t55_plantime_path) is False

@@ -31,7 +31,7 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PopulatesTable_Scenario0()
         insert_into_clause = f"""INSERT INTO {planaperson_s_agg_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -59,7 +59,7 @@ VALUES
         assert get_row_count(cursor, plnawar_h_vld_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -97,7 +97,7 @@ def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario0_AddRowsToTable():
         insert_into_clause = f"""INSERT INTO {plnprsn_s_agg_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -123,7 +123,7 @@ VALUES
         assert get_row_count(cursor, plnprsn_h_vld_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -160,7 +160,7 @@ def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario1_Populates_Columns():
         insert_into_clause = f"""INSERT INTO {plnprsn_s_agg_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -186,7 +186,7 @@ VALUES
         assert get_row_count(cursor, plnprsn_h_vld_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -223,7 +223,7 @@ def test_etl_sound_agg_tables_to_sound_vld_tables_Scenario2_DoesNotSelectWhere_e
         insert_into_clause = f"""INSERT INTO {plnprsn_s_agg_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -250,7 +250,7 @@ VALUES
         assert get_row_count(cursor, plnprsn_h_vld_put_tablename) == 3
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}

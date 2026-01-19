@@ -35,7 +35,7 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
     # ESTABLISH
 
     # WHEN
-    fu2_select_sqlstrs = get_moment_heard_select1_sqlstrs(moment_label=exx.a23)
+    fu2_select_sqlstrs = get_moment_heard_select1_sqlstrs(moment_rope=exx.a23)
 
     # THEN
     gen_mmtpayy_sqlstr = fu2_select_sqlstrs.get(kw.moment_paybook)
@@ -62,7 +62,7 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
         mmtweek_h_vld = create_prime_tablename(mmtweek_abbv7, "h", "vld")
         mmtoffi_h_vld = create_prime_tablename(mmtoffi_abbv7, "h", "vld")
         momentunit_h_vld = create_prime_tablename(momentunit_abbv7, "h", "vld")
-        where_dict = {kw.moment_label: exx.a23}
+        where_dict = {kw.moment_rope: exx.a23}
         mmtpayy_sql = create_select_query(cursor, mmtpayy_h_vld, [], where_dict, True)
         momentbud_sql = create_select_query(
             cursor, momentbud_h_vld, [], where_dict, True
@@ -101,11 +101,11 @@ def test_get_moment_heard_select1_sqlstrs_ReturnsObj():
         assert gen_mmtweek_sqlstr == mmtweek_sql
         assert gen_mmtoffi_sqlstr == mmtoffi_sql
         assert gen_momentunit_sqlstr == momentunit_sql
-        static_example_sqlstr = f"SELECT {kw.moment_label}, {kw.epoch_label}, {kw.c400_number}, {kw.yr1_jan1_offset}, {kw.monthday_index}, {kw.fund_grain}, {kw.mana_grain}, {kw.respect_grain}, {kw.knot}, {kw.job_listen_rotations} FROM momentunit_h_vld WHERE moment_label = '{exx.a23}'"
+        static_example_sqlstr = f"SELECT {kw.moment_rope}, {kw.epoch_label}, {kw.c400_number}, {kw.yr1_jan1_offset}, {kw.monthday_index}, {kw.fund_grain}, {kw.mana_grain}, {kw.respect_grain}, {kw.knot}, {kw.job_listen_rotations} FROM momentunit_h_vld WHERE moment_rope = '{exx.a23}'"
         assert gen_momentunit_sqlstr == static_example_sqlstr
 
 
-def test_etl_heard_vld_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomentLabel(
+def test_etl_heard_vld_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomentRope(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -119,7 +119,7 @@ def test_etl_heard_vld_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomen
         create_sound_and_heard_tables(cursor)
 
         insert_raw_sqlstr = f"""
-INSERT INTO {momentunit_h_vld_tablename} ({kw.moment_label})
+INSERT INTO {momentunit_h_vld_tablename} ({kw.moment_rope})
 VALUES ('{exx.a23}'), ('{amy45_str}')
 ;
 """
@@ -141,5 +141,5 @@ VALUES ('{exx.a23}'), ('{amy45_str}')
     assert os_path_exists(amy45_json_path)
     amy23_moment = get_momentunit_from_dict(open_json(amy23_json_path))
     amy45_moment = get_momentunit_from_dict(open_json(amy45_json_path))
-    assert amy23_moment.moment_label == exx.a23
-    assert amy45_moment.moment_label == amy45_str
+    assert amy23_moment.moment_rope == exx.a23
+    assert amy45_moment.moment_rope == amy45_str

@@ -278,7 +278,7 @@ def test_get_prime_columns_ReturnsObj_Scenario2_moment_epoch_month():
     print(f"{mmtunit_h_agg_columns}")
     assert mmtunit_h_agg_columns == {
         kw.spark_num,
-        kw.moment_label,
+        kw.moment_rope,
         kw.month_label,
         kw.face_name,
         kw.cumulative_day,
@@ -298,8 +298,8 @@ def test_get_prime_columns_ReturnsObj_Scenario3_h_raw_set_translateable_otx_inx_
     print(f"{mmtepoc_h_raw_columns}")
     assert mmtepoc_h_raw_columns == {
         kw.spark_num,
-        f"{kw.moment_label}_otx",
-        f"{kw.moment_label}_inx",
+        f"{kw.moment_rope}_otx",
+        f"{kw.moment_rope}_inx",
         f"{kw.month_label}_otx",
         f"{kw.month_label}_inx",
         f"{kw.face_name}_otx",
@@ -322,7 +322,7 @@ def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args(
     print(f"{mmtoffi_h_agg_columns=}")
     assert mmtoffi_h_agg_columns == {
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         f"{kw.offi_time}_otx",
         f"{kw.offi_time}_inx",
         kw.spark_num,
@@ -355,7 +355,7 @@ def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_
         f"context_keg_{kw.morph}",
         kw.face_name,
         kw.inx_epoch_diff,
-        kw.moment_label,
+        kw.moment_rope,
         kw.keg_rope,
         kw.reason_context,
         kw.reason_state,

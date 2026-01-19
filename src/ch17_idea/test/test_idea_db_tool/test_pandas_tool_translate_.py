@@ -103,7 +103,7 @@ def test_translate_single_column_dataframe_SetsParameterAttrs_Scenario1_PersonNa
     person_name_mapunit.set_otx2inx(xio_otx, xio_inx)
     person_name_mapunit.set_otx2inx(sue_otx, sue_inx)
     person_name_mapunit.set_otx2inx(bob_otx, bob_inx)
-    otx_dt = DataFrame(columns=[kw.moment_label, kw.person_name, kw.person_cred_lumen])
+    otx_dt = DataFrame(columns=[kw.moment_rope, kw.person_name, kw.person_cred_lumen])
     otx_dt.loc[0] = ["YY", zia_otx, 12]
     otx_dt.loc[1] = ["YY", sue_otx, 12]
     otx_dt.loc[2] = ["YY", bob_otx, 12]
@@ -119,7 +119,7 @@ def test_translate_single_column_dataframe_SetsParameterAttrs_Scenario1_PersonNa
     assert otx_dt.iloc[0][kw.person_name] == zia_otx
     assert otx_dt.iloc[1][kw.person_name] == sue_inx
     assert otx_dt.to_csv() != old_otx_dt.to_csv()
-    inx_dt = DataFrame(columns=[kw.moment_label, kw.person_name, kw.person_cred_lumen])
+    inx_dt = DataFrame(columns=[kw.moment_rope, kw.person_name, kw.person_cred_lumen])
     inx_dt.loc[0] = ["YY", zia_otx, 12]
     inx_dt.loc[1] = ["YY", sue_inx, 12]
     inx_dt.loc[2] = ["YY", bob_inx, 12]
@@ -137,7 +137,7 @@ def test_translate_all_columns_dataframe_SetsParameterAttrs_Scenario0_PersonName
     sue_otx = "Sue"
     bob_otx = "Bob"
     zia_otx = "Zia"
-    otx_dt = DataFrame(columns=[kw.moment_label, kw.person_name, kw.person_cred_lumen])
+    otx_dt = DataFrame(columns=[kw.moment_rope, kw.person_name, kw.person_cred_lumen])
     otx_dt.loc[0] = ["YY", zia_otx, 12]
     otx_dt.loc[1] = ["YY", sue_otx, 12]
     otx_dt.loc[2] = ["YY", bob_otx, 12]
@@ -153,7 +153,7 @@ def test_translate_all_columns_dataframe_SetsParameterAttrs_Scenario0_PersonName
     assert otx_dt.iloc[0][kw.person_name] == zia_otx
     assert otx_dt.iloc[1][kw.person_name] == sue_otx
     pandas_assert_frame_equal(otx_dt, old_otx_dt)
-    inx_dt = DataFrame(columns=[kw.moment_label, kw.person_name, kw.person_cred_lumen])
+    inx_dt = DataFrame(columns=[kw.moment_rope, kw.person_name, kw.person_cred_lumen])
     inx_dt.loc[0] = ["YY", zia_otx, 12]
     inx_dt.loc[1] = ["YY", sue_otx, 12]
     inx_dt.loc[2] = ["YY", bob_otx, 12]
@@ -178,7 +178,7 @@ def test_translate_all_columns_dataframe_SetsParameterAttrs_Scenario1_PersonName
     yao_translateunit.set_otx2inx(kw.NameTerm, xio_otx, xio_inx)
     yao_translateunit.set_otx2inx(kw.NameTerm, sue_otx, sue_inx)
     yao_translateunit.set_otx2inx(kw.NameTerm, bob_otx, bob_inx)
-    otx_dt = DataFrame(columns=[kw.moment_label, kw.person_name, kw.person_cred_lumen])
+    otx_dt = DataFrame(columns=[kw.moment_rope, kw.person_name, kw.person_cred_lumen])
     otx_dt.loc[0] = ["YY", zia_otx, 12]
     otx_dt.loc[1] = ["YY", sue_otx, 12]
     otx_dt.loc[2] = ["YY", bob_otx, 12]
@@ -194,7 +194,7 @@ def test_translate_all_columns_dataframe_SetsParameterAttrs_Scenario1_PersonName
     assert otx_dt.iloc[0][kw.person_name] == zia_otx
     assert otx_dt.iloc[1][kw.person_name] == sue_inx
     assert otx_dt.to_csv() != old_otx_dt.to_csv()
-    inx_dt = DataFrame(columns=[kw.moment_label, kw.person_name, kw.person_cred_lumen])
+    inx_dt = DataFrame(columns=[kw.moment_rope, kw.person_name, kw.person_cred_lumen])
     inx_dt.loc[0] = ["YY", zia_otx, 12]
     inx_dt.loc[1] = ["YY", sue_inx, 12]
     inx_dt.loc[2] = ["YY", bob_inx, 12]

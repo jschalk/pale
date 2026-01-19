@@ -38,7 +38,7 @@ def test_etl_heard_vld_to_spark_plan_csvs_PopulatesPlanPulabelTables(
         cursor = plan_db_conn.cursor()
         create_sound_and_heard_tables(cursor)
         insert_raw_sqlstr = f"""
-INSERT INTO {put_agg_tablename} ({kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen})
+INSERT INTO {put_agg_tablename} ({kw.spark_num},{kw.face_name},{kw.moment_rope},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen})
 VALUES
   ({spark3},'{sue_inx}','{exx.a23}','{bob_inx}','{yao_inx}',{yao_person_cred_lumen5})
 , ({spark7},'{sue_inx}','{exx.a23}','{bob_inx}','{yao_inx}',{yao_person_cred_lumen5})
@@ -60,10 +60,10 @@ VALUES
         e7_put_csv = open_file(a23_e7_plnprsn_put_path)
         print(f"{e3_put_csv=}")
         print(f"{e7_put_csv=}")
-        expected_e3_put_csv = """spark_num,face_name,moment_label,plan_name,person_name,person_cred_lumen,person_debt_lumen
+        expected_e3_put_csv = """spark_num,face_name,moment_rope,plan_name,person_name,person_cred_lumen,person_debt_lumen
 3,Suzy,Amy23,Bobby,Bobby,5.0,
 """
-        expected_e7_put_csv = """spark_num,face_name,moment_label,plan_name,person_name,person_cred_lumen,person_debt_lumen
+        expected_e7_put_csv = """spark_num,face_name,moment_rope,plan_name,person_name,person_cred_lumen,person_debt_lumen
 7,Suzy,Amy23,Bobby,Bobby,5.0,
 7,Suzy,Amy23,Bobby,Suzy,7.0,
 """

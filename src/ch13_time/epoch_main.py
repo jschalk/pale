@@ -153,9 +153,9 @@ def new_epoch_kegunit(epoch_label: EpochLabel, c400_number: int) -> KegUnit:
 
 
 def get_epoch_rope(
-    moment_label: str, epoch_label: LabelTerm, knot: KnotTerm
+    moment_rope: str, epoch_label: LabelTerm, knot: KnotTerm
 ) -> RopeTerm:
-    time_rope = create_rope(moment_label, "time", knot)
+    time_rope = create_rope(moment_rope, "time", knot)
     return create_rope(time_rope, epoch_label, knot)
 
 
@@ -178,7 +178,7 @@ def add_epoch_kegunit(x_planunit: PlanUnit, epoch_config: dict):
         rope=x_planunit.kegroot.get_keg_rope(), knot=x_planunit.knot
     )
     epoch_rope = get_epoch_rope(
-        moment_label=kegroot_label,
+        moment_rope=kegroot_label,
         epoch_label=x_keg_label,
         knot=x_planunit.knot,
     )
@@ -214,7 +214,7 @@ def add_stan_kegunits(
         rope=x_planunit.kegroot.get_keg_rope(), knot=x_planunit.knot
     )
     epoch_rope = get_epoch_rope(
-        moment_label=kegroot_label,
+        moment_rope=kegroot_label,
         epoch_label=epoch_label,
         knot=x_planunit.knot,
     )
@@ -496,9 +496,9 @@ class EpochHolder:
     def _set_month(self):
         year_rope = get_year_rope(self.x_planunit, self.epoch_label)
         year_keg = self.x_planunit.get_keg_obj(year_rope)
-        moment_label = self.x_planunit.kegroot.keg_label
+        moment_rope = self.x_planunit.kegroot.keg_label
         x_knot = self.x_planunit.knot
-        epoch_rope = get_epoch_rope(moment_label, self.epoch_label, x_knot)
+        epoch_rope = get_epoch_rope(moment_rope, self.epoch_label, x_knot)
         x_keg_dict = self.x_planunit._keg_dict
         keg_list = all_kegs_between(x_keg_dict, epoch_rope, year_rope, x_knot)
         reason_lower_rangeunit = calc_range(keg_list, self.x_min, self.x_min)

@@ -54,7 +54,7 @@ from src.ch07_plan_logic._ref.ch07_semantic_types import (
     KnotTerm,
     LabelTerm,
     ManaGrain,
-    MomentLabel,
+    MomentRope,
     PersonName,
     PlanName,
     ReasonNum,
@@ -113,7 +113,7 @@ class gogo_calc_stop_calc_Exception(Exception):
 @dataclass
 class PlanUnit:
     plan_name: PlanName = None
-    moment_label: MomentLabel = None
+    moment_rope: MomentRope = None
     knot: KnotTerm = None
     fund_pool: FundNum = None
     fund_grain: FundGrain = None
@@ -1427,7 +1427,7 @@ reason_case:    {reason_case}"""
 
 def planunit_shop(
     plan_name: PlanName = None,
-    moment_label: LabelTerm = None,
+    moment_rope: RopeTerm = None,
     knot: KnotTerm = None,
     fund_pool: FundNum = None,
     fund_grain: FundGrain = None,
@@ -1436,11 +1436,11 @@ def planunit_shop(
     tally: float = None,
 ) -> PlanUnit:
     plan_name = "" if plan_name is None else plan_name
-    root_keg_label = get_default_first_label() if moment_label is None else moment_label
+    root_keg_label = get_default_first_label() if moment_rope is None else moment_rope
     x_plan = PlanUnit(
         plan_name=plan_name,
         tally=get_1_if_None(tally),
-        moment_label=root_keg_label,
+        moment_rope=root_keg_label,
         persons=get_empty_dict_if_None(),
         groupunits={},
         knot=default_knot_if_None(knot),
@@ -1478,7 +1478,7 @@ def get_planunit_from_dict(plan_dict: dict) -> PlanUnit:
     x_plan.set_plan_name(obj_from_plan_dict(plan_dict, "plan_name"))
     x_plan.tally = obj_from_plan_dict(plan_dict, "tally")
     x_plan.set_max_tree_traverse(obj_from_plan_dict(plan_dict, "max_tree_traverse"))
-    x_plan.moment_label = plan_dict.get("kegroot").get("keg_label")
+    x_plan.moment_rope = plan_dict.get("kegroot").get("keg_label")
     plan_knot = obj_from_plan_dict(plan_dict, "knot")
     x_plan.knot = default_knot_if_None(plan_knot)
     x_plan.fund_pool = validate_pool_num(obj_from_plan_dict(plan_dict, "fund_pool"))

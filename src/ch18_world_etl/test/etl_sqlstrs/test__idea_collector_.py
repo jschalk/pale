@@ -85,7 +85,7 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
-        kw.moment_label,
+        kw.moment_rope,
         kw.hour_label,
     ]
     row1 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
@@ -122,7 +122,7 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp_dir_setup):
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
-        kw.moment_label,
+        kw.moment_rope,
         kw.hour_label,
     ]
     row1 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
@@ -131,7 +131,7 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp_dir_setup):
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
-        kw.moment_label,
+        kw.moment_rope,
     ]
     incom_row1 = [spark1, exx.sue, minute_360, exx.a23]
     incom_row2 = [spark1, exx.sue, minute_420, exx.a23]

@@ -54,7 +54,7 @@ def get_plan_viewer_template() -> str:
         <div class="keg_controls">
             <input type="checkbox" id="show_kegroot"><label for="show_kegroot">kegroot</label>
             <input type="checkbox" id="show_level"><label for="show_level">level</label>
-            <input type="checkbox" id="show_moment_label"><label for="show_moment_label">moment_label</label>
+            <input type="checkbox" id="show_moment_rope"><label for="show_moment_rope">moment_rope</label>
             <input type="checkbox" id="show_pledge"><label for="show_pledge">pledge</label>
             <input type="checkbox" id="show_descendant_pledge_count"><label for="show_descendant_pledge_count">descendant_pledge_count</label>
             <input type="checkbox" id="show_keg_active"><label for="show_keg_active">keg_active</label>

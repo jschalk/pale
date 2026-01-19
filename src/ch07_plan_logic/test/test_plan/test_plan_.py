@@ -12,7 +12,7 @@ def test_PlanUnit_Exists():
 
     # THEN
     assert x_plan
-    assert x_plan.moment_label is None
+    assert x_plan.moment_rope is None
     assert x_plan.plan_name is None
     assert x_plan.tally is None
     assert x_plan.persons is None
@@ -61,7 +61,7 @@ def test_PlanUnit_Exists():
         kw.credor_respect,
         kw.debtor_respect,
         kw.groupunits,
-        kw.moment_label,
+        kw.moment_rope,
         kw.fund_grain,
         kw.fund_pool,
         kw.last_lesson_id,
@@ -85,7 +85,7 @@ def test_planunit_shop_ReturnsObjectWithFilledFields():
     # WHEN
     x_plan = planunit_shop(
         plan_name=exx.sue,
-        moment_label=iowa_str,
+        moment_rope=iowa_str,
         knot=slash_knot,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,
@@ -96,7 +96,7 @@ def test_planunit_shop_ReturnsObjectWithFilledFields():
     # THEN
     assert x_plan
     assert x_plan.plan_name == exx.sue
-    assert x_plan.moment_label == iowa_str
+    assert x_plan.moment_rope == iowa_str
     assert x_plan.tally == 1
     assert x_plan.persons == {}
     assert x_plan.kegroot is not None
@@ -132,7 +132,7 @@ def test_planunit_shop_ReturnsObjectWithCorrectEmptyField():
 
     # THEN
     assert x_plan.plan_name == ""
-    assert x_plan.moment_label == get_default_first_label()
+    assert x_plan.moment_rope == get_default_first_label()
     assert x_plan.knot == default_knot_if_None()
     assert x_plan.fund_pool == validate_pool_num()
     assert x_plan.fund_grain == default_grain_num_if_None()

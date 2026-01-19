@@ -9,14 +9,14 @@ from src.ch10_plan_listen.test._util.ch10_env import (
     get_temp_dir as env_dir,
     temp_dir_setup,
 )
-from src.ch10_plan_listen.test._util.ch10_examples import ch10_example_moment_label
+from src.ch10_plan_listen.test._util.ch10_examples import ch10_example_moment_rope
 from src.ref.keywords import ExampleStrs as exx
 
 
 def test_save_vision_plan_SavesFile(temp_dir_setup):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope(ch10_example_moment_label(), nation_str)
+    nation_rope = create_rope(ch10_example_moment_rope(), nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
@@ -39,7 +39,7 @@ def test_save_vision_plan_SavesFile(temp_dir_setup):
 def test_vision_file_exists_ReturnsBool(temp_dir_setup):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope(ch10_example_moment_label(), nation_str)
+    nation_rope = create_rope(ch10_example_moment_rope(), nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
@@ -62,7 +62,7 @@ def test_vision_file_exists_ReturnsBool(temp_dir_setup):
 def test_get_vision_plan_reason_lowersFile(temp_dir_setup):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope(ch10_example_moment_label(), nation_str)
+    nation_rope = create_rope(ch10_example_moment_rope(), nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"
@@ -87,7 +87,7 @@ def test_get_vision_plan_ReturnsNoneIfFileDoesNotExist(
 ):
     # ESTABLISH
     nation_str = "nation"
-    nation_rope = create_rope(ch10_example_moment_label(), nation_str)
+    nation_rope = create_rope(ch10_example_moment_rope(), nation_str)
     usa_str = "USA"
     usa_rope = create_rope(nation_rope, usa_str)
     texas_str = "Texas"

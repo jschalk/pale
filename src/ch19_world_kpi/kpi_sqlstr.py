@@ -5,16 +5,16 @@ def get_create_kpi001_sqlstr() -> str:
     return """
 CREATE TABLE moment_kpi001_person_nets AS
 SELECT
-  moment_person_nets.moment_label
+  moment_person_nets.moment_rope
 , moment_person_nets.plan_name
 , plan_net_amount AS bnet_funds
 , RANK() OVER (ORDER BY plan_net_amount DESC) AS fund_rank
 , IFNULL(SUM(plan_kegunit_job.pledge), 0) AS pledges_count
 FROM moment_person_nets
 LEFT JOIN plan_kegunit_job ON
-  plan_kegunit_job.moment_label = moment_person_nets.moment_label
+  plan_kegunit_job.moment_rope = moment_person_nets.moment_rope
   AND plan_kegunit_job.plan_name = moment_person_nets.plan_name
-GROUP BY moment_person_nets.moment_label, moment_person_nets.plan_name
+GROUP BY moment_person_nets.moment_rope, moment_person_nets.plan_name
 ;
 """
 
@@ -23,7 +23,7 @@ def get_create_kpi002_sqlstr() -> str:
     return """
 CREATE TABLE moment_kpi002_plan_pledges AS
 SELECT
-  moment_label
+  moment_rope
 , plan_name
 , keg_rope
 , pledge

@@ -131,10 +131,10 @@ def test_get_moment_args_dimen_mapping_ReturnsObj():
     x_hour = {kw.moment_epoch_hour}
     assert x_moment_args_dimen_mapping.get(kw.cumulative_minute) == x_hour
     assert x_moment_args_dimen_mapping.get(kw.fund_grain)
-    moment_label_dimens = x_moment_args_dimen_mapping.get(kw.moment_label)
-    assert kw.moment_epoch_hour in moment_label_dimens
-    assert kw.momentunit in moment_label_dimens
-    assert len(moment_label_dimens) == 7
+    moment_rope_dimens = x_moment_args_dimen_mapping.get(kw.moment_rope)
+    assert kw.moment_epoch_hour in moment_rope_dimens
+    assert kw.momentunit in moment_rope_dimens
+    assert len(moment_rope_dimens) == 7
     assert len(x_moment_args_dimen_mapping) == 24
 
 
@@ -195,7 +195,7 @@ def test_get_moment_args_set_ReturnsObj():
         kw.cumulative_day,
         kw.cumulative_minute,
         kw.hour_label,
-        kw.moment_label,
+        kw.moment_rope,
         kw.fund_grain,
         kw.month_label,
         kw.monthday_index,

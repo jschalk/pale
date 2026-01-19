@@ -31,7 +31,7 @@ let show_awardlines = false;
 let show_laborunit = false;
 let show_laborheir = false;
 let show_level = false;
-let show_moment_label = false;
+let show_moment_rope = false;
 let show_pledge = false;
 let show_descendant_pledge_count = false;
 let show_active = false;
@@ -96,7 +96,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     const show_laborunitCheckbox = document.getElementById('show_laborunit');
     const show_laborheirCheckbox = document.getElementById('show_laborheir');
     const show_levelCheckbox = document.getElementById('show_level');
-    const show_moment_labelCheckbox = document.getElementById('show_moment_label');
+    const show_moment_ropeCheckbox = document.getElementById('show_moment_rope');
     const show_pledgeCheckbox = document.getElementById('show_pledge');
     const show_descendant_pledge_countCheckbox = document.getElementById('show_descendant_pledge_count');
     const show_activeCheckbox = document.getElementById('show_active');
@@ -160,7 +160,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     show_laborunitCheckbox.addSparkListener('change', function () { show_laborunit = this.checked; renderKegTree(); });
     show_laborheirCheckbox.addSparkListener('change', function () { show_laborheir = this.checked; renderKegTree(); });
     show_levelCheckbox.addSparkListener('change', function () { show_level = this.checked; renderKegTree(); });
-    show_moment_labelCheckbox.addSparkListener('change', function () { show_moment_label = this.checked; renderKegTree(); });
+    show_moment_ropeCheckbox.addSparkListener('change', function () { show_moment_rope = this.checked; renderKegTree(); });
     show_pledgeCheckbox.addSparkListener('change', function () { show_pledge = this.checked; renderKegTree(); });
     show_descendant_pledge_countCheckbox.addSparkListener('change', function () { show_descendant_pledge_count = this.checked; renderKegTree(); });
     show_activeCheckbox.addSparkListener('change', function () { show_active = this.checked; renderKegTree(); });
@@ -293,13 +293,13 @@ function renderKegUnit(kegUnit, level) {
 
 
     // Build award links HTML using separate function
-    const moment_labelHtml = render_moment_label(kegUnit.moment_label, kegUnit.knot, show_moment_label);
+    const moment_ropeHtml = render_moment_rope(kegUnit.moment_rope, kegUnit.knot, show_moment_rope);
 
     // Start with current node
     let html = `
   <div>
     ${indent}• 
-    ${moment_labelHtml}
+    ${moment_ropeHtml}
     ${kegUnit.keg_label}
     <i>${levelIndicator}
     ${starIndicator}
@@ -379,11 +379,11 @@ function renderReasonReadableJson(n3_readables, indent, show_readable) {
     });
     return html;
 }
-function render_moment_label(moment_label, knot, show_moment_label) {
-    if (!moment_label || !show_moment_label) {
+function render_moment_rope(moment_rope, knot, show_moment_rope) {
+    if (!moment_rope || !show_moment_rope) {
         return '';
     }
-    return ` ${knot}${moment_label}...`;
+    return ` ${knot}${moment_rope}...`;
 }
 function render_with_indent(str, indent, show_bool) {
     if (!str || !show_bool) {

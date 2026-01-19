@@ -4,7 +4,7 @@ from src.ch11_bud.bud_main import BudUnit, budunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 
-def get_ch11_example_moment_label() -> str:
+def get_ch11_example_moment_rope() -> str:
     return "fizz"
 
 

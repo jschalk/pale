@@ -44,7 +44,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     br00113_columns = [
         kw.face_name,
         kw.spark_num,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.otx_name,
@@ -208,7 +208,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     br00113_columns = [
         kw.face_name,
         kw.spark_num,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.otx_name,
@@ -224,7 +224,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     br00001_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.bud_time,
         kw.quota,
@@ -364,7 +364,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentT
     br00002_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.tran_time,
@@ -401,7 +401,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIde
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
     ]
@@ -469,13 +469,13 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
-        kw.moment_label,
+        kw.moment_rope,
         kw.hour_label,
     ]
     br00001_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.bud_time,
         kw.quota,
@@ -501,7 +501,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
     ]
@@ -551,7 +551,7 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     br00113_columns = [
         kw.face_name,
         kw.spark_num,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.otx_name,
@@ -567,7 +567,7 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     br00001_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.bud_time,
         kw.quota,

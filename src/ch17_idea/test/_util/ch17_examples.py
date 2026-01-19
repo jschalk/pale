@@ -6,12 +6,12 @@ JEFFY45_STR = "jeffy45"
 
 def get_ex1_br00000_df() -> DataFrame:
     """idea_format_00000_momentunit_v0_0_0
-    c400_number,moment_label,fund_grain,monthday_index,mana_grain,respect_grain,knot,epoch_label,yr1_jan1_offset
+    c400_number,moment_rope,fund_grain,monthday_index,mana_grain,respect_grain,knot,epoch_label,yr1_jan1_offset
     """
     x_df = DataFrame(
         columns=[
             kw.c400_number,
-            kw.moment_label,
+            kw.moment_rope,
             kw.fund_grain,
             kw.monthday_index,
             kw.mana_grain,
@@ -28,10 +28,10 @@ def get_ex1_br00000_df() -> DataFrame:
 
 def get_ex1_br00001_df() -> DataFrame:
     """idea_format_00001_moment_budunit_v0_0_0
-    moment_label,plan_name,quota,bud_time,celldepth"""
+    moment_rope,plan_name,quota,bud_time,celldepth"""
     x_df = DataFrame(
         columns=[
-            kw.moment_label,
+            kw.moment_rope,
             kw.plan_name,
             kw.quota,
             kw.bud_time,
@@ -44,9 +44,9 @@ def get_ex1_br00001_df() -> DataFrame:
 
 def get_ex1_br00002_df() -> DataFrame:
     """idea_format_00002_moment_paybook_v0_0_0
-    person_name,amount,moment_label,plan_name,tran_time"""
+    person_name,amount,moment_rope,plan_name,tran_time"""
     x_df = DataFrame(
-        columns=["person_name", "amount", kw.moment_label, kw.plan_name, "tran_time"]
+        columns=["person_name", "amount", kw.moment_rope, kw.plan_name, "tran_time"]
     )
     x_df.loc[0] = ["Bob", 888, exx.a23, "Zia", 777]
     return x_df
@@ -54,8 +54,8 @@ def get_ex1_br00002_df() -> DataFrame:
 
 def get_ex1_br00003_df() -> DataFrame:
     """idea_format_00003_moment_epoch_hour_v0_0_0
-    cumulative_minute,moment_label,hour_label"""
-    x_df = DataFrame(columns=[kw.moment_label, "hour_label", "cumulative_minute"])
+    cumulative_minute,moment_rope,hour_label"""
+    x_df = DataFrame(columns=[kw.moment_rope, "hour_label", "cumulative_minute"])
     x_df.loc[0] = [exx.a23, "12am", 60]
     x_df.loc[1] = [exx.a23, "1am", 120]
     x_df.loc[2] = [exx.a23, "2am", 180]
@@ -85,8 +85,8 @@ def get_ex1_br00003_df() -> DataFrame:
 
 def get_ex1_br00004_df() -> DataFrame:
     """idea_format_00004_moment_epoch_month_v0_0_0
-    cumulative_day,moment_label,month_label"""
-    x_df = DataFrame(columns=[kw.moment_label, kw.month_label, "cumulative_day"])
+    cumulative_day,moment_rope,month_label"""
+    x_df = DataFrame(columns=[kw.moment_rope, kw.month_label, "cumulative_day"])
     x_df.loc[0] = [exx.a23, "March", 31]
     x_df.loc[1] = [exx.a23, "April", 61]
     x_df.loc[2] = [exx.a23, "May", 92]
@@ -104,8 +104,8 @@ def get_ex1_br00004_df() -> DataFrame:
 
 def get_ex1_br00005_df() -> DataFrame:
     """idea_format_00005_moment_epoch_weekday_v0_0_0
-    moment_label,weekday_label,weekday_order"""
-    x_df = DataFrame(columns=[kw.moment_label, kw.weekday_label, kw.weekday_order])
+    moment_rope,weekday_label,weekday_order"""
+    x_df = DataFrame(columns=[kw.moment_rope, kw.weekday_label, kw.weekday_order])
     x_df.loc[0] = [exx.a23, kw.Wednesday, 0]
     x_df.loc[1] = [exx.a23, kw.Thursday, 1]
     x_df.loc[2] = [exx.a23, kw.Friday, 2]
@@ -118,12 +118,12 @@ def get_ex1_br00005_df() -> DataFrame:
 
 def get_ex2_br00000_df() -> DataFrame:
     """idea_format_00000_momentunit_v0_0_0
-    c400_number,moment_label,fund_grain,monthday_index,mana_grain,respect_grain,knot,epoch_label,yr1_jan1_offset,job_listen_rotations
+    c400_number,moment_rope,fund_grain,monthday_index,mana_grain,respect_grain,knot,epoch_label,yr1_jan1_offset,job_listen_rotations
     """
     x_df = DataFrame(
         columns=[
             kw.c400_number,
-            kw.moment_label,
+            kw.moment_rope,
             kw.fund_grain,
             kw.monthday_index,
             kw.mana_grain,
@@ -141,10 +141,10 @@ def get_ex2_br00000_df() -> DataFrame:
 
 def get_ex2_br00001_df() -> DataFrame:
     """idea_format_00001_moment_budunit_v0_0_0
-    moment_label,plan_name,quota,bud_time"""
+    moment_rope,plan_name,quota,bud_time"""
     x_df = DataFrame(
         columns=[
-            kw.moment_label,
+            kw.moment_rope,
             kw.plan_name,
             kw.quota,
             kw.bud_time,
@@ -161,12 +161,12 @@ def get_ex2_br00001_df() -> DataFrame:
 
 def get_ex2_br00002_df() -> DataFrame:
     """idea_format_00002_moment_paybook_v0_0_0
-    person_name,amount,moment_label,plan_name,tran_time"""
+    person_name,amount,moment_rope,plan_name,tran_time"""
     x_df = DataFrame(
         columns=[
             kw.person_name,
             kw.amount,
-            kw.moment_label,
+            kw.moment_rope,
             kw.plan_name,
             kw.tran_time,
         ]
@@ -181,8 +181,8 @@ def get_ex2_br00002_df() -> DataFrame:
 
 def get_ex2_br00003_df() -> DataFrame:
     """idea_format_00003_moment_epoch_hour_v0_0_0
-    cumulative_minute,moment_label,hour_label"""
-    x_df = DataFrame(columns=[kw.moment_label, "hour_label", "cumulative_minute"])
+    cumulative_minute,moment_rope,hour_label"""
+    x_df = DataFrame(columns=[kw.moment_rope, "hour_label", "cumulative_minute"])
     x_df.loc[0] = [exx.a23, "12am", 60]
     x_df.loc[1] = [exx.a23, "1am", 120]
     x_df.loc[2] = [exx.a23, "2am", 180]
@@ -222,8 +222,8 @@ def get_ex2_br00003_df() -> DataFrame:
 
 def get_ex2_br00004_df() -> DataFrame:
     """idea_format_00004_moment_epoch_month_v0_0_0
-    cumulative_day,moment_label,month_label"""
-    x_df = DataFrame(columns=[kw.moment_label, kw.month_label, kw.cumulative_day])
+    cumulative_day,moment_rope,month_label"""
+    x_df = DataFrame(columns=[kw.moment_rope, kw.month_label, kw.cumulative_day])
     x_df.loc[0] = [exx.a23, "March", 31]
     x_df.loc[1] = [exx.a23, "April", 61]
     x_df.loc[2] = [exx.a23, "May", 92]
@@ -256,8 +256,8 @@ def get_ex2_br00004_df() -> DataFrame:
 
 def get_ex2_br00005_df() -> DataFrame:
     """idea_format_00005_moment_epoch_weekday_v0_0_0
-    moment_label,weekday_label,weekday_order"""
-    x_df = DataFrame(columns=[kw.moment_label, "weekday_label", "weekday_order"])
+    moment_rope,weekday_label,weekday_order"""
+    x_df = DataFrame(columns=[kw.moment_rope, "weekday_label", "weekday_order"])
     x_df.loc[0] = [exx.a23, kw.Wednesday, 0]
     x_df.loc[1] = [exx.a23, kw.Thursday, 1]
     x_df.loc[2] = [exx.a23, kw.Friday, 2]
@@ -275,8 +275,8 @@ def get_ex2_br00005_df() -> DataFrame:
 
 # def get_ex2_br00006_df() -> DataFrame:
 #     """idea_format_00006_moment_timeoffi_v0_0_0
-#     moment_label,offi_time,_offi_time_maxt"""
-#     x_df = DataFrame(columns=[kw.moment_label, "offi_time", "offi_time_max"])
+#     moment_rope,offi_time,_offi_time_maxt"""
+#     x_df = DataFrame(columns=[kw.moment_rope, "offi_time", "offi_time_max"])
 #     x_df.loc[0] = [exx.a23, 100, 300]
 #     x_df.loc[1] = [exx.a23, 110, 320]
 #     x_df.loc[2] = [exx.a23, 120, 330]

@@ -21,7 +21,7 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario1(temp_dir_setup):
 
     # THEN
     example_plan = planunit_shop(exx.sue, exx.a23)
-    assert sue_job.moment_label == example_plan.moment_label
+    assert sue_job.moment_rope == example_plan.moment_rope
     assert sue_job.plan_name == example_plan.plan_name
 
 

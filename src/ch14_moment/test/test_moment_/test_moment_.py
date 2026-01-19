@@ -33,7 +33,7 @@ def test_MomentUnit_Exists():
     # ESTABLISH / WHEN
     amy_moment = MomentUnit()
     # THEN
-    assert not amy_moment.moment_label
+    assert not amy_moment.moment_rope
     assert not amy_moment.epoch
     assert not amy_moment.planbudhistorys
     assert not amy_moment.paybook
@@ -50,7 +50,7 @@ def test_MomentUnit_Exists():
     assert not amy_moment.lessons_dir
     assert not amy_moment.all_tranbook
     assert set(amy_moment.__dict__) == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.epoch,
         kw.planbudhistorys,
         kw.paybook,
@@ -76,7 +76,7 @@ def test_momentunit_shop_ReturnsMomentUnit():
     a23_moment = momentunit_shop(exx.a23, get_temp_dir())
 
     # THEN
-    assert a23_moment.moment_label == exx.a23
+    assert a23_moment.moment_rope == exx.a23
     assert a23_moment.epoch == epochunit_shop()
     assert a23_moment.planbudhistorys == {}
     assert a23_moment.paybook == tranbook_shop(exx.a23)
@@ -100,7 +100,7 @@ def test_momentunit_shop_ReturnsMomentUnitWith_moments_dir(temp_dir_setup):
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir=get_temp_dir())
 
     # THEN
-    assert a23_moment.moment_label == exx.a23
+    assert a23_moment.moment_rope == exx.a23
     assert a23_moment.moment_mstr_dir == get_temp_dir()
     assert a23_moment.plans_dir is not None
     assert a23_moment.lessons_dir is not None
@@ -116,7 +116,7 @@ def test_momentunit_shop_ReturnsMomentUnitWith_knot(temp_dir_setup):
 
     # WHEN
     a23_moment = momentunit_shop(
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         moment_mstr_dir=get_temp_dir(),
         offi_times=a45_offi_times,
         knot=exx.slash,
@@ -171,7 +171,7 @@ def test_momentunit_shop_SetsmomentsDirs(temp_dir_setup):
     a23_moment = momentunit_shop(exx.a23, get_temp_dir())
 
     # THEN
-    assert a23_moment.moment_label == exx.a23
+    assert a23_moment.moment_rope == exx.a23
     x_moments_dir = create_path(get_temp_dir(), "moments")
     assert a23_moment.moment_dir == create_path(x_moments_dir, exx.a23)
     assert a23_moment.plans_dir == create_path(a23_moment.moment_dir, "plans")

@@ -62,7 +62,7 @@ def test_rj_perspective_plan_ReturnsPlanWith_plan_nameSetToLessonFileHandler_pla
 
     save_vision_plan(
         moment_mstr_dir=env_dir(),
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         healer_name=exx.bob,
         keep_rope=iowa_rope,
         knot=default_knot_if_None(),
@@ -72,7 +72,7 @@ def test_rj_perspective_plan_ReturnsPlanWith_plan_nameSetToLessonFileHandler_pla
     # WHEN
     perspective_planunit = rj_perspective_plan(
         moment_mstr_dir=env_dir(),
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=iowa_rope,
         knot=default_knot_if_None(),
         healer_name=exx.bob,

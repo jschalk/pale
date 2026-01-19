@@ -68,7 +68,7 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #     br00011_columns = [
 #         kw.spark_num,
 #         kw.face_name,
-#         kw.moment_label,
+#         kw.moment_rope,
 #         kw.plan_name,
 #         kw.person_name
 #     ]
@@ -86,5 +86,5 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 
 #     # THEN
 #     assert os_path_exists(a23_calendar_md_path)
-#     expected_csv_str = "moment_label,plan_name,funds,fund_rank,pledges_count\n"
+#     expected_csv_str = "moment_rope,plan_name,funds,fund_rank,pledges_count\n"
 #     assert open(a23_calendar_md_path).read() == expected_csv_str

@@ -8,11 +8,7 @@ from src.ch00_py.file_toolbox import (
 )
 from src.ch07_plan_logic.plan_main import PlanUnit, get_default_first_label
 from src.ch08_plan_atom.atom_main import PlanAtom, get_planatom_from_dict
-from src.ch09_plan_lesson._ref.ch09_semantic_types import (
-    FaceName,
-    MomentLabel,
-    PlanName,
-)
+from src.ch09_plan_lesson._ref.ch09_semantic_types import FaceName, MomentRope, PlanName
 from src.ch09_plan_lesson.delta import (
     PlanDelta,
     get_plandelta_from_ordered_dict,
@@ -35,7 +31,7 @@ def get_init_lesson_id_if_None(x_lesson_id: int = None) -> int:
 @dataclass
 class LessonUnit:
     face_name: FaceName = None
-    moment_label: MomentLabel = None
+    moment_rope: MomentRope = None
     plan_name: PlanName = None
     _lesson_id: int = None
     _plandelta: PlanDelta = None
@@ -43,7 +39,7 @@ class LessonUnit:
     lessons_dir: str = None
     atoms_dir: str = None
     spark_num: int = None
-    """Represents a per moment_label/spark_num PlanDelta for a plan_name"""
+    """Represents a per moment_rope/spark_num PlanDelta for a plan_name"""
 
     def set_face(self, x_face_name: FaceName):
         self.face_name = x_face_name
@@ -66,7 +62,7 @@ class LessonUnit:
     def get_step_dict(self) -> dict[str, any]:
         return {
             "face_name": self.face_name,
-            "moment_label": self.moment_label,
+            "moment_rope": self.moment_rope,
             "plan_name": self.plan_name,
             "spark_num": self.spark_num,
             "delta": self._plandelta.get_ordered_planatoms(self._delta_start),
@@ -141,11 +137,11 @@ class LessonUnit:
 
     def get_lesson_edited_plan(self, before_plan: PlanUnit) -> PlanUnit:
         if (
-            self.moment_label != before_plan.moment_label
+            self.moment_rope != before_plan.moment_rope
             or self.plan_name != before_plan.plan_name
         ):
             raise lesson_plan_conflict_Exception(
-                f"lesson plan conflict {self.moment_label} != {before_plan.moment_label} or {self.plan_name} != {before_plan.plan_name}"
+                f"lesson plan conflict {self.moment_rope} != {before_plan.moment_rope} or {self.plan_name} != {before_plan.plan_name}"
             )
         return self._plandelta.get_atom_edited_plan(before_plan)
 
@@ -156,7 +152,7 @@ class LessonUnit:
 def lessonunit_shop(
     plan_name: PlanName,
     face_name: FaceName = None,
-    moment_label: MomentLabel = None,
+    moment_rope: MomentRope = None,
     _lesson_id: int = None,
     _plandelta: PlanDelta = None,
     _delta_start: int = None,
@@ -165,11 +161,11 @@ def lessonunit_shop(
     spark_num: int = None,
 ) -> LessonUnit:
     _plandelta = plandelta_shop() if _plandelta is None else _plandelta
-    moment_label = get_default_first_label() if moment_label is None else moment_label
+    moment_rope = get_default_first_label() if moment_rope is None else moment_rope
     x_lessonunit = LessonUnit(
         face_name=face_name,
         plan_name=plan_name,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         _lesson_id=get_init_lesson_id_if_None(_lesson_id),
         _plandelta=_plandelta,
         lessons_dir=lessons_dir,
@@ -188,13 +184,13 @@ def create_lessonunit_from_files(
     lesson_filename = get_json_filename(lesson_id)
     lesson_dict = open_json(lessons_dir, lesson_filename)
     x_plan_name = lesson_dict.get("plan_name")
-    x_moment_label = lesson_dict.get("moment_label")
+    x_moment_rope = lesson_dict.get("moment_rope")
     x_face_name = lesson_dict.get("face_name")
     delta_atom_numbers_list = lesson_dict.get("delta_atom_numbers")
     x_lessonunit = lessonunit_shop(
         face_name=x_face_name,
         plan_name=x_plan_name,
-        moment_label=x_moment_label,
+        moment_rope=x_moment_rope,
         _lesson_id=lesson_id,
         atoms_dir=atoms_dir,
     )
@@ -210,7 +206,7 @@ def get_lessonunit_from_dict(lesson_dict: dict) -> LessonUnit:
     x_lessonunit = lessonunit_shop(
         face_name=lesson_dict.get("face_name"),
         plan_name=lesson_dict.get("plan_name"),
-        moment_label=lesson_dict.get("moment_label"),
+        moment_rope=lesson_dict.get("moment_rope"),
         _lesson_id=lesson_dict.get("lesson_id"),
         atoms_dir=lesson_dict.get("atoms_dir"),
         spark_num=x_spark_num,

@@ -7,7 +7,7 @@
     "job_listen_rotations": { "otx_key": false }, 
     "knot"                : { "otx_key": false }, 
     "mana_grain"          : { "otx_key": false }, 
-    "moment_label"        : { "otx_key": true  }, 
+    "moment_rope"         : { "otx_key": true  }, 
     "monthday_index"      : { "otx_key": false }, 
     "respect_grain"       : { "otx_key": false }, 
     "spark_num"           : { "otx_key": true  }, 

@@ -178,7 +178,7 @@ def test_create_world_db_path_ReturnsObj():
 
 def test_create_moment_ote1_csv_path_HasDocString():
     # ESTABLISH
-    doc_str = create_moment_ote1_csv_path("moment_mstr_dir", kw.moment_label)
+    doc_str = create_moment_ote1_csv_path("moment_mstr_dir", kw.moment_rope)
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
     assert LINUX_OS or inspect_getdoc(create_moment_ote1_csv_path) == doc_str
@@ -186,7 +186,7 @@ def test_create_moment_ote1_csv_path_HasDocString():
 
 def test_create_moment_ote1_json_path_HasDocString():
     # ESTABLISH
-    doc_str = create_moment_ote1_json_path("moment_mstr_dir", kw.moment_label)
+    doc_str = create_moment_ote1_json_path("moment_mstr_dir", kw.moment_rope)
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
     assert LINUX_OS or inspect_getdoc(create_moment_ote1_json_path) == doc_str

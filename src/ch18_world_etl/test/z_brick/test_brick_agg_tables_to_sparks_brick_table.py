@@ -22,7 +22,7 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
     agg_br00003_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.cumulative_minute,
         kw.hour_label,
     ]
@@ -32,7 +32,7 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
         insert_into_clause = f"""INSERT INTO {agg_br00003_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.cumulative_minute}
 , {kw.hour_label}
 )"""
@@ -92,7 +92,7 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
     agg_br00003_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.cumulative_minute,
         kw.hour_label,
     ]
@@ -102,7 +102,7 @@ def test_etl_brick_agg_tables_to_sparks_brick_agg_table_PopulatesTables_Scenario
         insert_into_clause = f"""INSERT INTO {agg_br00003_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.cumulative_minute}
 , {kw.hour_label}
 )"""

@@ -39,7 +39,7 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        get_keep_ropes(env_dir(), moment_label=exx.a23, plan_name=exx.sue)
+        get_keep_ropes(env_dir(), moment_rope=exx.a23, plan_name=exx.sue)
     exception_str = f"Cannot get_keep_ropes from '{exx.sue}' gut plan because 'PlanUnit.keeps_justified' is False."
     assert str(excinfo.value) == exception_str
 
@@ -123,7 +123,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     sue_dallas_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=dallas_rope,
         knot=None,
         duty_plan=exx.sue,
@@ -131,7 +131,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     sue_elpaso_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=elpaso_rope,
         knot=None,
         duty_plan=exx.sue,
@@ -143,7 +143,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     # WHEN
     save_all_gut_dutys(
         moment_mstr_dir=mstr_dir,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         plan_name=exx.sue,
         keep_ropes=sue_keep_ropes,
         knot=sue_lessonfilehandler.knot,

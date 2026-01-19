@@ -24,7 +24,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario01():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == exx.a23
+    assert yao_rivergrade.moment_rope == exx.a23
     assert yao_rivergrade.plan_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
@@ -67,7 +67,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario02():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == exx.a23
+    assert yao_rivergrade.moment_rope == exx.a23
     assert yao_rivergrade.plan_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
@@ -114,7 +114,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario03():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == exx.a23
+    assert yao_rivergrade.moment_rope == exx.a23
     assert yao_rivergrade.plan_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
@@ -203,7 +203,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario05():
     assert x_riverrun.patient_count == 1
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
-    assert yao_rivergrade.moment_label == exx.a23
+    assert yao_rivergrade.moment_rope == exx.a23
     assert yao_rivergrade.plan_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0

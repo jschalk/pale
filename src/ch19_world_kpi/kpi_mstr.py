@@ -77,9 +77,9 @@ def create_kpi_csvs(db_path: str, dst_dir: str):
 def create_calendar_markdown_files(moment_mstr_dir: str, output_dir: str):
     set_dir(output_dir)
     moments_dir = create_path(moment_mstr_dir, "moments")
-    for moment_label in get_level1_dirs(moments_dir):
-        moment_calendar_md_path = create_path(output_dir, f"{moment_label}_calendar.md")
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_label)
+    for moment_rope in get_level1_dirs(moments_dir):
+        moment_calendar_md_path = create_path(output_dir, f"{moment_rope}_calendar.md")
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_rope)
         moment_epochholder = get_moment_epochholder(x_momentunit)
         moment_year_num = moment_epochholder._year_num
         moment_epoch_config = x_momentunit.epoch.to_dict()

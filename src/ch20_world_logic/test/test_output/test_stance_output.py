@@ -45,7 +45,7 @@ def test_WorldUnit_create_stances_Senario1_Add_CreatesFile(temp_dir_setup):
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
     ]
@@ -81,7 +81,7 @@ def test_WorldUnit_create_stances_Senario2_CreatedStanceCanBeIdeasForOtherWorldU
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
     ]
@@ -133,7 +133,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
     ]
@@ -170,13 +170,13 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #         kw.face_name,
 #         kw.spark_num,
 #         kw.cumulative_minute,
-#         kw.moment_label,
+#         kw.moment_rope,
 #         kw.hour_label,
 #     ]
 #     br00001_columns = [
 #         kw.face_name,
 #         kw.spark_num,
-#         kw.moment_label,
+#         kw.moment_rope,
 #         kw.plan_name,
 #         bud_time(),
 #         kw.quota,
@@ -203,7 +203,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #     br00011_columns = [
 #         kw.face_name,
 #         kw.spark_num,
-#         kw.moment_label,
+#         kw.moment_rope,
 #         kw.plan_name,
 #         kw.person_name,
 #     ]

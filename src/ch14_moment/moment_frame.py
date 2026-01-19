@@ -16,7 +16,7 @@ def get_moment_epochholder(momentunit: MomentUnit) -> EpochHolder:
     # create empty planunit
     x_planunit = planunit_shop(
         plan_name="for_EpochHolder_calculation",
-        moment_label=momentunit.moment_label,
+        moment_rope=momentunit.moment_rope,
         knot=momentunit.knot,
         fund_grain=momentunit.fund_grain,
         respect_grain=momentunit.respect_grain,
@@ -68,7 +68,7 @@ def add_epoch_frame_to_budhistory_bud_time(
 
 def add_epoch_frame_to_paybook_tran_time(momentunit: MomentUnit, epoch_frame_min: int):
     epoch_length = get_epoch_length(momentunit.get_epoch_config())
-    new_paybook = tranbook_shop(momentunit.moment_label)
+    new_paybook = tranbook_shop(momentunit.moment_rope)
     for plan_name, person_values in momentunit.paybook.tranunits.items():
         for person_name, trans_values in person_values.items():
             for tran_time, amount in trans_values.items():

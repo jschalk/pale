@@ -499,8 +499,8 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sue_lessonfilehandler.save_lesson_file(sue_1planatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
-    print(f"{gut_plan.moment_label=}")
-    print(f"{sue_lessonfilehandler.moment_label=}")
+    print(f"{gut_plan.moment_rope=}")
+    print(f"{sue_lessonfilehandler.moment_rope=}")
     sports_str = "sports"
     sports_rope = gut_plan.make_l1_rope(sports_str)
     knee_str = "knee"
@@ -523,7 +523,7 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sue_lessonfilehandler.save_lesson_file(sue_2planatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
-    print(f"{gut_plan.moment_label=}")
+    print(f"{gut_plan.moment_rope=}")
     sports_str = "sports"
     sports_rope = gut_plan.make_l1_rope(sports_str)
     knee_str = "knee"

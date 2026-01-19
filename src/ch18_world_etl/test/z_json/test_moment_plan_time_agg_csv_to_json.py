@@ -21,10 +21,10 @@ def test_etl_moment_ote1_agg_csvs_to_jsons_CreatesFile_Scenaro0(
     moment_mstr_dir = get_temp_dir()
     a23_spark_time_p = create_moment_ote1_csv_path(moment_mstr_dir, exx.a23)
     a45_spark_time_p = create_moment_ote1_csv_path(moment_mstr_dir, amy45_str)
-    a23_spark_time_csv = f"""{kw.moment_label},{kw.plan_name},{kw.spark_num},{kw.bud_time},{kw.error_message}
+    a23_spark_time_csv = f"""{kw.moment_rope},{kw.plan_name},{kw.spark_num},{kw.bud_time},{kw.error_message}
 {exx.a23},{exx.bob},{spark3},{timenum55},
 """
-    a45_spark_time_csv = f"""{kw.moment_label},{kw.plan_name},{kw.spark_num},{kw.bud_time},{kw.error_message}
+    a45_spark_time_csv = f"""{kw.moment_rope},{kw.plan_name},{kw.spark_num},{kw.bud_time},{kw.error_message}
 {amy45_str},{exx.sue},{spark3},{timenum55},
 {amy45_str},{exx.sue},{spark7},{timenum66},
 """

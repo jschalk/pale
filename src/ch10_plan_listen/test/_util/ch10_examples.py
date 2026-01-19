@@ -9,7 +9,7 @@ from src.ch10_plan_listen.test._util.ch10_env import get_temp_dir
 from src.ref.keywords import Ch10Keywords as kw, ExampleStrs as exx
 
 
-def ch10_example_moment_label() -> str:
+def ch10_example_moment_rope() -> str:
     return "Buzz"
 
 
@@ -108,21 +108,21 @@ def get_example_yao_speaker() -> PlanUnit:
 
 
 def get_texas_lessonfilehandler() -> LessonFileHandler:
-    moment_label = ch10_example_moment_label()
-    return lessonfilehandler_shop(get_temp_dir(), moment_label, plan_name="Sue")
+    moment_rope = ch10_example_moment_rope()
+    return lessonfilehandler_shop(get_temp_dir(), moment_rope, plan_name="Sue")
 
 
 def get_dakota_rope() -> RopeTerm:
-    moment_label = ch10_example_moment_label()
+    moment_rope = ch10_example_moment_rope()
     nation_str = "nation"
     usa_str = "USA"
     dakota_str = "Dakota"
-    return create_rope_from_labels([moment_label, nation_str, usa_str, dakota_str])
+    return create_rope_from_labels([moment_rope, nation_str, usa_str, dakota_str])
 
 
 def get_dakota_lessonfilehandler() -> LessonFileHandler:
-    moment_label = ch10_example_moment_label()
-    return lessonfilehandler_shop(get_temp_dir(), moment_label, plan_name="Sue")
+    moment_rope = ch10_example_moment_rope()
+    return lessonfilehandler_shop(get_temp_dir(), moment_rope, plan_name="Sue")
 
 
 def get_fund_breakdown_plan() -> PlanUnit:

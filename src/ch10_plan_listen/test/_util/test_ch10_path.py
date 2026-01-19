@@ -76,7 +76,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     texas_path = create_keep_rope_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=peru_str,
+        moment_rope=peru_str,
         keep_rope=texas_rope,
         knot=None,
     )
@@ -84,7 +84,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     dallas_path = create_keep_rope_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=peru_str,
+        moment_rope=peru_str,
         keep_rope=dallas_rope,
         knot=None,
     )
@@ -92,7 +92,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     elpaso_path = create_keep_rope_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=peru_str,
+        moment_rope=peru_str,
         keep_rope=elpaso_rope,
         knot=None,
     )
@@ -100,7 +100,7 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     kern_path = create_keep_rope_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=peru_str,
+        moment_rope=peru_str,
         keep_rope=kern_rope,
         knot=None,
     )
@@ -122,21 +122,21 @@ def test_create_keep_rope_path_ReturnsObj_Scenario1_MoreTestsForRopePathCreation
     assert texas_path == create_keep_rope_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=peru_str,
+        moment_rope=peru_str,
         keep_rope=diff_root_texas_rope,
         knot=None,
     )
     assert dallas_path == create_keep_rope_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=peru_str,
+        moment_rope=peru_str,
         keep_rope=diff_root_dallas_rope,
         knot=None,
     )
     assert elpaso_path == create_keep_rope_path(
         moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=peru_str,
+        moment_rope=peru_str,
         keep_rope=diff_root_elpaso_rope,
         knot=None,
     )
@@ -163,7 +163,7 @@ def test_create_keep_dutys_path_ReturnsObj() -> None:
     gen_keep_dutys_path = create_keep_dutys_path(
         moment_mstr_dir=x_moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=casa_rope,
         knot=None,
     )
@@ -185,7 +185,7 @@ def test_create_keep_duty_path_ReturnsObj() -> None:
     gen_keep_duty_path = create_keep_duty_path(
         moment_mstr_dir=x_moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=casa_rope,
         knot=None,
         duty_plan=exx.bob,
@@ -209,7 +209,7 @@ def test_create_keep_grades_path_ReturnsObj() -> None:
     gen_keep_dutys_path = create_keep_grades_path(
         moment_mstr_dir=x_moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=casa_rope,
         knot=None,
     )
@@ -231,7 +231,7 @@ def test_create_keep_grade_path_ReturnsObj() -> None:
     gen_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=casa_rope,
         knot=None,
         grade_plan_name=exx.bob,
@@ -254,7 +254,7 @@ def test_create_keep_visions_path_ReturnsObj() -> None:
     gen_keep_dutys_path = create_keep_visions_path(
         moment_mstr_dir=x_moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=casa_rope,
         knot=None,
     )
@@ -276,7 +276,7 @@ def test_create_treasury_db_path_ReturnsObj() -> None:
     gen_keep_dutys_path = create_treasury_db_path(
         moment_mstr_dir=x_moment_mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=casa_rope,
         knot=None,
     )
@@ -293,7 +293,7 @@ def test_create_keeps_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_keeps_dir_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
     )
     doc_str = f"Returns path: {doc_str}"
@@ -308,7 +308,7 @@ def test_create_keep_rope_path_HasDocString() -> None:
     doc_str = create_keep_rope_path(
         moment_mstr_dir="moment_mstr_dir",
         plan_name=kw.plan_name,
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         keep_rope=level1_rope,
         knot=None,
     )
@@ -321,7 +321,7 @@ def test_create_keep_dutys_path_HasDocString() -> None:
     # ESTABLISH
     expected_doc_str = create_keep_dutys_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         keep_rope="kegroot;level1;leveln",
         knot=None,
@@ -337,7 +337,7 @@ def test_create_keep_duty_path_HasDocString() -> None:
     duty_plan_str = "duty_plan"
     expected_doc_str = create_keep_duty_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         keep_rope="kegroot;level1;leveln",
         knot=None,
@@ -353,7 +353,7 @@ def test_create_keep_grades_path_HasDocString() -> None:
     # ESTABLISH
     doc_str = create_keep_grades_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         keep_rope="kegroot;level1;leveln",
         knot=None,
@@ -369,7 +369,7 @@ def test_create_keep_grade_path_HasDocString() -> None:
     # ESTABLISH
     doc_str = create_keep_grade_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         keep_rope="kegroot;level1;leveln",
         knot=None,
@@ -386,7 +386,7 @@ def test_create_keep_visions_path_HasDocString() -> None:
     # ESTABLISH
     doc_str = create_keep_visions_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         keep_rope="kegroot;level1;leveln",
         knot=None,
@@ -401,7 +401,7 @@ def test_create_treasury_db_path_HasDocString() -> None:
     # ESTABLISH
     doc_str = create_treasury_db_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         keep_rope="kegroot;level1;leveln",
         knot=None,

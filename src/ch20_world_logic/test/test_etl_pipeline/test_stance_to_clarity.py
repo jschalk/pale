@@ -26,7 +26,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     input_file_path = create_path(fay_world._input_dir, ex_filename)
     br00113_columns = [
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.otx_name,
@@ -42,7 +42,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
 
     br00001_columns = [
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.bud_time,
         kw.quota,
@@ -122,7 +122,7 @@ def create_brick_agg_record(world: WorldUnit, spark_num: int):
     agg_br00003_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.cumulative_minute,
         kw.hour_label,
     ]
@@ -132,7 +132,7 @@ def create_brick_agg_record(world: WorldUnit, spark_num: int):
         insert_into_clause = f"""INSERT INTO {agg_br00003_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.cumulative_minute}
 , {kw.hour_label}
 )"""
@@ -156,7 +156,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     input_file_path = create_path(fay_world._input_dir, ex_filename)
     br00113_columns = [
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.otx_name,

@@ -201,7 +201,7 @@ def get_bob_mop_without_reason_planunit_example() -> PlanUnit:
 
 
 def get_bob_mop_with_reason_planunit_example() -> PlanUnit:
-    """plan_name: bob, moment_label: amy23"""
+    """plan_name: bob, moment_rope: amy23"""
     bob_plan = get_bob_mop_without_reason_planunit_example()
     floor_str = "floor situation"
     dirty_str = "dirty"

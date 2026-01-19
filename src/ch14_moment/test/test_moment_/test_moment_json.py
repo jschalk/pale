@@ -44,7 +44,7 @@ def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
     # THEN
     print(f"{ amy_moment._get_planbudhistorys_dict()=}")
     print(f"{ amy_moment.paybook.to_dict()=}")
-    assert x_dict.get(kw.moment_label) == a45_str
+    assert x_dict.get(kw.moment_rope) == a45_str
     assert x_dict.get(kw.moment_mstr_dir) == moment_mstr_dir
     assert x_dict.get(kw.epoch) == get_default_epoch_config_dict()
     assert x_dict.get(kw.offi_times) == list(a45_offi_times)
@@ -55,7 +55,7 @@ def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
     assert x_dict.get(kw.planbudhistorys) == amy_moment._get_planbudhistorys_dict()
     assert x_dict.get(kw.paybook) == amy_moment.paybook.to_dict()
     assert set(x_dict.keys()) == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.moment_mstr_dir,
         kw.epoch,
         kw.offi_times,
@@ -79,7 +79,7 @@ def test_MomentUnit_to_dict_ReturnsObjWithOut_paybook():
     # THEN
     assert not x_dict.get(kw.paybook)
     assert set(x_dict.keys()) == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.moment_mstr_dir,
         kw.epoch,
         f"{kw.offi_time}s",
@@ -130,7 +130,7 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario0_WithParameters():
     x_moment = get_momentunit_from_dict(x_dict)
 
     # THEN
-    assert x_moment.moment_label == amy45_str
+    assert x_moment.moment_rope == amy45_str
     assert x_moment.moment_mstr_dir == moment_mstr_dir
     assert x_moment.epoch.epoch_label == sue_epoch_label
     assert x_moment.offi_times == a45_offi_times
@@ -161,7 +161,7 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario1_WithOutParameters():
     generated_moment = get_momentunit_from_dict(x_dict)
 
     # THEN
-    assert generated_moment.moment_label == amy45_str
+    assert generated_moment.moment_rope == amy45_str
     print(f"{generated_moment.epoch=}")
     print(f"   {amy_moment.epoch=}")
     assert generated_moment.epoch == amy_moment.epoch
@@ -207,7 +207,7 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario2():
     x_moment = get_momentunit_from_dict(amy_dict)
 
     # THEN
-    assert x_moment.moment_label == amy45_str
+    assert x_moment.moment_rope == amy45_str
     assert x_moment.moment_mstr_dir == temp_moment_mstr_dir
     assert x_moment.epoch.epoch_label == sue_epoch_label
     assert x_moment.knot == sue_knot
@@ -239,7 +239,7 @@ def test_get_from_file_ReturnsMomentUnitWith_moment_mstr_dir(temp_dir_setup):
 
     # THEN
     assert generated_a45_moment.moment_mstr_dir == x_moment_mstr_dir
-    assert generated_a45_moment.moment_label == amy45_str
+    assert generated_a45_moment.moment_rope == amy45_str
     assert generated_a45_moment.epoch.epoch_label == sue_epoch_label
     assert generated_a45_moment.respect_grain == sue_respect_grain
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")

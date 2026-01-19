@@ -192,7 +192,7 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
     # print(plan_personunit_args.difference(set(PersonUnit().__dict__.keys())))
     # assert plan_personunit_args == set(PersonUnit().__dict__.keys())
     assert plan_personunit_args == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.credor_pool,
         kw.debtor_pool,
@@ -210,7 +210,7 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
         kw.groupmark,
     }
     assert plan_kegunit_args == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.morph,
         kw.denom,
@@ -241,7 +241,7 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
     }
     print(f"{plan_groupunit_args=}")
     assert plan_groupunit_args == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.debtor_pool,
         kw.credor_pool,

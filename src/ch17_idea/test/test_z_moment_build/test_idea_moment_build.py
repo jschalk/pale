@@ -22,7 +22,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 
 # ESTABLISH a dataframe, build a moment unit
-def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
+def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentRope(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -57,7 +57,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
     assert x_momentunits.get(exx.a23) != None
     creg_epochunit = epochunit_shop(get_default_epoch_config_dict())
     expected_amy23_momentunit = momentunit_shop(
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         moment_mstr_dir=x_moments_dir,
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
@@ -83,7 +83,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
     assert gen_momentunit.fund_grain == x_fund_grain
     assert gen_momentunit.respect_grain == x_respect_grain
     assert gen_momentunit.mana_grain == x_mana_grain
-    assert gen_momentunit.moment_label == exx.a23
+    assert gen_momentunit.moment_rope == exx.a23
     assert gen_momentunit.moment_mstr_dir == x_moments_dir
     assert gen_momentunit.epoch == expected_amy23_momentunit.epoch
     assert gen_momentunit.planbudhistorys == expected_amy23_momentunit.planbudhistorys
@@ -96,7 +96,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
 
 
 # ESTABLISH a dataframe, build a moment unit
-def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
+def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentRopes(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -128,7 +128,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
     # THEN
     creg_epochunit = epochunit_shop(get_default_epoch_config_dict())
     amy23_momentunit = momentunit_shop(
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         moment_mstr_dir=x_moments_dir,
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
@@ -138,7 +138,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
     )
     five_epochunit = epochunit_shop(get_five_config())
     jeffy45_momentunit = momentunit_shop(
-        moment_label="jeffy45",
+        moment_rope="jeffy45",
         moment_mstr_dir=x_moments_dir,
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
@@ -152,7 +152,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
     assert creg_momentunit.fund_grain == x_fund_grain
     assert creg_momentunit.respect_grain == x_respect_grain
     assert creg_momentunit.mana_grain == x_mana_grain
-    assert creg_momentunit.moment_label == exx.a23
+    assert creg_momentunit.moment_rope == exx.a23
     assert creg_momentunit.moment_mstr_dir == x_moments_dir
     assert creg_momentunit.epoch == amy23_momentunit.epoch
     assert len(creg_momentunit.planbudhistorys) == 3
@@ -163,7 +163,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
     assert five_momentunit.fund_grain == x_fund_grain
     assert five_momentunit.respect_grain == x_respect_grain
     assert five_momentunit.mana_grain == x_mana_grain
-    assert five_momentunit.moment_label == "jeffy45"
+    assert five_momentunit.moment_rope == "jeffy45"
     assert five_momentunit.moment_mstr_dir == x_moments_dir
     assert len(five_momentunit.planbudhistorys) == 2
     assert len(five_momentunit.paybook.tranunits) == 1

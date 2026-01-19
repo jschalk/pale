@@ -37,7 +37,7 @@ def test_create_bud_person_mandate_ledger_path_HasDocString():
     # ESTABLISH
     doc_str = create_bud_person_mandate_ledger_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
     )

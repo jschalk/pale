@@ -33,7 +33,7 @@ from src.ch12_keep.rivercycle import (
 @dataclass
 class RiverRun:
     moment_mstr_dir: str = None
-    moment_label: LabelTerm = None
+    moment_rope: RopeTerm = None
     plan_name: PlanName = None
     keep_rope: RopeTerm = None
     knot: KnotTerm = None
@@ -174,7 +174,7 @@ class RiverRun:
 
     def set_initial_rivergrade(self, person_name: PersonName):
         x_rivergrade = rivergrade_shop(
-            self.moment_label,
+            self.moment_rope,
             self.plan_name,
             self.keep_rope,
             person_name,
@@ -240,7 +240,7 @@ class RiverRun:
         grade_path = create_keep_grade_path(
             moment_mstr_dir=self.moment_mstr_dir,
             plan_name=self.plan_name,
-            moment_label=self.moment_label,
+            moment_rope=self.moment_rope,
             keep_rope=self.keep_rope,
             knot=self.knot,
             grade_plan_name=person_name,
@@ -267,7 +267,7 @@ class RiverRun:
 
 def riverrun_shop(
     moment_mstr_dir: str,
-    moment_label: LabelTerm,
+    moment_rope: RopeTerm,
     plan_name: PlanName,
     keep_rope: RopeTerm = None,
     knot: KnotTerm = None,
@@ -280,7 +280,7 @@ def riverrun_shop(
 ):
     x_riverun = RiverRun(
         moment_mstr_dir=moment_mstr_dir,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         plan_name=plan_name,
         keep_rope=keep_rope,
         knot=default_knot_if_None(knot),

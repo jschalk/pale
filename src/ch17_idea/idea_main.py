@@ -16,7 +16,7 @@ from src.ch09_plan_lesson.delta import (
 )
 from src.ch13_time.epoch_main import epochunit_shop
 from src.ch14_moment.moment_main import MomentUnit, momentunit_shop
-from src.ch17_idea._ref.ch17_semantic_types import MomentLabel, PlanName
+from src.ch17_idea._ref.ch17_semantic_types import MomentRope, PlanName
 from src.ch17_idea.idea_config import get_idea_format_headers, get_idearef_from_file
 from src.ch17_idea.idea_db_tool import (
     get_default_sorted_list,
@@ -81,10 +81,10 @@ def create_idea_df(x_planunit: PlanUnit, idea_name: str) -> DataFrame:
     x_plandelta = plandelta_shop()
     x_plandelta.add_all_planatoms(x_planunit)
     x_idearef = get_idearef_obj(idea_name)
-    x_moment_label = x_planunit.moment_label
+    x_moment_rope = x_planunit.moment_rope
     x_plan_name = x_planunit.plan_name
     sorted_planatoms = _get_sorted_insert_str_planatoms(x_plandelta, x_idearef)
-    d2_list = _create_d2_list(sorted_planatoms, x_idearef, x_moment_label, x_plan_name)
+    d2_list = _create_d2_list(sorted_planatoms, x_idearef, x_moment_rope, x_plan_name)
     d2_list = _delta_all_pledge_values(d2_list, x_idearef)
     x_idea = _generate_idea_dataframe(d2_list, idea_name)
     sorting_columns = x_idearef.get_headers_list()
@@ -103,15 +103,15 @@ def _get_sorted_insert_str_planatoms(
 def _create_d2_list(
     sorted_planatoms: list[PlanAtom],
     x_idearef: IdeaRef,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_plan_name: PlanName,
 ):
     d2_list = []
     for x_planatom in sorted_planatoms:
         d1_list = []
         for x_attribute in x_idearef.get_headers_list():
-            if x_attribute == "moment_label":
-                d1_list.append(x_moment_label)
+            if x_attribute == "moment_rope":
+                d1_list.append(x_moment_rope)
             elif x_attribute == "plan_name":
                 d1_list.append(x_plan_name)
             else:
@@ -187,15 +187,15 @@ def make_plandelta(x_csv: str) -> PlanDelta:
     return x_plandelta
 
 
-def get_csv_moment_label_plan_name_metrics(
+def get_csv_moment_rope_plan_name_metrics(
     headerless_csv: str, delimiter: str = None
-) -> dict[MomentLabel, dict[PlanName, int]]:
+) -> dict[MomentRope, dict[PlanName, int]]:
     return get_csv_column1_column2_metrics(headerless_csv, delimiter)
 
 
-def moment_label_plan_name_nested_csv_dict(
+def moment_rope_plan_name_nested_csv_dict(
     headerless_csv: str, delimiter: str = None
-) -> dict[MomentLabel, dict[PlanName, str]]:
+) -> dict[MomentRope, dict[PlanName, str]]:
     return create_l2nested_csv_dict(headerless_csv, delimiter)
 
 
@@ -210,26 +210,26 @@ def moment_build_from_df(
     x_respect_grain: float,
     x_mana_grain: float,
     x_moments_dir: str,
-) -> dict[MomentLabel, MomentUnit]:
+) -> dict[MomentRope, MomentUnit]:
     moment_hours_dict = _get_moment_hours_dict(br00003_df)
     moment_months_dict = _get_moment_months_dict(br00004_df)
     moment_weekdays_dict = _get_moment_weekdays_dict(br00005_df)
 
     momentunit_dict = {}
     for index, row in br00000_df.iterrows():
-        x_moment_label = row["moment_label"]
+        x_moment_rope = row["moment_rope"]
         x_epoch_config = {
             "c400_number": row["c400_number"],
-            "hours_config": moment_hours_dict.get(x_moment_label),
-            "months_config": moment_months_dict.get(x_moment_label),
+            "hours_config": moment_hours_dict.get(x_moment_rope),
+            "months_config": moment_months_dict.get(x_moment_rope),
             "monthday_index": row["monthday_index"],
             "epoch_label": row["epoch_label"],
-            "weekdays_config": moment_weekdays_dict.get(x_moment_label),
+            "weekdays_config": moment_weekdays_dict.get(x_moment_rope),
             "yr1_jan1_offset": row["yr1_jan1_offset"],
         }
         x_epoch = epochunit_shop(x_epoch_config)
         x_momentunit = momentunit_shop(
-            moment_label=x_moment_label,
+            moment_rope=x_moment_rope,
             moment_mstr_dir=x_moments_dir,
             epoch=x_epoch,
             knot=row["knot"],
@@ -238,7 +238,7 @@ def moment_build_from_df(
             mana_grain=x_mana_grain,
             job_listen_rotations=row["job_listen_rotations"],
         )
-        momentunit_dict[x_momentunit.moment_label] = x_momentunit
+        momentunit_dict[x_momentunit.moment_rope] = x_momentunit
         _add_budunits_from_df(x_momentunit, br00001_df)
         _add_paypurchases_from_df(x_momentunit, br00002_df)
     return momentunit_dict
@@ -246,42 +246,42 @@ def moment_build_from_df(
 
 def _get_moment_hours_dict(br00003_df: DataFrame) -> dict[str, list[str, str]]:
     moment_hours_dict = {}
-    for y_moment_label in br00003_df.moment_label.unique():
-        query_str = f"moment_label == '{y_moment_label}'"
+    for y_moment_rope in br00003_df.moment_rope.unique():
+        query_str = f"moment_rope == '{y_moment_rope}'"
         x_hours_list = [
             [row["hour_label"], row["cumulative_minute"]]
             for index, row in br00003_df.query(query_str).iterrows()
         ]
-        moment_hours_dict[y_moment_label] = x_hours_list
+        moment_hours_dict[y_moment_rope] = x_hours_list
     return moment_hours_dict
 
 
 def _get_moment_months_dict(br00004_df: DataFrame) -> dict[str, list[str, str]]:
     moment_months_dict = {}
-    for y_moment_label in br00004_df.moment_label.unique():
-        query_str = f"moment_label == '{y_moment_label}'"
+    for y_moment_rope in br00004_df.moment_rope.unique():
+        query_str = f"moment_rope == '{y_moment_rope}'"
         x_months_list = [
             [row["month_label"], row["cumulative_day"]]
             for index, row in br00004_df.query(query_str).iterrows()
         ]
-        moment_months_dict[y_moment_label] = x_months_list
+        moment_months_dict[y_moment_rope] = x_months_list
     return moment_months_dict
 
 
 def _get_moment_weekdays_dict(br00005_df: DataFrame) -> dict[str, list[str, str]]:
     moment_weekdays_dict = {}
-    for y_moment_label in br00005_df.moment_label.unique():
-        query_str = f"moment_label == '{y_moment_label}'"
+    for y_moment_rope in br00005_df.moment_rope.unique():
+        query_str = f"moment_rope == '{y_moment_rope}'"
         x_weekdays_list = [
             row["weekday_label"]
             for index, row in br00005_df.query(query_str).iterrows()
         ]
-        moment_weekdays_dict[y_moment_label] = x_weekdays_list
+        moment_weekdays_dict[y_moment_rope] = x_weekdays_list
     return moment_weekdays_dict
 
 
 def _add_budunits_from_df(x_momentunit: MomentUnit, br00001_df: DataFrame):
-    query_str = f"moment_label == '{x_momentunit.moment_label}'"
+    query_str = f"moment_rope == '{x_momentunit.moment_rope}'"
     for index, row in br00001_df.query(query_str).iterrows():
         x_momentunit.add_budunit(
             plan_name=row["plan_name"],
@@ -293,7 +293,7 @@ def _add_budunits_from_df(x_momentunit: MomentUnit, br00001_df: DataFrame):
 
 
 def _add_paypurchases_from_df(x_momentunit: MomentUnit, br00002_df: DataFrame):
-    query_str = f"moment_label == '{x_momentunit.moment_label}'"
+    query_str = f"moment_rope == '{x_momentunit.moment_rope}'"
     for index, row in br00002_df.query(query_str).iterrows():
         x_momentunit.add_paypurchase(
             plan_name=row["plan_name"],
@@ -304,6 +304,6 @@ def _add_paypurchases_from_df(x_momentunit: MomentUnit, br00002_df: DataFrame):
 
 
 def _add_time_offi_units_from_df(x_momentunit: MomentUnit, br00006_df: DataFrame):
-    query_str = f"moment_label == '{x_momentunit.moment_label}'"
+    query_str = f"moment_rope == '{x_momentunit.moment_rope}'"
     for index, row in br00006_df.query(query_str).iterrows():
         x_momentunit.offi_times.add(row["offi_time"])

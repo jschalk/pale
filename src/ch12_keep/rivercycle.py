@@ -9,7 +9,7 @@ from src.ch07_plan_logic.plan_main import PlanUnit
 from src.ch12_keep._ref.ch12_semantic_types import (
     ManaGrain,
     ManaNum,
-    MomentLabel,
+    MomentRope,
     PersonName,
     PlanName,
     RespectNum,
@@ -144,7 +144,7 @@ def create_next_rivercycle(
 
 @dataclass
 class RiverGrade:
-    moment_label: MomentLabel = None
+    moment_rope: MomentRope = None
     plan_name: PlanName = None
     keep_rope: RopeTerm = None
     person_name: PersonName = None
@@ -182,7 +182,7 @@ class RiverGrade:
         """Returns dict that is serializable to JSON."""
 
         return {
-            "moment_label": self.moment_label,
+            "moment_rope": self.moment_rope,
             "healer_name": self.plan_name,
             "keep_rope": self.keep_rope,
             "need_bill_amount": self.need_bill_amount,
@@ -203,7 +203,7 @@ class RiverGrade:
 
 
 def rivergrade_shop(
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     plan_name: PlanName,
     keep_rope: RopeTerm,
     person_name: PersonName,
@@ -212,7 +212,7 @@ def rivergrade_shop(
     patient_count: int = None,
 ):
     return RiverGrade(
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         plan_name=plan_name,
         keep_rope=keep_rope,
         person_name=person_name,

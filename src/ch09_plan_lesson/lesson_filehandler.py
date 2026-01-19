@@ -32,7 +32,7 @@ from src.ch09_plan_lesson._ref.ch09_path import (
 from src.ch09_plan_lesson._ref.ch09_semantic_types import (
     KnotTerm,
     LabelTerm,
-    MomentLabel,
+    MomentRope,
     PlanName,
     RopeTerm,
     default_knot_if_None,
@@ -57,22 +57,22 @@ def open_plan_file(dest_dir: str, filename: str = None) -> PlanUnit:
 
 def save_gut_file(moment_mstr_dir: str, planunit: PlanUnit):
     gut_path = create_gut_path(
-        moment_mstr_dir, planunit.moment_label, planunit.plan_name
+        moment_mstr_dir, planunit.moment_rope, planunit.plan_name
     )
     save_plan_file(gut_path, None, planunit)
 
 
 def open_gut_file(
-    moment_mstr_dir: str, moment_label: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_rope: str, plan_name: PlanName
 ) -> PlanUnit:
-    gut_path = create_gut_path(moment_mstr_dir, moment_label, plan_name)
+    gut_path = create_gut_path(moment_mstr_dir, moment_rope, plan_name)
     return open_plan_file(gut_path)
 
 
 def gut_file_exists(
-    moment_mstr_dir: str, moment_label: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_rope: str, plan_name: PlanName
 ) -> bool:
-    gut_path = create_gut_path(moment_mstr_dir, moment_label, plan_name)
+    gut_path = create_gut_path(moment_mstr_dir, moment_rope, plan_name)
     return os_path_exists(gut_path)
 
 
@@ -88,7 +88,7 @@ class LessonFileMissingException(Exception):
 class LessonFileHandler:
     plan_name: PlanName = None
     moment_mstr_dir: str = None
-    moment_label: MomentLabel = None
+    moment_rope: MomentRope = None
     knot: KnotTerm = None
     fund_pool: float = None
     fund_grain: float = None
@@ -99,15 +99,15 @@ class LessonFileHandler:
 
     def set_dir_attrs(self):
         mstr_dir = self.moment_mstr_dir
-        moment_label = self.moment_label
+        moment_rope = self.moment_rope
         plan_name = self.plan_name
-        self.atoms_dir = create_atoms_dir_path(mstr_dir, moment_label, plan_name)
-        self.lessons_dir = create_lessons_dir_path(mstr_dir, moment_label, plan_name)
+        self.atoms_dir = create_atoms_dir_path(mstr_dir, moment_rope, plan_name)
+        self.lessons_dir = create_lessons_dir_path(mstr_dir, moment_rope, plan_name)
 
     def default_gut_plan(self) -> PlanUnit:
         x_planunit = planunit_shop(
             plan_name=self.plan_name,
-            moment_label=self.moment_label,
+            moment_rope=self.moment_rope,
             knot=self.knot,
             fund_pool=self.fund_pool,
             fund_grain=self.fund_grain,
@@ -152,7 +152,7 @@ class LessonFileHandler:
         delete_dir(self.atom_file_path(atom_number))
 
     def _get_plan_from_atom_files(self) -> PlanUnit:
-        x_plan = planunit_shop(self.plan_name, self.moment_label)
+        x_plan = planunit_shop(self.plan_name, self.moment_rope)
         if self.h_atom_file_exists(self.get_max_atom_file_number()):
             x_atom_files = get_dir_file_strs(self.atoms_dir, delete_extensions=True)
             sorted_atom_filenames = sorted(list(x_atom_files.keys()))
@@ -289,14 +289,14 @@ class LessonFileHandler:
         x_lessonunit._plandelta.add_all_different_planatoms(
             before_plan=self.default_gut_plan(),
             after_plan=open_gut_file(
-                self.moment_mstr_dir, self.moment_label, self.plan_name
+                self.moment_mstr_dir, self.moment_rope, self.plan_name
             ),
         )
         x_lessonunit.save_files()
 
     def initialize_lesson_gut_files(self):
         x_gut_file_exists = gut_file_exists(
-            self.moment_mstr_dir, self.moment_label, self.plan_name
+            self.moment_mstr_dir, self.moment_rope, self.plan_name
         )
         lesson_file_exists = self.hub_lesson_file_exists(init_lesson_id())
         if x_gut_file_exists is False and lesson_file_exists is False:
@@ -307,9 +307,7 @@ class LessonFileHandler:
             self._create_initial_lesson_files_from_gut()
 
     def append_lessons_to_gut_file(self) -> PlanUnit:
-        gut_plan = open_gut_file(
-            self.moment_mstr_dir, self.moment_label, self.plan_name
-        )
+        gut_plan = open_gut_file(self.moment_mstr_dir, self.moment_rope, self.plan_name)
         gut_plan = self._merge_any_lessons(gut_plan)
         save_gut_file(self.moment_mstr_dir, gut_plan)
         return gut_plan
@@ -317,7 +315,7 @@ class LessonFileHandler:
 
 def lessonfilehandler_shop(
     moment_mstr_dir: str,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     plan_name: PlanName = None,
     knot: KnotTerm = None,
     fund_pool: float = None,
@@ -327,7 +325,7 @@ def lessonfilehandler_shop(
 ) -> LessonFileHandler:
     x_lessonfilehandler = LessonFileHandler(
         moment_mstr_dir=moment_mstr_dir,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         plan_name=validate_labelterm(plan_name, knot),
         knot=default_knot_if_None(knot),
         fund_pool=validate_pool_num(fund_pool),

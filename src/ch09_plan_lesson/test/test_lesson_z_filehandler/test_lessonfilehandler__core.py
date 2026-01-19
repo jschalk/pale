@@ -17,7 +17,7 @@ def test_LessonFileHandler_Exists():
 
     # THEN
     assert not x_lessonfilehandler.moment_mstr_dir
-    assert not x_lessonfilehandler.moment_label
+    assert not x_lessonfilehandler.moment_rope
     assert not x_lessonfilehandler.plan_name
     assert not x_lessonfilehandler.knot
     assert not x_lessonfilehandler.fund_pool
@@ -41,7 +41,7 @@ def test_lessonfilehandler_shop_ReturnsObj():
     # WHEN
     x_lessonfilehandler = lessonfilehandler_shop(
         moment_mstr_dir=x_moment_mstr_dir,
-        moment_label=a45_str,
+        moment_rope=a45_str,
         plan_name=exx.sue,
         knot=x_knot,
         fund_pool=x_fund_pool,
@@ -52,7 +52,7 @@ def test_lessonfilehandler_shop_ReturnsObj():
 
     # THEN
     assert x_lessonfilehandler.moment_mstr_dir == x_moment_mstr_dir
-    assert x_lessonfilehandler.moment_label == a45_str
+    assert x_lessonfilehandler.moment_rope == a45_str
     assert x_lessonfilehandler.plan_name == exx.sue
     assert x_lessonfilehandler.knot == x_knot
     assert x_lessonfilehandler.fund_pool == x_fund_pool
@@ -73,7 +73,7 @@ def test_lessonfilehandler_shop_ReturnsObjWhenEmpty():
 
     # THEN
     assert sue_lessonfilehandler.moment_mstr_dir == moment_mstr_dir
-    assert sue_lessonfilehandler.moment_label == exx.a23
+    assert sue_lessonfilehandler.moment_rope == exx.a23
     assert sue_lessonfilehandler.plan_name == exx.sue
     assert sue_lessonfilehandler.knot == default_knot_if_None()
     assert sue_lessonfilehandler.fund_pool == validate_pool_num()

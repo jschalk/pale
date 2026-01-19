@@ -306,7 +306,7 @@ def test_create_buds_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_buds_dir_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
     )
     doc_str = f"Returns path: {doc_str}"
@@ -318,7 +318,7 @@ def test_create_bud_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_bud_dir_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
     )
@@ -332,7 +332,7 @@ def test_create_cell_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_cell_dir_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
         bud_ancestors=["ledger_plan1", "ledger_plan2", "ledger_plan3"],
@@ -348,7 +348,7 @@ def test_create_cell_json_path_HasDocString():
     # ESTABLISH
     doc_str = create_cell_json_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
         bud_ancestors=["ledger_plan1", "ledger_plan2", "ledger_plan3"],
@@ -364,7 +364,7 @@ def test_create_cell_person_mandate_ledger_path_HasDocString():
     # ESTABLISH
     doc_str = create_cell_person_mandate_ledger_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
         bud_ancestors=["ledger_plan1", "ledger_plan2", "ledger_plan3"],
@@ -380,7 +380,7 @@ def test_create_budunit_json_path_HasDocString():
     # ESTABLISH
     doc_str = create_budunit_json_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
     )
@@ -394,7 +394,7 @@ def test_create_plantime_path_HasDocString():
     # ESTABLISH
     doc_str = create_plantime_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
     )
@@ -408,7 +408,7 @@ def test_create_plan_spark_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_plan_spark_dir_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         spark_num=kw.spark_num,
     )
@@ -421,7 +421,7 @@ def test_create_planspark_path_HasDocString():
     # ESTABLISH
     doc_str = create_planspark_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         spark_num=kw.spark_num,
     )
@@ -434,7 +434,7 @@ def test_create_spark_all_lesson_path_HasDocString():
     # ESTABLISH
     doc_str = create_spark_all_lesson_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         spark_num=kw.spark_num,
     )
@@ -447,7 +447,7 @@ def test_create_spark_expressed_lesson_path_HasDocString():
     # ESTABLISH
     doc_str = create_spark_expressed_lesson_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_label=kw.moment_label,
+        moment_rope=kw.moment_rope,
         plan_name=kw.plan_name,
         spark_num=kw.spark_num,
     )

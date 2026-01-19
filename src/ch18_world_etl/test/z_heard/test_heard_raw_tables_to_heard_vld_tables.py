@@ -140,7 +140,7 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
         insert_into_clause = f"""INSERT INTO {plnprsn_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
-, {kw.moment_label}_inx
+, {kw.moment_rope}_inx
 , {kw.plan_name}_inx
 , {kw.person_name}_inx
 , {kw.person_cred_lumen}
@@ -168,7 +168,7 @@ VALUES
         assert get_row_count(cursor, plnprsn_h_vld_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}
@@ -206,7 +206,7 @@ def test_etl_heard_raw_tables_to_heard_vld_tables_PopulatesTable_Scenario0():
         insert_into_clause = f"""INSERT INTO {plnprsn_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
-, {kw.moment_label}_inx
+, {kw.moment_rope}_inx
 , {kw.plan_name}_inx
 , {kw.person_name}_inx
 , {kw.person_cred_lumen}
@@ -232,7 +232,7 @@ VALUES
         assert get_row_count(cursor, plnprsn_h_vld_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.person_cred_lumen}

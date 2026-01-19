@@ -38,7 +38,7 @@ def test_insert_tranunit_persons_net_PopulatesDatabase():
 
         # THEN
         assert get_row_count(cursor, moment_person_nets_tablename) == 2
-        select_sqlstr = f"SELECT moment_label, plan_name, {kw.plan_net_amount} FROM {moment_person_nets_tablename}"
+        select_sqlstr = f"SELECT moment_rope, plan_name, {kw.plan_net_amount} FROM {moment_person_nets_tablename}"
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
         assert rows == [
@@ -77,7 +77,7 @@ def test_etl_moment_json_person_nets_to_moment_person_nets_table_PopulatesDataba
 
         # THEN
         assert get_row_count(cursor, moment_person_nets_tablename) == 2
-        select_sqlstr = f"SELECT moment_label, plan_name, {kw.plan_net_amount} FROM {moment_person_nets_tablename}"
+        select_sqlstr = f"SELECT moment_rope, plan_name, {kw.plan_net_amount} FROM {moment_person_nets_tablename}"
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
         assert rows == [

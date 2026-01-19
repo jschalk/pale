@@ -64,7 +64,7 @@ def test_get_moment_epochholder_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs(
     # assert sue_epochholder.x_min == sue_offi_time_max
     sue_planunit = sue_epochholder.x_planunit
     assert sue_planunit.plan_name == "for_EpochHolder_calculation"
-    assert sue_planunit.moment_label == sue_momentunit.moment_label
+    assert sue_planunit.moment_rope == sue_momentunit.moment_rope
     assert sue_planunit.knot == sue_momentunit.knot
     assert sue_planunit.fund_grain == sue_momentunit.fund_grain
     assert sue_planunit.respect_grain == sue_momentunit.respect_grain

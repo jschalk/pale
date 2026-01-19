@@ -26,7 +26,7 @@ def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario0(
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
-        kw.moment_label,
+        kw.moment_rope,
         kw.hour_label,
     ]
     row0 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
@@ -108,7 +108,7 @@ def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario1(
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
-        kw.moment_label,
+        kw.moment_rope,
         kw.hour_label,
     ]
     row1 = [spark1, exx.sue, minute_360, exx.a23, hour6am]
@@ -118,7 +118,7 @@ def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario1(
         kw.spark_num,
         kw.face_name,
         kw.cumulative_minute,
-        kw.moment_label,
+        kw.moment_rope,
     ]
     incom_row1 = [spark1, exx.sue, minute_360, exx.a23]
     incom_row2 = [spark1, exx.sue, minute_420, exx.a23]
@@ -198,7 +198,7 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
 #         kw.spark_num,
 #         kw.face_name,
 #         kw.cumulative_minute,
-#         kw.moment_label,
+#         kw.moment_rope,
 #         kw.hour_label,
 #     ]
 #     exx.a23 = exx.a23

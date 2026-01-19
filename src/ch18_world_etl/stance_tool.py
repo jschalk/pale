@@ -169,10 +169,10 @@ def collect_stance_csv_strs(world_dir: str) -> dict[str, str]:
     moment_mstr_dir = create_moment_mstr_path(world_dir)
     x_csv_strs = create_init_stance_idea_csv_strs()
     moments_dir = create_path(moment_mstr_dir, "moments")
-    for moment_label in get_level1_dirs(moments_dir):
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_label)
+    for moment_rope in get_level1_dirs(moments_dir):
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_rope)
         add_momentunit_to_stance_csv_strs(x_momentunit, x_csv_strs, ",")
-        moment_dir = create_path(moments_dir, moment_label)
+        moment_dir = create_path(moments_dir, moment_rope)
         plans_dir = create_path(moment_dir, "plans")
         for plan_name in get_level1_dirs(plans_dir):
             plan_dir = create_path(plans_dir, plan_name)
