@@ -1,6 +1,7 @@
 from collections import Counter
+from dataclasses import dataclass
 from pathlib import Path as pathlib_Path
-from src.ch00_py.file_toolbox import is_path_valid
+from src.ch00_py.file_toolbox import create_directory_path, is_path_valid
 from src.ch04_rope._ref.ch04_semantic_types import (
     FirstLabel,
     KnotTerm,
@@ -10,8 +11,9 @@ from src.ch04_rope._ref.ch04_semantic_types import (
 )
 
 
-def get_default_first_label() -> FirstLabel:
-    return LabelTerm("YY")
+def get_default_rope(knot=None) -> FirstLabel:
+    knot = default_knot_if_None(knot)
+    return RopeTerm(f"{knot}YY{knot}")
 
 
 class knot_not_in_parent_rope_Exception(Exception):
@@ -207,13 +209,13 @@ def is_labelterm(x_labelterm: LabelTerm, x_knot: KnotTerm) -> bool:
 
 
 def validate_labelterm(
-    x_labelterm: LabelTerm, x_knot: KnotTerm, not_labelterm_required: bool = False
+    x_labelterm: LabelTerm, x_knot: KnotTerm, ropeterm_required: bool = False
 ) -> LabelTerm:
-    if is_labelterm(x_labelterm, x_knot) and not_labelterm_required:
+    if is_labelterm(x_labelterm, x_knot) and ropeterm_required:
         raise ValidateLabelTermException(
             f"'{x_labelterm}' must not be a LabelTerm. Must contain knot: '{x_knot}'"
         )
-    elif is_labelterm(x_labelterm, x_knot) is False and not not_labelterm_required:
+    elif is_labelterm(x_labelterm, x_knot) is False and not ropeterm_required:
         raise ValidateLabelTermException(
             f"'{x_labelterm}' must be a LabelTerm. Cannot contain knot: '{x_knot}'"
         )
@@ -268,3 +270,25 @@ def get_unique_short_ropes(
         result[ropes_list[idx]] = rep
 
     return result
+
+
+@dataclass
+class LassoUnit:
+    rope: RopeTerm = None
+    knot: KnotTerm = None
+
+    def make_path(self) -> str:
+        # rope_labels = get_all_rope_labels(self.rope, self.knot)
+        rope_labels = get_all_rope_labels(self.rope)
+        return create_directory_path(x_list=[*rope_labels])
+
+
+def lassounit_shop(rope: RopeTerm = None, knot: KnotTerm = None) -> LassoUnit:
+    if rope is None:
+        rope = get_default_rope()
+    knot = default_knot_if_None(knot)
+    if rope.find(knot) != 0:
+        exception_str = f"Rope '{rope}' must have knot '{knot}' at position 0 in string"
+        raise init_knot_not_presentException(exception_str)
+
+    return LassoUnit(rope, knot)

@@ -1,7 +1,7 @@
 from os.path import exists as os_path_exists
 from pytest import raises as pytest_raises
 from src.ch00_py.file_toolbox import create_path, open_json, set_dir
-from src.ch04_rope.rope import create_rope
+from src.ch04_rope.rope import create_rope, lassounit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch07_plan_logic.test._util.ch07_examples import (
     get_planunit_irrational_example,
@@ -97,11 +97,12 @@ def test_save_arbitrary_planspark_SetsFile_Scenario0(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     spark5 = 5
-    planspark_path = create_planspark_path(moment_mstr_dir, exx.a23, exx.sue, spark5)
+    a23_lasso = lassounit_shop(exx.a23)
+    planspark_path = create_planspark_path(moment_mstr_dir, a23_lasso, exx.sue, spark5)
     assert os_path_exists(planspark_path) is False
 
     # WHEN
-    save_arbitrary_planspark(moment_mstr_dir, exx.a23, exx.sue, spark5)
+    save_arbitrary_planspark(moment_mstr_dir, a23_lasso, exx.sue, spark5)
 
     # THEN
     assert os_path_exists(planspark_path)
@@ -115,7 +116,8 @@ def test_save_arbitrary_planspark_SetsFile_Scenario1_includes_facts(
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     spark5 = 5
-    planspark_path = create_planspark_path(moment_mstr_dir, exx.a23, exx.sue, spark5)
+    a23_lasso = lassounit_shop(exx.a23)
+    planspark_path = create_planspark_path(moment_mstr_dir, a23_lasso, exx.sue, spark5)
     casa_rope = create_rope(exx.a23, "casa")
     clean_rope = create_rope(casa_rope, "clean")
     clean_fact_lower = 11
@@ -124,7 +126,7 @@ def test_save_arbitrary_planspark_SetsFile_Scenario1_includes_facts(
     assert os_path_exists(planspark_path) is False
 
     # WHEN
-    save_arbitrary_planspark(moment_mstr_dir, exx.a23, exx.sue, spark5, facts=x_facts)
+    save_arbitrary_planspark(moment_mstr_dir, a23_lasso, exx.sue, spark5, facts=x_facts)
 
     # THEN
     assert os_path_exists(planspark_path)
@@ -144,16 +146,18 @@ def test_get_planspark_obj_ReturnsObj_Scenario0_NoFile(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     t3 = 3
+    a23_lasso = lassounit_shop(exx.a23)
 
     # WHEN / THEN
-    assert get_planspark_obj(moment_mstr_dir, exx.a23, exx.sue, t3) is None
+    assert get_planspark_obj(moment_mstr_dir, a23_lasso, exx.sue, t3) is None
 
 
 def test_get_planspark_obj_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     t3 = 3
-    t3_json_path = create_planspark_path(moment_mstr_dir, exx.a23, exx.sue, t3)
+    a23_lasso = lassounit_shop(exx.a23)
+    t3_json_path = create_planspark_path(moment_mstr_dir, a23_lasso, exx.sue, t3)
     sue_plan = planunit_shop(exx.sue, exx.a23)
     casa_rope = sue_plan.make_l1_rope("casa")
     clean_rope = sue_plan.make_l1_rope("clean")
@@ -162,7 +166,7 @@ def test_get_planspark_obj_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     save_plan_file(t3_json_path, None, sue_plan)
 
     # WHEN
-    gen_a3_planspark = get_planspark_obj(moment_mstr_dir, exx.a23, exx.sue, t3)
+    gen_a3_planspark = get_planspark_obj(moment_mstr_dir, a23_lasso, exx.sue, t3)
 
     # THEN
     assert gen_a3_planspark == sue_plan
@@ -173,8 +177,9 @@ def test_collect_plan_spark_dir_sets_ReturnsObj_Scenario0_none(
 ):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     # WHEN
-    plan_sparks_sets = collect_plan_spark_dir_sets(moment_mstr_dir, exx.a23)
+    plan_sparks_sets = collect_plan_spark_dir_sets(moment_mstr_dir, a23_lasso)
     # THEN
     assert plan_sparks_sets == {}
 
@@ -186,15 +191,16 @@ def test_collect_plan_spark_dir_sets_ReturnsObj_Scenario1_DirsExist(
     moment_mstr_dir = get_temp_dir()
     spark1 = 1
     spark2 = 2
-    bob1_dir = create_plan_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark1)
-    bob2_dir = create_plan_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark2)
+    a23_lasso = lassounit_shop(exx.a23)
+    bob1_dir = create_plan_spark_dir_path(moment_mstr_dir, a23_lasso, exx.bob, spark1)
+    bob2_dir = create_plan_spark_dir_path(moment_mstr_dir, a23_lasso, exx.bob, spark2)
     print(f"  {bob1_dir=}")
     print(f"  {bob2_dir=}")
     set_dir(bob1_dir)
     set_dir(bob2_dir)
 
     # WHEN
-    plan_sparks_sets = collect_plan_spark_dir_sets(moment_mstr_dir, exx.a23)
+    plan_sparks_sets = collect_plan_spark_dir_sets(moment_mstr_dir, a23_lasso)
 
     # THEN
     assert plan_sparks_sets == {exx.bob: {spark1, spark2}}
@@ -208,17 +214,18 @@ def test_collect_plan_spark_dir_sets_ReturnsObj_Scenario2_DirsExist(
     spark1 = 1
     spark2 = 2
     spark7 = 7
-    bob1_dir = create_plan_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark1)
-    bob2_dir = create_plan_spark_dir_path(moment_mstr_dir, exx.a23, exx.bob, spark2)
-    sue2_dir = create_plan_spark_dir_path(moment_mstr_dir, exx.a23, exx.sue, spark2)
-    sue7_dir = create_plan_spark_dir_path(moment_mstr_dir, exx.a23, exx.sue, spark7)
+    a23_lasso = lassounit_shop(exx.a23)
+    bob1_dir = create_plan_spark_dir_path(moment_mstr_dir, a23_lasso, exx.bob, spark1)
+    bob2_dir = create_plan_spark_dir_path(moment_mstr_dir, a23_lasso, exx.bob, spark2)
+    sue2_dir = create_plan_spark_dir_path(moment_mstr_dir, a23_lasso, exx.sue, spark2)
+    sue7_dir = create_plan_spark_dir_path(moment_mstr_dir, a23_lasso, exx.sue, spark7)
     set_dir(bob1_dir)
     set_dir(bob2_dir)
     set_dir(sue2_dir)
     set_dir(sue7_dir)
 
     # WHEN
-    plan_sparks_sets = collect_plan_spark_dir_sets(moment_mstr_dir, exx.a23)
+    plan_sparks_sets = collect_plan_spark_dir_sets(moment_mstr_dir, a23_lasso)
 
     # THEN
     assert plan_sparks_sets == {
@@ -329,7 +336,8 @@ def test_cellunit_add_json_file_SetsFile_Scenario0(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     time7 = 777000
-    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue7_cell_path = node_path(moment_mstr_dir, a23_lasso, exx.sue, time7)
     spark3 = 3
     das = []
     quota500 = 500
@@ -340,7 +348,7 @@ def test_cellunit_add_json_file_SetsFile_Scenario0(temp_dir_setup):
     # WHEN
     cellunit_add_json_file(
         moment_mstr_dir=moment_mstr_dir,
-        moment_label=exx.a23,
+        moment_lasso=lassounit_shop(exx.a23),
         time_plan_name=exx.sue,
         bud_time=time7,
         quota=quota500,
@@ -369,13 +377,15 @@ def test_cellunit_add_json_file_SetsFile_Scenario1_ManyParametersEmpty(
     moment_mstr_dir = get_temp_dir()
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue7_cell_path = node_path(moment_mstr_dir, a23_lasso, exx.sue, time7, das)
     spark3 = 3
+    a23_lasso = lassounit_shop(exx.a23)
     assert os_path_exists(sue7_cell_path) is False
 
     # WHEN
     cellunit_add_json_file(
-        moment_mstr_dir, exx.a23, exx.sue, time7, spark3, bud_ancestors=das
+        moment_mstr_dir, a23_lasso, exx.sue, time7, spark3, bud_ancestors=das
     )
 
     # THEN
@@ -395,11 +405,12 @@ def test_cellunit_get_from_dir_ReturnsObj_Scenario0_NoFileExists(temp_dir_setup)
     moment_mstr_dir = get_temp_dir()
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue7_cell_path = node_path(moment_mstr_dir, a23_lasso, exx.sue, time7, das)
     spark3 = 3
     assert os_path_exists(sue7_cell_path) is False
     cell_dir = create_cell_dir_path(
-        moment_mstr_dir, exx.a23, exx.sue, time7, bud_ancestors=das
+        moment_mstr_dir, a23_lasso, exx.sue, time7, bud_ancestors=das
     )
 
     # WHEN / THEN
@@ -411,14 +422,16 @@ def test_cellunit_get_from_dir_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     moment_mstr_dir = get_temp_dir()
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue7_cell_path = node_path(moment_mstr_dir, a23_lasso, exx.sue, time7, das)
     spark3 = 3
+    a23_lasso = lassounit_shop(exx.a23)
     assert os_path_exists(sue7_cell_path) is False
     cellunit_add_json_file(
-        moment_mstr_dir, exx.a23, exx.sue, time7, spark3, bud_ancestors=das
+        moment_mstr_dir, a23_lasso, exx.sue, time7, spark3, bud_ancestors=das
     )
     cell_dir = create_cell_dir_path(
-        moment_mstr_dir, exx.a23, exx.sue, time7, bud_ancestors=das
+        moment_mstr_dir, a23_lasso, exx.sue, time7, bud_ancestors=das
     )
 
     # WHEN
@@ -434,10 +447,11 @@ def test_cellunit_save_to_dir_ReturnsObj_Scenario0(temp_dir_setup):
     moment_mstr_dir = get_temp_dir()
     time7 = 777000
     das = [exx.bob, exx.sue]
-    sue7_cell_path = node_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue7_cell_path = node_path(moment_mstr_dir, a23_lasso, exx.sue, time7, das)
     spark3 = 3
     sue_cell = cellunit_shop(exx.sue, ancestors=das, spark_num=spark3)
-    cell_dir = create_cell_dir_path(moment_mstr_dir, exx.a23, exx.sue, time7, das)
+    cell_dir = create_cell_dir_path(moment_mstr_dir, a23_lasso, exx.sue, time7, das)
     assert os_path_exists(sue7_cell_path) is False
 
     # WHEN
@@ -455,10 +469,13 @@ def test_create_cell_person_mandate_ledger_json_CreatesFile_Scenario0_NoCellFile
     mstr_dir = get_temp_dir()
     sue_ancestors = [exx.sue]
     tp6 = 6
+    a23_lasso = lassounit_shop(exx.a23)
     sue_person_mandate_ledger_path = create_cell_person_mandate_ledger_path(
-        mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors
+        mstr_dir, a23_lasso, exx.bob, tp6, sue_ancestors
     )
-    sue_cell_dir = create_cell_dir_path(mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors)
+    sue_cell_dir = create_cell_dir_path(
+        mstr_dir, a23_lasso, exx.bob, tp6, sue_ancestors
+    )
     assert os_path_exists(sue_person_mandate_ledger_path) is False
 
     # WHEN
@@ -512,10 +529,13 @@ def test_create_cell_person_mandate_ledger_json_CreatesFile_Scenario1(
     )
     sue_cell.reason_contexts = set()
     tp6 = 6
+    a23_lasso = lassounit_shop(exx.a23)
     sue_person_mandate_ledger_path = create_cell_person_mandate_ledger_path(
-        mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors
+        mstr_dir, a23_lasso, exx.bob, tp6, sue_ancestors
     )
-    sue_cell_dir = create_cell_dir_path(mstr_dir, exx.a23, exx.bob, tp6, sue_ancestors)
+    sue_cell_dir = create_cell_dir_path(
+        mstr_dir, a23_lasso, exx.bob, tp6, sue_ancestors
+    )
     cellunit_save_to_dir(sue_cell_dir, sue_cell)
     assert os_path_exists(sue_person_mandate_ledger_path) is False
 
@@ -530,13 +550,14 @@ def test_create_cell_person_mandate_ledger_json_CreatesFile_Scenario1(
 def test_save_valid_bud_file_Scenario0_SavesFile(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     t55_bud = get_budunit_55_example()
     t55_bud_time = t55_bud.bud_time
-    t55_bud_path = create_budunit_json_path(mstr_dir, exx.a23, exx.yao, t55_bud_time)
+    t55_bud_path = create_budunit_json_path(mstr_dir, a23_lasso, exx.yao, t55_bud_time)
     assert os_path_exists(t55_bud_path) is False
 
     # WHEN
-    save_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud)
+    save_bud_file(mstr_dir, a23_lasso, exx.yao, t55_bud)
 
     # THEN
     assert os_path_exists(t55_bud_path)
@@ -546,10 +567,11 @@ def test_save_valid_bud_file_Scenario1_RaisesError(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
     invalid_bud = get_budunit_invalid_example()
+    a23_lasso = lassounit_shop(exx.a23)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        save_bud_file(mstr_dir, exx.a23, exx.yao, invalid_bud)
+        save_bud_file(mstr_dir, a23_lasso, exx.yao, invalid_bud)
     exception_str = (
         "magnitude cannot be calculated: debt_bud_person_net=-5, cred_bud_person_net=3"
     )
@@ -560,36 +582,39 @@ def test_bud_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
     t55_bud = get_budunit_55_example()
-    assert not bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud.bud_time)
+    a23_lasso = lassounit_shop(exx.a23)
+    assert not bud_file_exists(mstr_dir, a23_lasso, exx.yao, t55_bud.bud_time)
 
     # WHEN
-    save_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud)
+    save_bud_file(mstr_dir, a23_lasso, exx.yao, t55_bud)
 
     # THEN
-    assert bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud.bud_time)
+    assert bud_file_exists(mstr_dir, a23_lasso, exx.yao, t55_bud.bud_time)
 
 
 def test_open_bud_file_ReturnsObj_Scenario0_NoFileExists(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     t55_bud = get_budunit_55_example()
     t55_bud_time = t55_bud.bud_time
-    assert not bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud_time)
+    assert not bud_file_exists(mstr_dir, a23_lasso, exx.yao, t55_bud_time)
 
     # WHEN / THEN
-    assert not open_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud_time)
+    assert not open_bud_file(mstr_dir, a23_lasso, exx.yao, t55_bud_time)
 
 
 def test_open_bud_file_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     t55_bud = get_budunit_55_example()
     t55_bud_time = t55_bud.bud_time
-    save_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud)
-    assert bud_file_exists(mstr_dir, exx.a23, exx.yao, t55_bud_time)
+    save_bud_file(mstr_dir, a23_lasso, exx.yao, t55_bud)
+    assert bud_file_exists(mstr_dir, a23_lasso, exx.yao, t55_bud_time)
 
     # WHEN / THEN
-    assert open_bud_file(mstr_dir, exx.a23, exx.yao, t55_bud_time) == t55_bud
+    assert open_bud_file(mstr_dir, a23_lasso, exx.yao, t55_bud_time) == t55_bud
 
 
 def test_save_plantime_file_SavesFile(temp_dir_setup):
@@ -597,8 +622,9 @@ def test_save_plantime_file_SavesFile(temp_dir_setup):
     mstr_dir = get_temp_dir()
     t55_plantime = get_planunit_with_4_levels()
     t55_bud_time = 55
-    t55_plantime_path = create_plantime_path(mstr_dir, exx.a23, exx.sue, t55_bud_time)
-    print(f"{t55_plantime.moment_label=}")
+    a23_lasso = lassounit_shop(exx.a23)
+    t55_plantime_path = create_plantime_path(mstr_dir, a23_lasso, exx.sue, t55_bud_time)
+    print(f"{t55_plantime.moment_rope=}")
     print(f"               {mstr_dir=}")
     print(f"      {t55_plantime_path=}")
     assert os_path_exists(t55_plantime_path) is False
@@ -626,15 +652,16 @@ def test_save_plantime_file_RaisesError(temp_dir_setup):
 def test_plantime_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     t55_bud_time = 55
-    assert plantime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time) is False
+    assert plantime_file_exists(mstr_dir, a23_lasso, exx.sue, t55_bud_time) is False
 
     # WHEN
     t55_plantime = get_planunit_with_4_levels()
     save_plantime_file(mstr_dir, t55_plantime, t55_bud_time)
 
     # THEN
-    assert plantime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time)
+    assert plantime_file_exists(mstr_dir, a23_lasso, exx.sue, t55_bud_time)
 
 
 def test_open_plantime_file_ReturnsObj_Scenario0_NoFileExists(
@@ -642,23 +669,25 @@ def test_open_plantime_file_ReturnsObj_Scenario0_NoFileExists(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     t55_bud_time = 55
-    assert not plantime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time)
+    assert not plantime_file_exists(mstr_dir, a23_lasso, exx.sue, t55_bud_time)
 
     # WHEN / THEN
-    assert not open_plantime_file(mstr_dir, exx.a23, exx.sue, t55_bud_time)
+    assert not open_plantime_file(mstr_dir, a23_lasso, exx.sue, t55_bud_time)
 
 
 def test_open_plantime_file_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     t55_bud_time = 55
     t55_plantime = get_planunit_with_4_levels()
     save_plantime_file(mstr_dir, t55_plantime, t55_bud_time)
-    assert plantime_file_exists(mstr_dir, exx.a23, exx.sue, t55_bud_time)
+    assert plantime_file_exists(mstr_dir, a23_lasso, exx.sue, t55_bud_time)
 
     # WHEN
-    file_plantime = open_plantime_file(mstr_dir, exx.a23, exx.sue, t55_bud_time)
+    file_plantime = open_plantime_file(mstr_dir, a23_lasso, exx.sue, t55_bud_time)
 
     # THEN
     assert file_plantime.to_dict() == t55_plantime.to_dict()
@@ -672,9 +701,10 @@ def test_get_timenum_dirs_ReturnsObj_Scenario0(temp_dir_setup):
     plantime = get_planunit_with_4_levels()
     save_plantime_file(mstr_dir, plantime, t55_bud_time)
     save_plantime_file(mstr_dir, plantime, t77_bud_time)
+    a23_lasso = lassounit_shop(exx.a23)
 
     # WHEN
-    timenum_dirs = get_timenum_dirs(mstr_dir, exx.a23, exx.sue)
+    timenum_dirs = get_timenum_dirs(mstr_dir, a23_lasso, exx.sue)
 
     # THEN
     assert timenum_dirs == [t55_bud_time, t77_bud_time]

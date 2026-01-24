@@ -24,7 +24,7 @@ def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTabl
         plnprsn_dimen = kw.plan_personunit
         plnprsn_s_agg_put = create_prime_tablename(plnprsn_dimen, "s", "agg", "put")
         insert_plnprsn_sqlstr = f"""INSERT INTO {plnprsn_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.plan_name}, {kw.person_name})
+  {kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.plan_name}, {kw.person_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
@@ -77,7 +77,7 @@ def test_create_knot_exists_in_label_error_update_sqlstr_ReturnsObj_PopulatesTab
         plnprsn_dimen = kw.plan_personunit
         plnprsn_s_agg_put = create_prime_tablename(plnprsn_dimen, "s", "agg", "put")
         insert_plnprsn_sqlstr = f"""INSERT INTO {plnprsn_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.plan_name}, {kw.person_name})
+  {kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.plan_name}, {kw.person_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
@@ -100,7 +100,7 @@ VALUES
 
         # WHEN
         sqlstr = create_knot_exists_in_label_error_update_sqlstr(
-            plnprsn_s_agg_put, kw.moment_label
+            plnprsn_s_agg_put, kw.moment_rope
         )
         print(f"{sqlstr=}")
         cursor.execute(sqlstr)
@@ -109,7 +109,7 @@ VALUES
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 1
         select_core_raw_sqlstr = f"SELECT * FROM {plnprsn_s_agg_put}"
         cursor.execute(select_core_raw_sqlstr)
-        label_knot_str = f"Knot cannot exist in LabelTerm column {kw.moment_label}"
+        label_knot_str = f"Knot cannot exist in LabelTerm column {kw.moment_rope}"
         assert cursor.fetchall() == [
             (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
             (spark1, exx.sue, exx.a23, exx.yao, bob_str, None, None, None),
@@ -133,7 +133,7 @@ def test_set_moment_plan_sound_agg_knot_errors_PopulatesTable_Scenario0():
         plnprsn_dimen = kw.plan_personunit
         plnprsn_s_agg_put = create_prime_tablename(plnprsn_dimen, "s", "agg", "put")
         insert_plnprsn_sqlstr = f"""INSERT INTO {plnprsn_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_label}, {kw.plan_name}, {kw.person_name})
+  {kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.plan_name}, {kw.person_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
@@ -159,10 +159,10 @@ VALUES
 
         # THEN
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 2
-        select_core_raw_sqlstr = f"SELECT * FROM {plnprsn_s_agg_put} ORDER BY {kw.moment_label}, {kw.plan_name}, {kw.person_name}"
+        select_core_raw_sqlstr = f"SELECT * FROM {plnprsn_s_agg_put} ORDER BY {kw.moment_rope}, {kw.plan_name}, {kw.person_name}"
         cursor.execute(select_core_raw_sqlstr)
         name_knot_str = f"Knot cannot exist in NameTerm column {kw.person_name}"
-        label_knot_str = f"Knot cannot exist in LabelTerm column {kw.moment_label}"
+        label_knot_str = f"Knot cannot exist in LabelTerm column {kw.moment_rope}"
         rows = cursor.fetchall()
         print(f"{rows=}")
         assert rows == [

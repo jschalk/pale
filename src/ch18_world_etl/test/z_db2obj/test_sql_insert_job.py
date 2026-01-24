@@ -25,7 +25,7 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
     # for x_arg in sorted(x_args):
     #     print(f"{x_arg=}")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_keeps_buildable = True
     x_keeps_justified = False
@@ -42,7 +42,7 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
     x_respect_grain = 0.2
     x_tally = 6
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keeps_buildable: x_keeps_buildable,
         kw.keeps_justified: x_keeps_justified,
@@ -92,7 +92,7 @@ def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
     #     # b1_str = "}"
     #     # print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_active = 1
     x_all_person_cred = 2
@@ -121,7 +121,7 @@ def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
     x_problem_bool = 26
     x_stop_want = 27
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_active: x_active,
         kw.all_person_cred: x_all_person_cred,
@@ -192,7 +192,7 @@ def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
     #     b1_str = "}"
     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -201,7 +201,7 @@ def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
     x_reason_active = 5
     x__heir_active = 6
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
@@ -255,7 +255,7 @@ def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -266,7 +266,7 @@ def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
     x_task = 7
     x_case_active = 8
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
@@ -322,7 +322,7 @@ def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_awardee_title = 2
@@ -331,7 +331,7 @@ def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
     x_fund_give = 5
     x_fund_take = 6
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.awardee_title: x_awardee_title,
@@ -385,7 +385,7 @@ def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_fact_context = 2
@@ -393,7 +393,7 @@ def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
     x_fact_lower = 4
     x_fact_upper = 5
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.fact_context: x_fact_context,
@@ -446,12 +446,12 @@ def test_create_plnheal_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_healer_name = 2
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.healer_name: x_healer_name,
@@ -501,14 +501,14 @@ def test_create_plnlabo_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_party_title = 2
     x_solo = 4
     x__plan_name_is_labor = 3
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.party_title: x_party_title,
@@ -561,7 +561,7 @@ def test_create_plnprsn_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_person_name = 1
     x_person_cred_lumen = 2
@@ -578,7 +578,7 @@ def test_create_plnprsn_metrics_insert_sqlstr_ReturnsObj():
     x_irrational_person_debt_lumen = 13
     x_groupmark = 13
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.person_name: x_person_name,
         kw.person_cred_lumen: x_person_cred_lumen,
@@ -640,7 +640,7 @@ def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_person_name = 1
     x_group_title = 2
@@ -655,7 +655,7 @@ def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
     x_fund_agenda_ratio_give = 11
     x_fund_agenda_ratio_take = 12
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.person_name: x_person_name,
         kw.group_title: x_group_title,
@@ -715,7 +715,7 @@ def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
     # print(")")
     # print(";")
 
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_group_title = 1
     x_credor_pool = 2
@@ -726,7 +726,7 @@ def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
     x_fund_agenda_give = 7
     x_fund_agenda_take = 8
     values_dict = {
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.group_title: x_group_title,
         kw.credor_pool: x_credor_pool,

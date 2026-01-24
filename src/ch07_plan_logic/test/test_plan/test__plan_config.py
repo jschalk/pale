@@ -192,7 +192,7 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
     # print(plan_personunit_args.difference(set(PersonUnit().__dict__.keys())))
     # assert plan_personunit_args == set(PersonUnit().__dict__.keys())
     assert plan_personunit_args == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.credor_pool,
         kw.debtor_pool,
@@ -210,7 +210,7 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
         kw.groupmark,
     }
     assert plan_kegunit_args == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.morph,
         kw.denom,
@@ -241,7 +241,7 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
     }
     print(f"{plan_groupunit_args=}")
     assert plan_groupunit_args == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.debtor_pool,
         kw.credor_pool,
@@ -303,7 +303,7 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
 
     jk = kw.jkeys
     jv = kw.jvalues
-    mmtunit = kw.planunit
+    plnunit = kw.planunit
     plnprsn = kw.plan_personunit
     plnmemb = kw.plan_person_membership
     plnkegg = kw.plan_kegunit
@@ -666,61 +666,61 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, plnkegg, jv, kw.stop_want) == "REAL"
     assert g_popcashout(cfig, plnkegg, jv, kw.stop_want) == False
 
-    assert g_class_type(cfig, mmtunit, jv, "keeps_buildable") == "int"
-    assert g_sqlitetype(cfig, mmtunit, jv, "keeps_buildable") == "INTEGER"
-    assert g_popcashout(cfig, mmtunit, jv, "keeps_buildable") == True
+    assert g_class_type(cfig, plnunit, jv, "keeps_buildable") == "int"
+    assert g_sqlitetype(cfig, plnunit, jv, "keeps_buildable") == "INTEGER"
+    assert g_popcashout(cfig, plnunit, jv, "keeps_buildable") == True
 
-    assert g_class_type(cfig, mmtunit, jv, "keeps_justified") == "int"
-    assert g_sqlitetype(cfig, mmtunit, jv, "keeps_justified") == "INTEGER"
-    assert g_popcashout(cfig, mmtunit, jv, "keeps_justified") == True
+    assert g_class_type(cfig, plnunit, jv, "keeps_justified") == "int"
+    assert g_sqlitetype(cfig, plnunit, jv, "keeps_justified") == "INTEGER"
+    assert g_popcashout(cfig, plnunit, jv, "keeps_justified") == True
 
-    assert g_class_type(cfig, mmtunit, jv, kw.offtrack_fund) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.offtrack_fund) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.offtrack_fund) == True
+    assert g_class_type(cfig, plnunit, jv, kw.offtrack_fund) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.offtrack_fund) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.offtrack_fund) == True
 
-    assert g_class_type(cfig, mmtunit, jv, kw.rational) == "bool"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.rational) == "INTEGER"
-    assert g_popcashout(cfig, mmtunit, jv, kw.rational) == True
+    assert g_class_type(cfig, plnunit, jv, kw.rational) == "bool"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.rational) == "INTEGER"
+    assert g_popcashout(cfig, plnunit, jv, kw.rational) == True
 
-    assert g_class_type(cfig, mmtunit, jv, kw.sum_healerunit_kegs_fund_total) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.sum_healerunit_kegs_fund_total) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.sum_healerunit_kegs_fund_total) == True
+    assert g_class_type(cfig, plnunit, jv, kw.sum_healerunit_kegs_fund_total) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.sum_healerunit_kegs_fund_total) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.sum_healerunit_kegs_fund_total) == True
 
-    assert g_class_type(cfig, mmtunit, jv, kw.tree_traverse_count) == "int"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.tree_traverse_count) == "INTEGER"
-    assert g_popcashout(cfig, mmtunit, jv, kw.tree_traverse_count) == True
+    assert g_class_type(cfig, plnunit, jv, kw.tree_traverse_count) == "int"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.tree_traverse_count) == "INTEGER"
+    assert g_popcashout(cfig, plnunit, jv, kw.tree_traverse_count) == True
 
-    assert g_class_type(cfig, mmtunit, jv, kw.credor_respect) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.credor_respect) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.credor_respect) == False
+    assert g_class_type(cfig, plnunit, jv, kw.credor_respect) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.credor_respect) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.credor_respect) == False
 
-    assert g_class_type(cfig, mmtunit, jv, kw.debtor_respect) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.debtor_respect) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.debtor_respect) == False
+    assert g_class_type(cfig, plnunit, jv, kw.debtor_respect) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.debtor_respect) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.debtor_respect) == False
 
-    assert g_class_type(cfig, mmtunit, jv, kw.fund_grain) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.fund_grain) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.fund_grain) == False
+    assert g_class_type(cfig, plnunit, jv, kw.fund_grain) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.fund_grain) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.fund_grain) == False
 
-    assert g_class_type(cfig, mmtunit, jv, kw.fund_pool) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.fund_pool) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.fund_pool) == False
+    assert g_class_type(cfig, plnunit, jv, kw.fund_pool) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.fund_pool) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.fund_pool) == False
 
-    assert g_class_type(cfig, mmtunit, jv, kw.max_tree_traverse) == "int"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.max_tree_traverse) == "INTEGER"
-    assert g_popcashout(cfig, mmtunit, jv, kw.max_tree_traverse) == False
+    assert g_class_type(cfig, plnunit, jv, kw.max_tree_traverse) == "int"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.max_tree_traverse) == "INTEGER"
+    assert g_popcashout(cfig, plnunit, jv, kw.max_tree_traverse) == False
 
-    assert g_class_type(cfig, mmtunit, jv, kw.mana_grain) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.mana_grain) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.mana_grain) == False
+    assert g_class_type(cfig, plnunit, jv, kw.mana_grain) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.mana_grain) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.mana_grain) == False
 
-    assert g_class_type(cfig, mmtunit, jv, kw.respect_grain) == "float"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.respect_grain) == "REAL"
-    assert g_popcashout(cfig, mmtunit, jv, kw.respect_grain) == False
+    assert g_class_type(cfig, plnunit, jv, kw.respect_grain) == "float"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.respect_grain) == "REAL"
+    assert g_popcashout(cfig, plnunit, jv, kw.respect_grain) == False
 
-    assert g_class_type(cfig, mmtunit, jv, kw.tally) == "int"
-    assert g_sqlitetype(cfig, mmtunit, jv, kw.tally) == "INTEGER"
-    assert g_popcashout(cfig, mmtunit, jv, kw.tally) == False
+    assert g_class_type(cfig, plnunit, jv, kw.tally) == "int"
+    assert g_sqlitetype(cfig, plnunit, jv, kw.tally) == "INTEGER"
+    assert g_popcashout(cfig, plnunit, jv, kw.tally) == False
 
 
 def test_get_plan_config_dict_ReturnsObj_EachArgHasOneClassType():

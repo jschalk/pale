@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import delete_dir
+from src.ch04_rope.rope import lassounit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_gut_path
@@ -226,7 +227,8 @@ def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorPlan(
 ):
     # ESTABLISH
     moment_mstr_dir = env_dir()
-    yao_gut_path = create_gut_path(moment_mstr_dir, exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    yao_gut_path = create_gut_path(moment_mstr_dir, a23_lasso, exx.yao)
     delete_dir(yao_gut_path)  # don't know why I have to do this...
     print(f"{os_path_exists(yao_gut_path)=}")
     yao_gut = planunit_shop(exx.yao, exx.a23)

@@ -28,7 +28,7 @@ def test_get_job_create_table_sqlstrs_ReturnsObj():
         x_config = plan_config.get(x_dimen)
 
         job_table = prime_table(x_dimen, kw.job, None)
-        job_cols = {kw.moment_label, kw.plan_name}
+        job_cols = {kw.moment_rope, kw.plan_name}
         job_cols.update(set(x_config.get(kw.jkeys).keys()))
         job_cols.update(set(x_config.get(kw.jvalues).keys()))
         job_cols = get_default_sorted_list(job_cols)

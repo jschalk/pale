@@ -4,6 +4,7 @@ from src.ch00_py.csv_toolbox import open_csv_with_types
 from src.ch00_py.db_toolbox import save_to_split_csvs
 from src.ch00_py.file_toolbox import create_path
 from src.ch00_py.test._util.ch00_env import get_temp_dir, temp_dir_setup
+from src.ref.keywords import ExampleStrs as exx
 
 
 def test_save_to_split_csvs_CreatesFiles_Scenario0(temp_dir_setup):
@@ -160,7 +161,7 @@ VALUES
         assert C4_csv[2] == expected_C4_1_row
 
 
-def test_save_to_split_csvs_CreatesFiles_Scenario1_add_col2_prefix(
+def test_save_to_split_csvs_CreatesFiles_Scenario2_add_col2_prefix(
     temp_dir_setup,
 ):
     # sourcery skip: extract-method
@@ -207,5 +208,59 @@ def test_save_to_split_csvs_CreatesFiles_Scenario1_add_col2_prefix(
             "run": "TEXT",
         }
         A1_csv = open_csv_with_types(A1_path, x_column_types)
+        assert A1_csv[0] == ("hair", "user", "y_int", "run")
+        assert A1_csv[1] == expected_A1_row
+
+
+def test_save_to_split_csvs_CreatesFiles_Scenario3_trim_col(
+    temp_dir_setup,
+):
+    # sourcery skip: extract-method
+    # ESTABLISH
+    # TODO get rid of trim_col option. It's a temporary solution
+    x_tablename = "test_table568"
+    key_columns = ["hair", "user"]
+    with sqlite3_connect(":memory:") as conn:
+        cursor = conn.cursor()
+        create_sql = f"""CREATE TABLE {x_tablename} (hair INTEGER,user TEXT,y_int INTEGER, "run" TEXT);"""
+        cursor.execute(create_sql)
+        x_blue = f";{exx.blue};"
+        x_red = f"/{exx.red}/"
+        insert1_sql = f"""INSERT INTO {x_tablename} (hair, user, y_int, run) VALUES ("{x_blue}", "A", 200, "yes");"""
+        insert2_sql = f"""INSERT INTO {x_tablename} (hair, user, y_int, run) VALUES ("{x_red}", "B", 200, "yes");"""
+        cursor.execute(insert1_sql)
+        cursor.execute(insert2_sql)
+        x_dir = get_temp_dir()
+        hairs_str = "hairs"
+        y_ints_str = "y_ints"
+        blue_dir = create_path(x_dir, exx.blue)
+        hairs_dir = create_path(blue_dir, hairs_str)
+        blue_A_dir = create_path(hairs_dir, "A")
+        blue_y_ints_dir = create_path(blue_A_dir, y_ints_str)
+        blue_A_csv_path = create_path(blue_y_ints_dir, f"{x_tablename}.csv")
+        print(f"{blue_A_csv_path=}")
+        assert os_path_exists(blue_A_csv_path) is False
+
+        # WHEN
+        save_to_split_csvs(
+            conn_or_cursor=conn,
+            tablename=x_tablename,
+            key_columns=key_columns,
+            dst_dir=x_dir,
+            col1_prefix=hairs_str,
+            col2_prefix=y_ints_str,
+            trim_col=True,
+        )
+
+        # THEN
+        assert os_path_exists(blue_A_csv_path)
+        expected_A1_row = (x_blue, "A", 200, "yes")
+        x_column_types = {
+            "hair": "TEXT",
+            "user": "TEXT",
+            "y_int": "INTEGER",
+            "run": "TEXT",
+        }
+        A1_csv = open_csv_with_types(blue_A_csv_path, x_column_types)
         assert A1_csv[0] == ("hair", "user", "y_int", "run")
         assert A1_csv[1] == expected_A1_row

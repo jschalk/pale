@@ -3,6 +3,7 @@ from pandas import DataFrame
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count
 from src.ch00_py.file_toolbox import create_path
+from src.ch04_rope.rope import create_rope
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table, upsert_sheet
 from src.ch18_world_etl.etl_main import get_max_brick_agg_spark_num
 from src.ch18_world_etl.etl_sqlstr import create_prime_tablename
@@ -26,23 +27,22 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     input_file_path = create_path(fay_world._input_dir, ex_filename)
     br00113_columns = [
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.otx_name,
         kw.inx_name,
     ]
-    a23_str = "amy2345"
     tp37 = 37
     br00113_str = "br00113"
-    br00113row0 = [exx.sue, a23_str, exx.sue, exx.sue, exx.sue, sue_inx]
+    br00113row0 = [exx.sue, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
     upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
 
     br00001_columns = [
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.bud_time,
         kw.quota,
@@ -51,7 +51,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     tp37 = 37
     sue_quota = 235
     sue_celldepth = 3
-    br1row0 = [exx.sue, a23_str, exx.sue, tp37, sue_quota, sue_celldepth]
+    br1row0 = [exx.sue, exx.a23, exx.sue, tp37, sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
     upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
@@ -122,7 +122,7 @@ def create_brick_agg_record(world: WorldUnit, spark_num: int):
     agg_br00003_columns = [
         kw.spark_num,
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.cumulative_minute,
         kw.hour_label,
     ]
@@ -132,7 +132,7 @@ def create_brick_agg_record(world: WorldUnit, spark_num: int):
         insert_into_clause = f"""INSERT INTO {agg_br00003_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.cumulative_minute}
 , {kw.hour_label}
 )"""
@@ -146,8 +146,8 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     temp_dir_setup,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
-    fay_str = "Fay34"
-    fay_world = worldunit_shop(fay_str, worlds_dir())
+    fay_rope = create_rope("Fay34")
+    fay_world = worldunit_shop(fay_rope, worlds_dir())
     spark5 = 5
     create_brick_agg_record(fay_world, spark5)
     # delete_dir(fay_world.worlds_dir)
@@ -156,15 +156,15 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     input_file_path = create_path(fay_world._input_dir, ex_filename)
     br00113_columns = [
         kw.face_name,
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.person_name,
         kw.otx_name,
         kw.inx_name,
     ]
-    a23_str = "amy2345"
+    a23_rope = create_rope("amy2345")
     br00113_str = "br00113"
-    br00113row0 = [exx.sue, a23_str, exx.sue, exx.sue, exx.sue, sue_inx]
+    br00113row0 = [exx.sue, a23_rope, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
     upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)

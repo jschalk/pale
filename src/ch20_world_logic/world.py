@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from os.path import exists as os_path_exists
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch00_py.dict_toolbox import get_0_if_None, get_empty_set_if_None
-from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
+from src.ch00_py.file_toolbox import create_path, delete_dir, get_level1_dirs, set_dir
 from src.ch11_bud.bud_main import TimeNum
 from src.ch14_moment.moment_main import MomentUnit
 from src.ch17_idea.idea_db_tool import update_spark_num_in_excel_files
@@ -52,7 +52,7 @@ from src.ch19_world_kpi.kpi_mstr import (
 )
 from src.ch20_world_logic._ref.ch20_semantic_types import (
     FaceName,
-    MomentLabel,
+    MomentRope,
     SparkInt,
     WorldName,
 )
@@ -68,7 +68,7 @@ class WorldUnit:
     _input_dir: str = None
     _brick_dir: str = None
     _moment_mstr_dir: str = None
-    _momentunits: set[MomentLabel] = None
+    _momentunits: set[MomentRope] = None
     _sparks: dict[SparkInt, FaceName] = None
     _translate_sparks: dict[FaceName, set[SparkInt]] = None
 
@@ -132,6 +132,8 @@ class WorldUnit:
         mstr_dir = self._moment_mstr_dir
         delete_dir(mstr_dir)
         set_dir(mstr_dir)
+        moments_dir = create_path(mstr_dir, "moments")
+
         # collect excel file data into central location
         etl_input_dfs_to_brick_raw_tables(cursor, self._input_dir)
         # brick raw to sound raw, check by spark_nums
@@ -199,7 +201,7 @@ def worldunit_shop(
     output_dir: str = None,
     input_dir: str = None,
     world_time_reason_upper: TimeNum = None,
-    _momentunits: set[MomentLabel] = None,
+    _momentunits: set[MomentRope] = None,
 ) -> WorldUnit:
     x_worldunit = WorldUnit(
         world_name=world_name,

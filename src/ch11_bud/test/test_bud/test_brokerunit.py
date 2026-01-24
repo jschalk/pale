@@ -358,12 +358,12 @@ def test_PlanBudHistory_get_tranbook_ReturnsObj():
     }
 
     # WHEN
-    x_moment_label = "moment_label_x"
-    sue_tranbook = sue_planbudhistory.get_tranbook(x_moment_label)
+    x_moment_rope = "moment_rope_x"
+    sue_tranbook = sue_planbudhistory.get_tranbook(x_moment_rope)
 
     # THEN
     assert sue_tranbook
-    assert sue_tranbook.moment_label == x_moment_label
+    assert sue_tranbook.moment_rope == x_moment_rope
     assert sue_tranbook.tranunit_exists(exx.sue, exx.zia, x7_bud_time)
     assert sue_tranbook.tranunit_exists(exx.sue, exx.bob, x4_bud_time)
     assert sue_tranbook.get_amount(exx.sue, exx.zia, x7_bud_time) == zia_bud_person_net

@@ -563,9 +563,10 @@ def save_to_split_csvs(
     dst_dir,
     col1_prefix=None,
     col2_prefix=None,
+    trim_col=False,
 ):
     """
-    Select a single table from a SQLite DB, filter rows into CSVs by key columns, and save them.
+    Select a single table from a SQLite DB, filter rows into CSVs by key columns, and creates the csvs.
 
     :param db_path: Path to the SQLite database file.
     :param tablename: Name of the table to query.
@@ -601,6 +602,10 @@ def save_to_split_csvs(
             new_key_values.append(col2_prefix)
             new_key_values.extend(key_values[3:])
             key_values = new_key_values
+
+        if trim_col:
+            first = key_values[0][1:-1]
+            key_values = [first, *key_values[1:]]
 
         key_path_part = get_key_part(key_values)
         csv_path = create_path(dst_dir, key_path_part)

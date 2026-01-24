@@ -2,7 +2,7 @@ from src.ch00_py.dict_toolbox import get_empty_str_if_None as if_none_str
 from src.ch07_plan_logic.plan_main import PlanUnit
 from src.ch09_plan_lesson.lesson_main import LessonUnit
 from src.ch14_moment.moment_main import MomentUnit
-from src.ch17_idea._ref.ch17_semantic_types import FaceName, MomentLabel
+from src.ch17_idea._ref.ch17_semantic_types import FaceName, MomentRope
 from src.ch17_idea.idea_config import get_idea_format_filename, get_idea_format_headers
 
 
@@ -43,7 +43,7 @@ def create_init_stance_idea_csv_strs() -> dict[str, str]:
 
 
 def add_momentunits_to_stance_csv_strs(
-    moments_dict: dict[MomentLabel, MomentUnit],
+    moments_dict: dict[MomentRope, MomentUnit],
     moment_csv_strs: dict[str, str],
     csv_delimiter: str,
 ):
@@ -89,7 +89,7 @@ def _add_momentunit_to_br00000_csv(
     x_row = [
         if_none_str(face_name),
         if_none_str(spark_num),
-        x_moment.moment_label,
+        x_moment.moment_rope,
         x_moment.epoch.epoch_label,
         str(x_moment.epoch.c400_number),
         str(x_moment.epoch.yr1_jan1_offset),
@@ -117,7 +117,7 @@ def _add_budunit_to_br00001_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_moment.moment_label,
+                x_moment.moment_rope,
                 broker_plan_name,
                 str(bud_time),
                 str(budunit.quota),
@@ -138,11 +138,11 @@ def _add_paybook_to_br00002_csv(
     for plan_name, tranunit in x_moment.paybook.tranunits.items():
         for person_name, time_dict in tranunit.items():
             for tran_time, amount in time_dict.items():
-                moment_label = x_moment.moment_label
+                moment_rope = x_moment.moment_rope
                 x_row = [
                     if_none_str(face_name),
                     if_none_str(spark_num),
-                    moment_label,
+                    moment_rope,
                     plan_name,
                     person_name,
                     str(tran_time),
@@ -164,7 +164,7 @@ def _add_hours_to_br00003_csv(
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_moment.moment_label,
+            x_moment.moment_rope,
             str(hour_keg[1]),
             hour_keg[0],
         ]
@@ -184,7 +184,7 @@ def _add_months_to_br00004_csv(
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_moment.moment_label,
+            x_moment.moment_rope,
             str(month_keg[1]),
             month_keg[0],
         ]
@@ -204,7 +204,7 @@ def _add_weekdays_to_br00005_csv(
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_moment.moment_label,
+            x_moment.moment_rope,
             str(count_x),
             weekday_label,
         ]
@@ -225,7 +225,7 @@ def add_plan_to_br00020_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_label,
+                x_plan.moment_rope,
                 x_plan.plan_name,
                 personunit.person_name,
                 membership.group_title,
@@ -248,7 +248,7 @@ def add_plan_to_br00021_csv(
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_plan.moment_label,
+            x_plan.moment_rope,
             x_plan.plan_name,
             personunit.person_name,
             if_none_str(personunit.person_cred_lumen),
@@ -271,7 +271,7 @@ def add_plan_to_br00022_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_label,
+                x_plan.moment_rope,
                 x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 awardunit.awardee_title,
@@ -294,7 +294,7 @@ def add_plan_to_br00023_csv(
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_plan.moment_label,
+            x_plan.moment_rope,
             x_plan.plan_name,
             x_plan.kegroot.get_keg_rope(),
             factunit.fact_context,
@@ -319,7 +319,7 @@ def add_plan_to_br00024_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_label,
+                x_plan.moment_rope,
                 x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 group_title,
@@ -341,7 +341,7 @@ def add_plan_to_br00025_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_label,
+                x_plan.moment_rope,
                 x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 group_title,
@@ -364,7 +364,7 @@ def add_plan_to_br00026_csv(
                 x_row = [
                     if_none_str(face_name),
                     if_none_str(spark_num),
-                    x_plan.moment_label,
+                    x_plan.moment_rope,
                     x_plan.plan_name,
                     kegunit.get_keg_rope(),
                     reasonunit.reason_context,
@@ -390,7 +390,7 @@ def add_plan_to_br00027_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_label,
+                x_plan.moment_rope,
                 x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 reasonunit.reason_context,
@@ -413,7 +413,7 @@ def add_plan_to_br00028_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_label,
+                x_plan.moment_rope,
                 x_plan.plan_name,
                 kegunit.get_keg_rope(),
                 if_none_str(kegunit.begin),
@@ -443,7 +443,7 @@ def add_plan_to_br00029_csv(
     x_row = [
         if_none_str(face_name),
         if_none_str(spark_num),
-        x_plan.moment_label,
+        x_plan.moment_rope,
         x_plan.plan_name,
         if_none_str(x_plan.credor_respect),
         if_none_str(x_plan.debtor_respect),
@@ -502,7 +502,7 @@ def add_lesson_to_br00020_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("person_name"),
                 planatom.jkeys.get("group_title"),
@@ -522,7 +522,7 @@ def add_lesson_to_br00021_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("person_name"),
                 if_none_str(planatom.jvalues.get("person_cred_lumen")),
@@ -541,7 +541,7 @@ def add_lesson_to_br00022_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("keg_rope"),
                 planatom.jkeys.get("awardee_title"),
@@ -561,7 +561,7 @@ def add_lesson_to_br00023_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("keg_rope"),
                 planatom.jkeys.get("fact_context"),
@@ -582,7 +582,7 @@ def add_lesson_to_br00024_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("keg_rope"),
                 planatom.jkeys.get("party_title"),
@@ -600,7 +600,7 @@ def add_lesson_to_br00025_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("keg_rope"),
                 planatom.jkeys.get("healer_name"),
@@ -618,7 +618,7 @@ def add_lesson_to_br00026_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("keg_rope"),
                 planatom.jkeys.get("reason_context"),
@@ -640,7 +640,7 @@ def add_lesson_to_br00027_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("keg_rope"),
                 planatom.jkeys.get("reason_context"),
@@ -659,7 +659,7 @@ def add_lesson_to_br00028_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 planatom.jkeys.get("keg_rope"),
                 if_none_str(planatom.jvalues.get("begin")),
@@ -687,7 +687,7 @@ def add_lesson_to_br00029_csv(
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
-                x_lessonunit.moment_label,
+                x_lessonunit.moment_rope,
                 x_lessonunit.plan_name,
                 if_none_str(planatom.jvalues.get("credor_respect")),
                 if_none_str(planatom.jvalues.get("debtor_respect")),

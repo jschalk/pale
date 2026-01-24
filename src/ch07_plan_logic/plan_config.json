@@ -7,7 +7,7 @@
         "populate_by_cashout": true, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": true, 
         "sqlite_datatype": "TEXT"
@@ -41,7 +41,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -72,7 +72,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -114,7 +114,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -135,7 +135,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -168,7 +168,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -217,7 +217,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -252,7 +252,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -323,7 +323,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -355,7 +355,7 @@
   "plan_personunit": {
     "abbreviation": "plnprsn", 
     "jkeys": {
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -390,7 +390,7 @@
   "planunit": {
     "abbreviation": "plnunit", 
     "jkeys": {
-      "moment_label": {
+      "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"

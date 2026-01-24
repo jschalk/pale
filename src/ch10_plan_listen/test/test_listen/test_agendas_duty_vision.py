@@ -46,7 +46,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_PlanWhenNo_partyu
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_label,
+        yao_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         yao_dakota_lessonfilehandler.knot,
         zia_vision,
@@ -87,7 +87,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Plan(
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_label,
+        yao_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         yao_dakota_lessonfilehandler.knot,
         zia_vision,
@@ -128,7 +128,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPlanWithDetailsDec
     save_vision_plan(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.plan_name,
-        sue_dakota_lessonfilehandler.moment_label,
+        sue_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         sue_dakota_lessonfilehandler.knot,
         zia_vision,
@@ -136,7 +136,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPlanWithDetailsDec
     save_vision_plan(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.plan_name,
-        sue_dakota_lessonfilehandler.moment_label,
+        sue_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         sue_dakota_lessonfilehandler.knot,
         bob_vision,
@@ -146,7 +146,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPlanWithDetailsDec
     save_duty_plan(
         moment_mstr_dir=sue_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_dakota_lessonfilehandler.plan_name,
-        moment_label=sue_dakota_lessonfilehandler.moment_label,
+        moment_rope=sue_dakota_lessonfilehandler.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -207,7 +207,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPlan(
     save_duty_plan(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=yao_dakota_lessonfilehandler.plan_name,
-        moment_label=yao_dakota_lessonfilehandler.moment_label,
+        moment_rope=yao_dakota_lessonfilehandler.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -224,7 +224,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPlan(
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_label,
+        yao_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         yao_dakota_lessonfilehandler.knot,
         zia_vision,
@@ -262,7 +262,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPlan(
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_label,
+        yao_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         yao_dakota_lessonfilehandler.knot,
         sue_vision,
@@ -302,7 +302,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionPlan(
     save_duty_plan(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=yao_dakota_lessonfilehandler.plan_name,
-        moment_label=yao_dakota_lessonfilehandler.moment_label,
+        moment_rope=yao_dakota_lessonfilehandler.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -320,7 +320,7 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionPlan(
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_label,
+        yao_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         yao_dakota_lessonfilehandler.knot,
         zia_vision,
@@ -361,7 +361,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPlan_duty_AndNotPlan_visio
     save_duty_plan(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=yao_dakota_lessonfilehandler.plan_name,
-        moment_label=yao_dakota_lessonfilehandler.moment_label,
+        moment_rope=yao_dakota_lessonfilehandler.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -379,7 +379,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPlan_duty_AndNotPlan_visio
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_label,
+        yao_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         yao_dakota_lessonfilehandler.knot,
         zia_vision,
@@ -395,7 +395,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPlan_duty_AndNotPlan_visio
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_label,
+        yao_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         yao_dakota_lessonfilehandler.knot,
         yao_old_vision,
@@ -427,7 +427,7 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPlanNotSpeakerSelf
     save_duty_plan(
         moment_mstr_dir=sue_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_dakota_lessonfilehandler.plan_name,
-        moment_label=sue_dakota_lessonfilehandler.moment_label,
+        moment_rope=sue_dakota_lessonfilehandler.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -439,7 +439,7 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPlanNotSpeakerSelf
     save_vision_plan(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.plan_name,
-        sue_dakota_lessonfilehandler.moment_label,
+        sue_dakota_lessonfilehandler.moment_rope,
         get_dakota_rope(),
         sue_dakota_lessonfilehandler.knot,
         yao_old_vision,

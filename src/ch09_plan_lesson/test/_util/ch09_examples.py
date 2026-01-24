@@ -1,21 +1,21 @@
 from src.ch04_rope.rope import RopeTerm, create_rope, create_rope_from_labels
 from src.ch08_plan_atom.atom_main import PlanAtom, planatom_shop
-from src.ch09_plan_lesson._ref.ch09_semantic_types import LabelTerm, MomentLabel
+from src.ch09_plan_lesson._ref.ch09_semantic_types import LabelTerm, MomentRope
 from src.ch09_plan_lesson.delta import PlanDelta, plandelta_shop
 from src.ch09_plan_lesson.lesson_main import LessonUnit, lessonunit_shop
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
-def get_ch09_example_moment_label() -> str:
-    return "FizzBuzz2"
+def get_ch09_example_moment_rope() -> str:
+    return ";FizzBuzz2;"
 
 
 def get_texas_rope() -> RopeTerm:
-    moment_label = get_ch09_example_moment_label()
+    moment_rope = get_ch09_example_moment_rope()
     nation_str = "nation"
     usa_str = "USA"
     texas_str = "Texas"
-    return create_rope_from_labels([moment_label, nation_str, usa_str, texas_str])
+    return create_rope_from_labels([moment_rope, nation_str, usa_str, texas_str])
 
 
 def get_atom_example_factunit_knee(first_label: LabelTerm = None) -> PlanAtom:
@@ -38,21 +38,21 @@ def get_atom_example_factunit_knee(first_label: LabelTerm = None) -> PlanAtom:
     return insert_factunit_planatom
 
 
-def get_atom_example_kegunit_sports(moment_label: MomentLabel = None) -> PlanAtom:
-    if not moment_label:
-        moment_label = exx.a23
+def get_atom_example_kegunit_sports(moment_rope: MomentRope = None) -> PlanAtom:
+    if not moment_rope:
+        moment_rope = exx.a23
     sports_str = "sports"
-    sports_rope = create_rope(moment_label, sports_str)
+    sports_rope = create_rope(moment_rope, sports_str)
     insert_kegunit_planatom = planatom_shop(kw.plan_kegunit, kw.INSERT)
     insert_kegunit_planatom.set_jkey(kw.keg_rope, sports_rope)
     return insert_kegunit_planatom
 
 
-def get_atom_example_kegunit_ball(moment_label: MomentLabel = None) -> PlanAtom:
-    if not moment_label:
-        moment_label = exx.a23
+def get_atom_example_kegunit_ball(moment_rope: MomentRope = None) -> PlanAtom:
+    if not moment_rope:
+        moment_rope = exx.a23
     sports_str = "sports"
-    sports_rope = create_rope(moment_label, sports_str)
+    sports_rope = create_rope(moment_rope, sports_str)
     ball_str = "basketball"
     ball_rope = create_rope(sports_rope, ball_str)
     insert_kegunit_planatom = planatom_shop(kw.plan_kegunit, kw.INSERT)
@@ -60,11 +60,11 @@ def get_atom_example_kegunit_ball(moment_label: MomentLabel = None) -> PlanAtom:
     return insert_kegunit_planatom
 
 
-def get_atom_example_kegunit_knee(moment_label: MomentLabel = None) -> PlanAtom:
-    if not moment_label:
-        moment_label = exx.a23
+def get_atom_example_kegunit_knee(moment_rope: MomentRope = None) -> PlanAtom:
+    if not moment_rope:
+        moment_rope = exx.a23
     sports_str = "sports"
-    sports_rope = create_rope(moment_label, sports_str)
+    sports_rope = create_rope(moment_rope, sports_str)
     knee_str = "knee"
     knee_begin = 1
     knee_close = 71

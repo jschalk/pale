@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import save_json
+from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch09_plan_lesson.lesson_filehandler import open_gut_file, save_gut_file
@@ -14,9 +15,10 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_add_moment_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.epoch = epochunit_shop(get_five_config())
-    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
     save_json(moment_json_path, None, a23_moment.to_dict())
     assert os_path_exists(moment_json_path)
     init_sue_gut = planunit_shop(exx.sue, exx.a23)
@@ -29,5 +31,5 @@ def test_add_moment_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     add_moment_epoch_to_guts(moment_mstr_dir)
 
     # THEN
-    post_sue_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
+    post_sue_gut = open_gut_file(moment_mstr_dir, a23_lasso, exx.sue)
     assert post_sue_gut.keg_exists(five_rope)

@@ -16,7 +16,7 @@ def create_dimens_idea_format_dict() -> dict:
     for idea_dimen, dimen_dict in get_idea_config_dict().items():
         if dimen_dict.get(kw.idea_category) == "plan":
             idea_filename = f"idea_format_{x_count:05}_{idea_dimen}_v0_0_0.json"
-            attributes_set = {kw.moment_label, kw.plan_name}
+            attributes_set = {kw.moment_rope, kw.plan_name}
             args_dict = get_atom_config_args(idea_dimen)
             attributes_set.update(set(args_dict.keys()))
 
@@ -40,7 +40,7 @@ def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_bool):
     assert plan_kegunit_dict.get(kw.dimens) == [kw.plan_kegunit]
     assert plan_kegunit_dict.get(kw.attributes)
     plan_kegunit_attributes = plan_kegunit_dict.get(kw.attributes)
-    assert kw.moment_label in plan_kegunit_attributes
+    assert kw.moment_rope in plan_kegunit_attributes
     assert kw.plan_name in plan_kegunit_attributes
     assert kw.keg_rope in plan_kegunit_attributes
     assert kw.gogo_want in plan_kegunit_attributes
@@ -54,7 +54,7 @@ def test_get_idea_brick_md_ReturnsObj():
             kw.c400_number: {kw.otx_key: False},
             kw.spark_num: {kw.otx_key: True},
             kw.face_name: {kw.otx_key: True},
-            kw.moment_label: {kw.otx_key: True},
+            kw.moment_rope: {kw.otx_key: True},
             kw.fund_grain: {kw.otx_key: False},
             kw.job_listen_rotations: {kw.otx_key: False},
             kw.monthday_index: {kw.otx_key: False},
@@ -79,7 +79,7 @@ def test_get_idea_brick_md_ReturnsObj():
 ## Attributes
 - `{kw.spark_num}`
 - `{kw.face_name}`
-- `{kw.moment_label}`
+- `{kw.moment_rope}`
 - `{kw.epoch_label}`
 - `{kw.c400_number}`
 - `{kw.yr1_jan1_offset}`
@@ -103,7 +103,7 @@ def test_get_idea_brick_mds_ReturnsObj(temp_dir_setup):
             kw.c400_number: {kw.otx_key: False},
             kw.spark_num: {kw.otx_key: True},
             kw.face_name: {kw.otx_key: True},
-            kw.moment_label: {kw.otx_key: True},
+            kw.moment_rope: {kw.otx_key: True},
             kw.fund_grain: {kw.otx_key: False},
             kw.job_listen_rotations: {kw.otx_key: False},
             kw.monthday_index: {kw.otx_key: False},
@@ -128,7 +128,7 @@ def test_get_idea_brick_mds_ReturnsObj(temp_dir_setup):
 ## Attributes
 - `{kw.spark_num}`
 - `{kw.face_name}`
-- `{kw.moment_label}`
+- `{kw.moment_rope}`
 - `{kw.epoch_label}`
 - `{kw.c400_number}`
 - `{kw.yr1_jan1_offset}`

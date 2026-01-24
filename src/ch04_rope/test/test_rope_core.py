@@ -7,10 +7,11 @@ from src.ch04_rope.rope import (
     all_ropes_between,
     create_rope,
     create_rope_from_labels,
+    default_knot_if_None,
     find_replace_rope_key_dict,
     get_all_rope_labels,
     get_ancestor_ropes,
-    get_default_first_label,
+    get_default_rope,
     get_first_label_from_rope,
     get_forefather_ropes,
     get_parent_rope,
@@ -28,13 +29,25 @@ from src.ch04_rope.rope import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_get_default_first_label_ReturnsObj():
-    # ESTABLISH / WHEN / THEN
-    assert get_default_first_label() == "YY"
+def test_get_default_rope_ReturnsObj_Scenario0_NoKnotTerm():
+    # ESTABLISH
+    x_knot = default_knot_if_None()
+
+    # WHEN / THEN
+    assert get_default_rope() == f"{x_knot}YY{x_knot}"
+
+
+def test_get_default_rope_ReturnsObj_Scenario1_WithKnotTerm():
+    # ESTABLISH
+    x_knot = "/"
+    assert x_knot != default_knot_if_None()
+
+    # WHEN / THEN
+    assert get_default_rope(x_knot) == f"{x_knot}YY{x_knot}"
 
 
 def root_rope() -> str:
-    return create_rope(get_default_first_label())
+    return create_rope(get_default_rope())
 
 
 def test_to_rope_ReturnsObj_WithDefault_knot():
@@ -108,13 +121,11 @@ def test_create_rope_ReturnsObj_Scenario4():
     tulip_str = "tulip"
     slash_knot = "/"
     slash_knot_tulip_rope = (
-        f"{slash_knot}{get_default_first_label()}{slash_knot}{tulip_str}{slash_knot}"
+        f"{slash_knot}{get_default_rope()}{slash_knot}{tulip_str}{slash_knot}"
     )
 
     # WHEN
-    generated_tulip_rope = create_rope(
-        get_default_first_label(), tulip_str, knot=slash_knot
-    )
+    generated_tulip_rope = create_rope(get_default_rope(), tulip_str, knot=slash_knot)
     # THEN
     assert generated_tulip_rope == slash_knot_tulip_rope
 
@@ -129,8 +140,8 @@ def test_rope_create_rope_ReturnsObj_Scenario5():
     tulips_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{tulips_str}{x_s}"
 
     # WHEN / THEN
-    assert create_rope(None, get_default_first_label()) == root_rope()
-    assert create_rope("", get_default_first_label()) == root_rope()
+    assert create_rope(None, "YY") == root_rope()
+    assert create_rope("", "YY") == root_rope()
     assert create_rope(root_rope(), exx.casa) == casa_rope
     assert create_rope(casa_rope, bloomers_str) == bloomers_rope
     assert create_rope(bloomers_rope, tulips_str) == tulips_rope
@@ -207,13 +218,13 @@ def test_rope_get_all_rope_labels_ReturnsLabelTerms():
     tulips_rope = f"{root_rope()}{exx.casa}{x_s}{bloomers_str}{x_s}{tulips_str}{x_s}"
 
     # WHEN / THENs
-    root_list = [get_default_first_label()]
+    root_list = ["YY"]
     assert get_all_rope_labels(rope=root_rope()) == root_list
-    casa_list = [get_default_first_label(), exx.casa]
+    casa_list = ["YY", exx.casa]
     assert get_all_rope_labels(rope=casa_rope) == casa_list
-    bloomers_list = [get_default_first_label(), exx.casa, bloomers_str]
+    bloomers_list = ["YY", exx.casa, bloomers_str]
     assert get_all_rope_labels(rope=bloomers_rope) == bloomers_list
-    tulips_list = [get_default_first_label(), exx.casa, bloomers_str, tulips_str]
+    tulips_list = ["YY", exx.casa, bloomers_str, tulips_str]
     assert get_all_rope_labels(rope=tulips_rope) == tulips_list
 
 
@@ -227,7 +238,7 @@ def test_rope_get_tail_label_ReturnsLabelTerm():
     tulips_rope = f"{bloomers_rope}{x_s}{tulips_str}{x_s}"
 
     # WHEN / THENs
-    assert get_tail_label(rope=root_rope()) == get_default_first_label()
+    assert get_tail_label(rope=root_rope()) == "YY"
     assert get_tail_label(rope=casa_rope) == exx.casa
     assert get_tail_label(rope=bloomers_rope) == bloomers_str
     assert get_tail_label(rope=tulips_rope) == tulips_str
@@ -238,9 +249,7 @@ def test_rope_get_tail_label_ReturnsLabelTermWhenNonDefaultknot():
     # ESTABLISH
     bloomers_str = "bloomers"
     tulips_str = "tulips"
-    slash_casa_rope = (
-        f"{exx.slash}{get_default_first_label()}{exx.slash}{exx.casa}{exx.slash}"
-    )
+    slash_casa_rope = f"{exx.slash}{"YY"}{exx.slash}{exx.casa}{exx.slash}"
     slash_bloomers_rope = f"{slash_casa_rope}{bloomers_str}{exx.slash}"
     slash_tulips_rope = f"{slash_bloomers_rope}{tulips_str}{exx.slash}"
 
@@ -259,16 +268,16 @@ def test_rope_get_first_label_from_rope_ReturnsLabelTerm():
     tulips_rope = create_rope(exx.casa, tulips_str)
 
     # WHEN / THENs
-    assert get_first_label_from_rope(root_rope()) == get_default_first_label()
-    assert get_first_label_from_rope(casa_rope) == get_default_first_label()
-    assert get_first_label_from_rope(bloomers_rope) == get_default_first_label()
+    assert get_first_label_from_rope(root_rope()) == "YY"
+    assert get_first_label_from_rope(casa_rope) == "YY"
+    assert get_first_label_from_rope(bloomers_rope) == "YY"
     assert get_first_label_from_rope(tulips_rope) == exx.casa
 
 
 def test_rope_get_parent_rope_ReturnsObj_Scenario0():
     # ESTABLISH
     x_s = default_knot_if_None()
-    expected_root_rope = f"{x_s}{get_default_first_label()}{x_s}"
+    expected_root_rope = f"{x_s}{"YY"}{x_s}"
     casa_rope = f"{expected_root_rope}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{bloomers_str}{x_s}"
@@ -285,7 +294,7 @@ def test_rope_get_parent_rope_ReturnsObj_Scenario0():
 def test_rope_get_parent_rope_ReturnsObj_Scenario1():
     # ESTABLISH
     x_s = "/"
-    expected_root_rope = f"{x_s}{get_default_first_label()}{x_s}"
+    expected_root_rope = f"{x_s}{"YY"}{x_s}"
     casa_rope = f"{expected_root_rope}{exx.casa}{x_s}"
     bloomers_str = "bloomers"
     bloomers_rope = f"{casa_rope}{bloomers_str}{x_s}"
@@ -473,7 +482,7 @@ def test_is_heir_rope_IdentifiesHeirs():
 
 def test_replace_knot_ReturnsNewObj():
     # ESTABLISH
-    first_label = get_default_first_label()
+    first_label = "YY"
     gen_casa_rope = create_rope(first_label, exx.casa)
     semicolon_knot = default_knot_if_None()
     semicolon_knot_casa_rope = (
@@ -557,13 +566,13 @@ def test_validate_labelterm_Scenario1_RaisesErrorWhenLabelTerm():
     # ESTABLISH
     bob_str = f"Bob{exx.slash}Tom"
     assert bob_str == validate_labelterm(
-        bob_str, x_knot=exx.slash, not_labelterm_required=True
+        bob_str, x_knot=exx.slash, ropeterm_required=True
     )
 
     # WHEN
     comma_str = ","
     with pytest_raises(Exception) as excinfo:
-        validate_labelterm(bob_str, x_knot=comma_str, not_labelterm_required=True)
+        validate_labelterm(bob_str, x_knot=comma_str, ropeterm_required=True)
 
     # THEN
     assertion_failure_str = (

@@ -39,10 +39,10 @@ SELECT
 , IFNULL({kw.c400_number} * {c400_leap_length}, {DEFAULT_EPOCH_LENGTH}) as {kw.epoch_length}
 FROM {nabepoc_h_agg_tablename}
 LEFT JOIN (
-    SELECT {kw.moment_label}, {kw.c400_number} 
+    SELECT {kw.moment_rope}, {kw.c400_number} 
     FROM {mmtunit_h_agg_tablename} 
-    GROUP BY {kw.moment_label}, {kw.c400_number}
-    ) x_moment ON x_moment.{kw.moment_label} = {nabepoc_h_agg_tablename}.{kw.moment_label}
+    GROUP BY {kw.moment_rope}, {kw.c400_number}
+    ) x_moment ON x_moment.{kw.moment_rope} = {nabepoc_h_agg_tablename}.{kw.moment_rope}
 )
 UPDATE {mmtoffi_h_agg_tablename}
 SET {kw.offi_time}_inx = mod({kw.offi_time}_otx + (
@@ -81,10 +81,10 @@ SELECT
 , IFNULL({kw.c400_number} * {c400_leap_length}, {DEFAULT_EPOCH_LENGTH}) as {kw.epoch_length}
 FROM {nabepoc_h_agg_tablename}
 LEFT JOIN (
-    SELECT {kw.moment_label}, {kw.c400_number} 
+    SELECT {kw.moment_rope}, {kw.c400_number} 
     FROM {mmtunit_h_agg_tablename} 
-    GROUP BY {kw.moment_label}, {kw.c400_number}
-    ) x_moment ON x_moment.{kw.moment_label} = {nabepoc_h_agg_tablename}.{kw.moment_label}
+    GROUP BY {kw.moment_rope}, {kw.c400_number}
+    ) x_moment ON x_moment.{kw.moment_rope} = {nabepoc_h_agg_tablename}.{kw.moment_rope}
 )
 UPDATE {mmtpayy_h_agg_tablename}
 SET {kw.tran_time}_inx = mod({kw.tran_time}_otx + (

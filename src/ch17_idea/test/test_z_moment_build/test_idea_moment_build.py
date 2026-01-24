@@ -1,10 +1,12 @@
 from src.ch00_py.file_toolbox import create_path
+from src.ch04_rope.rope import default_knot_if_None
 from src.ch13_time.epoch_main import epochunit_shop, get_default_epoch_config_dict
 from src.ch13_time.test._util.ch13_examples import get_five_config
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch17_idea.idea_main import moment_build_from_df
 from src.ch17_idea.test._util.ch17_env import idea_moments_dir, temp_dir_setup
 from src.ch17_idea.test._util.ch17_examples import (
+    J45_ROPE,
     get_ex1_br00000_df,
     get_ex1_br00001_df,
     get_ex1_br00002_df,
@@ -22,7 +24,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 
 # ESTABLISH a dataframe, build a moment unit
-def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
+def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentRope(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -57,12 +59,12 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
     assert x_momentunits.get(exx.a23) != None
     creg_epochunit = epochunit_shop(get_default_epoch_config_dict())
     expected_amy23_momentunit = momentunit_shop(
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         moment_mstr_dir=x_moments_dir,
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=exx.slash,
+        knot=default_knot_if_None(),
         epoch=creg_epochunit,
         job_listen_rotations=x_job_listen_rotations,
     )
@@ -83,7 +85,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
     assert gen_momentunit.fund_grain == x_fund_grain
     assert gen_momentunit.respect_grain == x_respect_grain
     assert gen_momentunit.mana_grain == x_mana_grain
-    assert gen_momentunit.moment_label == exx.a23
+    assert gen_momentunit.moment_rope == exx.a23
     assert gen_momentunit.moment_mstr_dir == x_moments_dir
     assert gen_momentunit.epoch == expected_amy23_momentunit.epoch
     assert gen_momentunit.planbudhistorys == expected_amy23_momentunit.planbudhistorys
@@ -96,7 +98,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentLabel(
 
 
 # ESTABLISH a dataframe, build a moment unit
-def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
+def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentRopes(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -128,22 +130,22 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
     # THEN
     creg_epochunit = epochunit_shop(get_default_epoch_config_dict())
     amy23_momentunit = momentunit_shop(
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         moment_mstr_dir=x_moments_dir,
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=exx.slash,
+        knot=default_knot_if_None(),
         epoch=creg_epochunit,
     )
     five_epochunit = epochunit_shop(get_five_config())
     jeffy45_momentunit = momentunit_shop(
-        moment_label="jeffy45",
+        moment_rope=J45_ROPE,
         moment_mstr_dir=x_moments_dir,
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=",",
+        knot=default_knot_if_None(),
         epoch=five_epochunit,
     )
     assert x_momentunits
@@ -152,18 +154,18 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentLabels(
     assert creg_momentunit.fund_grain == x_fund_grain
     assert creg_momentunit.respect_grain == x_respect_grain
     assert creg_momentunit.mana_grain == x_mana_grain
-    assert creg_momentunit.moment_label == exx.a23
+    assert creg_momentunit.moment_rope == exx.a23
     assert creg_momentunit.moment_mstr_dir == x_moments_dir
     assert creg_momentunit.epoch == amy23_momentunit.epoch
     assert len(creg_momentunit.planbudhistorys) == 3
     assert len(creg_momentunit.paybook.tranunits) == 4
     # assert creg_momentunit == amy23_momentunit
 
-    five_momentunit = x_momentunits.get("jeffy45")
+    five_momentunit = x_momentunits.get(J45_ROPE)
     assert five_momentunit.fund_grain == x_fund_grain
     assert five_momentunit.respect_grain == x_respect_grain
     assert five_momentunit.mana_grain == x_mana_grain
-    assert five_momentunit.moment_label == "jeffy45"
+    assert five_momentunit.moment_rope == J45_ROPE
     assert five_momentunit.moment_mstr_dir == x_moments_dir
     assert len(five_momentunit.planbudhistorys) == 2
     assert len(five_momentunit.paybook.tranunits) == 1

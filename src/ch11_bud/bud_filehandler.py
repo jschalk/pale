@@ -8,6 +8,7 @@ from src.ch00_py.file_toolbox import (
     save_json,
     set_dir,
 )
+from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_job_path,
@@ -22,34 +23,28 @@ from src.ch11_bud._ref.ch11_path import (
     create_planspark_path,
     create_plantime_path,
 )
-from src.ch11_bud._ref.ch11_semantic_types import (
-    LabelTerm,
-    PlanName,
-    RopeTerm,
-    SparkInt,
-    TimeNum,
-)
+from src.ch11_bud._ref.ch11_semantic_types import PlanName, RopeTerm, SparkInt, TimeNum
 from src.ch11_bud.bud_main import BudUnit, get_budunit_from_dict
 from src.ch11_bud.cell_main import CellUnit, cellunit_get_from_dict, cellunit_shop
 
 
 def get_planspark_obj(
     moment_mstr_dir: str,
-    moment_label: LabelTerm,
+    moment_lasso: LassoUnit,
     plan_name: PlanName,
     spark_num: int,
 ) -> PlanUnit:
     planspark_json_path = create_planspark_path(
-        moment_mstr_dir, moment_label, plan_name, spark_num
+        moment_mstr_dir, moment_lasso, plan_name, spark_num
     )
     return open_plan_file(planspark_json_path)
 
 
 def collect_plan_spark_dir_sets(
-    moment_mstr_dir: str, moment_label: LabelTerm
+    moment_mstr_dir: str, moment_lasso: RopeTerm
 ) -> dict[PlanName, set[SparkInt]]:
     x_dict = {}
-    plans_dir = create_moment_plans_dir_path(moment_mstr_dir, moment_label)
+    plans_dir = create_moment_plans_dir_path(moment_mstr_dir, moment_lasso)
     set_dir(plans_dir)
     for plan_name in os_listdir(plans_dir):
         plan_dir = create_path(plans_dir, plan_name)
@@ -96,7 +91,7 @@ def _add_downhill_spark_num(
 
 def save_arbitrary_planspark(
     moment_mstr_dir: str,
-    moment_label: str,
+    moment_lasso: LassoUnit,
     plan_name: str,
     spark_num: int,
     persons: list[list] = None,
@@ -104,7 +99,7 @@ def save_arbitrary_planspark(
 ) -> str:
     persons = get_empty_list_if_None(persons)
     facts = get_empty_list_if_None(facts)
-    x_planunit = planunit_shop(plan_name, moment_label)
+    x_planunit = planunit_shop(plan_name, moment_lasso.rope)
     for person_list in persons:
         try:
             person_cred_lumen = person_list[1]
@@ -120,7 +115,7 @@ def save_arbitrary_planspark(
             x_reason_context, x_fact_state, x_fact_lower, x_fact_upper, True
         )
     x_planspark_path = create_planspark_path(
-        moment_mstr_dir, moment_label, plan_name, spark_num
+        moment_mstr_dir, moment_lasso, plan_name, spark_num
     )
     save_json(x_planspark_path, None, x_planunit.to_dict())
     return x_planspark_path
@@ -128,7 +123,7 @@ def save_arbitrary_planspark(
 
 def cellunit_add_json_file(
     moment_mstr_dir: str,
-    moment_label: str,
+    moment_lasso: LassoUnit,
     time_plan_name: str,
     bud_time: int,
     spark_num: int,
@@ -138,7 +133,7 @@ def cellunit_add_json_file(
     mana_grain: int = None,
 ):
     cell_dir = create_cell_dir_path(
-        moment_mstr_dir, moment_label, time_plan_name, bud_time, bud_ancestors
+        moment_mstr_dir, moment_lasso, time_plan_name, bud_time, bud_ancestors
     )
     x_cell = cellunit_shop(
         time_plan_name, bud_ancestors, spark_num, celldepth, mana_grain, quota
@@ -166,39 +161,39 @@ def create_cell_person_mandate_ledger_json(dirpath: str):
 
 def save_bud_file(
     moment_mstr_dir: str,
-    moment_label: str,
+    moment_lasso: LassoUnit,
     plan_name: PlanName,
     x_bud: BudUnit = None,
 ):
     x_bud.calc_magnitude()
     bud_json_path = create_budunit_json_path(
-        moment_mstr_dir, moment_label, plan_name, x_bud.bud_time
+        moment_mstr_dir, moment_lasso, plan_name, x_bud.bud_time
     )
     save_json(bud_json_path, None, x_bud.to_dict(), replace=True)
 
 
 def bud_file_exists(
     moment_mstr_dir: str,
-    moment_label: str,
+    moment_lasso: LassoUnit,
     plan_name: PlanName,
     x_bud_time: TimeNum = None,
 ) -> bool:
     bud_json_path = create_budunit_json_path(
-        moment_mstr_dir, moment_label, plan_name, x_bud_time
+        moment_mstr_dir, moment_lasso, plan_name, x_bud_time
     )
     return os_path_exists(bud_json_path)
 
 
 def open_bud_file(
     moment_mstr_dir: str,
-    moment_label: str,
+    moment_lasso: LassoUnit,
     plan_name: PlanName,
     x_bud_time: TimeNum = None,
 ) -> BudUnit:
     bud_json_path = create_budunit_json_path(
-        moment_mstr_dir, moment_label, plan_name, x_bud_time
+        moment_mstr_dir, moment_lasso, plan_name, x_bud_time
     )
-    if bud_file_exists(moment_mstr_dir, moment_label, plan_name, x_bud_time):
+    if bud_file_exists(moment_mstr_dir, moment_lasso, plan_name, x_bud_time):
         return get_budunit_from_dict(open_json(bud_json_path))
 
 
@@ -218,7 +213,7 @@ def save_plantime_file(
         )
     plantime_json_path = create_plantime_path(
         moment_mstr_dir,
-        x_plantime.moment_label,
+        lassounit_shop(x_plantime.moment_rope, x_plantime.knot),
         x_plantime.plan_name,
         x_bud_time,
     )
@@ -227,32 +222,32 @@ def save_plantime_file(
 
 def plantime_file_exists(
     moment_mstr_dir: str,
-    moment_label: str,
+    moment_lasso: LassoUnit,
     plan_name: PlanName,
     x_bud_time: TimeNum = None,
 ) -> bool:
     plantime_json_path = create_plantime_path(
-        moment_mstr_dir, moment_label, plan_name, x_bud_time
+        moment_mstr_dir, moment_lasso, plan_name, x_bud_time
     )
     return os_path_exists(plantime_json_path)
 
 
 def open_plantime_file(
     moment_mstr_dir: str,
-    moment_label: str,
+    moment_lasso: LassoUnit,
     plan_name: PlanName,
     x_bud_time: TimeNum = None,
 ) -> bool:
     plantime_json_path = create_plantime_path(
-        moment_mstr_dir, moment_label, plan_name, x_bud_time
+        moment_mstr_dir, moment_lasso, plan_name, x_bud_time
     )
     # if self.plantime_file_exists(x_bud_time):
     return open_plan_file(plantime_json_path)
 
 
 def get_timenum_dirs(
-    moment_mstr_dir: str, moment_label: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> list[TimeNum]:
-    buds_dir = create_buds_dir_path(moment_mstr_dir, moment_label, plan_name)
+    buds_dir = create_buds_dir_path(moment_mstr_dir, moment_lasso, plan_name)
     x_dict = get_dir_file_strs(buds_dir, include_dirs=True, include_files=False)
     return [int(x_timenum) for x_timenum in sorted(list(x_dict.keys()))]

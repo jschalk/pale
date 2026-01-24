@@ -51,7 +51,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def get_bob_five_with_mop_dayly() -> PlanUnit:
     bob_plan = get_bob_five_plan()
-    print(f"{bob_plan.moment_label=}")
+    print(f"{bob_plan.moment_rope=}")
     x_dayly_lower_min = 600
     x_dayly_duration_min = 90
     mop_dayly_args = {
@@ -81,11 +81,17 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
         create_sound_and_heard_tables(cursor)
         otx_time = 199
         inx_time = 13
-        m_label = bob_plan.moment_label
+        m_label = bob_plan.moment_rope
         insert_otx_inx_time(cursor, spark7, exx.yao, m_label, otx_time, inx_time)
         insert_h_agg_obj(cursor, bob_plan, spark7, exx.yao)
         plncase_objs = select_plncase(
-            cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
+            cursor,
+            spark7,
+            bob_plan.moment_rope,
+            exx.bob,
+            wx.mop_rope,
+            wx.day_rope,
+            wx.day_rope,
         )
         plncase_obj0 = plncase_objs[0]
         assert plncase_obj0.inx_epoch_diff is None
@@ -96,7 +102,13 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 
         # THEN
         plncase_objs = select_plncase(
-            cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
+            cursor,
+            spark7,
+            bob_plan.moment_rope,
+            exx.bob,
+            wx.mop_rope,
+            wx.day_rope,
+            wx.day_rope,
         )
         plncase_obj0 = plncase_objs[0]
         assert plncase_obj0.inx_epoch_diff == otx_time - inx_time
@@ -115,7 +127,7 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     # ESTABLISH
 #     spark7 = 7
 #     bob_plan = get_bob_five_plan()
-#     print(f"{bob_plan.moment_label=}")
+#     print(f"{bob_plan.moment_rope=}")
 #     x_dayly_lower_min = 600
 #     x_dayly_duration_min = 90
 #     mop_dayly_args = {
@@ -131,7 +143,7 @@ def test_get_update_plncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 #     with sqlite3_connect(":memory:") as db_conn:
 #         cursor = db_conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         m_label = bob_plan.moment_label
+#         m_label = bob_plan.moment_rope
 #         otx_time = 100
 #         inx_time = 0
 #         insert_otx_inx_time(cursor, spark7, exx.yao, m_label, otx_time, inx_time)

@@ -8,7 +8,7 @@ def test_RiverGrade_Exists():
 
     # THEN
     #: Healer gut get_person._person_debt_lumen (SELECT need_due_amount FROM person WHERE person_name = exx.bob)
-    assert not x_rivergrade.moment_label
+    assert not x_rivergrade.moment_rope
     assert not x_rivergrade.plan_name
     assert not x_rivergrade.keep_rope
     assert not x_rivergrade.person_name
@@ -42,7 +42,7 @@ def test_RiverGrade_Exists():
     # SELECT SUM(mana_amount) FROM rewards WHERE dst_person_name = exx.bob
     assert x_rivergrade.rewards_magnitude is None
     assert set(x_rivergrade.__dict__.keys()) == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.plan_name,
         kw.keep_rope,
         kw.person_name,
@@ -77,7 +77,7 @@ def test_rivergrade_shop_ReturnsObjWithArg():
     )
 
     # THEN
-    assert x_rivergrade.moment_label == exx.a23
+    assert x_rivergrade.moment_rope == exx.a23
     assert x_rivergrade.plan_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
     assert x_rivergrade.person_name == exx.bob
@@ -106,7 +106,7 @@ def test_rivergrade_shop_ReturnsObjWithoutArgs():
     x_rivergrade = rivergrade_shop(exx.a23, exx.yao, x_keep_rope, exx.bob)
 
     # THEN
-    assert x_rivergrade.moment_label == exx.a23
+    assert x_rivergrade.moment_rope == exx.a23
     assert x_rivergrade.plan_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
     assert x_rivergrade.person_name == exx.bob
@@ -197,7 +197,7 @@ def test_RiverGrade_to_dict_ReturnsObj():
     rivergrade_dict = x_rivergrade.to_dict()
 
     # THEN
-    assert rivergrade_dict.get(kw.moment_label) == exx.a23
+    assert rivergrade_dict.get(kw.moment_rope) == exx.a23
     assert rivergrade_dict.get(kw.healer_name) == exx.yao
     assert rivergrade_dict.get(kw.keep_rope) == x_keep_rope
     assert rivergrade_dict.get(kw.need_bill_amount) == x_need_bill_amount

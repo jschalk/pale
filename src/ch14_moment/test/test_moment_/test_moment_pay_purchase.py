@@ -238,7 +238,7 @@ def test_MomentUnit_set_all_tranbook_SetsAttr():
     sue_x40000_bud.set_bud_person_net(exx.bob, bob_bud_net)
     sue_x70000_bud.set_bud_person_net(exx.zia, zia_bud_net)
 
-    assert x_moment.all_tranbook == tranbook_shop(x_moment.moment_label)
+    assert x_moment.all_tranbook == tranbook_shop(x_moment.moment_rope)
     assert x_moment.paypurchase_exists(exx.sue, exx.bob, t55_t)
     assert x_moment.paypurchase_exists(exx.yao, exx.bob, t66_t)
     assert x_moment.paypurchase_exists(exx.yao, exx.sue, t77_t)

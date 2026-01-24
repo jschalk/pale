@@ -33,7 +33,7 @@ def test_get_plan_viewer_template_ReturnsObj():
         kw.addin,
         kw.awardunits,
         kw.begin,
-        kw.moment_label,
+        kw.moment_rope,
         kw.close,
         kw.denom,
         kw.factunits,

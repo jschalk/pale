@@ -40,7 +40,7 @@ def test_create_empty_plan_from_plan_ReturnsObj():
     # THEN
     assert yao_empty_vision.plan_name != yao_gut.plan_name
     assert yao_empty_vision.plan_name == exx.zia
-    assert yao_empty_vision.moment_label == yao_gut.moment_label
+    assert yao_empty_vision.moment_rope == yao_gut.moment_rope
     assert yao_empty_vision.last_lesson_id is None
     assert yao_empty_vision.get_personunits_dict() == {}
     assert yao_empty_vision.knot == yao_gut.knot
@@ -84,7 +84,7 @@ def test_create_listen_basis_ReturnsObj():
 
     # THEN
     assert yao_basis_vision.plan_name == yao_duty.plan_name
-    assert yao_basis_vision.moment_label == yao_duty.moment_label
+    assert yao_basis_vision.moment_rope == yao_duty.moment_rope
     assert yao_basis_vision.last_lesson_id == yao_duty.last_lesson_id
     assert yao_basis_vision.get_personunits_dict() == yao_duty.get_personunits_dict()
     assert yao_basis_vision.knot == yao_duty.knot
@@ -114,7 +114,7 @@ def test_get_default_job_ReturnsObj():
     last_lesson_id = 7
     sue_max_tree_traverse = 9
     sue_planunit = planunit_shop(
-        exx.sue, exx.blue, exx.slash, x_fund_pool, x_fund_grain, x_respect_grain
+        exx.sue, exx.a23_slash, exx.slash, x_fund_pool, x_fund_grain, x_respect_grain
     )
     sue_planunit.set_last_lesson_id(last_lesson_id)
     sue_planunit.add_personunit(exx.bob, 3, 4)
@@ -131,8 +131,8 @@ def test_get_default_job_ReturnsObj():
     default_job.cashout()
     assert default_job.plan_name == sue_planunit.plan_name
     assert default_job.plan_name == exx.sue
-    assert default_job.moment_label == sue_planunit.moment_label
-    assert default_job.moment_label == exx.blue
+    assert default_job.moment_rope == sue_planunit.moment_rope
+    assert default_job.moment_rope == exx.a23_slash
     assert default_job.knot == exx.slash
     assert default_job.fund_pool == sue_person_pool
     assert default_job.fund_grain == x_fund_grain

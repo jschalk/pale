@@ -13,7 +13,7 @@ from src.ch17_idea.idea_config import (
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     FaceName,
     FactNum,
-    MomentLabel,
+    MomentRope,
     PlanName,
     ReasonNum,
     RopeTerm,
@@ -40,7 +40,7 @@ def insert_nabepoc_h_agg_otx_inx_time(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_face_name: FaceName,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_otx_time: TimeNum,
     x_inx_time: TimeNum,
 ):
@@ -48,12 +48,12 @@ def insert_nabepoc_h_agg_otx_inx_time(
     select_sqlstr = f"""INSERT INTO {nabepoc_h_agg_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.otx_time}
 , {kw.inx_time}
 )
 VALUES
-  ({x_spark_num}, '{x_face_name}', '{x_moment_label}', {x_otx_time}, {x_inx_time})
+  ({x_spark_num}, '{x_face_name}', '{x_moment_rope}', {x_otx_time}, {x_inx_time})
 ;
 """
     cursor.execute(select_sqlstr)
@@ -62,16 +62,16 @@ VALUES
 def select_nabepoc_h_agg_otx_inx_time(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
 ) -> list[tuple]:
     nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.otx_time}
 , {kw.inx_time}
 FROM {nabepoc_h_agg_tablename}
-WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_label} == '{x_moment_label}'
+WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_rope} == '{x_moment_rope}'
 """
     cursor.execute(select_sqlstr)
     return cursor.fetchall()
@@ -81,18 +81,18 @@ def insert_mmtunit_special_c400_number(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_face_name: FaceName,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     c400_number: int,
 ):
     mmtunit_h_agg_tablename = prime_tbl(kw.momentunit, "h", "agg")
     select_sqlstr = f"""INSERT INTO {mmtunit_h_agg_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.c400_number}
 )
 VALUES
-  ({x_spark_num}, '{x_face_name}', '{x_moment_label}', {c400_number})
+  ({x_spark_num}, '{x_face_name}', '{x_moment_rope}', {c400_number})
 ;
 """
     cursor.execute(select_sqlstr)
@@ -102,18 +102,18 @@ def insert_mmtoffi_special_offi_time_otx(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_face_name: FaceName,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     offi_time_otx: int,
 ):
     mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
     select_sqlstr = f"""INSERT INTO {mmtoffi_h_agg_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.offi_time}_otx
 )
 VALUES
-  ({x_spark_num}, '{x_face_name}', '{x_moment_label}', {offi_time_otx})
+  ({x_spark_num}, '{x_face_name}', '{x_moment_rope}', {offi_time_otx})
 ;
 """
     cursor.execute(select_sqlstr)
@@ -122,16 +122,16 @@ VALUES
 def select_mmtoffi_special_offi_time_inx(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
 ) -> list[tuple]:
     mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.offi_time}_otx
 , {kw.offi_time}_inx
 FROM {mmtoffi_h_agg_tablename}
-WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_label} == '{x_moment_label}'
+WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_rope} == '{x_moment_rope}'
 """
     cursor.execute(select_sqlstr)
     return cursor.fetchall()
@@ -140,7 +140,7 @@ WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_label} == '{x_moment_label}
 def insert_plncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_reason_context: RopeTerm,
@@ -151,7 +151,7 @@ def insert_plncase_special_h_agg(
     plncase_tbl = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
     values_dict = {
         "spark_num": x_spark_num,
-        "moment_label": x_moment_label,
+        "moment_rope": x_moment_rope,
         "plan_name": x_plan_name,
         "keg_rope": x_keg_rope,
         "reason_context": x_reason_context,
@@ -166,7 +166,7 @@ def insert_plncase_special_h_agg(
 @dataclass
 class PLNCASEHEARDAGG:
     spark_num: SparkInt
-    moment_label: MomentLabel
+    moment_rope: MomentRope
     plan_name: PlanName
     keg_rope: RopeTerm
     reason_context: RopeTerm
@@ -185,7 +185,7 @@ class PLNCASEHEARDAGG:
 def select_plncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_reason_context: RopeTerm,
@@ -195,7 +195,7 @@ def select_plncase_special_h_agg(
     plncase_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.keg_rope}
 , {kw.reason_context}
@@ -211,7 +211,7 @@ def select_plncase_special_h_agg(
 , inx_epoch_diff
 FROM {plncase_h_agg_tablename}
 WHERE {kw.spark_num} = {x_spark_num} 
-    AND {kw.moment_label} = '{x_moment_label}'
+    AND {kw.moment_rope} = '{x_moment_rope}'
     AND {kw.plan_name} = '{x_plan_name}'
     AND {kw.keg_rope} = '{x_keg_rope}'
     AND {kw.reason_context} = '{x_reason_context}'
@@ -223,7 +223,7 @@ WHERE {kw.spark_num} = {x_spark_num}
     for row in cursor.fetchall():
         x_plncase_h_agg = PLNCASEHEARDAGG(
             spark_num=row[0],
-            moment_label=row[1],
+            moment_rope=row[1],
             plan_name=row[2],
             keg_rope=row[3],
             reason_context=row[4],
@@ -245,7 +245,7 @@ WHERE {kw.spark_num} = {x_spark_num}
 def insert_plnfact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_fact_context: RopeTerm,
@@ -259,7 +259,7 @@ def insert_plnfact_special_h_agg(
 def select_plnfact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_fact_context: RopeTerm,
@@ -270,7 +270,7 @@ def select_plnfact_special_h_agg(
 def insert_plnkegg_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_plan_name: PlanName,
     x_keg_rope: RopeTerm,
     x_denom: int,

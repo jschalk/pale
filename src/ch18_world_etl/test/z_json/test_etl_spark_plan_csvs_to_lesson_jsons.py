@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import open_file, open_json, save_file
+from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson.lesson_main import get_lessonunit_from_dict, lessonunit_shop
 from src.ch11_bud._ref.ch11_path import (
     create_plan_spark_dir_path as plan_spark_dir,
@@ -21,15 +22,16 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario0_IgnoresCSV_pl
     put_agg_tablename = create_prime_tablename(kw.planunit, "h", "vld", "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
     moment_mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     # a23_bob_dir = create_path(a23_dir, bob_inx)
     # a23_bob_e3_dir = create_path(a23_bob_dir, spark3)
     # a23_bob_e7_dir = create_path(a23_bob_dir, spark7)
-    a23_bob_e3_dir = plan_spark_dir(moment_mstr_dir, exx.a23, bob_inx, spark3)
-    e3_put_csv = f"""{kw.spark_num},{kw.face_name},moment_label,plan_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,tally,fund_grain,mana_grain,respect_grain
+    a23_bob_e3_dir = plan_spark_dir(moment_mstr_dir, a23_lasso, bob_inx, spark3)
+    e3_put_csv = f"""{kw.spark_num},{kw.face_name},moment_rope,plan_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,tally,fund_grain,mana_grain,respect_grain
 {spark3},{sue_inx},{exx.a23},{bob_inx},,,,,,,,
 """
     save_file(a23_bob_e3_dir, put_agg_csv_filename, e3_put_csv)
-    e3_all_lesson_path = all_lesson_path(moment_mstr_dir, exx.a23, bob_inx, spark3)
+    e3_all_lesson_path = all_lesson_path(moment_mstr_dir, a23_lasso, bob_inx, spark3)
     assert os_path_exists(e3_all_lesson_path) is False
 
     # WHEN
@@ -62,15 +64,16 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     put_agg_tablename = create_prime_tablename(plnprsn_str, "h", "vld", "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
     moment_mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     # a23_bob_dir = create_path(a23_dir, bob_inx)
     # a23_bob_e3_dir = create_path(a23_bob_dir, spark3)
     # a23_bob_e7_dir = create_path(a23_bob_dir, spark7)
-    a23_bob_e3_dir = plan_spark_dir(moment_mstr_dir, exx.a23, bob_inx, spark3)
-    a23_bob_e7_dir = plan_spark_dir(moment_mstr_dir, exx.a23, bob_inx, spark7)
-    e3_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen},{kw.person_debt_lumen}
+    a23_bob_e3_dir = plan_spark_dir(moment_mstr_dir, a23_lasso, bob_inx, spark3)
+    a23_bob_e7_dir = plan_spark_dir(moment_mstr_dir, a23_lasso, bob_inx, spark7)
+    e3_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_rope},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen},{kw.person_debt_lumen}
 {spark3},{sue_inx},{exx.a23},{bob_inx},{bob_inx},{credit77},{debt_empty}
 """
-    e7_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_label},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen},{kw.person_debt_lumen}
+    e7_put_csv = f"""{kw.spark_num},{kw.face_name},{kw.moment_rope},{kw.plan_name},{kw.person_name},{kw.person_cred_lumen},{kw.person_debt_lumen}
 {spark7},{sue_inx},{exx.a23},{bob_inx},{bob_inx},{credit77},{debt_empty}
 {spark7},{sue_inx},{exx.a23},{bob_inx},{sue_inx},{credit88},{debt_empty}
 """
@@ -78,8 +81,8 @@ def test_etl_spark_plan_csvs_to_lesson_json_CreatesFiles_Scenario1(
     print(f"     {a23_bob_e7_dir=}  {put_agg_csv_filename}")
     save_file(a23_bob_e3_dir, put_agg_csv_filename, e3_put_csv)
     save_file(a23_bob_e7_dir, put_agg_csv_filename, e7_put_csv)
-    e3_all_lesson_path = all_lesson_path(moment_mstr_dir, exx.a23, bob_inx, spark3)
-    e7_all_lesson_path = all_lesson_path(moment_mstr_dir, exx.a23, bob_inx, spark7)
+    e3_all_lesson_path = all_lesson_path(moment_mstr_dir, a23_lasso, bob_inx, spark3)
+    e7_all_lesson_path = all_lesson_path(moment_mstr_dir, a23_lasso, bob_inx, spark7)
     print(f"   {e3_all_lesson_path=}")
     print(f"   {e7_all_lesson_path=}")
     assert os_path_exists(e3_all_lesson_path) is False

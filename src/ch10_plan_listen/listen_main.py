@@ -1,7 +1,12 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from src.ch01_allot.allot import allot_scale
-from src.ch04_rope.rope import get_ancestor_ropes, get_first_label_from_rope
+from src.ch04_rope.rope import (
+    LassoUnit,
+    get_ancestor_ropes,
+    get_first_label_from_rope,
+    lassounit_shop,
+)
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PersonUnit, PlanUnit
 from src.ch09_plan_lesson.lesson_filehandler import LessonFileHandler, open_gut_file
@@ -188,10 +193,10 @@ def listen_to_speaker_agenda(listener: PlanUnit, speaker: PlanUnit) -> PlanUnit:
 def listen_to_agendas_create_init_job_from_guts(
     moment_mstr_dir: str, listener_job: PlanUnit
 ):
-    moment_label = listener_job.moment_label
     for x_personunit in get_ordered_debtors_roll(listener_job):
         speaker_id = x_personunit.person_name
-        speaker_gut = open_gut_file(moment_mstr_dir, moment_label, speaker_id)
+        moment_lasso = lassounit_shop(listener_job.moment_rope, listener_job.knot)
+        speaker_gut = open_gut_file(moment_mstr_dir, moment_lasso, speaker_id)
         if speaker_gut is None:
             speaker_gut = create_empty_plan_from_plan(listener_job, speaker_id)
         if speaker_gut:
@@ -199,10 +204,10 @@ def listen_to_agendas_create_init_job_from_guts(
 
 
 def listen_to_agendas_jobs_into_job(moment_mstr_dir: str, listener_job: PlanUnit):
-    moment_label = listener_job.moment_label
+    moment_lasso = lassounit_shop(listener_job.moment_rope, listener_job.knot)
     for x_personunit in get_ordered_debtors_roll(listener_job):
         speaker_id = x_personunit.person_name
-        speaker_job = open_job_file(moment_mstr_dir, moment_label, speaker_id)
+        speaker_job = open_job_file(moment_mstr_dir, moment_lasso, speaker_id)
         if speaker_job is None:
             speaker_job = create_empty_plan_from_plan(listener_job, speaker_id)
         listen_to_speaker_agenda(listener_job, speaker_job)
@@ -219,7 +224,7 @@ def listen_to_agendas_duty_vision(
             listener_duty = get_duty_plan(
                 moment_mstr_dir=healer_lessonfilehandler.moment_mstr_dir,
                 plan_name=healer_lessonfilehandler.plan_name,
-                moment_label=healer_lessonfilehandler.moment_label,
+                moment_rope=healer_lessonfilehandler.moment_rope,
                 keep_rope=healer_keep_rope,
                 knot=healer_lessonfilehandler.knot,
                 duty_plan_name=listener_id,
@@ -230,7 +235,7 @@ def listen_to_agendas_duty_vision(
             healer_name = healer_lessonfilehandler.plan_name
             speaker_vision = rj_speaker_plan(
                 healer_lessonfilehandler.moment_mstr_dir,
-                healer_lessonfilehandler.moment_label,
+                healer_lessonfilehandler.moment_rope,
                 healer_keep_rope,
                 healer_lessonfilehandler.knot,
                 healer_name,
@@ -251,7 +256,7 @@ def listen_to_facts_duty_vision(
     duty = get_duty_plan(
         moment_mstr_dir=healer_lessonfilehandler.moment_mstr_dir,
         plan_name=healer_lessonfilehandler.plan_name,
-        moment_label=healer_lessonfilehandler.moment_label,
+        moment_rope=healer_lessonfilehandler.moment_rope,
         keep_rope=healer_keep_rope,
         knot=healer_lessonfilehandler.knot,
         duty_plan_name=new_vision.plan_name,
@@ -262,7 +267,7 @@ def listen_to_facts_duty_vision(
             speaker_vision = get_vision_plan(
                 healer_lessonfilehandler.moment_mstr_dir,
                 healer_lessonfilehandler.plan_name,
-                healer_lessonfilehandler.moment_label,
+                healer_lessonfilehandler.moment_rope,
                 healer_keep_rope,
                 healer_lessonfilehandler.knot,
                 x_personunit.person_name,
@@ -272,19 +277,19 @@ def listen_to_facts_duty_vision(
 
 
 def listen_to_facts_gut_job(moment_mstr_dir: str, new_job: PlanUnit):
-    moment_label = new_job.moment_label
-    old_job = open_job_file(moment_mstr_dir, moment_label, new_job.plan_name)
+    moment_lasso = lassounit_shop(new_job.moment_rope, new_job.knot)
+    old_job = open_job_file(moment_mstr_dir, moment_lasso, new_job.plan_name)
     for x_personunit in get_ordered_debtors_roll(old_job):
         speaker_id = x_personunit.person_name
-        speaker_job = open_job_file(moment_mstr_dir, moment_label, speaker_id)
+        speaker_job = open_job_file(moment_mstr_dir, moment_lasso, speaker_id)
         if speaker_job is not None:
             listen_to_speaker_fact(new_job, speaker_job)
 
 
 def listen_to_debtors_roll_jobs_into_job(
-    moment_mstr_dir: str, moment_label: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> PlanUnit:
-    old_job = open_job_file(moment_mstr_dir, moment_label, plan_name)
+    old_job = open_job_file(moment_mstr_dir, moment_lasso, plan_name)
     new_job = create_listen_basis(old_job)
     if old_job.debtor_respect is None:
         return new_job
@@ -301,7 +306,7 @@ def listen_to_debtors_roll_duty_vision(
     duty = get_duty_plan(
         moment_mstr_dir=healer_lessonfilehandler.moment_mstr_dir,
         plan_name=healer_lessonfilehandler.plan_name,
-        moment_label=healer_lessonfilehandler.moment_label,
+        moment_rope=healer_lessonfilehandler.moment_rope,
         keep_rope=healer_keep_rope,
         knot=healer_lessonfilehandler.knot,
         duty_plan_name=listener_id,
@@ -317,9 +322,10 @@ def listen_to_debtors_roll_duty_vision(
 def listen_to_plan_visions(
     listener_lessonfilehandler: LessonFileHandler, healer_keep_rope: RopeTerm
 ) -> None:
+    moment_lasso = lassounit_shop(listener_lessonfilehandler.moment_rope)
     gut = open_gut_file(
         listener_lessonfilehandler.moment_mstr_dir,
-        listener_lessonfilehandler.moment_label,
+        moment_lasso,
         listener_lessonfilehandler.plan_name,
     )
     new_job = create_listen_basis(gut)
@@ -371,7 +377,7 @@ def fact_state_keep_vision_and_listen(
     if vision_file_exists(
         healer_lessonfilehandler.moment_mstr_dir,
         healer_lessonfilehandler.plan_name,
-        healer_lessonfilehandler.moment_label,
+        healer_lessonfilehandler.moment_rope,
         healer_keep_rope,
         healer_lessonfilehandler.knot,
         listener_id,
@@ -379,7 +385,7 @@ def fact_state_keep_vision_and_listen(
         keep_vision = get_vision_plan(
             healer_lessonfilehandler.moment_mstr_dir,
             healer_lessonfilehandler.plan_name,
-            healer_lessonfilehandler.moment_label,
+            healer_lessonfilehandler.moment_rope,
             healer_keep_rope,
             healer_lessonfilehandler.knot,
             listener_id,
@@ -413,7 +419,7 @@ def create_vision_file_from_duty_file(
     save_vision_plan(
         healer_lessonfilehandler.moment_mstr_dir,
         healer_lessonfilehandler.plan_name,
-        healer_lessonfilehandler.moment_label,
+        healer_lessonfilehandler.moment_rope,
         healer_keep_rope,
         healer_lessonfilehandler.knot,
         x_vision,

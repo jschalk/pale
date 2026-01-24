@@ -22,7 +22,7 @@ For Levinas all of reality is born from the face to face encounter. The same (me
 
 A Moment can create a world or change a current world. Each plan can only make one moment at a time so a world that has been built by multiple moments implies each moment is from a different time. pale describes the passage of time by *spark_nums*. *spark_num* is alropes an integer. 
 
-For pale all data must have *spark_num*, *face_name*, *moment_label*. These are the required keys.
+For pale all data must have *spark_num*, *face_name*, *moment_rope*. These are the required keys.
 
   
 ## 0.1 Short introduction to pale excel sheets
@@ -30,25 +30,25 @@ For pale all data must have *spark_num*, *face_name*, *moment_label*. These are 
 `pale` is a python library for listening to the needs of my neighbors and in turn letting them know what I need. Needs can be expressed in Excel sheets that range in complexity from a simple five column single row (example below) to 10+ columns that include configuration options that are usually set to defaults. Each row is translated and used to build the "clarity" data set. Even sheet with a single row like the example 0.1.0 below can be processed by pale. 
 
 # Input Example Excel file 0.1.0: fizz0.xlsx with sheet "br00000_buzz" 
-| spark_num | face_name | moment_label | plan_name | person_name | tran_time | amount |
+| spark_num | face_name | moment_rope | plan_name | person_name | tran_time | amount |
 |-----------|-----------|-----------|------------|-----------|-----------|--------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |    891    |  7000  |
 
 When pale processes example 0.1.0 it creates a Moment labeled "OxboxDean" that contains plans Emmanuel and Dean and a single transaction of 7000 OxboxDean from Emmanuel to Dean. Here's a metric:
-| moment_label | plan_name | moment_fund_amount | moment_fund_rank | moment_pledges |
+| moment_rope | plan_name | moment_fund_amount | moment_fund_rank | moment_pledges |
 |--------------|---------------|--------------------|------------------|--------------|
 |  OxboxDean   |    Emmanuel   |       -7000        |         2        |       0      |
 |  OxboxDean   |      Dean     |        7000        |         1        |       0      |
 
 
 Output stance: emmanuel_stance.xlsx, sheet "br00000"
-| spark_num | face_name | moment_label | plan_name | person_name | tran_time | amount |
+| spark_num | face_name | moment_rope | plan_name | person_name | tran_time | amount |
 |-----------|-----------|--------------|---------------|-----------|-----------|--------|
 |    77     | Emmanuel  |   OxboxDean  |    Emmanuel   |    Dean   |    891    |  7000  |
 
 
 <!-- # Input Example Excel file 0.1.2: fizz2.xlsx with sheet "br00000_buzz2" 
-| spark_num | face_name | moment_label | plan_name | person_name | person_cred_points | person_debt_points |
+| spark_num | face_name | moment_rope | plan_name | person_name | person_cred_points | person_debt_points |
 |-----------|-----------|-----------|------------|-----------|---------------|---------------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |      100      |      15       |
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |  Emmanuel |       50      |      75       |

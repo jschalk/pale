@@ -1,5 +1,6 @@
 from pandas import DataFrame, concat as pandas_concat
 from plotly.graph_objects import Figure as plotly_Figure, Table as plotly_Table
+from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_report import (
     get_plan_agenda_dataframe,
     get_plan_personunits_dataframe,
@@ -15,9 +16,8 @@ def get_moment_guts_persons_dataframe(x_moment: MomentUnit) -> DataFrame:
     # for all plans get gut
     gut_dfs = []
     for plan_name in moment_plan_names:
-        gut_plan = open_gut_file(
-            x_moment.moment_mstr_dir, x_moment.moment_label, plan_name
-        )
+        moment_lasso = lassounit_shop(x_moment.moment_rope)
+        gut_plan = open_gut_file(x_moment.moment_mstr_dir, moment_lasso, plan_name)
         gut_plan.cashout()
         df = get_plan_personunits_dataframe(gut_plan)
         df.insert(0, "plan_name", gut_plan.plan_name)
@@ -57,7 +57,7 @@ def get_moment_guts_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', gut persons metrics"
+    fig_label = f"moment '{x_moment.moment_rope}', gut persons metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -71,7 +71,8 @@ def get_moment_jobs_persons_dataframe(x_moment: MomentUnit) -> DataFrame:
     # for all plans get gut
     job_dfs = []
     for plan_name in moment_plan_names:
-        job = open_job_file(x_moment.moment_mstr_dir, x_moment.moment_label, plan_name)
+        moment_lasso = lassounit_shop(x_moment.moment_rope, x_moment.knot)
+        job = open_job_file(x_moment.moment_mstr_dir, moment_lasso, plan_name)
         job.cashout()
         job_df = get_plan_personunits_dataframe(job)
         job_df.insert(0, "plan_name", job.plan_name)
@@ -111,7 +112,7 @@ def get_moment_jobs_persons_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', job persons metrics"
+    fig_label = f"moment '{x_moment.moment_rope}', job persons metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -124,9 +125,8 @@ def get_moment_guts_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
     # for all plans get gut
     gut_dfs = []
     for plan_name in moment_plan_names:
-        gut_plan = open_gut_file(
-            x_moment.moment_mstr_dir, x_moment.moment_label, plan_name
-        )
+        moment_lasso = lassounit_shop(x_moment.moment_rope, x_moment.knot)
+        gut_plan = open_gut_file(x_moment.moment_mstr_dir, moment_lasso, plan_name)
         gut_plan.cashout()
         df = get_plan_agenda_dataframe(gut_plan)
         gut_dfs.append(df)
@@ -169,7 +169,7 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', gut agenda metrics"
+    fig_label = f"moment '{x_moment.moment_rope}', gut agenda metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -180,10 +180,8 @@ def get_moment_jobs_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
     # get list of all plan paths
     job_dfs = []
     for x_plan_name in x_moment._get_plan_dir_names():
-
-        job = open_job_file(
-            x_moment.moment_mstr_dir, x_moment.moment_label, x_plan_name
-        )
+        moment_lasso = lassounit_shop(x_moment.moment_rope, x_moment.knot)
+        job = open_job_file(x_moment.moment_mstr_dir, moment_lasso, x_plan_name)
         job.cashout()
         job_df = get_plan_agenda_dataframe(job)
         job_dfs.append(job_df)
@@ -226,7 +224,7 @@ def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     )
 
     fig = plotly_Figure(data=[x_table])
-    fig_label = f"moment '{x_moment.moment_label}', job agenda metrics"
+    fig_label = f"moment '{x_moment.moment_rope}', job agenda metrics"
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)

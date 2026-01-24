@@ -360,15 +360,15 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         assert update_sqlstr == expected_update_sqlstr
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
-SELECT moment_label, cumulative_minute
+SELECT moment_rope, cumulative_minute
 FROM moment_epoch_hour_s_raw
-GROUP BY moment_label, cumulative_minute
+GROUP BY moment_rope, cumulative_minute
 HAVING MIN(hour_label) != MAX(hour_label)
 )
 UPDATE moment_epoch_hour_s_raw
 SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
-WHERE inconsistency_rows.moment_label = moment_epoch_hour_s_raw.moment_label
+WHERE inconsistency_rows.moment_rope = moment_epoch_hour_s_raw.moment_rope
     AND inconsistency_rows.cumulative_minute = moment_epoch_hour_s_raw.cumulative_minute
 ;
 """
@@ -411,15 +411,15 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         assert update_sqlstr == expected_update_sqlstr
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
-SELECT moment_label, otx_time
+SELECT moment_rope, otx_time
 FROM nabu_timenum_s_raw
-GROUP BY moment_label, otx_time
+GROUP BY moment_rope, otx_time
 HAVING MIN(inx_time) != MAX(inx_time)
 )
 UPDATE nabu_timenum_s_raw
 SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
-WHERE inconsistency_rows.moment_label = nabu_timenum_s_raw.moment_label
+WHERE inconsistency_rows.moment_rope = nabu_timenum_s_raw.moment_rope
     AND inconsistency_rows.otx_time = nabu_timenum_s_raw.otx_time
 ;
 """
@@ -457,9 +457,9 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         assert update_sqlstr == expected_update_sqlstr
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
-SELECT spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title
+SELECT spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title
 FROM plan_keg_awardunit_s_put_raw
-GROUP BY spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title
+GROUP BY spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title
 HAVING MIN(give_force) != MAX(give_force)
     OR MIN(take_force) != MAX(take_force)
 )
@@ -468,7 +468,7 @@ SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
 WHERE inconsistency_rows.spark_num = plan_keg_awardunit_s_put_raw.spark_num
     AND inconsistency_rows.face_name = plan_keg_awardunit_s_put_raw.face_name
-    AND inconsistency_rows.moment_label = plan_keg_awardunit_s_put_raw.moment_label
+    AND inconsistency_rows.moment_rope = plan_keg_awardunit_s_put_raw.moment_rope
     AND inconsistency_rows.plan_name = plan_keg_awardunit_s_put_raw.plan_name
     AND inconsistency_rows.keg_rope = plan_keg_awardunit_s_put_raw.keg_rope
     AND inconsistency_rows.awardee_title = plan_keg_awardunit_s_put_raw.awardee_title
@@ -547,11 +547,11 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario1_MomentDimen():
         print(expected_insert_sqlstr)
         assert update_sqlstrs[0] == expected_insert_sqlstr
 
-        static_example_sqlstr = """INSERT INTO moment_epoch_hour_s_agg (spark_num, face_name, moment_label, cumulative_minute, hour_label)
-SELECT spark_num, face_name, moment_label, cumulative_minute, MAX(hour_label)
+        static_example_sqlstr = """INSERT INTO moment_epoch_hour_s_agg (spark_num, face_name, moment_rope, cumulative_minute, hour_label)
+SELECT spark_num, face_name, moment_rope, cumulative_minute, MAX(hour_label)
 FROM moment_epoch_hour_s_raw
 WHERE error_message IS NULL
-GROUP BY spark_num, face_name, moment_label, cumulative_minute
+GROUP BY spark_num, face_name, moment_rope, cumulative_minute
 ;
 """
         print(update_sqlstrs[0])
@@ -588,11 +588,11 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen():
         print(expected_insert_sqlstr)
         assert update_sqlstrs[0] == expected_insert_sqlstr
 
-        static_example_sqlstr = """INSERT INTO nabu_timenum_s_agg (spark_num, face_name, moment_label, otx_time, inx_time)
-SELECT spark_num, face_name, moment_label, otx_time, MAX(inx_time)
+        static_example_sqlstr = """INSERT INTO nabu_timenum_s_agg (spark_num, face_name, moment_rope, otx_time, inx_time)
+SELECT spark_num, face_name, moment_rope, otx_time, MAX(inx_time)
 FROM nabu_timenum_s_raw
 WHERE error_message IS NULL
-GROUP BY spark_num, face_name, moment_label, otx_time
+GROUP BY spark_num, face_name, moment_rope, otx_time
 ;
 """
         print(update_sqlstrs[0])
@@ -627,11 +627,11 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PlanDimen():
         # print(put_expected_insert_sqlstr)
         assert update_sqlstrs[0] == put_expected_insert_sqlstr
 
-        static_example_put_sqlstr = """INSERT INTO plan_keg_awardunit_s_put_agg (spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title, give_force, take_force)
-SELECT spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title, MAX(give_force), MAX(take_force)
+        static_example_put_sqlstr = """INSERT INTO plan_keg_awardunit_s_put_agg (spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title, give_force, take_force)
+SELECT spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title, MAX(give_force), MAX(take_force)
 FROM plan_keg_awardunit_s_put_raw
 WHERE error_message IS NULL
-GROUP BY spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title
+GROUP BY spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title
 ;
 """
         # print(update_sqlstrs[0])
@@ -658,10 +658,10 @@ GROUP BY spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title
         print(update_sqlstrs[1])
         assert update_sqlstrs[1] == del_expected_insert_sqlstr
 
-        static_example_del_sqlstr = """INSERT INTO plan_keg_awardunit_s_del_agg (spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title_ERASE)
-SELECT spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title_ERASE
+        static_example_del_sqlstr = """INSERT INTO plan_keg_awardunit_s_del_agg (spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title_ERASE)
+SELECT spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title_ERASE
 FROM plan_keg_awardunit_s_del_raw
-GROUP BY spark_num, face_name, moment_label, plan_name, keg_rope, awardee_title_ERASE
+GROUP BY spark_num, face_name, moment_rope, plan_name, keg_rope, awardee_title_ERASE
 ;
 """
         assert update_sqlstrs[1] == static_example_del_sqlstr

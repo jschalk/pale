@@ -29,7 +29,7 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
         br00117_columns = [
             kw.spark_num,
             kw.face_name,
-            kw.moment_label,
+            kw.moment_rope,
             kw.plan_name,
             kw.person_name,
             kw.otx_rope,
@@ -39,7 +39,7 @@ def test_etl_brick_valid_tables_to_sound_raw_tables_PopulatesValidTable_Scenario
         insert_into_clause = f"""INSERT INTO {br00117_valid_tablename} (
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.person_name}
 , {kw.otx_rope}

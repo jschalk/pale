@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import count_files, create_path, save_json
+from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch13_time.epoch_main import epochunit_shop
 from src.ch13_time.test._util.ch13_examples import (
@@ -37,11 +38,12 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
     temp_dir = get_temp_dir()
     moment_mstr_dir = create_path(temp_dir, "moment_mstr")
     output_dir = create_path(temp_dir, "output")
-    a23_moment_path = create_moment_json_path(moment_mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_moment_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
     a23_momentunit = momentunit_shop(exx.a23, moment_mstr_dir)
     assert a23_momentunit.epoch == epochunit_shop(get_creg_config())
     save_json(a23_moment_path, None, a23_momentunit.to_dict())
-    a23_calendar_md_path = create_path(output_dir, f"{exx.a23}_calendar.md")
+    a23_calendar_md_path = create_path(output_dir, "amy23_calendar.md")
     print(f"{a23_calendar_md_path=}")
     assert not os_path_exists(a23_calendar_md_path)
 
@@ -68,7 +70,7 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #     br00011_columns = [
 #         kw.spark_num,
 #         kw.face_name,
-#         kw.moment_label,
+#         kw.moment_rope,
 #         kw.plan_name,
 #         kw.person_name
 #     ]
@@ -86,5 +88,5 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 
 #     # THEN
 #     assert os_path_exists(a23_calendar_md_path)
-#     expected_csv_str = "moment_label,plan_name,funds,fund_rank,pledges_count\n"
+#     expected_csv_str = "moment_rope,plan_name,funds,fund_rank,pledges_count\n"
 #     assert open(a23_calendar_md_path).read() == expected_csv_str

@@ -10,14 +10,14 @@ from src.ch09_plan_lesson.test._util.ch09_examples import (
     get_atom_example_kegunit_ball,
     get_atom_example_kegunit_knee,
     get_atom_example_kegunit_sports,
-    get_ch09_example_moment_label as moment_label,
+    get_ch09_example_moment_rope as moment_rope,
 )
 from src.ref.keywords import ExampleStrs as exx
 
 
 def test_LessonFileHandler_atom_filename_ReturnsObj():
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     one_int = 1
 
     # WHEN
@@ -29,7 +29,7 @@ def test_LessonFileHandler_atom_filename_ReturnsObj():
 
 def test_LessonFileHandler_atom_file_path_ReturnsObj():
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     one_int = 1
 
     # WHEN
@@ -43,7 +43,7 @@ def test_LessonFileHandler_atom_file_path_ReturnsObj():
 
 def test_LessonFileHandler_save_valid_atom_file_SavesFile(temp_dir_setup):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     one_int = 1
     assert os_path_exists(yao_lessonfilehandler.atom_file_path(one_int)) is False
 
@@ -58,7 +58,7 @@ def test_LessonFileHandler_save_valid_atom_file_SavesFile(temp_dir_setup):
 
 def test_LessonFileHandler_atom_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     four_int = 4
     assert os_path_exists(yao_lessonfilehandler.atom_file_path(four_int)) is False
     assert yao_lessonfilehandler.h_atom_file_exists(four_int) is False
@@ -75,7 +75,7 @@ def test_LessonFileHandler_atom_file_exists_ReturnsObj(temp_dir_setup):
 
 def test_LessonFileHandler_delete_atom_file_DeletesFile(temp_dir_setup):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     ten_int = 10
     yao_lessonfilehandler._save_valid_atom_file(
         get_atom_example_factunit_knee(), ten_int
@@ -91,7 +91,7 @@ def test_LessonFileHandler_delete_atom_file_DeletesFile(temp_dir_setup):
 
 def test_LessonFileHandler_get_max_atom_file_number_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     ten_int = 10
     yao_lessonfilehandler._save_valid_atom_file(
         get_atom_example_factunit_knee(), ten_int
@@ -106,7 +106,7 @@ def test_LessonFileHandler_get_max_atom_file_number_ReturnsObjWhenDirIsEmpty(
     temp_dir_setup,
 ):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
 
     # WHEN / THEN
     assert yao_lessonfilehandler.get_max_atom_file_number() is None
@@ -114,7 +114,7 @@ def test_LessonFileHandler_get_max_atom_file_number_ReturnsObjWhenDirIsEmpty(
 
 def test_LessonFileHandler_get_next_atom_file_number_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     # WHEN / THEN
     assert yao_lessonfilehandler._get_next_atom_file_number() == 0
 
@@ -130,7 +130,7 @@ def test_LessonFileHandler_get_next_atom_file_number_ReturnsObj(temp_dir_setup):
 
 def test_LessonFileHandler_save_atom_file_SavesFile(temp_dir_setup):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
     ten_int = 10
     yao_lessonfilehandler._save_valid_atom_file(
         get_atom_example_factunit_knee(), ten_int
@@ -155,14 +155,14 @@ def test_LessonFileHandler_get_plan_from_atom_files_ReturnsFileWithZeroAtoms(
     temp_dir_setup,
 ):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
 
     # WHEN
     yao_plan = yao_lessonfilehandler._get_plan_from_atom_files()
 
     # THEN
     assert yao_plan.plan_name == exx.yao
-    assert yao_plan.moment_label == yao_lessonfilehandler.moment_label
+    assert yao_plan.moment_rope == yao_lessonfilehandler.moment_rope
     assert yao_plan.knot == yao_lessonfilehandler.knot
     assert yao_plan.fund_pool == yao_lessonfilehandler.fund_pool
     assert yao_plan.fund_grain == yao_lessonfilehandler.fund_grain
@@ -173,10 +173,10 @@ def test_LessonFileHandler_get_plan_from_atom_files_ReturnsFile_SimpleKeg(
     temp_dir_setup,
 ):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
 
     # save atom files
-    sports_atom = get_atom_example_kegunit_sports(yao_lessonfilehandler.moment_label)
+    sports_atom = get_atom_example_kegunit_sports(yao_lessonfilehandler.moment_rope)
     yao_lessonfilehandler.save_atom_file(sports_atom)
 
     # WHEN
@@ -184,7 +184,7 @@ def test_LessonFileHandler_get_plan_from_atom_files_ReturnsFile_SimpleKeg(
 
     # THEN
     assert yao_plan.plan_name == exx.yao
-    assert yao_plan.moment_label == yao_lessonfilehandler.moment_label
+    assert yao_plan.moment_rope == yao_lessonfilehandler.moment_rope
     assert yao_plan.knot == yao_lessonfilehandler.knot
     sports_str = "sports"
     sports_rope = yao_plan.make_l1_rope(sports_str)
@@ -196,16 +196,14 @@ def test_LessonFileHandler_get_plan_from_atom_files_ReturnsFile_WithFactUnit(
     temp_dir_setup,
 ):
     # ESTABLISH
-    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_label(), exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_rope(), exx.yao)
 
     # save atom files
-    x_moment_label = yao_lessonfilehandler.moment_label
-    yao_lessonfilehandler.save_atom_file(
-        get_atom_example_kegunit_sports(x_moment_label)
-    )
-    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_ball(x_moment_label))
-    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_knee(x_moment_label))
-    yao_lessonfilehandler.save_atom_file(get_atom_example_factunit_knee(x_moment_label))
+    x_moment_rope = yao_lessonfilehandler.moment_rope
+    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_sports(x_moment_rope))
+    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_ball(x_moment_rope))
+    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_knee(x_moment_rope))
+    yao_lessonfilehandler.save_atom_file(get_atom_example_factunit_knee(x_moment_rope))
     print(f"{get_dir_file_strs(yao_lessonfilehandler.atoms_dir).keys()=}")
 
     # WHEN
@@ -213,7 +211,7 @@ def test_LessonFileHandler_get_plan_from_atom_files_ReturnsFile_WithFactUnit(
 
     # THEN
     assert yao_plan.plan_name == exx.yao
-    assert yao_plan.moment_label == yao_lessonfilehandler.moment_label
+    assert yao_plan.moment_rope == yao_lessonfilehandler.moment_rope
     assert yao_plan.knot == yao_lessonfilehandler.knot
     sports_str = "sports"
     sports_rope = yao_plan.make_l1_rope(sports_str)

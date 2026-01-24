@@ -20,7 +20,7 @@ def test_create_populate_kpi001_table_PopulatesTable_Scenario0_NoPledges():
         cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
         cursor.execute(CREATE_MOMENT_PERSON_NETS_SQLSTR)
         moment_person_nets_tablename = kw.moment_person_nets
-        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_label}, {kw.plan_name}, {kw.plan_net_amount}) 
+        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_rope}, {kw.plan_name}, {kw.plan_net_amount}) 
 VALUES 
   ('{exx.a23}', '{exx.bob}', {bob_person_net})
 , ('{exx.a23}', '{exx.yao}', {yao_person_net})
@@ -35,7 +35,7 @@ VALUES
 
         # THEN
         assert get_table_columns(cursor, moment_kpi001_person_nets_tablename) == [
-            kw.moment_label,
+            kw.moment_rope,
             kw.plan_name,
             kw.bnet_funds,
             kw.fund_rank,
@@ -44,7 +44,7 @@ VALUES
         assert get_row_count(cursor, moment_kpi001_person_nets_tablename)
         select_sqlstr = f"""
         SELECT 
-  {kw.moment_label}
+  {kw.moment_rope}
 , {kw.plan_name}
 , {kw.bnet_funds}
 , {kw.fund_rank}
@@ -70,7 +70,7 @@ def test_create_populate_kpi001_table_PopulatesTable_Scenario1_1pledge():
         cursor = db_conn.cursor()
         cursor.execute(CREATE_MOMENT_PERSON_NETS_SQLSTR)
         moment_person_nets_tablename = kw.moment_person_nets
-        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_label}, {kw.plan_name}, {kw.plan_net_amount})
+        insert_sqlstr = f"""INSERT INTO {moment_person_nets_tablename} ({kw.moment_rope}, {kw.plan_name}, {kw.plan_net_amount})
 VALUES
   ('{exx.a23}', '{exx.bob}', {bob_person_net})
 , ('{exx.a23}', '{exx.yao}', {yao_person_net})
@@ -81,7 +81,7 @@ VALUES
         cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
         job_plnkegg_tablename = create_prime_tablename("plnkegg", "job", None)
         insert_sqlstr = f"""
-INSERT INTO {job_plnkegg_tablename} ({kw.moment_label}, {kw.plan_name}, {kw.keg_rope}, {kw.pledge})
+INSERT INTO {job_plnkegg_tablename} ({kw.moment_rope}, {kw.plan_name}, {kw.keg_rope}, {kw.pledge})
 VALUES ('{exx.a23}', '{exx.bob}', '{casa_rope}', 1)
 """
         cursor.execute(insert_sqlstr)
@@ -93,7 +93,7 @@ VALUES ('{exx.a23}', '{exx.bob}', '{casa_rope}', 1)
 
         # THEN
         assert get_row_count(cursor, moment_kpi001_person_nets_tablename)
-        select_sqlstr = f"""SELECT {kw.moment_label}, {kw.plan_name}, {kw.bnet_funds}, {kw.fund_rank}, {kw.pledges_count} FROM {moment_kpi001_person_nets_tablename}"""
+        select_sqlstr = f"""SELECT {kw.moment_rope}, {kw.plan_name}, {kw.bnet_funds}, {kw.fund_rank}, {kw.pledges_count} FROM {moment_kpi001_person_nets_tablename}"""
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
         print(rows)

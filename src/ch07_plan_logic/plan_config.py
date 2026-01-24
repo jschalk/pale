@@ -152,7 +152,7 @@ def get_plan_calc_args_sqlite_datatype_dict() -> dict[str, str]:
         "give_force": "REAL",
         "take_force": "REAL",
         "reason_context": "TEXT",
-        "moment_label": "TEXT",
+        "moment_rope": "TEXT",
         "fact_context": "TEXT",
         "fact_state": "TEXT",
         "fact_upper": "REAL",

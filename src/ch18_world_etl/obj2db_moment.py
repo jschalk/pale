@@ -1,18 +1,18 @@
 from sqlite3 import Cursor as sqlite3_Cursor
 from src.ch00_py.dict_toolbox import set_in_nested_dict
-from src.ch11_bud.bud_main import MomentLabel
+from src.ch11_bud.bud_main import MomentRope
 from src.ch18_world_etl.etl_sqlstr import get_moment_heard_select1_sqlstrs
 
 
 def get_moment_dict_from_heard_tables(
-    cursor: sqlite3_Cursor, moment_label: MomentLabel
+    cursor: sqlite3_Cursor, moment_rope: MomentRope
 ) -> dict:
-    fu1_sqlstrs = get_moment_heard_select1_sqlstrs(moment_label)
-    return get_moment_dict_from_sqlstrs(cursor, fu1_sqlstrs, moment_label)
+    fu1_sqlstrs = get_moment_heard_select1_sqlstrs(moment_rope)
+    return get_moment_dict_from_sqlstrs(cursor, fu1_sqlstrs, moment_rope)
 
 
 def get_moment_dict_from_sqlstrs(
-    cursor: sqlite3_Cursor, fu1_sqlstrs: dict[str, str], moment_label: MomentLabel
+    cursor: sqlite3_Cursor, fu1_sqlstrs: dict[str, str], moment_rope: MomentRope
 ) -> dict:
     cursor.execute(fu1_sqlstrs.get("momentunit"))
     momentunit_row = cursor.fetchone()
@@ -24,7 +24,7 @@ def get_moment_dict_from_sqlstrs(
     yr1_jan1_offset = momentunit_row[3]
     monthday_index = momentunit_row[4]
 
-    moment_dict: dict[str, any] = {"moment_label": momentunit_row[0], "epoch": {}}
+    moment_dict: dict[str, any] = {"moment_rope": momentunit_row[0], "epoch": {}}
     if (
         epoch_label is not None
         and c400_number is not None
@@ -50,7 +50,7 @@ def get_moment_dict_from_sqlstrs(
         moment_dict["knot"] = knot
 
     cursor.execute(fu1_sqlstrs.get("moment_paybook"))
-    _set_moment_dict_mmtpayy(cursor, moment_dict, moment_label)
+    _set_moment_dict_mmtpayy(cursor, moment_dict, moment_rope)
 
     cursor.execute(fu1_sqlstrs.get("moment_budunit"))
     _set_moment_dict_momentbud(cursor, moment_dict)
@@ -70,25 +70,25 @@ def get_moment_dict_from_sqlstrs(
 
 
 def _set_moment_dict_mmtpayy(
-    cursor: sqlite3_Cursor, moment_dict: dict, x_moment_label: str
+    cursor: sqlite3_Cursor, moment_dict: dict, x_moment_rope: str
 ):
     tranunits_dict = {}
     for mmtpayy_row in cursor.fetchall():
-        row_moment_label = mmtpayy_row[0]
+        row_moment_rope = mmtpayy_row[0]
         row_plan_name = mmtpayy_row[1]
         row_person_name = mmtpayy_row[2]
         row_tran_time = mmtpayy_row[3]
         row_amount = mmtpayy_row[4]
         keylist = [row_plan_name, row_person_name, row_tran_time]
         set_in_nested_dict(tranunits_dict, keylist, row_amount)
-    paybook_dict = {"moment_label": x_moment_label, "tranunits": tranunits_dict}
+    paybook_dict = {"moment_rope": x_moment_rope, "tranunits": tranunits_dict}
     moment_dict["paybook"] = paybook_dict
 
 
 def _set_moment_dict_momentbud(cursor: sqlite3_Cursor, moment_dict: dict):
     planbudhistorys_dict = {}
     for mmtpayy_row in cursor.fetchall():
-        row_moment_label = mmtpayy_row[0]
+        row_moment_rope = mmtpayy_row[0]
         row_plan_name = mmtpayy_row[1]
         row_bud_time = mmtpayy_row[2]
         row_quota = mmtpayy_row[3]
@@ -108,7 +108,7 @@ def _set_moment_dict_momentbud(cursor: sqlite3_Cursor, moment_dict: dict):
 def _set_moment_dict_mmthour(cursor: sqlite3_Cursor, moment_dict: dict):
     hours_config_list = []
     for mmtpayy_row in cursor.fetchall():
-        row_moment_label = mmtpayy_row[0]
+        row_moment_rope = mmtpayy_row[0]
         row_cumulative_minute = mmtpayy_row[1]
         row_hour_label = mmtpayy_row[2]
         hours_config_list.append([row_hour_label, row_cumulative_minute])
@@ -119,7 +119,7 @@ def _set_moment_dict_mmthour(cursor: sqlite3_Cursor, moment_dict: dict):
 def _set_moment_dict_mmtmont(cursor: sqlite3_Cursor, moment_dict: dict):
     months_config_list = []
     for mmtpayy_row in cursor.fetchall():
-        row_moment_label = mmtpayy_row[0]
+        row_moment_rope = mmtpayy_row[0]
         row_cumulative_day = mmtpayy_row[1]
         row_month_label = mmtpayy_row[2]
         months_config_list.append([row_month_label, row_cumulative_day])
@@ -130,7 +130,7 @@ def _set_moment_dict_mmtmont(cursor: sqlite3_Cursor, moment_dict: dict):
 def _set_moment_dict_mmtweek(cursor: sqlite3_Cursor, moment_dict: dict):
     weekday_dict = {}
     for mmtpayy_row in cursor.fetchall():
-        row_moment_label = mmtpayy_row[0]
+        row_moment_rope = mmtpayy_row[0]
         row_weekday_order = mmtpayy_row[1]
         row_weekday_label = mmtpayy_row[2]
         weekday_dict[row_weekday_order] = row_weekday_label
@@ -142,7 +142,7 @@ def _set_moment_dict_mmtweek(cursor: sqlite3_Cursor, moment_dict: dict):
 def _set_moment_dict_timeoffi(cursor: sqlite3_Cursor, moment_dict: dict):
     offi_times_set = set()
     for mmtpayy_row in cursor.fetchall():
-        row_moment_label = mmtpayy_row[0]
+        row_moment_rope = mmtpayy_row[0]
         row_offi_time = mmtpayy_row[1]
         offi_times_set.add(row_offi_time)
     moment_dict["offi_times"] = list(offi_times_set)

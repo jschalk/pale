@@ -19,7 +19,7 @@ def test_RiverRun_save_rivergrade_file_SavesFile(temp_dir_setup):
     yao_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
         plan_name=x_riverrun.plan_name,
-        moment_label=x_riverrun.moment_label,
+        moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
         grade_plan_name=exx.yao,
@@ -46,7 +46,7 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     yao_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
         plan_name=x_riverrun.plan_name,
-        moment_label=x_riverrun.moment_label,
+        moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
         grade_plan_name=exx.yao,
@@ -54,7 +54,7 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     bob_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
         plan_name=x_riverrun.plan_name,
-        moment_label=x_riverrun.moment_label,
+        moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
         grade_plan_name=exx.bob,
@@ -62,7 +62,7 @@ def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     sue_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
         plan_name=x_riverrun.plan_name,
-        moment_label=x_riverrun.moment_label,
+        moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
         grade_plan_name=exx.sue,

@@ -1,12 +1,12 @@
 {
   "attributes": {
-    "face_name"   : { "otx_key": true  }, 
-    "keg_rope"    : { "otx_key": true  }, 
-    "moment_label": { "otx_key": true  }, 
-    "plan_name"   : { "otx_key": true  }, 
-    "pledge"      : { "otx_key": false }, 
-    "spark_num"   : { "otx_key": true  }, 
-    "star"        : { "otx_key": false }
+    "face_name"  : { "otx_key": true  }, 
+    "keg_rope"   : { "otx_key": true  }, 
+    "moment_rope": { "otx_key": true  }, 
+    "plan_name"  : { "otx_key": true  }, 
+    "pledge"     : { "otx_key": false }, 
+    "spark_num"  : { "otx_key": true  }, 
+    "star"       : { "otx_key": false }
   }, 
   "dimens": ["momentunit", "planunit", "plan_kegunit"], 
   "idea_number": "br00013"

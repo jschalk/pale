@@ -1,4 +1,5 @@
 from src.ch00_py.file_toolbox import set_dir
+from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_plan_dir_path
 from src.ch09_plan_lesson.lesson_filehandler import gut_file_exists, save_gut_file
@@ -12,16 +13,17 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario1(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
     a23_moment.create_init_job_from_guts(exx.sue)
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
 
     # WHEN
     sue_job = a23_moment.rotate_job(exx.sue)
 
     # THEN
     example_plan = planunit_shop(exx.sue, exx.a23)
-    assert sue_job.moment_label == example_plan.moment_label
+    assert sue_job.moment_rope == example_plan.moment_rope
     assert sue_job.plan_name == example_plan.plan_name
 
 
@@ -36,10 +38,11 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario2_EmptyPersonsCause_inallocabl
     init_sue_job.add_personunit(exx.bob)
     init_sue_job.add_personunit(exx.zia)
     save_job_file(moment_mstr_dir, init_sue_job)
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.yao) is False
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.bob) is False
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.zia) is False
+    a23_lasso = lassounit_shop(exx.a23)
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.yao) is False
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.bob) is False
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.zia) is False
 
     # WHEN
     rotated_sue_job = a23_moment.rotate_job(exx.sue)
@@ -53,7 +56,8 @@ def test_MomentUnit_rotate_job_ReturnsObj_Scenario2_EmptyPersonsCause_inallocabl
 
 def a23_job(plan_name: str) -> PlanUnit:
     moment_mstr_dir = get_temp_dir()
-    return open_job_file(moment_mstr_dir, exx.a23, plan_name)
+    a23_lasso = lassounit_shop(exx.a23)
+    return open_job_file(moment_mstr_dir, a23_lasso, plan_name)
 
 
 def test_MomentUnit_rotate_job_ReturnsObj_Scenario3_job_ChangesFromRotation(
@@ -119,21 +123,22 @@ def test_MomentUnit_generate_all_jobs_Scenario0_init_job_IsCreated(
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     bob_gut = planunit_shop(exx.bob, exx.a23)
     save_gut_file(moment_mstr_dir, bob_gut)
-    sue_dir = create_plan_dir_path(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_dir = create_plan_dir_path(moment_mstr_dir, a23_lasso, exx.sue)
     set_dir(sue_dir)
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.bob)
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.sue) is False
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.bob) is False
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.sue) is False
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.bob)
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue) is False
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.bob) is False
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.sue) is False
 
     # WHEN
     a23_moment.generate_all_jobs()
 
     # THEN
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.bob)
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.sue)
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.bob)
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.bob)
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.bob)
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
 
 
 def test_MomentUnit_generate_all_jobs_Scenario1_jobs_rotated(
@@ -157,9 +162,10 @@ def test_MomentUnit_generate_all_jobs_Scenario1_jobs_rotated(
     save_gut_file(moment_mstr_dir, bob_gut)
     save_gut_file(moment_mstr_dir, sue_gut)
     save_gut_file(moment_mstr_dir, yao_gut)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.bob)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.bob)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.yao)
 
     # WHEN
     a23_moment.generate_all_jobs()
@@ -199,10 +205,11 @@ def test_MomentUnit_generate_all_jobs_Scenario2_jobs_rotated_InSortedOrder(
     save_gut_file(moment_mstr_dir, sue_gut)
     save_gut_file(moment_mstr_dir, yao_gut)
     save_gut_file(moment_mstr_dir, zia_gut)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.bob)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.yao)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.zia)
+    a23_lasso = lassounit_shop(exx.a23)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.bob)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.yao)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.zia)
 
     # WHEN
     a23_moment.generate_all_jobs()
@@ -243,10 +250,11 @@ def test_MomentUnit_generate_all_jobs_Scenario3_job_listen_rotation_AffectsJobs(
     save_gut_file(moment_mstr_dir, sue_gut)
     save_gut_file(moment_mstr_dir, yao_gut)
     save_gut_file(moment_mstr_dir, zia_gut)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.bob)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.yao)
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.zia)
+    a23_lasso = lassounit_shop(exx.a23)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.bob)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.yao)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.zia)
     assert a23_moment.job_listen_rotations == 1
 
     # WHEN

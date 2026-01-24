@@ -8,6 +8,7 @@ from src.ch00_py.file_toolbox import (
     save_json,
     set_dir,
 )
+from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, get_planunit_from_dict
 from src.ch09_plan_lesson._ref.ch09_path import create_job_path
 from src.ch09_plan_lesson.lesson_filehandler import (
@@ -24,44 +25,43 @@ from src.ch10_plan_listen._ref.ch10_path import (
 from src.ch10_plan_listen._ref.ch10_semantic_types import (
     KnotTerm,
     LabelTerm,
-    MomentLabel,
+    MomentRope,
     PlanName,
     RopeTerm,
 )
 
 
 def job_file_exists(
-    moment_mstr_dir: str, moment_label: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> bool:
-    job_path = create_job_path(moment_mstr_dir, moment_label, plan_name)
+    job_path = create_job_path(moment_mstr_dir, moment_lasso, plan_name)
     return os_path_exists(job_path)
 
 
 def save_job_file(moment_mstr_dir: str, planunit: PlanUnit):
-    job_path = create_job_path(
-        moment_mstr_dir, planunit.moment_label, planunit.plan_name
-    )
+    moment_lasso = lassounit_shop(planunit.moment_rope, planunit.knot)
+    job_path = create_job_path(moment_mstr_dir, moment_lasso, planunit.plan_name)
     save_plan_file(job_path, None, planunit)
 
 
 def open_job_file(
-    moment_mstr_dir: str, moment_label: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> PlanUnit:
-    job_path = create_job_path(moment_mstr_dir, moment_label, plan_name)
+    job_path = create_job_path(moment_mstr_dir, moment_lasso, plan_name)
     return open_plan_file(job_path)
 
 
 def create_keep_path_dir_if_missing(
     moment_mstr_dir: str,
     plan_name: PlanName,
-    moment_label: MomentLabel,
-    keep_rope: LabelTerm,
+    moment_rope: MomentRope,
+    keep_rope: RopeTerm,
     knot: KnotTerm,
 ):
     keep_path = create_keep_rope_path(
         moment_mstr_dir,
         plan_name,
-        moment_label,
+        moment_rope,
         keep_rope,
         knot,
     )
@@ -71,14 +71,14 @@ def create_keep_path_dir_if_missing(
 def treasury_db_file_exists(
     moment_mstr_dir: str,
     plan_name: PlanName,
-    moment_label: MomentLabel,
-    keep_rope: LabelTerm,
+    moment_rope: MomentRope,
+    keep_rope: RopeTerm,
     knot: KnotTerm,
 ) -> bool:
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=plan_name,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         keep_rope=keep_rope,
         knot=knot,
     )
@@ -88,21 +88,21 @@ def treasury_db_file_exists(
 def create_treasury_db_file(
     moment_mstr_dir: str,
     plan_name: PlanName,
-    moment_label: MomentLabel,
-    keep_rope: LabelTerm,
+    moment_rope: MomentRope,
+    keep_rope: RopeTerm,
     knot: KnotTerm,
 ) -> None:
     create_keep_path_dir_if_missing(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=plan_name,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         keep_rope=keep_rope,
         knot=knot,
     )
     treasury_db_path = create_treasury_db_path(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=plan_name,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         keep_rope=keep_rope,
         knot=knot,
     )
@@ -113,15 +113,15 @@ def create_treasury_db_file(
 def save_duty_plan(
     moment_mstr_dir: str,
     plan_name: PlanName,
-    moment_label: MomentLabel,
-    keep_rope: LabelTerm,
+    moment_rope: MomentRope,
+    keep_rope: RopeTerm,
     knot: KnotTerm,
     duty_plan: PlanUnit,
 ) -> None:
     duty_path = create_keep_duty_path(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=plan_name,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         keep_rope=keep_rope,
         knot=knot,
         duty_plan=duty_plan.plan_name,
@@ -132,37 +132,40 @@ def save_duty_plan(
 def get_duty_plan(
     moment_mstr_dir: str,
     plan_name: PlanName,
-    moment_label: MomentLabel,
-    keep_rope: LabelTerm,
+    moment_rope: MomentRope,
+    keep_rope: RopeTerm,
     knot: KnotTerm,
     duty_plan_name: PlanName,
 ) -> PlanUnit:
     keep_duty_path = create_keep_duty_path(
         moment_mstr_dir=moment_mstr_dir,
         plan_name=plan_name,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         keep_rope=keep_rope,
         knot=knot,
         duty_plan=duty_plan_name,
     )
     if os_path_exists(keep_duty_path) is False:
         return None
-    return get_planunit_from_dict(open_json(keep_duty_path))
+    duty_plan = get_planunit_from_dict(open_json(keep_duty_path))
+    # duty_plan.moment_rope = moment_rope
+    return duty_plan
 
 
 def save_all_gut_dutys(
     moment_mstr_dir: str,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     plan_name: PlanName,
     keep_ropes: set[RopeTerm],
     knot: KnotTerm,
 ):
-    gut = open_gut_file(moment_mstr_dir, moment_label, plan_name)
+    moment_lasso = lassounit_shop(moment_rope)
+    gut = open_gut_file(moment_mstr_dir, moment_lasso, plan_name)
     for x_keep_rope in keep_ropes:
         save_duty_plan(
             moment_mstr_dir=moment_mstr_dir,
             plan_name=plan_name,
-            moment_label=moment_label,
+            moment_rope=moment_rope,
             keep_rope=x_keep_rope,
             knot=knot,
             duty_plan=gut,
@@ -173,8 +176,10 @@ class get_keep_ropesException(Exception):
     pass
 
 
-def get_keep_ropes(moment_mstr_dir, moment_label, plan_name) -> set[RopeTerm]:
-    x_gut_plan = open_gut_file(moment_mstr_dir, moment_label, plan_name)
+def get_keep_ropes(
+    moment_mstr_dir, moment_lasso: LassoUnit, plan_name
+) -> set[RopeTerm]:
+    x_gut_plan = open_gut_file(moment_mstr_dir, moment_lasso, plan_name)
     x_gut_plan.cashout()
     if x_gut_plan.keeps_justified is False:
         x_str = f"Cannot get_keep_ropes from '{plan_name}' gut plan because 'PlanUnit.keeps_justified' is False."
@@ -200,13 +205,13 @@ def get_perspective_plan(speaker: PlanUnit, listener_name: PlanName) -> PlanUnit
 def vision_file_exists(
     moment_mstr_dir: str,
     plan_name: PlanName,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     keep_rope: RopeTerm,
     knot: KnotTerm,
     speaker_id: PlanName,
 ) -> bool:
     keep_visions_path = create_keep_visions_path(
-        moment_mstr_dir, plan_name, moment_label, keep_rope, knot
+        moment_mstr_dir, plan_name, moment_rope, keep_rope, knot
     )
     file_path = create_path(keep_visions_path, get_json_filename(speaker_id))
     return os_path_exists(file_path)
@@ -215,17 +220,17 @@ def vision_file_exists(
 def get_vision_plan(
     moment_mstr_dir: str,
     plan_name: PlanName,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     keep_rope: RopeTerm,
     knot: KnotTerm,
     speaker_id: PlanName,
 ) -> PlanUnit:
     keep_visions_path = create_keep_visions_path(
-        moment_mstr_dir, plan_name, moment_label, keep_rope, knot
+        moment_mstr_dir, plan_name, moment_rope, keep_rope, knot
     )
     if (
         vision_file_exists(
-            moment_mstr_dir, plan_name, moment_label, keep_rope, knot, speaker_id
+            moment_mstr_dir, plan_name, moment_rope, keep_rope, knot, speaker_id
         )
         is False
     ):
@@ -236,17 +241,18 @@ def get_vision_plan(
 
 def get_dw_perspective_plan(
     moment_mstr_dir: str,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     speaker_id: PlanName,
     prespective_id: PlanName,
 ) -> PlanUnit:
-    speaker_job = open_job_file(moment_mstr_dir, moment_label, speaker_id)
+    moment_lasso = lassounit_shop(moment_rope)
+    speaker_job = open_job_file(moment_mstr_dir, moment_lasso, speaker_id)
     return get_perspective_plan(speaker_job, prespective_id)
 
 
 def rj_speaker_plan(
     moment_mstr_dir: str,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     keep_rope: RopeTerm,
     knot: KnotTerm,
     healer_name: PlanName,
@@ -254,7 +260,7 @@ def rj_speaker_plan(
 ) -> PlanUnit:
     return get_vision_plan(
         moment_mstr_dir=moment_mstr_dir,
-        moment_label=moment_label,
+        moment_rope=moment_rope,
         plan_name=healer_name,
         keep_rope=keep_rope,
         knot=knot,
@@ -264,7 +270,7 @@ def rj_speaker_plan(
 
 def rj_perspective_plan(
     moment_mstr_dir: str,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     keep_rope: RopeTerm,
     knot: KnotTerm,
     healer_name: PlanName,
@@ -273,7 +279,7 @@ def rj_perspective_plan(
 ) -> PlanUnit:
     speaker_vision = rj_speaker_plan(
         moment_mstr_dir,
-        moment_label,
+        moment_rope,
         keep_rope,
         knot,
         healer_name,
@@ -285,7 +291,7 @@ def rj_perspective_plan(
 def save_vision_plan(
     moment_mstr_dir: str,
     healer_name: PlanName,
-    moment_label: MomentLabel,
+    moment_rope: MomentRope,
     keep_rope: RopeTerm,
     knot: KnotTerm,
     x_plan: PlanUnit,
@@ -294,7 +300,7 @@ def save_vision_plan(
     keep_visions_path = create_keep_visions_path(
         moment_mstr_dir,
         healer_name,
-        moment_label,
+        moment_rope,
         keep_rope,
         knot,
     )

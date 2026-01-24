@@ -34,7 +34,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnit_v1(temp_dir_setup):
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_texas_lessonfilehandler.plan_name,
-        moment_label=sue_texas_lessonfilehandler.moment_label,
+        moment_rope=sue_texas_lessonfilehandler.moment_rope,
         keep_rope=get_texas_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -44,7 +44,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnit_v1(temp_dir_setup):
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         zia_vision,
@@ -83,7 +83,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_texas_lessonfilehandler.plan_name,
-        moment_label=sue_texas_lessonfilehandler.moment_label,
+        moment_rope=sue_texas_lessonfilehandler.moment_rope,
         keep_rope=get_texas_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -96,7 +96,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         zia_vision,
@@ -135,7 +135,7 @@ def test_listen_to_facts_duty_vision_GetsFactsFromSrcPlanSelfNotSpeakerSelf(
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_texas_lessonfilehandler.plan_name,
-        moment_label=sue_texas_lessonfilehandler.moment_label,
+        moment_rope=sue_texas_lessonfilehandler.moment_rope,
         keep_rope=get_texas_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -148,7 +148,7 @@ def test_listen_to_facts_duty_vision_GetsFactsFromSrcPlanSelfNotSpeakerSelf(
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         old_yao_vision,
@@ -186,7 +186,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_texas_lessonfilehandler.plan_name,
-        moment_label=sue_texas_lessonfilehandler.moment_label,
+        moment_rope=sue_texas_lessonfilehandler.moment_rope,
         keep_rope=get_texas_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -198,7 +198,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         zia_vision,
@@ -209,7 +209,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         old_yao_vision,
@@ -251,7 +251,7 @@ def test_listen_to_facts_duty_vision_SetsPrioritizesSelfFactsOverSpeakers(
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_texas_lessonfilehandler.plan_name,
-        moment_label=sue_texas_lessonfilehandler.moment_label,
+        moment_rope=sue_texas_lessonfilehandler.moment_rope,
         keep_rope=get_texas_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -263,7 +263,7 @@ def test_listen_to_facts_duty_vision_SetsPrioritizesSelfFactsOverSpeakers(
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         zia_vision,
@@ -301,7 +301,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         zia_vision,
@@ -313,7 +313,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
     save_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_label,
+        sue_texas_lessonfilehandler.moment_rope,
         get_texas_rope(),
         sue_texas_lessonfilehandler.knot,
         bob_vision,
@@ -325,7 +325,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_texas_lessonfilehandler.plan_name,
-        moment_label=sue_texas_lessonfilehandler.moment_label,
+        moment_rope=sue_texas_lessonfilehandler.moment_rope,
         keep_rope=get_texas_rope(),
         knot=None,
         duty_plan=yao_duty,

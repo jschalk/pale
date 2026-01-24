@@ -27,7 +27,12 @@ from src.ch00_py.file_toolbox import (
     save_file,
     save_json,
 )
-from src.ch04_rope.rope import default_knot_if_None
+from src.ch04_rope.rope import (
+    LassoUnit,
+    create_rope,
+    default_knot_if_None,
+    lassounit_shop,
+)
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch08_plan_atom.atom_config import get_plan_dimens
 from src.ch08_plan_atom.atom_main import planatom_shop
@@ -613,12 +618,13 @@ def etl_heard_raw_tables_to_heard_vld_tables(cursor: sqlite3_Cursor):
 
 
 def etl_heard_vld_tables_to_moment_jsons(cursor: sqlite3_Cursor, moment_mstr_dir: str):
-    select_moment_label_sqlstr = """SELECT moment_label FROM momentunit_h_vld;"""
-    cursor.execute(select_moment_label_sqlstr)
+    select_moment_rope_sqlstr = """SELECT moment_rope FROM momentunit_h_vld;"""
+    cursor.execute(select_moment_rope_sqlstr)
     for moment_label_set in cursor.fetchall():
         moment_label = moment_label_set[0]
         moment_dict = get_moment_dict_from_heard_tables(cursor, moment_label)
-        moment_json_path = create_moment_json_path(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        moment_json_path = create_moment_json_path(moment_mstr_dir, moment_lasso)
         save_json(moment_json_path, None, moment_dict)
 
 
@@ -687,21 +693,25 @@ def etl_heard_raw_tables_to_moment_ote1_agg(conn_or_cursor: sqlite3_Connection):
 def etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs(
     conn_or_cursor: sqlite3_Connection, moment_mstr_dir: str
 ):
-    empty_ote1_csv_str = """moment_label,plan_name,spark_num,bud_time,error_message
+    empty_ote1_csv_str = """moment_rope,plan_name,spark_num,bud_time,error_message
 """
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        ote1_csv_path = create_moment_ote1_csv_path(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        ote1_csv_path = create_moment_ote1_csv_path(moment_mstr_dir, moment_lasso)
         save_file(ote1_csv_path, None, empty_ote1_csv_str)
 
-    save_to_split_csvs(conn_or_cursor, "moment_ote1_agg", ["moment_label"], moments_dir)
+    save_to_split_csvs(
+        conn_or_cursor, "moment_ote1_agg", ["moment_rope"], moments_dir, trim_col=True
+    )
 
 
 def etl_moment_ote1_agg_csvs_to_jsons(moment_mstr_dir: str):
     idea_types = get_idea_sqlite_types()
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        csv_path = create_moment_ote1_csv_path(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        csv_path = create_moment_ote1_csv_path(moment_mstr_dir, moment_lasso)
         csv_arrays = open_csv_with_types(csv_path, idea_types)
         x_dict = {}
         header_row = csv_arrays.pop(0)
@@ -713,7 +723,7 @@ def etl_moment_ote1_agg_csvs_to_jsons(moment_mstr_dir: str):
                 x_dict[plan_name] = {}
             plan_dict = x_dict.get(plan_name)
             plan_dict[int(bud_time)] = spark_num
-        json_path = create_moment_ote1_json_path(moment_mstr_dir, moment_label)
+        json_path = create_moment_ote1_json_path(moment_mstr_dir, moment_lasso)
         save_json(json_path, None, x_dict)
 
 
@@ -721,41 +731,47 @@ def etl_create_buds_root_cells(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_dir = create_path(moments_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
         ote1_json_path = create_path(moment_dir, "moment_ote1_agg.json")
         if os_path_exists(ote1_json_path):
             ote1_dict = open_json(ote1_json_path)
-            x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_label)
+            x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
             x_momentunit.create_buds_root_cells(ote1_dict)
 
 
 def etl_create_moment_cell_trees(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        create_moment_plans_cell_trees(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        create_moment_plans_cell_trees(moment_mstr_dir, moment_lasso)
 
 
 def etl_set_cell_trees_found_facts(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        set_cell_trees_found_facts(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        set_cell_trees_found_facts(moment_mstr_dir, moment_lasso)
 
 
 def etl_set_cell_trees_decrees(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        set_cell_trees_decrees(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        set_cell_trees_decrees(moment_mstr_dir, moment_lasso)
 
 
 def etl_set_cell_tree_cell_mandates(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        set_cell_tree_cell_mandates(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        set_cell_tree_cell_mandates(moment_mstr_dir, moment_lasso)
 
 
 def etl_create_bud_mandate_ledgers(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        create_bud_mandate_ledgers(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        create_bud_mandate_ledgers(moment_mstr_dir, moment_lasso)
 
 
 def etl_heard_vld_to_spark_plan_csvs(
@@ -767,17 +783,19 @@ def etl_heard_vld_to_spark_plan_csvs(
             save_to_split_csvs(
                 conn_or_cursor=conn_or_cursor,
                 tablename=plan_table,
-                key_columns=["moment_label", "plan_name", "spark_num"],
+                key_columns=["moment_rope", "plan_name", "spark_num"],
                 dst_dir=moments_dir,
                 col1_prefix="plans",
                 col2_prefix="sparks",
+                trim_col=True,
             )
 
 
 def etl_spark_plan_csvs_to_lesson_json(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_path = create_path(moments_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        moment_path = create_path(moments_dir, moment_lasso.make_path())
         plans_path = create_path(moment_path, "plans")
         for plan_name in get_level1_dirs(plans_path):
             plan_path = create_path(plans_path, plan_name)
@@ -786,13 +804,13 @@ def etl_spark_plan_csvs_to_lesson_json(moment_mstr_dir: str):
                 spark_lesson = lessonunit_shop(
                     plan_name=plan_name,
                     face_name=None,
-                    moment_label=moment_label,
+                    moment_rope=moment_lasso.rope,
                     spark_num=spark_num,
                 )
                 spark_dir = create_path(sparks_path, spark_num)
                 add_planatoms_from_csv(spark_lesson, spark_dir)
                 spark_all_lesson_path = create_spark_all_lesson_path(
-                    moment_mstr_dir, moment_label, plan_name, spark_num
+                    moment_mstr_dir, moment_lasso, plan_name, spark_num
                 )
                 save_json(
                     spark_all_lesson_path,
@@ -821,7 +839,7 @@ def add_planatoms_from_csv(spark_lesson: LessonUnit, spark_dir: str):
                     if col_name not in {
                         "face_name",
                         "spark_num",
-                        "moment_label",
+                        "moment_rope",
                         "plan_name",
                     }:
                         x_atom.set_arg(col_name, row_value)
@@ -836,7 +854,7 @@ def add_planatoms_from_csv(spark_lesson: LessonUnit, spark_dir: str):
                     if col_name not in {
                         "face_name",
                         "spark_num",
-                        "moment_label",
+                        "moment_rope",
                         "plan_name",
                     }:
                         x_atom.set_arg(col_name, row_value)
@@ -847,6 +865,8 @@ def etl_spark_lesson_json_to_spark_inherited_planunits(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_path = create_path(moments_dir, moment_label)
+        moment_rope = create_rope(moment_label)
+        moment_lasso = lassounit_shop(moment_rope)
         plans_dir = create_path(moment_path, "plans")
         for plan_name in get_level1_dirs(plans_dir):
             plan_dir = create_path(plans_dir, plan_name)
@@ -854,17 +874,17 @@ def etl_spark_lesson_json_to_spark_inherited_planunits(moment_mstr_dir: str):
             prev_spark_num = None
             for spark_num in get_level1_dirs(sparks_dir):
                 prev_plan = _get_prev_spark_num_planunit(
-                    moment_mstr_dir, moment_label, plan_name, prev_spark_num
+                    moment_mstr_dir, moment_lasso, plan_name, prev_spark_num
                 )
                 planspark_path = create_planspark_path(
-                    moment_mstr_dir, moment_label, plan_name, spark_num
+                    moment_mstr_dir, moment_lasso, plan_name, spark_num
                 )
                 spark_dir = create_plan_spark_dir_path(
-                    moment_mstr_dir, moment_label, plan_name, spark_num
+                    moment_mstr_dir, moment_lasso, plan_name, spark_num
                 )
 
                 spark_all_lesson_path = create_spark_all_lesson_path(
-                    moment_mstr_dir, moment_label, plan_name, spark_num
+                    moment_mstr_dir, moment_lasso, plan_name, spark_num
                 )
                 spark_lesson = get_lessonunit_from_dict(
                     open_json(spark_all_lesson_path)
@@ -883,12 +903,12 @@ def etl_spark_lesson_json_to_spark_inherited_planunits(moment_mstr_dir: str):
 
 
 def _get_prev_spark_num_planunit(
-    moment_mstr_dir, moment_label, plan_name, prev_spark_num
+    moment_mstr_dir, moment_lasso: LassoUnit, plan_name, prev_spark_num
 ) -> PlanUnit:
     if prev_spark_num is None:
-        return planunit_shop(plan_name, moment_label)
+        return planunit_shop(plan_name, moment_lasso.rope)
     prev_planspark_path = create_planspark_path(
-        moment_mstr_dir, moment_label, plan_name, prev_spark_num
+        moment_mstr_dir, moment_lasso, plan_name, prev_spark_num
     )
     return open_plan_file(prev_planspark_path)
 
@@ -896,28 +916,31 @@ def _get_prev_spark_num_planunit(
 def etl_spark_inherited_planunits_to_moment_gut(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        plan_sparks = collect_plan_spark_dir_sets(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        plan_sparks = collect_plan_spark_dir_sets(moment_mstr_dir, moment_lasso)
         plans_max_spark_num_dict = get_plans_downhill_spark_nums(plan_sparks)
         for plan_name, max_spark_num in plans_max_spark_num_dict.items():
             max_planspark_path = create_planspark_path(
-                moment_mstr_dir, moment_label, plan_name, max_spark_num
+                moment_mstr_dir, moment_lasso, plan_name, max_spark_num
             )
             max_spark_plan_json = open_file(max_planspark_path)
-            gut_path = create_gut_path(moment_mstr_dir, moment_label, plan_name)
+            gut_path = create_gut_path(moment_mstr_dir, moment_lasso, plan_name)
             save_file(gut_path, None, max_spark_plan_json)
 
 
 def add_moment_epoch_to_guts(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
         x_momentunit.add_epoch_to_guts()
 
 
 def etl_moment_guts_to_moment_jobs(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
         x_momentunit.generate_all_jobs()
 
 
@@ -925,10 +948,12 @@ def etl_moment_job_jsons_to_job_tables(cursor: sqlite3_Cursor, moment_mstr_dir: 
     create_job_tables(cursor)
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
+        moment_rope = create_rope(moment_label)
+        moment_lasso = lassounit_shop(moment_rope)
         moment_path = create_path(moments_dir, moment_label)
         plans_dir = create_path(moment_path, "plans")
         for plan_name in get_level1_dirs(plans_dir):
-            job_obj = open_job_file(moment_mstr_dir, moment_label, plan_name)
+            job_obj = open_job_file(moment_mstr_dir, moment_lasso, plan_name)
             insert_job_obj(cursor, job_obj)
 
 
@@ -942,7 +967,7 @@ def insert_tranunit_persons_net(cursor: sqlite3_Cursor, tranbook: TranBook):
     """
     persons_net_array = tranbook._get_persons_net_array()
     cursor.executemany(
-        f"INSERT INTO moment_person_nets (moment_label, plan_name, plan_net_amount) VALUES ('{tranbook.moment_label}', ?, ?)",
+        f"INSERT INTO moment_person_nets (moment_rope, plan_name, plan_net_amount) VALUES ('{tranbook.moment_rope}', ?, ?)",
         persons_net_array,
     )
 
@@ -953,7 +978,8 @@ def etl_moment_json_person_nets_to_moment_person_nets_table(
     cursor.execute(CREATE_MOMENT_PERSON_NETS_SQLSTR)
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_label)
+        moment_lasso = lassounit_shop(create_rope(moment_label))
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
         x_momentunit.set_all_tranbook()
         insert_tranunit_persons_net(cursor, x_momentunit.all_tranbook)
 

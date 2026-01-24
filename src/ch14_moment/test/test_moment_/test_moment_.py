@@ -1,7 +1,7 @@
 from os.path import exists as os_path_exists, isdir as os_path_isdir
 from src.ch00_py.file_toolbox import create_path, get_json_filename, set_dir
 from src.ch01_allot.allot import default_grain_num_if_None
-from src.ch04_rope.rope import default_knot_if_None
+from src.ch04_rope.rope import default_knot_if_None, lassounit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -33,7 +33,7 @@ def test_MomentUnit_Exists():
     # ESTABLISH / WHEN
     amy_moment = MomentUnit()
     # THEN
-    assert not amy_moment.moment_label
+    assert not amy_moment.moment_rope
     assert not amy_moment.epoch
     assert not amy_moment.planbudhistorys
     assert not amy_moment.paybook
@@ -50,7 +50,7 @@ def test_MomentUnit_Exists():
     assert not amy_moment.lessons_dir
     assert not amy_moment.all_tranbook
     assert set(amy_moment.__dict__) == {
-        kw.moment_label,
+        kw.moment_rope,
         kw.epoch,
         kw.planbudhistorys,
         kw.paybook,
@@ -76,7 +76,7 @@ def test_momentunit_shop_ReturnsMomentUnit():
     a23_moment = momentunit_shop(exx.a23, get_temp_dir())
 
     # THEN
-    assert a23_moment.moment_label == exx.a23
+    assert a23_moment.moment_rope == exx.a23
     assert a23_moment.epoch == epochunit_shop()
     assert a23_moment.planbudhistorys == {}
     assert a23_moment.paybook == tranbook_shop(exx.a23)
@@ -100,7 +100,7 @@ def test_momentunit_shop_ReturnsMomentUnitWith_moments_dir(temp_dir_setup):
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir=get_temp_dir())
 
     # THEN
-    assert a23_moment.moment_label == exx.a23
+    assert a23_moment.moment_rope == exx.a23
     assert a23_moment.moment_mstr_dir == get_temp_dir()
     assert a23_moment.plans_dir is not None
     assert a23_moment.lessons_dir is not None
@@ -116,7 +116,7 @@ def test_momentunit_shop_ReturnsMomentUnitWith_knot(temp_dir_setup):
 
     # WHEN
     a23_moment = momentunit_shop(
-        moment_label=exx.a23,
+        moment_rope=exx.a23_slash,
         moment_mstr_dir=get_temp_dir(),
         offi_times=a45_offi_times,
         knot=exx.slash,
@@ -139,7 +139,7 @@ def test_MomentUnit_set_moment_dirs_SetsDirsAndFiles(temp_dir_setup):
     # ESTABLISH
     amy_moment = MomentUnit(exx.a23, get_temp_dir())
     x_moments_dir = create_path(get_temp_dir(), "moments")
-    x_moment_dir = create_path(x_moments_dir, exx.a23)
+    x_moment_dir = create_path(x_moments_dir, "Amy23")
     x_plans_dir = create_path(x_moment_dir, "plans")
     x_lessons_dir = create_path(x_moment_dir, "lessons")
 
@@ -155,6 +155,8 @@ def test_MomentUnit_set_moment_dirs_SetsDirsAndFiles(temp_dir_setup):
     amy_moment._set_moment_dirs()
 
     # THEN
+    print(f"{amy_moment.moment_dir=}")
+    print(f"         {x_moment_dir=}")
     assert amy_moment.moment_dir == x_moment_dir
     assert amy_moment.plans_dir == x_plans_dir
     assert amy_moment.lessons_dir == x_lessons_dir
@@ -171,9 +173,9 @@ def test_momentunit_shop_SetsmomentsDirs(temp_dir_setup):
     a23_moment = momentunit_shop(exx.a23, get_temp_dir())
 
     # THEN
-    assert a23_moment.moment_label == exx.a23
+    assert a23_moment.moment_rope == exx.a23
     x_moments_dir = create_path(get_temp_dir(), "moments")
-    assert a23_moment.moment_dir == create_path(x_moments_dir, exx.a23)
+    assert a23_moment.moment_dir == create_path(x_moments_dir, "Amy23")
     assert a23_moment.plans_dir == create_path(a23_moment.moment_dir, "plans")
 
 
@@ -186,7 +188,7 @@ def test_MomentUnit_create_empty_plan_from_moment_ReturnsObj_Scenario0(
     x_respect_grain = 5
     x_mana_grain = 6
     a23_moment = momentunit_shop(
-        exx.a23,
+        exx.a23_slash,
         moment_mstr_dir,
         knot=exx.slash,
         fund_grain=x_fund_grain,
@@ -210,18 +212,19 @@ def test_MomentUnit_create_gut_file_if_none_SetsDirAndFiles_Scenario1_plan_dir_E
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
-    sue_plan_dir = create_plan_dir_path(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_plan_dir = create_plan_dir_path(moment_mstr_dir, a23_lasso, exx.sue)
     assert not os_path_exists(sue_plan_dir)
-    assert not gut_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    assert not gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
 
     # WHEN
     a23_moment.create_gut_file_if_none(exx.sue)
 
     # THEN
     print(f"{moment_mstr_dir=}")
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
     expected_sue_gut = planunit_shop(exx.sue, exx.a23)
-    assert open_gut_file(moment_mstr_dir, exx.a23, exx.sue) == expected_sue_gut
+    assert open_gut_file(moment_mstr_dir, a23_lasso, exx.sue) == expected_sue_gut
 
 
 def test_MomentUnit_create_gut_file_if_none_SetsDirAndFiles_Scenario2_plan_dir_ExistsNoFile_Create_gut_AndConfirmMomentAttributesPassed(
@@ -233,25 +236,26 @@ def test_MomentUnit_create_gut_file_if_none_SetsDirAndFiles_Scenario2_plan_dir_E
     x_respect_grain = 5
     x_mana_grain = 6
     a23_moment = momentunit_shop(
-        exx.a23,
+        exx.a23_slash,
         moment_mstr_dir,
         knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
         mana_grain=x_mana_grain,
     )
-    sue_plan_dir = create_plan_dir_path(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23_slash, exx.slash)
+    sue_plan_dir = create_plan_dir_path(moment_mstr_dir, a23_lasso, exx.sue)
     set_dir(sue_plan_dir)
     assert os_path_exists(sue_plan_dir)
-    assert not gut_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    assert not gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
 
     # WHEN
     a23_moment.create_gut_file_if_none(exx.sue)
 
     # THEN
     print(f"{moment_mstr_dir=}")
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.sue)
-    generated_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
+    generated_gut = open_gut_file(moment_mstr_dir, a23_lasso, exx.sue)
     assert generated_gut.knot == exx.slash
     assert generated_gut.fund_grain == x_fund_grain
     assert generated_gut.respect_grain == x_respect_grain
@@ -267,17 +271,18 @@ def test_MomentUnit_create_gut_file_if_none_SetsDirAndFiles_Scenario3_FileExists
     sue_gut = planunit_shop(exx.sue, exx.a23)
     sue_gut.add_personunit(exx.bob)
     save_gut_file(moment_mstr_dir, sue_gut)
-    sue_plan_dir = create_plan_dir_path(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_plan_dir = create_plan_dir_path(moment_mstr_dir, a23_lasso, exx.sue)
     assert os_path_exists(sue_plan_dir)
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
 
     # WHEN
     a23_moment.create_gut_file_if_none(exx.sue)
 
     # THEN
     print(f"{moment_mstr_dir=}")
-    assert gut_file_exists(moment_mstr_dir, exx.a23, exx.sue)
-    assert open_gut_file(moment_mstr_dir, exx.a23, exx.sue) == sue_gut
+    assert gut_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
+    assert open_gut_file(moment_mstr_dir, a23_lasso, exx.sue) == sue_gut
 
 
 def test_MomentUnit_create_init_job_from_guts_Scenario0_CreatesFile(
@@ -288,20 +293,21 @@ def test_MomentUnit_create_init_job_from_guts_Scenario0_CreatesFile(
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
-        exx.a23,
+        exx.a23_slash,
         moment_mstr_dir,
         knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
     )
-    assert not job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23_slash, exx.slash)
+    assert not job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
 
     # WHEN
     a23_moment.create_init_job_from_guts(exx.sue)
 
     # THEN
     print(f"{moment_mstr_dir=}")
-    assert job_file_exists(moment_mstr_dir, exx.a23, exx.sue)
+    assert job_file_exists(moment_mstr_dir, a23_lasso, exx.sue)
 
 
 def test_MomentUnit_create_init_job_from_guts_Scenario1_ReplacesFile(
@@ -312,22 +318,23 @@ def test_MomentUnit_create_init_job_from_guts_Scenario1_ReplacesFile(
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
-        exx.a23,
+        exx.a23_slash,
         moment_mstr_dir,
         knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
     )
-    x0_sue_job = planunit_shop(exx.sue, exx.a23)
+    x0_sue_job = planunit_shop(exx.sue, exx.a23_slash, exx.slash)
     x0_sue_job.add_personunit(exx.bob)
     save_job_file(moment_mstr_dir, x0_sue_job)
-    assert open_job_file(moment_mstr_dir, exx.a23, exx.sue).get_person(exx.bob)
+    a23_lasso = lassounit_shop(exx.a23_slash, exx.slash)
+    assert open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_person(exx.bob)
 
     # WHEN
     a23_moment.create_init_job_from_guts(exx.sue)
 
     # THEN
-    assert not open_job_file(moment_mstr_dir, exx.a23, exx.sue).get_person(exx.bob)
+    assert not open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_person(exx.bob)
 
 
 def test_MomentUnit_create_init_job_from_guts_Scenario2_job_Has_gut_Persons(
@@ -338,23 +345,24 @@ def test_MomentUnit_create_init_job_from_guts_Scenario2_job_Has_gut_Persons(
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
-        exx.a23,
+        exx.a23_slash,
         moment_mstr_dir,
         knot=exx.slash,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
     )
     a23_moment.create_init_job_from_guts(exx.sue)
-    sue_gut = planunit_shop(exx.sue, exx.a23)
+    sue_gut = planunit_shop(exx.sue, exx.a23_slash, exx.slash)
     sue_gut.add_personunit(exx.bob)
     save_gut_file(moment_mstr_dir, sue_gut)
-    assert not open_job_file(moment_mstr_dir, exx.a23, exx.sue).get_person(exx.bob)
+    a23_lasso = lassounit_shop(exx.a23_slash, exx.slash)
+    assert not open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_person(exx.bob)
 
     # WHEN
     a23_moment.create_init_job_from_guts(exx.sue)
 
     # THEN
-    assert open_job_file(moment_mstr_dir, exx.a23, exx.sue).get_person(exx.bob)
+    assert open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_person(exx.bob)
 
 
 def test_MomentUnit_create_init_job_from_guts_Scenario3_gut_FilesAreListenedTo(
@@ -365,7 +373,7 @@ def test_MomentUnit_create_init_job_from_guts_Scenario3_gut_FilesAreListenedTo(
     x_fund_grain = 4
     x_respect_grain = 5
     a23_moment = momentunit_shop(
-        exx.a23,
+        exx.a23_slash,
         moment_mstr_dir,
         knot=exx.slash,
         fund_grain=x_fund_grain,
@@ -374,25 +382,26 @@ def test_MomentUnit_create_init_job_from_guts_Scenario3_gut_FilesAreListenedTo(
     a23_moment.create_init_job_from_guts(exx.sue)
 
     # create Sue gut
-    sue_gut = planunit_shop(exx.sue, exx.a23, knot=exx.slash)
+    sue_gut = planunit_shop(exx.sue, exx.a23_slash, knot=exx.slash)
     sue_gut.add_personunit(exx.bob)
     save_gut_file(moment_mstr_dir, sue_gut)
     # create Bob gut with agenda keg for Sue
-    bob_gut = planunit_shop(exx.bob, exx.a23, knot=exx.slash)
+    bob_gut = planunit_shop(exx.bob, exx.a23_slash, knot=exx.slash)
     bob_gut.add_personunit(exx.sue)
     casa_rope = bob_gut.make_l1_rope("casa")
     clean_rope = bob_gut.make_rope(casa_rope, "clean")
     bob_gut.add_keg(clean_rope, pledge=True)
     bob_gut.get_keg_obj(clean_rope).laborunit.add_party(exx.sue)
     save_gut_file(moment_mstr_dir, bob_gut)
-    assert not open_job_file(moment_mstr_dir, exx.a23, exx.sue).get_agenda_dict()
+    a23_lasso = lassounit_shop(exx.a23_slash, exx.slash)
+    assert not open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_agenda_dict()
 
     # WHEN
     a23_moment.create_init_job_from_guts(exx.sue)
 
     # THEN
-    assert open_job_file(moment_mstr_dir, exx.a23, exx.sue).get_agenda_dict()
-    sue_agenda = open_job_file(moment_mstr_dir, exx.a23, exx.sue).get_agenda_dict()
+    assert open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_agenda_dict()
+    sue_agenda = open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_agenda_dict()
     assert len(sue_agenda) == 1
     assert sue_agenda.get(clean_rope).get_keg_rope() == clean_rope
 
@@ -405,8 +414,9 @@ def test_MomentUnit__set_all_healer_dutys_Setsdutys(
     a23_moment = momentunit_shop(exx.a23, x_moment_mstr_dir)
     a23_moment.create_init_job_from_guts(exx.sue)
     a23_moment.create_init_job_from_guts(exx.yao)
-    sue_gut_plan = open_gut_file(x_moment_mstr_dir, exx.a23, exx.sue)
-    yao_gut_plan = open_gut_file(x_moment_mstr_dir, exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_gut_plan = open_gut_file(x_moment_mstr_dir, a23_lasso, exx.sue)
+    yao_gut_plan = open_gut_file(x_moment_mstr_dir, a23_lasso, exx.yao)
 
     sue_gut_plan.add_personunit(exx.sue)
     sue_gut_plan.add_personunit(exx.yao)

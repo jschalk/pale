@@ -26,7 +26,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_create_plnunit_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -39,7 +39,7 @@ def test_create_plnunit_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.credor_respect: x_credor_respect,
         kw.debtor_respect: x_debtor_respect,
@@ -76,7 +76,7 @@ def test_create_plnunit_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_plnkegg_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_active = 1
     x_all_person_cred = 2
@@ -107,7 +107,7 @@ def test_create_plnkegg_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.addin: x_addin,
         kw.begin: x_begin,
@@ -148,7 +148,7 @@ def test_create_plnkegg_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_plnreas_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -156,7 +156,7 @@ def test_create_plnreas_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
@@ -188,7 +188,7 @@ def test_create_plnreas_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_plncase_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -199,7 +199,7 @@ def test_create_plncase_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
@@ -235,7 +235,7 @@ def test_create_plncase_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_plnawar_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = exx.a23
+#     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
 #     x_rope = 1
 #     x_awardee_title = 2
@@ -246,7 +246,7 @@ def test_create_plncase_h_put_agg_insert_sqlstr_ReturnsObj():
 #     values_dict = {
 #         kw.spark_num: 77,
 #         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
+#         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
 #         kw.keg_rope: x_rope,
 #         kw.awardee_title: x_awardee_title,
@@ -281,7 +281,7 @@ def test_create_plncase_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_rope = 1
     x_fact_context = 2
@@ -291,7 +291,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_label: x_moment_label,
+        kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
         kw.keg_rope: x_rope,
         kw.fact_context: x_fact_context,
@@ -326,14 +326,14 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_plnheal_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = exx.a23
+#     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
 #     x_rope = 1
 #     x_healer_name = 2
 #     values_dict = {
 #         kw.spark_num: 77,
 #         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
+#         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
 #         kw.keg_rope: x_rope,
 #         kw.healer_name: x_healer_name,
@@ -363,7 +363,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_plnlabo_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = exx.a23
+#     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
 #     x_rope = 1
 #     x_party_title = 2
@@ -372,7 +372,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     values_dict = {
 #         kw.spark_num: 77,
 #         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
+#         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
 #         kw.keg_rope: x_rope,
 #         kw.party_title: x_party_title,
@@ -405,7 +405,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_plnprsn_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = exx.a23
+#     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
 #     x_person_name = 1
 #     x_person_cred_lumen = 2
@@ -424,7 +424,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     values_dict = {
 #         kw.spark_num: 77,
 #         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
+#         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
 #         kw.person_name: x_person_name,
 #         kw.person_cred_lumen: x_person_cred_lumen,
@@ -466,7 +466,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_plnmemb_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = exx.a23
+#     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
 #     x_person_name = 1
 #     x_group_title = 2
@@ -483,7 +483,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     values_dict = {
 #         kw.spark_num: 77,
 #         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
+#         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
 #         kw.person_name: x_person_name,
 #         kw.group_title: x_group_title,
@@ -523,7 +523,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 # def test_create_plngrou_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
-#     x_moment_label = exx.a23
+#     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
 #     x_group_title = 1
 #     x_credor_pool = 2
@@ -536,7 +536,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     values_dict = {
 #         kw.spark_num: 77,
 #         kw.face_name: exx.yao,
-#         kw.moment_label: x_moment_label,
+#         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
 #         kw.group_title: x_group_title,
 #         kw.credor_pool: x_credor_pool,

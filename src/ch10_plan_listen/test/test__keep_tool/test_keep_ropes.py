@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from pytest import raises as pytest_raises
+from src.ch04_rope.rope import lassounit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_graphic import display_kegtree
@@ -23,7 +24,8 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
     # ESTABLISH
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
-    sue_gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     texas_str = "Texas"
     texas_rope = sue_gut_plan.make_l1_rope(texas_str)
@@ -34,12 +36,13 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
     sue_gut_plan.edit_keg_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
     sue_gut_plan.edit_keg_attr(dallas_rope, healerunit=healerunit_shop({exx.sue}))
     sue_gut_plan.cashout()
+    a23_lasso = lassounit_shop(exx.a23)
     assert sue_gut_plan.keeps_justified is False
     save_gut_file(env_dir(), sue_gut_plan)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        get_keep_ropes(env_dir(), moment_label=exx.a23, plan_name=exx.sue)
+        get_keep_ropes(env_dir(), moment_lasso=a23_lasso, plan_name=exx.sue)
     exception_str = f"Cannot get_keep_ropes from '{exx.sue}' gut plan because 'PlanUnit.keeps_justified' is False."
     assert str(excinfo.value) == exception_str
 
@@ -50,7 +53,8 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
     # ESTABLISH
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
-    sue_gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     texas_str = "Tex/as"
     texas_rope = sue_gut_plan.make_l1_rope(texas_str)
@@ -63,7 +67,7 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        get_keep_ropes(env_dir(), exx.a23, plan_name=exx.sue)
+        get_keep_ropes(env_dir(), a23_lasso, plan_name=exx.sue)
     exception_str = f"Cannot get_keep_ropes from '{exx.sue}' gut plan because 'PlanUnit.keeps_buildable' is False."
     assert str(excinfo.value) == exception_str
 
@@ -72,7 +76,8 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     # ESTABLISH
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
-    sue_gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     texas_str = "Texas"
     texas_rope = sue_gut_plan.make_l1_rope(texas_str)
@@ -90,7 +95,7 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     save_gut_file(env_dir(), sue_gut_plan)
 
     # WHEN
-    sue_keep_ropes = get_keep_ropes(env_dir(), exx.a23, plan_name=exx.sue)
+    sue_keep_ropes = get_keep_ropes(env_dir(), a23_lasso, plan_name=exx.sue)
 
     # THEN
     assert len(sue_keep_ropes) == 2
@@ -104,7 +109,8 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     mstr_dir = env_dir()
     sue_lessonfilehandler = lessonfilehandler_shop(mstr_dir, exx.a23, exx.sue, None)
     save_gut_file(mstr_dir, sue_lessonfilehandler.default_gut_plan())
-    sue_gut_plan = open_gut_file(mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_gut_plan = open_gut_file(mstr_dir, a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     sue_gut_plan.add_personunit(exx.bob)
     texas_str = "Texas"
@@ -123,7 +129,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     sue_dallas_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=dallas_rope,
         knot=None,
         duty_plan=exx.sue,
@@ -131,19 +137,19 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     sue_elpaso_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,
         plan_name=exx.sue,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         keep_rope=elpaso_rope,
         knot=None,
         duty_plan=exx.sue,
     )
-    sue_keep_ropes = get_keep_ropes(env_dir(), exx.a23, plan_name=exx.sue)
+    sue_keep_ropes = get_keep_ropes(env_dir(), a23_lasso, plan_name=exx.sue)
     assert os_path_exists(sue_dallas_duty_path) is False
     assert os_path_exists(sue_elpaso_duty_path) is False
 
     # WHEN
     save_all_gut_dutys(
         moment_mstr_dir=mstr_dir,
-        moment_label=exx.a23,
+        moment_rope=exx.a23,
         plan_name=exx.sue,
         keep_ropes=sue_keep_ropes,
         knot=sue_lessonfilehandler.knot,

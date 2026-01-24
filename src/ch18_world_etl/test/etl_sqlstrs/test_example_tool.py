@@ -11,7 +11,7 @@ from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     FaceName,
-    MomentLabel,
+    MomentRope,
     PlanName,
     SparkInt,
     TimeNum,
@@ -61,7 +61,7 @@ def test_insert_nabepoc_h_agg_otx_inx_time_PopulatesTable_Scenario0():
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.otx_time}
 , {kw.inx_time}
 FROM {nabepoc_h_agg_tablename}
@@ -116,7 +116,7 @@ def test_insert_mmtunit_special_c400_number_PopulatesTable_Scenario0():
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.c400_number}
 FROM {mmtunit_h_agg_tablename}
 """
@@ -147,7 +147,7 @@ def test_insert_mmtoffi_special_offi_time_otx_PopulatesTable_Scenario0():
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.offi_time}_otx
 FROM {mmtoffi_h_agg_tablename}
 """
@@ -181,7 +181,7 @@ def test_select_mmtoffi_special_offi_time_inx_PopulatesTable_Scenario0():
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.face_name}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.offi_time}_otx
 FROM {mmtoffi_h_agg_tablename}
 """
@@ -206,7 +206,7 @@ def test_insert_plncase_special_h_agg_PopulatesTable_Scenario0():
         insert_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
-            x_moment_label=exx.sue,
+            x_moment_rope=exx.sue,
             x_plan_name=exx.a23,
             x_keg_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
@@ -219,7 +219,7 @@ def test_insert_plncase_special_h_agg_PopulatesTable_Scenario0():
         assert get_row_count(cursor, plncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.keg_rope}
 , {kw.reason_context}
@@ -256,7 +256,7 @@ def test_select_plncase_special_h_agg_PopulatesTable_Scenario0():
         insert_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
-            x_moment_label=exx.a23,
+            x_moment_rope=exx.a23,
             x_plan_name=exx.sue,
             x_keg_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
@@ -269,7 +269,7 @@ def test_select_plncase_special_h_agg_PopulatesTable_Scenario0():
         gen_rows = select_plncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
-            x_moment_label=exx.a23,
+            x_moment_rope=exx.a23,
             x_plan_name=exx.sue,
             x_keg_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
@@ -280,7 +280,7 @@ def test_select_plncase_special_h_agg_PopulatesTable_Scenario0():
         assert gen_rows
         gen_row0 = gen_rows[0]
         assert gen_row0.spark_num == spark1
-        assert gen_row0.moment_label == exx.a23
+        assert gen_row0.moment_rope == exx.a23
         assert gen_row0.plan_name == exx.sue
         assert gen_row0.keg_rope == wx.clean_rope
         assert gen_row0.reason_context == wx.day_rope
@@ -294,7 +294,7 @@ def test_select_plncase_special_h_agg_PopulatesTable_Scenario0():
         assert get_row_count(cursor, plncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_label}
+, {kw.moment_rope}
 , {kw.plan_name}
 , {kw.keg_rope}
 , {kw.reason_context}
@@ -322,7 +322,7 @@ FROM {plncase_h_agg}
 # def insert_plncase_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
-#     x_moment_label: MomentLabel,
+#     x_moment_rope: MomentRope,
 #     x_plan_name: PlanName,
 #     x_keg_rope: RopeTerm,
 #     x_reason_context: RopeTerm,
@@ -336,7 +336,7 @@ FROM {plncase_h_agg}
 # def select_plncase_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
-#     x_moment_label: MomentLabel,
+#     x_moment_rope: MomentRope,
 #     x_plan_name: PlanName,
 #     x_keg_rope: RopeTerm,
 #     x_reason_context: RopeTerm,
@@ -348,7 +348,7 @@ FROM {plncase_h_agg}
 # def insert_plnfact_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
-#     x_moment_label: MomentLabel,
+#     x_moment_rope: MomentRope,
 #     x_plan_name: PlanName,
 #     x_keg_rope: RopeTerm,
 #     x_fact_context: RopeTerm,
@@ -362,7 +362,7 @@ FROM {plncase_h_agg}
 # def select_plnfact_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
-#     x_moment_label: MomentLabel,
+#     x_moment_rope: MomentRope,
 #     x_plan_name: PlanName,
 #     x_keg_rope: RopeTerm,
 #     x_fact_context: RopeTerm,
@@ -373,7 +373,7 @@ FROM {plncase_h_agg}
 # def insert_plnkegg_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
-#     x_moment_label: MomentLabel,
+#     x_moment_rope: MomentRope,
 #     x_plan_name: PlanName,
 #     x_keg_rope: RopeTerm,
 #     x_denom: int,

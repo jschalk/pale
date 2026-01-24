@@ -1,4 +1,4 @@
-from src.ch04_rope.rope import create_rope
+from src.ch04_rope.rope import create_rope, lassounit_shop
 from src.ch05_reason.reason_main import FactUnit, factunit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
@@ -12,15 +12,16 @@ from src.ref.keywords import ExampleStrs as exx
 def create_example_moment2() -> MomentUnit:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a45_str = "amy45"
-    amy_moment = momentunit_shop(a45_str, x_moment_mstr_dir)
+    a45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(a45_rope, x_moment_mstr_dir)
     wei_str = "Wei"
     amy_moment.create_init_job_from_guts(exx.yao)
     amy_moment.create_init_job_from_guts(wei_str)
     amy_moment.create_init_job_from_guts(exx.zia)
-    yao_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, exx.yao)
-    wei_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, wei_str)
-    zia_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, exx.zia)
+    a45_lasso = lassounit_shop(a45_rope)
+    yao_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.yao)
+    wei_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, wei_str)
+    zia_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.zia)
 
     yao_gut_plan.set_credor_respect(101)
     wei_gut_plan.set_credor_respect(75)
@@ -69,16 +70,17 @@ def create_example_moment2() -> MomentUnit:
 
 def create_example_moment3() -> MomentUnit:
     # ESTABLISH
-    a45_str = "amy45"
+    a45_rope = create_rope("amy45")
+    a45_lasso = lassounit_shop(a45_rope)
     x_moment_mstr_dir = get_temp_dir()
-    amy_moment = momentunit_shop(a45_str, x_moment_mstr_dir)
+    amy_moment = momentunit_shop(a45_rope, x_moment_mstr_dir)
     wei_str = "Wei"
     amy_moment.create_init_job_from_guts(exx.yao)
     amy_moment.create_init_job_from_guts(wei_str)
     amy_moment.create_init_job_from_guts(exx.zia)
-    yao_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, exx.yao)
-    wei_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, wei_str)
-    zia_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, exx.zia)
+    yao_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.yao)
+    wei_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, wei_str)
+    zia_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.zia)
 
     casa_rope = yao_gut_plan.make_l1_rope(exx.casa)
     yao_gut_plan.set_l1_keg(kegunit_shop(exx.casa))
@@ -109,15 +111,16 @@ def create_example_moment3() -> MomentUnit:
 def create_example_moment4() -> MomentUnit:
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
-    a45_str = "amy45"
-    amy_moment = momentunit_shop(a45_str, x_moment_mstr_dir)
+    a45_rope = create_rope("amy45")
+    a45_lasso = lassounit_shop(a45_rope)
+    amy_moment = momentunit_shop(a45_rope, x_moment_mstr_dir)
     wei_str = "Wei"
     amy_moment.create_init_job_from_guts(exx.yao)
     amy_moment.create_init_job_from_guts(wei_str)
     amy_moment.create_init_job_from_guts(exx.zia)
-    yao_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, exx.yao)
-    wei_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, wei_str)
-    zia_gut_plan = open_gut_file(x_moment_mstr_dir, a45_str, exx.zia)
+    yao_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.yao)
+    wei_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, wei_str)
+    zia_gut_plan = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.zia)
 
     casa_rope = yao_gut_plan.make_l1_rope(exx.casa)
     yao_gut_plan.set_l1_keg(kegunit_shop(exx.casa))
@@ -201,7 +204,7 @@ def get_bob_mop_without_reason_planunit_example() -> PlanUnit:
 
 
 def get_bob_mop_with_reason_planunit_example() -> PlanUnit:
-    """plan_name: bob, moment_label: amy23"""
+    """plan_name: bob, moment_rope: amy23"""
     bob_plan = get_bob_mop_without_reason_planunit_example()
     floor_str = "floor situation"
     dirty_str = "dirty"

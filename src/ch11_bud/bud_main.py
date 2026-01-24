@@ -12,7 +12,7 @@ from src.ch00_py.dict_toolbox import (
 from src.ch01_allot.allot import default_pool_num
 from src.ch11_bud._ref.ch11_semantic_types import (
     FundNum,
-    MomentLabel,
+    MomentRope,
     PersonName,
     PlanName,
     TimeNum,
@@ -46,7 +46,7 @@ def tranunit_shop(
 
 @dataclass
 class TranBook:
-    moment_label: MomentLabel = None
+    moment_rope: MomentRope = None
     tranunits: dict[PlanName, dict[PersonName, dict[TimeNum, FundNum]]] = None
     _persons_net: dict[PlanName, dict[PersonName, FundNum]] = None
 
@@ -162,18 +162,18 @@ class TranBook:
 
     def to_dict(
         self,
-    ) -> dict[MomentLabel, dict[PlanName, dict[PersonName, dict[TimeNum, FundNum]]]]:
+    ) -> dict[MomentRope, dict[PlanName, dict[PersonName, dict[TimeNum, FundNum]]]]:
         """Returns dict that is serializable to JSON."""
 
-        return {"moment_label": self.moment_label, "tranunits": self.tranunits}
+        return {"moment_rope": self.moment_rope, "tranunits": self.tranunits}
 
 
 def tranbook_shop(
-    x_moment_label: MomentLabel,
+    x_moment_rope: MomentRope,
     x_tranunits: dict[PlanName, dict[PersonName, dict[TimeNum, FundNum]]] = None,
 ):
     return TranBook(
-        moment_label=x_moment_label,
+        moment_rope=x_moment_rope,
         tranunits=get_empty_dict_if_None(x_tranunits),
         _persons_net={},
     )
@@ -187,7 +187,7 @@ def get_tranbook_from_dict(x_dict: dict) -> TranBook:
             for x_tran_time, x_amount in x_tran_time_dict.items():
                 x_key_list = [x_plan_name, x_person_name, int(x_tran_time)]
                 set_in_nested_dict(new_tranunits, x_key_list, x_amount)
-    return tranbook_shop(x_dict.get("moment_label"), new_tranunits)
+    return tranbook_shop(x_dict.get("moment_rope"), new_tranunits)
 
 
 @dataclass
@@ -299,8 +299,8 @@ class PlanBudHistory:
     def get_bud_times(self) -> set[TimeNum]:
         return set(self.buds.keys())
 
-    def get_tranbook(self, moment_label: MomentLabel) -> TranBook:
-        x_tranbook = tranbook_shop(moment_label)
+    def get_tranbook(self, moment_rope: MomentRope) -> TranBook:
+        x_tranbook = tranbook_shop(moment_rope)
         for x_bud_time, x_bud in self.buds.items():
             for dst_person_name, x_quota in x_bud._bud_person_nets.items():
                 x_tranbook.add_tranunit(

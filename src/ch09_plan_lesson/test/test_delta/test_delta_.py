@@ -312,12 +312,12 @@ def test_PlanDelta_get_sorted_planatoms_ReturnsObj():
 
 def test_PlanDelta_get_sorted_planatoms_ReturnsObj_KegUnitsSorted():
     # ESTABLISH
-    x_moment_label = exx.a23
-    root_rope = to_rope(x_moment_label)
+    x_moment_rope = exx.a23
+    root_rope = to_rope(x_moment_rope)
     sports_str = "sports"
-    sports_rope = create_rope(x_moment_label, sports_str)
+    sports_rope = create_rope(x_moment_rope, sports_str)
     knee_str = "knee"
-    knee_rope = create_rope(x_moment_label, knee_str)
+    knee_rope = create_rope(x_moment_rope, knee_str)
     x_dimen = kw.plan_kegunit
     sports_insert_kegunit_planatom = planatom_shop(x_dimen, kw.INSERT)
     sports_insert_kegunit_planatom.set_jkey(kw.keg_rope, sports_rope)
@@ -346,9 +346,9 @@ def test_PlanDelta_get_sorted_planatoms_ReturnsObj_KegUnitsSorted():
 def test_PlanDelta_get_sorted_planatoms_ReturnsObj_Rope_Sorted():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    x_moment_label = exx.a23
+    x_moment_rope = exx.a23
     sports_str = "sports"
-    sports_rope = create_rope(x_moment_label, sports_str)
+    sports_rope = create_rope(x_moment_rope, sports_str)
     knee_str = "knee"
     knee_rope = create_rope(sports_rope, knee_str)
     x_dimen = kw.plan_keg_awardunit
