@@ -1,6 +1,7 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import db_table_exists, get_row_count
 from src.ch00_py.file_toolbox import save_json
+from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch11_bud.bud_main import tranbook_shop
 from src.ch14_moment.moment_main import momentunit_shop
@@ -64,7 +65,8 @@ def test_etl_moment_json_person_nets_to_moment_person_nets_table_PopulatesDataba
     a23_moment.add_paypurchase(exx.sue, exx.yao, t66_tran_time, t66_yao_amount)
     a23_moment.add_paypurchase(exx.sue, exx.bob, t55_tran_time, t55_bob_amount)
     a23_moment.add_paypurchase(exx.yao, exx.yao, t77_tran_time, t77_yao_amount)
-    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     save_json(a23_json_path, None, a23_moment.to_dict())
 
     with sqlite3_connect(":memory:") as db_conn:

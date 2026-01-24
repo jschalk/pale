@@ -2,6 +2,7 @@ from os.path import exists as os_path_exists
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import create_select_query, db_table_exists, get_row_count
 from src.ch00_py.file_toolbox import open_json
+from src.ch04_rope.rope import create_rope, lassounit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch14_moment.moment_main import get_momentunit_from_dict
@@ -109,7 +110,7 @@ def test_etl_heard_vld_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomen
     temp_dir_setup,
 ):
     # ESTABLISH
-    amy45_str = "amy45"
+    amy45_rope = create_rope("amy45")
     moment_mstr_dir = get_temp_dir()
     momentunit_h_vld_tablename = create_prime_tablename(kw.momentunit, "h", "vld")
     print(f"{momentunit_h_vld_tablename=}")
@@ -120,14 +121,16 @@ def test_etl_heard_vld_tables_to_moment_jsons_Scenario0_CreateFilesWithOnlyMomen
 
         insert_raw_sqlstr = f"""
 INSERT INTO {momentunit_h_vld_tablename} ({kw.moment_rope})
-VALUES ('{exx.a23}'), ('{amy45_str}')
+VALUES ('{exx.a23}'), ('{amy45_rope}')
 ;
 """
         cursor.execute(insert_raw_sqlstr)
         assert get_row_count(cursor, momentunit_h_vld_tablename) == 2
 
-        amy23_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
-        amy45_json_path = create_moment_json_path(moment_mstr_dir, amy45_str)
+        a23_lasso = lassounit_shop(exx.a23)
+        a45_lasso = lassounit_shop(amy45_rope)
+        amy23_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
+        amy45_json_path = create_moment_json_path(moment_mstr_dir, a45_lasso)
         print(f"{amy23_json_path=}")
         print(f"{amy45_json_path=}")
         assert os_path_exists(amy23_json_path) is False
@@ -142,4 +145,4 @@ VALUES ('{exx.a23}'), ('{amy45_str}')
     amy23_moment = get_momentunit_from_dict(open_json(amy23_json_path))
     amy45_moment = get_momentunit_from_dict(open_json(amy45_json_path))
     assert amy23_moment.moment_rope == exx.a23
-    assert amy45_moment.moment_rope == amy45_str
+    assert amy45_moment.moment_rope == amy45_rope

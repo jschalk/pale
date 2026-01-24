@@ -36,6 +36,7 @@ from src.ch17_idea.idea_db_tool import get_ordered_csv
 from src.ch17_idea.idea_main import moment_build_from_df
 from src.ch17_idea.test._util.ch17_env import idea_moments_dir, temp_dir_setup
 from src.ch17_idea.test._util.ch17_examples import (  # get_ex2_br00006_df,
+    J45_ROPE,
     get_ex2_br00000_df,
     get_ex2_br00001_df,
     get_ex2_br00002_df,
@@ -179,15 +180,15 @@ def test_add_momentunit_to_stance_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
     gen_br00004_csv = x_csvs.get("br00004")
     gen_br00005_csv = x_csvs.get("br00005")
     # gen_br00006_csv = x_csvs.get("br00006")
-    expected_br00000_csv = ",,Amy23,creg,7,440640,1,1,1,1,/,4\n"
+    expected_br00000_csv = ",,;Amy23;,creg,7,440640,1,1,1,1,;,4\n"
     expected_br00001_csv = (
-        ",,Amy23,Bob,999,332,3\n,,Amy23,Sue,777,445,3\n,,Amy23,Yao,222,700,3\n"
+        ",,;Amy23;,Bob,999,332,3\n,,;Amy23;,Sue,777,445,3\n,,;Amy23;,Yao,222,700,3\n"
     )
-    expected_br00002_csv = ",,Amy23,Bob,Zia,777,888\n,,Amy23,Sue,Zia,999,234\n,,Amy23,Yao,Zia,999,234\n,,Amy23,Zia,Bob,777,888\n"
-    expected_br00003_csv = ",,Amy23,60,12am\n,,Amy23,120,1am\n,,Amy23,180,2am\n,,Amy23,240,3am\n,,Amy23,300,4am\n,,Amy23,360,5am\n,,Amy23,420,6am\n,,Amy23,480,7am\n,,Amy23,540,8am\n,,Amy23,600,9am\n,,Amy23,660,10am\n,,Amy23,720,11am\n,,Amy23,780,12pm\n,,Amy23,840,1pm\n,,Amy23,900,2pm\n,,Amy23,960,3pm\n,,Amy23,1020,4pm\n,,Amy23,1080,5pm\n,,Amy23,1140,6pm\n,,Amy23,1200,7pm\n,,Amy23,1260,8pm\n,,Amy23,1320,9pm\n,,Amy23,1380,10pm\n,,Amy23,1440,11pm\n"
-    expected_br00004_csv = ",,Amy23,31,March\n,,Amy23,61,April\n,,Amy23,92,May\n,,Amy23,122,June\n,,Amy23,153,July\n,,Amy23,184,August\n,,Amy23,214,September\n,,Amy23,245,October\n,,Amy23,275,November\n,,Amy23,306,December\n,,Amy23,337,January\n,,Amy23,365,February\n"
-    expected_br00005_csv = ",,Amy23,0,Wednesday\n,,Amy23,1,Thursday\n,,Amy23,2,Friday\n,,Amy23,3,Saturday\n,,Amy23,4,Sunday\n,,Amy23,5,Monday\n,,Amy23,6,Tuesday\n"
-    # expected_br00006_csv = ",,Amy23,0,Wednesday\n,,Amy23,1,Thursday\n,,Amy23,2,Friday\n,,Amy23,3,Saturday\n,,Amy23,4,Sunday\n,,Amy23,5,Monday\n,,Amy23,6,Tuesday\n"
+    expected_br00002_csv = ",,;Amy23;,Bob,Zia,777,888\n,,;Amy23;,Sue,Zia,999,234\n,,;Amy23;,Yao,Zia,999,234\n,,;Amy23;,Zia,Bob,777,888\n"
+    expected_br00003_csv = ",,;Amy23;,60,12am\n,,;Amy23;,120,1am\n,,;Amy23;,180,2am\n,,;Amy23;,240,3am\n,,;Amy23;,300,4am\n,,;Amy23;,360,5am\n,,;Amy23;,420,6am\n,,;Amy23;,480,7am\n,,;Amy23;,540,8am\n,,;Amy23;,600,9am\n,,;Amy23;,660,10am\n,,;Amy23;,720,11am\n,,;Amy23;,780,12pm\n,,;Amy23;,840,1pm\n,,;Amy23;,900,2pm\n,,;Amy23;,960,3pm\n,,;Amy23;,1020,4pm\n,,;Amy23;,1080,5pm\n,,;Amy23;,1140,6pm\n,,;Amy23;,1200,7pm\n,,;Amy23;,1260,8pm\n,,;Amy23;,1320,9pm\n,,;Amy23;,1380,10pm\n,,;Amy23;,1440,11pm\n"
+    expected_br00004_csv = ",,;Amy23;,31,March\n,,;Amy23;,61,April\n,,;Amy23;,92,May\n,,;Amy23;,122,June\n,,;Amy23;,153,July\n,,;Amy23;,184,August\n,,;Amy23;,214,September\n,,;Amy23;,245,October\n,,;Amy23;,275,November\n,,;Amy23;,306,December\n,,;Amy23;,337,January\n,,;Amy23;,365,February\n"
+    expected_br00005_csv = ",,;Amy23;,0,Wednesday\n,,;Amy23;,1,Thursday\n,,;Amy23;,2,Friday\n,,;Amy23;,3,Saturday\n,,;Amy23;,4,Sunday\n,,;Amy23;,5,Monday\n,,;Amy23;,6,Tuesday\n"
+    # expected_br00006_csv = ",,;Amy23;,0,Wednesday\n,,;Amy23;,1,Thursday\n,,;Amy23;,2,Friday\n,,;Amy23;,3,Saturday\n,,;Amy23;,4,Sunday\n,,;Amy23;,5,Monday\n,,;Amy23;,6,Tuesday\n"
 
     # print(f"      {br01_csv_header=}")
     # print(f" {expected_br00000_csv=}")
@@ -246,18 +247,18 @@ def test_add_momentunits_to_stance_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
     expected_br00003_csv = f"spark_num,face_name,{expected_br00003_csv}"
     expected_br00004_csv = f"spark_num,face_name,{expected_br00004_csv}"
     expected_br00005_csv = f"spark_num,face_name,{expected_br00005_csv}"
-    expected_br00000_csv = expected_br00000_csv.replace("Amy", ",,Amy")
-    expected_br00001_csv = expected_br00001_csv.replace("Amy", ",,Amy")
-    expected_br00002_csv = expected_br00002_csv.replace("Amy", ",,Amy")
-    expected_br00003_csv = expected_br00003_csv.replace("Amy", ",,Amy")
-    expected_br00004_csv = expected_br00004_csv.replace("Amy", ",,Amy")
-    expected_br00005_csv = expected_br00005_csv.replace("Amy", ",,Amy")
-    expected_br00000_csv = expected_br00000_csv.replace("jeffy45", ",,jeffy45")
-    expected_br00001_csv = expected_br00001_csv.replace("jeffy45", ",,jeffy45")
-    expected_br00002_csv = expected_br00002_csv.replace("jeffy45", ",,jeffy45")
-    expected_br00003_csv = expected_br00003_csv.replace("jeffy45", ",,jeffy45")
-    expected_br00004_csv = expected_br00004_csv.replace("jeffy45", ",,jeffy45")
-    expected_br00005_csv = expected_br00005_csv.replace("jeffy45", ",,jeffy45")
+    expected_br00000_csv = expected_br00000_csv.replace(exx.a23, f",,{exx.a23}")
+    expected_br00001_csv = expected_br00001_csv.replace(exx.a23, f",,{exx.a23}")
+    expected_br00002_csv = expected_br00002_csv.replace(exx.a23, f",,{exx.a23}")
+    expected_br00003_csv = expected_br00003_csv.replace(exx.a23, f",,{exx.a23}")
+    expected_br00004_csv = expected_br00004_csv.replace(exx.a23, f",,{exx.a23}")
+    expected_br00005_csv = expected_br00005_csv.replace(exx.a23, f",,{exx.a23}")
+    expected_br00000_csv = expected_br00000_csv.replace(J45_ROPE, f",,{J45_ROPE}")
+    expected_br00001_csv = expected_br00001_csv.replace(J45_ROPE, f",,{J45_ROPE}")
+    expected_br00002_csv = expected_br00002_csv.replace(J45_ROPE, f",,{J45_ROPE}")
+    expected_br00003_csv = expected_br00003_csv.replace(J45_ROPE, f",,{J45_ROPE}")
+    expected_br00004_csv = expected_br00004_csv.replace(J45_ROPE, f",,{J45_ROPE}")
+    expected_br00005_csv = expected_br00005_csv.replace(J45_ROPE, f",,{J45_ROPE}")
 
     assert len(x_ideas) == 20
     generated_br00000_csv = x_ideas.get("br00000")

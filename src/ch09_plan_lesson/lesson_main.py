@@ -6,7 +6,7 @@ from src.ch00_py.file_toolbox import (
     open_json,
     save_json,
 )
-from src.ch07_plan_logic.plan_main import PlanUnit, get_default_first_label
+from src.ch07_plan_logic.plan_main import PlanUnit, get_default_rope
 from src.ch08_plan_atom.atom_main import PlanAtom, get_planatom_from_dict
 from src.ch09_plan_lesson._ref.ch09_semantic_types import FaceName, MomentRope, PlanName
 from src.ch09_plan_lesson.delta import (
@@ -161,7 +161,7 @@ def lessonunit_shop(
     spark_num: int = None,
 ) -> LessonUnit:
     _plandelta = plandelta_shop() if _plandelta is None else _plandelta
-    moment_rope = get_default_first_label() if moment_rope is None else moment_rope
+    moment_rope = get_default_rope() if moment_rope is None else moment_rope
     x_lessonunit = LessonUnit(
         face_name=face_name,
         plan_name=plan_name,

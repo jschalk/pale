@@ -11,7 +11,7 @@ def test_get_plan_unique_short_ropes_ReturnsObj_Scenario0_RootOnly():
     unique_short_ropes = get_plan_unique_short_ropes(sue_plan)
 
     # THEN
-    assert unique_short_ropes == {sue_plan.kegroot.get_keg_rope(): exx.a23}
+    assert unique_short_ropes == {sue_plan.kegroot.get_keg_rope(): "Amy23"}
 
 
 def test_get_plan_unique_short_ropess_ReturnsObj_Scenario1_KegsWithUniqueLabels():
@@ -27,7 +27,7 @@ def test_get_plan_unique_short_ropess_ReturnsObj_Scenario1_KegsWithUniqueLabels(
     # THEN
     root_rope = sue_plan.kegroot.get_keg_rope()
     assert unique_short_ropes == {
-        root_rope: exx.a23,
+        root_rope: "Amy23",
         casa_rope: exx.casa,
         mop_rope: exx.mop,
     }
@@ -53,7 +53,7 @@ def test_get_plan_unique_short_ropess_ReturnsObj_Scenario2_KegsWithCommonLabels(
     expected_short_casa_mop = f"{exx.casa}{knot}{exx.mop}"
     assert unique_short_ropes.get(casa_mop_rope) == expected_short_casa_mop
     assert unique_short_ropes == {
-        root_rope: exx.a23,
+        root_rope: "Amy23",
         casa_rope: exx.casa,
         casa_mop_rope: expected_short_casa_mop,
         sports_rope: sports_str,

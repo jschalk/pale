@@ -1,6 +1,7 @@
 from inspect import getdoc as inspect_getdoc
 from platform import system as platform_system
 from src.ch00_py.file_toolbox import create_path
+from src.ch04_rope.rope import create_rope, lassounit_shop
 from src.ch18_world_etl._ref.ch18_path import (
     create_last_run_metrics_path,
     create_moment_mstr_path,
@@ -139,13 +140,14 @@ def test_create_stance0001_path_HasDocString():
 def test_create_moment_ote1_csv_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
 
     # WHEN
-    gen_a23_te_csv_path = create_moment_ote1_csv_path(x_moment_mstr_dir, exx.a23)
+    gen_a23_te_csv_path = create_moment_ote1_csv_path(x_moment_mstr_dir, a23_lasso)
 
     # THEN
     moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_path = create_path(moments_dir, exx.a23)
+    a23_path = create_path(moments_dir, "Amy23")
     expected_a23_te_path = create_path(a23_path, MOMENT_OTE1_AGG_CSV_FILENAME)
     assert gen_a23_te_csv_path == expected_a23_te_path
 
@@ -153,13 +155,14 @@ def test_create_moment_ote1_csv_path_ReturnsObj():
 def test_create_moment_ote1_json_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
 
     # WHEN
-    gen_a23_te_csv_path = create_moment_ote1_json_path(x_moment_mstr_dir, exx.a23)
+    gen_a23_te_csv_path = create_moment_ote1_json_path(x_moment_mstr_dir, a23_lasso)
 
     # THEN
     moments_dir = create_path(x_moment_mstr_dir, "moments")
-    a23_path = create_path(moments_dir, exx.a23)
+    a23_path = create_path(moments_dir, "Amy23")
     expected_a23_te_path = create_path(a23_path, MOMENT_OTE1_AGG_JSON_FILENAME)
     assert gen_a23_te_csv_path == expected_a23_te_path
 
@@ -178,7 +181,8 @@ def test_create_world_db_path_ReturnsObj():
 
 def test_create_moment_ote1_csv_path_HasDocString():
     # ESTABLISH
-    doc_str = create_moment_ote1_csv_path("moment_mstr_dir", kw.moment_rope)
+    moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
+    doc_str = create_moment_ote1_csv_path("moment_mstr_dir", moment_lasso)
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
     assert LINUX_OS or inspect_getdoc(create_moment_ote1_csv_path) == doc_str
@@ -186,7 +190,8 @@ def test_create_moment_ote1_csv_path_HasDocString():
 
 def test_create_moment_ote1_json_path_HasDocString():
     # ESTABLISH
-    doc_str = create_moment_ote1_json_path("moment_mstr_dir", kw.moment_rope)
+    moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
+    doc_str = create_moment_ote1_json_path("moment_mstr_dir", moment_lasso)
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
     assert LINUX_OS or inspect_getdoc(create_moment_ote1_json_path) == doc_str

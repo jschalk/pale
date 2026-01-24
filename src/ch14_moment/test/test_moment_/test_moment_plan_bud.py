@@ -1,4 +1,5 @@
 from pytest import raises as pytest_raises
+from src.ch04_rope.rope import create_rope
 from src.ch11_bud.bud_main import planbudhistory_shop
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch14_moment.test._util.ch14_env import get_temp_dir
@@ -7,8 +8,8 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_MomentUnit_set_planbudhistory_SetsAttr():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     assert amy_moment.planbudhistorys == {}
 
     # WHEN
@@ -22,8 +23,8 @@ def test_MomentUnit_set_planbudhistory_SetsAttr():
 
 def test_MomentUnit_planbudhistory_exists_ReturnsObj():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     assert amy_moment.planbudhistory_exists(exx.sue) is False
 
     # WHEN
@@ -36,8 +37,8 @@ def test_MomentUnit_planbudhistory_exists_ReturnsObj():
 
 def test_MomentUnit_get_planbudhistory_ReturnsObj():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     sue_planbudhistory = planbudhistory_shop(exx.sue)
     amy_moment.set_planbudhistory(sue_planbudhistory)
     assert amy_moment.planbudhistory_exists(exx.sue)
@@ -52,8 +53,8 @@ def test_MomentUnit_get_planbudhistory_ReturnsObj():
 
 def test_MomentUnit_del_planbudhistory_SetsAttr():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     sue_planbudhistory = planbudhistory_shop(exx.sue)
     amy_moment.set_planbudhistory(sue_planbudhistory)
     assert amy_moment.planbudhistory_exists(exx.sue)
@@ -67,8 +68,8 @@ def test_MomentUnit_del_planbudhistory_SetsAttr():
 
 def test_MomentUnit_add_budunit_SetsAttr():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     assert amy_moment.planbudhistorys == {}
 
     # WHEN
@@ -95,8 +96,8 @@ def test_MomentUnit_add_budunit_SetsAttr():
 
 def test_MomentUnit_bud_quota_exists_SetsAttr():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     assert amy_moment.planbudhistorys == {}
     bob_x0_bud_time = 702
     bob_x0_quota = 33
@@ -119,8 +120,8 @@ def test_MomentUnit_bud_quota_exists_SetsAttr():
 
 def test_MomentUnit_get_budunit_ReturnsObj_Scenario0_BrokerDoesNotExist():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     sue_x7_bud_time = 7
 
     # WHEN
@@ -133,8 +134,8 @@ def test_MomentUnit_get_budunit_ReturnsObj_Scenario0_BrokerDoesNotExist():
 
 def test_MomentUnit_get_budunit_ReturnsObj_Scenario1_BudDoesNotExist():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     sue_x4_bud_time = 4
     sue_x4_quota = 66
     amy_moment.add_budunit(exx.sue, sue_x4_bud_time, sue_x4_quota)
@@ -150,8 +151,8 @@ def test_MomentUnit_get_budunit_ReturnsObj_Scenario1_BudDoesNotExist():
 
 def test_MomentUnit_get_budunit_ReturnsObj_Scenario2_BudExists():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     bob_x0_bud_time = 702
     bob_x0_quota = 33
     sue_x4_bud_time = 4
@@ -173,8 +174,8 @@ def test_MomentUnit_get_budunit_ReturnsObj_Scenario2_BudExists():
 
 def test_MomentUnit_get_planbudhistorys_bud_times_ReturnsObj():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     bob_x0_bud_time = 702
     bob_x0_quota = 33
     sue_x4_bud_time = 4
@@ -195,8 +196,8 @@ def test_MomentUnit_get_planbudhistorys_bud_times_ReturnsObj():
 
 def test_MomentUnit_add_budunit_RaisesErrorWhen_bud_time_IsLessThan_offi_time_max():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     amy_offi_time_max = 606
     amy_moment.offi_time_max = amy_offi_time_max
     bob_x0_bud_time = 707
@@ -218,8 +219,8 @@ def test_MomentUnit_add_budunit_RaisesErrorWhen_bud_time_IsLessThan_offi_time_ma
 
 def test_MomentUnit_add_budunit_DoesNotRaiseError_allow_prev_to_offi_time_max_entry_IsTrue():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     amy_offi_time_max = 606
     amy_moment.offi_time_max = amy_offi_time_max
     bob_x0_bud_time = 707
@@ -255,8 +256,8 @@ def test_MomentUnit_add_budunit_DoesNotRaiseError_allow_prev_to_offi_time_max_en
 
 def test_MomentUnit_add_budunit_SetsAttr_celldepth():
     # ESTABLISH
-    amy45_str = "amy45"
-    amy_moment = momentunit_shop(amy45_str, get_temp_dir())
+    amy45_rope = create_rope("amy45")
+    amy_moment = momentunit_shop(amy45_rope, get_temp_dir())
     sue_x4_bud_time = 4
     sue_x4_quota = 55
     sue_x7_bud_time = 7

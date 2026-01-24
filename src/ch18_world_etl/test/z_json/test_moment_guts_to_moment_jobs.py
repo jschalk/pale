@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import open_json, save_json
+from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import get_planunit_from_dict, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_gut_path,
@@ -29,10 +30,11 @@ def test_etl_moment_guts_to_moment_jobs_SetsFiles_Scenario0(
     bob_gut.add_personunit(bob_inx, credit77)
     bob_gut.add_personunit(sue_inx, credit88)
     bob_gut.add_personunit(yao_inx, credit44)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, exx.a23, bob_inx)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_lasso, bob_inx)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
-    a23_bob_job_path = create_job_path(moment_mstr_dir, exx.a23, bob_inx)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
+    a23_bob_job_path = create_job_path(moment_mstr_dir, a23_lasso, bob_inx)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
     save_json(
         moment_json_path, None, momentunit_shop(exx.a23, moment_mstr_dir).to_dict()
     )

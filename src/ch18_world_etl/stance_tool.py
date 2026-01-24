@@ -5,6 +5,7 @@ from src.ch00_py.csv_toolbox import (
     replace_csv_column_from_string,
 )
 from src.ch00_py.file_toolbox import create_path, get_level1_dirs
+from src.ch04_rope.rope import create_rope, default_knot_if_None, lassounit_shop
 from src.ch11_bud.bud_filehandler import open_plan_file
 from src.ch14_moment.moment_main import get_default_path_momentunit
 from src.ch17_idea.idea_csv_tool import (
@@ -169,10 +170,13 @@ def collect_stance_csv_strs(world_dir: str) -> dict[str, str]:
     moment_mstr_dir = create_moment_mstr_path(world_dir)
     x_csv_strs = create_init_stance_idea_csv_strs()
     moments_dir = create_path(moment_mstr_dir, "moments")
-    for moment_rope in get_level1_dirs(moments_dir):
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_rope)
+    for moment_label in get_level1_dirs(moments_dir):
+        x_knot = default_knot_if_None()
+        moment_rope = create_rope(moment_label, None, x_knot)
+        moment_lasso = lassounit_shop(moment_rope, x_knot)
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
         add_momentunit_to_stance_csv_strs(x_momentunit, x_csv_strs, ",")
-        moment_dir = create_path(moments_dir, moment_rope)
+        moment_dir = create_path(moments_dir, moment_lasso.make_path())
         plans_dir = create_path(moment_dir, "plans")
         for plan_name in get_level1_dirs(plans_dir):
             plan_dir = create_path(plans_dir, plan_name)

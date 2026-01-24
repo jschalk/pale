@@ -10,7 +10,7 @@ from src.ref.keywords import Ch10Keywords as kw, ExampleStrs as exx
 
 
 def ch10_example_moment_rope() -> str:
-    return "Buzz"
+    return ";Buzz;"
 
 
 def eat_str() -> str:

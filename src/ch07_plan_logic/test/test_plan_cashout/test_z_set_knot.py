@@ -26,7 +26,7 @@ def test_PlanUnit_set_keg_SetsAttrs_Scenario0_fund_grain():
 
 def test_plan_set_knot_RaisesErrorIfNew_knot_IsAnKeg_label():
     # ESTABLISH
-    zia_plan = planunit_shop("Zia", "Texas")
+    zia_plan = planunit_shop("Zia", exx.a23)
     print(f"{zia_plan.max_tree_traverse=}")
     casa_rope = zia_plan.make_l1_rope(exx.casa)
     zia_plan.set_l1_keg(kegunit_shop(exx.casa))
@@ -46,7 +46,7 @@ def test_plan_set_knot_RaisesErrorIfNew_knot_IsAnKeg_label():
 
 def test_plan_set_knot_Modifies_parent_rope():
     # ESTABLISH
-    zia_plan = planunit_shop("Zia", "Texas")
+    zia_plan = planunit_shop("Zia", exx.a23)
     zia_plan.set_l1_keg(kegunit_shop(exx.casa))
     semicolon_casa_rope = zia_plan.make_l1_rope(exx.casa)
     zia_plan.set_keg_obj(kegunit_shop(exx.cuisine), semicolon_casa_rope)
@@ -74,7 +74,7 @@ def test_plan_set_knot_Modifies_parent_rope():
 def test_plan_set_knot_ModifiesReasonUnit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    zia_plan = planunit_shop("Zia", "Texas")
+    zia_plan = planunit_shop("Zia", exx.a23)
     zia_plan.set_l1_keg(kegunit_shop(exx.casa))
     ziet_str = "ziet"
     semicolon_ziet_rope = zia_plan.make_l1_rope(ziet_str)
@@ -111,7 +111,7 @@ def test_plan_set_knot_ModifiesReasonUnit():
 
 def test_plan_set_knot_ModifiesFactUnit():
     # ESTABLISH
-    zia_plan = planunit_shop("Zia", "Texas")
+    zia_plan = planunit_shop("Zia", exx.a23)
     zia_plan.set_l1_keg(kegunit_shop(exx.casa))
     ziet_str = "ziet"
     semicolon_ziet_rope = zia_plan.make_l1_rope(ziet_str)
@@ -147,9 +147,9 @@ def test_plan_set_knot_ModifiesFactUnit():
 
 def test_PlanUnit_set_knot_SetsAttr():
     # ESTABLISH
-    a45_str = "amy45"
     slash_knot = "/"
-    sue_plan = planunit_shop(exx.sue, a45_str, knot=slash_knot)
+    a45_rope = create_rope("amy45", None, slash_knot)
+    sue_plan = planunit_shop(exx.sue, a45_rope, knot=slash_knot)
     assert sue_plan.knot == slash_knot
 
     # WHEN

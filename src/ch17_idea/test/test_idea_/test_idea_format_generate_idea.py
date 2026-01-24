@@ -1,3 +1,4 @@
+from src.ch04_rope.rope import create_rope
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch07_plan_logic.test._util.ch07_examples import planunit_v001
@@ -19,7 +20,7 @@ def test_make_plandelta_Arg_idea_format_00021_plan_personunit_v0_0_0():
     sue_person_debt_lumen = 23
     bob_person_debt_lumen = 29
     yao_person_debt_lumen = 37
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     sue_planunit.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     sue_planunit.add_personunit(exx.bob, bob_person_cred_lumen, bob_person_debt_lumen)
@@ -58,7 +59,7 @@ def test_make_plandelta_Arg_idea_format_00021_plan_personunit_v0_0_0():
 #     # ESTABLISH
 #     exx.bob = "Bob"
 #     exx.yao = "Yao"
-#     amy_moment_rope = "amy56"
+#     amy_moment_rope = create_rope("amy56")
 #     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
 #     sue_planunit.add_personunit(exx.sue)
 #     sue_planunit.add_personunit(exx.bob)
@@ -127,7 +128,7 @@ def test_make_plandelta_Arg_idea_format_00021_plan_personunit_v0_0_0():
 def test_make_plandelta_Arg_idea_format_00013_kegunit_v0_0_0():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     casa_rope = sue_planunit.make_l1_rope(exx.casa)
     casa_star = 31

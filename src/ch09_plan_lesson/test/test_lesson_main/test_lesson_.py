@@ -1,7 +1,7 @@
 from pytest import raises as pytest_raises
 from src.ch00_py.dict_toolbox import get_json_from_dict
 from src.ch02_person.person import personunit_shop
-from src.ch07_plan_logic.plan_main import get_default_first_label, planunit_shop
+from src.ch07_plan_logic.plan_main import get_default_rope, planunit_shop
 from src.ch08_plan_atom.atom_main import planatom_shop
 from src.ch09_plan_lesson._ref.ch09_semantic_types import FaceName, default_knot_if_None
 from src.ch09_plan_lesson.delta import plandelta_shop
@@ -61,7 +61,7 @@ def test_lessonunit_shop_ReturnsObjEstablishWithEmptyArgs():
 
     # THEN
     assert not bob_lessonunit.face_name
-    assert bob_lessonunit.moment_rope == get_default_first_label()
+    assert bob_lessonunit.moment_rope == get_default_rope()
     assert bob_lessonunit.plan_name == exx.bob
     assert bob_lessonunit._lesson_id == 0
     assert bob_lessonunit._plandelta == plandelta_shop()
@@ -349,7 +349,7 @@ def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario1_WithPlanDelt
     }
   }, 
   "face_name": null, 
-  "moment_rope": "YY", 
+  "moment_rope": ";YY;", 
   "plan_name": "Bob", 
   "spark_num": null
 }"""
@@ -492,15 +492,12 @@ def test_LessonUnit_get_edited_plan_RaisesErrorWhenlessonAttrsAndPlanAttrsAreNot
     # ESTABLISH
     xia_str = "Xia"
     bob_lessonunit = lessonunit_shop(exx.yao, xia_str, moment_rope=exx.a23)
-    amy45_str = "amy45"
-    before_sue_planunit = planunit_shop(exx.sue, moment_rope=amy45_str)
+    before_sue_planunit = planunit_shop(exx.sue, moment_rope=exx.a23)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         bob_lessonunit.get_lesson_edited_plan(before_sue_planunit)
-    assertion_failure_str = (
-        f"lesson plan conflict {exx.a23} != {amy45_str} or Yao != Sue"
-    )
+    assertion_failure_str = f"lesson plan conflict {exx.a23} != {exx.a23} or Yao != Sue"
     assert str(excinfo.value) == assertion_failure_str
 
 

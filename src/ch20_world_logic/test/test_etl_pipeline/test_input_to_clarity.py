@@ -2,7 +2,13 @@ from os.path import exists as os_path_exists
 from pandas import DataFrame
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import db_table_exists, get_row_count
-from src.ch00_py.file_toolbox import count_dirs_files, create_path, save_file
+from src.ch00_py.file_toolbox import (
+    count_dirs_files,
+    create_path,
+    get_level1_dirs,
+    save_file,
+)
+from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_gut_path,
     create_job_path,
@@ -59,37 +65,38 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     br00113_agg = f"{br00113_str}_brick_agg"
     br00113_valid = f"{br00113_str}_brick_valid"
     sparks_brick_valid_tablename = kw.sparks_brick_valid
-    trlname_sound_raw = prime_tbl("trlname", "s", "raw")
-    trlname_sound_agg = prime_tbl("trlname", "s", "agg")
-    trlname_sound_vld = prime_tbl("trlname", "s", "vld")
-    trlcore_sound_raw = prime_tbl("trlcore", "s", "raw")
-    trlcore_sound_agg = prime_tbl("trlcore", "s", "agg")
-    trlcore_sound_vld = prime_tbl("trlcore", "s", "vld")
-    momentunit_sound_raw = prime_tbl("momentunit", "s", "raw")
-    momentunit_sound_agg = prime_tbl("momentunit", "s", "agg")
-    momentunit_sound_vld = prime_tbl("momentunit", "s", "vld")
-    plnunit_sound_put_raw = prime_tbl("planunit", "s", "raw", "put")
-    plnunit_sound_put_agg = prime_tbl("planunit", "s", "agg", "put")
-    plnunit_sound_put_vld = prime_tbl("planunit", "s", "vld", "put")
-    plnprsn_sound_put_raw = prime_tbl("plnprsn", "s", "raw", "put")
-    plnprsn_sound_put_agg = prime_tbl("plnprsn", "s", "agg", "put")
-    plnprsn_sound_put_vld = prime_tbl("plnprsn", "s", "vld", "put")
-    momentunit_heard_raw = prime_tbl("momentunit", "h", "raw")
-    momentunit_heard_agg = prime_tbl("momentunit", "h", "agg")
-    momentunit_heard_vld = prime_tbl("momentunit", "h", "vld")
-    plnunit_heard_put_raw = prime_tbl("planunit", "h", "raw", "put")
-    plnunit_heard_put_agg = prime_tbl("planunit", "h", "vld", "put")
-    plnprsn_heard_put_raw = prime_tbl("plnprsn", "h", "raw", "put")
-    plnprsn_heard_put_agg = prime_tbl("plnprsn", "h", "vld", "put")
+    trlname_sound_raw = prime_tbl(kw.trlname, "s", "raw")
+    trlname_sound_agg = prime_tbl(kw.trlname, "s", "agg")
+    trlname_sound_vld = prime_tbl(kw.trlname, "s", "vld")
+    trlcore_sound_raw = prime_tbl(kw.trlcore, "s", "raw")
+    trlcore_sound_agg = prime_tbl(kw.trlcore, "s", "agg")
+    trlcore_sound_vld = prime_tbl(kw.trlcore, "s", "vld")
+    momentunit_sound_raw = prime_tbl(kw.momentunit, "s", "raw")
+    momentunit_sound_agg = prime_tbl(kw.momentunit, "s", "agg")
+    momentunit_sound_vld = prime_tbl(kw.momentunit, "s", "vld")
+    plnunit_sound_put_raw = prime_tbl(kw.planunit, "s", "raw", "put")
+    plnunit_sound_put_agg = prime_tbl(kw.planunit, "s", "agg", "put")
+    plnunit_sound_put_vld = prime_tbl(kw.planunit, "s", "vld", "put")
+    plnprsn_sound_put_raw = prime_tbl(kw.plnprsn, "s", "raw", "put")
+    plnprsn_sound_put_agg = prime_tbl(kw.plnprsn, "s", "agg", "put")
+    plnprsn_sound_put_vld = prime_tbl(kw.plnprsn, "s", "vld", "put")
+    momentunit_heard_raw = prime_tbl(kw.momentunit, "h", "raw")
+    momentunit_heard_agg = prime_tbl(kw.momentunit, "h", "agg")
+    momentunit_heard_vld = prime_tbl(kw.momentunit, "h", "vld")
+    plnunit_heard_put_raw = prime_tbl(kw.planunit, "h", "raw", "put")
+    plnunit_heard_put_agg = prime_tbl(kw.planunit, "h", "vld", "put")
+    plnprsn_heard_put_raw = prime_tbl(kw.plnprsn, "h", "raw", "put")
+    plnprsn_heard_put_agg = prime_tbl(kw.plnprsn, "h", "vld", "put")
     mstr_dir = fay_world._moment_mstr_dir
-    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     a23_e1_all_lesson_path = create_spark_all_lesson_path(
-        mstr_dir, exx.a23, sue_inx, e3
+        mstr_dir, a23_lasso, sue_inx, e3
     )
-    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, exx.a23, sue_inx, e3)
-    a23_sue_gut_path = create_gut_path(mstr_dir, exx.a23, sue_inx)
-    a23_sue_job_path = create_job_path(mstr_dir, exx.a23, sue_inx)
-    plnprsn_job = prime_tbl("plnprsn", "job", None)
+    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, a23_lasso, sue_inx, e3)
+    a23_sue_gut_path = create_gut_path(mstr_dir, a23_lasso, sue_inx)
+    a23_sue_job_path = create_job_path(mstr_dir, a23_lasso, sue_inx)
+    plnprsn_job = prime_tbl(kw.plnprsn, "job", None)
     last_run_metrics_path = create_last_run_metrics_path(mstr_dir)
 
     with sqlite3_connect(":memory:") as db_conn:
@@ -182,7 +189,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert os_path_exists(a23_e1_all_lesson_path)
         assert os_path_exists(a23_e1_expressed_lesson_path)
         assert os_path_exists(a23_sue_gut_path)
-        sue_gut = open_gut_file(mstr_dir, exx.a23, sue_inx)
+        sue_gut = open_gut_file(mstr_dir, a23_lasso, sue_inx)
         time_rope = sue_gut.make_l1_rope(kw.time)
         creg_rope = sue_gut.make_rope(time_rope, kw.creg)
         assert sue_gut.keg_exists(creg_rope)
@@ -243,33 +250,34 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     br00113_agg = f"{br00113_str}_brick_agg"
     br00113_valid = f"{br00113_str}_brick_valid"
     sparks_brick_valid_tablename = kw.sparks_brick_valid
-    trlname_sound_raw = prime_tbl("trlname", "s", "raw")
-    trlname_sound_agg = prime_tbl("trlname", "s", "agg")
-    trlname_sound_vld = prime_tbl("trlname", "s", "vld")
-    trlcore_sound_raw = prime_tbl("trlcore", "s", "raw")
-    trlcore_sound_agg = prime_tbl("trlcore", "s", "agg")
-    trlcore_sound_vld = prime_tbl("trlcore", "s", "vld")
-    momentunit_sound_raw = prime_tbl("momentunit", "s", "raw")
-    momentunit_sound_agg = prime_tbl("momentunit", "s", "agg")
-    plnunit_sound_put_raw = prime_tbl("planunit", "s", "raw", "put")
-    plnunit_sound_put_agg = prime_tbl("planunit", "s", "agg", "put")
-    plnprsn_sound_put_raw = prime_tbl("plnprsn", "s", "raw", "put")
-    plnprsn_sound_put_agg = prime_tbl("plnprsn", "s", "agg", "put")
-    momentunit_heard_raw = prime_tbl("momentunit", "h", "raw")
-    momentunit_heard_vld = prime_tbl("momentunit", "h", "vld")
-    plnunit_heard_put_raw = prime_tbl("planunit", "h", "raw", "put")
-    plnunit_heard_put_agg = prime_tbl("planunit", "h", "vld", "put")
-    plnprsn_heard_put_raw = prime_tbl("plnprsn", "h", "raw", "put")
-    plnprsn_heard_put_agg = prime_tbl("plnprsn", "h", "vld", "put")
+    trlname_sound_raw = prime_tbl(kw.trlname, "s", "raw")
+    trlname_sound_agg = prime_tbl(kw.trlname, "s", "agg")
+    trlname_sound_vld = prime_tbl(kw.trlname, "s", "vld")
+    trlcore_sound_raw = prime_tbl(kw.trlcore, "s", "raw")
+    trlcore_sound_agg = prime_tbl(kw.trlcore, "s", "agg")
+    trlcore_sound_vld = prime_tbl(kw.trlcore, "s", "vld")
+    momentunit_sound_raw = prime_tbl(kw.momentunit, "s", "raw")
+    momentunit_sound_agg = prime_tbl(kw.momentunit, "s", "agg")
+    plnunit_sound_put_raw = prime_tbl(kw.planunit, "s", "raw", "put")
+    plnunit_sound_put_agg = prime_tbl(kw.planunit, "s", "agg", "put")
+    plnprsn_sound_put_raw = prime_tbl(kw.plnprsn, "s", "raw", "put")
+    plnprsn_sound_put_agg = prime_tbl(kw.plnprsn, "s", "agg", "put")
+    momentunit_heard_raw = prime_tbl(kw.momentunit, "h", "raw")
+    momentunit_heard_vld = prime_tbl(kw.momentunit, "h", "vld")
+    plnunit_heard_put_raw = prime_tbl(kw.planunit, "h", "raw", "put")
+    plnunit_heard_put_agg = prime_tbl(kw.planunit, "h", "vld", "put")
+    plnprsn_heard_put_raw = prime_tbl(kw.plnprsn, "h", "raw", "put")
+    plnprsn_heard_put_agg = prime_tbl(kw.plnprsn, "h", "vld", "put")
     mstr_dir = fay_world._moment_mstr_dir
-    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     a23_e1_all_lesson_path = create_spark_all_lesson_path(
-        mstr_dir, exx.a23, sue_inx, e3
+        mstr_dir, a23_lasso, sue_inx, e3
     )
-    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, exx.a23, sue_inx, e3)
-    a23_sue_gut_path = create_gut_path(mstr_dir, exx.a23, sue_inx)
-    a23_sue_job_path = create_job_path(mstr_dir, exx.a23, sue_inx)
-    sue37_mandate_path = bud_mandate(mstr_dir, exx.a23, sue_inx, tp37)
+    a23_e1_expressed_lesson_path = expressed_path(mstr_dir, a23_lasso, sue_inx, e3)
+    a23_sue_gut_path = create_gut_path(mstr_dir, a23_lasso, sue_inx)
+    a23_sue_job_path = create_job_path(mstr_dir, a23_lasso, sue_inx)
+    sue37_mandate_path = bud_mandate(mstr_dir, a23_lasso, sue_inx, tp37)
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
@@ -304,6 +312,8 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         assert not db_table_exists(cursor, kw.moment_person_nets)
         assert not db_table_exists(cursor, kw.moment_kpi001_person_nets)
         # self.moment_agg_tables_to_moment_ote1_agg(cursor)
+        moments_dir = create_path(mstr_dir, "moments")
+        print(f"{get_level1_dirs(moments_dir)=}")
 
         # # create planunits
         # self.plan_tables_to_spark_plan_csvs(cursor)
@@ -409,7 +419,8 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIde
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     moment_mstr = fay_world._moment_mstr_dir
-    a23_ote1_csv_path = create_moment_ote1_csv_path(moment_mstr, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_ote1_csv_path = create_moment_ote1_csv_path(moment_mstr, a23_lasso)
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         assert os_path_exists(a23_ote1_csv_path) is False
@@ -511,10 +522,11 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
     mstr_dir = fay_world._moment_mstr_dir
     wrong_a23_moment_dir = create_path(mstr_dir, exx.a23)
     assert os_path_exists(wrong_a23_moment_dir) is False
-    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
-    a23_sue_gut_path = create_gut_path(mstr_dir, exx.a23, exx.sue)
-    a23_sue_job_path = create_job_path(mstr_dir, exx.a23, exx.sue)
-    sue37_mandate_path = bud_mandate(mstr_dir, exx.a23, exx.sue, tp37)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
+    a23_sue_gut_path = create_gut_path(mstr_dir, a23_lasso, exx.sue)
+    a23_sue_job_path = create_job_path(mstr_dir, a23_lasso, exx.sue)
+    sue37_mandate_path = bud_mandate(mstr_dir, a23_lasso, exx.sue, tp37)
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         assert os_path_exists(input_file_path)

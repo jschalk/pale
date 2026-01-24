@@ -62,30 +62,6 @@ def test_ALL_DIMEN_ABBV7_has_all_dimens():
 
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # ESTABLISH
-    plnunit_dimen = kw.planunit
-    plnprsn_dimen = kw.plan_personunit
-    plnmemb_dimen = kw.plan_person_membership
-    plngrou_dimen = kw.plan_groupunit
-    plnkegg_dimen = kw.plan_kegunit
-    plnawar_dimen = kw.plan_keg_awardunit
-    plnreas_dimen = kw.plan_keg_reasonunit
-    plncase_dimen = kw.plan_keg_reason_caseunit
-    plnlabo_dimen = kw.plan_keg_partyunit
-    plnheal_dimen = kw.plan_keg_healerunit
-    plnfact_dimen = kw.plan_keg_factunit
-    mmtunit_dimen = kw.momentunit
-    mmtpayy_dimen = kw.moment_paybook
-    mmtbudd_dimen = kw.moment_budunit
-    mmthour_dimen = kw.moment_epoch_hour
-    mmtmont_dimen = kw.moment_epoch_month
-    mmtweek_dimen = kw.moment_epoch_weekday
-    mmtoffi_dimen = kw.moment_timeoffi
-    nabepoc_dimen = kw.nabu_timenum
-    trlname_dimen = kw.translate_name
-    trllabe_dimen = kw.translate_label
-    trlrope_dimen = kw.translate_rope
-    trltitl_dimen = kw.translate_title
-    trlcore_dimen = kw.translate_core
     raw_str = "raw"
     agg_str = "agg"
     vld_str = "vld"
@@ -93,70 +69,70 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     del_str = "del"
 
     # WHEN
-    plnunit_s_agg_table = create_prime_tablename("planunit", "s", agg_str, put_str)
-    plnprsn_s_agg_table = create_prime_tablename("plnprsn", "s", agg_str, put_str)
-    plnmemb_s_agg_table = create_prime_tablename("plnmemb", "s", agg_str, put_str)
-    plnkegg_s_agg_table = create_prime_tablename("plnkegg", "s", agg_str, put_str)
-    plnawar_s_agg_table = create_prime_tablename("plnawar", "s", agg_str, put_str)
-    plnreas_s_agg_table = create_prime_tablename("plnreas", "s", agg_str, put_str)
-    plncase_s_agg_table = create_prime_tablename("plncase", "s", agg_str, put_str)
-    plnlabo_s_agg_table = create_prime_tablename("plnlabo", "s", agg_str, put_str)
-    plnheal_s_agg_table = create_prime_tablename("plnheal", "s", agg_str, put_str)
-    plnfact_s_agg_table = create_prime_tablename("plnfact", "s", agg_str, put_str)
-    plnfact_s_del_table = create_prime_tablename("plnfact", "s", agg_str, del_str)
-    mmtunit_s_agg_table = create_prime_tablename("mmtunit", "s", agg_str)
-    mmtpayy_s_agg_table = create_prime_tablename("mmtpayy", "s", agg_str)
-    mmtbudd_s_agg_table = create_prime_tablename("mmtbudd", "s", agg_str)
-    mmthour_s_agg_table = create_prime_tablename("mmthour", "s", agg_str)
-    mmtmont_s_agg_table = create_prime_tablename("mmtmont", "s", agg_str)
-    mmtweek_s_agg_table = create_prime_tablename("mmtweek", "s", agg_str)
-    mmtoffi_s_agg_table = create_prime_tablename("mmtoffi", "s", agg_str)
-    nabepoc_s_agg_table = create_prime_tablename("nabepoc", "s", agg_str)
-    trlname_s_agg_table = create_prime_tablename("trlname", "s", agg_str)
-    trllabe_s_agg_table = create_prime_tablename("trllabe", "s", agg_str)
-    trlrope_s_agg_table = create_prime_tablename("trlrope", "s", agg_str)
-    trltitl_s_agg_table = create_prime_tablename("trltitl", "s", agg_str)
-    trltitl_h_vld_table = create_prime_tablename("trltitl", "h", vld_str)
-    trltitl_s_raw_table = create_prime_tablename("trltitl", "s", raw_str)
-    trltitl_s_val_table = create_prime_tablename("trltitl", "s", vld_str)
-    trlcore_s_raw_table = create_prime_tablename("trlcore", "s", raw_str)
-    trlcore_s_agg_table = create_prime_tablename("trlcore", "s", agg_str)
-    plnprsn_job_table = create_prime_tablename("plnprsn", kw.job, None)
-    x_plnprsn_raw = create_prime_tablename("plnprsn", "k", raw_str)
-    plngrou_job_table = create_prime_tablename("plngrou", kw.job, None)
+    plnunit_s_agg_table = create_prime_tablename(kw.plnunit, "s", agg_str, put_str)
+    plnprsn_s_agg_table = create_prime_tablename(kw.plnprsn, "s", agg_str, put_str)
+    plnmemb_s_agg_table = create_prime_tablename(kw.plnmemb, "s", agg_str, put_str)
+    plnkegg_s_agg_table = create_prime_tablename(kw.plnkegg, "s", agg_str, put_str)
+    plnawar_s_agg_table = create_prime_tablename(kw.plnawar, "s", agg_str, put_str)
+    plnreas_s_agg_table = create_prime_tablename(kw.plnreas, "s", agg_str, put_str)
+    plncase_s_agg_table = create_prime_tablename(kw.plncase, "s", agg_str, put_str)
+    plnlabo_s_agg_table = create_prime_tablename(kw.plnlabo, "s", agg_str, put_str)
+    plnheal_s_agg_table = create_prime_tablename(kw.plnheal, "s", agg_str, put_str)
+    plnfact_s_agg_table = create_prime_tablename(kw.plnfact, "s", agg_str, put_str)
+    plnfact_s_del_table = create_prime_tablename(kw.plnfact, "s", agg_str, del_str)
+    mmtunit_s_agg_table = create_prime_tablename(kw.mmtunit, "s", agg_str)
+    mmtpayy_s_agg_table = create_prime_tablename(kw.mmtpayy, "s", agg_str)
+    mmtbudd_s_agg_table = create_prime_tablename(kw.mmtbudd, "s", agg_str)
+    mmthour_s_agg_table = create_prime_tablename(kw.mmthour, "s", agg_str)
+    mmtmont_s_agg_table = create_prime_tablename(kw.mmtmont, "s", agg_str)
+    mmtweek_s_agg_table = create_prime_tablename(kw.mmtweek, "s", agg_str)
+    mmtoffi_s_agg_table = create_prime_tablename(kw.mmtoffi, "s", agg_str)
+    nabepoc_s_agg_table = create_prime_tablename(kw.nabepoc, "s", agg_str)
+    trlname_s_agg_table = create_prime_tablename(kw.trlname, "s", agg_str)
+    trllabe_s_agg_table = create_prime_tablename(kw.trllabe, "s", agg_str)
+    trlrope_s_agg_table = create_prime_tablename(kw.trlrope, "s", agg_str)
+    trltitl_s_agg_table = create_prime_tablename(kw.trltitl, "s", agg_str)
+    trltitl_h_vld_table = create_prime_tablename(kw.trltitl, "h", vld_str)
+    trltitl_s_raw_table = create_prime_tablename(kw.trltitl, "s", raw_str)
+    trltitl_s_val_table = create_prime_tablename(kw.trltitl, "s", vld_str)
+    trlcore_s_raw_table = create_prime_tablename(kw.trlcore, "s", raw_str)
+    trlcore_s_agg_table = create_prime_tablename(kw.trlcore, "s", agg_str)
+    plnprsn_job_table = create_prime_tablename(kw.plnprsn, kw.job, None)
+    x_plnprsn_raw = create_prime_tablename(kw.plnprsn, "k", raw_str)
+    plngrou_job_table = create_prime_tablename(kw.plngrou, kw.job, None)
 
     # THEN
-    assert plnunit_s_agg_table == f"{plnunit_dimen}_s_put_agg"
-    assert plnprsn_s_agg_table == f"{plnprsn_dimen}_s_put_agg"
-    assert plnmemb_s_agg_table == f"{plnmemb_dimen}_s_put_agg"
-    assert plnkegg_s_agg_table == f"{plnkegg_dimen}_s_put_agg"
-    assert plnawar_s_agg_table == f"{plnawar_dimen}_s_put_agg"
-    assert plnreas_s_agg_table == f"{plnreas_dimen}_s_put_agg"
-    assert plncase_s_agg_table == f"{plncase_dimen}_s_put_agg"
-    assert plnlabo_s_agg_table == f"{plnlabo_dimen}_s_put_agg"
-    assert plnheal_s_agg_table == f"{plnheal_dimen}_s_put_agg"
-    assert plnfact_s_agg_table == f"{plnfact_dimen}_s_put_agg"
-    assert plnfact_s_del_table == f"{plnfact_dimen}_s_del_agg"
-    assert mmtunit_s_agg_table == f"{mmtunit_dimen}_s_agg"
-    assert mmtpayy_s_agg_table == f"{mmtpayy_dimen}_s_agg"
-    assert mmtbudd_s_agg_table == f"{mmtbudd_dimen}_s_agg"
-    assert mmthour_s_agg_table == f"{mmthour_dimen}_s_agg"
-    assert mmtmont_s_agg_table == f"{mmtmont_dimen}_s_agg"
-    assert mmtweek_s_agg_table == f"{mmtweek_dimen}_s_agg"
-    assert mmtoffi_s_agg_table == f"{mmtoffi_dimen}_s_agg"
-    assert nabepoc_s_agg_table == f"{nabepoc_dimen}_s_agg"
-    assert trlname_s_agg_table == f"{trlname_dimen}_s_agg"
-    assert trllabe_s_agg_table == f"{trllabe_dimen}_s_agg"
-    assert trlrope_s_agg_table == f"{trlrope_dimen}_s_agg"
-    assert trltitl_s_agg_table == f"{trltitl_dimen}_s_agg"
-    assert trltitl_h_vld_table == f"{trltitl_dimen}_h_vld"
-    assert trltitl_s_raw_table == f"{trltitl_dimen}_s_raw"
-    assert trltitl_s_val_table == f"{trltitl_dimen}_s_vld"
-    assert trlcore_s_raw_table == f"{trlcore_dimen}_s_raw"
-    assert trlcore_s_agg_table == f"{trlcore_dimen}_s_agg"
-    assert plnprsn_job_table == f"{plnprsn_dimen}_job"
-    assert plngrou_job_table == f"{plngrou_dimen}_job"
-    assert x_plnprsn_raw == "plan_personunit_raw"
+    assert plnunit_s_agg_table == f"{kw.planunit}_s_put_agg"
+    assert plnprsn_s_agg_table == f"{kw.plan_personunit}_s_put_agg"
+    assert plnmemb_s_agg_table == f"{kw.plan_person_membership}_s_put_agg"
+    assert plnkegg_s_agg_table == f"{kw.plan_kegunit}_s_put_agg"
+    assert plnawar_s_agg_table == f"{kw.plan_keg_awardunit}_s_put_agg"
+    assert plnreas_s_agg_table == f"{kw.plan_keg_reasonunit}_s_put_agg"
+    assert plncase_s_agg_table == f"{kw.plan_keg_reason_caseunit}_s_put_agg"
+    assert plnlabo_s_agg_table == f"{kw.plan_keg_partyunit}_s_put_agg"
+    assert plnheal_s_agg_table == f"{kw.plan_keg_healerunit}_s_put_agg"
+    assert plnfact_s_agg_table == f"{kw.plan_keg_factunit}_s_put_agg"
+    assert plnfact_s_del_table == f"{kw.plan_keg_factunit}_s_del_agg"
+    assert mmtunit_s_agg_table == f"{kw.momentunit}_s_agg"
+    assert mmtpayy_s_agg_table == f"{kw.moment_paybook}_s_agg"
+    assert mmtbudd_s_agg_table == f"{kw.moment_budunit}_s_agg"
+    assert mmthour_s_agg_table == f"{kw.moment_epoch_hour}_s_agg"
+    assert mmtmont_s_agg_table == f"{kw.moment_epoch_month}_s_agg"
+    assert mmtweek_s_agg_table == f"{kw.moment_epoch_weekday}_s_agg"
+    assert mmtoffi_s_agg_table == f"{kw.moment_timeoffi}_s_agg"
+    assert nabepoc_s_agg_table == f"{kw.nabu_timenum}_s_agg"
+    assert trlname_s_agg_table == f"{kw.translate_name}_s_agg"
+    assert trllabe_s_agg_table == f"{kw.translate_label}_s_agg"
+    assert trlrope_s_agg_table == f"{kw.translate_rope}_s_agg"
+    assert trltitl_s_agg_table == f"{kw.translate_title}_s_agg"
+    assert trltitl_h_vld_table == f"{kw.translate_title}_h_vld"
+    assert trltitl_s_raw_table == f"{kw.translate_title}_s_raw"
+    assert trltitl_s_val_table == f"{kw.translate_title}_s_vld"
+    assert trlcore_s_raw_table == f"{kw.translate_core}_s_raw"
+    assert trlcore_s_agg_table == f"{kw.translate_core}_s_agg"
+    assert plnprsn_job_table == f"{kw.plan_personunit}_job"
+    assert plngrou_job_table == f"{kw.plan_groupunit}_job"
+    assert x_plnprsn_raw == f"{kw.plan_personunit}_raw"
 
 
 def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():

@@ -5,14 +5,13 @@ from src.ref.keywords import ExampleStrs as exx
 def test_get_unique_short_ropes_ReturnsObj_Scenario0_RootOnly():
     # ESTABLISH
     knot = default_knot_if_None()
-    a23_rope = create_rope(exx.a23, None, knot)
-    rope_set = {a23_rope}
+    rope_set = {exx.a23}
 
     # WHEN
     unique_short_ropes = get_unique_short_ropes(rope_set, knot)
 
     # THEN
-    assert unique_short_ropes == {a23_rope: exx.a23}
+    assert unique_short_ropes == {exx.a23: "Amy23"}
 
 
 def test_get_unique_short_ropess_ReturnsObj_Scenario1_WithUniqueLabels():
@@ -28,7 +27,7 @@ def test_get_unique_short_ropess_ReturnsObj_Scenario1_WithUniqueLabels():
 
     # THEN
     assert unique_short_ropes == {
-        a23_rope: exx.a23,
+        a23_rope: "Amy23",
         casa_rope: exx.casa,
         mop_rope: exx.mop,
     }
@@ -52,7 +51,7 @@ def test_get_unique_short_ropess_ReturnsObj_Scenario2_WithCommonLabels():
     expected_short_casa_mop = f"{exx.casa}{knot}{exx.mop}"
     assert unique_short_ropes.get(casa_mop_rope) == expected_short_casa_mop
     assert unique_short_ropes == {
-        a23_rope: exx.a23,
+        a23_rope: "Amy23",
         casa_rope: exx.casa,
         casa_mop_rope: expected_short_casa_mop,
         sports_rope: sports_str,

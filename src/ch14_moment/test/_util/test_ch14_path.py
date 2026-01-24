@@ -1,6 +1,7 @@
 from inspect import getdoc as inspect_getdoc
 from platform import system as platform_system
 from src.ch00_py.file_toolbox import create_path
+from src.ch04_rope.rope import create_rope, lassounit_shop
 from src.ch14_moment._ref.ch14_path import (
     BUD_MANDATE_FILENAME,
     create_bud_person_mandate_ledger_path,
@@ -13,15 +14,16 @@ def test_create_bud_person_mandate_ledger_path_ReturnsObj():
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     timenum7 = 7
+    a23_lasso = lassounit_shop(exx.a23)
 
     # WHEN
     gen_bud_path = create_bud_person_mandate_ledger_path(
-        x_moment_mstr_dir, exx.a23, exx.sue, timenum7
+        x_moment_mstr_dir, a23_lasso, exx.sue, timenum7
     )
 
     # THEN
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
-    amy23_dir = create_path(x_moments_dir, exx.a23)
+    amy23_dir = create_path(x_moments_dir, "Amy23")
     plans_dir = create_path(amy23_dir, "plans")
     sue_dir = create_path(plans_dir, exx.sue)
     buds_dir = create_path(sue_dir, "buds")
@@ -37,7 +39,7 @@ def test_create_bud_person_mandate_ledger_path_HasDocString():
     # ESTABLISH
     doc_str = create_bud_person_mandate_ledger_path(
         moment_mstr_dir="moment_mstr_dir",
-        moment_rope=kw.moment_rope,
+        moment_lasso=lassounit_shop(create_rope(kw.moment_rope)),
         plan_name=kw.plan_name,
         bud_time=kw.bud_time,
     )

@@ -3,8 +3,12 @@ from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import get_0_if_None, get_empty_set_if_None
 from src.ch00_py.file_toolbox import create_path, get_dir_file_strs, open_json, set_dir
 from src.ch01_allot.allot import default_grain_num_if_None
+from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
-from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
+from src.ch09_plan_lesson._ref.ch09_path import (
+    create_moment_dir_path,
+    create_moment_json_path,
+)
 from src.ch09_plan_lesson.lesson_filehandler import (
     gut_file_exists,
     open_gut_file,
@@ -103,8 +107,8 @@ class MomentUnit:
 
     # directory setup
     def _set_moment_dirs(self):
-        moments_dir = create_path(self.moment_mstr_dir, "moments")
-        self.moment_dir = create_path(moments_dir, self.moment_rope)
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        self.moment_dir = create_moment_dir_path(self.moment_mstr_dir, moment_lasso)
         self.plans_dir = create_path(self.moment_dir, "plans")
         self.lessons_dir = create_path(self.moment_dir, "lessons")
         set_dir(x_path=self.moment_dir)
@@ -122,7 +126,8 @@ class MomentUnit:
 
     # plan administration
     def _set_all_healer_dutys(self, plan_name: PlanName):
-        x_gut = open_gut_file(self.moment_mstr_dir, self.moment_rope, plan_name)
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        x_gut = open_gut_file(self.moment_mstr_dir, moment_lasso, plan_name)
         x_gut.cashout()
         for healer_name, healer_dict in x_gut._healers_dict.items():
             for keep_rope in healer_dict.keys():
@@ -154,25 +159,27 @@ class MomentUnit:
         )
 
     def create_gut_file_if_none(self, plan_name: PlanName) -> None:
-        if not gut_file_exists(self.moment_mstr_dir, self.moment_rope, plan_name):
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        if not gut_file_exists(self.moment_mstr_dir, moment_lasso, plan_name):
             empty_plan = self.create_empty_plan_from_moment(plan_name)
             save_gut_file(self.moment_mstr_dir, empty_plan)
 
     def create_init_job_from_guts(self, plan_name: PlanName) -> None:
         self.create_gut_file_if_none(plan_name)
-        x_gut = open_gut_file(self.moment_mstr_dir, self.moment_rope, plan_name)
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        x_gut = open_gut_file(self.moment_mstr_dir, moment_lasso, plan_name)
         x_job = create_listen_basis(x_gut)
         listen_to_agendas_create_init_job_from_guts(self.moment_mstr_dir, x_job)
         save_job_file(self.moment_mstr_dir, x_job)
 
     def rotate_job(self, plan_name: PlanName) -> PlanUnit:
-        x_job = open_job_file(self.moment_mstr_dir, self.moment_rope, plan_name)
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        x_job = open_job_file(self.moment_mstr_dir, moment_lasso, plan_name)
         x_job.cashout()
         # # if planunit has healers create job from healers.
         # create planunit from debtors roll
-        return listen_to_debtors_roll_jobs_into_job(
-            self.moment_mstr_dir, self.moment_rope, plan_name
-        )
+        mstr_dir = self.moment_mstr_dir
+        return listen_to_debtors_roll_jobs_into_job(mstr_dir, moment_lasso, plan_name)
 
     def generate_all_jobs(self) -> None:
         plan_names = self._get_plan_dir_names()
@@ -184,7 +191,8 @@ class MomentUnit:
                 save_job_file(self.moment_mstr_dir, self.rotate_job(plan_name))
 
     def get_job_file_plan(self, plan_name: PlanName) -> PlanUnit:
-        return open_job_file(self.moment_mstr_dir, self.moment_rope, plan_name)
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        return open_job_file(self.moment_mstr_dir, moment_lasso, plan_name)
 
     # planbudhistorys
     def set_planbudhistory(self, x_planbudhistory: PlanBudHistory) -> None:
@@ -362,8 +370,9 @@ class MomentUnit:
             quota=budunit.quota,
             mana_grain=self.mana_grain,
         )
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
         root_cell_dir = create_cell_dir_path(
-            self.moment_mstr_dir, self.moment_rope, plan_name, bud_time, []
+            self.moment_mstr_dir, moment_lasso, plan_name, bud_time, []
         )
         cellunit_save_to_dir(root_cell_dir, cellunit)
 
@@ -372,7 +381,8 @@ class MomentUnit:
 
     def add_epoch_to_gut(self, plan_name: PlanName) -> None:
         """Adds the epoch to the gut file for the given plan."""
-        x_gut = open_gut_file(self.moment_mstr_dir, self.moment_rope, plan_name)
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        x_gut = open_gut_file(self.moment_mstr_dir, moment_lasso, plan_name)
         add_epoch_kegunit(x_gut, self.get_epoch_config())
         save_gut_file(self.moment_mstr_dir, x_gut)
 
@@ -463,9 +473,9 @@ def get_momentunit_from_dict(moment_dict: dict) -> MomentUnit:
 
 
 def get_default_path_momentunit(
-    moment_mstr_dir: str, moment_rope: MomentRope
+    moment_mstr_dir: str, moment_lasso: LassoUnit
 ) -> MomentUnit:
-    moment_json_path = create_moment_json_path(moment_mstr_dir, moment_rope)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, moment_lasso)
     x_momentunit = get_momentunit_from_dict(open_json(moment_json_path))
     x_momentunit.moment_mstr_dir = moment_mstr_dir
     x_momentunit._set_moment_dirs()

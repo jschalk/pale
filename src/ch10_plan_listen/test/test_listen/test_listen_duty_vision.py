@@ -1,4 +1,4 @@
-from src.ch04_rope.rope import LabelTerm, RopeTerm, create_rope
+from src.ch04_rope.rope import LabelTerm, RopeTerm, create_rope, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, kegunit_shop, planunit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     LessonFileHandler,
@@ -277,8 +277,9 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
     yao_ohio_lessonfilehandler = get_yao_ohio_lessonfilehandler()
     zia_utah_lessonfilehandler = get_zia_utah_lessonfilehandler()
     # delete_dir(yao_iowa_lessonfilehandler.plans_dir())
-    assert gut_file_exists(moment_mstr_dir, moment_rope, exx.yao) is False
-    assert job_file_exists(moment_mstr_dir, moment_rope, exx.yao) is False
+    moment_lasso = lassounit_shop(moment_rope)
+    assert gut_file_exists(moment_mstr_dir, moment_lasso, exx.yao) is False
+    assert job_file_exists(moment_mstr_dir, moment_lasso, exx.yao) is False
     assert (
         vision_file_exists(
             yao_iowa_lessonfilehandler.moment_mstr_dir,
@@ -315,7 +316,7 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
 
     print(f"{yao_gut0.get_fact(get_location_rope())=}")
     save_gut_file(env_dir(), yao_gut0)
-    assert gut_file_exists(moment_mstr_dir, moment_rope, exx.yao)
+    assert gut_file_exists(moment_mstr_dir, moment_lasso, exx.yao)
     assert (
         vision_file_exists(
             yao_iowa_lessonfilehandler.moment_mstr_dir,
@@ -350,11 +351,11 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
         is False
     )
     # WHEN / THEN
-    assert job_file_exists(moment_mstr_dir, moment_rope, exx.yao) is False
+    assert job_file_exists(moment_mstr_dir, moment_lasso, exx.yao) is False
     listen_to_plan_visions(yao_iowa_lessonfilehandler, get_iowa_rope())
-    assert job_file_exists(moment_mstr_dir, moment_rope, exx.yao)
+    assert job_file_exists(moment_mstr_dir, moment_lasso, exx.yao)
 
-    yao_job = open_job_file(moment_mstr_dir, moment_rope, exx.yao)
+    yao_job = open_job_file(moment_mstr_dir, moment_lasso, exx.yao)
     yao_job.cashout()
     assert yao_job.persons.keys() == yao_gut0.persons.keys()
     assert yao_job.get_person(exx.yao).irrational_person_debt_lumen == 0
@@ -397,7 +398,7 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
         duty_plan=yao_duty,
     )
 
-    assert (
+    assert not (
         vision_file_exists(
             sue_texas_lessonfilehandler.moment_mstr_dir,
             sue_texas_lessonfilehandler.plan_name,
@@ -406,10 +407,10 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
             sue_texas_lessonfilehandler.knot,
             exx.yao,
         )
-        is False
     )
 
     # WHEN
+    print(f"{sue_texas_lessonfilehandler.moment_rope=}")
     create_vision_file_from_duty_file(
         sue_texas_lessonfilehandler, exx.yao, get_texas_rope()
     )

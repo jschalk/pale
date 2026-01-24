@@ -1,3 +1,4 @@
+from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch11_bud._ref.ch11_path import (
     create_cell_dir_path as cell_dir,
@@ -55,19 +56,20 @@ def test_set_cell_trees_decrees_SetsRootAttr_Scenario0_Depth0NoFacts(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     das = []
     spark7 = 7
     # create cell file
     bob_cell = cellunit_shop(exx.bob, [], spark7, celldepth=0)
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
-    bob_bob_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [exx.bob])
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [])
+    bob_bob_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [exx.bob])
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_bob_dir, bob_cell)
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
@@ -78,6 +80,7 @@ def test_set_cell_trees_decrees_SetsRootAttr_Scenario1_Depth0AndOne_planspark_fa
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     das = []
     spark7 = 7
@@ -93,12 +96,12 @@ def test_set_cell_trees_decrees_SetsRootAttr_Scenario1_Depth0AndOne_planspark_fa
         planadjust=bob_planadjust,
         planspark_facts=clean_facts,
     )
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [])
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == clean_facts
@@ -109,6 +112,7 @@ def test_set_cell_trees_decrees_SetsRootAttr_Scenario2_Depth0AndOne_found_fact(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     das = []
     spark7 = 7
@@ -124,12 +128,12 @@ def test_set_cell_trees_decrees_SetsRootAttr_Scenario2_Depth0AndOne_found_fact(
         planadjust=bob_planadjust,
         found_facts=clean_facts,
     )
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [])
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == clean_facts
@@ -140,6 +144,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario3_Depth1AndZero_boss_fact
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     bob_ancs = []
     bob_sue_ancs = [exx.sue]
@@ -158,15 +163,15 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario3_Depth1AndZero_boss_fact
         celldepth=0,
         planadjust=bob_sue_planadjust,
     )
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-    bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+    bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_sue_ancs)
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
     assert cellunit_get_from_dir(bob_sue_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
@@ -178,6 +183,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario3_Depth1And_boss_facts(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     bob_ancs = []
     bob_sue_ancs = [exx.sue]
@@ -204,15 +210,15 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario3_Depth1And_boss_facts(
         celldepth=0,
         planadjust=bob_sue_planadjust,
     )
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-    bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+    bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_sue_ancs)
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
     assert cellunit_get_from_dir(bob_sue_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -224,6 +230,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario4_Depth3And_boss_facts(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     bob_ancs = []
     b_sue_ancs = [exx.sue]
@@ -254,10 +261,10 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario4_Depth3And_boss_facts(
     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-    bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-    bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-    bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+    bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+    bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+    bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -268,7 +275,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario4_Depth3And_boss_facts(
     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -282,6 +289,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario5_Depth2And_boss_facts(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     bob_ancs = []
     b_sue_ancs = [exx.sue]
@@ -312,10 +320,10 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario5_Depth2And_boss_facts(
     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-    bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-    bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-    bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+    bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+    bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+    bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -326,7 +334,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario5_Depth2And_boss_facts(
     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -340,6 +348,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario6_boss_facts_ResetAtEachC
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     bob_ancs = []
     b_sue_ancs = [exx.sue]
@@ -373,10 +382,10 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario6_boss_facts_ResetAtEachC
     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0)
     bs_yao_cell.eval_planspark(bs_yao_ba)
     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-    bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-    bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-    bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+    bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+    bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+    bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -387,7 +396,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario6_boss_facts_ResetAtEachC
     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts
@@ -402,6 +411,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario7_NoCell_GetPlanSpark(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     bob_ancs = []
     b_sue_ancs = [exx.sue]
@@ -432,13 +442,13 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario7_NoCell_GetPlanSpark(
     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
     # bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-    bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-    bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-    bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+    bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+    bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+    bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
-    planspark_path = create_planspark_path(mstr_dir, exx.a23, exx.yao, e7)
+    planspark_path = create_planspark_path(mstr_dir, a23_lasso, exx.yao, e7)
     save_plan_file(planspark_path, None, bs_yao_ba)
     # cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
     cellunit_save_to_dir(bob_sue_yao_zia_dir, bsy_zia_cell)
@@ -448,7 +458,7 @@ def test_set_cell_trees_decrees_SetsChildCells_Scenario7_NoCell_GetPlanSpark(
     assert cellunit_get_from_dir(bob_sue_yao_zia_dir).boss_facts == {}
 
     # WHEN
-    set_cell_trees_decrees(mstr_dir, exx.a23)
+    set_cell_trees_decrees(mstr_dir, a23_lasso)
 
     # THEN
     assert cellunit_get_from_dir(bob_root_dir).boss_facts == dirty_facts

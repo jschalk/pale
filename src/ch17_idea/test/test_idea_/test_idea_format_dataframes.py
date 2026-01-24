@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, open_file
+from src.ch04_rope.rope import create_rope
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch13_time.test._util.ch13_examples import (
@@ -25,7 +26,7 @@ def test_create_idea_df_Arg_idea_format_00021_plan_personunit_v0_0_0():
     sue_person_debt_lumen = 23
     bob_person_debt_lumen = 29
     yao_person_debt_lumen = 37
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     sue_planunit.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     sue_planunit.add_personunit(exx.bob, bob_person_cred_lumen, bob_person_debt_lumen)
@@ -62,7 +63,7 @@ def test_create_idea_df_Arg_idea_format_00021_plan_personunit_v0_0_0():
 
 def test_create_idea_df_Arg_idea_format_00020_plan_person_membership_v0_0_0():
     # ESTABLISH
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     sue_planunit.add_personunit(exx.sue)
     sue_planunit.add_personunit(exx.bob)
@@ -127,7 +128,7 @@ def test_create_idea_df_Arg_idea_format_00020_plan_person_membership_v0_0_0():
 
 def test_create_idea_df_Arg_idea_format_00013_kegunit_v0_0_0():
     # ESTABLISH
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     casa_rope = sue_planunit.make_l1_rope(exx.casa)
     casa_star = 31
@@ -159,7 +160,7 @@ def test_create_idea_df_Arg_idea_format_00013_kegunit_v0_0_0():
 
 def test_save_idea_csv_Arg_idea_format_00019_kegunit_v0_0_0():
     # ESTABLISH
-    sue_planunit = planunit_shop("Sue", "amy56")
+    sue_planunit = planunit_shop("Sue", create_rope("amy56"))
     sue_planunit = add_time_creg_kegunit(sue_planunit)
     sue_planunit = add_time_five_kegunit(sue_planunit)
     x_idea_name = idea_format_00019_kegunit_v0_0_0()
@@ -187,7 +188,7 @@ def test_save_idea_csv_Arg_idea_format_00021_plan_personunit_v0_0_0_SaveToCSV(
     sue_person_debt_lumen = 23
     bob_person_debt_lumen = 29
     yao_person_debt_lumen = 37
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     sue_planunit.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     sue_planunit.add_personunit(exx.bob, bob_person_cred_lumen, bob_person_debt_lumen)
@@ -204,9 +205,9 @@ def test_save_idea_csv_Arg_idea_format_00021_plan_personunit_v0_0_0_SaveToCSV(
     # THEN
     assert os_path_exists(csv_example_path)
     sue1_name_example_csv = """spark_num,face_name,moment_rope,plan_name,person_name,person_cred_lumen,person_debt_lumen
-,,amy56,Sue,Bob,13,29
-,,amy56,Sue,Sue,11,23
-,,amy56,Sue,Yao,41,37
+,,;amy56;,Sue,Bob,13,29
+,,;amy56;,Sue,Sue,11,23
+,,;amy56;,Sue,Yao,41,37
 """
     idea_file_str = open_file(idea_moments_dir(), name_filename)
     print(f"      {idea_file_str=}")
@@ -220,10 +221,10 @@ def test_save_idea_csv_Arg_idea_format_00021_plan_personunit_v0_0_0_SaveToCSV(
     # THEN
     assert os_path_exists(csv_example_path)
     sue2_person_example_csv = """spark_num,face_name,moment_rope,plan_name,person_name,person_cred_lumen,person_debt_lumen
-,,amy56,Sue,Bob,13,29
-,,amy56,Sue,Sue,11,23
-,,amy56,Sue,Yao,41,37
-,,amy56,Sue,Zia,1,1
+,,;amy56;,Sue,Bob,13,29
+,,;amy56;,Sue,Sue,11,23
+,,;amy56;,Sue,Yao,41,37
+,,;amy56;,Sue,Zia,1,1
 """
     assert open_file(idea_moments_dir(), name_filename) == sue2_person_example_csv
 
@@ -232,7 +233,7 @@ def test_save_idea_csv_Arg_idea_format_00013_kegunit_v0_0_0(
     temp_dir_setup,
 ):
     # ESTABLISH
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     casa_rope = sue_planunit.make_l1_rope(exx.casa)
     casa_star = 31

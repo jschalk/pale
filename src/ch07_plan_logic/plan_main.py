@@ -25,11 +25,12 @@ from src.ch04_rope.rope import (
     default_knot_if_None,
     get_all_rope_labels,
     get_ancestor_ropes,
-    get_default_first_label,
+    get_default_rope,
     get_first_label_from_rope,
     get_forefather_ropes,
     get_parent_rope,
     get_tail_label,
+    is_labelterm,
     is_string_in_rope,
     is_sub_rope,
     rebuild_rope,
@@ -107,6 +108,10 @@ class healerunit_group_title_Exception(Exception):
 
 
 class gogo_calc_stop_calc_Exception(Exception):
+    pass
+
+
+class is_LabelTermException(Exception):
     pass
 
 
@@ -1436,11 +1441,15 @@ def planunit_shop(
     tally: float = None,
 ) -> PlanUnit:
     plan_name = "" if plan_name is None else plan_name
-    root_keg_label = get_default_first_label() if moment_rope is None else moment_rope
+    moment_rope = get_default_rope(knot) if moment_rope is None else moment_rope
+    if is_labelterm(moment_rope, knot):
+        exception_str = f"Plan '{plan_name}' cannot set moment_rope='{moment_rope}' where knot='{knot}'"
+        raise is_LabelTermException(exception_str)
+    root_keg_label = get_tail_label(moment_rope, knot)
     x_plan = PlanUnit(
         plan_name=plan_name,
         tally=get_1_if_None(tally),
-        moment_rope=root_keg_label,
+        moment_rope=moment_rope,
         persons=get_empty_dict_if_None(),
         groupunits={},
         knot=default_knot_if_None(knot),
@@ -1478,9 +1487,10 @@ def get_planunit_from_dict(plan_dict: dict) -> PlanUnit:
     x_plan.set_plan_name(obj_from_plan_dict(plan_dict, "plan_name"))
     x_plan.tally = obj_from_plan_dict(plan_dict, "tally")
     x_plan.set_max_tree_traverse(obj_from_plan_dict(plan_dict, "max_tree_traverse"))
-    x_plan.moment_rope = plan_dict.get("kegroot").get("keg_label")
     plan_knot = obj_from_plan_dict(plan_dict, "knot")
     x_plan.knot = default_knot_if_None(plan_knot)
+    kegroot_label = plan_dict.get("kegroot").get("keg_label")
+    x_plan.moment_rope = create_rope(kegroot_label, None, plan_knot)
     x_plan.fund_pool = validate_pool_num(obj_from_plan_dict(plan_dict, "fund_pool"))
     x_plan.fund_grain = default_grain_num_if_None(
         obj_from_plan_dict(plan_dict, "fund_grain")

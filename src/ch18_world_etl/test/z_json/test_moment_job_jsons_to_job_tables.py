@@ -4,6 +4,7 @@ from src.ch00_py.db_toolbox import db_table_exists, get_row_count
 from src.ch00_py.file_toolbox import save_json
 from src.ch02_person.group import awardunit_shop
 from src.ch03_labor.labor import laborunit_shop
+from src.ch04_rope.rope import lassounit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_job_path, create_moment_json_path
@@ -19,15 +20,14 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     temp_dir_setup,
 ):  # sourcery skip: extract-method
     # ESTABLISH
-    m23_moment_mstr_dir = get_temp_dir()
-    m23_str = "music23"
+    moment_mstr_dir = get_temp_dir()
     sue_plan = planunit_shop(exx.sue, exx.a23)
     sue_plan.add_personunit(exx.sue)
     sue_plan.add_personunit(exx.bob)
     sue_plan.get_person(exx.bob).add_membership(exx.run)
-    casa_rope = sue_plan.make_l1_rope("casa")
+    casa_rope = sue_plan.make_l1_rope(exx.casa)
     situation_rope = sue_plan.make_l1_rope(kw.reason_active)
-    clean_rope = sue_plan.make_rope(situation_rope, "clean")
+    clean_rope = sue_plan.make_rope(situation_rope, exx.clean)
     dirty_rope = sue_plan.make_rope(situation_rope, "dirty")
     sue_plan.add_keg(casa_rope)
     sue_plan.add_keg(clean_rope)
@@ -41,23 +41,23 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     sue_laborunit.add_party(exx.sue)
     sue_plan.edit_keg_attr(casa_rope, laborunit=sue_laborunit)
     sue_plan.add_fact(situation_rope, clean_rope)
-    print(f"{sue_plan.get_keg_obj(casa_rope).laborunit=}")
-    print(f"{sue_plan.get_keg_obj(casa_rope).to_dict()=}")
-    save_job_file(m23_moment_mstr_dir, sue_plan)
+    # print(f"{sue_plan.get_keg_obj(casa_rope).laborunit=}")
+    # print(f"{sue_plan.get_keg_obj(casa_rope).to_dict()=}")
+    save_job_file(moment_mstr_dir, sue_plan)
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
-        plnmemb_job_table = prime_table("plnmemb", kw.job, None)
-        plnprsn_job_table = prime_table("plnprsn", kw.job, None)
-        plngrou_job_table = prime_table("plngrou", kw.job, None)
-        plnawar_job_table = prime_table("plnawar", kw.job, None)
-        plnfact_job_table = prime_table("plnfact", kw.job, None)
-        plnheal_job_table = prime_table("plnheal", kw.job, None)
-        plncase_job_table = prime_table("plncase", kw.job, None)
-        plnreas_job_table = prime_table("plnreas", kw.job, None)
-        plnlabo_job_table = prime_table("plnlabo", kw.job, None)
-        plnkegg_job_table = prime_table("plnkegg", kw.job, None)
-        plnunit_job_table = prime_table("plnunit", kw.job, None)
+        plnmemb_job_table = prime_table(kw.plnmemb, kw.job, None)
+        plnprsn_job_table = prime_table(kw.plnprsn, kw.job, None)
+        plngrou_job_table = prime_table(kw.plngrou, kw.job, None)
+        plnawar_job_table = prime_table(kw.plnawar, kw.job, None)
+        plnfact_job_table = prime_table(kw.plnfact, kw.job, None)
+        plnheal_job_table = prime_table(kw.plnheal, kw.job, None)
+        plncase_job_table = prime_table(kw.plncase, kw.job, None)
+        plnreas_job_table = prime_table(kw.plnreas, kw.job, None)
+        plnlabo_job_table = prime_table(kw.plnlabo, kw.job, None)
+        plnkegg_job_table = prime_table(kw.plnkegg, kw.job, None)
+        plnunit_job_table = prime_table(kw.plnunit, kw.job, None)
         assert not db_table_exists(cursor, plnunit_job_table)
         assert not db_table_exists(cursor, plnkegg_job_table)
         assert not db_table_exists(cursor, plnprsn_job_table)
@@ -71,7 +71,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         assert not db_table_exists(cursor, plnlabo_job_table)
 
         # WHEN
-        etl_moment_job_jsons_to_job_tables(cursor, m23_moment_mstr_dir)
+        etl_moment_job_jsons_to_job_tables(cursor, moment_mstr_dir)
 
         # THEN
         assert get_row_count(cursor, plnunit_job_table) == 1
@@ -105,10 +105,11 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     bob_job.add_personunit(sue_inx, credit88)
     bob_job.add_personunit(yao_inx, credit44)
     save_job_file(moment_mstr_dir, bob_job)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
     moment_dict = momentunit_shop(exx.a23, moment_mstr_dir).to_dict()
     save_json(moment_json_path, None, moment_dict)
-    a23_bob_job_path = create_job_path(moment_mstr_dir, exx.a23, bob_inx)
+    a23_bob_job_path = create_job_path(moment_mstr_dir, a23_lasso, bob_inx)
     assert os_path_exists(moment_json_path)
     assert os_path_exists(a23_bob_job_path)
     with sqlite3_connect(":memory:") as db_conn:

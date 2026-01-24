@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, open_json, save_json
+from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import get_planunit_from_dict, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_gut_path
 from src.ch11_bud._ref.ch11_path import create_plan_spark_dir_path
@@ -24,13 +25,10 @@ def test_etl_spark_inherited_planunits_to_moment_gut_SetsFiles_Scenario0(
     credit44 = 44
     credit77 = 77
     credit88 = 88
-    moment_mstr_dir = get_temp_dir()
-    a23_bob_e3_dir = create_plan_spark_dir_path(
-        moment_mstr_dir, exx.a23, bob_inx, spark3
-    )
-    a23_bob_e7_dir = create_plan_spark_dir_path(
-        moment_mstr_dir, exx.a23, bob_inx, spark7
-    )
+    mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_bob_e3_dir = create_plan_spark_dir_path(mstr_dir, a23_lasso, bob_inx, spark3)
+    a23_bob_e7_dir = create_plan_spark_dir_path(mstr_dir, a23_lasso, bob_inx, spark7)
     plan_filename = "plan.json"
     e3_bob_plan = planunit_shop(bob_inx, exx.a23)
     e7_bob_plan = planunit_shop(bob_inx, exx.a23)
@@ -47,11 +45,11 @@ def test_etl_spark_inherited_planunits_to_moment_gut_SetsFiles_Scenario0(
     assert os_path_exists(e7_plan_path)
     print(e3_plan_path)
     print(e7_plan_path)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, exx.a23, bob_inx)
+    a23_bob_gut_path = create_gut_path(mstr_dir, a23_lasso, bob_inx)
     assert os_path_exists(a23_bob_gut_path) is False
 
     # WHEN
-    etl_spark_inherited_planunits_to_moment_gut(moment_mstr_dir)
+    etl_spark_inherited_planunits_to_moment_gut(mstr_dir)
 
     # THEN
     assert os_path_exists(a23_bob_gut_path)

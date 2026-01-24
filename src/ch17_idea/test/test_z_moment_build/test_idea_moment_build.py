@@ -1,10 +1,12 @@
 from src.ch00_py.file_toolbox import create_path
+from src.ch04_rope.rope import default_knot_if_None
 from src.ch13_time.epoch_main import epochunit_shop, get_default_epoch_config_dict
 from src.ch13_time.test._util.ch13_examples import get_five_config
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch17_idea.idea_main import moment_build_from_df
 from src.ch17_idea.test._util.ch17_env import idea_moments_dir, temp_dir_setup
 from src.ch17_idea.test._util.ch17_examples import (
+    J45_ROPE,
     get_ex1_br00000_df,
     get_ex1_br00001_df,
     get_ex1_br00002_df,
@@ -62,7 +64,7 @@ def test_moment_build_from_df_ReturnsObj_Scenario0_OneMomentRope(
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=exx.slash,
+        knot=default_knot_if_None(),
         epoch=creg_epochunit,
         job_listen_rotations=x_job_listen_rotations,
     )
@@ -133,17 +135,17 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentRopes(
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=exx.slash,
+        knot=default_knot_if_None(),
         epoch=creg_epochunit,
     )
     five_epochunit = epochunit_shop(get_five_config())
     jeffy45_momentunit = momentunit_shop(
-        moment_rope="jeffy45",
+        moment_rope=J45_ROPE,
         moment_mstr_dir=x_moments_dir,
         fund_grain=x_fund_grain,
         mana_grain=x_mana_grain,
         respect_grain=x_respect_grain,
-        knot=",",
+        knot=default_knot_if_None(),
         epoch=five_epochunit,
     )
     assert x_momentunits
@@ -159,11 +161,11 @@ def test_moment_build_from_df_ReturnsObj_Scenario1_TwoMomentRopes(
     assert len(creg_momentunit.paybook.tranunits) == 4
     # assert creg_momentunit == amy23_momentunit
 
-    five_momentunit = x_momentunits.get("jeffy45")
+    five_momentunit = x_momentunits.get(J45_ROPE)
     assert five_momentunit.fund_grain == x_fund_grain
     assert five_momentunit.respect_grain == x_respect_grain
     assert five_momentunit.mana_grain == x_mana_grain
-    assert five_momentunit.moment_rope == "jeffy45"
+    assert five_momentunit.moment_rope == J45_ROPE
     assert five_momentunit.moment_mstr_dir == x_moments_dir
     assert len(five_momentunit.planbudhistorys) == 2
     assert len(five_momentunit.paybook.tranunits) == 1

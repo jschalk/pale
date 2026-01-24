@@ -20,8 +20,9 @@ def create_keeps_dir_path(
     moment_mstr_dir: str, moment_rope: RopeTerm, plan_name: PlanName
 ) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_rope\\plans\\plan_name\\keeps"""
+    moment_labels = get_all_rope_labels(moment_rope)
     moments_dir = create_path(moment_mstr_dir, "moments")
-    moment_dir = create_path(moments_dir, moment_rope)
+    moment_dir = create_path(moments_dir, moment_labels[0])
     plans_dir = create_path(moment_dir, "plans")
     plan_dir = create_path(plans_dir, plan_name)
     return create_path(plan_dir, "keeps")
@@ -45,7 +46,8 @@ def create_keep_rope_path(
         )
 
     keep_root = "kegroot"
-    keep_rope = rebuild_rope(keep_rope, moment_rope, keep_root)
+    moment_labels = get_all_rope_labels(moment_rope, knot)
+    keep_rope = rebuild_rope(keep_rope, moment_labels[0], keep_root)
     x_list = get_all_rope_labels(keep_rope, knot)
     keep_sub_path = create_directory_path(x_list=[*x_list])
     keeps_dir = create_keeps_dir_path(moment_mstr_dir, moment_rope, plan_name)

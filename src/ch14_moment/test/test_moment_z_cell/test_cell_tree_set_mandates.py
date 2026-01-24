@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import open_json
+from src.ch04_rope.rope import lassounit_shop
 from src.ch11_bud._ref.ch11_path import (
     create_cell_dir_path as cell_dir,
     create_cell_person_mandate_ledger_path as mandate_path,
@@ -16,22 +17,23 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 ):
     # ESTABLISH
     mstr_dir = get_temp_dir()
+    a23_lasso = lassounit_shop(exx.a23)
     tp5 = 5
     das = []
     spark7 = 7
     # create cell file
     bob_cell = cellunit_shop(exx.bob, [], spark7, celldepth=0)
-    bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
-    bob_bob_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [exx.bob])
+    bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [])
+    bob_bob_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [exx.bob])
     cellunit_save_to_dir(bob_root_dir, bob_cell)
     cellunit_save_to_dir(bob_bob_dir, bob_cell)
-    bob_root_mandate_path = mandate_path(mstr_dir, exx.a23, exx.bob, tp5, [])
-    bob_bob_mandate_path = mandate_path(mstr_dir, exx.a23, exx.bob, tp5, [exx.bob])
+    bob_root_mandate_path = mandate_path(mstr_dir, a23_lasso, exx.bob, tp5, [])
+    bob_bob_mandate_path = mandate_path(mstr_dir, a23_lasso, exx.bob, tp5, [exx.bob])
     assert os_path_exists(bob_root_mandate_path) is False
     assert os_path_exists(bob_bob_mandate_path) is False
 
     # WHEN
-    set_cell_tree_cell_mandates(mstr_dir, exx.a23)
+    set_cell_tree_cell_mandates(mstr_dir, a23_lasso)
 
     # THEN
     assert os_path_exists(bob_root_mandate_path)
@@ -57,7 +59,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_cell = cellunit_shop(
 #         exx.bob, [], spark7, 0, planadjust=bob_planadjust, planspark_facts=clean_facts
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [])
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
@@ -90,7 +92,7 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #         planadjust=bob_planadjust,
 #         found_facts=clean_facts,
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, [])
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, [])
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
 
@@ -123,8 +125,8 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_sue_cell = cellunit_shop(
 #         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, planadjust=bob_sue_planadjust
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_sue_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
@@ -168,8 +170,8 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bob_sue_cell = cellunit_shop(
 #         exx.bob, bob_sue_ancs, spark_num=e7, celldepth=0, planadjust=bob_sue_planadjust
 #     )
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_sue_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_sue_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, bob_sue_cell)
 #     assert cellunit_get_from_dir(bob_root_dir).boss_facts == {}
@@ -223,10 +225,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
 #     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -286,10 +288,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
 #     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -352,10 +354,10 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0)
 #     bs_yao_cell.eval_planspark(bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
 #     cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
@@ -416,13 +418,13 @@ def test_set_cell_tree_cell_mandates_SetsRootAttr_Scenario0_Depth0NoFacts(
 #     b_sue_cell = cellunit_shop(exx.bob, b_sue_ancs, e7, 0, planadjust=b_sue_ba)
 #     # bs_yao_cell = cellunit_shop(exx.bob, bs_yao_ancs, e7, 0, planadjust=bs_yao_ba)
 #     bsy_zia_cell = cellunit_shop(exx.bob, bsy_zia_ancs, e7, 0, planadjust=bsy_zia_ba)
-#     bob_root_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bob_ancs)
-#     bob_sue_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, b_sue_ancs)
-#     bob_sue_yao_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bs_yao_ancs)
-#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, exx.a23, exx.bob, tp5, bsy_zia_ancs)
+#     bob_root_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bob_ancs)
+#     bob_sue_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, b_sue_ancs)
+#     bob_sue_yao_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bs_yao_ancs)
+#     bob_sue_yao_zia_dir = cell_dir(mstr_dir, a23_lasso, exx.bob, tp5, bsy_zia_ancs)
 #     cellunit_save_to_dir(bob_root_dir, bob_cell)
 #     cellunit_save_to_dir(bob_sue_dir, b_sue_cell)
-#     planspark_path = create_planspark_path(mstr_dir, exx.a23, exx.yao, e7)
+#     planspark_path = create_planspark_path(mstr_dir, a23_lasso, exx.yao, e7)
 #     save_plan_file(planspark_path, None, bs_yao_ba)
 #     # cellunit_save_to_dir(bob_sue_yao_dir, bs_yao_cell)
 #     cellunit_save_to_dir(bob_sue_yao_zia_dir, bsy_zia_cell)

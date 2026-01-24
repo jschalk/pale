@@ -10,6 +10,7 @@ from src.ch00_py.file_toolbox import (
     save_file,
     set_dir,
 )
+from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
     open_gut_file,
@@ -481,7 +482,8 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObjThatIsEqual(
     # ESTABLISH
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
-    gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     gut_plan.last_lesson_id is None
 
     # WHEN
@@ -498,7 +500,8 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_1planatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
-    gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     print(f"{gut_plan.moment_rope=}")
     print(f"{sue_lessonfilehandler.moment_rope=}")
     sports_str = "sports"
@@ -522,7 +525,8 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_2planatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
-    gut_plan = open_gut_file(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     print(f"{gut_plan.moment_rope=}")
     sports_str = "sports"
     sports_rope = gut_plan.make_l1_rope(sports_str)

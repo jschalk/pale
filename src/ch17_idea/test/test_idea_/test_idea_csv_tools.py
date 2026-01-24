@@ -1,3 +1,4 @@
+from src.ch04_rope.rope import create_rope
 from src.ch17_idea.idea_main import (
     get_csv_moment_rope_plan_name_metrics,
     moment_rope_plan_name_nested_csv_dict,
@@ -7,7 +8,7 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_get_csv_moment_rope_plan_name_metrics_ReturnsObj_Scenario2():
     # ESTABLISH
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     headerless_csv = f"""{amy_moment_rope},{exx.sue},Bob,13,29
 {amy_moment_rope},{exx.sue},Sue,11,23
 {amy_moment_rope},{exx.sue},Yao,41,37
@@ -27,7 +28,7 @@ def test_get_csv_moment_rope_plan_name_metrics_ReturnsObj_Scenario2():
 
 def test_moment_rope_plan_name_nested_csv_dict_ReturnsObj_Scenario0():
     # ESTABLISH
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     headerless_csv = f"""face_x,spark_x,{amy_moment_rope},{exx.sue},Bob,13,29
 ,,{amy_moment_rope},{exx.sue},Sue,11,23
 ,,{amy_moment_rope},{exx.sue},Yao,41,37

@@ -142,7 +142,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     fay_world.sheets_input_to_clarity_mstr()
 
-    a23_calendar_md_path = create_path(output_dir, f"{exx.a23}_calendar.md")
+    a23_calendar_md_path = create_path(output_dir, f"Amy23_calendar.md")
     print(f"      {a23_calendar_md_path=}")
     assert not os_path_exists(a23_calendar_md_path)
 
@@ -213,10 +213,10 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #     mstr_dir = fay_world._moment_mstr_dir
 #     wrong_a23_moment_dir = create_path(mstr_dir, exx.a23)
 #     assert os_path_exists(wrong_a23_moment_dir) is False
-#     a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
-#     a23_sue_gut_path = create_gut_path(mstr_dir, exx.a23, exx.sue)
-#     a23_sue_job_path = create_job_path(mstr_dir, exx.a23, exx.sue)
-#     sue37_mandate_path = bud_mandate(mstr_dir, exx.a23, exx.sue, tp37)
+#     a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
+#     a23_sue_gut_path = create_gut_path(mstr_dir, a23_lasso, exx.sue)
+#     a23_sue_job_path = create_job_path(mstr_dir, a23_lasso, exx.sue)
+#     sue37_mandate_path = bud_mandate(mstr_dir, a23_lasso, exx.sue, tp37)
 #     assert os_path_exists(input_file_path)
 #     assert os_path_exists(a23_json_path) is False
 #     assert os_path_exists(a23_sue_gut_path) is False

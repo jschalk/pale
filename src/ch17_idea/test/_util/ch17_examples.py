@@ -1,7 +1,8 @@
 from pandas import DataFrame
+from src.ch04_rope.rope import create_rope
 from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
-JEFFY45_STR = "jeffy45"
+J45_ROPE = create_rope("jeffy45")
 
 
 def get_ex1_br00000_df() -> DataFrame:
@@ -22,7 +23,7 @@ def get_ex1_br00000_df() -> DataFrame:
             kw.job_listen_rotations,
         ]
     )
-    x_df.loc[0] = [7, exx.a23, 1, 1, 1, 1, "/", "creg", 440640, 7]
+    x_df.loc[0] = [7, exx.a23, 1, 1, 1, 1, ";", "creg", 440640, 7]
     return x_df
 
 
@@ -134,8 +135,8 @@ def get_ex2_br00000_df() -> DataFrame:
             kw.job_listen_rotations,
         ]
     )
-    x_df.loc[0] = [7, exx.a23, 1, 1, 1, 1, "/", "creg", 440640, 4]
-    x_df.loc[1] = [25, JEFFY45_STR, 1, 0, 1, 1, ",", "five", 1683478080, 4]
+    x_df.loc[0] = [7, exx.a23, 1, 1, 1, 1, ";", "creg", 440640, 4]
+    x_df.loc[1] = [25, J45_ROPE, 1, 0, 1, 1, ";", "five", 1683478080, 4]
     return x_df
 
 
@@ -154,8 +155,8 @@ def get_ex2_br00001_df() -> DataFrame:
     x_df.loc[0] = [exx.a23, "Bob", 332, 999, 3]
     x_df.loc[1] = [exx.a23, "Sue", 445, 777, 3]
     x_df.loc[2] = [exx.a23, "Yao", 700, 222, 3]
-    x_df.loc[3] = [JEFFY45_STR, "Xio", 332, 999, 3]
-    x_df.loc[4] = [JEFFY45_STR, "Zia", 700, 222, 3]
+    x_df.loc[3] = [J45_ROPE, "Xio", 332, 999, 3]
+    x_df.loc[4] = [J45_ROPE, "Zia", 700, 222, 3]
     return x_df
 
 
@@ -174,7 +175,7 @@ def get_ex2_br00002_df() -> DataFrame:
     x_df.loc[0] = ["Zia", 888, exx.a23, "Bob", 777]
     x_df.loc[1] = ["Zia", 234, exx.a23, "Sue", 999]
     x_df.loc[2] = ["Zia", 234, exx.a23, "Yao", 999]
-    x_df.loc[3] = ["Zia", 234, JEFFY45_STR, "Yao", 999]
+    x_df.loc[3] = ["Zia", 234, J45_ROPE, "Yao", 999]
     x_df.loc[4] = ["Bob", 888, exx.a23, "Zia", 777]
     return x_df
 
@@ -207,16 +208,16 @@ def get_ex2_br00003_df() -> DataFrame:
     x_df.loc[21] = [exx.a23, "9pm", 1320]
     x_df.loc[22] = [exx.a23, "10pm", 1380]
     x_df.loc[23] = [exx.a23, "11pm", 1440]
-    x_df.loc[24] = [JEFFY45_STR, "0hr", 144]
-    x_df.loc[25] = [JEFFY45_STR, "1hr", 288]
-    x_df.loc[26] = [JEFFY45_STR, "2hr", 432]
-    x_df.loc[27] = [JEFFY45_STR, "3hr", 576]
-    x_df.loc[28] = [JEFFY45_STR, "4hr", 720]
-    x_df.loc[29] = [JEFFY45_STR, "5hr", 864]
-    x_df.loc[30] = [JEFFY45_STR, "6hr", 1008]
-    x_df.loc[31] = [JEFFY45_STR, "7hr", 1152]
-    x_df.loc[32] = [JEFFY45_STR, "8hr", 1296]
-    x_df.loc[33] = [JEFFY45_STR, "9hr", 1440]
+    x_df.loc[24] = [J45_ROPE, "0hr", 144]
+    x_df.loc[25] = [J45_ROPE, "1hr", 288]
+    x_df.loc[26] = [J45_ROPE, "2hr", 432]
+    x_df.loc[27] = [J45_ROPE, "3hr", 576]
+    x_df.loc[28] = [J45_ROPE, "4hr", 720]
+    x_df.loc[29] = [J45_ROPE, "5hr", 864]
+    x_df.loc[30] = [J45_ROPE, "6hr", 1008]
+    x_df.loc[31] = [J45_ROPE, "7hr", 1152]
+    x_df.loc[32] = [J45_ROPE, "8hr", 1296]
+    x_df.loc[33] = [J45_ROPE, "9hr", 1440]
     return x_df
 
 
@@ -236,21 +237,21 @@ def get_ex2_br00004_df() -> DataFrame:
     x_df.loc[9] = [exx.a23, "December", 306]
     x_df.loc[10] = [exx.a23, "January", 337]
     x_df.loc[11] = [exx.a23, "February", 365]
-    x_df.loc[12] = (JEFFY45_STR, "Fredrick", 25)
-    x_df.loc[13] = (JEFFY45_STR, "Geo", 50)
-    x_df.loc[14] = (JEFFY45_STR, "Holocene", 75)
-    x_df.loc[15] = (JEFFY45_STR, "Iguana", 100)
-    x_df.loc[16] = (JEFFY45_STR, "Jesus", 125)
-    x_df.loc[17] = (JEFFY45_STR, "Keel", 150)
-    x_df.loc[18] = (JEFFY45_STR, "LeBron", 175)
-    x_df.loc[19] = (JEFFY45_STR, "Mikayla", 200)
-    x_df.loc[20] = (JEFFY45_STR, "Ninon", 225)
-    x_df.loc[21] = (JEFFY45_STR, "Obama", 250)
-    x_df.loc[22] = (JEFFY45_STR, "Preston", 275)
-    x_df.loc[23] = (JEFFY45_STR, "Quorum", 300)
-    x_df.loc[24] = (JEFFY45_STR, "RioGrande", 325)
-    x_df.loc[25] = (JEFFY45_STR, "Simon", 350)
-    x_df.loc[26] = [JEFFY45_STR, "Trump", 365]
+    x_df.loc[12] = (J45_ROPE, "Fredrick", 25)
+    x_df.loc[13] = (J45_ROPE, "Geo", 50)
+    x_df.loc[14] = (J45_ROPE, "Holocene", 75)
+    x_df.loc[15] = (J45_ROPE, "Iguana", 100)
+    x_df.loc[16] = (J45_ROPE, "Jesus", 125)
+    x_df.loc[17] = (J45_ROPE, "Keel", 150)
+    x_df.loc[18] = (J45_ROPE, "LeBron", 175)
+    x_df.loc[19] = (J45_ROPE, "Mikayla", 200)
+    x_df.loc[20] = (J45_ROPE, "Ninon", 225)
+    x_df.loc[21] = (J45_ROPE, "Obama", 250)
+    x_df.loc[22] = (J45_ROPE, "Preston", 275)
+    x_df.loc[23] = (J45_ROPE, "Quorum", 300)
+    x_df.loc[24] = (J45_ROPE, "RioGrande", 325)
+    x_df.loc[25] = (J45_ROPE, "Simon", 350)
+    x_df.loc[26] = [J45_ROPE, "Trump", 365]
     return x_df
 
 
@@ -265,11 +266,11 @@ def get_ex2_br00005_df() -> DataFrame:
     x_df.loc[4] = [exx.a23, kw.Sunday, 4]
     x_df.loc[5] = [exx.a23, kw.Monday, 5]
     x_df.loc[6] = [exx.a23, kw.Tuesday, 6]
-    x_df.loc[7] = [JEFFY45_STR, kw.Anaday, 0]
-    x_df.loc[8] = [JEFFY45_STR, kw.Baileyday, 1]
-    x_df.loc[9] = [JEFFY45_STR, kw.Chiday, 2]
-    x_df.loc[10] = [JEFFY45_STR, kw.Danceday, 3]
-    x_df.loc[11] = [JEFFY45_STR, kw.Eastday, 4]
+    x_df.loc[7] = [J45_ROPE, kw.Anaday, 0]
+    x_df.loc[8] = [J45_ROPE, kw.Baileyday, 1]
+    x_df.loc[9] = [J45_ROPE, kw.Chiday, 2]
+    x_df.loc[10] = [J45_ROPE, kw.Danceday, 3]
+    x_df.loc[11] = [J45_ROPE, kw.Eastday, 4]
     return x_df
 
 

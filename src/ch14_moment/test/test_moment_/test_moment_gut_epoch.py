@@ -1,3 +1,4 @@
+from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson.lesson_filehandler import open_gut_file, save_gut_file
 from src.ch13_time.epoch_main import epochunit_shop, get_default_epoch_config_dict
@@ -51,7 +52,8 @@ def test_MomentUnit_add_epoch_to_gut_SetsFile_Scenario0(temp_dir_setup):
     a23_moment.add_epoch_to_gut(exx.sue)
 
     # THEN
-    post_sue_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    post_sue_gut = open_gut_file(moment_mstr_dir, a23_lasso, exx.sue)
     assert post_sue_gut.keg_exists(five_rope)
 
 
@@ -70,5 +72,6 @@ def test_MomentUnit_add_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     a23_moment.add_epoch_to_guts()
 
     # THEN
-    post_sue_gut = open_gut_file(moment_mstr_dir, exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    post_sue_gut = open_gut_file(moment_mstr_dir, a23_lasso, exx.sue)
     assert post_sue_gut.keg_exists(five_rope)

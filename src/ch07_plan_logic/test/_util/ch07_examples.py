@@ -1,7 +1,7 @@
 from enum import Enum
 from src.ch00_py.file_toolbox import open_json
 from src.ch03_labor.labor import laborunit_shop
-from src.ch04_rope.rope import RopeTerm
+from src.ch04_rope.rope import RopeTerm, create_rope
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import (
@@ -226,8 +226,8 @@ def get_planunit_1task_1ceo_minutes_reason_1fact() -> PlanUnit:
 
 
 def get_planunit_x1_3levels_1reason_1facts() -> PlanUnit:
-    tiger_str = "tiger"
-    zia_plan = planunit_shop("Zia", tiger_str)
+    tiger_rope = create_rope("tiger")
+    zia_plan = planunit_shop("Zia", tiger_rope)
     shave_str = "shave"
     shave_rope = zia_plan.make_l1_rope(shave_str)
     keg_kid_shave = kegunit_shop(shave_str, star=30, pledge=True)

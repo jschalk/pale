@@ -1,3 +1,4 @@
+from src.ch04_rope.rope import create_rope
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch17_idea.idea_config import idea_format_00021_plan_personunit_v0_0_0
 from src.ch17_idea.idea_db_tool import open_csv
@@ -14,7 +15,7 @@ def test_open_csv_ReturnsObjWhenFileExists(temp_dir_setup):
     sue_person_debt_lumen = 23
     bob_person_debt_lumen = 29
     yao_person_debt_lumen = 37
-    amy_moment_rope = "amy56"
+    amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
     sue_planunit.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     sue_planunit.add_personunit(exx.bob, bob_person_cred_lumen, bob_person_debt_lumen)

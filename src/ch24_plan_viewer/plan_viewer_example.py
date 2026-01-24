@@ -46,7 +46,7 @@ def play_run_str() -> str:
 
 
 def get_sue_planunit() -> PlanUnit:
-    sue_plan = planunit_shop(sue2_str(), "accord23")
+    sue_plan = planunit_shop(sue2_str(), ";accord23;")
     sue_cred_lumen = 11
     sue_debt_lumen = 13
     bob_cred_lumen = 23

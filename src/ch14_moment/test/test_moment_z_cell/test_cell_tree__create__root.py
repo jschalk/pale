@@ -1,5 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import count_dirs_files, open_json, save_json
+from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_moment_json_path,
     create_moment_plans_dir_path,
@@ -28,10 +29,11 @@ def test_MomentUnit_create_buds_root_cells_Scenaro0_BudEmpty(
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     amy23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
-    a23_json_path = create_moment_json_path(moment_mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     print(f"{a23_json_path=}")
-    a23_plans_path = create_moment_plans_dir_path(moment_mstr_dir, exx.a23)
+    a23_plans_path = create_moment_plans_dir_path(moment_mstr_dir, a23_lasso)
     assert count_dirs_files(a23_plans_path) == 0
 
     # WHEN
@@ -52,7 +54,8 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
     timenum37 = 37
     bud1_quota = 450
     amy23_moment.add_budunit(exx.bob, timenum37, bud1_quota)
-    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
@@ -63,7 +66,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro1_BudExists(
     a23_ote1_dict = {exx.bob: {str(timenum37): spark3, str(timenum66): spark7}}
 
     # timenum37 cell path
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, timenum37)
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, a23_lasso, exx.bob, timenum37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN
@@ -90,7 +93,8 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoPlanExistsInSp
     timenum37 = 37
     bud1_quota = 450
     amy23_moment.add_budunit(exx.bob, timenum37, bud1_quota)
-    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
@@ -100,7 +104,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro2_BudExistsButNoPlanExistsInSp
     timenum40 = 40
     timenum66 = 66
     a23_ote1_dict = {exx.bob: {str(timenum40): spark3, str(timenum66): spark7}}
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, timenum37)
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, a23_lasso, exx.bob, timenum37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN
@@ -131,7 +135,8 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
     bud1_quota = 450
     bud1_celldepth = 3
     amy23_moment.add_budunit(exx.bob, timenum37, bud1_quota, celldepth=bud1_celldepth)
-    a23_json_path = create_moment_json_path(mstr_dir, exx.a23)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     assert os_path_exists(a23_json_path)
 
@@ -143,7 +148,7 @@ def test_MomentUnit_create_buds_root_cells_Scenaro3_BudExistsNotPerfectMatch_bud
     a23_ote1_dict = {exx.bob: {str(timenum30): spark3, str(timenum66): spark7}}
 
     # destination of cell json
-    tp37_cell_json_path = create_cell_json_path(mstr_dir, exx.a23, exx.bob, timenum37)
+    tp37_cell_json_path = create_cell_json_path(mstr_dir, a23_lasso, exx.bob, timenum37)
     assert os_path_exists(tp37_cell_json_path) is False
 
     # WHEN

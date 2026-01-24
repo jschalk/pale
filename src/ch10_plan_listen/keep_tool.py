@@ -8,6 +8,7 @@ from src.ch00_py.file_toolbox import (
     save_json,
     set_dir,
 )
+from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, get_planunit_from_dict
 from src.ch09_plan_lesson._ref.ch09_path import create_job_path
 from src.ch09_plan_lesson.lesson_filehandler import (
@@ -31,23 +32,22 @@ from src.ch10_plan_listen._ref.ch10_semantic_types import (
 
 
 def job_file_exists(
-    moment_mstr_dir: str, moment_rope: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> bool:
-    job_path = create_job_path(moment_mstr_dir, moment_rope, plan_name)
+    job_path = create_job_path(moment_mstr_dir, moment_lasso, plan_name)
     return os_path_exists(job_path)
 
 
 def save_job_file(moment_mstr_dir: str, planunit: PlanUnit):
-    job_path = create_job_path(
-        moment_mstr_dir, planunit.moment_rope, planunit.plan_name
-    )
+    moment_lasso = lassounit_shop(planunit.moment_rope, planunit.knot)
+    job_path = create_job_path(moment_mstr_dir, moment_lasso, planunit.plan_name)
     save_plan_file(job_path, None, planunit)
 
 
 def open_job_file(
-    moment_mstr_dir: str, moment_rope: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> PlanUnit:
-    job_path = create_job_path(moment_mstr_dir, moment_rope, plan_name)
+    job_path = create_job_path(moment_mstr_dir, moment_lasso, plan_name)
     return open_plan_file(job_path)
 
 
@@ -147,7 +147,9 @@ def get_duty_plan(
     )
     if os_path_exists(keep_duty_path) is False:
         return None
-    return get_planunit_from_dict(open_json(keep_duty_path))
+    duty_plan = get_planunit_from_dict(open_json(keep_duty_path))
+    # duty_plan.moment_rope = moment_rope
+    return duty_plan
 
 
 def save_all_gut_dutys(
@@ -157,7 +159,8 @@ def save_all_gut_dutys(
     keep_ropes: set[RopeTerm],
     knot: KnotTerm,
 ):
-    gut = open_gut_file(moment_mstr_dir, moment_rope, plan_name)
+    moment_lasso = lassounit_shop(moment_rope)
+    gut = open_gut_file(moment_mstr_dir, moment_lasso, plan_name)
     for x_keep_rope in keep_ropes:
         save_duty_plan(
             moment_mstr_dir=moment_mstr_dir,
@@ -173,8 +176,10 @@ class get_keep_ropesException(Exception):
     pass
 
 
-def get_keep_ropes(moment_mstr_dir, moment_rope, plan_name) -> set[RopeTerm]:
-    x_gut_plan = open_gut_file(moment_mstr_dir, moment_rope, plan_name)
+def get_keep_ropes(
+    moment_mstr_dir, moment_lasso: LassoUnit, plan_name
+) -> set[RopeTerm]:
+    x_gut_plan = open_gut_file(moment_mstr_dir, moment_lasso, plan_name)
     x_gut_plan.cashout()
     if x_gut_plan.keeps_justified is False:
         x_str = f"Cannot get_keep_ropes from '{plan_name}' gut plan because 'PlanUnit.keeps_justified' is False."
@@ -240,7 +245,8 @@ def get_dw_perspective_plan(
     speaker_id: PlanName,
     prespective_id: PlanName,
 ) -> PlanUnit:
-    speaker_job = open_job_file(moment_mstr_dir, moment_rope, speaker_id)
+    moment_lasso = lassounit_shop(moment_rope)
+    speaker_job = open_job_file(moment_mstr_dir, moment_lasso, speaker_id)
     return get_perspective_plan(speaker_job, prespective_id)
 
 

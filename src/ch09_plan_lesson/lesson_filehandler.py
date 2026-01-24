@@ -13,7 +13,7 @@ from src.ch00_py.file_toolbox import (
     save_json,
 )
 from src.ch01_allot.allot import default_grain_num_if_None, validate_pool_num
-from src.ch04_rope.rope import validate_labelterm
+from src.ch04_rope.rope import LassoUnit, lassounit_shop, validate_labelterm
 from src.ch07_plan_logic.plan_main import (
     PlanUnit,
     get_planunit_from_dict,
@@ -56,23 +56,25 @@ def open_plan_file(dest_dir: str, filename: str = None) -> PlanUnit:
 
 
 def save_gut_file(moment_mstr_dir: str, planunit: PlanUnit):
-    gut_path = create_gut_path(
-        moment_mstr_dir, planunit.moment_rope, planunit.plan_name
-    )
+    moment_lasso = lassounit_shop(planunit.moment_rope, planunit.knot)
+    gut_path = create_gut_path(moment_mstr_dir, moment_lasso, planunit.plan_name)
     save_plan_file(gut_path, None, planunit)
 
 
 def open_gut_file(
-    moment_mstr_dir: str, moment_rope: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> PlanUnit:
-    gut_path = create_gut_path(moment_mstr_dir, moment_rope, plan_name)
-    return open_plan_file(gut_path)
+    gut_path = create_gut_path(moment_mstr_dir, moment_lasso, plan_name)
+    gut_plan = open_plan_file(gut_path)
+    if gut_plan:
+        gut_plan.moment_rope = moment_lasso.rope
+    return gut_plan
 
 
 def gut_file_exists(
-    moment_mstr_dir: str, moment_rope: str, plan_name: PlanName
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
 ) -> bool:
-    gut_path = create_gut_path(moment_mstr_dir, moment_rope, plan_name)
+    gut_path = create_gut_path(moment_mstr_dir, moment_lasso, plan_name)
     return os_path_exists(gut_path)
 
 
@@ -99,10 +101,10 @@ class LessonFileHandler:
 
     def set_dir_attrs(self):
         mstr_dir = self.moment_mstr_dir
-        moment_rope = self.moment_rope
         plan_name = self.plan_name
-        self.atoms_dir = create_atoms_dir_path(mstr_dir, moment_rope, plan_name)
-        self.lessons_dir = create_lessons_dir_path(mstr_dir, moment_rope, plan_name)
+        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
+        self.atoms_dir = create_atoms_dir_path(mstr_dir, moment_lasso, plan_name)
+        self.lessons_dir = create_lessons_dir_path(mstr_dir, moment_lasso, plan_name)
 
     def default_gut_plan(self) -> PlanUnit:
         x_planunit = planunit_shop(
@@ -286,17 +288,19 @@ class LessonFileHandler:
 
     def _create_initial_lesson_files_from_gut(self):
         x_lessonunit = self._default_lessonunit()
+        moment_lasso = lassounit_shop(self.moment_rope)
         x_lessonunit._plandelta.add_all_different_planatoms(
             before_plan=self.default_gut_plan(),
             after_plan=open_gut_file(
-                self.moment_mstr_dir, self.moment_rope, self.plan_name
+                self.moment_mstr_dir, moment_lasso, self.plan_name
             ),
         )
         x_lessonunit.save_files()
 
     def initialize_lesson_gut_files(self):
+        moment_lasso = lassounit_shop(self.moment_rope)
         x_gut_file_exists = gut_file_exists(
-            self.moment_mstr_dir, self.moment_rope, self.plan_name
+            self.moment_mstr_dir, moment_lasso, self.plan_name
         )
         lesson_file_exists = self.hub_lesson_file_exists(init_lesson_id())
         if x_gut_file_exists is False and lesson_file_exists is False:
@@ -307,7 +311,8 @@ class LessonFileHandler:
             self._create_initial_lesson_files_from_gut()
 
     def append_lessons_to_gut_file(self) -> PlanUnit:
-        gut_plan = open_gut_file(self.moment_mstr_dir, self.moment_rope, self.plan_name)
+        moment_lasso = lassounit_shop(self.moment_rope)
+        gut_plan = open_gut_file(self.moment_mstr_dir, moment_lasso, self.plan_name)
         gut_plan = self._merge_any_lessons(gut_plan)
         save_gut_file(self.moment_mstr_dir, gut_plan)
         return gut_plan

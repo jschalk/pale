@@ -7,7 +7,7 @@ from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def get_ch09_example_moment_rope() -> str:
-    return "FizzBuzz2"
+    return ";FizzBuzz2;"
 
 
 def get_texas_rope() -> RopeTerm:

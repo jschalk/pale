@@ -114,7 +114,7 @@ def test_get_default_job_ReturnsObj():
     last_lesson_id = 7
     sue_max_tree_traverse = 9
     sue_planunit = planunit_shop(
-        exx.sue, exx.blue, exx.slash, x_fund_pool, x_fund_grain, x_respect_grain
+        exx.sue, exx.a23_slash, exx.slash, x_fund_pool, x_fund_grain, x_respect_grain
     )
     sue_planunit.set_last_lesson_id(last_lesson_id)
     sue_planunit.add_personunit(exx.bob, 3, 4)
@@ -132,7 +132,7 @@ def test_get_default_job_ReturnsObj():
     assert default_job.plan_name == sue_planunit.plan_name
     assert default_job.plan_name == exx.sue
     assert default_job.moment_rope == sue_planunit.moment_rope
-    assert default_job.moment_rope == exx.blue
+    assert default_job.moment_rope == exx.a23_slash
     assert default_job.knot == exx.slash
     assert default_job.fund_pool == sue_person_pool
     assert default_job.fund_grain == x_fund_grain

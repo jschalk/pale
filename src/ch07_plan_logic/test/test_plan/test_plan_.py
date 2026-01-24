@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch01_allot.allot import default_grain_num_if_None, validate_pool_num
-from src.ch04_rope.rope import default_knot_if_None, get_default_first_label
+from src.ch04_rope.rope import create_rope, default_knot_if_None, get_default_rope
 from src.ch07_plan_logic._ref.ch07_semantic_types import RespectNum
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
@@ -73,10 +73,25 @@ def test_PlanUnit_Exists():
     }
 
 
-def test_planunit_shop_ReturnsObjectWithFilledFields():
+def test_planunit_shop_ReturnsObj_Scenario0_RaiseErrorWhen_moment_rope_IsLabel():
     # ESTABLISH
     iowa_str = "Iowa"
+
+    # WHEN
+    with pytest_raises(Exception) as excinfo:
+        planunit_shop(plan_name=exx.sue, moment_rope=iowa_str, knot=exx.slash)
+
+    # THEN
+    exception_str = (
+        f"Plan '{exx.sue}' cannot set moment_rope='{iowa_str}' where knot='{exx.slash}'"
+    )
+    assert str(excinfo.value) == exception_str
+
+
+def test_planunit_shop_ReturnsObj_Scenario1_WithParameters():
+    # ESTABLISH
     slash_knot = "/"
+    iowa_rope = create_rope("Iowa", None, slash_knot)
     x_fund_pool = 555
     x_fund_grain = 7
     x_respect_grain = 5
@@ -85,7 +100,7 @@ def test_planunit_shop_ReturnsObjectWithFilledFields():
     # WHEN
     x_plan = planunit_shop(
         plan_name=exx.sue,
-        moment_rope=iowa_str,
+        moment_rope=iowa_rope,
         knot=slash_knot,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,
@@ -96,7 +111,7 @@ def test_planunit_shop_ReturnsObjectWithFilledFields():
     # THEN
     assert x_plan
     assert x_plan.plan_name == exx.sue
-    assert x_plan.moment_rope == iowa_str
+    assert x_plan.moment_rope == iowa_rope
     assert x_plan.tally == 1
     assert x_plan.persons == {}
     assert x_plan.kegroot is not None
@@ -126,13 +141,13 @@ def test_planunit_shop_ReturnsObjectWithFilledFields():
     assert str(type(x_plan.kegroot)).find(".keg.KegUnit'>") > 0
 
 
-def test_planunit_shop_ReturnsObjectWithCorrectEmptyField():
+def test_planunit_shop_ReturnsObj_Scenario2_WithoutParameters():
     # ESTABLISH / WHEN
     x_plan = planunit_shop()
 
     # THEN
     assert x_plan.plan_name == ""
-    assert x_plan.moment_rope == get_default_first_label()
+    assert x_plan.moment_rope == get_default_rope()
     assert x_plan.knot == default_knot_if_None()
     assert x_plan.fund_pool == validate_pool_num()
     assert x_plan.fund_grain == default_grain_num_if_None()
@@ -167,10 +182,8 @@ def test_PlanUnit_set_max_tree_traverse_RaisesError_Scenario0():
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         zia_plan.set_max_tree_traverse(x_int=zia_tree_traverse)
-    assert (
-        str(excinfo.value)
-        == "set_max_tree_traverse: '1' must be number that is 2 or greater"
-    )
+    exception_str = "set_max_tree_traverse: '1' must be number that is 2 or greater"
+    assert str(excinfo.value) == exception_str
 
 
 def test_PlanUnit_set_max_tree_traverse_RaisesError_Scenario1():
@@ -182,17 +195,15 @@ def test_PlanUnit_set_max_tree_traverse_RaisesError_Scenario1():
     zia_tree_traverse = 3.5
     with pytest_raises(Exception) as excinfo:
         zia_plan.set_max_tree_traverse(x_int=zia_tree_traverse)
-    assert (
-        str(excinfo.value)
-        == f"set_max_tree_traverse: '{zia_tree_traverse}' must be number that is 2 or greater"
-    )
+    exception_str = f"set_max_tree_traverse: '{zia_tree_traverse}' must be number that is 2 or greater"
+    assert str(excinfo.value) == exception_str
 
 
 def test_PlanUnit_make_rope_ReturnsObj():
     # ESTABLISH
-    a45_str = "amy45"
     slash_knot = "/"
-    sue_plan = planunit_shop(exx.sue, a45_str, knot=slash_knot)
+    a45_rope = create_rope("amy45", None, slash_knot)
+    sue_plan = planunit_shop(exx.sue, a45_rope, knot=slash_knot)
     v1_casa_rope = sue_plan.make_l1_rope(exx.casa)
 
     # WHEN
@@ -204,7 +215,7 @@ def test_PlanUnit_make_rope_ReturnsObj():
 
 def test_PlanUnit_set_last_lesson_id_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue", "Texas")
+    sue_plan = planunit_shop("Sue", exx.a23)
     assert sue_plan.last_lesson_id is None
 
     # WHEN
@@ -217,7 +228,7 @@ def test_PlanUnit_set_last_lesson_id_SetsAttr():
 
 def test_PlanUnit_set_last_lesson_id_RaisesError():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue", "Texas")
+    sue_plan = planunit_shop("Sue", exx.a23)
     old_last_lesson_id = 89
     sue_plan.set_last_lesson_id(old_last_lesson_id)
 
@@ -226,15 +237,13 @@ def test_PlanUnit_set_last_lesson_id_RaisesError():
     assert new_last_lesson_id < old_last_lesson_id
     with pytest_raises(Exception) as excinfo:
         sue_plan.set_last_lesson_id(new_last_lesson_id)
-    assert (
-        str(excinfo.value)
-        == f"Cannot set _last_lesson_id to {new_last_lesson_id} because it is less than {old_last_lesson_id}."
-    )
+    exception_str = f"Cannot set _last_lesson_id to {new_last_lesson_id} because it is less than {old_last_lesson_id}."
+    assert str(excinfo.value) == exception_str
 
 
 def test_PlanUnit_del_last_lesson_id_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue", "Texas")
+    sue_plan = planunit_shop("Sue", exx.a23)
     old_last_lesson_id = 89
     sue_plan.set_last_lesson_id(old_last_lesson_id)
     assert sue_plan.last_lesson_id is not None
@@ -248,7 +257,7 @@ def test_PlanUnit_del_last_lesson_id_SetsAttr():
 
 def test_PlanUnit_set_fund_pool_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue", "Texas")
+    sue_plan = planunit_shop("Sue", exx.a23)
     sue_fund_pool = 99000
     assert sue_plan.fund_pool == validate_pool_num()
 
@@ -273,7 +282,5 @@ def test_PlanUnit_set_fund_pool_RaisesErrorWhenArgIsNotMultiple():
         zia_plan.set_fund_pool(new_fund_pool)
 
     # THEN
-    assert (
-        str(excinfo.value)
-        == f"Plan '{exx.zia}' cannot set fund_pool='{new_fund_pool}'. It is not divisible by fund_grain '{zia_plan.fund_grain}'"
-    )
+    exception_str = f"Plan '{exx.zia}' cannot set fund_pool='{new_fund_pool}'. It is not divisible by fund_grain '{zia_plan.fund_grain}'"
+    assert str(excinfo.value) == exception_str
