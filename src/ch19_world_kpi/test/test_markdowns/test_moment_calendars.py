@@ -34,7 +34,6 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
     temp_dir_setup,
 ):
     # ESTABLISH
-    fay_str = "Fay"
     temp_dir = get_temp_dir()
     moment_mstr_dir = create_path(temp_dir, "moment_mstr")
     output_dir = create_path(temp_dir, "output")
