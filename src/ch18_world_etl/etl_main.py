@@ -873,33 +873,39 @@ def etl_spark_lesson_json_to_spark_inherited_planunits(moment_mstr_dir: str):
             sparks_dir = create_path(plan_dir, "sparks")
             prev_spark_num = None
             for spark_num in get_level1_dirs(sparks_dir):
-                prev_plan = _get_prev_spark_num_planunit(
-                    moment_mstr_dir, moment_lasso, plan_name, prev_spark_num
-                )
-                planspark_path = create_planspark_path(
-                    moment_mstr_dir, moment_lasso, plan_name, spark_num
-                )
-                spark_dir = create_plan_spark_dir_path(
-                    moment_mstr_dir, moment_lasso, plan_name, spark_num
+                prev_spark_num = create_lesson_json_and_get_spark_num(
+                    moment_mstr_dir, moment_lasso, plan_name, prev_spark_num, spark_num
                 )
 
-                spark_all_lesson_path = create_spark_all_lesson_path(
-                    moment_mstr_dir, moment_lasso, plan_name, spark_num
-                )
-                spark_lesson = get_lessonunit_from_dict(
-                    open_json(spark_all_lesson_path)
-                )
-                sift_delta = get_minimal_plandelta(spark_lesson._plandelta, prev_plan)
-                curr_plan = spark_lesson.get_lesson_edited_plan(prev_plan)
-                save_json(planspark_path, None, curr_plan.to_dict())
-                expressed_lesson = copy_deepcopy(spark_lesson)
-                expressed_lesson.set_plandelta(sift_delta)
-                save_json(
-                    spark_dir,
-                    "expressed_lesson.json",
-                    expressed_lesson.get_serializable_step_dict(),
-                )
-                prev_spark_num = spark_num
+
+def create_lesson_json_and_get_spark_num(
+    moment_mstr_dir, moment_lasso, plan_name, prev_spark_num, spark_num
+):
+    prev_plan = _get_prev_spark_num_planunit(
+        moment_mstr_dir, moment_lasso, plan_name, prev_spark_num
+    )
+    planspark_path = create_planspark_path(
+        moment_mstr_dir, moment_lasso, plan_name, spark_num
+    )
+    spark_dir = create_plan_spark_dir_path(
+        moment_mstr_dir, moment_lasso, plan_name, spark_num
+    )
+
+    spark_all_lesson_path = create_spark_all_lesson_path(
+        moment_mstr_dir, moment_lasso, plan_name, spark_num
+    )
+    spark_lesson = get_lessonunit_from_dict(open_json(spark_all_lesson_path))
+    sift_delta = get_minimal_plandelta(spark_lesson._plandelta, prev_plan)
+    curr_plan = spark_lesson.get_lesson_edited_plan(prev_plan)
+    save_json(planspark_path, None, curr_plan.to_dict())
+    expressed_lesson = copy_deepcopy(spark_lesson)
+    expressed_lesson.set_plandelta(sift_delta)
+    save_json(
+        spark_dir,
+        "expressed_lesson.json",
+        expressed_lesson.get_serializable_step_dict(),
+    )
+    return spark_num
 
 
 def _get_prev_spark_num_planunit(

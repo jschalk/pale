@@ -90,4 +90,3 @@ def test_LassoUnit_make_path_ReturnsObj_Scenario0_SimpleRope():
     assert casa_path
     expected_casa_path = create_path(exx.sue, exx.casa)
     assert casa_path == expected_casa_path
-    assert casa_path == "Sue\\casa"
