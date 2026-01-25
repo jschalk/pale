@@ -60,7 +60,6 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
     assert os_path_exists(a23_calendar_md_path)
     expected_csv_str = get_expected_creg_year0_markdown()
     assert open(a23_calendar_md_path).read() == expected_csv_str
-    assert 1 == 2
 
 
 # def test_create_calendar_markdown_files_Senario1_Add_CreatesFile(
