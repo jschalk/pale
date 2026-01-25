@@ -47,7 +47,7 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
     a23_momentunit = momentunit_shop(exx.a23, moment_mstr_dir)
     assert a23_momentunit.epoch == epochunit_shop(get_creg_config())
     save_json(a23_moment_path, None, a23_momentunit.to_dict())
-    a23_calendar_md_path = create_path(output_dir, "amy23_calendar.md")
+    a23_calendar_md_path = create_path(output_dir, "Amy23_calendar.md")
     print(f"{a23_calendar_md_path=}")
     moments_dir = create_path(moment_mstr_dir, "moments")
     print(f"{get_level1_dirs(moments_dir)=}")
