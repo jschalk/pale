@@ -468,7 +468,7 @@ def is_column_type_valid(df: DataFrame, column: str, sqlite_data_type: str) -> b
     elif sqlite_data_type == "REAL":
         expected_data_type = "float64"
     elif sqlite_data_type == "TEXT":
-        expected_data_type = "object"
+        expected_data_type = "str"
     else:
         raise sqlite_data_type_Exception(f"{sqlite_data_type} is not valid sqlite_type")
     if column not in df.columns:
