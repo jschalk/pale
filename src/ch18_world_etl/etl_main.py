@@ -800,7 +800,7 @@ def etl_spark_plan_csvs_to_lesson_json(moment_mstr_dir: str):
                 spark_lesson = lessonunit_shop(
                     plan_name=plan_name,
                     face_name=None,
-                    moment_rope=moment_lasso.rope,
+                    moment_rope=moment_lasso.moment_rope,
                     spark_num=spark_num,
                 )
                 spark_dir = create_path(sparks_path, spark_num)
@@ -908,7 +908,7 @@ def _get_prev_spark_num_planunit(
     moment_mstr_dir, moment_lasso: LassoUnit, plan_name, prev_spark_num
 ) -> PlanUnit:
     if prev_spark_num is None:
-        return planunit_shop(plan_name, moment_lasso.rope)
+        return planunit_shop(plan_name, moment_lasso.moment_rope)
     prev_planspark_path = create_planspark_path(
         moment_mstr_dir, moment_lasso, plan_name, prev_spark_num
     )

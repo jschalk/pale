@@ -68,7 +68,7 @@ def open_gut_file(
     gut_path = create_gut_path(moment_mstr_dir, moment_lasso, plan_name)
     gut_plan = open_plan_file(gut_path)
     if gut_plan:
-        gut_plan.moment_rope = moment_lasso.rope
+        gut_plan.moment_rope = moment_lasso.moment_rope
     return gut_plan
 
 

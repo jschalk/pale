@@ -1,5 +1,5 @@
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
-from src.ch00_py.db_toolbox import db_table_exists, get_db_tables
+from src.ch00_py.db_toolbox import get_db_tables
 from src.ch00_py.file_toolbox import create_path, get_level1_dirs, save_file, set_dir
 from src.ch04_rope.rope import create_rope
 from src.ch09_plan_lesson.lasso import lassounit_shop

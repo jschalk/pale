@@ -9,7 +9,7 @@ from src.ch09_plan_lesson._ref.ch09_path import (
     create_moment_json_path,
     create_moment_plans_dir_path,
 )
-from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
+from src.ch09_plan_lesson.lasso import LassoUnit
 from src.ch11_bud._ref.ch11_path import (
     CELL_MANDATE_FILENAME,
     CELLNODE_FILENAME,
@@ -27,7 +27,6 @@ from src.ch11_bud.bud_filehandler import (
     get_planspark_obj,
     open_plan_file,
 )
-from src.ch11_bud.bud_main import MomentRope
 from src.ch11_bud.cell_main import CellUnit, cellunit_shop
 from src.ch11_bud.weighted_facts_tool import get_nodes_with_weighted_facts
 from src.ch13_time.epoch_main import TimeNum
