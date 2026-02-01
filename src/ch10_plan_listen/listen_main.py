@@ -1,14 +1,10 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from src.ch01_allot.allot import allot_scale
-from src.ch04_rope.rope import (
-    LassoUnit,
-    get_ancestor_ropes,
-    get_first_label_from_rope,
-    lassounit_shop,
-)
+from src.ch04_rope.rope import get_ancestor_ropes, get_first_label_from_rope
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PersonUnit, PlanUnit
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import LessonFileHandler, open_gut_file
 from src.ch10_plan_listen._ref.ch10_semantic_types import PlanName, RopeTerm
 from src.ch10_plan_listen.basis_plan import (

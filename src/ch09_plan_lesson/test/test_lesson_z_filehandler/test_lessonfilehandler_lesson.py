@@ -10,7 +10,7 @@ from src.ch00_py.file_toolbox import (
     save_file,
     set_dir,
 )
-from src.ch04_rope.rope import lassounit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
     open_gut_file,

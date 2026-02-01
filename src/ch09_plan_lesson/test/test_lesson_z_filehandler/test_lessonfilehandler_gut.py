@@ -1,6 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, delete_dir
-from src.ch04_rope.rope import lassounit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     create_gut_path,
     gut_file_exists,

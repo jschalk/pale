@@ -1,10 +1,10 @@
 from pandas import DataFrame, concat as pandas_concat
 from plotly.graph_objects import Figure as plotly_Figure, Table as plotly_Table
-from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_report import (
     get_plan_agenda_dataframe,
     get_plan_personunits_dataframe,
 )
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import open_gut_file
 from src.ch10_plan_listen.keep_tool import open_job_file
 from src.ch14_moment.moment_main import MomentUnit

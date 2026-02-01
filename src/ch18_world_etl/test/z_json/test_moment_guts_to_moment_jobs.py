@@ -1,12 +1,12 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import open_json, save_json
-from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import get_planunit_from_dict, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_gut_path,
     create_job_path,
     create_moment_json_path,
 )
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.etl_main import etl_moment_guts_to_moment_jobs
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup

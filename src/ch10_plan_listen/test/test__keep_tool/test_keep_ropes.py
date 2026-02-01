@@ -1,9 +1,9 @@
 from os.path import exists as os_path_exists
 from pytest import raises as pytest_raises
-from src.ch04_rope.rope import lassounit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_graphic import display_kegtree
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
     open_gut_file,

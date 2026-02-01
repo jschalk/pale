@@ -1,35 +1,9 @@
-from platform import system as platform_system
 from pytest import raises as pytest_raises
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope._ref.ch04_env import get_temp_dir
-from src.ch04_rope._ref.ch04_semantic_types import default_knot_if_None
-from src.ch04_rope.rope import (
-    LassoUnit,
-    RopeTerm,
-    all_ropes_between,
-    create_rope,
-    create_rope_from_labels,
-    default_knot_if_None,
-    find_replace_rope_key_dict,
-    get_all_rope_labels,
-    get_ancestor_ropes,
-    get_default_rope,
-    get_first_label_from_rope,
-    get_forefather_ropes,
-    get_parent_rope,
-    get_tail_label,
-    is_heir_rope,
-    is_labelterm,
-    is_sub_rope,
-    lassounit_shop,
-    rebuild_rope,
-    remove_knot_ends,
-    replace_knot,
-    rope_is_valid_dir_path,
-    to_rope,
-    validate_labelterm,
-)
-from src.ref.keywords import Ch04Keywords as kw, ExampleStrs as exx
+from src.ch04_rope.rope import create_rope, get_default_rope
+from src.ch09_plan_lesson._ref.ch09_semantic_types import default_knot_if_None
+from src.ch09_plan_lesson.lasso import LassoUnit, default_knot_if_None, lassounit_shop
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def test_LassoUnit_Exists():

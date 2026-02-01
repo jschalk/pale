@@ -1,7 +1,8 @@
 from inspect import getdoc as inspect_getdoc
 from platform import system as platform_system
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope.rope import create_rope, lassounit_shop
+from src.ch04_rope.rope import create_rope
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch18_world_etl._ref.ch18_path import (
     create_last_run_metrics_path,
     create_moment_mstr_path,

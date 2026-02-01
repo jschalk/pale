@@ -1,8 +1,9 @@
-from src.ch04_rope.rope import create_rope, lassounit_shop
+from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import FactUnit, factunit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import open_gut_file, save_gut_file
 from src.ch14_moment.moment_main import MomentUnit, momentunit_shop
 from src.ch14_moment.test._util.ch14_env import get_temp_dir

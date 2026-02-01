@@ -4,12 +4,12 @@ from os import sep as os_sep, walk as os_walk
 from os.path import exists as os_path_exists, join as os_path_join
 from src.ch00_py.file_toolbox import create_path, get_level1_dirs, open_json, save_json
 from src.ch01_allot.allot import allot_nested_scale
-from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch05_reason.reason_main import get_dict_from_factunits
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_moment_json_path,
     create_moment_plans_dir_path,
 )
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch11_bud._ref.ch11_path import (
     CELL_MANDATE_FILENAME,
     CELLNODE_FILENAME,

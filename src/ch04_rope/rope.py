@@ -270,25 +270,3 @@ def get_unique_short_ropes(
         result[ropes_list[idx]] = rep
 
     return result
-
-
-@dataclass
-class LassoUnit:
-    rope: RopeTerm = None
-    knot: KnotTerm = None
-
-    def make_path(self) -> str:
-        # rope_labels = get_all_rope_labels(self.rope, self.knot)
-        rope_labels = get_all_rope_labels(self.rope)
-        return create_directory_path(x_list=[*rope_labels])
-
-
-def lassounit_shop(rope: RopeTerm = None, knot: KnotTerm = None) -> LassoUnit:
-    if rope is None:
-        rope = get_default_rope()
-    knot = default_knot_if_None(knot)
-    if rope.find(knot) != 0:
-        exception_str = f"Rope '{rope}' must have knot '{knot}' at position 0 in string"
-        raise init_knot_not_presentException(exception_str)
-
-    return LassoUnit(rope, knot)

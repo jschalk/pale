@@ -2,15 +2,7 @@ from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import (
     get_0_if_None,
     get_empty_dict_if_None,
-    get_str_in_sub_dict,
     set_modular_dict_values,
-)
-from src.ch04_rope.rope import (
-    create_rope,
-    create_rope_from_labels,
-    get_all_rope_labels,
-    get_parent_rope,
-    get_tail_label,
 )
 from src.ch15_nabu._ref.ch15_semantic_types import FaceName, SparkInt, TimeNum
 

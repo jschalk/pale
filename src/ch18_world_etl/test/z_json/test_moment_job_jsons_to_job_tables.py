@@ -4,10 +4,10 @@ from src.ch00_py.db_toolbox import db_table_exists, get_row_count
 from src.ch00_py.file_toolbox import save_json
 from src.ch02_person.group import awardunit_shop
 from src.ch03_labor.labor import laborunit_shop
-from src.ch04_rope.rope import lassounit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_job_path, create_moment_json_path
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch10_plan_listen.keep_tool import save_job_file
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.etl_main import etl_moment_job_jsons_to_job_tables

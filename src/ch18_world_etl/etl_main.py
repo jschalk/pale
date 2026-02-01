@@ -27,17 +27,13 @@ from src.ch00_py.file_toolbox import (
     save_file,
     save_json,
 )
-from src.ch04_rope.rope import (
-    LassoUnit,
-    create_rope,
-    default_knot_if_None,
-    lassounit_shop,
-)
+from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch08_plan_atom.atom_config import get_plan_dimens
 from src.ch08_plan_atom.atom_main import planatom_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_gut_path, create_moment_json_path
 from src.ch09_plan_lesson.delta import get_minimal_plandelta
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_main import (
     LessonUnit,
     get_lessonunit_from_dict,

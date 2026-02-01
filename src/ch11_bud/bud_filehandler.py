@@ -8,12 +8,12 @@ from src.ch00_py.file_toolbox import (
     save_json,
     set_dir,
 )
-from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_job_path,
     create_moment_plans_dir_path,
 )
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import open_plan_file, save_plan_file
 from src.ch11_bud._ref.ch11_path import (
     CELLNODE_FILENAME,

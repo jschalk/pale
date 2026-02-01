@@ -1,12 +1,13 @@
 from os.path import exists as os_path_exists
 from pytest import raises as pytest_raises
 from src.ch00_py.file_toolbox import create_path, open_json, set_dir
-from src.ch04_rope.rope import create_rope, lassounit_shop
+from src.ch04_rope.rope import create_rope
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch07_plan_logic.test._util.ch07_examples import (
     get_planunit_irrational_example,
     get_planunit_with_4_levels,
 )
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch10_plan_listen.keep_tool import job_file_exists, open_job_file, save_job_file
 from src.ch11_bud._ref.ch11_path import (
     create_budunit_json_path,

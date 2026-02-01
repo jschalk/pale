@@ -1,6 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import open_json
-from src.ch04_rope.rope import lassounit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch11_bud._ref.ch11_path import create_cell_json_path, create_planspark_path
 from src.ch11_bud.bud_filehandler import (
     cellunit_add_json_file,

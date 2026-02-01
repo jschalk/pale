@@ -1,7 +1,7 @@
 from src.ch00_py.file_toolbox import set_dir
-from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_plan_dir_path
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import gut_file_exists, save_gut_file
 from src.ch10_plan_listen.keep_tool import job_file_exists, open_job_file, save_job_file
 from src.ch14_moment.moment_main import momentunit_shop

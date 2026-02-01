@@ -1,6 +1,6 @@
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope.rope import LassoUnit, lassounit_shop
-from src.ch18_world_etl._ref.ch18_semantic_types import PlanName, RopeTerm
+from src.ch09_plan_lesson.lasso import LassoUnit
+from src.ch18_world_etl._ref.ch18_semantic_types import PlanName
 
 
 def create_moment_mstr_path(world_dir: str):

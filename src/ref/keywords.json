@@ -135,6 +135,8 @@
   "trlcore": {"init_chapter": "ch18", "note": "abbv for translate_core"},
 
   "class_type": {"init_chapter": "ch07"}, 
+  "Lasso": {"init_chapter": "ch09"}, 
+  "lasso": {"init_chapter": "ch09"}, 
   "close": {"init_chapter": "ch06"}, 
   "column_order": {"init_chapter": "ch08"}, 
   "credor_pool": {"init_chapter": "ch02"}, 

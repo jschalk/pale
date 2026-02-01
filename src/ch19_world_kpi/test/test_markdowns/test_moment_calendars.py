@@ -5,8 +5,8 @@ from src.ch00_py.file_toolbox import (
     get_level1_dirs,
     save_json,
 )
-from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch13_time.epoch_main import epochunit_shop
 from src.ch13_time.test._util.ch13_examples import (
     get_creg_config,

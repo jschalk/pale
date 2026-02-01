@@ -13,7 +13,7 @@ from src.ch00_py.file_toolbox import (
     save_json,
 )
 from src.ch01_allot.allot import default_grain_num_if_None, validate_pool_num
-from src.ch04_rope.rope import LassoUnit, lassounit_shop, validate_labelterm
+from src.ch04_rope.rope import validate_labelterm
 from src.ch07_plan_logic.plan_main import (
     PlanUnit,
     get_planunit_from_dict,
@@ -37,6 +37,7 @@ from src.ch09_plan_lesson._ref.ch09_semantic_types import (
     RopeTerm,
     default_knot_if_None,
 )
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_main import (
     LessonUnit,
     create_lessonunit_from_files,

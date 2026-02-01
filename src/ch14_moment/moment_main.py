@@ -3,12 +3,12 @@ from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import get_0_if_None, get_empty_set_if_None
 from src.ch00_py.file_toolbox import create_path, get_dir_file_strs, open_json, set_dir
 from src.ch01_allot.allot import default_grain_num_if_None
-from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_moment_dir_path,
     create_moment_json_path,
 )
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     gut_file_exists,
     open_gut_file,

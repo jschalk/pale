@@ -1,5 +1,6 @@
-from src.ch04_rope.rope import LabelTerm, RopeTerm, create_rope, lassounit_shop
+from src.ch04_rope.rope import LabelTerm, RopeTerm, create_rope
 from src.ch07_plan_logic.plan_main import PlanUnit, kegunit_shop, planunit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     LessonFileHandler,
     gut_file_exists,

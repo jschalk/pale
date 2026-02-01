@@ -1,6 +1,6 @@
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope.rope import LassoUnit
 from src.ch09_plan_lesson._ref.ch09_path import create_moment_plans_dir_path
+from src.ch09_plan_lesson.lasso import LassoUnit
 from src.ch11_bud._ref.ch11_semantic_types import MomentRope, PlanName
 
 MOMENT_FILENAME = "moment.json"

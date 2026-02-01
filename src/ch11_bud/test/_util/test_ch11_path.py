@@ -1,7 +1,8 @@
 from inspect import getdoc as inspect_getdoc
 from platform import system as platform_system
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope.rope import create_rope, lassounit_shop
+from src.ch04_rope.rope import create_rope
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch11_bud._ref.ch11_path import (
     BUDUNIT_FILENAME,
     CELL_MANDATE_FILENAME,

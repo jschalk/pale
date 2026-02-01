@@ -1,5 +1,5 @@
-from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch11_bud._ref.ch11_path import create_cell_dir_path as cell_dir
 from src.ch11_bud.bud_filehandler import cellunit_get_from_dir, cellunit_save_to_dir
 from src.ch11_bud.cell_main import cellunit_shop
