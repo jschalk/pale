@@ -16,47 +16,47 @@ from src.ch09_plan_lesson.test._util.ch09_env import (
 from src.ch09_plan_lesson.test._util.ch09_examples import sue_2planatoms_lessonunit
 from src.ref.keywords import ExampleStrs as exx
 
+
 # TODO reactivate this test
-# def test_LessonFileHandler_default_gut_plan_ReturnsObj():
-#     # ESTABLISH
-#     x_fund_pool = 9000000
-#     pnine_float = 0.9
-#     pfour_float = 0.4
-#     sue_lessonfilehandler = lessonfilehandler_shop(
-#         env_dir(),
-#         exx.a23_slash,
-#         exx.sue,
-#         knot=exx.slash,
-#         fund_pool=x_fund_pool,
-#         fund_grain=pnine_float,
-#         respect_grain=pnine_float,
-#         mana_grain=pfour_float,
-#     )
+def test_LessonFileHandler_default_gut_plan_ReturnsObj():
+    # ESTABLISH
+    x_fund_pool = 9000000
+    pnine_float = 0.9
+    pfour_float = 0.4
+    sue_lessonfilehandler = lessonfilehandler_shop(
+        env_dir(),
+        lassounit_shop(exx.a23_slash, knot=exx.slash),
+        exx.sue,
+        fund_pool=x_fund_pool,
+        fund_grain=pnine_float,
+        respect_grain=pnine_float,
+        mana_grain=pfour_float,
+    )
 
-#     # WHEN
-#     sue_default_gut = sue_lessonfilehandler.default_gut_plan()
+    # WHEN
+    sue_default_gut = sue_lessonfilehandler.default_gut_plan()
 
-#     # THEN
-#     assert sue_default_gut.moment_rope == sue_lessonfilehandler.moment_rope
-#     assert sue_default_gut.plan_name == sue_lessonfilehandler.plan_name
-#     assert sue_default_gut.knot == sue_lessonfilehandler.knot
-#     assert sue_default_gut.fund_pool == sue_lessonfilehandler.fund_pool
-#     assert sue_default_gut.fund_grain == sue_lessonfilehandler.fund_grain
-#     assert sue_default_gut.respect_grain == sue_lessonfilehandler.respect_grain
-#     assert sue_default_gut.mana_grain == sue_lessonfilehandler.mana_grain
-#     assert sue_default_gut.last_lesson_id == init_lesson_id()
+    # THEN
+    assert sue_default_gut.moment_rope == sue_lessonfilehandler.moment_lasso.moment_rope
+    assert sue_default_gut.plan_name == sue_lessonfilehandler.plan_name
+    assert sue_default_gut.knot == sue_lessonfilehandler.moment_lasso.knot
+    assert sue_default_gut.fund_pool == sue_lessonfilehandler.fund_pool
+    assert sue_default_gut.fund_grain == sue_lessonfilehandler.fund_grain
+    assert sue_default_gut.respect_grain == sue_lessonfilehandler.respect_grain
+    assert sue_default_gut.mana_grain == sue_lessonfilehandler.mana_grain
+    assert sue_default_gut.last_lesson_id == init_lesson_id()
 
 
 def test_LessonFileHandler_create_initial_lesson_files_from_default_SavesLessonUnitFiles(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     init_lesson_filename = sue_lessonfilehandler.lesson_filename(init_lesson_id())
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, init_lesson_filename
     )
-    a23_lasso = lassounit_shop(exx.a23)
     assert os_path_exists(init_lesson_file_path) is False
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue) is False
 
@@ -72,13 +72,13 @@ def test_LessonFileHandler_create_gut_from_lessons_CreatesgutFileFromLessonFiles
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     init_lesson_filename = sue_lessonfilehandler.lesson_filename(init_lesson_id())
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, init_lesson_filename
     )
     sue_lessonfilehandler._create_initial_lesson_files_from_default()
-    a23_lasso = lassounit_shop(exx.a23)
     assert os_path_exists(init_lesson_file_path)
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue) is False
 
@@ -90,7 +90,6 @@ def test_LessonFileHandler_create_gut_from_lessons_CreatesgutFileFromLessonFiles
     static_sue_gut = sue_lessonfilehandler._merge_any_lessons(
         sue_lessonfilehandler.default_gut_plan()
     )
-    a23_lasso = lassounit_shop(exx.a23)
     gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     assert gut_plan.to_dict() == static_sue_gut.to_dict()
 
@@ -99,12 +98,12 @@ def test_LessonFileHandler_create_initial_lesson_and_gut_files_CreatesLessonFile
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     init_lesson_filename = sue_lessonfilehandler.lesson_filename(init_lesson_id())
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, init_lesson_filename
     )
-    a23_lasso = lassounit_shop(exx.a23)
     assert os_path_exists(init_lesson_file_path) is False
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue) is False
 
@@ -117,7 +116,6 @@ def test_LessonFileHandler_create_initial_lesson_and_gut_files_CreatesLessonFile
     static_sue_gut = sue_lessonfilehandler._merge_any_lessons(
         sue_lessonfilehandler.default_gut_plan()
     )
-    a23_lasso = lassounit_shop(exx.a23)
     gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     assert gut_plan.to_dict() == static_sue_gut.to_dict()
 
@@ -126,10 +124,10 @@ def test_LessonFileHandler_create_initial_lesson_files_from_gut_SavesOnlyLessonF
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan = sue_lessonfilehandler.default_gut_plan()
     sue_gut_plan.add_personunit(exx.bob)
-    a23_lasso = lassounit_shop(exx.a23)
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue) is False
     save_gut_file(env_dir(), sue_gut_plan)
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue)
@@ -150,10 +148,10 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesgutFileAndLessonFile
 ):
     # ESTABLISH
     seven_int = 25
-    sue_lessonfilehandler = lessonfilehandler_shop(
-        env_dir(), exx.a23, exx.sue, respect_grain=seven_int
-    )
     a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(
+        env_dir(), a23_lasso, exx.sue, respect_grain=seven_int
+    )
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue) is False
     init_lesson_file_path = create_path(
         sue_lessonfilehandler.lessons_dir, f"{init_lesson_id()}.json"
@@ -165,7 +163,6 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesgutFileAndLessonFile
     sue_lessonfilehandler.initialize_lesson_gut_files()
 
     # THEN
-    a23_lasso = lassounit_shop(exx.a23)
     gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     assert gut_plan.moment_rope == exx.a23
     assert gut_plan.plan_name == exx.sue
@@ -178,13 +175,12 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlygutFile(
 ):
     # ESTABLISH
     seven_int = 25
+    a23_lasso = lassounit_shop(exx.a23)
     sue_lessonfilehandler = lessonfilehandler_shop(
-        env_dir(), exx.a23, exx.sue, respect_grain=seven_int
+        env_dir(), a23_lasso, exx.sue, respect_grain=seven_int
     )
     sue_lessonfilehandler.initialize_lesson_gut_files()
-    a23_lasso = lassounit_shop(exx.a23)
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue)
-    a23_lasso = lassounit_shop(exx.a23)
     gut_path = create_gut_path(env_dir(), a23_lasso, exx.sue)
     delete_dir(gut_path)
     assert gut_file_exists(env_dir(), a23_lasso, exx.sue) is False
@@ -197,7 +193,6 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlygutFile(
     sue_lessonfilehandler.initialize_lesson_gut_files()
 
     # THEN
-    a23_lasso = lassounit_shop(exx.a23)
     gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     assert gut_plan.moment_rope == exx.a23
     assert gut_plan.plan_name == exx.sue
@@ -210,11 +205,11 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
 ):
     # ESTABLISH
     seven_int = 25
+    a23_lasso = lassounit_shop(exx.a23)
     sue_lessonfilehandler = lessonfilehandler_shop(
-        env_dir(), exx.a23, exx.sue, respect_grain=seven_int
+        env_dir(), a23_lasso, exx.sue, respect_grain=seven_int
     )
     sue_lessonfilehandler.initialize_lesson_gut_files()
-    a23_lasso = lassounit_shop(exx.a23)
     sue_gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.bob)
     save_gut_file(env_dir(), sue_gut_plan)
@@ -240,10 +235,10 @@ def test_LessonFileHandler_append_lessons_to_gut_file_AddsLessonsTogutFile(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     sue_lessonfilehandler.initialize_lesson_gut_files()
     sue_lessonfilehandler.save_lesson_file(sue_2planatoms_lessonunit())
-    a23_lasso = lassounit_shop(exx.a23)
     gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     # gut_plan.add_keg(gut_plan.make_l1_rope("sports"))
     sports_str = "sports"

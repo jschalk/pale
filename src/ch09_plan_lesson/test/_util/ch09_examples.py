@@ -2,12 +2,17 @@ from src.ch04_rope.rope import RopeTerm, create_rope, create_rope_from_labels
 from src.ch08_plan_atom.atom_main import PlanAtom, planatom_shop
 from src.ch09_plan_lesson._ref.ch09_semantic_types import LabelTerm, MomentRope
 from src.ch09_plan_lesson.delta import PlanDelta, plandelta_shop
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_main import LessonUnit, lessonunit_shop
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def get_ch09_example_moment_rope() -> str:
     return ";FizzBuzz2;"
+
+
+def get_ch09_example_moment_lasso() -> LassoUnit:
+    return lassounit_shop(get_ch09_example_moment_rope())
 
 
 def get_texas_rope() -> RopeTerm:

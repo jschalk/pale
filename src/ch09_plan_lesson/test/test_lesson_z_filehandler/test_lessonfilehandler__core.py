@@ -18,9 +18,8 @@ def test_LessonFileHandler_Exists():
 
     # THEN
     assert not x_lessonfilehandler.moment_mstr_dir
-    assert not x_lessonfilehandler.moment_rope
+    assert not x_lessonfilehandler.moment_lasso
     assert not x_lessonfilehandler.plan_name
-    assert not x_lessonfilehandler.knot
     assert not x_lessonfilehandler.fund_pool
     assert not x_lessonfilehandler.fund_grain
     assert not x_lessonfilehandler.respect_grain
@@ -43,9 +42,8 @@ def test_lessonfilehandler_shop_ReturnsObj():
     # WHEN
     x_lessonfilehandler = lessonfilehandler_shop(
         moment_mstr_dir=x_moment_mstr_dir,
-        moment_rope=a45_rope,
+        moment_lasso=a45_lasso,
         plan_name=exx.sue,
-        knot=exx.slash,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,
         respect_grain=x_respect_grain,
@@ -54,9 +52,8 @@ def test_lessonfilehandler_shop_ReturnsObj():
 
     # THEN
     assert x_lessonfilehandler.moment_mstr_dir == x_moment_mstr_dir
-    assert x_lessonfilehandler.moment_rope == a45_rope
+    assert x_lessonfilehandler.moment_lasso == a45_lasso
     assert x_lessonfilehandler.plan_name == exx.sue
-    assert x_lessonfilehandler.knot == exx.slash
     assert x_lessonfilehandler.fund_pool == x_fund_pool
     assert x_lessonfilehandler.fund_grain == x_fund_grain
     assert x_lessonfilehandler.respect_grain == x_respect_grain
@@ -69,15 +66,16 @@ def test_lessonfilehandler_shop_ReturnsObj():
 def test_lessonfilehandler_shop_ReturnsObjWhenEmpty():
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
+    a23_rope = create_rope("Amy23", None, exx.slash)
+    a23_lasso = lassounit_shop(a23_rope, exx.slash)
 
     # WHEN
-    sue_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, exx.a23, exx.sue)
+    sue_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, a23_lasso, exx.sue)
 
     # THEN
     assert sue_lessonfilehandler.moment_mstr_dir == moment_mstr_dir
-    assert sue_lessonfilehandler.moment_rope == exx.a23
+    assert sue_lessonfilehandler.moment_lasso == a23_lasso
     assert sue_lessonfilehandler.plan_name == exx.sue
-    assert sue_lessonfilehandler.knot == default_knot_if_None()
     assert sue_lessonfilehandler.fund_pool == validate_pool_num()
     assert sue_lessonfilehandler.fund_grain == default_grain_num_if_None()
     assert sue_lessonfilehandler.respect_grain == default_grain_num_if_None()
@@ -87,10 +85,11 @@ def test_lessonfilehandler_shop_ReturnsObjWhenEmpty():
 def test_lessonfilehandler_shop_RaisesErrorIf_plan_name_Contains_knot():
     # ESTABLISH
     bob_str = f"Bob{exx.slash}Sue"
+    a23_lasso = lassounit_shop(exx.a23_slash, exx.slash)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        lessonfilehandler_shop(None, None, plan_name=bob_str, knot=exx.slash)
+        lessonfilehandler_shop(None, a23_lasso, plan_name=bob_str)
     assertion_fail_str = (
         f"'{bob_str}' must be a LabelTerm. Cannot contain knot: '{exx.slash}'"
     )

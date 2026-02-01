@@ -1,5 +1,6 @@
 from src.ch04_rope.rope import RopeTerm, create_rope, create_rope_from_labels
 from src.ch07_plan_logic.plan_main import PlanUnit, kegunit_shop, planunit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     LessonFileHandler,
     lessonfilehandler_shop,
@@ -108,8 +109,8 @@ def get_example_yao_speaker() -> PlanUnit:
 
 
 def get_texas_lessonfilehandler() -> LessonFileHandler:
-    moment_rope = ch10_example_moment_rope()
-    return lessonfilehandler_shop(get_temp_dir(), moment_rope, plan_name="Sue")
+    moment_lasso = lassounit_shop(ch10_example_moment_rope())
+    return lessonfilehandler_shop(get_temp_dir(), moment_lasso, plan_name="Sue")
 
 
 def get_dakota_rope() -> RopeTerm:
@@ -121,8 +122,8 @@ def get_dakota_rope() -> RopeTerm:
 
 
 def get_dakota_lessonfilehandler() -> LessonFileHandler:
-    moment_rope = ch10_example_moment_rope()
-    return lessonfilehandler_shop(get_temp_dir(), moment_rope, plan_name="Sue")
+    moment_lasso = lassounit_shop(ch10_example_moment_rope())
+    return lessonfilehandler_shop(get_temp_dir(), moment_lasso, plan_name="Sue")
 
 
 def get_fund_breakdown_plan() -> PlanUnit:
