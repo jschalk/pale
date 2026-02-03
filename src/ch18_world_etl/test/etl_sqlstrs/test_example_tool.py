@@ -21,10 +21,10 @@ from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_mmtoffi_special_offi_time_otx,
     insert_mmtunit_special_c400_number,
-    insert_nabepoc_h_agg_otx_inx_time,
+    insert_nabtime_h_agg_otx_inx_time,
     insert_plncase_special_h_agg,
     select_mmtoffi_special_offi_time_inx,
-    select_nabepoc_h_agg_otx_inx_time,
+    select_nabtime_h_agg_otx_inx_time,
     select_plncase_special_h_agg,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
@@ -39,32 +39,32 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 # update semantic_type: TimeNum moment_timeh_agg time
 
 
-def test_insert_nabepoc_h_agg_otx_inx_time_PopulatesTable_Scenario0():
+def test_insert_nabtime_h_agg_otx_inx_time_PopulatesTable_Scenario0():
     # ESTABLISH
     spark1 = 1
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
+        nabtime_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
         otx_time = 5
         inx_time = 8
-        assert get_row_count(cursor, nabepoc_h_agg_tablename) == 0
+        assert get_row_count(cursor, nabtime_h_agg_tablename) == 0
 
         # WHEN
-        insert_nabepoc_h_agg_otx_inx_time(
+        insert_nabtime_h_agg_otx_inx_time(
             cursor, spark1, exx.sue, exx.a23, otx_time, inx_time
         )
 
         # THEN
-        assert get_row_count(cursor, nabepoc_h_agg_tablename) == 1
+        assert get_row_count(cursor, nabtime_h_agg_tablename) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
 , {kw.otx_time}
 , {kw.inx_time}
-FROM {nabepoc_h_agg_tablename}
+FROM {nabtime_h_agg_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -72,26 +72,26 @@ FROM {nabepoc_h_agg_tablename}
         assert rows == [(spark1, exx.sue, exx.a23, otx_time, inx_time)]
 
 
-def test_select_nabepoc_h_agg_otx_inx_time_PopulatesTable_Scenario0():
+def test_select_nabtime_h_agg_otx_inx_time_PopulatesTable_Scenario0():
     # ESTABLISH
     spark1 = 1
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
+        nabtime_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
         otx_time = 5
         inx_time = 8
-        assert not select_nabepoc_h_agg_otx_inx_time(cursor, spark1, exx.a23)
+        assert not select_nabtime_h_agg_otx_inx_time(cursor, spark1, exx.a23)
 
         # WHEN
-        insert_nabepoc_h_agg_otx_inx_time(
+        insert_nabtime_h_agg_otx_inx_time(
             cursor, spark1, exx.sue, exx.a23, otx_time, inx_time
         )
 
         # THEN
         expected_rows = [(spark1, exx.a23, otx_time, inx_time)]
-        gen_rows = select_nabepoc_h_agg_otx_inx_time(cursor, spark1, exx.a23)
+        gen_rows = select_nabtime_h_agg_otx_inx_time(cursor, spark1, exx.a23)
         assert gen_rows == expected_rows
 
 

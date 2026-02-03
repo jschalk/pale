@@ -562,7 +562,6 @@ def test_PlanUnit_add_time_creg_kegunit_SyncsWeekDayAndYear_Thursday_March2_2000
     change_fact_print_attrs(sue_planunit, yr2000_mar7day, yr2000_mar8day)
     assert len(sue_planunit.get_agenda_dict()) == 0
     change_fact_print_attrs(sue_planunit, yr2000_mar1day, yr2000_mar2day)
-    # TODO This should be zero but it comes back as 1
     assert len(sue_planunit.get_agenda_dict()) == 1
     change_fact_print_attrs(sue_planunit, yr2000_mar2day, yr2000_mar3day)
     assert len(sue_planunit.get_agenda_dict()) == 1

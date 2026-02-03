@@ -17,7 +17,6 @@ from src.ch09_plan_lesson.test._util.ch09_examples import sue_2planatoms_lessonu
 from src.ref.keywords import ExampleStrs as exx
 
 
-# TODO reactivate this test
 def test_LessonFileHandler_default_gut_plan_ReturnsObj():
     # ESTABLISH
     x_fund_pool = 9000000

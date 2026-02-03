@@ -127,7 +127,7 @@
   "mmtmont": {"init_chapter": "ch18", "note": "abbv for moment_epoch_month"},
   "mmtweek": {"init_chapter": "ch18", "note": "abbv for moment_epoch_weekday"},
   "mmtoffi": {"init_chapter": "ch18", "note": "abbv for moment_timeoffi"},
-  "nabepoc": {"init_chapter": "ch18", "note": "abbv for nabu_timenum"},
+  "nabtime": {"init_chapter": "ch18", "note": "abbv for nabu_timenum"},
   "trlname": {"init_chapter": "ch18", "note": "abbv for translate_name"},
   "trllabe": {"init_chapter": "ch18", "note": "abbv for translate_label"},
   "trlrope": {"init_chapter": "ch18", "note": "abbv for translate_rope"},

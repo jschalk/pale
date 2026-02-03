@@ -86,7 +86,7 @@ class MomentUnit:
     pipeline7: lessons->job (could be 5 of 6)
     """
 
-    # TODO extraction pipelines into standalone functions
+    # TODO replace each pipeline with prefect flow
     moment_rope: MomentRope = None
     moment_mstr_dir: str = None
     epoch: EpochUnit = None
@@ -177,7 +177,9 @@ class MomentUnit:
         # # if planunit has healers create job from healers.
         # create planunit from debtors roll
         mstr_dir = self.moment_mstr_dir
-        return listen_to_debtors_roll_jobs_into_job(mstr_dir, self.get_lasso(), plan_name)
+        return listen_to_debtors_roll_jobs_into_job(
+            mstr_dir, self.get_lasso(), plan_name
+        )
 
     def generate_all_jobs(self) -> None:
         plan_names = self._get_plan_dir_names()
