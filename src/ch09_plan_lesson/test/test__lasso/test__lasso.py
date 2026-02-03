@@ -1,35 +1,9 @@
-from platform import system as platform_system
 from pytest import raises as pytest_raises
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope._ref.ch04_env import get_temp_dir
-from src.ch04_rope._ref.ch04_semantic_types import default_knot_if_None
-from src.ch04_rope.rope import (
-    LassoUnit,
-    RopeTerm,
-    all_ropes_between,
-    create_rope,
-    create_rope_from_labels,
-    default_knot_if_None,
-    find_replace_rope_key_dict,
-    get_all_rope_labels,
-    get_ancestor_ropes,
-    get_default_rope,
-    get_first_label_from_rope,
-    get_forefather_ropes,
-    get_parent_rope,
-    get_tail_label,
-    is_heir_rope,
-    is_labelterm,
-    is_sub_rope,
-    lassounit_shop,
-    rebuild_rope,
-    remove_knot_ends,
-    replace_knot,
-    rope_is_valid_dir_path,
-    to_rope,
-    validate_labelterm,
-)
-from src.ref.keywords import Ch04Keywords as kw, ExampleStrs as exx
+from src.ch04_rope.rope import create_rope, get_default_rope
+from src.ch09_plan_lesson._ref.ch09_semantic_types import default_knot_if_None
+from src.ch09_plan_lesson.lasso import LassoUnit, default_knot_if_None, lassounit_shop
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
 def test_LassoUnit_Exists():
@@ -37,9 +11,9 @@ def test_LassoUnit_Exists():
     x_lasso = LassoUnit()
 
     # THEN
-    assert not x_lasso.rope
+    assert not x_lasso.moment_rope
     assert not x_lasso.knot
-    assert set(x_lasso.__dict__.keys()) == {"rope", kw.knot}
+    assert set(x_lasso.__dict__.keys()) == {kw.moment_rope, kw.knot}
 
 
 def test_lassounit_shop_ReturnsObj_Scenario0_WithoutParameters():
@@ -47,7 +21,7 @@ def test_lassounit_shop_ReturnsObj_Scenario0_WithoutParameters():
     x_lasso = lassounit_shop()
 
     # THEN
-    assert x_lasso.rope == get_default_rope()
+    assert x_lasso.moment_rope == get_default_rope()
     assert x_lasso.knot == default_knot_if_None()
 
 
@@ -60,7 +34,7 @@ def test_lassounit_shop_ReturnsObj_Scenario1_WithParameters():
     casa_lasso = lassounit_shop(casa_rope, slash_knot)
 
     # THEN
-    assert casa_lasso.rope == casa_rope
+    assert casa_lasso.moment_rope == casa_rope
     assert casa_lasso.knot == slash_knot
 
 
@@ -72,9 +46,7 @@ def test_lassounit_shop_ReturnsObj_Scenario2_RaisesErrorIfKnotNotAtPostionZeroOf
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
         lassounit_shop(tulip_str, semicolon_knot)
-    exception_str = (
-        f"Rope '{tulip_str}' must have knot '{semicolon_knot}' at position 0 in string"
-    )
+    exception_str = f"{kw.moment_rope} '{tulip_str}' must have {kw.knot} '{semicolon_knot}' at position 0 in string"
     assert str(excinfo.value) == exception_str
 
 

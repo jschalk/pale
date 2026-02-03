@@ -10,7 +10,7 @@ from src.ch00_py.file_toolbox import (
     save_file,
     set_dir,
 )
-from src.ch04_rope.rope import lassounit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
     open_gut_file,
@@ -34,7 +34,8 @@ from src.ref.keywords import ExampleStrs as exx
 
 def test_LessonFileHandler_get_max_lesson_file_number_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
 
     # WHEN / THEN
     delete_dir(sue_lessonfilehandler.lessons_dir)
@@ -57,7 +58,8 @@ def test_LessonFileHandler_get_max_lesson_file_number_ReturnsObj(temp_dir_setup)
 
 def test_LessonFileHandler_lesson_file_exists_ReturnsObj(temp_dir_setup):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     assert sue_lessonfilehandler.hub_lesson_file_exists(None) is False
     assert sue_lessonfilehandler.hub_lesson_file_exists(0) is False
     six_int = 6
@@ -79,7 +81,8 @@ def test_LessonFileHandler_lesson_file_exists_ReturnsObj(temp_dir_setup):
 
 def test_LessonFileHandler_save_lesson_file_SaveCorrectObj(temp_dir_setup):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     two_int = 2
     six_int = 6
     two_filename = get_json_filename(two_int)
@@ -111,7 +114,8 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_atoms_dir_Is
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     x_lesson_id = 6
     six_filename = get_json_filename(x_lesson_id)
     sue_lesson0_path = create_path(sue_lessonfilehandler.lessons_dir, six_filename)
@@ -136,7 +140,8 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_lessons_dir_
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     x_lesson_id = 6
     six_filename = get_json_filename(x_lesson_id)
     sue_lesson0_path = create_path(sue_lessonfilehandler.lessons_dir, six_filename)
@@ -161,7 +166,8 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIfLessonUnit_plan_name_Is
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     x_lesson_id = 6
     six_filename = get_json_filename(x_lesson_id)
     sue_lesson0_path = create_path(sue_lessonfilehandler.lessons_dir, six_filename)
@@ -186,7 +192,8 @@ def test_LessonFileHandler_save_lesson_file_RaisesErrorIf_replace_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     x_lesson_id = 0
     six_filename = get_json_filename(x_lesson_id)
     sue_lessonunit = lessonunit_shop(
@@ -215,7 +222,8 @@ def test_LessonFileHandler_validate_lessonunit_ReturnsObjWithAttributesFixed(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     two_int = 2
     two_filename = get_json_filename(two_int)
     sue_lesson2_path = create_path(sue_lessonfilehandler.lessons_dir, two_filename)
@@ -250,7 +258,8 @@ def test_LessonFileHandler_save_lesson_file_SaveCorrectObj_correct_invalid_attrs
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     next_int = sue_lessonfilehandler._get_next_lesson_file_number()
     next_filename = get_json_filename(next_int)
     sue_lesson2_path = create_path(sue_lessonfilehandler.lessons_dir, next_filename)
@@ -275,7 +284,8 @@ def test_LessonFileHandler_default_lessonunit_ReturnsObjWithCorrect_lesson_id_Wh
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
 
     # WHEN
     delete_dir(sue_lessonfilehandler.lessons_dir)
@@ -298,7 +308,8 @@ def test_LessonFileHandler_default_lessonunit_ReturnsObjWithCorrect_lesson_id_Wh
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     delete_dir(sue_lessonfilehandler.lessons_dir)
 
     zero_lessonunit = get_sue_lessonunit()
@@ -327,7 +338,8 @@ def test_LessonFileHandler_get_lessonunit_ReturnsObjWhenFilesDoesExist(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
     x0_lessonunit.set_face(exx.yao)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
@@ -352,7 +364,8 @@ def test_LessonFileHandler_get_lessonunit_RaisesExceptionWhenFileDoesNotExist(
 ):
     # sourcery skip: extract-duplicate-method, inline-variable, move-assign-in-block
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     x0_lessonunit = sue_lessonfilehandler._default_lessonunit()
     x0_lessonunit.set_face(exx.yao)
     sue_lessonfilehandler.save_lesson_file(x0_lessonunit)
@@ -372,7 +385,8 @@ def test_LessonFileHandler_del_lesson_file_DeleteslessonjsonAndNotPlanAtomjsons(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     six_int = 6
     sue_lessonunit = lessonunit_shop(
         plan_name=exx.sue,
@@ -385,7 +399,8 @@ def test_LessonFileHandler_del_lesson_file_DeleteslessonjsonAndNotPlanAtomjsons(
     assert sue_lessonfilehandler.hub_lesson_file_exists(six_int) is False
     assert sue_lessonfilehandler.h_atom_file_exists(zero_int) is False
 
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_lessonunit, correct_invalid_attrs=False)
 
     print(f"{get_dir_file_strs(sue_lessonfilehandler.atoms_dir)}")
@@ -404,7 +419,8 @@ def test_LessonFileHandler_save_lesson_file_CanCreateAndModify3lessonunits(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     delete_dir(sue_lessonfilehandler.lessons_dir)
     delete_dir(sue_lessonfilehandler.atoms_dir)
     set_dir(sue_lessonfilehandler.lessons_dir)
@@ -424,7 +440,8 @@ def test_LessonFileHandler_save_lesson_file_CanCreateAndModify3lessonunits(
 
 def test_LessonFileHandler_save_lesson_file_ReturnsValidObj(temp_dir_setup):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     sue2_lessonunit = sue_2planatoms_lessonunit()
     sue2_lessonunit.atoms_dir = create_path(sue_lessonfilehandler.atoms_dir, "swimming")
     sue2_lessonunit.lessons_dir = create_path(
@@ -450,7 +467,8 @@ def test_LessonFileHandler_create_save_lesson_file_SaveCorrectObj(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     two_int = 2
     three_int = 3
     print(f"{sue_lessonfilehandler.lesson_file_path(two_int)=}")
@@ -461,7 +479,8 @@ def test_LessonFileHandler_create_save_lesson_file_SaveCorrectObj(
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
     )
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_lessonunit, correct_invalid_attrs=False)
     assert sue_lessonfilehandler.hub_lesson_file_exists(two_int)
     assert sue_lessonfilehandler.hub_lesson_file_exists(three_int) is False
@@ -480,7 +499,8 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObjThatIsEqual(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     a23_lasso = lassounit_shop(exx.a23)
     gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
@@ -497,13 +517,14 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_1planatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     a23_lasso = lassounit_shop(exx.a23)
     gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     print(f"{gut_plan.moment_rope=}")
-    print(f"{sue_lessonfilehandler.moment_rope=}")
+    print(f"{sue_lessonfilehandler.moment_lasso.moment_rope=}")
     sports_str = "sports"
     sports_rope = gut_plan.make_l1_rope(sports_str)
     knee_str = "knee"
@@ -522,7 +543,8 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue)
+    a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue)
     sue_lessonfilehandler.save_lesson_file(sue_2planatoms_lessonunit())
     save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     a23_lasso = lassounit_shop(exx.a23)

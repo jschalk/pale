@@ -36,7 +36,7 @@ from src.ch18_world_etl.etl_sqlstr import (
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def insert_nabepoc_h_agg_otx_inx_time(
+def insert_nabtime_h_agg_otx_inx_time(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_face_name: FaceName,
@@ -44,8 +44,8 @@ def insert_nabepoc_h_agg_otx_inx_time(
     x_otx_time: TimeNum,
     x_inx_time: TimeNum,
 ):
-    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
-    select_sqlstr = f"""INSERT INTO {nabepoc_h_agg_tablename} (
+    nabtime_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
+    select_sqlstr = f"""INSERT INTO {nabtime_h_agg_tablename} (
   {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
@@ -59,18 +59,18 @@ VALUES
     cursor.execute(select_sqlstr)
 
 
-def select_nabepoc_h_agg_otx_inx_time(
+def select_nabtime_h_agg_otx_inx_time(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_rope: MomentRope,
 ) -> list[tuple]:
-    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
+    nabtime_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_rope}
 , {kw.otx_time}
 , {kw.inx_time}
-FROM {nabepoc_h_agg_tablename}
+FROM {nabtime_h_agg_tablename}
 WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_rope} == '{x_moment_rope}'
 """
     cursor.execute(select_sqlstr)

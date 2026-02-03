@@ -8,12 +8,12 @@ from src.ch00_py.file_toolbox import (
     get_level1_dirs,
     save_file,
 )
-from src.ch04_rope.rope import lassounit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_gut_path,
     create_job_path,
     create_moment_json_path,
 )
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import open_gut_file
 from src.ch11_bud._ref.ch11_path import (
     create_spark_all_lesson_path,

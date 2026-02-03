@@ -33,7 +33,7 @@ ALL_DIMEN_ABBV7 = {
     "PLNLABO",
     "PLNKEGG",
     "PLNUNIT",
-    "NABEPOC",
+    "NABTIME",
     "TRLTITL",
     "TRLNAME",
     "TRLROPE",
@@ -60,7 +60,7 @@ def get_dimen_abbv7(dimen: str) -> str:
         "plan_keg_partyunit": "PLNLABO",
         "plan_kegunit": "PLNKEGG",
         "planunit": "PLNUNIT",
-        "nabu_timenum": "NABEPOC",
+        "nabu_timenum": "NABTIME",
         "translate_title": "TRLTITL",
         "translate_name": "TRLNAME",
         "translate_rope": "TRLROPE",
@@ -100,7 +100,7 @@ def create_prime_tablename(
         "PLNLABO": "plan_keg_partyunit",
         "PLNKEGG": "plan_kegunit",
         "PLNUNIT": "planunit",
-        "NABEPOC": "nabu_timenum",
+        "NABTIME": "nabu_timenum",
         "TRLTITL": "translate_title",
         "TRLNAME": "translate_name",
         "TRLROPE": "translate_rope",
@@ -344,7 +344,10 @@ def get_prime_columns(
 def create_prime_table_sqlstr(
     x_dimen: str, stage0: str, stage1: str, put_del: str = None
 ) -> str:
-    """Given dimen and stages return the Create Table sqlstr"""
+    """Given dimen and stages return the Create Table sqlstr
+    stage0 must be one: 's', 'h', 'job'
+    stage1 must be one: 'raw', 'agg', 'vld'
+    """
     tablename = create_prime_tablename(x_dimen, stage0, stage1, put_del)
     table_keylist = [stage0, stage1, put_del] if put_del else [stage0, stage1]
     etl_idea_category_config = etl_idea_category_config_dict()

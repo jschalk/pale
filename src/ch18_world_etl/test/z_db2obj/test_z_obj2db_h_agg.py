@@ -38,8 +38,6 @@ def test_insert_h_agg_plnunit_CreatesTableRowsFor_planunit_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    # TODO replace all exx.a23 references in tests to exx.a23
-    x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -49,7 +47,7 @@ def test_insert_h_agg_plnunit_CreatesTableRowsFor_planunit_h_agg():
     x_mana_grain = 4.0
     x_respect_grain = 0.2
     x_tally = 6
-    sue_plan = planunit_shop(x_plan_name, moment_rope=x_moment_rope)
+    sue_plan = planunit_shop(x_plan_name, moment_rope=exx.a23)
     sue_plan.fund_pool = x_fund_pool
     sue_plan.fund_grain = x_fund_grain
     sue_plan.mana_grain = x_mana_grain
@@ -77,7 +75,7 @@ def test_insert_h_agg_plnunit_CreatesTableRowsFor_planunit_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            x_moment_rope,
+            exx.a23,
             x_plan_name,
             x_credor_respect,
             x_debtor_respect,
@@ -97,9 +95,8 @@ def test_insert_h_agg_plnkegg_CreatesTableRowsFor_plnkegg_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    x_moment_rope = exx.a23
     x_plan_name = 2
-    casa_rope = create_rope(x_moment_rope, "casa")
+    casa_rope = create_rope(exx.a23, "casa")
     x_parent_rope = casa_rope
     x_keg_label = "clean"
     x_begin = 5.0
@@ -147,7 +144,7 @@ def test_insert_h_agg_plnkegg_CreatesTableRowsFor_plnkegg_h_agg():
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
             face_name=x_face_name,
-            moment_rope=x_moment_rope,
+            moment_rope=exx.a23,
             plan_name=x_plan_name,
         )
 
@@ -187,7 +184,6 @@ def test_insert_h_agg_plnreas_CreatesTableRowsFor_plnreas_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    x_moment_rope = 1
     x_plan_name = 2
     x_rope = 3
     x_reason_context = 4
@@ -204,7 +200,7 @@ def test_insert_h_agg_plnreas_CreatesTableRowsFor_plnreas_h_agg():
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
             face_name=x_face_name,
-            moment_rope=x_moment_rope,
+            moment_rope=exx.a23,
             plan_name=x_plan_name,
             rope=x_rope,
         )
@@ -220,7 +216,7 @@ def test_insert_h_agg_plnreas_CreatesTableRowsFor_plnreas_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            str(x_moment_rope),
+            str(exx.a23),
             str(x_plan_name),
             str(x_rope),
             str(x_reason_context),
@@ -235,7 +231,6 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    x_moment_rope = 1
     x_plan_name = 2
     x_rope = 3
     x_reason_context = 4
@@ -262,7 +257,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
             face_name=x_face_name,
-            moment_rope=x_moment_rope,
+            moment_rope=exx.a23,
             plan_name=x_plan_name,
             rope=x_rope,
             reason_context=x_reason_context,
@@ -279,7 +274,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            str(x_moment_rope),
+            str(exx.a23),
             str(x_plan_name),
             str(x_rope),
             str(x_reason_context),
@@ -316,7 +311,6 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
-#     x_moment_rope = 1
 #     x_plan_name = 2
 #     x_person_name = 3
 #     x_group_title = 4
@@ -348,7 +342,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "plan_person_membership_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=x_moment_rope, plan_name=x_plan_name)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name)
 
 #         # WHEN
 #         insert_h_agg_plnmemb(cursor, x_objkeysholder, x_membership)
@@ -361,7 +355,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         expected_row1 = (
 #             x_spark_num,
 #             x_face_name,
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_person_name),
 #             str(x_group_title),
@@ -397,7 +391,6 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
-#     x_moment_rope = 1
 #     x_plan_name = 2
 #     x_person_name = 3
 #     x_person_cred_lumen = 4
@@ -434,7 +427,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "plan_personunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=x_moment_rope, plan_name=x_plan_name)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name)
 
 #         # WHEN
 #         insert_h_agg_plnprsn(cursor, x_objkeysholder, x_person)
@@ -447,7 +440,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         expected_row1 = (
 #             x_spark_num,
 #             x_face_name,
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_person_name),
 #             x_person_cred_lumen,
@@ -485,7 +478,6 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
-#     x_moment_rope = 1
 #     x_plan_name = 2
 #     x_group_title = 3
 #     x_fund_grain = 4
@@ -510,7 +502,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "plan_groupunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=x_moment_rope, plan_name=x_plan_name)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name)
 
 #         # WHEN
 #         insert_h_agg_plngrou(cursor, x_objkeysholder, x_group)
@@ -523,7 +515,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         expected_row1 = (
 #             x_spark_num,
 #             x_face_name,
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_group_title),
 #             x_fund_grain,
@@ -555,7 +547,6 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
-#     x_moment_rope = 1
 #     x_plan_name = 2
 #     x_rope = 3
 #     x_awardee_title = 4
@@ -575,7 +566,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "plan_keg_awardunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name, rope=x_rope)
 
 #         # WHEN
 #         insert_h_agg_plnawar(cursor, x_objkeysholder, x_awardheir)
@@ -588,7 +579,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         expected_row1 = (
 #             x_spark_num,
 #             x_face_name,
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_rope),
 #             str(x_awardee_title),
@@ -606,7 +597,6 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
-    x_moment_rope = 1
     x_plan_name = 2
     x_rope = 3
     x_reason_context = 4
@@ -629,7 +619,7 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
             face_name=x_face_name,
-            moment_rope=x_moment_rope,
+            moment_rope=exx.a23,
             plan_name=x_plan_name,
             rope=x_rope,
         )
@@ -645,7 +635,7 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            str(x_moment_rope),
+            str(exx.a23),
             str(x_plan_name),
             str(x_rope),
             str(x_reason_context),
@@ -683,7 +673,6 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
-#     x_moment_rope = 1
 #     x_plan_name = 2
 #     x_rope = 3
 #     x_healerunit = healerunit_shop()
@@ -695,7 +684,7 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "plan_keg_healerunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name, rope=x_rope)
 
 #         # WHEN
 #         insert_h_agg_plnheal(cursor, x_objkeysholder, x_healerunit)
@@ -708,13 +697,13 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
 #         expected_row1 = (
 #             x_spark_num,
 #             x_face_name,
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_rope),
 #             exx.bob,
 #         )
 #         expected_row2 = (
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_rope),
 #             exx.sue,
@@ -740,7 +729,6 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
-#     x_moment_rope = 1
 #     x_plan_name = 2
 #     x_rope = 3
 #     x__plan_name_is_labor = 5
@@ -757,7 +745,7 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
 #         create_sound_and_heard_tables(cursor)
 #         x_table_name = "plan_keg_partyunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope)
+#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name, rope=x_rope)
 
 #         # WHEN
 #         insert_h_agg_plnlabo(cursor, x_objkeysholder, x_laborheir)
@@ -770,7 +758,7 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
 #         expected_row1 = (
 #             x_spark_num,
 #             x_face_name,
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_rope),
 #             exx.bob,
@@ -778,7 +766,7 @@ def test_insert_h_agg_plnfact_CreatesTableRowsFor_plnfact_h_agg():
 #             x__plan_name_is_labor,
 #         )
 #         expected_row2 = (
-#             str(x_moment_rope),
+#             str(exx.a23),
 #             str(x_plan_name),
 #             str(x_rope),
 #             exx.sue,

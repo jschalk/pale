@@ -41,7 +41,7 @@ from src.ch18_world_etl.obj2db_plan import insert_h_agg_obj
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
     insert_mmtunit_special_c400_number as insert_c400_number,
-    insert_nabepoc_h_agg_otx_inx_time as insert_otx_inx_time,
+    insert_nabtime_h_agg_otx_inx_time as insert_otx_inx_time,
     insert_plncase_special_h_agg as insert_plncase,
     select_mmtoffi_special_offi_time_inx as select_offi_time_inx,
     select_plncase_special_h_agg as select_plncase,

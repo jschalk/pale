@@ -1,6 +1,6 @@
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope.rope import LassoUnit, get_all_rope_labels
-from src.ch09_plan_lesson._ref.ch09_semantic_types import MomentRope, PlanName
+from src.ch09_plan_lesson._ref.ch09_semantic_types import PlanName
+from src.ch09_plan_lesson.lasso import LassoUnit
 
 MOMENT_FILENAME = "moment.json"
 
@@ -51,7 +51,9 @@ def create_lessons_dir_path(
     return create_path(plan_dir, "lessons")
 
 
-def create_gut_path(moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName):
+def create_gut_path(
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
+) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_rope\\plans\\plan_name\\gut\\plan_name.json"""
     plans_dir = create_moment_plans_dir_path(moment_mstr_dir, moment_lasso)
     plan_dir = create_path(plans_dir, plan_name)
@@ -59,7 +61,9 @@ def create_gut_path(moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: Pl
     return create_path(gut_dir, f"{plan_name}.json")
 
 
-def create_job_path(moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName):
+def create_job_path(
+    moment_mstr_dir: str, moment_lasso: LassoUnit, plan_name: PlanName
+) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_rope\\plans\\plan_name\\job\\plan_name.json"""
     plans_dir = create_moment_plans_dir_path(moment_mstr_dir, moment_lasso)
     plan_dir = create_path(plans_dir, plan_name)

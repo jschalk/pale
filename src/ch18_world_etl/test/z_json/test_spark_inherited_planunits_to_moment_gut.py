@@ -1,8 +1,8 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, open_json, save_json
-from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import get_planunit_from_dict, planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_gut_path
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch11_bud._ref.ch11_path import create_plan_spark_dir_path
 from src.ch18_world_etl.etl_main import etl_spark_inherited_planunits_to_moment_gut
 from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup

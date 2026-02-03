@@ -1,5 +1,6 @@
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import lessonfilehandler_shop
 from src.ch10_plan_listen.keep_tool import save_duty_plan, save_vision_plan
 from src.ch10_plan_listen.listen_main import (
@@ -42,13 +43,14 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_PlanWhenNo_partyu
     zia_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_vision.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_vision.add_personunit(exx.yao, person_debt_lumen=12)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_rope,
+        yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        yao_dakota_lessonfilehandler.knot,
+        yao_dakota_lessonfilehandler.moment_lasso.knot,
         zia_vision,
     )
     new_yao_vision = create_listen_basis(yao_duty)
@@ -83,13 +85,14 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Plan(
     cuisine_kegunit = zia_vision.get_keg_obj(a23_cuisine_rope())
     clean_kegunit.laborunit.add_party(exx.yao)
     cuisine_kegunit.laborunit.add_party(exx.yao)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_rope,
+        yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        yao_dakota_lessonfilehandler.knot,
+        yao_dakota_lessonfilehandler.moment_lasso.knot,
         zia_vision,
     )
 
@@ -128,17 +131,17 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPlanWithDetailsDec
     save_vision_plan(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.plan_name,
-        sue_dakota_lessonfilehandler.moment_rope,
+        sue_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        sue_dakota_lessonfilehandler.knot,
+        sue_dakota_lessonfilehandler.moment_lasso.knot,
         zia_vision,
     )
     save_vision_plan(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.plan_name,
-        sue_dakota_lessonfilehandler.moment_rope,
+        sue_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        sue_dakota_lessonfilehandler.knot,
+        sue_dakota_lessonfilehandler.moment_lasso.knot,
         bob_vision,
     )
 
@@ -146,7 +149,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPlanWithDetailsDec
     save_duty_plan(
         moment_mstr_dir=sue_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_dakota_lessonfilehandler.plan_name,
-        moment_rope=sue_dakota_lessonfilehandler.moment_rope,
+        moment_rope=sue_dakota_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -203,11 +206,12 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPlan(
     yao_duty.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     yao_pool = 92
     yao_duty.set_person_respect(yao_pool)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_duty_plan(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=yao_dakota_lessonfilehandler.plan_name,
-        moment_rope=yao_dakota_lessonfilehandler.moment_rope,
+        moment_rope=yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -224,9 +228,9 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPlan(
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_rope,
+        yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        yao_dakota_lessonfilehandler.knot,
+        yao_dakota_lessonfilehandler.moment_lasso.knot,
         zia_vision,
     )
 
@@ -262,9 +266,9 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPlan(
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_rope,
+        yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        yao_dakota_lessonfilehandler.knot,
+        yao_dakota_lessonfilehandler.moment_lasso.knot,
         sue_vision,
     )
 
@@ -298,11 +302,12 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionPlan(
     yao_duty.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
     yao_pool = 92
     yao_duty.set_person_respect(yao_pool)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_duty_plan(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=yao_dakota_lessonfilehandler.plan_name,
-        moment_rope=yao_dakota_lessonfilehandler.moment_rope,
+        moment_rope=yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -316,13 +321,13 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionPlan(
     cuisine_kegunit = zia_vision.get_keg_obj(a23_cuisine_rope())
     clean_kegunit.laborunit.add_party(exx.yao)
     cuisine_kegunit.laborunit.add_party(exx.yao)
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.yao)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_rope,
+        yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        yao_dakota_lessonfilehandler.knot,
+        yao_dakota_lessonfilehandler.moment_lasso.knot,
         zia_vision,
     )
 
@@ -357,11 +362,12 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPlan_duty_AndNotPlan_visio
     yao_pool = 87
     yao_duty.set_person_respect(yao_pool)
     # save yao without task to dutys
-    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.yao)
+    a23_lasso = lassounit_shop(exx.a23)
+    yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_duty_plan(
         moment_mstr_dir=yao_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=yao_dakota_lessonfilehandler.plan_name,
-        moment_rope=yao_dakota_lessonfilehandler.moment_rope,
+        moment_rope=yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -379,9 +385,9 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPlan_duty_AndNotPlan_visio
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_rope,
+        yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        yao_dakota_lessonfilehandler.knot,
+        yao_dakota_lessonfilehandler.moment_lasso.knot,
         zia_vision,
     )
 
@@ -395,9 +401,9 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPlan_duty_AndNotPlan_visio
     save_vision_plan(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.plan_name,
-        yao_dakota_lessonfilehandler.moment_rope,
+        yao_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        yao_dakota_lessonfilehandler.knot,
+        yao_dakota_lessonfilehandler.moment_lasso.knot,
         yao_old_vision,
     )
 
@@ -427,7 +433,7 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPlanNotSpeakerSelf
     save_duty_plan(
         moment_mstr_dir=sue_dakota_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_dakota_lessonfilehandler.plan_name,
-        moment_rope=sue_dakota_lessonfilehandler.moment_rope,
+        moment_rope=sue_dakota_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=get_dakota_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -439,9 +445,9 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPlanNotSpeakerSelf
     save_vision_plan(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.plan_name,
-        sue_dakota_lessonfilehandler.moment_rope,
+        sue_dakota_lessonfilehandler.moment_lasso.moment_rope,
         get_dakota_rope(),
-        sue_dakota_lessonfilehandler.knot,
+        sue_dakota_lessonfilehandler.moment_lasso.knot,
         yao_old_vision,
     )
 

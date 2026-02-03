@@ -1,7 +1,7 @@
 from inspect import getdoc as inspect_getdoc
 from platform import system as platform_system
 from src.ch00_py.file_toolbox import create_path
-from src.ch04_rope.rope import create_rope, lassounit_shop
+from src.ch04_rope.rope import create_rope
 from src.ch09_plan_lesson._ref.ch09_path import (
     MOMENT_FILENAME,
     create_atoms_dir_path,
@@ -13,6 +13,7 @@ from src.ch09_plan_lesson._ref.ch09_path import (
     create_moment_plans_dir_path,
     create_plan_dir_path,
 )
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.test._util.ch09_env import get_temp_dir
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 

@@ -1,7 +1,7 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, open_json, save_json
-from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import get_planunit_from_dict, planunit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_main import get_lessonunit_from_dict, lessonunit_shop
 from src.ch11_bud._ref.ch11_path import (
     create_plan_spark_dir_path,

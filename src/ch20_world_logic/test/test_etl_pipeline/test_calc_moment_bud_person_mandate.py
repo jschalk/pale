@@ -1,11 +1,11 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import count_dirs_files, open_json, save_json
-from src.ch04_rope.rope import lassounit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import (
     create_moment_json_path,
     create_moment_plans_dir_path,
 )
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch11_bud._ref.ch11_path import create_planspark_path
 from src.ch14_moment._ref.ch14_path import (
     create_bud_person_mandate_ledger_path as bud_mandate_path,

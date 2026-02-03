@@ -8,9 +8,9 @@ from src.ch00_py.file_toolbox import (
     save_json,
     set_dir,
 )
-from src.ch04_rope.rope import LassoUnit, lassounit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, get_planunit_from_dict
 from src.ch09_plan_lesson._ref.ch09_path import create_job_path
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     open_gut_file,
     open_plan_file,

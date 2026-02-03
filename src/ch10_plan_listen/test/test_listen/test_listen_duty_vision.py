@@ -1,5 +1,6 @@
-from src.ch04_rope.rope import LabelTerm, RopeTerm, create_rope, lassounit_shop
+from src.ch04_rope.rope import LabelTerm, RopeTerm, create_rope
 from src.ch07_plan_logic.plan_main import PlanUnit, kegunit_shop, planunit_shop
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     LessonFileHandler,
     gut_file_exists,
@@ -205,7 +206,7 @@ def get_yao_ohio_lessonfilehandler() -> LessonFileHandler:
     yao_plan = get_example_yao_plan()
     return lessonfilehandler_shop(
         moment_mstr_dir=env_dir(),
-        moment_rope=yao_plan.moment_rope,
+        moment_lasso=lassounit_shop(yao_plan.moment_rope),
         plan_name=yao_plan.plan_name,
     )
 
@@ -214,7 +215,7 @@ def get_yao_iowa_lessonfilehandler() -> LessonFileHandler:
     yao_plan = get_example_yao_plan()
     return lessonfilehandler_shop(
         moment_mstr_dir=env_dir(),
-        moment_rope=yao_plan.moment_rope,
+        moment_lasso=lassounit_shop(yao_plan.moment_rope),
         plan_name=yao_plan.plan_name,
     )
 
@@ -223,7 +224,7 @@ def get_zia_utah_lessonfilehandler() -> LessonFileHandler:
     yao_plan = get_example_yao_plan()
     return lessonfilehandler_shop(
         moment_mstr_dir=env_dir(),
-        moment_rope=yao_plan.moment_rope,
+        moment_lasso=lassounit_shop(yao_plan.moment_rope),
         plan_name="Zia",
     )
 
@@ -284,9 +285,9 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
         vision_file_exists(
             yao_iowa_lessonfilehandler.moment_mstr_dir,
             yao_iowa_lessonfilehandler.plan_name,
-            yao_iowa_lessonfilehandler.moment_rope,
+            yao_iowa_lessonfilehandler.moment_lasso.moment_rope,
             get_iowa_rope(),
-            yao_iowa_lessonfilehandler.knot,
+            yao_iowa_lessonfilehandler.moment_lasso.knot,
             exx.yao,
         )
         is False
@@ -295,9 +296,9 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
         vision_file_exists(
             yao_ohio_lessonfilehandler.moment_mstr_dir,
             yao_ohio_lessonfilehandler.plan_name,
-            yao_ohio_lessonfilehandler.moment_rope,
+            yao_ohio_lessonfilehandler.moment_lasso.moment_rope,
             get_ohio_rope(),
-            yao_ohio_lessonfilehandler.knot,
+            yao_ohio_lessonfilehandler.moment_lasso.knot,
             exx.yao,
         )
         is False
@@ -306,9 +307,9 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
         vision_file_exists(
             zia_utah_lessonfilehandler.moment_mstr_dir,
             zia_utah_lessonfilehandler.plan_name,
-            zia_utah_lessonfilehandler.moment_rope,
+            zia_utah_lessonfilehandler.moment_lasso.moment_rope,
             get_utah_rope(),
-            zia_utah_lessonfilehandler.knot,
+            zia_utah_lessonfilehandler.moment_lasso.knot,
             exx.yao,
         )
         is False
@@ -321,9 +322,9 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
         vision_file_exists(
             yao_iowa_lessonfilehandler.moment_mstr_dir,
             yao_iowa_lessonfilehandler.plan_name,
-            yao_iowa_lessonfilehandler.moment_rope,
+            yao_iowa_lessonfilehandler.moment_lasso.moment_rope,
             get_iowa_rope(),
-            yao_iowa_lessonfilehandler.knot,
+            yao_iowa_lessonfilehandler.moment_lasso.knot,
             exx.yao,
         )
         is False
@@ -332,9 +333,9 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
         vision_file_exists(
             yao_ohio_lessonfilehandler.moment_mstr_dir,
             yao_ohio_lessonfilehandler.plan_name,
-            yao_ohio_lessonfilehandler.moment_rope,
+            yao_ohio_lessonfilehandler.moment_lasso.moment_rope,
             get_ohio_rope(),
-            yao_ohio_lessonfilehandler.knot,
+            yao_ohio_lessonfilehandler.moment_lasso.knot,
             exx.yao,
         )
         is False
@@ -343,9 +344,9 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
         vision_file_exists(
             zia_utah_lessonfilehandler.moment_mstr_dir,
             zia_utah_lessonfilehandler.plan_name,
-            zia_utah_lessonfilehandler.moment_rope,
+            zia_utah_lessonfilehandler.moment_lasso.moment_rope,
             get_utah_rope(),
-            zia_utah_lessonfilehandler.knot,
+            zia_utah_lessonfilehandler.moment_lasso.knot,
             exx.yao,
         )
         is False
@@ -392,7 +393,7 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
         plan_name=sue_texas_lessonfilehandler.plan_name,
-        moment_rope=sue_texas_lessonfilehandler.moment_rope,
+        moment_rope=sue_texas_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=get_texas_rope(),
         knot=None,
         duty_plan=yao_duty,
@@ -402,15 +403,15 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
         vision_file_exists(
             sue_texas_lessonfilehandler.moment_mstr_dir,
             sue_texas_lessonfilehandler.plan_name,
-            sue_texas_lessonfilehandler.moment_rope,
+            sue_texas_lessonfilehandler.moment_lasso.moment_rope,
             get_texas_rope(),
-            sue_texas_lessonfilehandler.knot,
+            sue_texas_lessonfilehandler.moment_lasso.knot,
             exx.yao,
         )
     )
 
     # WHEN
-    print(f"{sue_texas_lessonfilehandler.moment_rope=}")
+    print(f"{sue_texas_lessonfilehandler.moment_lasso.moment_rope=}")
     create_vision_file_from_duty_file(
         sue_texas_lessonfilehandler, exx.yao, get_texas_rope()
     )
@@ -419,17 +420,17 @@ def test_create_vision_file_from_duty_file_CreatesEmptyvision(temp_dir_setup):
     assert vision_file_exists(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_rope,
+        sue_texas_lessonfilehandler.moment_lasso.moment_rope,
         get_texas_rope(),
-        sue_texas_lessonfilehandler.knot,
+        sue_texas_lessonfilehandler.moment_lasso.knot,
         exx.yao,
     )
     yao_vision = get_vision_plan(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.plan_name,
-        sue_texas_lessonfilehandler.moment_rope,
+        sue_texas_lessonfilehandler.moment_lasso.moment_rope,
         get_texas_rope(),
-        sue_texas_lessonfilehandler.knot,
+        sue_texas_lessonfilehandler.moment_lasso.knot,
         exx.yao,
     )
     assert yao_vision.plan_name is not None

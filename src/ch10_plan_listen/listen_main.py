@@ -1,14 +1,10 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from src.ch01_allot.allot import allot_scale
-from src.ch04_rope.rope import (
-    LassoUnit,
-    get_ancestor_ropes,
-    get_first_label_from_rope,
-    lassounit_shop,
-)
+from src.ch04_rope.rope import get_ancestor_ropes, get_first_label_from_rope
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PersonUnit, PlanUnit
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import LessonFileHandler, open_gut_file
 from src.ch10_plan_listen._ref.ch10_semantic_types import PlanName, RopeTerm
 from src.ch10_plan_listen.basis_plan import (
@@ -224,9 +220,9 @@ def listen_to_agendas_duty_vision(
             listener_duty = get_duty_plan(
                 moment_mstr_dir=healer_lessonfilehandler.moment_mstr_dir,
                 plan_name=healer_lessonfilehandler.plan_name,
-                moment_rope=healer_lessonfilehandler.moment_rope,
+                moment_rope=healer_lessonfilehandler.moment_lasso.moment_rope,
                 keep_rope=healer_keep_rope,
-                knot=healer_lessonfilehandler.knot,
+                knot=healer_lessonfilehandler.moment_lasso.knot,
                 duty_plan_name=listener_id,
             )
             listen_to_speaker_agenda(listener_vision, listener_duty)
@@ -235,9 +231,9 @@ def listen_to_agendas_duty_vision(
             healer_name = healer_lessonfilehandler.plan_name
             speaker_vision = rj_speaker_plan(
                 healer_lessonfilehandler.moment_mstr_dir,
-                healer_lessonfilehandler.moment_rope,
+                healer_lessonfilehandler.moment_lasso.moment_rope,
                 healer_keep_rope,
-                healer_lessonfilehandler.knot,
+                healer_lessonfilehandler.moment_lasso.knot,
                 healer_name,
                 speaker_id,
             )
@@ -256,9 +252,9 @@ def listen_to_facts_duty_vision(
     duty = get_duty_plan(
         moment_mstr_dir=healer_lessonfilehandler.moment_mstr_dir,
         plan_name=healer_lessonfilehandler.plan_name,
-        moment_rope=healer_lessonfilehandler.moment_rope,
+        moment_rope=healer_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=healer_keep_rope,
-        knot=healer_lessonfilehandler.knot,
+        knot=healer_lessonfilehandler.moment_lasso.knot,
         duty_plan_name=new_vision.plan_name,
     )
     migrate_all_facts(duty, new_vision)
@@ -267,9 +263,9 @@ def listen_to_facts_duty_vision(
             speaker_vision = get_vision_plan(
                 healer_lessonfilehandler.moment_mstr_dir,
                 healer_lessonfilehandler.plan_name,
-                healer_lessonfilehandler.moment_rope,
+                healer_lessonfilehandler.moment_lasso.moment_rope,
                 healer_keep_rope,
-                healer_lessonfilehandler.knot,
+                healer_lessonfilehandler.moment_lasso.knot,
                 x_personunit.person_name,
             )
             if speaker_vision is not None:
@@ -306,9 +302,9 @@ def listen_to_debtors_roll_duty_vision(
     duty = get_duty_plan(
         moment_mstr_dir=healer_lessonfilehandler.moment_mstr_dir,
         plan_name=healer_lessonfilehandler.plan_name,
-        moment_rope=healer_lessonfilehandler.moment_rope,
+        moment_rope=healer_lessonfilehandler.moment_lasso.moment_rope,
         keep_rope=healer_keep_rope,
-        knot=healer_lessonfilehandler.knot,
+        knot=healer_lessonfilehandler.moment_lasso.knot,
         duty_plan_name=listener_id,
     )
     new_duty = create_listen_basis(duty)
@@ -322,7 +318,7 @@ def listen_to_debtors_roll_duty_vision(
 def listen_to_plan_visions(
     listener_lessonfilehandler: LessonFileHandler, healer_keep_rope: RopeTerm
 ) -> None:
-    moment_lasso = lassounit_shop(listener_lessonfilehandler.moment_rope)
+    moment_lasso = lassounit_shop(listener_lessonfilehandler.moment_lasso.moment_rope)
     gut = open_gut_file(
         listener_lessonfilehandler.moment_mstr_dir,
         moment_lasso,
@@ -377,17 +373,17 @@ def fact_state_keep_vision_and_listen(
     if vision_file_exists(
         healer_lessonfilehandler.moment_mstr_dir,
         healer_lessonfilehandler.plan_name,
-        healer_lessonfilehandler.moment_rope,
+        healer_lessonfilehandler.moment_lasso.moment_rope,
         healer_keep_rope,
-        healer_lessonfilehandler.knot,
+        healer_lessonfilehandler.moment_lasso.knot,
         listener_id,
     ):
         keep_vision = get_vision_plan(
             healer_lessonfilehandler.moment_mstr_dir,
             healer_lessonfilehandler.plan_name,
-            healer_lessonfilehandler.moment_rope,
+            healer_lessonfilehandler.moment_lasso.moment_rope,
             healer_keep_rope,
-            healer_lessonfilehandler.knot,
+            healer_lessonfilehandler.moment_lasso.knot,
             listener_id,
         )
     else:
@@ -419,8 +415,8 @@ def create_vision_file_from_duty_file(
     save_vision_plan(
         healer_lessonfilehandler.moment_mstr_dir,
         healer_lessonfilehandler.plan_name,
-        healer_lessonfilehandler.moment_rope,
+        healer_lessonfilehandler.moment_lasso.moment_rope,
         healer_keep_rope,
-        healer_lessonfilehandler.knot,
+        healer_lessonfilehandler.moment_lasso.knot,
         x_vision,
     )

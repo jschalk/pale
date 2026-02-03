@@ -1,28 +1,14 @@
 from os import getcwd as os_getcwd
-from sqlite3 import connect as sqlite3_connect
-from src.ch00_py.db_toolbox import (
-    db_table_exists,
-    get_create_table_sqlstr,
-    get_table_columns,
-    required_columns_exist,
-)
 from src.ch00_py.file_toolbox import create_path
-from src.ch08_plan_atom.atom_config import get_delete_key_name
-from src.ch17_idea.idea_config import (
-    get_idea_config_dict,
-    get_idea_numbers,
-    get_idea_sqlite_types,
-)
-from src.ch17_idea.idea_db_tool import (
-    get_default_sorted_list,
-    get_idea_into_dimen_raw_query,
-)
+from src.ch17_idea.idea_config import get_idea_config_dict
 from src.ch18_world_etl.etl_config import (
     ALL_DIMEN_ABBV7,
+    create_prime_table_sqlstr,
     create_prime_tablename,
     etl_idea_category_config_dict,
     etl_idea_category_config_path,
     get_all_dimen_columns_set,
+    get_del_dimen_columns_set,
     get_etl_category_stages_dict,
     get_prime_columns,
     remove_inx_columns,
@@ -87,7 +73,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     mmtmont_s_agg_table = create_prime_tablename(kw.mmtmont, "s", agg_str)
     mmtweek_s_agg_table = create_prime_tablename(kw.mmtweek, "s", agg_str)
     mmtoffi_s_agg_table = create_prime_tablename(kw.mmtoffi, "s", agg_str)
-    nabepoc_s_agg_table = create_prime_tablename(kw.nabepoc, "s", agg_str)
+    nabtime_s_agg_table = create_prime_tablename(kw.nabtime, "s", agg_str)
     trlname_s_agg_table = create_prime_tablename(kw.trlname, "s", agg_str)
     trllabe_s_agg_table = create_prime_tablename(kw.trllabe, "s", agg_str)
     trlrope_s_agg_table = create_prime_tablename(kw.trlrope, "s", agg_str)
@@ -120,7 +106,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert mmtmont_s_agg_table == f"{kw.moment_epoch_month}_s_agg"
     assert mmtweek_s_agg_table == f"{kw.moment_epoch_weekday}_s_agg"
     assert mmtoffi_s_agg_table == f"{kw.moment_timeoffi}_s_agg"
-    assert nabepoc_s_agg_table == f"{kw.nabu_timenum}_s_agg"
+    assert nabtime_s_agg_table == f"{kw.nabu_timenum}_s_agg"
     assert trlname_s_agg_table == f"{kw.translate_name}_s_agg"
     assert trllabe_s_agg_table == f"{kw.translate_label}_s_agg"
     assert trlrope_s_agg_table == f"{kw.translate_rope}_s_agg"
@@ -344,14 +330,30 @@ def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_
     }
 
 
-# TODO create tests for these functions
-# def get_del_dimen_columns_set(x_dimen: str) -> list[str]:
-# def create_translate_sound_raw_table_sqlstr(x_dimen):
-# def create_translate_sound_agg_table_sqlstr(x_dimen):
-# def create_translate_sound_vld_table_sqlstr(x_dimen):
-# def create_translate_core_raw_table_sqlstr(x_dimen):
-# def create_moment_sound_agg_table_sqlstr(x_dimen):
-# def create_moment_sound_vld_table_sqlstr(x_dimen):
-# def create_moment_heard_raw_table_sqlstr(x_dimen):
-# def create_moment_heard_vld_table_sqlstr(x_dimen: str):
-# def create_prime_table_sqlstr(x_dimen: str) -> str:
+def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
+    # ESTABLISH / WHEN
+    del_dimen_columns_set = get_del_dimen_columns_set(kw.plan_keg_partyunit)
+
+    # THEN
+    assert del_dimen_columns_set
+    assert del_dimen_columns_set == {
+        kw.keg_rope,
+        kw.moment_rope,
+        kw.spark_num,
+        kw.plan_name,
+        kw.face_name,
+        f"{kw.party_title}_ERASE",
+    }
+
+
+def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
+    # ESTABLISH / WHEN
+    table_sqlstr = create_prime_table_sqlstr(
+        kw.plan_keg_reason_caseunit, "s", "raw", "put"
+    )
+
+    # THEN
+    assert table_sqlstr
+    print(table_sqlstr)
+    expected_sqlstr = "CREATE TABLE IF NOT EXISTS plan_keg_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_rope TEXT, plan_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"
+    assert table_sqlstr == expected_sqlstr

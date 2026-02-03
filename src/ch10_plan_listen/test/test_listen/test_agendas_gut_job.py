@@ -1,9 +1,9 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import delete_dir
-from src.ch04_rope.rope import lassounit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_gut_path
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
     save_gut_file,
@@ -115,10 +115,11 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPlanWithDetailsDecidedBy_per
     save_gut_file(moment_mstr_dir, yao_gut)
 
     new_yao_job1 = create_listen_basis(yao_gut)
+    a23_lasso = lassounit_shop(exx.a23)
     assert new_yao_job1.keg_exists(a23_cuisine_rope()) is False
 
     # WHEN
-    yao_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, exx.a23, exx.yao)
+    yao_lessonfilehandler = lessonfilehandler_shop(moment_mstr_dir, a23_lasso, exx.yao)
     listen_to_agendas_jobs_into_job(moment_mstr_dir, new_yao_job1)
 
     # THEN

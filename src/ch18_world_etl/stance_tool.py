@@ -5,7 +5,8 @@ from src.ch00_py.csv_toolbox import (
     replace_csv_column_from_string,
 )
 from src.ch00_py.file_toolbox import create_path, get_level1_dirs
-from src.ch04_rope.rope import create_rope, default_knot_if_None, lassounit_shop
+from src.ch04_rope.rope import create_rope, default_knot_if_None
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch11_bud.bud_filehandler import open_plan_file
 from src.ch14_moment.moment_main import get_default_path_momentunit
 from src.ch17_idea.idea_csv_tool import (

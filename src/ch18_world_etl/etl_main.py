@@ -27,17 +27,13 @@ from src.ch00_py.file_toolbox import (
     save_file,
     save_json,
 )
-from src.ch04_rope.rope import (
-    LassoUnit,
-    create_rope,
-    default_knot_if_None,
-    lassounit_shop,
-)
+from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
 from src.ch08_plan_atom.atom_config import get_plan_dimens
 from src.ch08_plan_atom.atom_main import planatom_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_gut_path, create_moment_json_path
 from src.ch09_plan_lesson.delta import get_minimal_plandelta
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_main import (
     LessonUnit,
     get_lessonunit_from_dict,
@@ -685,7 +681,7 @@ def get_most_recent_spark_num(
 
 
 def etl_heard_raw_tables_to_moment_ote1_agg(conn_or_cursor: sqlite3_Connection):
-    """TODO Write out why this step is necessary"""
+    """Create Database Table that holds all spark_num to bud_time pairs. Include moment_rope and plan_name"""
     conn_or_cursor.execute(CREATE_MOMENT_OTE1_AGG_SQLSTR)
     conn_or_cursor.execute(INSERT_MOMENT_OTE1_AGG_FROM_HEARD_SQLSTR)
 
@@ -804,7 +800,7 @@ def etl_spark_plan_csvs_to_lesson_json(moment_mstr_dir: str):
                 spark_lesson = lessonunit_shop(
                     plan_name=plan_name,
                     face_name=None,
-                    moment_rope=moment_lasso.rope,
+                    moment_rope=moment_lasso.moment_rope,
                     spark_num=spark_num,
                 )
                 spark_dir = create_path(sparks_path, spark_num)
@@ -912,7 +908,7 @@ def _get_prev_spark_num_planunit(
     moment_mstr_dir, moment_lasso: LassoUnit, plan_name, prev_spark_num
 ) -> PlanUnit:
     if prev_spark_num is None:
-        return planunit_shop(plan_name, moment_lasso.rope)
+        return planunit_shop(plan_name, moment_lasso.moment_rope)
     prev_planspark_path = create_planspark_path(
         moment_mstr_dir, moment_lasso, plan_name, prev_spark_num
     )

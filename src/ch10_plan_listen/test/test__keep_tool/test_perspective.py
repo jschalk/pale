@@ -1,5 +1,6 @@
 from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch07_plan_logic.test._util.ch07_examples import get_planunit_with_4_levels
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import lessonfilehandler_shop
 from src.ch10_plan_listen.keep_tool import (
     get_dw_perspective_plan,
@@ -36,7 +37,8 @@ def test_get_dw_perspective_plan_ReturnsPlanWith_plan_nameSetToLessonFileHandler
     # ESTABLISH
     bob_planunit = get_planunit_with_4_levels()
     bob_planunit.set_plan_name(exx.bob)
-    bob_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.bob)
+    a23_lasso = lassounit_shop(exx.a23)
+    bob_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.bob)
     save_job_file(bob_lessonfilehandler.moment_mstr_dir, bob_planunit)
 
     # WHEN

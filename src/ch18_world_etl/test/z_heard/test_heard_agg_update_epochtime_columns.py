@@ -12,7 +12,7 @@ from src.ch18_world_etl.etl_sqlstr import (
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
     insert_mmtunit_special_c400_number as insert_c400_number,
-    insert_nabepoc_h_agg_otx_inx_time as insert_otx_inx_time,
+    insert_nabtime_h_agg_otx_inx_time as insert_otx_inx_time,
     select_mmtoffi_special_offi_time_inx as select_offi_time_inx,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
@@ -21,7 +21,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario0_MMTOFFI():
     # ESTABLISH
     mmtunit_h_agg_tablename = prime_tbl(kw.momentunit, "h", "agg")
-    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
+    nabtime_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
     mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
     c400_leap_length = get_c400_constants().c400_leap_length
     cte_tablename = f"spark_{kw.inx_epoch_diff}"
@@ -37,12 +37,12 @@ SELECT
   {kw.spark_num}
 , {kw.otx_time} - {kw.inx_time} AS {kw.inx_epoch_diff}
 , IFNULL({kw.c400_number} * {c400_leap_length}, {DEFAULT_EPOCH_LENGTH}) as {kw.epoch_length}
-FROM {nabepoc_h_agg_tablename}
+FROM {nabtime_h_agg_tablename}
 LEFT JOIN (
     SELECT {kw.moment_rope}, {kw.c400_number} 
     FROM {mmtunit_h_agg_tablename} 
     GROUP BY {kw.moment_rope}, {kw.c400_number}
-    ) x_moment ON x_moment.{kw.moment_rope} = {nabepoc_h_agg_tablename}.{kw.moment_rope}
+    ) x_moment ON x_moment.{kw.moment_rope} = {nabtime_h_agg_tablename}.{kw.moment_rope}
 )
 UPDATE {mmtoffi_h_agg_tablename}
 SET {kw.offi_time}_inx = mod({kw.offi_time}_otx + (
@@ -63,7 +63,7 @@ WHERE {mmtoffi_h_agg_tablename}.{kw.spark_num} IN (SELECT {kw.spark_num} FROM {c
 def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario1_MMTPAYY():
     # ESTABLISH
     mmtunit_h_agg_tablename = prime_tbl(kw.momentunit, "h", "agg")
-    nabepoc_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
+    nabtime_h_agg_tablename = prime_tbl(kw.nabu_timenum, "h", "agg")
     mmtpayy_h_agg_tablename = prime_tbl(kw.moment_paybook, "h", "agg")
     c400_leap_length = get_c400_constants().c400_leap_length
     cte_tablename = f"spark_{kw.inx_epoch_diff}"
@@ -79,12 +79,12 @@ SELECT
   {kw.spark_num}
 , {kw.otx_time} - {kw.inx_time} AS {kw.inx_epoch_diff}
 , IFNULL({kw.c400_number} * {c400_leap_length}, {DEFAULT_EPOCH_LENGTH}) as {kw.epoch_length}
-FROM {nabepoc_h_agg_tablename}
+FROM {nabtime_h_agg_tablename}
 LEFT JOIN (
     SELECT {kw.moment_rope}, {kw.c400_number} 
     FROM {mmtunit_h_agg_tablename} 
     GROUP BY {kw.moment_rope}, {kw.c400_number}
-    ) x_moment ON x_moment.{kw.moment_rope} = {nabepoc_h_agg_tablename}.{kw.moment_rope}
+    ) x_moment ON x_moment.{kw.moment_rope} = {nabtime_h_agg_tablename}.{kw.moment_rope}
 )
 UPDATE {mmtpayy_h_agg_tablename}
 SET {kw.tran_time}_inx = mod({kw.tran_time}_otx + (

@@ -1,9 +1,9 @@
 from os.path import exists as os_path_exists
 from pytest import raises as pytest_raises
-from src.ch04_rope.rope import lassounit_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_graphic import display_kegtree
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
     open_gut_file,
@@ -22,9 +22,9 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
-    save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue, None)
+    save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     sue_gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     texas_str = "Texas"
@@ -51,9 +51,9 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
     temp_dir_setup,
 ):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
-    save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue, None)
+    save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     sue_gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     texas_str = "Tex/as"
@@ -74,9 +74,9 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
 
 def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     # ESTABLISH
-    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), exx.a23, exx.sue, None)
-    save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.sue, None)
+    save_gut_file(env_dir(), sue_lessonfilehandler.default_gut_plan())
     sue_gut_plan = open_gut_file(env_dir(), a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     texas_str = "Texas"
@@ -107,9 +107,9 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     mstr_dir = env_dir()
-    sue_lessonfilehandler = lessonfilehandler_shop(mstr_dir, exx.a23, exx.sue, None)
-    save_gut_file(mstr_dir, sue_lessonfilehandler.default_gut_plan())
     a23_lasso = lassounit_shop(exx.a23)
+    sue_lessonfilehandler = lessonfilehandler_shop(mstr_dir, a23_lasso, exx.sue, None)
+    save_gut_file(mstr_dir, sue_lessonfilehandler.default_gut_plan())
     sue_gut_plan = open_gut_file(mstr_dir, a23_lasso, exx.sue)
     sue_gut_plan.add_personunit(exx.sue)
     sue_gut_plan.add_personunit(exx.bob)
@@ -152,7 +152,7 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
         moment_rope=exx.a23,
         plan_name=exx.sue,
         keep_ropes=sue_keep_ropes,
-        knot=sue_lessonfilehandler.knot,
+        knot=sue_lessonfilehandler.moment_lasso.knot,
     )
 
     # THEN

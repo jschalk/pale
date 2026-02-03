@@ -1,11 +1,12 @@
 from os.path import exists as os_path_exists, isdir as os_path_isdir
 from src.ch00_py.file_toolbox import create_path, get_json_filename, set_dir
 from src.ch01_allot.allot import default_grain_num_if_None
-from src.ch04_rope.rope import default_knot_if_None, lassounit_shop
+from src.ch04_rope.rope import default_knot_if_None
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson._ref.ch09_path import create_plan_dir_path
+from src.ch09_plan_lesson.lasso import lassounit_shop
 from src.ch09_plan_lesson.lesson_filehandler import (
     gut_file_exists,
     open_gut_file,

@@ -13,7 +13,7 @@ from src.ch00_py.file_toolbox import (
     save_json,
 )
 from src.ch01_allot.allot import default_grain_num_if_None, validate_pool_num
-from src.ch04_rope.rope import LassoUnit, lassounit_shop, validate_labelterm
+from src.ch04_rope.rope import validate_labelterm
 from src.ch07_plan_logic.plan_main import (
     PlanUnit,
     get_planunit_from_dict,
@@ -29,14 +29,8 @@ from src.ch09_plan_lesson._ref.ch09_path import (
     create_gut_path,
     create_lessons_dir_path,
 )
-from src.ch09_plan_lesson._ref.ch09_semantic_types import (
-    KnotTerm,
-    LabelTerm,
-    MomentRope,
-    PlanName,
-    RopeTerm,
-    default_knot_if_None,
-)
+from src.ch09_plan_lesson._ref.ch09_semantic_types import PlanName
+from src.ch09_plan_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch09_plan_lesson.lesson_main import (
     LessonUnit,
     create_lessonunit_from_files,
@@ -67,7 +61,7 @@ def open_gut_file(
     gut_path = create_gut_path(moment_mstr_dir, moment_lasso, plan_name)
     gut_plan = open_plan_file(gut_path)
     if gut_plan:
-        gut_plan.moment_rope = moment_lasso.rope
+        gut_plan.moment_rope = moment_lasso.moment_rope
     return gut_plan
 
 
@@ -90,8 +84,7 @@ class LessonFileMissingException(Exception):
 class LessonFileHandler:
     plan_name: PlanName = None
     moment_mstr_dir: str = None
-    moment_rope: MomentRope = None
-    knot: KnotTerm = None
+    moment_lasso: LassoUnit = None
     fund_pool: float = None
     fund_grain: float = None
     respect_grain: float = None
@@ -102,15 +95,16 @@ class LessonFileHandler:
     def set_dir_attrs(self):
         mstr_dir = self.moment_mstr_dir
         plan_name = self.plan_name
-        moment_lasso = lassounit_shop(self.moment_rope, self.knot)
-        self.atoms_dir = create_atoms_dir_path(mstr_dir, moment_lasso, plan_name)
-        self.lessons_dir = create_lessons_dir_path(mstr_dir, moment_lasso, plan_name)
+        self.atoms_dir = create_atoms_dir_path(mstr_dir, self.moment_lasso, plan_name)
+        self.lessons_dir = create_lessons_dir_path(
+            mstr_dir, self.moment_lasso, plan_name
+        )
 
     def default_gut_plan(self) -> PlanUnit:
         x_planunit = planunit_shop(
             plan_name=self.plan_name,
-            moment_rope=self.moment_rope,
-            knot=self.knot,
+            moment_rope=self.moment_lasso.moment_rope,
+            knot=self.moment_lasso.knot,
             fund_pool=self.fund_pool,
             fund_grain=self.fund_grain,
             respect_grain=self.respect_grain,
@@ -154,7 +148,7 @@ class LessonFileHandler:
         delete_dir(self.atom_file_path(atom_number))
 
     def _get_plan_from_atom_files(self) -> PlanUnit:
-        x_plan = planunit_shop(self.plan_name, self.moment_rope)
+        x_plan = planunit_shop(self.plan_name, self.moment_lasso.moment_rope)
         if self.h_atom_file_exists(self.get_max_atom_file_number()):
             x_atom_files = get_dir_file_strs(self.atoms_dir, delete_extensions=True)
             sorted_atom_filenames = sorted(list(x_atom_files.keys()))
@@ -288,19 +282,17 @@ class LessonFileHandler:
 
     def _create_initial_lesson_files_from_gut(self):
         x_lessonunit = self._default_lessonunit()
-        moment_lasso = lassounit_shop(self.moment_rope)
         x_lessonunit._plandelta.add_all_different_planatoms(
             before_plan=self.default_gut_plan(),
             after_plan=open_gut_file(
-                self.moment_mstr_dir, moment_lasso, self.plan_name
+                self.moment_mstr_dir, self.moment_lasso, self.plan_name
             ),
         )
         x_lessonunit.save_files()
 
     def initialize_lesson_gut_files(self):
-        moment_lasso = lassounit_shop(self.moment_rope)
         x_gut_file_exists = gut_file_exists(
-            self.moment_mstr_dir, moment_lasso, self.plan_name
+            self.moment_mstr_dir, self.moment_lasso, self.plan_name
         )
         lesson_file_exists = self.hub_lesson_file_exists(init_lesson_id())
         if x_gut_file_exists is False and lesson_file_exists is False:
@@ -311,8 +303,9 @@ class LessonFileHandler:
             self._create_initial_lesson_files_from_gut()
 
     def append_lessons_to_gut_file(self) -> PlanUnit:
-        moment_lasso = lassounit_shop(self.moment_rope)
-        gut_plan = open_gut_file(self.moment_mstr_dir, moment_lasso, self.plan_name)
+        gut_plan = open_gut_file(
+            self.moment_mstr_dir, self.moment_lasso, self.plan_name
+        )
         gut_plan = self._merge_any_lessons(gut_plan)
         save_gut_file(self.moment_mstr_dir, gut_plan)
         return gut_plan
@@ -320,19 +313,19 @@ class LessonFileHandler:
 
 def lessonfilehandler_shop(
     moment_mstr_dir: str,
-    moment_rope: MomentRope,
+    moment_lasso: LassoUnit,
     plan_name: PlanName = None,
-    knot: KnotTerm = None,
     fund_pool: float = None,
     fund_grain: float = None,
     respect_grain: float = None,
     mana_grain: float = None,
 ) -> LessonFileHandler:
+    if not moment_lasso:
+        moment_lasso = lassounit_shop(None, None)
     x_lessonfilehandler = LessonFileHandler(
         moment_mstr_dir=moment_mstr_dir,
-        moment_rope=moment_rope,
-        plan_name=validate_labelterm(plan_name, knot),
-        knot=default_knot_if_None(knot),
+        moment_lasso=moment_lasso,
+        plan_name=validate_labelterm(plan_name, moment_lasso.knot),
         fund_pool=validate_pool_num(fund_pool),
         fund_grain=default_grain_num_if_None(fund_grain),
         respect_grain=default_grain_num_if_None(respect_grain),
