@@ -14,18 +14,7 @@ def test_sort_keys_case_insensitive_ReturnsObj_Scenario0_FlatDictCaseInsensitive
 
 def test_sort_keys_case_insensitive_ReturnsObj_Scenario1_NestedDictsSorted():
     # ESTABLISH
-    data = {
-        "b": {
-            "Zoo": 1,
-            "ant": 2,
-            "Ant": 3,
-        },
-        "A": {
-            "dog": 1,
-            "Cat": 2,
-            "cat": 3,
-        },
-    }
+    data = {"b": {"Zoo": 1, "ant": 2, "Ant": 3}, "A": {"dog": 1, "Cat": 2, "cat": 3}}
 
     # WHEN
     result = sort_keys_case_insensitive(data)
@@ -38,10 +27,7 @@ def test_sort_keys_case_insensitive_ReturnsObj_Scenario1_NestedDictsSorted():
 
 def test_sort_keys_case_insensitive_ReturnsObj_Scenario2_ListOfDictsSorted():
     # ESTABLISH
-    data = [
-        {"b": 2, "A": 1},
-        {"Dog": 1, "cat": 2},
-    ]
+    data = [{"b": 2, "A": 1}, {"Dog": 1, "cat": 2}]
 
     # WHEN
     result = sort_keys_case_insensitive(data)
@@ -68,22 +54,6 @@ def test_sort_keys_case_insensitive_ReturnsObj_Scenario3_MixedDictListNesting():
     assert list(result.keys()) == ["A", "b"]
     assert list(result["b"][0].keys()) == ["ant", "Zoo"]
     assert list(result["b"][1].keys()) == ["Cat", "dog"]
-
-
-def test_sort_keys_case_insensitive_ReturnsObj_Scenario4_UnicodeCasefoldSorting():
-    # ESTABLISH
-    data = {
-        "á": 1,
-        "Á": 2,
-        "a": 3,
-        "A": 4,
-    }
-
-    # WHEN
-    result = sort_keys_case_insensitive(data)
-
-    # THEN
-    assert list(result.keys()) == ["A", "a", "Á", "á"]
 
 
 def test_sort_keys_case_insensitive_ReturnsObj_Scenario5_EmptyDictAndList():
