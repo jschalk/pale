@@ -95,5 +95,10 @@ def resave_chapter_and_keyword_json_files():
     keywords_description_path = create_src_keywords_description_path("src")
     ex_strs_json_path = create_src_example_strs_path("src")
     save_json(keywords_main_json_path, None, open_json(keywords_main_json_path))
-    save_json(keywords_description_path, None, open_json(keywords_description_path))
+    save_json(
+        keywords_description_path,
+        None,
+        open_json(keywords_description_path),
+        keys_case_insensitive=True,
+    )
     save_json(ex_strs_json_path, None, open_json(ex_strs_json_path))

@@ -155,7 +155,7 @@ def test_open_file_OpensFilesWithOnly_dest_dir(
     assert open_file(dest_dir=x2_file_path) == x2_file_str
 
 
-def test_save_json_SetsFile(temp_dir_setup):
+def test_save_json_Scenario0_SetsFile(temp_dir_setup):
     # ESTABLISH
     env_dir = get_temp_dir()
     bob_str = "bob"
@@ -174,6 +174,44 @@ def test_save_json_SetsFile(temp_dir_setup):
     print(f"{generated_dict=}")
     expected_dict = {"users": {"bob": 1, "Yao": 2}}
     assert generated_dict == expected_dict
+
+
+def test_save_json_Scenario1_SetsFile_sort_keys_case_insensitive_False(temp_dir_setup):
+    # ESTABLISH
+    env_dir = get_temp_dir()
+    x_filename = "x1.json"
+    x_dict = {"apple": 1, "Banana": 2, "Apricot": 3, "banana": 4, "Apple": 5}
+    print(f"{env_dir=} {x_filename=}")
+    assert not os_path_exist(create_path(env_dir, x_filename))
+
+    # WHEN
+    save_json(env_dir, x_filename, x_dict, keys_case_insensitive=False)
+
+    # THEN
+    assert os_path_exist(create_path(env_dir, x_filename))
+    generated_dict = get_dict_from_json(open_file(env_dir, x_filename))
+    print(f"{generated_dict=}")
+    expected_keys_list = ["Apple", "Apricot", "Banana", "apple", "banana"]
+    assert list(generated_dict.keys()) == expected_keys_list
+
+
+def test_save_json_Scenario2_SetsFile_sort_keys_case_insensitive_True(temp_dir_setup):
+    # ESTABLISH
+    env_dir = get_temp_dir()
+    x_filename = "Fay_bob.json"
+    x_dict = {"apple": 1, "Banana": 2, "Apricot": 3, "banana": 4, "Apple": 5}
+    print(f"{env_dir=} {x_filename=}")
+    assert not os_path_exist(create_path(env_dir, x_filename))
+
+    # WHEN
+    save_json(env_dir, x_filename, x_dict, keys_case_insensitive=True)
+
+    # THEN
+    assert os_path_exist(create_path(env_dir, x_filename))
+    generated_dict = get_dict_from_json(open_file(env_dir, x_filename))
+    print(f"{generated_dict=}")
+    expected_keys_list = ["Apple", "apple", "Apricot", "Banana", "banana"]
+    assert list(generated_dict.keys()) == expected_keys_list
 
 
 def test_open_json_ReturnsObj(

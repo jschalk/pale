@@ -198,18 +198,37 @@ def del_in_nested_dict(x_dict: dict, x_keylist: list):
             x_dict.pop(parent_keylist[0])
 
 
-def normalize_and_compact_json(data: dict) -> str:
-    normalized = json_loads(json_dumps(data, sort_keys=True))
+def sort_keys_case_insensitive(obj):
+    if isinstance(obj, dict):
+        return {
+            k: sort_keys_case_insensitive(v)
+            for k, v in sorted(
+                obj.items(), key=lambda item: (item[0].casefold(), item[0])
+            )
+        }
+    elif isinstance(obj, list):
+        return [sort_keys_case_insensitive(v) for v in obj]
+    else:
+        return obj
+
+
+def normalize_and_compact_json(data: dict, keys_case_insensitive: bool) -> str:
+    json_str = json_dumps(data, sort_keys=True)
+    if keys_case_insensitive:
+        x_dict = sort_keys_case_insensitive(data)
+        json_str = json_dumps(x_dict)
+
+    normalized = json_loads(json_str)
     formatter = compact_json_Formatter()
     formatter.indent_spaces = 2
     formatter.max_inline_complexity = 10  # Can be adjusted
     return formatter.serialize(normalized)
 
 
-def get_json_from_dict(x_dict: dict) -> str:
+def get_json_from_dict(x_dict: dict, keys_case_insensitive: bool = False) -> str:
     """Given serializable dict return JSON."""
 
-    return normalize_and_compact_json(x_dict)
+    return normalize_and_compact_json(x_dict, keys_case_insensitive)
 
 
 def get_dict_from_json(x_json: str) -> dict[str,]:
@@ -457,54 +476,6 @@ def get_max_key(x_dict: dict) -> any:
         return None
     max_value = max(x_dict.values())  # Find max value
     return min((k for k in x_dict if x_dict[k] == max_value), key=lambda x: x)
-
-
-def mark_keys(
-    x_dict: dict, marking_key: str, mark_text: str = None, max_depth=None, _depth=0
-):
-    """
-    Recursively renames keys in nested dictionaries if their value is a dict containing `marking_key`.
-    Appends ' (MARK)' to the key name and removes the `marking_key` from the inner dict.
-
-    Args:
-        x_dict (dict): The dictionary to process.
-        marking_key (str): The key to detect in nested dictionaries.
-        mark_text (str or None): Optional override for the mark text. Defaults to value of `marking_key`.
-        max_depth (int or None): How deep to go. None means unlimited.
-        _depth (int): Used for recursion tracking.
-
-    Returns:
-        dict: The transformed dictionary.
-    """
-    if not isinstance(x_dict, dict):
-        return x_dict  # Safety check, shouldn't happen if inputs are valid
-
-    new_dict = {}
-
-    for key, value in x_dict.items():
-        new_key = key
-        new_value = value
-
-        if isinstance(value, dict):
-            if marking_key in value:
-                if not mark_text:
-                    new_key = f"{key} ({value.get(marking_key)})"
-                else:
-                    new_key = f"{key} ({mark_text})"
-
-                value = {k: v for k, v in value.items() if k != marking_key}
-
-            # Recurse if within depth
-            if max_depth is None or _depth + 1 < max_depth:
-                new_value = mark_keys(
-                    value, marking_key, mark_text, max_depth, _depth + 1
-                )
-            else:
-                new_value = value
-
-        new_dict[new_key] = new_value
-
-    return new_dict
 
 
 def get_serializable_dict(obj):
