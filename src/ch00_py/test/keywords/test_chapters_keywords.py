@@ -61,9 +61,11 @@ def test_get_keywords_src_config_ReturnsObj():
 
     # THEN
     assert keywords_config
+    req_config_keys = {"init_chapter", "semantic_type"}
     for keyword, ref_dict in keywords_config.items():
-        # print(f"{keyword=} {ref_dict=}")
-        assert set(ref_dict.keys()).issuperset({"init_chapter"}), keyword
+        ref_keys = set(ref_dict.keys())
+        print(f"{keyword=} {ref_dict=}")
+        assert req_config_keys.issuperset(ref_keys), keyword
     example_strs_keys = set(get_example_strs_config().keys())
     keys_in_both = example_strs_keys.intersection(set(keywords_config.keys()))
     assert not keys_in_both

@@ -15,10 +15,13 @@ from src.ch00_py.file_toolbox import (
 )
 from src.ch00_py.keyword_class_builder import (
     create_src_example_strs_path,
-    create_src_keywords_path,
+    create_src_keywords_main_path,
 )
 from src.ch04_rope._ref.ch04_doc_builder import get_ropeterm_description_md
 from src.ch17_idea._ref.ch17_doc_builder import get_brick_formats_md, get_idea_brick_mds
+from src.ch98_docs_builder.keyword_description_builder import (
+    create_src_keywords_description_path,
+)
 
 
 def get_func_names_and_class_bases_from_file(
@@ -88,7 +91,9 @@ def resave_chapter_and_keyword_json_files():
         for x_dir, x_filename in json_file_tuples:
             json_dir = create_path(chapter_dir, x_dir)
             save_json(json_dir, x_filename, open_json(json_dir, x_filename))
-    keywords_json_path = create_src_keywords_path("src")
+    keywords_main_json_path = create_src_keywords_main_path("src")
+    keywords_description_path = create_src_keywords_description_path("src")
     ex_strs_json_path = create_src_example_strs_path("src")
-    save_json(keywords_json_path, None, open_json(keywords_json_path))
+    save_json(keywords_main_json_path, None, open_json(keywords_main_json_path))
+    save_json(keywords_description_path, None, open_json(keywords_description_path))
     save_json(ex_strs_json_path, None, open_json(ex_strs_json_path))
