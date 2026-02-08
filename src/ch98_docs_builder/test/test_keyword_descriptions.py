@@ -26,8 +26,5 @@ def test_get_keywords_description_ReturnsObj():
     assert keywords_description
     keywords_config = get_keywords_src_config()
     assert keywords_description.keys() == keywords_config.keys()
-    req_config_keys = {"description"}
-    for keyword, ref_dict in keywords_description.items():
-        ref_keys = set(ref_dict.keys())
-        print(f"{keyword=} {ref_dict=}")
-        assert req_config_keys == ref_keys, keyword
+    for keyword, description in keywords_description.items():
+        assert description, keyword
