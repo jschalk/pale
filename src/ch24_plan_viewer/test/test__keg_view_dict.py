@@ -39,7 +39,7 @@ def test_get_keg_view_dict_ReturnsObj_Scenario0_EmptyKeg():
         kw.parent_rope,
         kw.kids,
         kw.star,
-        kw.uid,
+        kw.keg_uid,
         kw.awardunits,
         kw.reasonunits,
         kw.laborunit,
@@ -79,7 +79,7 @@ def test_get_keg_view_dict_ReturnsObj_Scenario0_EmptyKeg():
         kw.stop_calc,
         kw.keg_fund_total,
     }
-    assert casa_dict.get(kw.healerunit) == {"_healer_names": []}
+    assert casa_dict.get(kw.healerunit) == {"healer_names": []}
 
 
 def test_get_keg_view_dict_ReturnsObj_Scenario1_laborunit():

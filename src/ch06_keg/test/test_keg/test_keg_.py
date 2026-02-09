@@ -16,7 +16,7 @@ def test_KegUnit_Exists():
     assert x_kegunit.kids is None
     assert x_kegunit.star is None
     assert x_kegunit.keg_label is None
-    assert x_kegunit.uid is None
+    assert x_kegunit.keg_uid is None
     assert x_kegunit.reasonunits is None
     assert x_kegunit.reasonheirs is None  # calculated field
     assert x_kegunit.laborunit is None
@@ -77,7 +77,7 @@ def test_KegUnit_Exists():
         kw.reasonheirs,
         kw.stop_calc,
         kw.task,
-        kw.uid,
+        kw.keg_uid,
         kw.addin,
         kw.awardunits,
         kw.begin,
@@ -140,7 +140,7 @@ def test_kegunit_shop_ReturnsObj_WithOneParameter():
     assert x_kegunit.kids == {}
     assert x_kegunit.star == 1
     assert x_kegunit.keg_label == exx.casa
-    assert not x_kegunit.uid
+    assert not x_kegunit.keg_uid
     assert not x_kegunit.begin
     assert not x_kegunit.close
     assert not x_kegunit.addin

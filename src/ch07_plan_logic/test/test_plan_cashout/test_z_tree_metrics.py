@@ -21,7 +21,7 @@ def test_PlanUnit_get_tree_metrics_Exists():
     assert zia_plan_tree_metrics.awardunits_metrics is not None
 
 
-def test_PlanUnit_get_tree_metrics_get_keg_uid_max_GetsMaxKegUID():
+def test_PlanUnit_get_tree_metrics_get_keg_keg_uid_max_GetsMaxKegkeg_uid():
     # ESTABLISH
     yao_plan = planunit_v001()
 
@@ -29,11 +29,11 @@ def test_PlanUnit_get_tree_metrics_get_keg_uid_max_GetsMaxKegUID():
     tree_metrics_x = yao_plan.get_tree_metrics()
 
     # THEN
-    assert tree_metrics_x.uid_max == 279
-    assert yao_plan.get_keg_uid_max() == 279
+    assert tree_metrics_x.keg_uid_max == 279
+    assert yao_plan.get_keg_keg_uid_max() == 279
 
 
-def test_PlanUnit_get_tree_metrics_SetsBoolean_all_keg_uids_are_unique():
+def test_PlanUnit_get_tree_metrics_SetsBoolean_all_keg_keg_uids_are_unique():
     # ESTABLISH
     yao_plan = planunit_v001()
 
@@ -41,42 +41,42 @@ def test_PlanUnit_get_tree_metrics_SetsBoolean_all_keg_uids_are_unique():
     tree_metrics_x = yao_plan.get_tree_metrics()
 
     # THEN
-    assert tree_metrics_x.all_keg_uids_are_unique is False
-    assert len(tree_metrics_x.uid_dict) == 219
+    assert tree_metrics_x.all_keg_keg_uids_are_unique is False
+    assert len(tree_metrics_x.keg_uid_dict) == 219
 
 
-def test_PlanUnit_get_tree_set_all_keg_uids_unique():
+def test_PlanUnit_get_tree_set_all_keg_keg_uids_unique():
     # ESTABLISH
     yao_plan = planunit_v001()
     tree_metrics_before = yao_plan.get_tree_metrics()
-    assert len(tree_metrics_before.uid_dict) == 219
+    assert len(tree_metrics_before.keg_uid_dict) == 219
 
     # WHEN
-    yao_plan.set_all_keg_uids_unique()
+    yao_plan.set_all_keg_keg_uids_unique()
 
     # THEN
     tree_metrics_after = yao_plan.get_tree_metrics()
-    # for uid, uid_count in tree_metrics_after.uid_dict.items():
-    #     # print(f"{uid=} {uid_count=} {len(yao_plan.get_keg_dict())=}")
-    #     print(f"{uid=} {uid_count=} ")
-    assert len(tree_metrics_after.uid_dict) == 252
-    assert tree_metrics_after.all_keg_uids_are_unique is True
+    # for keg_uid, keg_uid_count in tree_metrics_after.keg_uid_dict.items():
+    #     # print(f"{keg_uid=} {keg_uid_count=} {len(yao_plan.get_keg_dict())=}")
+    #     print(f"{keg_uid=} {keg_uid_count=} ")
+    assert len(tree_metrics_after.keg_uid_dict) == 252
+    assert tree_metrics_after.all_keg_keg_uids_are_unique is True
 
 
-def test_PlanUnit_set_all_keg_uids_unique_SetsUIDs():
+def test_PlanUnit_set_all_keg_keg_uids_unique_Setskeg_uids():
     # ESTABLISH
     zia_plan = planunit_shop(plan_name=exx.zia)
     sports_str = "sports"
-    zia_plan.set_l1_keg(kegunit_shop(exx.swim, uid=None))
-    zia_plan.set_l1_keg(kegunit_shop(sports_str, uid=2))
+    zia_plan.set_l1_keg(kegunit_shop(exx.swim, keg_uid=None))
+    zia_plan.set_l1_keg(kegunit_shop(sports_str, keg_uid=2))
     swim_rope = zia_plan.make_l1_rope(exx.swim)
-    assert zia_plan.get_keg_obj(swim_rope).uid is None
+    assert zia_plan.get_keg_obj(swim_rope).keg_uid is None
 
     # WHEN
-    zia_plan.set_all_keg_uids_unique()
+    zia_plan.set_all_keg_keg_uids_unique()
 
     # THEN
-    assert zia_plan.get_keg_obj(swim_rope).uid is not None
+    assert zia_plan.get_keg_obj(swim_rope).keg_uid is not None
 
 
 def test_PlanUnit_get_tree_metrics_ReturnsANone_pledge_KegRopeTerm():

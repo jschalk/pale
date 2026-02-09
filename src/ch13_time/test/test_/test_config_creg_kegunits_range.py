@@ -22,11 +22,11 @@ def test_PlanUnit_set_keg_dict_SetsAll_range_inheritors():
     sun_rope = sue_planunit.make_rope(week_rope, get_sun())
     day_rope = sue_planunit.make_rope(creg_rope, kw.day)
     c400_leap_rope = sue_planunit.make_rope(creg_rope, kw.c400_leap)
-    c400_clean_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_clean)
-    c100_clean_rope = sue_planunit.make_rope(c400_clean_rope, kw.c100)
+    c400_core_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_core)
+    c100_clean_rope = sue_planunit.make_rope(c400_core_rope, kw.c100)
     yr4_leap_rope = sue_planunit.make_rope(c100_clean_rope, kw.yr4_leap)
-    yr4_clean_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_clean)
-    year_rope = sue_planunit.make_rope(yr4_clean_rope, kw.year)
+    yr4_core_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_core)
+    year_rope = sue_planunit.make_rope(yr4_core_rope, kw.year)
     jan_rope = sue_planunit.make_rope(year_rope, "January")
 
     sue_planunit = add_time_creg_kegunit(sue_planunit)
@@ -44,10 +44,10 @@ def test_PlanUnit_set_keg_dict_SetsAll_range_inheritors():
     assert week_rope in sue_planunit.range_inheritors
     assert sun_rope in sue_planunit.range_inheritors
     assert c400_leap_rope in sue_planunit.range_inheritors
-    assert c400_clean_rope in sue_planunit.range_inheritors
+    assert c400_core_rope in sue_planunit.range_inheritors
     assert c100_clean_rope in sue_planunit.range_inheritors
     assert yr4_leap_rope in sue_planunit.range_inheritors
-    assert yr4_clean_rope in sue_planunit.range_inheritors
+    assert yr4_core_rope in sue_planunit.range_inheritors
     assert year_rope in sue_planunit.range_inheritors
     assert jan_rope in sue_planunit.range_inheritors
 
@@ -167,11 +167,11 @@ def test_PlanUnit_set_kegtree_range_attrs_Sets_c400_keg_gogo_calc_stop_calc():
     time_rope = sue_planunit.make_l1_rope(kw.time)
     creg_rope = sue_planunit.make_rope(time_rope, kw.creg)
     c400_leap_rope = sue_planunit.make_rope(creg_rope, kw.c400_leap)
-    # c400_clean_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_clean)
-    # c100_clean_rope = sue_planunit.make_rope(c400_clean_rope, kw.c100)
+    # c400_core_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_core)
+    # c100_clean_rope = sue_planunit.make_rope(c400_core_rope, kw.c100)
     # yr4_leap_rope = sue_planunit.make_rope(c100_clean_rope, kw.yr4_leap)
-    # yr4_clean_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_clean)
-    # year_rope = sue_planunit.make_rope(yr4_clean_rope, kw.year)
+    # yr4_core_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_core)
+    # year_rope = sue_planunit.make_rope(yr4_core_rope, kw.year)
     sue_planunit = add_time_creg_kegunit(sue_planunit)
     sue_planunit._set_keg_dict()
     print(f"    {c400_leap_rope=}")
@@ -200,11 +200,11 @@ def test_PlanUnit_set_kegtree_range_attrs_Sets_years_keg_gogo_calc_stop_calc():
     time_rope = sue_planunit.make_l1_rope(kw.time)
     creg_rope = sue_planunit.make_rope(time_rope, kw.creg)
     c400_leap_rope = sue_planunit.make_rope(creg_rope, kw.c400_leap)
-    c400_clean_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_clean)
-    c100_clean_rope = sue_planunit.make_rope(c400_clean_rope, kw.c100)
+    c400_core_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_core)
+    c100_clean_rope = sue_planunit.make_rope(c400_core_rope, kw.c100)
     yr4_leap_rope = sue_planunit.make_rope(c100_clean_rope, kw.yr4_leap)
-    yr4_clean_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_clean)
-    year_rope = sue_planunit.make_rope(yr4_clean_rope, kw.year)
+    yr4_core_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_core)
+    year_rope = sue_planunit.make_rope(yr4_core_rope, kw.year)
     sue_planunit = add_time_creg_kegunit(sue_planunit)
     sue_planunit._set_keg_dict()
     print(f"    {year_rope=}")
@@ -220,17 +220,17 @@ def test_PlanUnit_set_kegtree_range_attrs_Sets_years_keg_gogo_calc_stop_calc():
     # THEN
     assert sue_planunit.get_keg_obj(creg_rope).gogo_calc == 0
     assert sue_planunit.get_keg_obj(c400_leap_rope).gogo_calc == 0
-    assert sue_planunit.get_keg_obj(c400_clean_rope).gogo_calc == 0
+    assert sue_planunit.get_keg_obj(c400_core_rope).gogo_calc == 0
     assert sue_planunit.get_keg_obj(c100_clean_rope).gogo_calc == 0
     assert sue_planunit.get_keg_obj(yr4_leap_rope).gogo_calc == 0
-    assert sue_planunit.get_keg_obj(yr4_clean_rope).gogo_calc == 0
+    assert sue_planunit.get_keg_obj(yr4_core_rope).gogo_calc == 0
     assert sue_planunit.get_keg_obj(year_rope).gogo_calc == 0
     assert sue_planunit.get_keg_obj(creg_rope).stop_calc == 1472657760
     assert sue_planunit.get_keg_obj(c400_leap_rope).stop_calc == 210379680
-    assert sue_planunit.get_keg_obj(c400_clean_rope).stop_calc == 210378240
+    assert sue_planunit.get_keg_obj(c400_core_rope).stop_calc == 210378240
     assert sue_planunit.get_keg_obj(c100_clean_rope).stop_calc == 52594560
     assert sue_planunit.get_keg_obj(yr4_leap_rope).stop_calc == 2103840
-    assert sue_planunit.get_keg_obj(yr4_clean_rope).stop_calc == 2102400
+    assert sue_planunit.get_keg_obj(yr4_core_rope).stop_calc == 2102400
     assert sue_planunit.get_keg_obj(year_rope).stop_calc == 525600
 
     assert year_keg.denom == 525600

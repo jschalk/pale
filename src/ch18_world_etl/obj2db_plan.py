@@ -456,7 +456,7 @@ def insert_job_plnheal(
         "plan_name": x_objkeysholder.plan_name,
         "keg_rope": x_objkeysholder.rope,
     }
-    for healer_name in sorted(x_healer._healer_names):
+    for healer_name in sorted(x_healer.healer_names):
         x_dict["healer_name"] = healer_name
         insert_sqlstr = create_plnheal_metrics_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
@@ -1118,7 +1118,7 @@ def insert_h_agg_plnheal(
         "plan_name": x_objkeysholder.plan_name,
         "keg_rope": x_objkeysholder.rope,
     }
-    for healer_name in sorted(x_healer._healer_names):
+    for healer_name in sorted(x_healer.healer_names):
         x_dict["healer_name"] = healer_name
         insert_sqlstr = create_plnheal_h_put_agg_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)

@@ -78,10 +78,10 @@ def test_C400Constants_Exists():
     # THEN
     assert x_c400_constants.day_length == "x1"
     assert x_c400_constants.c400_leap_length == "x2"
-    assert x_c400_constants.c400_clean_length == "x3"
+    assert x_c400_constants.c400_core_length == "x3"
     assert x_c400_constants.c100_length == "x4"
     assert x_c400_constants.yr4_leap_length == "x5"
-    assert x_c400_constants.yr4_clean_length == "x6"
+    assert x_c400_constants.yr4_core_length == "x6"
     assert x_c400_constants.year_length == "x7"
 
 
@@ -92,10 +92,10 @@ def test_get_c400_constants_ReturnsObj():
     # THEN
     assert x_c400_constants.day_length == 1440
     assert x_c400_constants.c400_leap_length == 210379680
-    assert x_c400_constants.c400_clean_length == 210378240
+    assert x_c400_constants.c400_core_length == 210378240
     assert x_c400_constants.c100_length == 52594560
     assert x_c400_constants.yr4_leap_length == 2103840
-    assert x_c400_constants.yr4_clean_length == 2102400
+    assert x_c400_constants.yr4_core_length == 2102400
     assert x_c400_constants.year_length == 525600
 
 
@@ -390,11 +390,11 @@ def test_get_year_rope_ReturnsObj():
     time_rope = sue_planunit.make_l1_rope(kw.time)
     fay_rope = sue_planunit.make_rope(time_rope, epoch_fay_str)
     c400_leap_rope = sue_planunit.make_rope(fay_rope, kw.c400_leap)
-    c400_clean_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_clean)
-    c100_rope = sue_planunit.make_rope(c400_clean_rope, kw.c100)
+    c400_core_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_core)
+    c100_rope = sue_planunit.make_rope(c400_core_rope, kw.c100)
     yr4_leap_rope = sue_planunit.make_rope(c100_rope, kw.yr4_leap)
-    yr4_clean_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_clean)
-    year_rope = sue_planunit.make_rope(yr4_clean_rope, kw.year)
+    yr4_core_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_core)
+    year_rope = sue_planunit.make_rope(yr4_core_rope, kw.year)
 
     # WHEN / THEN
     assert year_rope == get_year_rope(sue_planunit, epoch_fay_str)

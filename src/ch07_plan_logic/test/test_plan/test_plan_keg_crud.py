@@ -323,21 +323,21 @@ def test_PlanUnit_edit_keg_attr_SetNestedKegUnitAttr_Scenario00_Star():
     assert new_star == 23
 
 
-def test_PlanUnit_edit_keg_attr_SetNestedKegUnitAttr_Scenario01_uid():
+def test_PlanUnit_edit_keg_attr_SetNestedKegUnitAttr_Scenario01_keg_uid():
     # ESTABLISH:
     sue_plan = get_planunit_with_4_levels()
     casa_rope = sue_plan.make_l1_rope(exx.casa)
-    # uid: int = None,
-    sue_plan.kegroot.kids[exx.casa].uid = 34
-    x_uid = sue_plan.kegroot.kids[exx.casa].uid
-    assert x_uid == 34
+    # keg_uid: int = None,
+    sue_plan.kegroot.kids[exx.casa].keg_uid = 34
+    x_keg_uid = sue_plan.kegroot.kids[exx.casa].keg_uid
+    assert x_keg_uid == 34
 
     # WHEN
-    sue_plan.edit_keg_attr(casa_rope, uid=23)
+    sue_plan.edit_keg_attr(casa_rope, keg_uid=23)
 
     # THEN
-    uid_new = sue_plan.kegroot.kids[exx.casa].uid
-    assert uid_new == 23
+    keg_uid_new = sue_plan.kegroot.kids[exx.casa].keg_uid
+    assert keg_uid_new == 23
 
 
 def test_PlanUnit_edit_keg_attr_SetNestedKegUnitAttr_Scenario02_begin_close():

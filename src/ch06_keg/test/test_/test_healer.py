@@ -7,11 +7,11 @@ def test_HealerUnit_Exists():
     run_healer_names = {exx.run}
 
     # WHEN
-    x_healerunit = HealerUnit(_healer_names=run_healer_names)
+    x_healerunit = HealerUnit(healer_names=run_healer_names)
 
     # THEN
     assert x_healerunit
-    assert x_healerunit._healer_names == run_healer_names
+    assert x_healerunit.healer_names == run_healer_names
 
 
 def test_healerunit_shop_ReturnsWithCorrectAttributes_v1():
@@ -19,11 +19,11 @@ def test_healerunit_shop_ReturnsWithCorrectAttributes_v1():
     run_healer_names = {exx.run}
 
     # WHEN
-    x_healerunit = healerunit_shop(_healer_names=run_healer_names)
+    x_healerunit = healerunit_shop(healer_names=run_healer_names)
 
     # THEN
     assert x_healerunit
-    assert x_healerunit._healer_names == run_healer_names
+    assert x_healerunit.healer_names == run_healer_names
 
 
 def test_healerunit_shop_ifEmptyReturnsWithCorrectAttributes():
@@ -32,14 +32,14 @@ def test_healerunit_shop_ifEmptyReturnsWithCorrectAttributes():
 
     # THEN
     assert x_healerunit
-    assert x_healerunit._healer_names == set()
+    assert x_healerunit.healer_names == set()
 
 
 def test_HealerUnit_to_dict_ReturnsDictWithSingle_group_title():
     # ESTABLISH
     bob_healer_name = "Bob"
     run_healer_names = {bob_healer_name}
-    x_healerunit = healerunit_shop(_healer_names=run_healer_names)
+    x_healerunit = healerunit_shop(healer_names=run_healer_names)
 
     # WHEN
     obj_dict = x_healerunit.to_dict()
@@ -55,13 +55,13 @@ def test_HealerUnit_to_dict_ReturnsDictWithSingle_group_title():
 def test_HealerUnit_set_healer_name_Sets_healer_names_v1():
     # ESTABLISH
     x_healerunit = healerunit_shop()
-    assert len(x_healerunit._healer_names) == 0
+    assert len(x_healerunit.healer_names) == 0
 
     # WHEN
     x_healerunit.set_healer_name(x_healer_name=exx.yao)
 
     # THEN
-    assert len(x_healerunit._healer_names) == 1
+    assert len(x_healerunit.healer_names) == 1
 
 
 def test_HealerUnit_del_healer_name_Deletes_healer_names_v1():
@@ -69,13 +69,13 @@ def test_HealerUnit_del_healer_name_Deletes_healer_names_v1():
     x_healerunit = healerunit_shop()
     x_healerunit.set_healer_name(x_healer_name=exx.yao)
     x_healerunit.set_healer_name(x_healer_name=exx.sue)
-    assert len(x_healerunit._healer_names) == 2
+    assert len(x_healerunit.healer_names) == 2
 
     # WHEN
     x_healerunit.del_healer_name(x_healer_name=exx.sue)
 
     # THEN
-    assert len(x_healerunit._healer_names) == 1
+    assert len(x_healerunit.healer_names) == 1
 
 
 def test_HealerUnit_healer_name_exists_ReturnsObj():

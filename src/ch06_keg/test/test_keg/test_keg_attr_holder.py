@@ -10,7 +10,7 @@ def test_KegAttrHolder_Exists():
 
     # THEN
     assert new_obj.star is None
-    assert new_obj.uid is None
+    assert new_obj.keg_uid is None
     assert new_obj.reason is None
     assert new_obj.reason_context is None
     assert new_obj.reason_case is None
@@ -35,7 +35,7 @@ def test_KegAttrHolder_Exists():
     assert new_obj.is_expanded is None
     assert set(new_obj.__dict__.keys()) == {
         kw.star,
-        kw.uid,
+        kw.keg_uid,
         "reason",
         "reason_context",
         "reason_case",

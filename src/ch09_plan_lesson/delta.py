@@ -378,7 +378,7 @@ class PlanDelta:
             )
             self.add_planatom_keg_healerunit_insert(
                 keg_rope=insert_keg_rope,
-                insert_healerunit_healer_names=insert_kegunit.healerunit._healer_names,
+                insert_healerunit_healer_names=insert_kegunit.healerunit.healer_names,
             )
 
     def add_planatom_keg_updates(
@@ -499,9 +499,9 @@ class PlanDelta:
 
             # insert / update / delete healerunits
             before_healerunits_healer_names = set(
-                before_kegunit.healerunit._healer_names
+                before_kegunit.healerunit.healer_names
             )
-            after_healerunits_healer_names = set(after_kegunit.healerunit._healer_names)
+            after_healerunits_healer_names = set(after_kegunit.healerunit.healer_names)
             self.add_planatom_keg_healerunit_insert(
                 keg_rope=keg_rope,
                 insert_healerunit_healer_names=after_healerunits_healer_names.difference(
@@ -543,7 +543,7 @@ class PlanDelta:
             )
             self.add_planatom_keg_healerunit_deletes(
                 keg_rope=delete_keg_rope,
-                delete_healerunit_healer_names=delete_kegunit.healerunit._healer_names,
+                delete_healerunit_healer_names=delete_kegunit.healerunit.healer_names,
             )
 
     def add_planatom_keg_reasonunit_inserts(

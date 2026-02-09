@@ -428,6 +428,7 @@ class Ch06Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kids = "kids"
     knot = "knot"
     laborheir = "laborheir"
@@ -470,7 +471,6 @@ class Ch06Keywords(str, Enum):
     task = "task"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
 
     def __str__(self):
         return self.value
@@ -573,6 +573,7 @@ class Ch07Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -650,7 +651,6 @@ class Ch07Keywords(str, Enum):
     task = "task"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
 
     def __str__(self):
         return self.value
@@ -760,6 +760,7 @@ class Ch08Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -840,7 +841,6 @@ class Ch08Keywords(str, Enum):
     task = "task"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
 
     def __str__(self):
         return self.value
@@ -956,6 +956,7 @@ class Ch09Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -1039,7 +1040,6 @@ class Ch09Keywords(str, Enum):
     task = "task"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
 
     def __str__(self):
         return self.value
@@ -1156,6 +1156,7 @@ class Ch10Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -1239,7 +1240,6 @@ class Ch10Keywords(str, Enum):
     task = "task"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
 
     def __str__(self):
         return self.value
@@ -1368,6 +1368,7 @@ class Ch11Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -1459,7 +1460,6 @@ class Ch11Keywords(str, Enum):
     tran_time = "tran_time"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
 
     def __str__(self):
         return self.value
@@ -1601,6 +1601,7 @@ class Ch12Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -1709,7 +1710,6 @@ class Ch12Keywords(str, Enum):
     tran_time = "tran_time"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
 
     def __str__(self):
         return self.value
@@ -1779,7 +1779,7 @@ class Ch13Keywords(str, Enum):
     bud_plan_name = "bud_plan_name"
     bud_time = "bud_time"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -1885,6 +1885,7 @@ class Ch13Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -2001,7 +2002,6 @@ class Ch13Keywords(str, Enum):
     tran_time = "tran_time"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
     week = "week"
     weekdays_config = "weekdays_config"
     weekly_duration_min = "weekly_duration_min"
@@ -2013,7 +2013,7 @@ class Ch13Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -2085,7 +2085,7 @@ class Ch14Keywords(str, Enum):
     bud_plan_name = "bud_plan_name"
     bud_time = "bud_time"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -2195,6 +2195,7 @@ class Ch14Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -2322,7 +2323,6 @@ class Ch14Keywords(str, Enum):
     tran_time = "tran_time"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
     week = "week"
     weekday_label = "weekday_label"
     weekday_order = "weekday_order"
@@ -2336,7 +2336,7 @@ class Ch14Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -2410,7 +2410,7 @@ class Ch15Keywords(str, Enum):
     bud_plan_name = "bud_plan_name"
     bud_time = "bud_time"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -2523,6 +2523,7 @@ class Ch15Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -2656,7 +2657,6 @@ class Ch15Keywords(str, Enum):
     tran_time = "tran_time"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
     week = "week"
     weekday_label = "weekday_label"
     weekday_order = "weekday_order"
@@ -2670,7 +2670,7 @@ class Ch15Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -2744,7 +2744,7 @@ class Ch16Keywords(str, Enum):
     bud_plan_name = "bud_plan_name"
     bud_time = "bud_time"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -2863,6 +2863,7 @@ class Ch16Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -3012,7 +3013,6 @@ class Ch16Keywords(str, Enum):
     translateunit = "translateunit"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -3027,7 +3027,7 @@ class Ch16Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -3105,7 +3105,7 @@ class Ch17Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -3235,6 +3235,7 @@ class Ch17Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -3388,7 +3389,6 @@ class Ch17Keywords(str, Enum):
     translateunit = "translateunit"
     tree_level = "tree_level"
     tree_traverse_count = "tree_traverse_count"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -3404,7 +3404,7 @@ class Ch17Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -3485,7 +3485,7 @@ class Ch18Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -3618,6 +3618,7 @@ class Ch18Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -3791,7 +3792,6 @@ class Ch18Keywords(str, Enum):
     trlname = "trlname"
     trlrope = "trlrope"
     trltitl = "trltitl"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -3807,7 +3807,7 @@ class Ch18Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -3888,7 +3888,7 @@ class Ch19Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -4023,6 +4023,7 @@ class Ch19Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -4198,7 +4199,6 @@ class Ch19Keywords(str, Enum):
     trlname = "trlname"
     trlrope = "trlrope"
     trltitl = "trltitl"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -4214,7 +4214,7 @@ class Ch19Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -4296,7 +4296,7 @@ class Ch20Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -4432,6 +4432,7 @@ class Ch20Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -4607,7 +4608,6 @@ class Ch20Keywords(str, Enum):
     trlname = "trlname"
     trlrope = "trlrope"
     trltitl = "trltitl"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -4623,7 +4623,7 @@ class Ch20Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -4706,7 +4706,7 @@ class Ch21Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -4842,6 +4842,7 @@ class Ch21Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -5020,7 +5021,6 @@ class Ch21Keywords(str, Enum):
     trlname = "trlname"
     trlrope = "trlrope"
     trltitl = "trltitl"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -5036,7 +5036,7 @@ class Ch21Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -5119,7 +5119,7 @@ class Ch22Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -5257,6 +5257,7 @@ class Ch22Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -5435,7 +5436,6 @@ class Ch22Keywords(str, Enum):
     trlname = "trlname"
     trlrope = "trlrope"
     trltitl = "trltitl"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -5451,7 +5451,7 @@ class Ch22Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -5535,7 +5535,7 @@ class Ch24Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -5674,6 +5674,7 @@ class Ch24Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -5852,7 +5853,6 @@ class Ch24Keywords(str, Enum):
     trlname = "trlname"
     trlrope = "trlrope"
     trltitl = "trltitl"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -5868,7 +5868,7 @@ class Ch24Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):
@@ -5952,7 +5952,7 @@ class Ch98Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
-    c400_clean = "c400_clean"
+    c400_core = "c400_core"
     c400_leap = "c400_leap"
     c400_number = "c400_number"
     care_amount = "care_amount"
@@ -6091,6 +6091,7 @@ class Ch98Keywords(str, Enum):
     keg_fund_total = "keg_fund_total"
     keg_label = "keg_label"
     keg_rope = "keg_rope"
+    keg_uid = "keg_uid"
     kegroot = "kegroot"
     kids = "kids"
     knot = "knot"
@@ -6269,7 +6270,6 @@ class Ch98Keywords(str, Enum):
     trlname = "trlname"
     trlrope = "trlrope"
     trltitl = "trltitl"
-    uid = "uid"
     unknown_str = "unknown_str"
     week = "week"
     weekday_label = "weekday_label"
@@ -6285,7 +6285,7 @@ class Ch98Keywords(str, Enum):
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
-    yr4_clean = "yr4_clean"
+    yr4_core = "yr4_core"
     yr4_leap = "yr4_leap"
 
     def __str__(self):

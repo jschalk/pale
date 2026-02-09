@@ -9,7 +9,7 @@ class Base(DeclarativeBase):
 
 class PlanTable(Base):
     __tablename__ = "plan"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     max_tree_traverse = Column(Integer)
     credor_respect = Column(Float)
     debtor_respect = Column(Float)
@@ -22,7 +22,7 @@ class PlanTable(Base):
 
 class PersonUnitTable(Base):
     __tablename__ = "personunit"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     person_name = Column(String)
     person_cred_lumen = Column(Float)
     person_debt_lumen = Column(Float)
@@ -30,7 +30,7 @@ class PersonUnitTable(Base):
 
 class MemberShipTable(Base):
     __tablename__ = "membership"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     group_title = Column(String)
     person_name = Column(String)
     group_cred_lumen = Column(Float)
@@ -39,7 +39,7 @@ class MemberShipTable(Base):
 
 class KegTable(Base):
     __tablename__ = "keg"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     keg_rope = Column(String)
     addin = Column(Float)
     begin = Column(Float)
@@ -56,7 +56,7 @@ class KegTable(Base):
 
 class AwardUnitTable(Base):
     __tablename__ = "awardunit"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     awardee_title = Column(String)
     keg_rope = Column(String)
     give_force = Column(Float)
@@ -65,7 +65,7 @@ class AwardUnitTable(Base):
 
 class ReasonTable(Base):
     __tablename__ = "reason"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     reason_context = Column(String)
     keg_rope = Column(String)
     active_requisite = Column(Integer)
@@ -73,7 +73,7 @@ class ReasonTable(Base):
 
 class CaseTable(Base):
     __tablename__ = "case"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     reason_context = Column(String)
     reason_state = Column(String)
     keg_rope = Column(String)
@@ -84,7 +84,7 @@ class CaseTable(Base):
 
 class LaborLinkTable(Base):
     __tablename__ = "partyunit"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     party_title = Column(String)
     keg_rope = Column(String)
     solo = Column(Integer)
@@ -92,14 +92,14 @@ class LaborLinkTable(Base):
 
 class HealerUnitTable(Base):
     __tablename__ = "healerunit"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     healer_name = Column(String)
     keg_rope = Column(String)
 
 
 class FactTable(Base):
     __tablename__ = "fact"
-    uid = Column(Integer, primary_key=True)
+    keg_uid = Column(Integer, primary_key=True)
     fact_context = Column(String)
     keg_rope = Column(String)
     fact_upper = Column(Float)

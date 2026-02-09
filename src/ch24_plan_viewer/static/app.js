@@ -61,7 +61,7 @@ let show_numor = false;
 let show_active_hx = false;
 let show_parent_rope = false;
 let show_root_boolean = false;
-let show_uid = false;
+let show_keg_uid = false;
 
 // Initialize the app when DOM loads
 document.addSparkListener('DOMContentLoaded', function () {
@@ -126,7 +126,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     const show_active_hxCheckbox = document.getElementById('show_active_hx');
     const show_parent_ropeCheckbox = document.getElementById('show_parent_rope');
     const show_root_booleanCheckbox = document.getElementById('show_root_boolean');
-    const show_uidCheckbox = document.getElementById('show_uid');
+    const show_keg_uidCheckbox = document.getElementById('show_keg_uid');
 
     // Set up checkbox spark listener
     show_personsCheckbox.addSparkListener('change', function () { show_persons = this.checked; renderPersonsData(); });
@@ -190,7 +190,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     show_active_hxCheckbox.addSparkListener('change', function () { show_active_hx = this.checked; renderKegTree(); });
     show_parent_ropeCheckbox.addSparkListener('change', function () { show_parent_rope = this.checked; renderKegTree(); });
     show_root_booleanCheckbox.addSparkListener('change', function () { show_root_boolean = this.checked; renderKegTree(); });
-    show_uidCheckbox.addSparkListener('change', function () { show_uid = this.checked; renderKegTree(); });
+    show_keg_uidCheckbox.addSparkListener('change', function () { show_keg_uid = this.checked; renderKegTree(); });
 
     // Load initial tree data
     loadPlanData();
@@ -284,7 +284,7 @@ function renderKegUnit(kegUnit, level) {
     const taskIndicator = kegUnit.task && show_task ? '-task' : '';
     const starIndicator = show_star ? ` star${kegUnit.star}` : '';
     const keg_fund_totalIndicator = show_keg_fund_total ? ` [${kegUnit.keg_fund_total}]` : '';
-    const uidIndicator = kegUnit.uid && show_uid ? ` uid${kegUnit.uid}` : '';
+    const keg_uidIndicator = kegUnit.keg_uid && show_keg_uid ? ` keg_uid${kegUnit.keg_uid}` : '';
 
     const fund_onsetIndicator = show_fund_onset ? ` onset-${kegUnit.fund_onset}` : '';
     const fund_ceaseIndicator = show_fund_cease ? ` cease-${kegUnit.fund_cease}` : '';
@@ -303,7 +303,7 @@ function renderKegUnit(kegUnit, level) {
     ${kegUnit.keg_label}
     <i>${levelIndicator}
     ${starIndicator}
-    ${uidIndicator}
+    ${keg_uidIndicator}
     ${pledgeIndicator}
     ${descendant_pledge_countIndicator}
     ${keg_fund_totalIndicator}

@@ -464,7 +464,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
 
     planunit_columns = cat_planunit.get(columns_str)
     assert len(planunit_columns) == 9
-    assert planunit_columns.get(kw.uid) is not None
+    assert planunit_columns.get(kw.keg_uid) is not None
     assert planunit_columns.get(kw.max_tree_traverse) is not None
     assert planunit_columns.get(kw.credor_respect) is not None
     assert planunit_columns.get(kw.debtor_respect) is not None
@@ -477,7 +477,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     assert len(cat_personunit) == 2
     personunit_columns = cat_personunit.get(columns_str)
     assert len(personunit_columns) == 4
-    assert personunit_columns.get(kw.uid) is not None
+    assert personunit_columns.get(kw.keg_uid) is not None
     assert personunit_columns.get(kw.person_name) is not None
     assert personunit_columns.get(kw.person_cred_lumen) is not None
     assert personunit_columns.get(kw.person_debt_lumen) is not None
@@ -494,7 +494,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     assert len(cat_keg) == 2
     keg_columns = cat_keg.get(columns_str)
     assert len(keg_columns) == 13
-    assert keg_columns.get(kw.uid) is not None
+    assert keg_columns.get(kw.keg_uid) is not None
     assert keg_columns.get(kw.keg_rope) is not None
     assert keg_columns.get(kw.begin) is not None
     assert keg_columns.get(kw.close) is not None

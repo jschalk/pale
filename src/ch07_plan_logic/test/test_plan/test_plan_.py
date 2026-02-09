@@ -155,7 +155,7 @@ def test_planunit_shop_ReturnsObj_Scenario2_WithoutParameters():
     assert x_plan.mana_grain == default_grain_num_if_None()
     assert x_plan.kegroot.fund_grain == x_plan.fund_grain
     assert x_plan.kegroot.knot == x_plan.knot
-    assert x_plan.kegroot.uid == 1
+    assert x_plan.kegroot.keg_uid == 1
     assert x_plan.kegroot.tree_level == 0
     assert x_plan.kegroot.knot == x_plan.knot
     assert x_plan.kegroot.parent_rope == ""

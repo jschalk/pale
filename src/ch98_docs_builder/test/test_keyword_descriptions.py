@@ -25,6 +25,10 @@ def test_get_keywords_description_ReturnsObj():
     # THEN
     assert keywords_description
     keywords_config = get_keywords_src_config()
+
+    description_keywords = set(keywords_description.keys())
+    config_keywords = set(keywords_config.keys())
+    print(f"{config_keywords.difference(description_keywords)=}")
     assert keywords_description.keys() == keywords_config.keys()
     for keyword, description in keywords_description.items():
         assert description, keyword
