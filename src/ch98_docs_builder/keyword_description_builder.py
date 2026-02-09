@@ -1,12 +1,34 @@
-from copy import copy as copy_copy
-from enum import Enum
 from src.ch00_py.chapter_desc_main import get_chapter_desc_prefix, get_chapter_descs
-from src.ch00_py.file_toolbox import create_path, open_json, save_file
-from src.ch98_docs_builder._ref.ch98_path import create_src_keywords_description_path
+from src.ch00_py.file_toolbox import create_path, open_json, save_json
+from src.ch98_docs_builder._ref.ch98_path import (
+    create_chapter_ref_path,
+    create_src_keywords_description_path,
+)
 
 
 def get_keywords_description() -> dict[str, dict]:
     return open_json(create_src_keywords_description_path("src"))
+
+
+def save_keywords_descrition_json(src_dir: str, x_dict: dict[str, dict]):
+    file_path = create_src_keywords_description_path(src_dir)
+    save_json(file_path, None, x_dict, keys_case_insensitive=True)
+
+
+def rebuild_keywords_description_contents():
+    ch_dict = {}
+    for chapter_desc, chapter_dir in get_chapter_descs().items():
+        chapter_desc_prefix = get_chapter_desc_prefix(chapter_desc)
+        ch_ref_path = create_chapter_ref_path(chapter_dir, chapter_desc_prefix)
+        ch_dict[chapter_desc_prefix] = ch_ref_path
+    rebuilt_kw_desc = {}
+    for keyword, description in get_keywords_description().items():
+        rebuilt_kw_desc[keyword] = description
+        if keyword in ch_dict:
+            ch_ref_dict = open_json(ch_dict[keyword])
+            chapter_blurb = ch_ref_dict.get("chapter_blurb")
+            rebuilt_kw_desc[keyword] = chapter_blurb
+    save_keywords_descrition_json("src", rebuilt_kw_desc)
 
 
 # def get_keywords_by_chapter(keywords_dict: dict[str, dict[str]]) -> dict:

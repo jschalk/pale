@@ -1057,6 +1057,7 @@ def test_PlanUnit_set_offtrack_fund_ReturnsObj():
 
 
 def test_PlanUnit_allot_offtrack_fund_SetsCharUnit_fund_take_fund_give():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     bob_planunit = planunit_shop(exx.bob)
     bob_planunit.add_personunit(exx.bob)

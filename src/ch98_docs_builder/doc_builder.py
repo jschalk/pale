@@ -19,8 +19,9 @@ from src.ch00_py.keyword_class_builder import (
 )
 from src.ch04_rope._ref.ch04_doc_builder import get_ropeterm_description_md
 from src.ch17_idea._ref.ch17_doc_builder import get_brick_formats_md, get_idea_brick_mds
+from src.ch98_docs_builder._ref.ch98_path import create_chapter_ref_path
 from src.ch98_docs_builder.keyword_description_builder import (
-    create_src_keywords_description_path,
+    rebuild_keywords_description_contents,
 )
 
 
@@ -51,8 +52,7 @@ def get_chapter_blurbs_md() -> str:
     lines = ["# Chapter Overview\n", "What does each one do?\n", ""]
     for chapter_desc, chapter_dir in get_chapter_descs().items():
         chapter_prefix = get_chapter_desc_prefix(chapter_desc)
-        docs_dir = create_path(chapter_dir, "_ref")
-        chapter_ref_path = create_path(docs_dir, f"{chapter_prefix}_ref.json")
+        chapter_ref_path = create_chapter_ref_path(chapter_dir, chapter_prefix)
         chapter_ref_dict = open_json(chapter_ref_path)
         chapter_description_str = "chapter_description"
         chapter_blurb_str = "chapter_blurb"
@@ -92,13 +92,7 @@ def resave_chapter_and_keyword_json_files():
             json_dir = create_path(chapter_dir, x_dir)
             save_json(json_dir, x_filename, open_json(json_dir, x_filename))
     keywords_main_json_path = create_src_keywords_main_path("src")
-    keywords_description_path = create_src_keywords_description_path("src")
     ex_strs_json_path = create_src_example_strs_path("src")
     save_json(keywords_main_json_path, None, open_json(keywords_main_json_path))
-    save_json(
-        keywords_description_path,
-        None,
-        open_json(keywords_description_path),
-        keys_case_insensitive=True,
-    )
     save_json(ex_strs_json_path, None, open_json(ex_strs_json_path))
+    rebuild_keywords_description_contents()
