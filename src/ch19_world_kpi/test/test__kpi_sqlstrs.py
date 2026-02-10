@@ -20,7 +20,7 @@ CREATE TABLE {kw.moment_kpi001_person_nets} AS
 SELECT
   {kw.moment_person_nets}.{kw.moment_rope}
 , {kw.moment_person_nets}.{kw.plan_name}
-, {kw.plan_net_amount} AS {kw.bnet_funds}
+, {kw.plan_net_amount} AS {kw.net_funds}
 , RANK() OVER (ORDER BY {kw.plan_net_amount} DESC) AS {kw.fund_rank}
 , IFNULL(SUM({plnkegg_job}.{kw.pledge}), 0) AS {kw.pledges_count}
 FROM {kw.moment_person_nets}

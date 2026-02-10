@@ -105,17 +105,17 @@ def test_get_plan_config_dict_ReturnsObj_CheckAbbreviations():
     plnfact_attribute = plan_config.get(kw.plan_keg_factunit)
     plngrou_attribute = plan_config.get(kw.plan_groupunit)
     abbr_str = "abbreviation"
-    assert plnunit_attribute.get(abbr_str) == "plnunit"
-    assert plnprsn_attribute.get(abbr_str) == "plnprsn"
-    assert plnmemb_attribute.get(abbr_str) == "plnmemb"
-    assert plnkegg_attribute.get(abbr_str) == "plnkegg"
-    assert plnawar_attribute.get(abbr_str) == "plnawar"
-    assert plnreas_attribute.get(abbr_str) == "plnreas"
-    assert plncase_attribute.get(abbr_str) == "plncase"
-    assert plnlabo_attribute.get(abbr_str) == "plnlabo"
-    assert plnheal_attribute.get(abbr_str) == "plnheal"
-    assert plnfact_attribute.get(abbr_str) == "plnfact"
-    assert plngrou_attribute.get(abbr_str) == "plngrou"
+    assert plnunit_attribute.get(abbr_str) == kw.plnunit
+    assert plnprsn_attribute.get(abbr_str) == kw.plnprsn
+    assert plnmemb_attribute.get(abbr_str) == kw.plnmemb
+    assert plnkegg_attribute.get(abbr_str) == kw.plnkegg
+    assert plnawar_attribute.get(abbr_str) == kw.plnawar
+    assert plnreas_attribute.get(abbr_str) == kw.plnreas
+    assert plncase_attribute.get(abbr_str) == kw.plncase
+    assert plnlabo_attribute.get(abbr_str) == kw.plnlabo
+    assert plnheal_attribute.get(abbr_str) == kw.plnheal
+    assert plnfact_attribute.get(abbr_str) == kw.plnfact
+    assert plngrou_attribute.get(abbr_str) == kw.plngrou
 
 
 def test_get_all_plan_calc_args_ReturnsObj():
@@ -126,12 +126,12 @@ def test_get_all_plan_calc_args_ReturnsObj():
     assert all_plan_calc_args
     assert kw.stop_want in all_plan_calc_args
     assert kw.keg_rope in all_plan_calc_args
-    assert "fund_give" in all_plan_calc_args
-    assert all_plan_calc_args.get("fund_give") == {
-        "plan_keg_awardunit",
-        "plan_person_membership",
-        "plan_groupunit",
-        "plan_personunit",
+    assert kw.fund_give in all_plan_calc_args
+    assert all_plan_calc_args.get(kw.fund_give) == {
+        kw.plan_keg_awardunit,
+        kw.plan_person_membership,
+        kw.plan_groupunit,
+        kw.plan_personunit,
     }
 
     assert len(all_plan_calc_args) == 78
@@ -153,7 +153,7 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesKeysExist():
                     assert set(attr_dict.keys()) == {
                         kw.class_type,
                         kw.sqlite_datatype,
-                        "populate_by_cashout",
+                        kw.populate_by_cashout,
                     }
 
 
@@ -278,7 +278,7 @@ def g_popcashout(
     dimen = config.get(key1)
     j_dict = dimen.get(key2)
     j_arg = j_dict.get(key3)
-    return j_arg.get("populate_by_cashout")
+    return j_arg.get(kw.populate_by_cashout)
 
 
 def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
@@ -562,13 +562,13 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, plnlabo, jk, kw.party_title) == "TEXT"
     assert g_popcashout(cfig, plnlabo, jk, kw.party_title) == False
 
-    assert g_class_type(cfig, plnlabo, jv, "plan_name_is_labor") == "int"
-    assert g_sqlitetype(cfig, plnlabo, jv, "plan_name_is_labor") == "INTEGER"
-    assert g_popcashout(cfig, plnlabo, jv, "plan_name_is_labor") == True
+    assert g_class_type(cfig, plnlabo, jv, kw.plan_name_is_labor) == "int"
+    assert g_sqlitetype(cfig, plnlabo, jv, kw.plan_name_is_labor) == "INTEGER"
+    assert g_popcashout(cfig, plnlabo, jv, kw.plan_name_is_labor) == True
 
-    assert g_class_type(cfig, plnkegg, jv, "keg_active") == "int"
-    assert g_sqlitetype(cfig, plnkegg, jv, "keg_active") == "INTEGER"
-    assert g_popcashout(cfig, plnkegg, jv, "keg_active") == True
+    assert g_class_type(cfig, plnkegg, jv, kw.keg_active) == "int"
+    assert g_sqlitetype(cfig, plnkegg, jv, kw.keg_active) == "INTEGER"
+    assert g_popcashout(cfig, plnkegg, jv, kw.keg_active) == True
 
     assert g_class_type(cfig, plnkegg, jv, kw.all_person_cred) == "int"
     assert g_sqlitetype(cfig, plnkegg, jv, kw.all_person_cred) == "INTEGER"
@@ -840,7 +840,7 @@ def test_get_plan_calc_args_type_dict_ReturnsObj():
     assert plan_calc_args_type_dict.get(kw.parent_heir_active) == "int"
     assert plan_calc_args_type_dict.get(kw.active_requisite) == "bool"
     assert plan_calc_args_type_dict.get(kw.party_title) == kw.TitleTerm
-    assert plan_calc_args_type_dict.get("plan_name_is_labor") == "int"
+    assert plan_calc_args_type_dict.get(kw.plan_name_is_labor) == "int"
     assert plan_calc_args_type_dict.get(kw.keg_active) == "int"
     assert plan_calc_args_type_dict.get(kw.all_person_cred) == "int"
     assert plan_calc_args_type_dict.get(kw.all_person_debt) == "int"
@@ -849,7 +849,7 @@ def test_get_plan_calc_args_type_dict_ReturnsObj():
     assert plan_calc_args_type_dict.get(kw.fund_onset) == "float"
     assert plan_calc_args_type_dict.get(kw.fund_ratio) == "float"
     assert plan_calc_args_type_dict.get(kw.gogo_calc) == "float"
-    assert plan_calc_args_type_dict.get("healerunit_ratio") == "float"
+    assert plan_calc_args_type_dict.get(kw.healerunit_ratio) == "float"
     assert plan_calc_args_type_dict.get(kw.tree_level) == "int"
     assert plan_calc_args_type_dict.get(kw.range_evaluated) == "int"
     assert plan_calc_args_type_dict.get(kw.stop_calc) == "float"

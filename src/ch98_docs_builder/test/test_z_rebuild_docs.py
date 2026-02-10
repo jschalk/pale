@@ -27,3 +27,4 @@ def test_SpecialTestThatBuildsDocs(rebuild_bool):
     # 4% of instances resave all json files so that they are ordered alphabetically
     if random_random() < 0.04 or rebuild_bool:
         resave_chapter_and_keyword_json_files()
+    # assert 1 == 2

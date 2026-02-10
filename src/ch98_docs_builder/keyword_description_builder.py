@@ -1,5 +1,10 @@
 from src.ch00_py.chapter_desc_main import get_chapter_desc_prefix, get_chapter_descs
 from src.ch00_py.file_toolbox import create_path, open_json, save_json
+from src.ch07_plan_logic.plan_config import (
+    get_all_plan_calc_args,
+    get_plan_calc_dimen_args,
+    get_plan_config_dict,
+)
 from src.ch98_docs_builder._ref.ch98_path import (
     create_chapter_ref_path,
     create_src_keywords_description_path,
@@ -15,20 +20,55 @@ def save_keywords_descrition_json(src_dir: str, x_dict: dict[str, dict]):
     save_json(file_path, None, x_dict, keys_case_insensitive=True)
 
 
+def get_plan_dimen_config(dimen: str) -> dict:
+    x_dimen_config = get_plan_config_dict().get(dimen)
+    x_config_args = x_dimen_config.get("jkeys")
+    for v_keyword, v_config in x_dimen_config.get("jvalues").items():
+        x_config_args[v_keyword] = v_config
+    return x_config_args
+
+
 def rebuild_keywords_description_contents():
+    ch_dict = get_chxx_prefix_path_dict()
+    plan_config_args = get_plan_dimen_config("planunit")
+    keg_config_args = get_plan_dimen_config("plan_kegunit")
+    all_plan_calc_args = get_all_plan_calc_args()
+
+    rebuilt_kw_desc = {}
+    for keyword, description in get_keywords_description().items():
+        rebuilt_kw_desc[keyword] = description
+        if keyword in ch_dict:
+            rebuilt_kw_desc[keyword] = get_chxx_ref_blurb(ch_dict, keyword)
+        if keyword in plan_config_args:
+            keyword_config = plan_config_args.get(keyword)
+            if keyword_config.get("populate_by_cashout"):
+                # rebuilt_kw_desc[keyword] = f"Plan cashout"
+                pass
+            else:
+                # rebuilt_kw_desc[keyword] = f"Set by seed part of the Plan bluep"
+                pass
+        # if keyword in keg_config_args:
+        #     keyword_config = keg_config_args.get(keyword)
+        #     if keyword_config.get("populate_by_cashout"):
+        #         rebuilt_kw_desc[keyword] = f"Set by Plan cashout process"
+        #     else:
+        #         rebuilt_kw_desc[keyword] = f"Keg seed data"
+
+    save_keywords_descrition_json("src", rebuilt_kw_desc)
+
+
+def get_chxx_prefix_path_dict() -> dict[str, str]:
     ch_dict = {}
     for chapter_desc, chapter_dir in get_chapter_descs().items():
         chapter_desc_prefix = get_chapter_desc_prefix(chapter_desc)
         ch_ref_path = create_chapter_ref_path(chapter_dir, chapter_desc_prefix)
         ch_dict[chapter_desc_prefix] = ch_ref_path
-    rebuilt_kw_desc = {}
-    for keyword, description in get_keywords_description().items():
-        rebuilt_kw_desc[keyword] = description
-        if keyword in ch_dict:
-            ch_ref_dict = open_json(ch_dict[keyword])
-            chapter_blurb = ch_ref_dict.get("chapter_blurb")
-            rebuilt_kw_desc[keyword] = chapter_blurb
-    save_keywords_descrition_json("src", rebuilt_kw_desc)
+    return ch_dict
+
+
+def get_chxx_ref_blurb(ch_dict, keyword) -> str:
+    ch_ref_dict = open_json(ch_dict[keyword])
+    return ch_ref_dict.get("chapter_blurb")
 
 
 # def get_keywords_by_chapter(keywords_dict: dict[str, dict[str]]) -> dict:

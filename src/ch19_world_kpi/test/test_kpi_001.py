@@ -37,7 +37,7 @@ VALUES
         assert get_table_columns(cursor, moment_kpi001_person_nets_tablename) == [
             kw.moment_rope,
             kw.plan_name,
-            kw.bnet_funds,
+            kw.net_funds,
             kw.fund_rank,
             kw.pledges_count,
         ]
@@ -46,7 +46,7 @@ VALUES
         SELECT 
   {kw.moment_rope}
 , {kw.plan_name}
-, {kw.bnet_funds}
+, {kw.net_funds}
 , {kw.fund_rank}
 , {kw.pledges_count}
 FROM {moment_kpi001_person_nets_tablename}
@@ -93,7 +93,7 @@ VALUES ('{exx.a23}', '{exx.bob}', '{casa_rope}', 1)
 
         # THEN
         assert get_row_count(cursor, moment_kpi001_person_nets_tablename)
-        select_sqlstr = f"""SELECT {kw.moment_rope}, {kw.plan_name}, {kw.bnet_funds}, {kw.fund_rank}, {kw.pledges_count} FROM {moment_kpi001_person_nets_tablename}"""
+        select_sqlstr = f"""SELECT {kw.moment_rope}, {kw.plan_name}, {kw.net_funds}, {kw.fund_rank}, {kw.pledges_count} FROM {moment_kpi001_person_nets_tablename}"""
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
         print(rows)
