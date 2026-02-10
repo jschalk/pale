@@ -14,10 +14,6 @@ def get_nabu_config_dict():
     return open_json(nabu_config_path())
 
 
-def get_quick_nabus_column_ref():
-    pass
-
-
 def get_nabu_dimens() -> set:
     return {"nabu_timenum"}
 

@@ -1,5 +1,8 @@
 from src.ch00_py.keyword_class_builder import get_keywords_src_config
 from src.ch07_plan_logic.plan_config import get_all_plan_calc_args
+from src.ch14_moment.moment_config import get_moment_config_args
+from src.ch15_nabu.nabu_config import get_nabu_args, get_nabuable_args
+from src.ch16_translate.translate_config import get_translate_config_args
 from src.ch98_docs_builder.keyword_description_builder import (
     get_chxx_prefix_path_dict,
     get_chxx_ref_blurb,
@@ -39,28 +42,56 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
     person_args = get_plan_dimen_config(kw.plan_personunit)
     member_args = get_plan_dimen_config(kw.plan_person_membership)
 
+    trllabe_args = get_translate_config_args(kw.translate_label)
+    trlname_args = get_translate_config_args(kw.translate_name)
+    trlrope_args = get_translate_config_args(kw.translate_rope)
+    trltitl_args = get_translate_config_args(kw.translate_title)
+
+    mmtbudd_args = get_moment_config_args(kw.moment_budunit)
+    mmthour_args = get_moment_config_args(kw.moment_epoch_hour)
+    mmtmont_args = get_moment_config_args(kw.moment_epoch_month)
+    mmtweek_args = get_moment_config_args(kw.moment_epoch_weekday)
+    mmtpayy_args = get_moment_config_args(kw.moment_paybook)
+    mmtoffi_args = get_moment_config_args(kw.moment_timeoffi)
+    mmtunit_args = get_moment_config_args(kw.momentunit)
+    nabu_args = get_nabu_args()
+    nabuable_args = get_nabuable_args()
+
     all_plan_calc_args = get_all_plan_calc_args()
     # print(f"{plan_config_args.keys()=}")
 
     # THEN
-    for keyword, description in get_keywords_description().items():
+    for keyword, desc in get_keywords_description().items():
         if keyword in ch_dict:
-            assert description == get_chxx_ref_blurb(ch_dict, keyword)
-        # print(f"{keyword=} {description=}")
+            assert desc == get_chxx_ref_blurb(ch_dict, keyword)
+        # print(f"{keyword=} {desc=}")
 
-        check_descriptions_str(plan_args, keyword, description, "Plan")
-        check_descriptions_str(keg_args, keyword, description, "Keg")
-        check_descriptions_str(reason_args, keyword, description, "Reason")
-        check_descriptions_str(case_args, keyword, description, "Case")
-        check_descriptions_str(fact_args, keyword, description, "Fact")
-        check_descriptions_str(award_args, keyword, description, "Award")
-        check_descriptions_str(party_args, keyword, description, "Labor")
-        check_descriptions_str(healer_args, keyword, description, "Healer")
-        check_descriptions_str(person_args, keyword, description, "Person")
-        check_descriptions_str(member_args, keyword, description, "Member")
+        check_plan_desc_str(plan_args, keyword, desc, "Plan")
+        check_plan_desc_str(keg_args, keyword, desc, "Keg")
+        check_plan_desc_str(reason_args, keyword, desc, "Reason")
+        check_plan_desc_str(case_args, keyword, desc, "Case")
+        check_plan_desc_str(fact_args, keyword, desc, "Fact")
+        check_plan_desc_str(award_args, keyword, desc, "Award")
+        check_plan_desc_str(party_args, keyword, desc, "Labor")
+        check_plan_desc_str(healer_args, keyword, desc, "Healer")
+        check_plan_desc_str(person_args, keyword, desc, "Person")
+        check_plan_desc_str(member_args, keyword, desc, "Member")
+        check_translate_desc_str(trllabe_args, keyword, desc, kw.translate_label)
+        check_translate_desc_str(trlname_args, keyword, desc, kw.translate_name)
+        check_translate_desc_str(trlrope_args, keyword, desc, kw.translate_rope)
+        check_translate_desc_str(trltitl_args, keyword, desc, kw.translate_title)
+        check_mmtunit_desc_str(mmtbudd_args, keyword, desc, "bud")
+        check_mmtunit_desc_str(mmthour_args, keyword, desc, kw.mmthour)
+        check_mmtunit_desc_str(mmtmont_args, keyword, desc, kw.mmtmont)
+        check_mmtunit_desc_str(mmtweek_args, keyword, desc, kw.mmtweek)
+        check_mmtunit_desc_str(mmtpayy_args, keyword, desc, kw.paybook)
+        check_mmtunit_desc_str(mmtoffi_args, keyword, desc, kw.offi_time)
+        check_mmtunit_desc_str(mmtunit_args, keyword, desc, "Moment")
+        check_mmtunit_desc_str(nabu_args, keyword, desc, kw.nabu)
+        check_mmtunit_desc_str(nabuable_args, keyword, desc, "Nabuable")
 
 
-def check_descriptions_str(
+def check_plan_desc_str(
     config_args: dict, keyword: str, description: str, src_label: str
 ):
     if keyword in config_args:
@@ -76,3 +107,22 @@ def check_descriptions_str(
         else:
             assert seed_str in description, assert_fail_str
             assert cashout_str not in description, assert_fail_str
+
+
+def check_mmtunit_desc_str(
+    config_args: dict, keyword: str, description: str, src_label: str
+):
+    if keyword in config_args:
+        # keyword_config = config_args.get(keyword)
+        assert_fail_str = f"{keyword=} {description=} "
+        # print(f"{keyword} {assert_fail_str=}")
+        assert f", {src_label} arg" in description, assert_fail_str
+
+
+def check_translate_desc_str(
+    config_args: dict, keyword: str, description: str, src_label: str
+):
+    if keyword in config_args:
+        assert_fail_str = f"{keyword=} {description=} "
+        # print(f"{keyword} {assert_fail_str=}")
+        assert f", {src_label.upper()} arg" in description, assert_fail_str
