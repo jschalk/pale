@@ -82,7 +82,7 @@ def test_PlanUnit_set_all_keg_keg_uids_unique_Setskeg_uids():
 def test_PlanUnit_get_tree_metrics_ReturnsANone_pledge_KegRopeTerm():
     # ESTABLISH
     nia_str = "Nia"
-    nia_plan = planunit_shop(nia_str, tally=10)
+    nia_plan = planunit_shop(nia_str)
     wk = "wk"
     nia_plan.set_l1_keg(kegunit_shop(wk, star=40))
     tree_metrics_before = nia_plan.get_tree_metrics()

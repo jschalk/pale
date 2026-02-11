@@ -35,7 +35,7 @@
   "cases": "TODO", 
   "cashout": "The process by which a PlanUnit creates all it's output metrics from file-stored data", 
   "celldepth": ", bud arg", 
-  "ch00": "Creates boring tools for computer data manipulation.", 
+  "ch00": "Creates helper tools for OS and python data manipulation.", 
   "ch01": "Defines how to allot a pool number to a weighted ledger.", 
   "ch02": "Defines debt and cred to Persons and Memberships to Groups.", 
   "ch04": "Defines Term Classes: Knots, Labels, RopeTerms, FirstLabels", 

@@ -56,7 +56,7 @@ def test_PlanUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario0():
 def test_PlanUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario1():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    yao_planunit = planunit_shop("Yao", tally=10)
+    yao_planunit = planunit_shop("Yao")
 
     auto_str = "auto"
     auto_rope = yao_planunit.make_l1_rope(auto_str)
@@ -120,7 +120,7 @@ def test_PlanUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario1():
 def test_PlanUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario2_DifferentOrderOfKegs():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    yao_planunit = planunit_shop("Yao", tally=10)
+    yao_planunit = planunit_shop("Yao")
 
     auto_str = "auto"
     auto_rope = yao_planunit.make_l1_rope(auto_str)

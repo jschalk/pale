@@ -111,26 +111,26 @@ class gogo_calc_stop_calc_Exception(Exception):
     pass
 
 
-class is_LabelTermException(Exception):
+class is_RopeTermException(Exception):
     pass
 
 
 @dataclass
 class PlanUnit:
     plan_name: PlanName = None
-    moment_rope: MomentRope = None
-    knot: KnotTerm = None
-    fund_pool: FundNum = None
-    fund_grain: FundGrain = None
-    respect_grain: RespectGrain = None
-    mana_grain: ManaGrain = None
-    tally: float = None
     persons: dict[PersonName, PersonUnit] = None
     kegroot: KegUnit = None
-    credor_respect: RespectNum = None
-    debtor_respect: RespectNum = None
-    max_tree_traverse: int = None
-    last_lesson_id: int = None
+    moment_rope: MomentRope = None  # defined by Moment creator func
+    knot: KnotTerm = None  # defined by Moment
+    fund_pool: FundNum = None  # defined by Moment buud creator func
+    fund_grain: FundGrain = None  # defined by Moment
+    respect_grain: RespectGrain = None  # defined by Moment
+    mana_grain: ManaGrain = None  # defined by Moment
+    tally: float = None  # mostly by default
+    credor_respect: RespectNum = None  # mostly set by default
+    debtor_respect: RespectNum = None  # mostly set by default
+    max_tree_traverse: int = None  # mostly set by default
+    last_lesson_id: int = None  # mosterly set by default
     # fields calculated by cashout
     _keg_dict: dict[RopeTerm, KegUnit] = None
     _keep_dict: dict[RopeTerm, KegUnit] = None
@@ -1442,11 +1442,12 @@ def planunit_shop(
     mana_grain: ManaGrain = None,
     tally: float = None,
 ) -> PlanUnit:
+    knot = default_knot_if_None(knot)
     plan_name = "" if plan_name is None else plan_name
     moment_rope = get_default_rope(knot) if moment_rope is None else moment_rope
     if is_labelterm(moment_rope, knot):
         exception_str = f"Plan '{plan_name}' cannot set moment_rope='{moment_rope}' where knot='{knot}'"
-        raise is_LabelTermException(exception_str)
+        raise is_RopeTermException(exception_str)
     root_keg_label = get_tail_label(moment_rope, knot)
     x_plan = PlanUnit(
         plan_name=plan_name,
@@ -1454,7 +1455,7 @@ def planunit_shop(
         moment_rope=moment_rope,
         persons=get_empty_dict_if_None(),
         groupunits={},
-        knot=default_knot_if_None(knot),
+        knot=knot,
         credor_respect=RespectNum(validate_pool_num()),
         debtor_respect=RespectNum(validate_pool_num()),
         fund_pool=validate_pool_num(fund_pool),

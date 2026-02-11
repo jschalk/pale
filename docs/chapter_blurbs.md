@@ -3,7 +3,7 @@
 What does each one do?
 
 
-- **ch00_py**: Creates boring tools for computer data manipulation.
+- **ch00_py**: Creates helper tools for OS and python data manipulation.
 - **ch01_allot**: Defines how to allot a pool number to a weighted ledger.
 - **ch02_person**: Defines debt and cred to Persons and Memberships to Groups.
 - **ch03_intro**: Introduces why Pale has been created.
