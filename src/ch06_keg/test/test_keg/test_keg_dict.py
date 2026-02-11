@@ -156,7 +156,7 @@ def test_KegUnit_to_dict_ReturnsCompleteDict():
     casa_keg.morph = x_morph
     casa_keg.gogo_want = x_gogo_want
     casa_keg.stop_want = x_stop_want
-    casa_keg.uid = 17
+    casa_keg.keg_uid = 17
     casa_keg.add_kid(kegunit_shop("paper"))
 
     # WHEN
@@ -173,7 +173,7 @@ def test_KegUnit_to_dict_ReturnsCompleteDict():
     assert casa_dict[kw.healerunit] == yao_healerunit.to_dict()
     assert casa_dict[kw.star] == casa_keg.star
     assert casa_dict[kw.keg_label] == casa_keg.keg_label
-    assert casa_dict[kw.uid] == casa_keg.uid
+    assert casa_dict[kw.keg_uid] == casa_keg.keg_uid
     assert casa_dict[kw.begin] == casa_keg.begin
     assert casa_dict[kw.close] == casa_keg.close
     assert casa_dict[kw.numor] == casa_keg.numor

@@ -24,7 +24,7 @@ from src.ch13_time.test._util.ch13_examples import (
     get_example_epoch_config,
     get_squirt_config,
 )
-from src.ref.keywords import Ch13Keywords as kw
+from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
 
 def test_EpochLabel_Exists():
@@ -78,10 +78,10 @@ def test_C400Constants_Exists():
     # THEN
     assert x_c400_constants.day_length == "x1"
     assert x_c400_constants.c400_leap_length == "x2"
-    assert x_c400_constants.c400_clean_length == "x3"
+    assert x_c400_constants.c400_core_length == "x3"
     assert x_c400_constants.c100_length == "x4"
     assert x_c400_constants.yr4_leap_length == "x5"
-    assert x_c400_constants.yr4_clean_length == "x6"
+    assert x_c400_constants.yr4_core_length == "x6"
     assert x_c400_constants.year_length == "x7"
 
 
@@ -92,10 +92,10 @@ def test_get_c400_constants_ReturnsObj():
     # THEN
     assert x_c400_constants.day_length == 1440
     assert x_c400_constants.c400_leap_length == 210379680
-    assert x_c400_constants.c400_clean_length == 210378240
+    assert x_c400_constants.c400_core_length == 210378240
     assert x_c400_constants.c100_length == 52594560
     assert x_c400_constants.yr4_leap_length == 2103840
-    assert x_c400_constants.yr4_clean_length == 2102400
+    assert x_c400_constants.yr4_core_length == 2102400
     assert x_c400_constants.year_length == 525600
 
 
@@ -336,29 +336,29 @@ def test_epoch_config_shop_ReturnsObj_NoParameters():
         ["11pm", 1440],
     ]
     h_months_config = [
-        ["March", 31],
-        ["April", 61],
-        ["May", 92],
-        ["June", 122],
-        ["July", 153],
-        ["August", 184],
-        ["September", 214],
-        ["October", 245],
-        ["November", 275],
-        ["December", 306],
-        ["January", 337],
-        ["February", 365],
+        [exx.March, 31],
+        [exx.April, 61],
+        [exx.May, 92],
+        [exx.June, 122],
+        [exx.July, 153],
+        [exx.August, 184],
+        [exx.September, 214],
+        [exx.October, 245],
+        [exx.November, 275],
+        [exx.December, 306],
+        [exx.January, 337],
+        [exx.February, 365],
     ]
     h_monthday_index = 1
     h_epoch_label = "creg"
     h_weekdays_config = [
-        kw.Wednesday,
-        kw.Thursday,
-        kw.Friday,
-        kw.Saturday,
-        kw.Sunday,
-        kw.Monday,
-        kw.Tuesday,
+        exx.Wednesday,
+        exx.Thursday,
+        exx.Friday,
+        exx.Saturday,
+        exx.Sunday,
+        exx.Monday,
+        exx.Tuesday,
     ]
     h_yr1_jan1_offset = 440640
 
@@ -390,11 +390,11 @@ def test_get_year_rope_ReturnsObj():
     time_rope = sue_planunit.make_l1_rope(kw.time)
     fay_rope = sue_planunit.make_rope(time_rope, epoch_fay_str)
     c400_leap_rope = sue_planunit.make_rope(fay_rope, kw.c400_leap)
-    c400_clean_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_clean)
-    c100_rope = sue_planunit.make_rope(c400_clean_rope, kw.c100)
+    c400_core_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_core)
+    c100_rope = sue_planunit.make_rope(c400_core_rope, kw.c100)
     yr4_leap_rope = sue_planunit.make_rope(c100_rope, kw.yr4_leap)
-    yr4_clean_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_clean)
-    year_rope = sue_planunit.make_rope(yr4_clean_rope, kw.year)
+    yr4_core_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_core)
+    year_rope = sue_planunit.make_rope(yr4_core_rope, kw.year)
 
     # WHEN / THEN
     assert year_rope == get_year_rope(sue_planunit, epoch_fay_str)

@@ -24,10 +24,10 @@ from src.ch13_time._ref.ch13_semantic_types import (
 class C400Constants:
     day_length: int
     c400_leap_length: int
-    c400_clean_length: int
+    c400_core_length: int
     c100_length: int
     yr4_leap_length: int
-    yr4_clean_length: int
+    yr4_core_length: int
     year_length: int
 
 
@@ -37,10 +37,10 @@ def get_c400_constants() -> C400Constants:
     return C400Constants(
         day_length=c400_dict.get("day_length"),
         c400_leap_length=c400_dict.get("c400_leap_length"),
-        c400_clean_length=c400_dict.get("c400_clean_length"),
+        c400_core_length=c400_dict.get("c400_core_length"),
         c100_length=c400_dict.get("c100_length"),
         yr4_leap_length=c400_dict.get("yr4_leap_length"),
-        yr4_clean_length=c400_dict.get("yr4_clean_length"),
+        yr4_core_length=c400_dict.get("yr4_core_length"),
         year_length=c400_dict.get("year_length"),
     )
 
@@ -54,9 +54,9 @@ def stan_c400_leap_kegunit() -> KegUnit:
     return kegunit_shop("c400_leap", denom=x_denom, morph=True)
 
 
-def stan_c400_clean_kegunit() -> KegUnit:
-    x_denom = get_c400_constants().c400_clean_length
-    return kegunit_shop("c400_clean", denom=x_denom, morph=True)
+def stan_c400_core_kegunit() -> KegUnit:
+    x_denom = get_c400_constants().c400_core_length
+    return kegunit_shop("c400_core", denom=x_denom, morph=True)
 
 
 def stan_c100_kegunit() -> KegUnit:
@@ -69,9 +69,9 @@ def stan_yr4_leap_kegunit() -> KegUnit:
     return kegunit_shop("yr4_leap", denom=x_denom, morph=True)
 
 
-def stan_yr4_clean_kegunit() -> KegUnit:
-    x_denom = get_c400_constants().yr4_clean_length
-    return kegunit_shop("yr4_clean", denom=x_denom, morph=True)
+def stan_yr4_core_kegunit() -> KegUnit:
+    x_denom = get_c400_constants().yr4_core_length
+    return kegunit_shop("yr4_core", denom=x_denom, morph=True)
 
 
 def stan_year_kegunit() -> KegUnit:
@@ -219,46 +219,46 @@ def add_stan_kegunits(
         knot=x_planunit.knot,
     )
     c400_leap_rope = x_planunit.make_rope(epoch_rope, "c400_leap")
-    c400_clean_rope = x_planunit.make_rope(c400_leap_rope, "c400_clean")
-    c100_rope = x_planunit.make_rope(c400_clean_rope, "c100")
+    c400_core_rope = x_planunit.make_rope(c400_leap_rope, "c400_core")
+    c100_rope = x_planunit.make_rope(c400_core_rope, "c100")
     yr4_leap_rope = x_planunit.make_rope(c100_rope, "yr4_leap")
-    yr4_clean_rope = x_planunit.make_rope(yr4_leap_rope, "yr4_clean")
+    yr4_core_rope = x_planunit.make_rope(yr4_leap_rope, "yr4_core")
 
     if not x_planunit.keg_exists(time_rope):
         x_planunit.set_l1_keg(kegunit_shop("time"))
     epoch_kegunit = new_epoch_kegunit(epoch_label, epoch_c400_number)
     x_planunit.set_keg_obj(epoch_kegunit, time_rope)
     x_planunit.set_keg_obj(stan_c400_leap_kegunit(), epoch_rope)
-    x_planunit.set_keg_obj(stan_c400_clean_kegunit(), c400_leap_rope)
-    x_planunit.set_keg_obj(stan_c100_kegunit(), c400_clean_rope)
+    x_planunit.set_keg_obj(stan_c400_core_kegunit(), c400_leap_rope)
+    x_planunit.set_keg_obj(stan_c100_kegunit(), c400_core_rope)
     x_planunit.set_keg_obj(stan_yr4_leap_kegunit(), c100_rope)
-    x_planunit.set_keg_obj(stan_yr4_clean_kegunit(), yr4_leap_rope)
-    x_planunit.set_keg_obj(stan_year_kegunit(), yr4_clean_rope)
+    x_planunit.set_keg_obj(stan_yr4_core_kegunit(), yr4_leap_rope)
+    x_planunit.set_keg_obj(stan_year_kegunit(), yr4_core_rope)
     x_planunit.set_keg_obj(stan_day_kegunit(), epoch_rope)
     x_planunit.set_keg_obj(stan_days_kegunit(), epoch_rope)
 
 
-def get_c400_clean_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+def get_c400_core_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
     root_keg_rope = x_planunit.kegroot.get_keg_rope()
     epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_planunit.knot)
     c400_leap_rope = x_planunit.make_rope(epoch_rope, "c400_leap")
-    return x_planunit.make_rope(c400_leap_rope, "c400_clean")
+    return x_planunit.make_rope(c400_leap_rope, "c400_core")
 
 
 def get_c100_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    c400_clean_rope = get_c400_clean_rope(x_planunit, epoch_label)
-    return x_planunit.make_rope(c400_clean_rope, "c100")
+    c400_core_rope = get_c400_core_rope(x_planunit, epoch_label)
+    return x_planunit.make_rope(c400_core_rope, "c100")
 
 
-def get_yr4_clean_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
+def get_yr4_core_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
     c100_rope = get_c100_rope(x_planunit, epoch_label)
     yr4_leap_rope = x_planunit.make_rope(c100_rope, "yr4_leap")
-    return x_planunit.make_rope(yr4_leap_rope, "yr4_clean")
+    return x_planunit.make_rope(yr4_leap_rope, "yr4_core")
 
 
 def get_year_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    yr4_clean_rope = get_yr4_clean_rope(x_planunit, epoch_label)
-    return x_planunit.make_rope(yr4_clean_rope, "year")
+    yr4_core_rope = get_yr4_core_rope(x_planunit, epoch_label)
+    return x_planunit.make_rope(yr4_core_rope, "year")
 
 
 def get_week_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
@@ -533,12 +533,12 @@ class EpochHolder:
         self._c400_number = self.x_min // c400_constants.c400_leap_length
 
         # count 100 year blocks
-        c400_clean_rope = get_c400_clean_rope(self.x_planunit, self.epoch_label)
-        c400_clean_keg_list = all_kegs_between(
-            x_keg_dict, x_time_rope, c400_clean_rope, knot=self.x_planunit.knot
+        c400_core_rope = get_c400_core_rope(self.x_planunit, self.epoch_label)
+        c400_core_keg_list = all_kegs_between(
+            x_keg_dict, x_time_rope, c400_core_rope, knot=self.x_planunit.knot
         )
-        c400_clean_range = calc_range(c400_clean_keg_list, self.x_min, self.x_min)
-        self._c100_count = c400_clean_range.gogo // c400_constants.c100_length
+        c400_core_range = calc_range(c400_core_keg_list, self.x_min, self.x_min)
+        self._c100_count = c400_core_range.gogo // c400_constants.c100_length
         # count 4 year blocks
         c100_rope = get_c100_rope(self.x_planunit, self.epoch_label)
         c100_keg_list = all_kegs_between(
@@ -548,12 +548,12 @@ class EpochHolder:
         self._yr4_count = c100_range.gogo // c400_constants.yr4_leap_length
 
         # count 1 year blocks
-        yr4_clean_rope = get_yr4_clean_rope(self.x_planunit, self.epoch_label)
-        yr4_clean_kegs = all_kegs_between(
-            x_keg_dict, x_time_rope, yr4_clean_rope, knot=self.x_planunit.knot
+        yr4_core_rope = get_yr4_core_rope(self.x_planunit, self.epoch_label)
+        yr4_core_kegs = all_kegs_between(
+            x_keg_dict, x_time_rope, yr4_core_rope, knot=self.x_planunit.knot
         )
-        yr4_clean_range = calc_range(yr4_clean_kegs, self.x_min, self.x_min)
-        self._year_count = yr4_clean_range.gogo // c400_constants.year_length
+        yr4_core_range = calc_range(yr4_core_kegs, self.x_min, self.x_min)
+        self._year_count = yr4_core_range.gogo // c400_constants.year_length
 
         self._year_num = self._c400_number * 400
         self._year_num += self._c100_count * 100

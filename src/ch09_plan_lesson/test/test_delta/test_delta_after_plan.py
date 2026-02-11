@@ -958,7 +958,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_keg_healerunit():
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
     before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     before_ball_kegunit = before_sue_au.get_keg_obj(ball_rope)
-    assert before_ball_kegunit.healerunit._healer_names == set()
+    assert before_ball_kegunit.healerunit.healer_names == set()
     assert not before_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
     # WHEN
@@ -972,7 +972,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_keg_healerunit():
 
     # THEN
     after_ball_kegunit = after_sue_au.get_keg_obj(ball_rope)
-    assert after_ball_kegunit.healerunit._healer_names != set()
+    assert after_ball_kegunit.healerunit.healer_names != set()
     assert after_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
 
@@ -987,7 +987,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_healerunit():
     before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
     before_ball_kegunit = before_sue_au.get_keg_obj(ball_rope)
     before_ball_kegunit.healerunit.set_healer_name(exx.yao)
-    assert before_ball_kegunit.healerunit._healer_names != set()
+    assert before_ball_kegunit.healerunit.healer_names != set()
     assert before_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
     # WHEN
@@ -1001,7 +1001,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_healerunit():
 
     # THEN
     after_ball_kegunit = after_sue_au.get_keg_obj(ball_rope)
-    assert after_ball_kegunit.healerunit._healer_names == set()
+    assert after_ball_kegunit.healerunit.healer_names == set()
     assert not after_ball_kegunit.healerunit.healer_name_exists(exx.yao)
 
 

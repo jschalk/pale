@@ -221,7 +221,7 @@ def test_PlanUnit_get_agenda_dict_PlanUnitHasCorrectAttributes_planunit_v001():
     #     print(f"{reason_context=}")
 
     # for agenda_keg in keg_pledge_list:
-    #     print(f"{agenda_keg.uid=} {agenda_keg.parent_rope=}")
+    #     print(f"{agenda_keg.keg_uid=} {agenda_keg.parent_rope=}")
 
     # for agenda_keg in keg_pledge_list:
     #     # print(f"{agenda_keg.parent_rope=}")

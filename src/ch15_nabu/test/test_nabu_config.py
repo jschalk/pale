@@ -7,7 +7,6 @@ from src.ch15_nabu.nabu_config import (
     get_nabu_config_dict,
     get_nabu_dimens,
     get_nabuable_args,
-    get_quick_nabus_column_ref,
     nabu_config_path,
     set_nabuable_otx_inx_args,
 )

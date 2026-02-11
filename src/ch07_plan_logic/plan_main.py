@@ -504,7 +504,7 @@ class PlanUnit:
             tree_level=self.kegroot.tree_level,
             reasons=self.kegroot.reasonunits,
             awardunits=self.kegroot.awardunits,
-            uid=self.kegroot.uid,
+            keg_uid=self.kegroot.keg_uid,
             pledge=self.kegroot.pledge,
             keg_rope=self.kegroot.get_keg_rope(),
         )
@@ -522,26 +522,28 @@ class PlanUnit:
             tree_level=keg_kid.tree_level,
             reasons=keg_kid.reasonunits,
             awardunits=keg_kid.awardunits,
-            uid=keg_kid.uid,
+            keg_uid=keg_kid.keg_uid,
             pledge=keg_kid.pledge,
             keg_rope=keg_kid.get_keg_rope(),
         )
         x_keg_list.append(keg_kid)
 
-    def get_keg_uid_max(self) -> int:
+    def get_keg_keg_uid_max(self) -> int:
         tree_metrics = self.get_tree_metrics()
-        return tree_metrics.uid_max
+        return tree_metrics.keg_uid_max
 
-    def set_all_keg_uids_unique(self):
+    def set_all_keg_keg_uids_unique(self):
         tree_metrics = self.get_tree_metrics()
-        keg_uid_max = tree_metrics.uid_max
-        keg_uid_dict = tree_metrics.uid_dict
+        keg_keg_uid_max = tree_metrics.keg_uid_max
+        keg_keg_uid_dict = tree_metrics.keg_uid_dict
 
         for x_keg in self.get_keg_dict().values():
-            if x_keg.uid is None or keg_uid_dict.get(x_keg.uid) > 1:
-                new_keg_uid_max = keg_uid_max + 1
-                self.edit_keg_attr(keg_rope=x_keg.get_keg_rope(), uid=new_keg_uid_max)
-                keg_uid_max = new_keg_uid_max
+            if x_keg.keg_uid is None or keg_keg_uid_dict.get(x_keg.keg_uid) > 1:
+                new_keg_keg_uid_max = keg_keg_uid_max + 1
+                self.edit_keg_attr(
+                    keg_rope=x_keg.get_keg_rope(), keg_uid=new_keg_keg_uid_max
+                )
+                keg_keg_uid_max = new_keg_keg_uid_max
 
     def get_reason_contexts(self) -> set[RopeTerm]:
         return set(self.get_tree_metrics().reason_contexts.keys())
@@ -771,7 +773,7 @@ class PlanUnit:
         self,
         keg_rope: RopeTerm,
         star: int = None,
-        uid: int = None,
+        keg_uid: int = None,
         reason: ReasonUnit = None,
         reason_context: RopeTerm = None,
         reason_case: RopeTerm = None,
@@ -799,7 +801,7 @@ class PlanUnit:
         problem_bool: bool = None,
     ):
         if healerunit is not None:
-            for x_healer_name in healerunit._healer_names:
+            for x_healer_name in healerunit.healer_names:
                 if self.get_personunit_group_titles_dict().get(x_healer_name) is None:
                     exception_str = f"Keg cannot edit healerunit because group_title '{x_healer_name}' does not exist as group in Plan"
                     raise healerunit_group_title_Exception(exception_str)
@@ -817,7 +819,7 @@ reason_case:    {reason_case}"""
 
         x_kegattrholder = kegattrholder_shop(
             star=star,
-            uid=uid,
+            keg_uid=keg_uid,
             reason=reason,
             reason_context=reason_context,
             reason_case=reason_case,
@@ -1326,7 +1328,7 @@ reason_case:    {reason_case}"""
     def _get_healers_dict(self) -> dict[HealerName, dict[RopeTerm, KegUnit]]:
         _healers_dict = {}
         for x_keep_rope, x_keep_keg in self._keep_dict.items():
-            for x_healer_name in x_keep_keg.healerunit._healer_names:
+            for x_healer_name in x_keep_keg.healerunit.healer_names:
                 x_groupunit = self.get_groupunit(x_healer_name)
                 for x_person_name in x_groupunit.memberships.keys():
                     if _healers_dict.get(x_person_name) is None:
@@ -1471,7 +1473,7 @@ def planunit_shop(
     )
     x_plan.kegroot = kegunit_shop(
         keg_label=root_keg_label,
-        uid=1,
+        keg_uid=1,
         tree_level=0,
         knot=x_plan.knot,
         fund_grain=x_plan.fund_grain,
@@ -1518,7 +1520,7 @@ def create_kegroot_from_plan_dict(x_plan: PlanUnit, plan_dict: dict):
         keg_label=get_obj_from_keg_dict(kegroot_dict, "keg_label"),
         parent_rope="",
         tree_level=0,
-        uid=get_obj_from_keg_dict(kegroot_dict, "uid"),
+        keg_uid=get_obj_from_keg_dict(kegroot_dict, "keg_uid"),
         star=get_obj_from_keg_dict(kegroot_dict, "star"),
         begin=get_obj_from_keg_dict(kegroot_dict, "begin"),
         close=get_obj_from_keg_dict(kegroot_dict, "close"),
@@ -1559,7 +1561,7 @@ def create_kegroot_kids_from_dict(x_plan: PlanUnit, kegroot_dict: dict):
         x_kegkid = kegunit_shop(
             keg_label=get_obj_from_keg_dict(keg_dict, "keg_label"),
             star=get_obj_from_keg_dict(keg_dict, "star"),
-            uid=get_obj_from_keg_dict(keg_dict, "uid"),
+            keg_uid=get_obj_from_keg_dict(keg_dict, "keg_uid"),
             begin=get_obj_from_keg_dict(keg_dict, "begin"),
             close=get_obj_from_keg_dict(keg_dict, "close"),
             numor=get_obj_from_keg_dict(keg_dict, "numor"),

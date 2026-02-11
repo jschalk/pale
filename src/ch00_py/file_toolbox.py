@@ -117,8 +117,15 @@ def open_file(dest_dir: str, filename: str = None):
     return x_str
 
 
-def save_json(dest_dir: str, filename: str, x_dict: dict, replace: bool = True):
-    save_file(dest_dir, filename, get_json_from_dict(x_dict))
+def save_json(
+    dest_dir: str,
+    filename: str,
+    x_dict: dict,
+    replace: bool = True,
+    keys_case_insensitive: bool = False,
+):
+    x_json = get_json_from_dict(x_dict, keys_case_insensitive=keys_case_insensitive)
+    save_file(dest_dir, filename, x_json)
 
 
 def open_json(dest_dir: str, filename: str = None):

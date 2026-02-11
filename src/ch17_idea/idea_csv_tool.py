@@ -337,7 +337,7 @@ def add_plan_to_br00025_csv(
     spark_num: int = None,
 ) -> str:
     for kegunit in x_plan._keg_dict.values():
-        for group_title in kegunit.healerunit._healer_names:
+        for group_title in kegunit.healerunit.healer_names:
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),

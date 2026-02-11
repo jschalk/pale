@@ -66,7 +66,7 @@ def get_moment_args_class_types() -> dict[str, str]:
         "cumulative_minute": "int",
         "bud_time": "TimeNum",
         "hour_label": "LabelTerm",
-        "moment_rope": "LabelTerm",
+        "moment_rope": "RopeTerm",
         "fund_grain": "float",
         "month_label": "LabelTerm",
         "monthday_index": "int",

@@ -88,18 +88,18 @@ def get_ex1_br00004_df() -> DataFrame:
     """idea_format_00004_moment_epoch_month_v0_0_0
     cumulative_day,moment_rope,month_label"""
     x_df = DataFrame(columns=[kw.moment_rope, kw.month_label, "cumulative_day"])
-    x_df.loc[0] = [exx.a23, "March", 31]
-    x_df.loc[1] = [exx.a23, "April", 61]
-    x_df.loc[2] = [exx.a23, "May", 92]
-    x_df.loc[3] = [exx.a23, "June", 122]
-    x_df.loc[4] = [exx.a23, "July", 153]
-    x_df.loc[5] = [exx.a23, "August", 184]
-    x_df.loc[6] = [exx.a23, "September", 214]
-    x_df.loc[7] = [exx.a23, "October", 245]
-    x_df.loc[8] = [exx.a23, "November", 275]
-    x_df.loc[9] = [exx.a23, "December", 306]
-    x_df.loc[10] = [exx.a23, "January", 337]
-    x_df.loc[11] = [exx.a23, "February", 365]
+    x_df.loc[0] = [exx.a23, exx.March, 31]
+    x_df.loc[1] = [exx.a23, exx.April, 61]
+    x_df.loc[2] = [exx.a23, exx.May, 92]
+    x_df.loc[3] = [exx.a23, exx.June, 122]
+    x_df.loc[4] = [exx.a23, exx.July, 153]
+    x_df.loc[5] = [exx.a23, exx.August, 184]
+    x_df.loc[6] = [exx.a23, exx.September, 214]
+    x_df.loc[7] = [exx.a23, exx.October, 245]
+    x_df.loc[8] = [exx.a23, exx.November, 275]
+    x_df.loc[9] = [exx.a23, exx.December, 306]
+    x_df.loc[10] = [exx.a23, exx.January, 337]
+    x_df.loc[11] = [exx.a23, exx.February, 365]
     return x_df
 
 
@@ -107,13 +107,13 @@ def get_ex1_br00005_df() -> DataFrame:
     """idea_format_00005_moment_epoch_weekday_v0_0_0
     moment_rope,weekday_label,weekday_order"""
     x_df = DataFrame(columns=[kw.moment_rope, kw.weekday_label, kw.weekday_order])
-    x_df.loc[0] = [exx.a23, kw.Wednesday, 0]
-    x_df.loc[1] = [exx.a23, kw.Thursday, 1]
-    x_df.loc[2] = [exx.a23, kw.Friday, 2]
-    x_df.loc[3] = [exx.a23, kw.Saturday, 3]
-    x_df.loc[4] = [exx.a23, kw.Sunday, 4]
-    x_df.loc[5] = [exx.a23, kw.Monday, 5]
-    x_df.loc[6] = [exx.a23, kw.Tuesday, 6]
+    x_df.loc[0] = [exx.a23, exx.Wednesday, 0]
+    x_df.loc[1] = [exx.a23, exx.Thursday, 1]
+    x_df.loc[2] = [exx.a23, exx.Friday, 2]
+    x_df.loc[3] = [exx.a23, exx.Saturday, 3]
+    x_df.loc[4] = [exx.a23, exx.Sunday, 4]
+    x_df.loc[5] = [exx.a23, exx.Monday, 5]
+    x_df.loc[6] = [exx.a23, exx.Tuesday, 6]
     return x_df
 
 
@@ -259,13 +259,13 @@ def get_ex2_br00005_df() -> DataFrame:
     """idea_format_00005_moment_epoch_weekday_v0_0_0
     moment_rope,weekday_label,weekday_order"""
     x_df = DataFrame(columns=[kw.moment_rope, "weekday_label", "weekday_order"])
-    x_df.loc[0] = [exx.a23, kw.Wednesday, 0]
-    x_df.loc[1] = [exx.a23, kw.Thursday, 1]
-    x_df.loc[2] = [exx.a23, kw.Friday, 2]
-    x_df.loc[3] = [exx.a23, kw.Saturday, 3]
-    x_df.loc[4] = [exx.a23, kw.Sunday, 4]
-    x_df.loc[5] = [exx.a23, kw.Monday, 5]
-    x_df.loc[6] = [exx.a23, kw.Tuesday, 6]
+    x_df.loc[0] = [exx.a23, exx.Wednesday, 0]
+    x_df.loc[1] = [exx.a23, exx.Thursday, 1]
+    x_df.loc[2] = [exx.a23, exx.Friday, 2]
+    x_df.loc[3] = [exx.a23, exx.Saturday, 3]
+    x_df.loc[4] = [exx.a23, exx.Sunday, 4]
+    x_df.loc[5] = [exx.a23, exx.Monday, 5]
+    x_df.loc[6] = [exx.a23, exx.Tuesday, 6]
     x_df.loc[7] = [J45_ROPE, kw.Anaday, 0]
     x_df.loc[8] = [J45_ROPE, kw.Baileyday, 1]
     x_df.loc[9] = [J45_ROPE, kw.Chiday, 2]

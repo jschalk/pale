@@ -254,7 +254,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[158] == kw.celldepth
     assert table_sorting_priority[159] == kw.job_listen_rotations
     assert table_sorting_priority[160] == kw.error_message
-    assert table_sorting_priority[161] == "plan_name_is_labor"
+    assert table_sorting_priority[161] == kw.plan_name_is_labor
     assert table_sorting_priority[162] == kw.keg_active
     assert table_sorting_priority[163] == kw.task
     assert table_sorting_priority[164] == kw.reason_active
@@ -287,7 +287,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[191] == kw.keeps_buildable
     assert table_sorting_priority[192] == kw.all_person_debt
     assert table_sorting_priority[193] == kw.tree_traverse_count
-    assert table_sorting_priority[194] == kw.bnet_funds
+    assert table_sorting_priority[194] == kw.net_funds
     assert table_sorting_priority[195] == kw.fund_rank
     assert table_sorting_priority[196] == kw.pledges_count
     assert table_sorting_priority[197] == f"context_keg_{kw.close}"
@@ -316,7 +316,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     all_args.add(kw.translate_spark_num)
     all_args.add(kw.error_message)
     all_args.add(kw.world_name)
-    all_args.add(kw.bnet_funds)  # kpi columns
+    all_args.add(kw.net_funds)  # kpi columns
     all_args.add(kw.fund_rank)  # kpi columns
     all_args.add(kw.pledges_count)  # kpi columns
     all_args.add(f"context_keg_{kw.close}")  # nabu ReasonNum FactNum staging columns

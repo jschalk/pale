@@ -141,13 +141,13 @@ def test_get_moment_args_dimen_mapping_ReturnsObj():
 def get_moment_class_type(x_dimen: str, x_arg: str) -> str:
     moment_config_dict = get_moment_config_dict()
     dimen_dict = moment_config_dict.get(x_dimen)
-    optional_dict = dimen_dict.get(kw.jvalues)
-    required_dict = dimen_dict.get(kw.jkeys)
+    jvalues_dict = dimen_dict.get(kw.jvalues)
+    jkeys_dict = dimen_dict.get(kw.jkeys)
     arg_dict = {}
-    if optional_dict.get(x_arg):
+    if jvalues_dict.get(x_arg):
         arg_dict = dimen_dict.get(kw.jvalues).get(x_arg)
-    if required_dict.get(x_arg):
-        arg_dict = required_dict.get(x_arg)
+    if jkeys_dict.get(x_arg):
+        arg_dict = jkeys_dict.get(x_arg)
     return arg_dict.get(kw.class_type)
 
 

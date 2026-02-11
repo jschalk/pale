@@ -7,7 +7,7 @@ CREATE TABLE moment_kpi001_person_nets AS
 SELECT
   moment_person_nets.moment_rope
 , moment_person_nets.plan_name
-, plan_net_amount AS bnet_funds
+, plan_net_amount AS net_funds
 , RANK() OVER (ORDER BY plan_net_amount DESC) AS fund_rank
 , IFNULL(SUM(plan_kegunit_job.pledge), 0) AS pledges_count
 FROM moment_person_nets

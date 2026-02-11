@@ -101,7 +101,7 @@ def get_translate_args_class_types() -> dict[str, str]:
         "knot": "str",
         "mana_grain": "float",
         "max_tree_traverse": "int",
-        "moment_rope": "LabelTerm",
+        "moment_rope": "RopeTerm",
         "month_label": "LabelTerm",
         "monthday_index": "int",
         "morph": "bool",
@@ -226,7 +226,6 @@ def get_translate_titleterm_args() -> set[str]:
 
 def get_translate_labelterm_args() -> set[str]:
     return {
-        "moment_rope",
         "hour_label",
         "month_label",
         "epoch_label",
@@ -236,6 +235,7 @@ def get_translate_labelterm_args() -> set[str]:
 
 def get_translate_ropeterm_args() -> set[str]:
     return {
+        "moment_rope",
         "fact_state",
         "fact_context",
         "keg_rope",

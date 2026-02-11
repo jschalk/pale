@@ -29,7 +29,7 @@ def test_get_plan_viewer_template_ReturnsObj():
         # kw.range_evaluated,
         kw.reasonheirs,
         kw.stop_calc,
-        kw.uid,
+        kw.keg_uid,
         kw.addin,
         kw.awardunits,
         kw.begin,

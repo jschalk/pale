@@ -82,7 +82,7 @@ class ranged_fact_keg_Exception(Exception):
 @dataclass
 class KegAttrHolder:
     star: int = None
-    uid: int = None
+    keg_uid: int = None
     reason: ReasonUnit = None
     reason_context: RopeTerm = None
     reason_case: RopeTerm = None
@@ -126,7 +126,7 @@ class KegAttrHolder:
 
 def kegattrholder_shop(
     star: int = None,
-    uid: int = None,
+    keg_uid: int = None,
     reason: ReasonUnit = None,
     reason_context: RopeTerm = None,
     reason_case: RopeTerm = None,
@@ -155,7 +155,7 @@ def kegattrholder_shop(
 ) -> KegAttrHolder:
     return KegAttrHolder(
         star=star,
-        uid=uid,
+        keg_uid=keg_uid,
         reason=reason,
         reason_context=reason_context,
         reason_case=reason_case,
@@ -205,15 +205,15 @@ class KegUnit:
     knot : str Identifier or label for bridging kegs.
     optional:
     star : int weight that is arbitrary used by parent keg to calculated relative importance.
-    kids : dict[RopeTerm], mapping of child kegs by their LabelTerm
-    uid : int Unique identifier, forgot how I use this.
+    kids : dict[LabelTerm, KegUnit], mapping of child kegs by their LabelTerm
+    keg_uid : int Unique identifier, forgot how I use this.
     awardunits : dict[GroupTitle, AwardUnit] that describe who funds and who is funded
     reasonunits : dict[RopeTerm, ReasonUnit] that stores all reasons
-    laborunit : LaborUnit that describes whom this pledge is for
+    laborunit : LaborUnit that describes whom this pledge is for. LaborUnit.partys: dict[GroupTitle, PartyUnit]
     factunits : dict[RopeTerm, FactUnit] that stores all facts
     healerunit : HealerUnit, if a ancestor keg is a problem, this can donote a healing keg.
-    begin : float that describes the begin of a numberical range if it exists
-    close : float that describes the close of a numberical range if it exists
+    begin : float that describes the begin of a numerical range if it exists
+    close : float that describes the close of a numerical range if it exists
     addin : float that describes addition to parent range calculations
     denom : int that describes denominator to parent range calculations
     numor : int that describes numerator to parent range calculations
@@ -222,7 +222,7 @@ class KegUnit:
     stop_want : float
     pledge : bool that describes if the keg is a pledge.
     problem_bool : bool that describes if the keg is a problem.
-    is_expanded : bool flag for whether the keg is expanded.
+    is_expanded : bool flag that can be used by UI to display or high tree branch.
 
     active : bool that describes if the keg pledge is keg_active, calculated by PlanUnit.
     active_hx : dict[int, bool] Historical record of active state, used to calcualte if changes have occured
@@ -251,7 +251,7 @@ class KegUnit:
     knot: KnotTerm = None
     kids: dict[LabelTerm,] = None
     star: int = None
-    uid: int = None  # Calculated field?
+    keg_uid: int = None  # Calculated field?
     awardunits: dict[GroupTitle, AwardUnit] = None
     reasonunits: dict[RopeTerm, ReasonUnit] = None
     laborunit: LaborUnit = None
@@ -580,8 +580,8 @@ class KegUnit:
     def _set_attrs_to_kegunit(self, keg_attr: KegAttrHolder):
         if keg_attr.star is not None:
             self.star = keg_attr.star
-        if keg_attr.uid is not None:
-            self.uid = keg_attr.uid
+        if keg_attr.keg_uid is not None:
+            self.keg_uid = keg_attr.keg_uid
         if keg_attr.reason is not None:
             self.set_reasonunit(reason=keg_attr.reason)
         if keg_attr.reason_context is not None and keg_attr.reason_case is not None:
@@ -933,8 +933,8 @@ class KegUnit:
 
         if self.keg_label is not None:
             x_dict["keg_label"] = self.keg_label
-        if self.uid is not None:
-            x_dict["uid"] = self.uid
+        if self.keg_uid is not None:
+            x_dict["keg_uid"] = self.keg_uid
         if self.kids not in [{}, None]:
             x_dict["kids"] = self.get_kids_dict()
         if self.reasonunits not in [{}, None]:
@@ -1006,7 +1006,7 @@ class KegUnit:
 
 def kegunit_shop(
     keg_label: LabelTerm,
-    uid: int = None,  # Calculated field?
+    keg_uid: int = None,  # Calculated field?
     parent_rope: RopeTerm = None,
     kids: dict = None,
     star: int = 1,
@@ -1050,7 +1050,7 @@ def kegunit_shop(
 
     x_kegkid = KegUnit(
         keg_label=None,
-        uid=uid,
+        keg_uid=keg_uid,
         parent_rope=parent_rope,
         kids=get_empty_dict_if_None(kids),
         star=get_positive_int(star),

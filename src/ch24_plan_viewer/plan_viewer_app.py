@@ -67,7 +67,7 @@ def get_plan_viewer_template() -> str:
             <input type="checkbox" id="show_fund_ratio"><label for="show_fund_ratio">fund_ratio</label>
             <input type="checkbox" id="show_parent_rope"><label for="show_parent_rope">parent_rope</label>
             <input type="checkbox" id="show_root_boolean"><label for="show_root_boolean">root_boolean</label>
-            <input type="checkbox" id="show_uid"><label for="show_uid">uid</label>
+            <input type="checkbox" id="show_keg_uid"><label for="show_keg_uid">keg_uid</label>
             <input type="checkbox" id="show_reasonunits"><label for="show_reasonunits">reasonunits</label>
             <input type="checkbox" id="show_reasonheirs"><label for="show_reasonheirs">reasonheirs</label>
             <input type="checkbox" id="show_factunits"><label for="show_factunits">factunits</label>

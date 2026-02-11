@@ -118,8 +118,6 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     assert swim_credor_pool_readable == sg_dict.get(credor_pool_readable_key)
 #     assert swim_debtor_pool_readable == sg_dict.get(debtor_pool_readable_key)
 
-#     assert 1 == 2
-
 
 # def test_get_groups_view_dict_ReturnsObj_Scenario2_memberships():
 #     # ESTABLISH

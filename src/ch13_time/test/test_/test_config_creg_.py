@@ -160,11 +160,11 @@ def test_add_time_creg_kegunit_ReturnsObjWith_c400_leap_rope():
     time_rope = sue_planunit.make_l1_rope(kw.time)
     creg_rope = sue_planunit.make_rope(time_rope, kw.creg)
     c400_leap_rope = sue_planunit.make_rope(creg_rope, kw.c400_leap)
-    c400_clean_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_clean)
-    c100_rope = sue_planunit.make_rope(c400_clean_rope, kw.c100)
+    c400_core_rope = sue_planunit.make_rope(c400_leap_rope, kw.c400_core)
+    c100_rope = sue_planunit.make_rope(c400_core_rope, kw.c100)
     yr4_leap_rope = sue_planunit.make_rope(c100_rope, kw.yr4_leap)
-    yr4_clean_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_clean)
-    year_rope = sue_planunit.make_rope(yr4_clean_rope, kw.year)
+    yr4_core_rope = sue_planunit.make_rope(yr4_leap_rope, kw.yr4_core)
+    year_rope = sue_planunit.make_rope(yr4_core_rope, kw.year)
 
     assert not sue_planunit.keg_exists(c400_leap_rope)
 
@@ -179,12 +179,12 @@ def test_add_time_creg_kegunit_ReturnsObjWith_c400_leap_rope():
     assert c400_leap_keg.denom == 210379680
     assert c400_leap_keg.morph
 
-    assert sue_planunit.keg_exists(c400_clean_rope)
-    c400_clean_keg = sue_planunit.get_keg_obj(c400_clean_rope)
-    assert not c400_clean_keg.gogo_want
-    assert not c400_clean_keg.stop_want
-    assert c400_clean_keg.denom == 210378240
-    assert c400_clean_keg.morph
+    assert sue_planunit.keg_exists(c400_core_rope)
+    c400_core_keg = sue_planunit.get_keg_obj(c400_core_rope)
+    assert not c400_core_keg.gogo_want
+    assert not c400_core_keg.stop_want
+    assert c400_core_keg.denom == 210378240
+    assert c400_core_keg.morph
 
     assert sue_planunit.keg_exists(c100_rope)
     c100_keg = sue_planunit.get_keg_obj(c100_rope)
@@ -200,12 +200,12 @@ def test_add_time_creg_kegunit_ReturnsObjWith_c400_leap_rope():
     assert yr4_leap_keg.denom == 2103840
     assert yr4_leap_keg.morph
 
-    assert sue_planunit.keg_exists(yr4_clean_rope)
-    yr4_clean_keg = sue_planunit.get_keg_obj(yr4_clean_rope)
-    assert not yr4_clean_keg.gogo_want
-    assert not yr4_clean_keg.stop_want
-    assert yr4_clean_keg.denom == 2102400
-    assert yr4_clean_keg.morph
+    assert sue_planunit.keg_exists(yr4_core_rope)
+    yr4_core_keg = sue_planunit.get_keg_obj(yr4_core_rope)
+    assert not yr4_core_keg.gogo_want
+    assert not yr4_core_keg.stop_want
+    assert yr4_core_keg.denom == 2102400
+    assert yr4_core_keg.morph
 
     assert sue_planunit.keg_exists(year_rope)
     year_keg = sue_planunit.get_keg_obj(year_rope)
@@ -225,18 +225,18 @@ def test_add_time_creg_kegunit_ReturnsObjWith_years():
     assert not sue_planunit.keg_exists(creg_rope)
     assert not sue_planunit.keg_exists(year_rope)
 
-    jan_rope = sue_planunit.make_rope(year_rope, "January")
-    feb_rope = sue_planunit.make_rope(year_rope, "February")
-    mar_rope = sue_planunit.make_rope(year_rope, "March")
-    apr_rope = sue_planunit.make_rope(year_rope, "April")
-    may_rope = sue_planunit.make_rope(year_rope, "May")
-    jun_rope = sue_planunit.make_rope(year_rope, "June")
-    jul_rope = sue_planunit.make_rope(year_rope, "July")
-    aug_rope = sue_planunit.make_rope(year_rope, "August")
-    sep_rope = sue_planunit.make_rope(year_rope, "September")
-    oct_rope = sue_planunit.make_rope(year_rope, "October")
-    nov_rope = sue_planunit.make_rope(year_rope, "November")
-    dec_rope = sue_planunit.make_rope(year_rope, "December")
+    jan_rope = sue_planunit.make_rope(year_rope, exx.January)
+    feb_rope = sue_planunit.make_rope(year_rope, exx.February)
+    mar_rope = sue_planunit.make_rope(year_rope, exx.March)
+    apr_rope = sue_planunit.make_rope(year_rope, exx.April)
+    may_rope = sue_planunit.make_rope(year_rope, exx.May)
+    jun_rope = sue_planunit.make_rope(year_rope, exx.June)
+    jul_rope = sue_planunit.make_rope(year_rope, exx.July)
+    aug_rope = sue_planunit.make_rope(year_rope, exx.August)
+    sep_rope = sue_planunit.make_rope(year_rope, exx.September)
+    oct_rope = sue_planunit.make_rope(year_rope, exx.October)
+    nov_rope = sue_planunit.make_rope(year_rope, exx.November)
+    dec_rope = sue_planunit.make_rope(year_rope, exx.December)
     assert not sue_planunit.keg_exists(jan_rope)
     assert not sue_planunit.keg_exists(feb_rope)
     assert not sue_planunit.keg_exists(mar_rope)

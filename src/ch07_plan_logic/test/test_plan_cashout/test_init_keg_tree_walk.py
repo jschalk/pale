@@ -17,9 +17,9 @@ def test_TreeMetrics_Exists():
     assert x_tree_metrics.tree_level_count is None
     assert x_tree_metrics.reason_contexts is None
     assert x_tree_metrics.awardunits_metrics is None
-    assert x_tree_metrics.uid_max is None
-    assert x_tree_metrics.uid_dict is None
-    assert x_tree_metrics.all_keg_uids_are_unique is None
+    assert x_tree_metrics.keg_uid_max is None
+    assert x_tree_metrics.keg_uid_dict is None
+    assert x_tree_metrics.all_keg_keg_uids_are_unique is None
 
 
 def test_treemetrics_shop_ReturnsObj():
@@ -32,9 +32,9 @@ def test_treemetrics_shop_ReturnsObj():
     assert x_tree_metrics.tree_level_count == {}
     assert x_tree_metrics.reason_contexts == {}
     assert x_tree_metrics.awardunits_metrics == {}
-    assert x_tree_metrics.uid_max == 0
-    assert x_tree_metrics.uid_dict == {}
-    assert x_tree_metrics.all_keg_uids_are_unique
+    assert x_tree_metrics.keg_uid_max == 0
+    assert x_tree_metrics.keg_uid_dict == {}
+    assert x_tree_metrics.all_keg_keg_uids_are_unique
 
     # # could create tests for these methods?
     # def evaluate_label(
@@ -42,7 +42,7 @@ def test_treemetrics_shop_ReturnsObj():
     # def evaluate_level(self, tree_level):
     # def evaluate_reasonunits(self, reasons: dict[RopeTerm, ReasonUnit]):
     # def evaluate_awardunits(self, awardunits: dict[GroupTitle, AwardUnit]):
-    # def evaluate_uid_max(self, uid):
+    # def evaluate_keg_uid_max(self, keg_uid):
 
 
 def test_PlanUnit_set_keg_dict_Scenario0():

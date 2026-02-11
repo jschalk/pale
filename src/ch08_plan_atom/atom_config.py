@@ -191,7 +191,7 @@ def get_normalized_plan_table_build() -> dict[str : dict[str, any]]:
 
         normal_table_dict["columns"] = {}
         normal_columns_dict = normal_table_dict.get("columns")
-        normal_columns_dict["uid"] = {
+        normal_columns_dict["keg_uid"] = {
             "sqlite_datatype": "INTEGER",
             "nullable": False,
             "primary_key": True,

@@ -1,6 +1,7 @@
 from os import getcwd as os_getcwd
 from os.path import isdir as os_path_isdir
 from src.ch00_py.file_toolbox import create_path, open_json, save_json
+from src.ch98_docs_builder._ref.ch98_path import create_chapter_ref_path
 from src.linter.chapter_migration_tools import (
     delete_if_empty_or_pycache_only,
     first_level_dirs_with_prefix,
