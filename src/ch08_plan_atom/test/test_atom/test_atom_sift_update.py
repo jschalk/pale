@@ -37,7 +37,6 @@ def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_planunit():
     sue_fund_pool = 69
     sue_max_tree_traverse = 72
     sue_mana_grain = 2
-    sue_tally = 100
     zia_atom = planatom_shop(kw.planunit, kw.INSERT)
     zia_atom.set_arg(kw.respect_grain, sue_bit)
     zia_atom.set_arg(kw.credor_respect, sue_credor_respect)
@@ -46,7 +45,6 @@ def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_planunit():
     zia_atom.set_arg(kw.fund_pool, sue_fund_pool)
     zia_atom.set_arg(kw.max_tree_traverse, sue_max_tree_traverse)
     zia_atom.set_arg(kw.mana_grain, sue_mana_grain)
-    zia_atom.set_arg(kw.tally, sue_tally)
 
     # WHEN
     new_zia_planatom = sift_planatom(sue_plan, zia_atom)
@@ -64,7 +62,6 @@ def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_planunit():
         kw.fund_pool: sue_fund_pool,
         kw.max_tree_traverse: sue_max_tree_traverse,
         kw.mana_grain: sue_mana_grain,
-        kw.tally: sue_tally,
     }
 
 

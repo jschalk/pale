@@ -14,7 +14,6 @@ def test_PlanUnit_Exists():
     assert x_plan
     assert x_plan.moment_rope is None
     assert x_plan.plan_name is None
-    assert x_plan.tally is None
     assert x_plan.persons is None
     assert x_plan.kegroot is None
     assert x_plan.credor_respect is None
@@ -69,7 +68,6 @@ def test_PlanUnit_Exists():
         kw.plan_name,
         kw.mana_grain,
         kw.respect_grain,
-        kw.tally,
     }
 
 
@@ -112,7 +110,6 @@ def test_planunit_shop_ReturnsObj_Scenario1_WithParameters():
     assert x_plan
     assert x_plan.plan_name == exx.sue
     assert x_plan.moment_rope == iowa_rope
-    assert x_plan.tally == 1
     assert x_plan.persons == {}
     assert x_plan.kegroot is not None
     assert x_plan.max_tree_traverse == 3

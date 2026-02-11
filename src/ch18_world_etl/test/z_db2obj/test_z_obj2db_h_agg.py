@@ -46,12 +46,10 @@ def test_insert_h_agg_plnunit_CreatesTableRowsFor_planunit_h_agg():
     x_max_tree_traverse = 22
     x_mana_grain = 4.0
     x_respect_grain = 0.2
-    x_tally = 6
     sue_plan = planunit_shop(x_plan_name, moment_rope=exx.a23)
     sue_plan.fund_pool = x_fund_pool
     sue_plan.fund_grain = x_fund_grain
     sue_plan.mana_grain = x_mana_grain
-    sue_plan.tally = x_tally
     sue_plan.respect_grain = x_respect_grain
     sue_plan.max_tree_traverse = x_max_tree_traverse
     sue_plan.credor_respect = x_credor_respect
@@ -81,7 +79,6 @@ def test_insert_h_agg_plnunit_CreatesTableRowsFor_planunit_h_agg():
             x_debtor_respect,
             x_fund_pool,
             x_max_tree_traverse,
-            x_tally,
             x_fund_grain,
             x_mana_grain,
             x_respect_grain,

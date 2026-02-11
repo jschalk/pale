@@ -101,7 +101,6 @@ def get_atom_args_class_types() -> dict[str, str]:
         "stop_want": "float",
         "solo": "int",
         "take_force": "float",
-        "tally": "int",
         "party_title": "TitleTerm",
     }
 

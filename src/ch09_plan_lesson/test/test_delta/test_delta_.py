@@ -36,7 +36,7 @@ def test_PlanDelta_set_planatom_Sets_PlanUnitSimpleAttrs():
     ex1_plandelta = plandelta_shop()
     attribute_value = 55
     dimen = kw.planunit
-    opt1_arg = kw.tally
+    opt1_arg = kw.mana_grain
     jvalues = {opt1_arg: attribute_value}
     jkeys = {}
     plan_star_planatom = planatom_shop(
@@ -111,7 +111,7 @@ def test_ChangUnit_c_planatom_exists_ReturnsObj_plan_person_membership_str():
 def test_PlanDelta_get_atom_ReturnsObj():
     # ESTABLISH
     ex1_plandelta = plandelta_shop()
-    opt_arg1 = kw.tally
+    opt_arg1 = kw.mana_grain
     opt_value = 55
     planunit_planatom = planatom_shop(kw.planunit, kw.UPDATE)
     planunit_planatom.set_jvalue(x_key=opt_arg1, x_value=opt_value)
@@ -130,7 +130,7 @@ def test_PlanDelta_add_planatom_Sets_PlanUnitSimpleAttrs():
     assert ex1_plandelta.planatoms == {}
 
     # WHEN
-    op2_arg = kw.tally
+    op2_arg = kw.mana_grain
     op2_value = 55
     jkeys = {}
     jvalues = {op2_arg: op2_value}

@@ -187,12 +187,10 @@ def add_planunit_legible_list(
     legible_list: list[str], x_atom: PlanAtom, x_plan: PlanUnit
 ):
     jvalues = x_atom.jvalues
-    _tally_str = "tally"
     _max_tree_traverse_str = "max_tree_traverse"
     _max_tree_traverse_value = jvalues.get(_max_tree_traverse_str)
     credor_respect_value = jvalues.get("credor_respect")
     debtor_respect_value = jvalues.get("debtor_respect")
-    _tally_value = jvalues.get(_tally_str)
 
     if _max_tree_traverse_value is not None:
         x_str = f"{x_plan.plan_name}'s maximum number of Plan evaluations set to {_max_tree_traverse_value}"
@@ -209,9 +207,6 @@ def add_planunit_legible_list(
         legible_list.append(x_str)
     elif debtor_respect_value is not None:
         x_str = f"{x_plan.plan_name}'s debtor pool is now {debtor_respect_value}"
-        legible_list.append(x_str)
-    if _tally_value is not None:
-        x_str = f"{x_plan.plan_name}'s plan tally set to {_tally_value}"
         legible_list.append(x_str)
 
 

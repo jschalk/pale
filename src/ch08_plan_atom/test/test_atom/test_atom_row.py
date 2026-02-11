@@ -50,7 +50,6 @@ def test_AtomRow_Exists():
     assert x_atomrow.keg_rope is None
     assert x_atomrow.stop_want is None
     assert x_atomrow.take_force is None
-    assert x_atomrow.tally is None
 
     print(f"{set(x_atomrow.__dict__.keys())=}")
     print(f"{set(get_atom_args_class_types().keys())=}")

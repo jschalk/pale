@@ -20,7 +20,7 @@
 - [`br00026`](ideas\br00026.md): spark_num, face_name, moment_rope, plan_name, keg_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor
 - [`br00027`](ideas\br00027.md): spark_num, face_name, moment_rope, plan_name, keg_rope, reason_context, active_requisite
 - [`br00028`](ideas\br00028.md): spark_num, face_name, moment_rope, plan_name, keg_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool
-- [`br00029`](ideas\br00029.md): spark_num, face_name, moment_rope, plan_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain
+- [`br00029`](ideas\br00029.md): spark_num, face_name, moment_rope, plan_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, fund_grain, mana_grain, respect_grain
 - [`br00036`](ideas\br00036.md): spark_num, face_name, moment_rope, plan_name, keg_rope, healer_name, problem_bool
 - [`br00042`](ideas\br00042.md): spark_num, face_name, otx_title, inx_title, otx_knot, inx_knot, unknown_str
 - [`br00043`](ideas\br00043.md): spark_num, face_name, otx_name, inx_name, otx_knot, inx_knot, unknown_str

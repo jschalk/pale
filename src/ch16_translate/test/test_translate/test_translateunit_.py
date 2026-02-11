@@ -82,7 +82,6 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.celldepth) == "int"
     assert translate_args_class_types.get(kw.stop_want) == "float"
     assert translate_args_class_types.get(kw.take_force) == "float"
-    assert translate_args_class_types.get(kw.tally) == "int"
     assert translate_args_class_types.get(kw.party_title) == kw.TitleTerm
     assert translate_args_class_types.get(kw.bud_time) == kw.TimeNum
     assert translate_args_class_types.get(kw.tran_time) == kw.TimeNum

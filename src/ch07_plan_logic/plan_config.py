@@ -112,7 +112,6 @@ def get_plan_calc_args_type_dict() -> dict[str, str]:
         "max_tree_traverse": "int",
         "mana_grain": "float",
         "respect_grain": "float",
-        "tally": "int",
     }
 
 
@@ -196,7 +195,6 @@ def get_plan_calc_args_sqlite_datatype_dict() -> dict[str, str]:
         "mana_grain": "REAL",
         "respect_grain": "REAL",
         "solo": "INTEGER",
-        "tally": "INTEGER",
     }
 
 

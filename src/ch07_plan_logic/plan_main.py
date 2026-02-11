@@ -126,7 +126,6 @@ class PlanUnit:
     fund_grain: FundGrain = None  # defined by Moment
     respect_grain: RespectGrain = None  # defined by Moment
     mana_grain: ManaGrain = None  # defined by Moment
-    tally: float = None  # mostly by default
     credor_respect: RespectNum = None  # mostly set by default
     debtor_respect: RespectNum = None  # mostly set by default
     max_tree_traverse: int = None  # mostly set by default
@@ -1404,7 +1403,6 @@ reason_case:    {reason_case}"""
             "max_tree_traverse": self.max_tree_traverse,
             "kegroot": self.kegroot.to_dict(),
             "respect_grain": self.respect_grain,
-            "tally": self.tally,
             "persons": self.get_personunits_dict(),
         }
         if self.credor_respect is not None:
@@ -1440,7 +1438,6 @@ def planunit_shop(
     fund_grain: FundGrain = None,
     respect_grain: RespectGrain = None,
     mana_grain: ManaGrain = None,
-    tally: float = None,
 ) -> PlanUnit:
     knot = default_knot_if_None(knot)
     plan_name = "" if plan_name is None else plan_name
@@ -1451,7 +1448,6 @@ def planunit_shop(
     root_keg_label = get_tail_label(moment_rope, knot)
     x_plan = PlanUnit(
         plan_name=plan_name,
-        tally=get_1_if_None(tally),
         moment_rope=moment_rope,
         persons=get_empty_dict_if_None(),
         groupunits={},
@@ -1488,7 +1484,6 @@ def planunit_shop(
 def get_planunit_from_dict(plan_dict: dict) -> PlanUnit:
     x_plan = planunit_shop()
     x_plan.set_plan_name(obj_from_plan_dict(plan_dict, "plan_name"))
-    x_plan.tally = obj_from_plan_dict(plan_dict, "tally")
     x_plan.set_max_tree_traverse(obj_from_plan_dict(plan_dict, "max_tree_traverse"))
     plan_knot = obj_from_plan_dict(plan_dict, "knot")
     x_plan.knot = default_knot_if_None(plan_knot)

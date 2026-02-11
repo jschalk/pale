@@ -217,7 +217,7 @@ def test_get_atom_config_dict_CheckEachDimenHasCorrectArgCount():
     assert _get_atom_config_jkeys_len(kw.plan_keg_healerunit) == 2
     assert _get_atom_config_jkeys_len(kw.plan_keg_factunit) == 2
 
-    assert _get_atom_config_jvalues_len(kw.planunit) == 8
+    assert _get_atom_config_jvalues_len(kw.planunit) == 7
     assert _get_atom_config_jvalues_len(kw.plan_personunit) == 2
     assert _get_atom_config_jvalues_len(kw.plan_person_membership) == 2
     assert _get_atom_config_jvalues_len(kw.plan_kegunit) == 11
@@ -378,7 +378,7 @@ def test_get_flattened_atom_table_build_ReturnsObj():
     atom_columns = get_flattened_atom_table_build()
 
     # THEN
-    assert len(atom_columns) == 104
+    assert len(atom_columns) == 103
     assert atom_columns.get("planunit_UPDATE_credor_respect") == "REAL"
     # print(f"{atom_columns.keys()=}")
 
@@ -463,7 +463,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     assert cat_planunit.get(columns_str) is not None
 
     planunit_columns = cat_planunit.get(columns_str)
-    assert len(planunit_columns) == 9
+    assert len(planunit_columns) == 8
     assert planunit_columns.get(kw.keg_uid) is not None
     assert planunit_columns.get(kw.max_tree_traverse) is not None
     assert planunit_columns.get(kw.credor_respect) is not None
@@ -472,7 +472,6 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     assert planunit_columns.get(kw.fund_grain) is not None
     assert planunit_columns.get(kw.respect_grain) is not None
     assert planunit_columns.get(kw.mana_grain) is not None
-    assert planunit_columns.get(kw.tally) is not None
 
     assert len(cat_personunit) == 2
     personunit_columns = cat_personunit.get(columns_str)
@@ -522,7 +521,7 @@ def test_get_atom_args_dimen_mapping_ReturnsObj():
     assert kw.plan_keg_factunit in rope_dimens
     assert kw.plan_keg_partyunit in rope_dimens
     assert len(rope_dimens) == 7
-    assert len(x_atom_args_dimen_mapping) == 42
+    assert len(x_atom_args_dimen_mapping) == 41
 
 
 def get_class_type(x_dimen: str, x_arg: str) -> str:
@@ -649,7 +648,6 @@ def test_get_atom_args_class_types_ReturnsObj():
     assert x_class_types.get(kw.solo) == "int"
     assert x_class_types.get(kw.stop_want) == "float"
     assert x_class_types.get(kw.take_force) == "float"
-    assert x_class_types.get(kw.tally) == "int"
     assert x_class_types.get(kw.party_title) == kw.TitleTerm
     assert x_class_types.keys() == get_atom_args_dimen_mapping().keys()
     assert all_atom_args_class_types_are_correct(x_class_types)

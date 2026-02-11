@@ -135,14 +135,12 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_PlanUnit_simple_
     # ESTABLISH
     before_sue_plan = planunit_shop(exx.sue)
     after_sue_plan = copy_deepcopy(before_sue_plan)
-    x_planunit_tally = 55
     x_fund_pool = 8000000
     x_fund_grain = 8
     x_respect_grain = 5
     x_max_tree_traverse = 66
     x_credor_respect = 770
     x_debtor_respect = 880
-    after_sue_plan.tally = x_planunit_tally
     after_sue_plan.fund_pool = x_fund_pool
     after_sue_plan.fund_grain = x_fund_grain
     after_sue_plan.respect_grain = x_respect_grain
@@ -160,7 +158,6 @@ def test_PlanDelta_add_all_different_planatoms_Creates_PlanAtom_PlanUnit_simple_
     assert xio_planatom.get_value(kw.max_tree_traverse) == x_max_tree_traverse
     assert xio_planatom.get_value(kw.credor_respect) == x_credor_respect
     assert xio_planatom.get_value(kw.debtor_respect) == x_debtor_respect
-    assert xio_planatom.get_value(kw.tally) == x_planunit_tally
     assert xio_planatom.get_value(kw.fund_pool) == x_fund_pool
     assert xio_planatom.get_value(kw.fund_grain) == x_fund_grain
     assert xio_planatom.get_value(kw.respect_grain) == x_respect_grain

@@ -102,7 +102,6 @@ def get_plandelta_example1() -> PlanDelta:
     sue_plandelta = plandelta_shop()
 
     x_planatom = planatom_shop(kw.planunit, kw.UPDATE)
-    x_planatom.set_jvalue(kw.tally, 55)
     x_planatom.set_jvalue(kw.max_tree_traverse, 66)
     x_planatom.set_jvalue(kw.credor_respect, 77)
     x_planatom.set_jvalue(kw.debtor_respect, 88)

@@ -74,7 +74,7 @@ def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
         "br00026": "moment_rope,plan_name,keg_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor\n",
         "br00027": "moment_rope,plan_name,keg_rope,reason_context,active_requisite\n",
         "br00028": "moment_rope,plan_name,keg_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool\n",
-        "br00029": "moment_rope,plan_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,tally,fund_grain,mana_grain,respect_grain\n",
+        "br00029": "moment_rope,plan_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,fund_grain,mana_grain,respect_grain\n",
         "br00042": "otx_title,inx_title,otx_knot,inx_knot,unknown_str\n",
         "br00043": "otx_name,inx_name,otx_knot,inx_knot,unknown_str\n",
         "br00044": "otx_label,inx_label,otx_knot,inx_knot,unknown_str\n",
@@ -530,7 +530,6 @@ def test_add_plan_to_br00029_csv_ReturnsObj():
     bob_plan.debtor_respect = 555
     bob_plan.fund_pool = 777
     bob_plan.max_tree_traverse = 3
-    bob_plan.tally = 10
     bob_plan.fund_grain = 12
     bob_plan.mana_grain = 13
     bob_plan.respect_grain = 15
@@ -541,7 +540,7 @@ def test_add_plan_to_br00029_csv_ReturnsObj():
     x_csv = add_plan_to_br00029_csv(csv_header, bob_plan, csv_delimiter)
 
     # THEN
-    plan_row = f",,{exx.a23},{exx.bob},{bob_plan.credor_respect},{bob_plan.debtor_respect},{bob_plan.fund_pool},{bob_plan.max_tree_traverse},{bob_plan.tally},{bob_plan.fund_grain},{bob_plan.mana_grain},{bob_plan.respect_grain}\n"
+    plan_row = f",,{exx.a23},{exx.bob},{bob_plan.credor_respect},{bob_plan.debtor_respect},{bob_plan.fund_pool},{bob_plan.max_tree_traverse},{bob_plan.fund_grain},{bob_plan.mana_grain},{bob_plan.respect_grain}\n"
     assert x_csv == f"{csv_header}{plan_row}"
 
 
@@ -898,7 +897,6 @@ def test_add_lesson_to_br00029_csv_ReturnsObj():
     bob_plan.debtor_respect = 556
     bob_plan.fund_pool = 999
     bob_plan.max_tree_traverse = 3
-    bob_plan.tally = 10
     bob_plan.fund_grain = 3
     bob_plan.mana_grain = 13
     bob_plan.respect_grain = 2
@@ -914,7 +912,7 @@ def test_add_lesson_to_br00029_csv_ReturnsObj():
     x_csv = add_lesson_to_br00029_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    plan_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_plan.credor_respect},{bob_plan.debtor_respect},{bob_plan.fund_pool},,{bob_plan.tally},{bob_plan.fund_grain},,{bob_plan.respect_grain}\n"
+    plan_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_plan.credor_respect},{bob_plan.debtor_respect},{bob_plan.fund_pool},,{bob_plan.fund_grain},,{bob_plan.respect_grain}\n"
     assert x_csv == f"{csv_header}{plan_row}"
 
 
@@ -938,7 +936,6 @@ def test_add_lessonunit_to_stance_csv_strs_ReturnsObj():
     bob_plan.debtor_respect = 556
     bob_plan.fund_pool = 999
     bob_plan.max_tree_traverse = 3
-    bob_plan.tally = 10
     bob_plan.fund_grain = 3
     bob_plan.mana_grain = 13
     bob_plan.respect_grain = 2

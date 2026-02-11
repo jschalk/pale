@@ -40,7 +40,6 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
     x_max_tree_traverse = 22
     x_mana_grain = 4
     x_respect_grain = 0.2
-    x_tally = 6
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.plan_name: x_plan_name,
@@ -57,7 +56,6 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
         kw.max_tree_traverse: x_max_tree_traverse,
         kw.mana_grain: x_mana_grain,
         kw.respect_grain: x_respect_grain,
-        kw.tally: x_tally,
     }
     # all args included in values dict
     assert x_args == set(values_dict.keys())

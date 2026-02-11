@@ -230,72 +230,71 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[134] == kw.pledge
     assert table_sorting_priority[135] == kw.problem_bool
     assert table_sorting_priority[136] == kw.take_force
-    assert table_sorting_priority[137] == kw.tally
-    assert table_sorting_priority[138] == kw.fund_grain
-    assert table_sorting_priority[139] == kw.mana_grain
-    assert table_sorting_priority[140] == kw.respect_grain
-    assert table_sorting_priority[141] == kw.amount
-    assert table_sorting_priority[142] == kw.otx_label
-    assert table_sorting_priority[143] == kw.inx_label
-    assert table_sorting_priority[144] == kw.otx_rope
-    assert table_sorting_priority[145] == kw.inx_rope
-    assert table_sorting_priority[146] == kw.otx_name
-    assert table_sorting_priority[147] == kw.inx_name
-    assert table_sorting_priority[148] == kw.otx_title
-    assert table_sorting_priority[149] == kw.inx_title
-    assert table_sorting_priority[150] == kw.otx_knot
-    assert table_sorting_priority[151] == kw.inx_knot
-    assert table_sorting_priority[152] == kw.otx_time
-    assert table_sorting_priority[153] == kw.inx_time
-    assert table_sorting_priority[154] == kw.knot
-    assert table_sorting_priority[155] == kw.groupmark
-    assert table_sorting_priority[156] == kw.unknown_str
-    assert table_sorting_priority[157] == kw.quota
-    assert table_sorting_priority[158] == kw.celldepth
-    assert table_sorting_priority[159] == kw.job_listen_rotations
-    assert table_sorting_priority[160] == kw.error_message
-    assert table_sorting_priority[161] == kw.plan_name_is_labor
-    assert table_sorting_priority[162] == kw.keg_active
-    assert table_sorting_priority[163] == kw.task
-    assert table_sorting_priority[164] == kw.reason_active
-    assert table_sorting_priority[165] == kw.case_active
-    assert table_sorting_priority[166] == kw.credor_pool
-    assert table_sorting_priority[167] == kw.debtor_pool
-    assert table_sorting_priority[168] == kw.rational
-    assert table_sorting_priority[169] == kw.fund_give
-    assert table_sorting_priority[170] == kw.fund_take
-    assert table_sorting_priority[171] == kw.fund_onset
-    assert table_sorting_priority[172] == kw.fund_cease
-    assert table_sorting_priority[173] == kw.fund_ratio
-    assert table_sorting_priority[174] == kw.fund_agenda_give
-    assert table_sorting_priority[175] == kw.fund_agenda_take
-    assert table_sorting_priority[176] == kw.fund_agenda_ratio_give
-    assert table_sorting_priority[177] == kw.fund_agenda_ratio_take
-    assert table_sorting_priority[178] == kw.inallocable_person_debt_lumen
-    assert table_sorting_priority[179] == kw.gogo_calc
-    assert table_sorting_priority[180] == kw.stop_calc
-    assert table_sorting_priority[181] == kw.tree_level
-    assert table_sorting_priority[182] == kw.range_evaluated
-    assert table_sorting_priority[183] == kw.descendant_pledge_count
-    assert table_sorting_priority[184] == kw.healerunit_ratio
-    assert table_sorting_priority[185] == kw.all_person_cred
-    assert table_sorting_priority[186] == kw.keeps_justified
-    assert table_sorting_priority[187] == kw.offtrack_fund
-    assert table_sorting_priority[188] == kw.parent_heir_active
-    assert table_sorting_priority[189] == kw.irrational_person_debt_lumen
-    assert table_sorting_priority[190] == kw.sum_healerunit_kegs_fund_total
-    assert table_sorting_priority[191] == kw.keeps_buildable
-    assert table_sorting_priority[192] == kw.all_person_debt
-    assert table_sorting_priority[193] == kw.tree_traverse_count
-    assert table_sorting_priority[194] == kw.net_funds
-    assert table_sorting_priority[195] == kw.fund_rank
-    assert table_sorting_priority[196] == kw.pledges_count
-    assert table_sorting_priority[197] == f"context_keg_{kw.close}"
-    assert table_sorting_priority[198] == f"context_keg_{kw.denom}"
-    assert table_sorting_priority[199] == f"context_keg_{kw.morph}"
-    assert table_sorting_priority[200] == kw.inx_epoch_diff
+    assert table_sorting_priority[137] == kw.fund_grain
+    assert table_sorting_priority[138] == kw.mana_grain
+    assert table_sorting_priority[139] == kw.respect_grain
+    assert table_sorting_priority[140] == kw.amount
+    assert table_sorting_priority[141] == kw.otx_label
+    assert table_sorting_priority[142] == kw.inx_label
+    assert table_sorting_priority[143] == kw.otx_rope
+    assert table_sorting_priority[144] == kw.inx_rope
+    assert table_sorting_priority[145] == kw.otx_name
+    assert table_sorting_priority[146] == kw.inx_name
+    assert table_sorting_priority[147] == kw.otx_title
+    assert table_sorting_priority[148] == kw.inx_title
+    assert table_sorting_priority[149] == kw.otx_knot
+    assert table_sorting_priority[150] == kw.inx_knot
+    assert table_sorting_priority[151] == kw.otx_time
+    assert table_sorting_priority[152] == kw.inx_time
+    assert table_sorting_priority[153] == kw.knot
+    assert table_sorting_priority[154] == kw.groupmark
+    assert table_sorting_priority[155] == kw.unknown_str
+    assert table_sorting_priority[156] == kw.quota
+    assert table_sorting_priority[157] == kw.celldepth
+    assert table_sorting_priority[158] == kw.job_listen_rotations
+    assert table_sorting_priority[159] == kw.error_message
+    assert table_sorting_priority[160] == kw.plan_name_is_labor
+    assert table_sorting_priority[161] == kw.keg_active
+    assert table_sorting_priority[162] == kw.task
+    assert table_sorting_priority[163] == kw.reason_active
+    assert table_sorting_priority[164] == kw.case_active
+    assert table_sorting_priority[165] == kw.credor_pool
+    assert table_sorting_priority[166] == kw.debtor_pool
+    assert table_sorting_priority[167] == kw.rational
+    assert table_sorting_priority[168] == kw.fund_give
+    assert table_sorting_priority[169] == kw.fund_take
+    assert table_sorting_priority[170] == kw.fund_onset
+    assert table_sorting_priority[171] == kw.fund_cease
+    assert table_sorting_priority[172] == kw.fund_ratio
+    assert table_sorting_priority[173] == kw.fund_agenda_give
+    assert table_sorting_priority[174] == kw.fund_agenda_take
+    assert table_sorting_priority[175] == kw.fund_agenda_ratio_give
+    assert table_sorting_priority[176] == kw.fund_agenda_ratio_take
+    assert table_sorting_priority[177] == kw.inallocable_person_debt_lumen
+    assert table_sorting_priority[178] == kw.gogo_calc
+    assert table_sorting_priority[179] == kw.stop_calc
+    assert table_sorting_priority[180] == kw.tree_level
+    assert table_sorting_priority[181] == kw.range_evaluated
+    assert table_sorting_priority[182] == kw.descendant_pledge_count
+    assert table_sorting_priority[183] == kw.healerunit_ratio
+    assert table_sorting_priority[184] == kw.all_person_cred
+    assert table_sorting_priority[185] == kw.keeps_justified
+    assert table_sorting_priority[186] == kw.offtrack_fund
+    assert table_sorting_priority[187] == kw.parent_heir_active
+    assert table_sorting_priority[188] == kw.irrational_person_debt_lumen
+    assert table_sorting_priority[189] == kw.sum_healerunit_kegs_fund_total
+    assert table_sorting_priority[190] == kw.keeps_buildable
+    assert table_sorting_priority[191] == kw.all_person_debt
+    assert table_sorting_priority[192] == kw.tree_traverse_count
+    assert table_sorting_priority[193] == kw.net_funds
+    assert table_sorting_priority[194] == kw.fund_rank
+    assert table_sorting_priority[195] == kw.pledges_count
+    assert table_sorting_priority[196] == f"context_keg_{kw.close}"
+    assert table_sorting_priority[197] == f"context_keg_{kw.denom}"
+    assert table_sorting_priority[198] == f"context_keg_{kw.morph}"
+    assert table_sorting_priority[199] == kw.inx_epoch_diff
 
-    assert len(table_sorting_priority) == 201
+    assert len(table_sorting_priority) == 200
     all_args = copy_copy(atom_args)
     all_args.update(all_plan_dimen_delete_keys)
     all_args.update(moment_args)
@@ -386,7 +385,6 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert sqlite_types.get(kw.reason_divisor) == "INTEGER"
     assert sqlite_types.get(kw.problem_bool) == "INTEGER"
     assert sqlite_types.get(kw.take_force) == "REAL"
-    assert sqlite_types.get(kw.tally) == "INTEGER"
     assert sqlite_types.get(kw.fund_grain) == "REAL"
     assert sqlite_types.get(kw.mana_grain) == "REAL"
     assert sqlite_types.get(kw.pledge) == "INTEGER"

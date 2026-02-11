@@ -25,8 +25,6 @@ def test_PlanUnit_to_dict_ReturnsObj_Scenario0():
     yao_plan.fund_pool = yao_fund_pool
     yao_fund_grain = 23
     yao_plan.fund_grain = yao_fund_grain
-    plan_tally = 23
-    yao_plan.tally = plan_tally
     x_last_lesson_id = 77
     yao_plan.set_last_lesson_id(x_last_lesson_id)
 
@@ -37,8 +35,6 @@ def test_PlanUnit_to_dict_ReturnsObj_Scenario0():
     assert plan_dict is not None
     assert str(type(plan_dict)) == "<class 'dict'>"
     assert plan_dict[kw.plan_name] == yao_plan.plan_name
-    assert plan_dict[kw.tally] == yao_plan.tally
-    assert plan_dict[kw.tally] == plan_tally
     assert plan_dict[kw.fund_pool] == yao_fund_pool
     assert plan_dict[kw.fund_grain] == yao_fund_grain
     assert plan_dict[kw.max_tree_traverse] == yao_plan.max_tree_traverse
@@ -153,7 +149,6 @@ def test_PlanUnit_to_dict_ReturnsObj_Scenario4_kegunit_WithLevels():
     # THEN
     assert plan_dict is not None
     assert plan_dict[kw.plan_name] == zia_plan.plan_name
-    assert plan_dict[kw.tally] == zia_plan.tally
     assert plan_dict[kw.fund_pool] == zia_plan.fund_pool
     assert plan_dict[kw.fund_grain] == zia_plan.fund_grain
     assert plan_dict[kw.respect_grain] == zia_plan.respect_grain
@@ -215,7 +210,6 @@ def test_PlanUnit_to_dict_ReturnsJSON_Scenario5_BigExample():
 
     # THEN
     assert plan_dict[kw.plan_name] == yao_plan.plan_name
-    assert plan_dict[kw.tally] == yao_plan.tally
     assert plan_dict[kw.max_tree_traverse] == 2
     assert plan_dict[kw.max_tree_traverse] == yao_plan.max_tree_traverse
     assert plan_dict[kw.knot] == yao_plan.knot
@@ -341,17 +335,12 @@ def test_get_planunit_from_dict_ReturnsObj_Scenario7_kegroot_knot_IsApplied():
 def test_get_planunit_from_dict_ExportsPlanUnit_star():
     # ESTABLISH
     x1_plan = planunit_v001()
-    x1_plan.tally = 15
-    assert x1_plan.tally == 15
-    assert x1_plan.kegroot.star != x1_plan.tally
     assert x1_plan.kegroot.star == 1
 
     # WHEN
     x2_plan = get_planunit_from_dict(x1_plan.to_dict())
 
     # THEN
-    assert x1_plan.tally == 15
-    assert x1_plan.tally == x2_plan.tally
     assert x1_plan.kegroot.star == 1
     assert x1_plan.kegroot.star == x2_plan.kegroot.star
     assert x1_plan.kegroot.kids == x2_plan.kegroot.kids

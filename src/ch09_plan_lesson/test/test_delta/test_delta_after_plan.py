@@ -13,12 +13,12 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_SimplestScenario():
     ex1_plandelta = plandelta_shop()
 
     # WHEN
-    sue_tally = 55
-    before_sue_planunit = planunit_shop(exx.sue, tally=sue_tally)
+    sue_mana_grain = 55
+    before_sue_planunit = planunit_shop(exx.sue, mana_grain=sue_mana_grain)
     after_sue_planunit = ex1_plandelta.get_atom_edited_plan(before_sue_planunit)
 
     # THEN
-    assert after_sue_planunit.tally == sue_tally
+    assert after_sue_planunit.mana_grain == sue_mana_grain
     assert after_sue_planunit == before_sue_planunit
 
 
@@ -26,14 +26,11 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnitSimpleAttrs():
     # ESTABLISH
     sue_plandelta = plandelta_shop()
 
-    sue_tally = 44
-    before_sue_planunit = planunit_shop(exx.sue, tally=sue_tally)
+    sue_mana_grain = 44
+    before_sue_planunit = planunit_shop(exx.sue, mana_grain=sue_mana_grain)
 
     dimen = kw.planunit
     x_planatom = planatom_shop(dimen, kw.UPDATE)
-    new1_value = 55
-    new1_arg = kw.tally
-    x_planatom.set_jvalue(new1_arg, new1_value)
     new2_value = 66
     new2_arg = kw.max_tree_traverse
     x_planatom.set_jvalue(new2_arg, new2_value)
@@ -67,8 +64,6 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnitSimpleAttrs():
     assert after_sue_planunit.max_tree_traverse == new2_value
     assert after_sue_planunit.credor_respect == new3_value
     assert after_sue_planunit.debtor_respect == new4_value
-    assert after_sue_planunit.tally == new1_value
-    assert after_sue_planunit.tally != before_sue_planunit.tally
     assert after_sue_planunit.fund_pool == new9_value
     assert after_sue_planunit.fund_pool != before_sue_planunit.fund_pool
     assert after_sue_planunit.fund_grain == new8_value
@@ -1020,7 +1015,6 @@ def test_PlanDelta_get_plandelta_example1_ContainsPlanAtoms():
     fly_str = ";flyers"
     yao_personunit.add_membership(fly_str)
     bob_personunit.add_membership(fly_str)
-    assert before_sue_planunit.tally != 55
     assert before_sue_planunit.max_tree_traverse != 66
     assert before_sue_planunit.credor_respect != 77
     assert before_sue_planunit.debtor_respect != 88
@@ -1034,7 +1028,6 @@ def test_PlanDelta_get_plandelta_example1_ContainsPlanAtoms():
     after_sue_planunit = ex1_plandelta.get_atom_edited_plan(before_sue_planunit)
 
     # THEN
-    assert after_sue_planunit.tally == 55
     assert after_sue_planunit.max_tree_traverse == 66
     assert after_sue_planunit.credor_respect == 77
     assert after_sue_planunit.debtor_respect == 88

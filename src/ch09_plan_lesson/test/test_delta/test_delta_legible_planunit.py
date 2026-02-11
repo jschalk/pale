@@ -14,25 +14,6 @@ def test_create_legible_list_ReturnsObjEstablishWithEmptyPlanDelta():
     assert create_legible_list(x_plandelta, sue_plan) == []
 
 
-def test_create_legible_list_ReturnsObjEstablishWithPlanUpdate_tally():
-    # ESTABLISH
-    dimen = kw.planunit
-    tally_str = kw.tally
-    tally_int = 55
-    tally_planatom = planatom_shop(dimen, kw.UPDATE)
-    tally_planatom.set_arg(tally_str, tally_int)
-    x_plandelta = plandelta_shop()
-    x_plandelta.set_planatom(tally_planatom)
-    sue_plan = planunit_shop("Sue")
-
-    # WHEN
-    legible_list = create_legible_list(x_plandelta, sue_plan)
-
-    # THEN
-    x_str = f"{sue_plan.plan_name}'s plan tally set to {tally_int}"
-    assert legible_list[0] == x_str
-
-
 def test_create_legible_list_ReturnsObjEstablishWithPlanUpdate_credor_respect():
     # ESTABLISH
     dimen = kw.planunit

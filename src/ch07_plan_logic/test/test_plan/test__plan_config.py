@@ -134,7 +134,7 @@ def test_get_all_plan_calc_args_ReturnsObj():
         kw.plan_personunit,
     }
 
-    assert len(all_plan_calc_args) == 78
+    assert len(all_plan_calc_args) == 77
 
 
 def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesKeysExist():
@@ -718,10 +718,6 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, plnunit, jv, kw.respect_grain) == "REAL"
     assert g_popcashout(cfig, plnunit, jv, kw.respect_grain) == False
 
-    assert g_class_type(cfig, plnunit, jv, kw.tally) == "int"
-    assert g_sqlitetype(cfig, plnunit, jv, kw.tally) == "INTEGER"
-    assert g_popcashout(cfig, plnunit, jv, kw.tally) == False
-
 
 def test_get_plan_config_dict_ReturnsObj_EachArgHasOneClassType():
     # ESTABLISH
@@ -866,5 +862,4 @@ def test_get_plan_calc_args_type_dict_ReturnsObj():
     assert plan_calc_args_type_dict.get(kw.max_tree_traverse) == "int"
     assert plan_calc_args_type_dict.get(kw.mana_grain) == "float"
     assert plan_calc_args_type_dict.get(kw.respect_grain) == "float"
-    assert plan_calc_args_type_dict.get(kw.tally) == "int"
-    assert len(plan_calc_args_type_dict) == 73
+    assert len(plan_calc_args_type_dict) == 72

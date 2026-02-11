@@ -35,7 +35,6 @@ def test_create_plnunit_h_put_agg_insert_sqlstr_ReturnsObj():
     x_max_tree_traverse = 22
     x_mana_grain = 4
     x_respect_grain = 0.2
-    x_tally = 6
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
@@ -48,7 +47,6 @@ def test_create_plnunit_h_put_agg_insert_sqlstr_ReturnsObj():
         kw.max_tree_traverse: x_max_tree_traverse,
         kw.mana_grain: x_mana_grain,
         kw.respect_grain: x_respect_grain,
-        kw.tally: x_tally,
     }
     etl_config = get_etl_config()
     plnunit = kw.planunit

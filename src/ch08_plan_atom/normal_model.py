@@ -17,7 +17,6 @@ class PlanTable(Base):
     fund_grain = Column(Float)
     respect_grain = Column(Float)
     mana_grain = Column(Float)
-    tally = Column(Integer)
 
 
 class PersonUnitTable(Base):

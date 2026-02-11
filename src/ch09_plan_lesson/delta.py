@@ -138,8 +138,6 @@ class PlanDelta:
             x_planatom.set_jvalue("credor_respect", after_plan.credor_respect)
         if before_plan.debtor_respect != after_plan.debtor_respect:
             x_planatom.set_jvalue("debtor_respect", after_plan.debtor_respect)
-        if before_plan.tally != after_plan.tally:
-            x_planatom.set_jvalue("tally", after_plan.tally)
         if before_plan.fund_pool != after_plan.fund_pool:
             x_planatom.set_jvalue("fund_pool", after_plan.fund_pool)
         if before_plan.fund_grain != after_plan.fund_grain:

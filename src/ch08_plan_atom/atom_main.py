@@ -188,9 +188,6 @@ def _modify_plan_update_planunit(x_plan: PlanUnit, x_atom: PlanAtom):
     x_arg = "fund_grain"
     if x_atom.get_value(x_arg) is not None:
         x_plan.fund_grain = x_atom.get_value(x_arg)
-    x_arg = "tally"
-    if x_atom.get_value(x_arg) is not None:
-        x_plan.tally = x_atom.get_value(x_arg)
     x_arg = "respect_grain"
     if x_atom.get_value(x_arg) is not None:
         x_plan.respect_grain = x_atom.get_value(x_arg)
@@ -526,8 +523,7 @@ def modify_plan_with_planatom(x_plan: PlanUnit, x_atom: PlanAtom):
 def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
     if dimen == "planunit":
         return (
-            x_obj.tally != y_obj.tally
-            or x_obj.max_tree_traverse != y_obj.max_tree_traverse
+            x_obj.max_tree_traverse != y_obj.max_tree_traverse
             or x_obj.credor_respect != y_obj.credor_respect
             or x_obj.debtor_respect != y_obj.debtor_respect
             or x_obj.respect_grain != y_obj.respect_grain
@@ -631,7 +627,6 @@ class AtomRow:
     solo: int = None
     stop_want: float = None
     take_force: float = None
-    tally: int = None
     party_title: int = None
 
     def set_atom_dimen(self, atom_dimen: str):

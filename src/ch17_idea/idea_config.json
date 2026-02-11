@@ -227,8 +227,7 @@
       "fund_pool": {}, 
       "mana_grain": {}, 
       "max_tree_traverse": {}, 
-      "respect_grain": {}, 
-      "tally": {}
+      "respect_grain": {}
     }
   }, 
   "translate_label": {

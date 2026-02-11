@@ -345,9 +345,8 @@ def create_planunit_metrics_insert_sqlstr(values_dict: dict[str,]):
     max_tree_traverse = values_dict.get("max_tree_traverse")
     mana_grain = values_dict.get("mana_grain")
     respect_grain = values_dict.get("respect_grain")
-    tally = values_dict.get("tally")
 
-    return f"""INSERT INTO planunit_job (moment_rope, plan_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain, rational, keeps_justified, offtrack_fund, sum_healerunit_kegs_fund_total, keeps_buildable, tree_traverse_count)
+    return f"""INSERT INTO planunit_job (moment_rope, plan_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, fund_grain, mana_grain, respect_grain, rational, keeps_justified, offtrack_fund, sum_healerunit_kegs_fund_total, keeps_buildable, tree_traverse_count)
 VALUES (
   {sqlite_obj_str(moment_rope, "TEXT")}
 , {sqlite_obj_str(plan_name, "TEXT")}
@@ -355,7 +354,6 @@ VALUES (
 , {sqlite_obj_str(debtor_respect, real_str)}
 , {sqlite_obj_str(fund_pool, real_str)}
 , {sqlite_obj_str(max_tree_traverse, integer_str)}
-, {sqlite_obj_str(tally, real_str)}
 , {sqlite_obj_str(fund_grain, real_str)}
 , {sqlite_obj_str(mana_grain, real_str)}
 , {sqlite_obj_str(respect_grain, real_str)}
@@ -711,9 +709,8 @@ def create_plnunit_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     max_tree_traverse = values_dict.get("max_tree_traverse")
     mana_grain = values_dict.get("mana_grain")
     respect_grain = values_dict.get("respect_grain")
-    tally = values_dict.get("tally")
 
-    return f"""INSERT INTO planunit_h_put_agg (spark_num, face_name, moment_rope, plan_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, tally, fund_grain, mana_grain, respect_grain)
+    return f"""INSERT INTO planunit_h_put_agg (spark_num, face_name, moment_rope, plan_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, fund_grain, mana_grain, respect_grain)
 VALUES (
   {sqlite_obj_str(spark_num, integer_str)}
 , {sqlite_obj_str(face_name, "TEXT")}
@@ -723,7 +720,6 @@ VALUES (
 , {sqlite_obj_str(debtor_respect, real_str)}
 , {sqlite_obj_str(fund_pool, real_str)}
 , {sqlite_obj_str(max_tree_traverse, integer_str)}
-, {sqlite_obj_str(tally, real_str)}
 , {sqlite_obj_str(fund_grain, real_str)}
 , {sqlite_obj_str(mana_grain, real_str)}
 , {sqlite_obj_str(respect_grain, real_str)}
