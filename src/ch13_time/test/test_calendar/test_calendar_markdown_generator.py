@@ -12,7 +12,7 @@ from src.ch13_time.test._util.ch13_examples import (
     get_expected_five_5524_markdown,
     get_five_config,
 )
-from src.ref.keywords import Ch13Keywords as kw
+from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
 
 def test_centered_to_len_ReturnsObj():
@@ -201,7 +201,7 @@ def test_MonthMarkDownUnit_set_max_monthday_rows_ReturnsObj_Scenario0():
 def test_MonthMarkDownUnit_get_next_month_first_weekday_ReturnsObj_Scenario0():
     # ESTABLISH
     jan_monthmarkdownunit = MonthMarkDownUnit(
-        "February",
+        exx.February,
         None,
         first_weekday=3,
         week_length=7,
@@ -215,7 +215,7 @@ def test_MonthMarkDownUnit_get_next_month_first_weekday_ReturnsObj_Scenario0():
 def test_MonthMarkDownUnit_get_next_month_first_weekday_ReturnsObj_Scenario1():
     # ESTABLISH
     jan_monthmarkdownunit = MonthMarkDownUnit(
-        "February",
+        exx.February,
         None,
         first_weekday=6,
         week_length=7,
@@ -229,7 +229,7 @@ def test_MonthMarkDownUnit_get_next_month_first_weekday_ReturnsObj_Scenario1():
 def test_MonthMarkDownUnit_get_next_month_first_weekday_ReturnsObj_Scenario2():
     # ESTABLISH
     jan_monthmarkdownunit = MonthMarkDownUnit(
-        "February",
+        exx.February,
         None,
         first_weekday=6,
         week_length=7,
@@ -252,9 +252,9 @@ def test_MonthMarkDownRow_Exists():
 def test_MonthMarkDownRow_set_max_monthday_numbers_row_SetsAttr():
     # ESTABLISH
     x_monthmarkdownrow = MonthMarkDownRow([])
-    jan_monthmarkdownunit = MonthMarkDownUnit("January", None, 5, 7, 31, 1)
-    feb_monthmarkdownunit = MonthMarkDownUnit("February", None, 1, 7, 29, 1)
-    mar_monthmarkdownunit = MonthMarkDownUnit("March", None, 2, 7, 31, 1)
+    jan_monthmarkdownunit = MonthMarkDownUnit(exx.January, None, 5, 7, 31, 1)
+    feb_monthmarkdownunit = MonthMarkDownUnit(exx.February, None, 1, 7, 29, 1)
+    mar_monthmarkdownunit = MonthMarkDownUnit(exx.March, None, 2, 7, 31, 1)
     x_monthmarkdownrow.months.append(jan_monthmarkdownunit)
     x_monthmarkdownrow.months.append(feb_monthmarkdownunit)
     x_monthmarkdownrow.months.append(mar_monthmarkdownunit)
@@ -270,9 +270,9 @@ def test_MonthMarkDownRow_set_max_monthday_numbers_row_SetsAttr():
 def test_MonthMarkDownRow_markdown_str_ReturnsObj():
     # ESTABLISH
     x_monthmarkdownrow = MonthMarkDownRow([])
-    jan_monthmarkdownunit = MonthMarkDownUnit("January", None, 0, 7, 31, 1)
-    feb_monthmarkdownunit = MonthMarkDownUnit("February", None, 3, 7, 29, 1)
-    mar_monthmarkdownunit = MonthMarkDownUnit("March", None, 4, 7, 31, 1)
+    jan_monthmarkdownunit = MonthMarkDownUnit(exx.January, None, 0, 7, 31, 1)
+    feb_monthmarkdownunit = MonthMarkDownUnit(exx.February, None, 3, 7, 29, 1)
+    mar_monthmarkdownunit = MonthMarkDownUnit(exx.March, None, 4, 7, 31, 1)
     x_weekday_2char_abvs = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
     jan_monthmarkdownunit.weekday_2char_abvs = x_weekday_2char_abvs
     feb_monthmarkdownunit.weekday_2char_abvs = x_weekday_2char_abvs
@@ -318,8 +318,8 @@ def test_CalendarMarkDown_create_2char_weekday_list_ReturnsObj_Scenario0_display
     # ESTABLISH
     creg_config = get_default_epoch_config_dict()
     creg_calendermarkdown = CalendarMarkDown(epoch_config=creg_config)
-    creg_calendermarkdown.display_init_day = kw.Monday
-    creg_calendermarkdown.set_monthmarkdownrows(kw.Tuesday, 1997)
+    creg_calendermarkdown.display_init_day = exx.Monday
+    creg_calendermarkdown.set_monthmarkdownrows(exx.Wednesday, 1997)
 
     # WHEN
     weekday_2char_list = creg_calendermarkdown.create_2char_weekday_list()
@@ -333,7 +333,7 @@ def test_CalendarMarkDown_create_2char_weekday_list_ReturnsObj_Scenario1_display
     # ESTABLISH
     creg_config = get_default_epoch_config_dict()
     creg_calendermarkdown = CalendarMarkDown(epoch_config=creg_config)
-    creg_calendermarkdown.set_monthmarkdownrows(kw.Tuesday, 1997)
+    creg_calendermarkdown.set_monthmarkdownrows(exx.Wednesday, 1997)
 
     # WHEN
     weekday_2char_list = creg_calendermarkdown.create_2char_weekday_list()
@@ -347,14 +347,14 @@ def test_CalendarMarkDown_set_monthmarkdownrows_SetsAttr():
     # ESTABLISH
     creg_config = get_default_epoch_config_dict()
     creg_calendermarkdown = CalendarMarkDown(epoch_config=creg_config)
-    monday_str = kw.Monday
+    monday_str = exx.Monday
     creg_calendermarkdown.display_init_day = monday_str
     x_weekday_2char_abvs = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
     yr1997_int = 1997
     assert not creg_calendermarkdown.epochunit
 
     # WHEN
-    creg_calendermarkdown.set_monthmarkdownrows(kw.Tuesday, yr1997_int)
+    creg_calendermarkdown.set_monthmarkdownrows(exx.Tuesday, yr1997_int)
 
     # THEN
     expected_epochunit = epochunit_shop(creg_config)
@@ -396,7 +396,7 @@ def test_CalendarMarkDown_create_markdown_ReturnsObj_Scernario0_creg_config():
     # ESTABLISH
     creg_config = get_default_epoch_config_dict()
     creg_calendermarkdown = CalendarMarkDown(epoch_config=creg_config)
-    creg_calendermarkdown.display_init_day = kw.Monday
+    creg_calendermarkdown.display_init_day = exx.Monday
     year_int = 2024
 
     # WHEN

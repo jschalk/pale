@@ -1,57 +1,57 @@
 {
   "moment_budunit": {
     "jkeys": {
-      "bud_time"   : { "class_type": "TimeNum"   }, 
-      "moment_rope": { "class_type": "LabelTerm" }, 
-      "plan_name"  : { "class_type": "NameTerm"  }
+      "bud_time"   : { "class_type": "TimeNum"  }, 
+      "moment_rope": { "class_type": "RopeTerm" }, 
+      "plan_name"  : { "class_type": "NameTerm" }
     }, 
     "jvalues": { "celldepth": {"class_type": "int"}, "quota": {"class_type": "int"} }, 
     "moment_static": "True"
   }, 
   "moment_epoch_hour": {
     "jkeys": {
-      "cumulative_minute": { "class_type": "int"       }, 
-      "moment_rope"      : { "class_type": "LabelTerm" }
+      "cumulative_minute": { "class_type": "int"      }, 
+      "moment_rope"      : { "class_type": "RopeTerm" }
     }, 
     "jvalues": { "hour_label": {"class_type": "LabelTerm"} }, 
     "moment_static": "True"
   }, 
   "moment_epoch_month": {
     "jkeys": {
-      "cumulative_day": { "class_type": "int"       }, 
-      "moment_rope"   : { "class_type": "LabelTerm" }
+      "cumulative_day": { "class_type": "int"      }, 
+      "moment_rope"   : { "class_type": "RopeTerm" }
     }, 
     "jvalues": { "month_label": {"class_type": "LabelTerm"} }, 
     "moment_static": "True"
   }, 
   "moment_epoch_weekday": {
     "jkeys": {
-      "moment_rope"  : { "class_type": "LabelTerm" }, 
-      "weekday_order": { "class_type": "int"       }
+      "moment_rope"  : { "class_type": "RopeTerm" }, 
+      "weekday_order": { "class_type": "int"      }
     }, 
     "jvalues": { "weekday_label": {"class_type": "LabelTerm"} }, 
     "moment_static": "True"
   }, 
   "moment_paybook": {
     "jkeys": {
-      "moment_rope": { "class_type": "LabelTerm" }, 
-      "person_name": { "class_type": "NameTerm"  }, 
-      "plan_name"  : { "class_type": "NameTerm"  }, 
-      "tran_time"  : { "class_type": "TimeNum"   }
+      "moment_rope": { "class_type": "RopeTerm" }, 
+      "person_name": { "class_type": "NameTerm" }, 
+      "plan_name"  : { "class_type": "NameTerm" }, 
+      "tran_time"  : { "class_type": "TimeNum"  }
     }, 
     "jvalues": { "amount": {"class_type": "float"} }, 
     "moment_static": "True"
   }, 
   "moment_timeoffi": {
     "jkeys": {
-      "moment_rope": { "class_type": "LabelTerm" }, 
-      "offi_time"  : { "class_type": "TimeNum"   }
+      "moment_rope": { "class_type": "RopeTerm" }, 
+      "offi_time"  : { "class_type": "TimeNum"  }
     }, 
     "jvalues": {}, 
     "moment_static": "False"
   }, 
   "momentunit": {
-    "jkeys": { "moment_rope": {"class_type": "LabelTerm"} }, 
+    "jkeys": { "moment_rope": {"class_type": "RopeTerm"} }, 
     "jvalues": {
       "c400_number"         : { "class_type": "int"       }, 
       "epoch_label"         : { "class_type": "LabelTerm" }, 

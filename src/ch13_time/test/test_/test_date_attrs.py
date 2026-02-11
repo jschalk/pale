@@ -9,7 +9,7 @@ from src.ch13_time.test._util.ch13_examples import (
     get_creg_min_from_dt,
     get_five_min_from_dt,
 )
-from src.ref.keywords import Ch13Keywords as kw
+from src.ref.keywords import Ch13Keywords as kw, ExampleStrs as exx
 
 
 def test_TimeNum_Exists():
@@ -85,7 +85,7 @@ def test_EpochHolder_set_weekday_SetsAttr():
     x_TimeNum._set_weekday()
 
     # THEN
-    assert x_TimeNum._weekday == kw.Thursday
+    assert x_TimeNum._weekday == exx.Thursday
 
 
 def test_EpochHolder_set_month_SetsAttr():
@@ -232,7 +232,7 @@ def test_calc_epoch_SetsAttrFiveEpoch(graphics_bool):
     five_TimeNum.calc_epoch()
 
     # THEN
-    assert creg_TimeNum._weekday == kw.Wednesday
+    assert creg_TimeNum._weekday == exx.Wednesday
     assert creg_TimeNum._month == "March"
     assert creg_TimeNum._monthday == 1
     assert creg_TimeNum._hour == "12am"

@@ -51,7 +51,7 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.reason_divisor) == "int"
     assert translate_args_class_types.get(kw.face_name) == kw.NameTerm
     assert translate_args_class_types.get(kw.fact_context) == kw.RopeTerm
-    assert translate_args_class_types.get(kw.moment_rope) == kw.LabelTerm
+    assert translate_args_class_types.get(kw.moment_rope) == kw.RopeTerm
     assert translate_args_class_types.get(kw.fact_upper) == kw.FactNum
     assert translate_args_class_types.get(kw.fact_lower) == kw.FactNum
     assert translate_args_class_types.get(kw.fund_grain) == "float"
@@ -303,7 +303,6 @@ def test_get_translate_labelterm_args_ReturnsObj():
 
     # THEN
     assert translate_LabelTerm_args == {
-        kw.moment_rope,
         kw.hour_label,
         kw.month_label,
         kw.epoch_label,
@@ -323,6 +322,7 @@ def test_get_translate_ropeterm_args_ReturnsObj():
 
     # THEN
     assert translate_RopeTerm_args == {
+        kw.moment_rope,
         kw.fact_state,
         kw.fact_context,
         kw.keg_rope,
