@@ -17,7 +17,7 @@ from src.ch12_keep._ref.ch12_semantic_types import (
     LabelTerm,
     ManaGrain,
     ManaNum,
-    PersonName,
+    PartnerName,
     PlanName,
     RopeTerm,
     default_knot_if_None,
@@ -40,12 +40,12 @@ class RiverRun:
     keep_point_magnitude: ManaNum = None
     mana_grain: ManaGrain = None
     number: int = None
-    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None
-    need_dues: dict[PersonName, float] = None
+    keep_patientledgers: dict[PlanName : dict[PartnerName, float]] = None
+    need_dues: dict[PartnerName, float] = None
     cycle_max: int = None
     # calculated fields
-    cares: dict[PersonName, float] = None
-    need_yields: dict[PersonName, float] = None
+    cares: dict[PartnerName, float] = None
+    need_yields: dict[PartnerName, float] = None
     need_got_prev: float = None
     need_got_curr: float = None
     cycle_count: int = None
@@ -53,7 +53,7 @@ class RiverRun:
     cycle_carees_curr: set = None
     doctor_count: int = None
     patient_count: int = None
-    rivergrades: dict[PersonName, RiverGrade] = None
+    rivergrades: dict[PartnerName, RiverGrade] = None
 
     def set_cycle_max(self, x_cycle_max: int):
         self.cycle_max = get_positive_int(x_cycle_max)
@@ -61,33 +61,33 @@ class RiverRun:
     def set_keep_patientledger(
         self,
         plan_name: PlanName,
-        person_name: PersonName,
+        partner_name: PartnerName,
         mana_ledger: float,
     ):
         set_in_nested_dict(
             x_dict=self.keep_patientledgers,
-            x_keylist=[plan_name, person_name],
+            x_keylist=[plan_name, partner_name],
             x_obj=mana_ledger,
         )
 
     def delete_keep_patientledgers_plan(self, plan_name: PlanName):
         self.keep_patientledgers.pop(plan_name)
 
-    def get_all_keep_patientledger_person_names(self):
+    def get_all_keep_patientledger_partner_names(self):
         x_set = set()
         for plan_name, plan_dict in self.keep_patientledgers.items():
             if plan_name not in x_set:
                 x_set.add(plan_name)
-            for person_name in plan_dict.keys():
-                if person_name not in x_set:
-                    x_set.add(person_name)
+            for partner_name in plan_dict.keys():
+                if partner_name not in x_set:
+                    x_set.add(partner_name)
         return x_set
 
-    def levy_need_dues(self, cycleledger: tuple[dict[PersonName, float], float]):
+    def levy_need_dues(self, cycleledger: tuple[dict[PartnerName, float], float]):
         delete_from_cycleledger = []
         need_got_total = 0
         for caree, caree_amount in cycleledger.items():
-            if self.person_has_need_due(caree):
+            if self.partner_has_need_due(caree):
                 excess_carer_points, need_got = self.levy_need_due(caree, caree_amount)
                 need_got_total += need_got
                 if excess_carer_points == 0:
@@ -99,45 +99,45 @@ class RiverRun:
             cycleledger.pop(caree_to_delete)
         return cycleledger, need_got_total
 
-    def set_person_need_due(self, x_person_name: PersonName, need_due: float):
-        self.need_dues[x_person_name] = need_due
+    def set_partner_need_due(self, x_partner_name: PartnerName, need_due: float):
+        self.need_dues[x_partner_name] = need_due
 
     def need_dues_unpaid(self) -> bool:
         return len(self.need_dues) != 0
 
-    def set_need_dues(self, doctorledger: dict[PersonName, float]):
+    def set_need_dues(self, doctorledger: dict[PartnerName, float]):
         x_amount = self.keep_point_magnitude
         self.need_dues = allot_scale(doctorledger, x_amount, self.mana_grain)
 
-    def person_has_need_due(self, x_person_name: PersonName) -> bool:
-        return self.need_dues.get(x_person_name) is not None
+    def partner_has_need_due(self, x_partner_name: PartnerName) -> bool:
+        return self.need_dues.get(x_partner_name) is not None
 
-    def get_person_need_due(self, x_person_name: PersonName) -> float:
-        x_need_due = self.need_dues.get(x_person_name)
+    def get_partner_need_due(self, x_partner_name: PartnerName) -> float:
+        x_need_due = self.need_dues.get(x_partner_name)
         return 0 if x_need_due is None else x_need_due
 
-    def delete_need_due(self, x_person_name: PersonName):
-        self.need_dues.pop(x_person_name)
+    def delete_need_due(self, x_partner_name: PartnerName):
+        self.need_dues.pop(x_partner_name)
 
-    def levy_need_due(self, x_person_name: PersonName, carer_points: float) -> float:
-        if self.person_has_need_due(x_person_name) is False:
+    def levy_need_due(self, x_partner_name: PartnerName, carer_points: float) -> float:
+        if self.partner_has_need_due(x_partner_name) is False:
             return carer_points, 0
-        x_need_due = self.get_person_need_due(x_person_name)
+        x_need_due = self.get_partner_need_due(x_partner_name)
         if x_need_due > carer_points:
             left_over_care = x_need_due - carer_points
-            self.set_person_need_due(x_person_name, left_over_care)
-            self.add_person_need_yield(x_person_name, carer_points)
+            self.set_partner_need_due(x_partner_name, left_over_care)
+            self.add_partner_need_yield(x_partner_name, carer_points)
             return 0, carer_points
         else:
-            self.delete_need_due(x_person_name)
-            self.add_person_need_yield(x_person_name, x_need_due)
+            self.delete_need_due(x_partner_name)
+            self.add_partner_need_yield(x_partner_name, x_need_due)
             return carer_points - x_need_due, x_need_due
 
-    def get_ledger_dict(self) -> dict[PersonName, float]:
+    def get_ledger_dict(self) -> dict[PartnerName, float]:
         return self.need_dues
 
-    def set_person_need_yield(self, x_person_name: PersonName, need_yield: float):
-        self.need_yields[x_person_name] = need_yield
+    def set_partner_need_yield(self, x_partner_name: PartnerName, need_yield: float):
+        self.need_yields[x_partner_name] = need_yield
 
     def need_yields_is_empty(self) -> bool:
         return len(self.need_yields) == 0
@@ -145,58 +145,58 @@ class RiverRun:
     def reset_need_yields(self):
         self.need_yields = {}
 
-    def person_has_need_yield(self, x_person_name: PersonName) -> bool:
-        return self.need_yields.get(x_person_name) is not None
+    def partner_has_need_yield(self, x_partner_name: PartnerName) -> bool:
+        return self.need_yields.get(x_partner_name) is not None
 
-    def get_person_need_yield(self, x_person_name: PersonName) -> float:
-        x_need_yield = self.need_yields.get(x_person_name)
+    def get_partner_need_yield(self, x_partner_name: PartnerName) -> float:
+        x_need_yield = self.need_yields.get(x_partner_name)
         return 0 if x_need_yield is None else x_need_yield
 
-    def delete_need_yield(self, x_person_name: PersonName):
-        self.need_yields.pop(x_person_name)
+    def delete_need_yield(self, x_partner_name: PartnerName):
+        self.need_yields.pop(x_partner_name)
 
-    def add_person_need_yield(self, x_person_name: PersonName, x_need_yield: float):
-        if self.person_has_need_yield(x_person_name):
-            x_need_yield = self.get_person_need_yield(x_person_name) + x_need_yield
-        self.set_person_need_yield(x_person_name, x_need_yield)
+    def add_partner_need_yield(self, x_partner_name: PartnerName, x_need_yield: float):
+        if self.partner_has_need_yield(x_partner_name):
+            x_need_yield = self.get_partner_need_yield(x_partner_name) + x_need_yield
+        self.set_partner_need_yield(x_partner_name, x_need_yield)
 
-    def get_rivergrade(self, person_name: PersonName) -> RiverGrade:
-        return self.rivergrades.get(person_name)
+    def get_rivergrade(self, partner_name: PartnerName) -> RiverGrade:
+        return self.rivergrades.get(partner_name)
 
     def rivergrades_is_empty(self) -> bool:
         return self.rivergrades == {}
 
-    def rivergrade_exists(self, person_name: PersonName) -> bool:
-        return self.rivergrades.get(person_name) is not None
+    def rivergrade_exists(self, partner_name: PartnerName) -> bool:
+        return self.rivergrades.get(partner_name) is not None
 
-    def _get_person_care(self, person_name: PersonName) -> float:
-        return get_0_if_None(self.cares.get(person_name))
+    def _get_partner_care(self, partner_name: PartnerName) -> float:
+        return get_0_if_None(self.cares.get(partner_name))
 
-    def set_initial_rivergrade(self, person_name: PersonName):
+    def set_initial_rivergrade(self, partner_name: PartnerName):
         x_rivergrade = rivergrade_shop(
             self.moment_rope,
             self.plan_name,
             self.keep_rope,
-            person_name,
+            partner_name,
             self.number,
         )
         x_rivergrade.doctor_count = self.doctor_count
         x_rivergrade.patient_count = self.patient_count
-        x_rivergrade.care_amount = self._get_person_care(person_name)
-        self.rivergrades[person_name] = x_rivergrade
+        x_rivergrade.care_amount = self._get_partner_care(partner_name)
+        self.rivergrades[partner_name] = x_rivergrade
 
     def set_all_initial_rivergrades(self):
         self.rivergrades = {}
-        all_person_names = self.get_all_keep_patientledger_person_names()
-        for person_name in all_person_names:
-            self.set_initial_rivergrade(person_name)
+        all_partner_names = self.get_all_keep_patientledger_partner_names()
+        for partner_name in all_partner_names:
+            self.set_initial_rivergrade(partner_name)
 
     def _set_post_loop_rivergrade_attrs(self):
-        for x_person_name, person_rivergrade in self.rivergrades.items():
-            need_due_leftover = self.get_person_need_due(x_person_name)
-            need_due_paid = self.get_person_need_yield(x_person_name)
-            person_rivergrade.set_need_bill_amount(need_due_paid + need_due_leftover)
-            person_rivergrade.set_need_paid_amount(need_due_paid)
+        for x_partner_name, partner_rivergrade in self.rivergrades.items():
+            need_due_leftover = self.get_partner_need_due(x_partner_name)
+            need_due_paid = self.get_partner_need_yield(x_partner_name)
+            partner_rivergrade.set_need_bill_amount(need_due_paid + need_due_leftover)
+            partner_rivergrade.set_need_paid_amount(need_due_paid)
 
     def calc_metrics(self):
         self._set_doctor_count_patient_count()
@@ -222,9 +222,9 @@ class RiverRun:
         self._set_post_loop_rivergrade_attrs()
 
     def _set_doctor_count_patient_count(self):
-        need_dues_persons = set(self.need_dues.keys())
-        need_yields_persons = set(self.need_yields.keys())
-        self.doctor_count = len(need_dues_persons.union(need_yields_persons))
+        need_dues_partners = set(self.need_dues.keys())
+        need_yields_partners = set(self.need_yields.keys())
+        self.doctor_count = len(need_dues_partners.union(need_yields_partners))
         self.patient_count = len(self.keep_patientledgers.get(self.plan_name))
 
     def _set_cares(self):
@@ -235,21 +235,21 @@ class RiverRun:
             grain_unit=self.mana_grain,
         )
 
-    def _save_rivergrade_file(self, person_name: PersonName):
-        rivergrade = self.get_rivergrade(person_name)
+    def _save_rivergrade_file(self, partner_name: PartnerName):
+        rivergrade = self.get_rivergrade(partner_name)
         grade_path = create_keep_grade_path(
             moment_mstr_dir=self.moment_mstr_dir,
             plan_name=self.plan_name,
             moment_rope=self.moment_rope,
             keep_rope=self.keep_rope,
             knot=self.knot,
-            grade_plan_name=person_name,
+            grade_plan_name=partner_name,
         )
         save_json(grade_path, None, rivergrade.to_dict())
 
     def save_rivergrade_files(self):
-        for rivergrade_person in self.rivergrades.keys():
-            self._save_rivergrade_file(rivergrade_person)
+        for rivergrade_partner in self.rivergrades.keys():
+            self._save_rivergrade_file(rivergrade_partner)
 
     def _cycle_carees_vary(self) -> bool:
         return self.cycle_carees_prev != self.cycle_carees_curr
@@ -274,8 +274,8 @@ def riverrun_shop(
     keep_point_magnitude: ManaNum = None,
     mana_grain: ManaGrain = None,
     number: int = None,
-    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None,
-    need_dues: dict[PersonName, float] = None,
+    keep_patientledgers: dict[PlanName : dict[PartnerName, float]] = None,
+    need_dues: dict[PartnerName, float] = None,
     cycle_max: int = None,
 ):
     x_riverun = RiverRun(

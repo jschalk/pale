@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from src.ch00_py.db_toolbox import RowData, create_type_reference_insert_sqlstr
 from src.ch00_py.dict_toolbox import get_empty_dict_if_None
-from src.ch02_person.group import awardunit_shop
-from src.ch02_person.person import personunit_shop
+from src.ch02_partner.group import awardunit_shop
+from src.ch02_partner.partner import partnerunit_shop
 from src.ch04_rope.rope import create_rope, get_parent_rope, get_tail_label
 from src.ch05_reason.reason_main import factunit_shop
 from src.ch06_keg.keg import kegunit_shop
@@ -11,7 +11,7 @@ from src.ch07_plan_logic.plan_tool import plan_attr_exists, plan_get_obj
 from src.ch08_plan_atom._ref.ch08_semantic_types import (
     FactNum,
     LabelTerm,
-    PersonName,
+    PartnerName,
     ReasonNum,
     RopeTerm,
     TitleTerm,
@@ -196,30 +196,30 @@ def _modify_plan_update_planunit(x_plan: PlanUnit, x_atom: PlanAtom):
         x_plan.mana_grain = x_atom.get_value(x_arg)
 
 
-def _modify_plan_person_membership_delete(x_plan: PlanUnit, x_atom: PlanAtom):
-    x_person_name = x_atom.get_value("person_name")
+def _modify_plan_partner_membership_delete(x_plan: PlanUnit, x_atom: PlanAtom):
+    x_partner_name = x_atom.get_value("partner_name")
     x_group_title = x_atom.get_value("group_title")
-    x_plan.get_person(x_person_name).delete_membership(x_group_title)
+    x_plan.get_partner(x_partner_name).delete_membership(x_group_title)
 
 
-def _modify_plan_person_membership_update(x_plan: PlanUnit, x_atom: PlanAtom):
-    x_person_name = x_atom.get_value("person_name")
+def _modify_plan_partner_membership_update(x_plan: PlanUnit, x_atom: PlanAtom):
+    x_partner_name = x_atom.get_value("partner_name")
     x_group_title = x_atom.get_value("group_title")
-    x_personunit = x_plan.get_person(x_person_name)
-    x_membership = x_personunit.get_membership(x_group_title)
+    x_partnerunit = x_plan.get_partner(x_partner_name)
+    x_membership = x_partnerunit.get_membership(x_group_title)
     x_group_cred_lumen = x_atom.get_value("group_cred_lumen")
     x_group_debt_lumen = x_atom.get_value("group_debt_lumen")
     x_membership.set_group_cred_lumen(x_group_cred_lumen)
     x_membership.set_group_debt_lumen(x_group_debt_lumen)
 
 
-def _modify_plan_person_membership_insert(x_plan: PlanUnit, x_atom: PlanAtom):
-    x_person_name = x_atom.get_value("person_name")
+def _modify_plan_partner_membership_insert(x_plan: PlanUnit, x_atom: PlanAtom):
+    x_partner_name = x_atom.get_value("partner_name")
     x_group_title = x_atom.get_value("group_title")
     x_group_cred_lumen = x_atom.get_value("group_cred_lumen")
     x_group_debt_lumen = x_atom.get_value("group_debt_lumen")
-    x_personunit = x_plan.get_person(x_person_name)
-    x_personunit.add_membership(x_group_title, x_group_cred_lumen, x_group_debt_lumen)
+    x_partnerunit = x_plan.get_partner(x_partner_name)
+    x_partnerunit.add_membership(x_group_title, x_group_cred_lumen, x_group_debt_lumen)
 
 
 def _modify_plan_kegunit_delete(x_plan: PlanUnit, x_atom: PlanAtom):
@@ -393,24 +393,24 @@ def _modify_plan_keg_healerunit_insert(x_plan: PlanUnit, x_atom: PlanAtom):
     x_kegunit.healerunit.set_healer_name(x_atom.get_value("healer_name"))
 
 
-def _modify_plan_personunit_delete(x_plan: PlanUnit, x_atom: PlanAtom):
-    x_plan.del_personunit(x_atom.get_value("person_name"))
+def _modify_plan_partnerunit_delete(x_plan: PlanUnit, x_atom: PlanAtom):
+    x_plan.del_partnerunit(x_atom.get_value("partner_name"))
 
 
-def _modify_plan_personunit_update(x_plan: PlanUnit, x_atom: PlanAtom):
-    x_plan.edit_personunit(
-        person_name=x_atom.get_value("person_name"),
-        person_cred_lumen=x_atom.get_value("person_cred_lumen"),
-        person_debt_lumen=x_atom.get_value("person_debt_lumen"),
+def _modify_plan_partnerunit_update(x_plan: PlanUnit, x_atom: PlanAtom):
+    x_plan.edit_partnerunit(
+        partner_name=x_atom.get_value("partner_name"),
+        partner_cred_lumen=x_atom.get_value("partner_cred_lumen"),
+        partner_debt_lumen=x_atom.get_value("partner_debt_lumen"),
     )
 
 
-def _modify_plan_personunit_insert(x_plan: PlanUnit, x_atom: PlanAtom):
-    x_plan.set_personunit(
-        personunit_shop(
-            person_name=x_atom.get_value("person_name"),
-            person_cred_lumen=x_atom.get_value("person_cred_lumen"),
-            person_debt_lumen=x_atom.get_value("person_debt_lumen"),
+def _modify_plan_partnerunit_insert(x_plan: PlanUnit, x_atom: PlanAtom):
+    x_plan.set_partnerunit(
+        partnerunit_shop(
+            partner_name=x_atom.get_value("partner_name"),
+            partner_cred_lumen=x_atom.get_value("partner_cred_lumen"),
+            partner_debt_lumen=x_atom.get_value("partner_debt_lumen"),
         )
     )
 
@@ -420,13 +420,13 @@ def _modify_plan_planunit(x_plan: PlanUnit, x_atom: PlanAtom):
         _modify_plan_update_planunit(x_plan, x_atom)
 
 
-def _modify_plan_person_membership(x_plan: PlanUnit, x_atom: PlanAtom):
+def _modify_plan_partner_membership(x_plan: PlanUnit, x_atom: PlanAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_plan_person_membership_delete(x_plan, x_atom)
+        _modify_plan_partner_membership_delete(x_plan, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_plan_person_membership_update(x_plan, x_atom)
+        _modify_plan_partner_membership_update(x_plan, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_plan_person_membership_insert(x_plan, x_atom)
+        _modify_plan_partner_membership_insert(x_plan, x_atom)
 
 
 def _modify_plan_kegunit(x_plan: PlanUnit, x_atom: PlanAtom):
@@ -488,20 +488,20 @@ def _modify_plan_keg_healerunit(x_plan: PlanUnit, x_atom: PlanAtom):
         _modify_plan_keg_healerunit_insert(x_plan, x_atom)
 
 
-def _modify_plan_personunit(x_plan: PlanUnit, x_atom: PlanAtom):
+def _modify_plan_partnerunit(x_plan: PlanUnit, x_atom: PlanAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_plan_personunit_delete(x_plan, x_atom)
+        _modify_plan_partnerunit_delete(x_plan, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_plan_personunit_update(x_plan, x_atom)
+        _modify_plan_partnerunit_update(x_plan, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_plan_personunit_insert(x_plan, x_atom)
+        _modify_plan_partnerunit_insert(x_plan, x_atom)
 
 
 def modify_plan_with_planatom(x_plan: PlanUnit, x_atom: PlanAtom):
     if x_atom.dimen == "planunit":
         _modify_plan_planunit(x_plan, x_atom)
-    elif x_atom.dimen == "plan_person_membership":
-        _modify_plan_person_membership(x_plan, x_atom)
+    elif x_atom.dimen == "plan_partner_membership":
+        _modify_plan_partner_membership(x_plan, x_atom)
     elif x_atom.dimen == "plan_kegunit":
         _modify_plan_kegunit(x_plan, x_atom)
     elif x_atom.dimen == "plan_keg_awardunit":
@@ -516,8 +516,8 @@ def modify_plan_with_planatom(x_plan: PlanUnit, x_atom: PlanAtom):
         _modify_plan_keg_healerunit(x_plan, x_atom)
     elif x_atom.dimen == "plan_keg_partyunit":
         _modify_plan_keg_partyunit(x_plan, x_atom)
-    elif x_atom.dimen == "plan_personunit":
-        _modify_plan_personunit(x_plan, x_atom)
+    elif x_atom.dimen == "plan_partnerunit":
+        _modify_plan_partnerunit(x_plan, x_atom)
 
 
 def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
@@ -530,7 +530,7 @@ def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
             or x_obj.fund_pool != y_obj.fund_pool
             or x_obj.fund_grain != y_obj.fund_grain
         )
-    elif dimen in {"plan_person_membership"}:
+    elif dimen in {"plan_partner_membership"}:
         return (x_obj.group_cred_lumen != y_obj.group_cred_lumen) or (
             x_obj.group_debt_lumen != y_obj.group_debt_lumen
         )
@@ -563,9 +563,9 @@ def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
             or x_obj.reason_upper != y_obj.reason_upper
             or x_obj.reason_divisor != y_obj.reason_divisor
         )
-    elif dimen == "plan_personunit":
-        return (x_obj.person_cred_lumen != y_obj.person_cred_lumen) or (
-            x_obj.person_debt_lumen != y_obj.person_debt_lumen
+    elif dimen == "plan_partnerunit":
+        return (x_obj.partner_cred_lumen != y_obj.partner_cred_lumen) or (
+            x_obj.partner_debt_lumen != y_obj.partner_debt_lumen
         )
 
 
@@ -587,7 +587,7 @@ def get_planatom_from_rowdata(x_rowdata: RowData) -> PlanAtom:
 class AtomRow:
     _atom_dimens: set[str] = None
     _crud_command: CRUD_command = None
-    person_name: PersonName = None
+    partner_name: PartnerName = None
     addin: float = None
     awardee_title: TitleTerm = None
     reason_context: RopeTerm = None
@@ -595,10 +595,10 @@ class AtomRow:
     begin: float = None
     respect_grain: float = None
     close: float = None
-    person_cred_lumen: int = None
+    partner_cred_lumen: int = None
     group_cred_lumen: int = None
     credor_respect: int = None
-    person_debt_lumen: int = None
+    partner_debt_lumen: int = None
     group_debt_lumen: int = None
     debtor_respect: int = None
     denom: int = None
@@ -643,7 +643,7 @@ class AtomRow:
             x_value = self.__dict__.get(x_arg)
             if x_value != None:
                 if class_type == "NameTerm":
-                    self.__dict__[x_arg] = PersonName(x_value)
+                    self.__dict__[x_arg] = PartnerName(x_value)
                 elif class_type == "TitleTerm":
                     self.__dict__[x_arg] = TitleTerm(x_value)
                 elif class_type == "RopeTerm":

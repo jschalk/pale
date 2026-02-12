@@ -1,5 +1,5 @@
-from src.ch02_person.group import awardunit_shop
-from src.ch02_person.person import personunit_shop
+from src.ch02_partner.group import awardunit_shop
+from src.ch02_partner.partner import partnerunit_shop
 from src.ch04_rope.rope import create_rope_from_labels
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -152,25 +152,25 @@ def test_PlanUnit_3AdvocatesNokegunit_shop():
     # ESTABLISH
 
     zia_planunit = planunit_shop("Zia")
-    yao_personunit = personunit_shop(person_name=exx.yao)
-    sue_personunit = personunit_shop(person_name=exx.sue)
-    zia_personunit = personunit_shop(person_name=exx.zia)
+    yao_partnerunit = partnerunit_shop(partner_name=exx.yao)
+    sue_partnerunit = partnerunit_shop(partner_name=exx.sue)
+    zia_partnerunit = partnerunit_shop(partner_name=exx.zia)
     # print(f"{yao=}")
-    zia_planunit.set_personunit(yao_personunit)
-    zia_planunit.set_personunit(sue_personunit)
-    zia_planunit.set_personunit(zia_personunit)
+    zia_planunit.set_partnerunit(yao_partnerunit)
+    zia_planunit.set_partnerunit(sue_partnerunit)
+    zia_planunit.set_partnerunit(zia_partnerunit)
     zia_planunit.kegroot.set_awardunit(awardunit_shop(exx.yao, give_force=10))
     zia_planunit.kegroot.set_awardunit(awardunit_shop(exx.sue, give_force=10))
     zia_planunit.kegroot.set_awardunit(awardunit_shop(exx.zia, give_force=10))
 
     # WHEN
     assert zia_planunit.get_awardunits_metrics() is not None
-    persons_metrics = zia_planunit.get_awardunits_metrics()
+    partners_metrics = zia_planunit.get_awardunits_metrics()
 
     # THEN
-    yao_awardunit = persons_metrics[exx.yao]
-    sue_awardunit = persons_metrics[exx.sue]
-    zia_awardunit = persons_metrics[exx.zia]
+    yao_awardunit = partners_metrics[exx.yao]
+    sue_awardunit = partners_metrics[exx.sue]
+    zia_awardunit = partners_metrics[exx.zia]
     assert yao_awardunit.awardee_title is not None
     assert sue_awardunit.awardee_title is not None
     assert zia_awardunit.awardee_title is not None

@@ -1,4 +1,4 @@
-from src.ch02_person.group import (
+from src.ch02_partner.group import (
     AwardHeir,
     AwardLine,
     AwardUnit,
@@ -45,11 +45,11 @@ def test_MemberShip_Exists():
     assert not swim_membership.fund_agenda_take
     assert not swim_membership.fund_agenda_ratio_give
     assert not swim_membership.fund_agenda_ratio_take
-    assert not swim_membership.person_name
+    assert not swim_membership.partner_name
     obj_attrs = set(swim_membership.__dict__.keys())
     print(sorted(list(obj_attrs)))
     assert obj_attrs == {
-        kw.person_name,
+        kw.partner_name,
         kw.group_title,
         kw.group_cred_lumen,
         kw.group_debt_lumen,
@@ -88,18 +88,18 @@ def test_membership_shop_ReturnsObj():
     assert not swim_membership.fund_agenda_take
     assert not swim_membership.fund_agenda_ratio_give
     assert not swim_membership.fund_agenda_ratio_take
-    assert not swim_membership.person_name
+    assert not swim_membership.partner_name
 
 
-def test_membership_shop_ReturnsObjAttr_person_name():
+def test_membership_shop_ReturnsObjAttr_partner_name():
     # ESTABLISH
     swim_str = ",swim"
 
     # WHEN
-    swim_membership = membership_shop(swim_str, person_name=exx.yao)
+    swim_membership = membership_shop(swim_str, partner_name=exx.yao)
 
     # THEN
-    assert swim_membership.person_name == exx.yao
+    assert swim_membership.partner_name == exx.yao
 
 
 def test_MemberShip_set_group_cred_lumen_SetsAttr():
@@ -214,7 +214,7 @@ def test_membership_to_dict_ReturnsObj():
         group_title=swim_str,
         group_cred_lumen=swim_group_cred_lumen,
         group_debt_lumen=swim_group_debt_lumen,
-        person_name=exx.yao,
+        partner_name=exx.yao,
     )
     swim_membership_dict = before_swim_membership.to_dict()
 
@@ -235,7 +235,7 @@ def test_memberships_get_from_dict_ReturnsObj():
         group_title=swim_str,
         group_cred_lumen=swim_group_cred_lumen,
         group_debt_lumen=swim_group_debt_lumen,
-        person_name=exx.yao,
+        partner_name=exx.yao,
     )
     before_swim_memberships_objs = {swim_str: before_swim_membership}
     swim_memberships_dict = {swim_str: before_swim_membership.to_dict()}

@@ -32,11 +32,11 @@ def test_etl_spark_inherited_planunits_to_moment_gut_SetsFiles_Scenario0(
     plan_filename = "plan.json"
     e3_bob_plan = planunit_shop(bob_inx, exx.a23)
     e7_bob_plan = planunit_shop(bob_inx, exx.a23)
-    e3_bob_plan.add_personunit(bob_inx, credit77)
-    e3_bob_plan.add_personunit(yao_inx, credit44)
-    e7_bob_plan.add_personunit(bob_inx, credit77)
-    e7_bob_plan.add_personunit(sue_inx, credit88)
-    e7_bob_plan.add_personunit(yao_inx, credit44)
+    e3_bob_plan.add_partnerunit(bob_inx, credit77)
+    e3_bob_plan.add_partnerunit(yao_inx, credit44)
+    e7_bob_plan.add_partnerunit(bob_inx, credit77)
+    e7_bob_plan.add_partnerunit(sue_inx, credit88)
+    e7_bob_plan.add_partnerunit(yao_inx, credit44)
     save_json(a23_bob_e3_dir, plan_filename, e3_bob_plan.to_dict())
     save_json(a23_bob_e7_dir, plan_filename, e7_bob_plan.to_dict())
     e3_plan_path = create_path(a23_bob_e3_dir, plan_filename)
@@ -54,6 +54,6 @@ def test_etl_spark_inherited_planunits_to_moment_gut_SetsFiles_Scenario0(
     # THEN
     assert os_path_exists(a23_bob_gut_path)
     generated_gut_plan = get_planunit_from_dict(open_json(a23_bob_gut_path))
-    assert generated_gut_plan.persons == e7_bob_plan.persons
+    assert generated_gut_plan.partners == e7_bob_plan.partners
     assert generated_gut_plan == e7_bob_plan
     assert generated_gut_plan.to_dict() == e7_bob_plan.to_dict()

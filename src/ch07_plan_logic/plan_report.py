@@ -3,13 +3,13 @@ from src.ch04_rope.rope import RopeTerm
 from src.ch07_plan_logic.plan_main import PlanUnit
 
 
-def get_plan_personunits_dataframe(x_plan: PlanUnit) -> DataFrame:
-    if x_plan.persons == {}:
+def get_plan_partnerunits_dataframe(x_plan: PlanUnit) -> DataFrame:
+    if x_plan.partners == {}:
         return DataFrame(
             columns=[
-                "person_name",
-                "person_cred_lumen",
-                "person_debt_lumen",
+                "partner_name",
+                "partner_cred_lumen",
+                "partner_debt_lumen",
                 "fund_give",
                 "fund_take",
                 "fund_agenda_give",
@@ -18,8 +18,8 @@ def get_plan_personunits_dataframe(x_plan: PlanUnit) -> DataFrame:
                 "fund_agenda_ratio_take",
             ]
         )
-    x_personunits_list = list(x_plan.get_personunits_dict(all_attrs=True).values())
-    return DataFrame(x_personunits_list)
+    x_partnerunits_list = list(x_plan.get_partnerunits_dict(all_attrs=True).values())
+    return DataFrame(x_partnerunits_list)
 
 
 def get_plan_agenda_dataframe(

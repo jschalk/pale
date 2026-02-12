@@ -1,16 +1,16 @@
 from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import get_0_if_None, get_1_if_None
 from src.ch01_allot.allot import allot_scale, default_grain_num_if_None
-from src.ch02_person._ref.ch02_semantic_types import (
+from src.ch02_partner._ref.ch02_semantic_types import (
     FundNum,
     GroupMark,
     NameTerm,
-    PersonName,
+    PartnerName,
     RespectGrain,
     RespectNum,
     default_groupmark_if_None,
 )
-from src.ch02_person.group import (
+from src.ch02_partner.group import (
     GroupTitle,
     MemberShip,
     membership_shop,
@@ -41,29 +41,29 @@ def validate_nameterm(
     return x_nameterm
 
 
-class Bad_person_nameMemberShipException(Exception):
+class Bad_partner_nameMemberShipException(Exception):
     pass
 
 
 @dataclass
-class PersonUnit:
-    """This represents the object's opinion of the PersonUnit.person_name
-    PersonUnit.person_cred_lumen represents how much person_cred_lumen the object projects to the person_name
-    PersonUnit.person_debt_lumen represents how much person_debt_lumen the object projects to the person_name
+class PartnerUnit:
+    """This represents the object's opinion of the PartnerUnit.partner_name
+    PartnerUnit.partner_cred_lumen represents how much partner_cred_lumen the object projects to the partner_name
+    PartnerUnit.partner_debt_lumen represents how much partner_debt_lumen the object projects to the partner_name
     """
 
-    person_name: PersonName = None
+    partner_name: PartnerName = None
     groupmark: str = None
     respect_grain: RespectGrain = None
-    person_cred_lumen: int = None
-    person_debt_lumen: int = None
+    partner_cred_lumen: int = None
+    partner_debt_lumen: int = None
     # special attribute: static in json, in memory it is deleted after loading and recalculated during saving.
-    memberships: dict[PersonName, MemberShip] = None
+    memberships: dict[PartnerName, MemberShip] = None
     # calculated fields
     credor_pool: RespectNum = None
     debtor_pool: RespectNum = None
-    irrational_person_debt_lumen: int = None  # set by listening process
-    inallocable_person_debt_lumen: int = None  # set by listening process
+    irrational_partner_debt_lumen: int = None  # set by listening process
+    inallocable_partner_debt_lumen: int = None  # set by listening process
     # set by cashout()
     fund_give: FundNum = None
     fund_take: FundNum = None
@@ -72,33 +72,33 @@ class PersonUnit:
     fund_agenda_ratio_give: FundNum = None
     fund_agenda_ratio_take: FundNum = None
 
-    def set_name(self, x_person_name: PersonName):
-        self.person_name = validate_nameterm(x_person_name, self.groupmark)
+    def set_name(self, x_partner_name: PartnerName):
+        self.partner_name = validate_nameterm(x_partner_name, self.groupmark)
 
     def set_respect_grain(self, x_respect_grain: float):
         self.respect_grain = x_respect_grain
 
-    def set_credor_person_debt_lumen(
+    def set_credor_partner_debt_lumen(
         self,
-        person_cred_lumen: float = None,
-        person_debt_lumen: float = None,
+        partner_cred_lumen: float = None,
+        partner_debt_lumen: float = None,
     ):
-        if person_cred_lumen is not None:
-            self.set_person_cred_lumen(person_cred_lumen)
-        if person_debt_lumen is not None:
-            self.set_person_debt_lumen(person_debt_lumen)
+        if partner_cred_lumen is not None:
+            self.set_partner_cred_lumen(partner_cred_lumen)
+        if partner_debt_lumen is not None:
+            self.set_partner_debt_lumen(partner_debt_lumen)
 
-    def set_person_cred_lumen(self, person_cred_lumen: int):
-        self.person_cred_lumen = person_cred_lumen
+    def set_partner_cred_lumen(self, partner_cred_lumen: int):
+        self.partner_cred_lumen = partner_cred_lumen
 
-    def set_person_debt_lumen(self, person_debt_lumen: int):
-        self.person_debt_lumen = person_debt_lumen
+    def set_partner_debt_lumen(self, partner_debt_lumen: int):
+        self.partner_debt_lumen = partner_debt_lumen
 
-    def get_person_cred_lumen(self):
-        return get_1_if_None(self.person_cred_lumen)
+    def get_partner_cred_lumen(self):
+        return get_1_if_None(self.partner_cred_lumen)
 
-    def get_person_debt_lumen(self):
-        return get_1_if_None(self.person_debt_lumen)
+    def get_partner_debt_lumen(self):
+        return get_1_if_None(self.partner_debt_lumen)
 
     def clear_fund_give_take(self):
         self.fund_give = 0
@@ -108,15 +108,17 @@ class PersonUnit:
         self.fund_agenda_ratio_give = 0
         self.fund_agenda_ratio_take = 0
 
-    def add_irrational_person_debt_lumen(self, x_irrational_person_debt_lumen: float):
-        self.irrational_person_debt_lumen += x_irrational_person_debt_lumen
+    def add_irrational_partner_debt_lumen(self, x_irrational_partner_debt_lumen: float):
+        self.irrational_partner_debt_lumen += x_irrational_partner_debt_lumen
 
-    def add_inallocable_person_debt_lumen(self, x_inallocable_person_debt_lumen: float):
-        self.inallocable_person_debt_lumen += x_inallocable_person_debt_lumen
+    def add_inallocable_partner_debt_lumen(
+        self, x_inallocable_partner_debt_lumen: float
+    ):
+        self.inallocable_partner_debt_lumen += x_inallocable_partner_debt_lumen
 
     def reset_listen_calculated_attrs(self):
-        self.irrational_person_debt_lumen = 0
-        self.inallocable_person_debt_lumen = 0
+        self.irrational_partner_debt_lumen = 0
+        self.inallocable_partner_debt_lumen = 0
 
     def add_fund_give(self, fund_give: float):
         self.fund_give += fund_give
@@ -130,7 +132,7 @@ class PersonUnit:
     def add_fund_agenda_take(self, fund_agenda_take: float):
         self.fund_agenda_take += fund_agenda_take
 
-    def add_person_fund_give_take(
+    def add_partner_fund_give_take(
         self,
         fund_give: float,
         fund_take,
@@ -146,20 +148,20 @@ class PersonUnit:
         self,
         fund_agenda_ratio_give_sum: float,
         fund_agenda_ratio_take_sum: float,
-        personunits_person_cred_lumen_sum: float,
-        personunits_person_debt_lumen_sum: float,
+        partnerunits_partner_cred_lumen_sum: float,
+        partnerunits_partner_debt_lumen_sum: float,
     ):
-        total_person_cred_lumen = personunits_person_cred_lumen_sum
+        total_partner_cred_lumen = partnerunits_partner_cred_lumen_sum
         ratio_give_sum = fund_agenda_ratio_give_sum
         self.fund_agenda_ratio_give = (
-            self.get_person_cred_lumen() / total_person_cred_lumen
+            self.get_partner_cred_lumen() / total_partner_cred_lumen
             if fund_agenda_ratio_give_sum == 0
             else self.fund_agenda_give / ratio_give_sum
         )
         if fund_agenda_ratio_take_sum == 0:
-            total_person_debt_lumen = personunits_person_debt_lumen_sum
+            total_partner_debt_lumen = partnerunits_partner_debt_lumen_sum
             self.fund_agenda_ratio_take = (
-                self.get_person_debt_lumen() / total_person_debt_lumen
+                self.get_partner_debt_lumen() / total_partner_debt_lumen
             )
         else:
             ratio_take_sum = fund_agenda_ratio_take_sum
@@ -176,12 +178,12 @@ class PersonUnit:
 
     def set_membership(self, x_membership: MemberShip):
         x_group_title = x_membership.group_title
-        group_title_is_person_name = is_nameterm(x_group_title, self.groupmark)
-        if group_title_is_person_name and self.person_name != x_group_title:
-            exception_str = f"PersonUnit with person_name='{self.person_name}' cannot have link to '{x_group_title}'."
-            raise Bad_person_nameMemberShipException(exception_str)
+        group_title_is_partner_name = is_nameterm(x_group_title, self.groupmark)
+        if group_title_is_partner_name and self.partner_name != x_group_title:
+            exception_str = f"PartnerUnit with partner_name='{self.partner_name}' cannot have link to '{x_group_title}'."
+            raise Bad_partner_nameMemberShipException(exception_str)
 
-        x_membership.person_name = self.person_name
+        x_membership.partner_name = self.partner_name
         self.memberships[x_membership.group_title] = x_membership
 
     def get_membership(self, group_title: GroupTitle) -> MemberShip:
@@ -229,15 +231,17 @@ class PersonUnit:
         """Returns dict that is serializable to JSON."""
 
         x_dict = {
-            "person_name": self.person_name,
-            "person_cred_lumen": self.person_cred_lumen,
-            "person_debt_lumen": self.person_debt_lumen,
+            "partner_name": self.partner_name,
+            "partner_cred_lumen": self.partner_cred_lumen,
+            "partner_debt_lumen": self.partner_debt_lumen,
             "memberships": self.get_memberships_dict(),
         }
-        if self.irrational_person_debt_lumen not in [None, 0]:
-            x_dict["irrational_person_debt_lumen"] = self.irrational_person_debt_lumen
-        if self.inallocable_person_debt_lumen not in [None, 0]:
-            x_dict["inallocable_person_debt_lumen"] = self.inallocable_person_debt_lumen
+        if self.irrational_partner_debt_lumen not in [None, 0]:
+            x_dict["irrational_partner_debt_lumen"] = self.irrational_partner_debt_lumen
+        if self.inallocable_partner_debt_lumen not in [None, 0]:
+            x_dict["inallocable_partner_debt_lumen"] = (
+                self.inallocable_partner_debt_lumen
+            )
 
         if all_attrs:
             self.all_attrs_necessary_in_dict(x_dict)
@@ -252,58 +256,58 @@ class PersonUnit:
         x_dict["fund_agenda_ratio_take"] = self.fund_agenda_ratio_take
 
 
-def personunits_get_from_dict(
+def partnerunits_get_from_dict(
     x_dict: dict, groupmark: str = None
-) -> dict[str, PersonUnit]:
-    personunits = {}
-    for personunit_dict in x_dict.values():
-        x_personunit = personunit_get_from_dict(personunit_dict, groupmark)
-        personunits[x_personunit.person_name] = x_personunit
-    return personunits
+) -> dict[str, PartnerUnit]:
+    partnerunits = {}
+    for partnerunit_dict in x_dict.values():
+        x_partnerunit = partnerunit_get_from_dict(partnerunit_dict, groupmark)
+        partnerunits[x_partnerunit.partner_name] = x_partnerunit
+    return partnerunits
 
 
-def personunit_get_from_dict(personunit_dict: dict, groupmark: str) -> PersonUnit:
-    x_person_name = personunit_dict["person_name"]
-    x_person_cred_lumen = personunit_dict["person_cred_lumen"]
-    x_person_debt_lumen = personunit_dict["person_debt_lumen"]
-    x_memberships_dict = personunit_dict["memberships"]
-    x_personunit = personunit_shop(
-        x_person_name, x_person_cred_lumen, x_person_debt_lumen, groupmark
+def partnerunit_get_from_dict(partnerunit_dict: dict, groupmark: str) -> PartnerUnit:
+    x_partner_name = partnerunit_dict["partner_name"]
+    x_partner_cred_lumen = partnerunit_dict["partner_cred_lumen"]
+    x_partner_debt_lumen = partnerunit_dict["partner_debt_lumen"]
+    x_memberships_dict = partnerunit_dict["memberships"]
+    x_partnerunit = partnerunit_shop(
+        x_partner_name, x_partner_cred_lumen, x_partner_debt_lumen, groupmark
     )
-    x_personunit.memberships = memberships_get_from_dict(
-        x_memberships_dict, x_person_name
+    x_partnerunit.memberships = memberships_get_from_dict(
+        x_memberships_dict, x_partner_name
     )
-    irrational_person_debt_lumen = personunit_dict.get(
-        "irrational_person_debt_lumen", 0
+    irrational_partner_debt_lumen = partnerunit_dict.get(
+        "irrational_partner_debt_lumen", 0
     )
-    inallocable_person_debt_lumen = personunit_dict.get(
-        "inallocable_person_debt_lumen", 0
+    inallocable_partner_debt_lumen = partnerunit_dict.get(
+        "inallocable_partner_debt_lumen", 0
     )
-    x_personunit.add_irrational_person_debt_lumen(
-        get_0_if_None(irrational_person_debt_lumen)
+    x_partnerunit.add_irrational_partner_debt_lumen(
+        get_0_if_None(irrational_partner_debt_lumen)
     )
-    x_personunit.add_inallocable_person_debt_lumen(
-        get_0_if_None(inallocable_person_debt_lumen)
+    x_partnerunit.add_inallocable_partner_debt_lumen(
+        get_0_if_None(inallocable_partner_debt_lumen)
     )
 
-    return x_personunit
+    return x_partnerunit
 
 
-def personunit_shop(
-    person_name: PersonName,
-    person_cred_lumen: int = None,
-    person_debt_lumen: int = None,
+def partnerunit_shop(
+    partner_name: PartnerName,
+    partner_cred_lumen: int = None,
+    partner_debt_lumen: int = None,
     groupmark: str = None,
     respect_grain: float = None,
-) -> PersonUnit:
-    x_personunit = PersonUnit(
-        person_cred_lumen=get_1_if_None(person_cred_lumen),
-        person_debt_lumen=get_1_if_None(person_debt_lumen),
+) -> PartnerUnit:
+    x_partnerunit = PartnerUnit(
+        partner_cred_lumen=get_1_if_None(partner_cred_lumen),
+        partner_debt_lumen=get_1_if_None(partner_debt_lumen),
         memberships={},
         credor_pool=0,
         debtor_pool=0,
-        irrational_person_debt_lumen=0,
-        inallocable_person_debt_lumen=0,
+        irrational_partner_debt_lumen=0,
+        inallocable_partner_debt_lumen=0,
         fund_give=0,
         fund_take=0,
         fund_agenda_give=0,
@@ -313,8 +317,8 @@ def personunit_shop(
         groupmark=default_groupmark_if_None(groupmark),
         respect_grain=default_grain_num_if_None(respect_grain),
     )
-    x_personunit.set_name(x_person_name=person_name)
-    return x_personunit
+    x_partnerunit.set_name(x_partner_name=partner_name)
+    return x_partnerunit
 
 
 class calc_give_take_net_Exception(Exception):

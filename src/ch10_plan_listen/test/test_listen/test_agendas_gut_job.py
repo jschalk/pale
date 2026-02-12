@@ -36,17 +36,17 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPlanWhenNo_partyunitIsSet(
     # ESTABLISH
     moment_mstr_dir = env_dir()
     yao_gut = planunit_shop(exx.yao, exx.a23)
-    zia_person_cred_lumen = 47
-    zia_person_debt_lumen = 41
+    zia_partner_cred_lumen = 47
+    zia_partner_debt_lumen = 41
     zia_pool = 87
-    yao_gut.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
-    yao_gut.set_person_respect(zia_pool)
+    yao_gut.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
+    yao_gut.set_partner_respect(zia_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
 
     zia_job = planunit_shop(exx.zia, exx.a23)
     zia_job.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    zia_job.add_personunit(exx.yao, person_debt_lumen=12)
+    zia_job.add_partnerunit(exx.yao, partner_debt_lumen=12)
     save_job_file(moment_mstr_dir, zia_job)
 
     new_yao_job = create_listen_basis(yao_gut)
@@ -64,17 +64,17 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPlan(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = env_dir()
     yao_gut = planunit_shop(exx.yao, exx.a23)
-    zia_person_cred_lumen = 47
-    zia_person_debt_lumen = 41
+    zia_partner_cred_lumen = 47
+    zia_partner_debt_lumen = 41
     zia_pool = 87
-    yao_gut.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
-    yao_gut.set_person_respect(zia_pool)
+    yao_gut.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
+    yao_gut.set_partner_respect(zia_pool)
     save_job_file(moment_mstr_dir, yao_gut)
 
     zia_job = planunit_shop(exx.zia, exx.a23)
     zia_job.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    zia_job.add_personunit(exx.yao, person_debt_lumen=12)
+    zia_job.add_partnerunit(exx.yao, partner_debt_lumen=12)
     clean_kegunit = zia_job.get_keg_obj(a23_clean_rope())
     cuisine_kegunit = zia_job.get_keg_obj(a23_cuisine_rope())
     clean_kegunit.laborunit.add_party(exx.yao)
@@ -91,7 +91,7 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPlan(temp_dir_setup):
     assert len(new_yao_job.get_agenda_dict()) == 2
 
 
-def test_listen_to_agendas_jobs_into_job_AddstasksToPlanWithDetailsDecidedBy_person_debt_lumen(
+def test_listen_to_agendas_jobs_into_job_AddstasksToPlanWithDetailsDecidedBy_partner_debt_lumen(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -125,16 +125,16 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPlanWithDetailsDecidedBy_per
     # THEN
     assert new_yao_job1.keg_exists(a23_cuisine_rope())
     new_cuisine_keg = new_yao_job1.get_keg_obj(a23_cuisine_rope())
-    zia_personunit = new_yao_job1.get_person(exx.zia)
-    bob_personunit = new_yao_job1.get_person(exx.bob)
-    assert zia_personunit.person_debt_lumen < bob_personunit.person_debt_lumen
+    zia_partnerunit = new_yao_job1.get_partner(exx.zia)
+    bob_partnerunit = new_yao_job1.get_partner(exx.bob)
+    assert zia_partnerunit.partner_debt_lumen < bob_partnerunit.partner_debt_lumen
     assert new_cuisine_keg.get_reasonunit(a23_eat_rope()) is None
 
-    yao_zia_person_debt_lumen = 15
-    yao_bob_person_debt_lumen = 5
-    yao_gut.add_personunit(exx.zia, None, yao_zia_person_debt_lumen)
-    yao_gut.add_personunit(exx.bob, None, yao_bob_person_debt_lumen)
-    yao_gut.set_person_respect(100)
+    yao_zia_partner_debt_lumen = 15
+    yao_bob_partner_debt_lumen = 5
+    yao_gut.add_partnerunit(exx.zia, None, yao_zia_partner_debt_lumen)
+    yao_gut.add_partnerunit(exx.bob, None, yao_bob_partner_debt_lumen)
+    yao_gut.set_partner_respect(100)
     new_yao_job2 = create_listen_basis(yao_gut)
     assert new_yao_job2.keg_exists(a23_cuisine_rope()) is False
 
@@ -144,9 +144,9 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPlanWithDetailsDecidedBy_per
     # THEN
     assert new_yao_job2.keg_exists(a23_cuisine_rope())
     new_cuisine_keg = new_yao_job2.get_keg_obj(a23_cuisine_rope())
-    zia_personunit = new_yao_job2.get_person(exx.zia)
-    bob_personunit = new_yao_job2.get_person(exx.bob)
-    assert zia_personunit.person_debt_lumen > bob_personunit.person_debt_lumen
+    zia_partnerunit = new_yao_job2.get_partner(exx.zia)
+    bob_partnerunit = new_yao_job2.get_partner(exx.bob)
+    assert zia_partnerunit.partner_debt_lumen > bob_partnerunit.partner_debt_lumen
     zia_eat_reasonunit = zia_cuisine_kegunit.get_reasonunit(a23_eat_rope())
     assert new_cuisine_keg.get_reasonunit(a23_eat_rope()) == zia_eat_reasonunit
 
@@ -157,20 +157,20 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalPlan(
     # ESTABLISH
     moment_mstr_dir = env_dir()
     yao_gut = planunit_shop(exx.yao, exx.a23)
-    zia_person_cred_lumen = 47
-    zia_person_debt_lumen = 41
-    sue_person_cred_lumen = 57
-    sue_person_debt_lumen = 51
-    yao_gut.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
-    yao_gut.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
+    zia_partner_cred_lumen = 47
+    zia_partner_debt_lumen = 41
+    sue_partner_cred_lumen = 57
+    sue_partner_debt_lumen = 51
+    yao_gut.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
+    yao_gut.add_partnerunit(exx.sue, sue_partner_cred_lumen, sue_partner_debt_lumen)
     yao_pool = 92
-    yao_gut.set_person_respect(yao_pool)
+    yao_gut.set_partner_respect(yao_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
 
     zia_job = planunit_shop(exx.zia, exx.a23)
     zia_job.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    zia_job.add_personunit(exx.yao, person_debt_lumen=12)
+    zia_job.add_partnerunit(exx.yao, partner_debt_lumen=12)
     clean_kegunit = zia_job.get_keg_obj(a23_clean_rope())
     cuisine_kegunit = zia_job.get_keg_obj(a23_cuisine_rope())
     clean_kegunit.laborunit.add_party(exx.yao)
@@ -179,7 +179,7 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalPlan(
 
     sue_job = planunit_shop(exx.sue, exx.a23)
     sue_job.set_max_tree_traverse(5)
-    zia_job.add_personunit(exx.yao, person_debt_lumen=12)
+    zia_job.add_partnerunit(exx.yao, partner_debt_lumen=12)
     vacuum_str = "vacuum"
     vacuum_rope = sue_job.make_l1_rope(vacuum_str)
     sue_job.set_l1_keg(kegunit_shop(vacuum_str, pledge=True))
@@ -215,12 +215,12 @@ def test_listen_to_agendas_jobs_into_job_ProcessesIrrationalPlan(
     # THEN irrational plan is ignored
     assert len(new_yao_job.get_agenda_dict()) != 3
     assert len(new_yao_job.get_agenda_dict()) == 2
-    zia_personunit = new_yao_job.get_person(exx.zia)
-    sue_personunit = new_yao_job.get_person(exx.sue)
-    print(f"{sue_personunit.person_debt_lumen=}")
-    print(f"{sue_personunit.irrational_person_debt_lumen=}")
-    assert zia_personunit.irrational_person_debt_lumen == 0
-    assert sue_personunit.irrational_person_debt_lumen == 51
+    zia_partnerunit = new_yao_job.get_partner(exx.zia)
+    sue_partnerunit = new_yao_job.get_partner(exx.sue)
+    print(f"{sue_partnerunit.partner_debt_lumen=}")
+    print(f"{sue_partnerunit.irrational_partner_debt_lumen=}")
+    assert zia_partnerunit.irrational_partner_debt_lumen == 0
+    assert sue_partnerunit.irrational_partner_debt_lumen == 51
 
 
 def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorPlan(
@@ -233,20 +233,20 @@ def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorPlan(
     delete_dir(yao_gut_path)  # don't know why I have to do this...
     print(f"{os_path_exists(yao_gut_path)=}")
     yao_gut = planunit_shop(exx.yao, exx.a23)
-    zia_person_cred_lumen = 47
-    sue_person_cred_lumen = 57
-    zia_person_debt_lumen = 41
-    sue_person_debt_lumen = 51
-    yao_gut.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
-    yao_gut.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
+    zia_partner_cred_lumen = 47
+    sue_partner_cred_lumen = 57
+    zia_partner_debt_lumen = 41
+    sue_partner_debt_lumen = 51
+    yao_gut.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
+    yao_gut.add_partnerunit(exx.sue, sue_partner_cred_lumen, sue_partner_debt_lumen)
     yao_pool = 92
-    yao_gut.set_person_respect(yao_pool)
+    yao_gut.set_partner_respect(yao_pool)
     save_gut_file(moment_mstr_dir, yao_gut)
 
     zia_job = planunit_shop(exx.zia, exx.a23)
     zia_job.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    zia_job.add_personunit(exx.yao, person_debt_lumen=12)
+    zia_job.add_partnerunit(exx.yao, partner_debt_lumen=12)
     clean_kegunit = zia_job.get_keg_obj(a23_clean_rope())
     cuisine_kegunit = zia_job.get_keg_obj(a23_cuisine_rope())
     clean_kegunit.laborunit.add_party(exx.yao)
@@ -260,12 +260,12 @@ def test_listen_to_agendas_jobs_into_job_ProcessesMissingDebtorPlan(
     # THEN irrational plan is ignored
     assert len(new_yao_job.get_agenda_dict()) != 3
     assert len(new_yao_job.get_agenda_dict()) == 2
-    zia_personunit = new_yao_job.get_person(exx.zia)
-    sue_personunit = new_yao_job.get_person(exx.sue)
-    print(f"{sue_personunit.person_debt_lumen=}")
-    print(f"{sue_personunit.inallocable_person_debt_lumen=}")
-    assert zia_personunit.inallocable_person_debt_lumen == 0
-    assert sue_personunit.inallocable_person_debt_lumen == 51
+    zia_partnerunit = new_yao_job.get_partner(exx.zia)
+    sue_partnerunit = new_yao_job.get_partner(exx.sue)
+    print(f"{sue_partnerunit.partner_debt_lumen=}")
+    print(f"{sue_partnerunit.inallocable_partner_debt_lumen=}")
+    assert zia_partnerunit.inallocable_partner_debt_lumen == 0
+    assert sue_partnerunit.inallocable_partner_debt_lumen == 51
 
 
 def test_listen_to_agendas_jobs_into_job_ListensToPlan_gut_AndNotPlan_job(
@@ -274,14 +274,14 @@ def test_listen_to_agendas_jobs_into_job_ListensToPlan_gut_AndNotPlan_job(
     # ESTABLISH
     moment_mstr_dir = env_dir()
     yao_gut = planunit_shop(exx.yao, exx.a23)
-    yao_person_cred_lumen = 57
-    yao_person_debt_lumen = 51
-    yao_gut.add_personunit(exx.yao, yao_person_cred_lumen, yao_person_debt_lumen)
-    zia_person_cred_lumen = 47
-    zia_person_debt_lumen = 41
-    yao_gut.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_partner_cred_lumen = 57
+    yao_partner_debt_lumen = 51
+    yao_gut.add_partnerunit(exx.yao, yao_partner_cred_lumen, yao_partner_debt_lumen)
+    zia_partner_cred_lumen = 47
+    zia_partner_debt_lumen = 41
+    yao_gut.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
     yao_pool = 87
-    yao_gut.set_person_respect(yao_pool)
+    yao_gut.set_partner_respect(yao_pool)
     # save yao without task to dutys
     save_gut_file(moment_mstr_dir, yao_gut)
 
@@ -289,7 +289,7 @@ def test_listen_to_agendas_jobs_into_job_ListensToPlan_gut_AndNotPlan_job(
     zia_job = planunit_shop(exx.zia, exx.a23)
     zia_job.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
     zia_job.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    zia_job.add_personunit(exx.yao, person_debt_lumen=12)
+    zia_job.add_partnerunit(exx.yao, partner_debt_lumen=12)
     clean_kegunit = zia_job.get_keg_obj(a23_clean_rope())
     cuisine_kegunit = zia_job.get_keg_obj(a23_cuisine_rope())
     clean_kegunit.laborunit.add_party(exx.yao)

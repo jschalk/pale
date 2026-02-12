@@ -1,6 +1,6 @@
 from copy import deepcopy as copy_deepcopy
 from src.ch00_py.file_toolbox import create_path
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch09_plan_lesson.delta import plandelta_shop
@@ -60,13 +60,13 @@ def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
     expected_stance_csv_strs = {
         "br00000": "moment_rope,epoch_label,c400_number,yr1_jan1_offset,monthday_index,fund_grain,mana_grain,respect_grain,knot,job_listen_rotations\n",
         "br00001": "moment_rope,plan_name,bud_time,quota,celldepth\n",
-        "br00002": "moment_rope,plan_name,person_name,tran_time,amount\n",
+        "br00002": "moment_rope,plan_name,partner_name,tran_time,amount\n",
         "br00003": "moment_rope,cumulative_minute,hour_label\n",
         "br00004": "moment_rope,cumulative_day,month_label\n",
         "br00005": "moment_rope,weekday_order,weekday_label\n",
         # "br00006": "moment_rope,offi_time,_offi_time_max\n",
-        "br00020": "moment_rope,plan_name,person_name,group_title,group_cred_lumen,group_debt_lumen\n",
-        "br00021": "moment_rope,plan_name,person_name,person_cred_lumen,person_debt_lumen\n",
+        "br00020": "moment_rope,plan_name,partner_name,group_title,group_cred_lumen,group_debt_lumen\n",
+        "br00021": "moment_rope,plan_name,partner_name,partner_cred_lumen,partner_debt_lumen\n",
         "br00022": "moment_rope,plan_name,keg_rope,awardee_title,give_force,take_force\n",
         "br00023": "moment_rope,plan_name,keg_rope,fact_context,fact_state,fact_lower,fact_upper\n",
         "br00024": "moment_rope,plan_name,keg_rope,party_title,solo\n",
@@ -282,10 +282,10 @@ def test_add_plan_to_br00020_csv_ReturnsObj():
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
+    bob_plan.add_partnerunit(exx.yao)
     run_credit = 33
     run_debt = 55
-    bob_plan.get_person(exx.yao).add_membership(exx.run, run_credit, run_debt)
+    bob_plan.get_partner(exx.yao).add_membership(exx.run, run_credit, run_debt)
     csv_header = x_ideas.get("br00020")
 
     # WHEN
@@ -306,7 +306,7 @@ def test_add_plan_to_br00021_csv_ReturnsObj():
     yao_credit = 33
     yao_debt = 55
     bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao, yao_credit, yao_debt)
+    bob_plan.add_partnerunit(exx.yao, yao_credit, yao_debt)
     csv_header = x_ideas.get("br00021")
 
     # WHEN
@@ -549,7 +549,7 @@ def test_add_planunit_to_stance_csv_strs_ReturnsObj():
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
+    bob_plan.add_partnerunit(exx.yao)
     mop_rope = bob_plan.make_l1_rope("mop")
     casa_rope = bob_plan.make_l1_rope("casa")
     clean_rope = bob_plan.make_rope(casa_rope, "clean")
@@ -594,10 +594,10 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
+    bob_plan.add_partnerunit(exx.yao)
     run_credit = 33
     run_debt = 55
-    bob_plan.get_person(exx.yao).add_membership(exx.run, run_credit, run_debt)
+    bob_plan.get_partner(exx.yao).add_membership(exx.run, run_credit, run_debt)
     bob_plandelta = plandelta_shop()
     bob_plandelta.add_all_planatoms(bob_plan)
     spark7 = 7
@@ -624,7 +624,7 @@ def test_add_lesson_to_br00021_csv_ReturnsObj():
     yao_credit = 33
     yao_debt = 55
     bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao, yao_credit, yao_debt)
+    bob_plan.add_partnerunit(exx.yao, yao_credit, yao_debt)
     bob_plandelta = plandelta_shop()
     bob_plandelta.add_all_planatoms(bob_plan)
     spark7 = 7
@@ -921,7 +921,7 @@ def test_add_lessonunit_to_stance_csv_strs_ReturnsObj():
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
+    bob_plan.add_partnerunit(exx.yao)
     mop_rope = bob_plan.make_l1_rope("mop")
     casa_rope = bob_plan.make_l1_rope("casa")
     clean_rope = bob_plan.make_rope(casa_rope, "clean")

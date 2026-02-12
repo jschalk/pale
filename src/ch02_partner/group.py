@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import get_1_if_None
 from src.ch01_allot.allot import allot_scale, default_grain_num_if_None
-from src.ch02_person._ref.ch02_semantic_types import FundGrain, GroupTitle, PersonName
+from src.ch02_partner._ref.ch02_semantic_types import FundGrain, GroupTitle, PartnerName
 
 
 class InvalidGroupException(Exception):
@@ -30,7 +30,7 @@ class MemberShip(GroupCore):
     fund_agenda_take: float = None
     fund_agenda_ratio_give: float = None
     fund_agenda_ratio_take: float = None
-    person_name: PersonName = None
+    partner_name: PartnerName = None
 
     def set_group_cred_lumen(self, x_group_cred_lumen: float):
         if x_group_cred_lumen is not None:
@@ -62,7 +62,7 @@ def membership_shop(
     group_title: GroupTitle,
     group_cred_lumen: float = None,
     group_debt_lumen: float = None,
-    person_name: PersonName = None,
+    partner_name: PartnerName = None,
 ) -> MemberShip:
     return MemberShip(
         group_title=group_title,
@@ -70,24 +70,24 @@ def membership_shop(
         group_debt_lumen=get_1_if_None(group_debt_lumen),
         credor_pool=0,
         debtor_pool=0,
-        person_name=person_name,
+        partner_name=partner_name,
     )
 
 
-def membership_get_from_dict(x_dict: dict, x_person_name: PersonName) -> MemberShip:
+def membership_get_from_dict(x_dict: dict, x_partner_name: PartnerName) -> MemberShip:
     return membership_shop(
         group_title=x_dict.get("group_title"),
         group_cred_lumen=x_dict.get("group_cred_lumen"),
         group_debt_lumen=x_dict.get("group_debt_lumen"),
-        person_name=x_person_name,
+        partner_name=x_partner_name,
     )
 
 
 def memberships_get_from_dict(
-    x_dict: dict, x_person_name: PersonName
+    x_dict: dict, x_partner_name: PartnerName
 ) -> dict[GroupTitle, MemberShip]:
     return {
-        x_group_title: membership_get_from_dict(x_membership_dict, x_person_name)
+        x_group_title: membership_get_from_dict(x_membership_dict, x_partner_name)
         for x_group_title, x_membership_dict in x_dict.items()
     }
 
@@ -177,7 +177,7 @@ def awardline_shop(awardee_title: GroupTitle, fund_give: float, fund_take: float
 
 @dataclass
 class GroupUnit(GroupCore):
-    memberships: dict[PersonName, MemberShip] = None
+    memberships: dict[PartnerName, MemberShip] = None
     # calculated by Parent Object method "cashout"
     fund_give: float = None
     fund_take: float = None
@@ -192,12 +192,12 @@ class GroupUnit(GroupCore):
             raise membership_group_title_Exception(
                 f"GroupUnit.group_title={self.group_title} cannot set membership.group_title={x_membership.group_title}"
             )
-        if x_membership.person_name is None:
+        if x_membership.partner_name is None:
             raise membership_group_title_Exception(
-                f"membership group_title={x_membership.group_title} cannot be set when _person_name is None."
+                f"membership group_title={x_membership.group_title} cannot be set when _partner_name is None."
             )
 
-        self.memberships[x_membership.person_name] = x_membership
+        self.memberships[x_membership.partner_name] = x_membership
         self._add_credor_pool(x_membership.credor_pool)
         self._add_debtor_pool(x_membership.debtor_pool)
 
@@ -207,14 +207,14 @@ class GroupUnit(GroupCore):
     def _add_debtor_pool(self, x_debtor_pool: float):
         self.debtor_pool += x_debtor_pool
 
-    def get_person_membership(self, x_person_name: PersonName) -> MemberShip:
-        return self.memberships.get(x_person_name)
+    def get_partner_membership(self, x_partner_name: PartnerName) -> MemberShip:
+        return self.memberships.get(x_partner_name)
 
-    def group_membership_exists(self, x_person_name: PersonName) -> bool:
-        return self.get_person_membership(x_person_name) is not None
+    def group_membership_exists(self, x_partner_name: PartnerName) -> bool:
+        return self.get_partner_membership(x_partner_name) is not None
 
-    def del_membership(self, person_name):
-        self.memberships.pop(person_name)
+    def del_membership(self, partner_name):
+        self.memberships.pop(partner_name)
 
     def clear_group_fund_give_take(self):
         self.fund_give = 0
@@ -227,21 +227,21 @@ class GroupUnit(GroupCore):
     def _set_membership_fund_give_fund_take(self):
         credit_ledger = {}
         debt_ledger = {}
-        for x_person_name, x_membership in self.memberships.items():
-            credit_ledger[x_person_name] = x_membership.group_cred_lumen
-            debt_ledger[x_person_name] = x_membership.group_debt_lumen
+        for x_partner_name, x_membership in self.memberships.items():
+            credit_ledger[x_partner_name] = x_membership.group_cred_lumen
+            debt_ledger[x_partner_name] = x_membership.group_debt_lumen
         fund_give_allot = allot_scale(credit_ledger, self.fund_give, self.fund_grain)
         fund_take_allot = allot_scale(debt_ledger, self.fund_take, self.fund_grain)
-        for person_name, x_membership in self.memberships.items():
-            x_membership.fund_give = fund_give_allot.get(person_name)
-            x_membership.fund_take = fund_take_allot.get(person_name)
+        for partner_name, x_membership in self.memberships.items():
+            x_membership.fund_give = fund_give_allot.get(partner_name)
+            x_membership.fund_take = fund_take_allot.get(partner_name)
         x_a_give = self.fund_agenda_give
         x_a_take = self.fund_agenda_take
         fund_agenda_give_allot = allot_scale(credit_ledger, x_a_give, self.fund_grain)
         fund_agenda_take_allot = allot_scale(debt_ledger, x_a_take, self.fund_grain)
-        for person_name, x_membership in self.memberships.items():
-            x_membership.fund_agenda_give = fund_agenda_give_allot.get(person_name)
-            x_membership.fund_agenda_take = fund_agenda_take_allot.get(person_name)
+        for partner_name, x_membership in self.memberships.items():
+            x_membership.fund_agenda_give = fund_agenda_give_allot.get(partner_name)
+            x_membership.fund_agenda_take = fund_agenda_take_allot.get(partner_name)
 
 
 def groupunit_shop(group_title: GroupTitle, fund_grain: FundGrain = None) -> GroupUnit:

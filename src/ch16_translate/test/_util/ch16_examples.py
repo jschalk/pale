@@ -63,14 +63,14 @@ def get_suita_namemap() -> NameMap:
     xio_inx = "Xioita"
     sue_inx = "Suita"
     bob_inx = "Bobita"
-    person_name_mapunit = namemap_shop(face_name="Sue")
-    person_name_mapunit.set_otx2inx(xio_otx, xio_inx)
-    person_name_mapunit.set_otx2inx(sue_otx, sue_inx)
-    person_name_mapunit.set_otx2inx(bob_otx, bob_inx)
-    return person_name_mapunit
+    partner_name_mapunit = namemap_shop(face_name="Sue")
+    partner_name_mapunit.set_otx2inx(xio_otx, xio_inx)
+    partner_name_mapunit.set_otx2inx(sue_otx, sue_inx)
+    partner_name_mapunit.set_otx2inx(bob_otx, bob_inx)
+    return partner_name_mapunit
 
 
-# def get_invalid_person_name_mapunit() -> MapUnit:
+# def get_invalid_partner_name_mapunit() -> MapUnit:
 #     sue_otx = f"Xio{default_knot_if_None()}"
 #     sue_inx = "Sue"
 #     zia_otx = "Zia"
@@ -112,29 +112,29 @@ def get_sue_translateunit() -> TranslateUnit:
     return sue_translateunit
 
 
-def get_suita_person_name_otx_dt() -> DataFrame:
+def get_suita_partner_name_otx_dt() -> DataFrame:
     xio_otx = "Xio"
     sue_otx = "Sue"
     bob_otx = "Bob"
     zia_otx = "Zia"
-    otx_dt = DataFrame(columns=[kw.person_name])
-    otx_dt.loc[0, kw.person_name] = zia_otx
-    otx_dt.loc[1, kw.person_name] = sue_otx
-    otx_dt.loc[2, kw.person_name] = bob_otx
-    otx_dt.loc[3, kw.person_name] = xio_otx
+    otx_dt = DataFrame(columns=[kw.partner_name])
+    otx_dt.loc[0, kw.partner_name] = zia_otx
+    otx_dt.loc[1, kw.partner_name] = sue_otx
+    otx_dt.loc[2, kw.partner_name] = bob_otx
+    otx_dt.loc[3, kw.partner_name] = xio_otx
     return otx_dt
 
 
-def get_suita_person_name_inx_dt() -> DataFrame:
+def get_suita_partner_name_inx_dt() -> DataFrame:
     xio_inx = "Xioita"
     sue_inx = "Suita"
     bob_inx = "Bobita"
     zia_otx = "Zia"
-    inx_dt = DataFrame(columns=[kw.person_name])
-    inx_dt.loc[0, kw.person_name] = xio_inx
-    inx_dt.loc[1, kw.person_name] = sue_inx
-    inx_dt.loc[2, kw.person_name] = bob_inx
-    inx_dt.loc[3, kw.person_name] = zia_otx
+    inx_dt = DataFrame(columns=[kw.partner_name])
+    inx_dt.loc[0, kw.partner_name] = xio_inx
+    inx_dt.loc[1, kw.partner_name] = sue_inx
+    inx_dt.loc[2, kw.partner_name] = bob_inx
+    inx_dt.loc[3, kw.partner_name] = zia_otx
     return inx_dt
 
 

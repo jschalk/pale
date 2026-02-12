@@ -336,8 +336,8 @@ def get_mop_with_reason_planunit_example1():
 def get_planunit_laundry_example1() -> PlanUnit:
     yao_plan = planunit_shop(exx.yao)
     cali_str = "Cali"
-    yao_plan.add_personunit(exx.yao)
-    yao_plan.add_personunit(cali_str)
+    yao_plan.add_partnerunit(exx.yao)
+    yao_plan.add_partnerunit(cali_str)
 
     basket_str = "laundry basket situation"
     b_full_str = "full"

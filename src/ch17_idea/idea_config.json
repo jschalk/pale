@@ -40,7 +40,7 @@
     "jkeys": {
       "face_name": {}, 
       "moment_rope": {}, 
-      "person_name": {}, 
+      "partner_name": {}, 
       "plan_name": {}, 
       "spark_num": {}, 
       "tran_time": {}
@@ -188,7 +188,7 @@
       "stop_want": {}
     }
   }, 
-  "plan_person_membership": {
+  "plan_partner_membership": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 9, 
     "idea_category": "plan", 
@@ -196,24 +196,24 @@
       "face_name": {}, 
       "group_title": {}, 
       "moment_rope": {}, 
-      "person_name": {}, 
+      "partner_name": {}, 
       "plan_name": {}, 
       "spark_num": {}
     }, 
     "jvalues": {"group_cred_lumen": {}, "group_debt_lumen": {}}
   }, 
-  "plan_personunit": {
+  "plan_partnerunit": {
     "allowed_crud": "delete_insert_update", 
     "build_order": 10, 
     "idea_category": "plan", 
     "jkeys": {
       "face_name": {}, 
       "moment_rope": {}, 
-      "person_name": {}, 
+      "partner_name": {}, 
       "plan_name": {}, 
       "spark_num": {}
     }, 
-    "jvalues": {"person_cred_lumen": {}, "person_debt_lumen": {}}
+    "jvalues": {"partner_cred_lumen": {}, "partner_debt_lumen": {}}
   }, 
   "planunit": {
     "allowed_crud": "UPDATE", 

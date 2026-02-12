@@ -155,7 +155,7 @@ def test_get_relevant_columns_dataframe_ReturnsObj_Scenario3_ColumnOrderCorrect(
 
 def test_get_relevant_columns_dataframe_ReturnsObj_Scenario4_ColumnOrderCorrect():
     # ESTABLISH
-    df1 = DataFrame([["AAA", "BBB"]], columns=[kw.group_title, kw.person_name])
+    df1 = DataFrame([["AAA", "BBB"]], columns=[kw.group_title, kw.partner_name])
 
     # WHEN
     relevant_dataframe = get_relevant_columns_dataframe(df1)
@@ -163,8 +163,8 @@ def test_get_relevant_columns_dataframe_ReturnsObj_Scenario4_ColumnOrderCorrect(
     # THEN
     assert relevant_dataframe is not None
     print(f"{relevant_dataframe.columns=}")
-    assert relevant_dataframe.columns.to_list()[0] == kw.person_name
+    assert relevant_dataframe.columns.to_list()[0] == kw.partner_name
     assert relevant_dataframe.columns.to_list() == [
-        kw.person_name,
+        kw.partner_name,
         kw.group_title,
     ]

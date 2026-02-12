@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from pytest import raises as pytest_raises
 from src.ch01_allot.allot import default_pool_num
-from src.ch02_person.group import awardline_shop, awardunit_shop
-from src.ch02_person.person import personunit_shop
+from src.ch02_partner.group import awardline_shop, awardunit_shop
+from src.ch02_partner.partner import partnerunit_shop
 from src.ch04_rope.rope import RopeTerm, to_rope
 from src.ch06_keg.keg import KegUnit, kegunit_shop
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
@@ -275,10 +275,10 @@ def test_PlanUnit_cashout_Sets_fund_ratio_WithSomeKegsOfZero_starScenario1():
     assert sue_plan.get_keg_obj(dirty_rope).fund_ratio == 0
 
 
-def test_PlanUnit_cashout_WhenKegUnitHasFundsBut_kidsHaveNostarDistributeFundsToPersonUnits_Scenario0():
+def test_PlanUnit_cashout_WhenKegUnitHasFundsBut_kidsHaveNostarDistributeFundsToPartnerUnits_Scenario0():
     # ESTABLISH
     sue_planunit = planunit_shop("Sue")
-    sue_planunit.add_personunit(exx.yao)
+    sue_planunit.add_partnerunit(exx.yao)
     casa_rope = sue_planunit.make_l1_rope(exx.casa)
     casa_keg = kegunit_shop(exx.casa, star=1)
 
@@ -311,8 +311,8 @@ def test_PlanUnit_cashout_WhenKegUnitHasFundsBut_kidsHaveNostarDistributeFundsTo
     assert sue_planunit.get_groupunit(exx.yao) is None
 
     assert not sue_planunit.offtrack_fund
-    assert sue_planunit.get_person(exx.yao).fund_give == 0
-    assert sue_planunit.get_person(exx.yao).fund_take == 0
+    assert sue_planunit.get_partner(exx.yao).fund_give == 0
+    assert sue_planunit.get_partner(exx.yao).fund_take == 0
 
     # WHEN
     sue_planunit.cashout()
@@ -329,8 +329,8 @@ def test_PlanUnit_cashout_WhenKegUnitHasFundsBut_kidsHaveNostarDistributeFundsTo
     assert sue_planunit.get_groupunit(exx.yao).fund_take == 0
 
     assert sue_planunit.offtrack_fund == clean_fund_ratio * default_pool_num()
-    assert sue_planunit.get_person(exx.yao).fund_give == default_pool_num()
-    assert sue_planunit.get_person(exx.yao).fund_take == default_pool_num()
+    assert sue_planunit.get_partner(exx.yao).fund_give == default_pool_num()
+    assert sue_planunit.get_partner(exx.yao).fund_take == default_pool_num()
 
 
 def test_PlanUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
@@ -342,7 +342,7 @@ def test_PlanUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
     wk_str = "sem_jours"
     nation_str = "nation"
     sue_awardunit = awardunit_shop(awardee_title=exx.sue)
-    sue_plan.add_personunit(person_name=exx.sue)
+    sue_plan.add_partnerunit(partner_name=exx.sue)
     sue_plan.kegroot.set_awardunit(awardunit=sue_awardunit)
     # keg tree has awardlines
     assert sue_plan.kegroot.awardheirs.get(exx.sue) is None
@@ -392,7 +392,7 @@ def test_PlanUnit_cashout_TreeTraverseSets_awardlines_ToRootKegUnitFromNon_RootK
     # ESTABLISH
     sue_plan = get_planunit_with_4_levels()
     sue_plan.cashout()
-    sue_plan.add_personunit(exx.sue)
+    sue_plan.add_partnerunit(exx.sue)
     casa_rope = sue_plan.make_l1_rope("casa")
     sue_plan.get_keg_obj(casa_rope).set_awardunit(awardunit_shop(awardee_title=exx.sue))
     assert sue_plan.kegroot.awardlines == {}
@@ -417,9 +417,9 @@ def test_PlanUnit_cashout_TreeTraverseSets_awardlines_ToRootKegUnitFromNon_RootK
 def test_PlanUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_take():
     # ESTABLISH
     sue_plan = planunit_shop(exx.sue)
-    sue_plan.set_personunit(personunit_shop(exx.yao))
-    sue_plan.set_personunit(personunit_shop(exx.zia))
-    sue_plan.set_personunit(personunit_shop(exx.xio))
+    sue_plan.set_partnerunit(partnerunit_shop(exx.yao))
+    sue_plan.set_partnerunit(partnerunit_shop(exx.zia))
+    sue_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
@@ -428,7 +428,7 @@ def test_PlanUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_tak
     x_kegroot.set_awardunit(awardunit=yao_awardunit)
     x_kegroot.set_awardunit(awardunit=zia_awardunit)
     x_kegroot.set_awardunit(awardunit=xio_awardunit)
-    assert len(sue_plan.get_personunit_group_titles_dict()) == 3
+    assert len(sue_plan.get_partnerunit_group_titles_dict()) == 3
 
     # WHEN
     sue_plan.cashout()
@@ -451,11 +451,11 @@ def test_PlanUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_tak
     assert debt_sum1 == 1 * default_pool_num()
 
     # ESTABLISH
-    sue_plan.set_personunit(personunit_shop(exx.sue))
+    sue_plan.set_partnerunit(partnerunit_shop(exx.sue))
     sue_awardunit = awardunit_shop(exx.sue, give_force=37)
     x_kegroot.set_awardunit(sue_awardunit)
     assert len(x_kegroot.awardunits) == 4
-    assert len(sue_plan.get_personunit_group_titles_dict()) == 4
+    assert len(sue_plan.get_partnerunit_group_titles_dict()) == 4
 
     # WHEN
     sue_plan.cashout()
@@ -487,9 +487,9 @@ def test_PlanUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take()
     swim_rope = x_plan.make_l1_rope(exx.swim)
     x_plan.set_l1_keg(kegunit_shop(exx.swim))
 
-    x_plan.set_personunit(personunit_shop(exx.yao))
-    x_plan.set_personunit(personunit_shop(exx.zia))
-    x_plan.set_personunit(personunit_shop(exx.xio))
+    x_plan.set_partnerunit(partnerunit_shop(exx.yao))
+    x_plan.set_partnerunit(partnerunit_shop(exx.zia))
+    x_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
@@ -497,7 +497,7 @@ def test_PlanUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take()
     swim_keg.set_awardunit(yao_awardunit)
     swim_keg.set_awardunit(zia_awardunit)
     swim_keg.set_awardunit(xio_awardunit)
-    assert len(x_plan.get_personunit_group_titles_dict()) == 3
+    assert len(x_plan.get_partnerunit_group_titles_dict()) == 3
 
     # WHEN
     x_plan.cashout()
@@ -528,9 +528,9 @@ def test_PlanUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take():
     swim_rope = x_plan.make_l1_rope(exx.swim)
     x_plan.set_l1_keg(kegunit_shop(exx.swim))
 
-    x_plan.set_personunit(personunit_shop(exx.yao))
-    x_plan.set_personunit(personunit_shop(exx.zia))
-    # x_plan.set_personunit(personunit_shop(exx.xio))
+    x_plan.set_partnerunit(partnerunit_shop(exx.yao))
+    x_plan.set_partnerunit(partnerunit_shop(exx.zia))
+    # x_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
@@ -538,7 +538,7 @@ def test_PlanUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take():
     swim_keg.set_awardunit(yao_awardunit)
     swim_keg.set_awardunit(zia_awardunit)
     swim_keg.set_awardunit(xio_awardunit)
-    assert len(x_plan.get_personunit_group_titles_dict()) == 2
+    assert len(x_plan.get_partnerunit_group_titles_dict()) == 2
 
     # WHEN
     x_plan.cashout()
@@ -547,7 +547,7 @@ def test_PlanUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take():
     yao_groupunit = x_plan.get_groupunit(exx.yao)
     zia_groupunit = x_plan.get_groupunit(exx.zia)
     xio_groupunit = x_plan.get_groupunit(exx.xio)
-    assert len(x_plan.get_personunit_group_titles_dict()) != len(x_plan.groupunits)
+    assert len(x_plan.get_partnerunit_group_titles_dict()) != len(x_plan.groupunits)
     assert yao_groupunit.fund_give == 0.5 * default_pool_num()
     assert yao_groupunit.fund_take == 0.75 * default_pool_num()
     assert zia_groupunit.fund_give == 0.25 * default_pool_num()
@@ -570,9 +570,9 @@ def test_PlanUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fund
     swim_rope = x_plan.make_l1_rope(exx.swim)
     x_plan.set_l1_keg(kegunit_shop(exx.swim))
 
-    x_plan.set_personunit(personunit_shop(exx.yao))
-    x_plan.set_personunit(personunit_shop(exx.zia))
-    x_plan.set_personunit(personunit_shop(exx.xio))
+    x_plan.set_partnerunit(partnerunit_shop(exx.yao))
+    x_plan.set_partnerunit(partnerunit_shop(exx.zia))
+    x_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
@@ -632,9 +632,9 @@ def test_PlanUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fund
 def test_PlanUnit_set_awardunit_CalculatesInheritedAwardUnitPlanFund():
     # ESTABLISH
     sue_plan = planunit_shop(exx.sue)
-    sue_plan.set_personunit(personunit_shop(exx.yao))
-    sue_plan.set_personunit(personunit_shop(exx.zia))
-    sue_plan.set_personunit(personunit_shop(exx.xio))
+    sue_plan.set_partnerunit(partnerunit_shop(exx.yao))
+    sue_plan.set_partnerunit(partnerunit_shop(exx.zia))
+    sue_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     Xio_awardunit = awardunit_shop(exx.xio, give_force=10)
@@ -687,9 +687,9 @@ def test_PlanUnit_set_awardunit_CalculatesInheritedAwardUnitPlanFund():
 def test_PlanUnit_cashout_SetsGroupLinkPlanCredAndDebt():
     # ESTABLISH
     yao_plan = planunit_shop("Yao")
-    yao_plan.set_personunit(personunit_shop(exx.sue))
-    yao_plan.set_personunit(personunit_shop(exx.bob))
-    yao_plan.set_personunit(personunit_shop(exx.zia))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.sue))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.bob))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.zia))
     sue_awardunit = awardunit_shop(exx.sue, 20, take_force=40)
     bob_awardunit = awardunit_shop(exx.bob, 10, take_force=5)
     zia_awardunit = awardunit_shop(exx.zia, 10, take_force=5)
@@ -698,12 +698,12 @@ def test_PlanUnit_cashout_SetsGroupLinkPlanCredAndDebt():
     yao_plan.edit_keg_attr(root_rope, awardunit=bob_awardunit)
     yao_plan.edit_keg_attr(root_rope, awardunit=zia_awardunit)
 
-    sue_personunit = yao_plan.get_person(exx.sue)
-    bob_personunit = yao_plan.get_person(exx.bob)
-    zia_personunit = yao_plan.get_person(exx.zia)
-    sue_sue_membership = sue_personunit.get_membership(exx.sue)
-    bob_bob_membership = bob_personunit.get_membership(exx.bob)
-    zia_zia_membership = zia_personunit.get_membership(exx.zia)
+    sue_partnerunit = yao_plan.get_partner(exx.sue)
+    bob_partnerunit = yao_plan.get_partner(exx.bob)
+    zia_partnerunit = yao_plan.get_partner(exx.zia)
+    sue_sue_membership = sue_partnerunit.get_membership(exx.sue)
+    bob_bob_membership = bob_partnerunit.get_membership(exx.bob)
+    zia_zia_membership = zia_partnerunit.get_membership(exx.zia)
     assert sue_sue_membership.fund_give is None
     assert sue_sue_membership.fund_take is None
     assert bob_bob_membership.fund_give is None
@@ -736,7 +736,7 @@ def test_PlanUnit_cashout_SetsGroupLinkPlanCredAndDebt():
     assert membership_debt_sum == 1.0 * default_pool_num()
 
     # ESTABLISH another pledge, check metrics are as expected
-    yao_plan.set_personunit(personunit_shop(exx.xio))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_plan.kegroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=13))
 
     # WHEN
@@ -744,13 +744,13 @@ def test_PlanUnit_cashout_SetsGroupLinkPlanCredAndDebt():
 
     # THEN
     xio_groupunit = yao_plan.get_groupunit(exx.xio)
-    xio_xio_membership = xio_groupunit.get_person_membership(exx.xio)
-    sue_personunit = yao_plan.get_person(exx.sue)
-    bob_personunit = yao_plan.get_person(exx.bob)
-    zia_personunit = yao_plan.get_person(exx.zia)
-    sue_sue_membership = sue_personunit.get_membership(exx.sue)
-    bob_bob_membership = bob_personunit.get_membership(exx.bob)
-    zia_zia_membership = zia_personunit.get_membership(exx.zia)
+    xio_xio_membership = xio_groupunit.get_partner_membership(exx.xio)
+    sue_partnerunit = yao_plan.get_partner(exx.sue)
+    bob_partnerunit = yao_plan.get_partner(exx.bob)
+    zia_partnerunit = yao_plan.get_partner(exx.zia)
+    sue_sue_membership = sue_partnerunit.get_membership(exx.sue)
+    bob_bob_membership = bob_partnerunit.get_membership(exx.bob)
+    zia_zia_membership = zia_partnerunit.get_membership(exx.zia)
     assert sue_sue_membership.fund_give != 0.25 * default_pool_num()
     assert sue_sue_membership.fund_take != 0.8 * default_pool_num()
     assert bob_bob_membership.fund_give != 0.25 * default_pool_num()
@@ -777,14 +777,14 @@ def test_PlanUnit_cashout_SetsGroupLinkPlanCredAndDebt():
     assert x_fund_take_sum == 1.0 * default_pool_num()
 
 
-def test_PlanUnit_cashout_SetsPersonUnitPlan_fund():
+def test_PlanUnit_cashout_SetsPartnerUnitPlan_fund():
     # ESTABLISH
     yao_plan = planunit_shop("Yao")
     swim_rope = yao_plan.make_l1_rope(exx.swim)
     yao_plan.set_l1_keg(kegunit_shop(exx.swim))
-    yao_plan.set_personunit(personunit_shop(exx.sue))
-    yao_plan.set_personunit(personunit_shop(exx.bob))
-    yao_plan.set_personunit(personunit_shop(exx.zia))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.sue))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.bob))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.zia))
     bl_sue = awardunit_shop(exx.sue, 20, take_force=40)
     bl_bob = awardunit_shop(exx.bob, 10, take_force=5)
     bl_zia = awardunit_shop(exx.zia, 10, take_force=5)
@@ -792,86 +792,94 @@ def test_PlanUnit_cashout_SetsPersonUnitPlan_fund():
     yao_plan.get_keg_obj(swim_rope).set_awardunit(bl_bob)
     yao_plan.get_keg_obj(swim_rope).set_awardunit(bl_zia)
 
-    sue_personunit = yao_plan.get_person(exx.sue)
-    bob_personunit = yao_plan.get_person(exx.bob)
-    zia_personunit = yao_plan.get_person(exx.zia)
+    sue_partnerunit = yao_plan.get_partner(exx.sue)
+    bob_partnerunit = yao_plan.get_partner(exx.bob)
+    zia_partnerunit = yao_plan.get_partner(exx.zia)
 
-    assert sue_personunit.fund_give == 0
-    assert sue_personunit.fund_take == 0
-    assert bob_personunit.fund_give == 0
-    assert bob_personunit.fund_take == 0
-    assert zia_personunit.fund_give == 0
-    assert zia_personunit.fund_take == 0
+    assert sue_partnerunit.fund_give == 0
+    assert sue_partnerunit.fund_take == 0
+    assert bob_partnerunit.fund_give == 0
+    assert bob_partnerunit.fund_take == 0
+    assert zia_partnerunit.fund_give == 0
+    assert zia_partnerunit.fund_take == 0
 
     # WHEN
     yao_plan.cashout()
 
     # THEN
-    assert sue_personunit.fund_give == 0.5 * default_pool_num()
-    assert sue_personunit.fund_take == 0.8 * default_pool_num()
-    assert bob_personunit.fund_give == 0.25 * default_pool_num()
-    assert bob_personunit.fund_take == 0.1 * default_pool_num()
-    assert zia_personunit.fund_give == 0.25 * default_pool_num()
-    assert zia_personunit.fund_take == 0.1 * default_pool_num()
+    assert sue_partnerunit.fund_give == 0.5 * default_pool_num()
+    assert sue_partnerunit.fund_take == 0.8 * default_pool_num()
+    assert bob_partnerunit.fund_give == 0.25 * default_pool_num()
+    assert bob_partnerunit.fund_take == 0.1 * default_pool_num()
+    assert zia_partnerunit.fund_give == 0.25 * default_pool_num()
+    assert zia_partnerunit.fund_take == 0.1 * default_pool_num()
 
     assert (
-        sue_personunit.fund_give + bob_personunit.fund_give + zia_personunit.fund_give
+        sue_partnerunit.fund_give
+        + bob_partnerunit.fund_give
+        + zia_partnerunit.fund_give
         == 1.0 * default_pool_num()
     )
     assert (
-        sue_personunit.fund_take + bob_personunit.fund_take + zia_personunit.fund_take
+        sue_partnerunit.fund_take
+        + bob_partnerunit.fund_take
+        + zia_partnerunit.fund_take
         == 1.0 * default_pool_num()
     )
 
     # WHEN another pledge, check metrics are as expected
-    yao_plan.set_personunit(personunit_shop(exx.xio))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_plan.kegroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=10))
     yao_plan.cashout()
 
     # THEN
-    xio_personunit = yao_plan.get_person(exx.xio)
+    xio_partnerunit = yao_plan.get_partner(exx.xio)
 
-    assert sue_personunit.fund_give != 0.5 * default_pool_num()
-    assert sue_personunit.fund_take != 0.8 * default_pool_num()
-    assert bob_personunit.fund_give != 0.25 * default_pool_num()
-    assert bob_personunit.fund_take != 0.1 * default_pool_num()
-    assert zia_personunit.fund_give != 0.25 * default_pool_num()
-    assert zia_personunit.fund_take != 0.1 * default_pool_num()
-    assert xio_personunit.fund_give is not None
-    assert xio_personunit.fund_take is not None
+    assert sue_partnerunit.fund_give != 0.5 * default_pool_num()
+    assert sue_partnerunit.fund_take != 0.8 * default_pool_num()
+    assert bob_partnerunit.fund_give != 0.25 * default_pool_num()
+    assert bob_partnerunit.fund_take != 0.1 * default_pool_num()
+    assert zia_partnerunit.fund_give != 0.25 * default_pool_num()
+    assert zia_partnerunit.fund_take != 0.1 * default_pool_num()
+    assert xio_partnerunit.fund_give is not None
+    assert xio_partnerunit.fund_take is not None
 
-    sum_personunit_fund_give = (
-        sue_personunit.fund_give + bob_personunit.fund_give + zia_personunit.fund_give
+    sum_partnerunit_fund_give = (
+        sue_partnerunit.fund_give
+        + bob_partnerunit.fund_give
+        + zia_partnerunit.fund_give
     )
-    assert sum_personunit_fund_give < 1.0 * default_pool_num()
+    assert sum_partnerunit_fund_give < 1.0 * default_pool_num()
     assert (
-        sue_personunit.fund_give
-        + bob_personunit.fund_give
-        + zia_personunit.fund_give
-        + xio_personunit.fund_give
+        sue_partnerunit.fund_give
+        + bob_partnerunit.fund_give
+        + zia_partnerunit.fund_give
+        + xio_partnerunit.fund_give
         == 1.0 * default_pool_num()
     )
     assert (
-        sue_personunit.fund_take + bob_personunit.fund_take + zia_personunit.fund_take
+        sue_partnerunit.fund_take
+        + bob_partnerunit.fund_take
+        + zia_partnerunit.fund_take
         < 1.0 * default_pool_num()
     )
     assert (
-        sue_personunit.fund_take
-        + bob_personunit.fund_take
-        + zia_personunit.fund_take
-        + xio_personunit.fund_take
+        sue_partnerunit.fund_take
+        + bob_partnerunit.fund_take
+        + zia_partnerunit.fund_take
+        + xio_partnerunit.fund_take
         == 1.0 * default_pool_num()
     )
 
 
-def test_PlanUnit_cashout_SetsPartGroupedLWPersonUnitPlan_fund():
+def test_PlanUnit_cashout_SetsPartGroupedLWPartnerUnitPlan_fund():
     # ESTABLISH
     yao_plan = planunit_shop("Yao")
     swim_rope = yao_plan.make_l1_rope(exx.swim)
     yao_plan.set_l1_keg(kegunit_shop(exx.swim))
-    yao_plan.set_personunit(personunit_shop(exx.sue))
-    yao_plan.set_personunit(personunit_shop(exx.bob))
-    yao_plan.set_personunit(personunit_shop(exx.zia))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.sue))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.bob))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.zia))
     sue_awardunit = awardunit_shop(exx.sue, 20, take_force=40)
     bob_awardunit = awardunit_shop(exx.bob, 10, take_force=5)
     zia_awardunit = awardunit_shop(exx.zia, 10, take_force=5)
@@ -906,36 +914,40 @@ def test_PlanUnit_cashout_SetsPartGroupedLWPersonUnitPlan_fund():
         == 0.25 * default_pool_num()
     )
 
-    sue_personunit = yao_plan.get_person(exx.sue)
-    bob_personunit = yao_plan.get_person(exx.bob)
-    zia_personunit = yao_plan.get_person(exx.zia)
+    sue_partnerunit = yao_plan.get_partner(exx.sue)
+    bob_partnerunit = yao_plan.get_partner(exx.bob)
+    zia_partnerunit = yao_plan.get_partner(exx.zia)
 
-    assert sue_personunit.fund_give == 0.375 * default_pool_num()
-    assert sue_personunit.fund_take == 0.45 * default_pool_num()
-    assert bob_personunit.fund_give == 0.3125 * default_pool_num()
-    assert bob_personunit.fund_take == 0.275 * default_pool_num()
-    assert zia_personunit.fund_give == 0.3125 * default_pool_num()
-    assert zia_personunit.fund_take == 0.275 * default_pool_num()
+    assert sue_partnerunit.fund_give == 0.375 * default_pool_num()
+    assert sue_partnerunit.fund_take == 0.45 * default_pool_num()
+    assert bob_partnerunit.fund_give == 0.3125 * default_pool_num()
+    assert bob_partnerunit.fund_take == 0.275 * default_pool_num()
+    assert zia_partnerunit.fund_give == 0.3125 * default_pool_num()
+    assert zia_partnerunit.fund_take == 0.275 * default_pool_num()
 
     assert (
-        sue_personunit.fund_give + bob_personunit.fund_give + zia_personunit.fund_give
+        sue_partnerunit.fund_give
+        + bob_partnerunit.fund_give
+        + zia_partnerunit.fund_give
         == 1.0 * default_pool_num()
     )
     assert (
-        sue_personunit.fund_take + bob_personunit.fund_take + zia_personunit.fund_take
+        sue_partnerunit.fund_take
+        + bob_partnerunit.fund_take
+        + zia_partnerunit.fund_take
         == 1.0 * default_pool_num()
     )
 
 
-def test_PlanUnit_cashout_CreatesNewGroupUnitAndSetsPerson_fund_give_fund_take():
+def test_PlanUnit_cashout_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_take():
     # ESTABLISH
     bob_plan = planunit_shop(exx.bob)
     swim_rope = bob_plan.make_l1_rope(exx.swim)
     bob_plan.set_l1_keg(kegunit_shop(exx.swim))
 
-    bob_plan.set_personunit(personunit_shop(exx.yao))
-    bob_plan.set_personunit(personunit_shop(exx.zia))
-    # bob_plan.set_personunit(personunit_shop(exx.xio))
+    bob_plan.set_partnerunit(partnerunit_shop(exx.yao))
+    bob_plan.set_partnerunit(partnerunit_shop(exx.zia))
+    # bob_plan.set_partnerunit(partnerunit_shop(exx.xio))
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
@@ -943,63 +955,67 @@ def test_PlanUnit_cashout_CreatesNewGroupUnitAndSetsPerson_fund_give_fund_take()
     swim_keg.set_awardunit(yao_awardunit)
     swim_keg.set_awardunit(zia_awardunit)
     swim_keg.set_awardunit(xio_awardunit)
-    assert len(bob_plan.get_personunit_group_titles_dict()) == 2
+    assert len(bob_plan.get_partnerunit_group_titles_dict()) == 2
 
     # WHEN
     bob_plan.cashout()
 
     # THEN
-    assert len(bob_plan.get_personunit_group_titles_dict()) != len(bob_plan.groupunits)
-    assert not bob_plan.person_exists(exx.xio)
-    yao_personunit = bob_plan.get_person(exx.yao)
-    zia_personunit = bob_plan.get_person(exx.zia)
-    personunit_fund_give_sum = yao_personunit.fund_give + zia_personunit.fund_give
-    personunit_fund_take_sum = yao_personunit.fund_take + zia_personunit.fund_take
-    assert personunit_fund_give_sum == default_pool_num()
-    assert personunit_fund_take_sum == default_pool_num()
+    assert len(bob_plan.get_partnerunit_group_titles_dict()) != len(bob_plan.groupunits)
+    assert not bob_plan.partner_exists(exx.xio)
+    yao_partnerunit = bob_plan.get_partner(exx.yao)
+    zia_partnerunit = bob_plan.get_partner(exx.zia)
+    partnerunit_fund_give_sum = yao_partnerunit.fund_give + zia_partnerunit.fund_give
+    partnerunit_fund_take_sum = yao_partnerunit.fund_take + zia_partnerunit.fund_take
+    assert partnerunit_fund_give_sum == default_pool_num()
+    assert partnerunit_fund_take_sum == default_pool_num()
 
 
-def test_PlanUnit_cashout_SetsPersonUnit_fund_give_fund_take():
+def test_PlanUnit_cashout_SetsPartnerUnit_fund_give_fund_take():
     # ESTABLISH
     yao_plan = planunit_shop("Yao")
     yao_plan.set_l1_keg(kegunit_shop("swim"))
-    yao_plan.set_personunit(personunit_shop(exx.sue, 8))
-    yao_plan.set_personunit(personunit_shop(exx.bob))
-    yao_plan.set_personunit(personunit_shop(exx.zia))
-    sue_personunit = yao_plan.get_person(exx.sue)
-    bob_personunit = yao_plan.get_person(exx.bob)
-    zia_personunit = yao_plan.get_person(exx.zia)
-    assert sue_personunit.fund_give == 0
-    assert sue_personunit.fund_take == 0
-    assert bob_personunit.fund_give == 0
-    assert bob_personunit.fund_take == 0
-    assert zia_personunit.fund_give == 0
-    assert zia_personunit.fund_take == 0
+    yao_plan.set_partnerunit(partnerunit_shop(exx.sue, 8))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.bob))
+    yao_plan.set_partnerunit(partnerunit_shop(exx.zia))
+    sue_partnerunit = yao_plan.get_partner(exx.sue)
+    bob_partnerunit = yao_plan.get_partner(exx.bob)
+    zia_partnerunit = yao_plan.get_partner(exx.zia)
+    assert sue_partnerunit.fund_give == 0
+    assert sue_partnerunit.fund_take == 0
+    assert bob_partnerunit.fund_give == 0
+    assert bob_partnerunit.fund_take == 0
+    assert zia_partnerunit.fund_give == 0
+    assert zia_partnerunit.fund_take == 0
 
     # WHEN
     yao_plan.cashout()
 
     # THEN
     fund_give_sum = (
-        sue_personunit.fund_give + bob_personunit.fund_give + zia_personunit.fund_give
+        sue_partnerunit.fund_give
+        + bob_partnerunit.fund_give
+        + zia_partnerunit.fund_give
     )
     assert fund_give_sum == 1.0 * default_pool_num()
     fund_take_sum = (
-        sue_personunit.fund_take + bob_personunit.fund_take + zia_personunit.fund_take
+        sue_partnerunit.fund_take
+        + bob_partnerunit.fund_take
+        + zia_partnerunit.fund_take
     )
     assert fund_take_sum == 1.0 * default_pool_num()
 
 
-def clear_all_personunits_groupunits_fund_agenda_give_take(x_plan: PlanUnit):
+def clear_all_partnerunits_groupunits_fund_agenda_give_take(x_plan: PlanUnit):
     # delete plan_agenda_debt and plan_agenda_cred
     for x_groupunit in x_plan.groupunits.values():
         x_groupunit.clear_group_fund_give_take()
-        # for membership_x in groupunit_x._persons.values():
-        #     print(f"{groupunit_x.} {membership_x.}  {membership_x.fund_give:.6f} {membership_x.person_debt_lumen=} {membership_fund_take:t:.6f} {membership_x.} ")
+        # for membership_x in groupunit_x._partners.values():
+        #     print(f"{groupunit_x.} {membership_x.}  {membership_x.fund_give:.6f} {membership_x.partner_debt_lumen=} {membership_fund_take:t:.6f} {membership_x.} ")
 
     # delete plan_agenda_debt and plan_agenda_cred
-    for x_personunit in x_plan.persons.values():
-        x_personunit.clear_fund_give_take()
+    for x_partnerunit in x_plan.partners.values():
+        x_partnerunit.clear_fund_give_take()
 
 
 @dataclass
@@ -1021,18 +1037,18 @@ class GroupAgendaMetrics:
 
 
 @dataclass
-class PersonAgendaMetrics:
+class PartnerAgendaMetrics:
     sum_agenda_cred: float = 0
     sum_agenda_debt: float = 0
     sum_agenda_ratio_cred: float = 0
     sum_agenda_ratio_debt: float = 0
 
-    def set_personagendametrics_sums(self, x_plan: PlanUnit):
-        for personunit in x_plan.persons.values():
-            self.sum_agenda_cred += personunit.fund_agenda_give
-            self.sum_agenda_debt += personunit.fund_agenda_take
-            self.sum_agenda_ratio_cred += personunit.fund_agenda_ratio_give
-            self.sum_agenda_ratio_debt += personunit.fund_agenda_ratio_take
+    def set_partneragendametrics_sums(self, x_plan: PlanUnit):
+        for partnerunit in x_plan.partners.values():
+            self.sum_agenda_cred += partnerunit.fund_agenda_give
+            self.sum_agenda_debt += partnerunit.fund_agenda_take
+            self.sum_agenda_ratio_cred += partnerunit.fund_agenda_ratio_give
+            self.sum_agenda_ratio_debt += partnerunit.fund_agenda_ratio_take
 
 
 @dataclass
@@ -1057,7 +1073,7 @@ class AwardAgendaMetrics:
 def test_PlanUnit_agenda_cred_debt_SetAttrs():
     # ESTABLISH
     yao_plan = planunit_v001_with_large_agenda()
-    clear_all_personunits_groupunits_fund_agenda_give_take(yao_plan)
+    clear_all_partnerunits_groupunits_fund_agenda_give_take(yao_plan)
 
     # TEST plan_agenda_debt and plan_agenda_cred are empty
     x_groupagendametrics = GroupAgendaMetrics()
@@ -1068,19 +1084,19 @@ def test_PlanUnit_agenda_cred_debt_SetAttrs():
     assert x_groupagendametrics.sum_membership_debt == 0
 
     # TEST plan_agenda_debt and plan_agenda_cred are empty
-    x_personagendametrics = PersonAgendaMetrics()
-    x_personagendametrics.set_personagendametrics_sums(yao_plan)
-    assert x_personagendametrics.sum_agenda_cred == 0
-    assert x_personagendametrics.sum_agenda_debt == 0
-    assert x_personagendametrics.sum_agenda_ratio_cred == 0
-    assert x_personagendametrics.sum_agenda_ratio_debt == 0
+    x_partneragendametrics = PartnerAgendaMetrics()
+    x_partneragendametrics.set_partneragendametrics_sums(yao_plan)
+    assert x_partneragendametrics.sum_agenda_cred == 0
+    assert x_partneragendametrics.sum_agenda_debt == 0
+    assert x_partneragendametrics.sum_agenda_ratio_cred == 0
+    assert x_partneragendametrics.sum_agenda_ratio_debt == 0
 
     # WHEN
     agenda_dict = yao_plan.get_agenda_dict()
     # for keg_rope in yao_plan._keg_dict.keys():
     #     print(f"{keg_rope=}")
-    # for x_person in yao_plan.persons.values():
-    #     for x_membership in x_person.memberships.values():
+    # for x_partner in yao_plan.partners.values():
+    #     for x_membership in x_partner.memberships.values():
     #         print(f"{x_membership.group_title=}")
 
     # THEN
@@ -1120,38 +1136,38 @@ def test_PlanUnit_agenda_cred_debt_SetAttrs():
         x_groupagendametrics.sum_groupunit_give,
     )
 
-    assert all_personunits_have_legitimate_values(yao_plan)
+    assert all_partnerunits_have_legitimate_values(yao_plan)
 
-    x_personagendametrics = PersonAgendaMetrics()
-    x_personagendametrics.set_personagendametrics_sums(yao_plan)
+    x_partneragendametrics = PartnerAgendaMetrics()
+    x_partneragendametrics.set_partneragendametrics_sums(yao_plan)
     assert are_equal(
-        x_personagendametrics.sum_agenda_cred,
+        x_partneragendametrics.sum_agenda_cred,
         x_awardagendametrics.sum_plan_agenda_kegs_fund_total,
     )
     assert are_equal(
-        x_personagendametrics.sum_agenda_debt,
+        x_partneragendametrics.sum_agenda_debt,
         x_awardagendametrics.sum_plan_agenda_kegs_fund_total,
     )
-    assert are_equal(x_personagendametrics.sum_agenda_ratio_cred, 1)
-    assert are_equal(x_personagendametrics.sum_agenda_ratio_debt, 1)
+    assert are_equal(x_partneragendametrics.sum_agenda_ratio_cred, 1)
+    assert are_equal(x_partneragendametrics.sum_agenda_ratio_debt, 1)
 
-    # personunit_fund_give_sum = 0.0
-    # personunit_fund_take_sum = 0.0
+    # partnerunit_fund_give_sum = 0.0
+    # partnerunit_fund_take_sum = 0.0
 
-    # assert personunit_fund_give_sum == 1.0
-    # assert personunit_fund_take_sum > 0.9999999
-    # assert personunit_fund_take_sum < 1.00000001
+    # assert partnerunit_fund_give_sum == 1.0
+    # assert partnerunit_fund_take_sum > 0.9999999
+    # assert partnerunit_fund_take_sum < 1.00000001
 
 
-def all_personunits_have_legitimate_values(x_plan: PlanUnit):
+def all_partnerunits_have_legitimate_values(x_plan: PlanUnit):
     return not any(
         (
-            personunit.fund_give is None
-            or personunit.fund_give in [0.25, 0.5]
-            or personunit.fund_take is None
-            or personunit.fund_take in [0.8, 0.1]
+            partnerunit.fund_give is None
+            or partnerunit.fund_give in [0.25, 0.5]
+            or partnerunit.fund_take is None
+            or partnerunit.fund_take in [0.8, 0.1]
         )
-        for personunit in x_plan.persons.values()
+        for partnerunit in x_plan.partners.values()
     )
 
 
@@ -1163,64 +1179,64 @@ def are_equal(x1: float, x2: float):
 def test_PlanUnit_cashout_SetsAttrsWhenNoFactUnitsNoReasonUnitsEmpty_agenda_ratio_cred_debt():
     # ESTABLISH
     yao_plan = planunit_shop("Yao")
-    sue_personunit = personunit_shop(exx.sue, 0.5, person_debt_lumen=2)
-    bob_personunit = personunit_shop(exx.bob, 1.5, person_debt_lumen=3)
-    zia_personunit = personunit_shop(exx.zia, 8, person_debt_lumen=5)
-    yao_plan.set_personunit(sue_personunit)
-    yao_plan.set_personunit(bob_personunit)
-    yao_plan.set_personunit(zia_personunit)
-    sue_person = yao_plan.get_person(exx.sue)
-    bob_person = yao_plan.get_person(exx.bob)
-    zia_person = yao_plan.get_person(exx.zia)
+    sue_partnerunit = partnerunit_shop(exx.sue, 0.5, partner_debt_lumen=2)
+    bob_partnerunit = partnerunit_shop(exx.bob, 1.5, partner_debt_lumen=3)
+    zia_partnerunit = partnerunit_shop(exx.zia, 8, partner_debt_lumen=5)
+    yao_plan.set_partnerunit(sue_partnerunit)
+    yao_plan.set_partnerunit(bob_partnerunit)
+    yao_plan.set_partnerunit(zia_partnerunit)
+    sue_partner = yao_plan.get_partner(exx.sue)
+    bob_partner = yao_plan.get_partner(exx.bob)
+    zia_partner = yao_plan.get_partner(exx.zia)
 
-    assert not sue_person.fund_give
-    assert not sue_person.fund_take
-    assert not bob_person.fund_give
-    assert not bob_person.fund_take
-    assert not zia_person.fund_give
-    assert not zia_person.fund_take
-    assert not sue_person.fund_agenda_give
-    assert not sue_person.fund_agenda_take
-    assert not bob_person.fund_agenda_give
-    assert not bob_person.fund_agenda_take
-    assert not zia_person.fund_agenda_give
-    assert not zia_person.fund_agenda_take
-    assert not sue_person.fund_agenda_ratio_give
-    assert not sue_person.fund_agenda_ratio_take
-    assert not bob_person.fund_agenda_ratio_give
-    assert not bob_person.fund_agenda_ratio_take
-    assert not zia_person.fund_agenda_ratio_give
-    assert not zia_person.fund_agenda_ratio_take
+    assert not sue_partner.fund_give
+    assert not sue_partner.fund_take
+    assert not bob_partner.fund_give
+    assert not bob_partner.fund_take
+    assert not zia_partner.fund_give
+    assert not zia_partner.fund_take
+    assert not sue_partner.fund_agenda_give
+    assert not sue_partner.fund_agenda_take
+    assert not bob_partner.fund_agenda_give
+    assert not bob_partner.fund_agenda_take
+    assert not zia_partner.fund_agenda_give
+    assert not zia_partner.fund_agenda_take
+    assert not sue_partner.fund_agenda_ratio_give
+    assert not sue_partner.fund_agenda_ratio_take
+    assert not bob_partner.fund_agenda_ratio_give
+    assert not bob_partner.fund_agenda_ratio_take
+    assert not zia_partner.fund_agenda_ratio_give
+    assert not zia_partner.fund_agenda_ratio_take
 
     # WHEN
     yao_plan.cashout()
 
     # THEN
     assert yao_plan.reason_contexts == set()
-    assert sue_person.fund_give == 50000000
-    assert sue_person.fund_take == 200000000
-    assert bob_person.fund_give == 150000000
-    assert bob_person.fund_take == 300000000
-    assert zia_person.fund_give == 800000000
-    assert zia_person.fund_take == 500000000
-    assert sue_person.fund_agenda_give == 50000000
-    assert sue_person.fund_agenda_take == 200000000
-    assert bob_person.fund_agenda_give == 150000000
-    assert bob_person.fund_agenda_take == 300000000
-    assert zia_person.fund_agenda_give == 800000000
-    assert zia_person.fund_agenda_take == 500000000
-    assert sue_person.fund_agenda_give == sue_person.fund_give
-    assert sue_person.fund_agenda_take == sue_person.fund_take
-    assert bob_person.fund_agenda_give == bob_person.fund_give
-    assert bob_person.fund_agenda_take == bob_person.fund_take
-    assert zia_person.fund_agenda_give == zia_person.fund_give
-    assert zia_person.fund_agenda_take == zia_person.fund_take
-    assert sue_person.fund_agenda_ratio_give == 0.05
-    assert sue_person.fund_agenda_ratio_take == 0.2
-    assert bob_person.fund_agenda_ratio_give == 0.15
-    assert bob_person.fund_agenda_ratio_take == 0.3
-    assert zia_person.fund_agenda_ratio_give == 0.8
-    assert zia_person.fund_agenda_ratio_take == 0.5
+    assert sue_partner.fund_give == 50000000
+    assert sue_partner.fund_take == 200000000
+    assert bob_partner.fund_give == 150000000
+    assert bob_partner.fund_take == 300000000
+    assert zia_partner.fund_give == 800000000
+    assert zia_partner.fund_take == 500000000
+    assert sue_partner.fund_agenda_give == 50000000
+    assert sue_partner.fund_agenda_take == 200000000
+    assert bob_partner.fund_agenda_give == 150000000
+    assert bob_partner.fund_agenda_take == 300000000
+    assert zia_partner.fund_agenda_give == 800000000
+    assert zia_partner.fund_agenda_take == 500000000
+    assert sue_partner.fund_agenda_give == sue_partner.fund_give
+    assert sue_partner.fund_agenda_take == sue_partner.fund_take
+    assert bob_partner.fund_agenda_give == bob_partner.fund_give
+    assert bob_partner.fund_agenda_take == bob_partner.fund_take
+    assert zia_partner.fund_agenda_give == zia_partner.fund_give
+    assert zia_partner.fund_agenda_take == zia_partner.fund_take
+    assert sue_partner.fund_agenda_ratio_give == 0.05
+    assert sue_partner.fund_agenda_ratio_take == 0.2
+    assert bob_partner.fund_agenda_ratio_give == 0.15
+    assert bob_partner.fund_agenda_ratio_take == 0.3
+    assert zia_partner.fund_agenda_ratio_give == 0.8
+    assert zia_partner.fund_agenda_ratio_take == 0.5
 
 
 def test_PlanUnit_cashout_CreatesGroupUnitWith_planunit_v001():
@@ -1231,10 +1247,10 @@ def test_PlanUnit_cashout_CreatesGroupUnitWith_planunit_v001():
     # THEN
     assert yao_plan.groupunits is not None
     assert len(yao_plan.groupunits) == 34
-    everyone_persons_len = None
+    everyone_partners_len = None
     everyone_group = yao_plan.get_groupunit(";Everyone")
-    everyone_persons_len = len(everyone_group.memberships)
-    assert everyone_persons_len == 22
+    everyone_partners_len = len(everyone_group.memberships)
+    assert everyone_partners_len == 22
 
     # WHEN
     yao_plan.cashout()

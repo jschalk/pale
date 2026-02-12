@@ -89,17 +89,17 @@ def run_rope() -> RopeTerm:
 def get_example_yao_plan() -> PlanUnit:
     yao_speaker = planunit_shop(exx.yao, ch10_example_moment_rope())
     yao_speaker.set_keg_obj(kegunit_shop(run_str()), casa_rope())
-    yao_speaker.add_personunit(exx.yao, person_debt_lumen=10)
-    yao_speaker.add_personunit(exx.zia, person_debt_lumen=30)
-    yao_speaker.add_personunit(exx.bob, person_debt_lumen=40)
-    yao_speaker.set_person_respect(80)
+    yao_speaker.add_partnerunit(exx.yao, partner_debt_lumen=10)
+    yao_speaker.add_partnerunit(exx.zia, partner_debt_lumen=30)
+    yao_speaker.add_partnerunit(exx.bob, partner_debt_lumen=40)
+    yao_speaker.set_partner_respect(80)
     return yao_speaker
 
 
 def get_example_yao_vision1_speaker() -> PlanUnit:
     yao_speaker = get_example_yao_plan()
     yao_speaker.del_keg_obj(run_rope())
-    yao_speaker.set_person_respect(40)
+    yao_speaker.set_partner_respect(40)
     yao_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), casa_rope())
     yao_speaker.set_keg_obj(kegunit_shop(hungry_str()), eat_rope())
     yao_speaker.set_keg_obj(kegunit_shop(full_str()), eat_rope())
@@ -113,7 +113,7 @@ def get_example_yao_vision1_speaker() -> PlanUnit:
 def get_example_yao_vision2_speaker() -> PlanUnit:
     yao_speaker = get_example_yao_plan()
     yao_speaker.del_keg_obj(run_rope())
-    yao_speaker.set_person_respect(30)
+    yao_speaker.set_partner_respect(30)
     yao_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), casa_rope())
     yao_speaker.set_keg_obj(kegunit_shop(hungry_str()), eat_rope())
     yao_speaker.set_keg_obj(kegunit_shop(full_str()), eat_rope())
@@ -133,7 +133,7 @@ def get_example_yao_vision2_speaker() -> PlanUnit:
 def get_example_yao_vision3_speaker() -> PlanUnit:
     yao_speaker = get_example_yao_plan()
     yao_speaker.del_keg_obj(run_rope())
-    yao_speaker.set_person_respect(10)
+    yao_speaker.set_partner_respect(10)
     yao_speaker.set_keg_obj(kegunit_shop(sweep_str(), pledge=True), casa_rope())
     yao_speaker.set_keg_obj(kegunit_shop(dirty_str()), sanitation_rope())
     yao_speaker.set_keg_obj(kegunit_shop(exx.clean), sanitation_rope())
@@ -249,7 +249,7 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
 ):
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    # yao0_gut with 3 debotors of different person_cred_lumens
+    # yao0_gut with 3 debotors of different partner_cred_lumens
     # yao_vision1 with 1 task, fact that doesn't make that task active
     # yao_vision2 with 2 tasks, one is equal fact that makes task active
     # yao_vision3 with 1 new task, fact stays with it
@@ -358,18 +358,18 @@ def test_listen_to_plan_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceItsel
 
     yao_job = open_job_file(moment_mstr_dir, moment_lasso, exx.yao)
     yao_job.cashout()
-    assert yao_job.persons.keys() == yao_gut0.persons.keys()
-    assert yao_job.get_person(exx.yao).irrational_person_debt_lumen == 0
-    yao_job_persons = yao_job.to_dict().get(kw.persons)
-    yao_gut0_persons = yao_gut0.to_dict().get(kw.persons)
-    yao_job_bob = yao_job_persons.get("Bob")
-    yao_gut0_bob = yao_gut0_persons.get("Bob")
+    assert yao_job.partners.keys() == yao_gut0.partners.keys()
+    assert yao_job.get_partner(exx.yao).irrational_partner_debt_lumen == 0
+    yao_job_partners = yao_job.to_dict().get(kw.partners)
+    yao_gut0_partners = yao_gut0.to_dict().get(kw.partners)
+    yao_job_bob = yao_job_partners.get("Bob")
+    yao_gut0_bob = yao_gut0_partners.get("Bob")
     print(f"{yao_job_bob=}")
     print(f"{yao_gut0_bob=}")
     assert yao_job_bob == yao_gut0_bob
-    assert yao_job_persons.keys() == yao_gut0_persons.keys()
-    assert yao_job_persons == yao_gut0_persons
-    assert len(yao_job.to_dict().get(kw.persons)) == 3
+    assert yao_job_partners.keys() == yao_gut0_partners.keys()
+    assert yao_job_partners == yao_gut0_partners
+    assert len(yao_job.to_dict().get(kw.partners)) == 3
     assert len(yao_job._keg_dict) == 4
     print(f"{yao_job._keg_dict.keys()=}")
     print(f"{yao_job.get_kegroot_factunits_dict().keys()=}")

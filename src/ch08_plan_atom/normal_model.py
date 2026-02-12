@@ -19,19 +19,19 @@ class PlanTable(Base):
     mana_grain = Column(Float)
 
 
-class PersonUnitTable(Base):
-    __tablename__ = "personunit"
+class PartnerUnitTable(Base):
+    __tablename__ = "partnerunit"
     keg_uid = Column(Integer, primary_key=True)
-    person_name = Column(String)
-    person_cred_lumen = Column(Float)
-    person_debt_lumen = Column(Float)
+    partner_name = Column(String)
+    partner_cred_lumen = Column(Float)
+    partner_debt_lumen = Column(Float)
 
 
 class MemberShipTable(Base):
     __tablename__ = "membership"
     keg_uid = Column(Integer, primary_key=True)
     group_title = Column(String)
-    person_name = Column(String)
+    partner_name = Column(String)
     group_cred_lumen = Column(Float)
     group_debt_lumen = Column(Float)
 

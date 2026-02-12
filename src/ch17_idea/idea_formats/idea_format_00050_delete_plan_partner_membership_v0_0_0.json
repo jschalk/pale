@@ -1,11 +1,12 @@
 {
   "attributes": {
     "face_name"        : { "otx_key": true }, 
+    "group_title_ERASE": { "otx_key": true }, 
     "moment_rope"      : { "otx_key": true }, 
-    "person_name_ERASE": { "otx_key": true }, 
+    "partner_name"      : { "otx_key": true }, 
     "plan_name"        : { "otx_key": true }, 
     "spark_num"        : { "otx_key": true }
   }, 
-  "dimens": ["planunit", "momentunit", "plan_personunit"], 
-  "idea_number": "br00051"
+  "dimens": ["momentunit", "planunit", "plan_partnerunit", "plan_partner_membership"], 
+  "idea_number": "br00050"
 }

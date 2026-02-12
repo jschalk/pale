@@ -37,20 +37,20 @@ def test_create_legible_list_ReturnsObjEstablishWithPlanUpdate_credor_respect():
 def test_create_legible_list_ReturnsObjEstablishWithPlanUpdate_debtor_respect():
     # ESTABLISH
     dimen = kw.planunit
-    person_debtor_pool_int = 78
-    person_debtor_pool_planatom = planatom_shop(dimen, kw.UPDATE)
-    person_debtor_pool_planatom.set_arg(kw.debtor_respect, person_debtor_pool_int)
+    partner_debtor_pool_int = 78
+    partner_debtor_pool_planatom = planatom_shop(dimen, kw.UPDATE)
+    partner_debtor_pool_planatom.set_arg(kw.debtor_respect, partner_debtor_pool_int)
 
-    print(f"{person_debtor_pool_planatom=}")
+    print(f"{partner_debtor_pool_planatom=}")
     x_plandelta = plandelta_shop()
-    x_plandelta.set_planatom(person_debtor_pool_planatom)
+    x_plandelta.set_planatom(partner_debtor_pool_planatom)
     sue_plan = planunit_shop("Sue")
 
     # WHEN
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{sue_plan.plan_name}'s debtor pool is now {person_debtor_pool_int}"
+    x_str = f"{sue_plan.plan_name}'s debtor pool is now {partner_debtor_pool_int}"
     assert legible_list[0] == x_str
 
 
@@ -58,10 +58,10 @@ def test_create_legible_list_ReturnsObjEstablishWithPlanUpdate_credor_respect_Eq
     # ESTABLISH
     x_plandelta = plandelta_shop()
     dimen = kw.planunit
-    person_pool_int = 83
+    partner_pool_int = 83
     planunit_planatom = planatom_shop(dimen, kw.UPDATE)
-    planunit_planatom.set_arg(kw.credor_respect, person_pool_int)
-    planunit_planatom.set_arg(kw.debtor_respect, person_pool_int)
+    planunit_planatom.set_arg(kw.credor_respect, partner_pool_int)
+    planunit_planatom.set_arg(kw.debtor_respect, partner_pool_int)
     x_plandelta.set_planatom(planunit_planatom)
     sue_plan = planunit_shop("Sue")
 
@@ -69,7 +69,7 @@ def test_create_legible_list_ReturnsObjEstablishWithPlanUpdate_credor_respect_Eq
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{sue_plan.plan_name}'s total pool is now {person_pool_int}"
+    x_str = f"{sue_plan.plan_name}'s total pool is now {partner_pool_int}"
     assert len(legible_list) == 1
     assert legible_list[0] == x_str
 

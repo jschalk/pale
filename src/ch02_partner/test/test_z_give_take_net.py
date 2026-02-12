@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch02_person.person import calc_give_take_net
+from src.ch02_partner.partner import calc_give_take_net
 
 
 def test_calc_give_take_net_ReturnsObj():

@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch03_labor.labor import laborunit_shop
 from src.ch04_rope.rope import create_rope, default_knot_if_None, is_sub_rope, to_rope
 from src.ch05_reason.reason_main import caseunit_shop, factunit_shop, reasonunit_shop
@@ -479,8 +479,8 @@ def test_PlanUnit_edit_keg_attr_SetNestedKegUnitAttr_Scenario08_healerunit():
 
     # WHEN
     x_healerunit = healerunit_shop({exx.sue, exx.yao})
-    sue_plan.add_personunit(exx.sue)
-    sue_plan.add_personunit(exx.yao)
+    sue_plan.add_partnerunit(exx.sue)
+    sue_plan.add_partnerunit(exx.yao)
     sue_plan.edit_keg_attr(casa_rope, healerunit=x_healerunit)
 
     # THEN
@@ -810,9 +810,9 @@ def test_PlanUnit_del_keg_obj_DeletingBundledKegReturnsKegsToOriginalState():
 def test_PlanUnit_edit_keg_attr_DeletesKegUnit_awardunits():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_personunit(exx.yao)
-    yao_plan.add_personunit(exx.zia)
-    yao_plan.add_personunit(exx.xio)
+    yao_plan.add_partnerunit(exx.yao)
+    yao_plan.add_partnerunit(exx.zia)
+    yao_plan.add_partnerunit(exx.xio)
 
     swim_rope = yao_plan.make_l1_rope(exx.swim)
 
@@ -841,13 +841,13 @@ def test_PlanUnit_edit_keg_attr_DeletesKegUnit_awardunits():
     assert len(yao_plan.kegroot.kids[exx.swim].awardunits) == 2
 
 
-def test_PlanUnit__get_filtered_awardunits_keg_RemovesPerson_awardunits():
+def test_PlanUnit__get_filtered_awardunits_keg_RemovesPartner_awardunits():
     # ESTABLISH
     example_plan = planunit_shop(exx.bob)
     xia_str = "Xia"
     hike_str = ";hikers"
-    example_plan.add_personunit(xia_str)
-    example_plan.get_person(xia_str).add_membership(exx.run)
+    example_plan.add_partnerunit(xia_str)
+    example_plan.get_partner(xia_str).add_membership(exx.run)
 
     sports_str = "sports"
     sports_rope = example_plan.make_l1_rope(sports_str)
@@ -857,8 +857,8 @@ def test_PlanUnit__get_filtered_awardunits_keg_RemovesPerson_awardunits():
     example_plan_sports_keg = example_plan.get_keg_obj(sports_rope)
     assert len(example_plan_sports_keg.awardunits) == 2
     bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_personunit(xia_str)
-    bob_plan.get_person(xia_str).add_membership(exx.run)
+    bob_plan.add_partnerunit(xia_str)
+    bob_plan.get_partner(xia_str).add_membership(exx.run)
     print(f"{example_plan_sports_keg.awardunits=}")
 
     # WHEN
@@ -874,8 +874,8 @@ def test_PlanUnit__get_filtered_awardunits_keg_RemovesGroup_awardunit():
     example_plan = planunit_shop(exx.bob)
     xia_str = "Xia"
     zoa_str = "Zoa"
-    example_plan.add_personunit(xia_str)
-    example_plan.add_personunit(zoa_str)
+    example_plan.add_partnerunit(xia_str)
+    example_plan.add_partnerunit(zoa_str)
 
     swim_rope = example_plan.make_l1_rope(exx.swim)
     example_plan.set_l1_keg(kegunit_shop(exx.swim))
@@ -884,7 +884,7 @@ def test_PlanUnit__get_filtered_awardunits_keg_RemovesGroup_awardunit():
     example_plan_swim_keg = example_plan.get_keg_obj(swim_rope)
     assert len(example_plan_swim_keg.awardunits) == 2
     bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_personunit(xia_str)
+    bob_plan.add_partnerunit(xia_str)
 
     # WHEN
     cleaned_keg = bob_plan._get_filtered_awardunits_keg(example_plan_swim_keg)
@@ -899,8 +899,8 @@ def test_PlanUnit_set_keg_ScenarioXX_SetsKeg_awardunits():
     example_plan = planunit_shop(exx.bob)
     xia_str = "Xia"
     zoa_str = "Zoa"
-    example_plan.add_personunit(xia_str)
-    example_plan.add_personunit(zoa_str)
+    example_plan.add_partnerunit(xia_str)
+    example_plan.add_partnerunit(zoa_str)
 
     casa_rope = example_plan.make_l1_rope(exx.casa)
     swim_rope = example_plan.make_l1_rope(exx.swim)
@@ -911,7 +911,7 @@ def test_PlanUnit_set_keg_ScenarioXX_SetsKeg_awardunits():
     example_plan_swim_keg = example_plan.get_keg_obj(swim_rope)
     assert len(example_plan_swim_keg.awardunits) == 2
     bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_personunit(xia_str)
+    bob_plan.add_partnerunit(xia_str)
 
     # WHEN
     bob_plan.set_l1_keg(example_plan_swim_keg, create_missing_kegs=False)
@@ -1060,9 +1060,9 @@ def test_PlanUnit_allot_offtrack_fund_SetsCharUnit_fund_take_fund_give():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     bob_planunit = planunit_shop(exx.bob)
-    bob_planunit.add_personunit(exx.bob)
-    bob_planunit.add_personunit(exx.yao, person_cred_lumen=2)
-    bob_planunit.add_personunit(exx.sue, person_debt_lumen=2)
+    bob_planunit.add_partnerunit(exx.bob)
+    bob_planunit.add_partnerunit(exx.yao, partner_cred_lumen=2)
+    bob_planunit.add_partnerunit(exx.sue, partner_debt_lumen=2)
     bob_planunit.set_offtrack_fund()
     assert bob_planunit.offtrack_fund == 0
 
@@ -1070,12 +1070,12 @@ def test_PlanUnit_allot_offtrack_fund_SetsCharUnit_fund_take_fund_give():
     bob_planunit._allot_offtrack_fund()
 
     # THEN
-    assert bob_planunit.get_person(exx.bob).fund_give == 0
-    assert bob_planunit.get_person(exx.bob).fund_take == 0
-    assert bob_planunit.get_person(exx.yao).fund_give == 0
-    assert bob_planunit.get_person(exx.yao).fund_take == 0
-    assert bob_planunit.get_person(exx.sue).fund_give == 0
-    assert bob_planunit.get_person(exx.sue).fund_take == 0
+    assert bob_planunit.get_partner(exx.bob).fund_give == 0
+    assert bob_planunit.get_partner(exx.bob).fund_take == 0
+    assert bob_planunit.get_partner(exx.yao).fund_give == 0
+    assert bob_planunit.get_partner(exx.yao).fund_take == 0
+    assert bob_planunit.get_partner(exx.sue).fund_give == 0
+    assert bob_planunit.get_partner(exx.sue).fund_take == 0
 
     # WHEN
     casa_rope = bob_planunit.make_l1_rope(exx.casa)
@@ -1099,12 +1099,12 @@ def test_PlanUnit_allot_offtrack_fund_SetsCharUnit_fund_take_fund_give():
     bob_planunit._allot_offtrack_fund()
 
     # THEN
-    assert bob_planunit.get_person(exx.bob).fund_give == 26
-    assert bob_planunit.get_person(exx.bob).fund_take == 26
-    assert bob_planunit.get_person(exx.yao).fund_give == 53
-    assert bob_planunit.get_person(exx.yao).fund_take == 26
-    assert bob_planunit.get_person(exx.sue).fund_give == 26
-    assert bob_planunit.get_person(exx.sue).fund_take == 53
+    assert bob_planunit.get_partner(exx.bob).fund_give == 26
+    assert bob_planunit.get_partner(exx.bob).fund_take == 26
+    assert bob_planunit.get_partner(exx.yao).fund_give == 53
+    assert bob_planunit.get_partner(exx.yao).fund_take == 26
+    assert bob_planunit.get_partner(exx.sue).fund_give == 26
+    assert bob_planunit.get_partner(exx.sue).fund_take == 53
 
     bob_planunit.offtrack_kids_star_set.add(wed_rope)
     bob_planunit.set_offtrack_fund()

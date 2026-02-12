@@ -23,7 +23,7 @@ def test_PlanBudHistory_Exists():
     assert not x_planbudhistory.plan_name
     assert not x_planbudhistory.buds
     assert not x_planbudhistory._sum_budunit_quota
-    assert not x_planbudhistory._sum_person_bud_nets
+    assert not x_planbudhistory._sum_partner_bud_nets
     assert not x_planbudhistory._bud_time_min
     assert not x_planbudhistory._bud_time_max
 
@@ -39,7 +39,7 @@ def test_planbudhistory_shop_ReturnsObj():
     assert x_planbudhistory.plan_name == exx.sue
     assert x_planbudhistory.buds == {}
     assert not x_planbudhistory._sum_budunit_quota
-    assert x_planbudhistory._sum_person_bud_nets == {}
+    assert x_planbudhistory._sum_partner_bud_nets == {}
     assert not x_planbudhistory._bud_time_min
     assert not x_planbudhistory._bud_time_max
 
@@ -285,13 +285,13 @@ def test_get_planbudhistory_from_dict_ReturnsObj_Scenario2():
     x7_quota = 66
     sue_planbudhistory.add_bud(x4_bud_time, x4_quota)
     sue_planbudhistory.add_bud(x7_bud_time, x7_quota)
-    zia_bud_person_net = 887
-    sue_bud_person_net = 445
-    sue_planbudhistory.get_bud(x7_bud_time).set_bud_person_net(
-        exx.sue, sue_bud_person_net
+    zia_bud_partner_net = 887
+    sue_bud_partner_net = 445
+    sue_planbudhistory.get_bud(x7_bud_time).set_bud_partner_net(
+        exx.sue, sue_bud_partner_net
     )
-    sue_planbudhistory.get_bud(x7_bud_time).set_bud_person_net(
-        exx.zia, zia_bud_person_net
+    sue_planbudhistory.get_bud(x7_bud_time).set_bud_partner_net(
+        exx.zia, zia_bud_partner_net
     )
     sue_buds_dict = sue_planbudhistory.to_dict()
     assert sue_buds_dict == {
@@ -301,9 +301,9 @@ def test_get_planbudhistory_from_dict_ReturnsObj_Scenario2():
             x7_bud_time: {
                 kw.bud_time: x7_bud_time,
                 kw.quota: x7_quota,
-                kw.bud_person_nets: {
-                    exx.sue: sue_bud_person_net,
-                    exx.zia: zia_bud_person_net,
+                kw.bud_partner_nets: {
+                    exx.sue: sue_bud_partner_net,
+                    exx.zia: zia_bud_partner_net,
                 },
             },
         },
@@ -317,8 +317,8 @@ def test_get_planbudhistory_from_dict_ReturnsObj_Scenario2():
     assert x_planbudhistory.plan_name == exx.sue
     assert x_planbudhistory.get_bud(x4_bud_time) != None
     assert x_planbudhistory.get_bud(x7_bud_time) != None
-    assert x_planbudhistory.get_bud(x7_bud_time)._bud_person_nets != {}
-    assert len(x_planbudhistory.get_bud(x7_bud_time)._bud_person_nets) == 2
+    assert x_planbudhistory.get_bud(x7_bud_time)._bud_partner_nets != {}
+    assert len(x_planbudhistory.get_bud(x7_bud_time)._bud_partner_nets) == 2
     assert x_planbudhistory.buds == sue_planbudhistory.buds
     assert x_planbudhistory == sue_planbudhistory
 
@@ -332,13 +332,13 @@ def test_PlanBudHistory_get_tranbook_ReturnsObj():
     x7_quota = 66
     sue_planbudhistory.add_bud(x4_bud_time, x4_quota)
     sue_planbudhistory.add_bud(x7_bud_time, x7_quota)
-    zia_bud_person_net = 887
-    bob_bud_person_net = 445
-    sue_planbudhistory.get_bud(x4_bud_time).set_bud_person_net(
-        exx.bob, bob_bud_person_net
+    zia_bud_partner_net = 887
+    bob_bud_partner_net = 445
+    sue_planbudhistory.get_bud(x4_bud_time).set_bud_partner_net(
+        exx.bob, bob_bud_partner_net
     )
-    sue_planbudhistory.get_bud(x7_bud_time).set_bud_person_net(
-        exx.zia, zia_bud_person_net
+    sue_planbudhistory.get_bud(x7_bud_time).set_bud_partner_net(
+        exx.zia, zia_bud_partner_net
     )
     sue_buds_dict = sue_planbudhistory.to_dict()
     assert sue_buds_dict == {
@@ -347,12 +347,12 @@ def test_PlanBudHistory_get_tranbook_ReturnsObj():
             x4_bud_time: {
                 kw.bud_time: x4_bud_time,
                 kw.quota: x4_quota,
-                kw.bud_person_nets: {exx.bob: bob_bud_person_net},
+                kw.bud_partner_nets: {exx.bob: bob_bud_partner_net},
             },
             x7_bud_time: {
                 kw.bud_time: x7_bud_time,
                 kw.quota: x7_quota,
-                kw.bud_person_nets: {exx.zia: zia_bud_person_net},
+                kw.bud_partner_nets: {exx.zia: zia_bud_partner_net},
             },
         },
     }
@@ -366,5 +366,5 @@ def test_PlanBudHistory_get_tranbook_ReturnsObj():
     assert sue_tranbook.moment_rope == x_moment_rope
     assert sue_tranbook.tranunit_exists(exx.sue, exx.zia, x7_bud_time)
     assert sue_tranbook.tranunit_exists(exx.sue, exx.bob, x4_bud_time)
-    assert sue_tranbook.get_amount(exx.sue, exx.zia, x7_bud_time) == zia_bud_person_net
-    assert sue_tranbook.get_amount(exx.sue, exx.bob, x4_bud_time) == bob_bud_person_net
+    assert sue_tranbook.get_amount(exx.sue, exx.zia, x7_bud_time) == zia_bud_partner_net
+    assert sue_tranbook.get_amount(exx.sue, exx.bob, x4_bud_time) == bob_bud_partner_net

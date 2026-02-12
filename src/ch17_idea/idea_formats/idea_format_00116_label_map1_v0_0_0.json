@@ -4,10 +4,10 @@
     "inx_label"  : { "otx_key": false }, 
     "moment_rope": { "otx_key": true  }, 
     "otx_label"  : { "otx_key": true  }, 
-    "person_name": { "otx_key": true  }, 
+    "partner_name": { "otx_key": true  }, 
     "plan_name"  : { "otx_key": true  }, 
     "spark_num"  : { "otx_key": true  }
   }, 
-  "dimens": ["translate_label", "plan_personunit", "planunit", "momentunit"], 
+  "dimens": ["translate_label", "plan_partnerunit", "planunit", "momentunit"], 
   "idea_number": "br00116"
 }

@@ -47,7 +47,7 @@ def test_WorldUnit_create_stances_Senario1_Add_CreatesFile(temp_dir_setup):
         kw.face_name,
         kw.moment_rope,
         kw.plan_name,
-        kw.person_name,
+        kw.partner_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -83,7 +83,7 @@ def test_WorldUnit_create_stances_Senario2_CreatedStanceCanBeIdeasForOtherWorldU
         kw.face_name,
         kw.moment_rope,
         kw.plan_name,
-        kw.person_name,
+        kw.partner_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -135,7 +135,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
         kw.face_name,
         kw.moment_rope,
         kw.plan_name,
-        kw.person_name,
+        kw.partner_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -205,7 +205,7 @@ def test_WorldUnit_create_stances_Senario3_Create_calendar_markdown(
 #         kw.spark_num,
 #         kw.moment_rope,
 #         kw.plan_name,
-#         kw.person_name,
+#         kw.partner_name,
 #     ]
 #     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)

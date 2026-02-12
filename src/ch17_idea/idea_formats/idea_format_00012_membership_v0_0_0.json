@@ -3,10 +3,10 @@
     "face_name"  : { "otx_key": true }, 
     "group_title": { "otx_key": true }, 
     "moment_rope": { "otx_key": true }, 
-    "person_name": { "otx_key": true }, 
+    "partner_name": { "otx_key": true }, 
     "plan_name"  : { "otx_key": true }, 
     "spark_num"  : { "otx_key": true }
   }, 
-  "dimens": ["planunit", "plan_personunit", "plan_person_membership", "momentunit"], 
+  "dimens": ["planunit", "plan_partnerunit", "plan_partner_membership", "momentunit"], 
   "idea_number": "br00012"
 }

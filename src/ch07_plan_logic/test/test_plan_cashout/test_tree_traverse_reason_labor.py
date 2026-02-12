@@ -32,7 +32,7 @@ def test_PlanUnit_cashout_Set_child_keg_laborheir_FromParent_laborunit():
     bob_plan = planunit_shop(exx.bob)
     run_str = "run"
     run_rope = bob_plan.make_l1_rope(run_str)
-    bob_plan.add_personunit(exx.bob)
+    bob_plan.add_partnerunit(exx.bob)
     bob_plan.set_l1_keg(kegunit_shop(run_str))
     bob_plan.edit_keg_attr(run_rope, laborunit=x_laborunit)
     run_keg = bob_plan.get_keg_obj(run_rope)
@@ -70,9 +70,9 @@ def test_PlanUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_Sce
     swimmers_str = ";swimmers"
     x_laborunit.add_party(party_title=swimmers_str)
 
-    sue_plan.add_personunit(exx.yao)
-    yao_personunit = sue_plan.get_person(exx.yao)
-    yao_personunit.add_membership(swimmers_str)
+    sue_plan.add_partnerunit(exx.yao)
+    yao_partnerunit = sue_plan.get_partner(exx.yao)
+    yao_partnerunit.add_membership(swimmers_str)
 
     sue_plan.set_l1_keg(kegunit_shop(exx.swim))
     sue_plan.set_keg_obj(kegunit_shop(morn_str), parent_rope=swim_rope)
@@ -110,9 +110,9 @@ def test_PlanUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_Sce
     swimmers_solo_bool = True
     swimmers_laborunit.add_party(swimmers_str, solo=swimmers_solo_bool)
 
-    sue_plan.add_personunit(exx.yao)
-    yao_personunit = sue_plan.get_person(exx.yao)
-    yao_personunit.add_membership(swimmers_str)
+    sue_plan.add_partnerunit(exx.yao)
+    yao_partnerunit = sue_plan.get_partner(exx.yao)
+    yao_partnerunit.add_membership(swimmers_str)
 
     sue_plan.set_l1_keg(kegunit_shop(exx.swim))
     sue_plan.set_keg_obj(kegunit_shop(morn_str), parent_rope=swim_rope)
@@ -142,8 +142,8 @@ def test_PlanUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_Sce
 def test_PlanUnit__get_filtered_awardunits_keg_CleansKeg_Laborunit():
     # ESTABLISH
     sue1_plan = planunit_shop(exx.sue)
-    sue1_plan.add_personunit(exx.xio)
-    sue1_plan.add_personunit(exx.zia)
+    sue1_plan.add_partnerunit(exx.xio)
+    sue1_plan.add_partnerunit(exx.zia)
 
     casa_rope = sue1_plan.make_l1_rope(exx.casa)
     swim_rope = sue1_plan.make_l1_rope(exx.swim)
@@ -160,7 +160,7 @@ def test_PlanUnit__get_filtered_awardunits_keg_CleansKeg_Laborunit():
 
     # WHEN
     sue2_plan = planunit_shop(exx.sue)
-    sue2_plan.add_personunit(exx.xio)
+    sue2_plan.add_partnerunit(exx.xio)
     cleaned_keg = sue2_plan._get_filtered_awardunits_keg(sue1_plan_swim_keg)
 
     # THEN
@@ -172,8 +172,8 @@ def test_PlanUnit__get_filtered_awardunits_keg_CleansKeg_Laborunit():
 def test_PlanUnit_set_keg_CleansKeg_awardunits():
     # ESTABLISH
     sue1_plan = planunit_shop("Sue")
-    sue1_plan.add_personunit(exx.xio)
-    sue1_plan.add_personunit(exx.zia)
+    sue1_plan.add_partnerunit(exx.xio)
+    sue1_plan.add_partnerunit(exx.zia)
 
     casa_rope = sue1_plan.make_l1_rope(exx.casa)
     swim_rope = sue1_plan.make_l1_rope(exx.swim)
@@ -193,7 +193,7 @@ def test_PlanUnit_set_keg_CleansKeg_awardunits():
 
     # WHEN
     sue2_plan = planunit_shop("Sue")
-    sue2_plan.add_personunit(exx.xio)
+    sue2_plan.add_partnerunit(exx.xio)
     sue2_plan.set_l1_keg(
         sue1_plan_swim_keg, get_rid_of_missing_awardunits_awardee_titles=False
     )

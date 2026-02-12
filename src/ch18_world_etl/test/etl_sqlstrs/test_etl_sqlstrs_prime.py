@@ -220,7 +220,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         put_str = "put"
         del_str = "del"
         plnunit_s_put_agg_table = prime_tbl("planunit", "s", agg_str, put_str)
-        plnprsn_s_put_agg_table = prime_tbl("plnprsn", "s", agg_str, put_str)
+        plnptnr_s_put_agg_table = prime_tbl("plnptnr", "s", agg_str, put_str)
         plnmemb_s_put_agg_table = prime_tbl("plnmemb", "s", agg_str, put_str)
         plnfact_s_del_agg_table = prime_tbl("plnfact", "s", agg_str, del_str)
         plnfact_s_del_vld_table = prime_tbl("plnfact", "s", vld_str, del_str)
@@ -235,7 +235,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         trlcore_s_vld_table = prime_tbl("trlcore", "s", vld_str)
 
         assert not db_table_exists(cursor, plnunit_s_put_agg_table)
-        assert not db_table_exists(cursor, plnprsn_s_put_agg_table)
+        assert not db_table_exists(cursor, plnptnr_s_put_agg_table)
         assert not db_table_exists(cursor, plnmemb_s_put_agg_table)
         assert not db_table_exists(cursor, plnfact_s_del_agg_table)
         assert not db_table_exists(cursor, plnfact_s_del_vld_table)
@@ -260,7 +260,7 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables():
         #     print(f"{x_count} {x_row[1]=}")
         #     x_count += 1
         assert db_table_exists(cursor, plnunit_s_put_agg_table)
-        assert db_table_exists(cursor, plnprsn_s_put_agg_table)
+        assert db_table_exists(cursor, plnptnr_s_put_agg_table)
         assert db_table_exists(cursor, plnmemb_s_put_agg_table)
         assert db_table_exists(cursor, plnfact_s_del_agg_table)
         assert db_table_exists(cursor, plnfact_s_del_vld_table)
@@ -716,11 +716,11 @@ def test_create_insert_missing_face_name_into_translate_core_vld_sqlstr_ReturnsO
     # ESTABLISH
     default_knot = "|"
     default_unknown_str = "unknown2"
-    plnprsn_s_agg_tablename = prime_tbl(kw.plan_personunit, "s", "agg")
+    plnptnr_s_agg_tablename = prime_tbl(kw.plan_partnerunit, "s", "agg")
 
     # WHEN
     insert_sqlstr = create_insert_missing_face_name_into_translate_core_vld_sqlstr(
-        default_knot, default_unknown_str, plnprsn_s_agg_tablename
+        default_knot, default_unknown_str, plnptnr_s_agg_tablename
     )
 
     # THEN
@@ -728,14 +728,14 @@ def test_create_insert_missing_face_name_into_translate_core_vld_sqlstr_ReturnsO
     translate_core_s_vld_tablename = prime_tbl(trlcore_dimen, "s", "vld")
     expected_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (face_name, otx_knot, inx_knot, unknown_str)
 SELECT
-  {plnprsn_s_agg_tablename}.face_name
+  {plnptnr_s_agg_tablename}.face_name
 , '{default_knot}'
 , '{default_knot}'
 , '{default_unknown_str}'
-FROM {plnprsn_s_agg_tablename} 
-LEFT JOIN translate_core_s_vld ON translate_core_s_vld.face_name = {plnprsn_s_agg_tablename}.face_name
+FROM {plnptnr_s_agg_tablename} 
+LEFT JOIN translate_core_s_vld ON translate_core_s_vld.face_name = {plnptnr_s_agg_tablename}.face_name
 WHERE translate_core_s_vld.face_name IS NULL
-GROUP BY {plnprsn_s_agg_tablename}.face_name
+GROUP BY {plnptnr_s_agg_tablename}.face_name
 ;
 """
     print(expected_sqlstr)

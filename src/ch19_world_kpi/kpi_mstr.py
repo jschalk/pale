@@ -14,7 +14,7 @@ from src.ch19_world_kpi.kpi_sqlstr import (
 
 
 def create_populate_kpi001_table(cursor: sqlite3_Cursor):
-    cursor.execute("DROP TABLE IF EXISTS moment_kpi001_person_nets")
+    cursor.execute("DROP TABLE IF EXISTS moment_kpi001_partner_nets")
     cursor.execute(get_create_kpi001_sqlstr())
 
 
@@ -28,7 +28,7 @@ def get_all_kpi_functions() -> dict[str, set[str]]:
     Returns a dict of all KPI ids and their functions.
     """
     return {
-        "moment_kpi001_person_nets": create_populate_kpi001_table,
+        "moment_kpi001_partner_nets": create_populate_kpi001_table,
         "moment_kpi002_plan_pledges": create_populate_kpi002_table,
     }
 
@@ -39,7 +39,7 @@ def get_bundles_config() -> dict[str]:
     """
     return {
         "default_kpi_bundle": {
-            "moment_kpi001_person_nets",
+            "moment_kpi001_partner_nets",
             "moment_kpi002_plan_pledges",
         }
     }
@@ -61,7 +61,7 @@ def populate_kpi_bundle(cursor: sqlite3_Cursor, bundle_id: str = None):
 
     bundle_kpi_ids = get_kpi_set_from_bundle(bundle_id)
     for kpi_id in bundle_kpi_ids:
-        if kpi_id == "moment_kpi001_person_nets":
+        if kpi_id == "moment_kpi001_partner_nets":
             create_populate_kpi001_table(cursor)
         if kpi_id == "moment_kpi002_plan_pledges":
             create_populate_kpi002_table(cursor)

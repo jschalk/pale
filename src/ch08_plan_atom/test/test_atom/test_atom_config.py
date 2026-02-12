@@ -30,7 +30,7 @@ def test_CRUD_command_Exists():
 def test_get_plan_dimens_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_plan_dimens() == set(get_atom_config_dict().keys())
-    assert kw.plan_personunit in get_plan_dimens()
+    assert kw.plan_partnerunit in get_plan_dimens()
     assert is_plan_dimen(kw.kegroot) is False
 
 
@@ -40,7 +40,7 @@ def test_get_all_plan_dimen_keys_ReturnsObj():
     all_plan_dimen_keys = get_all_plan_dimen_keys()
 
     # THEN
-    assert not all_plan_dimen_keys.isdisjoint({kw.person_name})
+    assert not all_plan_dimen_keys.isdisjoint({kw.partner_name})
     expected_plan_keys = set()
     for plan_dimen in get_plan_dimens():
         expected_plan_keys.update(_get_atom_config_jkey_keys(plan_dimen))
@@ -63,7 +63,7 @@ def test_get_all_plan_dimen_delete_keys_ReturnsObj():
 
     # THEN
     assert not all_plan_dimen_delete_keys.isdisjoint(
-        {get_delete_key_name(kw.person_name)}
+        {get_delete_key_name(kw.partner_name)}
     )
     expected_plan_delete_keys = {
         get_delete_key_name(plan_dimen_key)
@@ -139,8 +139,8 @@ def test_get_atom_config_dict_EveryCrudOperationHasPlanDeltaOrderGroup():
     # WHEN / THEN
     assert _check_every_crud_dict_has_element(get_atom_config_dict(), atom_order_str)
     # # Simple script for editing atom_config.json
-    # set_mog(kw.INSERT, kw.plan_personunit, 0)
-    # set_mog(kw.INSERT, kw.plan_person_membership, 1)
+    # set_mog(kw.INSERT, kw.plan_partnerunit, 0)
+    # set_mog(kw.INSERT, kw.plan_partner_membership, 1)
     # set_mog(kw.INSERT, kw.plan_kegunit, 2)
     # set_mog(kw.INSERT, kw.plan_keg_awardunit, 3)
     # set_mog(kw.INSERT, kw.plan_keg_partyunit, 4)
@@ -148,8 +148,8 @@ def test_get_atom_config_dict_EveryCrudOperationHasPlanDeltaOrderGroup():
     # set_mog(kw.INSERT, kw.plan_keg_factunit, 6)
     # set_mog(kw.INSERT, kw.plan_keg_reasonunit, 7)
     # set_mog(kw.INSERT, kw.plan_keg_reason_caseunit, 8)
-    # set_mog(kw.UPDATE, kw.plan_personunit, 9)
-    # set_mog(kw.UPDATE, kw.plan_person_membership, 10)
+    # set_mog(kw.UPDATE, kw.plan_partnerunit, 9)
+    # set_mog(kw.UPDATE, kw.plan_partner_membership, 10)
     # set_mog(kw.UPDATE, kw.plan_kegunit, 11)
     # set_mog(kw.UPDATE, kw.plan_keg_awardunit, 12)
     # set_mog(kw.UPDATE, kw.plan_keg_factunit, 13)
@@ -162,12 +162,12 @@ def test_get_atom_config_dict_EveryCrudOperationHasPlanDeltaOrderGroup():
     # set_mog(kw.DELETE, kw.plan_keg_healerunit, 20)
     # set_mog(kw.DELETE, kw.plan_keg_awardunit, 21)
     # set_mog(kw.DELETE, kw.plan_kegunit, 22)
-    # set_mog(kw.DELETE, kw.plan_person_membership, 23)
-    # set_mog(kw.DELETE, kw.plan_personunit, 24)
+    # set_mog(kw.DELETE, kw.plan_partner_membership, 23)
+    # set_mog(kw.DELETE, kw.plan_partnerunit, 24)
     # set_mog(kw.UPDATE, kw.planunit, 25)
 
-    assert 0 == q_order(kw.INSERT, kw.plan_personunit)
-    assert 1 == q_order(kw.INSERT, kw.plan_person_membership)
+    assert 0 == q_order(kw.INSERT, kw.plan_partnerunit)
+    assert 1 == q_order(kw.INSERT, kw.plan_partner_membership)
     assert 2 == q_order(kw.INSERT, kw.plan_kegunit)
     assert 3 == q_order(kw.INSERT, kw.plan_keg_awardunit)
     assert 4 == q_order(kw.INSERT, kw.plan_keg_partyunit)
@@ -175,8 +175,8 @@ def test_get_atom_config_dict_EveryCrudOperationHasPlanDeltaOrderGroup():
     assert 6 == q_order(kw.INSERT, kw.plan_keg_factunit)
     assert 7 == q_order(kw.INSERT, kw.plan_keg_reasonunit)
     assert 8 == q_order(kw.INSERT, kw.plan_keg_reason_caseunit)
-    assert 9 == q_order(kw.UPDATE, kw.plan_personunit)
-    assert 10 == q_order(kw.UPDATE, kw.plan_person_membership)
+    assert 9 == q_order(kw.UPDATE, kw.plan_partnerunit)
+    assert 10 == q_order(kw.UPDATE, kw.plan_partner_membership)
     assert 11 == q_order(kw.UPDATE, kw.plan_kegunit)
     assert 12 == q_order(kw.UPDATE, kw.plan_keg_awardunit)
     assert 13 == q_order(kw.UPDATE, kw.plan_keg_factunit)
@@ -189,8 +189,8 @@ def test_get_atom_config_dict_EveryCrudOperationHasPlanDeltaOrderGroup():
     assert 20 == q_order(kw.DELETE, kw.plan_keg_healerunit)
     assert 21 == q_order(kw.DELETE, kw.plan_keg_awardunit)
     assert 22 == q_order(kw.DELETE, kw.plan_kegunit)
-    assert 23 == q_order(kw.DELETE, kw.plan_person_membership)
-    assert 24 == q_order(kw.DELETE, kw.plan_personunit)
+    assert 23 == q_order(kw.DELETE, kw.plan_partner_membership)
+    assert 24 == q_order(kw.DELETE, kw.plan_partnerunit)
     assert 25 == q_order(kw.UPDATE, kw.planunit)
 
 
@@ -207,8 +207,8 @@ def _get_atom_config_jvalues_len(x_dimen: str) -> int:
 def test_get_atom_config_dict_CheckEachDimenHasCorrectArgCount():
     # ESTABLISH / WHEN / THEN
     assert _get_atom_config_jkeys_len(kw.planunit) == 0
-    assert _get_atom_config_jkeys_len(kw.plan_personunit) == 1
-    assert _get_atom_config_jkeys_len(kw.plan_person_membership) == 2
+    assert _get_atom_config_jkeys_len(kw.plan_partnerunit) == 1
+    assert _get_atom_config_jkeys_len(kw.plan_partner_membership) == 2
     assert _get_atom_config_jkeys_len(kw.plan_kegunit) == 1
     assert _get_atom_config_jkeys_len(kw.plan_keg_awardunit) == 2
     assert _get_atom_config_jkeys_len(kw.plan_keg_reasonunit) == 2
@@ -218,8 +218,8 @@ def test_get_atom_config_dict_CheckEachDimenHasCorrectArgCount():
     assert _get_atom_config_jkeys_len(kw.plan_keg_factunit) == 2
 
     assert _get_atom_config_jvalues_len(kw.planunit) == 7
-    assert _get_atom_config_jvalues_len(kw.plan_personunit) == 2
-    assert _get_atom_config_jvalues_len(kw.plan_person_membership) == 2
+    assert _get_atom_config_jvalues_len(kw.plan_partnerunit) == 2
+    assert _get_atom_config_jvalues_len(kw.plan_partner_membership) == 2
     assert _get_atom_config_jvalues_len(kw.plan_kegunit) == 11
     assert _get_atom_config_jvalues_len(kw.plan_keg_awardunit) == 2
     assert _get_atom_config_jvalues_len(kw.plan_keg_reasonunit) == 1
@@ -328,8 +328,8 @@ def unique_jkeys():
             new_jkey_keys.remove(kw.keg_rope)
         if kw.reason_context in new_jkey_keys:
             new_jkey_keys.remove(kw.reason_context)
-        if kw.person_name in new_jkey_keys:
-            new_jkey_keys.remove(kw.person_name)
+        if kw.partner_name in new_jkey_keys:
+            new_jkey_keys.remove(kw.partner_name)
         if kw.group_title in new_jkey_keys:
             new_jkey_keys.remove(kw.group_title)
         print(f"{atom_dimen} {new_jkey_keys=}")
@@ -347,15 +347,15 @@ def test_get_atom_config_dict_SomeRequiredArgAreUnique():
     assert jkey_key_count == len(jkey_keys)
 
 
-def test_get_sorted_jkey_keys_ReturnsObj_plan_personunit():
+def test_get_sorted_jkey_keys_ReturnsObj_plan_partnerunit():
     # ESTABLISH
-    x_dimen = kw.plan_personunit
+    x_dimen = kw.plan_partnerunit
 
     # WHEN
     x_sorted_jkey_keys = get_sorted_jkey_keys(x_dimen)
 
     # THEN
-    assert x_sorted_jkey_keys == [kw.person_name]
+    assert x_sorted_jkey_keys == [kw.partner_name]
 
 
 def test_get_sorted_jkey_keys_ReturnsObj_plan_keg_reason_caseunit():
@@ -391,8 +391,8 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     # THEN
     assert len(nx) == 10
     cat_planunit = nx.get(kw.planunit)
-    cat_personunit = nx.get(kw.plan_personunit)
-    cat_membership = nx.get(kw.plan_person_membership)
+    cat_partnerunit = nx.get(kw.plan_partnerunit)
+    cat_membership = nx.get(kw.plan_partner_membership)
     cat_keg = nx.get(kw.plan_kegunit)
     cat_awardunit = nx.get(kw.plan_keg_awardunit)
     cat_reason = nx.get(kw.plan_keg_reasonunit)
@@ -402,7 +402,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     cat_fact = nx.get(kw.plan_keg_factunit)
 
     assert cat_planunit is not None
-    assert cat_personunit is not None
+    assert cat_partnerunit is not None
     assert cat_membership is not None
     assert cat_keg is not None
     assert cat_awardunit is not None
@@ -413,7 +413,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     assert cat_fact is not None
 
     normal_specs_planunit = cat_planunit.get(kw.normal_specs)
-    normal_specs_personunit = cat_personunit.get(kw.normal_specs)
+    normal_specs_partnerunit = cat_partnerunit.get(kw.normal_specs)
     normal_specs_membership = cat_membership.get(kw.normal_specs)
     normal_specs_keg = cat_keg.get(kw.normal_specs)
     normal_specs_awardunit = cat_awardunit.get(kw.normal_specs)
@@ -427,7 +427,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     print(f"{cat_planunit.keys()=}")
     print(f"{kw.normal_specs=}")
     assert normal_specs_planunit is not None
-    assert normal_specs_personunit is not None
+    assert normal_specs_partnerunit is not None
     assert normal_specs_membership is not None
     assert normal_specs_keg is not None
     assert normal_specs_awardunit is not None
@@ -438,7 +438,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     assert normal_specs_fact is not None
 
     table_name_planunit = normal_specs_planunit.get(kw.normal_table_name)
-    table_name_personunit = normal_specs_personunit.get(kw.normal_table_name)
+    table_name_partnerunit = normal_specs_partnerunit.get(kw.normal_table_name)
     table_name_membership = normal_specs_membership.get(kw.normal_table_name)
     table_name_keg = normal_specs_keg.get(kw.normal_table_name)
     table_name_awardunit = normal_specs_awardunit.get(kw.normal_table_name)
@@ -449,7 +449,7 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     table_name_fact = normal_specs_fact.get(kw.normal_table_name)
 
     assert table_name_planunit == "plan"
-    assert table_name_personunit == "personunit"
+    assert table_name_partnerunit == "partnerunit"
     assert table_name_membership == "membership"
     assert table_name_keg == "keg"
     assert table_name_awardunit == "awardunit"
@@ -473,22 +473,22 @@ def test_get_normalized_plan_table_build_ReturnsObj():
     assert planunit_columns.get(kw.respect_grain) is not None
     assert planunit_columns.get(kw.mana_grain) is not None
 
-    assert len(cat_personunit) == 2
-    personunit_columns = cat_personunit.get(columns_str)
-    assert len(personunit_columns) == 4
-    assert personunit_columns.get(kw.keg_uid) is not None
-    assert personunit_columns.get(kw.person_name) is not None
-    assert personunit_columns.get(kw.person_cred_lumen) is not None
-    assert personunit_columns.get(kw.person_debt_lumen) is not None
+    assert len(cat_partnerunit) == 2
+    partnerunit_columns = cat_partnerunit.get(columns_str)
+    assert len(partnerunit_columns) == 4
+    assert partnerunit_columns.get(kw.keg_uid) is not None
+    assert partnerunit_columns.get(kw.partner_name) is not None
+    assert partnerunit_columns.get(kw.partner_cred_lumen) is not None
+    assert partnerunit_columns.get(kw.partner_debt_lumen) is not None
 
-    person_name_dict = personunit_columns.get(kw.person_name)
-    assert len(person_name_dict) == 2
-    assert person_name_dict.get(kw.sqlite_datatype) == "TEXT"
-    assert person_name_dict.get("nullable") is False
-    person_debt_lumen_dict = personunit_columns.get("person_debt_lumen")
-    assert len(person_name_dict) == 2
-    assert person_debt_lumen_dict.get(kw.sqlite_datatype) == "REAL"
-    assert person_debt_lumen_dict.get("nullable") is True
+    partner_name_dict = partnerunit_columns.get(kw.partner_name)
+    assert len(partner_name_dict) == 2
+    assert partner_name_dict.get(kw.sqlite_datatype) == "TEXT"
+    assert partner_name_dict.get("nullable") is False
+    partner_debt_lumen_dict = partnerunit_columns.get("partner_debt_lumen")
+    assert len(partner_name_dict) == 2
+    assert partner_debt_lumen_dict.get(kw.sqlite_datatype) == "REAL"
+    assert partner_debt_lumen_dict.get("nullable") is True
 
     assert len(cat_keg) == 2
     keg_columns = cat_keg.get(columns_str)
@@ -539,7 +539,7 @@ def get_class_type(x_dimen: str, x_arg: str) -> str:
 
 def test_get_class_type_ReturnsObj():
     # ESTABLISH / WHEN / THEN
-    assert get_class_type(kw.plan_personunit, kw.person_name) == kw.NameTerm
+    assert get_class_type(kw.plan_partnerunit, kw.partner_name) == kw.NameTerm
     assert get_class_type(kw.plan_kegunit, kw.gogo_want) == "float"
 
 
@@ -608,7 +608,7 @@ def test_get_atom_args_class_types_ReturnsObj():
     x_class_types = get_atom_args_class_types()
 
     # THEN
-    assert x_class_types.get(kw.person_name) == kw.NameTerm
+    assert x_class_types.get(kw.partner_name) == kw.NameTerm
     assert x_class_types.get(kw.addin) == "float"
     assert x_class_types.get(kw.awardee_title) == kw.TitleTerm
     assert x_class_types.get(kw.reason_context) == kw.RopeTerm
@@ -616,10 +616,10 @@ def test_get_atom_args_class_types_ReturnsObj():
     assert x_class_types.get(kw.begin) == "float"
     assert x_class_types.get(kw.respect_grain) == "float"
     assert x_class_types.get(kw.close) == "float"
-    assert x_class_types.get(kw.person_cred_lumen) == "float"
+    assert x_class_types.get(kw.partner_cred_lumen) == "float"
     assert x_class_types.get(kw.group_cred_lumen) == "float"
     assert x_class_types.get(kw.credor_respect) == "float"
-    assert x_class_types.get(kw.person_debt_lumen) == "float"
+    assert x_class_types.get(kw.partner_debt_lumen) == "float"
     assert x_class_types.get(kw.group_debt_lumen) == "float"
     assert x_class_types.get(kw.debtor_respect) == "float"
     assert x_class_types.get(kw.denom) == "int"

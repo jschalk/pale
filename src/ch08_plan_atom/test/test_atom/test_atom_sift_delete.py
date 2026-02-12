@@ -1,4 +1,4 @@
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -6,15 +6,15 @@ from src.ch08_plan_atom.atom_main import planatom_shop, sift_planatom
 from src.ref.keywords import Ch08Keywords as kw, ExampleStrs as exx
 
 
-def test_sift_atom_ReturnsObj_PlanAtom_DELETE_plan_personunit():
+def test_sift_atom_ReturnsObj_PlanAtom_DELETE_plan_partnerunit():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_personunit(exx.zia)
+    sue_plan.add_partnerunit(exx.zia)
 
-    bob_atom = planatom_shop(kw.plan_personunit, kw.DELETE)
-    bob_atom.set_arg(kw.person_name, exx.bob)
-    zia_atom = planatom_shop(kw.plan_personunit, kw.DELETE)
-    zia_atom.set_arg(kw.person_name, exx.zia)
+    bob_atom = planatom_shop(kw.plan_partnerunit, kw.DELETE)
+    bob_atom.set_arg(kw.partner_name, exx.bob)
+    zia_atom = planatom_shop(kw.plan_partnerunit, kw.DELETE)
+    zia_atom.set_arg(kw.partner_name, exx.zia)
 
     # WHEN
     new_bob_planatom = sift_planatom(sue_plan, bob_atom)
@@ -26,21 +26,21 @@ def test_sift_atom_ReturnsObj_PlanAtom_DELETE_plan_personunit():
     assert not new_bob_planatom
 
 
-def test_sift_atom_ReturnsObj_PlanAtom_DELETE_plan_person_membership():
+def test_sift_atom_ReturnsObj_PlanAtom_DELETE_plan_partner_membership():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_personunit(exx.yao)
-    sue_plan.add_personunit(exx.bob)
-    yao_personunit = sue_plan.get_person(exx.yao)
-    yao_personunit.add_membership(exx.run)
-    print(f"{yao_personunit.memberships.keys()=}")
+    sue_plan.add_partnerunit(exx.yao)
+    sue_plan.add_partnerunit(exx.bob)
+    yao_partnerunit = sue_plan.get_partner(exx.yao)
+    yao_partnerunit.add_membership(exx.run)
+    print(f"{yao_partnerunit.memberships.keys()=}")
 
-    bob_run_atom = planatom_shop(kw.plan_person_membership, kw.DELETE)
-    bob_run_atom.set_arg(kw.person_name, exx.bob)
+    bob_run_atom = planatom_shop(kw.plan_partner_membership, kw.DELETE)
+    bob_run_atom.set_arg(kw.partner_name, exx.bob)
     bob_run_atom.set_arg(kw.group_title, exx.run)
-    yao_run_atom = planatom_shop(kw.plan_person_membership, kw.DELETE)
-    yao_run_atom.set_arg(kw.person_name, exx.yao)
+    yao_run_atom = planatom_shop(kw.plan_partner_membership, kw.DELETE)
+    yao_run_atom.set_arg(kw.partner_name, exx.yao)
     yao_run_atom.set_arg(kw.group_title, exx.run)
 
     # WHEN

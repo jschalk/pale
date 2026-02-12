@@ -75,7 +75,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_PlanUnits(
     save_json(moment_json_path, None, a23_moment.to_dict())
     # create plan gut file
     bob_gut = planunit_shop(exx.bob, exx.a23)
-    bob_gut.add_personunit("Yao", 44, 55)
+    bob_gut.add_partnerunit("Yao", 44, 55)
     a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_lasso, exx.bob)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
 

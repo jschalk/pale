@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import get_empty_dict_if_None, get_False_if_None
-from src.ch02_person.group import GroupTitle, GroupUnit
-from src.ch02_person.person import PersonName
+from src.ch02_partner.group import GroupTitle, GroupUnit
+from src.ch02_partner.partner import PartnerName
 
 
 class InvalidLaborHeirPopulateException(Exception):
@@ -93,7 +93,7 @@ class LaborHeir:
     def set_plan_name_is_labor(
         self,
         groupunits: dict[GroupTitle, GroupUnit],
-        plan_name: PersonName,
+        plan_name: PartnerName,
     ):
         self.plan_name_is_labor = self.get_plan_name_is_labor_bool(
             groupunits, plan_name
@@ -102,15 +102,15 @@ class LaborHeir:
     def get_plan_name_is_labor_bool(
         self,
         groupunits: dict[GroupTitle, GroupUnit],
-        plan_name: PersonName,
+        plan_name: PartnerName,
     ) -> bool:
         if self.partys == {}:
             return True
 
         for x_party_title, x_groupunit in groupunits.items():
             if x_party_title in self.partys:
-                for x_person_name in x_groupunit.memberships.keys():
-                    if x_person_name == plan_name:
+                for x_partner_name in x_groupunit.memberships.keys():
+                    if x_partner_name == plan_name:
                         return True
         return False
 

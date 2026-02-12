@@ -10,33 +10,33 @@ from src.ch12_keep._ref.ch12_semantic_types import (
     ManaGrain,
     ManaNum,
     MomentRope,
-    PersonName,
+    PartnerName,
     PlanName,
     RespectNum,
     RopeTerm,
 )
 
 
-def get_patientledger(x_plan: PlanUnit) -> dict[PersonName, RespectNum]:
+def get_patientledger(x_plan: PlanUnit) -> dict[PartnerName, RespectNum]:
     return {
-        personunit.person_name: personunit.person_cred_lumen
-        for personunit in x_plan.persons.values()
-        if personunit.person_cred_lumen > 0
+        partnerunit.partner_name: partnerunit.partner_cred_lumen
+        for partnerunit in x_plan.partners.values()
+        if partnerunit.partner_cred_lumen > 0
     }
 
 
-def get_doctorledger(x_plan: PlanUnit) -> dict[PersonName, RespectNum]:
+def get_doctorledger(x_plan: PlanUnit) -> dict[PartnerName, RespectNum]:
     return {
-        personunit.person_name: personunit.person_debt_lumen
-        for personunit in x_plan.persons.values()
-        if personunit.person_debt_lumen > 0
+        partnerunit.partner_name: partnerunit.partner_debt_lumen
+        for partnerunit in x_plan.partners.values()
+        if partnerunit.partner_debt_lumen > 0
     }
 
 
 @dataclass
 class RiverBook:
     plan_name: PlanName = None
-    rivercares: dict[PersonName, float] = None
+    rivercares: dict[PartnerName, float] = None
     mana_grain: ManaGrain = None
 
 
@@ -66,8 +66,8 @@ def create_riverbook(
 class RiverCycle:
     healer_name: PlanName = None
     number: int = None
-    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None
-    riverbooks: dict[PersonName, RiverBook] = None
+    keep_patientledgers: dict[PlanName : dict[PartnerName, float]] = None
+    riverbooks: dict[PartnerName, RiverBook] = None
     mana_grain: ManaGrain = None
 
     def _set_complete_riverbook(self, x_riverbook: RiverBook):
@@ -75,20 +75,20 @@ class RiverCycle:
 
     def set_riverbook(
         self,
-        book_person_name: PersonName,
+        book_partner_name: PartnerName,
         book_point_amount: float,
     ):
-        plan_patientledger = self.keep_patientledgers.get(book_person_name)
+        plan_patientledger = self.keep_patientledgers.get(book_partner_name)
         if plan_patientledger is not None:
             x_riverbook = create_riverbook(
-                plan_name=book_person_name,
+                plan_name=book_partner_name,
                 keep_patientledger=plan_patientledger,
                 book_point_amount=book_point_amount,
                 mana_grain=default_grain_num_if_None(self.mana_grain),
             )
             self._set_complete_riverbook(x_riverbook)
 
-    def create_cylceledger(self) -> dict[PersonName, float]:
+    def create_cylceledger(self) -> dict[PartnerName, float]:
         x_dict = {}
         for x_riverbook in self.riverbooks.values():
             for caree, charge_amount in x_riverbook.rivercares.items():
@@ -102,7 +102,7 @@ class RiverCycle:
 def rivercycle_shop(
     healer_name: PlanName,
     number: int,
-    keep_patientledgers: dict[PlanName : dict[PersonName, float]] = None,
+    keep_patientledgers: dict[PlanName : dict[PartnerName, float]] = None,
     mana_grain: ManaGrain = None,
 ):
     return RiverCycle(
@@ -116,7 +116,7 @@ def rivercycle_shop(
 
 def create_init_rivercycle(
     healer_name: PlanName,
-    keep_patientledgers: dict[PlanName : dict[PersonName, float]],
+    keep_patientledgers: dict[PlanName : dict[PartnerName, float]],
     keep_point_magnitude: ManaNum = None,
     mana_grain: ManaGrain = None,
 ) -> RiverCycle:
@@ -129,7 +129,7 @@ def create_init_rivercycle(
 
 def create_next_rivercycle(
     prev_rivercycle: RiverCycle,
-    prev_cycle_cycleledger_post_need: dict[PersonName, float],
+    prev_cycle_cycleledger_post_need: dict[PartnerName, float],
 ) -> RiverCycle:
     next_rivercycle = rivercycle_shop(
         healer_name=prev_rivercycle.healer_name,
@@ -147,7 +147,7 @@ class RiverGrade:
     moment_rope: MomentRope = None
     plan_name: PlanName = None
     keep_rope: RopeTerm = None
-    person_name: PersonName = None
+    partner_name: PartnerName = None
     number: int = None
     need_bill_amount: float = None
     care_amount: float = None
@@ -206,7 +206,7 @@ def rivergrade_shop(
     moment_rope: MomentRope,
     plan_name: PlanName,
     keep_rope: RopeTerm,
-    person_name: PersonName,
+    partner_name: PartnerName,
     number: float = None,
     doctor_count: int = None,
     patient_count: int = None,
@@ -215,7 +215,7 @@ def rivergrade_shop(
         moment_rope=moment_rope,
         plan_name=plan_name,
         keep_rope=keep_rope,
-        person_name=person_name,
+        partner_name=partner_name,
         number=get_0_if_None(number),
         doctor_count=doctor_count,
         patient_count=patient_count,

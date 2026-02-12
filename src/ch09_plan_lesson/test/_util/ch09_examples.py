@@ -91,9 +91,9 @@ def get_plandelta_sue_example() -> PlanDelta:
     pool_planatom.set_jvalue(pool_attribute, 77)
     sue_plandelta.set_planatom(pool_planatom)
 
-    dimen = kw.plan_personunit
+    dimen = kw.plan_partnerunit
     sue_planatom = planatom_shop(dimen, kw.DELETE)
-    sue_planatom.set_jkey(kw.person_name, exx.sue)
+    sue_planatom.set_jkey(kw.partner_name, exx.sue)
     sue_plandelta.set_planatom(sue_planatom)
     return sue_plandelta
 
@@ -107,8 +107,8 @@ def get_plandelta_example1() -> PlanDelta:
     x_planatom.set_jvalue(kw.debtor_respect, 88)
     sue_plandelta.set_planatom(x_planatom)
 
-    x_planatom = planatom_shop(dimen=kw.plan_personunit, crud_str=kw.DELETE)
-    x_planatom.set_jkey(kw.person_name, exx.zia)
+    x_planatom = planatom_shop(dimen=kw.plan_partnerunit, crud_str=kw.DELETE)
+    x_planatom.set_jkey(kw.partner_name, exx.zia)
     sue_plandelta.set_planatom(x_planatom)
     return sue_plandelta
 

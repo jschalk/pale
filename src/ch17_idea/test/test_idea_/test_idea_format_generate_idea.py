@@ -5,65 +5,71 @@ from src.ch07_plan_logic.test._util.ch07_examples import planunit_v001
 from src.ch08_plan_atom.atom_main import planatom_shop
 from src.ch17_idea.idea_config import (
     idea_format_00013_kegunit_v0_0_0,
-    idea_format_00021_plan_personunit_v0_0_0,
+    idea_format_00021_plan_partnerunit_v0_0_0,
 )
 from src.ch17_idea.idea_main import create_idea_df, get_idearef_obj, make_plandelta
 from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
-def test_make_plandelta_Arg_idea_format_00021_plan_personunit_v0_0_0():
+def test_make_plandelta_Arg_idea_format_00021_plan_partnerunit_v0_0_0():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
-    sue_person_cred_lumen = 11
-    bob_person_cred_lumen = 13
-    yao_person_cred_lumen = 41
-    sue_person_debt_lumen = 23
-    bob_person_debt_lumen = 29
-    yao_person_debt_lumen = 37
+    sue_partner_cred_lumen = 11
+    bob_partner_cred_lumen = 13
+    yao_partner_cred_lumen = 41
+    sue_partner_debt_lumen = 23
+    bob_partner_debt_lumen = 29
+    yao_partner_debt_lumen = 37
     amy_moment_rope = create_rope("amy56")
     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
-    sue_planunit.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
-    sue_planunit.add_personunit(exx.bob, bob_person_cred_lumen, bob_person_debt_lumen)
-    sue_planunit.add_personunit(exx.yao, yao_person_cred_lumen, yao_person_debt_lumen)
-    x_idea_name = idea_format_00021_plan_personunit_v0_0_0()
-    person_dataframe = create_idea_df(sue_planunit, x_idea_name)
-    print(f"{person_dataframe.columns=}")
-    person_csv = person_dataframe.to_csv(index=False)
+    sue_planunit.add_partnerunit(
+        exx.sue, sue_partner_cred_lumen, sue_partner_debt_lumen
+    )
+    sue_planunit.add_partnerunit(
+        exx.bob, bob_partner_cred_lumen, bob_partner_debt_lumen
+    )
+    sue_planunit.add_partnerunit(
+        exx.yao, yao_partner_cred_lumen, yao_partner_debt_lumen
+    )
+    x_idea_name = idea_format_00021_plan_partnerunit_v0_0_0()
+    partner_dataframe = create_idea_df(sue_planunit, x_idea_name)
+    print(f"{partner_dataframe.columns=}")
+    partner_csv = partner_dataframe.to_csv(index=False)
 
     # WHEN
-    sue_person_plandelta = make_plandelta(person_csv)
+    sue_partner_plandelta = make_plandelta(partner_csv)
 
     # THEN
-    assert sue_person_plandelta
-    sue_planatom = planatom_shop(kw.plan_personunit, kw.INSERT)
-    sue_planatom.set_arg(kw.person_name, exx.sue)
-    sue_planatom.set_arg(kw.person_cred_lumen, sue_person_cred_lumen)
-    sue_planatom.set_arg(kw.person_debt_lumen, sue_person_debt_lumen)
+    assert sue_partner_plandelta
+    sue_planatom = planatom_shop(kw.plan_partnerunit, kw.INSERT)
+    sue_planatom.set_arg(kw.partner_name, exx.sue)
+    sue_planatom.set_arg(kw.partner_cred_lumen, sue_partner_cred_lumen)
+    sue_planatom.set_arg(kw.partner_debt_lumen, sue_partner_debt_lumen)
     sue_planatom.set_atom_order()
-    bob_planatom = planatom_shop(kw.plan_personunit, kw.INSERT)
-    bob_planatom.set_arg(kw.person_name, exx.bob)
-    bob_planatom.set_arg(kw.person_cred_lumen, bob_person_cred_lumen)
-    bob_planatom.set_arg(kw.person_debt_lumen, bob_person_debt_lumen)
+    bob_planatom = planatom_shop(kw.plan_partnerunit, kw.INSERT)
+    bob_planatom.set_arg(kw.partner_name, exx.bob)
+    bob_planatom.set_arg(kw.partner_cred_lumen, bob_partner_cred_lumen)
+    bob_planatom.set_arg(kw.partner_debt_lumen, bob_partner_debt_lumen)
     bob_planatom.set_atom_order()
-    # print(f"{sue_person_plandelta.get_ordered_dict()=}")
+    # print(f"{sue_partner_plandelta.get_ordered_dict()=}")
     # print(
-    #     f"{sue_person_plandelta.planatoms.get(kw.INSERT).get(kw.plan_personunit).get(exx.sue)=}"
+    #     f"{sue_partner_plandelta.planatoms.get(kw.INSERT).get(kw.plan_partnerunit).get(exx.sue)=}"
     # )
     print(f"{sue_planatom=}")
-    assert sue_person_plandelta.c_planatom_exists(sue_planatom)
-    assert sue_person_plandelta.c_planatom_exists(bob_planatom)
-    assert len(sue_person_plandelta.get_ordered_planatoms()) == 3
+    assert sue_partner_plandelta.c_planatom_exists(sue_planatom)
+    assert sue_partner_plandelta.c_planatom_exists(bob_planatom)
+    assert len(sue_partner_plandelta.get_ordered_planatoms()) == 3
 
 
-# def test_make_plandelta_Arg_idea_format_00020_plan_person_membership_v0_0_0():
+# def test_make_plandelta_Arg_idea_format_00020_plan_partner_membership_v0_0_0():
 #     # ESTABLISH
 #     exx.bob = "Bob"
 #     exx.yao = "Yao"
 #     amy_moment_rope = create_rope("amy56")
 #     sue_planunit = planunit_shop(exx.sue, amy_moment_rope)
-#     sue_planunit.add_personunit(exx.sue)
-#     sue_planunit.add_personunit(exx.bob)
-#     sue_planunit.add_personunit(exx.yao)
+#     sue_planunit.add_partnerunit(exx.sue)
+#     sue_planunit.add_partnerunit(exx.bob)
+#     sue_planunit.add_partnerunit(exx.yao)
 #     iowa_str = ";Iowa"
 #     sue_iowa_group_cred_lumen = 37
 #     bob_iowa_group_cred_lumen = 43
@@ -74,14 +80,14 @@ def test_make_plandelta_Arg_idea_format_00021_plan_personunit_v0_0_0():
 #     ohio_str = ";Ohio"
 #     yao_ohio_group_cred_lumen = 73
 #     yao_ohio_group_debt_lumen = 67
-#     sue_personunit = sue_planunit.get_person(exx.sue)
-#     bob_personunit = sue_planunit.get_person(exx.bob)
-#     yao_personunit = sue_planunit.get_person(exx.yao)
-#     sue_personunit.add_membership(iowa_str, sue_iowa_group_cred_lumen, sue_iowa_group_debt_lumen)
-#     bob_personunit.add_membership(iowa_str, bob_iowa_group_cred_lumen, bob_iowa_group_debt_lumen)
-#     yao_personunit.add_membership(iowa_str, yao_iowa_group_cred_lumen, yao_iowa_group_debt_lumen)
-#     yao_personunit.add_membership(ohio_str, yao_ohio_group_cred_lumen, yao_ohio_group_debt_lumen)
-#     x_idea_name = idea_format_00020_plan_person_membership_v0_0_0()
+#     sue_partnerunit = sue_planunit.get_partner(exx.sue)
+#     bob_partnerunit = sue_planunit.get_partner(exx.bob)
+#     yao_partnerunit = sue_planunit.get_partner(exx.yao)
+#     sue_partnerunit.add_membership(iowa_str, sue_iowa_group_cred_lumen, sue_iowa_group_debt_lumen)
+#     bob_partnerunit.add_membership(iowa_str, bob_iowa_group_cred_lumen, bob_iowa_group_debt_lumen)
+#     yao_partnerunit.add_membership(iowa_str, yao_iowa_group_cred_lumen, yao_iowa_group_debt_lumen)
+#     yao_partnerunit.add_membership(ohio_str, yao_ohio_group_cred_lumen, yao_ohio_group_debt_lumen)
+#     x_idea_name = idea_format_00020_plan_partner_membership_v0_0_0()
 #     membership_dataframe = create_idea_df(sue_planunit, x_idea_name)
 #     assert len(membership_dataframe) == 10
 #     print(membership_dataframe)
@@ -93,18 +99,18 @@ def test_make_plandelta_Arg_idea_format_00021_plan_personunit_v0_0_0():
 
 #     # THEN
 #     assert membership_changunit
-#     sue_iowa_planatom = planatom_shop(kw.plan_person_membership, kw.INSERT)
-#     bob_iowa_planatom = planatom_shop(kw.plan_person_membership, kw.INSERT)
-#     yao_iowa_planatom = planatom_shop(kw.plan_person_membership, kw.INSERT)
-#     yao_ohio_planatom = planatom_shop(kw.plan_person_membership, kw.INSERT)
+#     sue_iowa_planatom = planatom_shop(kw.plan_partner_membership, kw.INSERT)
+#     bob_iowa_planatom = planatom_shop(kw.plan_partner_membership, kw.INSERT)
+#     yao_iowa_planatom = planatom_shop(kw.plan_partner_membership, kw.INSERT)
+#     yao_ohio_planatom = planatom_shop(kw.plan_partner_membership, kw.INSERT)
 #     sue_iowa_planatom.set_arg(kw.group_title, iowa_str)
 #     bob_iowa_planatom.set_arg(kw.group_title, iowa_str)
 #     yao_iowa_planatom.set_arg(kw.group_title, iowa_str)
 #     yao_ohio_planatom.set_arg(kw.group_title, ohio_str)
-#     sue_iowa_planatom.set_arg(kw.person_name, exx.sue)
-#     bob_iowa_planatom.set_arg(kw.person_name, exx.bob)
-#     yao_iowa_planatom.set_arg(kw.person_name, exx.yao)
-#     yao_ohio_planatom.set_arg(kw.person_name, exx.yao)
+#     sue_iowa_planatom.set_arg(kw.partner_name, exx.sue)
+#     bob_iowa_planatom.set_arg(kw.partner_name, exx.bob)
+#     yao_iowa_planatom.set_arg(kw.partner_name, exx.yao)
+#     yao_ohio_planatom.set_arg(kw.partner_name, exx.yao)
 #     sue_iowa_planatom.set_arg(kw.group_cred_lumen, sue_iowa_group_cred_lumen)
 #     bob_iowa_planatom.set_arg(kw.group_cred_lumen, bob_iowa_group_cred_lumen)
 #     yao_iowa_planatom.set_arg(kw.group_cred_lumen, yao_iowa_group_cred_lumen)

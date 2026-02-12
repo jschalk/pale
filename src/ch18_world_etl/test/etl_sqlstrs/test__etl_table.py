@@ -56,7 +56,7 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
 
     # WHEN
     plnunit_s_agg_table = create_prime_tablename(kw.plnunit, "s", agg_str, put_str)
-    plnprsn_s_agg_table = create_prime_tablename(kw.plnprsn, "s", agg_str, put_str)
+    plnptnr_s_agg_table = create_prime_tablename(kw.plnptnr, "s", agg_str, put_str)
     plnmemb_s_agg_table = create_prime_tablename(kw.plnmemb, "s", agg_str, put_str)
     plnkegg_s_agg_table = create_prime_tablename(kw.plnkegg, "s", agg_str, put_str)
     plnawar_s_agg_table = create_prime_tablename(kw.plnawar, "s", agg_str, put_str)
@@ -83,14 +83,14 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     trltitl_s_val_table = create_prime_tablename(kw.trltitl, "s", vld_str)
     trlcore_s_raw_table = create_prime_tablename(kw.trlcore, "s", raw_str)
     trlcore_s_agg_table = create_prime_tablename(kw.trlcore, "s", agg_str)
-    plnprsn_job_table = create_prime_tablename(kw.plnprsn, kw.job, None)
-    x_plnprsn_raw = create_prime_tablename(kw.plnprsn, "k", raw_str)
+    plnptnr_job_table = create_prime_tablename(kw.plnptnr, kw.job, None)
+    x_plnptnr_raw = create_prime_tablename(kw.plnptnr, "k", raw_str)
     plngrou_job_table = create_prime_tablename(kw.plngrou, kw.job, None)
 
     # THEN
     assert plnunit_s_agg_table == f"{kw.planunit}_s_put_agg"
-    assert plnprsn_s_agg_table == f"{kw.plan_personunit}_s_put_agg"
-    assert plnmemb_s_agg_table == f"{kw.plan_person_membership}_s_put_agg"
+    assert plnptnr_s_agg_table == f"{kw.plan_partnerunit}_s_put_agg"
+    assert plnmemb_s_agg_table == f"{kw.plan_partner_membership}_s_put_agg"
     assert plnkegg_s_agg_table == f"{kw.plan_kegunit}_s_put_agg"
     assert plnawar_s_agg_table == f"{kw.plan_keg_awardunit}_s_put_agg"
     assert plnreas_s_agg_table == f"{kw.plan_keg_reasonunit}_s_put_agg"
@@ -116,9 +116,9 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert trltitl_s_val_table == f"{kw.translate_title}_s_vld"
     assert trlcore_s_raw_table == f"{kw.translate_core}_s_raw"
     assert trlcore_s_agg_table == f"{kw.translate_core}_s_agg"
-    assert plnprsn_job_table == f"{kw.plan_personunit}_job"
+    assert plnptnr_job_table == f"{kw.plan_partnerunit}_job"
     assert plngrou_job_table == f"{kw.plan_groupunit}_job"
-    assert x_plnprsn_raw == f"{kw.plan_personunit}_raw"
+    assert x_plnptnr_raw == f"{kw.plan_partnerunit}_raw"
 
 
 def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():

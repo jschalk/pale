@@ -53,8 +53,8 @@ def test_riverbook_shop_ReturnsObj_Scenario1_mana_grain_Exists():
 def test_create_riverbook_ReturnsObj_Scenario0_mana_grain_IsNone():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_personunit(exx.yao)
-    yao_plan.add_personunit(exx.sue)
+    yao_plan.add_partnerunit(exx.yao)
+    yao_plan.add_partnerunit(exx.sue)
     yao_book_point_amount = 500
     yao_patientledger = get_patientledger(yao_plan)
 
@@ -71,8 +71,8 @@ def test_create_riverbook_ReturnsObj_Scenario0_mana_grain_IsNone():
 def test_create_riverbook_ReturnsObj_Scenario0_mana_grain_ArgPassed():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_personunit(exx.yao)
-    yao_plan.add_personunit(exx.sue)
+    yao_plan.add_partnerunit(exx.yao)
+    yao_plan.add_partnerunit(exx.sue)
     yao_book_point_amount = 500
     yao_patientledger = get_patientledger(yao_plan)
     yao_mana_grain = 4

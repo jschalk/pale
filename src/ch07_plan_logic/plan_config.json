@@ -265,8 +265,8 @@
     }, 
     "jvalues": {
       "addin": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}, 
-      "all_person_cred": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
-      "all_person_debt": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
+      "all_partner_cred": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
+      "all_partner_debt": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}, 
       "begin": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}, 
       "close": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}, 
       "denom": {
@@ -315,7 +315,7 @@
       "tree_level": {"class_type": "int", "populate_by_cashout": true, "sqlite_datatype": "INTEGER"}
     }
   }, 
-  "plan_person_membership": {
+  "plan_partner_membership": {
     "abbreviation": "plnmemb", 
     "jkeys": {
       "group_title": {
@@ -328,7 +328,7 @@
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "person_name": {
+      "partner_name": {
         "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -352,15 +352,15 @@
       "group_debt_lumen": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}
     }
   }, 
-  "plan_personunit": {
-    "abbreviation": "plnprsn", 
+  "plan_partnerunit": {
+    "abbreviation": "plnptnr", 
     "jkeys": {
       "moment_rope": {
         "class_type": "LabelTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "person_name": {
+      "partner_name": {
         "class_type": "NameTerm", 
         "populate_by_cashout": false, 
         "sqlite_datatype": "TEXT"
@@ -381,10 +381,10 @@
       "fund_give": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
       "fund_take": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
       "groupmark": {"class_type": "str", "populate_by_cashout": true, "sqlite_datatype": "TEXT"}, 
-      "inallocable_person_debt_lumen": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
-      "irrational_person_debt_lumen": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
-      "person_cred_lumen": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}, 
-      "person_debt_lumen": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}
+      "inallocable_partner_debt_lumen": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
+      "irrational_partner_debt_lumen": {"class_type": "float", "populate_by_cashout": true, "sqlite_datatype": "REAL"}, 
+      "partner_cred_lumen": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}, 
+      "partner_debt_lumen": {"class_type": "float", "populate_by_cashout": false, "sqlite_datatype": "REAL"}
     }
   }, 
   "planunit": {

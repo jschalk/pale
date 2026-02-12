@@ -12,7 +12,7 @@ from src.ch07_plan_logic.plan_config import (
     max_tree_traverse_default,
     plan_config_path,
 )
-from src.ch07_plan_logic.plan_main import PersonUnit, PlanUnit
+from src.ch07_plan_logic.plan_main import PartnerUnit, PlanUnit
 from src.ref.keywords import Ch07Keywords as kw
 
 
@@ -41,8 +41,8 @@ def test_get_plan_config_dict_ReturnsObj_CheckLevel0Keys():
 
     # THEN
     assert kw.planunit in plan_config_keys
-    assert kw.plan_personunit in plan_config_keys
-    assert kw.plan_person_membership in plan_config_keys
+    assert kw.plan_partnerunit in plan_config_keys
+    assert kw.plan_partner_membership in plan_config_keys
     assert kw.plan_kegunit in plan_config_keys
     assert kw.plan_keg_awardunit in plan_config_keys
     assert kw.plan_keg_reasonunit in plan_config_keys
@@ -94,8 +94,8 @@ def test_get_plan_config_dict_ReturnsObj_CheckAbbreviations():
 
     # THEN
     plnunit_attribute = plan_config.get(kw.planunit)
-    plnprsn_attribute = plan_config.get(kw.plan_personunit)
-    plnmemb_attribute = plan_config.get(kw.plan_person_membership)
+    plnptnr_attribute = plan_config.get(kw.plan_partnerunit)
+    plnmemb_attribute = plan_config.get(kw.plan_partner_membership)
     plnkegg_attribute = plan_config.get(kw.plan_kegunit)
     plnawar_attribute = plan_config.get(kw.plan_keg_awardunit)
     plnreas_attribute = plan_config.get(kw.plan_keg_reasonunit)
@@ -106,7 +106,7 @@ def test_get_plan_config_dict_ReturnsObj_CheckAbbreviations():
     plngrou_attribute = plan_config.get(kw.plan_groupunit)
     abbr_str = "abbreviation"
     assert plnunit_attribute.get(abbr_str) == kw.plnunit
-    assert plnprsn_attribute.get(abbr_str) == kw.plnprsn
+    assert plnptnr_attribute.get(abbr_str) == kw.plnptnr
     assert plnmemb_attribute.get(abbr_str) == kw.plnmemb
     assert plnkegg_attribute.get(abbr_str) == kw.plnkegg
     assert plnawar_attribute.get(abbr_str) == kw.plnawar
@@ -129,9 +129,9 @@ def test_get_all_plan_calc_args_ReturnsObj():
     assert kw.fund_give in all_plan_calc_args
     assert all_plan_calc_args.get(kw.fund_give) == {
         kw.plan_keg_awardunit,
-        kw.plan_person_membership,
+        kw.plan_partner_membership,
         kw.plan_groupunit,
-        kw.plan_personunit,
+        kw.plan_partnerunit,
     }
 
     assert len(all_plan_calc_args) == 77
@@ -164,8 +164,8 @@ def test_get_plan_calc_dimens_ReturnsObj():
     # THEN
     expected_plan_calc_dimens = {
         kw.planunit,
-        kw.plan_personunit,
-        kw.plan_person_membership,
+        kw.plan_partnerunit,
+        kw.plan_partner_membership,
         kw.plan_kegunit,
         kw.plan_keg_awardunit,
         kw.plan_keg_reasonunit,
@@ -181,17 +181,17 @@ def test_get_plan_calc_dimens_ReturnsObj():
 
 def test_get_plan_calc_dimen_args_ReturnsObj():
     # ESTABLISH / WHEN
-    plan_personunit_args = get_plan_calc_dimen_args(kw.plan_personunit)
+    plan_partnerunit_args = get_plan_calc_dimen_args(kw.plan_partnerunit)
     plan_kegunit_args = get_plan_calc_dimen_args(kw.plan_kegunit)
     plan_groupunit_args = get_plan_calc_dimen_args(kw.plan_groupunit)
 
     #  THEN
-    print(f"          {plan_personunit_args=}")
+    print(f"          {plan_partnerunit_args=}")
     print("")
-    print(f"{set(PersonUnit().__dict__.keys())=}")
-    # print(plan_personunit_args.difference(set(PersonUnit().__dict__.keys())))
-    # assert plan_personunit_args == set(PersonUnit().__dict__.keys())
-    assert plan_personunit_args == {
+    print(f"{set(PartnerUnit().__dict__.keys())=}")
+    # print(plan_partnerunit_args.difference(set(PartnerUnit().__dict__.keys())))
+    # assert plan_partnerunit_args == set(PartnerUnit().__dict__.keys())
+    assert plan_partnerunit_args == {
         kw.moment_rope,
         kw.plan_name,
         kw.credor_pool,
@@ -202,11 +202,11 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
         kw.fund_agenda_ratio_take,
         kw.fund_give,
         kw.fund_take,
-        kw.person_cred_lumen,
-        kw.person_debt_lumen,
-        kw.person_name,
-        kw.inallocable_person_debt_lumen,
-        kw.irrational_person_debt_lumen,
+        kw.partner_cred_lumen,
+        kw.partner_debt_lumen,
+        kw.partner_name,
+        kw.inallocable_partner_debt_lumen,
+        kw.irrational_partner_debt_lumen,
         kw.groupmark,
     }
     assert plan_kegunit_args == {
@@ -226,8 +226,8 @@ def test_get_plan_calc_dimen_args_ReturnsObj():
         kw.fund_onset,
         kw.fund_cease,
         kw.descendant_pledge_count,
-        kw.all_person_cred,
-        kw.all_person_debt,
+        kw.all_partner_cred,
+        kw.all_partner_debt,
         kw.healerunit_ratio,
         kw.tree_level,
         kw.task,
@@ -304,8 +304,8 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     jk = kw.jkeys
     jv = kw.jvalues
     plnunit = kw.planunit
-    plnprsn = kw.plan_personunit
-    plnmemb = kw.plan_person_membership
+    plnptnr = kw.plan_partnerunit
+    plnmemb = kw.plan_partner_membership
     plnkegg = kw.plan_kegunit
     plnawar = kw.plan_keg_awardunit
     plnreas = kw.plan_keg_reasonunit
@@ -314,9 +314,9 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     plnheal = kw.plan_keg_healerunit
     plnfact = kw.plan_keg_factunit
     plngrou = kw.plan_groupunit
-    assert g_class_type(cfig, plnmemb, jk, kw.person_name) == kw.NameTerm
-    assert g_sqlitetype(cfig, plnmemb, jk, kw.person_name) == "TEXT"
-    assert g_popcashout(cfig, plnmemb, jk, kw.person_name) == False
+    assert g_class_type(cfig, plnmemb, jk, kw.partner_name) == kw.NameTerm
+    assert g_sqlitetype(cfig, plnmemb, jk, kw.partner_name) == "TEXT"
+    assert g_popcashout(cfig, plnmemb, jk, kw.partner_name) == False
 
     assert g_class_type(cfig, plnmemb, jk, kw.group_title) == kw.TitleTerm
     assert g_sqlitetype(cfig, plnmemb, jk, kw.group_title) == "TEXT"
@@ -362,57 +362,57 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, plnmemb, jv, kw.group_debt_lumen) == "REAL"
     assert g_popcashout(cfig, plnmemb, jv, kw.group_debt_lumen) == False
 
-    assert g_class_type(cfig, plnprsn, jk, kw.person_name) == kw.NameTerm
-    assert g_sqlitetype(cfig, plnprsn, jk, kw.person_name) == "TEXT"
-    assert g_popcashout(cfig, plnprsn, jk, kw.person_name) == False
+    assert g_class_type(cfig, plnptnr, jk, kw.partner_name) == kw.NameTerm
+    assert g_sqlitetype(cfig, plnptnr, jk, kw.partner_name) == "TEXT"
+    assert g_popcashout(cfig, plnptnr, jk, kw.partner_name) == False
 
-    assert g_class_type(cfig, plnprsn, jv, kw.credor_pool) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.credor_pool) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.credor_pool) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.credor_pool) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.credor_pool) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.credor_pool) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.debtor_pool) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.debtor_pool) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.debtor_pool) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.debtor_pool) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.debtor_pool) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.debtor_pool) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.fund_agenda_give) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.fund_agenda_give) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.fund_agenda_give) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.fund_agenda_give) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.fund_agenda_give) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.fund_agenda_give) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.fund_agenda_ratio_give) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.fund_agenda_ratio_give) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.fund_agenda_ratio_give) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.fund_agenda_ratio_give) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.fund_agenda_ratio_give) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.fund_agenda_ratio_give) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.fund_agenda_ratio_take) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.fund_agenda_ratio_take) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.fund_agenda_ratio_take) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.fund_agenda_ratio_take) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.fund_agenda_ratio_take) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.fund_agenda_ratio_take) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.fund_agenda_take) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.fund_agenda_take) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.fund_agenda_take) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.fund_agenda_take) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.fund_agenda_take) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.fund_agenda_take) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.fund_give) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.fund_give) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.fund_give) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.fund_give) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.fund_give) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.fund_give) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.fund_take) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.fund_take) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.fund_take) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.fund_take) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.fund_take) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.fund_take) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.inallocable_person_debt_lumen) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.inallocable_person_debt_lumen) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.inallocable_person_debt_lumen) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.inallocable_partner_debt_lumen) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.inallocable_partner_debt_lumen) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.inallocable_partner_debt_lumen) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.irrational_person_debt_lumen) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.irrational_person_debt_lumen) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.irrational_person_debt_lumen) == True
+    assert g_class_type(cfig, plnptnr, jv, kw.irrational_partner_debt_lumen) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.irrational_partner_debt_lumen) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.irrational_partner_debt_lumen) == True
 
-    assert g_class_type(cfig, plnprsn, jv, kw.person_cred_lumen) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.person_cred_lumen) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.person_cred_lumen) == False
+    assert g_class_type(cfig, plnptnr, jv, kw.partner_cred_lumen) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.partner_cred_lumen) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.partner_cred_lumen) == False
 
-    assert g_class_type(cfig, plnprsn, jv, kw.person_debt_lumen) == "float"
-    assert g_sqlitetype(cfig, plnprsn, jv, kw.person_debt_lumen) == "REAL"
-    assert g_popcashout(cfig, plnprsn, jv, kw.person_debt_lumen) == False
+    assert g_class_type(cfig, plnptnr, jv, kw.partner_debt_lumen) == "float"
+    assert g_sqlitetype(cfig, plnptnr, jv, kw.partner_debt_lumen) == "REAL"
+    assert g_popcashout(cfig, plnptnr, jv, kw.partner_debt_lumen) == False
 
     assert g_class_type(cfig, plngrou, jk, kw.group_title) == "TitleTerm"
     assert g_sqlitetype(cfig, plngrou, jk, kw.group_title) == "TEXT"
@@ -570,13 +570,13 @@ def test_get_plan_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, plnkegg, jv, kw.keg_active) == "INTEGER"
     assert g_popcashout(cfig, plnkegg, jv, kw.keg_active) == True
 
-    assert g_class_type(cfig, plnkegg, jv, kw.all_person_cred) == "int"
-    assert g_sqlitetype(cfig, plnkegg, jv, kw.all_person_cred) == "INTEGER"
-    assert g_popcashout(cfig, plnkegg, jv, kw.all_person_cred) == True
+    assert g_class_type(cfig, plnkegg, jv, kw.all_partner_cred) == "int"
+    assert g_sqlitetype(cfig, plnkegg, jv, kw.all_partner_cred) == "INTEGER"
+    assert g_popcashout(cfig, plnkegg, jv, kw.all_partner_cred) == True
 
-    assert g_class_type(cfig, plnkegg, jv, kw.all_person_debt) == "int"
-    assert g_sqlitetype(cfig, plnkegg, jv, kw.all_person_debt) == "INTEGER"
-    assert g_popcashout(cfig, plnkegg, jv, kw.all_person_debt) == True
+    assert g_class_type(cfig, plnkegg, jv, kw.all_partner_debt) == "int"
+    assert g_sqlitetype(cfig, plnkegg, jv, kw.all_partner_debt) == "INTEGER"
+    assert g_popcashout(cfig, plnkegg, jv, kw.all_partner_debt) == True
 
     assert g_class_type(cfig, plnkegg, jv, kw.descendant_pledge_count) == "int"
     assert g_sqlitetype(cfig, plnkegg, jv, kw.descendant_pledge_count) == "INTEGER"
@@ -790,7 +790,7 @@ def test_get_plan_calc_args_type_dict_ReturnsObj():
     plan_calc_args_type_dict = get_plan_calc_args_type_dict()
 
     # THEN
-    assert plan_calc_args_type_dict.get(kw.person_name) == kw.NameTerm
+    assert plan_calc_args_type_dict.get(kw.partner_name) == kw.NameTerm
     assert plan_calc_args_type_dict.get(kw.group_title) == kw.TitleTerm
     assert plan_calc_args_type_dict.get(kw.case_active) == "int"
     assert plan_calc_args_type_dict.get(kw.credor_pool) == "float"
@@ -803,10 +803,10 @@ def test_get_plan_calc_args_type_dict_ReturnsObj():
     assert plan_calc_args_type_dict.get(kw.fund_take) == "float"
     assert plan_calc_args_type_dict.get(kw.group_cred_lumen) == "int"
     assert plan_calc_args_type_dict.get(kw.group_debt_lumen) == "int"
-    assert plan_calc_args_type_dict.get(kw.inallocable_person_debt_lumen) == "float"
-    assert plan_calc_args_type_dict.get(kw.irrational_person_debt_lumen) == "float"
-    assert plan_calc_args_type_dict.get(kw.person_cred_lumen) == "float"
-    assert plan_calc_args_type_dict.get(kw.person_debt_lumen) == "float"
+    assert plan_calc_args_type_dict.get(kw.inallocable_partner_debt_lumen) == "float"
+    assert plan_calc_args_type_dict.get(kw.irrational_partner_debt_lumen) == "float"
+    assert plan_calc_args_type_dict.get(kw.partner_cred_lumen) == "float"
+    assert plan_calc_args_type_dict.get(kw.partner_debt_lumen) == "float"
     assert plan_calc_args_type_dict.get(kw.addin) == "float"
     assert plan_calc_args_type_dict.get(kw.begin) == "float"
     assert plan_calc_args_type_dict.get(kw.close) == "float"
@@ -838,8 +838,8 @@ def test_get_plan_calc_args_type_dict_ReturnsObj():
     assert plan_calc_args_type_dict.get(kw.party_title) == kw.TitleTerm
     assert plan_calc_args_type_dict.get(kw.plan_name_is_labor) == "int"
     assert plan_calc_args_type_dict.get(kw.keg_active) == "int"
-    assert plan_calc_args_type_dict.get(kw.all_person_cred) == "int"
-    assert plan_calc_args_type_dict.get(kw.all_person_debt) == "int"
+    assert plan_calc_args_type_dict.get(kw.all_partner_cred) == "int"
+    assert plan_calc_args_type_dict.get(kw.all_partner_debt) == "int"
     assert plan_calc_args_type_dict.get(kw.descendant_pledge_count) == "int"
     assert plan_calc_args_type_dict.get(kw.fund_cease) == "float"
     assert plan_calc_args_type_dict.get(kw.fund_onset) == "float"

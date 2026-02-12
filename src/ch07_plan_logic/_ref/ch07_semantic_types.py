@@ -1,12 +1,12 @@
 from src.ch01_allot._ref.ch01_semantic_types import GrainNum, PoolNum, WeightNum
-from src.ch02_person._ref.ch02_semantic_types import (
+from src.ch02_partner._ref.ch02_semantic_types import (
     FundGrain,
     FundNum,
     GroupMark,
     GroupTitle,
     HealerName,
     NameTerm,
-    PersonName,
+    PartnerName,
     RespectGrain,
     RespectNum,
     TitleTerm,
@@ -30,7 +30,7 @@ class MomentRope(RopeTerm):  # Created to help track the object class relations
 class PlanName(LabelTerm):
     """The LabelTerm used to identify a PlanUnit.
     Must be a LabelTerm/NameTerm because when identifying if a KegUnit is an active pledge the PlanName will be compared
-    against PersonNames. If they match the pledge will be active."""
+    against PartnerNames. If they match the pledge will be active."""
 
     pass
 

@@ -5,15 +5,15 @@ from src.ch09_plan_lesson.legible import create_legible_list
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
-def test_create_legible_list_ReturnsObj_personunit_INSERT():
+def test_create_legible_list_ReturnsObj_partnerunit_INSERT():
     # ESTABLISH
-    dimen = kw.plan_personunit
-    person_cred_lumen_value = 81
-    person_debt_lumen_value = 43
+    dimen = kw.plan_partnerunit
+    partner_cred_lumen_value = 81
+    partner_debt_lumen_value = 43
     yao_planatom = planatom_shop(dimen, kw.INSERT)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
-    yao_planatom.set_arg(kw.person_cred_lumen, person_cred_lumen_value)
-    yao_planatom.set_arg(kw.person_debt_lumen, person_debt_lumen_value)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_cred_lumen, partner_cred_lumen_value)
+    yao_planatom.set_arg(kw.partner_debt_lumen, partner_debt_lumen_value)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
     x_plandelta.set_planatom(yao_planatom)
@@ -23,20 +23,20 @@ def test_create_legible_list_ReturnsObj_personunit_INSERT():
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{exx.yao} was added with {person_cred_lumen_value} score credit and {person_debt_lumen_value} score debt"
+    x_str = f"{exx.yao} was added with {partner_cred_lumen_value} score credit and {partner_debt_lumen_value} score debt"
     print(f"{x_str=}")
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_personunit_INSERT_score():
+def test_create_legible_list_ReturnsObj_partnerunit_INSERT_score():
     # ESTABLISH
-    dimen = kw.plan_personunit
-    person_cred_lumen_value = 81
-    person_debt_lumen_value = 43
+    dimen = kw.plan_partnerunit
+    partner_cred_lumen_value = 81
+    partner_debt_lumen_value = 43
     yao_planatom = planatom_shop(dimen, kw.INSERT)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
-    yao_planatom.set_arg(kw.person_cred_lumen, person_cred_lumen_value)
-    yao_planatom.set_arg(kw.person_debt_lumen, person_debt_lumen_value)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_cred_lumen, partner_cred_lumen_value)
+    yao_planatom.set_arg(kw.partner_debt_lumen, partner_debt_lumen_value)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
     x_plandelta.set_planatom(yao_planatom)
@@ -46,20 +46,20 @@ def test_create_legible_list_ReturnsObj_personunit_INSERT_score():
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{exx.yao} was added with {person_cred_lumen_value} score credit and {person_debt_lumen_value} score debt"
+    x_str = f"{exx.yao} was added with {partner_cred_lumen_value} score credit and {partner_debt_lumen_value} score debt"
     print(f"{x_str=}")
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_personunit_UPDATE_person_cred_lumen_person_debt_lumen():
+def test_create_legible_list_ReturnsObj_partnerunit_UPDATE_partner_cred_lumen_partner_debt_lumen():
     # ESTABLISH
-    dimen = kw.plan_personunit
-    person_cred_lumen_value = 81
-    person_debt_lumen_value = 43
+    dimen = kw.plan_partnerunit
+    partner_cred_lumen_value = 81
+    partner_debt_lumen_value = 43
     yao_planatom = planatom_shop(dimen, kw.UPDATE)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
-    yao_planatom.set_arg(kw.person_cred_lumen, person_cred_lumen_value)
-    yao_planatom.set_arg(kw.person_debt_lumen, person_debt_lumen_value)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_cred_lumen, partner_cred_lumen_value)
+    yao_planatom.set_arg(kw.partner_debt_lumen, partner_debt_lumen_value)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
     x_plandelta.set_planatom(yao_planatom)
@@ -69,18 +69,18 @@ def test_create_legible_list_ReturnsObj_personunit_UPDATE_person_cred_lumen_pers
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{exx.yao} now has {person_cred_lumen_value} score credit and {person_debt_lumen_value} score debt."
+    x_str = f"{exx.yao} now has {partner_cred_lumen_value} score credit and {partner_debt_lumen_value} score debt."
     print(f"{x_str=}")
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_personunit_UPDATE_person_cred_lumen():
+def test_create_legible_list_ReturnsObj_partnerunit_UPDATE_partner_cred_lumen():
     # ESTABLISH
-    dimen = kw.plan_personunit
-    person_cred_lumen_value = 81
+    dimen = kw.plan_partnerunit
+    partner_cred_lumen_value = 81
     yao_planatom = planatom_shop(dimen, kw.UPDATE)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
-    yao_planatom.set_arg(kw.person_cred_lumen, person_cred_lumen_value)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_cred_lumen, partner_cred_lumen_value)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
     x_plandelta.set_planatom(yao_planatom)
@@ -90,18 +90,18 @@ def test_create_legible_list_ReturnsObj_personunit_UPDATE_person_cred_lumen():
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{exx.yao} now has {person_cred_lumen_value} score credit."
+    x_str = f"{exx.yao} now has {partner_cred_lumen_value} score credit."
     print(f"{x_str=}")
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_personunit_UPDATE_person_debt_lumen():
+def test_create_legible_list_ReturnsObj_partnerunit_UPDATE_partner_debt_lumen():
     # ESTABLISH
-    dimen = kw.plan_personunit
-    person_debt_lumen_value = 43
+    dimen = kw.plan_partnerunit
+    partner_debt_lumen_value = 43
     yao_planatom = planatom_shop(dimen, kw.UPDATE)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
-    yao_planatom.set_arg(kw.person_debt_lumen, person_debt_lumen_value)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_debt_lumen, partner_debt_lumen_value)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
     x_plandelta.set_planatom(yao_planatom)
@@ -111,16 +111,16 @@ def test_create_legible_list_ReturnsObj_personunit_UPDATE_person_debt_lumen():
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{exx.yao} now has {person_debt_lumen_value} score debt."
+    x_str = f"{exx.yao} now has {partner_debt_lumen_value} score debt."
     print(f"{x_str=}")
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_personunit_DELETE():
+def test_create_legible_list_ReturnsObj_partnerunit_DELETE():
     # ESTABLISH
-    dimen = kw.plan_personunit
+    dimen = kw.plan_partnerunit
     yao_planatom = planatom_shop(dimen, kw.DELETE)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
     x_plandelta.set_planatom(yao_planatom)
@@ -130,6 +130,6 @@ def test_create_legible_list_ReturnsObj_personunit_DELETE():
     legible_list = create_legible_list(x_plandelta, sue_plan)
 
     # THEN
-    x_str = f"{exx.yao} was removed from score persons."
+    x_str = f"{exx.yao} was removed from score partners."
     print(f"{x_str=}")
     assert legible_list[0] == x_str

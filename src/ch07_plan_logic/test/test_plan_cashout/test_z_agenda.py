@@ -450,14 +450,14 @@ def test_PlanUnit_set_fact_Isue116Resolved_SetstaskAsTrue():
     assert get_tasks_count(pledge_keg_list) == 64
 
 
-def test_PlanUnit_agenda_IsSetByLaborUnit_1PersonGroup():
+def test_PlanUnit_agenda_IsSetByLaborUnit_1PartnerGroup():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
     casa_rope = yao_plan.make_l1_rope(exx.casa)
     yao_plan.set_l1_keg(kegunit_shop(exx.casa, pledge=True))
     assert len(yao_plan.get_agenda_dict()) == 1
 
-    yao_plan.add_personunit(exx.sue)
+    yao_plan.add_partnerunit(exx.sue)
     laborunit_sue = laborunit_shop()
     laborunit_sue.add_party(party_title=exx.sue)
     assert len(yao_plan.get_agenda_dict()) == 1
@@ -469,7 +469,7 @@ def test_PlanUnit_agenda_IsSetByLaborUnit_1PersonGroup():
     assert len(yao_plan.get_agenda_dict()) == 0
 
     # WHEN
-    yao_plan.add_personunit(exx.yao)
+    yao_plan.add_partnerunit(exx.yao)
     laborunit_yao = laborunit_shop()
     laborunit_yao.add_party(party_title=exx.yao)
 
@@ -483,16 +483,16 @@ def test_PlanUnit_agenda_IsSetByLaborUnit_1PersonGroup():
     # print(f"{agenda_dict[0].keg_label=}")
 
 
-def test_PlanUnit_get_agenda_dict_IsSetByLaborUnit_2PersonGroup():
+def test_PlanUnit_get_agenda_dict_IsSetByLaborUnit_2PartnerGroup():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_personunit(exx.yao)
+    yao_plan.add_partnerunit(exx.yao)
     casa_rope = yao_plan.make_l1_rope(exx.casa)
     yao_plan.set_l1_keg(kegunit_shop(exx.casa, pledge=True))
 
-    yao_plan.add_personunit(exx.sue)
-    sue_personunit = yao_plan.get_person(exx.sue)
-    sue_personunit.add_membership(exx.run)
+    yao_plan.add_partnerunit(exx.sue)
+    sue_partnerunit = yao_plan.get_partner(exx.sue)
+    sue_partnerunit.add_membership(exx.run)
 
     run_laborunit = laborunit_shop()
     run_laborunit.add_party(party_title=exx.run)
@@ -505,8 +505,8 @@ def test_PlanUnit_get_agenda_dict_IsSetByLaborUnit_2PersonGroup():
     assert len(yao_plan.get_agenda_dict()) == 0
 
     # WHEN
-    yao_personunit = yao_plan.get_person(exx.yao)
-    yao_personunit.add_membership(exx.run)
+    yao_partnerunit = yao_plan.get_partner(exx.yao)
+    yao_partnerunit.add_membership(exx.run)
 
     # THEN
     assert len(yao_plan.get_agenda_dict()) == 1
@@ -525,7 +525,7 @@ def test_PlanUnit_get_all_pledges_ReturnsObj():
     zia_plan.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
     zia_plan.set_keg_obj(kegunit_shop(sweep_str, pledge=True), clean_rope)
     sweep_keg = zia_plan.get_keg_obj(sweep_rope)
-    zia_plan.add_personunit(exx.yao)
+    zia_plan.add_partnerunit(exx.yao)
     sweep_keg.laborunit.add_party(exx.yao)
     print(f"{sweep_keg}")
     agenda_dict = zia_plan.get_agenda_dict()

@@ -5,16 +5,16 @@ from src.ch09_plan_lesson.legible import create_legible_list
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
 
 
-def test_create_legible_list_ReturnsObj_person_membership_INSERT():
+def test_create_legible_list_ReturnsObj_partner_membership_INSERT():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    dimen = kw.plan_person_membership
+    dimen = kw.plan_partner_membership
     swim_str = f"{sue_plan.knot}Swimmers"
     group_cred_lumen_value = 81
     group_debt_lumen_value = 43
     yao_planatom = planatom_shop(dimen, kw.INSERT)
     yao_planatom.set_arg(kw.group_title, swim_str)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
     yao_planatom.set_arg(kw.group_cred_lumen, group_cred_lumen_value)
     yao_planatom.set_arg(kw.group_debt_lumen, group_debt_lumen_value)
     # print(f"{yao_planatom=}")
@@ -30,10 +30,10 @@ def test_create_legible_list_ReturnsObj_person_membership_INSERT():
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_person_membership_UPDATE_group_cred_lumen_group_debt_lumen():
+def test_create_legible_list_ReturnsObj_partner_membership_UPDATE_group_cred_lumen_group_debt_lumen():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    dimen = kw.plan_person_membership
+    dimen = kw.plan_partner_membership
     group_cred_lumen_str = kw.group_cred_lumen
     group_debt_lumen_str = kw.group_debt_lumen
     swim_str = f"{sue_plan.knot}Swimmers"
@@ -41,7 +41,7 @@ def test_create_legible_list_ReturnsObj_person_membership_UPDATE_group_cred_lume
     group_debt_lumen_value = 43
     yao_planatom = planatom_shop(dimen, kw.UPDATE)
     yao_planatom.set_arg(kw.group_title, swim_str)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
     yao_planatom.set_arg(group_cred_lumen_str, group_cred_lumen_value)
     yao_planatom.set_arg(group_debt_lumen_str, group_debt_lumen_value)
     # print(f"{yao_planatom=}")
@@ -57,16 +57,16 @@ def test_create_legible_list_ReturnsObj_person_membership_UPDATE_group_cred_lume
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_person_membership_UPDATE_group_cred_lumen():
+def test_create_legible_list_ReturnsObj_partner_membership_UPDATE_group_cred_lumen():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    dimen = kw.plan_person_membership
+    dimen = kw.plan_partner_membership
     group_cred_lumen_str = kw.group_cred_lumen
     swim_str = f"{sue_plan.knot}Swimmers"
     group_cred_lumen_value = 81
     yao_planatom = planatom_shop(dimen, kw.UPDATE)
     yao_planatom.set_arg(kw.group_title, swim_str)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
     yao_planatom.set_arg(group_cred_lumen_str, group_cred_lumen_value)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
@@ -81,16 +81,16 @@ def test_create_legible_list_ReturnsObj_person_membership_UPDATE_group_cred_lume
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_person_membership_UPDATE_group_debt_lumen():
+def test_create_legible_list_ReturnsObj_partner_membership_UPDATE_group_debt_lumen():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    dimen = kw.plan_person_membership
+    dimen = kw.plan_partner_membership
     group_debt_lumen_str = kw.group_debt_lumen
     swim_str = f"{sue_plan.knot}Swimmers"
     group_debt_lumen_value = 43
     yao_planatom = planatom_shop(dimen, kw.UPDATE)
     yao_planatom.set_arg(kw.group_title, swim_str)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
     yao_planatom.set_arg(group_debt_lumen_str, group_debt_lumen_value)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
@@ -105,14 +105,14 @@ def test_create_legible_list_ReturnsObj_person_membership_UPDATE_group_debt_lume
     assert legible_list[0] == x_str
 
 
-def test_create_legible_list_ReturnsObj_person_membership_DELETE():
+def test_create_legible_list_ReturnsObj_partner_membership_DELETE():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    dimen = kw.plan_person_membership
+    dimen = kw.plan_partner_membership
     swim_str = f"{sue_plan.knot}Swimmers"
     yao_planatom = planatom_shop(dimen, kw.DELETE)
     yao_planatom.set_arg(kw.group_title, swim_str)
-    yao_planatom.set_arg(kw.person_name, exx.yao)
+    yao_planatom.set_arg(kw.partner_name, exx.yao)
     # print(f"{yao_planatom=}")
     x_plandelta = plandelta_shop()
     x_plandelta.set_planatom(yao_planatom)

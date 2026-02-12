@@ -67,7 +67,7 @@ def test_PlanUnit_set_debtor_respect_RaisesErrorWhenArgIsNotMultiple():
     )
 
 
-def test_PlanUnit_set_person_respect_SetsAttrs():
+def test_PlanUnit_set_partner_respect_SetsAttrs():
     # ESTABLISH
     old_credor_respect = 77
     old_debtor_respect = 88
@@ -81,10 +81,10 @@ def test_PlanUnit_set_person_respect_SetsAttrs():
     assert zia_plan.fund_pool == old_fund_pool
 
     # WHEN
-    new_person_pool = 200
-    zia_plan.set_person_respect(new_person_pool)
+    new_partner_pool = 200
+    zia_plan.set_partner_respect(new_partner_pool)
 
     # THEN
-    assert zia_plan.credor_respect == new_person_pool
-    assert zia_plan.debtor_respect == new_person_pool
-    assert zia_plan.fund_pool == new_person_pool
+    assert zia_plan.credor_respect == new_partner_pool
+    assert zia_plan.debtor_respect == new_partner_pool
+    assert zia_plan.fund_pool == new_partner_pool

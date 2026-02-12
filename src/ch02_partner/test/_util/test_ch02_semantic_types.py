@@ -1,12 +1,12 @@
 from inspect import getdoc as inspect_getdoc
-from src.ch02_person._ref.ch02_semantic_types import (
+from src.ch02_partner._ref.ch02_semantic_types import (
     FundGrain,
     FundNum,
     GroupMark,
     GroupTitle,
     HealerName,
     NameTerm,
-    PersonName,
+    PartnerName,
     RespectGrain,
     RespectNum,
     TitleTerm,
@@ -46,14 +46,14 @@ def test_HealerName_Exists():
     assert inspect_getdoc(bob_healer_str) == doc_str
 
 
-def test_PersonName_Exists():
+def test_PartnerName_Exists():
     # ESTABLISH
     # WHEN
-    bob_PersonName = PersonName(exx.bob)
+    bob_PartnerName = PartnerName(exx.bob)
     # THEN
-    assert bob_PersonName == exx.bob
-    doc_str = "Every PersonName object is NameTerm, must follow NameTerm format."
-    assert inspect_getdoc(bob_PersonName) == doc_str
+    assert bob_PartnerName == exx.bob
+    doc_str = "Every PartnerName object is NameTerm, must follow NameTerm format."
+    assert inspect_getdoc(bob_PartnerName) == doc_str
 
 
 def test_TitleTerm_Exists():
@@ -62,7 +62,7 @@ def test_TitleTerm_Exists():
     bob_nameterm = TitleTerm(exx.bob)
     # THEN
     assert bob_nameterm == exx.bob
-    doc_str = f"""If a TitleTerm contains SepartorTerms(s) it represents a group otherwise its a single member group of an PersonName."""
+    doc_str = f"""If a TitleTerm contains SepartorTerms(s) it represents a group otherwise its a single member group of an PartnerName."""
     assert inspect_getdoc(bob_nameterm) == doc_str
 
 
@@ -80,7 +80,7 @@ def test_GroupMark_Exists():
 
     # THEN
     assert slash_groupmark is not None
-    doc_str = f"""GroupMark(s) exist in TitleTerms to indicate its a group, no GroupMark indicates it is a PersonName."""
+    doc_str = f"""GroupMark(s) exist in TitleTerms to indicate its a group, no GroupMark indicates it is a PartnerName."""
     assert inspect_getdoc(slash_groupmark) == doc_str
 
 

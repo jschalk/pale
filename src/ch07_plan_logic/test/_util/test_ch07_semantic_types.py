@@ -11,7 +11,7 @@ def test_PlanName_Exists():
     assert bob_PlanName_str == exx.bob
     doc_str = f"""The {kw.LabelTerm} used to identify a PlanUnit.
 Must be a {kw.LabelTerm}/{kw.NameTerm} because when identifying if a KegUnit is an active {kw.pledge} the {kw.PlanName} will be compared
-against {kw.PersonName}s. If they match the {kw.pledge} will be active."""
+against {kw.PartnerName}s. If they match the {kw.pledge} will be active."""
     assert inspect_getdoc(bob_PlanName_str) == doc_str
 
 

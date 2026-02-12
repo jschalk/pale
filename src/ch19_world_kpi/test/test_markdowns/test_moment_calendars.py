@@ -78,7 +78,7 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #         kw.face_name,
 #         kw.moment_rope,
 #         kw.plan_name,
-#         kw.person_name
+#         kw.partner_name
 #     ]
 #     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)

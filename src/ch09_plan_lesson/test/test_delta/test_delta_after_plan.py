@@ -1,4 +1,4 @@
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch05_reason.reason_main import factunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -74,17 +74,17 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnitSimpleAttrs():
     assert after_sue_planunit.mana_grain != before_sue_planunit.mana_grain
 
 
-def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_person():
+def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_partner():
     # ESTABLISH
     sue_plandelta = plandelta_shop()
 
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_sue_planunit.add_personunit(exx.zia)
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.zia)
 
-    dimen = kw.plan_personunit
+    dimen = kw.plan_partnerunit
     x_planatom = planatom_shop(dimen, kw.DELETE)
-    x_planatom.set_jkey(kw.person_name, exx.zia)
+    x_planatom.set_jkey(kw.partner_name, exx.zia)
     sue_plandelta.set_planatom(x_planatom)
 
     # WHEN
@@ -93,91 +93,91 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_person():
     # THEN
     print(f"{sue_plandelta.planatoms=}")
     assert after_sue_planunit != before_sue_planunit
-    assert after_sue_planunit.person_exists(exx.yao)
-    assert after_sue_planunit.person_exists(exx.zia) is False
+    assert after_sue_planunit.partner_exists(exx.yao)
+    assert after_sue_planunit.partner_exists(exx.zia) is False
 
 
-def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_person():
+def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_partner():
     # ESTABLISH
     sue_plandelta = plandelta_shop()
 
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    assert before_sue_planunit.person_exists(exx.yao)
-    assert before_sue_planunit.person_exists(exx.zia) is False
+    before_sue_planunit.add_partnerunit(exx.yao)
+    assert before_sue_planunit.partner_exists(exx.yao)
+    assert before_sue_planunit.partner_exists(exx.zia) is False
 
     # WHEN
-    dimen = kw.plan_personunit
+    dimen = kw.plan_partnerunit
     x_planatom = planatom_shop(dimen, kw.INSERT)
-    x_planatom.set_jkey(kw.person_name, exx.zia)
-    x_person_cred_lumen = 55
-    x_person_debt_lumen = 66
-    x_planatom.set_jvalue("person_cred_lumen", x_person_cred_lumen)
-    x_planatom.set_jvalue("person_debt_lumen", x_person_debt_lumen)
+    x_planatom.set_jkey(kw.partner_name, exx.zia)
+    x_partner_cred_lumen = 55
+    x_partner_debt_lumen = 66
+    x_planatom.set_jvalue("partner_cred_lumen", x_partner_cred_lumen)
+    x_planatom.set_jvalue("partner_debt_lumen", x_partner_debt_lumen)
     sue_plandelta.set_planatom(x_planatom)
     print(f"{sue_plandelta.planatoms.keys()=}")
     after_sue_planunit = sue_plandelta.get_atom_edited_plan(before_sue_planunit)
 
     # THEN
-    yao_personunit = after_sue_planunit.get_person(exx.yao)
-    zia_personunit = after_sue_planunit.get_person(exx.zia)
-    assert yao_personunit is not None
-    assert zia_personunit is not None
-    assert zia_personunit.person_cred_lumen == x_person_cred_lumen
-    assert zia_personunit.person_debt_lumen == x_person_debt_lumen
+    yao_partnerunit = after_sue_planunit.get_partner(exx.yao)
+    zia_partnerunit = after_sue_planunit.get_partner(exx.zia)
+    assert yao_partnerunit is not None
+    assert zia_partnerunit is not None
+    assert zia_partnerunit.partner_cred_lumen == x_partner_cred_lumen
+    assert zia_partnerunit.partner_debt_lumen == x_partner_debt_lumen
 
 
-def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_update_person():
+def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_update_partner():
     # ESTABLISH
     sue_plandelta = plandelta_shop()
 
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    assert before_sue_planunit.get_person(exx.yao).person_cred_lumen == 1
+    before_sue_planunit.add_partnerunit(exx.yao)
+    assert before_sue_planunit.get_partner(exx.yao).partner_cred_lumen == 1
 
     # WHEN
-    dimen = kw.plan_personunit
+    dimen = kw.plan_partnerunit
     x_planatom = planatom_shop(dimen, kw.UPDATE)
-    x_planatom.set_jkey(kw.person_name, exx.yao)
-    yao_person_cred_lumen = 55
-    x_planatom.set_jvalue("person_cred_lumen", yao_person_cred_lumen)
+    x_planatom.set_jkey(kw.partner_name, exx.yao)
+    yao_partner_cred_lumen = 55
+    x_planatom.set_jvalue("partner_cred_lumen", yao_partner_cred_lumen)
     sue_plandelta.set_planatom(x_planatom)
     print(f"{sue_plandelta.planatoms.keys()=}")
     after_sue_planunit = sue_plandelta.get_atom_edited_plan(before_sue_planunit)
 
     # THEN
-    yao_person = after_sue_planunit.get_person(exx.yao)
-    assert yao_person.person_cred_lumen == yao_person_cred_lumen
+    yao_partner = after_sue_planunit.get_partner(exx.yao)
+    assert yao_partner.partner_cred_lumen == yao_partner_cred_lumen
 
 
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_membership():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_sue_planunit.add_personunit(exx.zia)
-    before_sue_planunit.add_personunit(exx.bob)
-    yao_personunit = before_sue_planunit.get_person(exx.yao)
-    zia_personunit = before_sue_planunit.get_person(exx.zia)
-    bob_personunit = before_sue_planunit.get_person(exx.bob)
-    yao_personunit.add_membership(exx.run)
-    zia_personunit.add_membership(exx.run)
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.zia)
+    before_sue_planunit.add_partnerunit(exx.bob)
+    yao_partnerunit = before_sue_planunit.get_partner(exx.yao)
+    zia_partnerunit = before_sue_planunit.get_partner(exx.zia)
+    bob_partnerunit = before_sue_planunit.get_partner(exx.bob)
+    yao_partnerunit.add_membership(exx.run)
+    zia_partnerunit.add_membership(exx.run)
     fly_str = ";flyers"
-    yao_personunit.add_membership(fly_str)
-    zia_personunit.add_membership(fly_str)
-    bob_personunit.add_membership(fly_str)
-    before_group_titles_dict = before_sue_planunit.get_personunit_group_titles_dict()
+    yao_partnerunit.add_membership(fly_str)
+    zia_partnerunit.add_membership(fly_str)
+    bob_partnerunit.add_membership(fly_str)
+    before_group_titles_dict = before_sue_planunit.get_partnerunit_group_titles_dict()
     assert len(before_group_titles_dict.get(exx.run)) == 2
     assert len(before_group_titles_dict.get(fly_str)) == 3
 
     # WHEN
-    yao_planatom = planatom_shop(kw.plan_person_membership, kw.DELETE)
+    yao_planatom = planatom_shop(kw.plan_partner_membership, kw.DELETE)
     yao_planatom.set_jkey(kw.group_title, exx.run)
-    yao_planatom.set_jkey(kw.person_name, exx.yao)
+    yao_planatom.set_jkey(kw.partner_name, exx.yao)
     # print(f"{yao_planatom=}")
-    zia_planatom = planatom_shop(kw.plan_person_membership, kw.DELETE)
+    zia_planatom = planatom_shop(kw.plan_partner_membership, kw.DELETE)
     zia_planatom.set_jkey(kw.group_title, fly_str)
-    zia_planatom.set_jkey(kw.person_name, exx.zia)
+    zia_planatom.set_jkey(kw.partner_name, exx.zia)
     # print(f"{zia_planatom=}")
     sue_plandelta = plandelta_shop()
     sue_plandelta.set_planatom(yao_planatom)
@@ -185,7 +185,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_membership():
     after_sue_planunit = sue_plandelta.get_atom_edited_plan(before_sue_planunit)
 
     # THEN
-    after_group_titles_dict = after_sue_planunit.get_personunit_group_titles_dict()
+    after_group_titles_dict = after_sue_planunit.get_partnerunit_group_titles_dict()
     assert len(after_group_titles_dict.get(exx.run)) == 1
     assert len(after_group_titles_dict.get(fly_str)) == 2
 
@@ -193,18 +193,18 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_membership():
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_membership():
     # ESTABLISH
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_sue_planunit.add_personunit(exx.zia)
-    before_sue_planunit.add_personunit(exx.bob)
-    zia_personunit = before_sue_planunit.get_person(exx.zia)
-    zia_personunit.add_membership(exx.run)
-    before_group_titles = before_sue_planunit.get_personunit_group_titles_dict()
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.zia)
+    before_sue_planunit.add_partnerunit(exx.bob)
+    zia_partnerunit = before_sue_planunit.get_partner(exx.zia)
+    zia_partnerunit.add_membership(exx.run)
+    before_group_titles = before_sue_planunit.get_partnerunit_group_titles_dict()
     assert len(before_group_titles.get(exx.run)) == 1
 
     # WHEN
-    yao_planatom = planatom_shop(kw.plan_person_membership, kw.INSERT)
+    yao_planatom = planatom_shop(kw.plan_partner_membership, kw.INSERT)
     yao_planatom.set_jkey(kw.group_title, exx.run)
-    yao_planatom.set_jkey(kw.person_name, exx.yao)
+    yao_planatom.set_jkey(kw.partner_name, exx.yao)
     yao_run_group_cred_lumen = 17
     yao_planatom.set_jvalue(kw.group_cred_lumen, yao_run_group_cred_lumen)
     print(f"{yao_planatom=}")
@@ -213,10 +213,10 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_membership():
     after_sue_planunit = sue_plandelta.get_atom_edited_plan(before_sue_planunit)
 
     # THEN
-    after_group_titles = after_sue_planunit.get_personunit_group_titles_dict()
+    after_group_titles = after_sue_planunit.get_partnerunit_group_titles_dict()
     assert len(after_group_titles.get(exx.run)) == 2
-    after_yao_personunit = after_sue_planunit.get_person(exx.yao)
-    after_yao_run_membership = after_yao_personunit.get_membership(exx.run)
+    after_yao_partnerunit = after_sue_planunit.get_partner(exx.yao)
+    after_yao_run_membership = after_yao_partnerunit.get_membership(exx.run)
     assert after_yao_run_membership is not None
     assert after_yao_run_membership.group_cred_lumen == yao_run_group_cred_lumen
 
@@ -225,18 +225,18 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_update_membership():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_yao_personunit = before_sue_planunit.get_person(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_yao_partnerunit = before_sue_planunit.get_partner(exx.yao)
     old_yao_run_group_cred_lumen = 3
-    before_yao_personunit.add_membership(exx.run, old_yao_run_group_cred_lumen)
-    yao_run_membership = before_yao_personunit.get_membership(exx.run)
+    before_yao_partnerunit.add_membership(exx.run, old_yao_run_group_cred_lumen)
+    yao_run_membership = before_yao_partnerunit.get_membership(exx.run)
     assert yao_run_membership.group_cred_lumen == old_yao_run_group_cred_lumen
     assert yao_run_membership.group_debt_lumen == 1
 
     # WHEN
-    yao_planatom = planatom_shop(kw.plan_person_membership, kw.UPDATE)
+    yao_planatom = planatom_shop(kw.plan_partner_membership, kw.UPDATE)
     yao_planatom.set_jkey(kw.group_title, exx.run)
-    yao_planatom.set_jkey(kw.person_name, exx.yao)
+    yao_planatom.set_jkey(kw.partner_name, exx.yao)
     new_yao_run_group_cred_lumen = 7
     new_yao_run_group_debt_lumen = 11
     yao_planatom.set_jvalue(kw.group_cred_lumen, new_yao_run_group_cred_lumen)
@@ -246,8 +246,8 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_update_membership():
     after_sue_planunit = sue_plandelta.get_atom_edited_plan(before_sue_planunit)
 
     # THEN
-    after_yao_personunit = after_sue_planunit.get_person(exx.yao)
-    after_yao_run_membership = after_yao_personunit.get_membership(exx.run)
+    after_yao_partnerunit = after_sue_planunit.get_partner(exx.yao)
+    after_yao_run_membership = after_yao_partnerunit.get_membership(exx.run)
     assert after_yao_run_membership.group_cred_lumen == new_yao_run_group_cred_lumen
     assert after_yao_run_membership.group_debt_lumen == new_yao_run_group_debt_lumen
 
@@ -377,18 +377,18 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_awardunit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_sue_planunit.add_personunit(exx.zia)
-    before_sue_planunit.add_personunit(exx.bob)
-    yao_personunit = before_sue_planunit.get_person(exx.yao)
-    zia_personunit = before_sue_planunit.get_person(exx.zia)
-    bob_personunit = before_sue_planunit.get_person(exx.bob)
-    yao_personunit.add_membership(exx.run)
-    zia_personunit.add_membership(exx.run)
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.zia)
+    before_sue_planunit.add_partnerunit(exx.bob)
+    yao_partnerunit = before_sue_planunit.get_partner(exx.yao)
+    zia_partnerunit = before_sue_planunit.get_partner(exx.zia)
+    bob_partnerunit = before_sue_planunit.get_partner(exx.bob)
+    yao_partnerunit.add_membership(exx.run)
+    zia_partnerunit.add_membership(exx.run)
     fly_str = ";flyers"
-    yao_personunit.add_membership(fly_str)
-    zia_personunit.add_membership(fly_str)
-    bob_personunit.add_membership(fly_str)
+    yao_partnerunit.add_membership(fly_str)
+    zia_partnerunit.add_membership(fly_str)
+    bob_partnerunit.add_membership(fly_str)
 
     sports_str = "sports"
     sports_rope = before_sue_planunit.make_l1_rope(sports_str)
@@ -422,10 +422,10 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_awardunit():
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_update_keg_awardunit():
     # ESTABLISH
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_sue_planunit.add_personunit(exx.zia)
-    yao_personunit = before_sue_planunit.get_person(exx.yao)
-    yao_personunit.add_membership(exx.run)
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.zia)
+    yao_partnerunit = before_sue_planunit.get_partner(exx.yao)
+    yao_partnerunit.add_membership(exx.run)
 
     sports_str = "sports"
     sports_rope = before_sue_planunit.make_l1_rope(sports_str)
@@ -460,10 +460,10 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_update_keg_awardunit():
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_keg_awardunit():
     # ESTABLISH
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_sue_planunit.add_personunit(exx.zia)
-    yao_personunit = before_sue_planunit.get_person(exx.yao)
-    yao_personunit.add_membership(exx.run)
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.zia)
+    yao_partnerunit = before_sue_planunit.get_partner(exx.yao)
+    yao_partnerunit.add_membership(exx.run)
     sports_str = "sports"
     sports_rope = before_sue_planunit.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -892,7 +892,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_reasonunit():
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_keg_partyunit():
     # ESTABLISH
     before_sue_au = planunit_shop(exx.sue)
-    before_sue_au.add_personunit(exx.yao)
+    before_sue_au.add_partnerunit(exx.yao)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -918,7 +918,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_keg_partyunit():
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_partyunit():
     # ESTABLISH
     before_sue_au = planunit_shop(exx.sue)
-    before_sue_au.add_personunit(exx.yao)
+    before_sue_au.add_partnerunit(exx.yao)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -946,7 +946,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_partyunit():
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_keg_healerunit():
     # ESTABLISH
     before_sue_au = planunit_shop(exx.sue)
-    before_sue_au.add_personunit(exx.yao)
+    before_sue_au.add_partnerunit(exx.yao)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -974,7 +974,7 @@ def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_insert_keg_healerunit():
 def test_PlanDelta_get_edited_plan_ReturnsObj_PlanUnit_delete_keg_healerunit():
     # ESTABLISH
     before_sue_au = planunit_shop(exx.sue)
-    before_sue_au.add_personunit(exx.yao)
+    before_sue_au.add_partnerunit(exx.yao)
     sports_str = "sports"
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
@@ -1004,24 +1004,24 @@ def test_PlanDelta_get_plandelta_example1_ContainsPlanAtoms():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     before_sue_planunit = planunit_shop(exx.sue)
-    before_sue_planunit.add_personunit(exx.yao)
-    before_sue_planunit.add_personunit(exx.zia)
-    before_sue_planunit.add_personunit(exx.bob)
-    yao_personunit = before_sue_planunit.get_person(exx.yao)
-    zia_personunit = before_sue_planunit.get_person(exx.zia)
-    bob_personunit = before_sue_planunit.get_person(exx.bob)
-    yao_personunit.add_membership(exx.run)
-    zia_personunit.add_membership(exx.run)
+    before_sue_planunit.add_partnerunit(exx.yao)
+    before_sue_planunit.add_partnerunit(exx.zia)
+    before_sue_planunit.add_partnerunit(exx.bob)
+    yao_partnerunit = before_sue_planunit.get_partner(exx.yao)
+    zia_partnerunit = before_sue_planunit.get_partner(exx.zia)
+    bob_partnerunit = before_sue_planunit.get_partner(exx.bob)
+    yao_partnerunit.add_membership(exx.run)
+    zia_partnerunit.add_membership(exx.run)
     fly_str = ";flyers"
-    yao_personunit.add_membership(fly_str)
-    bob_personunit.add_membership(fly_str)
+    yao_partnerunit.add_membership(fly_str)
+    bob_partnerunit.add_membership(fly_str)
     assert before_sue_planunit.max_tree_traverse != 66
     assert before_sue_planunit.credor_respect != 77
     assert before_sue_planunit.debtor_respect != 88
-    assert before_sue_planunit.person_exists(exx.yao)
-    assert before_sue_planunit.person_exists(exx.zia)
-    assert yao_personunit.get_membership(fly_str) is not None
-    assert bob_personunit.get_membership(fly_str) is not None
+    assert before_sue_planunit.partner_exists(exx.yao)
+    assert before_sue_planunit.partner_exists(exx.zia)
+    assert yao_partnerunit.get_membership(fly_str) is not None
+    assert bob_partnerunit.get_membership(fly_str) is not None
 
     # WHEN
     ex1_plandelta = get_plandelta_example1()
@@ -1031,5 +1031,5 @@ def test_PlanDelta_get_plandelta_example1_ContainsPlanAtoms():
     assert after_sue_planunit.max_tree_traverse == 66
     assert after_sue_planunit.credor_respect == 77
     assert after_sue_planunit.debtor_respect == 88
-    assert after_sue_planunit.person_exists(exx.yao)
-    assert after_sue_planunit.person_exists(exx.zia) is False
+    assert after_sue_planunit.partner_exists(exx.yao)
+    assert after_sue_planunit.partner_exists(exx.zia) is False

@@ -46,7 +46,7 @@ def test_PlanUnit_cashout_Sets_keeps_justified_WhenSingleKegUnit_healerunit_any_
 def test_PlanUnit_cashout_Sets_keeps_justified_WhenSingleProblemAndKeep():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_personunit(exx.yao)
+    sue_plan.add_partnerunit(exx.yao)
     yao_healerunit = healerunit_shop({exx.yao})
     sue_plan.set_l1_keg(
         kegunit_shop("Texas", healerunit=yao_healerunit, problem_bool=True)
@@ -63,7 +63,7 @@ def test_PlanUnit_cashout_Sets_keeps_justified_WhenSingleProblemAndKeep():
 def test_PlanUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelAboveProblem():
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_personunit(exx.yao)
+    sue_plan.add_partnerunit(exx.yao)
     yao_healerunit = healerunit_shop({exx.yao})
 
     texas_str = "Texas"

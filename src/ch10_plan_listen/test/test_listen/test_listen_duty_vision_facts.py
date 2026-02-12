@@ -25,11 +25,11 @@ from src.ref.keywords import ExampleStrs as exx
 def test_listen_to_facts_duty_vision_SetsSingleFactUnit_v1(temp_dir_setup):
     # ESTABLISH
     yao_duty = planunit_shop(exx.yao, exx.a23)
-    zia_person_cred_lumen = 47
-    zia_person_debt_lumen = 41
+    zia_partner_cred_lumen = 47
+    zia_partner_debt_lumen = 41
     zia_pool = 87
-    yao_duty.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
-    yao_duty.set_person_respect(zia_pool)
+    yao_duty.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
+    yao_duty.set_partner_respect(zia_pool)
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
@@ -74,11 +74,11 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
 ):
     # ESTABLISH
     yao_duty = planunit_shop(exx.yao, exx.a23)
-    yao_person_cred_lumen = 47
-    yao_person_debt_lumen = 41
+    yao_partner_cred_lumen = 47
+    yao_partner_debt_lumen = 41
     yao_pool = 87
-    yao_duty.add_personunit(exx.zia, yao_person_cred_lumen, yao_person_debt_lumen)
-    yao_duty.set_person_respect(yao_pool)
+    yao_duty.add_partnerunit(exx.zia, yao_partner_cred_lumen, yao_partner_debt_lumen)
+    yao_duty.set_partner_respect(yao_pool)
     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
     save_duty_plan(
         moment_mstr_dir=sue_texas_lessonfilehandler.moment_mstr_dir,
@@ -353,19 +353,19 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
 
     # THEN
     assert yao_duty.get_fact(a23_eat_rope()) is None
-    zia_personunit = new_yao_vision1.get_person(exx.zia)
-    bob_personunit = new_yao_vision1.get_person(bob_str)
-    assert zia_personunit.person_debt_lumen < bob_personunit.person_debt_lumen
+    zia_partnerunit = new_yao_vision1.get_partner(exx.zia)
+    bob_partnerunit = new_yao_vision1.get_partner(bob_str)
+    assert zia_partnerunit.partner_debt_lumen < bob_partnerunit.partner_debt_lumen
     assert bob_vision.get_fact(a23_eat_rope()).fact_state == a23_hungry_rope()
     assert zia_vision.get_fact(a23_eat_rope()).fact_state == a23_eat_rope()
     assert new_yao_vision1.get_fact(a23_eat_rope()).fact_state == a23_hungry_rope()
 
     # WHEN
-    yao_zia_person_debt_lumen = 15
-    yao_bob_person_debt_lumen = 5
-    yao_duty.add_personunit(exx.zia, None, yao_zia_person_debt_lumen)
-    yao_duty.add_personunit(bob_str, None, yao_bob_person_debt_lumen)
-    yao_duty.set_person_respect(100)
+    yao_zia_partner_debt_lumen = 15
+    yao_bob_partner_debt_lumen = 5
+    yao_duty.add_partnerunit(exx.zia, None, yao_zia_partner_debt_lumen)
+    yao_duty.add_partnerunit(bob_str, None, yao_bob_partner_debt_lumen)
+    yao_duty.set_partner_respect(100)
     new_yao_vision2 = create_listen_basis(yao_duty)
     listen_to_agendas_duty_vision(
         new_yao_vision2, sue_texas_lessonfilehandler, get_texas_rope()
@@ -375,9 +375,9 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
     )
 
     # THEN
-    zia_personunit = new_yao_vision2.get_person(exx.zia)
-    bob_personunit = new_yao_vision2.get_person(bob_str)
-    assert zia_personunit.person_debt_lumen > bob_personunit.person_debt_lumen
+    zia_partnerunit = new_yao_vision2.get_partner(exx.zia)
+    bob_partnerunit = new_yao_vision2.get_partner(bob_str)
+    assert zia_partnerunit.partner_debt_lumen > bob_partnerunit.partner_debt_lumen
     assert bob_vision.get_fact(a23_eat_rope()).fact_state == a23_hungry_rope()
     assert zia_vision.get_fact(a23_eat_rope()).fact_state == a23_eat_rope()
     assert new_yao_vision2.get_fact(a23_eat_rope()).fact_state == a23_eat_rope()
@@ -396,8 +396,8 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
 #     sweep_str = "sweep"
 #     sweep_rope = sue_speaker.make_rope(casa_rope, sweep_str)
 
-#     sue_speaker.add_personunit(exx.yao)
-#     sue_speaker.set_person_respect(20)
+#     sue_speaker.add_partnerunit(exx.yao)
+#     sue_speaker.set_partner_respect(20)
 #     sue_speaker.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
 #     sue_speaker.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
 #     sue_speaker.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
@@ -410,8 +410,8 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
 #     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
 #     save_vision_plan(sue_texas_lessonfilehandler, exx.sue, sue_speaker.get_json(), True)
 #     yao_duty = planunit_shop(exx.yao)
-#     yao_duty.add_personunit(exx.yao)
-#     yao_duty.add_personunit(exx.sue)
+#     yao_duty.add_partnerunit(exx.yao)
+#     yao_duty.add_partnerunit(exx.sue)
 #     new_yao_vision = create_listen_basis(yao_duty)
 #     print(f"{new_yao_vision.get_keg_dict().keys()=}")
 #     # assert new_yao_vision.get_missing_fact_reason_contexts().get(situation_rope) is None
@@ -434,8 +434,8 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPlansSpeakerDi
 #     # ESTABLISH
 #     exx.yao = "Yao"
 #     yao_duty = planunit_shop(exx.yao)
-#     yao_duty.add_personunit(exx.yao)
-#     yao_duty.set_person_respect(20)
+#     yao_duty.add_partnerunit(exx.yao)
+#     yao_duty.set_partner_respect(20)
 #     casa_rope = yao_duty.make_l1_rope(casa_str)
 #     situation_str = "situation"
 #     situation_rope = yao_duty.make_rope(casa_rope, situation_str)

@@ -7,8 +7,8 @@ from src.ch00_py.dict_toolbox import (
     get_from_nested_dict,
     set_in_nested_dict,
 )
-from src.ch02_person.group import MemberShip
-from src.ch02_person.person import MemberShip, PersonName, PersonUnit
+from src.ch02_partner.group import MemberShip
+from src.ch02_partner.partner import MemberShip, PartnerName, PartnerUnit
 from src.ch05_reason.reason_main import FactUnit, ReasonUnit
 from src.ch06_keg.keg import KegUnit
 from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
@@ -123,7 +123,7 @@ class PlanDelta:
         before_plan.cashout()
         after_plan.cashout()
         self.add_planatoms_planunit_simple_attrs(before_plan, after_plan)
-        self.add_planatoms_persons(before_plan, after_plan)
+        self.add_planatoms_partners(before_plan, after_plan)
         self.add_planatoms_kegs(before_plan, after_plan)
 
     def add_planatoms_planunit_simple_attrs(
@@ -146,148 +146,148 @@ class PlanDelta:
             x_planatom.set_jvalue("respect_grain", after_plan.respect_grain)
         self.set_planatom(x_planatom)
 
-    def add_planatoms_persons(self, before_plan: PlanUnit, after_plan: PlanUnit):
-        before_person_names = set(before_plan.persons.keys())
-        after_person_names = set(after_plan.persons.keys())
+    def add_planatoms_partners(self, before_plan: PlanUnit, after_plan: PlanUnit):
+        before_partner_names = set(before_plan.partners.keys())
+        after_partner_names = set(after_plan.partners.keys())
 
-        self.add_planatom_personunit_inserts(
+        self.add_planatom_partnerunit_inserts(
             after_plan=after_plan,
-            insert_person_names=after_person_names.difference(before_person_names),
+            insert_partner_names=after_partner_names.difference(before_partner_names),
         )
-        self.add_planatom_personunit_deletes(
+        self.add_planatom_partnerunit_deletes(
             before_plan=before_plan,
-            delete_person_names=before_person_names.difference(after_person_names),
+            delete_partner_names=before_partner_names.difference(after_partner_names),
         )
-        self.add_planatom_personunit_updates(
+        self.add_planatom_partnerunit_updates(
             before_plan=before_plan,
             after_plan=after_plan,
-            update_person_names=before_person_names & (after_person_names),
+            update_partner_names=before_partner_names & (after_partner_names),
         )
 
-    def add_planatom_personunit_inserts(
-        self, after_plan: PlanUnit, insert_person_names: set
+    def add_planatom_partnerunit_inserts(
+        self, after_plan: PlanUnit, insert_partner_names: set
     ):
-        for insert_person_name in insert_person_names:
-            insert_personunit = after_plan.get_person(insert_person_name)
-            x_planatom = planatom_shop("plan_personunit", "INSERT")
-            x_planatom.set_jkey("person_name", insert_personunit.person_name)
-            if insert_personunit.person_cred_lumen is not None:
+        for insert_partner_name in insert_partner_names:
+            insert_partnerunit = after_plan.get_partner(insert_partner_name)
+            x_planatom = planatom_shop("plan_partnerunit", "INSERT")
+            x_planatom.set_jkey("partner_name", insert_partnerunit.partner_name)
+            if insert_partnerunit.partner_cred_lumen is not None:
                 x_planatom.set_jvalue(
-                    "person_cred_lumen", insert_personunit.person_cred_lumen
+                    "partner_cred_lumen", insert_partnerunit.partner_cred_lumen
                 )
-            if insert_personunit.person_debt_lumen is not None:
+            if insert_partnerunit.partner_debt_lumen is not None:
                 x_planatom.set_jvalue(
-                    "person_debt_lumen", insert_personunit.person_debt_lumen
+                    "partner_debt_lumen", insert_partnerunit.partner_debt_lumen
                 )
             self.set_planatom(x_planatom)
-            all_group_titles = set(insert_personunit.memberships.keys())
+            all_group_titles = set(insert_partnerunit.memberships.keys())
             self.add_planatom_memberships_inserts(
-                after_personunit=insert_personunit,
+                after_partnerunit=insert_partnerunit,
                 insert_membership_group_titles=all_group_titles,
             )
 
-    def add_planatom_personunit_updates(
+    def add_planatom_partnerunit_updates(
         self,
         before_plan: PlanUnit,
         after_plan: PlanUnit,
-        update_person_names: set,
+        update_partner_names: set,
     ):
-        for person_name in update_person_names:
-            after_personunit = after_plan.get_person(person_name)
-            before_personunit = before_plan.get_person(person_name)
+        for partner_name in update_partner_names:
+            after_partnerunit = after_plan.get_partner(partner_name)
+            before_partnerunit = before_plan.get_partner(partner_name)
             if jvalues_different(
-                "plan_personunit", after_personunit, before_personunit
+                "plan_partnerunit", after_partnerunit, before_partnerunit
             ):
-                x_planatom = planatom_shop("plan_personunit", "UPDATE")
-                x_planatom.set_jkey("person_name", after_personunit.person_name)
+                x_planatom = planatom_shop("plan_partnerunit", "UPDATE")
+                x_planatom.set_jkey("partner_name", after_partnerunit.partner_name)
                 if (
-                    before_personunit.person_cred_lumen
-                    != after_personunit.person_cred_lumen
+                    before_partnerunit.partner_cred_lumen
+                    != after_partnerunit.partner_cred_lumen
                 ):
                     x_planatom.set_jvalue(
-                        "person_cred_lumen", after_personunit.person_cred_lumen
+                        "partner_cred_lumen", after_partnerunit.partner_cred_lumen
                     )
                 if (
-                    before_personunit.person_debt_lumen
-                    != after_personunit.person_debt_lumen
+                    before_partnerunit.partner_debt_lumen
+                    != after_partnerunit.partner_debt_lumen
                 ):
                     x_planatom.set_jvalue(
-                        "person_debt_lumen", after_personunit.person_debt_lumen
+                        "partner_debt_lumen", after_partnerunit.partner_debt_lumen
                     )
                 self.set_planatom(x_planatom)
-            self.add_planatom_personunit_update_memberships(
-                after_personunit=after_personunit,
-                before_personunit=before_personunit,
+            self.add_planatom_partnerunit_update_memberships(
+                after_partnerunit=after_partnerunit,
+                before_partnerunit=before_partnerunit,
             )
 
-    def add_planatom_personunit_deletes(
-        self, before_plan: PlanUnit, delete_person_names: set
+    def add_planatom_partnerunit_deletes(
+        self, before_plan: PlanUnit, delete_partner_names: set
     ):
-        for delete_person_name in delete_person_names:
-            x_planatom = planatom_shop("plan_personunit", "DELETE")
-            x_planatom.set_jkey("person_name", delete_person_name)
+        for delete_partner_name in delete_partner_names:
+            x_planatom = planatom_shop("plan_partnerunit", "DELETE")
+            x_planatom.set_jkey("partner_name", delete_partner_name)
             self.set_planatom(x_planatom)
-            delete_personunit = before_plan.get_person(delete_person_name)
+            delete_partnerunit = before_plan.get_partner(delete_partner_name)
             non_mirror_group_titles = {
                 x_group_title
-                for x_group_title in delete_personunit.memberships.keys()
-                if x_group_title != delete_person_name
+                for x_group_title in delete_partnerunit.memberships.keys()
+                if x_group_title != delete_partner_name
             }
             self.add_planatom_memberships_delete(
-                delete_person_name, non_mirror_group_titles
+                delete_partner_name, non_mirror_group_titles
             )
 
-    def add_planatom_personunit_update_memberships(
-        self, after_personunit: PersonUnit, before_personunit: PersonUnit
+    def add_planatom_partnerunit_update_memberships(
+        self, after_partnerunit: PartnerUnit, before_partnerunit: PartnerUnit
     ):
         # before_non_mirror_group_titles
         before_group_titles = {
             x_group_title
-            for x_group_title in before_personunit.memberships.keys()
-            if x_group_title != before_personunit.person_name
+            for x_group_title in before_partnerunit.memberships.keys()
+            if x_group_title != before_partnerunit.partner_name
         }
         # after_non_mirror_group_titles
         after_group_titles = {
             x_group_title
-            for x_group_title in after_personunit.memberships.keys()
-            if x_group_title != after_personunit.person_name
+            for x_group_title in after_partnerunit.memberships.keys()
+            if x_group_title != after_partnerunit.partner_name
         }
 
         self.add_planatom_memberships_inserts(
-            after_personunit=after_personunit,
+            after_partnerunit=after_partnerunit,
             insert_membership_group_titles=after_group_titles.difference(
                 before_group_titles
             ),
         )
 
         self.add_planatom_memberships_delete(
-            before_person_name=after_personunit.person_name,
+            before_partner_name=after_partnerunit.partner_name,
             before_group_titles=before_group_titles.difference(after_group_titles),
         )
 
         update_group_titles = before_group_titles & (after_group_titles)
-        for update_person_name in update_group_titles:
-            before_membership = before_personunit.get_membership(update_person_name)
-            after_membership = after_personunit.get_membership(update_person_name)
+        for update_partner_name in update_group_titles:
+            before_membership = before_partnerunit.get_membership(update_partner_name)
+            after_membership = after_partnerunit.get_membership(update_partner_name)
             if jvalues_different(
-                "plan_person_membership", before_membership, after_membership
+                "plan_partner_membership", before_membership, after_membership
             ):
                 self.add_planatom_membership_update(
-                    person_name=after_personunit.person_name,
+                    partner_name=after_partnerunit.partner_name,
                     before_membership=before_membership,
                     after_membership=after_membership,
                 )
 
     def add_planatom_memberships_inserts(
         self,
-        after_personunit: PersonUnit,
+        after_partnerunit: PartnerUnit,
         insert_membership_group_titles: list[TitleTerm],
     ):
-        after_person_name = after_personunit.person_name
+        after_partner_name = after_partnerunit.partner_name
         for insert_group_title in insert_membership_group_titles:
-            after_membership = after_personunit.get_membership(insert_group_title)
-            x_planatom = planatom_shop("plan_person_membership", "INSERT")
-            x_planatom.set_jkey("person_name", after_person_name)
+            after_membership = after_partnerunit.get_membership(insert_group_title)
+            x_planatom = planatom_shop("plan_partner_membership", "INSERT")
+            x_planatom.set_jkey("partner_name", after_partner_name)
             x_planatom.set_jkey("group_title", after_membership.group_title)
             if after_membership.group_cred_lumen is not None:
                 x_planatom.set_jvalue(
@@ -301,12 +301,12 @@ class PlanDelta:
 
     def add_planatom_membership_update(
         self,
-        person_name: PersonName,
+        partner_name: PartnerName,
         before_membership: MemberShip,
         after_membership: MemberShip,
     ):
-        x_planatom = planatom_shop("plan_person_membership", "UPDATE")
-        x_planatom.set_jkey("person_name", person_name)
+        x_planatom = planatom_shop("plan_partner_membership", "UPDATE")
+        x_planatom.set_jkey("partner_name", partner_name)
         x_planatom.set_jkey("group_title", after_membership.group_title)
         if after_membership.group_cred_lumen != before_membership.group_cred_lumen:
             x_planatom.set_jvalue("group_cred_lumen", after_membership.group_cred_lumen)
@@ -315,11 +315,11 @@ class PlanDelta:
         self.set_planatom(x_planatom)
 
     def add_planatom_memberships_delete(
-        self, before_person_name: PersonName, before_group_titles: TitleTerm
+        self, before_partner_name: PartnerName, before_group_titles: TitleTerm
     ):
         for delete_group_title in before_group_titles:
-            x_planatom = planatom_shop("plan_person_membership", "DELETE")
-            x_planatom.set_jkey("person_name", before_person_name)
+            x_planatom = planatom_shop("plan_partner_membership", "DELETE")
+            x_planatom.set_jkey("partner_name", before_partner_name)
             x_planatom.set_jkey("group_title", delete_group_title)
             self.set_planatom(x_planatom)
 

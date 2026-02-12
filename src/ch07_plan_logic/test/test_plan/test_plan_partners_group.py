@@ -1,23 +1,23 @@
-from src.ch02_person.group import groupunit_shop
+from src.ch02_partner.group import groupunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PlanUnit_get_personunit_group_titles_dict_ReturnsObj():
+def test_PlanUnit_get_partnerunit_group_titles_dict_ReturnsObj():
     # ESTABLISH
     bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_personunit(exx.yao)
-    bob_plan.add_personunit(exx.sue)
-    bob_plan.add_personunit(exx.zia)
-    sue_personunit = bob_plan.get_person(exx.sue)
-    zia_personunit = bob_plan.get_person(exx.zia)
+    bob_plan.add_partnerunit(exx.yao)
+    bob_plan.add_partnerunit(exx.sue)
+    bob_plan.add_partnerunit(exx.zia)
+    sue_partnerunit = bob_plan.get_partner(exx.sue)
+    zia_partnerunit = bob_plan.get_partner(exx.zia)
     swim_group_str = ";Swim"
-    sue_personunit.add_membership(exx.run)
-    zia_personunit.add_membership(exx.run)
-    zia_personunit.add_membership(swim_group_str)
+    sue_partnerunit.add_membership(exx.run)
+    zia_partnerunit.add_membership(exx.run)
+    zia_partnerunit.add_membership(swim_group_str)
 
     # WHEN
-    group_titles_dict = bob_plan.get_personunit_group_titles_dict()
+    group_titles_dict = bob_plan.get_partnerunit_group_titles_dict()
 
     # THEN
     print(f"{group_titles_dict=}")
@@ -86,8 +86,8 @@ def test_PlanUnit_create_symmetry_groupunit_ReturnsObj():
     yao_group_debt_lumen = 2
     zia_group_cred_lumen = 4
     zia_group_debt_lumen = 5
-    yao_plan.add_personunit(exx.yao, yao_group_cred_lumen, yao_group_debt_lumen)
-    yao_plan.add_personunit(exx.zia, zia_group_cred_lumen, zia_group_debt_lumen)
+    yao_plan.add_partnerunit(exx.yao, yao_group_cred_lumen, yao_group_debt_lumen)
+    yao_plan.add_partnerunit(exx.zia, zia_group_cred_lumen, zia_group_debt_lumen)
 
     # WHEN
     xio_groupunit = yao_plan.create_symmetry_groupunit(exx.xio)
@@ -97,8 +97,8 @@ def test_PlanUnit_create_symmetry_groupunit_ReturnsObj():
     assert xio_groupunit.group_membership_exists(exx.yao)
     assert xio_groupunit.group_membership_exists(exx.zia)
     assert len(xio_groupunit.memberships) == 2
-    yao_groupunit = xio_groupunit.get_person_membership(exx.yao)
-    zia_groupunit = xio_groupunit.get_person_membership(exx.zia)
+    yao_groupunit = xio_groupunit.get_partner_membership(exx.yao)
+    zia_groupunit = xio_groupunit.get_partner_membership(exx.zia)
     assert yao_groupunit.group_cred_lumen == yao_group_cred_lumen
     assert zia_groupunit.group_cred_lumen == zia_group_cred_lumen
     assert yao_groupunit.group_debt_lumen == yao_group_debt_lumen

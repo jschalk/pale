@@ -1,32 +1,32 @@
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch07_plan_logic.plan_report import (
     get_plan_agenda_dataframe,
-    get_plan_personunits_dataframe,
+    get_plan_partnerunits_dataframe,
 )
 from src.ch07_plan_logic.test._util.ch07_examples import planunit_v001_with_large_agenda
 from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
-def test_get_plan_personunits_dataframe_ReturnsDataFrame():
+def test_get_plan_partnerunits_dataframe_ReturnsDataFrame():
     # ESTABLISH
     luca_plan = planunit_shop()
     luca_plan.set_credor_respect(500)
     luca_plan.set_debtor_respect(400)
-    yao_person_cred_lumen = 66
-    yao_person_debt_lumen = 77
-    luca_plan.add_personunit(exx.yao, yao_person_cred_lumen, yao_person_debt_lumen)
-    sue_person_cred_lumen = 434
-    sue_person_debt_lumen = 323
-    luca_plan.add_personunit(exx.sue, sue_person_cred_lumen, sue_person_debt_lumen)
+    yao_partner_cred_lumen = 66
+    yao_partner_debt_lumen = 77
+    luca_plan.add_partnerunit(exx.yao, yao_partner_cred_lumen, yao_partner_debt_lumen)
+    sue_partner_cred_lumen = 434
+    sue_partner_debt_lumen = 323
+    luca_plan.add_partnerunit(exx.sue, sue_partner_cred_lumen, sue_partner_debt_lumen)
 
     # WHEN
-    x_df = get_plan_personunits_dataframe(luca_plan)
+    x_df = get_plan_partnerunits_dataframe(luca_plan)
 
     # THEN
-    personunit_colums = {
-        kw.person_name,
-        "person_cred_lumen",
-        "person_debt_lumen",
+    partnerunit_colums = {
+        kw.partner_name,
+        "partner_cred_lumen",
+        "partner_debt_lumen",
         "memberships",
         "fund_give",
         "fund_take",
@@ -37,22 +37,22 @@ def test_get_plan_personunits_dataframe_ReturnsDataFrame():
     }
     print(f"{set(x_df.columns)=}")
 
-    assert set(x_df.columns) == personunit_colums
+    assert set(x_df.columns) == partnerunit_colums
     assert x_df.shape[0] == 2
 
 
-def test_get_plan_personunits_dataframe_ReturnsEmptyDataFrame():
+def test_get_plan_partnerunits_dataframe_ReturnsEmptyDataFrame():
     # ESTABLISH
     luca_plan = planunit_shop()
 
     # WHEN
-    x_df = get_plan_personunits_dataframe(luca_plan)
+    x_df = get_plan_partnerunits_dataframe(luca_plan)
 
     # THEN
-    personunit_colums = {
-        kw.person_name,
-        "person_cred_lumen",
-        "person_debt_lumen",
+    partnerunit_colums = {
+        kw.partner_name,
+        "partner_cred_lumen",
+        "partner_debt_lumen",
         "fund_give",
         "fund_take",
         "fund_agenda_give",
@@ -62,7 +62,7 @@ def test_get_plan_personunits_dataframe_ReturnsEmptyDataFrame():
     }
     print(f"{set(x_df.columns)=}")
 
-    assert set(x_df.columns) == personunit_colums
+    assert set(x_df.columns) == partnerunit_colums
     assert x_df.shape[0] == 0
 
 
@@ -76,7 +76,7 @@ def test_get_plan_agenda_dataframe_ReturnsDataFrame():
     print(x_df)
 
     # THEN
-    personunit_colums = {
+    partnerunit_colums = {
         kw.plan_name,
         "fund_ratio",
         kw.keg_label,
@@ -90,7 +90,7 @@ def test_get_plan_agenda_dataframe_ReturnsDataFrame():
     }
     print(f"{set(x_df.columns)=}")
 
-    assert set(x_df.columns) == personunit_colums
+    assert set(x_df.columns) == partnerunit_colums
     assert x_df.shape[0] == 69
 
 
@@ -104,7 +104,7 @@ def test_get_plan_agenda_dataframe_ReturnsEmptyDataFrame():
     print(x_df)
 
     # THEN
-    personunit_colums = {
+    partnerunit_colums = {
         kw.plan_name,
         "fund_ratio",
         kw.keg_label,
@@ -118,4 +118,4 @@ def test_get_plan_agenda_dataframe_ReturnsEmptyDataFrame():
     }
     print(f"{set(x_df.columns)=}")
 
-    assert set(x_df.columns) == personunit_colums
+    assert set(x_df.columns) == partnerunit_colums

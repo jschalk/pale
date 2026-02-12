@@ -91,18 +91,18 @@ def save_arbitrary_planspark(
     moment_lasso: LassoUnit,
     plan_name: str,
     spark_num: int,
-    persons: list[list] = None,
+    partners: list[list] = None,
     facts: list[tuple[RopeTerm, RopeTerm, float, float]] = None,
 ) -> str:
-    persons = get_empty_list_if_None(persons)
+    partners = get_empty_list_if_None(partners)
     facts = get_empty_list_if_None(facts)
     x_planunit = planunit_shop(plan_name, moment_lasso.moment_rope)
-    for person_list in persons:
+    for partner_list in partners:
         try:
-            person_cred_lumen = person_list[1]
+            partner_cred_lumen = partner_list[1]
         except Exception:
-            person_cred_lumen = None
-        x_planunit.add_personunit(person_list[0], person_cred_lumen)
+            partner_cred_lumen = None
+        x_planunit.add_partnerunit(partner_list[0], partner_cred_lumen)
     for fact_tup in facts:
         x_reason_context = fact_tup[0]
         x_fact_state = fact_tup[1]
@@ -148,11 +148,11 @@ def cellunit_get_from_dir(dirpath: str) -> CellUnit:
         return cellunit_get_from_dict(open_json(cell_json_path))
 
 
-def create_cell_person_mandate_ledger_json(dirpath: str):
+def create_cell_partner_mandate_ledger_json(dirpath: str):
     if cell := cellunit_get_from_dir(dirpath):
-        cell.calc_person_mandate_ledger()
+        cell.calc_partner_mandate_ledger()
         save_json(
-            dirpath, "cell_person_mandate_ledger.json", cell._person_mandate_ledger
+            dirpath, "cell_partner_mandate_ledger.json", cell._partner_mandate_ledger
         )
 
 

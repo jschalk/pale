@@ -1,12 +1,12 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count, get_table_columns
-from src.ch02_person.group import (
+from src.ch02_partner.group import (
     awardheir_shop,
     awardunit_shop,
     groupunit_shop,
     membership_shop,
 )
-from src.ch02_person.person import personunit_shop
+from src.ch02_partner.partner import partnerunit_shop
 from src.ch03_labor.labor import laborheir_shop, laborunit_shop, partyheir_shop
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import caseunit_shop, factheir_shop, reasonheir_shop
@@ -25,7 +25,7 @@ from src.ch18_world_etl.obj2db_plan import (
     insert_h_agg_plnkegg,
     insert_h_agg_plnlabo,
     insert_h_agg_plnmemb,
-    insert_h_agg_plnprsn,
+    insert_h_agg_plnptnr,
     insert_h_agg_plnreas,
     insert_h_agg_plnunit,
 )
@@ -294,7 +294,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 # def test_insert_h_agg_plnmemb_CreatesTableRowsFor_plnmemb_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     # x_args = get_plan_calc_dimen_args("plan_person_membership")
+#     # x_args = get_plan_calc_dimen_args("plan_partner_membership")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     x_count += 1
@@ -309,7 +309,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #     x_spark_num = 77
 #     x_face_name = exx.yao
 #     x_plan_name = 2
-#     x_person_name = 3
+#     x_partner_name = 3
 #     x_group_title = 4
 #     x_group_cred_lumen = 5.0
 #     x_group_debt_lumen = 6.0
@@ -322,7 +322,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #     x_fund_agenda_ratio_give = 13.0
 #     x_fund_agenda_ratio_take = 14.0
 #     x_membership = membership_shop(x_group_title)
-#     x_membership.person_name = x_person_name
+#     x_membership.partner_name = x_partner_name
 #     x_membership.group_cred_lumen = x_group_cred_lumen
 #     x_membership.group_debt_lumen = x_group_debt_lumen
 #     x_membership.credor_pool = x_credor_pool
@@ -337,7 +337,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         x_table_name = "plan_person_membership_h_put_agg"
+#         x_table_name = "plan_partner_membership_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name)
 
@@ -354,7 +354,7 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #             x_face_name,
 #             str(exx.a23),
 #             str(x_plan_name),
-#             str(x_person_name),
+#             str(x_partner_name),
 #             str(x_group_title),
 #             x_group_cred_lumen,
 #             x_group_debt_lumen,
@@ -371,17 +371,17 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #         assert rows == expected_data
 
 
-# def test_insert_h_agg_plnprsn_CreatesTableRowsFor_plnprsn_h_agg():
+# def test_insert_h_agg_plnptnr_CreatesTableRowsFor_plnptnr_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     # x_args = get_plan_calc_dimen_args("plan_personunit")
+#     # x_args = get_plan_calc_dimen_args("plan_partnerunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     x_count += 1
 #     #     print(f"    x_{x_arg} = {x_count}")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""    x_person.{x_arg} = x_{x_arg}""")
+#     #     print(f"""    x_partner.{x_arg} = x_{x_arg}""")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     print(f"""            x_{x_arg},""")
@@ -389,9 +389,9 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #     x_spark_num = 77
 #     x_face_name = exx.yao
 #     x_plan_name = 2
-#     x_person_name = 3
-#     x_person_cred_lumen = 4
-#     x_person_debt_lumen = 5
+#     x_partner_name = 3
+#     x_partner_cred_lumen = 4
+#     x_partner_debt_lumen = 5
 #     x_credor_pool = 6
 #     x_debtor_pool = 7
 #     x_fund_give = 8
@@ -400,34 +400,34 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #     x_fund_agenda_take = 11
 #     x_fund_agenda_ratio_give = 12
 #     x_fund_agenda_ratio_take = 13
-#     x_inallocable_person_debt_lumen = 14
-#     x_irrational_person_debt_lumen = 15
+#     x_inallocable_partner_debt_lumen = 14
+#     x_irrational_partner_debt_lumen = 15
 #     x_groupmark = 16
-#     x_person = personunit_shop(x_person_name)
-#     x_person.person_name = x_person_name
-#     x_person.person_cred_lumen = x_person_cred_lumen
-#     x_person.person_debt_lumen = x_person_debt_lumen
-#     x_person.credor_pool = x_credor_pool
-#     x_person.debtor_pool = x_debtor_pool
-#     x_person.fund_give = x_fund_give
-#     x_person.fund_take = x_fund_take
-#     x_person.fund_agenda_give = x_fund_agenda_give
-#     x_person.fund_agenda_take = x_fund_agenda_take
-#     x_person.fund_agenda_ratio_give = x_fund_agenda_ratio_give
-#     x_person.fund_agenda_ratio_take = x_fund_agenda_ratio_take
-#     x_person.inallocable_person_debt_lumen = x_inallocable_person_debt_lumen
-#     x_person.irrational_person_debt_lumen = x_irrational_person_debt_lumen
-#     x_person.groupmark = x_groupmark
+#     x_partner = partnerunit_shop(x_partner_name)
+#     x_partner.partner_name = x_partner_name
+#     x_partner.partner_cred_lumen = x_partner_cred_lumen
+#     x_partner.partner_debt_lumen = x_partner_debt_lumen
+#     x_partner.credor_pool = x_credor_pool
+#     x_partner.debtor_pool = x_debtor_pool
+#     x_partner.fund_give = x_fund_give
+#     x_partner.fund_take = x_fund_take
+#     x_partner.fund_agenda_give = x_fund_agenda_give
+#     x_partner.fund_agenda_take = x_fund_agenda_take
+#     x_partner.fund_agenda_ratio_give = x_fund_agenda_ratio_give
+#     x_partner.fund_agenda_ratio_take = x_fund_agenda_ratio_take
+#     x_partner.inallocable_partner_debt_lumen = x_inallocable_partner_debt_lumen
+#     x_partner.irrational_partner_debt_lumen = x_irrational_partner_debt_lumen
+#     x_partner.groupmark = x_groupmark
 
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         x_table_name = "plan_personunit_h_put_agg"
+#         x_table_name = "plan_partnerunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, plan_name=x_plan_name)
 
 #         # WHEN
-#         insert_h_agg_plnprsn(cursor, x_objkeysholder, x_person)
+#         insert_h_agg_plnptnr(cursor, x_objkeysholder, x_partner)
 
 #         # THEN
 #         assert get_row_count(cursor, x_table_name) == 1
@@ -439,9 +439,9 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #             x_face_name,
 #             str(exx.a23),
 #             str(x_plan_name),
-#             str(x_person_name),
-#             x_person_cred_lumen,
-#             x_person_debt_lumen,
+#             str(x_partner_name),
+#             x_partner_cred_lumen,
+#             x_partner_debt_lumen,
 #             str(x_groupmark),
 #             x_credor_pool,
 #             x_debtor_pool,
@@ -451,8 +451,8 @@ def test_insert_h_agg_plncase_CreatesTableRowsFor_plncase_h_agg():
 #             x_fund_agenda_take,
 #             x_fund_agenda_ratio_give,
 #             x_fund_agenda_ratio_take,
-#             x_inallocable_person_debt_lumen,
-#             x_irrational_person_debt_lumen,
+#             x_inallocable_partner_debt_lumen,
+#             x_irrational_partner_debt_lumen,
 #         )
 #         expected_data = [expected_row1]
 #         assert rows == expected_data
@@ -778,9 +778,9 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
     # sourcery skip: extract-method
     # ESTABLISH
     sue_plan = planunit_shop(exx.sue, exx.a23)
-    sue_plan.add_personunit(exx.sue)
-    sue_plan.add_personunit(exx.bob)
-    sue_plan.get_person(exx.bob).add_membership(exx.run)
+    sue_plan.add_partnerunit(exx.sue)
+    sue_plan.add_partnerunit(exx.bob)
+    sue_plan.get_partner(exx.bob).add_membership(exx.run)
     casa_rope = sue_plan.make_l1_rope("casa")
     situation_rope = sue_plan.make_l1_rope(kw.reason_active)
     clean_rope = sue_plan.make_rope(situation_rope, "clean")
@@ -833,9 +833,9 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
 #     sue_plan = planunit_shop(exx.sue, exx.a23)
-#     sue_plan.add_personunit(exx.sue)
-#     sue_plan.add_personunit(exx.bob)
-#     sue_plan.get_person(exx.bob).add_membership(exx.run)
+#     sue_plan.add_partnerunit(exx.sue)
+#     sue_plan.add_partnerunit(exx.bob)
+#     sue_plan.get_partner(exx.bob).add_membership(exx.run)
 #     casa_rope = sue_plan.make_l1_rope("casa")
 #     situation_rope = sue_plan.make_l1_rope(kw.reason_active)
 #     clean_rope = sue_plan.make_rope(situation_rope, "clean")
@@ -856,8 +856,8 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         plnmemb_h_agg_table = f"{kw.plan_person_membership}_h_put_agg"
-#         plnprsn_h_agg_table = f"{kw.plan_personunit}_h_put_agg"
+#         plnmemb_h_agg_table = f"{kw.plan_partner_membership}_h_put_agg"
+#         plnptnr_h_agg_table = f"{kw.plan_partnerunit}_h_put_agg"
 #         plngrou_h_agg_table = f"{kw.plan_groupunit}_h_put_agg"
 #         plnawar_h_agg_table = f"{kw.plan_keg_awardunit}_h_put_agg"
 #         plnfact_h_agg_table = f"{kw.plan_keg_factunit}_h_put_agg"
@@ -869,7 +869,7 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #         plnunit_h_agg_table = f"{kw.planunit}_h_put_agg"
 #         assert get_row_count(cursor, plnunit_h_agg_table) == 0
 #         assert get_row_count(cursor, plnkegg_h_agg_table) == 0
-#         assert get_row_count(cursor, plnprsn_h_agg_table) == 0
+#         assert get_row_count(cursor, plnptnr_h_agg_table) == 0
 #         assert get_row_count(cursor, plnmemb_h_agg_table) == 0
 #         assert get_row_count(cursor, plngrou_h_agg_table) == 0
 #         assert get_row_count(cursor, plnawar_h_agg_table) == 0
@@ -885,7 +885,7 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #         # THEN
 #         assert get_row_count(cursor, plnunit_h_agg_table) == 1
 #         assert get_row_count(cursor, plnkegg_h_agg_table) == 5
-#         assert get_row_count(cursor, plnprsn_h_agg_table) == 2
+#         assert get_row_count(cursor, plnptnr_h_agg_table) == 2
 #         assert get_row_count(cursor, plnmemb_h_agg_table) == 3
 #         assert get_row_count(cursor, plngrou_h_agg_table) == 3
 #         assert get_row_count(cursor, plnawar_h_agg_table) == 1

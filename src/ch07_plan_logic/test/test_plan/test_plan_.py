@@ -14,7 +14,7 @@ def test_PlanUnit_Exists():
     assert x_plan
     assert x_plan.moment_rope is None
     assert x_plan.plan_name is None
-    assert x_plan.persons is None
+    assert x_plan.partners is None
     assert x_plan.kegroot is None
     assert x_plan.credor_respect is None
     assert x_plan.debtor_respect is None
@@ -54,7 +54,7 @@ def test_PlanUnit_Exists():
         kw.reason_contexts,
         kw.sum_healerunit_kegs_fund_total,
         kw.tree_traverse_count,
-        kw.persons,
+        kw.partners,
         kw.knot,
         kw.kegroot,
         kw.credor_respect,
@@ -110,7 +110,7 @@ def test_planunit_shop_ReturnsObj_Scenario1_WithParameters():
     assert x_plan
     assert x_plan.plan_name == exx.sue
     assert x_plan.moment_rope == iowa_rope
-    assert x_plan.persons == {}
+    assert x_plan.partners == {}
     assert x_plan.kegroot is not None
     assert x_plan.max_tree_traverse == 3
     assert x_plan.knot == slash_knot

@@ -1,5 +1,5 @@
 from src.ch01_allot.allot import default_grain_num_if_None
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch03_labor.labor import laborunit_shop
 from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch06_keg.healer import healerunit_shop
@@ -44,8 +44,8 @@ def test_KegUnit_Exists():
     assert x_kegunit.stop_calc is None
     assert x_kegunit.descendant_pledge_count is None
     assert x_kegunit.is_expanded is None
-    assert x_kegunit.all_person_cred is None
-    assert x_kegunit.all_person_debt is None
+    assert x_kegunit.all_partner_cred is None
+    assert x_kegunit.all_partner_debt is None
     assert x_kegunit.tree_level is None
     assert x_kegunit.keg_active_hx is None
     assert x_kegunit.fund_ratio is None
@@ -58,8 +58,8 @@ def test_KegUnit_Exists():
     assert obj_attrs == {
         kw.keg_active,
         kw.keg_active_hx,
-        kw.all_person_cred,
-        kw.all_person_debt,
+        kw.all_partner_cred,
+        kw.all_partner_debt,
         kw.awardheirs,
         kw.awardlines,
         kw.descendant_pledge_count,
@@ -170,8 +170,8 @@ def test_kegunit_shop_ReturnsObj_WithOneParameter():
     assert x_kegunit.laborunit == laborunit_shop()
     assert x_kegunit.laborheir is None
     assert x_kegunit.knot == default_knot_if_None()
-    assert x_kegunit.all_person_cred is None
-    assert x_kegunit.all_person_debt is None
+    assert x_kegunit.all_partner_cred is None
+    assert x_kegunit.all_partner_debt is None
     assert x_kegunit.healerunit_ratio == 0
 
 

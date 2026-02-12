@@ -47,8 +47,8 @@ def test_create_job_tables_CreatesTables():
         cursor = moment_db_conn.cursor()
         assert len(get_db_tables(cursor)) == 0
 
-        plnmemb_job_table = prime_table(kw.plan_person_membership, kw.job, None)
-        plnprsn_job_table = prime_table(kw.plan_personunit, kw.job, None)
+        plnmemb_job_table = prime_table(kw.plan_partner_membership, kw.job, None)
+        plnptnr_job_table = prime_table(kw.plan_partnerunit, kw.job, None)
         plngrou_job_table = prime_table(kw.plan_groupunit, kw.job, None)
         plnawar_job_table = prime_table(kw.plan_keg_awardunit, kw.job, None)
         plnfact_job_table = prime_table(kw.plan_keg_factunit, kw.job, None)
@@ -58,8 +58,8 @@ def test_create_job_tables_CreatesTables():
         plnlabo_job_table = prime_table(kw.plan_keg_partyunit, kw.job, None)
         plnkegg_job_table = prime_table(kw.plan_kegunit, kw.job, None)
         plnunit_job_table = prime_table(kw.planunit, kw.job, None)
-        # plnmemb_job_table = f"{kw.plan_person_membership}_job"
-        # plnprsn_job_table = f"{kw.plan_personunit}_job"
+        # plnmemb_job_table = f"{kw.plan_partner_membership}_job"
+        # plnptnr_job_table = f"{kw.plan_partnerunit}_job"
         # plngrou_job_table = f"{kw.plan_groupunit}_job"
         # plnawar_job_table = f"{kw.plan_keg_awardunit}_job"
         # plnfact_job_table = f"{kw.plan_keg_factunit}_job"
@@ -71,7 +71,7 @@ def test_create_job_tables_CreatesTables():
         # plnunit_job_table = f"{kw.planunit}_job"
 
         assert db_table_exists(cursor, plnmemb_job_table) is False
-        assert db_table_exists(cursor, plnprsn_job_table) is False
+        assert db_table_exists(cursor, plnptnr_job_table) is False
         assert db_table_exists(cursor, plngrou_job_table) is False
         assert db_table_exists(cursor, plnawar_job_table) is False
         assert db_table_exists(cursor, plnfact_job_table) is False
@@ -93,7 +93,7 @@ def test_create_job_tables_CreatesTables():
         #     print(f"{x_count} {x_row[1]=}")
         #     x_count += 1
         assert db_table_exists(cursor, plnmemb_job_table)
-        assert db_table_exists(cursor, plnprsn_job_table)
+        assert db_table_exists(cursor, plnptnr_job_table)
         assert db_table_exists(cursor, plngrou_job_table)
         assert db_table_exists(cursor, plnawar_job_table)
         assert db_table_exists(cursor, plnfact_job_table)

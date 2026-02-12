@@ -69,9 +69,9 @@ def add_epoch_frame_to_budhistory_bud_time(
 def add_epoch_frame_to_paybook_tran_time(momentunit: MomentUnit, epoch_frame_min: int):
     epoch_length = get_epoch_length(momentunit.get_epoch_config())
     new_paybook = tranbook_shop(momentunit.moment_rope)
-    for plan_name, person_values in momentunit.paybook.tranunits.items():
-        for person_name, trans_values in person_values.items():
+    for plan_name, partner_values in momentunit.paybook.tranunits.items():
+        for partner_name, trans_values in partner_values.items():
             for tran_time, amount in trans_values.items():
                 new_tran_time = tran_time + epoch_frame_min % epoch_length
-                new_paybook.add_tranunit(plan_name, person_name, new_tran_time, amount)
+                new_paybook.add_tranunit(plan_name, partner_name, new_tran_time, amount)
     momentunit.paybook = new_paybook

@@ -1,6 +1,6 @@
 from datetime import datetime
 from src.ch00_py.plotly_toolbox import conditional_fig_show
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch05_reason.reason_main import reasonunit_shop
 from src.ch06_keg.keg import kegunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
@@ -643,8 +643,8 @@ def test_PlanUnit_create_agenda_keg_CreatesAllPlanAttributes():
 
     # ESTABLISH
     sue_plan = planunit_shop("Sue")
-    assert len(sue_plan.persons) == 0
-    assert len(sue_plan.get_personunit_group_titles_dict()) == 0
+    assert len(sue_plan.partners) == 0
+    assert len(sue_plan.get_partnerunit_group_titles_dict()) == 0
 
     clean_str = "cleanings"
     clean_rope = sue_plan.make_l1_rope(clean_str)
@@ -683,8 +683,8 @@ def test_PlanUnit_create_agenda_keg_CreatesAllPlanAttributes():
     awardunit_z = awardunit_shop(awardee_title=family_str)
     sweep_keg.set_awardunit(awardunit_z)
 
-    assert len(sue_plan.persons) == 0
-    assert len(sue_plan.get_personunit_group_titles_dict()) == 0
+    assert len(sue_plan.partners) == 0
+    assert len(sue_plan.get_partnerunit_group_titles_dict()) == 0
     assert len(sue_plan.kegroot.kids) == 1
     assert sue_plan.get_keg_obj(daytime_rope).denom == 1440
     assert sue_plan.get_keg_obj(daytime_rope).morph
@@ -705,8 +705,8 @@ def test_PlanUnit_create_agenda_keg_CreatesAllPlanAttributes():
     assert sue_plan.get_keg_obj(clean_rope) is not None
     assert sue_plan.get_keg_obj(cuisine_room_rope) is not None
     assert sue_plan.get_keg_obj(cuisine_dirty_rope) is not None
-    assert len(sue_plan.get_personunit_group_titles_dict()) == 0
-    assert sue_plan.get_personunit_group_titles_dict().get(family_str) is None
+    assert len(sue_plan.get_partnerunit_group_titles_dict()) == 0
+    assert sue_plan.get_partnerunit_group_titles_dict().get(family_str) is None
 
     assert len(sue_plan.kegroot.kids) == 3
 

@@ -1,5 +1,5 @@
 from pytest import raises as pytest_raises
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
 from src.ch05_reason.reason_main import factheir_shop
 from src.ch06_keg.keg import kegunit_shop
@@ -84,34 +84,34 @@ def test_PlanUnit_cashout_ClearsDescendantAttributes():
     mon_rope = sue_plan.make_rope(wk_rope, mon_str)
     mon_keg = sue_plan.get_keg_obj(mon_rope)
     assert sue_plan.kegroot.descendant_pledge_count is None
-    assert sue_plan.kegroot.all_person_cred is None
-    assert sue_plan.kegroot.all_person_debt is None
+    assert sue_plan.kegroot.all_partner_cred is None
+    assert sue_plan.kegroot.all_partner_debt is None
     assert casa_keg.descendant_pledge_count is None
-    assert casa_keg.all_person_cred is None
-    assert casa_keg.all_person_debt is None
+    assert casa_keg.all_partner_cred is None
+    assert casa_keg.all_partner_debt is None
     assert mon_keg.descendant_pledge_count is None
-    assert mon_keg.all_person_cred is None
-    assert mon_keg.all_person_debt is None
+    assert mon_keg.all_partner_cred is None
+    assert mon_keg.all_partner_debt is None
 
     sue_plan.kegroot.descendant_pledge_count = -2
-    sue_plan.kegroot.all_person_cred = -2
-    sue_plan.kegroot.all_person_debt = -2
+    sue_plan.kegroot.all_partner_cred = -2
+    sue_plan.kegroot.all_partner_debt = -2
     casa_keg.descendant_pledge_count = -2
-    casa_keg.all_person_cred = -2
-    casa_keg.all_person_debt = -2
+    casa_keg.all_partner_cred = -2
+    casa_keg.all_partner_debt = -2
     mon_keg.descendant_pledge_count = -2
-    mon_keg.all_person_cred = -2
-    mon_keg.all_person_debt = -2
+    mon_keg.all_partner_cred = -2
+    mon_keg.all_partner_debt = -2
 
     assert sue_plan.kegroot.descendant_pledge_count == -2
-    assert sue_plan.kegroot.all_person_cred == -2
-    assert sue_plan.kegroot.all_person_debt == -2
+    assert sue_plan.kegroot.all_partner_cred == -2
+    assert sue_plan.kegroot.all_partner_debt == -2
     assert casa_keg.descendant_pledge_count == -2
-    assert casa_keg.all_person_cred == -2
-    assert casa_keg.all_person_debt == -2
+    assert casa_keg.all_partner_cred == -2
+    assert casa_keg.all_partner_debt == -2
     assert mon_keg.descendant_pledge_count == -2
-    assert mon_keg.all_person_cred == -2
-    assert mon_keg.all_person_debt == -2
+    assert mon_keg.all_partner_cred == -2
+    assert mon_keg.all_partner_debt == -2
 
     # WHEN
     sue_plan.cashout()
@@ -121,28 +121,28 @@ def test_PlanUnit_cashout_ClearsDescendantAttributes():
     assert casa_keg.descendant_pledge_count == 0
     assert mon_keg.descendant_pledge_count == 0
 
-    assert mon_keg.all_person_cred is True
-    assert mon_keg.all_person_debt is True
-    assert casa_keg.all_person_cred is True
-    assert casa_keg.all_person_debt is True
-    assert sue_plan.kegroot.all_person_cred is True
-    assert sue_plan.kegroot.all_person_debt is True
+    assert mon_keg.all_partner_cred is True
+    assert mon_keg.all_partner_debt is True
+    assert casa_keg.all_partner_cred is True
+    assert casa_keg.all_partner_debt is True
+    assert sue_plan.kegroot.all_partner_cred is True
+    assert sue_plan.kegroot.all_partner_debt is True
 
 
 def test_PlanUnit_cashout_RootOnlySetsDescendantAttributes():
     # ESTABLISH
     yao_plan = planunit_shop(plan_name="Yao")
     assert yao_plan.kegroot.descendant_pledge_count is None
-    assert yao_plan.kegroot.all_person_cred is None
-    assert yao_plan.kegroot.all_person_debt is None
+    assert yao_plan.kegroot.all_partner_cred is None
+    assert yao_plan.kegroot.all_partner_debt is None
 
     # WHEN
     yao_plan.cashout()
 
     # THEN
     assert yao_plan.kegroot.descendant_pledge_count == 0
-    assert yao_plan.kegroot.all_person_cred is True
-    assert yao_plan.kegroot.all_person_debt is True
+    assert yao_plan.kegroot.all_partner_cred is True
+    assert yao_plan.kegroot.all_partner_debt is True
 
 
 def test_PlanUnit_cashout_NLevelSetsDescendantAttributes_1():
@@ -164,14 +164,14 @@ def test_PlanUnit_cashout_NLevelSetsDescendantAttributes_1():
     root_rope = sue_plan.kegroot.get_keg_rope()
     x_kegroot = sue_plan.get_keg_obj(root_rope)
     assert x_kegroot.descendant_pledge_count is None
-    assert x_kegroot.all_person_cred is None
-    assert x_kegroot.all_person_debt is None
+    assert x_kegroot.all_partner_cred is None
+    assert x_kegroot.all_partner_debt is None
     assert casa_keg.descendant_pledge_count is None
-    assert casa_keg.all_person_cred is None
-    assert casa_keg.all_person_debt is None
+    assert casa_keg.all_partner_cred is None
+    assert casa_keg.all_partner_debt is None
     assert mon_keg.descendant_pledge_count is None
-    assert mon_keg.all_person_cred is None
-    assert mon_keg.all_person_debt is None
+    assert mon_keg.all_partner_cred is None
+    assert mon_keg.all_partner_debt is None
 
     # WHEN
     sue_plan.cashout()
@@ -181,12 +181,12 @@ def test_PlanUnit_cashout_NLevelSetsDescendantAttributes_1():
     assert casa_keg.descendant_pledge_count == 1
     assert casa_keg.kids[email_str].descendant_pledge_count == 0
     assert mon_keg.descendant_pledge_count == 0
-    assert x_kegroot.all_person_cred is True
-    assert x_kegroot.all_person_debt is True
-    assert casa_keg.all_person_cred is True
-    assert casa_keg.all_person_debt is True
-    assert mon_keg.all_person_cred is True
-    assert mon_keg.all_person_debt is True
+    assert x_kegroot.all_partner_cred is True
+    assert x_kegroot.all_partner_debt is True
+    assert casa_keg.all_partner_cred is True
+    assert casa_keg.all_partner_debt is True
+    assert mon_keg.all_partner_cred is True
+    assert mon_keg.all_partner_debt is True
 
 
 def test_PlanUnit_cashout_NLevelSetsDescendantAttributes_2():
@@ -205,7 +205,7 @@ def test_PlanUnit_cashout_NLevelSetsDescendantAttributes_2():
     vacuum_keg = kegunit_shop(vacuum_str, pledge=True)
     sue_plan.set_keg_obj(vacuum_keg, parent_rope=casa_rope)
 
-    sue_plan.add_personunit(person_name=exx.sue)
+    sue_plan.add_partnerunit(partner_name=exx.sue)
     x_awardunit = awardunit_shop(awardee_title=exx.sue)
 
     sue_plan.kegroot.kids[exx.casa].kids[email_str].set_awardunit(awardunit=x_awardunit)
@@ -218,33 +218,33 @@ def test_PlanUnit_cashout_NLevelSetsDescendantAttributes_2():
     # print(sue_plan.kids[exx.casa].kids[email_str].awardunit)
 
     # THEN
-    assert sue_plan.kegroot.all_person_cred is False
-    assert sue_plan.kegroot.all_person_debt is False
+    assert sue_plan.kegroot.all_partner_cred is False
+    assert sue_plan.kegroot.all_partner_debt is False
     casa_keg = sue_plan.kegroot.kids[exx.casa]
-    assert casa_keg.all_person_cred is False
-    assert casa_keg.all_person_debt is False
-    assert casa_keg.kids[email_str].all_person_cred is False
-    assert casa_keg.kids[email_str].all_person_debt is False
-    assert casa_keg.kids[vacuum_str].all_person_cred is True
-    assert casa_keg.kids[vacuum_str].all_person_debt is True
+    assert casa_keg.all_partner_cred is False
+    assert casa_keg.all_partner_debt is False
+    assert casa_keg.kids[email_str].all_partner_cred is False
+    assert casa_keg.kids[email_str].all_partner_debt is False
+    assert casa_keg.kids[vacuum_str].all_partner_cred is True
+    assert casa_keg.kids[vacuum_str].all_partner_debt is True
     wk_keg = sue_plan.kegroot.kids[wk_str]
-    assert wk_keg.all_person_cred is True
-    assert wk_keg.all_person_debt is True
-    assert wk_keg.kids[mon_str].all_person_cred is True
-    assert wk_keg.kids[mon_str].all_person_debt is True
-    assert wk_keg.kids[tue_str].all_person_cred is True
-    assert wk_keg.kids[tue_str].all_person_debt is True
+    assert wk_keg.all_partner_cred is True
+    assert wk_keg.all_partner_debt is True
+    assert wk_keg.kids[mon_str].all_partner_cred is True
+    assert wk_keg.kids[mon_str].all_partner_debt is True
+    assert wk_keg.kids[tue_str].all_partner_cred is True
+    assert wk_keg.kids[tue_str].all_partner_debt is True
 
 
 def test_PlanUnit_cashout_SetsKegUnitAttr_awardunits():
     # ESTABLISH
     sue_plan = planunit_shop(exx.sue)
-    sue_plan.add_personunit(exx.yao)
-    sue_plan.add_personunit(exx.zia)
-    sue_plan.add_personunit(exx.xio)
+    sue_plan.add_partnerunit(exx.yao)
+    sue_plan.add_partnerunit(exx.zia)
+    sue_plan.add_partnerunit(exx.xio)
 
-    assert len(sue_plan.persons) == 3
-    assert len(sue_plan.get_personunit_group_titles_dict()) == 3
+    assert len(sue_plan.partners) == 3
+    assert len(sue_plan.get_partnerunit_group_titles_dict()) == 3
     sue_plan.set_l1_keg(kegunit_shop(exx.swim))
     awardunit_yao = awardunit_shop(exx.yao, give_force=10)
     awardunit_zia = awardunit_shop(exx.zia, give_force=10)
@@ -309,9 +309,9 @@ def test_PlanUnit_cashout_DoesNotKeepNonRequired_awardheirs():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_personunit(exx.yao)
-    yao_plan.add_personunit(exx.zia)
-    yao_plan.add_personunit(exx.xio)
+    yao_plan.add_partnerunit(exx.yao)
+    yao_plan.add_partnerunit(exx.zia)
+    yao_plan.add_partnerunit(exx.xio)
 
     swim_rope = yao_plan.make_l1_rope(exx.swim)
 
@@ -497,18 +497,18 @@ def test_PlanUnit_cashout_WhenKegUnitHas_starButAll_kidsHaveZero_starAddTo_offtr
 def test_PlanUnit_cashout_CreatesNewGroupUnits_Scenario0():
     # ESTABLISH
     yao_plan = planunit_shop(exx.yao)
-    yao_person_cred_lumen = 3
-    yao_person_debt_lumen = 2
-    zia_person_cred_lumen = 4
-    zia_person_debt_lumen = 5
-    yao_plan.add_personunit(exx.yao, yao_person_cred_lumen, yao_person_debt_lumen)
-    yao_plan.add_personunit(exx.zia, zia_person_cred_lumen, zia_person_debt_lumen)
+    yao_partner_cred_lumen = 3
+    yao_partner_debt_lumen = 2
+    zia_partner_cred_lumen = 4
+    zia_partner_debt_lumen = 5
+    yao_plan.add_partnerunit(exx.yao, yao_partner_cred_lumen, yao_partner_debt_lumen)
+    yao_plan.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
     root_rope = yao_plan.kegroot.get_keg_rope()
     x_kegroot = yao_plan.get_keg_obj(root_rope)
     x_kegroot.set_awardunit(awardunit_shop(exx.yao))
     x_kegroot.set_awardunit(awardunit_shop(exx.zia))
     x_kegroot.set_awardunit(awardunit_shop(exx.xio))
-    assert len(yao_plan.get_personunit_group_titles_dict()) == 2
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) == 2
     assert not yao_plan.groupunit_exists(exx.yao)
     assert not yao_plan.groupunit_exists(exx.zia)
     assert not yao_plan.groupunit_exists(exx.xio)
@@ -520,8 +520,8 @@ def test_PlanUnit_cashout_CreatesNewGroupUnits_Scenario0():
     assert yao_plan.groupunit_exists(exx.yao)
     assert yao_plan.groupunit_exists(exx.zia)
     assert yao_plan.groupunit_exists(exx.xio)
-    assert len(yao_plan.get_personunit_group_titles_dict()) == 2
-    assert len(yao_plan.get_personunit_group_titles_dict()) != len(yao_plan.groupunits)
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) == 2
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) != len(yao_plan.groupunits)
     assert len(yao_plan.groupunits) == 3
     xio_groupunit = yao_plan.get_groupunit(exx.xio)
     xio_symmerty_groupunit = yao_plan.create_symmetry_groupunit(exx.xio)
@@ -529,12 +529,12 @@ def test_PlanUnit_cashout_CreatesNewGroupUnits_Scenario0():
     assert xio_groupunit.group_membership_exists(exx.yao)
     assert xio_groupunit.group_membership_exists(exx.zia)
     assert not xio_groupunit.group_membership_exists(exx.xio)
-    yao_membership = xio_groupunit.get_person_membership(exx.yao)
-    zia_membership = xio_groupunit.get_person_membership(exx.zia)
-    assert yao_membership.group_cred_lumen == yao_person_cred_lumen
-    assert zia_membership.group_cred_lumen == zia_person_cred_lumen
-    assert yao_membership.group_debt_lumen == yao_person_debt_lumen
-    assert zia_membership.group_debt_lumen == zia_person_debt_lumen
+    yao_membership = xio_groupunit.get_partner_membership(exx.yao)
+    zia_membership = xio_groupunit.get_partner_membership(exx.zia)
+    assert yao_membership.group_cred_lumen == yao_partner_cred_lumen
+    assert zia_membership.group_cred_lumen == zia_partner_cred_lumen
+    assert yao_membership.group_debt_lumen == yao_partner_debt_lumen
+    assert zia_membership.group_debt_lumen == zia_partner_debt_lumen
 
 
 def test_PlanUnit_cashout_CreatesNewGroupUnits_Scenario1():
@@ -542,13 +542,13 @@ def test_PlanUnit_cashout_CreatesNewGroupUnits_Scenario1():
     yao_plan = planunit_shop(exx.yao)
     swim_rope = yao_plan.make_l1_rope(exx.swim)
     yao_plan.set_l1_keg(kegunit_shop(exx.swim))
-    yao_plan.add_personunit(exx.yao)
-    yao_plan.add_personunit(exx.zia)
+    yao_plan.add_partnerunit(exx.yao)
+    yao_plan.add_partnerunit(exx.zia)
     swim_keg = yao_plan.get_keg_obj(swim_rope)
     swim_keg.set_awardunit(awardunit_shop(exx.yao))
     swim_keg.set_awardunit(awardunit_shop(exx.zia))
     swim_keg.set_awardunit(awardunit_shop(exx.xio))
-    assert len(yao_plan.get_personunit_group_titles_dict()) == 2
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) == 2
     assert not yao_plan.groupunit_exists(exx.yao)
     assert not yao_plan.groupunit_exists(exx.zia)
     assert not yao_plan.groupunit_exists(exx.xio)
@@ -560,8 +560,8 @@ def test_PlanUnit_cashout_CreatesNewGroupUnits_Scenario1():
     assert yao_plan.groupunit_exists(exx.yao)
     assert yao_plan.groupunit_exists(exx.zia)
     assert yao_plan.groupunit_exists(exx.xio)
-    assert len(yao_plan.get_personunit_group_titles_dict()) == 2
-    assert len(yao_plan.get_personunit_group_titles_dict()) != len(yao_plan.groupunits)
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) == 2
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) != len(yao_plan.groupunits)
     assert len(yao_plan.groupunits) == 3
     xio_groupunit = yao_plan.get_groupunit(exx.xio)
     xio_symmerty_groupunit = yao_plan.create_symmetry_groupunit(exx.xio)
@@ -576,8 +576,8 @@ def test_PlanUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
     yao_plan = planunit_shop(exx.yao)
     swim_rope = yao_plan.make_l1_rope(exx.swim)
     yao_plan.set_l1_keg(kegunit_shop(exx.swim))
-    yao_plan.add_personunit(exx.yao)
-    yao_plan.add_personunit(exx.zia)
+    yao_plan.add_partnerunit(exx.yao)
+    yao_plan.add_partnerunit(exx.zia)
     swim_keg = yao_plan.get_keg_obj(swim_rope)
     swim_keg.set_awardunit(awardunit_shop(exx.yao))
     swim_keg.set_awardunit(awardunit_shop(exx.zia))
@@ -586,8 +586,8 @@ def test_PlanUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
     assert yao_plan.groupunit_exists(exx.yao)
     assert yao_plan.groupunit_exists(exx.zia)
     assert yao_plan.groupunit_exists(exx.xio)
-    assert len(yao_plan.get_personunit_group_titles_dict()) == 2
-    assert len(yao_plan.get_personunit_group_titles_dict()) != len(yao_plan.groupunits)
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) == 2
+    assert len(yao_plan.get_partnerunit_group_titles_dict()) != len(yao_plan.groupunits)
 
     # WHEN
     symmerty_group_titles = yao_plan.get_tree_traverse_generated_groupunits()

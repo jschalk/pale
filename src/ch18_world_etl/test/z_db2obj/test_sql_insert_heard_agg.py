@@ -16,7 +16,7 @@ from src.ch18_world_etl.obj2db_plan import (
     create_plnkegg_h_put_agg_insert_sqlstr,
     create_plnlabo_h_put_agg_insert_sqlstr,
     create_plnmemb_h_put_agg_insert_sqlstr,
-    create_plnprsn_h_put_agg_insert_sqlstr,
+    create_plnptnr_h_put_agg_insert_sqlstr,
     create_plnreas_h_put_agg_insert_sqlstr,
     create_plnunit_h_put_agg_insert_sqlstr,
 )
@@ -77,8 +77,8 @@ def test_create_plnkegg_h_put_agg_insert_sqlstr_ReturnsObj():
     x_moment_rope = exx.a23
     x_plan_name = "Sue"
     x_active = 1
-    x_all_person_cred = 2
-    x_all_person_debt = 3
+    x_all_partner_cred = 2
+    x_all_partner_debt = 3
     x_descendant_pledge_count = 4
     x_fund_cease = 5
     x_fund_grain = 6
@@ -401,13 +401,13 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #         assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_plnprsn_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_plnptnr_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
-#     x_person_name = 1
-#     x_person_cred_lumen = 2
-#     x_person_debt_lumen = 3
+#     x_partner_name = 1
+#     x_partner_cred_lumen = 2
+#     x_partner_debt_lumen = 3
 #     x_credor_pool = 4
 #     x_debtor_pool = 5
 #     x_fund_give = 6
@@ -416,17 +416,17 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fund_agenda_take = 9
 #     x_fund_agenda_ratio_give = 10
 #     x_fund_agenda_ratio_take = 11
-#     x_inallocable_person_debt_lumen = 12
-#     x_irrational_person_debt_lumen = 13
+#     x_inallocable_partner_debt_lumen = 12
+#     x_irrational_partner_debt_lumen = 13
 #     x_groupmark = 13
 #     values_dict = {
 #         kw.spark_num: 77,
 #         kw.face_name: exx.yao,
 #         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
-#         kw.person_name: x_person_name,
-#         kw.person_cred_lumen: x_person_cred_lumen,
-#         kw.person_debt_lumen: x_person_debt_lumen,
+#         kw.partner_name: x_partner_name,
+#         kw.partner_cred_lumen: x_partner_cred_lumen,
+#         kw.partner_debt_lumen: x_partner_debt_lumen,
 #         kw.credor_pool: x_credor_pool,
 #         kw.debtor_pool: x_debtor_pool,
 #         kw.fund_give: x_fund_give,
@@ -435,8 +435,8 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.fund_agenda_take: x_fund_agenda_take,
 #         kw.fund_agenda_ratio_give: x_fund_agenda_ratio_give,
 #         kw.fund_agenda_ratio_take: x_fund_agenda_ratio_take,
-#         kw.inallocable_person_debt_lumen: x_inallocable_person_debt_lumen,
-#         kw.irrational_person_debt_lumen: x_irrational_person_debt_lumen,
+#         kw.inallocable_partner_debt_lumen: x_inallocable_partner_debt_lumen,
+#         kw.irrational_partner_debt_lumen: x_irrational_partner_debt_lumen,
 #         kw.groupmark: x_groupmark,
 #     }
 #     all args included in values dict
@@ -447,14 +447,14 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_plnprsn_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_plnptnr_h_put_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         table_name = "plan_personunit_h_put_agg"
+#         table_name = "plan_partnerunit_h_put_agg"
 #         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
 #         print("")
 #         print(expected_sqlstr)
@@ -466,7 +466,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23
 #     x_plan_name = "Sue"
-#     x_person_name = 1
+#     x_partner_name = 1
 #     x_group_title = 2
 #     x_group_cred_lumen = 3
 #     x_group_debt_lumen = 4
@@ -483,7 +483,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #         kw.face_name: exx.yao,
 #         kw.moment_rope: x_moment_rope,
 #         kw.plan_name: x_plan_name,
-#         kw.person_name: x_person_name,
+#         kw.partner_name: x_partner_name,
 #         kw.group_title: x_group_title,
 #         kw.group_cred_lumen: x_group_cred_lumen,
 #         kw.group_debt_lumen: x_group_debt_lumen,
@@ -511,7 +511,7 @@ def test_create_plnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         table_name = "plan_person_membership_h_put_agg"
+#         table_name = "plan_partner_membership_h_put_agg"
 #         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
 #         print("")
 #         print(expected_sqlstr)

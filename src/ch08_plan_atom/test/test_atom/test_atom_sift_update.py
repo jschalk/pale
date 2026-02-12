@@ -1,4 +1,4 @@
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch05_reason.reason_main import factunit_shop, reasonunit_shop
 from src.ch07_plan_logic.plan_main import planunit_shop
 from src.ch07_plan_logic.plan_tool import (
@@ -65,15 +65,15 @@ def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_planunit():
     }
 
 
-def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_plan_personunit():
+def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_plan_partnerunit():
     # ESTABLISH
-    zia_person_debt_lumen = 51
+    zia_partner_debt_lumen = 51
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_personunit(exx.zia)
+    sue_plan.add_partnerunit(exx.zia)
 
-    zia_atom = planatom_shop(kw.plan_personunit, kw.INSERT)
-    zia_atom.set_arg(kw.person_name, exx.zia)
-    zia_atom.set_arg(kw.person_debt_lumen, zia_person_debt_lumen)
+    zia_atom = planatom_shop(kw.plan_partnerunit, kw.INSERT)
+    zia_atom.set_arg(kw.partner_name, exx.zia)
+    zia_atom.set_arg(kw.partner_debt_lumen, zia_partner_debt_lumen)
 
     # WHEN
     new_zia_planatom = sift_planatom(sue_plan, zia_atom)
@@ -83,18 +83,18 @@ def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_plan_personunit():
     assert new_zia_planatom.crud_str == kw.UPDATE
     assert new_zia_planatom.get_jvalues_dict() != {}
     zia_jvalues = new_zia_planatom.get_jvalues_dict()
-    assert zia_jvalues == {kw.person_debt_lumen: 51}
+    assert zia_jvalues == {kw.partner_debt_lumen: 51}
 
 
-def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_plan_person_membership():
+def test_sift_atom_ReturnsObj_PlanAtom_UPDATE_plan_partner_membership():
     # ESTABLISH
     zia_run_group_debt_lumen = 76
     sue_plan = planunit_shop("Sue")
-    sue_plan.add_personunit(exx.zia)
-    sue_plan.get_person(exx.zia).add_membership(exx.run)
+    sue_plan.add_partnerunit(exx.zia)
+    sue_plan.get_partner(exx.zia).add_membership(exx.run)
 
-    zia_atom = planatom_shop(kw.plan_person_membership, kw.INSERT)
-    zia_atom.set_arg(kw.person_name, exx.zia)
+    zia_atom = planatom_shop(kw.plan_partner_membership, kw.INSERT)
+    zia_atom.set_arg(kw.partner_name, exx.zia)
     zia_atom.set_arg(kw.group_title, exx.run)
     zia_atom.set_arg(kw.group_debt_lumen, zia_run_group_debt_lumen)
 

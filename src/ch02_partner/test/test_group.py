@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
 from src.ch01_allot.allot import default_grain_num_if_None
-from src.ch02_person.group import GroupUnit, groupunit_shop, membership_shop
+from src.ch02_partner.group import GroupUnit, groupunit_shop, membership_shop
 from src.ref.keywords import Ch02Keywords as kw, ExampleStrs as exx
 
 
@@ -71,8 +71,8 @@ def test_GroupUnit_set_membership_SetsAttr():
     swim_str = ";swimmers"
     yao_swim_membership = membership_shop(swim_str)
     sue_swim_membership = membership_shop(swim_str)
-    yao_swim_membership.person_name = exx.yao
-    sue_swim_membership.person_name = exx.sue
+    yao_swim_membership.partner_name = exx.yao
+    sue_swim_membership.partner_name = exx.sue
     swimmers_groupunit = groupunit_shop(swim_str)
 
     # WHEN
@@ -81,8 +81,8 @@ def test_GroupUnit_set_membership_SetsAttr():
 
     # THEN
     swimmers_memberships = {
-        yao_swim_membership.person_name: yao_swim_membership,
-        sue_swim_membership.person_name: sue_swim_membership,
+        yao_swim_membership.partner_name: yao_swim_membership,
+        sue_swim_membership.partner_name: sue_swim_membership,
     }
     assert swimmers_groupunit.memberships == swimmers_memberships
 
@@ -93,9 +93,9 @@ def test_GroupUnit_set_membership_SetsAttr_credor_pool_debtor_pool():
     ohio_str = ";Ohio"
     yao_ohio_membership = membership_shop(ohio_str)
     sue_ohio_membership = membership_shop(ohio_str)
-    yao_ohio_membership.person_name = exx.yao
-    yao_ohio_membership.person_name = exx.yao
-    sue_ohio_membership.person_name = exx.sue
+    yao_ohio_membership.partner_name = exx.yao
+    yao_ohio_membership.partner_name = exx.yao
+    sue_ohio_membership.partner_name = exx.sue
     yao_ohio_membership.credor_pool = 66
     sue_ohio_membership.credor_pool = 22
     yao_ohio_membership.debtor_pool = 6600
@@ -122,8 +122,8 @@ def test_GroupUnit_set_membership_RaisesErrorIf_membership_group_title_IsWrong()
     ohio_str = ";Ohio"
     iowa_str = ";Iowa"
     yao_ohio_membership = membership_shop(ohio_str)
-    yao_ohio_membership.person_name = exx.yao
-    yao_ohio_membership.person_name = exx.yao
+    yao_ohio_membership.partner_name = exx.yao
+    yao_ohio_membership.partner_name = exx.yao
     yao_ohio_membership.credor_pool = 66
     yao_ohio_membership.debtor_pool = 6600
     iowa_groupunit = groupunit_shop(iowa_str)
@@ -137,12 +137,12 @@ def test_GroupUnit_set_membership_RaisesErrorIf_membership_group_title_IsWrong()
     assert str(excinfo.value) == exception_str
 
 
-def test_GroupUnit_set_membership_RaisesErrorIf_person_name_IsNone():
+def test_GroupUnit_set_membership_RaisesErrorIf_partner_name_IsNone():
     # ESTABLISH
     ohio_str = ";Ohio"
     ohio_groupunit = groupunit_shop(ohio_str)
     yao_ohio_membership = membership_shop(ohio_str)
-    assert yao_ohio_membership.person_name is None
+    assert yao_ohio_membership.partner_name is None
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
@@ -150,6 +150,6 @@ def test_GroupUnit_set_membership_RaisesErrorIf_person_name_IsNone():
 
     # THEN
     exception_str = (
-        f"membership group_title={ohio_str} cannot be set when _person_name is None."
+        f"membership group_title={ohio_str} cannot be set when _partner_name is None."
     )
     assert str(excinfo.value) == exception_str

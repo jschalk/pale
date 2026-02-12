@@ -3,7 +3,7 @@ from src.ch01_allot._ref.ch01_semantic_types import GrainNum, PoolNum, WeightNum
 
 
 class GroupMark(str):
-    """GroupMark(s) exist in TitleTerms to indicate its a group, no GroupMark indicates it is a PersonName."""
+    """GroupMark(s) exist in TitleTerms to indicate its a group, no GroupMark indicates it is a PartnerName."""
 
     pass
 
@@ -23,14 +23,14 @@ class NameTerm(str):
         return self.find(default_groupmark_if_None(groupmark)) == -1
 
 
-class PersonName(NameTerm):
-    """Every PersonName object is NameTerm, must follow NameTerm format."""
+class PartnerName(NameTerm):
+    """Every PartnerName object is NameTerm, must follow NameTerm format."""
 
     pass
 
 
 class TitleTerm(str):
-    """If a TitleTerm contains SepartorTerms(s) it represents a group otherwise its a single member group of an PersonName."""
+    """If a TitleTerm contains SepartorTerms(s) it represents a group otherwise its a single member group of an PartnerName."""
 
 
 class GroupTitle(TitleTerm):

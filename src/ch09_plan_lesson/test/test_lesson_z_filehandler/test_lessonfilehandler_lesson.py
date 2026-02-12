@@ -488,7 +488,7 @@ def test_LessonFileHandler_create_save_lesson_file_SaveCorrectObj(
     # WHEN
     before_plan = sue_lessonfilehandler.default_gut_plan()
     after_plan = copy_deepcopy(before_plan)
-    after_plan.add_personunit(exx.bob)
+    after_plan.add_partnerunit(exx.bob)
     sue_lessonfilehandler.create_save_lesson_file(before_plan, after_plan)
 
     # THEN

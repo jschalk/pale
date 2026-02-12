@@ -59,8 +59,8 @@ def test_get_keg_view_dict_ReturnsObj_Scenario0_EmptyKeg():
         kw.is_expanded,
         kw.keg_active,
         kw.keg_active_hx,
-        kw.all_person_cred,
-        kw.all_person_debt,
+        kw.all_partner_cred,
+        kw.all_partner_debt,
         kw.awardheirs,
         kw.awardlines,
         kw.descendant_pledge_count,
@@ -155,12 +155,12 @@ def test_get_keg_view_dict_ReturnsObj_Scenario3_KegUnit_base_attrs():
     assert casa_dict.get(kw.keg_fund_total) > 0
     expected_parent_rope = add_small_dot(casa_keg.parent_rope)
     assert casa_dict.get(kw.parent_rope) == expected_parent_rope
-    expected_all_person_cred = f"all_person_cred = {casa_keg.all_person_cred}"
-    expected_all_person_debt = f"all_person_debt = {casa_keg.all_person_debt}"
-    expected_all_person_cred = add_small_dot(expected_all_person_cred)
-    expected_all_person_debt = add_small_dot(expected_all_person_debt)
-    assert casa_dict.get(kw.all_person_cred) == expected_all_person_cred
-    assert casa_dict.get(kw.all_person_debt) == expected_all_person_debt
+    expected_all_partner_cred = f"all_partner_cred = {casa_keg.all_partner_cred}"
+    expected_all_partner_debt = f"all_partner_debt = {casa_keg.all_partner_debt}"
+    expected_all_partner_cred = add_small_dot(expected_all_partner_cred)
+    expected_all_partner_debt = add_small_dot(expected_all_partner_debt)
+    assert casa_dict.get(kw.all_partner_cred) == expected_all_partner_cred
+    assert casa_dict.get(kw.all_partner_debt) == expected_all_partner_debt
     assert casa_dict.get(kw.fund_ratio) == "38%"
 
 
