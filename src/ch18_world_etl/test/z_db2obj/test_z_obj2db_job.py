@@ -12,22 +12,22 @@ from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import caseunit_shop, factheir_shop, reasonheir_shop
 from src.ch06_keg.healer import healerunit_shop
 from src.ch06_keg.keg import kegunit_shop
-from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch07_person_logic.person_main import personunit_shop
 from src.ch18_world_etl.etl_sqlstr import create_job_tables
-from src.ch18_world_etl.obj2db_plan import (
+from src.ch18_world_etl.obj2db_person import (
     ObjKeysHolder,
     insert_job_obj,
-    insert_job_plnawar,
-    insert_job_plncase,
-    insert_job_plnfact,
-    insert_job_plngrou,
-    insert_job_plnheal,
-    insert_job_plnkegg,
-    insert_job_plnlabo,
-    insert_job_plnmemb,
-    insert_job_plnptnr,
-    insert_job_plnreas,
-    insert_job_plnunit,
+    insert_job_prnawar,
+    insert_job_prncase,
+    insert_job_prnfact,
+    insert_job_prngrou,
+    insert_job_prnheal,
+    insert_job_prnkegg,
+    insert_job_prnlabo,
+    insert_job_prnmemb,
+    insert_job_prnptnr,
+    insert_job_prnreas,
+    insert_job_prnunit,
 )
 from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
@@ -39,7 +39,7 @@ def test_ObjKeysHolder_Exists():
 
     # THEN
     assert not x_objkeyholder.moment_rope
-    assert not x_objkeyholder.plan_name
+    assert not x_objkeyholder.person_name
     assert not x_objkeyholder.rope
     assert not x_objkeyholder.reason_context
     assert not x_objkeyholder.partner_name
@@ -48,11 +48,11 @@ def test_ObjKeysHolder_Exists():
     assert not x_objkeyholder.fact_rope
 
 
-def test_insert_job_plnunit_CreatesTableRowsFor_planunit_job():
+def test_insert_job_prnunit_CreatesTableRowsFor_personunit_job():
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_keeps_buildable = 99
     x_keeps_justified = 77
     x_offtrack_fund = 55.5
@@ -66,30 +66,30 @@ def test_insert_job_plnunit_CreatesTableRowsFor_planunit_job():
     x_max_tree_traverse = 22
     x_mana_grain = 4.0
     x_respect_grain = 0.2
-    sue_plan = planunit_shop(x_plan_name, moment_rope=x_moment_rope)
-    sue_plan.fund_pool = x_fund_pool
-    sue_plan.fund_grain = x_fund_grain
-    sue_plan.mana_grain = x_mana_grain
-    sue_plan.respect_grain = x_respect_grain
-    sue_plan.max_tree_traverse = x_max_tree_traverse
-    sue_plan.keeps_buildable = x_keeps_buildable
-    sue_plan.keeps_justified = x_keeps_justified
-    sue_plan.offtrack_fund = x_offtrack_fund
-    sue_plan.rational = x_rational
-    sue_plan.sum_healerunit_kegs_fund_total = x_sum_healerunit_kegs_fund_total
-    sue_plan.tree_traverse_count = x_tree_traverse_count
-    sue_plan.credor_respect = x_credor_respect
-    sue_plan.debtor_respect = x_debtor_respect
+    sue_person = personunit_shop(x_person_name, moment_rope=x_moment_rope)
+    sue_person.fund_pool = x_fund_pool
+    sue_person.fund_grain = x_fund_grain
+    sue_person.mana_grain = x_mana_grain
+    sue_person.respect_grain = x_respect_grain
+    sue_person.max_tree_traverse = x_max_tree_traverse
+    sue_person.keeps_buildable = x_keeps_buildable
+    sue_person.keeps_justified = x_keeps_justified
+    sue_person.offtrack_fund = x_offtrack_fund
+    sue_person.rational = x_rational
+    sue_person.sum_healerunit_kegs_fund_total = x_sum_healerunit_kegs_fund_total
+    sue_person.tree_traverse_count = x_tree_traverse_count
+    sue_person.credor_respect = x_credor_respect
+    sue_person.debtor_respect = x_debtor_respect
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "planunit_job"
+        x_table_name = "personunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         objkeysholder = ObjKeysHolder()
 
         # WHEN
-        insert_job_plnunit(cursor, objkeysholder, sue_plan)
+        insert_job_prnunit(cursor, objkeysholder, sue_person)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -98,7 +98,7 @@ def test_insert_job_plnunit_CreatesTableRowsFor_planunit_job():
         rows = cursor.fetchall()
         expected_row1 = (
             x_moment_rope,
-            x_plan_name,
+            x_person_name,
             x_credor_respect,
             x_debtor_respect,
             x_fund_pool,
@@ -117,10 +117,10 @@ def test_insert_job_plnunit_CreatesTableRowsFor_planunit_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
+def test_insert_job_prnkegg_CreatesTableRowsFor_prnkegg_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_kegunit")
+    # x_args = get_person_calc_dimen_args("person_kegunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -133,7 +133,7 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
     #     print(f"""            x_{x_arg},""")
     # print("")
     x_moment_rope = exx.a23
-    x_plan_name = 2
+    x_person_name = 2
     casa_rope = create_rope(x_moment_rope, "casa")
     x_parent_rope = casa_rope
     x_keg_label = "clean"
@@ -219,14 +219,14 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_kegunit_job"
+        x_table_name = "person_kegunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name
+            moment_rope=x_moment_rope, person_name=x_person_name
         )
 
         # WHEN
-        insert_job_plnkegg(cursor, x_objkeysholder, x_keg)
+        insert_job_prnkegg(cursor, x_objkeysholder, x_keg)
 
         # THEN
         clean_rope = create_rope(casa_rope, "clean")
@@ -236,7 +236,7 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
         rows = cursor.fetchall()
         expected_row1 = (
             None,
-            str(x_plan_name),
+            str(x_person_name),
             clean_rope,
             x_begin,
             x_close,
@@ -268,10 +268,10 @@ def test_insert_job_plnkegg_CreatesTableRowsFor_plnkegg_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnreas_CreatesTableRowsFor_plnreas_job():
+def test_insert_job_prnreas_CreatesTableRowsFor_prnreas_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_keg_reasonunit")
+    # x_args = get_person_calc_dimen_args("person_keg_reasonunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -285,7 +285,7 @@ def test_insert_job_plnreas_CreatesTableRowsFor_plnreas_job():
     # print("")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_rope = 3
     x_reason_context = 4
     x_active_requisite = 5
@@ -302,14 +302,14 @@ def test_insert_job_plnreas_CreatesTableRowsFor_plnreas_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_keg_reasonunit_job"
+        x_table_name = "person_keg_reasonunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope
+            moment_rope=x_moment_rope, person_name=x_person_name, rope=x_rope
         )
 
         # WHEN
-        insert_job_plnreas(cursor, x_objkeysholder, x_reasonheir)
+        insert_job_prnreas(cursor, x_objkeysholder, x_reasonheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -318,7 +318,7 @@ def test_insert_job_plnreas_CreatesTableRowsFor_plnreas_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             str(x_reason_context),
             x_active_requisite,
@@ -330,10 +330,10 @@ def test_insert_job_plnreas_CreatesTableRowsFor_plnreas_job():
         assert rows == expected_data
 
 
-def test_insert_job_plncase_CreatesTableRowsFor_plncase_job():
+def test_insert_job_prncase_CreatesTableRowsFor_prncase_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_keg_reason_caseunit")
+    # x_args = get_person_calc_dimen_args("person_keg_reason_caseunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -346,7 +346,7 @@ def test_insert_job_plncase_CreatesTableRowsFor_plncase_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_rope = 3
     x_reason_context = 4
     x_reason_state = 5
@@ -366,17 +366,17 @@ def test_insert_job_plncase_CreatesTableRowsFor_plncase_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_keg_reason_caseunit_job"
+        x_table_name = "person_keg_reason_caseunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
             moment_rope=x_moment_rope,
-            plan_name=x_plan_name,
+            person_name=x_person_name,
             rope=x_rope,
             reason_context=x_reason_context,
         )
 
         # WHEN
-        insert_job_plncase(cursor, x_objkeysholder, x_caseunit)
+        insert_job_prncase(cursor, x_objkeysholder, x_caseunit)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -385,7 +385,7 @@ def test_insert_job_plncase_CreatesTableRowsFor_plncase_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             str(x_reason_context),
             str(x_reason_state),
@@ -399,10 +399,10 @@ def test_insert_job_plncase_CreatesTableRowsFor_plncase_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
+def test_insert_job_prnmemb_CreatesTableRowsFor_prnmemb_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_partner_membership")
+    # x_args = get_person_calc_dimen_args("person_partner_membership")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -415,7 +415,7 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_partner_name = 3
     x_group_title = 4
     x_group_cred_lumen = 5.0
@@ -444,14 +444,14 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_partner_membership_job"
+        x_table_name = "person_partner_membership_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name
+            moment_rope=x_moment_rope, person_name=x_person_name
         )
 
         # WHEN
-        insert_job_plnmemb(cursor, x_objkeysholder, x_membership)
+        insert_job_prnmemb(cursor, x_objkeysholder, x_membership)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -460,7 +460,7 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_partner_name),
             str(x_group_title),
             x_group_cred_lumen,
@@ -478,10 +478,10 @@ def test_insert_job_plnmemb_CreatesTableRowsFor_plnmemb_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnptnr_CreatesTableRowsFor_plnptnr_job():
+def test_insert_job_prnptnr_CreatesTableRowsFor_prnptnr_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_partnerunit")
+    # x_args = get_person_calc_dimen_args("person_partnerunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -494,7 +494,7 @@ def test_insert_job_plnptnr_CreatesTableRowsFor_plnptnr_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_partner_name = 3
     x_partner_cred_lumen = 4
     x_partner_debt_lumen = 5
@@ -528,14 +528,14 @@ def test_insert_job_plnptnr_CreatesTableRowsFor_plnptnr_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_partnerunit_job"
+        x_table_name = "person_partnerunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name
+            moment_rope=x_moment_rope, person_name=x_person_name
         )
 
         # WHEN
-        insert_job_plnptnr(cursor, x_objkeysholder, x_partner)
+        insert_job_prnptnr(cursor, x_objkeysholder, x_partner)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -544,7 +544,7 @@ def test_insert_job_plnptnr_CreatesTableRowsFor_plnptnr_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_partner_name),
             x_partner_cred_lumen,
             x_partner_debt_lumen,
@@ -564,10 +564,10 @@ def test_insert_job_plnptnr_CreatesTableRowsFor_plnptnr_job():
         assert rows == expected_data
 
 
-def test_insert_job_plngrou_CreatesTableRowsFor_plngrou_job():
+def test_insert_job_prngrou_CreatesTableRowsFor_prngrou_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_groupunit")
+    # x_args = get_person_calc_dimen_args("person_groupunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -580,7 +580,7 @@ def test_insert_job_plngrou_CreatesTableRowsFor_plngrou_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_group_title = 3
     x_fund_grain = 4
     x_credor_pool = 6
@@ -602,14 +602,14 @@ def test_insert_job_plngrou_CreatesTableRowsFor_plngrou_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_groupunit_job"
+        x_table_name = "person_groupunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name
+            moment_rope=x_moment_rope, person_name=x_person_name
         )
 
         # WHEN
-        insert_job_plngrou(cursor, x_objkeysholder, x_group)
+        insert_job_prngrou(cursor, x_objkeysholder, x_group)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -618,7 +618,7 @@ def test_insert_job_plngrou_CreatesTableRowsFor_plngrou_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_group_title),
             x_fund_grain,
             x_credor_pool,
@@ -632,10 +632,10 @@ def test_insert_job_plngrou_CreatesTableRowsFor_plngrou_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnawar_CreatesTableRowsFor_plnawar_job():
+def test_insert_job_prnawar_CreatesTableRowsFor_prnawar_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_keg_awardunit")
+    # x_args = get_person_calc_dimen_args("person_keg_awardunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -648,7 +648,7 @@ def test_insert_job_plnawar_CreatesTableRowsFor_plnawar_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_rope = 3
     x_awardee_title = 4
     x_give_force = 5
@@ -665,14 +665,14 @@ def test_insert_job_plnawar_CreatesTableRowsFor_plnawar_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_keg_awardunit_job"
+        x_table_name = "person_keg_awardunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope
+            moment_rope=x_moment_rope, person_name=x_person_name, rope=x_rope
         )
 
         # WHEN
-        insert_job_plnawar(cursor, x_objkeysholder, x_awardheir)
+        insert_job_prnawar(cursor, x_objkeysholder, x_awardheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -681,7 +681,7 @@ def test_insert_job_plnawar_CreatesTableRowsFor_plnawar_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             str(x_awardee_title),
             x_give_force,
@@ -693,10 +693,10 @@ def test_insert_job_plnawar_CreatesTableRowsFor_plnawar_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnfact_CreatesTableRowsFor_plnfact_job():
+def test_insert_job_prnfact_CreatesTableRowsFor_prnfact_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_keg_factunit")
+    # x_args = get_person_calc_dimen_args("person_keg_factunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -709,7 +709,7 @@ def test_insert_job_plnfact_CreatesTableRowsFor_plnfact_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_rope = 3
     x_reason_context = 4
     x_fact_state = 5
@@ -724,14 +724,14 @@ def test_insert_job_plnfact_CreatesTableRowsFor_plnfact_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_keg_factunit_job"
+        x_table_name = "person_keg_factunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope
+            moment_rope=x_moment_rope, person_name=x_person_name, rope=x_rope
         )
 
         # WHEN
-        insert_job_plnfact(cursor, x_objkeysholder, x_factheir)
+        insert_job_prnfact(cursor, x_objkeysholder, x_factheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 1
@@ -740,7 +740,7 @@ def test_insert_job_plnfact_CreatesTableRowsFor_plnfact_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             str(x_reason_context),
             str(x_fact_state),
@@ -751,10 +751,10 @@ def test_insert_job_plnfact_CreatesTableRowsFor_plnfact_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnheal_CreatesTableRowsFor_plnheal_job():
+def test_insert_job_prnheal_CreatesTableRowsFor_prnheal_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_keg_healerunit")
+    # x_args = get_person_calc_dimen_args("person_keg_healerunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -767,7 +767,7 @@ def test_insert_job_plnheal_CreatesTableRowsFor_plnheal_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_rope = 3
     x_healerunit = healerunit_shop()
     x_healerunit.set_healer_name(exx.bob)
@@ -776,14 +776,14 @@ def test_insert_job_plnheal_CreatesTableRowsFor_plnheal_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_keg_healerunit_job"
+        x_table_name = "person_keg_healerunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope
+            moment_rope=x_moment_rope, person_name=x_person_name, rope=x_rope
         )
 
         # WHEN
-        insert_job_plnheal(cursor, x_objkeysholder, x_healerunit)
+        insert_job_prnheal(cursor, x_objkeysholder, x_healerunit)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 2
@@ -792,13 +792,13 @@ def test_insert_job_plnheal_CreatesTableRowsFor_plnheal_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             exx.bob,
         )
         expected_row2 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             exx.sue,
         )
@@ -806,10 +806,10 @@ def test_insert_job_plnheal_CreatesTableRowsFor_plnheal_job():
         assert rows == expected_data
 
 
-def test_insert_job_plnlabo_CreatesTableRowsFor_plnlabo_job():
+def test_insert_job_prnlabo_CreatesTableRowsFor_prnlabo_job():
     # sourcery skip: extract-method
     # ESTABLISH
-    # x_args = get_plan_calc_dimen_args("plan_keg_partyunit")
+    # x_args = get_person_calc_dimen_args("person_keg_partyunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -822,11 +822,11 @@ def test_insert_job_plnlabo_CreatesTableRowsFor_plnlabo_job():
     #     print(f"""            x_{x_arg},""")
 
     x_moment_rope = 1
-    x_plan_name = 2
+    x_person_name = 2
     x_rope = 3
-    x__plan_name_is_labor = 5
+    x__person_name_is_labor = 5
     x_laborheir = laborheir_shop()
-    x_laborheir.plan_name_is_labor = x__plan_name_is_labor
+    x_laborheir.person_name_is_labor = x__person_name_is_labor
     bob_solo_bool = 6
     sue_solo_bool = 7
     bob_partyheir = partyheir_shop(exx.bob, bob_solo_bool)
@@ -836,14 +836,14 @@ def test_insert_job_plnlabo_CreatesTableRowsFor_plnlabo_job():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        x_table_name = "plan_keg_partyunit_job"
+        x_table_name = "person_keg_partyunit_job"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
-            moment_rope=x_moment_rope, plan_name=x_plan_name, rope=x_rope
+            moment_rope=x_moment_rope, person_name=x_person_name, rope=x_rope
         )
 
         # WHEN
-        insert_job_plnlabo(cursor, x_objkeysholder, x_laborheir)
+        insert_job_prnlabo(cursor, x_objkeysholder, x_laborheir)
 
         # THEN
         assert get_row_count(cursor, x_table_name) == 2
@@ -852,19 +852,19 @@ def test_insert_job_plnlabo_CreatesTableRowsFor_plnlabo_job():
         rows = cursor.fetchall()
         expected_row1 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             exx.bob,
             bob_solo_bool,
-            x__plan_name_is_labor,
+            x__person_name_is_labor,
         )
         expected_row2 = (
             str(x_moment_rope),
-            str(x_plan_name),
+            str(x_person_name),
             str(x_rope),
             exx.sue,
             sue_solo_bool,
-            x__plan_name_is_labor,
+            x__person_name_is_labor,
         )
         expected_data = [expected_row1, expected_row2]
         assert rows == expected_data
@@ -873,65 +873,65 @@ def test_insert_job_plnlabo_CreatesTableRowsFor_plnlabo_job():
 def test_insert_job_obj_CreatesTableRows_Scenario0():
     # sourcery skip: extract-method
     # ESTABLISH
-    sue_plan = planunit_shop(exx.sue, exx.a23)
-    sue_plan.add_partnerunit(exx.sue)
-    sue_plan.add_partnerunit(exx.bob)
-    sue_plan.get_partner(exx.bob).add_membership(exx.run)
-    casa_rope = sue_plan.make_l1_rope("casa")
-    situation_rope = sue_plan.make_l1_rope(kw.reason_active)
-    clean_rope = sue_plan.make_rope(situation_rope, "clean")
-    dirty_rope = sue_plan.make_rope(situation_rope, "dirty")
-    sue_plan.add_keg(casa_rope)
-    sue_plan.add_keg(clean_rope)
-    sue_plan.add_keg(dirty_rope)
-    sue_plan.edit_keg_attr(
+    sue_person = personunit_shop(exx.sue, exx.a23)
+    sue_person.add_partnerunit(exx.sue)
+    sue_person.add_partnerunit(exx.bob)
+    sue_person.get_partner(exx.bob).add_membership(exx.run)
+    casa_rope = sue_person.make_l1_rope("casa")
+    situation_rope = sue_person.make_l1_rope(kw.reason_active)
+    clean_rope = sue_person.make_rope(situation_rope, "clean")
+    dirty_rope = sue_person.make_rope(situation_rope, "dirty")
+    sue_person.add_keg(casa_rope)
+    sue_person.add_keg(clean_rope)
+    sue_person.add_keg(dirty_rope)
+    sue_person.edit_keg_attr(
         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
-    sue_plan.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.run))
-    sue_plan.edit_keg_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
+    sue_person.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.run))
+    sue_person.edit_keg_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     casa_laborunit = laborunit_shop()
     casa_laborunit.add_party(exx.sue, True)
-    sue_plan.edit_keg_attr(casa_rope, laborunit=casa_laborunit)
-    sue_plan.add_fact(situation_rope, clean_rope)
+    sue_person.edit_keg_attr(casa_rope, laborunit=casa_laborunit)
+    sue_person.add_fact(situation_rope, clean_rope)
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        plnmemb_job_table = f"{kw.plan_partner_membership}_job"
-        plnptnr_job_table = f"{kw.plan_partnerunit}_job"
-        plngrou_job_table = f"{kw.plan_groupunit}_job"
-        plnawar_job_table = f"{kw.plan_keg_awardunit}_job"
-        plnfact_job_table = f"{kw.plan_keg_factunit}_job"
-        plnheal_job_table = f"{kw.plan_keg_healerunit}_job"
-        plncase_job_table = f"{kw.plan_keg_reason_caseunit}_job"
-        plnreas_job_table = f"{kw.plan_keg_reasonunit}_job"
-        plnlabo_job_table = f"{kw.plan_keg_partyunit}_job"
-        plnkegg_job_table = f"{kw.plan_kegunit}_job"
-        plnunit_job_table = f"{kw.planunit}_job"
-        assert get_row_count(cursor, plnunit_job_table) == 0
-        assert get_row_count(cursor, plnkegg_job_table) == 0
-        assert get_row_count(cursor, plnptnr_job_table) == 0
-        assert get_row_count(cursor, plnmemb_job_table) == 0
-        assert get_row_count(cursor, plngrou_job_table) == 0
-        assert get_row_count(cursor, plnawar_job_table) == 0
-        assert get_row_count(cursor, plnfact_job_table) == 0
-        assert get_row_count(cursor, plnheal_job_table) == 0
-        assert get_row_count(cursor, plnreas_job_table) == 0
-        assert get_row_count(cursor, plncase_job_table) == 0
-        assert get_row_count(cursor, plnlabo_job_table) == 0
+        prnmemb_job_table = f"{kw.person_partner_membership}_job"
+        prnptnr_job_table = f"{kw.person_partnerunit}_job"
+        prngrou_job_table = f"{kw.person_groupunit}_job"
+        prnawar_job_table = f"{kw.person_keg_awardunit}_job"
+        prnfact_job_table = f"{kw.person_keg_factunit}_job"
+        prnheal_job_table = f"{kw.person_keg_healerunit}_job"
+        prncase_job_table = f"{kw.person_keg_reason_caseunit}_job"
+        prnreas_job_table = f"{kw.person_keg_reasonunit}_job"
+        prnlabo_job_table = f"{kw.person_keg_partyunit}_job"
+        prnkegg_job_table = f"{kw.person_kegunit}_job"
+        prnunit_job_table = f"{kw.personunit}_job"
+        assert get_row_count(cursor, prnunit_job_table) == 0
+        assert get_row_count(cursor, prnkegg_job_table) == 0
+        assert get_row_count(cursor, prnptnr_job_table) == 0
+        assert get_row_count(cursor, prnmemb_job_table) == 0
+        assert get_row_count(cursor, prngrou_job_table) == 0
+        assert get_row_count(cursor, prnawar_job_table) == 0
+        assert get_row_count(cursor, prnfact_job_table) == 0
+        assert get_row_count(cursor, prnheal_job_table) == 0
+        assert get_row_count(cursor, prnreas_job_table) == 0
+        assert get_row_count(cursor, prncase_job_table) == 0
+        assert get_row_count(cursor, prnlabo_job_table) == 0
 
         # WHEN
-        insert_job_obj(cursor, sue_plan)
+        insert_job_obj(cursor, sue_person)
 
         # THEN
-        assert get_row_count(cursor, plnunit_job_table) == 1
-        assert get_row_count(cursor, plnkegg_job_table) == 5
-        assert get_row_count(cursor, plnptnr_job_table) == 2
-        assert get_row_count(cursor, plnmemb_job_table) == 3
-        assert get_row_count(cursor, plngrou_job_table) == 3
-        assert get_row_count(cursor, plnawar_job_table) == 1
-        assert get_row_count(cursor, plnfact_job_table) == 1
-        assert get_row_count(cursor, plnheal_job_table) == 1
-        assert get_row_count(cursor, plnreas_job_table) == 1
-        assert get_row_count(cursor, plncase_job_table) == 1
-        assert get_row_count(cursor, plnlabo_job_table) == 1
+        assert get_row_count(cursor, prnunit_job_table) == 1
+        assert get_row_count(cursor, prnkegg_job_table) == 5
+        assert get_row_count(cursor, prnptnr_job_table) == 2
+        assert get_row_count(cursor, prnmemb_job_table) == 3
+        assert get_row_count(cursor, prngrou_job_table) == 3
+        assert get_row_count(cursor, prnawar_job_table) == 1
+        assert get_row_count(cursor, prnfact_job_table) == 1
+        assert get_row_count(cursor, prnheal_job_table) == 1
+        assert get_row_count(cursor, prnreas_job_table) == 1
+        assert get_row_count(cursor, prncase_job_table) == 1
+        assert get_row_count(cursor, prnlabo_job_table) == 1

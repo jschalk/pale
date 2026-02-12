@@ -55,17 +55,17 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     del_str = "del"
 
     # WHEN
-    plnunit_s_agg_table = create_prime_tablename(kw.plnunit, "s", agg_str, put_str)
-    plnptnr_s_agg_table = create_prime_tablename(kw.plnptnr, "s", agg_str, put_str)
-    plnmemb_s_agg_table = create_prime_tablename(kw.plnmemb, "s", agg_str, put_str)
-    plnkegg_s_agg_table = create_prime_tablename(kw.plnkegg, "s", agg_str, put_str)
-    plnawar_s_agg_table = create_prime_tablename(kw.plnawar, "s", agg_str, put_str)
-    plnreas_s_agg_table = create_prime_tablename(kw.plnreas, "s", agg_str, put_str)
-    plncase_s_agg_table = create_prime_tablename(kw.plncase, "s", agg_str, put_str)
-    plnlabo_s_agg_table = create_prime_tablename(kw.plnlabo, "s", agg_str, put_str)
-    plnheal_s_agg_table = create_prime_tablename(kw.plnheal, "s", agg_str, put_str)
-    plnfact_s_agg_table = create_prime_tablename(kw.plnfact, "s", agg_str, put_str)
-    plnfact_s_del_table = create_prime_tablename(kw.plnfact, "s", agg_str, del_str)
+    prnunit_s_agg_table = create_prime_tablename(kw.prnunit, "s", agg_str, put_str)
+    prnptnr_s_agg_table = create_prime_tablename(kw.prnptnr, "s", agg_str, put_str)
+    prnmemb_s_agg_table = create_prime_tablename(kw.prnmemb, "s", agg_str, put_str)
+    prnkegg_s_agg_table = create_prime_tablename(kw.prnkegg, "s", agg_str, put_str)
+    prnawar_s_agg_table = create_prime_tablename(kw.prnawar, "s", agg_str, put_str)
+    prnreas_s_agg_table = create_prime_tablename(kw.prnreas, "s", agg_str, put_str)
+    prncase_s_agg_table = create_prime_tablename(kw.prncase, "s", agg_str, put_str)
+    prnlabo_s_agg_table = create_prime_tablename(kw.prnlabo, "s", agg_str, put_str)
+    prnheal_s_agg_table = create_prime_tablename(kw.prnheal, "s", agg_str, put_str)
+    prnfact_s_agg_table = create_prime_tablename(kw.prnfact, "s", agg_str, put_str)
+    prnfact_s_del_table = create_prime_tablename(kw.prnfact, "s", agg_str, del_str)
     mmtunit_s_agg_table = create_prime_tablename(kw.mmtunit, "s", agg_str)
     mmtpayy_s_agg_table = create_prime_tablename(kw.mmtpayy, "s", agg_str)
     mmtbudd_s_agg_table = create_prime_tablename(kw.mmtbudd, "s", agg_str)
@@ -83,22 +83,22 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     trltitl_s_val_table = create_prime_tablename(kw.trltitl, "s", vld_str)
     trlcore_s_raw_table = create_prime_tablename(kw.trlcore, "s", raw_str)
     trlcore_s_agg_table = create_prime_tablename(kw.trlcore, "s", agg_str)
-    plnptnr_job_table = create_prime_tablename(kw.plnptnr, kw.job, None)
-    x_plnptnr_raw = create_prime_tablename(kw.plnptnr, "k", raw_str)
-    plngrou_job_table = create_prime_tablename(kw.plngrou, kw.job, None)
+    prnptnr_job_table = create_prime_tablename(kw.prnptnr, kw.job, None)
+    x_prnptnr_raw = create_prime_tablename(kw.prnptnr, "k", raw_str)
+    prngrou_job_table = create_prime_tablename(kw.prngrou, kw.job, None)
 
     # THEN
-    assert plnunit_s_agg_table == f"{kw.planunit}_s_put_agg"
-    assert plnptnr_s_agg_table == f"{kw.plan_partnerunit}_s_put_agg"
-    assert plnmemb_s_agg_table == f"{kw.plan_partner_membership}_s_put_agg"
-    assert plnkegg_s_agg_table == f"{kw.plan_kegunit}_s_put_agg"
-    assert plnawar_s_agg_table == f"{kw.plan_keg_awardunit}_s_put_agg"
-    assert plnreas_s_agg_table == f"{kw.plan_keg_reasonunit}_s_put_agg"
-    assert plncase_s_agg_table == f"{kw.plan_keg_reason_caseunit}_s_put_agg"
-    assert plnlabo_s_agg_table == f"{kw.plan_keg_partyunit}_s_put_agg"
-    assert plnheal_s_agg_table == f"{kw.plan_keg_healerunit}_s_put_agg"
-    assert plnfact_s_agg_table == f"{kw.plan_keg_factunit}_s_put_agg"
-    assert plnfact_s_del_table == f"{kw.plan_keg_factunit}_s_del_agg"
+    assert prnunit_s_agg_table == f"{kw.personunit}_s_put_agg"
+    assert prnptnr_s_agg_table == f"{kw.person_partnerunit}_s_put_agg"
+    assert prnmemb_s_agg_table == f"{kw.person_partner_membership}_s_put_agg"
+    assert prnkegg_s_agg_table == f"{kw.person_kegunit}_s_put_agg"
+    assert prnawar_s_agg_table == f"{kw.person_keg_awardunit}_s_put_agg"
+    assert prnreas_s_agg_table == f"{kw.person_keg_reasonunit}_s_put_agg"
+    assert prncase_s_agg_table == f"{kw.person_keg_reason_caseunit}_s_put_agg"
+    assert prnlabo_s_agg_table == f"{kw.person_keg_partyunit}_s_put_agg"
+    assert prnheal_s_agg_table == f"{kw.person_keg_healerunit}_s_put_agg"
+    assert prnfact_s_agg_table == f"{kw.person_keg_factunit}_s_put_agg"
+    assert prnfact_s_del_table == f"{kw.person_keg_factunit}_s_del_agg"
     assert mmtunit_s_agg_table == f"{kw.momentunit}_s_agg"
     assert mmtpayy_s_agg_table == f"{kw.moment_paybook}_s_agg"
     assert mmtbudd_s_agg_table == f"{kw.moment_budunit}_s_agg"
@@ -116,9 +116,9 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert trltitl_s_val_table == f"{kw.translate_title}_s_vld"
     assert trlcore_s_raw_table == f"{kw.translate_core}_s_raw"
     assert trlcore_s_agg_table == f"{kw.translate_core}_s_agg"
-    assert plnptnr_job_table == f"{kw.plan_partnerunit}_job"
-    assert plngrou_job_table == f"{kw.plan_groupunit}_job"
-    assert x_plnptnr_raw == f"{kw.plan_partnerunit}_raw"
+    assert prnptnr_job_table == f"{kw.person_partnerunit}_job"
+    assert prngrou_job_table == f"{kw.person_groupunit}_job"
+    assert x_prnptnr_raw == f"{kw.person_partnerunit}_raw"
 
 
 def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():
@@ -162,7 +162,7 @@ def test_get_etl_idea_category_config_dict_ReturnsObj_Scenario0_IsFullyPopulated
     assert kw.moment in etl_idea_category_config_dimens
     assert kw.translate_core in etl_idea_category_config_dimens
     assert kw.translate in etl_idea_category_config_dimens
-    assert kw.plan in etl_idea_category_config_dimens
+    assert kw.person in etl_idea_category_config_dimens
     assert kw.nabu in etl_idea_category_config_dimens
     assert len(etl_idea_category_config_dimens) == 5
 
@@ -293,25 +293,25 @@ def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args(
 
 def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_ContextNabuableArgs():
     # ESTABLISH
-    x_dimen = kw.plan_keg_reason_caseunit
+    x_dimen = kw.person_keg_reason_caseunit
     table_keylist = ["h", "agg", "put"]
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
-    plncase_h_agg_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
+    prncase_h_agg_columns = get_prime_columns(x_dimen, table_keylist, config_dict)
 
     # THEN
-    print(f"{plncase_h_agg_columns=}")
-    assert plncase_h_agg_columns
+    print(f"{prncase_h_agg_columns=}")
+    assert prncase_h_agg_columns
     expected_added_columns = {
         f"context_keg_{kw.close}",
         f"context_keg_{kw.denom}",
         f"context_keg_{kw.morph}",
         kw.inx_epoch_diff,
     }
-    assert expected_added_columns.issubset(plncase_h_agg_columns)
-    assert plncase_h_agg_columns == {
-        kw.plan_name,
+    assert expected_added_columns.issubset(prncase_h_agg_columns)
+    assert prncase_h_agg_columns == {
+        kw.person_name,
         f"context_keg_{kw.close}",
         f"context_keg_{kw.denom}",
         f"context_keg_{kw.morph}",
@@ -332,7 +332,7 @@ def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_
 
 def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
     # ESTABLISH / WHEN
-    del_dimen_columns_set = get_del_dimen_columns_set(kw.plan_keg_partyunit)
+    del_dimen_columns_set = get_del_dimen_columns_set(kw.person_keg_partyunit)
 
     # THEN
     assert del_dimen_columns_set
@@ -340,7 +340,7 @@ def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
         kw.keg_rope,
         kw.moment_rope,
         kw.spark_num,
-        kw.plan_name,
+        kw.person_name,
         kw.face_name,
         f"{kw.party_title}_ERASE",
     }
@@ -349,11 +349,11 @@ def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
 def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # ESTABLISH / WHEN
     table_sqlstr = create_prime_table_sqlstr(
-        kw.plan_keg_reason_caseunit, "s", "raw", "put"
+        kw.person_keg_reason_caseunit, "s", "raw", "put"
     )
 
     # THEN
     assert table_sqlstr
     print(table_sqlstr)
-    expected_sqlstr = "CREATE TABLE IF NOT EXISTS plan_keg_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_rope TEXT, plan_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"
+    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_keg_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_rope TEXT, person_name TEXT, keg_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"
     assert table_sqlstr == expected_sqlstr

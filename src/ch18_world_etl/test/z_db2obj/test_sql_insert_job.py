@@ -1,32 +1,32 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import create_insert_query
-from src.ch07_plan_logic.plan_config import get_plan_calc_dimen_args
+from src.ch07_person_logic.person_config import get_person_calc_dimen_args
 from src.ch18_world_etl.etl_sqlstr import create_job_tables
-from src.ch18_world_etl.obj2db_plan import (
-    create_planunit_metrics_insert_sqlstr,
-    create_plnawar_metrics_insert_sqlstr,
-    create_plncase_metrics_insert_sqlstr,
-    create_plnfact_metrics_insert_sqlstr,
-    create_plngrou_metrics_insert_sqlstr,
-    create_plnheal_metrics_insert_sqlstr,
-    create_plnkegg_metrics_insert_sqlstr,
-    create_plnlabo_metrics_insert_sqlstr,
-    create_plnmemb_metrics_insert_sqlstr,
-    create_plnptnr_metrics_insert_sqlstr,
-    create_plnreas_metrics_insert_sqlstr,
+from src.ch18_world_etl.obj2db_person import (
+    create_personunit_metrics_insert_sqlstr,
+    create_prnawar_metrics_insert_sqlstr,
+    create_prncase_metrics_insert_sqlstr,
+    create_prnfact_metrics_insert_sqlstr,
+    create_prngrou_metrics_insert_sqlstr,
+    create_prnheal_metrics_insert_sqlstr,
+    create_prnkegg_metrics_insert_sqlstr,
+    create_prnlabo_metrics_insert_sqlstr,
+    create_prnmemb_metrics_insert_sqlstr,
+    create_prnptnr_metrics_insert_sqlstr,
+    create_prnreas_metrics_insert_sqlstr,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
+def test_create_personunit_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("planunit")
+    x_args = get_person_calc_dimen_args("personunit")
     # for x_arg in sorted(x_args):
     #     print(f"{x_arg=}")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_keeps_buildable = True
     x_keeps_justified = False
     x_offtrack_fund = 55.5
@@ -42,7 +42,7 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
     x_respect_grain = 0.2
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keeps_buildable: x_keeps_buildable,
         kw.keeps_justified: x_keeps_justified,
         kw.offtrack_fund: x_offtrack_fund,
@@ -61,14 +61,14 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_planunit_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_personunit_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "planunit_job"
+        table_name = "personunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -76,10 +76,10 @@ def test_create_planunit_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnkegg_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_kegunit")
+    x_args = get_person_calc_dimen_args("person_kegunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -91,7 +91,7 @@ def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
     #     # print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_active = 1
     x_all_partner_cred = 2
     x_all_partner_debt = 3
@@ -120,7 +120,7 @@ def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
     x_stop_want = 27
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keg_active: x_active,
         kw.all_partner_cred: x_all_partner_cred,
         kw.all_partner_debt: x_all_partner_debt,
@@ -152,14 +152,14 @@ def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnkegg_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnkegg_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_kegunit_job"
+        table_name = "person_kegunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -167,10 +167,10 @@ def test_create_plnkegg_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_keg_reasonunit")
+    x_args = get_person_calc_dimen_args("person_keg_reasonunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -191,7 +191,7 @@ def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
     #     print(f""", {b0_str}sqlite_obj_str({x_arg}, real_str){b1_str}""")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_rope = 1
     x_reason_context = 2
     x_active_requisite = 3
@@ -200,7 +200,7 @@ def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
     x__heir_active = 6
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.active_requisite: x_active_requisite,
@@ -212,14 +212,14 @@ def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnreas_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnreas_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_keg_reasonunit_job"
+        table_name = "person_keg_reasonunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -227,10 +227,10 @@ def test_create_plnreas_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_keg_reason_caseunit")
+    x_args = get_person_calc_dimen_args("person_keg_reason_caseunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -254,7 +254,7 @@ def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_rope = 1
     x_reason_context = 2
     x_reason_state = 3
@@ -265,7 +265,7 @@ def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
     x_case_active = 8
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keg_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.reason_state: x_reason_state,
@@ -279,14 +279,14 @@ def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plncase_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prncase_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_keg_reason_caseunit_job"
+        table_name = "person_keg_reason_caseunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         # print(expected_sqlstr)
         print("")
@@ -294,10 +294,10 @@ def test_create_plncase_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_keg_awardunit")
+    x_args = get_person_calc_dimen_args("person_keg_awardunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -321,7 +321,7 @@ def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_rope = 1
     x_awardee_title = 2
     x_give_force = 3
@@ -330,7 +330,7 @@ def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
     x_fund_take = 6
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keg_rope: x_rope,
         kw.awardee_title: x_awardee_title,
         kw.give_force: x_give_force,
@@ -342,14 +342,14 @@ def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnawar_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnawar_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_keg_awardunit_job"
+        table_name = "person_keg_awardunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -357,10 +357,10 @@ def test_create_plnawar_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_keg_factunit")
+    x_args = get_person_calc_dimen_args("person_keg_factunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -384,7 +384,7 @@ def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_rope = 1
     x_fact_context = 2
     x_fact_state = 3
@@ -392,7 +392,7 @@ def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
     x_fact_upper = 5
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keg_rope: x_rope,
         kw.fact_context: x_fact_context,
         kw.fact_state: x_fact_state,
@@ -403,14 +403,14 @@ def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnfact_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnfact_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_keg_factunit_job"
+        table_name = "person_keg_factunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -418,10 +418,10 @@ def test_create_plnfact_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnheal_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_keg_healerunit")
+    x_args = get_person_calc_dimen_args("person_keg_healerunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -445,12 +445,12 @@ def test_create_plnheal_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_rope = 1
     x_healer_name = 2
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keg_rope: x_rope,
         kw.healer_name: x_healer_name,
     }
@@ -458,14 +458,14 @@ def test_create_plnheal_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnheal_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnheal_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_keg_healerunit_job"
+        table_name = "person_keg_healerunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -473,10 +473,10 @@ def test_create_plnheal_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnlabo_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_keg_partyunit")
+    x_args = get_person_calc_dimen_args("person_keg_partyunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -500,31 +500,31 @@ def test_create_plnlabo_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_rope = 1
     x_party_title = 2
     x_solo = 4
-    x__plan_name_is_labor = 3
+    x__person_name_is_labor = 3
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.keg_rope: x_rope,
         kw.party_title: x_party_title,
         kw.solo: x_solo,
-        kw.plan_name_is_labor: x__plan_name_is_labor,
+        kw.person_name_is_labor: x__person_name_is_labor,
     }
     # all args included in values dict
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnlabo_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnlabo_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_keg_partyunit_job"
+        table_name = "person_keg_partyunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -533,10 +533,10 @@ def test_create_plnlabo_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnptnr_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnptnr_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_partnerunit")
+    x_args = get_person_calc_dimen_args("person_partnerunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -560,7 +560,7 @@ def test_create_plnptnr_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_partner_name = 1
     x_partner_cred_lumen = 2
     x_partner_debt_lumen = 3
@@ -577,7 +577,7 @@ def test_create_plnptnr_metrics_insert_sqlstr_ReturnsObj():
     x_groupmark = 13
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.partner_name: x_partner_name,
         kw.partner_cred_lumen: x_partner_cred_lumen,
         kw.partner_debt_lumen: x_partner_debt_lumen,
@@ -597,14 +597,14 @@ def test_create_plnptnr_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnptnr_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnptnr_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_partnerunit_job"
+        table_name = "person_partnerunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -612,10 +612,10 @@ def test_create_plnptnr_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnmemb_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_partner_membership")
+    x_args = get_person_calc_dimen_args("person_partner_membership")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -639,7 +639,7 @@ def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_partner_name = 1
     x_group_title = 2
     x_group_cred_lumen = 3
@@ -654,7 +654,7 @@ def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
     x_fund_agenda_ratio_take = 12
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.partner_name: x_partner_name,
         kw.group_title: x_group_title,
         kw.group_cred_lumen: x_group_cred_lumen,
@@ -672,14 +672,14 @@ def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plnmemb_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnmemb_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_partner_membership_job"
+        table_name = "person_partner_membership_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -687,10 +687,10 @@ def test_create_plnmemb_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prngrou_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_plan_calc_dimen_args("plan_groupunit")
+    x_args = get_person_calc_dimen_args("person_groupunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -714,7 +714,7 @@ def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
     # print(";")
 
     x_moment_rope = exx.a23
-    x_plan_name = "Sue"
+    x_person_name = "Sue"
     x_group_title = 1
     x_credor_pool = 2
     x_debtor_pool = 3
@@ -725,7 +725,7 @@ def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
     x_fund_agenda_take = 8
     values_dict = {
         kw.moment_rope: x_moment_rope,
-        kw.plan_name: x_plan_name,
+        kw.person_name: x_person_name,
         kw.group_title: x_group_title,
         kw.credor_pool: x_credor_pool,
         kw.debtor_pool: x_debtor_pool,
@@ -739,14 +739,14 @@ def test_create_plngrou_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_plngrou_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prngrou_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "plan_groupunit_job"
+        table_name = "person_groupunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)

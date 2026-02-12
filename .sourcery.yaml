@@ -38,7 +38,7 @@ rule_settings:
 #   language: python
 #   replacement:
 #   condition:
-#   explanation:
+#   expersonation:
 #   paths:
 #     include:
 #     - test

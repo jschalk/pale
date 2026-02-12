@@ -1,5 +1,5 @@
 from datetime import datetime
-from src.ch07_plan_logic.plan_main import PlanUnit, planunit_shop
+from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
 from src.ch13_time.epoch_main import EpochHolder, TimeNum, epochholder_shop
 from src.ch13_time.test._util.ch13_examples import (
     add_time_creg_kegunit,
@@ -22,7 +22,7 @@ def test_EpochHolder_Exists():
     x_TimeNum = EpochHolder()
 
     # THEN
-    assert not x_TimeNum.x_planunit
+    assert not x_TimeNum.x_personunit
     assert not x_TimeNum.epoch_label
     assert not x_TimeNum.x_min
     assert not x_TimeNum._epoch_keg
@@ -42,27 +42,27 @@ def test_epochholder_shop_ReturnsObj():
     # ESTABLISH
     x_epoch_label = "Fay07"
     x_epoch_min = 890000
-    sue_plan = planunit_shop("Sue")
+    sue_person = personunit_shop("Sue")
 
     # WHEN
     x_TimeNum = epochholder_shop(
-        x_planunit=sue_plan,
+        x_personunit=sue_person,
         epoch_label=x_epoch_label,
         x_min=x_epoch_min,
     )
 
     # THEN
-    assert x_TimeNum.x_planunit == sue_plan
+    assert x_TimeNum.x_personunit == sue_person
     assert x_TimeNum.epoch_label == x_epoch_label
     assert x_TimeNum.x_min == x_epoch_min
 
 
 def test_EpochHolder_set_epoch_keg_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    sue_plan.cashout()
-    x_TimeNum = epochholder_shop(sue_plan, kw.creg, 10000000)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    sue_person.cashout()
+    x_TimeNum = epochholder_shop(sue_person, kw.creg, 10000000)
     assert not x_TimeNum._epoch_keg
 
     # WHEN
@@ -74,10 +74,10 @@ def test_EpochHolder_set_epoch_keg_SetsAttr():
 
 def test_EpochHolder_set_weekday_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    sue_plan.cashout()
-    x_TimeNum = epochholder_shop(sue_plan, kw.creg, 10001440)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    sue_person.cashout()
+    x_TimeNum = epochholder_shop(sue_person, kw.creg, 10001440)
     x_TimeNum._set_epoch_keg()
     assert not x_TimeNum._weekday
 
@@ -90,10 +90,10 @@ def test_EpochHolder_set_weekday_SetsAttr():
 
 def test_EpochHolder_set_month_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    sue_plan.cashout()
-    x_TimeNum = epochholder_shop(sue_plan, kw.creg, 10060000)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    sue_person.cashout()
+    x_TimeNum = epochholder_shop(sue_person, kw.creg, 10060000)
     x_TimeNum._set_epoch_keg()
     assert not x_TimeNum._month
     assert not x_TimeNum._monthday
@@ -109,10 +109,10 @@ def test_EpochHolder_set_month_SetsAttr():
 
 def test_EpochHolder_set_hour_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    sue_plan.cashout()
-    x_TimeNum = epochholder_shop(sue_plan, kw.creg, 10000001)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    sue_person.cashout()
+    x_TimeNum = epochholder_shop(sue_person, kw.creg, 10000001)
     x_TimeNum._set_epoch_keg()
     assert not x_TimeNum._hour
     assert not x_TimeNum._hour
@@ -128,10 +128,10 @@ def test_EpochHolder_set_hour_SetsAttr():
 
 def test_EpochHolder_set_year_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    sue_plan.cashout()
-    x_TimeNum = epochholder_shop(sue_plan, kw.creg, 1030600100)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    sue_person.cashout()
+    x_TimeNum = epochholder_shop(sue_person, kw.creg, 1030600100)
     x_TimeNum._set_epoch_keg()
     assert not x_TimeNum._c400_number
     assert not x_TimeNum._c100_count
@@ -153,9 +153,9 @@ def test_EpochHolder_set_year_SetsAttr():
 
 def test_EpochHolder_calc_epoch_SetsAttrs():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    x_TimeNum = epochholder_shop(sue_plan, kw.creg, 1030600102)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    x_TimeNum = epochholder_shop(sue_person, kw.creg, 1030600102)
     assert not x_TimeNum._epoch_keg
     assert not x_TimeNum._weekday
     assert not x_TimeNum._monthday
@@ -179,9 +179,9 @@ def test_EpochHolder_calc_epoch_SetsAttrs():
 
 def test_EpochHolder_get_blurb_ReturnsObj():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    x_TimeNum = epochholder_shop(sue_plan, kw.creg, 1030600102)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    x_TimeNum = epochholder_shop(sue_person, kw.creg, 1030600102)
     x_TimeNum.calc_epoch()
     assert x_TimeNum._epoch_keg
     assert x_TimeNum._weekday
@@ -206,14 +206,14 @@ def test_EpochHolder_get_blurb_ReturnsObj():
 
 def test_calc_epoch_SetsAttrFiveEpoch(graphics_bool):
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
-    sue_plan = add_time_creg_kegunit(sue_plan)
-    sue_plan = add_time_five_kegunit(sue_plan)
+    sue_person = personunit_shop("Sue")
+    sue_person = add_time_creg_kegunit(sue_person)
+    sue_person = add_time_five_kegunit(sue_person)
     mar1_2000_datetime = datetime(2000, 3, 1)
     creg_min = get_creg_min_from_dt(mar1_2000_datetime)
     five_min = get_five_min_from_dt(mar1_2000_datetime)
-    creg_TimeNum = epochholder_shop(sue_plan, kw.creg, creg_min)
-    five_TimeNum = epochholder_shop(sue_plan, kw.five, five_min)
+    creg_TimeNum = epochholder_shop(sue_person, kw.creg, creg_min)
+    five_TimeNum = epochholder_shop(sue_person, kw.five, five_min)
     assert not creg_TimeNum._weekday
     assert not creg_TimeNum._monthday
     assert not creg_TimeNum._month
@@ -249,9 +249,9 @@ def test_calc_epoch_SetsAttrFiveEpoch(graphics_bool):
     display_creg_five_squirt_time_attrs(graphics_bool)
 
 
-def check_creg_epoch_attr(x_plan: PlanUnit, x_datetime: datetime):
+def check_creg_epoch_attr(x_person: PersonUnit, x_datetime: datetime):
     creg_min = get_creg_min_from_dt(x_datetime)
-    creg_TimeNum = epochholder_shop(x_plan, kw.creg, creg_min)
+    creg_TimeNum = epochholder_shop(x_person, kw.creg, creg_min)
     creg_TimeNum.calc_epoch()
     dt_hour = x_datetime.strftime("%H")
     dt_minute = x_datetime.strftime("%M")
@@ -283,23 +283,23 @@ def check_creg_epoch_attr(x_plan: PlanUnit, x_datetime: datetime):
 
 def test_EpochHolder_calc_epoch_SetsAttr():
     # ESTABLISH
-    sue_plan = planunit_shop("Sue")
+    sue_person = personunit_shop("Sue")
 
     # WHEN
-    sue_plan = add_time_creg_kegunit(sue_plan)
+    sue_person = add_time_creg_kegunit(sue_person)
 
     # THEN
-    check_creg_epoch_attr(sue_plan, datetime(2000, 3, 1, 0, 21))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 3, 1, 3, 21))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 3, 1, 12, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 3, 1, 13, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 4, 1, 13, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 4, 20, 13, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 4, 28, 13, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 4, 29, 13, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 4, 30, 13, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 5, 1, 13, 00))
-    check_creg_epoch_attr(sue_plan, datetime(2000, 7, 1, 13, 56))
-    check_creg_epoch_attr(sue_plan, datetime(2003, 12, 28, 17, 56))
-    check_creg_epoch_attr(sue_plan, datetime(2003, 2, 28, 17, 56))
-    check_creg_epoch_attr(sue_plan, datetime(432, 3, 4, 2, 0))
+    check_creg_epoch_attr(sue_person, datetime(2000, 3, 1, 0, 21))
+    check_creg_epoch_attr(sue_person, datetime(2000, 3, 1, 3, 21))
+    check_creg_epoch_attr(sue_person, datetime(2000, 3, 1, 12, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 3, 1, 13, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 4, 1, 13, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 4, 20, 13, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 4, 28, 13, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 4, 29, 13, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 4, 30, 13, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 5, 1, 13, 00))
+    check_creg_epoch_attr(sue_person, datetime(2000, 7, 1, 13, 56))
+    check_creg_epoch_attr(sue_person, datetime(2003, 12, 28, 17, 56))
+    check_creg_epoch_attr(sue_person, datetime(2003, 2, 28, 17, 56))
+    check_creg_epoch_attr(sue_person, datetime(432, 3, 4, 2, 0))

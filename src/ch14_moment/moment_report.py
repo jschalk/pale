@@ -1,33 +1,33 @@
 from pandas import DataFrame, concat as pandas_concat
 from plotly.graph_objects import Figure as plotly_Figure, Table as plotly_Table
-from src.ch07_plan_logic.plan_report import (
-    get_plan_agenda_dataframe,
-    get_plan_partnerunits_dataframe,
+from src.ch07_person_logic.person_report import (
+    get_person_agenda_dataframe,
+    get_person_partnerunits_dataframe,
 )
-from src.ch09_plan_lesson.lasso import lassounit_shop
-from src.ch09_plan_lesson.lesson_filehandler import open_gut_file
-from src.ch10_plan_listen.keep_tool import open_job_file
+from src.ch09_person_lesson.lasso import lassounit_shop
+from src.ch09_person_lesson.lesson_filehandler import open_gut_file
+from src.ch10_person_listen.keep_tool import open_job_file
 from src.ch14_moment.moment_main import MomentUnit
 
 
 def get_moment_guts_partners_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all plan paths
-    moment_plan_names = x_moment._get_plan_dir_names()
-    # for all plans get gut
+    # get list of all person paths
+    moment_person_names = x_moment._get_person_dir_names()
+    # for all persons get gut
     gut_dfs = []
-    for plan_name in moment_plan_names:
+    for person_name in moment_person_names:
         moment_lasso = lassounit_shop(x_moment.moment_rope)
-        gut_plan = open_gut_file(x_moment.moment_mstr_dir, moment_lasso, plan_name)
-        gut_plan.cashout()
-        df = get_plan_partnerunits_dataframe(gut_plan)
-        df.insert(0, "plan_name", gut_plan.plan_name)
+        gut_person = open_gut_file(x_moment.moment_mstr_dir, moment_lasso, person_name)
+        gut_person.cashout()
+        df = get_person_partnerunits_dataframe(gut_person)
+        df.insert(0, "person_name", gut_person.person_name)
         gut_dfs.append(df)
     return pandas_concat(gut_dfs, ignore_index=True)
 
 
 def get_moment_guts_partners_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "plan_name",
+        "person_name",
         "partner_name",
         "partner_cred_lumen",
         "partner_debt_lumen",
@@ -42,7 +42,7 @@ def get_moment_guts_partners_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.plan_name,
+                df.person_name,
                 df.partner_name,
                 df.partner_cred_lumen,
                 df.partner_debt_lumen,
@@ -66,23 +66,23 @@ def get_moment_guts_partners_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 
 
 def get_moment_jobs_partners_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all plan paths
-    moment_plan_names = x_moment._get_plan_dir_names()
-    # for all plans get gut
+    # get list of all person paths
+    moment_person_names = x_moment._get_person_dir_names()
+    # for all persons get gut
     job_dfs = []
-    for plan_name in moment_plan_names:
+    for person_name in moment_person_names:
         moment_lasso = lassounit_shop(x_moment.moment_rope, x_moment.knot)
-        job = open_job_file(x_moment.moment_mstr_dir, moment_lasso, plan_name)
+        job = open_job_file(x_moment.moment_mstr_dir, moment_lasso, person_name)
         job.cashout()
-        job_df = get_plan_partnerunits_dataframe(job)
-        job_df.insert(0, "plan_name", job.plan_name)
+        job_df = get_person_partnerunits_dataframe(job)
+        job_df.insert(0, "person_name", job.person_name)
         job_dfs.append(job_df)
     return pandas_concat(job_dfs, ignore_index=True)
 
 
 def get_moment_jobs_partners_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "plan_name",
+        "person_name",
         "partner_name",
         "partner_cred_lumen",
         "partner_debt_lumen",
@@ -97,7 +97,7 @@ def get_moment_jobs_partners_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.plan_name,
+                df.person_name,
                 df.partner_name,
                 df.partner_cred_lumen,
                 df.partner_debt_lumen,
@@ -120,22 +120,22 @@ def get_moment_jobs_partners_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 
 
 def get_moment_guts_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all plan paths
-    moment_plan_names = x_moment._get_plan_dir_names()
-    # for all plans get gut
+    # get list of all person paths
+    moment_person_names = x_moment._get_person_dir_names()
+    # for all persons get gut
     gut_dfs = []
-    for plan_name in moment_plan_names:
+    for person_name in moment_person_names:
         moment_lasso = lassounit_shop(x_moment.moment_rope, x_moment.knot)
-        gut_plan = open_gut_file(x_moment.moment_mstr_dir, moment_lasso, plan_name)
-        gut_plan.cashout()
-        df = get_plan_agenda_dataframe(gut_plan)
+        gut_person = open_gut_file(x_moment.moment_mstr_dir, moment_lasso, person_name)
+        gut_person.cashout()
+        df = get_person_agenda_dataframe(gut_person)
         gut_dfs.append(df)
     return pandas_concat(gut_dfs, ignore_index=True)
 
 
 def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "plan_name",
+        "person_name",
         "fund_ratio",
         "keg_label",
         "parent_rope",
@@ -152,7 +152,7 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.plan_name,
+                df.person_name,
                 df.fund_ratio,
                 df.keg_label,
                 df.parent_rope,
@@ -177,20 +177,20 @@ def get_moment_guts_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
 
 
 def get_moment_jobs_agenda_dataframe(x_moment: MomentUnit) -> DataFrame:
-    # get list of all plan paths
+    # get list of all person paths
     job_dfs = []
-    for x_plan_name in x_moment._get_plan_dir_names():
+    for x_person_name in x_moment._get_person_dir_names():
         moment_lasso = lassounit_shop(x_moment.moment_rope, x_moment.knot)
-        job = open_job_file(x_moment.moment_mstr_dir, moment_lasso, x_plan_name)
+        job = open_job_file(x_moment.moment_mstr_dir, moment_lasso, x_person_name)
         job.cashout()
-        job_df = get_plan_agenda_dataframe(job)
+        job_df = get_person_agenda_dataframe(job)
         job_dfs.append(job_df)
     return pandas_concat(job_dfs, ignore_index=True)
 
 
 def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
     column_header_list = [
-        "plan_name",
+        "person_name",
         "fund_ratio",
         "keg_label",
         "parent_rope",
@@ -207,7 +207,7 @@ def get_moment_jobs_agenda_plotly_fig(x_moment: MomentUnit) -> plotly_Figure:
         header=header_dict,
         cells=dict(
             values=[
-                df.plan_name,
+                df.person_name,
                 df.fund_ratio,
                 df.keg_label,
                 df.parent_rope,

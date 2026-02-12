@@ -14,7 +14,7 @@ from src.ch11_bud._ref.ch11_semantic_types import (
     FundNum,
     MomentRope,
     PartnerName,
-    PlanName,
+    PersonName,
     TimeNum,
 )
 
@@ -32,14 +32,14 @@ DEFAULT_CELLDEPTH = 2
 
 @dataclass
 class TranUnit:
-    src: PlanName = None
+    src: PersonName = None
     dst: PartnerName = None
     tran_time: TimeNum = None
     amount: FundNum = None
 
 
 def tranunit_shop(
-    src: PlanName, dst: PartnerName, tran_time: TimeNum, amount: FundNum
+    src: PersonName, dst: PartnerName, tran_time: TimeNum, amount: FundNum
 ) -> TranUnit:
     return TranUnit(src=src, dst=dst, tran_time=tran_time, amount=amount)
 
@@ -47,8 +47,8 @@ def tranunit_shop(
 @dataclass
 class TranBook:
     moment_rope: MomentRope = None
-    tranunits: dict[PlanName, dict[PartnerName, dict[TimeNum, FundNum]]] = None
-    _partners_net: dict[PlanName, dict[PartnerName, FundNum]] = None
+    tranunits: dict[PersonName, dict[PartnerName, dict[TimeNum, FundNum]]] = None
+    _partners_net: dict[PersonName, dict[PartnerName, FundNum]] = None
 
     def set_tranunit(
         self,
@@ -57,7 +57,7 @@ class TranBook:
         offi_time_max: TimeNum = None,
     ):
         self.add_tranunit(
-            plan_name=tranunit.src,
+            person_name=tranunit.src,
             partner_name=tranunit.dst,
             tran_time=tranunit.tran_time,
             amount=tranunit.amount,
@@ -67,7 +67,7 @@ class TranBook:
 
     def add_tranunit(
         self,
-        plan_name: PlanName,
+        person_name: PersonName,
         partner_name: PartnerName,
         tran_time: TimeNum,
         amount: FundNum,
@@ -82,28 +82,28 @@ class TranBook:
         if offi_time_max != None and tran_time >= offi_time_max:
             exception_str = f"Cannot set tranunit for tran_time={tran_time}, TimeNum is greater than current time={offi_time_max}"
             raise tran_time_Exception(exception_str)
-        x_keylist = [plan_name, partner_name, tran_time]
+        x_keylist = [person_name, partner_name, tran_time]
         set_in_nested_dict(self.tranunits, x_keylist, amount)
 
     def tranunit_exists(
-        self, src: PlanName, dst: PartnerName, tran_time: TimeNum
+        self, src: PersonName, dst: PartnerName, tran_time: TimeNum
     ) -> bool:
         return get_from_nested_dict(self.tranunits, [src, dst, tran_time], True) != None
 
     def get_tranunit(
-        self, src: PlanName, dst: PartnerName, tran_time: TimeNum
+        self, src: PersonName, dst: PartnerName, tran_time: TimeNum
     ) -> TranUnit:
         x_amount = get_from_nested_dict(self.tranunits, [src, dst, tran_time], True)
         if x_amount != None:
             return tranunit_shop(src, dst, tran_time, x_amount)
 
     def get_amount(
-        self, src: PlanName, dst: PartnerName, tran_time: TimeNum
+        self, src: PersonName, dst: PartnerName, tran_time: TimeNum
     ) -> TranUnit:
         return get_from_nested_dict(self.tranunits, [src, dst, tran_time], True)
 
     def del_tranunit(
-        self, src: PlanName, dst: PartnerName, tran_time: TimeNum
+        self, src: PersonName, dst: PartnerName, tran_time: TimeNum
     ) -> TranUnit:
         x_keylist = [src, dst, tran_time]
         if exists_in_nested_dict(self.tranunits, x_keylist):
@@ -116,22 +116,22 @@ class TranBook:
                 x_set.update(set(tran_time_dict.keys()))
         return x_set
 
-    def get_plans_partners_net(
+    def get_persons_partners_net(
         self,
-    ) -> dict[PlanName, dict[PartnerName, FundNum]]:
-        plans_partners_net_dict = {}
-        for plan_name, plan_dict in self.tranunits.items():
-            for partner_name, partner_dict in plan_dict.items():
-                if plans_partners_net_dict.get(plan_name) is None:
-                    plans_partners_net_dict[plan_name] = {}
-                plan_net_dict = plans_partners_net_dict.get(plan_name)
-                plan_net_dict[partner_name] = sum(partner_dict.values())
-        return plans_partners_net_dict
+    ) -> dict[PersonName, dict[PartnerName, FundNum]]:
+        persons_partners_net_dict = {}
+        for person_name, person_dict in self.tranunits.items():
+            for partner_name, partner_dict in person_dict.items():
+                if persons_partners_net_dict.get(person_name) is None:
+                    persons_partners_net_dict[person_name] = {}
+                person_net_dict = persons_partners_net_dict.get(person_name)
+                person_net_dict[partner_name] = sum(partner_dict.values())
+        return persons_partners_net_dict
 
     def get_partners_net_dict(self) -> dict[PartnerName, FundNum]:
         partners_net_dict = {}
-        for plan_dict in self.tranunits.values():
-            for partner_name, partner_dict in sorted(plan_dict.items()):
+        for person_dict in self.tranunits.values():
+            for partner_name, partner_dict in sorted(person_dict.items()):
                 if partners_net_dict.get(partner_name) is None:
                     partners_net_dict[partner_name] = sum(partner_dict.values())
                 else:
@@ -162,7 +162,7 @@ class TranBook:
 
     def to_dict(
         self,
-    ) -> dict[MomentRope, dict[PlanName, dict[PartnerName, dict[TimeNum, FundNum]]]]:
+    ) -> dict[MomentRope, dict[PersonName, dict[PartnerName, dict[TimeNum, FundNum]]]]:
         """Returns dict that is serializable to JSON."""
 
         return {"moment_rope": self.moment_rope, "tranunits": self.tranunits}
@@ -170,7 +170,7 @@ class TranBook:
 
 def tranbook_shop(
     x_moment_rope: MomentRope,
-    x_tranunits: dict[PlanName, dict[PartnerName, dict[TimeNum, FundNum]]] = None,
+    x_tranunits: dict[PersonName, dict[PartnerName, dict[TimeNum, FundNum]]] = None,
 ):
     return TranBook(
         moment_rope=x_moment_rope,
@@ -182,10 +182,10 @@ def tranbook_shop(
 def get_tranbook_from_dict(x_dict: dict) -> TranBook:
     x_tranunits = x_dict.get("tranunits")
     new_tranunits = {}
-    for x_plan_name, x_partner_dict in x_tranunits.items():
+    for x_person_name, x_partner_dict in x_tranunits.items():
         for x_partner_name, x_tran_time_dict in x_partner_dict.items():
             for x_tran_time, x_amount in x_tran_time_dict.items():
-                x_key_list = [x_plan_name, x_partner_name, int(x_tran_time)]
+                x_key_list = [x_person_name, x_partner_name, int(x_tran_time)]
                 set_in_nested_dict(new_tranunits, x_key_list, x_amount)
     return tranbook_shop(x_dict.get("moment_rope"), new_tranunits)
 
@@ -256,8 +256,8 @@ def budunit_shop(
 
 
 @dataclass
-class PlanBudHistory:
-    plan_name: PlanName = None
+class PersonBudHistory:
+    person_name: PersonName = None
     buds: dict[TimeNum, BudUnit] = None
     # calculated fields
     _sum_budunit_quota: FundNum = None
@@ -283,17 +283,17 @@ class PlanBudHistory:
 
     def get_2d_array(self) -> list[list]:
         return [
-            [self.plan_name, x_bud.bud_time, x_bud.quota]
+            [self.person_name, x_bud.bud_time, x_bud.quota]
             for x_bud in self.buds.values()
         ]
 
     def get_headers(self) -> list:
-        return ["plan_name", "bud_time", "quota"]
+        return ["person_name", "bud_time", "quota"]
 
     def to_dict(self) -> dict:
         """Returns dict that is serializable to JSON."""
 
-        return {"plan_name": self.plan_name, "buds": self._get_buds_dict()}
+        return {"person_name": self.person_name, "buds": self._get_buds_dict()}
 
     def _get_buds_dict(self) -> dict:
         return {x_bud.bud_time: x_bud.to_dict() for x_bud in self.buds.values()}
@@ -306,7 +306,7 @@ class PlanBudHistory:
         for x_bud_time, x_bud in self.buds.items():
             for dst_partner_name, x_quota in x_bud._bud_partner_nets.items():
                 x_tranbook.add_tranunit(
-                    plan_name=self.plan_name,
+                    person_name=self.person_name,
                     partner_name=dst_partner_name,
                     tran_time=x_bud_time,
                     amount=x_quota,
@@ -314,8 +314,8 @@ class PlanBudHistory:
         return x_tranbook
 
 
-def planbudhistory_shop(plan_name: PlanName) -> PlanBudHistory:
-    return PlanBudHistory(plan_name=plan_name, buds={}, _sum_partner_bud_nets={})
+def personbudhistory_shop(person_name: PersonName) -> PersonBudHistory:
+    return PersonBudHistory(person_name=person_name, buds={}, _sum_partner_bud_nets={})
 
 
 def get_budunit_from_dict(x_dict: dict) -> BudUnit:
@@ -329,11 +329,11 @@ def get_budunit_from_dict(x_dict: dict) -> BudUnit:
     )
 
 
-def get_planbudhistory_from_dict(x_dict: dict) -> PlanBudHistory:
-    x_plan_name = x_dict.get("plan_name")
-    x_planbudhistory = planbudhistory_shop(x_plan_name)
-    x_planbudhistory.buds = get_buds_from_dict(x_dict.get("buds"))
-    return x_planbudhistory
+def get_personbudhistory_from_dict(x_dict: dict) -> PersonBudHistory:
+    x_person_name = x_dict.get("person_name")
+    x_personbudhistory = personbudhistory_shop(x_person_name)
+    x_personbudhistory.buds = get_buds_from_dict(x_dict.get("buds"))
+    return x_personbudhistory
 
 
 def get_buds_from_dict(buds_dict: dict) -> dict[TimeNum, BudUnit]:

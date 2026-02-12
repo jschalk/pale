@@ -1,6 +1,6 @@
 from src.ch00_py.dict_toolbox import get_empty_str_if_None as if_none_str
-from src.ch07_plan_logic.plan_main import PlanUnit
-from src.ch09_plan_lesson.lesson_main import LessonUnit
+from src.ch07_person_logic.person_main import PersonUnit
+from src.ch09_person_lesson.lesson_main import LessonUnit
 from src.ch14_moment.moment_main import MomentUnit
 from src.ch17_idea._ref.ch17_semantic_types import FaceName, MomentRope
 from src.ch17_idea.idea_config import get_idea_format_filename, get_idea_format_headers
@@ -112,13 +112,13 @@ def _add_budunit_to_br00001_csv(
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for broker_plan_name, planbudhistorys in x_moment.planbudhistorys.items():
-        for bud_time, budunit in planbudhistorys.buds.items():
+    for broker_person_name, personbudhistorys in x_moment.personbudhistorys.items():
+        for bud_time, budunit in personbudhistorys.buds.items():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
                 x_moment.moment_rope,
-                broker_plan_name,
+                broker_person_name,
                 str(bud_time),
                 str(budunit.quota),
                 str(budunit.celldepth),
@@ -135,7 +135,7 @@ def _add_paybook_to_br00002_csv(
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for plan_name, tranunit in x_moment.paybook.tranunits.items():
+    for person_name, tranunit in x_moment.paybook.tranunits.items():
         for partner_name, time_dict in tranunit.items():
             for tran_time, amount in time_dict.items():
                 moment_rope = x_moment.moment_rope
@@ -143,7 +143,7 @@ def _add_paybook_to_br00002_csv(
                     if_none_str(face_name),
                     if_none_str(spark_num),
                     moment_rope,
-                    plan_name,
+                    person_name,
                     partner_name,
                     str(tran_time),
                     str(amount),
@@ -213,20 +213,20 @@ def _add_weekdays_to_br00005_csv(
     return x_csv
 
 
-def add_plan_to_br00020_csv(
+def add_person_to_br00020_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for partnerunit in x_plan.partners.values():
+    for partnerunit in x_person.partners.values():
         for membership in partnerunit.memberships.values():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_rope,
-                x_plan.plan_name,
+                x_person.moment_rope,
+                x_person.person_name,
                 partnerunit.partner_name,
                 membership.group_title,
                 if_none_str(membership.group_cred_lumen),
@@ -237,19 +237,19 @@ def add_plan_to_br00020_csv(
     return x_csv
 
 
-def add_plan_to_br00021_csv(
+def add_person_to_br00021_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for partnerunit in x_plan.partners.values():
+    for partnerunit in x_person.partners.values():
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_plan.moment_rope,
-            x_plan.plan_name,
+            x_person.moment_rope,
+            x_person.person_name,
             partnerunit.partner_name,
             if_none_str(partnerunit.partner_cred_lumen),
             if_none_str(partnerunit.partner_debt_lumen),
@@ -259,20 +259,20 @@ def add_plan_to_br00021_csv(
     return x_csv
 
 
-def add_plan_to_br00022_csv(
+def add_person_to_br00022_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_plan._keg_dict.values():
+    for kegunit in x_person._keg_dict.values():
         for awardunit in kegunit.awardunits.values():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_rope,
-                x_plan.plan_name,
+                x_person.moment_rope,
+                x_person.person_name,
                 kegunit.get_keg_rope(),
                 awardunit.awardee_title,
                 if_none_str(awardunit.give_force),
@@ -283,20 +283,20 @@ def add_plan_to_br00022_csv(
     return x_csv
 
 
-def add_plan_to_br00023_csv(
+def add_person_to_br00023_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for factunit in x_plan.kegroot.factunits.values():
+    for factunit in x_person.kegroot.factunits.values():
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_plan.moment_rope,
-            x_plan.plan_name,
-            x_plan.kegroot.get_keg_rope(),
+            x_person.moment_rope,
+            x_person.person_name,
+            x_person.kegroot.get_keg_rope(),
             factunit.fact_context,
             factunit.fact_state,
             if_none_str(factunit.fact_lower),
@@ -307,20 +307,20 @@ def add_plan_to_br00023_csv(
     return x_csv
 
 
-def add_plan_to_br00024_csv(
+def add_person_to_br00024_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_plan._keg_dict.values():
+    for kegunit in x_person._keg_dict.values():
         for group_title in kegunit.laborunit.partys:
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_rope,
-                x_plan.plan_name,
+                x_person.moment_rope,
+                x_person.person_name,
                 kegunit.get_keg_rope(),
                 group_title,
             ]
@@ -329,20 +329,20 @@ def add_plan_to_br00024_csv(
     return x_csv
 
 
-def add_plan_to_br00025_csv(
+def add_person_to_br00025_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_plan._keg_dict.values():
+    for kegunit in x_person._keg_dict.values():
         for group_title in kegunit.healerunit.healer_names:
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_rope,
-                x_plan.plan_name,
+                x_person.moment_rope,
+                x_person.person_name,
                 kegunit.get_keg_rope(),
                 group_title,
             ]
@@ -351,21 +351,21 @@ def add_plan_to_br00025_csv(
     return x_csv
 
 
-def add_plan_to_br00026_csv(
+def add_person_to_br00026_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_plan._keg_dict.values():
+    for kegunit in x_person._keg_dict.values():
         for reasonunit in kegunit.reasonunits.values():
             for caseunit in reasonunit.cases.values():
                 x_row = [
                     if_none_str(face_name),
                     if_none_str(spark_num),
-                    x_plan.moment_rope,
-                    x_plan.plan_name,
+                    x_person.moment_rope,
+                    x_person.person_name,
                     kegunit.get_keg_rope(),
                     reasonunit.reason_context,
                     caseunit.reason_state,
@@ -378,20 +378,20 @@ def add_plan_to_br00026_csv(
     return x_csv
 
 
-def add_plan_to_br00027_csv(
+def add_person_to_br00027_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_plan._keg_dict.values():
+    for kegunit in x_person._keg_dict.values():
         for reasonunit in kegunit.reasonunits.values():
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_rope,
-                x_plan.plan_name,
+                x_person.moment_rope,
+                x_person.person_name,
                 kegunit.get_keg_rope(),
                 reasonunit.reason_context,
                 if_none_str(reasonunit.active_requisite),
@@ -401,20 +401,20 @@ def add_plan_to_br00027_csv(
     return x_csv
 
 
-def add_plan_to_br00028_csv(
+def add_person_to_br00028_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
 ) -> str:
-    for kegunit in x_plan._keg_dict.values():
-        if kegunit != x_plan.kegroot:
+    for kegunit in x_person._keg_dict.values():
+        if kegunit != x_person.kegroot:
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_plan.moment_rope,
-                x_plan.plan_name,
+                x_person.moment_rope,
+                x_person.person_name,
                 kegunit.get_keg_rope(),
                 if_none_str(kegunit.begin),
                 if_none_str(kegunit.close),
@@ -433,9 +433,9 @@ def add_plan_to_br00028_csv(
     return x_csv
 
 
-def add_plan_to_br00029_csv(
+def add_person_to_br00029_csv(
     x_csv: str,
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     csv_delimiter: str,
     face_name: FaceName = None,
     spark_num: int = None,
@@ -443,23 +443,23 @@ def add_plan_to_br00029_csv(
     x_row = [
         if_none_str(face_name),
         if_none_str(spark_num),
-        x_plan.moment_rope,
-        x_plan.plan_name,
-        if_none_str(x_plan.credor_respect),
-        if_none_str(x_plan.debtor_respect),
-        if_none_str(x_plan.fund_pool),
-        if_none_str(x_plan.max_tree_traverse),
-        if_none_str(x_plan.fund_grain),
-        if_none_str(x_plan.mana_grain),
-        if_none_str(x_plan.respect_grain),
+        x_person.moment_rope,
+        x_person.person_name,
+        if_none_str(x_person.credor_respect),
+        if_none_str(x_person.debtor_respect),
+        if_none_str(x_person.fund_pool),
+        if_none_str(x_person.max_tree_traverse),
+        if_none_str(x_person.fund_grain),
+        if_none_str(x_person.mana_grain),
+        if_none_str(x_person.respect_grain),
     ]
     x_csv += csv_delimiter.join(x_row)
     x_csv += "\n"
     return x_csv
 
 
-def add_planunit_to_stance_csv_strs(
-    x_plan: PlanUnit, moment_csv_strs: dict[str, str], csv_delimiter: str
+def add_personunit_to_stance_csv_strs(
+    x_person: PersonUnit, moment_csv_strs: dict[str, str], csv_delimiter: str
 ) -> str:
     br00020_csv = moment_csv_strs.get("br00020")
     br00021_csv = moment_csv_strs.get("br00021")
@@ -471,16 +471,16 @@ def add_planunit_to_stance_csv_strs(
     br00027_csv = moment_csv_strs.get("br00027")
     br00028_csv = moment_csv_strs.get("br00028")
     br00029_csv = moment_csv_strs.get("br00029")
-    br00020_csv = add_plan_to_br00020_csv(br00020_csv, x_plan, csv_delimiter)
-    br00021_csv = add_plan_to_br00021_csv(br00021_csv, x_plan, csv_delimiter)
-    br00022_csv = add_plan_to_br00022_csv(br00022_csv, x_plan, csv_delimiter)
-    br00023_csv = add_plan_to_br00023_csv(br00023_csv, x_plan, csv_delimiter)
-    br00024_csv = add_plan_to_br00024_csv(br00024_csv, x_plan, csv_delimiter)
-    br00025_csv = add_plan_to_br00025_csv(br00025_csv, x_plan, csv_delimiter)
-    br00026_csv = add_plan_to_br00026_csv(br00026_csv, x_plan, csv_delimiter)
-    br00027_csv = add_plan_to_br00027_csv(br00027_csv, x_plan, csv_delimiter)
-    br00028_csv = add_plan_to_br00028_csv(br00028_csv, x_plan, csv_delimiter)
-    br00029_csv = add_plan_to_br00029_csv(br00029_csv, x_plan, csv_delimiter)
+    br00020_csv = add_person_to_br00020_csv(br00020_csv, x_person, csv_delimiter)
+    br00021_csv = add_person_to_br00021_csv(br00021_csv, x_person, csv_delimiter)
+    br00022_csv = add_person_to_br00022_csv(br00022_csv, x_person, csv_delimiter)
+    br00023_csv = add_person_to_br00023_csv(br00023_csv, x_person, csv_delimiter)
+    br00024_csv = add_person_to_br00024_csv(br00024_csv, x_person, csv_delimiter)
+    br00025_csv = add_person_to_br00025_csv(br00025_csv, x_person, csv_delimiter)
+    br00026_csv = add_person_to_br00026_csv(br00026_csv, x_person, csv_delimiter)
+    br00027_csv = add_person_to_br00027_csv(br00027_csv, x_person, csv_delimiter)
+    br00028_csv = add_person_to_br00028_csv(br00028_csv, x_person, csv_delimiter)
+    br00029_csv = add_person_to_br00029_csv(br00029_csv, x_person, csv_delimiter)
     moment_csv_strs["br00020"] = br00020_csv
     moment_csv_strs["br00021"] = br00021_csv
     moment_csv_strs["br00022"] = br00022_csv
@@ -496,17 +496,17 @@ def add_planunit_to_stance_csv_strs(
 def add_lesson_to_br00020_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_partner_membership":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_partner_membership":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("partner_name"),
-                planatom.jkeys.get("group_title"),
-                if_none_str(planatom.jvalues.get("group_cred_lumen")),
-                if_none_str(planatom.jvalues.get("group_debt_lumen")),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("partner_name"),
+                personatom.jkeys.get("group_title"),
+                if_none_str(personatom.jvalues.get("group_cred_lumen")),
+                if_none_str(personatom.jvalues.get("group_debt_lumen")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -516,16 +516,16 @@ def add_lesson_to_br00020_csv(
 def add_lesson_to_br00021_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_partnerunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_partnerunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("partner_name"),
-                if_none_str(planatom.jvalues.get("partner_cred_lumen")),
-                if_none_str(planatom.jvalues.get("partner_debt_lumen")),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("partner_name"),
+                if_none_str(personatom.jvalues.get("partner_cred_lumen")),
+                if_none_str(personatom.jvalues.get("partner_debt_lumen")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -535,17 +535,17 @@ def add_lesson_to_br00021_csv(
 def add_lesson_to_br00022_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_keg_awardunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_keg_awardunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("keg_rope"),
-                planatom.jkeys.get("awardee_title"),
-                if_none_str(planatom.jvalues.get("give_force")),
-                if_none_str(planatom.jvalues.get("take_force")),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("keg_rope"),
+                personatom.jkeys.get("awardee_title"),
+                if_none_str(personatom.jvalues.get("give_force")),
+                if_none_str(personatom.jvalues.get("take_force")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -555,18 +555,18 @@ def add_lesson_to_br00022_csv(
 def add_lesson_to_br00023_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_keg_factunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_keg_factunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("keg_rope"),
-                planatom.jkeys.get("fact_context"),
-                if_none_str(planatom.jvalues.get("fact_state")),
-                if_none_str(planatom.jvalues.get("fact_lower")),
-                if_none_str(planatom.jvalues.get("fact_upper")),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("keg_rope"),
+                personatom.jkeys.get("fact_context"),
+                if_none_str(personatom.jvalues.get("fact_state")),
+                if_none_str(personatom.jvalues.get("fact_lower")),
+                if_none_str(personatom.jvalues.get("fact_upper")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -576,15 +576,15 @@ def add_lesson_to_br00023_csv(
 def add_lesson_to_br00024_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_keg_partyunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_keg_partyunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("keg_rope"),
-                planatom.jkeys.get("party_title"),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("keg_rope"),
+                personatom.jkeys.get("party_title"),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -594,15 +594,15 @@ def add_lesson_to_br00024_csv(
 def add_lesson_to_br00025_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_keg_healerunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_keg_healerunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("keg_rope"),
-                planatom.jkeys.get("healer_name"),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("keg_rope"),
+                personatom.jkeys.get("healer_name"),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -612,19 +612,19 @@ def add_lesson_to_br00025_csv(
 def add_lesson_to_br00026_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_keg_reason_caseunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_keg_reason_caseunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("keg_rope"),
-                planatom.jkeys.get("reason_context"),
-                planatom.jkeys.get("reason_state"),
-                if_none_str(planatom.jvalues.get("reason_lower")),
-                if_none_str(planatom.jvalues.get("reason_upper")),
-                if_none_str(planatom.jvalues.get("reason_divisor")),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("keg_rope"),
+                personatom.jkeys.get("reason_context"),
+                personatom.jkeys.get("reason_state"),
+                if_none_str(personatom.jvalues.get("reason_lower")),
+                if_none_str(personatom.jvalues.get("reason_upper")),
+                if_none_str(personatom.jvalues.get("reason_divisor")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -634,16 +634,16 @@ def add_lesson_to_br00026_csv(
 def add_lesson_to_br00027_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_keg_reasonunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_keg_reasonunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("keg_rope"),
-                planatom.jkeys.get("reason_context"),
-                if_none_str(planatom.jvalues.get("active_requisite")),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("keg_rope"),
+                personatom.jkeys.get("reason_context"),
+                if_none_str(personatom.jvalues.get("active_requisite")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -653,25 +653,25 @@ def add_lesson_to_br00027_csv(
 def add_lesson_to_br00028_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "plan_kegunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "person_kegunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                planatom.jkeys.get("keg_rope"),
-                if_none_str(planatom.jvalues.get("begin")),
-                if_none_str(planatom.jvalues.get("close")),
-                if_none_str(planatom.jvalues.get("addin")),
-                if_none_str(planatom.jvalues.get("numor")),
-                if_none_str(planatom.jvalues.get("denom")),
-                if_none_str(planatom.jvalues.get("morph")),
-                if_none_str(planatom.jvalues.get("gogo_want")),
-                if_none_str(planatom.jvalues.get("stop_want")),
-                if_none_str(planatom.jvalues.get("star")),
-                if_none_str(planatom.jvalues.get("pledge")),
-                if_none_str(planatom.jvalues.get("problem_bool")),
+                x_lessonunit.person_name,
+                personatom.jkeys.get("keg_rope"),
+                if_none_str(personatom.jvalues.get("begin")),
+                if_none_str(personatom.jvalues.get("close")),
+                if_none_str(personatom.jvalues.get("addin")),
+                if_none_str(personatom.jvalues.get("numor")),
+                if_none_str(personatom.jvalues.get("denom")),
+                if_none_str(personatom.jvalues.get("morph")),
+                if_none_str(personatom.jvalues.get("gogo_want")),
+                if_none_str(personatom.jvalues.get("stop_want")),
+                if_none_str(personatom.jvalues.get("star")),
+                if_none_str(personatom.jvalues.get("pledge")),
+                if_none_str(personatom.jvalues.get("problem_bool")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"
@@ -681,20 +681,20 @@ def add_lesson_to_br00028_csv(
 def add_lesson_to_br00029_csv(
     x_csv: str, x_lessonunit: LessonUnit, csv_delimiter: str
 ) -> str:
-    for planatom in x_lessonunit._plandelta.get_ordered_planatoms().values():
-        if planatom.dimen == "planunit":
+    for personatom in x_lessonunit._persondelta.get_ordered_personatoms().values():
+        if personatom.dimen == "personunit":
             x_row = [
                 x_lessonunit.face_name,
                 str(x_lessonunit.spark_num),
                 x_lessonunit.moment_rope,
-                x_lessonunit.plan_name,
-                if_none_str(planatom.jvalues.get("credor_respect")),
-                if_none_str(planatom.jvalues.get("debtor_respect")),
-                if_none_str(planatom.jvalues.get("fund_pool")),
-                if_none_str(planatom.jvalues.get("max_tree_traverse")),
-                if_none_str(planatom.jvalues.get("fund_grain")),
-                if_none_str(planatom.jvalues.get("mana_grain")),
-                if_none_str(planatom.jvalues.get("respect_grain")),
+                x_lessonunit.person_name,
+                if_none_str(personatom.jvalues.get("credor_respect")),
+                if_none_str(personatom.jvalues.get("debtor_respect")),
+                if_none_str(personatom.jvalues.get("fund_pool")),
+                if_none_str(personatom.jvalues.get("max_tree_traverse")),
+                if_none_str(personatom.jvalues.get("fund_grain")),
+                if_none_str(personatom.jvalues.get("mana_grain")),
+                if_none_str(personatom.jvalues.get("respect_grain")),
             ]
             x_csv += csv_delimiter.join(x_row)
             x_csv += "\n"

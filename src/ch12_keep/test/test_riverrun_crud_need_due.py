@@ -1,4 +1,4 @@
-from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch07_person_logic.person_main import personunit_shop
 from src.ch12_keep.rivercycle import get_doctorledger, get_patientledger
 from src.ch12_keep.riverrun import riverrun_shop
 from src.ch12_keep.test._util.ch12_env import get_temp_dir
@@ -10,13 +10,13 @@ def test_get_patientledger_ReturnsObj():
     yao_partner_cred_lumen = 8
     bob_partner_cred_lumen = 48
     sue_partner_cred_lumen = 66
-    yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_partnerunit(exx.bob, yao_partner_cred_lumen)
-    yao_plan.add_partnerunit(exx.sue, bob_partner_cred_lumen)
-    yao_plan.add_partnerunit(exx.yao, sue_partner_cred_lumen)
+    yao_person = personunit_shop(exx.yao)
+    yao_person.add_partnerunit(exx.bob, yao_partner_cred_lumen)
+    yao_person.add_partnerunit(exx.sue, bob_partner_cred_lumen)
+    yao_person.add_partnerunit(exx.yao, sue_partner_cred_lumen)
 
     # WHEN
-    yao_patientledger = get_patientledger(yao_plan)
+    yao_patientledger = get_patientledger(yao_person)
 
     # THEN
     assert len(yao_patientledger) == 3
@@ -30,13 +30,13 @@ def test_get_patientledger_ReturnsObjWithNoEmpty_partner_cred_lumen():
     yao_partner_cred_lumen = 8
     bob_partner_cred_lumen = 0
     sue_partner_cred_lumen = 66
-    yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_partnerunit(exx.bob, bob_partner_cred_lumen)
-    yao_plan.add_partnerunit(exx.sue, sue_partner_cred_lumen)
-    yao_plan.add_partnerunit(exx.yao, yao_partner_cred_lumen)
+    yao_person = personunit_shop(exx.yao)
+    yao_person.add_partnerunit(exx.bob, bob_partner_cred_lumen)
+    yao_person.add_partnerunit(exx.sue, sue_partner_cred_lumen)
+    yao_person.add_partnerunit(exx.yao, yao_partner_cred_lumen)
 
     # WHEN
-    yao_patientledger = get_patientledger(yao_plan)
+    yao_patientledger = get_patientledger(yao_person)
 
     # THEN
     assert yao_patientledger.get(exx.bob) is None
@@ -50,13 +50,13 @@ def test_get_doctorledger_ReturnsObj():
     yao_partner_debt_lumen = 8
     bob_partner_debt_lumen = 48
     sue_partner_debt_lumen = 66
-    yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
-    yao_plan.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
-    yao_plan.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
+    yao_person = personunit_shop(exx.yao)
+    yao_person.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
+    yao_person.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
+    yao_person.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
 
     # WHEN
-    yao_doctorledger = get_doctorledger(yao_plan)
+    yao_doctorledger = get_doctorledger(yao_person)
 
     # THEN
     assert len(yao_doctorledger) == 3
@@ -70,13 +70,13 @@ def test_get_doctorledger_ReturnsObjWithNoEmpty_partner_debt_lumen():
     yao_partner_debt_lumen = 8
     bob_partner_debt_lumen = 48
     sue_partner_debt_lumen = 0
-    yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
-    yao_plan.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
-    yao_plan.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
+    yao_person = personunit_shop(exx.yao)
+    yao_person.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
+    yao_person.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
+    yao_person.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
 
     # WHEN
-    yao_doctorledger = get_doctorledger(yao_plan)
+    yao_doctorledger = get_doctorledger(yao_person)
 
     # THEN
     assert yao_doctorledger.get(exx.bob) == bob_partner_debt_lumen
@@ -136,18 +136,18 @@ def test_RiverRun_set_need_dues_SetsAttr():
     bob_riverrun = riverrun_shop(
         None,
         None,
-        plan_name=exx.bob,
+        person_name=exx.bob,
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
     bob_partner_debt_lumen = 38
     sue_partner_debt_lumen = 56
     yao_partner_debt_lumen = 6
-    bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
-    bob_doctorledger = get_doctorledger(bob_plan)
+    bob_person = personunit_shop(exx.bob)
+    bob_person.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
+    bob_doctorledger = get_doctorledger(bob_person)
     assert bob_riverrun.need_dues_unpaid() is False
 
     # WHEN
@@ -168,18 +168,18 @@ def test_RiverRun_partner_has_need_due_ReturnsBool():
     bob_riverrun = riverrun_shop(
         None,
         None,
-        plan_name=exx.bob,
+        person_name=exx.bob,
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
     yao_partner_debt_lumen = 6
     bob_partner_debt_lumen = 38
     sue_partner_debt_lumen = 56
-    bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
-    bob_doctorledger = get_doctorledger(bob_plan)
+    bob_person = personunit_shop(exx.bob)
+    bob_person.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
+    bob_doctorledger = get_doctorledger(bob_person)
     assert bob_riverrun.partner_has_need_due(exx.bob) is False
     assert bob_riverrun.partner_has_need_due(exx.sue) is False
     assert bob_riverrun.partner_has_need_due(exx.yao) is False
@@ -202,7 +202,7 @@ def test_RiverRun_delete_need_due_SetsAttr():
     bob_riverrun = riverrun_shop(
         None,
         None,
-        plan_name=exx.bob,
+        person_name=exx.bob,
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
@@ -223,18 +223,18 @@ def test_RiverRun_get_partner_need_due_ReturnsObj():
     bob_riverrun = riverrun_shop(
         None,
         None,
-        plan_name=exx.bob,
+        person_name=exx.bob,
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
     bob_partner_debt_lumen = 38
     sue_partner_debt_lumen = 56
     yao_partner_debt_lumen = 6
-    bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
-    bob_doctorledger = get_doctorledger(bob_plan)
+    bob_person = personunit_shop(exx.bob)
+    bob_person.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
+    bob_doctorledger = get_doctorledger(bob_person)
     assert bob_riverrun.partner_has_need_due(exx.bob) is False
     assert bob_riverrun.get_partner_need_due(exx.bob) == 0
     assert bob_riverrun.partner_has_need_due(exx.zia) is False
@@ -257,18 +257,18 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioX():
     bob_riverrun = riverrun_shop(
         None,
         None,
-        plan_name=exx.bob,
+        person_name=exx.bob,
         keep_point_magnitude=bob_mana_amount,
         mana_grain=bob_mana_grain,
     )
     bob_partner_debt_lumen = 38
     sue_partner_debt_lumen = 56
     yao_partner_debt_lumen = 6
-    bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
-    bob_plan.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
-    bob_doctorledger = get_doctorledger(bob_plan)
+    bob_person = personunit_shop(exx.bob)
+    bob_person.add_partnerunit(exx.bob, 2, bob_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.sue, 2, sue_partner_debt_lumen)
+    bob_person.add_partnerunit(exx.yao, 2, yao_partner_debt_lumen)
+    bob_doctorledger = get_doctorledger(bob_person)
     bob_riverrun.set_need_dues(bob_doctorledger)
     assert bob_riverrun.get_partner_need_due(exx.bob) == 380, 0
 

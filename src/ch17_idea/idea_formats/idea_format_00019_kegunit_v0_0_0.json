@@ -10,10 +10,10 @@
     "moment_rope": { "otx_key": true  }, 
     "morph"      : { "otx_key": false }, 
     "numor"      : { "otx_key": false }, 
-    "plan_name"  : { "otx_key": true  }, 
+    "person_name"  : { "otx_key": true  }, 
     "spark_num"  : { "otx_key": true  }, 
     "stop_want"  : { "otx_key": false }
   }, 
-  "dimens": ["momentunit", "planunit", "plan_kegunit"], 
+  "dimens": ["momentunit", "personunit", "person_kegunit"], 
   "idea_number": "br00019"
 }

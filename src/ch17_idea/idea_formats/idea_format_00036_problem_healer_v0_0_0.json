@@ -5,10 +5,10 @@
     "keg_label"   : { "otx_key": true  }, 
     "keg_rope"    : { "otx_key": true  }, 
     "moment_rope" : { "otx_key": true  }, 
-    "plan_name"   : { "otx_key": true  }, 
+    "person_name"   : { "otx_key": true  }, 
     "problem_bool": { "otx_key": false }, 
     "spark_num"   : { "otx_key": true  }
   }, 
-  "dimens": ["momentunit", "planunit", "plan_kegunit", "plan_keg_healerunit"], 
+  "dimens": ["momentunit", "personunit", "person_kegunit", "person_keg_healerunit"], 
   "idea_number": "br00036"
 }

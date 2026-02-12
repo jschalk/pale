@@ -10,7 +10,7 @@ from src.ch06_keg.keg import (
     get_rangeunit_from_lineage_of_kegs as calc_range,
     kegunit_shop,
 )
-from src.ch07_plan_logic.plan_main import PlanUnit
+from src.ch07_person_logic.person_main import PersonUnit
 from src.ch13_time._ref.ch13_semantic_types import (
     EpochLabel,
     KnotTerm,
@@ -164,8 +164,8 @@ def get_epoch_length(epoch_config: dict) -> int:
     return c400_number * get_c400_constants().c400_leap_length
 
 
-def add_epoch_kegunit(x_planunit: PlanUnit, epoch_config: dict):
-    """ "Add epoch to PlanUnit given epoch_config"""
+def add_epoch_kegunit(x_personunit: PersonUnit, epoch_config: dict):
+    """ "Add epoch to PersonUnit given epoch_config"""
     x_keg_label = epoch_config.get("epoch_label")
     x_c400_number = epoch_config.get("c400_number")
     x_months = epoch_config.get("months_config")
@@ -175,102 +175,102 @@ def add_epoch_kegunit(x_planunit: PlanUnit, epoch_config: dict):
     x_yr1_jan1_offset = epoch_config.get("yr1_jan1_offset")
 
     kegroot_label = get_first_label_from_rope(
-        rope=x_planunit.kegroot.get_keg_rope(), knot=x_planunit.knot
+        rope=x_personunit.kegroot.get_keg_rope(), knot=x_personunit.knot
     )
     epoch_rope = get_epoch_rope(
         moment_rope=kegroot_label,
         epoch_label=x_keg_label,
-        knot=x_planunit.knot,
+        knot=x_personunit.knot,
     )
-    day_rope = x_planunit.make_rope(epoch_rope, "day")
-    week_rope = x_planunit.make_rope(epoch_rope, "week")
-    year_rope = get_year_rope(x_planunit, x_keg_label)
+    day_rope = x_personunit.make_rope(epoch_rope, "day")
+    week_rope = x_personunit.make_rope(epoch_rope, "week")
+    year_rope = get_year_rope(x_personunit, x_keg_label)
 
-    add_stan_kegunits(x_planunit, x_keg_label, x_c400_number)
-    add_kegunits(x_planunit, day_rope, create_hour_kegunits(x_hours_list))
-    add_kegunits(x_planunit, epoch_rope, create_week_kegunits(x_weekdays_list))
-    add_kegunits(x_planunit, week_rope, create_weekday_kegunits(x_weekdays_list))
-    add_kegunits(x_planunit, year_rope, create_month_kegunits(x_months, x_mday))
+    add_stan_kegunits(x_personunit, x_keg_label, x_c400_number)
+    add_kegunits(x_personunit, day_rope, create_hour_kegunits(x_hours_list))
+    add_kegunits(x_personunit, epoch_rope, create_week_kegunits(x_weekdays_list))
+    add_kegunits(x_personunit, week_rope, create_weekday_kegunits(x_weekdays_list))
+    add_kegunits(x_personunit, year_rope, create_month_kegunits(x_months, x_mday))
     offset_keg = kegunit_shop("yr1_jan1_offset", addin=x_yr1_jan1_offset)
-    x_planunit.set_keg_obj(offset_keg, epoch_rope)
+    x_personunit.set_keg_obj(offset_keg, epoch_rope)
 
 
 def add_kegunits(
-    x_planunit: PlanUnit,
+    x_personunit: PersonUnit,
     parent_rope: RopeTerm,
     config_dict: dict[str, KegUnit],
 ):
     for x_time_kegunit in config_dict.values():
-        x_planunit.set_keg_obj(x_time_kegunit, parent_rope)
+        x_personunit.set_keg_obj(x_time_kegunit, parent_rope)
 
 
 def add_stan_kegunits(
-    x_planunit: PlanUnit,
+    x_personunit: PersonUnit,
     epoch_label: EpochLabel,
     epoch_c400_number: int,
 ):
-    time_rope = x_planunit.make_l1_rope("time")
+    time_rope = x_personunit.make_l1_rope("time")
     kegroot_label = get_first_label_from_rope(
-        rope=x_planunit.kegroot.get_keg_rope(), knot=x_planunit.knot
+        rope=x_personunit.kegroot.get_keg_rope(), knot=x_personunit.knot
     )
     epoch_rope = get_epoch_rope(
         moment_rope=kegroot_label,
         epoch_label=epoch_label,
-        knot=x_planunit.knot,
+        knot=x_personunit.knot,
     )
-    c400_leap_rope = x_planunit.make_rope(epoch_rope, "c400_leap")
-    c400_core_rope = x_planunit.make_rope(c400_leap_rope, "c400_core")
-    c100_rope = x_planunit.make_rope(c400_core_rope, "c100")
-    yr4_leap_rope = x_planunit.make_rope(c100_rope, "yr4_leap")
-    yr4_core_rope = x_planunit.make_rope(yr4_leap_rope, "yr4_core")
+    c400_leap_rope = x_personunit.make_rope(epoch_rope, "c400_leap")
+    c400_core_rope = x_personunit.make_rope(c400_leap_rope, "c400_core")
+    c100_rope = x_personunit.make_rope(c400_core_rope, "c100")
+    yr4_leap_rope = x_personunit.make_rope(c100_rope, "yr4_leap")
+    yr4_core_rope = x_personunit.make_rope(yr4_leap_rope, "yr4_core")
 
-    if not x_planunit.keg_exists(time_rope):
-        x_planunit.set_l1_keg(kegunit_shop("time"))
+    if not x_personunit.keg_exists(time_rope):
+        x_personunit.set_l1_keg(kegunit_shop("time"))
     epoch_kegunit = new_epoch_kegunit(epoch_label, epoch_c400_number)
-    x_planunit.set_keg_obj(epoch_kegunit, time_rope)
-    x_planunit.set_keg_obj(stan_c400_leap_kegunit(), epoch_rope)
-    x_planunit.set_keg_obj(stan_c400_core_kegunit(), c400_leap_rope)
-    x_planunit.set_keg_obj(stan_c100_kegunit(), c400_core_rope)
-    x_planunit.set_keg_obj(stan_yr4_leap_kegunit(), c100_rope)
-    x_planunit.set_keg_obj(stan_yr4_core_kegunit(), yr4_leap_rope)
-    x_planunit.set_keg_obj(stan_year_kegunit(), yr4_core_rope)
-    x_planunit.set_keg_obj(stan_day_kegunit(), epoch_rope)
-    x_planunit.set_keg_obj(stan_days_kegunit(), epoch_rope)
+    x_personunit.set_keg_obj(epoch_kegunit, time_rope)
+    x_personunit.set_keg_obj(stan_c400_leap_kegunit(), epoch_rope)
+    x_personunit.set_keg_obj(stan_c400_core_kegunit(), c400_leap_rope)
+    x_personunit.set_keg_obj(stan_c100_kegunit(), c400_core_rope)
+    x_personunit.set_keg_obj(stan_yr4_leap_kegunit(), c100_rope)
+    x_personunit.set_keg_obj(stan_yr4_core_kegunit(), yr4_leap_rope)
+    x_personunit.set_keg_obj(stan_year_kegunit(), yr4_core_rope)
+    x_personunit.set_keg_obj(stan_day_kegunit(), epoch_rope)
+    x_personunit.set_keg_obj(stan_days_kegunit(), epoch_rope)
 
 
-def get_c400_core_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    root_keg_rope = x_planunit.kegroot.get_keg_rope()
-    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_planunit.knot)
-    c400_leap_rope = x_planunit.make_rope(epoch_rope, "c400_leap")
-    return x_planunit.make_rope(c400_leap_rope, "c400_core")
+def get_c400_core_rope(x_personunit: PersonUnit, epoch_label: LabelTerm) -> RopeTerm:
+    root_keg_rope = x_personunit.kegroot.get_keg_rope()
+    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_personunit.knot)
+    c400_leap_rope = x_personunit.make_rope(epoch_rope, "c400_leap")
+    return x_personunit.make_rope(c400_leap_rope, "c400_core")
 
 
-def get_c100_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    c400_core_rope = get_c400_core_rope(x_planunit, epoch_label)
-    return x_planunit.make_rope(c400_core_rope, "c100")
+def get_c100_rope(x_personunit: PersonUnit, epoch_label: LabelTerm) -> RopeTerm:
+    c400_core_rope = get_c400_core_rope(x_personunit, epoch_label)
+    return x_personunit.make_rope(c400_core_rope, "c100")
 
 
-def get_yr4_core_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    c100_rope = get_c100_rope(x_planunit, epoch_label)
-    yr4_leap_rope = x_planunit.make_rope(c100_rope, "yr4_leap")
-    return x_planunit.make_rope(yr4_leap_rope, "yr4_core")
+def get_yr4_core_rope(x_personunit: PersonUnit, epoch_label: LabelTerm) -> RopeTerm:
+    c100_rope = get_c100_rope(x_personunit, epoch_label)
+    yr4_leap_rope = x_personunit.make_rope(c100_rope, "yr4_leap")
+    return x_personunit.make_rope(yr4_leap_rope, "yr4_core")
 
 
-def get_year_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    yr4_core_rope = get_yr4_core_rope(x_planunit, epoch_label)
-    return x_planunit.make_rope(yr4_core_rope, "year")
+def get_year_rope(x_personunit: PersonUnit, epoch_label: LabelTerm) -> RopeTerm:
+    yr4_core_rope = get_yr4_core_rope(x_personunit, epoch_label)
+    return x_personunit.make_rope(yr4_core_rope, "year")
 
 
-def get_week_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    root_keg_rope = x_planunit.kegroot.get_keg_rope()
-    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_planunit.knot)
-    return x_planunit.make_rope(epoch_rope, "week")
+def get_week_rope(x_personunit: PersonUnit, epoch_label: LabelTerm) -> RopeTerm:
+    root_keg_rope = x_personunit.kegroot.get_keg_rope()
+    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_personunit.knot)
+    return x_personunit.make_rope(epoch_rope, "week")
 
 
-def get_day_rope(x_planunit: PlanUnit, epoch_label: LabelTerm) -> RopeTerm:
-    root_keg_rope = x_planunit.kegroot.get_keg_rope()
-    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_planunit.knot)
-    return x_planunit.make_rope(epoch_rope, "day")
+def get_day_rope(x_personunit: PersonUnit, epoch_label: LabelTerm) -> RopeTerm:
+    root_keg_rope = x_personunit.kegroot.get_keg_rope()
+    epoch_rope = get_epoch_rope(root_keg_rope, epoch_label, x_personunit.knot)
+    return x_personunit.make_rope(epoch_rope, "day")
 
 
 def validate_epoch_config(config_dict: dict) -> bool:
@@ -428,10 +428,10 @@ def get_min_from_dt_offset(dt: datetime, yr1_jan1_offset: int) -> int:
 
 
 def get_epoch_min_from_dt(
-    x_plan: PlanUnit, epoch_rope: RopeTerm, x_datetime: datetime
+    x_person: PersonUnit, epoch_rope: RopeTerm, x_datetime: datetime
 ) -> int:
-    offset_rope = x_plan.make_rope(epoch_rope, "yr1_jan1_offset")
-    offset_keg = x_plan.get_keg_obj(offset_rope)
+    offset_rope = x_person.make_rope(epoch_rope, "yr1_jan1_offset")
+    offset_keg = x_person.get_keg_obj(offset_rope)
     offset_addin = offset_keg.addin
     return get_min_from_dt_offset(x_datetime, offset_addin)
 
@@ -444,7 +444,7 @@ def get_epoch_min_difference(epoch_config0: dict, epoch_config1: dict) -> int:
 
 @dataclass
 class EpochHolder:
-    """Given plan, epoch_rope, and TimeNum, returns time technology attrs
+    """Given person, epoch_rope, and TimeNum, returns time technology attrs
     _c400_number: count of 400 year cycles
     _c100_count: count of 100 year cycles after _c400_number years removed
     _hour
@@ -456,9 +456,9 @@ class EpochHolder:
     _year_num: calculated year from c400, c100, yr4, year_count
     _weekday
     _epoch_keg KegUnit
-    readable time blurb from PlanUnit, epoch_label, and minute integer."""
+    readable time blurb from PersonUnit, epoch_label, and minute integer."""
 
-    x_planunit: PlanUnit = None
+    x_personunit: PersonUnit = None
     epoch_label: LabelTerm = None
     x_min: TimeNum = None
     # calculated fields
@@ -476,15 +476,15 @@ class EpochHolder:
 
     def _set_epoch_keg(self):
         epoch_rope = get_epoch_rope(
-            self.x_planunit.kegroot.keg_label,
+            self.x_personunit.kegroot.keg_label,
             self.epoch_label,
-            self.x_planunit.knot,
+            self.x_personunit.knot,
         )
-        self._epoch_keg = self.x_planunit.get_keg_obj(epoch_rope)
+        self._epoch_keg = self.x_personunit.get_keg_obj(epoch_rope)
 
     def _set_weekday(self):
-        week_rope = get_week_rope(self.x_planunit, self.epoch_label)
-        week_keg = self.x_planunit.get_keg_obj(week_rope)
+        week_rope = get_week_rope(self.x_personunit, self.epoch_label)
+        week_keg = self.x_personunit.get_keg_obj(week_rope)
         x_keg_list = [self._epoch_keg, week_keg]
         reason_lower_rangeunit = calc_range(x_keg_list, self.x_min, self.x_min)
         reason_lower_weekday_dict = week_keg.get_kids_in_range(
@@ -494,12 +494,12 @@ class EpochHolder:
             self._weekday = x_weekday
 
     def _set_month(self):
-        year_rope = get_year_rope(self.x_planunit, self.epoch_label)
-        year_keg = self.x_planunit.get_keg_obj(year_rope)
-        moment_rope = self.x_planunit.kegroot.keg_label
-        x_knot = self.x_planunit.knot
+        year_rope = get_year_rope(self.x_personunit, self.epoch_label)
+        year_keg = self.x_personunit.get_keg_obj(year_rope)
+        moment_rope = self.x_personunit.kegroot.keg_label
+        x_knot = self.x_personunit.knot
         epoch_rope = get_epoch_rope(moment_rope, self.epoch_label, x_knot)
-        x_keg_dict = self.x_planunit._keg_dict
+        x_keg_dict = self.x_personunit._keg_dict
         keg_list = all_kegs_between(x_keg_dict, epoch_rope, year_rope, x_knot)
         reason_lower_rangeunit = calc_range(keg_list, self.x_min, self.x_min)
         gogo_month_dict = year_keg.get_kids_in_range(reason_lower_rangeunit.gogo)
@@ -514,8 +514,8 @@ class EpochHolder:
         self._monthday = self._monthday // 1440
 
     def _set_hour(self):
-        day_rope = get_day_rope(self.x_planunit, self.epoch_label)
-        day_keg = self.x_planunit.get_keg_obj(day_rope)
+        day_rope = get_day_rope(self.x_personunit, self.epoch_label)
+        day_keg = self.x_personunit.get_keg_obj(day_rope)
         x_keg_list = [self._epoch_keg, day_keg]
         rangeunit = calc_range(x_keg_list, self.x_min, self.x_min)
         hour_dict = day_keg.get_kids_in_range(rangeunit.gogo)
@@ -527,30 +527,30 @@ class EpochHolder:
 
     def _set_year(self):
         c400_constants = get_c400_constants()
-        x_time_rope = self.x_planunit.make_l1_rope("time")
-        x_keg_dict = self.x_planunit._keg_dict
+        x_time_rope = self.x_personunit.make_l1_rope("time")
+        x_keg_dict = self.x_personunit._keg_dict
         # count 400 year blocks
         self._c400_number = self.x_min // c400_constants.c400_leap_length
 
         # count 100 year blocks
-        c400_core_rope = get_c400_core_rope(self.x_planunit, self.epoch_label)
+        c400_core_rope = get_c400_core_rope(self.x_personunit, self.epoch_label)
         c400_core_keg_list = all_kegs_between(
-            x_keg_dict, x_time_rope, c400_core_rope, knot=self.x_planunit.knot
+            x_keg_dict, x_time_rope, c400_core_rope, knot=self.x_personunit.knot
         )
         c400_core_range = calc_range(c400_core_keg_list, self.x_min, self.x_min)
         self._c100_count = c400_core_range.gogo // c400_constants.c100_length
         # count 4 year blocks
-        c100_rope = get_c100_rope(self.x_planunit, self.epoch_label)
+        c100_rope = get_c100_rope(self.x_personunit, self.epoch_label)
         c100_keg_list = all_kegs_between(
-            x_keg_dict, x_time_rope, c100_rope, knot=self.x_planunit.knot
+            x_keg_dict, x_time_rope, c100_rope, knot=self.x_personunit.knot
         )
         c100_range = calc_range(c100_keg_list, self.x_min, self.x_min)
         self._yr4_count = c100_range.gogo // c400_constants.yr4_leap_length
 
         # count 1 year blocks
-        yr4_core_rope = get_yr4_core_rope(self.x_planunit, self.epoch_label)
+        yr4_core_rope = get_yr4_core_rope(self.x_personunit, self.epoch_label)
         yr4_core_kegs = all_kegs_between(
-            x_keg_dict, x_time_rope, yr4_core_rope, knot=self.x_planunit.knot
+            x_keg_dict, x_time_rope, yr4_core_rope, knot=self.x_personunit.knot
         )
         yr4_core_range = calc_range(yr4_core_kegs, self.x_min, self.x_min)
         self._year_count = yr4_core_range.gogo // c400_constants.year_length
@@ -561,7 +561,7 @@ class EpochHolder:
         self._year_num += self._year_count
 
     def calc_epoch(self):
-        self.x_planunit.cashout()
+        self.x_personunit.cashout()
         self._set_epoch_keg()
         self._set_weekday()
         self._set_month()
@@ -578,8 +578,8 @@ class EpochHolder:
         return x_str
 
 
-def epochholder_shop(x_planunit: PlanUnit, epoch_label: LabelTerm, x_min: int):
-    return EpochHolder(x_planunit, epoch_label, x_min=x_min)
+def epochholder_shop(x_personunit: PersonUnit, epoch_label: LabelTerm, x_min: int):
+    return EpochHolder(x_personunit, epoch_label, x_min=x_min)
 
 
 def epoch_config_path() -> str:

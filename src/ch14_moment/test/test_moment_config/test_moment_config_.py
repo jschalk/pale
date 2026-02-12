@@ -1,6 +1,6 @@
 from os import getcwd as os_getcwd
 from src.ch00_py.file_toolbox import create_path
-from src.ch08_plan_atom.atom_config import get_allowed_class_types
+from src.ch08_person_atom.atom_config import get_allowed_class_types
 from src.ch14_moment.moment_config import (
     get_moment_args_class_types,
     get_moment_args_dimen_mapping,
@@ -201,7 +201,7 @@ def test_get_moment_args_set_ReturnsObj():
         kw.monthday_index,
         kw.job_listen_rotations,
         kw.mana_grain,
-        kw.plan_name,
+        kw.person_name,
         kw.quota,
         kw.celldepth,
         kw.respect_grain,

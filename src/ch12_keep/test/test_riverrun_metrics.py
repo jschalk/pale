@@ -25,7 +25,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario01():
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
     assert yao_rivergrade.moment_rope == exx.a23
-    assert yao_rivergrade.plan_name == exx.yao
+    assert yao_rivergrade.person_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
     assert yao_rivergrade.care_amount == x_keep_point_magnitude
@@ -68,7 +68,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario02():
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
     assert yao_rivergrade.moment_rope == exx.a23
-    assert yao_rivergrade.plan_name == exx.yao
+    assert yao_rivergrade.person_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
     assert yao_rivergrade.care_amount == keep_mana_amount
@@ -115,7 +115,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario03():
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
     assert yao_rivergrade.moment_rope == exx.a23
-    assert yao_rivergrade.plan_name == exx.yao
+    assert yao_rivergrade.person_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
     assert yao_rivergrade.care_amount == keep_mana_amount
@@ -204,7 +204,7 @@ def test_RiverRun_calc_metrics_SetsAttrsScenario05():
     yao_rivergrade = x_riverrun.get_rivergrade(exx.yao)
     assert yao_rivergrade is not None
     assert yao_rivergrade.moment_rope == exx.a23
-    assert yao_rivergrade.plan_name == exx.yao
+    assert yao_rivergrade.person_name == exx.yao
     assert yao_rivergrade.keep_rope is None
     assert yao_rivergrade.number == 0
     assert yao_rivergrade.care_amount == keep_mana_amount

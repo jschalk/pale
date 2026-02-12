@@ -1,6 +1,6 @@
 from src.ch04_rope.rope import default_knot_if_None
-from src.ch08_plan_atom.atom_config import (
-    get_all_plan_dimen_delete_keys,
+from src.ch08_person_atom.atom_config import (
+    get_all_person_dimen_delete_keys,
     get_atom_args_class_types,
 )
 from src.ch14_moment.moment_config import get_moment_args_class_types
@@ -70,7 +70,7 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.reason_upper) == kw.ReasonNum
     assert translate_args_class_types.get(kw.numor) == "int"
     assert translate_args_class_types.get(kw.offi_time) == kw.TimeNum
-    assert translate_args_class_types.get(kw.plan_name) == kw.NameTerm
+    assert translate_args_class_types.get(kw.person_name) == kw.NameTerm
     assert translate_args_class_types.get(kw.reason_lower) == kw.ReasonNum
     assert translate_args_class_types.get(kw.mana_grain) == "float"
     assert translate_args_class_types.get(kw.fact_state) == kw.RopeTerm
@@ -166,7 +166,7 @@ def test_get_translateable_args_ReturnsObj():
     assert len(get_translateable_args()) == 17
     assert get_translateable_args() == {
         kw.awardee_title,
-        kw.plan_name,
+        kw.person_name,
         kw.epoch_label,
         kw.face_name,
         kw.fact_context,
@@ -202,17 +202,17 @@ def test_set_translateable_otx_inx_args_ReturnsObj_Scenario0_All_translateable_a
     assert otx_inx_args == expected_otx_inx_args
 
 
-def test_set_translateable_otx_inx_args_ReturnsObj_Scenario1_plan_dimen_delete_keys():
+def test_set_translateable_otx_inx_args_ReturnsObj_Scenario1_person_dimen_delete_keys():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    plan_dimen_delete_keys = get_all_plan_dimen_delete_keys()
+    person_dimen_delete_keys = get_all_person_dimen_delete_keys()
 
     # WHEN
-    otx_inx_args = set_translateable_otx_inx_args(plan_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(person_dimen_delete_keys)
 
     # THEN
     expected_otx_inx_args = set()
-    for translateable_arg in plan_dimen_delete_keys:
+    for translateable_arg in person_dimen_delete_keys:
         expected_otx_inx_args.add(f"{translateable_arg}_otx")
         expected_otx_inx_args.add(f"{translateable_arg}_inx")
     print(f"{otx_inx_args=}")
@@ -223,15 +223,15 @@ def test_set_translateable_otx_inx_args_ReturnsObj_Scenario2_OtherArgsAreUntouch
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     run_str = "run"
-    given_plan_dimen_delete_keys = get_all_plan_dimen_delete_keys()
-    given_plan_dimen_delete_keys.add(run_str)
+    given_person_dimen_delete_keys = get_all_person_dimen_delete_keys()
+    given_person_dimen_delete_keys.add(run_str)
 
     # WHEN
-    otx_inx_args = set_translateable_otx_inx_args(given_plan_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(given_person_dimen_delete_keys)
 
     # THEN
     expected_otx_inx_args = set()
-    for translateable_arg in get_all_plan_dimen_delete_keys():
+    for translateable_arg in get_all_person_dimen_delete_keys():
         expected_otx_inx_args.add(f"{translateable_arg}_otx")
         expected_otx_inx_args.add(f"{translateable_arg}_inx")
     expected_otx_inx_args.add(run_str)
@@ -243,10 +243,10 @@ def test_set_translateable_otx_inx_args_ReturnsObj_Scenario3_PartialSets():
     # ESTABLISH
     healer_name_ERASE_str = f"{kw.healer_name}_ERASE"
     run_str = "run"
-    given_plan_dimen_delete_keys = {run_str, healer_name_ERASE_str}
+    given_person_dimen_delete_keys = {run_str, healer_name_ERASE_str}
 
     # WHEN
-    otx_inx_args = set_translateable_otx_inx_args(given_plan_dimen_delete_keys)
+    otx_inx_args = set_translateable_otx_inx_args(given_person_dimen_delete_keys)
 
     # THEN
     healer_name_ERASE_str = f"{kw.healer_name}_ERASE"
@@ -268,7 +268,7 @@ def test_get_translate_nameterm_args_ReturnsObj():
         kw.partner_name,
         kw.face_name,
         kw.healer_name,
-        kw.plan_name,
+        kw.person_name,
     }
     expected_args = {
         x_arg

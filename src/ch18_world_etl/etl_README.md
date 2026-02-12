@@ -52,7 +52,7 @@ Each dimension has a specific focus but is treated identically in terms of ETL l
 | **translate_core** | Verified translation subset extracted from `translate`.               |
 | **nabu**           | Core content or base entities that receive translated text.           |
 | **moment**         | Event-based or temporal data derived from `nabu` content.             |
-| **plan**         | Higher-level interpretive or logical data derived from `moment` data. |
+| **person**         | Higher-level interpretive or logical data derived from `moment` data. |
 
 Each dimension advances through a fixed set of stages (Sound and Heard) with clearly defined insert/update rules.
 
@@ -78,7 +78,7 @@ Each dimension advances through a fixed set of stages (Sound and Heard) with cle
 | **translate_core** | `Sound Raw`, `Sound Agg`, `Sound Vld`                                        | Extracted and verified subset of `translate`.               |
 | **nabu**           | `Sound Raw`, `Sound Agg`, `Sound Vld`, `Heard Raw`, `Heard Agg`              | Text and translation applied here.                          |
 | **moment**         | `Sound Raw`, `Sound Agg`, `Sound Vld`, `Heard Raw`, `Heard Agg`, `Heard Vld` | Includes both translation and numeric/time transformations. |
-| **plan**         | `Sound Raw`, `Sound Agg`, `Sound Vld`, `Heard Raw`, `Heard Agg`, `Heard Vld` | Logical or interpretive data based on `moment`.             |
+| **person**         | `Sound Raw`, `Sound Agg`, `Sound Vld`, `Heard Raw`, `Heard Agg`, `Heard Vld` | Logical or interpretive data based on `moment`.             |
 
 ---
 
@@ -94,7 +94,7 @@ Each dimension advances through a fixed set of stages (Sound and Heard) with cle
 
 * Converts `Idea_bricks` outputs into structured, interpretable data.
 * Applies translation and text-based transformations.
-* Uses `translate` and `translate_core` data to update all **nabu**, **moment**, and **plan** tables that require translatable content.
+* Uses `translate` and `translate_core` data to update all **nabu**, **moment**, and **person** tables that require translatable content.
 
 ### **Heard Section**
 
@@ -122,6 +122,6 @@ Each dimension advances through a fixed set of stages (Sound and Heard) with cle
 | **Core Processing Zones** | Sound and Heard                                 |
 | **Auditable by**          | Any user with Excel/SQL skills                  |
 | **ETL Constraints**       | 1 insert + 1 update per table per run           |
-| **Primary Dimensions**    | translate, translate_core, nabu, moment, plan |
+| **Primary Dimensions**    | translate, translate_core, nabu, moment, person |
 
 ---

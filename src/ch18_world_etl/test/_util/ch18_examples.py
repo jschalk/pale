@@ -14,7 +14,7 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
     FaceName,
     FactNum,
     MomentRope,
-    PlanName,
+    PersonName,
     ReasonNum,
     RopeTerm,
     SparkInt,
@@ -137,37 +137,37 @@ WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_rope} == '{x_moment_rope}'
     return cursor.fetchall()
 
 
-def insert_plncase_special_h_agg(
+def insert_prncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_rope: MomentRope,
-    x_plan_name: PlanName,
+    x_person_name: PersonName,
     x_keg_rope: RopeTerm,
     x_reason_context: RopeTerm,
     x_reason_state: RopeTerm,
     x_reason_lower: ReasonNum,
     x_reason_upper: ReasonNum,
 ) -> list[tuple]:
-    plncase_tbl = prime_tbl(kw.plan_keg_reason_caseunit, "h", "agg", "put")
+    prncase_tbl = prime_tbl(kw.person_keg_reason_caseunit, "h", "agg", "put")
     values_dict = {
         "spark_num": x_spark_num,
         "moment_rope": x_moment_rope,
-        "plan_name": x_plan_name,
+        "person_name": x_person_name,
         "keg_rope": x_keg_rope,
         "reason_context": x_reason_context,
         "reason_state": x_reason_state,
         "reason_upper_otx": x_reason_upper,
         "reason_lower_otx": x_reason_lower,
     }
-    insert_sqlstr = create_insert_query(cursor, plncase_tbl, values_dict)
+    insert_sqlstr = create_insert_query(cursor, prncase_tbl, values_dict)
     cursor.execute(insert_sqlstr)
 
 
 @dataclass
-class PLNCASEHEARDAGG:
+class PRNCASEHEARDAGG:
     spark_num: SparkInt
     moment_rope: MomentRope
-    plan_name: PlanName
+    person_name: PersonName
     keg_rope: RopeTerm
     reason_context: RopeTerm
     reason_state: RopeTerm
@@ -182,21 +182,21 @@ class PLNCASEHEARDAGG:
     inx_epoch_diff: int
 
 
-def select_plncase_special_h_agg(
+def select_prncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_rope: MomentRope,
-    x_plan_name: PlanName,
+    x_person_name: PersonName,
     x_keg_rope: RopeTerm,
     x_reason_context: RopeTerm,
     x_reason_state: RopeTerm,
-) -> list[PLNCASEHEARDAGG]:
-    x_dimen = kw.plan_keg_reason_caseunit
-    plncase_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
+) -> list[PRNCASEHEARDAGG]:
+    x_dimen = kw.person_keg_reason_caseunit
+    prncase_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
 , {kw.moment_rope}
-, {kw.plan_name}
+, {kw.person_name}
 , {kw.keg_rope}
 , {kw.reason_context}
 , {kw.reason_state}
@@ -209,22 +209,22 @@ def select_plncase_special_h_agg(
 , context_keg_denom
 , context_keg_morph
 , inx_epoch_diff
-FROM {plncase_h_agg_tablename}
+FROM {prncase_h_agg_tablename}
 WHERE {kw.spark_num} = {x_spark_num} 
     AND {kw.moment_rope} = '{x_moment_rope}'
-    AND {kw.plan_name} = '{x_plan_name}'
+    AND {kw.person_name} = '{x_person_name}'
     AND {kw.keg_rope} = '{x_keg_rope}'
     AND {kw.reason_context} = '{x_reason_context}'
     AND {kw.reason_state} = '{x_reason_state}'
 ;
 """
     cursor.execute(select_sqlstr)
-    plncase_heard_aggs = []
+    prncase_heard_aggs = []
     for row in cursor.fetchall():
-        x_plncase_h_agg = PLNCASEHEARDAGG(
+        x_prncase_h_agg = PRNCASEHEARDAGG(
             spark_num=row[0],
             moment_rope=row[1],
-            plan_name=row[2],
+            person_name=row[2],
             keg_rope=row[3],
             reason_context=row[4],
             reason_state=row[5],
@@ -238,15 +238,15 @@ WHERE {kw.spark_num} = {x_spark_num}
             context_keg_morph=row[13],
             inx_epoch_diff=row[14],
         )
-        plncase_heard_aggs.append(x_plncase_h_agg)
-    return plncase_heard_aggs
+        prncase_heard_aggs.append(x_prncase_h_agg)
+    return prncase_heard_aggs
 
 
-def insert_plnfact_special_h_agg(
+def insert_prnfact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_rope: MomentRope,
-    x_plan_name: PlanName,
+    x_person_name: PersonName,
     x_keg_rope: RopeTerm,
     x_fact_context: RopeTerm,
     x_fact_state: RopeTerm,
@@ -256,22 +256,22 @@ def insert_plnfact_special_h_agg(
     pass
 
 
-def select_plnfact_special_h_agg(
+def select_prnfact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_rope: MomentRope,
-    x_plan_name: PlanName,
+    x_person_name: PersonName,
     x_keg_rope: RopeTerm,
     x_fact_context: RopeTerm,
 ) -> list[tuple]:
     pass
 
 
-def insert_plnkegg_special_h_agg(
+def insert_prnkegg_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
     x_moment_rope: MomentRope,
-    x_plan_name: PlanName,
+    x_person_name: PersonName,
     x_keg_rope: RopeTerm,
     x_denom: int,
 ) -> list[tuple]:

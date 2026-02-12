@@ -1,0 +1,12 @@
+{
+  "attributes": {
+    "face_name"        : { "otx_key": true }, 
+    "keg_rope"         : { "otx_key": true }, 
+    "moment_rope"      : { "otx_key": true }, 
+    "party_title_ERASE": { "otx_key": true }, 
+    "person_name"        : { "otx_key": true }, 
+    "spark_num"        : { "otx_key": true }
+  }, 
+  "dimens": ["momentunit", "personunit", "person_kegunit", "person_keg_partyunit"], 
+  "idea_number": "br00054"
+}

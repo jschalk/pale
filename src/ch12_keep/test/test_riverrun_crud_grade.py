@@ -111,7 +111,7 @@ def test_RiverRun_set_all_initial_rivergrades_OverWritesPrevious():
     assert x_riverrun.rivergrade_exists(exx.sue)
 
     # WHEN
-    x_riverrun.delete_keep_patientledgers_plan(exx.xio)
+    x_riverrun.delete_keep_patientledgers_person(exx.xio)
     x_riverrun.set_all_initial_rivergrades()
 
     # THEN

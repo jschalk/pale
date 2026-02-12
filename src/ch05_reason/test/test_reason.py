@@ -187,7 +187,7 @@ def test_ReasonHeir_set_heir_active_SetsAttr():
     assert wk_reason.parent_heir_active
 
 
-def test_ReasonHeir_set_reason_active_PlanTrueSets_reason_activeTrue():
+def test_ReasonHeir_set_reason_active_PersonTrueSets_reason_activeTrue():
     # ESTABLISH
     wk_rope = create_rope(exx.a23, exx.wk)
     wk_reason = reasonheir_shop(reason_context=wk_rope, active_requisite=True)
@@ -201,7 +201,7 @@ def test_ReasonHeir_set_reason_active_PlanTrueSets_reason_activeTrue():
     assert wk_reason.reason_active is True
 
 
-def test_ReasonHeir_set_reason_active_PlanFalseSetsreason_activeTrue():
+def test_ReasonHeir_set_reason_active_PersonFalseSetsreason_activeTrue():
     # ESTABLISH
     wk_rope = create_rope(exx.a23, exx.wk)
     wk_reason = reasonheir_shop(wk_rope, active_requisite=False)
@@ -215,7 +215,7 @@ def test_ReasonHeir_set_reason_active_PlanFalseSetsreason_activeTrue():
     assert wk_reason.reason_active is True
 
 
-def test_ReasonHeir_set_reason_active_PlanTrueSetsreason_activeFalse():
+def test_ReasonHeir_set_reason_active_PersonTrueSetsreason_activeFalse():
     # ESTABLISH
     wk_rope = create_rope(exx.a23, exx.wk)
     wk_reason = reasonheir_shop(wk_rope, active_requisite=True)
@@ -229,7 +229,7 @@ def test_ReasonHeir_set_reason_active_PlanTrueSetsreason_activeFalse():
     assert wk_reason.reason_active is False
 
 
-def test_ReasonHeir_set_reason_active_PlanNoneSetsreason_activeFalse():
+def test_ReasonHeir_set_reason_active_PersonNoneSetsreason_activeFalse():
     # ESTABLISH
     wk_rope = create_rope(exx.a23, exx.wk)
     wk_reason = reasonheir_shop(wk_rope, active_requisite=True)

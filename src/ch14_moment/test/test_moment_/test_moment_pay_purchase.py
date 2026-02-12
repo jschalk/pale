@@ -233,8 +233,8 @@ def test_MomentUnit_set_all_tranbook_SetsAttr():
     x_moment.add_budunit(exx.sue, x70000_tran_time, 1)
     zia_bud_net = 887
     bob_bud_net = 445
-    sue_x40000_bud = x_moment.get_planbudhistory(exx.sue).get_bud(x40000_tran_time)
-    sue_x70000_bud = x_moment.get_planbudhistory(exx.sue).get_bud(x70000_tran_time)
+    sue_x40000_bud = x_moment.get_personbudhistory(exx.sue).get_bud(x40000_tran_time)
+    sue_x70000_bud = x_moment.get_personbudhistory(exx.sue).get_bud(x70000_tran_time)
     sue_x40000_bud.set_bud_partner_net(exx.bob, bob_bud_net)
     sue_x70000_bud.set_bud_partner_net(exx.zia, zia_bud_net)
 

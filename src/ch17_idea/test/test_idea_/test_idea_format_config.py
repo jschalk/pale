@@ -8,8 +8,8 @@ from src.ch17_idea.idea_config import (
     get_idearef_from_file,
     idea_format_00013_kegunit_v0_0_0,
     idea_format_00019_kegunit_v0_0_0,
-    idea_format_00020_plan_partner_membership_v0_0_0,
-    idea_format_00021_plan_partnerunit_v0_0_0,
+    idea_format_00020_person_partner_membership_v0_0_0,
+    idea_format_00021_person_partnerunit_v0_0_0,
 )
 from src.ch17_idea.idea_main import (
     _generate_idea_dataframe,
@@ -22,10 +22,10 @@ from src.ref.keywords import Ch17Keywords as kw
 
 def test_config_str_functions_ReturnsObj():
     # ESTABLISH / WHEN / THEN
-    x00021_idea = "idea_format_00021_plan_partnerunit_v0_0_0"
-    assert idea_format_00021_plan_partnerunit_v0_0_0() == x00021_idea
-    x00020_idea = "idea_format_00020_plan_partner_membership_v0_0_0"
-    assert idea_format_00020_plan_partner_membership_v0_0_0() == x00020_idea
+    x00021_idea = "idea_format_00021_person_partnerunit_v0_0_0"
+    assert idea_format_00021_person_partnerunit_v0_0_0() == x00021_idea
+    x00020_idea = "idea_format_00020_person_partner_membership_v0_0_0"
+    assert idea_format_00020_person_partner_membership_v0_0_0() == x00020_idea
     x0003_idea = "idea_format_00013_kegunit_v0_0_0"
     assert idea_format_00013_kegunit_v0_0_0() == x0003_idea
 
@@ -41,7 +41,7 @@ def test_get_idea_formats_dir_ReturnsObj():
 
 def test_get_idearef_obj_ReturnsObj():
     # ESTABLISH
-    idea_name_00021 = idea_format_00021_plan_partnerunit_v0_0_0()
+    idea_name_00021 = idea_format_00021_person_partnerunit_v0_0_0()
 
     # WHEN
     x_idearef = get_idearef_obj(idea_name_00021)
@@ -49,8 +49,8 @@ def test_get_idearef_obj_ReturnsObj():
     # THEN
     assert x_idearef.idea_name == idea_name_00021
     assert set(x_idearef.dimens) == {
-        kw.plan_partnerunit,
-        kw.planunit,
+        kw.person_partnerunit,
+        kw.personunit,
         kw.momentunit,
     }
     assert x_idearef._attributes != {}
@@ -60,7 +60,7 @@ def test_get_idearef_obj_ReturnsObj():
 def test_get_headers_list_ReturnsObj():
     # ESTABLISH / WHEN
     format_00021_headers = _get_headers_list(
-        idea_format_00021_plan_partnerunit_v0_0_0()
+        idea_format_00021_person_partnerunit_v0_0_0()
     )
 
     # THEN
@@ -69,7 +69,7 @@ def test_get_headers_list_ReturnsObj():
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.partner_cred_lumen,
         kw.partner_debt_lumen,
@@ -92,13 +92,13 @@ def get_sorted_headers_str(idea_filename):
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
     # ESTABLISH
-    file_name = idea_format_00021_plan_partnerunit_v0_0_0()
+    file_name = idea_format_00021_person_partnerunit_v0_0_0()
 
     # WHEN
     br00021_headers = get_sorted_headers_str(file_name)
 
     # THEN
-    expected_br00021_headers_str = f"{kw.moment_rope},{kw.plan_name},{kw.partner_name},{kw.partner_cred_lumen},{kw.partner_debt_lumen}"
+    expected_br00021_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.partner_name},{kw.partner_cred_lumen},{kw.partner_debt_lumen}"
     assert br00021_headers == expected_br00021_headers_str
 
 
@@ -108,7 +108,7 @@ def test_get_sorted_headers_str_ReturnsObj_Scenario1_SingleExample():
 
     # THEN
     print(f"{br00019_headers=}")
-    expected_keg_headers_str = f"{kw.moment_rope},{kw.plan_name},{kw.keg_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
+    expected_keg_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.keg_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
     assert br00019_headers == expected_keg_headers_str
 
 
@@ -139,10 +139,10 @@ def test__generate_idea_dataframe_ReturnsObj():
     empty_d2 = []
     # WHEN
     x_df = _generate_idea_dataframe(
-        empty_d2, idea_format_00021_plan_partnerunit_v0_0_0()
+        empty_d2, idea_format_00021_person_partnerunit_v0_0_0()
     )
     # THEN
-    headers_list = _get_headers_list(idea_format_00021_plan_partnerunit_v0_0_0())
+    headers_list = _get_headers_list(idea_format_00021_person_partnerunit_v0_0_0())
     assert list(x_df.columns) == headers_list
 
 
@@ -177,9 +177,9 @@ def test_idea_FilesExist():
     assert len(idea_filenames) == len(get_idea_format_filenames())
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00021_plan_partnerunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00021_person_partnerunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00021_plan_partnerunit_v0_0_0()
+    idea_name = idea_format_00021_person_partnerunit_v0_0_0()
 
     # WHEN
     format_00001_idearef = get_idearef_obj(idea_name)
@@ -193,21 +193,21 @@ def test_get_idearef_obj_HasAttrs_idea_format_00021_plan_partnerunit_v0_0_0():
         kw.spark_num: {kw.otx_key: True},
         kw.face_name: {kw.otx_key: True},
         kw.moment_rope: {kw.otx_key: True},
-        kw.plan_name: {kw.otx_key: True},
+        kw.person_name: {kw.otx_key: True},
     }
     headers_list = format_00001_idearef.get_headers_list()
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_rope
-    assert headers_list[3] == kw.plan_name
+    assert headers_list[3] == kw.person_name
     assert headers_list[4] == kw.partner_name
     assert headers_list[5] == kw.partner_cred_lumen
     assert headers_list[6] == kw.partner_debt_lumen
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00020_plan_partner_membership_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00020_person_partner_membership_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00020_plan_partner_membership_v0_0_0()
+    idea_name = idea_format_00020_person_partner_membership_v0_0_0()
 
     # WHEN
     format_00021_idearef = get_idearef_obj(idea_name)
@@ -218,7 +218,7 @@ def test_get_idearef_obj_HasAttrs_idea_format_00020_plan_partner_membership_v0_0
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_rope
-    assert headers_list[3] == kw.plan_name
+    assert headers_list[3] == kw.person_name
     assert headers_list[4] == kw.partner_name
     assert headers_list[5] == kw.group_title
     assert headers_list[6] == kw.group_cred_lumen
@@ -238,7 +238,7 @@ def test_get_idearef_obj_HasAttrs_idea_format_00013_kegunit_v0_0_0():
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_rope
-    assert headers_list[3] == kw.plan_name
+    assert headers_list[3] == kw.person_name
     assert headers_list[4] == kw.keg_rope
     assert headers_list[5] == kw.star
     assert headers_list[6] == kw.pledge
@@ -257,7 +257,7 @@ def test_get_idearef_obj_HasAttrs_idea_format_00019_kegunit_v0_0_0():
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_rope
-    assert headers_list[3] == kw.plan_name
+    assert headers_list[3] == kw.person_name
     assert headers_list[4] == kw.keg_rope
     assert headers_list[5] == kw.begin
     assert headers_list[6] == kw.close

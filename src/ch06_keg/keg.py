@@ -224,7 +224,7 @@ class KegUnit:
     problem_bool : bool that describes if the keg is a problem.
     is_expanded : bool flag that can be used by UI to display or high tree branch.
 
-    active : bool that describes if the keg pledge is keg_active, calculated by PlanUnit.
+    active : bool that describes if the keg pledge is keg_active, calculated by PersonUnit.
     active_hx : dict[int, bool] Historical record of active state, used to calcualte if changes have occured
     all_partner_cred : bool Flag indicating there are not explicitley defined awardunits
     all_partner_debt : bool Flag indicating there are not explicitley defined awardunits
@@ -234,8 +234,8 @@ class KegUnit:
     factheirs : dict[RopeTerm, FactHeir] parent keg provided facts.
     fund_ratio : float
     fund_grain : FundGrain Smallest indivisible funding component.
-    fund_onset : FundNum number at which funding onsets inside PlanUnit funding range
-    fund_cease : FundNum number at which funding ceases inside PlanUnit funding range
+    fund_onset : FundNum number at which funding onsets inside PersonUnit funding range
+    fund_cease : FundNum number at which funding ceases inside PersonUnit funding range
     healerunit_ratio : float
     tree_level : int that describes Depth tree_level in keg hierarchy.
     range_evaluated : bool Flag indicating whether range has been evaluated.
@@ -792,10 +792,10 @@ class KegUnit:
         self,
         tree_traverse_count: int,
         groupunits: dict[GroupTitle, GroupUnit] = None,
-        plan_name: PartnerName = None,
+        person_name: PartnerName = None,
     ):
         prev_to_now_active = deepcopy(self.keg_active)
-        self.keg_active = self._create_active_bool(groupunits, plan_name)
+        self.keg_active = self._create_active_bool(groupunits, person_name)
         self._set_keg_task()
         self.record_keg_active_hx(
             tree_traverse_count, prev_to_now_active, self.keg_active
@@ -815,25 +815,25 @@ class KegUnit:
     def _create_active_bool(
         self,
         groupunits: dict[GroupTitle, GroupUnit],
-        plan_name: PartnerName,
+        person_name: PartnerName,
     ) -> bool:
         self.set_reasonheirs_reason_active()
         active_bool = self.all_reasonheirs_are_active()
-        if active_bool and groupunits != {} and plan_name is not None:
-            self.laborheir.set_plan_name_is_labor(groupunits, plan_name)
-            if self.laborheir.plan_name_is_labor is False:
+        if active_bool and groupunits != {} and person_name is not None:
+            self.laborheir.set_person_name_is_labor(groupunits, person_name)
+            if self.laborheir.person_name_is_labor is False:
                 active_bool = False
         return active_bool
 
     def set_range_inheritors_factheirs(
         self,
-        plan_keg_dict: dict[RopeTerm,],
+        person_keg_dict: dict[RopeTerm,],
         range_inheritors: dict[RopeTerm, RopeTerm],
     ):
         for reason_context in self.reasonheirs.keys():
             if rangeroot_rope := range_inheritors.get(reason_context):
                 all_kegs = all_kegs_between(
-                    plan_keg_dict=plan_keg_dict,
+                    person_keg_dict=person_keg_dict,
                     src_rope=rangeroot_rope,
                     dst_reason_context=reason_context,
                     knot=self.knot,
@@ -874,7 +874,7 @@ class KegUnit:
 
     def set_reasonheirs(
         self,
-        plan_keg_dict: dict[RopeTerm,],
+        person_keg_dict: dict[RopeTerm,],
         reasonheirs: dict[RopeTerm, ReasonCore],
     ):
         coalesced_reasons = self._coalesce_with_reasonunits(reasonheirs)
@@ -887,7 +887,7 @@ class KegUnit:
             )
             new_reasonheir.inherit_from_reasonheir(old_reasonheir)
 
-            if reason_context_keg := plan_keg_dict.get(old_reasonheir.reason_context):
+            if reason_context_keg := person_keg_dict.get(old_reasonheir.reason_context):
                 new_reasonheir.set_heir_active(reason_context_keg.keg_active)
             self.reasonheirs[new_reasonheir.reason_context] = new_reasonheir
 
@@ -1134,13 +1134,13 @@ def get_obj_from_keg_dict(x_dict: dict[str, dict], dict_key: str) -> any:
 
 
 def all_kegs_between(
-    plan_keg_dict: dict[RopeTerm, KegUnit],
+    person_keg_dict: dict[RopeTerm, KegUnit],
     src_rope: RopeTerm,
     dst_reason_context: RopeTerm,
     knot: KnotTerm,
 ) -> list[KegUnit]:
     all_ropes = all_ropes_between(src_rope, dst_reason_context, knot)
-    return [plan_keg_dict.get(x_rope) for x_rope in all_ropes]
+    return [person_keg_dict.get(x_rope) for x_rope in all_ropes]
 
 
 def get_rangeunit_from_lineage_of_kegs(

@@ -8,7 +8,7 @@ from src.ch17_idea.idea_db_tool import (
 from src.ref.keywords import Ch17Keywords as kw
 
 
-def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_plan_keg_partyunit():
+def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_keg_partyunit():
     # ESTABLISH
     with sqlite3_connect(":memory:") as conn:
         idea_number = "br000XX"
@@ -18,37 +18,37 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_plan_keg_partyunit()
             kw.moment_rope,
             kw.keg_rope,
             kw.party_title,
-            kw.plan_name,
+            kw.person_name,
             kw.partner_name,
             kw.amount,
         ]
-        plnlabo_cat = "plan_keg_partyunit"
+        prnlabo_cat = "person_keg_partyunit"
         src_table = f"{idea_number}_raw"
-        dst_table = f"{plnlabo_cat}_raw"
+        dst_table = f"{prnlabo_cat}_raw"
         idea_config = get_idea_config_dict()
-        plnlabo_config = idea_config.get(plnlabo_cat)
-        print(f"{plnlabo_cat=}")
-        print(f"{plnlabo_config=}")
-        plnlabo_jkeys = plnlabo_config.get(kw.jkeys)
-        plnlabo_jvals = plnlabo_config.get(kw.jvalues)
-        plnlabo_args = set(plnlabo_jkeys.keys()).union(set(plnlabo_jvals.keys()))
-        plnlabo_args = get_default_sorted_list(plnlabo_args)
-        print(f"{plnlabo_jkeys=}")
-        print(f"{plnlabo_jvals=}")
+        prnlabo_config = idea_config.get(prnlabo_cat)
+        print(f"{prnlabo_cat=}")
+        print(f"{prnlabo_config=}")
+        prnlabo_jkeys = prnlabo_config.get(kw.jkeys)
+        prnlabo_jvals = prnlabo_config.get(kw.jvalues)
+        prnlabo_args = set(prnlabo_jkeys.keys()).union(set(prnlabo_jvals.keys()))
+        prnlabo_args = get_default_sorted_list(prnlabo_args)
+        print(f"{prnlabo_jkeys=}")
+        print(f"{prnlabo_jvals=}")
         create_idea_sorted_table(conn, src_table, idea_cols)
-        create_idea_sorted_table(conn, dst_table, plnlabo_args)
+        create_idea_sorted_table(conn, dst_table, prnlabo_args)
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, plnlabo_cat, plnlabo_jkeys
+            conn, idea_number, prnlabo_cat, prnlabo_jkeys
         )
 
         # THEN
-        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.plan_name}, {kw.keg_rope}, {kw.party_title}"
-        expected_sqlstr = f"""INSERT INTO {plnlabo_cat}_raw ({kw.idea_number}, {columns_str})
+        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.person_name}, {kw.keg_rope}, {kw.party_title}"
+        expected_sqlstr = f"""INSERT INTO {prnlabo_cat}_raw ({kw.idea_number}, {columns_str})
 SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
 FROM {idea_number}_raw
-WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_rope} IS NOT NULL AND {kw.plan_name} IS NOT NULL AND {kw.keg_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
+WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_rope} IS NOT NULL AND {kw.person_name} IS NOT NULL AND {kw.keg_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
 GROUP BY {columns_str}
 ;
 """
@@ -58,7 +58,7 @@ GROUP BY {columns_str}
         assert gen_sqlstr == expected_sqlstr
 
 
-def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_plan_partnerunit():
+def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_person_partnerunit():
     # ESTABLISH
     with sqlite3_connect(":memory:") as conn:
         idea_number = "br000XX"
@@ -68,35 +68,35 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_plan_partnerunit():
             kw.moment_rope,
             kw.keg_rope,
             kw.party_title,
-            kw.plan_name,
+            kw.person_name,
             kw.partner_name,
             kw.partner_cred_lumen,
             kw.partner_debt_lumen,
             kw.amount,
         ]
         src_table = f"{idea_number}_raw"
-        plnptnr_table = f"{kw.plan_partnerunit}_raw"
+        prnptnr_table = f"{kw.person_partnerunit}_raw"
         idea_config = get_idea_config_dict()
-        plnptnr_config = idea_config.get(kw.plan_partnerunit)
-        plnptnr_jkeys = plnptnr_config.get(kw.jkeys)
-        plnptnr_jvals = plnptnr_config.get(kw.jvalues)
-        plnptnr_args = set(plnptnr_jkeys.keys()).union(set(plnptnr_jvals.keys()))
-        print(f"{plnptnr_jkeys=}")
-        print(f"{plnptnr_jvals=}")
+        prnptnr_config = idea_config.get(kw.person_partnerunit)
+        prnptnr_jkeys = prnptnr_config.get(kw.jkeys)
+        prnptnr_jvals = prnptnr_config.get(kw.jvalues)
+        prnptnr_args = set(prnptnr_jkeys.keys()).union(set(prnptnr_jvals.keys()))
+        print(f"{prnptnr_jkeys=}")
+        print(f"{prnptnr_jvals=}")
         create_idea_sorted_table(conn, src_table, idea_cols)
-        create_idea_sorted_table(conn, plnptnr_table, list(plnptnr_args))
+        create_idea_sorted_table(conn, prnptnr_table, list(prnptnr_args))
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, kw.plan_partnerunit, plnptnr_jkeys
+            conn, idea_number, kw.person_partnerunit, prnptnr_jkeys
         )
 
         # THEN
-        columns_str = "spark_num, face_name, moment_rope, plan_name, partner_name, partner_cred_lumen, partner_debt_lumen"
-        expected_sqlstr = f"""INSERT INTO {kw.plan_partnerunit}_raw (idea_number, {columns_str})
+        columns_str = "spark_num, face_name, moment_rope, person_name, partner_name, partner_cred_lumen, partner_debt_lumen"
+        expected_sqlstr = f"""INSERT INTO {kw.person_partnerunit}_raw (idea_number, {columns_str})
 SELECT '{idea_number}' as idea_number, {columns_str}
 FROM {idea_number}_raw
-WHERE spark_num IS NOT NULL AND face_name IS NOT NULL AND moment_rope IS NOT NULL AND plan_name IS NOT NULL AND partner_name IS NOT NULL
+WHERE spark_num IS NOT NULL AND face_name IS NOT NULL AND moment_rope IS NOT NULL AND person_name IS NOT NULL AND partner_name IS NOT NULL
 GROUP BY {columns_str}
 ;
 """
@@ -107,7 +107,7 @@ GROUP BY {columns_str}
         assert gen_sqlstr == expected_sqlstr
 
 
-def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_plan_partnerunit():
+def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_person_partnerunit():
     # ESTABLISH
     with sqlite3_connect(":memory:") as conn:
         idea_number = "br000XX"
@@ -117,34 +117,34 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_plan_partnerunit():
             kw.moment_rope,
             kw.keg_rope,
             kw.party_title,
-            kw.plan_name,
+            kw.person_name,
             kw.partner_name,
             kw.partner_cred_lumen,
             kw.amount,
         ]
         src_table = f"{idea_number}_raw"
-        plnptnr_table = f"{kw.plan_partnerunit}_raw"
+        prnptnr_table = f"{kw.person_partnerunit}_raw"
         idea_config = get_idea_config_dict()
-        plnptnr_config = idea_config.get(kw.plan_partnerunit)
-        plnptnr_jkeys = plnptnr_config.get(kw.jkeys)
-        plnptnr_jvals = plnptnr_config.get(kw.jvalues)
-        plnptnr_args = set(plnptnr_jkeys.keys()).union(set(plnptnr_jvals.keys()))
-        print(f"{plnptnr_jkeys=}")
-        print(f"{plnptnr_jvals=}")
+        prnptnr_config = idea_config.get(kw.person_partnerunit)
+        prnptnr_jkeys = prnptnr_config.get(kw.jkeys)
+        prnptnr_jvals = prnptnr_config.get(kw.jvalues)
+        prnptnr_args = set(prnptnr_jkeys.keys()).union(set(prnptnr_jvals.keys()))
+        print(f"{prnptnr_jkeys=}")
+        print(f"{prnptnr_jvals=}")
         create_idea_sorted_table(conn, src_table, idea_cols)
-        create_idea_sorted_table(conn, plnptnr_table, list(plnptnr_args))
+        create_idea_sorted_table(conn, prnptnr_table, list(prnptnr_args))
 
         # WHEN
         gen_sqlstr = get_idea_into_dimen_raw_query(
-            conn, idea_number, kw.plan_partnerunit, plnptnr_jkeys
+            conn, idea_number, kw.person_partnerunit, prnptnr_jkeys
         )
 
         # THEN
-        columns_str = "spark_num, face_name, moment_rope, plan_name, partner_name, partner_cred_lumen"
-        expected_sqlstr = f"""INSERT INTO {kw.plan_partnerunit}_raw (idea_number, {columns_str})
+        columns_str = "spark_num, face_name, moment_rope, person_name, partner_name, partner_cred_lumen"
+        expected_sqlstr = f"""INSERT INTO {kw.person_partnerunit}_raw (idea_number, {columns_str})
 SELECT '{idea_number}' as idea_number, {columns_str}
 FROM {idea_number}_raw
-WHERE spark_num IS NOT NULL AND face_name IS NOT NULL AND moment_rope IS NOT NULL AND plan_name IS NOT NULL AND partner_name IS NOT NULL
+WHERE spark_num IS NOT NULL AND face_name IS NOT NULL AND moment_rope IS NOT NULL AND person_name IS NOT NULL AND partner_name IS NOT NULL
 GROUP BY {columns_str}
 ;
 """

@@ -9,7 +9,7 @@ def test_RiverGrade_Exists():
     # THEN
     #: Healer gut get_partner._partner_debt_lumen (SELECT need_due_amount FROM partner WHERE partner_name = exx.bob)
     assert not x_rivergrade.moment_rope
-    assert not x_rivergrade.plan_name
+    assert not x_rivergrade.person_name
     assert not x_rivergrade.keep_rope
     assert not x_rivergrade.partner_name
     assert not x_rivergrade.number
@@ -43,7 +43,7 @@ def test_RiverGrade_Exists():
     assert x_rivergrade.rewards_magnitude is None
     assert set(x_rivergrade.__dict__.keys()) == {
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.keep_rope,
         kw.partner_name,
         "number",
@@ -78,7 +78,7 @@ def test_rivergrade_shop_ReturnsObjWithArg():
 
     # THEN
     assert x_rivergrade.moment_rope == exx.a23
-    assert x_rivergrade.plan_name == exx.yao
+    assert x_rivergrade.person_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
     assert x_rivergrade.partner_name == exx.bob
     assert x_rivergrade.number == ten_int
@@ -107,7 +107,7 @@ def test_rivergrade_shop_ReturnsObjWithoutArgs():
 
     # THEN
     assert x_rivergrade.moment_rope == exx.a23
-    assert x_rivergrade.plan_name == exx.yao
+    assert x_rivergrade.person_name == exx.yao
     assert x_rivergrade.keep_rope == x_keep_rope
     assert x_rivergrade.partner_name == exx.bob
     assert x_rivergrade.number == 0

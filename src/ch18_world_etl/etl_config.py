@@ -3,7 +3,7 @@ from os import getcwd as os_getcwd
 from src.ch00_py.db_toolbox import get_create_table_sqlstr
 from src.ch00_py.dict_toolbox import get_empty_set_if_None, get_from_nested_dict
 from src.ch00_py.file_toolbox import create_path, open_json
-from src.ch08_plan_atom.atom_config import get_delete_key_name
+from src.ch08_person_atom.atom_config import get_delete_key_name
 from src.ch15_nabu.nabu_config import (
     get_context_nabuable_args,
     set_nabuable_otx_inx_args,
@@ -23,16 +23,16 @@ ALL_DIMEN_ABBV7 = {
     "MMTWEEK",
     "MMTOFFI",
     "MMTUNIT",
-    "PLNMEMB",
-    "PLNPTNR",
-    "PLNAWAR",
-    "PLNFACT",
-    "PLNHEAL",
-    "PLNCASE",
-    "PLNREAS",
-    "PLNLABO",
-    "PLNKEGG",
-    "PLNUNIT",
+    "PRNMEMB",
+    "PRNPTNR",
+    "PRNAWAR",
+    "PRNFACT",
+    "PRNHEAL",
+    "PRNCASE",
+    "PRNREAS",
+    "PRNLABO",
+    "PRNKEGG",
+    "PRNUNIT",
     "NABTIME",
     "TRLTITL",
     "TRLNAME",
@@ -50,16 +50,16 @@ def get_dimen_abbv7(dimen: str) -> str:
         "moment_epoch_weekday": "MMTWEEK",
         "moment_timeoffi": "MMTOFFI",
         "momentunit": "MMTUNIT",
-        "plan_partner_membership": "PLNMEMB",
-        "plan_partnerunit": "PLNPTNR",
-        "plan_keg_awardunit": "PLNAWAR",
-        "plan_keg_factunit": "PLNFACT",
-        "plan_keg_healerunit": "PLNHEAL",
-        "plan_keg_reason_caseunit": "PLNCASE",
-        "plan_keg_reasonunit": "PLNREAS",
-        "plan_keg_partyunit": "PLNLABO",
-        "plan_kegunit": "PLNKEGG",
-        "planunit": "PLNUNIT",
+        "person_partner_membership": "PRNMEMB",
+        "person_partnerunit": "PRNPTNR",
+        "person_keg_awardunit": "PRNAWAR",
+        "person_keg_factunit": "PRNFACT",
+        "person_keg_healerunit": "PRNHEAL",
+        "person_keg_reason_caseunit": "PRNCASE",
+        "person_keg_reasonunit": "PRNREAS",
+        "person_keg_partyunit": "PRNLABO",
+        "person_kegunit": "PRNKEGG",
+        "personunit": "PRNUNIT",
         "nabu_timenum": "NABTIME",
         "translate_title": "TRLTITL",
         "translate_name": "TRLNAME",
@@ -89,17 +89,17 @@ def create_prime_tablename(
         "MMTWEEK": "moment_epoch_weekday",
         "MMTOFFI": "moment_timeoffi",
         "MMTUNIT": "momentunit",
-        "PLNMEMB": "plan_partner_membership",
-        "PLNPTNR": "plan_partnerunit",
-        "PLNAWAR": "plan_keg_awardunit",
-        "PLNFACT": "plan_keg_factunit",
-        "PLNGROU": "plan_groupunit",
-        "PLNHEAL": "plan_keg_healerunit",
-        "PLNCASE": "plan_keg_reason_caseunit",
-        "PLNREAS": "plan_keg_reasonunit",
-        "PLNLABO": "plan_keg_partyunit",
-        "PLNKEGG": "plan_kegunit",
-        "PLNUNIT": "planunit",
+        "PRNMEMB": "person_partner_membership",
+        "PRNPTNR": "person_partnerunit",
+        "PRNAWAR": "person_keg_awardunit",
+        "PRNFACT": "person_keg_factunit",
+        "PRNGROU": "person_groupunit",
+        "PRNHEAL": "person_keg_healerunit",
+        "PRNCASE": "person_keg_reason_caseunit",
+        "PRNREAS": "person_keg_reasonunit",
+        "PRNLABO": "person_keg_partyunit",
+        "PRNKEGG": "person_kegunit",
+        "PRNUNIT": "personunit",
         "NABTIME": "nabu_timenum",
         "TRLTITL": "translate_title",
         "TRLNAME": "translate_name",
@@ -128,80 +128,80 @@ def etl_idea_category_config_path() -> str:
 
 
 def etl_idea_category_config_dict() -> dict:
-    """Config data for etl dimenensions (translate, moment, plan...) including required columns per stage"""
+    """Config data for etl dimenensions (translate, moment, person...) including required columns per stage"""
     return open_json(etl_idea_category_config_path())
 
 
 def get_etl_category_stages_dict() -> dict:
     return {
-        "plan_h_agg_put": {
-            "idea_category": "plan",
+        "person_h_agg_put": {
+            "idea_category": "person",
             "stage0": "h",
             "stage1": "agg",
             "put_del": "put",
         },
-        "plan_h_agg_del": {
-            "idea_category": "plan",
+        "person_h_agg_del": {
+            "idea_category": "person",
             "stage0": "h",
             "stage1": "agg",
             "put_del": "del",
         },
-        "plan_h_raw_put": {
-            "idea_category": "plan",
+        "person_h_raw_put": {
+            "idea_category": "person",
             "stage0": "h",
             "stage1": "raw",
             "put_del": "put",
         },
-        "plan_h_raw_del": {
-            "idea_category": "plan",
+        "person_h_raw_del": {
+            "idea_category": "person",
             "stage0": "h",
             "stage1": "raw",
             "put_del": "del",
         },
-        "plan_h_vld_put": {
-            "idea_category": "plan",
+        "person_h_vld_put": {
+            "idea_category": "person",
             "stage0": "h",
             "stage1": "vld",
             "put_del": "put",
         },
-        "plan_h_vld_del": {
-            "idea_category": "plan",
+        "person_h_vld_del": {
+            "idea_category": "person",
             "stage0": "h",
             "stage1": "vld",
             "put_del": "del",
         },
-        "plan_s_agg_put": {
-            "idea_category": "plan",
+        "person_s_agg_put": {
+            "idea_category": "person",
             "stage0": "s",
             "stage1": "agg",
             "put_del": "put",
         },
-        "plan_s_agg_del": {
-            "idea_category": "plan",
+        "person_s_agg_del": {
+            "idea_category": "person",
             "stage0": "s",
             "stage1": "agg",
             "put_del": "del",
         },
-        "plan_s_raw_put": {
-            "idea_category": "plan",
+        "person_s_raw_put": {
+            "idea_category": "person",
             "stage0": "s",
             "stage1": "raw",
             "put_del": "put",
         },
-        "plan_s_raw_del": {
-            "idea_category": "plan",
+        "person_s_raw_del": {
+            "idea_category": "person",
             "stage0": "s",
             "stage1": "raw",
             "put_del": "del",
         },
-        "plan_s_vld_put": {
-            "idea_category": "plan",
+        "person_s_vld_put": {
+            "idea_category": "person",
             "stage0": "s",
             "stage1": "vld",
             "put_del": "put",
         },
-        "plan_s_vld_del": {
-            "idea_category": "plan",
+        "person_s_vld_del": {
+            "idea_category": "person",
             "stage0": "s",
             "stage1": "vld",
             "put_del": "del",
@@ -309,8 +309,8 @@ def get_prime_columns(
         idea_category = "nabu"
     elif x_dimen.find("moment") == 0:
         idea_category = "moment"
-    elif x_dimen.find("plan") == 0:
-        idea_category = "plan"
+    elif x_dimen.find("person") == 0:
+        idea_category = "person"
     config_keylist = [idea_category, "stages", *table_keylist]
 
     otx_keylist = copy_copy(config_keylist)

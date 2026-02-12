@@ -28,7 +28,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     br00113_columns = [
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.otx_name,
         kw.inx_name,
@@ -43,7 +43,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     br00001_columns = [
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -76,16 +76,16 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         trlcore_sound_vld = create_prime_tablename("trlcore", "s", "vld")
         momentunit_sound_raw = create_prime_tablename("momentunit", "s", "raw")
         momentunit_sound_agg = create_prime_tablename("momentunit", "s", "agg")
-        plnunit_sound_put_raw = create_prime_tablename("planunit", "s", "raw", "put")
-        plnunit_sound_put_agg = create_prime_tablename("planunit", "s", "agg", "put")
-        plnptnr_sound_put_raw = create_prime_tablename("plnptnr", "s", "raw", "put")
-        plnptnr_sound_put_agg = create_prime_tablename("plnptnr", "s", "agg", "put")
+        prnunit_sound_put_raw = create_prime_tablename("personunit", "s", "raw", "put")
+        prnunit_sound_put_agg = create_prime_tablename("personunit", "s", "agg", "put")
+        prnptnr_sound_put_raw = create_prime_tablename("prnptnr", "s", "raw", "put")
+        prnptnr_sound_put_agg = create_prime_tablename("prnptnr", "s", "agg", "put")
         momentunit_heard_raw = create_prime_tablename("momentunit", "h", "raw")
         momentunit_heard_vld = create_prime_tablename("momentunit", "h", "vld")
-        plnunit_heard_put_raw = create_prime_tablename("planunit", "h", "raw", "put")
-        plnunit_heard_put_agg = create_prime_tablename("planunit", "h", "vld", "put")
-        plnptnr_heard_put_raw = create_prime_tablename("plnptnr", "h", "raw", "put")
-        plnptnr_heard_put_agg = create_prime_tablename("plnptnr", "h", "vld", "put")
+        prnunit_heard_put_raw = create_prime_tablename("personunit", "h", "raw", "put")
+        prnunit_heard_put_agg = create_prime_tablename("personunit", "h", "vld", "put")
+        prnptnr_heard_put_raw = create_prime_tablename("prnptnr", "h", "raw", "put")
+        prnptnr_heard_put_agg = create_prime_tablename("prnptnr", "h", "vld", "put")
 
         cursor = db_conn.cursor()
         assert get_row_count(cursor, br00113_raw) == 1
@@ -95,22 +95,22 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         assert get_row_count(cursor, br00113_valid) == 2
         assert get_row_count(cursor, trlname_sound_raw) == 2
         assert get_row_count(cursor, momentunit_sound_raw) == 4
-        assert get_row_count(cursor, plnunit_sound_put_raw) == 4
-        assert get_row_count(cursor, plnptnr_sound_put_raw) == 2
+        assert get_row_count(cursor, prnunit_sound_put_raw) == 4
+        assert get_row_count(cursor, prnptnr_sound_put_raw) == 2
         assert get_row_count(cursor, trlname_sound_agg) == 1
         assert get_row_count(cursor, momentunit_sound_agg) == 1
-        assert get_row_count(cursor, plnunit_sound_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_sound_put_agg) == 1
+        assert get_row_count(cursor, prnunit_sound_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_sound_put_agg) == 1
         assert get_row_count(cursor, trlcore_sound_raw) == 1
         assert get_row_count(cursor, trlcore_sound_agg) == 1
         assert get_row_count(cursor, trlcore_sound_vld) == 1
         assert get_row_count(cursor, trlname_sound_vld) == 1
         assert get_row_count(cursor, momentunit_heard_raw) == 1
-        assert get_row_count(cursor, plnunit_heard_put_raw) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_raw) == 1
+        assert get_row_count(cursor, prnunit_heard_put_raw) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_raw) == 1
         assert get_row_count(cursor, momentunit_heard_vld) == 1
-        assert get_row_count(cursor, plnunit_heard_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_agg) == 1
+        assert get_row_count(cursor, prnunit_heard_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_agg) == 1
         assert get_row_count(cursor, kw.moment_ote1_agg) == 1
     db_conn.close()
 
@@ -157,7 +157,7 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     br00113_columns = [
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.otx_name,
         kw.inx_name,

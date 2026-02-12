@@ -1,6 +1,6 @@
-from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch09_plan_lesson.lasso import lassounit_shop
-from src.ch09_plan_lesson.lesson_filehandler import open_gut_file, save_gut_file
+from src.ch07_person_logic.person_main import personunit_shop
+from src.ch09_person_lesson.lasso import lassounit_shop
+from src.ch09_person_lesson.lesson_filehandler import open_gut_file, save_gut_file
 from src.ch13_time.epoch_main import epochunit_shop, get_default_epoch_config_dict
 from src.ch13_time.test._util.ch13_examples import get_five_config
 from src.ch14_moment.moment_main import momentunit_shop
@@ -42,7 +42,7 @@ def test_MomentUnit_add_epoch_to_gut_SetsFile_Scenario0(temp_dir_setup):
     moment_mstr_dir = get_temp_dir()
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.epoch = epochunit_shop(get_five_config())
-    init_sue_gut = planunit_shop(exx.sue, exx.a23)
+    init_sue_gut = personunit_shop(exx.sue, exx.a23)
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)
@@ -62,7 +62,7 @@ def test_MomentUnit_add_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     moment_mstr_dir = get_temp_dir()
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_moment.epoch = epochunit_shop(get_five_config())
-    init_sue_gut = planunit_shop(exx.sue, exx.a23)
+    init_sue_gut = personunit_shop(exx.sue, exx.a23)
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)

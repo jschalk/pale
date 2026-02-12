@@ -1,12 +1,12 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import count_dirs_files, open_json, save_json
-from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch09_plan_lesson._ref.ch09_path import (
+from src.ch07_person_logic.person_main import personunit_shop
+from src.ch09_person_lesson._ref.ch09_path import (
     create_moment_json_path,
-    create_moment_plans_dir_path,
+    create_moment_persons_dir_path,
 )
-from src.ch09_plan_lesson.lasso import lassounit_shop
-from src.ch11_bud._ref.ch11_path import create_planspark_path
+from src.ch09_person_lesson.lasso import lassounit_shop
+from src.ch11_bud._ref.ch11_path import create_personspark_path
 from src.ch14_moment._ref.ch14_path import (
     create_bud_partner_mandate_ledger_path as bud_mandate_path,
 )
@@ -18,7 +18,7 @@ from src.ch20_world_logic.test._util.ch20_env import (
     temp_dir_setup,
 )
 from src.ch20_world_logic.test._util.ch20_examples import (
-    get_bob_mop_reason_planunit_example,
+    get_bob_mop_reason_personunit_example,
 )
 from src.ch20_world_logic.world import worldunit_shop
 from src.ref.keywords import ExampleStrs as exx
@@ -35,14 +35,16 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro0_BudEmpty
     a23_json_path = create_moment_json_path(fay_world._moment_mstr_dir, a23_lasso)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     print(f"{a23_json_path=}")
-    a23_plans_path = create_moment_plans_dir_path(fay_world._moment_mstr_dir, a23_lasso)
-    assert count_dirs_files(a23_plans_path) == 0
+    a23_persons_path = create_moment_persons_dir_path(
+        fay_world._moment_mstr_dir, a23_lasso
+    )
+    assert count_dirs_files(a23_persons_path) == 0
 
     # WHEN
     fay_world.calc_moment_bud_partner_mandate_net_ledgers()
 
     # THEN
-    assert count_dirs_files(a23_plans_path) == 0
+    assert count_dirs_files(a23_persons_path) == 0
 
 
 def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro1_SimpleBud(
@@ -94,30 +96,30 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro2_BudExist
     a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     save_json(a23_json_path, None, amy23_moment.to_dict())
 
-    # Create spark time mapping plan_time_agg for time 37
+    # Create spark time mapping person_time_agg for time 37
     spark33 = 33
     spark44 = 44
     spark55 = 55
-    bob55_planspark = get_bob_mop_reason_planunit_example()
-    bob55_planspark.add_partnerunit(exx.sue, 1)
-    sue44_planspark = planunit_shop(exx.sue, exx.a23)
-    sue44_planspark.set_plan_name(exx.sue)
-    sue44_planspark.add_partnerunit(exx.yao, 1)
-    yao44_planspark = get_bob_mop_reason_planunit_example()
-    yao44_planspark.set_plan_name(exx.yao)
-    yao44_planspark.add_partnerunit(exx.zia, 1)
+    bob55_personspark = get_bob_mop_reason_personunit_example()
+    bob55_personspark.add_partnerunit(exx.sue, 1)
+    sue44_personspark = personunit_shop(exx.sue, exx.a23)
+    sue44_personspark.set_person_name(exx.sue)
+    sue44_personspark.add_partnerunit(exx.yao, 1)
+    yao44_personspark = get_bob_mop_reason_personunit_example()
+    yao44_personspark.set_person_name(exx.yao)
+    yao44_personspark.add_partnerunit(exx.zia, 1)
     clean_fact = example_casa_floor_clean_factunit()
-    yao44_planspark.add_fact(clean_fact.fact_context, clean_fact.fact_state)
-    zia33_planspark = get_bob_mop_reason_planunit_example()
-    zia33_planspark.set_plan_name(exx.zia)
-    bob55_path = create_planspark_path(mstr_dir, a23_lasso, exx.bob, spark55)
-    sue44_path = create_planspark_path(mstr_dir, a23_lasso, exx.sue, spark44)
-    yao44_path = create_planspark_path(mstr_dir, a23_lasso, exx.yao, spark44)
-    zia33_path = create_planspark_path(mstr_dir, a23_lasso, exx.zia, spark33)
-    save_json(bob55_path, None, bob55_planspark.to_dict())
-    save_json(sue44_path, None, sue44_planspark.to_dict())
-    save_json(yao44_path, None, yao44_planspark.to_dict())
-    save_json(zia33_path, None, zia33_planspark.to_dict())
+    yao44_personspark.add_fact(clean_fact.fact_context, clean_fact.fact_state)
+    zia33_personspark = get_bob_mop_reason_personunit_example()
+    zia33_personspark.set_person_name(exx.zia)
+    bob55_path = create_personspark_path(mstr_dir, a23_lasso, exx.bob, spark55)
+    sue44_path = create_personspark_path(mstr_dir, a23_lasso, exx.sue, spark44)
+    yao44_path = create_personspark_path(mstr_dir, a23_lasso, exx.yao, spark44)
+    zia33_path = create_personspark_path(mstr_dir, a23_lasso, exx.zia, spark33)
+    save_json(bob55_path, None, bob55_personspark.to_dict())
+    save_json(sue44_path, None, sue44_personspark.to_dict())
+    save_json(yao44_path, None, yao44_personspark.to_dict())
+    save_json(zia33_path, None, zia33_personspark.to_dict())
 
     # Create empty ote1 file
     a23_ote1_dict = {

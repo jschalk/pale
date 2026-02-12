@@ -2,7 +2,7 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import db_table_exists, get_row_count, get_table_columns
 from src.ch04_rope.rope import create_rope
 from src.ch18_world_etl.etl_sqlstr import (
-    CREATE_JOB_PLNKEGG_SQLSTR,
+    CREATE_JOB_PRNKEGG_SQLSTR,
     create_prime_tablename,
 )
 from src.ch19_world_kpi.kpi_mstr import create_populate_kpi002_table
@@ -18,11 +18,11 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
-        job_plnkegg_tablename = create_prime_tablename("PLNKEGG", "job", None)
-        insert_sqlstr = f"""INSERT INTO {job_plnkegg_tablename} (
+        cursor.execute(CREATE_JOB_PRNKEGG_SQLSTR)
+        job_prnkegg_tablename = create_prime_tablename("PRNKEGG", "job", None)
+        insert_sqlstr = f"""INSERT INTO {job_prnkegg_tablename} (
   {kw.moment_rope}
-, {kw.plan_name}
+, {kw.person_name}
 , {kw.keg_rope}
 , {kw.pledge}
 , {kw.keg_active}
@@ -33,24 +33,24 @@ VALUES
 , ('{exx.a23}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
 """
         cursor.execute(insert_sqlstr)
-        assert get_row_count(cursor, job_plnkegg_tablename) == 2
-        moment_kpi002_plan_pledges_tablename = kw.moment_kpi002_plan_pledges
-        assert not db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
+        assert get_row_count(cursor, job_prnkegg_tablename) == 2
+        moment_kpi002_person_pledges_tablename = kw.moment_kpi002_person_pledges
+        assert not db_table_exists(cursor, moment_kpi002_person_pledges_tablename)
 
         # WHEN
         create_populate_kpi002_table(cursor)
 
         # THEN
-        assert db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
-        assert get_table_columns(cursor, moment_kpi002_plan_pledges_tablename) == [
+        assert db_table_exists(cursor, moment_kpi002_person_pledges_tablename)
+        assert get_table_columns(cursor, moment_kpi002_person_pledges_tablename) == [
             kw.moment_rope,
-            kw.plan_name,
+            kw.person_name,
             kw.keg_rope,
             kw.pledge,
             kw.keg_active,
             kw.task,
         ]
-        assert get_row_count(cursor, moment_kpi002_plan_pledges_tablename) == 0
+        assert get_row_count(cursor, moment_kpi002_person_pledges_tablename) == 0
 
 
 def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
@@ -66,11 +66,11 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
-        job_plnkegg_tablename = create_prime_tablename("PLNKEGG", "job", None)
-        insert_sqlstr = f"""INSERT INTO {job_plnkegg_tablename} (
+        cursor.execute(CREATE_JOB_PRNKEGG_SQLSTR)
+        job_prnkegg_tablename = create_prime_tablename("PRNKEGG", "job", None)
+        insert_sqlstr = f"""INSERT INTO {job_prnkegg_tablename} (
   {kw.moment_rope}
-, {kw.plan_name}
+, {kw.person_name}
 , {kw.keg_rope}
 , {kw.pledge}
 , {kw.keg_active}
@@ -83,21 +83,21 @@ VALUES
 , ('{exx.a23}', '{exx.yao}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_task})
 """
         cursor.execute(insert_sqlstr)
-        assert get_row_count(cursor, job_plnkegg_tablename) == 4
-        moment_kpi002_plan_pledges_tablename = kw.moment_kpi002_plan_pledges
-        assert not db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
+        assert get_row_count(cursor, job_prnkegg_tablename) == 4
+        moment_kpi002_person_pledges_tablename = kw.moment_kpi002_person_pledges
+        assert not db_table_exists(cursor, moment_kpi002_person_pledges_tablename)
 
         # WHEN
         create_populate_kpi002_table(cursor)
 
         # THEN
-        assert db_table_exists(cursor, moment_kpi002_plan_pledges_tablename)
-        assert get_table_columns(cursor, moment_kpi002_plan_pledges_tablename) == [
+        assert db_table_exists(cursor, moment_kpi002_person_pledges_tablename)
+        assert get_table_columns(cursor, moment_kpi002_person_pledges_tablename) == [
             kw.moment_rope,
-            kw.plan_name,
+            kw.person_name,
             kw.keg_rope,
             kw.pledge,
             kw.keg_active,
             kw.task,
         ]
-        assert get_row_count(cursor, moment_kpi002_plan_pledges_tablename) == 2
+        assert get_row_count(cursor, moment_kpi002_person_pledges_tablename) == 2

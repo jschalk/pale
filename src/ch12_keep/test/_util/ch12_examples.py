@@ -1,6 +1,6 @@
 from src.ch04_rope.rope import RopeTerm, create_rope_from_labels
-from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch12_keep._ref.ch12_semantic_types import PartnerName, PlanName
+from src.ch07_person_logic.person_main import personunit_shop
+from src.ch12_keep._ref.ch12_semantic_types import PartnerName, PersonName
 from src.ch12_keep.rivercycle import get_patientledger
 from src.ref.keywords import ExampleStrs as exx
 
@@ -16,36 +16,36 @@ def example_yao_patientledger() -> dict[str, float]:
     yao_partner_cred_lumen = 7
     bob_partner_cred_lumen = 3
     zia_partner_cred_lumen = 10
-    yao_plan = planunit_shop(exx.yao)
-    yao_plan.add_partnerunit(exx.yao, yao_partner_cred_lumen)
-    yao_plan.add_partnerunit(exx.bob, bob_partner_cred_lumen)
-    yao_plan.add_partnerunit(exx.zia, zia_partner_cred_lumen)
-    return get_patientledger(yao_plan)
+    yao_person = personunit_shop(exx.yao)
+    yao_person.add_partnerunit(exx.yao, yao_partner_cred_lumen)
+    yao_person.add_partnerunit(exx.bob, bob_partner_cred_lumen)
+    yao_person.add_partnerunit(exx.zia, zia_partner_cred_lumen)
+    return get_patientledger(yao_person)
 
 
 def example_bob_patientledger() -> dict[str, float]:
     yao_partner_cred_lumen = 1
     bob_partner_cred_lumen = 7
     zia_partner_cred_lumen = 42
-    bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_partnerunit(exx.yao, yao_partner_cred_lumen)
-    bob_plan.add_partnerunit(exx.bob, bob_partner_cred_lumen)
-    bob_plan.add_partnerunit(exx.zia, zia_partner_cred_lumen)
-    return get_patientledger(bob_plan)
+    bob_person = personunit_shop(exx.bob)
+    bob_person.add_partnerunit(exx.yao, yao_partner_cred_lumen)
+    bob_person.add_partnerunit(exx.bob, bob_partner_cred_lumen)
+    bob_person.add_partnerunit(exx.zia, zia_partner_cred_lumen)
+    return get_patientledger(bob_person)
 
 
 def example_zia_patientledger() -> dict[str, float]:
     yao_partner_cred_lumen = 89
     bob_partner_cred_lumen = 150
     zia_partner_cred_lumen = 61
-    zia_plan = planunit_shop(exx.zia)
-    zia_plan.add_partnerunit(exx.yao, yao_partner_cred_lumen)
-    zia_plan.add_partnerunit(exx.bob, bob_partner_cred_lumen)
-    zia_plan.add_partnerunit(exx.zia, zia_partner_cred_lumen)
-    return get_patientledger(zia_plan)
+    zia_person = personunit_shop(exx.zia)
+    zia_person.add_partnerunit(exx.yao, yao_partner_cred_lumen)
+    zia_person.add_partnerunit(exx.bob, bob_partner_cred_lumen)
+    zia_person.add_partnerunit(exx.zia, zia_partner_cred_lumen)
+    return get_patientledger(zia_person)
 
 
-def example_yao_bob_zia_patientledgers() -> dict[PlanName : dict[PartnerName, float]]:
+def example_yao_bob_zia_patientledgers() -> dict[PersonName : dict[PartnerName, float]]:
     return {
         exx.yao: example_yao_patientledger,
         exx.bob: example_bob_patientledger,

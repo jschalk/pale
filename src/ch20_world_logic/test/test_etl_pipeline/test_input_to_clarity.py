@@ -8,13 +8,13 @@ from src.ch00_py.file_toolbox import (
     get_level1_dirs,
     save_file,
 )
-from src.ch09_plan_lesson._ref.ch09_path import (
+from src.ch09_person_lesson._ref.ch09_path import (
     create_gut_path,
     create_job_path,
     create_moment_json_path,
 )
-from src.ch09_plan_lesson.lasso import lassounit_shop
-from src.ch09_plan_lesson.lesson_filehandler import open_gut_file
+from src.ch09_person_lesson.lasso import lassounit_shop
+from src.ch09_person_lesson.lesson_filehandler import open_gut_file
 from src.ch11_bud._ref.ch11_path import (
     create_spark_all_lesson_path,
     create_spark_expressed_lesson_path as expressed_path,
@@ -51,7 +51,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         kw.face_name,
         kw.spark_num,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.otx_name,
         kw.inx_name,
@@ -74,19 +74,19 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     momentunit_sound_raw = prime_tbl(kw.momentunit, "s", "raw")
     momentunit_sound_agg = prime_tbl(kw.momentunit, "s", "agg")
     momentunit_sound_vld = prime_tbl(kw.momentunit, "s", "vld")
-    plnunit_sound_put_raw = prime_tbl(kw.planunit, "s", "raw", "put")
-    plnunit_sound_put_agg = prime_tbl(kw.planunit, "s", "agg", "put")
-    plnunit_sound_put_vld = prime_tbl(kw.planunit, "s", "vld", "put")
-    plnptnr_sound_put_raw = prime_tbl(kw.plnptnr, "s", "raw", "put")
-    plnptnr_sound_put_agg = prime_tbl(kw.plnptnr, "s", "agg", "put")
-    plnptnr_sound_put_vld = prime_tbl(kw.plnptnr, "s", "vld", "put")
+    prnunit_sound_put_raw = prime_tbl(kw.personunit, "s", "raw", "put")
+    prnunit_sound_put_agg = prime_tbl(kw.personunit, "s", "agg", "put")
+    prnunit_sound_put_vld = prime_tbl(kw.personunit, "s", "vld", "put")
+    prnptnr_sound_put_raw = prime_tbl(kw.prnptnr, "s", "raw", "put")
+    prnptnr_sound_put_agg = prime_tbl(kw.prnptnr, "s", "agg", "put")
+    prnptnr_sound_put_vld = prime_tbl(kw.prnptnr, "s", "vld", "put")
     momentunit_heard_raw = prime_tbl(kw.momentunit, "h", "raw")
     momentunit_heard_agg = prime_tbl(kw.momentunit, "h", "agg")
     momentunit_heard_vld = prime_tbl(kw.momentunit, "h", "vld")
-    plnunit_heard_put_raw = prime_tbl(kw.planunit, "h", "raw", "put")
-    plnunit_heard_put_agg = prime_tbl(kw.planunit, "h", "vld", "put")
-    plnptnr_heard_put_raw = prime_tbl(kw.plnptnr, "h", "raw", "put")
-    plnptnr_heard_put_agg = prime_tbl(kw.plnptnr, "h", "vld", "put")
+    prnunit_heard_put_raw = prime_tbl(kw.personunit, "h", "raw", "put")
+    prnunit_heard_put_agg = prime_tbl(kw.personunit, "h", "vld", "put")
+    prnptnr_heard_put_raw = prime_tbl(kw.prnptnr, "h", "raw", "put")
+    prnptnr_heard_put_agg = prime_tbl(kw.prnptnr, "h", "vld", "put")
     mstr_dir = fay_world._moment_mstr_dir
     a23_lasso = lassounit_shop(exx.a23)
     a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
@@ -96,7 +96,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     a23_e1_expressed_lesson_path = expressed_path(mstr_dir, a23_lasso, sue_inx, e3)
     a23_sue_gut_path = create_gut_path(mstr_dir, a23_lasso, sue_inx)
     a23_sue_job_path = create_job_path(mstr_dir, a23_lasso, sue_inx)
-    plnptnr_job = prime_tbl(kw.plnptnr, "job", None)
+    prnptnr_job = prime_tbl(kw.prnptnr, "job", None)
     last_run_metrics_path = create_last_run_metrics_path(mstr_dir)
 
     with sqlite3_connect(":memory:") as db_conn:
@@ -111,9 +111,9 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert not db_table_exists(cursor, momentunit_sound_raw)
         assert not db_table_exists(cursor, momentunit_sound_agg)
         assert not db_table_exists(cursor, momentunit_sound_vld)
-        assert not db_table_exists(cursor, plnunit_sound_put_raw)
-        assert not db_table_exists(cursor, plnunit_sound_put_agg)
-        assert not db_table_exists(cursor, plnunit_sound_put_vld)
+        assert not db_table_exists(cursor, prnunit_sound_put_raw)
+        assert not db_table_exists(cursor, prnunit_sound_put_agg)
+        assert not db_table_exists(cursor, prnunit_sound_put_vld)
         assert not db_table_exists(cursor, trlcore_sound_raw)
         assert not db_table_exists(cursor, trlcore_sound_agg)
         assert not db_table_exists(cursor, trlcore_sound_vld)
@@ -121,23 +121,23 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert not db_table_exists(cursor, momentunit_heard_raw)
         assert not db_table_exists(cursor, momentunit_heard_agg)
         assert not db_table_exists(cursor, momentunit_heard_vld)
-        assert not db_table_exists(cursor, plnunit_heard_put_raw)
-        assert not db_table_exists(cursor, plnunit_heard_put_agg)
-        assert not db_table_exists(cursor, plnptnr_heard_put_raw)
-        assert not db_table_exists(cursor, plnptnr_heard_put_agg)
+        assert not db_table_exists(cursor, prnunit_heard_put_raw)
+        assert not db_table_exists(cursor, prnunit_heard_put_agg)
+        assert not db_table_exists(cursor, prnptnr_heard_put_raw)
+        assert not db_table_exists(cursor, prnptnr_heard_put_agg)
         assert not os_path_exists(a23_json_path)
         assert not os_path_exists(a23_e1_all_lesson_path)
         assert not os_path_exists(a23_e1_expressed_lesson_path)
         assert not os_path_exists(a23_sue_gut_path)
         assert not os_path_exists(a23_sue_job_path)
         assert not db_table_exists(cursor, kw.moment_ote1_agg)
-        assert not db_table_exists(cursor, plnptnr_job)
+        assert not db_table_exists(cursor, prnptnr_job)
         assert not db_table_exists(cursor, kw.moment_partner_nets)
         assert not db_table_exists(cursor, kw.moment_kpi001_partner_nets)
         assert not os_path_exists(last_run_metrics_path)
 
-        # # create planunits
-        # self.plan_tables_to_spark_plan_csvs(cursor)
+        # # create personunits
+        # self.person_tables_to_spark_person_csvs(cursor)
 
         # # create all moment_job and mandate reports
         # self.calc_moment_bud_partner_mandate_net_ledgers()
@@ -147,13 +147,13 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
 
         # THEN
         # select_translate_core = f"SELECT * FROM {trlcore_sound_vld}"
-        # select_planunit_put = f"SELECT * FROM {plnunit_sound_put_agg}"
-        # select_plnptnr_put = f"SELECT * FROM {plnptnr_sound_put_agg}"
+        # select_personunit_put = f"SELECT * FROM {prnunit_sound_put_agg}"
+        # select_prnptnr_put = f"SELECT * FROM {prnptnr_sound_put_agg}"
         # select_momentunit_put_raw = f"SELECT * FROM {momentunit_sound_raw}"
         # select_momentunit_put_agg = f"SELECT * FROM {momentunit_sound_agg}"
         # print(f"{cursor.execute(select_translate_core).fetchall()=}")
-        # print(f"{cursor.execute(select_planunit_put).fetchall()=}")
-        # print(f"{cursor.execute(select_plnptnr_put).fetchall()=}")
+        # print(f"{cursor.execute(select_personunit_put).fetchall()=}")
+        # print(f"{cursor.execute(select_prnptnr_put).fetchall()=}")
         # print(f"{cursor.execute(select_momentunit_put_raw).fetchall()=}")
         # print(f"{cursor.execute(select_momentunit_put_agg).fetchall()=}")
 
@@ -164,26 +164,26 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         assert get_row_count(cursor, br00113_valid) == 1
         assert get_row_count(cursor, trlname_sound_raw) == 1
         assert get_row_count(cursor, momentunit_sound_raw) == 1
-        assert get_row_count(cursor, plnunit_sound_put_raw) == 1
-        assert get_row_count(cursor, plnptnr_sound_put_raw) == 1
+        assert get_row_count(cursor, prnunit_sound_put_raw) == 1
+        assert get_row_count(cursor, prnptnr_sound_put_raw) == 1
         assert get_row_count(cursor, trlname_sound_agg) == 1
         assert get_row_count(cursor, momentunit_sound_agg) == 1
-        assert get_row_count(cursor, plnunit_sound_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_sound_put_agg) == 1
+        assert get_row_count(cursor, prnunit_sound_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_sound_put_agg) == 1
         assert get_row_count(cursor, trlcore_sound_raw) == 1
         assert get_row_count(cursor, trlcore_sound_agg) == 1
         assert get_row_count(cursor, trlcore_sound_vld) == 1
         assert get_row_count(cursor, trlname_sound_vld) == 1
         assert get_row_count(cursor, momentunit_sound_vld) == 1
-        assert get_row_count(cursor, plnunit_sound_put_vld) == 1
-        assert get_row_count(cursor, plnptnr_sound_put_vld) == 1
+        assert get_row_count(cursor, prnunit_sound_put_vld) == 1
+        assert get_row_count(cursor, prnptnr_sound_put_vld) == 1
         assert get_row_count(cursor, momentunit_heard_raw) == 1
         assert get_row_count(cursor, momentunit_heard_agg) == 1
-        assert get_row_count(cursor, plnunit_heard_put_raw) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_raw) == 1
+        assert get_row_count(cursor, prnunit_heard_put_raw) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_raw) == 1
         assert get_row_count(cursor, momentunit_heard_vld) == 1
-        assert get_row_count(cursor, plnunit_heard_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_agg) == 1
+        assert get_row_count(cursor, prnunit_heard_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_agg) == 1
         assert os_path_exists(a23_json_path)
         print(f"{a23_e1_all_lesson_path=}")
         assert os_path_exists(a23_e1_all_lesson_path)
@@ -194,7 +194,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
         creg_rope = sue_gut.make_rope(time_rope, kw.creg)
         assert sue_gut.keg_exists(creg_rope)
         assert os_path_exists(a23_sue_job_path)
-        assert get_row_count(cursor, plnptnr_job) == 1
+        assert get_row_count(cursor, prnptnr_job) == 1
         assert get_row_count(cursor, kw.moment_partner_nets) == 0
         # assert get_row_count(cursor, moment_ote1_agg_tablename) == 0
         assert get_row_count(cursor, kw.moment_kpi001_partner_nets) == 0
@@ -216,7 +216,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         kw.face_name,
         kw.spark_num,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.otx_name,
         kw.inx_name,
@@ -232,7 +232,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -258,16 +258,16 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     trlcore_sound_vld = prime_tbl(kw.trlcore, "s", "vld")
     momentunit_sound_raw = prime_tbl(kw.momentunit, "s", "raw")
     momentunit_sound_agg = prime_tbl(kw.momentunit, "s", "agg")
-    plnunit_sound_put_raw = prime_tbl(kw.planunit, "s", "raw", "put")
-    plnunit_sound_put_agg = prime_tbl(kw.planunit, "s", "agg", "put")
-    plnptnr_sound_put_raw = prime_tbl(kw.plnptnr, "s", "raw", "put")
-    plnptnr_sound_put_agg = prime_tbl(kw.plnptnr, "s", "agg", "put")
+    prnunit_sound_put_raw = prime_tbl(kw.personunit, "s", "raw", "put")
+    prnunit_sound_put_agg = prime_tbl(kw.personunit, "s", "agg", "put")
+    prnptnr_sound_put_raw = prime_tbl(kw.prnptnr, "s", "raw", "put")
+    prnptnr_sound_put_agg = prime_tbl(kw.prnptnr, "s", "agg", "put")
     momentunit_heard_raw = prime_tbl(kw.momentunit, "h", "raw")
     momentunit_heard_vld = prime_tbl(kw.momentunit, "h", "vld")
-    plnunit_heard_put_raw = prime_tbl(kw.planunit, "h", "raw", "put")
-    plnunit_heard_put_agg = prime_tbl(kw.planunit, "h", "vld", "put")
-    plnptnr_heard_put_raw = prime_tbl(kw.plnptnr, "h", "raw", "put")
-    plnptnr_heard_put_agg = prime_tbl(kw.plnptnr, "h", "vld", "put")
+    prnunit_heard_put_raw = prime_tbl(kw.personunit, "h", "raw", "put")
+    prnunit_heard_put_agg = prime_tbl(kw.personunit, "h", "vld", "put")
+    prnptnr_heard_put_raw = prime_tbl(kw.prnptnr, "h", "raw", "put")
+    prnptnr_heard_put_agg = prime_tbl(kw.prnptnr, "h", "vld", "put")
     mstr_dir = fay_world._moment_mstr_dir
     a23_lasso = lassounit_shop(exx.a23)
     a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
@@ -290,18 +290,18 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         assert not db_table_exists(cursor, trlname_sound_agg)
         assert not db_table_exists(cursor, momentunit_sound_raw)
         assert not db_table_exists(cursor, momentunit_sound_agg)
-        assert not db_table_exists(cursor, plnunit_sound_put_raw)
-        assert not db_table_exists(cursor, plnunit_sound_put_agg)
+        assert not db_table_exists(cursor, prnunit_sound_put_raw)
+        assert not db_table_exists(cursor, prnunit_sound_put_agg)
         assert not db_table_exists(cursor, trlcore_sound_raw)
         assert not db_table_exists(cursor, trlcore_sound_agg)
         assert not db_table_exists(cursor, trlcore_sound_vld)
         assert not db_table_exists(cursor, trlname_sound_vld)
         assert not db_table_exists(cursor, momentunit_heard_raw)
         assert not db_table_exists(cursor, momentunit_heard_vld)
-        assert not db_table_exists(cursor, plnunit_heard_put_raw)
-        assert not db_table_exists(cursor, plnunit_heard_put_agg)
-        assert not db_table_exists(cursor, plnptnr_heard_put_raw)
-        assert not db_table_exists(cursor, plnptnr_heard_put_agg)
+        assert not db_table_exists(cursor, prnunit_heard_put_raw)
+        assert not db_table_exists(cursor, prnunit_heard_put_agg)
+        assert not db_table_exists(cursor, prnptnr_heard_put_raw)
+        assert not db_table_exists(cursor, prnptnr_heard_put_agg)
         assert not os_path_exists(a23_json_path)
         assert not os_path_exists(a23_e1_all_lesson_path)
         assert not os_path_exists(a23_e1_expressed_lesson_path)
@@ -315,8 +315,8 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         moments_dir = create_path(mstr_dir, "moments")
         print(f"{get_level1_dirs(moments_dir)=}")
 
-        # # create planunits
-        # self.plan_tables_to_spark_plan_csvs(cursor)
+        # # create personunits
+        # self.person_tables_to_spark_person_csvs(cursor)
 
         # # create all moment_job and mandate reports
         # self.calc_moment_bud_partner_mandate_net_ledgers()
@@ -333,22 +333,22 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
         assert get_row_count(cursor, br00113_valid) == 2
         assert get_row_count(cursor, trlname_sound_raw) == 2
         assert get_row_count(cursor, momentunit_sound_raw) == 4
-        assert get_row_count(cursor, plnunit_sound_put_raw) == 4
-        assert get_row_count(cursor, plnptnr_sound_put_raw) == 2
+        assert get_row_count(cursor, prnunit_sound_put_raw) == 4
+        assert get_row_count(cursor, prnptnr_sound_put_raw) == 2
         assert get_row_count(cursor, trlname_sound_agg) == 1
         assert get_row_count(cursor, momentunit_sound_agg) == 1
-        assert get_row_count(cursor, plnunit_sound_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_sound_put_agg) == 1
+        assert get_row_count(cursor, prnunit_sound_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_sound_put_agg) == 1
         assert get_row_count(cursor, trlcore_sound_raw) == 1
         assert get_row_count(cursor, trlcore_sound_agg) == 1
         assert get_row_count(cursor, trlcore_sound_vld) == 1
         assert get_row_count(cursor, trlname_sound_vld) == 1
         assert get_row_count(cursor, momentunit_heard_raw) == 1
-        assert get_row_count(cursor, plnunit_heard_put_raw) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_raw) == 1
+        assert get_row_count(cursor, prnunit_heard_put_raw) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_raw) == 1
         assert get_row_count(cursor, momentunit_heard_vld) == 1
-        assert get_row_count(cursor, plnunit_heard_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_agg) == 1
+        assert get_row_count(cursor, prnunit_heard_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_agg) == 1
         assert os_path_exists(a23_json_path)
         assert os_path_exists(a23_e1_all_lesson_path)
         assert os_path_exists(a23_e1_expressed_lesson_path)
@@ -375,7 +375,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentT
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.tran_time,
         kw.amount,
@@ -412,7 +412,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIde
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
@@ -487,7 +487,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -513,7 +513,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
@@ -564,7 +564,7 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         kw.face_name,
         kw.spark_num,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.otx_name,
         kw.inx_name,
@@ -580,7 +580,7 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.bud_time,
         kw.quota,
         kw.celldepth,
@@ -613,16 +613,16 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         trlcore_sound_vld = prime_tbl("trlcore", "s", "vld")
         momentunit_sound_raw = prime_tbl("momentunit", "s", "raw")
         momentunit_sound_agg = prime_tbl("momentunit", "s", "agg")
-        plnunit_sound_put_raw = prime_tbl("planunit", "s", "raw", "put")
-        plnunit_sound_put_agg = prime_tbl("planunit", "s", "agg", "put")
-        plnptnr_sound_put_raw = prime_tbl("plnptnr", "s", "raw", "put")
-        plnptnr_sound_put_agg = prime_tbl("plnptnr", "s", "agg", "put")
+        prnunit_sound_put_raw = prime_tbl("personunit", "s", "raw", "put")
+        prnunit_sound_put_agg = prime_tbl("personunit", "s", "agg", "put")
+        prnptnr_sound_put_raw = prime_tbl("prnptnr", "s", "raw", "put")
+        prnptnr_sound_put_agg = prime_tbl("prnptnr", "s", "agg", "put")
         momentunit_heard_raw = prime_tbl("momentunit", "h", "raw")
         momentunit_heard_vld = prime_tbl("momentunit", "h", "vld")
-        plnunit_heard_put_raw = prime_tbl("planunit", "h", "raw", "put")
-        plnunit_heard_put_agg = prime_tbl("planunit", "h", "vld", "put")
-        plnptnr_heard_put_raw = prime_tbl("plnptnr", "h", "raw", "put")
-        plnptnr_heard_put_agg = prime_tbl("plnptnr", "h", "vld", "put")
+        prnunit_heard_put_raw = prime_tbl("personunit", "h", "raw", "put")
+        prnunit_heard_put_agg = prime_tbl("personunit", "h", "vld", "put")
+        prnptnr_heard_put_raw = prime_tbl("prnptnr", "h", "raw", "put")
+        prnptnr_heard_put_agg = prime_tbl("prnptnr", "h", "vld", "put")
 
         cursor = db_conn.cursor()
         assert get_row_count(cursor, br00113_raw) == 1
@@ -632,21 +632,21 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
         assert get_row_count(cursor, br00113_valid) == 2
         assert get_row_count(cursor, trlname_sound_raw) == 2
         assert get_row_count(cursor, momentunit_sound_raw) == 4
-        assert get_row_count(cursor, plnunit_sound_put_raw) == 4
-        assert get_row_count(cursor, plnptnr_sound_put_raw) == 2
+        assert get_row_count(cursor, prnunit_sound_put_raw) == 4
+        assert get_row_count(cursor, prnptnr_sound_put_raw) == 2
         assert get_row_count(cursor, trlname_sound_agg) == 1
         assert get_row_count(cursor, momentunit_sound_agg) == 1
-        assert get_row_count(cursor, plnunit_sound_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_sound_put_agg) == 1
+        assert get_row_count(cursor, prnunit_sound_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_sound_put_agg) == 1
         assert get_row_count(cursor, trlcore_sound_raw) == 1
         assert get_row_count(cursor, trlcore_sound_agg) == 1
         assert get_row_count(cursor, trlcore_sound_vld) == 1
         assert get_row_count(cursor, trlname_sound_vld) == 1
         assert get_row_count(cursor, momentunit_heard_raw) == 1
-        assert get_row_count(cursor, plnunit_heard_put_raw) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_raw) == 1
+        assert get_row_count(cursor, prnunit_heard_put_raw) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_raw) == 1
         assert get_row_count(cursor, momentunit_heard_vld) == 1
-        assert get_row_count(cursor, plnunit_heard_put_agg) == 1
-        assert get_row_count(cursor, plnptnr_heard_put_agg) == 1
+        assert get_row_count(cursor, prnunit_heard_put_agg) == 1
+        assert get_row_count(cursor, prnptnr_heard_put_agg) == 1
         assert get_row_count(cursor, kw.moment_ote1_agg) == 1
     db_conn.close()

@@ -5,9 +5,9 @@
     "moment_rope": { "otx_key": true  }, 
     "otx_rope"   : { "otx_key": true  }, 
     "partner_name": { "otx_key": true  }, 
-    "plan_name"  : { "otx_key": true  }, 
+    "person_name"  : { "otx_key": true  }, 
     "spark_num"  : { "otx_key": true  }
   }, 
-  "dimens": ["translate_rope", "plan_partnerunit", "planunit", "momentunit"], 
+  "dimens": ["translate_rope", "person_partnerunit", "personunit", "momentunit"], 
   "idea_number": "br00117"
 }

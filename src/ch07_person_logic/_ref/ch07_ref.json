@@ -1,0 +1,6 @@
+{
+  "chapter_blurb": "Defines a PersonUnit as a KegUnit and PartnerUnits capable of producing an agenda.", 
+  "chapter_content": "A person is a personunit, made of partners and kegs. All kegs are connected to the kegroot, which is given all the funds in a personunit.", 
+  "chapter_description": "ch07_person_logic", 
+  "chapter_number": 7
+}

@@ -1,0 +1,67 @@
+# from src.ch07_person_logic.person_tool import pass
+from src.ch07_person_logic.person_main import personunit_shop
+from src.ch08_person_atom.atom_main import personatom_shop
+from src.ch09_person_lesson.delta import get_minimal_persondelta, persondelta_shop
+from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
+
+
+def test_get_minimal_persondelta_ReturnsObjWithoutUnecessaryDELETE_person_partnerunit():
+    # ESTABLISH persondelta with 2 partnerunits, persondelta DELETE 3 persondeltas,
+    # assert persondelta has 3 atoms
+    sue_person = personunit_shop("Sue")
+    sue_person.add_partnerunit(exx.yao)
+    sue_person.add_partnerunit(exx.bob)
+
+    partners_persondelta = persondelta_shop()
+    bob_atom = personatom_shop(kw.person_partnerunit, kw.DELETE)
+    bob_atom.set_arg(kw.partner_name, exx.bob)
+    yao_atom = personatom_shop(kw.person_partnerunit, kw.DELETE)
+    yao_atom.set_arg(kw.partner_name, exx.yao)
+    zia_atom = personatom_shop(kw.person_partnerunit, kw.DELETE)
+    zia_atom.set_arg(kw.partner_name, exx.zia)
+    partners_persondelta.set_personatom(bob_atom)
+    partners_persondelta.set_personatom(yao_atom)
+    partners_persondelta.set_personatom(zia_atom)
+    assert len(partners_persondelta.get_sorted_personatoms()) == 3
+    assert len(sue_person.partners) == 2
+
+    # WHEN
+    new_persondelta = get_minimal_persondelta(partners_persondelta, sue_person)
+
+    # THEN
+    assert len(new_persondelta.get_sorted_personatoms()) == 2
+
+
+def test_sift_ReturnsObjWithoutUnecessaryDELETE_person_partner_membership():
+    # ESTABLISH persondelta with 2 partnerunits, persondelta DELETE 3 persondeltas,
+    # assert persondelta has 3 atoms
+    sue_person = personunit_shop("Sue")
+    sue_person.add_partnerunit(exx.yao)
+    sue_person.add_partnerunit(exx.bob)
+    yao_partnerunit = sue_person.get_partner(exx.yao)
+    swim_str = ";swim"
+    yao_partnerunit.add_membership(exx.run)
+    yao_partnerunit.add_membership(swim_str)
+    print(f"{yao_partnerunit.memberships.keys()=}")
+
+    partners_persondelta = persondelta_shop()
+    bob_run_atom = personatom_shop(kw.person_partner_membership, kw.DELETE)
+    bob_run_atom.set_arg(kw.partner_name, exx.bob)
+    bob_run_atom.set_arg(kw.group_title, exx.run)
+    yao_run_atom = personatom_shop(kw.person_partner_membership, kw.DELETE)
+    yao_run_atom.set_arg(kw.partner_name, exx.yao)
+    yao_run_atom.set_arg(kw.group_title, exx.run)
+    zia_run_atom = personatom_shop(kw.person_partner_membership, kw.DELETE)
+    zia_run_atom.set_arg(kw.partner_name, exx.zia)
+    zia_run_atom.set_arg(kw.group_title, exx.run)
+    partners_persondelta.set_personatom(bob_run_atom)
+    partners_persondelta.set_personatom(yao_run_atom)
+    partners_persondelta.set_personatom(zia_run_atom)
+    print(f"{len(partners_persondelta.get_dimen_sorted_personatoms_list())=}")
+    assert len(partners_persondelta.get_dimen_sorted_personatoms_list()) == 3
+
+    # WHEN
+    new_persondelta = get_minimal_persondelta(partners_persondelta, sue_person)
+
+    # THEN
+    assert len(new_persondelta.get_dimen_sorted_personatoms_list()) == 1

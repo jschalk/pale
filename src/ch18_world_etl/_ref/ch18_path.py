@@ -1,6 +1,6 @@
 from src.ch00_py.file_toolbox import create_path
-from src.ch09_plan_lesson.lasso import LassoUnit
-from src.ch18_world_etl._ref.ch18_semantic_types import PlanName
+from src.ch09_person_lesson.lasso import LassoUnit
+from src.ch18_world_etl._ref.ch18_semantic_types import PersonName
 
 
 def create_moment_mstr_path(world_dir: str) -> str:
@@ -27,10 +27,12 @@ def create_stances_dir_path(moment_mstr_dir: str) -> str:
     return create_path(moment_mstr_dir, "stances")
 
 
-def create_stances_plan_dir_path(moment_mstr_dir: str, plan_name: PlanName) -> str:
-    """Returns path: moment_mstr_dir\\stances\\plan_name"""
+def create_stances_person_dir_path(
+    moment_mstr_dir: str, person_name: PersonName
+) -> str:
+    """Returns path: moment_mstr_dir\\stances\\person_name"""
     stances_dir = create_path(moment_mstr_dir, "stances")
-    return create_path(stances_dir, plan_name)
+    return create_path(stances_dir, person_name)
 
 
 def create_stance0001_path(output_dir: str) -> str:

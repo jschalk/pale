@@ -27,7 +27,7 @@ def test_get_moment_guts_partners_dataframe_ReturnsObj(temp_dir_setup, graphics_
 
     # THEN
     partnerunit_colums = {
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.partner_cred_lumen,
         kw.partner_debt_lumen,
@@ -69,7 +69,7 @@ def test_get_moment_jobs_partners_dataframe_ReturnsObj(temp_dir_setup, graphics_
 
     # THEN
     partnerunit_colums = {
-        kw.plan_name,
+        kw.person_name,
         kw.partner_name,
         kw.partner_cred_lumen,
         kw.partner_debt_lumen,
@@ -112,7 +112,7 @@ def test_get_moment_guts_agenda_dataframe_ReturnsObj(temp_dir_setup, graphics_bo
 
     # THEN
     agenda_colums = {
-        kw.plan_name,
+        kw.person_name,
         kw.fund_ratio,
         kw.keg_label,
         kw.parent_rope,
@@ -151,7 +151,7 @@ def test_get_moment_jobs_agenda_dataframe_ReturnsObj(temp_dir_setup):
 
     # THEN
     agenda_colums = {
-        kw.plan_name,
+        kw.person_name,
         kw.fund_ratio,
         kw.keg_label,
         kw.parent_rope,

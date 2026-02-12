@@ -1,4 +1,4 @@
-from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch07_person_logic.person_main import personunit_shop
 from src.ch12_keep.rivercycle import get_doctorledger
 from src.ch12_keep.riverrun import riverrun_shop
 from src.ch12_keep.test._util.ch12_env import get_temp_dir
@@ -213,11 +213,11 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioY():
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
-    bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_partnerunit(exx.bob, 2, bob_need_yield)
-    bob_plan.add_partnerunit(exx.sue, 2, sue_need_yield)
-    bob_plan.add_partnerunit(exx.yao, 2, yao_need_yield)
-    bob_doctorledger = get_doctorledger(bob_plan)
+    bob_person = personunit_shop(exx.bob)
+    bob_person.add_partnerunit(exx.bob, 2, bob_need_yield)
+    bob_person.add_partnerunit(exx.sue, 2, sue_need_yield)
+    bob_person.add_partnerunit(exx.yao, 2, yao_need_yield)
+    bob_doctorledger = get_doctorledger(bob_person)
     bob_riverrun.set_need_dues(bob_doctorledger)
     assert bob_riverrun.get_partner_need_due(exx.bob) == 380
     assert bob_riverrun.get_partner_need_yield(exx.bob) == 0

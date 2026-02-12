@@ -1,7 +1,7 @@
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import db_table_exists, get_db_tables, get_row_count
 from src.ch18_world_etl.etl_sqlstr import (
-    CREATE_JOB_PLNKEGG_SQLSTR,
+    CREATE_JOB_PRNKEGG_SQLSTR,
     CREATE_MOMENT_PARTNER_NETS_SQLSTR,
     create_prime_tablename,
 )
@@ -16,20 +16,20 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario0_WithDefaultBundleID():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
+        cursor.execute(CREATE_JOB_PRNKEGG_SQLSTR)
         cursor.execute(CREATE_MOMENT_PARTNER_NETS_SQLSTR)
         moment_partner_nets_tablename = kw.moment_partner_nets
-        plnkegg_job_tablename = create_prime_tablename("PLNKEGG", "job", None)
-        insert_sqlstr = f"""INSERT INTO {moment_partner_nets_tablename} ({kw.moment_rope}, {kw.plan_name}, {kw.plan_net_amount})
+        prnkegg_job_tablename = create_prime_tablename("PRNKEGG", "job", None)
+        insert_sqlstr = f"""INSERT INTO {moment_partner_nets_tablename} ({kw.moment_rope}, {kw.person_name}, {kw.person_net_amount})
 VALUES
   ('{exx.a23}', '{exx.bob}', {bob_partner_net})
 , ('{exx.a23}', '{exx.yao}', {yao_partner_net})
 """
         cursor.execute(insert_sqlstr)
-        assert db_table_exists(cursor, plnkegg_job_tablename)
+        assert db_table_exists(cursor, prnkegg_job_tablename)
         assert get_row_count(cursor, moment_partner_nets_tablename) == 2
         moment_kpi001_tablename = kw.moment_kpi001_partner_nets
-        moment_kpi002_tablename = kw.moment_kpi002_plan_pledges
+        moment_kpi002_tablename = kw.moment_kpi002_person_pledges
         assert not db_table_exists(cursor, moment_kpi001_tablename)
         assert not db_table_exists(cursor, moment_kpi002_tablename)
 
@@ -43,9 +43,9 @@ VALUES
         assert get_row_count(cursor, moment_kpi002_tablename) == 0
         assert set(get_db_tables(db_conn).keys()) == {
             kw.moment_kpi001_partner_nets,
-            kw.moment_kpi002_plan_pledges,
+            kw.moment_kpi002_person_pledges,
             moment_partner_nets_tablename,
-            plnkegg_job_tablename,
+            prnkegg_job_tablename,
         }
 
 
@@ -56,10 +56,10 @@ def test_populate_kpi_bundle_PopulatesTable_Scenario1_WithNoBundleID():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_JOB_PLNKEGG_SQLSTR)
+        cursor.execute(CREATE_JOB_PRNKEGG_SQLSTR)
         cursor.execute(CREATE_MOMENT_PARTNER_NETS_SQLSTR)
         moment_partner_nets_tablename = kw.moment_partner_nets
-        insert_sqlstr = f"""INSERT INTO {moment_partner_nets_tablename} ({kw.moment_rope}, {kw.plan_name}, {kw.plan_net_amount})
+        insert_sqlstr = f"""INSERT INTO {moment_partner_nets_tablename} ({kw.moment_rope}, {kw.person_name}, {kw.person_net_amount})
 VALUES
   ('{exx.a23}', '{exx.bob}', {bob_partner_net})
 , ('{exx.a23}', '{exx.yao}', {yao_partner_net})
@@ -74,10 +74,10 @@ VALUES
 
         # THEN
         assert get_row_count(cursor, moment_kpi001_partner_nets_tablename) == 2
-        plnkegg_job_tablename = create_prime_tablename("PLNKEGG", "job", None)
+        prnkegg_job_tablename = create_prime_tablename("PRNKEGG", "job", None)
         assert set(get_db_tables(db_conn).keys()) == {
             kw.moment_kpi001_partner_nets,
-            kw.moment_kpi002_plan_pledges,
+            kw.moment_kpi002_person_pledges,
             moment_partner_nets_tablename,
-            plnkegg_job_tablename,
+            prnkegg_job_tablename,
         }

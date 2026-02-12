@@ -1,0 +1,85 @@
+from src.ch24_person_viewer.person_viewer_app import get_person_viewer_template
+from src.ref.keywords import Ch24Keywords as kw
+
+
+def test_get_person_viewer_template_ReturnsObj():
+    # ESTABLISH / WHEN
+    template_str = get_person_viewer_template()
+
+    # THEN
+    assert template_str
+    expected_strs_in_template = {
+        kw.keg_active_hx,
+        kw.keg_active,
+        kw.all_partner_cred,
+        kw.all_partner_debt,
+        kw.awardheirs,
+        kw.awardlines,
+        kw.task,
+        kw.descendant_pledge_count,
+        kw.factheirs,
+        kw.fund_cease,
+        kw.fund_onset,
+        kw.fund_ratio,
+        kw.gogo_calc,
+        # kw.healerunit_ratio,
+        # kw.is_expanded,
+        kw.laborheir,
+        # kw.tree_level,
+        # kw.range_evaluated,
+        kw.reasonheirs,
+        kw.stop_calc,
+        kw.keg_uid,
+        kw.addin,
+        kw.awardunits,
+        kw.begin,
+        kw.moment_rope,
+        kw.close,
+        kw.denom,
+        kw.factunits,
+        kw.fund_grain,
+        kw.keg_fund_total,
+        kw.gogo_want,
+        # kw.healerunit,
+        # kw.knot,
+        kw.laborunit,
+        kw.morph,
+        kw.numor,
+        kw.parent_rope,
+        kw.partners,
+        kw.keg_label,
+        kw.kegroot,
+        # kw.problem_bool,
+        kw.reasonunits,
+        kw.star,
+        kw.stop_want,
+        kw.pledge,
+        kw.partner_cred_lumen,
+        kw.partner_debt_lumen,
+        # f"partner{kw.memberships}",
+        f"partner_{kw.credor_pool}",
+        f"partner_{kw.debtor_pool}",
+        f"partner_{kw.irrational_partner_debt_lumen}",
+        f"partner_{kw.inallocable_partner_debt_lumen}",
+        f"partner_{kw.fund_give}",
+        f"partner_{kw.fund_take}",
+        f"partner_{kw.fund_agenda_give}",
+        f"partner_{kw.fund_agenda_take}",
+        f"partner_{kw.fund_agenda_ratio_give}",
+        f"partner_{kw.fund_agenda_ratio_take}",
+        f"partner_membership_{kw.group_title}",
+        f"partner_membership_{kw.group_cred_lumen}",
+        f"partner_membership_{kw.group_debt_lumen}",
+        f"partner_membership_{kw.credor_pool}",
+        f"partner_membership_{kw.debtor_pool}",
+        f"partner_membership_{kw.fund_agenda_give}",
+        f"partner_membership_{kw.fund_agenda_ratio_give}",
+        f"partner_membership_{kw.fund_agenda_ratio_take}",
+        f"partner_membership_{kw.fund_agenda_take}",
+        f"partner_membership_{kw.fund_give}",
+        f"partner_membership_{kw.fund_take}",
+    }
+
+    for expected_str in sorted(list(expected_strs_in_template)):
+        print(f"{expected_str=}")
+        assert template_str.find(expected_str) > 0

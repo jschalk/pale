@@ -7,12 +7,12 @@ from src.ch00_py.dict_toolbox import (
 from src.ch04_rope.rope import is_sub_rope
 from src.ch05_reason.reason_main import CaseUnit, FactUnit, ReasonUnit
 from src.ch06_keg.keg import KegUnit
-from src.ch07_plan_logic.plan_main import PlanUnit
-from src.ch07_plan_logic.plan_tool import (
-    add_frame_to_planunit,
-    plan_keg_reason_caseunit_set_obj,
-    plan_kegunit_exists,
-    plan_kegunit_get_obj,
+from src.ch07_person_logic.person_main import PersonUnit
+from src.ch07_person_logic.person_tool import (
+    add_frame_to_personunit,
+    person_keg_reason_caseunit_set_obj,
+    person_kegunit_exists,
+    person_kegunit_get_obj,
 )
 from src.ch13_time._ref.ch13_semantic_types import LabelTerm, RopeTerm, TimeNum
 from src.ch13_time.epoch_main import (
@@ -34,7 +34,7 @@ def calculate_days_upper_day_min(
 
 
 def set_epoch_base_case_dayly(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     dayly_lower_min: int,
@@ -42,12 +42,12 @@ def set_epoch_base_case_dayly(
 ):
     """Given an epoch_label set reason for a keg that would make it a dayly occurance
     Example:
-    Given: sue_planunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=600, duration=90
+    Given: sue_personunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=600, duration=90
     Add a reason to mop_keg that indicates it's to be active between 10am and 11:30am in lizzy9 epoch
     """
     if dayly_lower_min and dayly_duration_min:
-        day_rope = get_day_rope(x_plan, epoch_label)
-        day_keg = x_plan.get_keg_obj(day_rope)
+        day_rope = get_day_rope(x_person, epoch_label)
+        day_keg = x_person.get_keg_obj(day_rope)
         calc_dayly_lower_min = calculate_dayly_lower_min(dayly_lower_min, day_keg.denom)
         calc_days_upper_day_min = calculate_days_upper_day_min(
             dayly_lower_min, dayly_duration_min, day_keg.denom
@@ -59,11 +59,11 @@ def set_epoch_base_case_dayly(
             "reason_lower": calc_dayly_lower_min,
             "reason_upper": calc_days_upper_day_min,
         }
-        plan_keg_reason_caseunit_set_obj(x_plan, case_args)
+        person_keg_reason_caseunit_set_obj(x_person, case_args)
 
 
 def set_epoch_base_case_weekly(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     weekly_lower_min: int,
@@ -71,12 +71,12 @@ def set_epoch_base_case_weekly(
 ):
     """Given an epoch_label set reason for a keg that would make it a weekly occurance
     Example:
-    Given: sue_planunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=600, duration=90
+    Given: sue_personunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=600, duration=90
     Add a reason to mop_keg that indicates it's to be active between minute 600 and minute 690 of the week
     """
     if weekly_lower_min and weekly_duration_min:
-        week_rope = get_week_rope(x_plan, epoch_label)
-        week_keg = x_plan.get_keg_obj(week_rope)
+        week_rope = get_week_rope(x_person, epoch_label)
+        week_keg = x_person.get_keg_obj(week_rope)
 
         case_args = {
             "keg_rope": keg_rope,
@@ -85,11 +85,11 @@ def set_epoch_base_case_weekly(
             "reason_lower": weekly_lower_min,
             "reason_upper": (weekly_lower_min + weekly_duration_min) % week_keg.denom,
         }
-        plan_keg_reason_caseunit_set_obj(x_plan, case_args)
+        person_keg_reason_caseunit_set_obj(x_person, case_args)
 
 
 def set_epoch_base_case_range(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     range_lower_min: int,
@@ -97,13 +97,13 @@ def set_epoch_base_case_range(
 ):
     """Given an epoch_label set reason for a keg that would make it a weekly occurance
     Example:
-    Given: sue_planunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=600, duration=90
+    Given: sue_personunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=600, duration=90
     Add a reason to mop_keg that indicates it's to be active between minute 600 and minute 690 of the week
     """
     if range_lower_min and range_duration_min:
-        time_rope = x_plan.make_l1_rope("time")
-        epoch_rope = x_plan.make_rope(time_rope, epoch_label)
-        epoch_keg = x_plan.get_keg_obj(epoch_rope)
+        time_rope = x_person.make_l1_rope("time")
+        epoch_rope = x_person.make_rope(time_rope, epoch_label)
+        epoch_keg = x_person.get_keg_obj(epoch_rope)
 
         case_args = {
             "keg_rope": keg_rope,
@@ -113,11 +113,11 @@ def set_epoch_base_case_range(
             "reason_upper": (range_lower_min + range_duration_min) % epoch_keg.close,
             "reason_divisor": epoch_keg.close,
         }
-        plan_keg_reason_caseunit_set_obj(x_plan, case_args)
+        person_keg_reason_caseunit_set_obj(x_person, case_args)
 
 
 def set_epoch_base_case_xweeks(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     weeks_lower_week: int,
@@ -125,9 +125,9 @@ def set_epoch_base_case_xweeks(
     every_xweeks: int,
 ):
     if weeks_lower_week and weeks_upper_week and every_xweeks:
-        time_rope = x_plan.make_l1_rope("time")
-        epoch_rope = x_plan.make_rope(time_rope, epoch_label)
-        weeks_rope = x_plan.make_rope(epoch_rope, "weeks")
+        time_rope = x_person.make_l1_rope("time")
+        epoch_rope = x_person.make_rope(time_rope, epoch_label)
+        weeks_rope = x_person.make_rope(epoch_rope, "weeks")
 
         case_args = {
             "keg_rope": keg_rope,
@@ -137,11 +137,11 @@ def set_epoch_base_case_xweeks(
             "reason_upper": weeks_upper_week % every_xweeks,
             "reason_divisor": every_xweeks,
         }
-        plan_keg_reason_caseunit_set_obj(x_plan, case_args)
+        person_keg_reason_caseunit_set_obj(x_person, case_args)
 
 
 def set_epoch_base_case_xdays(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     days_lower_day: int,
@@ -150,15 +150,15 @@ def set_epoch_base_case_xdays(
 ):
     """Given an epoch_label set reason for a keg that would make it a occurance across entire week(s)
     Example:
-    Given: sue_planunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, every_xdays=5, days_duration=3
+    Given: sue_personunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, every_xdays=5, days_duration=3
     Add a reason to mop_keg that indicates it's to be active between every 5 days for a length of 3 days
     """
     if days_lower_day and days_upper_day and every_xdays:
-        time_rope = x_plan.make_l1_rope("time")
-        epoch_rope = x_plan.make_rope(time_rope, epoch_label)
-        days_rope = x_plan.make_rope(epoch_rope, "days")
-        epoch_keg = x_plan.get_keg_obj(epoch_rope)
-        days_keg = x_plan.get_keg_obj(days_rope)
+        time_rope = x_person.make_l1_rope("time")
+        epoch_rope = x_person.make_rope(time_rope, epoch_label)
+        days_rope = x_person.make_rope(epoch_rope, "days")
+        epoch_keg = x_person.get_keg_obj(epoch_rope)
+        days_keg = x_person.get_keg_obj(days_rope)
 
         case_args = {
             "keg_rope": keg_rope,
@@ -168,21 +168,21 @@ def set_epoch_base_case_xdays(
             "reason_upper": days_upper_day % every_xdays,
             "reason_divisor": every_xdays,
         }
-        plan_keg_reason_caseunit_set_obj(x_plan, case_args)
+        person_keg_reason_caseunit_set_obj(x_person, case_args)
 
 
 def set_epoch_base_case_monthly(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     monthly_monthday_lower: int,
     monthly_duration_days: int,
 ):
     if monthly_monthday_lower and monthly_duration_days:
-        year_rope = get_year_rope(x_plan, epoch_label)
-        year_keg = x_plan.get_keg_obj(year_rope)
+        year_rope = get_year_rope(x_person, epoch_label)
+        year_keg = x_person.get_keg_obj(year_rope)
         for month_label, month_keg in year_keg.kids.items():
-            month_rope = x_plan.make_rope(year_rope, month_label)
+            month_rope = x_person.make_rope(year_rope, month_label)
             year_lower_min, year_upper_min = get_calc_year_lower_upper(
                 month_keg,
                 monthly_monthday_lower,
@@ -198,7 +198,7 @@ def set_epoch_base_case_monthly(
                     "reason_lower": year_lower_min,
                     "reason_upper": year_upper_min,
                 }
-                plan_keg_reason_caseunit_set_obj(x_plan, case_args)
+                person_keg_reason_caseunit_set_obj(x_person, case_args)
 
 
 def get_calc_year_lower_upper(
@@ -223,7 +223,7 @@ def get_calc_year_lower_upper(
 
 
 def set_epoch_base_case_monthday(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     month_label: LabelTerm,
@@ -233,15 +233,15 @@ def set_epoch_base_case_monthday(
 ):
     """Given an epoch_label set reason for a keg that would make it a occurance across entire week(s)
     Example:
-    Given: sue_planunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, every_xdays=5, days_duration=3
+    Given: sue_personunit, keg_rope=;amy23;casa;mop;, epoch_label=lizzy9, every_xdays=5, days_duration=3
     Add a reason to mop_keg that indicates it's to be active between every 5 days for a length of 3 days
     """
     if month_label and year_monthday_lower and year_monthday_duration_days:
         range_must_be_within_month = get_False_if_None(range_must_be_within_month)
-        year_rope = get_year_rope(x_plan, epoch_label)
-        month_rope = x_plan.make_rope(year_rope, month_label)
-        month_keg = x_plan.get_keg_obj(month_rope)
-        year_keg = x_plan.get_keg_obj(year_rope)
+        year_rope = get_year_rope(x_person, epoch_label)
+        month_rope = x_person.make_rope(year_rope, month_label)
+        month_keg = x_person.get_keg_obj(month_rope)
+        year_keg = x_person.get_keg_obj(year_rope)
         year_lower_min, year_upper_min = get_calc_year_lower_upper(
             month_keg,
             year_monthday_lower,
@@ -259,11 +259,11 @@ def set_epoch_base_case_monthday(
             "reason_lower": year_lower_min,
             "reason_upper": year_upper_min,
         }
-        plan_keg_reason_caseunit_set_obj(x_plan, case_args)
+        person_keg_reason_caseunit_set_obj(x_person, case_args)
 
 
 def set_epoch_cases_for_dayly(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     dayly_lower_min: int,
@@ -275,18 +275,18 @@ def set_epoch_cases_for_dayly(
     range_duration: int = None,
 ):
     set_epoch_base_case_dayly(
-        x_plan, keg_rope, epoch_label, dayly_lower_min, dayly_duration_min
+        x_person, keg_rope, epoch_label, dayly_lower_min, dayly_duration_min
     )
     set_epoch_base_case_xdays(
-        x_plan, keg_rope, epoch_label, days_lower_day, days_upper_day, every_xdays
+        x_person, keg_rope, epoch_label, days_lower_day, days_upper_day, every_xdays
     )
     set_epoch_base_case_range(
-        x_plan, keg_rope, epoch_label, range_lower_min, range_duration
+        x_person, keg_rope, epoch_label, range_lower_min, range_duration
     )
 
 
 def set_epoch_cases_for_weekly(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     weekly_lower_min: int,
@@ -298,14 +298,14 @@ def set_epoch_cases_for_weekly(
     range_duration: int = None,
 ):
     set_epoch_base_case_weekly(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=keg_rope,
         epoch_label=epoch_label,
         weekly_lower_min=weekly_lower_min,
         weekly_duration_min=weekly_duration_min,
     )
     set_epoch_base_case_xweeks(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=keg_rope,
         epoch_label=epoch_label,
         weeks_lower_week=weeks_lower_week,
@@ -313,12 +313,12 @@ def set_epoch_cases_for_weekly(
         every_xweeks=every_xweeks,
     )
     set_epoch_base_case_range(
-        x_plan, keg_rope, epoch_label, range_lower_min, range_duration
+        x_person, keg_rope, epoch_label, range_lower_min, range_duration
     )
 
 
 def set_epoch_cases_for_yearly_monthday(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     dayly_lower_min: int,
@@ -330,18 +330,18 @@ def set_epoch_cases_for_yearly_monthday(
     range_duration: int = None,
 ):
     set_epoch_base_case_dayly(
-        x_plan, keg_rope, epoch_label, dayly_lower_min, dayly_duration_min
+        x_person, keg_rope, epoch_label, dayly_lower_min, dayly_duration_min
     )
     set_epoch_base_case_monthday(
-        x_plan, keg_rope, epoch_label, month_label, monthday, length_days
+        x_person, keg_rope, epoch_label, month_label, monthday, length_days
     )
     set_epoch_base_case_range(
-        x_plan, keg_rope, epoch_label, range_lower_min, range_duration
+        x_person, keg_rope, epoch_label, range_lower_min, range_duration
     )
 
 
 def set_epoch_cases_for_monthly(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     keg_rope: RopeTerm,
     epoch_label: LabelTerm,
     dayly_lower_min: int,
@@ -351,30 +351,30 @@ def set_epoch_cases_for_monthly(
     range_lower_min: int = None,
     range_duration: int = None,
 ):
-    set_epoch_base_case_monthly(x_plan, keg_rope, epoch_label, monthday, length_days)
+    set_epoch_base_case_monthly(x_person, keg_rope, epoch_label, monthday, length_days)
     set_epoch_base_case_dayly(
-        x_plan, keg_rope, epoch_label, dayly_lower_min, dayly_duration_min
+        x_person, keg_rope, epoch_label, dayly_lower_min, dayly_duration_min
     )
     set_epoch_base_case_range(
-        x_plan, keg_rope, epoch_label, range_lower_min, range_duration
+        x_person, keg_rope, epoch_label, range_lower_min, range_duration
     )
 
 
 def set_epoch_cases_by_args_dict(
-    x_plan: PlanUnit,
+    x_person: PersonUnit,
     epoch_cases_args: dict[str],
 ):
     x_keg_rope = epoch_cases_args.get("keg_rope")
     x_epoch_label = epoch_cases_args.get("epoch_label")
     set_epoch_base_case_dayly(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=x_keg_rope,
         epoch_label=x_epoch_label,
         dayly_lower_min=epoch_cases_args.get("dayly_lower_min"),
         dayly_duration_min=epoch_cases_args.get("dayly_duration_min"),
     )
     set_epoch_base_case_xdays(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=x_keg_rope,
         epoch_label=x_epoch_label,
         days_lower_day=epoch_cases_args.get("days_lower_day"),
@@ -382,14 +382,14 @@ def set_epoch_cases_by_args_dict(
         every_xdays=epoch_cases_args.get("every_xdays"),
     )
     set_epoch_base_case_weekly(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=x_keg_rope,
         epoch_label=x_epoch_label,
         weekly_lower_min=epoch_cases_args.get("weekly_lower_min"),
         weekly_duration_min=epoch_cases_args.get("weekly_duration_min"),
     )
     set_epoch_base_case_xweeks(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=x_keg_rope,
         epoch_label=x_epoch_label,
         weeks_lower_week=epoch_cases_args.get("weeks_lower_week"),
@@ -397,7 +397,7 @@ def set_epoch_cases_by_args_dict(
         every_xweeks=epoch_cases_args.get("every_xweeks"),
     )
     set_epoch_base_case_monthday(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=x_keg_rope,
         epoch_label=x_epoch_label,
         month_label=epoch_cases_args.get("month_label"),
@@ -405,14 +405,14 @@ def set_epoch_cases_by_args_dict(
         year_monthday_duration_days=epoch_cases_args.get("year_monthday_duration_days"),
     )
     set_epoch_base_case_monthly(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=x_keg_rope,
         epoch_label=x_epoch_label,
         monthly_monthday_lower=epoch_cases_args.get("monthly_monthday_lower"),
         monthly_duration_days=epoch_cases_args.get("monthly_duration_days"),
     )
     set_epoch_base_case_range(
-        x_plan=x_plan,
+        x_person=x_person,
         keg_rope=x_keg_rope,
         epoch_label=x_epoch_label,
         range_lower_min=epoch_cases_args.get("range_lower_min"),
@@ -420,9 +420,9 @@ def set_epoch_cases_by_args_dict(
     )
 
 
-def add_epoch_frame_to_planunit(
-    x_plan: PlanUnit, epoch_label: LabelTerm, epoch_frame_min: int
+def add_epoch_frame_to_personunit(
+    x_person: PersonUnit, epoch_label: LabelTerm, epoch_frame_min: int
 ):
-    root_keg_label = x_plan.kegroot.keg_label
-    epoch_rope = get_epoch_rope(root_keg_label, epoch_label, x_plan.knot)
-    add_frame_to_planunit(x_plan, epoch_frame_min, epoch_rope)
+    root_keg_label = x_person.kegroot.keg_label
+    epoch_rope = get_epoch_rope(root_keg_label, epoch_label, x_person.knot)
+    add_frame_to_personunit(x_person, epoch_frame_min, epoch_rope)

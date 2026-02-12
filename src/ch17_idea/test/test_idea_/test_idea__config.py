@@ -1,15 +1,15 @@
 from copy import copy as copy_copy
 from os import getcwd as os_getcwd
 from src.ch00_py.file_toolbox import create_path, save_json
-from src.ch07_plan_logic.plan_config import (
-    get_all_plan_calc_args,
-    get_plan_calc_args_sqlite_datatype_dict,
+from src.ch07_person_logic.person_config import (
+    get_all_person_calc_args,
+    get_person_calc_args_sqlite_datatype_dict,
 )
-from src.ch08_plan_atom.atom_config import (
-    get_all_plan_dimen_delete_keys,
+from src.ch08_person_atom.atom_config import (
+    get_all_person_dimen_delete_keys,
     get_atom_args_dimen_mapping,
     get_atom_config_dict,
-    get_plan_dimens,
+    get_person_dimens,
 )
 from src.ch14_moment.moment_config import (
     get_moment_args_dimen_mapping,
@@ -43,8 +43,8 @@ from src.ch17_idea.idea_config import (
     get_quick_ideas_column_ref,
     idea_config_path,
     idea_format_00013_kegunit_v0_0_0,
-    idea_format_00020_plan_partner_membership_v0_0_0,
-    idea_format_00021_plan_partnerunit_v0_0_0,
+    idea_format_00020_person_partner_membership_v0_0_0,
+    idea_format_00021_person_partnerunit_v0_0_0,
 )
 from src.ref.keywords import Ch17Keywords as kw
 
@@ -66,21 +66,21 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     # print(f"{moment_args=}")
     # print(f"{translate_args.difference(set(table_sorting_priority))=}")
     assert translate_args.issubset(set(table_sorting_priority))
-    all_plan_dimen_delete_keys = get_all_plan_dimen_delete_keys()
-    # print(f"missing {all_plan_dimen_delete_keys.difference(table_sorting_priority)}")
-    assert all_plan_dimen_delete_keys.issubset(table_sorting_priority)
-    plan_calc_args = set(get_all_plan_calc_args().keys())
-    # for plan_calc_arg in plan_calc_args.difference(table_sorting_priority):
-    #     print(f"{plan_calc_arg=}")
-    # print(f"{plan_calc_args.difference(table_sorting_priority)=}")
-    assert plan_calc_args.issubset(table_sorting_priority)
+    all_person_dimen_delete_keys = get_all_person_dimen_delete_keys()
+    # print(f"missing {all_person_dimen_delete_keys.difference(table_sorting_priority)}")
+    assert all_person_dimen_delete_keys.issubset(table_sorting_priority)
+    person_calc_args = set(get_all_person_calc_args().keys())
+    # for person_calc_arg in person_calc_args.difference(table_sorting_priority):
+    #     print(f"{person_calc_arg=}")
+    # print(f"{person_calc_args.difference(table_sorting_priority)=}")
+    assert person_calc_args.issubset(table_sorting_priority)
     translateable_otx_cols = {f"{trl_arg}_otx" for trl_arg in get_translateable_args()}
     translateable_inx_cols = {f"{trl_arg}_inx" for trl_arg in get_translateable_args()}
     # print(f"{translateable_otx_cols=}")
     # print(f"{translateable_inx_cols=}")
     assert translateable_otx_cols.issubset(table_sorting_priority)
     assert translateable_inx_cols.issubset(table_sorting_priority)
-    x_delete_keys = all_plan_dimen_delete_keys
+    x_delete_keys = all_person_dimen_delete_keys
     translateable_delete_otx_cols = {f"{trl_arg}_otx" for trl_arg in x_delete_keys}
     translateable_delete_inx_cols = {f"{trl_arg}_inx" for trl_arg in x_delete_keys}
     # print(f"{translateable_delete_otx_cols=}")
@@ -125,12 +125,12 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[29] == kw.weekday_label
     assert table_sorting_priority[30] == f"{kw.weekday_label}_otx"
     assert table_sorting_priority[31] == f"{kw.weekday_label}_inx"
-    assert table_sorting_priority[32] == kw.plan_name
-    assert table_sorting_priority[33] == f"{kw.plan_name}_otx"
-    assert table_sorting_priority[34] == f"{kw.plan_name}_inx"
-    assert table_sorting_priority[35] == f"{kw.plan_name}_ERASE"
-    assert table_sorting_priority[36] == f"{kw.plan_name}_ERASE_otx"
-    assert table_sorting_priority[37] == f"{kw.plan_name}_ERASE_inx"
+    assert table_sorting_priority[32] == kw.person_name
+    assert table_sorting_priority[33] == f"{kw.person_name}_otx"
+    assert table_sorting_priority[34] == f"{kw.person_name}_inx"
+    assert table_sorting_priority[35] == f"{kw.person_name}_ERASE"
+    assert table_sorting_priority[36] == f"{kw.person_name}_ERASE_otx"
+    assert table_sorting_priority[37] == f"{kw.person_name}_ERASE_inx"
     assert table_sorting_priority[38] == kw.partner_name
     assert table_sorting_priority[39] == f"{kw.partner_name}_otx"
     assert table_sorting_priority[40] == f"{kw.partner_name}_inx"
@@ -253,7 +253,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[157] == kw.celldepth
     assert table_sorting_priority[158] == kw.job_listen_rotations
     assert table_sorting_priority[159] == kw.error_message
-    assert table_sorting_priority[160] == kw.plan_name_is_labor
+    assert table_sorting_priority[160] == kw.person_name_is_labor
     assert table_sorting_priority[161] == kw.keg_active
     assert table_sorting_priority[162] == kw.task
     assert table_sorting_priority[163] == kw.reason_active
@@ -296,10 +296,10 @@ def test_get_idea_elements_sort_order_ReturnsObj():
 
     assert len(table_sorting_priority) == 200
     all_args = copy_copy(atom_args)
-    all_args.update(all_plan_dimen_delete_keys)
+    all_args.update(all_person_dimen_delete_keys)
     all_args.update(moment_args)
     all_args.update(translate_args)
-    all_args.update(plan_calc_args)
+    all_args.update(person_calc_args)
     all_args.update(nabu_args)
     all_args.update(translateable_otx_cols)
     all_args.update(translateable_inx_cols)
@@ -346,7 +346,7 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert sqlite_types.get(kw.translate_spark_num) == "INTEGER"
     assert sqlite_types.get(kw.spark_num) == "INTEGER"
     assert sqlite_types.get(kw.moment_rope) == "TEXT"
-    assert sqlite_types.get(kw.plan_name) == "TEXT"
+    assert sqlite_types.get(kw.person_name) == "TEXT"
     assert sqlite_types.get(kw.partner_name) == "TEXT"
     assert sqlite_types.get(kw.group_title) == "TEXT"
     assert sqlite_types.get(kw.keg_rope) == "TEXT"
@@ -411,7 +411,7 @@ def test_get_idea_sqlite_types_ReturnsObj():
     assert sqlite_types.get(kw.inx_epoch_diff) == "INTEGER"
 
     # sourcery skip: no-loop-in-tests
-    for x_arg, datatype in get_plan_calc_args_sqlite_datatype_dict().items():
+    for x_arg, datatype in get_person_calc_args_sqlite_datatype_dict().items():
         print(f"{x_arg=} {datatype=} {sqlite_types.get(x_arg)=}")
         assert sqlite_types.get(x_arg) == datatype
 
@@ -454,26 +454,26 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
     assert kw.moment_epoch_month in idea_config_dimens
     assert kw.moment_epoch_weekday in idea_config_dimens
     assert kw.moment_timeoffi in idea_config_dimens
-    assert kw.plan_partner_membership in idea_config_dimens
-    assert kw.plan_partnerunit in idea_config_dimens
-    assert kw.plan_keg_awardunit in idea_config_dimens
-    assert kw.plan_keg_factunit in idea_config_dimens
-    assert kw.plan_keg_partyunit in idea_config_dimens
-    assert kw.plan_keg_healerunit in idea_config_dimens
-    assert kw.plan_keg_reason_caseunit in idea_config_dimens
-    assert kw.plan_keg_reasonunit in idea_config_dimens
-    assert kw.plan_kegunit in idea_config_dimens
-    assert kw.planunit in idea_config_dimens
+    assert kw.person_partner_membership in idea_config_dimens
+    assert kw.person_partnerunit in idea_config_dimens
+    assert kw.person_keg_awardunit in idea_config_dimens
+    assert kw.person_keg_factunit in idea_config_dimens
+    assert kw.person_keg_partyunit in idea_config_dimens
+    assert kw.person_keg_healerunit in idea_config_dimens
+    assert kw.person_keg_reason_caseunit in idea_config_dimens
+    assert kw.person_keg_reasonunit in idea_config_dimens
+    assert kw.person_kegunit in idea_config_dimens
+    assert kw.personunit in idea_config_dimens
     assert kw.nabu_timenum in idea_config_dimens
     assert kw.translate_name in idea_config_dimens
     assert kw.translate_title in idea_config_dimens
     assert kw.translate_label in idea_config_dimens
     assert kw.translate_rope in idea_config_dimens
-    assert get_plan_dimens().issubset(idea_config_dimens)
+    assert get_person_dimens().issubset(idea_config_dimens)
     assert get_moment_dimens().issubset(idea_config_dimens)
     assert get_nabu_dimens().issubset(idea_config_dimens)
     assert get_translate_dimens().issubset(idea_config_dimens)
-    gen_all_dimens = get_plan_dimens()
+    gen_all_dimens = get_person_dimens()
     gen_all_dimens.update(get_moment_dimens())
     gen_all_dimens.update(get_nabu_dimens())
     gen_all_dimens.update(get_translate_dimens())
@@ -483,7 +483,7 @@ def test_get_idea_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
 
 
 def get_idea_categorys():
-    return {kw.plan, kw.moment, kw.translate, kw.nabu}
+    return {kw.person, kw.moment, kw.translate, kw.nabu}
 
 
 def _validate_idea_config(x_idea_config: dict):
@@ -503,7 +503,7 @@ def _validate_idea_config(x_idea_config: dict):
         assert idea_dict.get(kw.INSERT) is None
         assert idea_dict.get(kw.DELETE) is None
         assert idea_dict.get(kw.normal_specs) is None
-        if idea_dict.get(kw.idea_category) == kw.plan:
+        if idea_dict.get(kw.idea_category) == kw.person:
             sub_dimen = atom_config_dict.get(idea_dimen)
         elif idea_dict.get(kw.idea_category) == kw.moment:
             sub_dimen = moment_config_dict.get(idea_dimen)
@@ -559,11 +559,11 @@ def _validate_idea_config(x_idea_config: dict):
         # print(f"  {idea_jkeys_keys=}")
         assert kw.face_name in idea_jkeys_keys
         assert kw.spark_num in idea_jkeys_keys
-        if idea_dict.get(kw.idea_category) in {kw.plan, kw.moment}:
+        if idea_dict.get(kw.idea_category) in {kw.person, kw.moment}:
             assert kw.moment_rope in idea_jkeys_keys
-        if idea_dict.get(kw.idea_category) == kw.plan:
+        if idea_dict.get(kw.idea_category) == kw.person:
             idea_jkeys_keys.remove(kw.moment_rope)
-            idea_jkeys_keys.remove(kw.plan_name)
+            idea_jkeys_keys.remove(kw.person_name)
         idea_jkeys_keys.remove(kw.face_name)
         idea_jkeys_keys.remove(kw.spark_num)
         assertion_failure_str = f"{idea_dimen=} {sub_jkeys_keys=} {idea_jkeys_keys=}"
@@ -615,8 +615,8 @@ def test_get_idea_format_filenames_ReturnsObj():
     print(f"{len(idea_filenames_sorted)=}")
 
     # THEN
-    assert idea_format_00021_plan_partnerunit_v0_0_0() in idea_filenames_set
-    assert idea_format_00020_plan_partner_membership_v0_0_0() in idea_filenames_set
+    assert idea_format_00021_person_partnerunit_v0_0_0() in idea_filenames_set
+    assert idea_format_00020_person_partner_membership_v0_0_0() in idea_filenames_set
     assert idea_format_00013_kegunit_v0_0_0() in idea_filenames_set
 
     # WHEN / THEN
@@ -631,7 +631,7 @@ def _validate_idea_format_files(idea_filenames: set[str]):
     }
 
     valid_idea_dimens = set()
-    valid_idea_dimens.update(get_plan_dimens())
+    valid_idea_dimens.update(get_person_dimens())
     valid_idea_dimens.update(get_moment_dimens())
     valid_idea_dimens.update(get_nabu_dimens())
     valid_idea_dimens.update(get_translate_dimens())
@@ -684,7 +684,7 @@ def _validate_idea_format_files(idea_filenames: set[str]):
             idea_attrs.add(delete_attr_without_erase)
 
         for x_dimen, dimen_keys in all_dimen_keys_dict.items():
-            # if x_dimen == kw.plan_keg_factunit and x_dimen in format_dimens:
+            # if x_dimen == kw.person_keg_factunit and x_dimen in format_dimens:
             #     print(f"{idea_number_value}  {x_dimen=} {idea_attrs_list=}")
             if dimen_keys.issubset(idea_attrs):
                 if x_dimen not in format_dimens:
@@ -725,8 +725,8 @@ def test_get_idea_format_filename_ReturnsObj():
     br00013_filename = get_idea_format_filename(br00013_str)
 
     # THEN
-    assert br00021_filename == idea_format_00021_plan_partnerunit_v0_0_0()
-    assert br00020_filename == idea_format_00020_plan_partner_membership_v0_0_0()
+    assert br00021_filename == idea_format_00021_person_partnerunit_v0_0_0()
+    assert br00020_filename == idea_format_00020_person_partner_membership_v0_0_0()
     assert br00013_filename == idea_format_00013_kegunit_v0_0_0()
 
     all_set = {get_idea_format_filename(br) for br in get_idea_numbers()}
@@ -752,16 +752,16 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     # set_idea_config_json(kw.moment_epoch_hour, 6)
     # set_idea_config_json(kw.moment_epoch_month, 7)
     # set_idea_config_json(kw.moment_epoch_weekday, 8)
-    # set_idea_config_json(kw.plan_partner_membership, 9)
-    # set_idea_config_json(kw.plan_partnerunit, 10)
-    # set_idea_config_json(kw.plan_keg_awardunit, 11)
-    # set_idea_config_json(kw.plan_keg_factunit, 12)
-    # set_idea_config_json(kw.plan_keg_partyunit, 14)
-    # set_idea_config_json(kw.plan_keg_healerunit, 15)
-    # set_idea_config_json(kw.plan_keg_reason_caseunit, 16)
-    # set_idea_config_json(kw.plan_keg_reasonunit, 17)
-    # set_idea_config_json(kw.plan_kegunit, 18)
-    # set_idea_config_json(kw.planunit, 19)
+    # set_idea_config_json(kw.person_partner_membership, 9)
+    # set_idea_config_json(kw.person_partnerunit, 10)
+    # set_idea_config_json(kw.person_keg_awardunit, 11)
+    # set_idea_config_json(kw.person_keg_factunit, 12)
+    # set_idea_config_json(kw.person_keg_partyunit, 14)
+    # set_idea_config_json(kw.person_keg_healerunit, 15)
+    # set_idea_config_json(kw.person_keg_reason_caseunit, 16)
+    # set_idea_config_json(kw.person_keg_reasonunit, 17)
+    # set_idea_config_json(kw.person_kegunit, 18)
+    # set_idea_config_json(kw.personunit, 19)
     # set_idea_config_json(kw.moment_budunit, 20)
     # set_idea_config_json(kw.moment_paybook, 21)
 
@@ -777,16 +777,16 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     assert x_idea_config.get(kw.moment_epoch_hour).get(bo) == 6
     assert x_idea_config.get(kw.moment_epoch_month).get(bo) == 7
     assert x_idea_config.get(kw.moment_epoch_weekday).get(bo) == 8
-    assert x_idea_config.get(kw.plan_partner_membership).get(bo) == 9
-    assert x_idea_config.get(kw.plan_partnerunit).get(bo) == 10
-    assert x_idea_config.get(kw.plan_keg_awardunit).get(bo) == 11
-    assert x_idea_config.get(kw.plan_keg_factunit).get(bo) == 12
-    assert x_idea_config.get(kw.plan_keg_partyunit).get(bo) == 14
-    assert x_idea_config.get(kw.plan_keg_healerunit).get(bo) == 15
-    assert x_idea_config.get(kw.plan_keg_reason_caseunit).get(bo) == 16
-    assert x_idea_config.get(kw.plan_keg_reasonunit).get(bo) == 17
-    assert x_idea_config.get(kw.plan_kegunit).get(bo) == 18
-    assert x_idea_config.get(kw.planunit).get(bo) == 19
+    assert x_idea_config.get(kw.person_partner_membership).get(bo) == 9
+    assert x_idea_config.get(kw.person_partnerunit).get(bo) == 10
+    assert x_idea_config.get(kw.person_keg_awardunit).get(bo) == 11
+    assert x_idea_config.get(kw.person_keg_factunit).get(bo) == 12
+    assert x_idea_config.get(kw.person_keg_partyunit).get(bo) == 14
+    assert x_idea_config.get(kw.person_keg_healerunit).get(bo) == 15
+    assert x_idea_config.get(kw.person_keg_reason_caseunit).get(bo) == 16
+    assert x_idea_config.get(kw.person_keg_reasonunit).get(bo) == 17
+    assert x_idea_config.get(kw.person_kegunit).get(bo) == 18
+    assert x_idea_config.get(kw.personunit).get(bo) == 19
     assert x_idea_config.get(kw.moment_budunit).get(bo) == 20
     assert x_idea_config.get(kw.moment_paybook).get(bo) == 21
     assert x_idea_config.get(kw.moment_timeoffi).get(bo) == 22
@@ -802,38 +802,38 @@ def test_get_idea_config_dict_ReturnsObj_Scenario1_Check_build_order():
     print(f"{sorted(builder_order_dict.keys())=}")
 
 
-def test_get_idea_config_dict_ReturnsObj_Scenario0_Plan():
+def test_get_idea_config_dict_ReturnsObj_Scenario0_Person():
     # ESTABLISH / WHEN
-    plan_idea_config = get_idea_config_dict(kw.plan)
+    person_idea_config = get_idea_config_dict(kw.person)
 
     # THEN
-    assert not plan_idea_config.get(kw.translate_name)
-    assert not plan_idea_config.get(kw.translate_title)
-    assert not plan_idea_config.get(kw.translate_label)
-    assert not plan_idea_config.get(kw.translate_rope)
-    assert not plan_idea_config.get(kw.nabu_timenum)
-    assert not plan_idea_config.get(kw.momentunit)
-    assert not plan_idea_config.get(kw.moment_epoch_hour)
-    assert not plan_idea_config.get(kw.moment_epoch_month)
-    assert not plan_idea_config.get(kw.moment_epoch_weekday)
-    assert plan_idea_config.get(kw.plan_partner_membership)
-    assert plan_idea_config.get(kw.plan_partnerunit)
-    assert plan_idea_config.get(kw.plan_keg_awardunit)
-    assert plan_idea_config.get(kw.plan_keg_factunit)
-    assert plan_idea_config.get(kw.plan_keg_partyunit)
-    assert plan_idea_config.get(kw.plan_keg_healerunit)
-    assert plan_idea_config.get(kw.plan_keg_reason_caseunit)
-    assert plan_idea_config.get(kw.plan_keg_reasonunit)
-    assert plan_idea_config.get(kw.plan_kegunit)
-    assert plan_idea_config.get(kw.planunit)
-    assert not plan_idea_config.get(kw.moment_budunit)
-    assert not plan_idea_config.get(kw.moment_paybook)
-    assert not plan_idea_config.get(kw.moment_timeoffi)
+    assert not person_idea_config.get(kw.translate_name)
+    assert not person_idea_config.get(kw.translate_title)
+    assert not person_idea_config.get(kw.translate_label)
+    assert not person_idea_config.get(kw.translate_rope)
+    assert not person_idea_config.get(kw.nabu_timenum)
+    assert not person_idea_config.get(kw.momentunit)
+    assert not person_idea_config.get(kw.moment_epoch_hour)
+    assert not person_idea_config.get(kw.moment_epoch_month)
+    assert not person_idea_config.get(kw.moment_epoch_weekday)
+    assert person_idea_config.get(kw.person_partner_membership)
+    assert person_idea_config.get(kw.person_partnerunit)
+    assert person_idea_config.get(kw.person_keg_awardunit)
+    assert person_idea_config.get(kw.person_keg_factunit)
+    assert person_idea_config.get(kw.person_keg_partyunit)
+    assert person_idea_config.get(kw.person_keg_healerunit)
+    assert person_idea_config.get(kw.person_keg_reason_caseunit)
+    assert person_idea_config.get(kw.person_keg_reasonunit)
+    assert person_idea_config.get(kw.person_kegunit)
+    assert person_idea_config.get(kw.personunit)
+    assert not person_idea_config.get(kw.moment_budunit)
+    assert not person_idea_config.get(kw.moment_paybook)
+    assert not person_idea_config.get(kw.moment_timeoffi)
 
 
 def test_get_idea_config_dict_ReturnsObj_Scenario1_CountDimens():
     # ESTABLISH / WHEN / THEN
-    assert len(get_idea_config_dict(idea_categorys={kw.plan})) == 10
+    assert len(get_idea_config_dict(idea_categorys={kw.person})) == 10
     assert len(get_idea_config_dict(idea_categorys={kw.moment})) == 7
     assert len(get_idea_config_dict(idea_categorys={kw.nabu})) == 1
     assert len(get_idea_config_dict(idea_categorys={kw.translate})) == 4

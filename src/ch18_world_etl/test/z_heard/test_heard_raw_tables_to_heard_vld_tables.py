@@ -61,10 +61,10 @@ GROUP BY {raw_columns_str}
             assert gen_sqlstr == expected_table2table_vld_insert_sqlstr
 
 
-def test_get_insert_heard_vld_sqlstrs_ReturnsObj_PlanDimensRequired():
+def test_get_insert_heard_vld_sqlstrs_ReturnsObj_PersonDimensRequired():
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
-    plan_dimens_config = get_idea_config_dict({kw.plan})
+    person_dimens_config = get_idea_config_dict({kw.person})
 
     # WHEN
     insert_heard_vld_sqlstrs = get_insert_heard_vld_sqlstrs()
@@ -74,12 +74,12 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_PlanDimensRequired():
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
 
-        for plan_dimen in plan_dimens_config:
-            # print(f"{plan_dimen=}")
-            h_raw_put_tablename = prime_tbl(plan_dimen, "h", "raw", "put")
-            h_raw_del_tablename = prime_tbl(plan_dimen, "h", "raw", "del")
-            h_vld_put_tablename = prime_tbl(plan_dimen, "h", "vld", "put")
-            h_vld_del_tablename = prime_tbl(plan_dimen, "h", "vld", "del")
+        for person_dimen in person_dimens_config:
+            # print(f"{person_dimen=}")
+            h_raw_put_tablename = prime_tbl(person_dimen, "h", "raw", "put")
+            h_raw_del_tablename = prime_tbl(person_dimen, "h", "raw", "del")
+            h_vld_put_tablename = prime_tbl(person_dimen, "h", "vld", "put")
+            h_vld_del_tablename = prime_tbl(person_dimen, "h", "vld", "del")
             h_raw_put_cols = get_table_columns(cursor, h_raw_put_tablename)
             h_raw_del_cols = get_table_columns(cursor, h_raw_del_tablename)
             h_vld_put_cols = get_table_columns(cursor, h_vld_put_tablename)
@@ -107,7 +107,7 @@ SELECT {h_raw_del_columns_str}
 FROM {h_raw_del_tablename}
 GROUP BY {h_raw_del_columns_str}
 """
-            abbv7 = get_dimen_abbv7(plan_dimen)
+            abbv7 = get_dimen_abbv7(person_dimen)
             put_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_VLD_PUT_SQLSTR"
             del_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_VLD_DEL_SQLSTR"
             print(f'{put_sqlstr_ref}= """{expected_vld_put_insert_sqlstr}"""')
@@ -135,13 +135,15 @@ def test_get_insert_heard_vld_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        plnptnr_h_raw_put_tablename = prime_tbl(kw.plan_partnerunit, "h", "raw", "put")
-        print(f"{get_table_columns(cursor, plnptnr_h_raw_put_tablename)=}")
-        insert_into_clause = f"""INSERT INTO {plnptnr_h_raw_put_tablename} (
+        prnptnr_h_raw_put_tablename = prime_tbl(
+            kw.person_partnerunit, "h", "raw", "put"
+        )
+        print(f"{get_table_columns(cursor, prnptnr_h_raw_put_tablename)=}")
+        insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_rope}_inx
-, {kw.plan_name}_inx
+, {kw.person_name}_inx
 , {kw.partner_name}_inx
 , {kw.partner_cred_lumen}
 , {kw.partner_debt_lumen}
@@ -155,25 +157,27 @@ VALUES
 ;
 """
         cursor.execute(insert_into_clause)
-        assert get_row_count(cursor, plnptnr_h_raw_put_tablename) == 5
-        plnptnr_h_vld_put_tablename = prime_tbl(kw.plan_partnerunit, "h", "vld", "put")
-        assert get_row_count(cursor, plnptnr_h_vld_put_tablename) == 0
+        assert get_row_count(cursor, prnptnr_h_raw_put_tablename) == 5
+        prnptnr_h_vld_put_tablename = prime_tbl(
+            kw.person_partnerunit, "h", "vld", "put"
+        )
+        assert get_row_count(cursor, prnptnr_h_vld_put_tablename) == 0
 
         # WHEN
-        sqlstr = get_insert_heard_vld_sqlstrs().get(plnptnr_h_vld_put_tablename)
+        sqlstr = get_insert_heard_vld_sqlstrs().get(prnptnr_h_vld_put_tablename)
         print(sqlstr)
         cursor.execute(sqlstr)
 
         # THEN
-        assert get_row_count(cursor, plnptnr_h_vld_put_tablename) == 4
+        assert get_row_count(cursor, prnptnr_h_vld_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
-, {kw.plan_name}
+, {kw.person_name}
 , {kw.partner_name}
 , {kw.partner_cred_lumen}
 , {kw.partner_debt_lumen}
-FROM {plnptnr_h_vld_put_tablename}
+FROM {prnptnr_h_vld_put_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
@@ -201,13 +205,15 @@ def test_etl_heard_raw_tables_to_heard_vld_tables_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        plnptnr_h_raw_put_tablename = prime_tbl(kw.plan_partnerunit, "h", "raw", "put")
-        print(f"{get_table_columns(cursor, plnptnr_h_raw_put_tablename)=}")
-        insert_into_clause = f"""INSERT INTO {plnptnr_h_raw_put_tablename} (
+        prnptnr_h_raw_put_tablename = prime_tbl(
+            kw.person_partnerunit, "h", "raw", "put"
+        )
+        print(f"{get_table_columns(cursor, prnptnr_h_raw_put_tablename)=}")
+        insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_rope}_inx
-, {kw.plan_name}_inx
+, {kw.person_name}_inx
 , {kw.partner_name}_inx
 , {kw.partner_cred_lumen}
 , {kw.partner_debt_lumen}
@@ -221,23 +227,25 @@ VALUES
 ;
 """
         cursor.execute(insert_into_clause)
-        assert get_row_count(cursor, plnptnr_h_raw_put_tablename) == 5
-        plnptnr_h_vld_put_tablename = prime_tbl(kw.plan_partnerunit, "h", "vld", "put")
-        assert get_row_count(cursor, plnptnr_h_vld_put_tablename) == 0
+        assert get_row_count(cursor, prnptnr_h_raw_put_tablename) == 5
+        prnptnr_h_vld_put_tablename = prime_tbl(
+            kw.person_partnerunit, "h", "vld", "put"
+        )
+        assert get_row_count(cursor, prnptnr_h_vld_put_tablename) == 0
 
         # WHEN
         etl_heard_raw_tables_to_heard_vld_tables(cursor)
 
         # THEN
-        assert get_row_count(cursor, plnptnr_h_vld_put_tablename) == 4
+        assert get_row_count(cursor, prnptnr_h_vld_put_tablename) == 4
         select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
-, {kw.plan_name}
+, {kw.person_name}
 , {kw.partner_name}
 , {kw.partner_cred_lumen}
 , {kw.partner_debt_lumen}
-FROM {plnptnr_h_vld_put_tablename}
+FROM {prnptnr_h_vld_put_tablename}
 """
         cursor.execute(select_sqlstr)
         rows = cursor.fetchall()
