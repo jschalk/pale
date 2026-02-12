@@ -5,8 +5,8 @@ from src.ch00_py.file_toolbox import (
     get_level1_dirs,
     save_json,
 )
-from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
-from src.ch09_plan_lesson.lasso import lassounit_shop
+from src.ch09_person_lesson._ref.ch09_path import create_moment_json_path
+from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch13_time.epoch_main import epochunit_shop
 from src.ch13_time.test._util.ch13_examples import (
     get_creg_config,
@@ -77,8 +77,8 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 #         kw.spark_num,
 #         kw.face_name,
 #         kw.moment_rope,
-#         kw.plan_name,
-#         kw.person_name
+#         kw.person_name,
+#         kw.partner_name
 #     ]
 #     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
@@ -94,5 +94,5 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
 
 #     # THEN
 #     assert os_path_exists(a23_calendar_md_path)
-#     expected_csv_str = "moment_rope,plan_name,funds,fund_rank,pledges_count\n"
+#     expected_csv_str = "moment_rope,person_name,funds,fund_rank,pledges_count\n"
 #     assert open(a23_calendar_md_path).read() == expected_csv_str

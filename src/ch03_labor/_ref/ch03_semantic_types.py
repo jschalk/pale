@@ -1,11 +1,11 @@
-from src.ch02_person._ref.ch02_semantic_types import (
+from src.ch02_partner._ref.ch02_semantic_types import (
     FundGrain,
     FundNum,
     GroupMark,
     GroupTitle,
     HealerName,
     NameTerm,
-    PersonName,
+    PartnerName,
     RespectGrain,
     RespectNum,
     TitleTerm,

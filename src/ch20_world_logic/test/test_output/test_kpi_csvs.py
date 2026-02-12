@@ -18,7 +18,7 @@ def test_WorldUnit_create_kpi_csvs_Senario0_EmptyWorld_CreatesFile(
     output_dir = create_path(worlds_dir(), "output")
     fay_world = worldunit_shop(fay_str, worlds_dir(), output_dir)
     fay_world.sheets_input_to_clarity_mstr()
-    kpi001_csv_path = create_path(output_dir, f"{kw.moment_kpi001_person_nets}.csv")
+    kpi001_csv_path = create_path(output_dir, f"{kw.moment_kpi001_partner_nets}.csv")
     assert not os_path_exists(kpi001_csv_path)
 
     # WHEN
@@ -40,14 +40,14 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
         kw.spark_num,
         kw.face_name,
         kw.moment_rope,
-        kw.plan_name,
         kw.person_name,
+        kw.partner_name,
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
     fay_world.sheets_input_to_clarity_mstr()
-    kpi001_csv_path = create_path(output_dir, f"{kw.moment_kpi001_person_nets}.csv")
+    kpi001_csv_path = create_path(output_dir, f"{kw.moment_kpi001_partner_nets}.csv")
     print(f"         {kpi001_csv_path=}")
     assert not os_path_exists(kpi001_csv_path)
 
@@ -56,5 +56,5 @@ def test_WorldUnit_create_kpi_csvs_Senario1_Add_CreatesFile(temp_dir_setup):
 
     # THEN
     assert os_path_exists(kpi001_csv_path)
-    expected_csv_str = f"{kw.moment_rope},{kw.plan_name},{kw.net_funds},{kw.fund_rank},{kw.pledges_count}\n"
+    expected_csv_str = f"{kw.moment_rope},{kw.person_name},{kw.net_funds},{kw.fund_rank},{kw.pledges_count}\n"
     assert open(kpi001_csv_path).read() == expected_csv_str

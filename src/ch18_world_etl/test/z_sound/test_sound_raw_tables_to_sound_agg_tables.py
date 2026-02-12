@@ -121,7 +121,7 @@ VALUES
         assert cursor.fetchall() == [("br00117", 1), ("br00077", 1)]
 
 
-def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_plan_raw_del():
+def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_person_raw_del():
     # ESTABLISH
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -135,14 +135,16 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_plan_raw_del(
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        plana_s_raw_del = create_prime_tablename(kw.plan_personunit, "s", "raw", "del")
-        insert_into_clause = f"""INSERT INTO {plana_s_raw_del} (
+        persona_s_raw_del = create_prime_tablename(
+            kw.person_partnerunit, "s", "raw", "del"
+        )
+        insert_into_clause = f"""INSERT INTO {persona_s_raw_del} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
-, {kw.plan_name}
-, {kw.person_name}_ERASE
+, {kw.person_name}
+, {kw.partner_name}_ERASE
 )"""
         b117 = "br00117"
         b045 = "br00045"
@@ -156,16 +158,16 @@ VALUES
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
-        error_count_sqlstr = f"SELECT COUNT(*) FROM {plana_s_raw_del}"
+        error_count_sqlstr = f"SELECT COUNT(*) FROM {persona_s_raw_del}"
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 4
-        assert kw.error_message not in get_table_columns(cursor, plana_s_raw_del)
+        assert kw.error_message not in get_table_columns(cursor, persona_s_raw_del)
 
         # WHEN
         set_sound_raw_tables_error_message(cursor)
 
         # THEN No Error message is added and updated
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 4
-        assert kw.error_message not in get_table_columns(cursor, plana_s_raw_del)
+        assert kw.error_message not in get_table_columns(cursor, persona_s_raw_del)
 
 
 # TODO copy over and use these tests?
@@ -220,16 +222,16 @@ VALUES
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
-        plnprsn_s_put_raw_tblname = create_prime_tablename("PLNPRSN", "s", "raw", "put")
-        insert_into_clause = f"""INSERT INTO {plnprsn_s_put_raw_tblname} (
+        prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "put")
+        insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
-, {kw.plan_name}
 , {kw.person_name}
-, {kw.person_cred_lumen}
-, {kw.person_debt_lumen}
+, {kw.partner_name}
+, {kw.partner_cred_lumen}
+, {kw.partner_debt_lumen}
 , {kw.error_message}
 )"""
         values_clause = f"""
@@ -244,18 +246,18 @@ VALUES
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
         trlrope_s_agg_tablename = create_prime_tablename("TRLROPE", "s", "agg")
-        plnprsn_s_put_agg_tblname = create_prime_tablename("PLNPRSN", "s", "agg", "put")
+        prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "put")
         assert get_row_count(cursor, trlrope_s_raw_tablename) == 7
-        assert get_row_count(cursor, plnprsn_s_put_raw_tblname) == 6
+        assert get_row_count(cursor, prnptnr_s_put_raw_tblname) == 6
         assert get_row_count(cursor, trlrope_s_agg_tablename) == 0
-        assert get_row_count(cursor, plnprsn_s_put_agg_tblname) == 0
+        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 0
 
         # WHEN
         insert_sound_raw_selects_into_sound_agg_tables(cursor)
 
         # THEN
         assert get_row_count(cursor, trlrope_s_agg_tablename) == 2
-        assert get_row_count(cursor, plnprsn_s_put_agg_tblname) == 2
+        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 2
 
         select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
         cursor.execute(select_agg_sqlstr)
@@ -267,7 +269,7 @@ VALUES
             (spark2, exx.sue, exx.sue, exx.sue, rdx, rdx, ukx, None),
         ]
 
-        select_agg_sqlstr = f"""SELECT * FROM {plnprsn_s_put_agg_tblname};"""
+        select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
         cursor.execute(select_agg_sqlstr)
         rows = cursor.fetchall()
         print(rows)
@@ -296,14 +298,14 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        plnprsn_s_del_raw_tblname = create_prime_tablename("PLNPRSN", "s", "raw", "del")
-        insert_into_clause = f"""INSERT INTO {plnprsn_s_del_raw_tblname} (
+        prnptnr_s_del_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "del")
+        insert_into_clause = f"""INSERT INTO {prnptnr_s_del_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
-, {kw.plan_name}
-, {kw.person_name}_ERASE
+, {kw.person_name}
+, {kw.partner_name}_ERASE
 )"""
         values_clause = f"""
 VALUES
@@ -316,17 +318,17 @@ VALUES
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
-        plnprsn_s_del_agg_tblname = create_prime_tablename("PLNPRSN", "s", "agg", "del")
-        assert get_row_count(cursor, plnprsn_s_del_raw_tblname) == 6
-        assert get_row_count(cursor, plnprsn_s_del_agg_tblname) == 0
+        prnptnr_s_del_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "del")
+        assert get_row_count(cursor, prnptnr_s_del_raw_tblname) == 6
+        assert get_row_count(cursor, prnptnr_s_del_agg_tblname) == 0
 
         # WHEN
         insert_sound_raw_selects_into_sound_agg_tables(cursor)
 
         # THEN
-        assert get_row_count(cursor, plnprsn_s_del_agg_tblname) == 3
+        assert get_row_count(cursor, prnptnr_s_del_agg_tblname) == 3
 
-        select_agg_sqlstr = f"""SELECT * FROM {plnprsn_s_del_agg_tblname};"""
+        select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_del_agg_tblname};"""
         cursor.execute(select_agg_sqlstr)
         rows = cursor.fetchall()
         print(rows)
@@ -380,16 +382,16 @@ VALUES
 ;
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
-        plnprsn_s_put_raw_tblname = create_prime_tablename("PLNPRSN", "s", "raw", "put")
-        insert_into_clause = f"""INSERT INTO {plnprsn_s_put_raw_tblname} (
+        prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "put")
+        insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
-, {kw.plan_name}
 , {kw.person_name}
-, {kw.person_cred_lumen}
-, {kw.person_debt_lumen}
+, {kw.partner_name}
+, {kw.partner_cred_lumen}
+, {kw.partner_debt_lumen}
 , {kw.error_message}
 )"""
         values_clause = f"""
@@ -405,18 +407,18 @@ VALUES
 """
         cursor.execute(f"{insert_into_clause} {values_clause}")
         trlrope_s_agg_tablename = create_prime_tablename("TRLROPE", "s", "agg")
-        plnprsn_s_put_agg_tblname = create_prime_tablename("PLNPRSN", "s", "agg", "put")
+        prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "put")
         assert get_row_count(cursor, trlrope_s_raw_tablename) == 8
-        assert get_row_count(cursor, plnprsn_s_put_raw_tblname) == 7
+        assert get_row_count(cursor, prnptnr_s_put_raw_tblname) == 7
         assert get_row_count(cursor, trlrope_s_agg_tablename) == 0
-        assert get_row_count(cursor, plnprsn_s_put_agg_tblname) == 0
+        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 0
 
         # WHEN
         etl_sound_raw_tables_to_sound_agg_tables(cursor)
 
         # THEN
         assert get_row_count(cursor, trlrope_s_agg_tablename) == 4
-        assert get_row_count(cursor, plnprsn_s_put_agg_tblname) == 3
+        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 3
 
         select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
         cursor.execute(select_agg_sqlstr)
@@ -429,7 +431,7 @@ VALUES
             (spark7, exx.yao, exx.bob, yao_inx, rdx, rdx, ukx, None),
         ]
 
-        select_agg_sqlstr = f"""SELECT * FROM {plnprsn_s_put_agg_tblname};"""
+        select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
         cursor.execute(select_agg_sqlstr)
         rows = cursor.fetchall()
         print(rows)

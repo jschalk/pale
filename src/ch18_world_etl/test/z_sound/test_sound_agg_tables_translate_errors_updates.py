@@ -1,8 +1,8 @@
 from sqlite3 import connect as sqlite3_connect
-from src.ch18_world_etl.etl_main import set_moment_plan_sound_agg_knot_errors
+from src.ch18_world_etl.etl_main import set_moment_person_sound_agg_knot_errors
 from src.ch18_world_etl.etl_sqlstr import (
     CREATE_MMTMONT_SOUND_AGG_SQLSTR,
-    CREATE_PLNPRSN_SOUND_PUT_AGG_SQLSTR,
+    CREATE_PRNPTNR_SOUND_PUT_AGG_SQLSTR,
     CREATE_TRLCORE_SOUND_VLD_SQLSTR,
     create_knot_exists_in_label_error_update_sqlstr,
     create_knot_exists_in_name_error_update_sqlstr,
@@ -21,17 +21,17 @@ def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTabl
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_PLNPRSN_SOUND_PUT_AGG_SQLSTR)
-        plnprsn_dimen = kw.plan_personunit
-        plnprsn_s_agg_put = create_prime_tablename(plnprsn_dimen, "s", "agg", "put")
-        insert_plnprsn_sqlstr = f"""INSERT INTO {plnprsn_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.plan_name}, {kw.person_name})
+        cursor.execute(CREATE_PRNPTNR_SOUND_PUT_AGG_SQLSTR)
+        prnptnr_dimen = kw.person_partnerunit
+        prnptnr_s_agg_put = create_prime_tablename(prnptnr_dimen, "s", "agg", "put")
+        insert_prnptnr_sqlstr = f"""INSERT INTO {prnptnr_s_agg_put} (
+  {kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.person_name}, {kw.partner_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
 ;
 """
-        cursor.execute(insert_plnprsn_sqlstr)
+        cursor.execute(insert_prnptnr_sqlstr)
         cursor.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
         trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s", "vld")
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
@@ -42,21 +42,21 @@ VALUES
 ;
 """
         cursor.execute(insert_trlcore_sqlstr)
-        error_count_sqlstr = f"SELECT COUNT(*) FROM {plnprsn_s_agg_put} WHERE {kw.error_message} IS NOT NULL"
+        error_count_sqlstr = f"SELECT COUNT(*) FROM {prnptnr_s_agg_put} WHERE {kw.error_message} IS NOT NULL"
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 0
 
         # WHEN
         sqlstr = create_knot_exists_in_name_error_update_sqlstr(
-            plnprsn_s_agg_put, kw.person_name
+            prnptnr_s_agg_put, kw.partner_name
         )
         print(f"{sqlstr=}")
         cursor.execute(sqlstr)
 
         # THEN
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 1
-        select_core_raw_sqlstr = f"SELECT * FROM {plnprsn_s_agg_put}"
+        select_core_raw_sqlstr = f"SELECT * FROM {prnptnr_s_agg_put}"
         cursor.execute(select_core_raw_sqlstr)
-        name_knot_str = f"Knot cannot exist in NameTerm column {kw.person_name}"
+        name_knot_str = f"Knot cannot exist in NameTerm column {kw.partner_name}"
         assert cursor.fetchall() == [
             (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
             (spark1, exx.sue, exx.a23, exx.yao, bob_str, None, None, name_knot_str),
@@ -116,7 +116,7 @@ VALUES
         ]
 
 
-def test_set_moment_plan_sound_agg_knot_errors_PopulatesTable_Scenario0():
+def test_set_moment_person_sound_agg_knot_errors_PopulatesTable_Scenario0():
     # ESTABLISH
     colon = ":"
     bob_str = f"{colon}Bob"
@@ -128,18 +128,18 @@ def test_set_moment_plan_sound_agg_knot_errors_PopulatesTable_Scenario0():
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
-        cursor.execute(CREATE_PLNPRSN_SOUND_PUT_AGG_SQLSTR)
-        plnprsn_dimen = kw.plan_personunit
-        plnprsn_s_agg_put = create_prime_tablename(plnprsn_dimen, "s", "agg", "put")
-        insert_plnprsn_sqlstr = f"""INSERT INTO {plnprsn_s_agg_put} (
-  {kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.plan_name}, {kw.person_name})
+        cursor.execute(CREATE_PRNPTNR_SOUND_PUT_AGG_SQLSTR)
+        prnptnr_dimen = kw.person_partnerunit
+        prnptnr_s_agg_put = create_prime_tablename(prnptnr_dimen, "s", "agg", "put")
+        insert_prnptnr_sqlstr = f"""INSERT INTO {prnptnr_s_agg_put} (
+  {kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.person_name}, {kw.partner_name})
 VALUES
   ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 , ({spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{bob_str}')
 , ({spark1}, '{exx.sue}', '{a45_str}', '{exx.yao}', '{exx.yao}')
 ;
 """
-        cursor.execute(insert_plnprsn_sqlstr)
+        cursor.execute(insert_prnptnr_sqlstr)
         cursor.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
         trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s", "vld")
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
@@ -150,17 +150,17 @@ VALUES
 ;
 """
         cursor.execute(insert_trlcore_sqlstr)
-        error_count_sqlstr = f"SELECT COUNT(*) FROM {plnprsn_s_agg_put} WHERE {kw.error_message} IS NOT NULL"
+        error_count_sqlstr = f"SELECT COUNT(*) FROM {prnptnr_s_agg_put} WHERE {kw.error_message} IS NOT NULL"
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 0
 
         # WHEN
-        set_moment_plan_sound_agg_knot_errors(cursor)
+        set_moment_person_sound_agg_knot_errors(cursor)
 
         # THEN
         assert cursor.execute(error_count_sqlstr).fetchone()[0] == 1
-        select_core_raw_sqlstr = f"SELECT * FROM {plnprsn_s_agg_put} ORDER BY {kw.moment_rope}, {kw.plan_name}, {kw.person_name}"
+        select_core_raw_sqlstr = f"SELECT * FROM {prnptnr_s_agg_put} ORDER BY {kw.moment_rope}, {kw.person_name}, {kw.partner_name}"
         cursor.execute(select_core_raw_sqlstr)
-        name_knot_str = f"Knot cannot exist in NameTerm column {kw.person_name}"
+        name_knot_str = f"Knot cannot exist in NameTerm column {kw.partner_name}"
         rope_knot_str = f"Trailing knot must exist in RopeTerm column {kw.moment_rope}"
         rows = cursor.fetchall()
         print(f"{rows=}")

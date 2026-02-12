@@ -1,6 +1,0 @@
-{
-  "chapter_blurb": "Defines a PlanUnit as a KegUnit and PersonUnits capable of producing an agenda.", 
-  "chapter_content": "A plan is a planunit, made of persons and kegs. All kegs are connected to the kegroot, which is given all the funds in a planunit.", 
-  "chapter_description": "ch07_plan_logic", 
-  "chapter_number": 7
-}

@@ -16,7 +16,7 @@ def test_RiverRun_Exists():
     # THEN
     assert not x_riverrun.moment_mstr_dir
     assert not x_riverrun.moment_rope
-    assert not x_riverrun.plan_name
+    assert not x_riverrun.person_name
     assert not x_riverrun.keep_rope
     assert not x_riverrun.knot
     assert not x_riverrun.keep_point_magnitude
@@ -39,7 +39,7 @@ def test_RiverRun_Exists():
     assert set(x_riverrun.__dict__.keys()) == {
         kw.moment_mstr_dir,
         kw.moment_rope,
-        kw.plan_name,
+        kw.person_name,
         kw.keep_rope,
         kw.knot,
         kw.keep_point_magnitude,
@@ -99,7 +99,7 @@ def test_riverrun_shop_ReturnsObj_Scenario0_WithArgs():
     x_riverrun = riverrun_shop(
         moment_mstr_dir=mstr_dir,
         moment_rope=exx.a23,
-        plan_name=exx.yao,
+        person_name=exx.yao,
         keep_rope=x_keep_rope,
         knot=x_knot,
         keep_point_magnitude=x_keep_point_magnitude,
@@ -113,7 +113,7 @@ def test_riverrun_shop_ReturnsObj_Scenario0_WithArgs():
     # THEN
     assert x_riverrun.moment_mstr_dir == mstr_dir
     assert x_riverrun.moment_rope == exx.a23
-    assert x_riverrun.plan_name == exx.yao
+    assert x_riverrun.person_name == exx.yao
     assert x_riverrun.keep_rope == x_keep_rope
     assert x_riverrun.knot == x_knot
     assert x_riverrun.keep_point_magnitude == x_keep_point_magnitude
@@ -140,13 +140,13 @@ def test_riverrun_shop_ReturnsObj_Scenario1_WithoutArgs():
     x_riverrun = riverrun_shop(
         moment_mstr_dir=mstr_dir,
         moment_rope=exx.a23,
-        plan_name=exx.yao,
+        person_name=exx.yao,
     )
 
     # THEN
     assert x_riverrun.moment_mstr_dir == mstr_dir
     assert x_riverrun.moment_rope == exx.a23
-    assert x_riverrun.plan_name == exx.yao
+    assert x_riverrun.person_name == exx.yao
     assert not x_riverrun.keep_rope
     assert x_riverrun.knot == default_knot_if_None()
     assert x_riverrun.keep_point_magnitude == validate_pool_num()
@@ -164,22 +164,24 @@ def test_riverrun_shop_ReturnsObj_Scenario1_WithoutArgs():
 def test_RiverRun_set_keep_patientledger_SetsAttr():
     # ESTABLISH
     mstr_dir = get_temp_dir()
-    yao_person_cred_lumen = 500
+    yao_partner_cred_lumen = 500
     x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
     assert x_riverrun.keep_patientledgers == {}
 
     # WHEN
     x_riverrun.set_keep_patientledger(
-        plan_name=exx.yao,
         person_name=exx.yao,
-        mana_ledger=yao_person_cred_lumen,
+        partner_name=exx.yao,
+        mana_ledger=yao_partner_cred_lumen,
     )
 
     # THEN
-    assert x_riverrun.keep_patientledgers == {exx.yao: {exx.yao: yao_person_cred_lumen}}
+    assert x_riverrun.keep_patientledgers == {
+        exx.yao: {exx.yao: yao_partner_cred_lumen}
+    }
 
 
-def test_RiverRun_delete_keep_patientledgers_plan_SetsAttr():
+def test_RiverRun_delete_keep_patientledgers_person_SetsAttr():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
@@ -192,37 +194,37 @@ def test_RiverRun_delete_keep_patientledgers_plan_SetsAttr():
     }
 
     # WHEN
-    x_riverrun.delete_keep_patientledgers_plan(exx.bob)
+    x_riverrun.delete_keep_patientledgers_person(exx.bob)
 
     # THEN
     assert x_riverrun.keep_patientledgers == {exx.yao: {exx.yao: 1}}
 
 
-def test_RiverRun_get_all_keep_patientledger_person_names_ReturnsObj():
+def test_RiverRun_get_all_keep_patientledger_partner_names_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao)
 
     # WHEN
-    all_persons_ids = x_riverrun.get_all_keep_patientledger_person_names()
+    all_partners_ids = x_riverrun.get_all_keep_patientledger_partner_names()
     # THEN
-    assert all_persons_ids == set()
+    assert all_partners_ids == set()
 
     # WHEN
     x_riverrun.set_keep_patientledger(exx.yao, exx.yao, 1)
     x_riverrun.set_keep_patientledger(exx.yao, exx.bob, 1)
-    all_persons_ids = x_riverrun.get_all_keep_patientledger_person_names()
+    all_partners_ids = x_riverrun.get_all_keep_patientledger_partner_names()
     # THEN
-    assert all_persons_ids == {exx.yao, exx.bob}
+    assert all_partners_ids == {exx.yao, exx.bob}
 
     # WHEN
     x_riverrun.set_keep_patientledger(exx.zia, exx.bob, 1)
-    all_persons_ids = x_riverrun.get_all_keep_patientledger_person_names()
+    all_partners_ids = x_riverrun.get_all_keep_patientledger_partner_names()
     # THEN
-    assert all_persons_ids == {exx.yao, exx.bob, exx.zia}
+    assert all_partners_ids == {exx.yao, exx.bob, exx.zia}
 
     # WHEN
     x_riverrun.set_keep_patientledger(exx.xio, exx.sue, 1)
-    all_persons_ids = x_riverrun.get_all_keep_patientledger_person_names()
+    all_partners_ids = x_riverrun.get_all_keep_patientledger_partner_names()
     # THEN
-    assert all_persons_ids == {exx.yao, exx.bob, exx.zia, exx.xio, exx.sue}
+    assert all_partners_ids == {exx.yao, exx.bob, exx.zia, exx.xio, exx.sue}

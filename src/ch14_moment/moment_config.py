@@ -57,7 +57,7 @@ def get_moment_args_dimen_mapping() -> dict[str, str]:
 
 def get_moment_args_class_types() -> dict[str, str]:
     return {
-        "person_name": "NameTerm",
+        "partner_name": "NameTerm",
         "amount": "float",
         "knot": "str",
         "celldepth": "int",
@@ -72,7 +72,7 @@ def get_moment_args_class_types() -> dict[str, str]:
         "monthday_index": "int",
         "mana_grain": "float",
         "offi_time": "TimeNum",
-        "plan_name": "NameTerm",
+        "person_name": "NameTerm",
         "quota": "int",
         "job_listen_rotations": "int",
         "respect_grain": "float",
@@ -86,7 +86,7 @@ def get_moment_args_class_types() -> dict[str, str]:
 
 def get_moment_args_set() -> set[str]:
     return {
-        "person_name",
+        "partner_name",
         "amount",
         "knot",
         "c400_number",
@@ -102,7 +102,7 @@ def get_moment_args_set() -> set[str]:
         "job_listen_rotations",
         "mana_grain",
         "offi_time",
-        "plan_name",
+        "person_name",
         "quota",
         "respect_grain",
         "tran_time",

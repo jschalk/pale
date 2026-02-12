@@ -13,8 +13,8 @@ def test_get_all_kpi_functions_ReturnsObj():
     assert get_all_kpi_functions() is not None, "all_kpi_set should be defined"
     assert len(get_all_kpi_functions()) == 2
     assert get_all_kpi_functions() == {
-        kw.moment_kpi001_person_nets: create_populate_kpi001_table,
-        kw.moment_kpi002_plan_pledges: create_populate_kpi002_table,
+        kw.moment_kpi001_partner_nets: create_populate_kpi001_table,
+        kw.moment_kpi002_person_pledges: create_populate_kpi002_table,
     }
 
 
@@ -24,15 +24,15 @@ def test_get_bundles_config_ReturnsObj():
     assert len(get_bundles_config()) == 1
     assert get_bundles_config() == {
         kw.default_kpi_bundle: {
-            kw.moment_kpi001_person_nets,
-            kw.moment_kpi002_plan_pledges,
+            kw.moment_kpi001_partner_nets,
+            kw.moment_kpi002_person_pledges,
         }
     }
 
 
 def test_get_kpi_set_from_bundle_ReturnsObj_Scenario0_WithBundle():
     # ESTABLISH / WHEN
-    kpi_set = get_kpi_set_from_bundle("plan_no_reference_kpis")
+    kpi_set = get_kpi_set_from_bundle("person_no_reference_kpis")
 
     # THEN
     assert kpi_set == set()

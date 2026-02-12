@@ -1,4 +1,4 @@
-from src.ch11_bud.bud_main import planbudhistory_shop
+from src.ch11_bud.bud_main import personbudhistory_shop
 from src.ch13_time.epoch_main import (
     DEFAULT_EPOCH_LENGTH,
     epochunit_shop,
@@ -61,20 +61,20 @@ def test_get_moment_epochholder_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs(
 
     assert a23_epochholder
     # assert a23_epochholder.x_min == a23_offi_time_max
-    a23_planunit = a23_epochholder.x_planunit
-    assert a23_planunit.plan_name == "for_EpochHolder_calculation"
-    assert a23_planunit.moment_rope == a23_momentunit.moment_rope
-    assert a23_planunit.knot == a23_momentunit.knot
-    assert a23_planunit.fund_grain == a23_momentunit.fund_grain
-    assert a23_planunit.respect_grain == a23_momentunit.respect_grain
-    assert a23_planunit.mana_grain == a23_momentunit.mana_grain
+    a23_personunit = a23_epochholder.x_personunit
+    assert a23_personunit.person_name == "for_EpochHolder_calculation"
+    assert a23_personunit.moment_rope == a23_momentunit.moment_rope
+    assert a23_personunit.knot == a23_momentunit.knot
+    assert a23_personunit.fund_grain == a23_momentunit.fund_grain
+    assert a23_personunit.respect_grain == a23_momentunit.respect_grain
+    assert a23_personunit.mana_grain == a23_momentunit.mana_grain
     assert a23_epochholder._month == "March"
     assert a23_epochholder._hour == "12am"
     assert a23_epochholder._minute == 0
     assert a23_epochholder._monthday == 1
     assert a23_epochholder._c400_number == 0
     assert a23_epochholder._year_num == 0
-    #  planunit_shop()
+    #  personunit_shop()
     #  epochholder_shop()
 
 
@@ -159,9 +159,9 @@ def test_add_epoch_frame_to_momentunit_SetsAttr_Scenario4_bud_time():
     t55_time = 55
     epoch_frame_min = 10
     t65_time = t55_time + epoch_frame_min
-    a23_bud_hx = planbudhistory_shop(exx.a23)
+    a23_bud_hx = personbudhistory_shop(exx.a23)
     a23_bud_hx.add_bud(x_bud_time=t55_time, x_quota=t55_quota)
-    a23_momentunit.set_planbudhistory(a23_bud_hx)
+    a23_momentunit.set_personbudhistory(a23_bud_hx)
     assert a23_momentunit.bud_quota_exists(exx.a23, t55_time, t55_quota)
     assert not a23_momentunit.bud_quota_exists(exx.a23, t65_time, t55_quota)
 
@@ -182,9 +182,9 @@ def test_add_epoch_frame_to_momentunit_SetsAttr_Scenario5_bud_time_ModularAdditi
     epoch_frame_min = 10
     epoch_length = get_epoch_length(get_creg_config())
     t0x_time = t55_time + epoch_frame_min + epoch_length
-    a23_bud_hx = planbudhistory_shop(exx.a23)
+    a23_bud_hx = personbudhistory_shop(exx.a23)
     a23_bud_hx.add_bud(x_bud_time=t55_time, x_quota=t55_quota)
-    a23_momentunit.set_planbudhistory(a23_bud_hx)
+    a23_momentunit.set_personbudhistory(a23_bud_hx)
     assert a23_momentunit.bud_quota_exists(exx.a23, t55_time, t55_quota)
     assert not a23_momentunit.bud_quota_exists(exx.a23, t0x_time, t55_quota)
 

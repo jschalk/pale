@@ -96,14 +96,14 @@ def test_TranslateUnit_set_titleterm_SetsAttr_Scenario0():
     sue_otx = "Sue"
     sue_inx = "Suita"
     zia_translateunit = translateunit_shop(exx.zia)
-    person_name_titlemap = zia_translateunit.get_titlemap()
-    assert person_name_titlemap.otx2inx_exists(sue_otx, sue_inx) is False
+    partner_name_titlemap = zia_translateunit.get_titlemap()
+    assert partner_name_titlemap.otx2inx_exists(sue_otx, sue_inx) is False
 
     # WHEN
     zia_translateunit.set_titleterm(sue_otx, sue_inx)
 
     # THEN
-    assert person_name_titlemap.otx2inx_exists(sue_otx, sue_inx)
+    assert partner_name_titlemap.otx2inx_exists(sue_otx, sue_inx)
 
 
 def test_TranslateUnit_titleterm_exists_ReturnsObj():

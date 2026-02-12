@@ -1,10 +1,10 @@
 from copy import deepcopy as copy_deepcopy
 from src.ch00_py.file_toolbox import create_path
-from src.ch02_person.group import awardunit_shop
+from src.ch02_partner.group import awardunit_shop
 from src.ch04_rope.rope import to_rope
-from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch09_plan_lesson.delta import plandelta_shop
-from src.ch09_plan_lesson.lesson_main import lessonunit_shop
+from src.ch07_person_logic.person_main import personunit_shop
+from src.ch09_person_lesson.delta import persondelta_shop
+from src.ch09_person_lesson.lesson_main import lessonunit_shop
 from src.ch17_idea.idea_csv_tool import (
     add_lesson_to_br00020_csv,
     add_lesson_to_br00021_csv,
@@ -19,17 +19,17 @@ from src.ch17_idea.idea_csv_tool import (
     add_lessonunit_to_stance_csv_strs,
     add_momentunit_to_stance_csv_strs,
     add_momentunits_to_stance_csv_strs,
-    add_plan_to_br00020_csv,
-    add_plan_to_br00021_csv,
-    add_plan_to_br00022_csv,
-    add_plan_to_br00023_csv,
-    add_plan_to_br00024_csv,
-    add_plan_to_br00025_csv,
-    add_plan_to_br00026_csv,
-    add_plan_to_br00027_csv,
-    add_plan_to_br00028_csv,
-    add_plan_to_br00029_csv,
-    add_planunit_to_stance_csv_strs,
+    add_person_to_br00020_csv,
+    add_person_to_br00021_csv,
+    add_person_to_br00022_csv,
+    add_person_to_br00023_csv,
+    add_person_to_br00024_csv,
+    add_person_to_br00025_csv,
+    add_person_to_br00026_csv,
+    add_person_to_br00027_csv,
+    add_person_to_br00028_csv,
+    add_person_to_br00029_csv,
+    add_personunit_to_stance_csv_strs,
     create_init_stance_idea_csv_strs,
 )
 from src.ch17_idea.idea_db_tool import get_ordered_csv
@@ -59,22 +59,22 @@ def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
     # THEN
     expected_stance_csv_strs = {
         "br00000": "moment_rope,epoch_label,c400_number,yr1_jan1_offset,monthday_index,fund_grain,mana_grain,respect_grain,knot,job_listen_rotations\n",
-        "br00001": "moment_rope,plan_name,bud_time,quota,celldepth\n",
-        "br00002": "moment_rope,plan_name,person_name,tran_time,amount\n",
+        "br00001": "moment_rope,person_name,bud_time,quota,celldepth\n",
+        "br00002": "moment_rope,person_name,partner_name,tran_time,amount\n",
         "br00003": "moment_rope,cumulative_minute,hour_label\n",
         "br00004": "moment_rope,cumulative_day,month_label\n",
         "br00005": "moment_rope,weekday_order,weekday_label\n",
         # "br00006": "moment_rope,offi_time,_offi_time_max\n",
-        "br00020": "moment_rope,plan_name,person_name,group_title,group_cred_lumen,group_debt_lumen\n",
-        "br00021": "moment_rope,plan_name,person_name,person_cred_lumen,person_debt_lumen\n",
-        "br00022": "moment_rope,plan_name,keg_rope,awardee_title,give_force,take_force\n",
-        "br00023": "moment_rope,plan_name,keg_rope,fact_context,fact_state,fact_lower,fact_upper\n",
-        "br00024": "moment_rope,plan_name,keg_rope,party_title,solo\n",
-        "br00025": "moment_rope,plan_name,keg_rope,healer_name\n",
-        "br00026": "moment_rope,plan_name,keg_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor\n",
-        "br00027": "moment_rope,plan_name,keg_rope,reason_context,active_requisite\n",
-        "br00028": "moment_rope,plan_name,keg_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool\n",
-        "br00029": "moment_rope,plan_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,tally,fund_grain,mana_grain,respect_grain\n",
+        "br00020": "moment_rope,person_name,partner_name,group_title,group_cred_lumen,group_debt_lumen\n",
+        "br00021": "moment_rope,person_name,partner_name,partner_cred_lumen,partner_debt_lumen\n",
+        "br00022": "moment_rope,person_name,plan_rope,awardee_title,give_force,take_force\n",
+        "br00023": "moment_rope,person_name,plan_rope,fact_context,fact_state,fact_lower,fact_upper\n",
+        "br00024": "moment_rope,person_name,plan_rope,party_title,solo\n",
+        "br00025": "moment_rope,person_name,plan_rope,healer_name\n",
+        "br00026": "moment_rope,person_name,plan_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor\n",
+        "br00027": "moment_rope,person_name,plan_rope,reason_context,active_requisite\n",
+        "br00028": "moment_rope,person_name,plan_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool\n",
+        "br00029": "moment_rope,person_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,fund_grain,mana_grain,respect_grain\n",
         "br00042": "otx_title,inx_title,otx_knot,inx_knot,unknown_str\n",
         "br00043": "otx_name,inx_name,otx_knot,inx_knot,unknown_str\n",
         "br00044": "otx_label,inx_label,otx_knot,inx_knot,unknown_str\n",
@@ -277,19 +277,19 @@ def test_add_momentunits_to_stance_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
     assert generated_br00005_csv == expected_br00005_csv
 
 
-def test_add_plan_to_br00020_csv_ReturnsObj():
+def test_add_person_to_br00020_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.add_partnerunit(exx.yao)
     run_credit = 33
     run_debt = 55
-    bob_plan.get_person(exx.yao).add_membership(exx.run, run_credit, run_debt)
+    bob_person.get_partner(exx.yao).add_membership(exx.run, run_credit, run_debt)
     csv_header = x_ideas.get("br00020")
 
     # WHEN
-    x_csv = add_plan_to_br00020_csv(csv_header, bob_plan, csv_delimiter)
+    x_csv = add_person_to_br00020_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     yao_yao_row = f",,{exx.a23},{exx.bob},{exx.yao},{exx.yao},1,1\n"
@@ -299,130 +299,130 @@ def test_add_plan_to_br00020_csv_ReturnsObj():
     assert x_csv == f"{csv_header}{yao_yao_row}{yao_run_row}"
 
 
-def test_add_plan_to_br00021_csv_ReturnsObj():
+def test_add_person_to_br00021_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     yao_credit = 33
     yao_debt = 55
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao, yao_credit, yao_debt)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.add_partnerunit(exx.yao, yao_credit, yao_debt)
     csv_header = x_ideas.get("br00021")
 
     # WHEN
-    x_csv = add_plan_to_br00021_csv(csv_header, bob_plan, csv_delimiter)
+    x_csv = add_person_to_br00021_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     yao_row = f",,{exx.a23},{exx.bob},{exx.yao},{yao_credit},{yao_debt}\n"
     assert x_csv == f"{csv_header}{yao_row}"
 
 
-def test_add_plan_to_br00022_csv_ReturnsObj():
+def test_add_person_to_br00022_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
     yao_give_force = 55
     yao_take_force = 77
     casa_awardunit = awardunit_shop(exx.yao, yao_give_force, yao_take_force)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.edit_keg_attr(casa_rope, awardunit=casa_awardunit)
+    bob_person.add_plan(casa_rope)
+    bob_person.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
     csv_header = x_ideas.get("br00022")
     print(f"{csv_header=}")
 
     # WHEN
-    bob_plan.cashout()
-    x_csv = add_plan_to_br00022_csv(csv_header, bob_plan, csv_delimiter)
+    bob_person.enact_plan()
+    x_csv = add_person_to_br00022_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     yao_award_row = f",,{exx.a23},{exx.bob},{casa_rope},{exx.yao},{yao_give_force},{yao_take_force}\n"
     assert x_csv == f"{csv_header}{yao_award_row}"
 
 
-def test_add_plan_to_br00023_csv_ReturnsObj():
+def test_add_person_to_br00023_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
-    clean_rope = bob_plan.make_rope(casa_rope, "clean")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
+    clean_rope = bob_person.make_rope(casa_rope, "clean")
     clean_fact_lower = 55
     clean_fact_upper = 77
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(clean_rope)
-    bob_plan.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(clean_rope)
+    bob_person.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
     csv_header = x_ideas.get("br00023")
     print(f"{csv_header=}")
 
     # WHEN
-    x_csv = add_plan_to_br00023_csv(csv_header, bob_plan, csv_delimiter)
+    x_csv = add_person_to_br00023_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     clean_row = f",,{exx.a23},{exx.bob},{a23_rope},{casa_rope},{clean_rope},{clean_fact_lower},{clean_fact_upper}\n"
     assert x_csv == f"{csv_header}{clean_row}"
 
 
-def test_add_plan_to_br00024_csv_ReturnsObj():
+def test_add_person_to_br00024_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
-    bob_plan.add_keg(casa_rope)
-    casa_keg = bob_plan.get_keg_obj(casa_rope)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
+    bob_person.add_plan(casa_rope)
+    casa_plan = bob_person.get_plan_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_keg.laborunit.add_party(cleaners_str)
+    casa_plan.laborunit.add_party(cleaners_str)
     csv_header = x_ideas.get("br00024")
     print(f"{csv_header=}")
 
     # WHEN
-    bob_plan.cashout()
-    x_csv = add_plan_to_br00024_csv(csv_header, bob_plan, csv_delimiter)
+    bob_person.enact_plan()
+    x_csv = add_person_to_br00024_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     cleaners_row = f",,{exx.a23},{exx.bob},{casa_rope},{cleaners_str}\n"
     assert x_csv == f"{csv_header}{cleaners_row}"
 
 
-def test_add_plan_to_br00025_csv_ReturnsObj():
+def test_add_person_to_br00025_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
-    bob_plan.add_keg(casa_rope)
-    casa_keg = bob_plan.get_keg_obj(casa_rope)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
+    bob_person.add_plan(casa_rope)
+    casa_plan = bob_person.get_plan_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_keg.healerunit.set_healer_name(cleaners_str)
+    casa_plan.healerunit.set_healer_name(cleaners_str)
     csv_header = x_ideas.get("br00025")
     print(f"{csv_header=}")
 
     # WHEN
-    bob_plan.cashout()
-    x_csv = add_plan_to_br00025_csv(csv_header, bob_plan, csv_delimiter)
+    bob_person.enact_plan()
+    x_csv = add_person_to_br00025_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     cleaners_row = f",,{exx.a23},{exx.bob},{casa_rope},{cleaners_str}\n"
     assert x_csv == f"{csv_header}{cleaners_row}"
 
 
-def test_add_plan_to_br00026_csv_ReturnsObj():
+def test_add_person_to_br00026_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
-    clean_rope = bob_plan.make_rope(casa_rope, "clean")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
+    clean_rope = bob_person.make_rope(casa_rope, "clean")
     clean_reason_lower = 22
     clean_reason_upper = 55
     clean_reason_divisor = 77
-    bob_plan.add_keg(mop_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(clean_rope)
-    bob_plan.edit_keg_attr(
+    bob_person.add_plan(mop_rope)
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(clean_rope)
+    bob_person.edit_plan_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_case=clean_rope,
@@ -434,24 +434,24 @@ def test_add_plan_to_br00026_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_plan.cashout()
-    x_csv = add_plan_to_br00026_csv(csv_header, bob_plan, csv_delimiter)
+    bob_person.enact_plan()
+    x_csv = add_person_to_br00026_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     mop_row = f",,{exx.a23},{exx.bob},{mop_rope},{casa_rope},{clean_rope},{clean_reason_lower},{clean_reason_upper},{clean_reason_divisor}\n"
     assert x_csv == f"{csv_header}{mop_row}"
 
 
-def test_add_plan_to_br00027_csv_ReturnsObj():
+def test_add_person_to_br00027_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
-    bob_plan.add_keg(mop_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.edit_keg_attr(
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
+    bob_person.add_plan(mop_rope)
+    bob_person.add_plan(casa_rope)
+    bob_person.edit_plan_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_requisite_active=True,
@@ -460,22 +460,22 @@ def test_add_plan_to_br00027_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_plan.cashout()
-    x_csv = add_plan_to_br00027_csv(csv_header, bob_plan, csv_delimiter)
+    bob_person.enact_plan()
+    x_csv = add_person_to_br00027_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     casa_row = f",,{exx.a23},{exx.bob},{mop_rope},{casa_rope},True\n"
     assert x_csv == f"{csv_header}{casa_row}"
 
 
-def test_add_plan_to_br00028_csv_ReturnsObj():
+def test_add_person_to_br00028_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
     casa_begin = 3
     casa_close = 5
     casa_addin = 7
@@ -487,9 +487,9 @@ def test_add_plan_to_br00028_csv_ReturnsObj():
     casa_star = 2
     casa_pledge = False
     casa_problem_bool = False
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(mop_rope)
-    bob_plan.edit_keg_attr(
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(mop_rope)
+    bob_person.edit_plan_attr(
         mop_rope,
         begin=casa_begin,
         close=casa_close,
@@ -507,8 +507,8 @@ def test_add_plan_to_br00028_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_plan.cashout()
-    x_csv = add_plan_to_br00028_csv(csv_header, bob_plan, csv_delimiter)
+    bob_person.enact_plan()
+    x_csv = add_person_to_br00028_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
     root_row = f",,{exx.a23},{exx.bob},,{a23_rope},,,,,,,,,1,False,False\n"
@@ -521,46 +521,47 @@ def test_add_plan_to_br00028_csv_ReturnsObj():
     assert x_csv == expected_csv
 
 
-def test_add_plan_to_br00029_csv_ReturnsObj():
+def test_add_person_to_br00029_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.credor_respect = 444
-    bob_plan.debtor_respect = 555
-    bob_plan.fund_pool = 777
-    bob_plan.max_tree_traverse = 3
-    bob_plan.tally = 10
-    bob_plan.fund_grain = 12
-    bob_plan.mana_grain = 13
-    bob_plan.respect_grain = 15
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.credor_respect = 444
+    bob_person.debtor_respect = 555
+    bob_person.fund_pool = 777
+    bob_person.max_tree_traverse = 3
+    bob_person.fund_grain = 12
+    bob_person.mana_grain = 13
+    bob_person.respect_grain = 15
     csv_header = x_ideas.get("br00029")
     print(f"{csv_header=}")
 
     # WHEN
-    x_csv = add_plan_to_br00029_csv(csv_header, bob_plan, csv_delimiter)
+    x_csv = add_person_to_br00029_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
-    plan_row = f",,{exx.a23},{exx.bob},{bob_plan.credor_respect},{bob_plan.debtor_respect},{bob_plan.fund_pool},{bob_plan.max_tree_traverse},{bob_plan.tally},{bob_plan.fund_grain},{bob_plan.mana_grain},{bob_plan.respect_grain}\n"
-    assert x_csv == f"{csv_header}{plan_row}"
+    person_row = f",,{exx.a23},{exx.bob},{bob_person.credor_respect},{bob_person.debtor_respect},{bob_person.fund_pool},{bob_person.max_tree_traverse},{bob_person.fund_grain},{bob_person.mana_grain},{bob_person.respect_grain}\n"
+    assert x_csv == f"{csv_header}{person_row}"
 
 
-def test_add_planunit_to_stance_csv_strs_ReturnsObj():
+def test_add_personunit_to_stance_csv_strs_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
-    clean_rope = bob_plan.make_rope(casa_rope, "clean")
-    bob_plan.add_keg(mop_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(clean_rope)
-    bob_plan.edit_keg_attr(mop_rope, reason_context=casa_rope, reason_case=clean_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
-    bob_plan.add_fact(casa_rope, clean_rope)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.add_partnerunit(exx.yao)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
+    clean_rope = bob_person.make_rope(casa_rope, "clean")
+    bob_person.add_plan(mop_rope)
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(clean_rope)
+    bob_person.edit_plan_attr(
+        mop_rope, reason_context=casa_rope, reason_case=clean_rope
+    )
+    bob_person.add_plan(casa_rope)
+    bob_person.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
+    bob_person.add_fact(casa_rope, clean_rope)
 
     br00020_header = x_ideas.get("br00020")
     br00021_header = x_ideas.get("br00021")
@@ -574,8 +575,8 @@ def test_add_planunit_to_stance_csv_strs_ReturnsObj():
     br00029_header = x_ideas.get("br00029")
 
     # WHEN
-    bob_plan.cashout()
-    add_planunit_to_stance_csv_strs(bob_plan, x_ideas, csv_delimiter)
+    bob_person.enact_plan()
+    add_personunit_to_stance_csv_strs(bob_person, x_ideas, csv_delimiter)
 
     # THEN
     assert x_ideas.get("br00020") != br00020_header
@@ -594,16 +595,16 @@ def test_add_lesson_to_br00020_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.add_partnerunit(exx.yao)
     run_credit = 33
     run_debt = 55
-    bob_plan.get_person(exx.yao).add_membership(exx.run, run_credit, run_debt)
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_person.get_partner(exx.yao).add_membership(exx.run, run_credit, run_debt)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00020")
 
     # WHEN
@@ -624,13 +625,13 @@ def test_add_lesson_to_br00021_csv_ReturnsObj():
     x_ideas = create_init_stance_idea_csv_strs()
     yao_credit = 33
     yao_debt = 55
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao, yao_credit, yao_debt)
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.add_partnerunit(exx.yao, yao_credit, yao_debt)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00021")
 
     # WHEN
@@ -647,18 +648,18 @@ def test_add_lesson_to_br00022_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
     yao_give_force = 55
     yao_take_force = 77
     casa_awardunit = awardunit_shop(exx.yao, yao_give_force, yao_take_force)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.edit_keg_attr(casa_rope, awardunit=casa_awardunit)
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_person.add_plan(casa_rope)
+    bob_person.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00022")
     print(f"{csv_header=}")
 
@@ -675,19 +676,19 @@ def test_add_lesson_to_br00023_csv_ReturnsObj():
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
-    clean_rope = bob_plan.make_rope(casa_rope, "clean")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
+    clean_rope = bob_person.make_rope(casa_rope, "clean")
     clean_fact_lower = 55
     clean_fact_upper = 77
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(clean_rope)
-    bob_plan.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(clean_rope)
+    bob_person.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00023")
     print(f"{csv_header=}")
 
@@ -706,17 +707,17 @@ def test_add_lesson_to_br00024_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
-    bob_plan.add_keg(casa_rope)
-    casa_keg = bob_plan.get_keg_obj(casa_rope)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
+    bob_person.add_plan(casa_rope)
+    casa_plan = bob_person.get_plan_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_keg.laborunit.add_party(cleaners_str)
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    casa_plan.laborunit.add_party(cleaners_str)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00024")
     print(f"{csv_header=}")
 
@@ -737,17 +738,17 @@ def test_add_lesson_to_br00025_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    casa_rope = bob_plan.make_l1_rope("casa")
-    bob_plan.add_keg(casa_rope)
-    casa_keg = bob_plan.get_keg_obj(casa_rope)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    casa_rope = bob_person.make_l1_rope("casa")
+    bob_person.add_plan(casa_rope)
+    casa_plan = bob_person.get_plan_obj(casa_rope)
     cleaners_str = "cleaners"
-    casa_keg.healerunit.set_healer_name(cleaners_str)
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    casa_plan.healerunit.set_healer_name(cleaners_str)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00025")
     print(f"{csv_header=}")
 
@@ -765,17 +766,17 @@ def test_add_lesson_to_br00026_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
-    clean_rope = bob_plan.make_rope(casa_rope, "clean")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
+    clean_rope = bob_person.make_rope(casa_rope, "clean")
     clean_reason_lower = 22
     clean_reason_upper = 55
     clean_reason_divisor = 77
-    bob_plan.add_keg(mop_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(clean_rope)
-    bob_plan.edit_keg_attr(
+    bob_person.add_plan(mop_rope)
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(clean_rope)
+    bob_person.edit_plan_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_case=clean_rope,
@@ -783,11 +784,11 @@ def test_add_lesson_to_br00026_csv_ReturnsObj():
         reason_upper=clean_reason_upper,
         reason_divisor=clean_reason_divisor,
     )
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00026")
     print(f"{csv_header=}")
 
@@ -803,21 +804,21 @@ def test_add_lesson_to_br00027_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
-    bob_plan.add_keg(mop_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.edit_keg_attr(
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
+    bob_person.add_plan(mop_rope)
+    bob_person.add_plan(casa_rope)
+    bob_person.edit_plan_attr(
         mop_rope,
         reason_context=casa_rope,
         reason_requisite_active=True,
     )
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00027")
     print(f"{csv_header=}")
 
@@ -834,9 +835,9 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
     casa_begin = 3
     casa_close = 5
     casa_addin = 7
@@ -848,9 +849,9 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
     casa_star = 2
     casa_pledge = False
     casa_problem_bool = False
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(mop_rope)
-    bob_plan.edit_keg_attr(
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(mop_rope)
+    bob_person.edit_plan_attr(
         mop_rope,
         begin=casa_begin,
         close=casa_close,
@@ -864,11 +865,11 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
         pledge=casa_pledge,
         problem_bool=casa_problem_bool,
     )
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00028")
     print(f"{csv_header=}")
 
@@ -876,8 +877,8 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
     x_csv = add_lesson_to_br00028_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    # root_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},,{bob_plan.moment_rope},,,,,,,,,1,False,False\n"
-    # mop_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_plan.moment_rope},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},{casa_gogo_want},{casa_stop_want},{casa_star},{casa_pledge},{casa_problem_bool}\n"
+    # root_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},,{bob_person.moment_rope},,,,,,,,,1,False,False\n"
+    # mop_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_person.moment_rope},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},{casa_gogo_want},{casa_stop_want},{casa_star},{casa_pledge},{casa_problem_bool}\n"
     mop_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{a23_rope},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},,,{casa_star},{casa_pledge},\n"
     casa_row = (
         f"{exx.sue},{spark7},{exx.a23},{exx.bob},{a23_rope},casa,,,,,,,,,0,False,\n"
@@ -893,20 +894,19 @@ def test_add_lesson_to_br00029_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.credor_respect = 444
-    bob_plan.debtor_respect = 556
-    bob_plan.fund_pool = 999
-    bob_plan.max_tree_traverse = 3
-    bob_plan.tally = 10
-    bob_plan.fund_grain = 3
-    bob_plan.mana_grain = 13
-    bob_plan.respect_grain = 2
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.credor_respect = 444
+    bob_person.debtor_respect = 556
+    bob_person.fund_pool = 999
+    bob_person.max_tree_traverse = 3
+    bob_person.fund_grain = 3
+    bob_person.mana_grain = 13
+    bob_person.respect_grain = 2
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
     csv_header = x_ideas.get("br00029")
     print(f"{csv_header=}")
 
@@ -914,39 +914,40 @@ def test_add_lesson_to_br00029_csv_ReturnsObj():
     x_csv = add_lesson_to_br00029_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    plan_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_plan.credor_respect},{bob_plan.debtor_respect},{bob_plan.fund_pool},,{bob_plan.tally},{bob_plan.fund_grain},,{bob_plan.respect_grain}\n"
-    assert x_csv == f"{csv_header}{plan_row}"
+    person_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_person.credor_respect},{bob_person.debtor_respect},{bob_person.fund_pool},,{bob_person.fund_grain},,{bob_person.respect_grain}\n"
+    assert x_csv == f"{csv_header}{person_row}"
 
 
 def test_add_lessonunit_to_stance_csv_strs_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
     x_ideas = create_init_stance_idea_csv_strs()
-    bob_plan = planunit_shop(exx.bob, exx.a23)
-    bob_plan.add_personunit(exx.yao)
-    mop_rope = bob_plan.make_l1_rope("mop")
-    casa_rope = bob_plan.make_l1_rope("casa")
-    clean_rope = bob_plan.make_rope(casa_rope, "clean")
-    bob_plan.add_keg(mop_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.add_keg(clean_rope)
-    bob_plan.edit_keg_attr(mop_rope, reason_context=casa_rope, reason_case=clean_rope)
-    bob_plan.add_keg(casa_rope)
-    bob_plan.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
-    bob_plan.add_fact(casa_rope, clean_rope)
-    bob_plan.credor_respect = 444
-    bob_plan.debtor_respect = 556
-    bob_plan.fund_pool = 999
-    bob_plan.max_tree_traverse = 3
-    bob_plan.tally = 10
-    bob_plan.fund_grain = 3
-    bob_plan.mana_grain = 13
-    bob_plan.respect_grain = 2
-    bob_plandelta = plandelta_shop()
-    bob_plandelta.add_all_planatoms(bob_plan)
+    bob_person = personunit_shop(exx.bob, exx.a23)
+    bob_person.add_partnerunit(exx.yao)
+    mop_rope = bob_person.make_l1_rope("mop")
+    casa_rope = bob_person.make_l1_rope("casa")
+    clean_rope = bob_person.make_rope(casa_rope, "clean")
+    bob_person.add_plan(mop_rope)
+    bob_person.add_plan(casa_rope)
+    bob_person.add_plan(clean_rope)
+    bob_person.edit_plan_attr(
+        mop_rope, reason_context=casa_rope, reason_case=clean_rope
+    )
+    bob_person.add_plan(casa_rope)
+    bob_person.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
+    bob_person.add_fact(casa_rope, clean_rope)
+    bob_person.credor_respect = 444
+    bob_person.debtor_respect = 556
+    bob_person.fund_pool = 999
+    bob_person.max_tree_traverse = 3
+    bob_person.fund_grain = 3
+    bob_person.mana_grain = 13
+    bob_person.respect_grain = 2
+    bob_persondelta = persondelta_shop()
+    bob_persondelta.add_all_personatoms(bob_person)
     spark7 = 7
     sue7_lesson = lessonunit_shop(exx.bob, exx.sue, exx.a23, spark_num=spark7)
-    sue7_lesson.set_plandelta(bob_plandelta)
+    sue7_lesson.set_persondelta(bob_persondelta)
 
     br00020_header = x_ideas.get("br00020")
     br00021_header = x_ideas.get("br00021")

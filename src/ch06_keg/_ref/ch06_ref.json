@@ -1,6 +1,0 @@
-{
-  "chapter_blurb": "Defines KegUnits with sub-kegs, Awardees, Labor, Reasons, Facts, etc.", 
-  "chapter_content": "Defines KegUnits. Kegs are complicated. A keg can have sub kegs, define itself as a pledge, define Awardees, assigned Labor, required Reasons, etc.", 
-  "chapter_description": "ch06_keg", 
-  "chapter_number": 6
-}

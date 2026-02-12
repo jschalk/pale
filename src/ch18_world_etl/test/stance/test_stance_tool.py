@@ -2,13 +2,16 @@ from os.path import exists as os_path_exists
 from pandas import read_excel as pandas_read_excel
 from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.file_toolbox import create_path, save_json, set_dir
-from src.ch07_plan_logic.plan_main import planunit_shop
-from src.ch09_plan_lesson._ref.ch09_path import create_gut_path, create_moment_json_path
-from src.ch09_plan_lesson.lasso import lassounit_shop
+from src.ch07_person_logic.person_main import personunit_shop
+from src.ch09_person_lesson._ref.ch09_path import (
+    create_gut_path,
+    create_moment_json_path,
+)
+from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch17_idea.idea_csv_tool import (
     add_momentunit_to_stance_csv_strs,
-    add_planunit_to_stance_csv_strs,
+    add_personunit_to_stance_csv_strs,
     create_init_stance_idea_csv_strs,
 )
 from src.ch17_idea.idea_db_tool import get_sheet_names
@@ -43,7 +46,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario0_NoMomentUnits(
     assert gen_stance_csv_strs == expected_stance_csv_strs
 
 
-def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoPlanUnits(
+def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoPersonUnits(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -63,7 +66,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoPlanUni
     assert gen_stance_csv_strs == expected_stance_csv_strs
 
 
-def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_PlanUnits(
+def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_PersonUnits(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -73,9 +76,9 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_PlanUnits(
     a23_lasso = lassounit_shop(exx.a23)
     moment_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
     save_json(moment_json_path, None, a23_moment.to_dict())
-    # create plan gut file
-    bob_gut = planunit_shop(exx.bob, exx.a23)
-    bob_gut.add_personunit("Yao", 44, 55)
+    # create person gut file
+    bob_gut = personunit_shop(exx.bob, exx.a23)
+    bob_gut.add_partnerunit("Yao", 44, 55)
     a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_lasso, exx.bob)
     save_json(a23_bob_gut_path, None, bob_gut.to_dict())
 
@@ -85,7 +88,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_PlanUnits(
     # THEN
     expected_stance_csv_strs = create_init_stance_idea_csv_strs()
     add_momentunit_to_stance_csv_strs(a23_moment, expected_stance_csv_strs, ",")
-    add_planunit_to_stance_csv_strs(bob_gut, expected_stance_csv_strs, ",")
+    add_personunit_to_stance_csv_strs(bob_gut, expected_stance_csv_strs, ",")
     expected_br00020_csv_str = expected_stance_csv_strs.get("br00020")
     gen_br00020_csv_str = gen_stance_csv_strs.get("br00020")
     print(f"{expected_br00020_csv_str=}")

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import get_0_if_None
 from src.ch16_translate._ref.ch16_semantic_types import (
     KnotTerm,
-    PlanName,
+    PersonName,
     SparkInt,
     default_knot_if_None,
 )
@@ -41,7 +41,7 @@ class TranslateUnit:
     """
 
     spark_num: SparkInt = None
-    face_name: PlanName = None
+    face_name: PersonName = None
     titlemap: TitleMap = None
     namemap: NameMap = None
     labelmap: LabelMap = None
@@ -222,7 +222,7 @@ class TranslateUnit:
 
 
 def translateunit_shop(
-    face_name: PlanName,
+    face_name: PersonName,
     spark_num: SparkInt = None,
     otx_knot: KnotTerm = None,
     inx_knot: KnotTerm = None,

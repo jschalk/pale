@@ -29,11 +29,11 @@ def get_ex1_br00000_df() -> DataFrame:
 
 def get_ex1_br00001_df() -> DataFrame:
     """idea_format_00001_moment_budunit_v0_0_0
-    moment_rope,plan_name,quota,bud_time,celldepth"""
+    moment_rope,person_name,quota,bud_time,celldepth"""
     x_df = DataFrame(
         columns=[
             kw.moment_rope,
-            kw.plan_name,
+            kw.person_name,
             kw.quota,
             kw.bud_time,
             kw.celldepth,
@@ -45,9 +45,9 @@ def get_ex1_br00001_df() -> DataFrame:
 
 def get_ex1_br00002_df() -> DataFrame:
     """idea_format_00002_moment_paybook_v0_0_0
-    person_name,amount,moment_rope,plan_name,tran_time"""
+    partner_name,amount,moment_rope,person_name,tran_time"""
     x_df = DataFrame(
-        columns=["person_name", "amount", kw.moment_rope, kw.plan_name, "tran_time"]
+        columns=["partner_name", "amount", kw.moment_rope, kw.person_name, "tran_time"]
     )
     x_df.loc[0] = ["Bob", 888, exx.a23, "Zia", 777]
     return x_df
@@ -142,11 +142,11 @@ def get_ex2_br00000_df() -> DataFrame:
 
 def get_ex2_br00001_df() -> DataFrame:
     """idea_format_00001_moment_budunit_v0_0_0
-    moment_rope,plan_name,quota,bud_time"""
+    moment_rope,person_name,quota,bud_time"""
     x_df = DataFrame(
         columns=[
             kw.moment_rope,
-            kw.plan_name,
+            kw.person_name,
             kw.quota,
             kw.bud_time,
             kw.celldepth,
@@ -162,13 +162,13 @@ def get_ex2_br00001_df() -> DataFrame:
 
 def get_ex2_br00002_df() -> DataFrame:
     """idea_format_00002_moment_paybook_v0_0_0
-    person_name,amount,moment_rope,plan_name,tran_time"""
+    partner_name,amount,moment_rope,person_name,tran_time"""
     x_df = DataFrame(
         columns=[
-            kw.person_name,
+            kw.partner_name,
             kw.amount,
             kw.moment_rope,
-            kw.plan_name,
+            kw.person_name,
             kw.tran_time,
         ]
     )
@@ -365,11 +365,11 @@ def get_ex01_ordered_by_count_x_boolean_csv() -> str:
 def get_ex02_atom_dataframe() -> DataFrame:
     ex02_columns = [
         "healer_name",
-        "person_name",
+        "partner_name",
         "group_title",
         kw.party_title,
         kw.awardee_title,
-        "keg_rope",
+        "plan_rope",
     ]
     x_dt = DataFrame(columns=ex02_columns)
     # x_dt.loc[0] = ["Fay2", "Bob1", False, 10]
@@ -393,7 +393,7 @@ def get_ex02_atom_dataframe() -> DataFrame:
 
 
 def get_ex02_atom_csv() -> str:
-    return """person_name,group_title,keg_rope,party_title,awardee_title,healer_name
+    return """partner_name,group_title,plan_rope,party_title,awardee_title,healer_name
 sue1,;swim1,amy45;casa,;labor5,aw1,;yao4
 sue1,;swim1,amy45;casa;clean,;labor4,aw1,;yao3
 sue1,;swim2,amy45;casa,;labor5,aw1,;yao4

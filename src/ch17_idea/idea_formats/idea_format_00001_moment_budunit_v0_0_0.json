@@ -4,10 +4,10 @@
     "celldepth"  : { "otx_key": false }, 
     "face_name"  : { "otx_key": true  }, 
     "moment_rope": { "otx_key": true  }, 
-    "plan_name"  : { "otx_key": true  }, 
+    "person_name"  : { "otx_key": true  }, 
     "quota"      : { "otx_key": false }, 
     "spark_num"  : { "otx_key": true  }
   }, 
-  "dimens": ["moment_budunit", "momentunit", "planunit"], 
+  "dimens": ["moment_budunit", "momentunit", "personunit"], 
   "idea_number": "br00001"
 }

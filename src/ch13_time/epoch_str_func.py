@@ -6,7 +6,7 @@ from src.ch04_rope.rope import (
     get_tail_label,
 )
 from src.ch05_reason.reason_main import CaseUnit, FactUnit
-from src.ch07_plan_logic.plan_main import PlanUnit
+from src.ch07_person_logic.person_main import PersonUnit
 from src.ch13_time.epoch_main import epochholder_shop
 
 
@@ -14,7 +14,7 @@ def get_reason_case_readable_str(
     reason_context: RopeTerm,
     caseunit: CaseUnit,
     epoch_label: LabelTerm = None,
-    planunit: PlanUnit = None,
+    personunit: PersonUnit = None,
 ) -> str:
     """Returns a string describing reason case in readable language. Will have special cases for time."""
 
@@ -23,12 +23,12 @@ def get_reason_case_readable_str(
     epoch_rope = create_rope(time_rope, epoch_label)
     week_rope = create_rope(epoch_rope, "week")
     if reason_context == week_rope:
-        week_keg = planunit.get_keg_obj(week_rope)
-        for weekday_keg in week_keg.kids.values():
-            week_lower_bool = caseunit.reason_lower == weekday_keg.gogo_want
-            week_upper_bool = caseunit.reason_upper == weekday_keg.stop_want
+        week_plan = personunit.get_plan_obj(week_rope)
+        for weekday_plan in week_plan.kids.values():
+            week_lower_bool = caseunit.reason_lower == weekday_plan.gogo_want
+            week_upper_bool = caseunit.reason_upper == weekday_plan.stop_want
             if week_lower_bool and week_upper_bool:
-                return f"case: every {weekday_keg.keg_label}"
+                return f"case: every {weekday_plan.plan_label}"
 
     x_str = f"case: {caseunit.reason_state.replace(reason_context, "", 1)}"
     if caseunit.reason_divisor:
@@ -42,7 +42,7 @@ def get_reason_case_readable_str(
 def get_fact_state_readable_str(
     factunit: FactUnit,
     epoch_label: LabelTerm = None,
-    planunit: PlanUnit = None,
+    personunit: PersonUnit = None,
 ) -> str:
     """Returns a string describing fact in readable language. Will have special cases for time."""
 
@@ -56,8 +56,8 @@ def get_fact_state_readable_str(
     moment_rope = get_first_label_from_rope(context_rope)
     time_rope = create_rope(moment_rope, "time")
     if factunit.fact_context == create_rope(time_rope, epoch_label):
-        lower_blurb = get_timenum_blurb(planunit, epoch_label, lower_float)
-        upper_blurb = get_timenum_blurb(planunit, epoch_label, upper_float)
+        lower_blurb = get_timenum_blurb(personunit, epoch_label, lower_float)
+        upper_blurb = get_timenum_blurb(personunit, epoch_label, upper_float)
         return f"from {lower_blurb} to {upper_blurb}"
 
     if lower_float is not None and upper_float is not None:
@@ -66,7 +66,7 @@ def get_fact_state_readable_str(
     return x_str
 
 
-def get_timenum_blurb(planunit: PlanUnit, epoch_rope: RopeTerm, x_min: int) -> str:
-    lower_btlp = epochholder_shop(planunit, epoch_rope, x_min)
+def get_timenum_blurb(personunit: PersonUnit, epoch_rope: RopeTerm, x_min: int) -> str:
+    lower_btlp = epochholder_shop(personunit, epoch_rope, x_min)
     lower_btlp.calc_epoch()
     return lower_btlp.get_blurb()

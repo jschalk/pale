@@ -7,16 +7,16 @@ from src.ch00_py.dict_toolbox import (
     get_csv_column1_column2_metrics,
     get_positional_dict,
 )
-from src.ch07_plan_logic.plan_main import PlanUnit
-from src.ch08_plan_atom.atom_main import PlanAtom, atomrow_shop
-from src.ch09_plan_lesson.delta import (
-    PlanDelta,
-    get_dimens_cruds_plandelta,
-    plandelta_shop,
+from src.ch07_person_logic.person_main import PersonUnit
+from src.ch08_person_atom.atom_main import PersonAtom, atomrow_shop
+from src.ch09_person_lesson.delta import (
+    PersonDelta,
+    get_dimens_cruds_persondelta,
+    persondelta_shop,
 )
 from src.ch13_time.epoch_main import epochunit_shop
 from src.ch14_moment.moment_main import MomentUnit, momentunit_shop
-from src.ch17_idea._ref.ch17_semantic_types import MomentRope, PlanName
+from src.ch17_idea._ref.ch17_semantic_types import MomentRope, PersonName
 from src.ch17_idea.idea_config import get_idea_format_headers, get_idearef_from_file
 from src.ch17_idea.idea_db_tool import (
     get_default_sorted_list,
@@ -77,45 +77,47 @@ def _generate_idea_dataframe(d2_list: list[list[str]], idea_name: str) -> DataFr
     return DataFrame(d2_list, columns=_get_headers_list(idea_name))
 
 
-def create_idea_df(x_planunit: PlanUnit, idea_name: str) -> DataFrame:
-    x_plandelta = plandelta_shop()
-    x_plandelta.add_all_planatoms(x_planunit)
+def create_idea_df(x_personunit: PersonUnit, idea_name: str) -> DataFrame:
+    x_persondelta = persondelta_shop()
+    x_persondelta.add_all_personatoms(x_personunit)
     x_idearef = get_idearef_obj(idea_name)
-    x_moment_rope = x_planunit.moment_rope
-    x_plan_name = x_planunit.plan_name
-    sorted_planatoms = _get_sorted_insert_str_planatoms(x_plandelta, x_idearef)
-    d2_list = _create_d2_list(sorted_planatoms, x_idearef, x_moment_rope, x_plan_name)
+    x_moment_rope = x_personunit.moment_rope
+    x_person_name = x_personunit.person_name
+    sorted_personatoms = _get_sorted_insert_str_personatoms(x_persondelta, x_idearef)
+    d2_list = _create_d2_list(
+        sorted_personatoms, x_idearef, x_moment_rope, x_person_name
+    )
     d2_list = _delta_all_pledge_values(d2_list, x_idearef)
     x_idea = _generate_idea_dataframe(d2_list, idea_name)
     sorting_columns = x_idearef.get_headers_list()
     return _sort_dataframe(x_idea, sorting_columns)
 
 
-def _get_sorted_insert_str_planatoms(
-    x_plandelta: PlanDelta, x_idearef: IdeaRef
-) -> list[PlanAtom]:
+def _get_sorted_insert_str_personatoms(
+    x_persondelta: PersonDelta, x_idearef: IdeaRef
+) -> list[PersonAtom]:
     dimen_set = set(x_idearef.dimens)
     curd_set = {"INSERT"}
-    limited_delta = get_dimens_cruds_plandelta(x_plandelta, dimen_set, curd_set)
-    return limited_delta.get_dimen_sorted_planatoms_list()
+    limited_delta = get_dimens_cruds_persondelta(x_persondelta, dimen_set, curd_set)
+    return limited_delta.get_dimen_sorted_personatoms_list()
 
 
 def _create_d2_list(
-    sorted_planatoms: list[PlanAtom],
+    sorted_personatoms: list[PersonAtom],
     x_idearef: IdeaRef,
     x_moment_rope: MomentRope,
-    x_plan_name: PlanName,
+    x_person_name: PersonName,
 ):
     d2_list = []
-    for x_planatom in sorted_planatoms:
+    for x_personatom in sorted_personatoms:
         d1_list = []
         for x_attribute in x_idearef.get_headers_list():
             if x_attribute == "moment_rope":
                 d1_list.append(x_moment_rope)
-            elif x_attribute == "plan_name":
-                d1_list.append(x_plan_name)
+            elif x_attribute == "person_name":
+                d1_list.append(x_person_name)
             else:
-                d1_list.append(x_planatom.get_value(x_attribute))
+                d1_list.append(x_personatom.get_value(x_attribute))
         d2_list.append(d1_list)
     return d2_list
 
@@ -141,8 +143,10 @@ def _sort_dataframe(x_idea: DataFrame, sorting_columns: list[str]) -> DataFrame:
     return x_idea
 
 
-def save_idea_csv(x_ideaname: str, x_planunit: PlanUnit, x_dir: str, x_filename: str):
-    x_dataframe = create_idea_df(x_planunit, x_ideaname)
+def save_idea_csv(
+    x_ideaname: str, x_personunit: PersonUnit, x_dir: str, x_filename: str
+):
+    x_dataframe = create_idea_df(x_personunit, x_ideaname)
     save_dataframe_to_csv(x_dataframe, x_dir, x_filename)
 
 
@@ -156,9 +160,9 @@ def get_csv_idearef(header_row: list[str]) -> IdeaRef:
     return get_idearef_obj(x_ideaname)
 
 
-def _remove_non_plan_dimens_from_idearef(x_idearef: IdeaRef) -> IdeaRef:
+def _remove_non_person_dimens_from_idearef(x_idearef: IdeaRef) -> IdeaRef:
     to_delete_dimen_set = {
-        dimen for dimen in x_idearef.dimens if not dimen.startswith("plan")
+        dimen for dimen in x_idearef.dimens if not dimen.startswith("person")
     }
     dimens_set = set(x_idearef.dimens)
     for to_delete_dimen in to_delete_dimen_set:
@@ -168,13 +172,13 @@ def _remove_non_plan_dimens_from_idearef(x_idearef: IdeaRef) -> IdeaRef:
     return x_idearef
 
 
-def make_plandelta(x_csv: str) -> PlanDelta:
+def make_persondelta(x_csv: str) -> PersonDelta:
     header_row, headerless_csv = extract_csv_headers(x_csv)
     x_idearef = get_csv_idearef(header_row)
-    _remove_non_plan_dimens_from_idearef(x_idearef)
+    _remove_non_person_dimens_from_idearef(x_idearef)
     x_reader = csv_reader(headerless_csv.splitlines(), delimiter=",")
     x_dict = get_positional_dict(header_row)
-    x_plandelta = plandelta_shop()
+    x_persondelta = persondelta_shop()
 
     for row in x_reader:
         x_atomrow = atomrow_shop(x_idearef.dimens, "INSERT")
@@ -182,20 +186,20 @@ def make_plandelta(x_csv: str) -> PlanDelta:
             if header_index := x_dict.get(x_header):
                 x_atomrow.__dict__[x_header] = row[header_index]
 
-        for x_planatom in x_atomrow.get_planatoms():
-            x_plandelta.set_planatom(x_planatom)
-    return x_plandelta
+        for x_personatom in x_atomrow.get_personatoms():
+            x_persondelta.set_personatom(x_personatom)
+    return x_persondelta
 
 
-def get_csv_moment_rope_plan_name_metrics(
+def get_csv_moment_rope_person_name_metrics(
     headerless_csv: str, delimiter: str = None
-) -> dict[MomentRope, dict[PlanName, int]]:
+) -> dict[MomentRope, dict[PersonName, int]]:
     return get_csv_column1_column2_metrics(headerless_csv, delimiter)
 
 
-def moment_rope_plan_name_nested_csv_dict(
+def moment_rope_person_name_nested_csv_dict(
     headerless_csv: str, delimiter: str = None
-) -> dict[MomentRope, dict[PlanName, str]]:
+) -> dict[MomentRope, dict[PersonName, str]]:
     return create_l2nested_csv_dict(headerless_csv, delimiter)
 
 
@@ -284,7 +288,7 @@ def _add_budunits_from_df(x_momentunit: MomentUnit, br00001_df: DataFrame):
     query_str = f"moment_rope == '{x_momentunit.moment_rope}'"
     for index, row in br00001_df.query(query_str).iterrows():
         x_momentunit.add_budunit(
-            plan_name=row["plan_name"],
+            person_name=row["person_name"],
             bud_time=row["bud_time"],
             quota=row["quota"],
             celldepth=if_nan_return_None(row["celldepth"]),
@@ -296,8 +300,8 @@ def _add_paypurchases_from_df(x_momentunit: MomentUnit, br00002_df: DataFrame):
     query_str = f"moment_rope == '{x_momentunit.moment_rope}'"
     for index, row in br00002_df.query(query_str).iterrows():
         x_momentunit.add_paypurchase(
-            plan_name=row["plan_name"],
             person_name=row["person_name"],
+            partner_name=row["partner_name"],
             tran_time=row["tran_time"],
             amount=row["amount"],
         )

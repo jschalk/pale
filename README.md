@@ -20,7 +20,7 @@ So how do I listen? pale has an engine for converting the declarations (as data)
 # 0.0.1 "Moments" The foundation of pale
 For Levinas all of reality is born from the face to face encounter. The same (me) welcomes the Other through the Face. The Face of the other tells me it's suffering and it's suffering becomes my suffering. I then MOMENT to change who I am to ease that suffering. The suffering is infinitely deep and beyond my complete understanding so when I moment to respond to that suffering I am acting with confidence that I understand what the suffering is and that I know how to respond. That confidence stops the listening process, the Moment cuts the infinite into the finite and is the foundation for a world. When that Moment is created it can create a world. Worlds can hold a infinite amount of human experience. A small subset of that is logical systems. pale is uses computers to build logic.
 
-A Moment can create a world or change a current world. Each plan can only make one moment at a time so a world that has been built by multiple moments implies each moment is from a different time. pale describes the passage of time by *spark_nums*. *spark_num* is alropes an integer. 
+A Moment can create a world or change a current world. Each person can only make one moment at a time so a world that has been built by multiple moments implies each moment is from a different time. pale describes the passage of time by *spark_nums*. *spark_num* is alropes an integer. 
 
 For pale all data must have *spark_num*, *face_name*, *moment_rope*. These are the required keys.
 
@@ -30,25 +30,25 @@ For pale all data must have *spark_num*, *face_name*, *moment_rope*. These are t
 `pale` is a python library for listening to the needs of my neighbors and in turn letting them know what I need. Needs can be expressed in Excel sheets that range in complexity from a simple five column single row (example below) to 10+ columns that include configuration options that are usually set to defaults. Each row is translated and used to build the "clarity" data set. Even sheet with a single row like the example 0.1.0 below can be processed by pale. 
 
 # Input Example Excel file 0.1.0: fizz0.xlsx with sheet "br00000_buzz" 
-| spark_num | face_name | moment_rope | plan_name | person_name | tran_time | amount |
+| spark_num | face_name | moment_rope | person_name | partner_name | tran_time | amount |
 |-----------|-----------|-----------|------------|-----------|-----------|--------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |    891    |  7000  |
 
-When pale processes example 0.1.0 it creates a Moment labeled "OxboxDean" that contains plans Emmanuel and Dean and a single transaction of 7000 OxboxDean from Emmanuel to Dean. Here's a metric:
-| moment_rope | plan_name | moment_fund_amount | moment_fund_rank | moment_pledges |
+When pale processes example 0.1.0 it creates a Moment labeled "OxboxDean" that contains persons Emmanuel and Dean and a single transaction of 7000 OxboxDean from Emmanuel to Dean. Here's a metric:
+| moment_rope | person_name | moment_fund_amount | moment_fund_rank | moment_pledges |
 |--------------|---------------|--------------------|------------------|--------------|
 |  OxboxDean   |    Emmanuel   |       -7000        |         2        |       0      |
 |  OxboxDean   |      Dean     |        7000        |         1        |       0      |
 
 
 Output stance: emmanuel_stance.xlsx, sheet "br00000"
-| spark_num | face_name | moment_rope | plan_name | person_name | tran_time | amount |
+| spark_num | face_name | moment_rope | person_name | partner_name | tran_time | amount |
 |-----------|-----------|--------------|---------------|-----------|-----------|--------|
 |    77     | Emmanuel  |   OxboxDean  |    Emmanuel   |    Dean   |    891    |  7000  |
 
 
 <!-- # Input Example Excel file 0.1.2: fizz2.xlsx with sheet "br00000_buzz2" 
-| spark_num | face_name | moment_rope | plan_name | person_name | person_cred_points | person_debt_points |
+| spark_num | face_name | moment_rope | person_name | partner_name | partner_cred_points | partner_debt_points |
 |-----------|-----------|-----------|------------|-----------|---------------|---------------|
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |    Dean   |      100      |      15       |
 |    77     | Emmanuel  | OxboxDean |  Emmanuel  |  Emmanuel |       50      |      75       |
@@ -61,8 +61,8 @@ Output stance: emmanuel_stance.xlsx, sheet "br00000"
 positions are aggregated by a listener into a coherant agenda that can include pledges 
 to do and pledges of  of existence. Listening and acting on it.
 
-A person's agenda in the community is built by the the stared intreprtation of
-1. Other persons' agendas 
+A partner's agenda in the community is built by the the stared intreprtation of
+1. Other partners' agendas 
 2. Their own independent agenda
 
 Each agenda is saved as a JSON file. 
@@ -102,31 +102,31 @@ screenshots and elucidatory text.
 <!-- TODO: Add elucidations -->
 base attributes vs reason attributess
 
-PlanUnit objects
+PersonUnit objects
 
-PlanUnit PersonUnit objects
+PersonUnit PartnerUnit objects
 
-PlanUnit GroupUnit objects
+PersonUnit GroupUnit objects
 
-PlanUnit KegUnit objects
+PersonUnit PlanUnit objects
 
-PlanUnit KegUnit hierarchical structure
+PersonUnit PlanUnit hierarchical structure
 
-PlanUnit KegUnit AwardUnit objects
+PersonUnit PlanUnit AwardUnit objects
 
-PlanUnit KegUnit AwardLine objects
+PersonUnit PlanUnit AwardLine objects
 
-PlanUnit KegUnit AwardHeir objects
+PersonUnit PlanUnit AwardHeir objects
 
-PlanUnit KegUnit AwardHeir objects
+PersonUnit PlanUnit AwardHeir objects
 
-PlanUnit KegUnit Reason CaseUnit objects
+PersonUnit PlanUnit Reason CaseUnit objects
 
-PlanUnit KegUnit Reason CaseHeir objects
+PersonUnit PlanUnit Reason CaseHeir objects
 
-PlanUnit KegUnit FactUnit objects
+PersonUnit PlanUnit FactUnit objects
 
-PlanUnit KegUnit FactHeir objects1
+PersonUnit PlanUnit FactHeir objects1
 
 
 ## 1.3 Test-Driven-Development

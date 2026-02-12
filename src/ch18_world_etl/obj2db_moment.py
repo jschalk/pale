@@ -75,34 +75,34 @@ def _set_moment_dict_mmtpayy(
     tranunits_dict = {}
     for mmtpayy_row in cursor.fetchall():
         row_moment_rope = mmtpayy_row[0]
-        row_plan_name = mmtpayy_row[1]
-        row_person_name = mmtpayy_row[2]
+        row_person_name = mmtpayy_row[1]
+        row_partner_name = mmtpayy_row[2]
         row_tran_time = mmtpayy_row[3]
         row_amount = mmtpayy_row[4]
-        keylist = [row_plan_name, row_person_name, row_tran_time]
+        keylist = [row_person_name, row_partner_name, row_tran_time]
         set_in_nested_dict(tranunits_dict, keylist, row_amount)
     paybook_dict = {"moment_rope": x_moment_rope, "tranunits": tranunits_dict}
     moment_dict["paybook"] = paybook_dict
 
 
 def _set_moment_dict_momentbud(cursor: sqlite3_Cursor, moment_dict: dict):
-    planbudhistorys_dict = {}
+    personbudhistorys_dict = {}
     for mmtpayy_row in cursor.fetchall():
         row_moment_rope = mmtpayy_row[0]
-        row_plan_name = mmtpayy_row[1]
+        row_person_name = mmtpayy_row[1]
         row_bud_time = mmtpayy_row[2]
         row_quota = mmtpayy_row[3]
         row_celldepth = mmtpayy_row[4]
-        plan_keylist = [row_plan_name, "plan_name"]
-        set_in_nested_dict(planbudhistorys_dict, plan_keylist, row_plan_name)
-        keylist = [row_plan_name, "buds", row_bud_time]
+        person_keylist = [row_person_name, "person_name"]
+        set_in_nested_dict(personbudhistorys_dict, person_keylist, row_person_name)
+        keylist = [row_person_name, "buds", row_bud_time]
         bud_timenum_dict = {
             "bud_time": row_bud_time,
             "quota": row_quota,
             "celldepth": row_celldepth,
         }
-        set_in_nested_dict(planbudhistorys_dict, keylist, bud_timenum_dict)
-    moment_dict["planbudhistorys"] = planbudhistorys_dict
+        set_in_nested_dict(personbudhistorys_dict, keylist, bud_timenum_dict)
+    moment_dict["personbudhistorys"] = personbudhistorys_dict
 
 
 def _set_moment_dict_mmthour(cursor: sqlite3_Cursor, moment_dict: dict):

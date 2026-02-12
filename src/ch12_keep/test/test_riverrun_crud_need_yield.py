@@ -1,11 +1,11 @@
-from src.ch07_plan_logic.plan_main import planunit_shop
+from src.ch07_person_logic.person_main import personunit_shop
 from src.ch12_keep.rivercycle import get_doctorledger
 from src.ch12_keep.riverrun import riverrun_shop
 from src.ch12_keep.test._util.ch12_env import get_temp_dir
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_RiverRun_set_person_need_yield_SetsAttr():
+def test_RiverRun_set_partner_need_yield_SetsAttr():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     bob_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.bob)
@@ -13,7 +13,7 @@ def test_RiverRun_set_person_need_yield_SetsAttr():
 
     # WHEN
     yao_need_yield = 7
-    bob_riverrun.set_person_need_yield(exx.yao, yao_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.yao, yao_need_yield)
 
     # THEN
     assert bob_riverrun.need_yields.get(exx.yao) == yao_need_yield
@@ -27,7 +27,7 @@ def test_RiverRun_need_yields_is_empty_ReturnsObj():
 
     # WHEN
     yao_need_yield = 500
-    x_riverrun.set_person_need_yield(exx.yao, yao_need_yield)
+    x_riverrun.set_partner_need_yield(exx.yao, yao_need_yield)
     # THEN
     assert x_riverrun.need_yields_is_empty() is False
 
@@ -38,8 +38,8 @@ def test_RiverRun_need_yields_is_empty_ReturnsObj():
 
     # WHEN
     bob_need_yield = 300
-    x_riverrun.set_person_need_yield(exx.yao, bob_need_yield)
-    x_riverrun.set_person_need_yield(exx.yao, yao_need_yield)
+    x_riverrun.set_partner_need_yield(exx.yao, bob_need_yield)
+    x_riverrun.set_partner_need_yield(exx.yao, yao_need_yield)
     # THEN
     assert x_riverrun.need_yields_is_empty() is False
 
@@ -64,9 +64,9 @@ def test_RiverRun_reset_need_yields_SetsAttr():
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
-    bob_riverrun.set_person_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_person_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_person_need_yield(exx.yao, yao_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.bob, bob_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.sue, sue_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.yao, yao_need_yield)
     assert bob_riverrun.need_yields_is_empty() is False
 
     # WHEN
@@ -76,7 +76,7 @@ def test_RiverRun_reset_need_yields_SetsAttr():
     assert bob_riverrun.need_yields_is_empty()
 
 
-def test_RiverRun_person_has_need_yield_ReturnsBool():
+def test_RiverRun_partner_has_need_yield_ReturnsBool():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     bob_mana_amount = 1000
@@ -91,22 +91,22 @@ def test_RiverRun_person_has_need_yield_ReturnsBool():
     yao_need_yield = 6
     bob_need_yield = 38
     sue_need_yield = 56
-    bob_riverrun.set_person_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_person_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_person_need_yield(exx.yao, yao_need_yield)
-    assert bob_riverrun.person_has_need_yield(exx.bob)
-    assert bob_riverrun.person_has_need_yield(exx.sue)
-    assert bob_riverrun.person_has_need_yield(exx.yao)
-    assert bob_riverrun.person_has_need_yield(exx.zia) is False
+    bob_riverrun.set_partner_need_yield(exx.bob, bob_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.sue, sue_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.yao, yao_need_yield)
+    assert bob_riverrun.partner_has_need_yield(exx.bob)
+    assert bob_riverrun.partner_has_need_yield(exx.sue)
+    assert bob_riverrun.partner_has_need_yield(exx.yao)
+    assert bob_riverrun.partner_has_need_yield(exx.zia) is False
 
     # WHEN
     bob_riverrun.reset_need_yields()
 
     # THEN
-    assert bob_riverrun.person_has_need_yield(exx.bob) is False
-    assert bob_riverrun.person_has_need_yield(exx.sue) is False
-    assert bob_riverrun.person_has_need_yield(exx.yao) is False
-    assert bob_riverrun.person_has_need_yield(exx.zia) is False
+    assert bob_riverrun.partner_has_need_yield(exx.bob) is False
+    assert bob_riverrun.partner_has_need_yield(exx.sue) is False
+    assert bob_riverrun.partner_has_need_yield(exx.yao) is False
+    assert bob_riverrun.partner_has_need_yield(exx.zia) is False
 
 
 def test_RiverRun_delete_need_yield_SetsAttr():
@@ -122,17 +122,17 @@ def test_RiverRun_delete_need_yield_SetsAttr():
         mana_grain=bob_mana_grain,
         keep_point_magnitude=bob_mana_amount,
     )
-    bob_riverrun.set_person_need_yield(exx.yao, 5)
-    assert bob_riverrun.person_has_need_yield(exx.yao)
+    bob_riverrun.set_partner_need_yield(exx.yao, 5)
+    assert bob_riverrun.partner_has_need_yield(exx.yao)
 
     # WHEN
     bob_riverrun.delete_need_yield(exx.yao)
 
     # THEN
-    assert bob_riverrun.person_has_need_yield(exx.yao) is False
+    assert bob_riverrun.partner_has_need_yield(exx.yao) is False
 
 
-def test_RiverRun_get_person_need_yield_ReturnsObj():
+def test_RiverRun_get_partner_need_yield_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     bob_mana_amount = 1000
@@ -148,25 +148,25 @@ def test_RiverRun_get_person_need_yield_ReturnsObj():
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
-    bob_riverrun.set_person_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_person_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_person_need_yield(exx.yao, yao_need_yield)
-    assert bob_riverrun.person_has_need_yield(exx.bob)
-    assert bob_riverrun.get_person_need_yield(exx.bob) == bob_need_yield
-    assert bob_riverrun.person_has_need_yield(exx.zia) is False
-    assert bob_riverrun.get_person_need_yield(exx.zia) == 0
+    bob_riverrun.set_partner_need_yield(exx.bob, bob_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.sue, sue_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.yao, yao_need_yield)
+    assert bob_riverrun.partner_has_need_yield(exx.bob)
+    assert bob_riverrun.get_partner_need_yield(exx.bob) == bob_need_yield
+    assert bob_riverrun.partner_has_need_yield(exx.zia) is False
+    assert bob_riverrun.get_partner_need_yield(exx.zia) == 0
 
     # WHEN
     bob_riverrun.reset_need_yields()
 
     # THEN
-    assert bob_riverrun.person_has_need_yield(exx.bob) is False
-    assert bob_riverrun.get_person_need_yield(exx.bob) == 0
-    assert bob_riverrun.person_has_need_yield(exx.zia) is False
-    assert bob_riverrun.get_person_need_yield(exx.zia) == 0
+    assert bob_riverrun.partner_has_need_yield(exx.bob) is False
+    assert bob_riverrun.get_partner_need_yield(exx.bob) == 0
+    assert bob_riverrun.partner_has_need_yield(exx.zia) is False
+    assert bob_riverrun.get_partner_need_yield(exx.zia) == 0
 
 
-def test_RiverRun_add_person_need_yield_ReturnsObj():
+def test_RiverRun_add_partner_need_yield_ReturnsObj():
     # ESTABLISH
     mstr_dir = get_temp_dir()
     bob_mana_amount = 1000
@@ -181,21 +181,21 @@ def test_RiverRun_add_person_need_yield_ReturnsObj():
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
-    bob_riverrun.set_person_need_yield(exx.bob, bob_need_yield)
-    bob_riverrun.set_person_need_yield(exx.sue, sue_need_yield)
-    bob_riverrun.set_person_need_yield(exx.yao, yao_need_yield)
-    assert bob_riverrun.get_person_need_yield(exx.bob) == bob_need_yield
-    assert bob_riverrun.get_person_need_yield(exx.sue) == sue_need_yield
-    assert bob_riverrun.get_person_need_yield(exx.zia) == 0
+    bob_riverrun.set_partner_need_yield(exx.bob, bob_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.sue, sue_need_yield)
+    bob_riverrun.set_partner_need_yield(exx.yao, yao_need_yield)
+    assert bob_riverrun.get_partner_need_yield(exx.bob) == bob_need_yield
+    assert bob_riverrun.get_partner_need_yield(exx.sue) == sue_need_yield
+    assert bob_riverrun.get_partner_need_yield(exx.zia) == 0
 
     # WHEN
-    bob_riverrun.add_person_need_yield(exx.sue, 5)
-    bob_riverrun.add_person_need_yield(exx.zia, 10)
+    bob_riverrun.add_partner_need_yield(exx.sue, 5)
+    bob_riverrun.add_partner_need_yield(exx.zia, 10)
 
     # THEN
-    assert bob_riverrun.get_person_need_yield(exx.bob) == bob_need_yield
-    assert bob_riverrun.get_person_need_yield(exx.sue) == sue_need_yield + 5
-    assert bob_riverrun.get_person_need_yield(exx.zia) == 10
+    assert bob_riverrun.get_partner_need_yield(exx.bob) == bob_need_yield
+    assert bob_riverrun.get_partner_need_yield(exx.sue) == sue_need_yield + 5
+    assert bob_riverrun.get_partner_need_yield(exx.zia) == 10
 
 
 def test_RiverRun_levy_need_due_SetsAttr_ScenarioY():
@@ -213,58 +213,58 @@ def test_RiverRun_levy_need_due_SetsAttr_ScenarioY():
     bob_need_yield = 38
     sue_need_yield = 56
     yao_need_yield = 6
-    bob_plan = planunit_shop(exx.bob)
-    bob_plan.add_personunit(exx.bob, 2, bob_need_yield)
-    bob_plan.add_personunit(exx.sue, 2, sue_need_yield)
-    bob_plan.add_personunit(exx.yao, 2, yao_need_yield)
-    bob_doctorledger = get_doctorledger(bob_plan)
+    bob_person = personunit_shop(exx.bob)
+    bob_person.add_partnerunit(exx.bob, 2, bob_need_yield)
+    bob_person.add_partnerunit(exx.sue, 2, sue_need_yield)
+    bob_person.add_partnerunit(exx.yao, 2, yao_need_yield)
+    bob_doctorledger = get_doctorledger(bob_person)
     bob_riverrun.set_need_dues(bob_doctorledger)
-    assert bob_riverrun.get_person_need_due(exx.bob) == 380
-    assert bob_riverrun.get_person_need_yield(exx.bob) == 0
+    assert bob_riverrun.get_partner_need_due(exx.bob) == 380
+    assert bob_riverrun.get_partner_need_yield(exx.bob) == 0
 
     # WHEN
     excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.bob, 5)
     # THEN
     assert excess_carer_points == 0
-    assert bob_riverrun.get_person_need_due(exx.bob) == 375
-    assert bob_riverrun.get_person_need_yield(exx.bob) == 5
+    assert bob_riverrun.get_partner_need_due(exx.bob) == 375
+    assert bob_riverrun.get_partner_need_yield(exx.bob) == 5
 
     # WHEN
     excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.bob, 375)
     # THEN
     assert excess_carer_points == 0
-    assert bob_riverrun.get_person_need_due(exx.bob) == 0
-    assert bob_riverrun.get_person_need_yield(exx.bob) == 380
+    assert bob_riverrun.get_partner_need_due(exx.bob) == 0
+    assert bob_riverrun.get_partner_need_yield(exx.bob) == 380
 
     # ESTABLISH
-    assert bob_riverrun.get_person_need_due(exx.sue) == 560
-    assert bob_riverrun.get_person_need_yield(exx.sue) == 0
+    assert bob_riverrun.get_partner_need_due(exx.sue) == 560
+    assert bob_riverrun.get_partner_need_yield(exx.sue) == 0
     # WHEN
     excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.sue, 1000)
     # THEN
     assert excess_carer_points == 440
-    assert bob_riverrun.get_person_need_due(exx.sue) == 0
-    assert bob_riverrun.get_person_need_yield(exx.sue) == 560
+    assert bob_riverrun.get_partner_need_due(exx.sue) == 0
+    assert bob_riverrun.get_partner_need_yield(exx.sue) == 560
 
     # ESTABLISH
-    assert bob_riverrun.get_person_need_due(exx.zia) == 0
-    assert bob_riverrun.get_person_need_yield(exx.zia) == 0
+    assert bob_riverrun.get_partner_need_due(exx.zia) == 0
+    assert bob_riverrun.get_partner_need_yield(exx.zia) == 0
     # WHEN
     excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.zia, 1000)
     # THEN
     assert excess_carer_points == 1000
-    assert bob_riverrun.get_person_need_due(exx.zia) == 0
-    assert bob_riverrun.get_person_need_yield(exx.zia) == 0
+    assert bob_riverrun.get_partner_need_due(exx.zia) == 0
+    assert bob_riverrun.get_partner_need_yield(exx.zia) == 0
 
     # ESTABLISH
-    assert bob_riverrun.get_person_need_due(exx.yao) == 60
-    assert bob_riverrun.get_person_need_yield(exx.yao) == 0
+    assert bob_riverrun.get_partner_need_due(exx.yao) == 60
+    assert bob_riverrun.get_partner_need_yield(exx.yao) == 0
     # WHEN
     excess_carer_points, need_got = bob_riverrun.levy_need_due(exx.yao, 81)
     # THEN
     assert excess_carer_points == 21
-    assert bob_riverrun.get_person_need_due(exx.yao) == 0
-    assert bob_riverrun.get_person_need_yield(exx.yao) == 60
+    assert bob_riverrun.get_partner_need_due(exx.yao) == 0
+    assert bob_riverrun.get_partner_need_yield(exx.yao) == 60
 
 
 def test_RiverRun_set_need_got_attrs_SetsAttrs():

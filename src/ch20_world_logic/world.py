@@ -24,11 +24,11 @@ from src.ch18_world_etl.etl_main import (
     etl_heard_raw_tables_to_heard_vld_tables,
     etl_heard_raw_tables_to_moment_ote1_agg,
     etl_heard_vld_tables_to_moment_jsons,
-    etl_heard_vld_to_spark_plan_csvs,
+    etl_heard_vld_to_spark_person_csvs,
     etl_input_dfs_to_brick_raw_tables,
     etl_moment_guts_to_moment_jobs,
     etl_moment_job_jsons_to_job_tables,
-    etl_moment_json_person_nets_to_moment_person_nets_table,
+    etl_moment_json_partner_nets_to_moment_partner_nets_table,
     etl_moment_ote1_agg_csvs_to_jsons,
     etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs,
     etl_set_cell_tree_cell_mandates,
@@ -37,9 +37,9 @@ from src.ch18_world_etl.etl_main import (
     etl_sound_agg_tables_to_sound_vld_tables,
     etl_sound_raw_tables_to_sound_agg_tables,
     etl_sound_vld_tables_to_heard_raw_tables,
-    etl_spark_inherited_planunits_to_moment_gut,
-    etl_spark_lesson_json_to_spark_inherited_planunits,
-    etl_spark_plan_csvs_to_lesson_json,
+    etl_spark_inherited_personunits_to_moment_gut,
+    etl_spark_lesson_json_to_spark_inherited_personunits,
+    etl_spark_person_csvs_to_lesson_json,
     etl_sparks_brick_agg_table_to_sparks_brick_valid_table,
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
     get_max_brick_agg_spark_num,
@@ -100,7 +100,7 @@ class WorldUnit:
         set_dir(self._brick_dir)
         set_dir(self._moment_mstr_dir)
 
-    def calc_moment_bud_person_mandate_net_ledgers(self):
+    def calc_moment_bud_partner_mandate_net_ledgers(self):
         mstr_dir = self._moment_mstr_dir
         etl_create_buds_root_cells(mstr_dir)
         etl_create_moment_cell_trees(mstr_dir)
@@ -147,30 +147,30 @@ class WorldUnit:
         etl_translate_sound_agg_tables_to_translate_sound_vld_tables(cursor)
         etl_sound_agg_tables_to_sound_vld_tables(cursor)
         etl_sound_vld_tables_to_heard_raw_tables(cursor)
-        # heard raw to moment/plan jsons
+        # heard raw to moment/person jsons
         etl_heard_raw_tables_to_heard_agg_tables(cursor)
         # TODO add step to convert TimeNum and ReasonNum in heard_agg_tables, use rules defined in Nabu chapter
         # TODO change "etl_heard_raw_tables_to_heard_vld_tables" to "etl_heard_agg_tables_to_heard_vld_tables"
         etl_heard_raw_tables_to_heard_vld_tables(cursor)
         # etl_heard_vld_nabu_updates
         etl_heard_vld_tables_to_moment_jsons(cursor, mstr_dir)
-        etl_heard_vld_to_spark_plan_csvs(cursor, mstr_dir)
-        etl_spark_plan_csvs_to_lesson_json(mstr_dir)
-        etl_spark_lesson_json_to_spark_inherited_planunits(mstr_dir)
-        etl_spark_inherited_planunits_to_moment_gut(mstr_dir)
+        etl_heard_vld_to_spark_person_csvs(cursor, mstr_dir)
+        etl_spark_person_csvs_to_lesson_json(mstr_dir)
+        etl_spark_lesson_json_to_spark_inherited_personunits(mstr_dir)
+        etl_spark_inherited_personunits_to_moment_gut(mstr_dir)
         add_moment_epoch_to_guts(mstr_dir)
         etl_moment_guts_to_moment_jobs(mstr_dir)
         etl_heard_raw_tables_to_moment_ote1_agg(cursor)
         etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs(cursor, mstr_dir)
         etl_moment_ote1_agg_csvs_to_jsons(mstr_dir)
-        self.calc_moment_bud_person_mandate_net_ledgers()
+        self.calc_moment_bud_partner_mandate_net_ledgers()
         etl_moment_job_jsons_to_job_tables(cursor, mstr_dir)
-        etl_moment_json_person_nets_to_moment_person_nets_table(cursor, mstr_dir)
+        etl_moment_json_partner_nets_to_moment_partner_nets_table(cursor, mstr_dir)
         populate_kpi_bundle(cursor)
         create_last_run_metrics_json(cursor, mstr_dir)
 
         # # create all moment_job and mandate reports
-        # self.calc_moment_bud_person_mandate_net_ledgers()
+        # self.calc_moment_bud_partner_mandate_net_ledgers()
 
         # if store_tracing_files:
 

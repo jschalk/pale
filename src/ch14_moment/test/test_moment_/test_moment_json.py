@@ -1,8 +1,8 @@
 from src.ch00_py.file_toolbox import create_path, save_json
 from src.ch01_allot.allot import default_grain_num_if_None
 from src.ch04_rope.rope import create_rope, default_knot_if_None
-from src.ch09_plan_lesson._ref.ch09_path import create_moment_json_path
-from src.ch09_plan_lesson.lasso import lassounit_shop
+from src.ch09_person_lesson._ref.ch09_path import create_moment_json_path
+from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch13_time.epoch_main import get_default_epoch_config_dict
 from src.ch14_moment.moment_main import (
     get_default_path_momentunit,
@@ -33,8 +33,8 @@ def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
     amy_moment.add_budunit(exx.sue, sue_x4_tran_time, sue_x4_quota)
     amy_moment.add_budunit(exx.sue, sue_x7_tran_time, sue_x7_quota)
     amy_moment.add_paypurchase(
-        plan_name=exx.bob,
-        person_name=exx.sue,
+        person_name=exx.bob,
+        partner_name=exx.sue,
         tran_time=pay_tran_time,
         amount=bob_sue_amount,
     )
@@ -43,7 +43,7 @@ def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
     x_dict = amy_moment.to_dict()
 
     # THEN
-    print(f"{ amy_moment._get_planbudhistorys_dict()=}")
+    print(f"{ amy_moment._get_personbudhistorys_dict()=}")
     print(f"{ amy_moment.paybook.to_dict()=}")
     assert x_dict.get(kw.moment_rope) == a45_rope
     assert x_dict.get(kw.moment_mstr_dir) == moment_mstr_dir
@@ -53,14 +53,14 @@ def test_MomentUnit_to_dict_ReturnsObjWith_paybook():
     assert x_dict.get(kw.fund_grain) == default_grain_num_if_None()
     assert x_dict.get(kw.respect_grain) == default_grain_num_if_None()
     assert x_dict.get(kw.mana_grain) == default_grain_num_if_None()
-    assert x_dict.get(kw.planbudhistorys) == amy_moment._get_planbudhistorys_dict()
+    assert x_dict.get(kw.personbudhistorys) == amy_moment._get_personbudhistorys_dict()
     assert x_dict.get(kw.paybook) == amy_moment.paybook.to_dict()
     assert set(x_dict.keys()) == {
         kw.moment_rope,
         kw.moment_mstr_dir,
         kw.epoch,
         kw.offi_times,
-        kw.planbudhistorys,
+        kw.personbudhistorys,
         kw.knot,
         kw.fund_grain,
         kw.respect_grain,
@@ -84,7 +84,7 @@ def test_MomentUnit_to_dict_ReturnsObjWithOut_paybook():
         kw.moment_mstr_dir,
         kw.epoch,
         f"{kw.offi_time}s",
-        kw.planbudhistorys,
+        kw.personbudhistorys,
         kw.knot,
         kw.fund_grain,
         kw.respect_grain,
@@ -122,8 +122,8 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario0_WithParameters():
     amy_moment.respect_grain = sue_respect_grain
     amy_moment.mana_grain = sue_mana_grain
     amy_moment.add_paypurchase(
-        plan_name=exx.bob,
-        person_name=exx.sue,
+        person_name=exx.bob,
+        partner_name=exx.sue,
         tran_time=pay_tran_time,
         amount=bob_sue_amount,
     )
@@ -141,7 +141,7 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario0_WithParameters():
     assert x_moment.fund_grain == sue_fund_grain
     assert x_moment.respect_grain == sue_respect_grain
     assert x_moment.mana_grain == sue_mana_grain
-    assert x_moment.planbudhistorys == amy_moment.planbudhistorys
+    assert x_moment.personbudhistorys == amy_moment.personbudhistorys
     assert x_moment.paybook == amy_moment.paybook
     assert x_moment.moment_mstr_dir == amy_moment.moment_mstr_dir
     assert x_moment != amy_moment
@@ -173,7 +173,7 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario1_WithOutParameters():
     assert generated_moment.fund_grain == default_grain_num_if_None()
     assert generated_moment.respect_grain == default_grain_num_if_None()
     assert generated_moment.mana_grain == 1
-    assert generated_moment.planbudhistorys == amy_moment.planbudhistorys
+    assert generated_moment.personbudhistorys == amy_moment.personbudhistorys
     assert generated_moment.paybook == amy_moment.paybook
     assert generated_moment.moment_mstr_dir == amy_moment.moment_mstr_dir
     assert generated_moment == amy_moment
@@ -217,7 +217,7 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario2():
     assert x_moment.fund_grain == sue_fund_grain
     assert x_moment.respect_grain == sue_respect_grain
     assert x_moment.mana_grain == sue_mana_grain
-    assert x_moment.planbudhistorys == amy_moment.planbudhistorys
+    assert x_moment.personbudhistorys == amy_moment.personbudhistorys
     assert x_moment.moment_mstr_dir == amy_moment.moment_mstr_dir
     assert x_moment != amy_moment
     x_moment.offi_time_max = 0

@@ -4,7 +4,7 @@ Pale
 A Python package for communiticating across cultures.
 """
 
-# import open_planeviewer
+# import open_personeviewer
 
 __version__ = "0.1.0"
 __author__ = "Emmanuel Schalk"

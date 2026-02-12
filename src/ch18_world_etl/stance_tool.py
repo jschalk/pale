@@ -6,12 +6,12 @@ from src.ch00_py.csv_toolbox import (
 )
 from src.ch00_py.file_toolbox import create_path, get_level1_dirs
 from src.ch04_rope.rope import create_rope, default_knot_if_None
-from src.ch09_plan_lesson.lasso import lassounit_shop
-from src.ch11_bud.bud_filehandler import open_plan_file
+from src.ch09_person_lesson.lasso import lassounit_shop
+from src.ch11_bud.bud_filehandler import open_person_file
 from src.ch14_moment.moment_main import get_default_path_momentunit
 from src.ch17_idea.idea_csv_tool import (
     add_momentunit_to_stance_csv_strs,
-    add_planunit_to_stance_csv_strs,
+    add_personunit_to_stance_csv_strs,
     create_init_stance_idea_csv_strs,
 )
 from src.ch17_idea.idea_db_tool import csv_dict_to_excel, prettify_excel
@@ -178,14 +178,14 @@ def collect_stance_csv_strs(world_dir: str) -> dict[str, str]:
         x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
         add_momentunit_to_stance_csv_strs(x_momentunit, x_csv_strs, ",")
         moment_dir = create_path(moments_dir, moment_lasso.make_path())
-        plans_dir = create_path(moment_dir, "plans")
-        for plan_name in get_level1_dirs(plans_dir):
-            plan_dir = create_path(plans_dir, plan_name)
-            gut_dir = create_path(plan_dir, "gut")
-            gut_plan_path = create_path(gut_dir, f"{plan_name}.json")
-            if os_path_exists(gut_plan_path):
-                gut_plan = open_plan_file(gut_plan_path)
-                add_planunit_to_stance_csv_strs(gut_plan, x_csv_strs, ",")
+        persons_dir = create_path(moment_dir, "persons")
+        for person_name in get_level1_dirs(persons_dir):
+            person_dir = create_path(persons_dir, person_name)
+            gut_dir = create_path(person_dir, "gut")
+            gut_person_path = create_path(gut_dir, f"{person_name}.json")
+            if os_path_exists(gut_person_path):
+                gut_person = open_person_file(gut_person_path)
+                add_personunit_to_stance_csv_strs(gut_person, x_csv_strs, ",")
     world_db_path = create_world_db_path(world_dir)
     with sqlite3_connect(world_db_path) as db_conn:
         cursor = db_conn.cursor()

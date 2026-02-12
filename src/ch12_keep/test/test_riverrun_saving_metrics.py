@@ -1,6 +1,6 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import delete_dir
-from src.ch10_plan_listen._ref.ch10_path import create_keep_grade_path
+from src.ch10_person_listen._ref.ch10_path import create_keep_grade_path
 from src.ch12_keep.riverrun import riverrun_shop
 from src.ch12_keep.test._util.ch12_env import get_temp_dir, temp_dir_setup
 from src.ch12_keep.test._util.ch12_examples import get_nation_texas_rope
@@ -11,18 +11,18 @@ def test_RiverRun_save_rivergrade_file_SavesFile(temp_dir_setup):
     # ESTABLISH / WHEN
     mstr_dir = get_temp_dir()
     texas_rope = get_nation_texas_rope()
-    yao_person_cred_lumen = 500
+    yao_partner_cred_lumen = 500
     x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao, texas_rope)
-    x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_person_cred_lumen)
+    x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_partner_cred_lumen)
     x_riverrun.set_need_dues({exx.yao: 1})
     x_riverrun.calc_metrics()
     yao_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
-        plan_name=x_riverrun.plan_name,
+        person_name=x_riverrun.person_name,
         moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_plan_name=exx.yao,
+        grade_person_name=exx.yao,
     )
     print(f"{yao_keep_grade_path=}")
     assert os_path_exists(yao_keep_grade_path) is False
@@ -37,37 +37,37 @@ def test_RiverRun_save_rivergrade_file_SavesFile(temp_dir_setup):
 def test_RiverRun_save_rivergrade_files_SavesFile(temp_dir_setup):
     # ESTABLISH / WHEN
     delete_dir(get_temp_dir())
-    github_error_path1 = "src\\ch12_keep\\test\\_util\\moment_mstr\\moments/moments/ex_keep04/plans/Yao/keeps/nation/usa/texas/grades/Yao.json"
+    github_error_path1 = "src\\ch12_keep\\test\\_util\\moment_mstr\\moments/moments/ex_keep04/persons/Yao/keeps/nation/usa/texas/grades/Yao.json"
     assert os_path_exists(github_error_path1) is False
     mstr_dir = get_temp_dir()
     texas_rope = get_nation_texas_rope()
-    yao_person_cred_lumen = 500
+    yao_partner_cred_lumen = 500
     x_riverrun = riverrun_shop(mstr_dir, exx.a23, exx.yao, texas_rope)
     yao_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
-        plan_name=x_riverrun.plan_name,
+        person_name=x_riverrun.person_name,
         moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_plan_name=exx.yao,
+        grade_person_name=exx.yao,
     )
     bob_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
-        plan_name=x_riverrun.plan_name,
+        person_name=x_riverrun.person_name,
         moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_plan_name=exx.bob,
+        grade_person_name=exx.bob,
     )
     sue_keep_grade_path = create_keep_grade_path(
         moment_mstr_dir=x_riverrun.moment_mstr_dir,
-        plan_name=x_riverrun.plan_name,
+        person_name=x_riverrun.person_name,
         moment_rope=x_riverrun.moment_rope,
         keep_rope=x_riverrun.keep_rope,
         knot=x_riverrun.knot,
-        grade_plan_name=exx.sue,
+        grade_person_name=exx.sue,
     )
-    x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_person_cred_lumen)
+    x_riverrun.set_keep_patientledger(exx.yao, exx.yao, yao_partner_cred_lumen)
     x_riverrun.set_keep_patientledger(exx.yao, exx.bob, 1)
     x_riverrun.set_need_dues({exx.yao: 1, exx.sue: 1})
     x_riverrun.calc_metrics()
