@@ -314,7 +314,7 @@ def test_PersonDelta_get_sorted_personatoms_ReturnsObj():
     #         print(f"{x_atom.dimen=}")
 
 
-def test_PersonDelta_get_sorted_personatoms_ReturnsObj_KegUnitsSorted():
+def test_PersonDelta_get_sorted_personatoms_ReturnsObj_PlanUnitsSorted():
     # ESTABLISH
     x_moment_rope = exx.a23
     root_rope = to_rope(x_moment_rope)
@@ -322,14 +322,14 @@ def test_PersonDelta_get_sorted_personatoms_ReturnsObj_KegUnitsSorted():
     sports_rope = create_rope(x_moment_rope, sports_str)
     knee_str = "knee"
     knee_rope = create_rope(x_moment_rope, knee_str)
-    x_dimen = kw.person_kegunit
-    sports_insert_kegunit_personatom = personatom_shop(x_dimen, kw.INSERT)
-    sports_insert_kegunit_personatom.set_jkey(kw.keg_rope, sports_rope)
-    knee_insert_kegunit_personatom = personatom_shop(x_dimen, kw.INSERT)
-    knee_insert_kegunit_personatom.set_jkey(kw.keg_rope, knee_rope)
+    x_dimen = kw.person_planunit
+    sports_insert_planunit_personatom = personatom_shop(x_dimen, kw.INSERT)
+    sports_insert_planunit_personatom.set_jkey(kw.plan_rope, sports_rope)
+    knee_insert_planunit_personatom = personatom_shop(x_dimen, kw.INSERT)
+    knee_insert_planunit_personatom.set_jkey(kw.plan_rope, knee_rope)
     x_persondelta = persondelta_shop()
-    x_persondelta.set_personatom(knee_insert_kegunit_personatom)
-    x_persondelta.set_personatom(sports_insert_kegunit_personatom)
+    x_persondelta.set_personatom(knee_insert_planunit_personatom)
+    x_persondelta.set_personatom(sports_insert_planunit_personatom)
 
     # WHEN
     x_atom_order_list = x_persondelta.get_sorted_personatoms()
@@ -338,8 +338,8 @@ def test_PersonDelta_get_sorted_personatoms_ReturnsObj_KegUnitsSorted():
     assert len(x_atom_order_list) == 2
     # for personatom in x_atom_order_list:
     #     print(f"{personatom.jkeys=}")
-    assert x_atom_order_list[0] == knee_insert_kegunit_personatom
-    assert x_atom_order_list[1] == sports_insert_kegunit_personatom
+    assert x_atom_order_list[0] == knee_insert_planunit_personatom
+    assert x_atom_order_list[1] == sports_insert_planunit_personatom
     # for crud_str, atom_list in sue_atom_order_dict.items():
     #     print(f"{crud_str=}")
     #     print(f"{len(atom_list)=}")
@@ -355,14 +355,14 @@ def test_PersonDelta_get_sorted_personatoms_ReturnsObj_Rope_Sorted():
     sports_rope = create_rope(x_moment_rope, sports_str)
     knee_str = "knee"
     knee_rope = create_rope(sports_rope, knee_str)
-    x_dimen = kw.person_keg_awardunit
+    x_dimen = kw.person_plan_awardunit
     swimmers_str = ",Swimmers"
     sports_awardunit_personatom = personatom_shop(x_dimen, kw.INSERT)
     sports_awardunit_personatom.set_jkey(kw.awardee_title, swimmers_str)
-    sports_awardunit_personatom.set_jkey(kw.keg_rope, sports_rope)
+    sports_awardunit_personatom.set_jkey(kw.plan_rope, sports_rope)
     knee_awardunit_personatom = personatom_shop(x_dimen, kw.INSERT)
     knee_awardunit_personatom.set_jkey(kw.awardee_title, swimmers_str)
-    knee_awardunit_personatom.set_jkey(kw.keg_rope, knee_rope)
+    knee_awardunit_personatom.set_jkey(kw.plan_rope, knee_rope)
     x_persondelta = persondelta_shop()
     x_persondelta.set_personatom(knee_awardunit_personatom)
     x_persondelta.set_personatom(sports_awardunit_personatom)

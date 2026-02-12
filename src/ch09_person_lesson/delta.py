@@ -10,7 +10,7 @@ from src.ch00_py.dict_toolbox import (
 from src.ch02_partner.group import MemberShip
 from src.ch02_partner.partner import MemberShip, PartnerName, PartnerUnit
 from src.ch05_reason.reason_main import FactUnit, ReasonUnit
-from src.ch06_keg.keg import KegUnit
+from src.ch06_plan.plan import PlanUnit
 from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
 from src.ch08_person_atom.atom_config import CRUD_command
 from src.ch08_person_atom.atom_main import (
@@ -48,8 +48,8 @@ class PersonDelta:
 
         ordered_list = []
         for x_list in atom_order_key_dict.values():
-            if x_list[0].jkeys.get("keg_rope") is not None:
-                x_list = sorted(x_list, key=lambda x: x.jkeys.get("keg_rope"))
+            if x_list[0].jkeys.get("plan_rope") is not None:
+                x_list = sorted(x_list, key=lambda x: x.jkeys.get("plan_rope"))
             ordered_list.extend(x_list)
         return ordered_list
 
@@ -128,7 +128,7 @@ class PersonDelta:
         after_person.cashout()
         self.add_personatoms_personunit_simple_attrs(before_person, after_person)
         self.add_personatoms_partners(before_person, after_person)
-        self.add_personatoms_kegs(before_person, after_person)
+        self.add_personatoms_plans(before_person, after_person)
 
     def add_personatoms_personunit_simple_attrs(
         self, before_person: PersonUnit, after_person: PersonUnit
@@ -333,155 +333,157 @@ class PersonDelta:
             x_personatom.set_jkey("group_title", delete_group_title)
             self.set_personatom(x_personatom)
 
-    def add_personatoms_kegs(self, before_person: PersonUnit, after_person: PersonUnit):
-        before_keg_ropes = set(before_person._keg_dict.keys())
-        after_keg_ropes = set(after_person._keg_dict.keys())
-
-        self.add_personatom_keg_inserts(
-            after_person=after_person,
-            insert_keg_ropes=after_keg_ropes.difference(before_keg_ropes),
-        )
-        self.add_personatom_keg_deletes(
-            before_person=before_person,
-            delete_keg_ropes=before_keg_ropes.difference(after_keg_ropes),
-        )
-        self.add_personatom_keg_updates(
-            before_person=before_person,
-            after_person=after_person,
-            update_ropes=before_keg_ropes & (after_keg_ropes),
-        )
-
-    def add_personatom_keg_inserts(
-        self, after_person: PersonUnit, insert_keg_ropes: set
+    def add_personatoms_plans(
+        self, before_person: PersonUnit, after_person: PersonUnit
     ):
-        for insert_keg_rope in insert_keg_ropes:
-            insert_kegunit = after_person.get_keg_obj(insert_keg_rope)
-            x_personatom = personatom_shop("person_kegunit", "INSERT")
-            x_personatom.set_jkey("keg_rope", insert_kegunit.get_keg_rope())
-            x_personatom.set_jvalue("addin", insert_kegunit.addin)
-            x_personatom.set_jvalue("begin", insert_kegunit.begin)
-            x_personatom.set_jvalue("close", insert_kegunit.close)
-            x_personatom.set_jvalue("denom", insert_kegunit.denom)
-            x_personatom.set_jvalue("numor", insert_kegunit.numor)
-            x_personatom.set_jvalue("morph", insert_kegunit.morph)
-            x_personatom.set_jvalue("star", insert_kegunit.star)
-            x_personatom.set_jvalue("pledge", insert_kegunit.pledge)
+        before_plan_ropes = set(before_person._plan_dict.keys())
+        after_plan_ropes = set(after_person._plan_dict.keys())
+
+        self.add_personatom_plan_inserts(
+            after_person=after_person,
+            insert_plan_ropes=after_plan_ropes.difference(before_plan_ropes),
+        )
+        self.add_personatom_plan_deletes(
+            before_person=before_person,
+            delete_plan_ropes=before_plan_ropes.difference(after_plan_ropes),
+        )
+        self.add_personatom_plan_updates(
+            before_person=before_person,
+            after_person=after_person,
+            update_ropes=before_plan_ropes & (after_plan_ropes),
+        )
+
+    def add_personatom_plan_inserts(
+        self, after_person: PersonUnit, insert_plan_ropes: set
+    ):
+        for insert_plan_rope in insert_plan_ropes:
+            insert_planunit = after_person.get_plan_obj(insert_plan_rope)
+            x_personatom = personatom_shop("person_planunit", "INSERT")
+            x_personatom.set_jkey("plan_rope", insert_planunit.get_plan_rope())
+            x_personatom.set_jvalue("addin", insert_planunit.addin)
+            x_personatom.set_jvalue("begin", insert_planunit.begin)
+            x_personatom.set_jvalue("close", insert_planunit.close)
+            x_personatom.set_jvalue("denom", insert_planunit.denom)
+            x_personatom.set_jvalue("numor", insert_planunit.numor)
+            x_personatom.set_jvalue("morph", insert_planunit.morph)
+            x_personatom.set_jvalue("star", insert_planunit.star)
+            x_personatom.set_jvalue("pledge", insert_planunit.pledge)
             self.set_personatom(x_personatom)
 
-            self.add_personatom_keg_factunit_inserts(
-                kegunit=insert_kegunit,
-                insert_factunit_reason_contexts=set(insert_kegunit.factunits.keys()),
+            self.add_personatom_plan_factunit_inserts(
+                planunit=insert_planunit,
+                insert_factunit_reason_contexts=set(insert_planunit.factunits.keys()),
             )
-            self.add_personatom_keg_awardunit_inserts(
-                after_kegunit=insert_kegunit,
-                insert_awardunit_awardee_titles=set(insert_kegunit.awardunits.keys()),
+            self.add_personatom_plan_awardunit_inserts(
+                after_planunit=insert_planunit,
+                insert_awardunit_awardee_titles=set(insert_planunit.awardunits.keys()),
             )
-            self.add_personatom_keg_reasonunit_inserts(
-                after_kegunit=insert_kegunit,
+            self.add_personatom_plan_reasonunit_inserts(
+                after_planunit=insert_planunit,
                 insert_reasonunit_reason_contexts=set(
-                    insert_kegunit.reasonunits.keys()
+                    insert_planunit.reasonunits.keys()
                 ),
             )
-            self.add_personatom_keg_partyunit_insert(
-                keg_rope=insert_keg_rope,
-                insert_partyunit_party_titles=insert_kegunit.laborunit.partys,
+            self.add_personatom_plan_partyunit_insert(
+                plan_rope=insert_plan_rope,
+                insert_partyunit_party_titles=insert_planunit.laborunit.partys,
             )
-            self.add_personatom_keg_healerunit_insert(
-                keg_rope=insert_keg_rope,
-                insert_healerunit_healer_names=insert_kegunit.healerunit.healer_names,
+            self.add_personatom_plan_healerunit_insert(
+                plan_rope=insert_plan_rope,
+                insert_healerunit_healer_names=insert_planunit.healerunit.healer_names,
             )
 
-    def add_personatom_keg_updates(
+    def add_personatom_plan_updates(
         self,
         before_person: PersonUnit,
         after_person: PersonUnit,
         update_ropes: set,
     ):
-        for keg_rope in update_ropes:
-            after_kegunit = after_person.get_keg_obj(keg_rope)
-            before_kegunit = before_person.get_keg_obj(keg_rope)
-            if jvalues_different("person_kegunit", before_kegunit, after_kegunit):
-                x_personatom = personatom_shop("person_kegunit", "UPDATE")
-                x_personatom.set_jkey("keg_rope", after_kegunit.get_keg_rope())
-                if before_kegunit.addin != after_kegunit.addin:
-                    x_personatom.set_jvalue("addin", after_kegunit.addin)
-                if before_kegunit.begin != after_kegunit.begin:
-                    x_personatom.set_jvalue("begin", after_kegunit.begin)
-                if before_kegunit.close != after_kegunit.close:
-                    x_personatom.set_jvalue("close", after_kegunit.close)
-                if before_kegunit.denom != after_kegunit.denom:
-                    x_personatom.set_jvalue("denom", after_kegunit.denom)
-                if before_kegunit.numor != after_kegunit.numor:
-                    x_personatom.set_jvalue("numor", after_kegunit.numor)
-                if before_kegunit.morph != after_kegunit.morph:
-                    x_personatom.set_jvalue("morph", after_kegunit.morph)
-                if before_kegunit.star != after_kegunit.star:
-                    x_personatom.set_jvalue("star", after_kegunit.star)
-                if before_kegunit.pledge != after_kegunit.pledge:
-                    x_personatom.set_jvalue("pledge", after_kegunit.pledge)
+        for plan_rope in update_ropes:
+            after_planunit = after_person.get_plan_obj(plan_rope)
+            before_planunit = before_person.get_plan_obj(plan_rope)
+            if jvalues_different("person_planunit", before_planunit, after_planunit):
+                x_personatom = personatom_shop("person_planunit", "UPDATE")
+                x_personatom.set_jkey("plan_rope", after_planunit.get_plan_rope())
+                if before_planunit.addin != after_planunit.addin:
+                    x_personatom.set_jvalue("addin", after_planunit.addin)
+                if before_planunit.begin != after_planunit.begin:
+                    x_personatom.set_jvalue("begin", after_planunit.begin)
+                if before_planunit.close != after_planunit.close:
+                    x_personatom.set_jvalue("close", after_planunit.close)
+                if before_planunit.denom != after_planunit.denom:
+                    x_personatom.set_jvalue("denom", after_planunit.denom)
+                if before_planunit.numor != after_planunit.numor:
+                    x_personatom.set_jvalue("numor", after_planunit.numor)
+                if before_planunit.morph != after_planunit.morph:
+                    x_personatom.set_jvalue("morph", after_planunit.morph)
+                if before_planunit.star != after_planunit.star:
+                    x_personatom.set_jvalue("star", after_planunit.star)
+                if before_planunit.pledge != after_planunit.pledge:
+                    x_personatom.set_jvalue("pledge", after_planunit.pledge)
                 self.set_personatom(x_personatom)
 
             # insert / update / delete factunits
-            before_factunit_reason_contexts = set(before_kegunit.factunits.keys())
-            after_factunit_reason_contexts = set(after_kegunit.factunits.keys())
-            self.add_personatom_keg_factunit_inserts(
-                kegunit=after_kegunit,
+            before_factunit_reason_contexts = set(before_planunit.factunits.keys())
+            after_factunit_reason_contexts = set(after_planunit.factunits.keys())
+            self.add_personatom_plan_factunit_inserts(
+                planunit=after_planunit,
                 insert_factunit_reason_contexts=after_factunit_reason_contexts.difference(
                     before_factunit_reason_contexts
                 ),
             )
-            self.add_personatom_keg_factunit_updates(
-                before_kegunit=before_kegunit,
-                after_kegunit=after_kegunit,
+            self.add_personatom_plan_factunit_updates(
+                before_planunit=before_planunit,
+                after_planunit=after_planunit,
                 update_factunit_reason_contexts=before_factunit_reason_contexts
                 & (after_factunit_reason_contexts),
             )
-            self.add_personatom_keg_factunit_deletes(
-                keg_rope=keg_rope,
+            self.add_personatom_plan_factunit_deletes(
+                plan_rope=plan_rope,
                 delete_factunit_reason_contexts=before_factunit_reason_contexts.difference(
                     after_factunit_reason_contexts
                 ),
             )
 
             # insert / update / delete awardunits
-            before_awardunits_awardee_titles = set(before_kegunit.awardunits.keys())
-            after_awardunits_awardee_titles = set(after_kegunit.awardunits.keys())
-            self.add_personatom_keg_awardunit_inserts(
-                after_kegunit=after_kegunit,
+            before_awardunits_awardee_titles = set(before_planunit.awardunits.keys())
+            after_awardunits_awardee_titles = set(after_planunit.awardunits.keys())
+            self.add_personatom_plan_awardunit_inserts(
+                after_planunit=after_planunit,
                 insert_awardunit_awardee_titles=after_awardunits_awardee_titles.difference(
                     before_awardunits_awardee_titles
                 ),
             )
-            self.add_personatom_keg_awardunit_updates(
-                before_kegunit=before_kegunit,
-                after_kegunit=after_kegunit,
+            self.add_personatom_plan_awardunit_updates(
+                before_planunit=before_planunit,
+                after_planunit=after_planunit,
                 update_awardunit_awardee_titles=before_awardunits_awardee_titles
                 & (after_awardunits_awardee_titles),
             )
-            self.add_personatom_keg_awardunit_deletes(
-                keg_rope=keg_rope,
+            self.add_personatom_plan_awardunit_deletes(
+                plan_rope=plan_rope,
                 delete_awardunit_awardee_titles=before_awardunits_awardee_titles.difference(
                     after_awardunits_awardee_titles
                 ),
             )
 
             # insert / update / delete reasonunits
-            before_reasonunit_reason_contexts = set(before_kegunit.reasonunits.keys())
-            after_reasonunit_reason_contexts = set(after_kegunit.reasonunits.keys())
-            self.add_personatom_keg_reasonunit_inserts(
-                after_kegunit=after_kegunit,
+            before_reasonunit_reason_contexts = set(before_planunit.reasonunits.keys())
+            after_reasonunit_reason_contexts = set(after_planunit.reasonunits.keys())
+            self.add_personatom_plan_reasonunit_inserts(
+                after_planunit=after_planunit,
                 insert_reasonunit_reason_contexts=after_reasonunit_reason_contexts.difference(
                     before_reasonunit_reason_contexts
                 ),
             )
-            self.add_personatom_keg_reasonunit_updates(
-                before_kegunit=before_kegunit,
-                after_kegunit=after_kegunit,
+            self.add_personatom_plan_reasonunit_updates(
+                before_planunit=before_planunit,
+                after_planunit=after_planunit,
                 update_reasonunit_reason_contexts=before_reasonunit_reason_contexts
                 & (after_reasonunit_reason_contexts),
             )
-            self.add_personatom_keg_reasonunit_deletes(
-                before_kegunit=before_kegunit,
+            self.add_personatom_plan_reasonunit_deletes(
+                before_planunit=before_planunit,
                 delete_reasonunit_reason_contexts=before_reasonunit_reason_contexts.difference(
                     after_reasonunit_reason_contexts
                 ),
@@ -492,16 +494,16 @@ class PersonDelta:
             # update reasonunits_permises delete_case
 
             # insert / update / delete partyunits
-            before_partys_party_titles = set(before_kegunit.laborunit.partys)
-            after_partys_party_titles = set(after_kegunit.laborunit.partys)
-            self.add_personatom_keg_partyunit_insert(
-                keg_rope=keg_rope,
+            before_partys_party_titles = set(before_planunit.laborunit.partys)
+            after_partys_party_titles = set(after_planunit.laborunit.partys)
+            self.add_personatom_plan_partyunit_insert(
+                plan_rope=plan_rope,
                 insert_partyunit_party_titles=after_partys_party_titles.difference(
                     before_partys_party_titles
                 ),
             )
-            self.add_personatom_keg_partyunit_deletes(
-                keg_rope=keg_rope,
+            self.add_personatom_plan_partyunit_deletes(
+                plan_rope=plan_rope,
                 delete_partyunit_party_titles=before_partys_party_titles.difference(
                     after_partys_party_titles
                 ),
@@ -509,64 +511,64 @@ class PersonDelta:
 
             # insert / update / delete healerunits
             before_healerunits_healer_names = set(
-                before_kegunit.healerunit.healer_names
+                before_planunit.healerunit.healer_names
             )
-            after_healerunits_healer_names = set(after_kegunit.healerunit.healer_names)
-            self.add_personatom_keg_healerunit_insert(
-                keg_rope=keg_rope,
+            after_healerunits_healer_names = set(after_planunit.healerunit.healer_names)
+            self.add_personatom_plan_healerunit_insert(
+                plan_rope=plan_rope,
                 insert_healerunit_healer_names=after_healerunits_healer_names.difference(
                     before_healerunits_healer_names
                 ),
             )
-            self.add_personatom_keg_healerunit_deletes(
-                keg_rope=keg_rope,
+            self.add_personatom_plan_healerunit_deletes(
+                plan_rope=plan_rope,
                 delete_healerunit_healer_names=before_healerunits_healer_names.difference(
                     after_healerunits_healer_names
                 ),
             )
 
-    def add_personatom_keg_deletes(
-        self, before_person: PersonUnit, delete_keg_ropes: set
+    def add_personatom_plan_deletes(
+        self, before_person: PersonUnit, delete_plan_ropes: set
     ):
-        for delete_keg_rope in delete_keg_ropes:
-            x_personatom = personatom_shop("person_kegunit", "DELETE")
-            x_personatom.set_jkey("keg_rope", delete_keg_rope)
+        for delete_plan_rope in delete_plan_ropes:
+            x_personatom = personatom_shop("person_planunit", "DELETE")
+            x_personatom.set_jkey("plan_rope", delete_plan_rope)
             self.set_personatom(x_personatom)
 
-            delete_kegunit = before_person.get_keg_obj(delete_keg_rope)
-            self.add_personatom_keg_factunit_deletes(
-                keg_rope=delete_keg_rope,
-                delete_factunit_reason_contexts=set(delete_kegunit.factunits.keys()),
+            delete_planunit = before_person.get_plan_obj(delete_plan_rope)
+            self.add_personatom_plan_factunit_deletes(
+                plan_rope=delete_plan_rope,
+                delete_factunit_reason_contexts=set(delete_planunit.factunits.keys()),
             )
 
-            self.add_personatom_keg_awardunit_deletes(
-                keg_rope=delete_keg_rope,
-                delete_awardunit_awardee_titles=set(delete_kegunit.awardunits.keys()),
+            self.add_personatom_plan_awardunit_deletes(
+                plan_rope=delete_plan_rope,
+                delete_awardunit_awardee_titles=set(delete_planunit.awardunits.keys()),
             )
-            self.add_personatom_keg_reasonunit_deletes(
-                before_kegunit=delete_kegunit,
+            self.add_personatom_plan_reasonunit_deletes(
+                before_planunit=delete_planunit,
                 delete_reasonunit_reason_contexts=set(
-                    delete_kegunit.reasonunits.keys()
+                    delete_planunit.reasonunits.keys()
                 ),
             )
-            self.add_personatom_keg_partyunit_deletes(
-                keg_rope=delete_keg_rope,
-                delete_partyunit_party_titles=delete_kegunit.laborunit.partys,
+            self.add_personatom_plan_partyunit_deletes(
+                plan_rope=delete_plan_rope,
+                delete_partyunit_party_titles=delete_planunit.laborunit.partys,
             )
-            self.add_personatom_keg_healerunit_deletes(
-                keg_rope=delete_keg_rope,
-                delete_healerunit_healer_names=delete_kegunit.healerunit.healer_names,
+            self.add_personatom_plan_healerunit_deletes(
+                plan_rope=delete_plan_rope,
+                delete_healerunit_healer_names=delete_planunit.healerunit.healer_names,
             )
 
-    def add_personatom_keg_reasonunit_inserts(
-        self, after_kegunit: KegUnit, insert_reasonunit_reason_contexts: set
+    def add_personatom_plan_reasonunit_inserts(
+        self, after_planunit: PlanUnit, insert_reasonunit_reason_contexts: set
     ):
         for insert_reasonunit_reason_context in insert_reasonunit_reason_contexts:
-            after_reasonunit = after_kegunit.get_reasonunit(
+            after_reasonunit = after_planunit.get_reasonunit(
                 insert_reasonunit_reason_context
             )
-            x_personatom = personatom_shop("person_keg_reasonunit", "INSERT")
-            x_personatom.set_jkey("keg_rope", after_kegunit.get_keg_rope())
+            x_personatom = personatom_shop("person_plan_reasonunit", "INSERT")
+            x_personatom.set_jkey("plan_rope", after_planunit.get_plan_rope())
             x_personatom.set_jkey("reason_context", after_reasonunit.reason_context)
             if after_reasonunit.active_requisite is not None:
                 x_personatom.set_jvalue(
@@ -575,30 +577,30 @@ class PersonDelta:
                 )
             self.set_personatom(x_personatom)
 
-            self.add_personatom_keg_reason_caseunit_inserts(
-                keg_rope=after_kegunit.get_keg_rope(),
+            self.add_personatom_plan_reason_caseunit_inserts(
+                plan_rope=after_planunit.get_plan_rope(),
                 after_reasonunit=after_reasonunit,
                 insert_case_reason_states=set(after_reasonunit.cases.keys()),
             )
 
-    def add_personatom_keg_reasonunit_updates(
+    def add_personatom_plan_reasonunit_updates(
         self,
-        before_kegunit: KegUnit,
-        after_kegunit: KegUnit,
+        before_planunit: PlanUnit,
+        after_planunit: PlanUnit,
         update_reasonunit_reason_contexts: set,
     ):
         for update_reasonunit_reason_context in update_reasonunit_reason_contexts:
-            before_reasonunit = before_kegunit.get_reasonunit(
+            before_reasonunit = before_planunit.get_reasonunit(
                 update_reasonunit_reason_context
             )
-            after_reasonunit = after_kegunit.get_reasonunit(
+            after_reasonunit = after_planunit.get_reasonunit(
                 update_reasonunit_reason_context
             )
             if jvalues_different(
-                "person_keg_reasonunit", before_reasonunit, after_reasonunit
+                "person_plan_reasonunit", before_reasonunit, after_reasonunit
             ):
-                x_personatom = personatom_shop("person_keg_reasonunit", "UPDATE")
-                x_personatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
+                x_personatom = personatom_shop("person_plan_reasonunit", "UPDATE")
+                x_personatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
                 x_personatom.set_jkey("reason_context", after_reasonunit.reason_context)
                 if (
                     before_reasonunit.active_requisite
@@ -612,56 +614,56 @@ class PersonDelta:
 
             before_case_reason_states = set(before_reasonunit.cases.keys())
             after_case_reason_states = set(after_reasonunit.cases.keys())
-            self.add_personatom_keg_reason_caseunit_inserts(
-                keg_rope=before_kegunit.get_keg_rope(),
+            self.add_personatom_plan_reason_caseunit_inserts(
+                plan_rope=before_planunit.get_plan_rope(),
                 after_reasonunit=after_reasonunit,
                 insert_case_reason_states=after_case_reason_states.difference(
                     before_case_reason_states
                 ),
             )
-            self.add_personatom_keg_reason_caseunit_updates(
-                keg_rope=before_kegunit.get_keg_rope(),
+            self.add_personatom_plan_reason_caseunit_updates(
+                plan_rope=before_planunit.get_plan_rope(),
                 before_reasonunit=before_reasonunit,
                 after_reasonunit=after_reasonunit,
                 update_case_reason_states=after_case_reason_states
                 & (before_case_reason_states),
             )
-            self.add_personatom_keg_reason_caseunit_deletes(
-                keg_rope=before_kegunit.get_keg_rope(),
+            self.add_personatom_plan_reason_caseunit_deletes(
+                plan_rope=before_planunit.get_plan_rope(),
                 reasonunit_reason_context=update_reasonunit_reason_context,
                 delete_case_reason_states=before_case_reason_states.difference(
                     after_case_reason_states
                 ),
             )
 
-    def add_personatom_keg_reasonunit_deletes(
-        self, before_kegunit: KegUnit, delete_reasonunit_reason_contexts: set
+    def add_personatom_plan_reasonunit_deletes(
+        self, before_planunit: PlanUnit, delete_reasonunit_reason_contexts: set
     ):
         for delete_reasonunit_reason_context in delete_reasonunit_reason_contexts:
-            x_personatom = personatom_shop("person_keg_reasonunit", "DELETE")
-            x_personatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
+            x_personatom = personatom_shop("person_plan_reasonunit", "DELETE")
+            x_personatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
             x_personatom.set_jkey("reason_context", delete_reasonunit_reason_context)
             self.set_personatom(x_personatom)
 
-            before_reasonunit = before_kegunit.get_reasonunit(
+            before_reasonunit = before_planunit.get_reasonunit(
                 delete_reasonunit_reason_context
             )
-            self.add_personatom_keg_reason_caseunit_deletes(
-                keg_rope=before_kegunit.get_keg_rope(),
+            self.add_personatom_plan_reason_caseunit_deletes(
+                plan_rope=before_planunit.get_plan_rope(),
                 reasonunit_reason_context=delete_reasonunit_reason_context,
                 delete_case_reason_states=set(before_reasonunit.cases.keys()),
             )
 
-    def add_personatom_keg_reason_caseunit_inserts(
+    def add_personatom_plan_reason_caseunit_inserts(
         self,
-        keg_rope: RopeTerm,
+        plan_rope: RopeTerm,
         after_reasonunit: ReasonUnit,
         insert_case_reason_states: set,
     ):
         for insert_case_reason_state in insert_case_reason_states:
             after_caseunit = after_reasonunit.get_case(insert_case_reason_state)
-            x_personatom = personatom_shop("person_keg_reason_caseunit", "INSERT")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_reason_caseunit", "INSERT")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("reason_context", after_reasonunit.reason_context)
             x_personatom.set_jkey("reason_state", after_caseunit.reason_state)
             if after_caseunit.reason_lower is not None:
@@ -672,9 +674,9 @@ class PersonDelta:
                 x_personatom.set_jvalue("reason_divisor", after_caseunit.reason_divisor)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_reason_caseunit_updates(
+    def add_personatom_plan_reason_caseunit_updates(
         self,
-        keg_rope: RopeTerm,
+        plan_rope: RopeTerm,
         before_reasonunit: ReasonUnit,
         after_reasonunit: ReasonUnit,
         update_case_reason_states: set,
@@ -683,12 +685,12 @@ class PersonDelta:
             before_caseunit = before_reasonunit.get_case(update_case_reason_state)
             after_caseunit = after_reasonunit.get_case(update_case_reason_state)
             if jvalues_different(
-                "person_keg_reason_caseunit",
+                "person_plan_reason_caseunit",
                 before_caseunit,
                 after_caseunit,
             ):
-                x_personatom = personatom_shop("person_keg_reason_caseunit", "UPDATE")
-                x_personatom.set_jkey("keg_rope", keg_rope)
+                x_personatom = personatom_shop("person_plan_reason_caseunit", "UPDATE")
+                x_personatom.set_jkey("plan_rope", plan_rope)
                 x_personatom.set_jkey(
                     "reason_context", before_reasonunit.reason_context
                 )
@@ -703,87 +705,87 @@ class PersonDelta:
                     )
                 self.set_personatom(x_personatom)
 
-    def add_personatom_keg_reason_caseunit_deletes(
+    def add_personatom_plan_reason_caseunit_deletes(
         self,
-        keg_rope: RopeTerm,
+        plan_rope: RopeTerm,
         reasonunit_reason_context: RopeTerm,
         delete_case_reason_states: set,
     ):
         for delete_case_reason_state in delete_case_reason_states:
-            x_personatom = personatom_shop("person_keg_reason_caseunit", "DELETE")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_reason_caseunit", "DELETE")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("reason_context", reasonunit_reason_context)
             x_personatom.set_jkey("reason_state", delete_case_reason_state)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_partyunit_insert(
-        self, keg_rope: RopeTerm, insert_partyunit_party_titles: set
+    def add_personatom_plan_partyunit_insert(
+        self, plan_rope: RopeTerm, insert_partyunit_party_titles: set
     ):
         for insert_partyunit_party_title in insert_partyunit_party_titles:
-            x_personatom = personatom_shop("person_keg_partyunit", "INSERT")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_partyunit", "INSERT")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("party_title", insert_partyunit_party_title)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_partyunit_deletes(
-        self, keg_rope: RopeTerm, delete_partyunit_party_titles: set
+    def add_personatom_plan_partyunit_deletes(
+        self, plan_rope: RopeTerm, delete_partyunit_party_titles: set
     ):
         for delete_partyunit_party_title in delete_partyunit_party_titles:
-            x_personatom = personatom_shop("person_keg_partyunit", "DELETE")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_partyunit", "DELETE")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("party_title", delete_partyunit_party_title)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_healerunit_insert(
-        self, keg_rope: RopeTerm, insert_healerunit_healer_names: set
+    def add_personatom_plan_healerunit_insert(
+        self, plan_rope: RopeTerm, insert_healerunit_healer_names: set
     ):
         for insert_healerunit_healer_name in insert_healerunit_healer_names:
-            x_personatom = personatom_shop("person_keg_healerunit", "INSERT")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_healerunit", "INSERT")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("healer_name", insert_healerunit_healer_name)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_healerunit_deletes(
-        self, keg_rope: RopeTerm, delete_healerunit_healer_names: set
+    def add_personatom_plan_healerunit_deletes(
+        self, plan_rope: RopeTerm, delete_healerunit_healer_names: set
     ):
         for delete_healerunit_healer_name in delete_healerunit_healer_names:
-            x_personatom = personatom_shop("person_keg_healerunit", "DELETE")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_healerunit", "DELETE")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("healer_name", delete_healerunit_healer_name)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_awardunit_inserts(
-        self, after_kegunit: KegUnit, insert_awardunit_awardee_titles: set
+    def add_personatom_plan_awardunit_inserts(
+        self, after_planunit: PlanUnit, insert_awardunit_awardee_titles: set
     ):
         for after_awardunit_awardee_title in insert_awardunit_awardee_titles:
-            after_awardunit = after_kegunit.awardunits.get(
+            after_awardunit = after_planunit.awardunits.get(
                 after_awardunit_awardee_title
             )
-            x_personatom = personatom_shop("person_keg_awardunit", "INSERT")
-            x_personatom.set_jkey("keg_rope", after_kegunit.get_keg_rope())
+            x_personatom = personatom_shop("person_plan_awardunit", "INSERT")
+            x_personatom.set_jkey("plan_rope", after_planunit.get_plan_rope())
             x_personatom.set_jkey("awardee_title", after_awardunit.awardee_title)
             x_personatom.set_jvalue("give_force", after_awardunit.give_force)
             x_personatom.set_jvalue("take_force", after_awardunit.take_force)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_awardunit_updates(
+    def add_personatom_plan_awardunit_updates(
         self,
-        before_kegunit: KegUnit,
-        after_kegunit: KegUnit,
+        before_planunit: PlanUnit,
+        after_planunit: PlanUnit,
         update_awardunit_awardee_titles: set,
     ):
         for update_awardunit_awardee_title in update_awardunit_awardee_titles:
-            before_awardunit = before_kegunit.awardunits.get(
+            before_awardunit = before_planunit.awardunits.get(
                 update_awardunit_awardee_title
             )
-            after_awardunit = after_kegunit.awardunits.get(
+            after_awardunit = after_planunit.awardunits.get(
                 update_awardunit_awardee_title
             )
             if jvalues_different(
-                "person_keg_awardunit", before_awardunit, after_awardunit
+                "person_plan_awardunit", before_awardunit, after_awardunit
             ):
-                x_personatom = personatom_shop("person_keg_awardunit", "UPDATE")
-                x_personatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
+                x_personatom = personatom_shop("person_plan_awardunit", "UPDATE")
+                x_personatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
                 x_personatom.set_jkey("awardee_title", after_awardunit.awardee_title)
                 if before_awardunit.give_force != after_awardunit.give_force:
                     x_personatom.set_jvalue("give_force", after_awardunit.give_force)
@@ -791,22 +793,22 @@ class PersonDelta:
                     x_personatom.set_jvalue("take_force", after_awardunit.take_force)
                 self.set_personatom(x_personatom)
 
-    def add_personatom_keg_awardunit_deletes(
-        self, keg_rope: RopeTerm, delete_awardunit_awardee_titles: set
+    def add_personatom_plan_awardunit_deletes(
+        self, plan_rope: RopeTerm, delete_awardunit_awardee_titles: set
     ):
         for delete_awardunit_awardee_title in delete_awardunit_awardee_titles:
-            x_personatom = personatom_shop("person_keg_awardunit", "DELETE")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_awardunit", "DELETE")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("awardee_title", delete_awardunit_awardee_title)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_factunit_inserts(
-        self, kegunit: KegUnit, insert_factunit_reason_contexts: set
+    def add_personatom_plan_factunit_inserts(
+        self, planunit: PlanUnit, insert_factunit_reason_contexts: set
     ):
         for insert_factunit_reason_context in insert_factunit_reason_contexts:
-            insert_factunit = kegunit.factunits.get(insert_factunit_reason_context)
-            x_personatom = personatom_shop("person_keg_factunit", "INSERT")
-            x_personatom.set_jkey("keg_rope", kegunit.get_keg_rope())
+            insert_factunit = planunit.factunits.get(insert_factunit_reason_context)
+            x_personatom = personatom_shop("person_plan_factunit", "INSERT")
+            x_personatom.set_jkey("plan_rope", planunit.get_plan_rope())
             x_personatom.set_jkey("fact_context", insert_factunit.fact_context)
             if insert_factunit.fact_state is not None:
                 x_personatom.set_jvalue("fact_state", insert_factunit.fact_state)
@@ -816,22 +818,24 @@ class PersonDelta:
                 x_personatom.set_jvalue("fact_upper", insert_factunit.fact_upper)
             self.set_personatom(x_personatom)
 
-    def add_personatom_keg_factunit_updates(
+    def add_personatom_plan_factunit_updates(
         self,
-        before_kegunit: KegUnit,
-        after_kegunit: KegUnit,
+        before_planunit: PlanUnit,
+        after_planunit: PlanUnit,
         update_factunit_reason_contexts: set,
     ):
         for update_factunit_reason_context in update_factunit_reason_contexts:
-            before_factunit = before_kegunit.factunits.get(
+            before_factunit = before_planunit.factunits.get(
                 update_factunit_reason_context
             )
-            after_factunit = after_kegunit.factunits.get(update_factunit_reason_context)
+            after_factunit = after_planunit.factunits.get(
+                update_factunit_reason_context
+            )
             if jvalues_different(
-                "person_keg_factunit", before_factunit, after_factunit
+                "person_plan_factunit", before_factunit, after_factunit
             ):
-                x_personatom = personatom_shop("person_keg_factunit", "UPDATE")
-                x_personatom.set_jkey("keg_rope", before_kegunit.get_keg_rope())
+                x_personatom = personatom_shop("person_plan_factunit", "UPDATE")
+                x_personatom.set_jkey("plan_rope", before_planunit.get_plan_rope())
                 x_personatom.set_jkey("fact_context", after_factunit.fact_context)
                 if before_factunit.fact_state != after_factunit.fact_state:
                     x_personatom.set_jvalue("fact_state", after_factunit.fact_state)
@@ -841,12 +845,12 @@ class PersonDelta:
                     x_personatom.set_jvalue("fact_upper", after_factunit.fact_upper)
                 self.set_personatom(x_personatom)
 
-    def add_personatom_keg_factunit_deletes(
-        self, keg_rope: RopeTerm, delete_factunit_reason_contexts: FactUnit
+    def add_personatom_plan_factunit_deletes(
+        self, plan_rope: RopeTerm, delete_factunit_reason_contexts: FactUnit
     ):
         for delete_factunit_reason_context in delete_factunit_reason_contexts:
-            x_personatom = personatom_shop("person_keg_factunit", "DELETE")
-            x_personatom.set_jkey("keg_rope", keg_rope)
+            x_personatom = personatom_shop("person_plan_factunit", "DELETE")
+            x_personatom.set_jkey("plan_rope", plan_rope)
             x_personatom.set_jkey("fact_context", delete_factunit_reason_context)
             self.set_personatom(x_personatom)
 

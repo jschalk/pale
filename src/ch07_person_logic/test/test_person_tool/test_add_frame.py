@@ -1,16 +1,16 @@
-# from src.ch06_keg.test._util.ch06_examples import get_range_attrs
+# from src.ch06_plan.test._util.ch06_examples import get_range_attrs
 # from src.ch07_person_logic.person_main import personunit_shop
 # from src.ch07_person_logic.person_tool import (
 #     add_frame_to_personunit,
 #     add_frame_to_caseunit,
 #     add_frame_to_factunit,
 #     add_frame_to_reasonunit,
-#     person_keg_factunit_exists,
-#     person_keg_factunit_get_obj,
-#     person_keg_reason_caseunit_exists,
-#     person_keg_reason_caseunit_get_obj,
-#     person_keg_reasonunit_get_obj,
-#     person_kegunit_get_obj,
+#     person_plan_factunit_exists,
+#     person_plan_factunit_get_obj,
+#     person_plan_reason_caseunit_exists,
+#     person_plan_reason_caseunit_get_obj,
+#     person_plan_reasonunit_get_obj,
+#     person_planunit_get_obj,
 # )
 
 # # from src.ch07_person_logic.test._util.ch07_examples import
@@ -21,29 +21,29 @@
 #     # ESTABLISH
 #     bob_person = personunit_shop()
 #     mop_rope = bob_person.make_l1_rope(exx.mop)
-#     bob_person.add_keg(mop_rope, pledge=True)
+#     bob_person.add_plan(mop_rope, pledge=True)
 #     zeit_rope = bob_person.make_l1_rope("zeit")
 #     jour_rope = bob_person.make_rope(zeit_rope, "jour")
-#     bob_person.edit_keg_attr(zeit_rope, begin=0, begin=0, close=500400300)
-#     bob_person.edit_keg_attr(jour_rope, denom=1000)
+#     bob_person.edit_plan_attr(zeit_rope, begin=0, begin=0, close=500400300)
+#     bob_person.edit_plan_attr(jour_rope, denom=1000)
 #     mop_jourly_args = {
-#         kw.keg_rope: mop_rope,
+#         kw.plan_rope: mop_rope,
 #         kw.reason_context: zeit_rope,
 #         kw.reason_state: zeit_rope,
 #         kw.jourly_lower_min: 600,
 #         kw.jourly_length_min: 90,
 #     }
-#     _keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: })
+#     _plan = person_planunit_get_obj(bob_person, {kw.plan_rope: })
 #     set__cases_by_args_dict(bob_person, mop_jourly_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_jourly_args)
-#     jour_case = person_keg_reason_caseunit_get_obj(bob_person, mop_jourly_args)
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_jourly_args)
+#     jour_case = person_plan_reason_caseunit_get_obj(bob_person, mop_jourly_args)
 #     x__frame_min = 100
 #     assert jour_case.reason_lower == 600
 #     assert jour_case.reason_upper == 690
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         jour_case, x__frame_min, jour_keg.close, jour_keg.denom, jour_keg.morph
+#         jour_case, x__frame_min, jour_plan.close, jour_plan.denom, jour_plan.morph
 #     )
 
 #     # THEN
@@ -57,7 +57,7 @@
 #     # ESTABLISH
 #     bob_person = get_bob_two_person()
 #     mop_jourly_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.jour_rope,
 #         kw.reason_state: wx.jour_rope,
 #         kw._label: wx.two_str,
@@ -65,16 +65,16 @@
 #         kw.jourly_length_min: 90,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_jourly_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_jourly_args)
-#     jour_case = person_keg_reason_caseunit_get_obj(bob_person, mop_jourly_args)
-#     jour_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.jour_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_jourly_args)
+#     jour_case = person_plan_reason_caseunit_get_obj(bob_person, mop_jourly_args)
+#     jour_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.jour_rope})
 #     x__frame_min = 1000
 #     assert jour_case.reason_lower == 600
 #     assert jour_case.reason_upper == 690
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         jour_case, x__frame_min, jour_keg.close, jour_keg.denom, jour_keg.morph
+#         jour_case, x__frame_min, jour_plan.close, jour_plan.denom, jour_plan.morph
 #     )
 
 #     # THEN
@@ -91,7 +91,7 @@
 #     mop_jours_upper_jour = 4
 #     mop_every_xjours = 13
 #     mop_xjours_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.jours_rope,
 #         kw.reason_state: wx.jours_rope,
 #         kw._label: wx.two_str,
@@ -100,16 +100,16 @@
 #         kw.every_xjours: mop_every_xjours,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_xjours_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_xjours_args)
-#     jours_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.jours_rope})
-#     jours_case = person_keg_reason_caseunit_get_obj(bob_person, mop_xjours_args)
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_xjours_args)
+#     jours_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.jours_rope})
+#     jours_case = person_plan_reason_caseunit_get_obj(bob_person, mop_xjours_args)
 #     x__frame_min = 5000
 #     assert jours_case.reason_lower == mop_jours_lower_jour
 #     assert jours_case.reason_upper == mop_jours_upper_jour
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         jours_case, x__frame_min, jours_keg.close, jours_keg.denom, jours_keg.morph
+#         jours_case, x__frame_min, jours_plan.close, jours_plan.denom, jours_plan.morph
 #     )
 
 #     # THEN
@@ -126,7 +126,7 @@
 #     mop_jours_upper_jour = 4
 #     mop_every_xjours = 13
 #     mop_xjours_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.jours_rope,
 #         kw.reason_state: wx.jours_rope,
 #         kw._label: wx.two_str,
@@ -135,16 +135,16 @@
 #         kw.every_xjours: mop_every_xjours,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_xjours_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_xjours_args)
-#     jours_case = person_keg_reason_caseunit_get_obj(bob_person, mop_xjours_args)
-#     jours_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.jours_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_xjours_args)
+#     jours_case = person_plan_reason_caseunit_get_obj(bob_person, mop_xjours_args)
+#     jours_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.jours_rope})
 #     x__frame_min = 50000
 #     assert jours_case.reason_lower == mop_jours_lower_jour
 #     assert jours_case.reason_upper == mop_jours_upper_jour
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         jours_case, x__frame_min, jours_keg.close, jours_keg.denom, jours_keg.morph
+#         jours_case, x__frame_min, jours_plan.close, jours_plan.denom, jours_plan.morph
 #     )
 
 #     # THEN
@@ -162,7 +162,7 @@
 #     # ESTABLISH
 #     bob_person = get_bob_two_person()
 #     mop_wkly_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.wk_rope,
 #         kw.reason_state: wx.wk_rope,
 #         kw._label: wx.two_str,
@@ -170,16 +170,16 @@
 #         kw.wkly_length_min: 90,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_wkly_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_wkly_args)
-#     wk_case = person_keg_reason_caseunit_get_obj(bob_person, mop_wkly_args)
-#     wk_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.wk_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_wkly_args)
+#     wk_case = person_plan_reason_caseunit_get_obj(bob_person, mop_wkly_args)
+#     wk_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.wk_rope})
 #     x__frame_min = 100
 #     assert wk_case.reason_lower == 600
 #     assert wk_case.reason_upper == 690
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         wk_case, x__frame_min, wk_keg.close, wk_keg.denom, wk_keg.morph
+#         wk_case, x__frame_min, wk_plan.close, wk_plan.denom, wk_plan.morph
 #     )
 
 #     # THEN
@@ -193,7 +193,7 @@
 #     # ESTABLISH
 #     bob_person = get_bob_two_person()
 #     mop_wkly_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.wk_rope,
 #         kw.reason_state: wx.wk_rope,
 #         kw._label: wx.two_str,
@@ -201,16 +201,16 @@
 #         kw.wkly_length_min: 90,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_wkly_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_wkly_args)
-#     wk_case = person_keg_reason_caseunit_get_obj(bob_person, mop_wkly_args)
-#     wk_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.wk_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_wkly_args)
+#     wk_case = person_plan_reason_caseunit_get_obj(bob_person, mop_wkly_args)
+#     wk_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.wk_rope})
 #     x__frame_min = 10000
 #     assert wk_case.reason_lower == 600
 #     assert wk_case.reason_upper == 690
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         wk_case, x__frame_min, wk_keg.close, wk_keg.denom, wk_keg.morph
+#         wk_case, x__frame_min, wk_plan.close, wk_plan.denom, wk_plan.morph
 #     )
 
 #     # THEN
@@ -231,7 +231,7 @@
 #     mop_wks_upper_wk = 4
 #     mop_every_xwks = 13
 #     mop_xwks_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.wks_rope,
 #         kw.reason_state: wx.wks_rope,
 #         kw._label: wx.two_str,
@@ -240,9 +240,9 @@
 #         kw.every_xwks: mop_every_xwks,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_xwks_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_xwks_args)
-#     xwks_case = person_keg_reason_caseunit_get_obj(bob_person, mop_xwks_args)
-#     wks_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.wks_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_xwks_args)
+#     xwks_case = person_plan_reason_caseunit_get_obj(bob_person, mop_xwks_args)
+#     wks_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.wks_rope})
 #     x__frame_min = 24000
 #     assert xwks_case.reason_lower == mop_wks_lower_wk
 #     assert xwks_case.reason_upper == mop_wks_upper_wk
@@ -251,9 +251,9 @@
 #     add_frame_to_caseunit(
 #         xwks_case,
 #         x__frame_min,
-#         wks_keg.close,
-#         wks_keg.denom,
-#         wks_keg.morph,
+#         wks_plan.close,
+#         wks_plan.denom,
+#         wks_plan.morph,
 #     )
 
 #     # THEN
@@ -270,7 +270,7 @@
 #     mop_wks_upper_wk = 4
 #     mop_every_xwks = 13
 #     mop_xwks_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.wks_rope,
 #         kw.reason_state: wx.wks_rope,
 #         kw._label: wx.two_str,
@@ -279,9 +279,9 @@
 #         kw.every_xwks: mop_every_xwks,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_xwks_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_xwks_args)
-#     xwks_case = person_keg_reason_caseunit_get_obj(bob_person, mop_xwks_args)
-#     wks_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.wks_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_xwks_args)
+#     xwks_case = person_plan_reason_caseunit_get_obj(bob_person, mop_xwks_args)
+#     wks_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.wks_rope})
 #     x__frame_min = 50000
 #     assert xwks_case.reason_lower == mop_wks_lower_wk
 #     assert xwks_case.reason_upper == mop_wks_upper_wk
@@ -290,9 +290,9 @@
 #     add_frame_to_caseunit(
 #         xwks_case,
 #         x__frame_min,
-#         wks_keg.close,
-#         wks_keg.denom,
-#         wks_keg.morph,
+#         wks_plan.close,
+#         wks_plan.denom,
+#         wks_plan.morph,
 #     )
 
 #     # THEN
@@ -311,7 +311,7 @@
 #     bob_person = get_bob_two_person()
 #     geo_rope = bob_person.make_rope(wx.two_yr_rope, wx.Geo)
 #     mop_mnthjour_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: geo_rope,
 #         kw.reason_state: geo_rope,
@@ -320,9 +320,9 @@
 #         kw.yr_mnthjour_length_jours: 3,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_mnthjour_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_mnthjour_args)
-#     yr_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.two_yr_rope})
-#     mnthjour_case = person_keg_reason_caseunit_get_obj(bob_person, mop_mnthjour_args)
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_mnthjour_args)
+#     yr_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.two_yr_rope})
+#     mnthjour_case = person_plan_reason_caseunit_get_obj(bob_person, mop_mnthjour_args)
 
 #     print(f"{mnthjour_case.reason_divisor=}")
 #     x__frame_min = 500
@@ -335,9 +335,9 @@
 #     add_frame_to_caseunit(
 #         mnthjour_case,
 #         x__frame_min,
-#         yr_keg.close,
-#         yr_keg.denom,
-#         yr_keg.morph,
+#         yr_plan.close,
+#         yr_plan.denom,
+#         yr_plan.morph,
 #     )
 
 #     # THEN
@@ -352,7 +352,7 @@
 #     bob_person = get_bob_two_person()
 #     geo_rope = bob_person.make_rope(wx.two_yr_rope, wx.Geo)
 #     mop_mnthjour_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: geo_rope,
 #         kw.reason_state: geo_rope,
@@ -361,9 +361,9 @@
 #         kw.yr_mnthjour_length_jours: 3,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_mnthjour_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_mnthjour_args)
-#     mnthjour_case = person_keg_reason_caseunit_get_obj(bob_person, mop_mnthjour_args)
-#     yr_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.two_yr_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_mnthjour_args)
+#     mnthjour_case = person_plan_reason_caseunit_get_obj(bob_person, mop_mnthjour_args)
+#     yr_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.two_yr_rope})
 #     x__frame_min = 5000000
 #     geo_5_Zeit = 43200
 #     geo_8_Zeit = 47520
@@ -374,9 +374,9 @@
 #     add_frame_to_caseunit(
 #         mnthjour_case,
 #         x__frame_min,
-#         yr_keg.close,
-#         yr_keg.denom,
-#         yr_keg.morph,
+#         yr_plan.close,
+#         yr_plan.denom,
+#         yr_plan.morph,
 #     )
 
 #     # THEN
@@ -393,21 +393,21 @@
 #     bob_person = get_bob_two_person()
 #     geo_rope = bob_person.make_rope(wx.two_yr_rope, wx.Geo)
 #     mop_mnthly_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.mnthly_mnthjour_lower: 5,
 #         kw.mnthly_length_jours: 3,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_mnthly_args)
 #     geo_mnth_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_yr_rope,
 #         kw.reason_state: geo_rope,
 #     }
-#     assert person_keg_reason_caseunit_exists(bob_person, geo_mnth_args)
-#     geo_case = person_keg_reason_caseunit_get_obj(bob_person, geo_mnth_args)
-#     yr_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.two_yr_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, geo_mnth_args)
+#     geo_case = person_plan_reason_caseunit_get_obj(bob_person, geo_mnth_args)
+#     yr_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.two_yr_rope})
 
 #     print(f"{geo_case.reason_divisor=}")
 #     x__frame_min = 500
@@ -418,7 +418,7 @@
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         geo_case, x__frame_min, yr_keg.close, yr_keg.denom, yr_keg.morph
+#         geo_case, x__frame_min, yr_plan.close, yr_plan.denom, yr_plan.morph
 #     )
 
 #     # THEN
@@ -433,21 +433,21 @@
 #     bob_person = get_bob_two_person()
 #     geo_rope = bob_person.make_rope(wx.two_yr_rope, wx.Geo)
 #     mop_mnthly_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.mnthly_mnthjour_lower: 5,
 #         kw.mnthly_length_jours: 3,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_mnthly_args)
 #     geo_mnth_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_yr_rope,
 #         kw.reason_state: geo_rope,
 #     }
-#     assert person_keg_reason_caseunit_exists(bob_person, geo_mnth_args)
-#     geo_case = person_keg_reason_caseunit_get_obj(bob_person, geo_mnth_args)
-#     yr_keg = person_kegunit_get_obj(bob_person, {kw.keg_rope: wx.two_yr_rope})
+#     assert person_plan_reason_caseunit_exists(bob_person, geo_mnth_args)
+#     geo_case = person_plan_reason_caseunit_get_obj(bob_person, geo_mnth_args)
+#     yr_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.two_yr_rope})
 #     x__frame_min = 5000000
 #     geo_5_Zeit = 43200
 #     geo_8_Zeit = 47520
@@ -456,7 +456,7 @@
 
 #     # WHEN
 #     add_frame_to_caseunit(
-#         geo_case, x__frame_min, yr_keg.close, yr_keg.denom, yr_keg.morph
+#         geo_case, x__frame_min, yr_plan.close, yr_plan.denom, yr_plan.morph
 #     )
 
 #     # THEN
@@ -474,7 +474,7 @@
 #     x_rge_lower_min = 7777
 #     x_range_width = 2000
 #     mop_range_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_rope,
 #         kw.reason_state: wx.two_rope,
@@ -482,11 +482,11 @@
 #         kw.range_width: x_range_width,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_range_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_range_args)
-#     _args = {kw.keg_rope: wx.two_rope}
-#     _keg = person_kegunit_get_obj(bob_person, _args)
-#     print(f"{get_range_attrs(_keg)=}")
-#     _case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_range_args)
+#     _args = {kw.plan_rope: wx.two_rope}
+#     _plan = person_planunit_get_obj(bob_person, _args)
+#     print(f"{get_range_attrs(_plan)=}")
+#     _case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
 
 #     x__frame_min = 500
 #     x_range_upper_min = x_rge_lower_min + x_range_width
@@ -497,9 +497,9 @@
 #     add_frame_to_caseunit(
 #         _case,
 #         x__frame_min,
-#         _keg.close,
-#         _keg.denom,
-#         _keg.morph,
+#         _plan.close,
+#         _plan.denom,
+#         _plan.morph,
 #     )
 
 #     # THEN
@@ -515,7 +515,7 @@
 #     x_rge_lower_min = 7777
 #     x_range_width = 2000
 #     mop_range_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_rope,
 #         kw.reason_state: wx.two_rope,
@@ -523,13 +523,13 @@
 #         kw.range_width: x_range_width,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_range_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_range_args)
-#     _args = {kw.keg_rope: wx.two_rope}
-#     _keg = person_kegunit_get_obj(bob_person, _args)
-#     print(f"{get_range_attrs(_keg)=}")
-#     _case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_range_args)
+#     _args = {kw.plan_rope: wx.two_rope}
+#     _plan = person_planunit_get_obj(bob_person, _args)
+#     print(f"{get_range_attrs(_plan)=}")
+#     _case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
 
-#     x__frame_min = _keg.close + 10005
+#     x__frame_min = _plan.close + 10005
 #     x_range_upper_min = x_rge_lower_min + x_range_width
 #     assert _case.reason_lower == x_rge_lower_min
 #     assert _case.reason_upper == x_range_upper_min
@@ -538,19 +538,19 @@
 #     add_frame_to_caseunit(
 #         _case,
 #         x__frame_min,
-#         _keg.close,
-#         _keg.denom,
-#         _keg.morph,
+#         _plan.close,
+#         _plan.denom,
+#         _plan.morph,
 #     )
 
 #     # THEN
 #     assert _case.reason_lower != x_rge_lower_min
 #     assert _case.reason_upper != x_range_width
 #     print(
-#         f"{x_rge_lower_min + x__frame_min=} vs {_keg.close} (_length)"
+#         f"{x_rge_lower_min + x__frame_min=} vs {_plan.close} (_length)"
 #     )
-#     expected_lower = (x_rge_lower_min + x__frame_min) % _keg.close
-#     expected_upper = (x_range_upper_min + x__frame_min) % _keg.close
+#     expected_lower = (x_rge_lower_min + x__frame_min) % _plan.close
+#     expected_upper = (x_range_upper_min + x__frame_min) % _plan.close
 #     assert _case.reason_lower == expected_lower
 #     assert _case.reason_upper == expected_upper
 
@@ -561,7 +561,7 @@
 #     x_rge_lower_min = 7777
 #     x_range_width = 2000
 #     mop_range_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_rope,
 #         kw.reason_state: wx.two_rope,
@@ -569,13 +569,13 @@
 #         kw.range_width: x_range_width,
 #     }
 #     set__cases_by_args_dict(bob_person, mop_range_args)
-#     assert person_keg_reason_caseunit_exists(bob_person, mop_range_args)
-#     _args = {kw.keg_rope: wx.two_rope}
-#     two_reason = person_keg_reasonunit_get_obj(bob_person, mop_range_args)
-#     _keg = person_kegunit_get_obj(bob_person, _args)
-#     print(f"{get_range_attrs(_keg)=}")
-#     _length = _keg.close
-#     _case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+#     assert person_plan_reason_caseunit_exists(bob_person, mop_range_args)
+#     _args = {kw.plan_rope: wx.two_rope}
+#     two_reason = person_plan_reasonunit_get_obj(bob_person, mop_range_args)
+#     _plan = person_planunit_get_obj(bob_person, _args)
+#     print(f"{get_range_attrs(_plan)=}")
+#     _length = _plan.close
+#     _case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
 
 #     x__frame_min = _length + 10005
 #     x_range_upper_min = x_rge_lower_min + x_range_width
@@ -586,9 +586,9 @@
 #     add_frame_to_reasonunit(
 #         two_reason,
 #         x__frame_min,
-#         _keg.close,
-#         _keg.denom,
-#         _keg.morph,
+#         _plan.close,
+#         _plan.denom,
+#         _plan.morph,
 #     )
 
 #     # THEN
@@ -607,26 +607,26 @@
 #     x_upper_min = 8000
 #     bob_person.add_fact(wx.two_rope, wx.two_rope, x_lower_min, x_upper_min)
 #     root_two_args = {
-#         kw.keg_rope: wx.mop_rope,
-#         kw.keg_rope: bob_person.kegroot.get_keg_rope(),
+#         kw.plan_rope: wx.mop_rope,
+#         kw.plan_rope: bob_person.planroot.get_plan_rope(),
 #         kw.fact_context: wx.two_rope,
 #     }
-#     _args = {kw.keg_rope: wx.mop_rope, kw.keg_rope: wx.two_rope}
-#     _keg = person_kegunit_get_obj(bob_person, _args)
-#     assert person_keg_factunit_exists(bob_person, root_two_args)
-#     root_two_fact = person_keg_factunit_get_obj(bob_person, root_two_args)
+#     _args = {kw.plan_rope: wx.mop_rope, kw.plan_rope: wx.two_rope}
+#     _plan = person_planunit_get_obj(bob_person, _args)
+#     assert person_plan_factunit_exists(bob_person, root_two_args)
+#     root_two_fact = person_plan_factunit_get_obj(bob_person, root_two_args)
 #     x__frame_min = 10005
 #     assert root_two_fact.fact_lower == x_lower_min
 #     assert root_two_fact.fact_upper == x_upper_min
 
 #     # WHEN
-#     add_frame_to_factunit(root_two_fact, x__frame_min, _keg.close)
+#     add_frame_to_factunit(root_two_fact, x__frame_min, _plan.close)
 
 #     # THEN
 #     assert root_two_fact.fact_lower != x_lower_min
 #     assert root_two_fact.fact_upper != x_upper_min
-#     expected_lower = (x_lower_min + x__frame_min) % _keg.close
-#     expected_upper = (x_upper_min + x__frame_min) % _keg.close
+#     expected_lower = (x_lower_min + x__frame_min) % _plan.close
+#     expected_upper = (x_upper_min + x__frame_min) % _plan.close
 #     assert root_two_fact.fact_lower == expected_lower
 #     assert root_two_fact.fact_upper == expected_upper
 
@@ -638,26 +638,26 @@
 #     x_upper_min = 8000
 #     bob_person.add_fact(wx.two_rope, wx.two_rope, x_lower_min, x_upper_min)
 #     root_two_args = {
-#         kw.keg_rope: wx.mop_rope,
-#         kw.keg_rope: bob_person.kegroot.get_keg_rope(),
+#         kw.plan_rope: wx.mop_rope,
+#         kw.plan_rope: bob_person.planroot.get_plan_rope(),
 #         kw.fact_context: wx.two_rope,
 #     }
-#     _args = {kw.keg_rope: wx.mop_rope, kw.keg_rope: wx.two_rope}
-#     _keg = person_kegunit_get_obj(bob_person, _args)
-#     assert person_keg_factunit_exists(bob_person, root_two_args)
-#     root_two_fact = person_keg_factunit_get_obj(bob_person, root_two_args)
-#     x__frame_min = _keg.close + 10010
+#     _args = {kw.plan_rope: wx.mop_rope, kw.plan_rope: wx.two_rope}
+#     _plan = person_planunit_get_obj(bob_person, _args)
+#     assert person_plan_factunit_exists(bob_person, root_two_args)
+#     root_two_fact = person_plan_factunit_get_obj(bob_person, root_two_args)
+#     x__frame_min = _plan.close + 10010
 #     assert root_two_fact.fact_lower == x_lower_min
 #     assert root_two_fact.fact_upper == x_upper_min
 
 #     # WHEN
-#     add_frame_to_factunit(root_two_fact, x__frame_min, _keg.close)
+#     add_frame_to_factunit(root_two_fact, x__frame_min, _plan.close)
 
 #     # THEN
 #     assert root_two_fact.fact_lower != x_lower_min
 #     assert root_two_fact.fact_upper != x_upper_min
-#     expected_lower = (x_lower_min + x__frame_min) % _keg.close
-#     expected_upper = (x_upper_min + x__frame_min) % _keg.close
+#     expected_lower = (x_lower_min + x__frame_min) % _plan.close
+#     expected_upper = (x_upper_min + x__frame_min) % _plan.close
 #     assert root_two_fact.fact_lower == expected_lower
 #     assert root_two_fact.fact_upper == expected_upper
 
@@ -668,7 +668,7 @@
 #     x_rge_lower_min = 7777
 #     x_range_width = 2000
 #     mop_range_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_rope,
 #         kw.reason_state: wx.two_rope,
@@ -680,18 +680,18 @@
 #     x_upper_min = 8000
 #     bob_person.add_fact(wx.two_rope, wx.two_rope, x_lower_min, x_upper_min)
 #     root_two_args = {
-#         kw.keg_rope: wx.mop_rope,
-#         kw.keg_rope: bob_person.kegroot.get_keg_rope(),
+#         kw.plan_rope: wx.mop_rope,
+#         kw.plan_rope: bob_person.planroot.get_plan_rope(),
 #         kw.fact_context: wx.two_rope,
 #     }
-#     _args = {kw.keg_rope: wx.mop_rope, kw.keg_rope: wx.two_rope}
-#     _keg = person_kegunit_get_obj(bob_person, _args)
-#     assert person_keg_factunit_exists(bob_person, root_two_args)
-#     root_two_fact = person_keg_factunit_get_obj(bob_person, root_two_args)
+#     _args = {kw.plan_rope: wx.mop_rope, kw.plan_rope: wx.two_rope}
+#     _plan = person_planunit_get_obj(bob_person, _args)
+#     assert person_plan_factunit_exists(bob_person, root_two_args)
+#     root_two_fact = person_plan_factunit_get_obj(bob_person, root_two_args)
 
-#     two_reason = person_keg_reasonunit_get_obj(bob_person, mop_range_args)
-#     _length = _keg.close
-#     _case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+#     two_reason = person_plan_reasonunit_get_obj(bob_person, mop_range_args)
+#     _length = _plan.close
+#     _case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
 
 #     x__frame_min = _length + 10005
 #     x_range_upper_min = x_rge_lower_min + x_range_width
@@ -713,14 +713,14 @@
 # def test_add_frame_to_personunit_SetsAttrs_Scenario1_FilterFactsAndReasonsEdited():
 #     # ESTABLISH
 #     bob_person = get_bob_two_person()
-#     add__kegunit(bob_person, get_lizzy9_config())
+#     add__planunit(bob_person, get_lizzy9_config())
 #     lizzy9_str = get_lizzy9_config().get(kw._label)
 #     zeit_rope = bob_person.make_l1_rope("zeit")
 #     lizzy9_rope = bob_person.make_rope(zeit_rope, lizzy9_str)
 #     x_rge_lower_min = 7777
 #     x_range_width = 2000
 #     mop_two_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_rope,
 #         kw.reason_state: wx.two_rope,
@@ -728,7 +728,7 @@
 #         kw.range_width: x_range_width,
 #     }
 #     mop_lizzy9_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: lizzy9_str,
 #         kw.reason_context: lizzy9_rope,
 #         kw.reason_state: lizzy9_rope,
@@ -742,19 +742,19 @@
 #     bob_person.add_fact(wx.two_rope, wx.two_rope, x_lower_min, x_upper_min)
 #     bob_person.add_fact(lizzy9_rope, lizzy9_rope, x_lower_min, x_upper_min)
 #     root_two_args = {
-#         kw.keg_rope: wx.mop_rope,
-#         kw.keg_rope: bob_person.kegroot.get_keg_rope(),
+#         kw.plan_rope: wx.mop_rope,
+#         kw.plan_rope: bob_person.planroot.get_plan_rope(),
 #         kw.fact_context: wx.two_rope,
 #     }
 #     root_lizzy9_args = {
-#         kw.keg_rope: wx.mop_rope,
-#         kw.keg_rope: bob_person.kegroot.get_keg_rope(),
+#         kw.plan_rope: wx.mop_rope,
+#         kw.plan_rope: bob_person.planroot.get_plan_rope(),
 #         kw.fact_context: lizzy9_rope,
 #     }
-#     root_two_fact = person_keg_factunit_get_obj(bob_person, root_two_args)
-#     root_lizzy9_fact = person_keg_factunit_get_obj(bob_person, root_lizzy9_args)
-#     two_case = person_keg_reason_caseunit_get_obj(bob_person, mop_two_args)
-#     lizzy9_case = person_keg_reason_caseunit_get_obj(bob_person, mop_lizzy9_args)
+#     root_two_fact = person_plan_factunit_get_obj(bob_person, root_two_args)
+#     root_lizzy9_fact = person_plan_factunit_get_obj(bob_person, root_lizzy9_args)
+#     two_case = person_plan_reason_caseunit_get_obj(bob_person, mop_two_args)
+#     lizzy9_case = person_plan_reason_caseunit_get_obj(bob_person, mop_lizzy9_args)
 
 #     x__frame_min = 10005
 #     assert two_case.reason_lower == x_rge_lower_min
@@ -777,14 +777,14 @@
 # def test_add_frame_to_personunit_SetsAttrs_Scenario2_IgnoreNonRangeReasonsFacts():
 #     # ESTABLISH
 #     bob_person = get_bob_two_person()
-#     bob_person.add_keg(wx.clean_rope)
-#     bob_person.edit_keg_attr(
+#     bob_person.add_plan(wx.clean_rope)
+#     bob_person.edit_plan_attr(
 #         wx.mop_rope, reason_context=wx.clean_rope, reason_case=wx.clean_rope
 #     )
 #     x_rge_lower_min = 7777
 #     x_range_width = 2000
 #     mop_range_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw._label: wx.two_str,
 #         kw.reason_context: wx.two_rope,
 #         kw.reason_state: wx.two_rope,
@@ -792,7 +792,7 @@
 #         kw.range_width: x_range_width,
 #     }
 #     mop_clean_args = {
-#         kw.keg_rope: wx.mop_rope,
+#         kw.plan_rope: wx.mop_rope,
 #         kw.reason_context: wx.clean_rope,
 #         kw.reason_state: wx.clean_rope,
 #     }
@@ -802,21 +802,21 @@
 #     bob_person.add_fact(wx.two_rope, wx.two_rope, x_lower_min, x_upper_min)
 #     bob_person.add_fact(wx.clean_rope, wx.clean_rope)
 #     root_two_args = {
-#         kw.keg_rope: wx.mop_rope,
-#         kw.keg_rope: bob_person.kegroot.get_keg_rope(),
+#         kw.plan_rope: wx.mop_rope,
+#         kw.plan_rope: bob_person.planroot.get_plan_rope(),
 #         kw.fact_context: wx.two_rope,
 #     }
 #     root_clean_args = {
-#         kw.keg_rope: wx.mop_rope,
-#         kw.keg_rope: bob_person.kegroot.get_keg_rope(),
+#         kw.plan_rope: wx.mop_rope,
+#         kw.plan_rope: bob_person.planroot.get_plan_rope(),
 #         kw.fact_context: wx.clean_rope,
 #     }
-#     assert person_keg_factunit_exists(bob_person, root_two_args)
-#     assert person_keg_factunit_exists(bob_person, root_clean_args)
-#     root_two_fact = person_keg_factunit_get_obj(bob_person, root_two_args)
-#     root_clean_fact = person_keg_factunit_get_obj(bob_person, root_clean_args)
-#     two_case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
-#     clean_case = person_keg_reason_caseunit_get_obj(bob_person, mop_clean_args)
+#     assert person_plan_factunit_exists(bob_person, root_two_args)
+#     assert person_plan_factunit_exists(bob_person, root_clean_args)
+#     root_two_fact = person_plan_factunit_get_obj(bob_person, root_two_args)
+#     root_clean_fact = person_plan_factunit_get_obj(bob_person, root_clean_args)
+#     two_case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
+#     clean_case = person_plan_reason_caseunit_get_obj(bob_person, mop_clean_args)
 
 #     x__frame_min = 10005
 #     x_range_upper_min = x_rge_lower_min + x_range_width

@@ -1,8 +1,8 @@
 from os.path import exists as os_path_exists
 from pytest import raises as pytest_raises
-from src.ch06_keg.healer import healerunit_shop
-from src.ch06_keg.keg import kegunit_shop
-from src.ch07_person_logic.person_graphic import display_kegtree
+from src.ch06_plan.healer import healerunit_shop
+from src.ch06_plan.plan import planunit_shop
+from src.ch07_person_logic.person_graphic import display_plantree
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch09_person_lesson.lesson_filehandler import (
     lessonfilehandler_shop,
@@ -31,10 +31,10 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
     texas_rope = sue_gut_person.make_l1_rope(texas_str)
     dallas_str = "dallas"
     dallas_rope = sue_gut_person.make_rope(texas_rope, dallas_str)
-    sue_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
-    sue_gut_person.set_keg_obj(kegunit_shop(dallas_str), texas_rope)
-    sue_gut_person.edit_keg_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
-    sue_gut_person.edit_keg_attr(dallas_rope, healerunit=healerunit_shop({exx.sue}))
+    sue_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
+    sue_gut_person.set_plan_obj(planunit_shop(dallas_str), texas_rope)
+    sue_gut_person.edit_plan_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
+    sue_gut_person.edit_plan_attr(dallas_rope, healerunit=healerunit_shop({exx.sue}))
     sue_gut_person.cashout()
     a23_lasso = lassounit_shop(exx.a23)
     assert sue_gut_person.keeps_justified is False
@@ -58,8 +58,8 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
     sue_gut_person.add_partnerunit(exx.sue)
     texas_str = "Tex/as"
     texas_rope = sue_gut_person.make_l1_rope(texas_str)
-    sue_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
-    sue_gut_person.edit_keg_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
+    sue_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
+    sue_gut_person.edit_plan_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
     sue_gut_person.cashout()
     assert sue_gut_person.keeps_justified
     assert sue_gut_person.keeps_buildable is False
@@ -81,17 +81,17 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     sue_gut_person.add_partnerunit(exx.sue)
     texas_str = "Texas"
     texas_rope = sue_gut_person.make_l1_rope(texas_str)
-    sue_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
+    sue_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     dallas_str = "dallas"
     elpaso_str = "el paso"
     dallas_rope = sue_gut_person.make_rope(texas_rope, dallas_str)
     elpaso_rope = sue_gut_person.make_rope(texas_rope, elpaso_str)
-    dallas_keg = kegunit_shop(dallas_str, healerunit=healerunit_shop({exx.sue}))
-    elpaso_keg = kegunit_shop(elpaso_str, healerunit=healerunit_shop({exx.sue}))
-    sue_gut_person.set_keg_obj(dallas_keg, texas_rope)
-    sue_gut_person.set_keg_obj(elpaso_keg, texas_rope)
+    dallas_plan = planunit_shop(dallas_str, healerunit=healerunit_shop({exx.sue}))
+    elpaso_plan = planunit_shop(elpaso_str, healerunit=healerunit_shop({exx.sue}))
+    sue_gut_person.set_plan_obj(dallas_plan, texas_rope)
+    sue_gut_person.set_plan_obj(elpaso_plan, texas_rope)
     sue_gut_person.cashout()
-    display_kegtree(sue_gut_person, mode="Keep", graphics_bool=graphics_bool)
+    display_plantree(sue_gut_person, mode="Keep", graphics_bool=graphics_bool)
     save_gut_file(env_dir(), sue_gut_person)
 
     # WHEN
@@ -115,16 +115,16 @@ def test_save_all_gut_dutys_Setsdutys(temp_dir_setup, graphics_bool):
     sue_gut_person.add_partnerunit(exx.bob)
     texas_str = "Texas"
     texas_rope = sue_gut_person.make_l1_rope(texas_str)
-    sue_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
+    sue_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     dallas_str = "dallas"
     dallas_rope = sue_gut_person.make_rope(texas_rope, dallas_str)
-    dallas_keg = kegunit_shop(dallas_str, healerunit=healerunit_shop({exx.sue}))
-    sue_gut_person.set_keg_obj(dallas_keg, texas_rope)
+    dallas_plan = planunit_shop(dallas_str, healerunit=healerunit_shop({exx.sue}))
+    sue_gut_person.set_plan_obj(dallas_plan, texas_rope)
     elpaso_str = "el paso"
     elpaso_rope = sue_gut_person.make_rope(texas_rope, elpaso_str)
-    elpaso_keg = kegunit_shop(elpaso_str, healerunit=healerunit_shop({exx.sue}))
-    sue_gut_person.set_keg_obj(elpaso_keg, texas_rope)
-    display_kegtree(sue_gut_person, mode="Keep", graphics_bool=graphics_bool)
+    elpaso_plan = planunit_shop(elpaso_str, healerunit=healerunit_shop({exx.sue}))
+    sue_gut_person.set_plan_obj(elpaso_plan, texas_rope)
+    display_plantree(sue_gut_person, mode="Keep", graphics_bool=graphics_bool)
     save_gut_file(env_dir(), sue_gut_person)
     sue_dallas_duty_path = create_keep_duty_path(
         moment_mstr_dir=mstr_dir,

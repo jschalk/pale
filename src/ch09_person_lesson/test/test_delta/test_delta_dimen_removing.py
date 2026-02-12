@@ -1,4 +1,4 @@
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson.delta import get_dimens_cruds_persondelta, persondelta_shop
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
@@ -14,7 +14,7 @@ def test_PersonDelta_get_dimens_cruds_persondelta_ReturnsObjWithCorrectDimensAnd
     after_sue_person.add_partnerunit(
         exx.bob, bob_partner_cred_lumen, bob_partner_debt_lumen
     )
-    after_sue_person.set_l1_keg(kegunit_shop("casa"))
+    after_sue_person.set_l1_plan(planunit_shop("casa"))
     old_persondelta = persondelta_shop()
     old_persondelta.add_all_different_personatoms(before_sue_person, after_sue_person)
 

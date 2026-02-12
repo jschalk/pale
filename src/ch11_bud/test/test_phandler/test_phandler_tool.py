@@ -147,8 +147,8 @@ def test_save_arbitrary_personspark_SetsFile_Scenario1_includes_facts(
     )
     gen_sue_person = open_person_file(personspark_path)
     assert (
-        gen_sue_person.get_kegroot_factunits_dict()
-        == expected_sue_person.get_kegroot_factunits_dict()
+        gen_sue_person.get_planroot_factunits_dict()
+        == expected_sue_person.get_planroot_factunits_dict()
     )
     assert gen_sue_person.to_dict() == expected_sue_person.to_dict()
 
@@ -173,7 +173,7 @@ def test_get_personspark_obj_ReturnsObj_Scenario1_FileExists(temp_dir_setup):
     casa_rope = sue_person.make_l1_rope("casa")
     clean_rope = sue_person.make_l1_rope("clean")
     dirty_rope = sue_person.make_l1_rope("dirty")
-    sue_person.add_fact(casa_rope, dirty_rope, create_missing_kegs=True)
+    sue_person.add_fact(casa_rope, dirty_rope, create_missing_plans=True)
     save_person_file(t3_json_path, None, sue_person)
 
     # WHEN
@@ -512,14 +512,14 @@ def test_create_cell_partner_mandate_ledger_json_CreatesFile_Scenario1(
     sue_person.add_partnerunit(exx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
-    sue_person.add_keg(clean_fact.fact_state)
-    sue_person.add_keg(dirty_fact.fact_state)
+    sue_person.add_plan(clean_fact.fact_state)
+    sue_person.add_plan(dirty_fact.fact_state)
     casa_rope = sue_person.make_l1_rope("casa")
     mop_rope = sue_person.make_rope(casa_rope, "mop")
-    sue_person.add_keg(mop_rope, 1, pledge=True)
+    sue_person.add_plan(mop_rope, 1, pledge=True)
     sue_person.edit_reason(mop_rope, dirty_fact.fact_context, dirty_fact.fact_state)
     sue_person.add_fact(
-        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_kegs=True
+        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_plans=True
     )
     sky_blue_fact = sky_blue_factunit()
     sue_personspark_factunits = {clean_fact.fact_context: clean_fact}

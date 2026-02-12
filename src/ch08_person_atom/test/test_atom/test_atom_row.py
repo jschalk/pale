@@ -47,7 +47,7 @@ def test_AtomRow_Exists():
     assert x_atomrow.fact_state is None
     assert x_atomrow.pledge is None
     assert x_atomrow.problem_bool is None
-    assert x_atomrow.keg_rope is None
+    assert x_atomrow.plan_rope is None
     assert x_atomrow.stop_want is None
     assert x_atomrow.take_force is None
 
@@ -119,15 +119,15 @@ def test_AtomRow_set_class_types_SetsAttr():
     x_atomrow = atomrow_shop({}, kw.INSERT)
     x_atomrow.close = "4"
     x_parent_rope = "Fay_bob"
-    x_keg_label = "Bobziy"
+    x_plan_label = "Bobziy"
     x_morph_str = "True"
     x_morph_bool = True
-    x_rope = create_rope(x_parent_rope, x_keg_label)
-    x_atomrow.keg_rope = x_rope
+    x_rope = create_rope(x_parent_rope, x_plan_label)
+    x_atomrow.plan_rope = x_rope
     x_atomrow.morph = x_morph_str
     four_int = 4
     assert x_atomrow.close != four_int
-    assert x_atomrow.keg_rope == x_rope
+    assert x_atomrow.plan_rope == x_rope
     assert x_atomrow.morph == x_morph_str
 
     # WHEN
@@ -135,7 +135,7 @@ def test_AtomRow_set_class_types_SetsAttr():
 
     # THEN
     assert x_atomrow.close == four_int
-    assert x_atomrow.keg_rope == x_rope
+    assert x_atomrow.plan_rope == x_rope
     assert x_atomrow.morph == x_morph_bool
 
 
@@ -222,10 +222,10 @@ def test_AtomRow_get_personatoms_ReturnsObjIfDimenIsCorrect():
     assert len(x_atomrow.get_personatoms()) == 1
 
 
-def test_AtomRow_get_personatoms_ReturnsObj_person_kegunit_INSERT_pledge_False_Scenario0():
+def test_AtomRow_get_personatoms_ReturnsObj_person_planunit_INSERT_pledge_False_Scenario0():
     # ESTABLISH
-    x_atomrow = atomrow_shop({kw.person_kegunit}, kw.INSERT)
-    x_atomrow.keg_rope = create_rope("amy78", "casa")
+    x_atomrow = atomrow_shop({kw.person_planunit}, kw.INSERT)
+    x_atomrow.plan_rope = create_rope("amy78", "casa")
     x_atomrow.pledge = False
     assert len(x_atomrow.get_personatoms()) == 1
 
@@ -233,19 +233,19 @@ def test_AtomRow_get_personatoms_ReturnsObj_person_kegunit_INSERT_pledge_False_S
     x_personatom = x_atomrow.get_personatoms()[0]
 
     # THEN
-    static_personatom = personatom_shop(kw.person_kegunit, kw.INSERT)
-    static_personatom.set_arg(kw.keg_rope, create_rope("amy78", "casa"))
+    static_personatom = personatom_shop(kw.person_planunit, kw.INSERT)
+    static_personatom.set_arg(kw.plan_rope, create_rope("amy78", "casa"))
     static_personatom.set_arg(kw.pledge, False)
     print(static_personatom)
     print(x_personatom)
     assert x_personatom == static_personatom
 
 
-def test_AtomRow_get_personatoms_ReturnsObj_person_kegunit_INSERT_pledge_False_Scenario1():
+def test_AtomRow_get_personatoms_ReturnsObj_person_planunit_INSERT_pledge_False_Scenario1():
     # ESTABLISH
-    x_dimens = {kw.person_kegunit, kw.person_keg_healerunit}
+    x_dimens = {kw.person_planunit, kw.person_plan_healerunit}
     x_atomrow = atomrow_shop(x_dimens, kw.INSERT)
-    x_atomrow.keg_rope = create_rope("amy78", "casa")
+    x_atomrow.plan_rope = create_rope("amy78", "casa")
     x_atomrow.pledge = False
     x_atomrow.healer_name = "Bob"
 
@@ -254,12 +254,12 @@ def test_AtomRow_get_personatoms_ReturnsObj_person_kegunit_INSERT_pledge_False_S
 
     # THEN
     assert len(x_personatoms) == 2
-    y_keg_personatom = personatom_shop(kw.person_kegunit, kw.INSERT)
+    y_plan_personatom = personatom_shop(kw.person_planunit, kw.INSERT)
     casa_rope = create_rope("amy78", "casa")
-    y_keg_personatom.set_arg(kw.keg_rope, casa_rope)
-    y_keg_personatom.set_arg(kw.pledge, False)
-    assert y_keg_personatom in x_personatoms
-    healerunit_personatom = personatom_shop(kw.person_keg_healerunit, kw.INSERT)
-    healerunit_personatom.set_arg(kw.keg_rope, casa_rope)
+    y_plan_personatom.set_arg(kw.plan_rope, casa_rope)
+    y_plan_personatom.set_arg(kw.pledge, False)
+    assert y_plan_personatom in x_personatoms
+    healerunit_personatom = personatom_shop(kw.person_plan_healerunit, kw.INSERT)
+    healerunit_personatom.set_arg(kw.plan_rope, casa_rope)
     healerunit_personatom.set_arg("healer_name", "Bob")
     assert healerunit_personatom in x_personatoms

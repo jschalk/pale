@@ -5,7 +5,7 @@ from src.ch02_partner.group import awardunit_shop
 from src.ch02_partner.partner import partnerunit_shop
 from src.ch04_rope.rope import create_rope, get_parent_rope, get_tail_label
 from src.ch05_reason.reason_main import factunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import PersonUnit
 from src.ch07_person_logic.person_tool import person_attr_exists, person_get_obj
 from src.ch08_person_atom._ref.ch08_semantic_types import (
@@ -222,15 +222,15 @@ def _modify_person_partner_membership_insert(x_person: PersonUnit, x_atom: Perso
     x_partnerunit.add_membership(x_group_title, x_group_cred_lumen, x_group_debt_lumen)
 
 
-def _modify_person_kegunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
-    keg_rope = create_rope(x_atom.get_value("keg_rope"), knot=x_person.knot)
-    x_person.del_keg_obj(keg_rope, del_children=x_atom.get_value("del_children"))
+def _modify_person_planunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
+    plan_rope = create_rope(x_atom.get_value("plan_rope"), knot=x_person.knot)
+    x_person.del_plan_obj(plan_rope, del_children=x_atom.get_value("del_children"))
 
 
-def _modify_person_kegunit_update(x_person: PersonUnit, x_atom: PersonAtom):
-    keg_rope = create_rope(x_atom.get_value("keg_rope"), knot=x_person.knot)
-    x_person.edit_keg_attr(
-        keg_rope,
+def _modify_person_planunit_update(x_person: PersonUnit, x_atom: PersonAtom):
+    plan_rope = create_rope(x_atom.get_value("plan_rope"), knot=x_person.knot)
+    x_person.edit_plan_attr(
+        plan_rope,
         addin=x_atom.get_value("addin"),
         begin=x_atom.get_value("begin"),
         gogo_want=x_atom.get_value("gogo_want"),
@@ -244,13 +244,13 @@ def _modify_person_kegunit_update(x_person: PersonUnit, x_atom: PersonAtom):
     )
 
 
-def _modify_person_kegunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
-    keg_rope = x_atom.get_value("keg_rope")
-    keg_label = get_tail_label(keg_rope)
-    keg_parent_rope = get_parent_rope(keg_rope)
-    x_person.set_keg_obj(
-        keg_kid=kegunit_shop(
-            keg_label=keg_label,
+def _modify_person_planunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
+    plan_rope = x_atom.get_value("plan_rope")
+    plan_label = get_tail_label(plan_rope)
+    plan_parent_rope = get_parent_rope(plan_rope)
+    x_person.set_plan_obj(
+        plan_kid=planunit_shop(
+            plan_label=plan_label,
             addin=x_atom.get_value("addin"),
             begin=x_atom.get_value("begin"),
             close=x_atom.get_value("close"),
@@ -260,49 +260,49 @@ def _modify_person_kegunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
             numor=x_atom.get_value("numor"),
             pledge=x_atom.get_value("pledge"),
         ),
-        parent_rope=keg_parent_rope,
-        create_missing_kegs=False,
+        parent_rope=plan_parent_rope,
+        create_missing_plans=False,
         get_rid_of_missing_awardunits_awardee_titles=False,
         create_missing_ancestors=True,
     )
 
 
-def _modify_person_keg_awardunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
-    x_person.edit_keg_attr(
-        x_atom.get_value("keg_rope"),
+def _modify_person_plan_awardunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
+    x_person.edit_plan_attr(
+        x_atom.get_value("plan_rope"),
         awardunit_del=x_atom.get_value("awardee_title"),
     )
 
 
-def _modify_person_keg_awardunit_update(x_person: PersonUnit, x_atom: PersonAtom):
-    x_keg = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_awardunit = x_keg.awardunits.get(x_atom.get_value("awardee_title"))
+def _modify_person_plan_awardunit_update(x_person: PersonUnit, x_atom: PersonAtom):
+    x_plan = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_awardunit = x_plan.awardunits.get(x_atom.get_value("awardee_title"))
     x_give_force = x_atom.get_value("give_force")
     if x_give_force is not None and x_awardunit.give_force != x_give_force:
         x_awardunit.give_force = x_give_force
     x_take_force = x_atom.get_value("take_force")
     if x_take_force is not None and x_awardunit.take_force != x_take_force:
         x_awardunit.take_force = x_take_force
-    x_person.edit_keg_attr(x_atom.get_value("keg_rope"), awardunit=x_awardunit)
+    x_person.edit_plan_attr(x_atom.get_value("plan_rope"), awardunit=x_awardunit)
 
 
-def _modify_person_keg_awardunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_plan_awardunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
     x_awardunit = awardunit_shop(
         awardee_title=x_atom.get_value("awardee_title"),
         give_force=x_atom.get_value("give_force"),
         take_force=x_atom.get_value("take_force"),
     )
-    x_person.edit_keg_attr(x_atom.get_value("keg_rope"), awardunit=x_awardunit)
+    x_person.edit_plan_attr(x_atom.get_value("plan_rope"), awardunit=x_awardunit)
 
 
-def _modify_person_keg_factunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_kegunit.del_factunit(x_atom.get_value("fact_context"))
+def _modify_person_plan_factunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_planunit.del_factunit(x_atom.get_value("fact_context"))
 
 
-def _modify_person_keg_factunit_update(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_factunit = x_kegunit.factunits.get(x_atom.get_value("fact_context"))
+def _modify_person_plan_factunit_update(x_person: PersonUnit, x_atom: PersonAtom):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_factunit = x_planunit.factunits.get(x_atom.get_value("fact_context"))
     x_factunit.set_attr(
         fact_state=x_atom.get_value("fact_state"),
         fact_lower=x_atom.get_value("fact_lower"),
@@ -310,9 +310,9 @@ def _modify_person_keg_factunit_update(x_person: PersonUnit, x_atom: PersonAtom)
     )
 
 
-def _modify_person_keg_factunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
-    x_person.edit_keg_attr(
-        x_atom.get_value("keg_rope"),
+def _modify_person_plan_factunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
+    x_person.edit_plan_attr(
+        x_atom.get_value("plan_rope"),
         factunit=factunit_shop(
             fact_context=x_atom.get_value("fact_context"),
             fact_state=x_atom.get_value("fact_state"),
@@ -322,38 +322,42 @@ def _modify_person_keg_factunit_insert(x_person: PersonUnit, x_atom: PersonAtom)
     )
 
 
-def _modify_person_keg_reasonunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_kegunit.del_reasonunit_reason_context(x_atom.get_value("reason_context"))
+def _modify_person_plan_reasonunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_planunit.del_reasonunit_reason_context(x_atom.get_value("reason_context"))
 
 
-def _modify_person_keg_reasonunit_update(x_person: PersonUnit, x_atom: PersonAtom):
-    x_person.edit_keg_attr(
-        x_atom.get_value("keg_rope"),
+def _modify_person_plan_reasonunit_update(x_person: PersonUnit, x_atom: PersonAtom):
+    x_person.edit_plan_attr(
+        x_atom.get_value("plan_rope"),
         reason_context=x_atom.get_value("reason_context"),
         reason_requisite_active=x_atom.get_value("active_requisite"),
     )
 
 
-def _modify_person_keg_reasonunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
-    x_person.edit_keg_attr(
-        x_atom.get_value("keg_rope"),
+def _modify_person_plan_reasonunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
+    x_person.edit_plan_attr(
+        x_atom.get_value("plan_rope"),
         reason_context=x_atom.get_value("reason_context"),
         reason_requisite_active=x_atom.get_value("active_requisite"),
     )
 
 
-def _modify_person_keg_reason_caseunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
-    x_person.edit_keg_attr(
-        x_atom.get_value("keg_rope"),
+def _modify_person_plan_reason_caseunit_delete(
+    x_person: PersonUnit, x_atom: PersonAtom
+):
+    x_person.edit_plan_attr(
+        x_atom.get_value("plan_rope"),
         reason_del_case_reason_context=x_atom.get_value("reason_context"),
         reason_del_case_reason_state=x_atom.get_value("reason_state"),
     )
 
 
-def _modify_person_keg_reason_caseunit_update(x_person: PersonUnit, x_atom: PersonAtom):
-    x_person.edit_keg_attr(
-        x_atom.get_value("keg_rope"),
+def _modify_person_plan_reason_caseunit_update(
+    x_person: PersonUnit, x_atom: PersonAtom
+):
+    x_person.edit_plan_attr(
+        x_atom.get_value("plan_rope"),
         reason_context=x_atom.get_value("reason_context"),
         reason_case=x_atom.get_value("reason_state"),
         reason_lower=x_atom.get_value("reason_lower"),
@@ -362,9 +366,11 @@ def _modify_person_keg_reason_caseunit_update(x_person: PersonUnit, x_atom: Pers
     )
 
 
-def _modify_person_keg_reason_caseunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_kegunit.set_reason_case(
+def _modify_person_plan_reason_caseunit_insert(
+    x_person: PersonUnit, x_atom: PersonAtom
+):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_planunit.set_reason_case(
         reason_context=x_atom.get_value("reason_context"),
         case=x_atom.get_value("reason_state"),
         reason_lower=x_atom.get_value("reason_lower"),
@@ -373,24 +379,24 @@ def _modify_person_keg_reason_caseunit_insert(x_person: PersonUnit, x_atom: Pers
     )
 
 
-def _modify_person_keg_partyunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_kegunit.laborunit.del_partyunit(party_title=x_atom.get_value("party_title"))
+def _modify_person_plan_partyunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_planunit.laborunit.del_partyunit(party_title=x_atom.get_value("party_title"))
 
 
-def _modify_person_keg_partyunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_kegunit.laborunit.add_party(party_title=x_atom.get_value("party_title"))
+def _modify_person_plan_partyunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_planunit.laborunit.add_party(party_title=x_atom.get_value("party_title"))
 
 
-def _modify_person_keg_healerunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_kegunit.healerunit.del_healer_name(x_atom.get_value("healer_name"))
+def _modify_person_plan_healerunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_planunit.healerunit.del_healer_name(x_atom.get_value("healer_name"))
 
 
-def _modify_person_keg_healerunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
-    x_kegunit = x_person.get_keg_obj(x_atom.get_value("keg_rope"))
-    x_kegunit.healerunit.set_healer_name(x_atom.get_value("healer_name"))
+def _modify_person_plan_healerunit_insert(x_person: PersonUnit, x_atom: PersonAtom):
+    x_planunit = x_person.get_plan_obj(x_atom.get_value("plan_rope"))
+    x_planunit.healerunit.set_healer_name(x_atom.get_value("healer_name"))
 
 
 def _modify_person_partnerunit_delete(x_person: PersonUnit, x_atom: PersonAtom):
@@ -429,63 +435,63 @@ def _modify_person_partner_membership(x_person: PersonUnit, x_atom: PersonAtom):
         _modify_person_partner_membership_insert(x_person, x_atom)
 
 
-def _modify_person_kegunit(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_planunit(x_person: PersonUnit, x_atom: PersonAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_person_kegunit_delete(x_person, x_atom)
+        _modify_person_planunit_delete(x_person, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_person_kegunit_update(x_person, x_atom)
+        _modify_person_planunit_update(x_person, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_person_kegunit_insert(x_person, x_atom)
+        _modify_person_planunit_insert(x_person, x_atom)
 
 
-def _modify_person_keg_awardunit(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_plan_awardunit(x_person: PersonUnit, x_atom: PersonAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_person_keg_awardunit_delete(x_person, x_atom)
+        _modify_person_plan_awardunit_delete(x_person, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_person_keg_awardunit_update(x_person, x_atom)
+        _modify_person_plan_awardunit_update(x_person, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_person_keg_awardunit_insert(x_person, x_atom)
+        _modify_person_plan_awardunit_insert(x_person, x_atom)
 
 
-def _modify_person_keg_factunit(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_plan_factunit(x_person: PersonUnit, x_atom: PersonAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_person_keg_factunit_delete(x_person, x_atom)
+        _modify_person_plan_factunit_delete(x_person, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_person_keg_factunit_update(x_person, x_atom)
+        _modify_person_plan_factunit_update(x_person, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_person_keg_factunit_insert(x_person, x_atom)
+        _modify_person_plan_factunit_insert(x_person, x_atom)
 
 
-def _modify_person_keg_reasonunit(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_plan_reasonunit(x_person: PersonUnit, x_atom: PersonAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_person_keg_reasonunit_delete(x_person, x_atom)
+        _modify_person_plan_reasonunit_delete(x_person, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_person_keg_reasonunit_update(x_person, x_atom)
+        _modify_person_plan_reasonunit_update(x_person, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_person_keg_reasonunit_insert(x_person, x_atom)
+        _modify_person_plan_reasonunit_insert(x_person, x_atom)
 
 
-def _modify_person_keg_reason_caseunit(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_plan_reason_caseunit(x_person: PersonUnit, x_atom: PersonAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_person_keg_reason_caseunit_delete(x_person, x_atom)
+        _modify_person_plan_reason_caseunit_delete(x_person, x_atom)
     elif x_atom.crud_str == "UPDATE":
-        _modify_person_keg_reason_caseunit_update(x_person, x_atom)
+        _modify_person_plan_reason_caseunit_update(x_person, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_person_keg_reason_caseunit_insert(x_person, x_atom)
+        _modify_person_plan_reason_caseunit_insert(x_person, x_atom)
 
 
-def _modify_person_keg_partyunit(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_plan_partyunit(x_person: PersonUnit, x_atom: PersonAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_person_keg_partyunit_delete(x_person, x_atom)
+        _modify_person_plan_partyunit_delete(x_person, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_person_keg_partyunit_insert(x_person, x_atom)
+        _modify_person_plan_partyunit_insert(x_person, x_atom)
 
 
-def _modify_person_keg_healerunit(x_person: PersonUnit, x_atom: PersonAtom):
+def _modify_person_plan_healerunit(x_person: PersonUnit, x_atom: PersonAtom):
     if x_atom.crud_str == "DELETE":
-        _modify_person_keg_healerunit_delete(x_person, x_atom)
+        _modify_person_plan_healerunit_delete(x_person, x_atom)
     elif x_atom.crud_str == "INSERT":
-        _modify_person_keg_healerunit_insert(x_person, x_atom)
+        _modify_person_plan_healerunit_insert(x_person, x_atom)
 
 
 def _modify_person_partnerunit(x_person: PersonUnit, x_atom: PersonAtom):
@@ -502,20 +508,20 @@ def modify_person_with_personatom(x_person: PersonUnit, x_atom: PersonAtom):
         _modify_person_personunit(x_person, x_atom)
     elif x_atom.dimen == "person_partner_membership":
         _modify_person_partner_membership(x_person, x_atom)
-    elif x_atom.dimen == "person_kegunit":
-        _modify_person_kegunit(x_person, x_atom)
-    elif x_atom.dimen == "person_keg_awardunit":
-        _modify_person_keg_awardunit(x_person, x_atom)
-    elif x_atom.dimen == "person_keg_factunit":
-        _modify_person_keg_factunit(x_person, x_atom)
-    elif x_atom.dimen == "person_keg_reasonunit":
-        _modify_person_keg_reasonunit(x_person, x_atom)
-    elif x_atom.dimen == "person_keg_reason_caseunit":
-        _modify_person_keg_reason_caseunit(x_person, x_atom)
-    elif x_atom.dimen == "person_keg_healerunit":
-        _modify_person_keg_healerunit(x_person, x_atom)
-    elif x_atom.dimen == "person_keg_partyunit":
-        _modify_person_keg_partyunit(x_person, x_atom)
+    elif x_atom.dimen == "person_planunit":
+        _modify_person_planunit(x_person, x_atom)
+    elif x_atom.dimen == "person_plan_awardunit":
+        _modify_person_plan_awardunit(x_person, x_atom)
+    elif x_atom.dimen == "person_plan_factunit":
+        _modify_person_plan_factunit(x_person, x_atom)
+    elif x_atom.dimen == "person_plan_reasonunit":
+        _modify_person_plan_reasonunit(x_person, x_atom)
+    elif x_atom.dimen == "person_plan_reason_caseunit":
+        _modify_person_plan_reason_caseunit(x_person, x_atom)
+    elif x_atom.dimen == "person_plan_healerunit":
+        _modify_person_plan_healerunit(x_person, x_atom)
+    elif x_atom.dimen == "person_plan_partyunit":
+        _modify_person_plan_partyunit(x_person, x_atom)
     elif x_atom.dimen == "person_partnerunit":
         _modify_person_partnerunit(x_person, x_atom)
 
@@ -534,11 +540,11 @@ def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
         return (x_obj.group_cred_lumen != y_obj.group_cred_lumen) or (
             x_obj.group_debt_lumen != y_obj.group_debt_lumen
         )
-    elif dimen in {"person_keg_awardunit"}:
+    elif dimen in {"person_plan_awardunit"}:
         return (x_obj.give_force != y_obj.give_force) or (
             x_obj.take_force != y_obj.take_force
         )
-    elif dimen == "person_kegunit":
+    elif dimen == "person_planunit":
         return (
             x_obj.addin != y_obj.addin
             or x_obj.begin != y_obj.begin
@@ -549,15 +555,15 @@ def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
             or x_obj.star != y_obj.star
             or x_obj.pledge != y_obj.pledge
         )
-    elif dimen == "person_keg_factunit":
+    elif dimen == "person_plan_factunit":
         return (
             (x_obj.fact_state != y_obj.fact_state)
             or (x_obj.reason_lower != y_obj.reason_lower)
             or (x_obj.reason_upper != y_obj.reason_upper)
         )
-    elif dimen == "person_keg_reasonunit":
+    elif dimen == "person_plan_reasonunit":
         return x_obj.active_requisite != y_obj.active_requisite
-    elif dimen == "person_keg_reason_caseunit":
+    elif dimen == "person_plan_reason_caseunit":
         return (
             x_obj.reason_lower != y_obj.reason_lower
             or x_obj.reason_upper != y_obj.reason_upper
@@ -623,7 +629,7 @@ class AtomRow:
     fact_state: RopeTerm = None
     pledge: bool = None
     problem_bool: bool = None
-    keg_rope: RopeTerm = None
+    plan_rope: RopeTerm = None
     solo: int = None
     stop_want: float = None
     take_force: float = None

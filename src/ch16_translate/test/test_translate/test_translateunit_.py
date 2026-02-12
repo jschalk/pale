@@ -78,7 +78,7 @@ def test_get_translate_args_class_types_ReturnsObj():
     assert translate_args_class_types.get(kw.problem_bool) == "bool"
     assert translate_args_class_types.get(kw.quota) == "int"
     assert translate_args_class_types.get(kw.respect_grain) == "float"
-    assert translate_args_class_types.get(kw.keg_rope) == kw.RopeTerm
+    assert translate_args_class_types.get(kw.plan_rope) == kw.RopeTerm
     assert translate_args_class_types.get(kw.celldepth) == "int"
     assert translate_args_class_types.get(kw.stop_want) == "float"
     assert translate_args_class_types.get(kw.take_force) == "float"
@@ -176,7 +176,7 @@ def test_get_translateable_args_ReturnsObj():
         kw.hour_label,
         kw.moment_rope,
         kw.month_label,
-        kw.keg_rope,
+        kw.plan_rope,
         kw.party_title,
         kw.reason_context,
         kw.reason_state,
@@ -324,7 +324,7 @@ def test_get_translate_ropeterm_args_ReturnsObj():
         kw.moment_rope,
         kw.fact_state,
         kw.fact_context,
-        kw.keg_rope,
+        kw.plan_rope,
         kw.reason_context,
         kw.reason_state,
     }

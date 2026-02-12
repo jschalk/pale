@@ -2,8 +2,8 @@ from pytest import raises as pytest_raises
 from src.ch03_labor.labor import laborunit_shop, partyunit_shop
 from src.ch04_rope.rope import default_knot_if_None
 from src.ch05_reason.reason_main import factunit_shop
-from src.ch06_keg.healer import healerunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.healer import healerunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import (
     get_dict_of_person_from_dict,
     get_personunit_from_dict,
@@ -45,40 +45,40 @@ def test_PersonUnit_to_dict_ReturnsObj_Scenario0():
     assert len(person_dict[kw.partners]) == len(yao_person.partners)
     assert len(person_dict[kw.partners]) != 12
 
-    x_kegroot = yao_person.kegroot
-    kegroot_dict = person_dict[kw.kegroot]
-    assert kegroot_dict[kw.keg_label] == x_kegroot.keg_label
-    assert kegroot_dict[kw.star] == x_kegroot.star
-    assert len(kegroot_dict[kw.kids]) == len(x_kegroot.kids)
+    x_planroot = yao_person.planroot
+    planroot_dict = person_dict[kw.planroot]
+    assert planroot_dict[kw.plan_label] == x_planroot.plan_label
+    assert planroot_dict[kw.star] == x_planroot.star
+    assert len(planroot_dict[kw.kids]) == len(x_planroot.kids)
 
 
-def test_PersonUnit_to_dict_ReturnsObj_Scenario1_kegroot_laborunit():
+def test_PersonUnit_to_dict_ReturnsObj_Scenario1_planroot_laborunit():
     # ESTABLISH
     run_str = "runners"
     sue_person = personunit_shop("Sue")
     x_laborunit = laborunit_shop()
     x_laborunit.add_party(party_title=run_str)
-    root_rope = sue_person.kegroot.get_keg_rope()
-    sue_person.edit_keg_attr(root_rope, laborunit=x_laborunit)
-    root_keg = sue_person.get_keg_obj(root_rope)
+    root_rope = sue_person.planroot.get_plan_rope()
+    sue_person.edit_plan_attr(root_rope, laborunit=x_laborunit)
+    root_plan = sue_person.get_plan_obj(root_rope)
     x_gogo_want = 5
     x_stop_want = 11
-    root_keg.gogo_want = x_gogo_want
-    root_keg.stop_want = x_stop_want
+    root_plan.gogo_want = x_gogo_want
+    root_plan.stop_want = x_stop_want
 
     # WHEN
     person_dict = sue_person.to_dict()
-    kegroot_dict = person_dict.get(kw.kegroot)
+    planroot_dict = person_dict.get(kw.planroot)
 
     # THEN
-    assert kegroot_dict[kw.laborunit] == x_laborunit.to_dict()
+    assert planroot_dict[kw.laborunit] == x_laborunit.to_dict()
     run_partyunit = partyunit_shop(run_str)
-    assert kegroot_dict[kw.laborunit] == {"partys": {run_str: run_partyunit.to_dict()}}
-    assert kegroot_dict.get(kw.gogo_want) == x_gogo_want
-    assert kegroot_dict.get(kw.stop_want) == x_stop_want
+    assert planroot_dict[kw.laborunit] == {"partys": {run_str: run_partyunit.to_dict()}}
+    assert planroot_dict.get(kw.gogo_want) == x_gogo_want
+    assert planroot_dict.get(kw.stop_want) == x_stop_want
 
 
-def test_PersonUnit_to_dict_ReturnsObj_Scenario2_With_kegroot_healerunit():
+def test_PersonUnit_to_dict_ReturnsObj_Scenario2_With_planroot_healerunit():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao)
@@ -86,18 +86,18 @@ def test_PersonUnit_to_dict_ReturnsObj_Scenario2_With_kegroot_healerunit():
     yao_partnerunit.add_membership(exx.run)
     run_healerunit = healerunit_shop()
     run_healerunit.set_healer_name(x_healer_name=exx.run)
-    root_rope = sue_person.kegroot.get_keg_rope()
-    sue_person.edit_keg_attr(root_rope, healerunit=run_healerunit)
+    root_rope = sue_person.planroot.get_plan_rope()
+    sue_person.edit_plan_attr(root_rope, healerunit=run_healerunit)
 
     # WHEN
     person_dict = sue_person.to_dict()
-    kegroot_dict = person_dict.get(kw.kegroot)
+    planroot_dict = person_dict.get(kw.planroot)
 
     # THEN
-    assert kegroot_dict[kw.healerunit] == run_healerunit.to_dict()
+    assert planroot_dict[kw.healerunit] == run_healerunit.to_dict()
 
 
-def test_PersonUnit_to_dict_ReturnsObj_Scenario3_kegkid_LaborUnit():
+def test_PersonUnit_to_dict_ReturnsObj_Scenario3_plankid_LaborUnit():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao)
@@ -106,23 +106,23 @@ def test_PersonUnit_to_dict_ReturnsObj_Scenario3_kegkid_LaborUnit():
 
     morn_str = "morning"
     morn_rope = sue_person.make_l1_rope(morn_str)
-    sue_person.set_l1_keg(kegunit_shop(morn_str))
+    sue_person.set_l1_plan(planunit_shop(morn_str))
     x_laborunit = laborunit_shop()
     x_laborunit.add_party(party_title=exx.run)
-    sue_person.edit_keg_attr(morn_rope, laborunit=x_laborunit)
+    sue_person.edit_plan_attr(morn_rope, laborunit=x_laborunit)
 
     # WHEN
     person_dict = sue_person.to_dict()
-    kegroot_dict = person_dict.get(kw.kegroot)
+    planroot_dict = person_dict.get(kw.planroot)
 
     # THEN
-    labor_dict_x = kegroot_dict[kw.kids][morn_str][kw.laborunit]
+    labor_dict_x = planroot_dict[kw.kids][morn_str][kw.laborunit]
     assert labor_dict_x == x_laborunit.to_dict()
     run_partyunit = partyunit_shop(exx.run)
     assert labor_dict_x == {"partys": {exx.run: run_partyunit.to_dict()}}
 
 
-def test_PersonUnit_to_dict_ReturnsObj_Scenario4_kegunit_WithLevels():
+def test_PersonUnit_to_dict_ReturnsObj_Scenario4_planunit_WithLevels():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     zia_person = get_personunit_x1_3levels_1reason_1facts()
@@ -139,9 +139,9 @@ def test_PersonUnit_to_dict_ReturnsObj_Scenario4_kegunit_WithLevels():
     yao_partnerunit = zia_person.get_partner(exx.yao)
     yao_partnerunit.add_membership(exx.run)
     run_healerunit = healerunit_shop({exx.run})
-    root_rope = zia_person.kegroot.get_keg_rope()
-    zia_person.edit_keg_attr(root_rope, healerunit=run_healerunit)
-    zia_person.edit_keg_attr(root_rope, problem_bool=True)
+    root_rope = zia_person.planroot.get_plan_rope()
+    zia_person.edit_plan_attr(root_rope, healerunit=run_healerunit)
+    zia_person.edit_plan_attr(root_rope, problem_bool=True)
 
     # WHEN
     person_dict = zia_person.to_dict()
@@ -164,22 +164,22 @@ def test_PersonUnit_to_dict_ReturnsObj_Scenario4_kegunit_WithLevels():
     with pytest_raises(Exception) as excinfo:
         person_dict[kw.last_lesson_id]
 
-    x_kegroot = zia_person.kegroot
-    kegroot_dict = person_dict.get(kw.kegroot)
+    x_planroot = zia_person.planroot
+    planroot_dict = person_dict.get(kw.planroot)
 
-    assert len(kegroot_dict[kw.kids]) == len(x_kegroot.kids)
+    assert len(planroot_dict[kw.kids]) == len(x_planroot.kids)
 
     shave_str = "shave"
-    shave_dict = kegroot_dict[kw.kids][shave_str]
+    shave_dict = planroot_dict[kw.kids][shave_str]
     shave_factunits = shave_dict[kw.factunits]
     print(f"{shave_factunits=}")
     assert len(shave_factunits) == 1
-    assert len(shave_factunits) == len(x_kegroot.kids[shave_str].factunits)
-    kegroot_healerunit = kegroot_dict[kw.healerunit]
-    print(f"{kegroot_healerunit=}")
-    assert len(kegroot_healerunit) == 1
-    assert x_kegroot.healerunit.any_healer_name_exists()
-    assert x_kegroot.problem_bool
+    assert len(shave_factunits) == len(x_planroot.kids[shave_str].factunits)
+    planroot_healerunit = planroot_dict[kw.healerunit]
+    print(f"{planroot_healerunit=}")
+    assert len(planroot_healerunit) == 1
+    assert x_planroot.healerunit.any_healer_name_exists()
+    assert x_planroot.problem_bool
 
 
 def test_PersonUnit_to_dict_ReturnsJSON_Scenario5_BigExample():
@@ -202,7 +202,7 @@ def test_PersonUnit_to_dict_ReturnsJSON_Scenario5_BigExample():
         fact_upper=59,
     )
     x_factunit = factunit_shop(jour_min_rope, jour_min_rope, 5, 59)
-    yao_person.edit_keg_attr(x_factunit.fact_context, factunit=x_factunit)
+    yao_person.edit_plan_attr(x_factunit.fact_context, factunit=x_factunit)
     yao_person.set_max_tree_traverse(2)
 
     # WHEN
@@ -214,28 +214,28 @@ def test_PersonUnit_to_dict_ReturnsJSON_Scenario5_BigExample():
     assert person_dict[kw.max_tree_traverse] == yao_person.max_tree_traverse
     assert person_dict[kw.knot] == yao_person.knot
 
-    x_kegroot = yao_person.kegroot
-    kegroot_dict = person_dict.get(kw.kegroot)
-    assert len(kegroot_dict[kw.kids]) == len(x_kegroot.kids)
+    x_planroot = yao_person.planroot
+    planroot_dict = person_dict.get(kw.planroot)
+    assert len(planroot_dict[kw.kids]) == len(x_planroot.kids)
 
-    kids_dict = kegroot_dict[kw.kids]
+    kids_dict = planroot_dict[kw.kids]
     jour_min_dict = kids_dict[jour_min_str]
     jour_min_factunits_dict = jour_min_dict[kw.factunits]
-    jour_min_keg_x = yao_person.get_keg_obj(jour_min_rope)
+    jour_min_plan_x = yao_person.get_plan_obj(jour_min_rope)
     print(f"{jour_min_factunits_dict=}")
     assert len(jour_min_factunits_dict) == 1
-    assert len(jour_min_factunits_dict) == len(jour_min_keg_x.factunits)
+    assert len(jour_min_factunits_dict) == len(jour_min_plan_x.factunits)
 
     cont_str = "Freelancing"
     ulti_str = "Ultimate Frisbee"
     cont_rope = yao_person.make_l1_rope(cont_str)
     ulti_rope = yao_person.make_l1_rope(ulti_str)
-    cont_keg = yao_person.get_keg_obj(cont_rope)
-    ulti_keg = yao_person.get_keg_obj(ulti_rope)
-    cont_reasonunits_dict = kegroot_dict[kw.kids][cont_str][kw.reasonunits]
-    ulti_reasonunits_dict = kegroot_dict[kw.kids][ulti_str][kw.reasonunits]
-    assert len(cont_reasonunits_dict) == len(cont_keg.reasonunits)
-    assert len(ulti_reasonunits_dict) == len(ulti_keg.reasonunits)
+    cont_plan = yao_person.get_plan_obj(cont_rope)
+    ulti_plan = yao_person.get_plan_obj(ulti_rope)
+    cont_reasonunits_dict = planroot_dict[kw.kids][cont_str][kw.reasonunits]
+    ulti_reasonunits_dict = planroot_dict[kw.kids][ulti_str][kw.reasonunits]
+    assert len(cont_reasonunits_dict) == len(cont_plan.reasonunits)
+    assert len(ulti_reasonunits_dict) == len(ulti_plan.reasonunits)
 
     anna_str = "Anna"
     anna_partnerunit = yao_person.get_partner(anna_str)
@@ -244,23 +244,23 @@ def test_PersonUnit_to_dict_ReturnsJSON_Scenario5_BigExample():
     assert len(yao_person.partners) == 22
 
 
-def test_get_personunit_from_dict_ReturnsKegRoot():
+def test_get_personunit_from_dict_ReturnsPlanRoot():
     # ESTABLISH
     zia_person = get_personunit_x1_3levels_1reason_1facts()
     zia_person.set_max_tree_traverse(23)
-    root_keg = zia_person.kegroot
+    root_plan = zia_person.planroot
     zia_gogo_want = 75
     zia_stop_want = 77
-    root_keg.gogo_want = zia_gogo_want
-    root_keg.stop_want = zia_stop_want
+    root_plan.gogo_want = zia_gogo_want
+    root_plan.stop_want = zia_stop_want
 
     # WHEN
     json_person = get_personunit_from_dict(zia_person.to_dict())
 
     # THEN
-    json_kegroot = json_person.get_keg_obj(zia_person.kegroot.get_keg_rope())
-    assert json_kegroot.gogo_want == zia_gogo_want
-    assert json_kegroot.stop_want == zia_stop_want
+    json_planroot = json_person.get_plan_obj(zia_person.planroot.get_plan_rope())
+    assert json_planroot.gogo_want == zia_gogo_want
+    assert json_planroot.stop_want == zia_stop_want
 
 
 def test_get_personunit_from_dict_ReturnsObj_knot_Example():
@@ -311,39 +311,39 @@ def test_get_personunit_from_dict_ReturnsObj_knot_GroupExample():
     assert after_yao_partnerunit.groupmark == slash_knot
 
 
-def test_get_personunit_from_dict_ReturnsObj_Scenario7_kegroot_knot_IsApplied():
+def test_get_personunit_from_dict_ReturnsObj_Scenario7_planroot_knot_IsApplied():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue", knot=exx.slash)
-    root_rope = sue_person.kegroot.get_keg_rope()
+    root_rope = sue_person.planroot.get_plan_rope()
     hr_number_str = "hr_number"
     hr_number_rope = sue_person.make_l1_rope(hr_number_str)
-    sue_person.add_keg(hr_number_rope)
+    sue_person.add_plan(hr_number_rope)
     assert sue_person.knot == exx.slash
-    assert sue_person.get_keg_obj(root_rope).knot == exx.slash
-    assert sue_person.get_keg_obj(hr_number_rope).knot == exx.slash
+    assert sue_person.get_plan_obj(root_rope).knot == exx.slash
+    assert sue_person.get_plan_obj(hr_number_rope).knot == exx.slash
 
     # WHEN
     after_bob_person = get_personunit_from_dict(sue_person.to_dict())
 
     # THEN
     assert after_bob_person.knot == exx.slash
-    assert after_bob_person.get_keg_obj(root_rope).knot == exx.slash
-    assert after_bob_person.get_keg_obj(hr_number_rope).knot == exx.slash
+    assert after_bob_person.get_plan_obj(root_rope).knot == exx.slash
+    assert after_bob_person.get_plan_obj(hr_number_rope).knot == exx.slash
 
 
 def test_get_personunit_from_dict_ExportsPersonUnit_star():
     # ESTABLISH
     x1_person = personunit_v001()
-    assert x1_person.kegroot.star == 1
+    assert x1_person.planroot.star == 1
 
     # WHEN
     x2_person = get_personunit_from_dict(x1_person.to_dict())
 
     # THEN
-    assert x1_person.kegroot.star == 1
-    assert x1_person.kegroot.star == x2_person.kegroot.star
-    assert x1_person.kegroot.kids == x2_person.kegroot.kids
+    assert x1_person.planroot.star == 1
+    assert x1_person.planroot.star == x2_person.planroot.star
+    assert x1_person.planroot.kids == x2_person.planroot.kids
 
 
 def test_get_dict_of_person_from_dict_ReturnsDictOfPersonUnits():
@@ -370,22 +370,22 @@ def test_get_dict_of_person_from_dict_ReturnsDictOfPersonUnits():
     assert ccn_dict_of_obj.get(x3_person.person_name) is not None
 
     ccn2_person = ccn_dict_of_obj.get(x2_person.person_name)
-    assert ccn2_person.kegroot.keg_label == x2_person.kegroot.keg_label
-    assert ccn2_person.kegroot.parent_rope == x2_person.kegroot.parent_rope
-    assert ccn2_person.kegroot.fund_grain == x2_person.kegroot.fund_grain
+    assert ccn2_person.planroot.plan_label == x2_person.planroot.plan_label
+    assert ccn2_person.planroot.parent_rope == x2_person.planroot.parent_rope
+    assert ccn2_person.planroot.fund_grain == x2_person.planroot.fund_grain
     shave_rope = ccn2_person.make_l1_rope("shave")
     wk_rope = ccn2_person.make_l1_rope("sem_jours")
-    # assert ccn2_person.get_keg_obj(shave_rope) == x2_person.get_keg_obj(shave_rope)
-    # assert ccn2_person.get_keg_obj(wk_rope) == x2_person.get_keg_obj(wk_rope)
-    # assert ccn2_person.kegroot == x2_person.kegroot
+    # assert ccn2_person.get_plan_obj(shave_rope) == x2_person.get_plan_obj(shave_rope)
+    # assert ccn2_person.get_plan_obj(wk_rope) == x2_person.get_plan_obj(wk_rope)
+    # assert ccn2_person.planroot == x2_person.planroot
     assert ccn2_person.to_dict() == x2_person.to_dict()
 
     ccn_person3 = ccn_dict_of_obj.get(x3_person.person_name)
     assert ccn_person3.to_dict() == x3_person.to_dict()
 
-    cc1_keg_root = ccn_dict_of_obj.get(x1_person.person_name).kegroot
+    cc1_plan_root = ccn_dict_of_obj.get(x1_person.person_name).planroot
     ccn_person1 = ccn_dict_of_obj.get(x1_person.person_name)
-    assert ccn_person1._keg_dict == x1_person._keg_dict
+    assert ccn_person1._plan_dict == x1_person._plan_dict
     philipa_str = "Philipa"
     ccn_philipa_partnerunit = ccn_person1.get_partner(philipa_str)
     x1_philipa_partnerunit = x1_person.get_partner(philipa_str)

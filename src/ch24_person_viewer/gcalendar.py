@@ -1,7 +1,7 @@
 from csv import DictWriter as csv_DictWriter
 from datetime import datetime
 from io import StringIO as io_StringIO
-from src.ch07_person_logic.person_main import PersonUnit, get_sorted_keg_list
+from src.ch07_person_logic.person_main import PersonUnit, get_sorted_plan_list
 
 
 def gcal_readble_percent(value: float, precision=2):
@@ -22,13 +22,13 @@ def gcal_readble_percent(value: float, precision=2):
 
 
 def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[dict]:
-    agenda_kegs_dict = x_person.get_agenda_dict()
-    agenda_list = get_sorted_keg_list(agenda_kegs_dict)
+    agenda_plans_dict = x_person.get_agenda_dict()
+    agenda_list = get_sorted_plan_list(agenda_plans_dict)
     gcal_tobe_description = ""
     for item_rank, agenda_item in enumerate(agenda_list, start=1):
         item_fund_ratio_str = gcal_readble_percent(agenda_item.fund_ratio)
         gcal_tobe_description += (
-            f"{item_rank}. {agenda_item.keg_label} ({item_fund_ratio_str})\n"
+            f"{item_rank}. {agenda_item.plan_label} ({item_fund_ratio_str})\n"
         )
     all_day_events = {
         "Subject": "Pledges",

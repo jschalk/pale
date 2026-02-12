@@ -1,5 +1,5 @@
 from src.ch04_rope.rope import RopeTerm, create_rope, create_rope_from_labels
-from src.ch07_person_logic.person_main import PersonUnit, kegunit_shop, personunit_shop
+from src.ch07_person_logic.person_main import PersonUnit, personunit_shop, planunit_shop
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch09_person_lesson.lesson_filehandler import (
     LessonFileHandler,
@@ -60,13 +60,13 @@ def a23_run_rope() -> RopeTerm:
 
 def get_example_zia_speaker() -> PersonUnit:
     zia_speaker = personunit_shop(exx.zia, exx.a23)
-    zia_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    zia_speaker.set_keg_obj(kegunit_shop(hungry_str()), a23_eat_rope())
-    zia_speaker.set_keg_obj(kegunit_shop(full_str()), a23_eat_rope())
+    zia_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    zia_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
+    zia_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
     zia_speaker.add_partnerunit(exx.yao, partner_debt_lumen=12)
-    cuisine_kegunit = zia_speaker.get_keg_obj(a23_cuisine_rope())
-    cuisine_kegunit.laborunit.add_party(exx.yao)
-    zia_speaker.edit_keg_attr(
+    cuisine_planunit = zia_speaker.get_plan_obj(a23_cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
+    zia_speaker.edit_plan_attr(
         a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     zia_speaker.add_fact(a23_eat_rope(), a23_full_rope())
@@ -76,13 +76,13 @@ def get_example_zia_speaker() -> PersonUnit:
 
 def get_example_bob_speaker() -> PersonUnit:
     bob_speaker = personunit_shop(exx.bob, exx.a23)
-    bob_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    bob_speaker.set_keg_obj(kegunit_shop(hungry_str()), a23_eat_rope())
-    bob_speaker.set_keg_obj(kegunit_shop(full_str()), a23_eat_rope())
+    bob_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    bob_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
+    bob_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
     bob_speaker.add_partnerunit(exx.yao, partner_debt_lumen=12)
-    cuisine_kegunit = bob_speaker.get_keg_obj(a23_cuisine_rope())
-    cuisine_kegunit.laborunit.add_party(exx.yao)
-    bob_speaker.edit_keg_attr(
+    cuisine_planunit = bob_speaker.get_plan_obj(a23_cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
+    bob_speaker.edit_plan_attr(
         a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     bob_speaker.add_fact(a23_eat_rope(), a23_hungry_rope())
@@ -96,12 +96,12 @@ def get_example_yao_speaker() -> PersonUnit:
     yao_speaker.add_partnerunit(exx.zia, partner_debt_lumen=36)
     yao_speaker.add_partnerunit(exx.bob, partner_debt_lumen=48)
     yao_speaker.set_partner_respect(100)
-    yao_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(hungry_str()), a23_eat_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(full_str()), a23_eat_rope())
-    cuisine_kegunit = yao_speaker.get_keg_obj(a23_cuisine_rope())
-    cuisine_kegunit.laborunit.add_party(exx.yao)
-    yao_speaker.edit_keg_attr(
+    yao_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(hungry_str()), a23_eat_rope())
+    yao_speaker.set_plan_obj(planunit_shop(full_str()), a23_eat_rope())
+    cuisine_planunit = yao_speaker.get_plan_obj(a23_cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
+    yao_speaker.edit_plan_attr(
         a23_cuisine_rope(), reason_context=a23_eat_rope(), reason_case=a23_hungry_rope()
     )
     yao_speaker.add_fact(a23_eat_rope(), a23_hungry_rope())
@@ -138,15 +138,15 @@ def get_fund_breakdown_person() -> PersonUnit:
     clean_rope = sue_person.make_rope(casa_rope, clean_str)
     sweep_str = "sweep floor"
     dish_str = "clean dishes"
-    sue_person.set_l1_keg(kegunit_shop(exx.casa, star=30))
-    sue_person.set_keg_obj(kegunit_shop(cat_str, star=30), casa_rope)
-    sue_person.set_keg_obj(kegunit_shop(hun_n_str, star=30), cat_rope)
-    sue_person.set_keg_obj(kegunit_shop(hun_y_str, star=30), cat_rope)
-    sue_person.set_keg_obj(kegunit_shop(clean_str, star=30), casa_rope)
-    sue_person.set_keg_obj(kegunit_shop(sweep_str, star=30, pledge=True), clean_rope)
-    sue_person.set_keg_obj(kegunit_shop(dish_str, star=30, pledge=True), clean_rope)
+    sue_person.set_l1_plan(planunit_shop(exx.casa, star=30))
+    sue_person.set_plan_obj(planunit_shop(cat_str, star=30), casa_rope)
+    sue_person.set_plan_obj(planunit_shop(hun_n_str, star=30), cat_rope)
+    sue_person.set_plan_obj(planunit_shop(hun_y_str, star=30), cat_rope)
+    sue_person.set_plan_obj(planunit_shop(clean_str, star=30), casa_rope)
+    sue_person.set_plan_obj(planunit_shop(sweep_str, star=30, pledge=True), clean_rope)
+    sue_person.set_plan_obj(planunit_shop(dish_str, star=30, pledge=True), clean_rope)
 
     cat_str = "cat have dinner"
-    sue_person.set_l1_keg(kegunit_shop(cat_str, star=30, pledge=True))
+    sue_person.set_l1_plan(planunit_shop(cat_str, star=30, pledge=True))
 
     return sue_person

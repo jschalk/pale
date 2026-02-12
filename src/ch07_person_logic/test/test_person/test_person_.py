@@ -15,7 +15,7 @@ def test_PersonUnit_Exists():
     assert x_person.moment_rope is None
     assert x_person.person_name is None
     assert x_person.partners is None
-    assert x_person.kegroot is None
+    assert x_person.planroot is None
     assert x_person.credor_respect is None
     assert x_person.debtor_respect is None
     assert x_person.max_tree_traverse is None
@@ -26,23 +26,23 @@ def test_PersonUnit_Exists():
     assert x_person.mana_grain is None
     assert x_person.last_lesson_id is None
     # calculated attr
-    assert x_person._keg_dict is None
+    assert x_person._plan_dict is None
     assert x_person._keep_dict is None
     assert x_person._healers_dict is None
     assert x_person.tree_traverse_count is None
     assert x_person.rational is None
     assert x_person.keeps_justified is None
     assert x_person.keeps_buildable is None
-    assert x_person.sum_healerunit_kegs_fund_total is None
+    assert x_person.sum_healerunit_plans_fund_total is None
     assert x_person.offtrack_kids_star_set is None
     assert x_person.offtrack_fund is None
     assert x_person.reason_contexts is None
     assert x_person.range_inheritors is None
-    assert str(type(x_person.kegroot)).find("None") == 8
+    assert str(type(x_person.planroot)).find("None") == 8
     obj_attrs = set(x_person.__dict__.keys())
     print(sorted(list(obj_attrs)))
     assert obj_attrs == {
-        "_keg_dict",
+        "_plan_dict",
         "_healers_dict",
         "_keep_dict",
         kw.keeps_buildable,
@@ -52,11 +52,11 @@ def test_PersonUnit_Exists():
         kw.range_inheritors,
         kw.rational,
         kw.reason_contexts,
-        kw.sum_healerunit_kegs_fund_total,
+        kw.sum_healerunit_plans_fund_total,
         kw.tree_traverse_count,
         kw.partners,
         kw.knot,
-        kw.kegroot,
+        kw.planroot,
         kw.credor_respect,
         kw.debtor_respect,
         kw.groupunits,
@@ -109,7 +109,7 @@ def test_personunit_shop_ReturnsObj_Scenario1_WithParameters():
     assert x_person.person_name == exx.sue
     assert x_person.moment_rope == iowa_rope
     assert x_person.partners == {}
-    assert x_person.kegroot is not None
+    assert x_person.planroot is not None
     assert x_person.max_tree_traverse == 3
     assert x_person.knot == slash_knot
     assert x_person.fund_pool == x_fund_pool
@@ -120,20 +120,20 @@ def test_personunit_shop_ReturnsObj_Scenario1_WithParameters():
     assert x_person.debtor_respect == RespectNum(validate_pool_num())
     assert not x_person.last_lesson_id
     # calculated attr
-    assert x_person._keg_dict == {}
+    assert x_person._plan_dict == {}
     assert x_person._keep_dict == {}
     assert x_person._healers_dict == {}
     assert not x_person.tree_traverse_count
     assert x_person.rational is False
     assert x_person.keeps_justified is False
     assert x_person.keeps_buildable is False
-    assert x_person.sum_healerunit_kegs_fund_total == 0
+    assert x_person.sum_healerunit_plans_fund_total == 0
     assert x_person.offtrack_kids_star_set == set()
     assert not x_person.offtrack_fund
     assert x_person.reason_contexts == set()
     assert x_person.range_inheritors == {}
-    print(f"{type(x_person.kegroot)=}") == 0
-    assert str(type(x_person.kegroot)).find(".keg.KegUnit'>") > 0
+    print(f"{type(x_person.planroot)=}") == 0
+    assert str(type(x_person.planroot)).find(".plan.PlanUnit'>") > 0
 
 
 def test_personunit_shop_ReturnsObj_Scenario2_WithoutParameters():
@@ -148,12 +148,12 @@ def test_personunit_shop_ReturnsObj_Scenario2_WithoutParameters():
     assert x_person.fund_grain == default_grain_num_if_None()
     assert x_person.respect_grain == default_grain_num_if_None()
     assert x_person.mana_grain == default_grain_num_if_None()
-    assert x_person.kegroot.fund_grain == x_person.fund_grain
-    assert x_person.kegroot.knot == x_person.knot
-    assert x_person.kegroot.keg_uid == 1
-    assert x_person.kegroot.tree_level == 0
-    assert x_person.kegroot.knot == x_person.knot
-    assert x_person.kegroot.parent_rope == ""
+    assert x_person.planroot.fund_grain == x_person.fund_grain
+    assert x_person.planroot.knot == x_person.knot
+    assert x_person.planroot.plan_uid == 1
+    assert x_person.planroot.tree_level == 0
+    assert x_person.planroot.knot == x_person.knot
+    assert x_person.planroot.parent_rope == ""
 
 
 def test_PersonUnit_set_max_tree_traverse_SetsInt():

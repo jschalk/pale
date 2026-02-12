@@ -1,10 +1,10 @@
 from src.ch04_rope.rope import create_rope
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch07_person_logic.test._util.ch07_examples import personunit_v001
 from src.ch08_person_atom.atom_main import personatom_shop
 from src.ch17_idea.idea_config import (
-    idea_format_00013_kegunit_v0_0_0,
+    idea_format_00013_planunit_v0_0_0,
     idea_format_00021_person_partnerunit_v0_0_0,
 )
 from src.ch17_idea.idea_main import create_idea_df, get_idearef_obj, make_persondelta
@@ -131,51 +131,51 @@ def test_make_persondelta_Arg_idea_format_00021_person_partnerunit_v0_0_0():
 #     assert len(membership_changunit.get_ordered_personatoms()) == 10
 
 
-def test_make_persondelta_Arg_idea_format_00013_kegunit_v0_0_0():
+def test_make_persondelta_Arg_idea_format_00013_planunit_v0_0_0():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     amy_moment_rope = create_rope("amy56")
     sue_personunit = personunit_shop(exx.sue, amy_moment_rope)
     casa_rope = sue_personunit.make_l1_rope(exx.casa)
     casa_star = 31
-    sue_personunit.set_l1_keg(kegunit_shop(exx.casa, star=casa_star))
+    sue_personunit.set_l1_plan(planunit_shop(exx.casa, star=casa_star))
     clean_rope = sue_personunit.make_rope(casa_rope, exx.clean)
-    sue_personunit.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    x_idea_name = idea_format_00013_kegunit_v0_0_0()
-    kegunit_dataframe = create_idea_df(sue_personunit, x_idea_name)
-    kegunit_csv = kegunit_dataframe.to_csv(index=False)
+    sue_personunit.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    x_idea_name = idea_format_00013_planunit_v0_0_0()
+    planunit_dataframe = create_idea_df(sue_personunit, x_idea_name)
+    planunit_csv = planunit_dataframe.to_csv(index=False)
 
     # WHEN
-    kegunit_changunit = make_persondelta(kegunit_csv)
+    planunit_changunit = make_persondelta(planunit_csv)
 
     # THEN
-    casa_personatom = personatom_shop(kw.person_kegunit, kw.INSERT)
-    casa_personatom.set_arg(kw.keg_rope, casa_rope)
+    casa_personatom = personatom_shop(kw.person_planunit, kw.INSERT)
+    casa_personatom.set_arg(kw.plan_rope, casa_rope)
     casa_personatom.set_arg(kw.pledge, False)
     casa_personatom.set_arg(kw.star, casa_star)
     print(f"{casa_personatom=}")
     assert casa_personatom.get_value(kw.star) == casa_star
-    clean_personatom = personatom_shop(kw.person_kegunit, kw.INSERT)
-    clean_personatom.set_arg(kw.keg_rope, clean_rope)
+    clean_personatom = personatom_shop(kw.person_planunit, kw.INSERT)
+    clean_personatom.set_arg(kw.plan_rope, clean_rope)
     clean_personatom.set_arg(kw.pledge, True)
     clean_personatom.set_arg(kw.star, 1)
-    assert kegunit_changunit.c_personatom_exists(casa_personatom)
-    assert kegunit_changunit.c_personatom_exists(clean_personatom)
-    assert len(kegunit_changunit.get_ordered_personatoms()) == 2
+    assert planunit_changunit.c_personatom_exists(casa_personatom)
+    assert planunit_changunit.c_personatom_exists(clean_personatom)
+    assert len(planunit_changunit.get_ordered_personatoms()) == 2
 
 
-def test_create_idea_df_Arg_idea_format_00013_kegunit_v0_0_0_Scenario_personunit_v001(
+def test_create_idea_df_Arg_idea_format_00013_planunit_v0_0_0_Scenario_personunit_v001(
     run_big_tests,
 ):
     # sourcery skip: no-conditionals-in-tests
     if run_big_tests:
         # ESTABLISH / WHEN
-        x_idea_name = idea_format_00013_kegunit_v0_0_0()
+        x_idea_name = idea_format_00013_planunit_v0_0_0()
 
         # WHEN
-        kegunit_format = create_idea_df(personunit_v001(), x_idea_name)
+        planunit_format = create_idea_df(personunit_v001(), x_idea_name)
 
         # THEN
-        array_headers = list(kegunit_format.columns)
+        array_headers = list(planunit_format.columns)
         assert array_headers == get_idearef_obj(x_idea_name).get_headers_list()
-        assert len(kegunit_format) == 251
+        assert len(planunit_format) == 251

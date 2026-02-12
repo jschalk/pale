@@ -5,11 +5,11 @@ from src.ch08_person_atom.normal_model import (
     CaseTable,
     FactTable,
     HealerUnitTable,
-    KegTable,
     LaborLinkTable,
     MemberShipTable,
     PartnerUnitTable,
     PersonTable,
+    PlanTable,
     ReasonTable,
 )
 from src.ref.keywords import Ch08Keywords as kw
@@ -50,7 +50,7 @@ def print_out_expected_class_attribute_declarations(config_dimen):
             declare_type = "Integer"
         elif declare_type == "REAL":
             declare_type = "Float"
-        if config_column == kw.keg_uid:
+        if config_column == kw.plan_uid:
             declare_type = "Integer, primary_key=True"
         print(f"    {config_column} = Column({declare_type})")
 
@@ -93,22 +93,22 @@ def test_normalized_table_MemberShipTable_membership_Exists():
     all_columns_are_as_config_requires(mapper, config_dimen)
 
 
-def test_normalized_table_KegTable_keg_Exists():
+def test_normalized_table_PlanTable_plan_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_person_table_build().get(kw.person_kegunit)
-    mapper = inspect(KegTable)
+    config_dimen = get_normalized_person_table_build().get(kw.person_planunit)
+    mapper = inspect(PlanTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
     # WHEN / THEN
     config_table_name = get_config_table_name(config_dimen)
-    assert config_table_name == "keg"
-    assert config_table_name == KegTable.__tablename__
+    assert config_table_name == "plan"
+    assert config_table_name == PlanTable.__tablename__
     all_columns_are_as_config_requires(mapper, config_dimen)
 
 
 def test_normalized_table_AwardUnitTable_awardunit_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_person_table_build().get(kw.person_keg_awardunit)
+    config_dimen = get_normalized_person_table_build().get(kw.person_plan_awardunit)
     mapper = inspect(AwardUnitTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -121,7 +121,7 @@ def test_normalized_table_AwardUnitTable_awardunit_Exists():
 
 def test_normalized_table_ReasonTable_reason_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_person_table_build().get(kw.person_keg_reasonunit)
+    config_dimen = get_normalized_person_table_build().get(kw.person_plan_reasonunit)
     mapper = inspect(ReasonTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -135,7 +135,7 @@ def test_normalized_table_ReasonTable_reason_Exists():
 def test_normalized_table_CaseTable_case_Exists():
     # ESTABLISH
     config_dimen = get_normalized_person_table_build().get(
-        kw.person_keg_reason_caseunit
+        kw.person_plan_reason_caseunit
     )
     mapper = inspect(CaseTable)
     print_out_expected_class_attribute_declarations(config_dimen)
@@ -149,7 +149,7 @@ def test_normalized_table_CaseTable_case_Exists():
 
 def test_normalized_table_LaborLinkTable_partyunit_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_person_table_build().get(kw.person_keg_partyunit)
+    config_dimen = get_normalized_person_table_build().get(kw.person_plan_partyunit)
     mapper = inspect(LaborLinkTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -162,7 +162,7 @@ def test_normalized_table_LaborLinkTable_partyunit_Exists():
 
 def test_normalized_table_HealerUnitTable_healerunit_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_person_table_build().get(kw.person_keg_healerunit)
+    config_dimen = get_normalized_person_table_build().get(kw.person_plan_healerunit)
     mapper = inspect(HealerUnitTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 
@@ -175,7 +175,7 @@ def test_normalized_table_HealerUnitTable_healerunit_Exists():
 
 def test_normalized_table_FactTable_fact_Exists():
     # ESTABLISH
-    config_dimen = get_normalized_person_table_build().get(kw.person_keg_factunit)
+    config_dimen = get_normalized_person_table_build().get(kw.person_plan_factunit)
     mapper = inspect(FactTable)
     print_out_expected_class_attribute_declarations(config_dimen)
 

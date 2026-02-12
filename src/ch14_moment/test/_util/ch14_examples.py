@@ -1,7 +1,7 @@
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import FactUnit, factunit_shop
-from src.ch06_keg.healer import healerunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.healer import healerunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch09_person_lesson.lesson_filehandler import open_gut_file, save_gut_file
@@ -41,24 +41,24 @@ def create_example_moment2() -> MomentUnit:
     zia_gut_person.add_partnerunit(exx.zia, 38, 400)
     texas_str = "Texas"
     texas_rope = yao_gut_person.make_l1_rope(texas_str)
-    yao_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
-    wei_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
-    zia_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
+    yao_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
+    wei_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
+    zia_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     dallas_str = "dallas"
     dallas_rope = yao_gut_person.make_rope(texas_rope, dallas_str)
     dallas_healerunit = healerunit_shop({exx.yao, exx.zia})
-    dallas_keg = kegunit_shop(dallas_str, healerunit=dallas_healerunit)
+    dallas_plan = planunit_shop(dallas_str, healerunit=dallas_healerunit)
     elpaso_str = "el paso"
     elpaso_rope = yao_gut_person.make_rope(texas_rope, elpaso_str)
     elpaso_healerunit = healerunit_shop({exx.yao})
-    elpaso_keg = kegunit_shop(elpaso_str, healerunit=elpaso_healerunit)
+    elpaso_plan = planunit_shop(elpaso_str, healerunit=elpaso_healerunit)
 
-    yao_gut_person.set_keg_obj(dallas_keg, texas_rope)
-    yao_gut_person.set_keg_obj(elpaso_keg, texas_rope)
-    wei_gut_person.set_keg_obj(dallas_keg, texas_rope)
-    wei_gut_person.set_keg_obj(elpaso_keg, texas_rope)
-    zia_gut_person.set_keg_obj(dallas_keg, texas_rope)
-    zia_gut_person.set_keg_obj(elpaso_keg, texas_rope)
+    yao_gut_person.set_plan_obj(dallas_plan, texas_rope)
+    yao_gut_person.set_plan_obj(elpaso_plan, texas_rope)
+    wei_gut_person.set_plan_obj(dallas_plan, texas_rope)
+    wei_gut_person.set_plan_obj(elpaso_plan, texas_rope)
+    zia_gut_person.set_plan_obj(dallas_plan, texas_rope)
+    zia_gut_person.set_plan_obj(elpaso_plan, texas_rope)
     save_gut_file(x_moment_mstr_dir, yao_gut_person)
     save_gut_file(x_moment_mstr_dir, wei_gut_person)
     save_gut_file(x_moment_mstr_dir, zia_gut_person)
@@ -84,23 +84,23 @@ def create_example_moment3() -> MomentUnit:
     zia_gut_person = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.zia)
 
     casa_rope = yao_gut_person.make_l1_rope(exx.casa)
-    yao_gut_person.set_l1_keg(kegunit_shop(exx.casa))
-    wei_gut_person.set_l1_keg(kegunit_shop(exx.casa))
-    zia_gut_person.set_l1_keg(kegunit_shop(exx.casa))
+    yao_gut_person.set_l1_plan(planunit_shop(exx.casa))
+    wei_gut_person.set_l1_plan(planunit_shop(exx.casa))
+    zia_gut_person.set_l1_plan(planunit_shop(exx.casa))
     clean_rope = yao_gut_person.make_rope(casa_rope, exx.clean)
     bath_str = "clean bathroom"
     hall_str = "clean hall"
 
-    yao_gut_person.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    yao_gut_person.set_keg_obj(kegunit_shop(bath_str, pledge=True), clean_rope)
-    yao_gut_person.set_keg_obj(kegunit_shop(hall_str, pledge=True), clean_rope)
+    yao_gut_person.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    yao_gut_person.set_plan_obj(planunit_shop(bath_str, pledge=True), clean_rope)
+    yao_gut_person.set_plan_obj(planunit_shop(hall_str, pledge=True), clean_rope)
 
-    wei_gut_person.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    wei_gut_person.set_keg_obj(kegunit_shop(bath_str, pledge=True), clean_rope)
+    wei_gut_person.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    wei_gut_person.set_plan_obj(planunit_shop(bath_str, pledge=True), clean_rope)
 
-    zia_gut_person.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    zia_gut_person.set_keg_obj(kegunit_shop(bath_str, pledge=True), clean_rope)
-    zia_gut_person.set_keg_obj(kegunit_shop(hall_str, pledge=True), clean_rope)
+    zia_gut_person.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    zia_gut_person.set_plan_obj(planunit_shop(bath_str, pledge=True), clean_rope)
+    zia_gut_person.set_plan_obj(planunit_shop(hall_str, pledge=True), clean_rope)
 
     save_gut_file(x_moment_mstr_dir, yao_gut_person)
     save_gut_file(x_moment_mstr_dir, wei_gut_person)
@@ -124,23 +124,23 @@ def create_example_moment4() -> MomentUnit:
     zia_gut_person = open_gut_file(x_moment_mstr_dir, a45_lasso, exx.zia)
 
     casa_rope = yao_gut_person.make_l1_rope(exx.casa)
-    yao_gut_person.set_l1_keg(kegunit_shop(exx.casa))
-    wei_gut_person.set_l1_keg(kegunit_shop(exx.casa))
-    zia_gut_person.set_l1_keg(kegunit_shop(exx.casa))
+    yao_gut_person.set_l1_plan(planunit_shop(exx.casa))
+    wei_gut_person.set_l1_plan(planunit_shop(exx.casa))
+    zia_gut_person.set_l1_plan(planunit_shop(exx.casa))
     clean_rope = yao_gut_person.make_rope(casa_rope, exx.clean)
     bath_str = "clean bathroom"
     hall_str = "clean hall"
 
-    yao_gut_person.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    yao_gut_person.set_keg_obj(kegunit_shop(bath_str, pledge=True), clean_rope)
-    yao_gut_person.set_keg_obj(kegunit_shop(hall_str, pledge=True), clean_rope)
+    yao_gut_person.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    yao_gut_person.set_plan_obj(planunit_shop(bath_str, pledge=True), clean_rope)
+    yao_gut_person.set_plan_obj(planunit_shop(hall_str, pledge=True), clean_rope)
 
-    wei_gut_person.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    wei_gut_person.set_keg_obj(kegunit_shop(bath_str, pledge=True), clean_rope)
+    wei_gut_person.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    wei_gut_person.set_plan_obj(planunit_shop(bath_str, pledge=True), clean_rope)
 
-    zia_gut_person.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    zia_gut_person.set_keg_obj(kegunit_shop(bath_str, pledge=True), clean_rope)
-    zia_gut_person.set_keg_obj(kegunit_shop(hall_str, pledge=True), clean_rope)
+    zia_gut_person.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    zia_gut_person.set_plan_obj(planunit_shop(bath_str, pledge=True), clean_rope)
+    zia_gut_person.set_plan_obj(planunit_shop(hall_str, pledge=True), clean_rope)
 
     yao_gut_person.set_credor_respect(101)
     wei_gut_person.set_credor_respect(75)
@@ -159,9 +159,9 @@ def create_example_moment4() -> MomentUnit:
     zia_gut_person.add_partnerunit(exx.zia, 38, 400)
 
     texas_str = "Texas"
-    yao_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
-    wei_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
-    zia_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
+    yao_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
+    wei_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
+    zia_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     save_gut_file(x_moment_mstr_dir, yao_gut_person)
     save_gut_file(x_moment_mstr_dir, wei_gut_person)
     save_gut_file(x_moment_mstr_dir, zia_gut_person)
@@ -196,11 +196,11 @@ def get_bob_mop_without_reason_personunit_example() -> PersonUnit:
     clean_rope = bob_person.make_rope(floor_rope, exx.clean)
     dirty_rope = bob_person.make_rope(floor_rope, dirty_str)
     mop_rope = bob_person.make_rope(casa_rope, exx.mop)
-    bob_person.add_keg(casa_rope, 1)
-    bob_person.add_keg(floor_rope, 1)
-    bob_person.add_keg(clean_rope, 1)
-    bob_person.add_keg(dirty_rope, 1)
-    bob_person.add_keg(mop_rope, 1, pledge=True)
+    bob_person.add_plan(casa_rope, 1)
+    bob_person.add_plan(floor_rope, 1)
+    bob_person.add_plan(clean_rope, 1)
+    bob_person.add_plan(dirty_rope, 1)
+    bob_person.add_plan(mop_rope, 1, pledge=True)
     return bob_person
 
 
@@ -213,7 +213,7 @@ def get_bob_mop_with_reason_personunit_example() -> PersonUnit:
     floor_rope = bob_person.make_rope(casa_rope, floor_str)
     dirty_rope = bob_person.make_rope(floor_rope, dirty_str)
     mop_rope = bob_person.make_rope(casa_rope, exx.mop)
-    bob_person.edit_keg_attr(
+    bob_person.edit_plan_attr(
         mop_rope, reason_context=floor_rope, reason_case=dirty_rope
     )
     return bob_person
@@ -245,16 +245,16 @@ def get_yao_run_with_reason_personunit_example() -> PersonUnit:
     weather_rope = yao_person.make_l1_rope(weather_str)
     rain_rope = yao_person.make_rope(weather_rope, raining_str)
     snow_rope = yao_person.make_rope(weather_rope, snowng_str)
-    yao_person.add_keg(participate_rope)
-    yao_person.add_keg(ski_rope, 5, pledge=True)
-    yao_person.add_keg(run_rope, 1, pledge=True)
-    yao_person.add_keg(weather_rope)
-    yao_person.add_keg(rain_rope)
-    yao_person.add_keg(snow_rope)
-    yao_person.edit_keg_attr(
+    yao_person.add_plan(participate_rope)
+    yao_person.add_plan(ski_rope, 5, pledge=True)
+    yao_person.add_plan(run_rope, 1, pledge=True)
+    yao_person.add_plan(weather_rope)
+    yao_person.add_plan(rain_rope)
+    yao_person.add_plan(snow_rope)
+    yao_person.edit_plan_attr(
         ski_rope, reason_context=weather_rope, reason_case=snow_rope
     )
-    yao_person.edit_keg_attr(
+    yao_person.edit_plan_attr(
         run_rope, reason_context=weather_rope, reason_case=rain_rope
     )
     return yao_person

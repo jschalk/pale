@@ -1,6 +1,6 @@
 from pytest import raises as pytest_raises
-from src.ch06_keg.healer import healerunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.healer import healerunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch07_person_logic.test._util.ch07_examples import get_personunit_with_4_levels
 from src.ref.keywords import ExampleStrs as exx
@@ -30,10 +30,10 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenThereAreNotAny():
     assert sue_person.keeps_justified
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenSingleKegUnit_healerunit_any_group_title_exists_IsTrue():
+def test_PersonUnit_cashout_Sets_keeps_justified_WhenSinglePlanUnit_healerunit_any_group_title_exists_IsTrue():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
-    sue_person.set_l1_keg(kegunit_shop("Texas", healerunit=healerunit_shop({"Yao"})))
+    sue_person.set_l1_plan(planunit_shop("Texas", healerunit=healerunit_shop({"Yao"})))
     assert sue_person.keeps_justified is False
 
     # WHEN
@@ -48,8 +48,8 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenSingleProblemAndKeep():
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao)
     yao_healerunit = healerunit_shop({exx.yao})
-    sue_person.set_l1_keg(
-        kegunit_shop("Texas", healerunit=yao_healerunit, problem_bool=True)
+    sue_person.set_l1_plan(
+        planunit_shop("Texas", healerunit=yao_healerunit, problem_bool=True)
     )
     assert sue_person.keeps_justified is False
 
@@ -68,9 +68,11 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelAboveProblem():
 
     texas_str = "Texas"
     texas_rope = sue_person.make_l1_rope(texas_str)
-    sue_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
+    sue_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     ep_str = "El Paso"
-    sue_person.set_keg_obj(kegunit_shop(ep_str, healerunit=yao_healerunit), texas_rope)
+    sue_person.set_plan_obj(
+        planunit_shop(ep_str, healerunit=yao_healerunit), texas_rope
+    )
     assert sue_person.keeps_justified is False
 
     # WHEN
@@ -86,8 +88,8 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelBelowProblem():
     texas_str = "Texas"
     texas_rope = sue_person.make_l1_rope(texas_str)
     yao_healerunit = healerunit_shop({"Yao"})
-    sue_person.set_l1_keg(kegunit_shop(texas_str, healerunit=yao_healerunit))
-    sue_person.set_keg_obj(kegunit_shop("El Paso", problem_bool=True), texas_rope)
+    sue_person.set_l1_plan(planunit_shop(texas_str, healerunit=yao_healerunit))
+    sue_person.set_plan_obj(planunit_shop("El Paso", problem_bool=True), texas_rope)
     assert sue_person.keeps_justified is False
 
     # WHEN
@@ -103,10 +105,10 @@ def test_PersonUnit_cashout_RaisesErrorWhenKeepIsLevelBelowProblem():
     texas_str = "Texas"
     texas_rope = sue_person.make_l1_rope(texas_str)
     yao_healerunit = healerunit_shop({"Yao"})
-    texas_keg = kegunit_shop(texas_str, healerunit=yao_healerunit)
-    sue_person.set_l1_keg(texas_keg)
-    elpaso_keg = kegunit_shop("El Paso", problem_bool=True)
-    sue_person.set_keg_obj(elpaso_keg, texas_rope)
+    texas_plan = planunit_shop(texas_str, healerunit=yao_healerunit)
+    sue_person.set_l1_plan(texas_plan)
+    elpaso_plan = planunit_shop("El Paso", problem_bool=True)
+    sue_person.set_plan_obj(elpaso_plan, texas_rope)
     assert sue_person.keeps_justified is False
 
     # WHEN
@@ -116,7 +118,7 @@ def test_PersonUnit_cashout_RaisesErrorWhenKeepIsLevelBelowProblem():
     # THEN
     assert (
         str(excinfo.value)
-        == f"KegUnit '{elpaso_keg.get_keg_rope()}' cannot sponsor ancestor keeps."
+        == f"PlanUnit '{elpaso_plan.get_plan_rope()}' cannot sponsor ancestor keeps."
     )
 
 
@@ -126,10 +128,10 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenTwoKeepsAre_OnTheEqualLine(
     yao_healerunit = healerunit_shop({"Yao"})
     texas_str = "Texas"
     texas_rope = sue_person.make_l1_rope(texas_str)
-    texas_keg = kegunit_shop(texas_str, healerunit=yao_healerunit, problem_bool=True)
-    sue_person.set_l1_keg(texas_keg)
-    elpaso_keg = kegunit_shop("El Paso", healerunit=yao_healerunit, problem_bool=True)
-    sue_person.set_keg_obj(elpaso_keg, texas_rope)
+    texas_plan = planunit_shop(texas_str, healerunit=yao_healerunit, problem_bool=True)
+    sue_person.set_l1_plan(texas_plan)
+    elpaso_plan = planunit_shop("El Paso", healerunit=yao_healerunit, problem_bool=True)
+    sue_person.set_plan_obj(elpaso_plan, texas_rope)
     assert sue_person.keeps_justified is False
 
     # WHEN
@@ -139,22 +141,22 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenTwoKeepsAre_OnTheEqualLine(
     assert sue_person.keeps_justified is False
 
 
-def test_PersonUnit_get_keg_dict_RaisesErrorWhen_keeps_justified_IsFalse():
+def test_PersonUnit_get_plan_dict_RaisesErrorWhen_keeps_justified_IsFalse():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     yao_healerunit = healerunit_shop({"Yao"})
     texas_str = "Texas"
     texas_rope = sue_person.make_l1_rope(texas_str)
-    texas_keg = kegunit_shop(texas_str, healerunit=yao_healerunit, problem_bool=True)
-    sue_person.set_l1_keg(texas_keg)
-    elpaso_keg = kegunit_shop("El Paso", healerunit=yao_healerunit, problem_bool=True)
-    sue_person.set_keg_obj(elpaso_keg, texas_rope)
+    texas_plan = planunit_shop(texas_str, healerunit=yao_healerunit, problem_bool=True)
+    sue_person.set_l1_plan(texas_plan)
+    elpaso_plan = planunit_shop("El Paso", healerunit=yao_healerunit, problem_bool=True)
+    sue_person.set_plan_obj(elpaso_plan, texas_rope)
     sue_person.cashout()
     assert sue_person.keeps_justified is False
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:
-        sue_person.get_keg_dict(problem=True)
+        sue_person.get_plan_dict(problem=True)
     assert (
         str(excinfo.value)
         == f"Cannot return problem set because keeps_justified={sue_person.keeps_justified}."

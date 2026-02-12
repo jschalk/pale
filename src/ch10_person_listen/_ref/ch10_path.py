@@ -39,13 +39,13 @@ def create_keep_rope_path(
     keep_rope: RopeTerm,
     knot: KnotTerm,
 ) -> str:
-    """Returns path: moment_mstr_dir\\moments\\moment_rope\\persons\\person_name\\keeps\\kegroot\\level1_label"""
+    """Returns path: moment_mstr_dir\\moments\\moment_rope\\persons\\person_name\\keeps\\planroot\\level1_label"""
     if keep_rope is None:
         raise _keep_ropeMissingException(
             f"'{person_name}' cannot save to keep_path because it does not have keep_rope."
         )
 
-    keep_root = "kegroot"
+    keep_root = "planroot"
     moment_labels = get_all_rope_labels(moment_rope, knot)
     keep_rope = rebuild_rope(keep_rope, moment_labels[0], keep_root)
     x_list = get_all_rope_labels(keep_rope, knot)

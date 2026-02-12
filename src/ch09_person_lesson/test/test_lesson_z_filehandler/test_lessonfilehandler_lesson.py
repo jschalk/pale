@@ -22,7 +22,7 @@ from src.ch09_person_lesson.test._util.ch09_env import (
     temp_dir_setup,
 )
 from src.ch09_person_lesson.test._util.ch09_examples import (
-    get_atom_example_kegunit_knee,
+    get_atom_example_planunit_knee,
     get_sue_lessonunit,
     sue_1personatoms_lessonunit,
     sue_2personatoms_lessonunit,
@@ -394,7 +394,7 @@ def test_LessonFileHandler_del_lesson_file_DeleteslessonjsonAndNotPersonAtomjson
         atoms_dir=sue_lessonfilehandler.atoms_dir,
         lessons_dir=sue_lessonfilehandler.lessons_dir,
     )
-    sue_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_knee())
+    sue_lessonunit._persondelta.set_personatom(get_atom_example_planunit_knee())
     zero_int = 0
     assert sue_lessonfilehandler.hub_lesson_file_exists(six_int) is False
     assert sue_lessonfilehandler.h_atom_file_exists(zero_int) is False
@@ -529,14 +529,14 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sports_rope = gut_person.make_l1_rope(sports_str)
     knee_str = "knee"
     knee_rope = gut_person.make_rope(sports_rope, knee_str)
-    assert gut_person.keg_exists(sports_rope) is False
+    assert gut_person.plan_exists(sports_rope) is False
 
     # WHEN
     new_person = sue_lessonfilehandler._merge_any_lessons(gut_person)
 
     # THEN
     assert new_person != gut_person
-    assert new_person.keg_exists(sports_rope)
+    assert new_person.plan_exists(sports_rope)
 
 
 def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies_2atoms(
@@ -554,13 +554,13 @@ def test_LessonFileHandler_merge_any_lessons_ReturnsObj_WithSinglelessonModifies
     sports_rope = gut_person.make_l1_rope(sports_str)
     knee_str = "knee"
     knee_rope = gut_person.make_rope(sports_rope, knee_str)
-    assert gut_person.keg_exists(sports_rope) is False
-    assert gut_person.keg_exists(knee_rope) is False
+    assert gut_person.plan_exists(sports_rope) is False
+    assert gut_person.plan_exists(knee_rope) is False
 
     # WHEN
     new_person = sue_lessonfilehandler._merge_any_lessons(gut_person)
 
     # THEN
     assert new_person != gut_person
-    assert new_person.keg_exists(sports_rope)
-    assert new_person.keg_exists(knee_rope)
+    assert new_person.plan_exists(sports_rope)
+    assert new_person.plan_exists(knee_rope)

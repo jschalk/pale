@@ -25,7 +25,7 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario0_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        prnawar_dimen = kw.person_keg_awardunit
+        prnawar_dimen = kw.person_plan_awardunit
         prnawar_h_raw_put_tablename = prime_tbl(prnawar_dimen, "h", "raw", "put")
         # print(f"{get_table_columns(cursor, prnawar_h_raw_put_tablename)=}")
         insert_face_name_only_sqlstr = f"""INSERT INTO {prnawar_h_raw_put_tablename} 
@@ -90,7 +90,7 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario1_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        prnawar_dimen = kw.person_keg_awardunit
+        prnawar_dimen = kw.person_plan_awardunit
         prnawar_h_raw_put_tablename = prime_tbl(prnawar_dimen, "h", "raw", "put")
         insert_face_name_only_sqlstr = f"""INSERT INTO {prnawar_h_raw_put_tablename}
         ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
@@ -157,7 +157,7 @@ def test_create_update_heard_raw_existing_inx_col_sqlstr_UpdatesTable_Scenario2_
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        prnawar_dimen = kw.person_keg_awardunit
+        prnawar_dimen = kw.person_plan_awardunit
         prnawar_h_raw_put_tablename = prime_tbl(prnawar_dimen, "h", "raw", "put")
         print(f"{get_table_columns(cursor, prnawar_h_raw_put_tablename)=}")
         insert_face_name_only_sqlstr = f"""INSERT INTO {prnawar_h_raw_put_tablename}
@@ -233,7 +233,7 @@ def test_create_update_heard_raw_empty_inx_col_sqlstr_UpdatesTable_Scenario0_Emp
         print(f"{trlname_s_vld_tablename=}")
         print(f"{get_table_columns(cursor, trlname_s_vld_tablename)=}")
 
-        prnawar_dimen = kw.person_keg_awardunit
+        prnawar_dimen = kw.person_plan_awardunit
         prnawar_h_raw_put_tablename = prime_tbl(prnawar_dimen, "h", "raw", "put")
         print(f"{get_table_columns(cursor, prnawar_h_raw_put_tablename)=}")
         insert_face_name_only_sqlstr = f"""INSERT INTO {prnawar_h_raw_put_tablename} ({kw.spark_num}, {kw.face_name}_otx, {kw.face_name}_inx)
@@ -290,7 +290,7 @@ def test_set_all_heard_raw_inx_columns_Scenario0_empty_tables():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        prnawar_dimen = kw.person_keg_awardunit
+        prnawar_dimen = kw.person_plan_awardunit
         prnawar_h_raw_put_tablename = prime_tbl(prnawar_dimen, "h", "raw", "put")
         print(f"{get_table_columns(cursor, prnawar_h_raw_put_tablename)=}")
         insert_face_name_only_sqlstr = f"""INSERT INTO {prnawar_h_raw_put_tablename}

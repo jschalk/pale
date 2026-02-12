@@ -1,5 +1,5 @@
-from src.ch06_keg.test._util.ch06_examples import get_range_attrs
-from src.ch07_person_logic.person_main import KegUnit, PersonUnit, RopeTerm
+from src.ch06_plan.test._util.ch06_examples import get_range_attrs
+from src.ch07_person_logic.person_main import PersonUnit, PlanUnit, RopeTerm
 from src.ch13_time._ref.ch13_semantic_types import FactNum, ReasonNum
 from src.ch13_time.epoch_reason import (
     set_epoch_base_case_dayly,
@@ -24,7 +24,7 @@ def test_set_epoch_base_case_dayly_ChangesPersonUnit_agenda():
     # WHEN
     set_epoch_base_case_dayly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         dayly_lower_min=mop_dayly_lower_min,
         dayly_duration_min=mop_day_duration,
@@ -37,10 +37,10 @@ def test_set_epoch_base_case_dayly_ChangesPersonUnit_agenda():
 
     # THEN
     bob_person.cashout()
-    print(f"{bob_person.kegroot.factheirs.keys()=}")
-    mop_keg = bob_person.get_keg_obj(wx.mop_rope)
-    day_factheir = mop_keg.factheirs.get(wx.day_rope)
-    day_reasonheir = mop_keg.reasonheirs.get(wx.day_rope)
+    print(f"{bob_person.planroot.factheirs.keys()=}")
+    mop_plan = bob_person.get_plan_obj(wx.mop_rope)
+    day_factheir = mop_plan.factheirs.get(wx.day_rope)
+    day_reasonheir = mop_plan.reasonheirs.get(wx.day_rope)
     day_heir_case = day_reasonheir.cases.get(wx.day_rope)
     print(f" {day_factheir=}")
     print(f"{day_heir_case=}")
@@ -61,7 +61,7 @@ def test_set_epoch_cases_for_yearly_monthday_ChangesPersonUnit_agenda():
     # WHEN 1
     set_epoch_cases_for_yearly_monthday(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         dayly_lower_min=mop_dayly_lower_min,
         dayly_duration_min=mop_day_duration,
@@ -79,33 +79,33 @@ def test_set_epoch_cases_for_yearly_monthday_ChangesPersonUnit_agenda():
     # THEN 2
     print("epoch fact changed")
     bob_person.cashout()
-    mop_keg = bob_person.get_keg_obj(wx.mop_rope)
-    day_reasonheir = mop_keg.reasonheirs.get(wx.day_rope)
+    mop_plan = bob_person.get_plan_obj(wx.mop_rope)
+    day_reasonheir = mop_plan.reasonheirs.get(wx.day_rope)
     day_caseunit = day_reasonheir.cases.get(wx.day_rope)
-    day_factheir = mop_keg.factheirs.get(wx.day_rope)
+    day_factheir = mop_plan.factheirs.get(wx.day_rope)
     print(f"{day_factheir=}")
     print(f"{day_caseunit=}")
     assert len(bob_person.get_agenda_dict()) == 1
-    # geo_reasonheir = mop_keg.reasonheirs.get(month_geo_rope)
-    # geo_factheir = mop_keg.factheirs.get(month_geo_rope)
+    # geo_reasonheir = mop_plan.reasonheirs.get(month_geo_rope)
+    # geo_factheir = mop_plan.factheirs.get(month_geo_rope)
     # print(f"{geo_factheir=}")
     # print(f"{day_reasonheir=}")
     # print(f"{geo_reasonheir.reason_active=}")
-    # print(f"{mop_keg.factheirs.keys()=}")
+    # print(f"{mop_plan.factheirs.keys()=}")
 
 
 def expected_ag_count_fact_set(
-    mop_keg: KegUnit,
+    mop_plan: PlanUnit,
     x_person: PersonUnit,
     fact_lower: FactNum,
     fact_upper: FactNum,
     expected: int,
-) -> dict[RopeTerm, KegUnit]:
+) -> dict[RopeTerm, PlanUnit]:
     x_person.add_fact(wx.five_rope, wx.five_rope, fact_lower, fact_upper)
     x_person.cashout()
     is_as_expected = expected == len(x_person.get_agenda_dict())
     if not is_as_expected:
-        display_out_factheir_attrs(mop_keg)
+        display_out_factheir_attrs(mop_plan)
         # for month_case in year_reasonheir.cases.values():
         #     print(
         #         f"{get_tail_label(month_case.reason_state):10} {month_case.reason_lower=} {month_case.reason_upper=} {month_case.case_active=}"
@@ -113,14 +113,14 @@ def expected_ag_count_fact_set(
     return is_as_expected
 
 
-def display_out_factheir_attrs(mop_keg: KegUnit):
-    five_factheir = mop_keg.factheirs.get(wx.five_rope)
-    year_factheir = mop_keg.factheirs.get(wx.five_year_rope)
-    day_factheir = mop_keg.factheirs.get(wx.day_rope)
-    print(f"{mop_keg.factheirs.keys()=}")
-    print(f"mop_keg factheir {five_factheir.fact_lower=} {five_factheir.fact_upper}")
-    print(f"mop_keg factheir {year_factheir.fact_lower=} {year_factheir.fact_upper}")
-    print(f"mop_keg factheir {day_factheir.fact_lower=} {day_factheir.fact_upper}")
+def display_out_factheir_attrs(mop_plan: PlanUnit):
+    five_factheir = mop_plan.factheirs.get(wx.five_rope)
+    year_factheir = mop_plan.factheirs.get(wx.five_year_rope)
+    day_factheir = mop_plan.factheirs.get(wx.day_rope)
+    print(f"{mop_plan.factheirs.keys()=}")
+    print(f"mop_plan factheir {five_factheir.fact_lower=} {five_factheir.fact_upper}")
+    print(f"mop_plan factheir {year_factheir.fact_lower=} {year_factheir.fact_upper}")
+    print(f"mop_plan factheir {day_factheir.fact_lower=} {day_factheir.fact_upper}")
 
 
 def test_set_epoch_cases_for_monthly_SetsAttr_Scenario1_ChangesPersonUnit_agenda():
@@ -132,25 +132,25 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario1_ChangesPersonUnit_agenda
     mop_day_duration = 90
     set_epoch_cases_for_monthly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         monthday=mop_monthday,
         length_days=mop_length_days,
         dayly_lower_min=mop_dayly_lower_min,
         dayly_duration_min=mop_day_duration,
     )
-    mop_keg = bob_person.get_keg_obj(wx.mop_rope)
+    mop_plan = bob_person.get_plan_obj(wx.mop_rope)
 
     # WHEN / THEN
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 0, 0, 0)
-    year_keg = bob_person.get_keg_obj(wx.five_year_rope)
-    print(f"{get_range_attrs(year_keg)=}")
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 525600, 525600, 0)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 0, 1, expected=0)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 7200, 30240, expected=1)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 30240, 30240, expected=0)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 187200, 187520, expected=0)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 189820, 189820, expected=0)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 246240, 280800, expected=1)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 7200, 30240, expected=1)
-    assert expected_ag_count_fact_set(mop_keg, bob_person, 525599, 525599, expected=0)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 0, 0, 0)
+    year_plan = bob_person.get_plan_obj(wx.five_year_rope)
+    print(f"{get_range_attrs(year_plan)=}")
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 525600, 525600, 0)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 0, 1, expected=0)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 7200, 30240, expected=1)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 30240, 30240, expected=0)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 187200, 187520, expected=0)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 189820, 189820, expected=0)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 246240, 280800, expected=1)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 7200, 30240, expected=1)
+    assert expected_ag_count_fact_set(mop_plan, bob_person, 525599, 525599, expected=0)

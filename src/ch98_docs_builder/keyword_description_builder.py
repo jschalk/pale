@@ -31,7 +31,7 @@ def get_person_dimen_config(dimen: str) -> dict:
 def rebuild_keywords_description_contents():
     ch_dict = get_chxx_prefix_path_dict()
     person_config_args = get_person_dimen_config("personunit")
-    keg_config_args = get_person_dimen_config("person_kegunit")
+    plan_config_args = get_person_dimen_config("person_planunit")
     all_person_calc_args = get_all_person_calc_args()
 
     rebuilt_kw_desc = {}
@@ -47,12 +47,12 @@ def rebuild_keywords_description_contents():
             else:
                 # rebuilt_kw_desc[keyword] = f"Set by seed part of the Person bluep"
                 pass
-        # if keyword in keg_config_args:
-        #     keyword_config = keg_config_args.get(keyword)
+        # if keyword in plan_config_args:
+        #     keyword_config = plan_config_args.get(keyword)
         #     if keyword_config.get("populate_by_cashout"):
         #         rebuilt_kw_desc[keyword] = f"Set by Person cashout process"
         #     else:
-        #         rebuilt_kw_desc[keyword] = f"Keg seed data"
+        #         rebuilt_kw_desc[keyword] = f"Plan seed data"
 
     save_keywords_descrition_json("src", rebuilt_kw_desc)
 

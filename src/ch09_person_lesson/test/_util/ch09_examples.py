@@ -34,38 +34,38 @@ def get_atom_example_factunit_knee(first_label: LabelTerm = None) -> PersonAtom:
     knee_rope = create_rope(first_label, knee_str)
     knee_fact_lower = 7
     knee_fact_upper = 23
-    x_dimen = kw.person_keg_factunit
+    x_dimen = kw.person_plan_factunit
     insert_factunit_personatom = personatom_shop(x_dimen, kw.INSERT)
-    insert_factunit_personatom.set_jkey(kw.keg_rope, ball_rope)
+    insert_factunit_personatom.set_jkey(kw.plan_rope, ball_rope)
     insert_factunit_personatom.set_jkey(kw.fact_context, knee_rope)
     insert_factunit_personatom.set_jvalue(kw.fact_lower, knee_fact_lower)
     insert_factunit_personatom.set_jvalue(kw.fact_upper, knee_fact_upper)
     return insert_factunit_personatom
 
 
-def get_atom_example_kegunit_sports(moment_rope: MomentRope = None) -> PersonAtom:
+def get_atom_example_planunit_sports(moment_rope: MomentRope = None) -> PersonAtom:
     if not moment_rope:
         moment_rope = exx.a23
     sports_str = "sports"
     sports_rope = create_rope(moment_rope, sports_str)
-    insert_kegunit_personatom = personatom_shop(kw.person_kegunit, kw.INSERT)
-    insert_kegunit_personatom.set_jkey(kw.keg_rope, sports_rope)
-    return insert_kegunit_personatom
+    insert_planunit_personatom = personatom_shop(kw.person_planunit, kw.INSERT)
+    insert_planunit_personatom.set_jkey(kw.plan_rope, sports_rope)
+    return insert_planunit_personatom
 
 
-def get_atom_example_kegunit_ball(moment_rope: MomentRope = None) -> PersonAtom:
+def get_atom_example_planunit_ball(moment_rope: MomentRope = None) -> PersonAtom:
     if not moment_rope:
         moment_rope = exx.a23
     sports_str = "sports"
     sports_rope = create_rope(moment_rope, sports_str)
     ball_str = "basketball"
     ball_rope = create_rope(sports_rope, ball_str)
-    insert_kegunit_personatom = personatom_shop(kw.person_kegunit, kw.INSERT)
-    insert_kegunit_personatom.set_jkey(kw.keg_rope, ball_rope)
-    return insert_kegunit_personatom
+    insert_planunit_personatom = personatom_shop(kw.person_planunit, kw.INSERT)
+    insert_planunit_personatom.set_jkey(kw.plan_rope, ball_rope)
+    return insert_planunit_personatom
 
 
-def get_atom_example_kegunit_knee(moment_rope: MomentRope = None) -> PersonAtom:
+def get_atom_example_planunit_knee(moment_rope: MomentRope = None) -> PersonAtom:
     if not moment_rope:
         moment_rope = exx.a23
     sports_str = "sports"
@@ -76,11 +76,11 @@ def get_atom_example_kegunit_knee(moment_rope: MomentRope = None) -> PersonAtom:
     begin_str = "begin"
     close_str = "close"
     knee_rope = create_rope(sports_rope, knee_str)
-    insert_kegunit_personatom = personatom_shop(kw.person_kegunit, crud_str=kw.INSERT)
-    insert_kegunit_personatom.set_jkey(kw.keg_rope, knee_rope)
-    insert_kegunit_personatom.set_jvalue(begin_str, knee_begin)
-    insert_kegunit_personatom.set_jvalue(close_str, knee_close)
-    return insert_kegunit_personatom
+    insert_planunit_personatom = personatom_shop(kw.person_planunit, crud_str=kw.INSERT)
+    insert_planunit_personatom.set_jkey(kw.plan_rope, knee_rope)
+    insert_planunit_personatom.set_jvalue(begin_str, knee_begin)
+    insert_planunit_personatom.set_jvalue(close_str, knee_close)
+    return insert_planunit_personatom
 
 
 def get_persondelta_sue_example() -> PersonDelta:
@@ -119,29 +119,29 @@ def get_sue_lessonunit() -> LessonUnit:
 
 def sue_1personatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(person_name="Sue", _lesson_id=53, face_name="Yao")
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_sports())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_sports())
     return x_lessonunit
 
 
 def sue_2personatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(person_name="Sue", _lesson_id=53, face_name="Yao")
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_knee())
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_sports())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_knee())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_sports())
     return x_lessonunit
 
 
 def sue_3personatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(person_name="Sue", _lesson_id=37, face_name="Yao")
     x_lessonunit._persondelta.set_personatom(get_atom_example_factunit_knee())
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_ball())
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_knee())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_ball())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_knee())
     return x_lessonunit
 
 
 def sue_4personatoms_lessonunit() -> LessonUnit:
     x_lessonunit = lessonunit_shop(person_name="Sue", _lesson_id=47, face_name="Yao")
     x_lessonunit._persondelta.set_personatom(get_atom_example_factunit_knee())
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_ball())
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_knee())
-    x_lessonunit._persondelta.set_personatom(get_atom_example_kegunit_sports())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_ball())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_knee())
+    x_lessonunit._persondelta.set_personatom(get_atom_example_planunit_sports())
     return x_lessonunit

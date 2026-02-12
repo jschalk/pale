@@ -142,8 +142,8 @@ class TranBook:
         return ["partner_name", "net_amount"]
 
     def _get_partners_net_array(self) -> list[list]:
-        x_kegs = self.get_partners_net_dict().items()
-        return [[partner_name, net_amount] for partner_name, net_amount in x_kegs]
+        x_plans = self.get_partners_net_dict().items()
+        return [[partner_name, net_amount] for partner_name, net_amount in x_plans]
 
     def get_partners_net_csv(self) -> str:
         return create_csv(self._get_partners_headers(), self._get_partners_net_array())

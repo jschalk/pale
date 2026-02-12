@@ -95,12 +95,12 @@ def get_idea_elements_sort_order() -> list[str]:
         "group_title_ERASE",
         "group_title_ERASE_otx",
         "group_title_ERASE_inx",
-        "keg_rope",
-        "keg_rope_otx",
-        "keg_rope_inx",
-        "keg_rope_ERASE",
-        "keg_rope_ERASE_otx",
-        "keg_rope_ERASE_inx",
+        "plan_rope",
+        "plan_rope_otx",
+        "plan_rope_inx",
+        "plan_rope_ERASE",
+        "plan_rope_ERASE_otx",
+        "plan_rope_ERASE_inx",
         "reason_context",
         "reason_context_otx",
         "reason_context_inx",
@@ -206,7 +206,7 @@ def get_idea_elements_sort_order() -> list[str]:
         "job_listen_rotations",
         "error_message",
         "person_name_is_labor",
-        "keg_active",
+        "plan_active",
         "task",
         "reason_active",
         "case_active",
@@ -234,16 +234,16 @@ def get_idea_elements_sort_order() -> list[str]:
         "offtrack_fund",
         "parent_heir_active",
         "irrational_partner_debt_lumen",
-        "sum_healerunit_kegs_fund_total",
+        "sum_healerunit_plans_fund_total",
         "keeps_buildable",
         "all_partner_debt",
         "tree_traverse_count",
         "net_funds",
         "fund_rank",
         "pledges_count",
-        "context_keg_close",
-        "context_keg_denom",
-        "context_keg_morph",
+        "context_plan_close",
+        "context_plan_denom",
+        "context_plan_morph",
         "inx_epoch_diff",
     ]
 
@@ -289,12 +289,12 @@ def get_idea_sqlite_types() -> dict[str, str]:
         "group_title_ERASE": "TEXT",
         "group_title_ERASE_otx": "TEXT",
         "group_title_ERASE_inx": "TEXT",
-        "keg_rope": "TEXT",
-        "keg_rope_otx": "TEXT",
-        "keg_rope_inx": "TEXT",
-        "keg_rope_ERASE": "TEXT",
-        "keg_rope_ERASE_otx": "TEXT",
-        "keg_rope_ERASE_inx": "TEXT",
+        "plan_rope": "TEXT",
+        "plan_rope_otx": "TEXT",
+        "plan_rope_inx": "TEXT",
+        "plan_rope_ERASE": "TEXT",
+        "plan_rope_ERASE_otx": "TEXT",
+        "plan_rope_ERASE_inx": "TEXT",
         "reason_context": "TEXT",
         "reason_context_otx": "TEXT",
         "reason_context_inx": "TEXT",
@@ -442,7 +442,7 @@ def get_idea_sqlite_types() -> dict[str, str]:
         "task": "INTEGER",
         "case_active": "INTEGER",
         "person_name_is_labor": "INTEGER",
-        "keg_active": "INTEGER",
+        "plan_active": "INTEGER",
         "descendant_pledge_count": "INTEGER",
         "healerunit_ratio": "REAL",
         "tree_level": "INTEGER",
@@ -451,14 +451,14 @@ def get_idea_sqlite_types() -> dict[str, str]:
         "keeps_justified": "INTEGER",
         "offtrack_fund": "REAL",
         "rational": "INTEGER",
-        "sum_healerunit_kegs_fund_total": "REAL",
+        "sum_healerunit_plans_fund_total": "REAL",
         "tree_traverse_count": "INTEGER",
         "net_funds": "REAL",
         "fund_rank": "INTEGER",
         "pledges_count": "INTEGER",
-        "context_keg_close": "TEXT",
-        "context_keg_denom": "TEXT",
-        "context_keg_morph": "TEXT",
+        "context_plan_close": "TEXT",
+        "context_plan_denom": "TEXT",
+        "context_plan_morph": "TEXT",
         "inx_epoch_diff": "INTEGER",
     }
 
@@ -507,23 +507,23 @@ def idea_format_00012_membership_v0_0_0() -> str:
     return "idea_format_00012_membership_v0_0_0"
 
 
-def idea_format_00013_kegunit_v0_0_0() -> str:
-    return "idea_format_00013_kegunit_v0_0_0"
+def idea_format_00013_planunit_v0_0_0() -> str:
+    return "idea_format_00013_planunit_v0_0_0"
 
 
-def idea_format_00019_kegunit_v0_0_0() -> str:
-    return "idea_format_00019_kegunit_v0_0_0"
+def idea_format_00019_planunit_v0_0_0() -> str:
+    return "idea_format_00019_planunit_v0_0_0"
 
 
 # def idea_format_00020_person_partner_membership_v0_0_0()-> str: return "idea_format_00020_person_partner_membership_v0_0_0"
 # def idea_format_00021_person_partnerunit_v0_0_0()-> str: return "idea_format_00021_person_partnerunit_v0_0_0"
-# def idea_format_00022_person_keg_awardunit_v0_0_0()-> str: return "idea_format_00022_person_keg_awardunit_v0_0_0"
-# def idea_format_00023_person_keg_factunit_v0_0_0()-> str: return "idea_format_00023_person_keg_factunit_v0_0_0"
-# def idea_format_00024_person_keg_partyunit_v0_0_0()-> str: return "idea_format_00024_person_keg_partyunit_v0_0_0"
-# def idea_format_00025_person_keg_healerunit_v0_0_0()-> str: return "idea_format_00025_person_keg_healerunit_v0_0_0"
-# def idea_format_00026_person_keg_reason_caseunit_v0_0_0()-> str: return "idea_format_00026_person_keg_reason_caseunit_v0_0_0"
-# def idea_format_00027_person_keg_reasonunit_v0_0_0()-> str: return "idea_format_00027_person_keg_reasonunit_v0_0_0"
-# def idea_format_00028_person_kegunit_v0_0_0()-> str: return "idea_format_00028_person_kegunit_v0_0_0"
+# def idea_format_00022_person_plan_awardunit_v0_0_0()-> str: return "idea_format_00022_person_plan_awardunit_v0_0_0"
+# def idea_format_00023_person_plan_factunit_v0_0_0()-> str: return "idea_format_00023_person_plan_factunit_v0_0_0"
+# def idea_format_00024_person_plan_partyunit_v0_0_0()-> str: return "idea_format_00024_person_plan_partyunit_v0_0_0"
+# def idea_format_00025_person_plan_healerunit_v0_0_0()-> str: return "idea_format_00025_person_plan_healerunit_v0_0_0"
+# def idea_format_00026_person_plan_reason_caseunit_v0_0_0()-> str: return "idea_format_00026_person_plan_reason_caseunit_v0_0_0"
+# def idea_format_00027_person_plan_reasonunit_v0_0_0()-> str: return "idea_format_00027_person_plan_reasonunit_v0_0_0"
+# def idea_format_00028_person_planunit_v0_0_0()-> str: return "idea_format_00028_person_planunit_v0_0_0"
 # def idea_format_00029_personunit_v0_0_0()-> str: return "idea_format_00029_personunit_v0_0_0"
 
 
@@ -535,32 +535,32 @@ def idea_format_00021_person_partnerunit_v0_0_0() -> str:
     return "idea_format_00021_person_partnerunit_v0_0_0"
 
 
-def idea_format_00022_person_keg_awardunit_v0_0_0() -> str:
-    return "idea_format_00022_person_keg_awardunit_v0_0_0"
+def idea_format_00022_person_plan_awardunit_v0_0_0() -> str:
+    return "idea_format_00022_person_plan_awardunit_v0_0_0"
 
 
-def idea_format_00023_person_keg_factunit_v0_0_0() -> str:
-    return "idea_format_00023_person_keg_factunit_v0_0_0"
+def idea_format_00023_person_plan_factunit_v0_0_0() -> str:
+    return "idea_format_00023_person_plan_factunit_v0_0_0"
 
 
-def idea_format_00024_person_keg_partyunit_v0_0_0() -> str:
-    return "idea_format_00024_person_keg_partyunit_v0_0_0"
+def idea_format_00024_person_plan_partyunit_v0_0_0() -> str:
+    return "idea_format_00024_person_plan_partyunit_v0_0_0"
 
 
-def idea_format_00025_person_keg_healerunit_v0_0_0() -> str:
-    return "idea_format_00025_person_keg_healerunit_v0_0_0"
+def idea_format_00025_person_plan_healerunit_v0_0_0() -> str:
+    return "idea_format_00025_person_plan_healerunit_v0_0_0"
 
 
-def idea_format_00026_person_keg_reason_caseunit_v0_0_0() -> str:
-    return "idea_format_00026_person_keg_reason_caseunit_v0_0_0"
+def idea_format_00026_person_plan_reason_caseunit_v0_0_0() -> str:
+    return "idea_format_00026_person_plan_reason_caseunit_v0_0_0"
 
 
-def idea_format_00027_person_keg_reasonunit_v0_0_0() -> str:
-    return "idea_format_00027_person_keg_reasonunit_v0_0_0"
+def idea_format_00027_person_plan_reasonunit_v0_0_0() -> str:
+    return "idea_format_00027_person_plan_reasonunit_v0_0_0"
 
 
-def idea_format_00028_person_kegunit_v0_0_0() -> str:
-    return "idea_format_00028_person_kegunit_v0_0_0"
+def idea_format_00028_person_planunit_v0_0_0() -> str:
+    return "idea_format_00028_person_planunit_v0_0_0"
 
 
 def idea_format_00029_personunit_v0_0_0() -> str:
@@ -599,32 +599,32 @@ def idea_format_00051_delete_person_partnerunit_v0_0_0() -> str:
     return "idea_format_00051_delete_person_partnerunit_v0_0_0"
 
 
-def idea_format_00052_delete_person_keg_awardunit_v0_0_0() -> str:
-    return "idea_format_00052_delete_person_keg_awardunit_v0_0_0"
+def idea_format_00052_delete_person_plan_awardunit_v0_0_0() -> str:
+    return "idea_format_00052_delete_person_plan_awardunit_v0_0_0"
 
 
-def idea_format_00053_delete_person_keg_factunit_v0_0_0() -> str:
-    return "idea_format_00053_delete_person_keg_factunit_v0_0_0"
+def idea_format_00053_delete_person_plan_factunit_v0_0_0() -> str:
+    return "idea_format_00053_delete_person_plan_factunit_v0_0_0"
 
 
-def idea_format_00054_delete_person_keg_partyunit_v0_0_0() -> str:
-    return "idea_format_00054_delete_person_keg_partyunit_v0_0_0"
+def idea_format_00054_delete_person_plan_partyunit_v0_0_0() -> str:
+    return "idea_format_00054_delete_person_plan_partyunit_v0_0_0"
 
 
-def idea_format_00055_delete_person_keg_healerunit_v0_0_0() -> str:
-    return "idea_format_00055_delete_person_keg_healerunit_v0_0_0"
+def idea_format_00055_delete_person_plan_healerunit_v0_0_0() -> str:
+    return "idea_format_00055_delete_person_plan_healerunit_v0_0_0"
 
 
-def idea_format_00056_delete_person_keg_reason_caseunit_v0_0_0() -> str:
-    return "idea_format_00056_delete_person_keg_reason_caseunit_v0_0_0"
+def idea_format_00056_delete_person_plan_reason_caseunit_v0_0_0() -> str:
+    return "idea_format_00056_delete_person_plan_reason_caseunit_v0_0_0"
 
 
-def idea_format_00057_delete_person_keg_reasonunit_v0_0_0() -> str:
-    return "idea_format_00057_delete_person_keg_reasonunit_v0_0_0"
+def idea_format_00057_delete_person_plan_reasonunit_v0_0_0() -> str:
+    return "idea_format_00057_delete_person_plan_reasonunit_v0_0_0"
 
 
-def idea_format_00058_delete_person_kegunit_v0_0_0() -> str:
-    return "idea_format_00058_delete_person_kegunit_v0_0_0"
+def idea_format_00058_delete_person_planunit_v0_0_0() -> str:
+    return "idea_format_00058_delete_person_planunit_v0_0_0"
 
 
 def idea_format_00059_delete_personunit_v0_0_0() -> str:
@@ -662,17 +662,17 @@ def get_idea_format_filenames() -> set[str]:
         idea_format_00006_moment_timeoffi_v0_0_0(),
         idea_format_00011_partner_v0_0_0(),
         idea_format_00012_membership_v0_0_0(),
-        idea_format_00013_kegunit_v0_0_0(),
-        idea_format_00019_kegunit_v0_0_0(),
+        idea_format_00013_planunit_v0_0_0(),
+        idea_format_00019_planunit_v0_0_0(),
         idea_format_00020_person_partner_membership_v0_0_0(),
         idea_format_00021_person_partnerunit_v0_0_0(),
-        idea_format_00022_person_keg_awardunit_v0_0_0(),
-        idea_format_00023_person_keg_factunit_v0_0_0(),
-        idea_format_00024_person_keg_partyunit_v0_0_0(),
-        idea_format_00025_person_keg_healerunit_v0_0_0(),
-        idea_format_00026_person_keg_reason_caseunit_v0_0_0(),
-        idea_format_00027_person_keg_reasonunit_v0_0_0(),
-        idea_format_00028_person_kegunit_v0_0_0(),
+        idea_format_00022_person_plan_awardunit_v0_0_0(),
+        idea_format_00023_person_plan_factunit_v0_0_0(),
+        idea_format_00024_person_plan_partyunit_v0_0_0(),
+        idea_format_00025_person_plan_healerunit_v0_0_0(),
+        idea_format_00026_person_plan_reason_caseunit_v0_0_0(),
+        idea_format_00027_person_plan_reasonunit_v0_0_0(),
+        idea_format_00028_person_planunit_v0_0_0(),
         idea_format_00029_personunit_v0_0_0(),
         idea_format_00036_problem_healer_v0_0_0(),
         idea_format_00042_translate_title_v0_0_0(),
@@ -681,13 +681,13 @@ def get_idea_format_filenames() -> set[str]:
         idea_format_00045_translate_rope_v0_0_0(),
         idea_format_00050_delete_person_partner_membership_v0_0_0(),
         idea_format_00051_delete_person_partnerunit_v0_0_0(),
-        idea_format_00052_delete_person_keg_awardunit_v0_0_0(),
-        idea_format_00053_delete_person_keg_factunit_v0_0_0(),
-        idea_format_00054_delete_person_keg_partyunit_v0_0_0(),
-        idea_format_00055_delete_person_keg_healerunit_v0_0_0(),
-        idea_format_00056_delete_person_keg_reason_caseunit_v0_0_0(),
-        idea_format_00057_delete_person_keg_reasonunit_v0_0_0(),
-        idea_format_00058_delete_person_kegunit_v0_0_0(),
+        idea_format_00052_delete_person_plan_awardunit_v0_0_0(),
+        idea_format_00053_delete_person_plan_factunit_v0_0_0(),
+        idea_format_00054_delete_person_plan_partyunit_v0_0_0(),
+        idea_format_00055_delete_person_plan_healerunit_v0_0_0(),
+        idea_format_00056_delete_person_plan_reason_caseunit_v0_0_0(),
+        idea_format_00057_delete_person_plan_reasonunit_v0_0_0(),
+        idea_format_00058_delete_person_planunit_v0_0_0(),
         idea_format_00059_delete_personunit_v0_0_0(),
         idea_format_00070_nabu_epochtime_v0_0_0(),
         idea_format_00113_partner_map1_v0_0_0(),
@@ -761,32 +761,32 @@ def get_idea_format_headers() -> dict[str, list[str]]:
         "moment_rope,offi_time": idea_format_00006_moment_timeoffi_v0_0_0(),
         "moment_rope,person_name,partner_name": idea_format_00011_partner_v0_0_0(),
         "moment_rope,person_name,partner_name,group_title": idea_format_00012_membership_v0_0_0(),
-        "moment_rope,person_name,keg_rope,star,pledge": idea_format_00013_kegunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want": idea_format_00019_kegunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,star,pledge": idea_format_00013_planunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want": idea_format_00019_planunit_v0_0_0(),
         "moment_rope,person_name,partner_name,group_title,group_cred_lumen,group_debt_lumen": idea_format_00020_person_partner_membership_v0_0_0(),
         "moment_rope,person_name,partner_name,partner_cred_lumen,partner_debt_lumen": idea_format_00021_person_partnerunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,awardee_title,give_force,take_force": idea_format_00022_person_keg_awardunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,fact_context,fact_state,fact_lower,fact_upper": idea_format_00023_person_keg_factunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,party_title,solo": idea_format_00024_person_keg_partyunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,healer_name": idea_format_00025_person_keg_healerunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor": idea_format_00026_person_keg_reason_caseunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,reason_context,active_requisite": idea_format_00027_person_keg_reasonunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool": idea_format_00028_person_kegunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,awardee_title,give_force,take_force": idea_format_00022_person_plan_awardunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,fact_context,fact_state,fact_lower,fact_upper": idea_format_00023_person_plan_factunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,party_title,solo": idea_format_00024_person_plan_partyunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,healer_name": idea_format_00025_person_plan_healerunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,reason_context,reason_state,reason_lower,reason_upper,reason_divisor": idea_format_00026_person_plan_reason_caseunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,reason_context,active_requisite": idea_format_00027_person_plan_reasonunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,begin,close,addin,numor,denom,morph,gogo_want,stop_want,star,pledge,problem_bool": idea_format_00028_person_planunit_v0_0_0(),
         "moment_rope,person_name,credor_respect,debtor_respect,fund_pool,max_tree_traverse,fund_grain,mana_grain,respect_grain": idea_format_00029_personunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,healer_name,problem_bool": idea_format_00036_problem_healer_v0_0_0(),
+        "moment_rope,person_name,plan_rope,healer_name,problem_bool": idea_format_00036_problem_healer_v0_0_0(),
         "otx_title,inx_title,otx_knot,inx_knot,unknown_str": idea_format_00042_translate_title_v0_0_0(),
         "otx_name,inx_name,otx_knot,inx_knot,unknown_str": idea_format_00043_translate_name_v0_0_0(),
         "otx_label,inx_label,otx_knot,inx_knot,unknown_str": idea_format_00044_translate_label_v0_0_0(),
         "otx_rope,inx_rope,otx_knot,inx_knot,unknown_str": idea_format_00045_translate_rope_v0_0_0(),
         "moment_rope,person_name,partner_name,group_title_ERASE": idea_format_00050_delete_person_partner_membership_v0_0_0(),
         "moment_rope,person_name,partner_name_ERASE": idea_format_00051_delete_person_partnerunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,awardee_title_ERASE": idea_format_00052_delete_person_keg_awardunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,fact_context_ERASE": idea_format_00053_delete_person_keg_factunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,party_title_ERASE": idea_format_00054_delete_person_keg_partyunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,healer_name_ERASE": idea_format_00055_delete_person_keg_healerunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,reason_context,reason_state_ERASE": idea_format_00056_delete_person_keg_reason_caseunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope,reason_context_ERASE": idea_format_00057_delete_person_keg_reasonunit_v0_0_0(),
-        "moment_rope,person_name,keg_rope_ERASE": idea_format_00058_delete_person_kegunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,awardee_title_ERASE": idea_format_00052_delete_person_plan_awardunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,fact_context_ERASE": idea_format_00053_delete_person_plan_factunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,party_title_ERASE": idea_format_00054_delete_person_plan_partyunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,healer_name_ERASE": idea_format_00055_delete_person_plan_healerunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,reason_context,reason_state_ERASE": idea_format_00056_delete_person_plan_reason_caseunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope,reason_context_ERASE": idea_format_00057_delete_person_plan_reasonunit_v0_0_0(),
+        "moment_rope,person_name,plan_rope_ERASE": idea_format_00058_delete_person_planunit_v0_0_0(),
         "moment_rope,person_name_ERASE": idea_format_00059_delete_personunit_v0_0_0(),
         "moment_rope,otx_time,inx_time": idea_format_00070_nabu_epochtime_v0_0_0(),
         "moment_rope,person_name,partner_name,otx_name,inx_name": idea_format_00113_partner_map1_v0_0_0(),
@@ -827,13 +827,13 @@ def get_idea_dimen_ref() -> dict[str, set[str]]:
             "br00116",
             "br00117",
         },
-        "person_keg_awardunit": {"br00022", "br00052"},
-        "person_keg_factunit": {"br00023", "br00053"},
-        "person_keg_healerunit": {"br00025", "br00036", "br00055"},
-        "person_keg_reason_caseunit": {"br00026", "br00056"},
-        "person_keg_reasonunit": {"br00026", "br00027", "br00056", "br00057"},
-        "person_keg_partyunit": {"br00024", "br00054"},
-        "person_kegunit": {
+        "person_plan_awardunit": {"br00022", "br00052"},
+        "person_plan_factunit": {"br00023", "br00053"},
+        "person_plan_healerunit": {"br00025", "br00036", "br00055"},
+        "person_plan_reason_caseunit": {"br00026", "br00056"},
+        "person_plan_reasonunit": {"br00026", "br00027", "br00056", "br00057"},
+        "person_plan_partyunit": {"br00024", "br00054"},
+        "person_planunit": {
             "br00013",
             "br00019",
             "br00022",

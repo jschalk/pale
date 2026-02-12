@@ -9,11 +9,11 @@ SELECT
 , moment_partner_nets.person_name
 , person_net_amount AS net_funds
 , RANK() OVER (ORDER BY person_net_amount DESC) AS fund_rank
-, IFNULL(SUM(person_kegunit_job.pledge), 0) AS pledges_count
+, IFNULL(SUM(person_planunit_job.pledge), 0) AS pledges_count
 FROM moment_partner_nets
-LEFT JOIN person_kegunit_job ON
-  person_kegunit_job.moment_rope = moment_partner_nets.moment_rope
-  AND person_kegunit_job.person_name = moment_partner_nets.person_name
+LEFT JOIN person_planunit_job ON
+  person_planunit_job.moment_rope = moment_partner_nets.moment_rope
+  AND person_planunit_job.person_name = moment_partner_nets.person_name
 GROUP BY moment_partner_nets.moment_rope, moment_partner_nets.person_name
 ;
 """
@@ -25,11 +25,11 @@ CREATE TABLE moment_kpi002_person_pledges AS
 SELECT
   moment_rope
 , person_name
-, keg_rope
+, plan_rope
 , pledge
-, keg_active
+, plan_active
 , task
-FROM person_kegunit_job
-WHERE pledge == 1 AND keg_active == 1
+FROM person_planunit_job
+WHERE pledge == 1 AND plan_active == 1
 ;
 """

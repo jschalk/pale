@@ -3,7 +3,7 @@ from src.ch00_py.dict_toolbox import get_empty_list_if_None, get_from_nested_dic
 from src.ch02_partner.group import awardunit_shop
 from src.ch02_partner.partner import partnerunit_shop
 from src.ch05_reason.reason_main import factunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch07_person_logic.test._util.ch07_examples import get_personunit_with_4_levels
 from src.ch09_person_lesson.delta import PersonDelta, persondelta_shop
@@ -312,70 +312,70 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_partner_me
     assert get_personatom_total_count(sue_persondelta) == 3
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_delete():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_delete():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     street_str = "street ball"
     street_rope = before_sue_person.make_rope(ball_rope, street_str)
-    before_sue_person.set_keg_obj(kegunit_shop(street_str), ball_rope)
+    before_sue_person.set_plan_obj(planunit_shop(street_str), ball_rope)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_person.make_rope(sports_rope, disc_str)
     amy45_str = "amy45"
-    before_sue_person.set_l1_keg(kegunit_shop(amy45_str))
-    before_sue_person.set_keg_obj(kegunit_shop(disc_str), sports_rope)
-    # create after without ball_keg and street_keg
+    before_sue_person.set_l1_plan(planunit_shop(amy45_str))
+    before_sue_person.set_plan_obj(planunit_shop(disc_str), sports_rope)
+    # create after without ball_plan and street_plan
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_sue_person.del_keg_obj(ball_rope)
+    after_sue_person.del_plan_obj(ball_rope)
 
     # WHEN
     sue_persondelta = persondelta_shop()
     sue_persondelta.add_all_different_personatoms(before_sue_person, after_sue_person)
 
     # THEN
-    x_dimen = kw.person_kegunit
+    x_dimen = kw.person_planunit
     print(f"{sue_persondelta.personatoms.get(kw.DELETE).get(x_dimen).keys()=}")
 
-    x_keylist = [kw.DELETE, kw.person_kegunit, street_rope]
+    x_keylist = [kw.DELETE, kw.person_planunit, street_rope]
     street_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert street_personatom.get_value(kw.keg_rope) == street_rope
+    assert street_personatom.get_value(kw.plan_rope) == street_rope
 
-    x_keylist = [kw.DELETE, kw.person_kegunit, ball_rope]
+    x_keylist = [kw.DELETE, kw.person_planunit, ball_rope]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
 
     print(f"{get_personatom_total_count(sue_persondelta)=}")
     assert get_personatom_total_count(sue_persondelta) == 2
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_insert():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_insert():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     street_str = "street ball"
     street_rope = before_sue_person.make_rope(ball_rope, street_str)
-    before_sue_person.set_keg_obj(kegunit_shop(street_str), ball_rope)
+    before_sue_person.set_plan_obj(planunit_shop(street_str), ball_rope)
 
     after_sue_person = copy_deepcopy(before_sue_person)
     disc_str = "Ultimate Disc"
     disc_rope = after_sue_person.make_rope(sports_rope, disc_str)
-    after_sue_person.set_keg_obj(kegunit_shop(disc_str), sports_rope)
+    after_sue_person.set_plan_obj(planunit_shop(disc_str), sports_rope)
     amy45_str = "amy45"
     amy_begin = 34
     amy_close = 78
     amy_star = 55
     amy_pledge = True
     amy_rope = after_sue_person.make_l1_rope(amy45_str)
-    after_sue_person.set_l1_keg(
-        kegunit_shop(
+    after_sue_person.set_l1_plan(
+        planunit_shop(
             amy45_str,
             begin=amy_begin,
             close=amy_close,
@@ -391,14 +391,14 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_insert
     # THEN
     print_personatom_keys(sue_persondelta)
 
-    x_keylist = [kw.INSERT, kw.person_kegunit, disc_rope]
+    x_keylist = [kw.INSERT, kw.person_planunit, disc_rope]
     street_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert street_personatom.get_value(kw.keg_rope) == disc_rope
+    assert street_personatom.get_value(kw.plan_rope) == disc_rope
 
     a45_rope = after_sue_person.make_l1_rope(amy45_str)
-    x_keylist = [kw.INSERT, kw.person_kegunit, a45_rope]
+    x_keylist = [kw.INSERT, kw.person_planunit, a45_rope]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == a45_rope
+    assert ball_personatom.get_value(kw.plan_rope) == a45_rope
     assert ball_personatom.get_value(kw.begin) == amy_begin
     assert ball_personatom.get_value(kw.close) == amy_close
     assert ball_personatom.get_value(kw.star) == amy_star
@@ -407,7 +407,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_insert
     assert get_personatom_total_count(sue_persondelta) == 2
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_update():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_update():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
@@ -419,8 +419,8 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_update
     before_amy_star = 55
     before_amy_pledge = True
     amy_rope = before_sue_person.make_l1_rope(amy45_str)
-    before_sue_person.set_l1_keg(
-        kegunit_shop(
+    before_sue_person.set_l1_plan(
+        planunit_shop(
             amy45_str,
             begin=before_amy_begin,
             close=before_amy_close,
@@ -434,7 +434,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_update
     after_amy_close = 111
     after_amy_star = 22
     after_amy_pledge = False
-    after_sue_person.edit_keg_attr(
+    after_sue_person.edit_plan_attr(
         amy_rope,
         begin=after_amy_begin,
         close=after_amy_close,
@@ -449,9 +449,9 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_update
     # THEN
     print_personatom_keys(sue_persondelta)
 
-    x_keylist = [kw.UPDATE, kw.person_kegunit, amy45_rope]
+    x_keylist = [kw.UPDATE, kw.person_planunit, amy45_rope]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == amy45_rope
+    assert ball_personatom.get_value(kw.plan_rope) == amy45_rope
     assert ball_personatom.get_value(kw.begin) == after_amy_begin
     assert ball_personatom.get_value(kw.close) == after_amy_close
     assert ball_personatom.get_value(kw.star) == after_amy_star
@@ -460,7 +460,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_update
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardunit_delete():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_awardunit_delete():
     # ESTABLISH
     before_sue_au = personunit_shop(exx.sue)
     before_sue_au.add_partnerunit(exx.xio)
@@ -481,15 +481,15 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardu
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_au.make_rope(sports_rope, disc_str)
-    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    before_sue_au.set_keg_obj(kegunit_shop(disc_str), sports_rope)
-    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(fly_str))
-    before_sue_au.edit_keg_attr(disc_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_au.edit_keg_attr(disc_rope, awardunit=awardunit_shop(fly_str))
+    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_plan_obj(planunit_shop(disc_str), sports_rope)
+    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(fly_str))
+    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(fly_str))
 
     after_sue_person = copy_deepcopy(before_sue_au)
-    after_sue_person.edit_keg_attr(disc_rope, awardunit_del=exx.run)
+    after_sue_person.edit_plan_attr(disc_rope, awardunit_del=exx.run)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -498,15 +498,15 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardu
     # THEN
     print(f"{print_personatom_keys(sue_persondelta)=}")
 
-    x_keylist = [kw.DELETE, kw.person_keg_awardunit, disc_rope, exx.run]
+    x_keylist = [kw.DELETE, kw.person_plan_awardunit, disc_rope, exx.run]
     run_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert run_personatom.get_value(kw.keg_rope) == disc_rope
+    assert run_personatom.get_value(kw.plan_rope) == disc_rope
     assert run_personatom.get_value(kw.awardee_title) == exx.run
 
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardunit_insert():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_awardunit_insert():
     # ESTABLISH
     before_sue_au = personunit_shop(exx.sue)
     before_sue_au.add_partnerunit(exx.xio)
@@ -527,16 +527,16 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardu
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
     disc_str = "Ultimate Disc"
     disc_rope = before_sue_au.make_rope(sports_rope, disc_str)
-    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    before_sue_au.set_keg_obj(kegunit_shop(disc_str), sports_rope)
-    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    before_sue_au.edit_keg_attr(disc_rope, awardunit=awardunit_shop(fly_str))
+    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.set_plan_obj(planunit_shop(disc_str), sports_rope)
+    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    before_sue_au.edit_plan_attr(disc_rope, awardunit=awardunit_shop(fly_str))
     after_sue_au = copy_deepcopy(before_sue_au)
-    after_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(fly_str))
+    after_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(fly_str))
     after_run_give_force = 44
     after_run_take_force = 66
     x_awardunit = awardunit_shop(exx.run, after_run_give_force, after_run_take_force)
-    after_sue_au.edit_keg_attr(disc_rope, awardunit=x_awardunit)
+    after_sue_au.edit_plan_attr(disc_rope, awardunit=x_awardunit)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -545,11 +545,11 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardu
     # THEN
     print(f"{print_personatom_keys(sue_persondelta)=}")
 
-    x_keylist = [kw.INSERT, kw.person_keg_awardunit, disc_rope, exx.run]
+    x_keylist = [kw.INSERT, kw.person_plan_awardunit, disc_rope, exx.run]
     run_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert run_personatom.get_value(kw.keg_rope) == disc_rope
+    assert run_personatom.get_value(kw.plan_rope) == disc_rope
     assert run_personatom.get_value(kw.awardee_title) == exx.run
-    assert run_personatom.get_value(kw.keg_rope) == disc_rope
+    assert run_personatom.get_value(kw.plan_rope) == disc_rope
     assert run_personatom.get_value(kw.awardee_title) == exx.run
     assert run_personatom.get_value(kw.give_force) == after_run_give_force
     assert run_personatom.get_value(kw.take_force) == after_run_take_force
@@ -557,7 +557,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardu
     assert get_personatom_total_count(sue_persondelta) == 2
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardunit_update():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_awardunit_update():
     # ESTABLISH
     before_sue_au = personunit_shop(exx.sue)
     before_sue_au.add_partnerunit(exx.xio)
@@ -568,14 +568,14 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardu
     sports_rope = before_sue_au.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_au.make_rope(sports_rope, ball_str)
-    before_sue_au.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    before_sue_au.edit_keg_attr(ball_rope, awardunit=awardunit_shop(exx.run))
-    run_awardunit = before_sue_au.get_keg_obj(ball_rope).awardunits.get(exx.run)
+    before_sue_au.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_sue_au.edit_plan_attr(ball_rope, awardunit=awardunit_shop(exx.run))
+    run_awardunit = before_sue_au.get_plan_obj(ball_rope).awardunits.get(exx.run)
 
     after_sue_person = copy_deepcopy(before_sue_au)
     after_give_force = 55
     after_take_force = 66
-    after_sue_person.edit_keg_attr(
+    after_sue_person.edit_plan_attr(
         ball_rope,
         awardunit=awardunit_shop(
             awardee_title=exx.run,
@@ -590,38 +590,38 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_awardu
     # THEN
     print(f"{print_personatom_keys(sue_persondelta)=}")
 
-    x_keylist = [kw.UPDATE, kw.person_keg_awardunit, ball_rope, exx.run]
+    x_keylist = [kw.UPDATE, kw.person_plan_awardunit, ball_rope, exx.run]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.awardee_title) == exx.run
     assert ball_personatom.get_value(kw.give_force) == after_give_force
     assert ball_personatom.get_value(kw.take_force) == after_take_force
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factunit_update():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_factunit_update():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
     bend_str = "bendable"
     bend_rope = before_sue_person.make_rope(knee_rope, bend_str)
-    before_sue_person.set_keg_obj(kegunit_shop(bend_str), knee_rope)
+    before_sue_person.set_plan_obj(planunit_shop(bend_str), knee_rope)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_person.make_rope(knee_rope, damaged_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
-    before_sue_person.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
+    before_sue_person.set_plan_obj(planunit_shop(damaged_str), knee_rope)
     before_fact_lower = 11
     before_fact_upper = 22
     before_fact = factunit_shop(
         knee_rope, bend_rope, before_fact_lower, before_fact_upper
     )
-    before_sue_person.edit_keg_attr(ball_rope, factunit=before_fact)
+    before_sue_person.edit_plan_attr(ball_rope, factunit=before_fact)
 
     after_sue_person = copy_deepcopy(before_sue_person)
     after_fact_lower = 55
@@ -629,7 +629,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
     knee_fact = factunit_shop(
         knee_rope, damaged_rope, after_fact_lower, after_fact_upper
     )
-    after_sue_person.edit_keg_attr(ball_rope, factunit=knee_fact)
+    after_sue_person.edit_plan_attr(ball_rope, factunit=knee_fact)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -638,9 +638,9 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
     # THEN
     print(f"{print_personatom_keys(sue_persondelta)=}")
 
-    x_keylist = [kw.UPDATE, kw.person_keg_factunit, ball_rope, knee_rope]
+    x_keylist = [kw.UPDATE, kw.person_plan_factunit, ball_rope, knee_rope]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.fact_context) == knee_rope
     assert ball_personatom.get_value(kw.fact_state) == damaged_rope
     assert ball_personatom.get_value(kw.fact_lower) == after_fact_lower
@@ -648,20 +648,20 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factunit_insert():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_factunit_insert():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_person.make_rope(knee_rope, damaged_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
-    before_sue_person.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
+    before_sue_person.set_plan_obj(planunit_shop(damaged_str), knee_rope)
 
     after_sue_person = copy_deepcopy(before_sue_person)
     after_fact_lower = 55
@@ -669,7 +669,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
     after_fact = factunit_shop(
         knee_rope, damaged_rope, after_fact_lower, after_fact_upper
     )
-    after_sue_person.edit_keg_attr(ball_rope, factunit=after_fact)
+    after_sue_person.edit_plan_attr(ball_rope, factunit=after_fact)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -677,10 +677,10 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
 
     # THEN
     print(f"{print_personatom_keys(sue_persondelta)=}")
-    x_keylist = [kw.INSERT, kw.person_keg_factunit, ball_rope, knee_rope]
+    x_keylist = [kw.INSERT, kw.person_plan_factunit, ball_rope, knee_rope]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
     print(f"{ball_personatom=}")
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.fact_context) == knee_rope
     assert ball_personatom.get_value(kw.fact_state) == damaged_rope
     assert ball_personatom.get_value(kw.fact_lower) == after_fact_lower
@@ -688,20 +688,20 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factunit_delete():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_factunit_delete():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_person.make_rope(knee_rope, damaged_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
-    before_sue_person.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
+    before_sue_person.set_plan_obj(planunit_shop(damaged_str), knee_rope)
 
     after_sue_person = copy_deepcopy(before_sue_person)
     before_damaged_reason_lower = 55
@@ -712,7 +712,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
         fact_lower=before_damaged_reason_lower,
         fact_upper=before_damaged_reason_upper,
     )
-    before_sue_person.edit_keg_attr(ball_rope, factunit=before_fact)
+    before_sue_person.edit_plan_attr(ball_rope, factunit=before_fact)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -720,31 +720,31 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_factun
 
     # THEN
     print(f"{print_personatom_keys(sue_persondelta)=}")
-    x_keylist = [kw.DELETE, kw.person_keg_factunit, ball_rope, knee_rope]
+    x_keylist = [kw.DELETE, kw.person_plan_factunit, ball_rope, knee_rope]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.fact_context) == knee_rope
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason_caseunit_insert():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_reason_caseunit_insert():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_person.make_rope(knee_rope, damaged_str)
-    before_sue_person.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_person.set_plan_obj(planunit_shop(damaged_str), knee_rope)
     bend_str = "bend"
     bend_rope = before_sue_person.make_rope(knee_rope, bend_str)
-    before_sue_person.set_keg_obj(kegunit_shop(bend_str), knee_rope)
-    before_sue_person.edit_keg_attr(
+    before_sue_person.set_plan_obj(planunit_shop(bend_str), knee_rope)
+    before_sue_person.edit_plan_attr(
         ball_rope, reason_context=knee_rope, reason_case=bend_rope
     )
 
@@ -752,7 +752,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     damaged_reason_lower = 45
     damaged_reason_upper = 77
     damaged_reason_divisor = 3
-    after_sue_person.edit_keg_attr(
+    after_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -769,13 +769,13 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.person_keg_reason_caseunit,
+        kw.person_plan_reason_caseunit,
         ball_rope,
         knee_rope,
         damaged_rope,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.reason_context) == knee_rope
     assert ball_personatom.get_value(kw.reason_state) == damaged_rope
     assert ball_personatom.get_value(kw.reason_lower) == damaged_reason_lower
@@ -784,30 +784,30 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason_caseunit_delete():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_reason_caseunit_delete():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_person.make_rope(knee_rope, damaged_str)
-    before_sue_person.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_person.set_plan_obj(planunit_shop(damaged_str), knee_rope)
     bend_str = "bend"
     bend_rope = before_sue_person.make_rope(knee_rope, bend_str)
-    before_sue_person.set_keg_obj(kegunit_shop(bend_str), knee_rope)
-    before_sue_person.edit_keg_attr(
+    before_sue_person.set_plan_obj(planunit_shop(bend_str), knee_rope)
+    before_sue_person.edit_plan_attr(
         ball_rope, reason_context=knee_rope, reason_case=bend_rope
     )
     damaged_reason_lower = 45
     damaged_reason_upper = 77
     damaged_reason_divisor = 3
-    before_sue_person.edit_keg_attr(
+    before_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -816,7 +816,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
         reason_divisor=damaged_reason_divisor,
     )
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_sue_person.edit_keg_attr(
+    after_sue_person.edit_plan_attr(
         ball_rope,
         reason_del_case_reason_context=knee_rope,
         reason_del_case_reason_state=damaged_rope,
@@ -830,42 +830,42 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.person_keg_reason_caseunit,
+        kw.person_plan_reason_caseunit,
         ball_rope,
         knee_rope,
         damaged_rope,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.reason_context) == knee_rope
     assert ball_personatom.get_value(kw.reason_state) == damaged_rope
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason_caseunit_update():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_reason_caseunit_update():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
     damaged_str = "damaged mcl"
     damaged_rope = before_sue_person.make_rope(knee_rope, damaged_str)
-    before_sue_person.set_keg_obj(kegunit_shop(damaged_str), knee_rope)
+    before_sue_person.set_plan_obj(planunit_shop(damaged_str), knee_rope)
     bend_str = "bend"
     bend_rope = before_sue_person.make_rope(knee_rope, bend_str)
-    before_sue_person.set_keg_obj(kegunit_shop(bend_str), knee_rope)
-    before_sue_person.edit_keg_attr(
+    before_sue_person.set_plan_obj(planunit_shop(bend_str), knee_rope)
+    before_sue_person.edit_plan_attr(
         ball_rope, reason_context=knee_rope, reason_case=bend_rope
     )
     before_damaged_reason_lower = 111
     before_damaged_reason_upper = 777
     before_damaged_reason_divisor = 13
-    before_sue_person.edit_keg_attr(
+    before_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -878,7 +878,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     after_damaged_reason_lower = 333
     after_damaged_reason_upper = 555
     after_damaged_reason_divisor = 78
-    after_sue_person.edit_keg_attr(
+    after_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=knee_rope,
         reason_case=damaged_rope,
@@ -895,13 +895,13 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.UPDATE,
-        kw.person_keg_reason_caseunit,
+        kw.person_plan_reason_caseunit,
         ball_rope,
         knee_rope,
         damaged_rope,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.reason_context) == knee_rope
     assert ball_personatom.get_value(kw.reason_state) == damaged_rope
     assert ball_personatom.get_value(kw.reason_lower) == after_damaged_reason_lower
@@ -910,24 +910,24 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reasonunit_insert():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_reasonunit_insert():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_person.make_rope(knee_rope, medical_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
-    before_sue_person.set_keg_obj(kegunit_shop(medical_str), knee_rope)
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
+    before_sue_person.set_plan_obj(planunit_shop(medical_str), knee_rope)
 
     after_sue_person = copy_deepcopy(before_sue_person)
     after_medical_active_requisite = False
-    after_sue_person.edit_keg_attr(
+    after_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=after_medical_active_requisite,
@@ -941,13 +941,13 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.person_keg_reasonunit,
+        kw.person_plan_reasonunit,
         ball_rope,
         medical_rope,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
 
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value("reason_context") == medical_rope
     assert (
         ball_personatom.get_value(kw.active_requisite) == after_medical_active_requisite
@@ -955,22 +955,22 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reasonunit_update():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_reasonunit_update():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_person.make_rope(knee_rope, medical_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
-    before_sue_person.set_keg_obj(kegunit_shop(medical_str), knee_rope)
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
+    before_sue_person.set_plan_obj(planunit_shop(medical_str), knee_rope)
     before_medical_active_requisite = True
-    before_sue_person.edit_keg_attr(
+    before_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=before_medical_active_requisite,
@@ -978,7 +978,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
 
     after_sue_person = copy_deepcopy(before_sue_person)
     after_medical_active_requisite = False
-    after_sue_person.edit_keg_attr(
+    after_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=after_medical_active_requisite,
@@ -992,12 +992,12 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.UPDATE,
-        kw.person_keg_reasonunit,
+        kw.person_plan_reasonunit,
         ball_rope,
         medical_rope,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value("reason_context") == medical_rope
     assert (
         ball_personatom.get_value(kw.active_requisite) == after_medical_active_requisite
@@ -1005,30 +1005,30 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reasonunit_delete():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_reasonunit_delete():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     sports_str = "sports"
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
     knee_str = "knee"
     knee_rope = before_sue_person.make_l1_rope(knee_str)
     medical_str = "get medical attention"
     medical_rope = before_sue_person.make_rope(knee_rope, medical_str)
-    before_sue_person.set_l1_keg(kegunit_shop(knee_str))
-    before_sue_person.set_keg_obj(kegunit_shop(medical_str), knee_rope)
+    before_sue_person.set_l1_plan(planunit_shop(knee_str))
+    before_sue_person.set_plan_obj(planunit_shop(medical_str), knee_rope)
     before_medical_active_requisite = True
-    before_sue_person.edit_keg_attr(
+    before_sue_person.edit_plan_attr(
         ball_rope,
         reason_context=medical_rope,
         reason_requisite_active=before_medical_active_requisite,
     )
 
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_ball_keg = after_sue_person.get_keg_obj(ball_rope)
-    after_ball_keg.del_reasonunit_reason_context(medical_rope)
+    after_ball_plan = after_sue_person.get_plan_obj(ball_rope)
+    after_ball_plan.del_reasonunit_reason_context(medical_rope)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -1038,17 +1038,17 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_reason
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.person_keg_reasonunit,
+        kw.person_plan_reasonunit,
         ball_rope,
         medical_rope,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value("reason_context") == medical_rope
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_partyunit_insert():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_partyunit_insert():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     before_sue_person.add_partnerunit(exx.xio)
@@ -1056,11 +1056,11 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_partyu
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
 
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_ball_kegunit = after_sue_person.get_keg_obj(ball_rope)
-    after_ball_kegunit.laborunit.add_party(exx.xio)
+    after_ball_planunit = after_sue_person.get_plan_obj(ball_rope)
+    after_ball_planunit.laborunit.add_party(exx.xio)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -1070,17 +1070,17 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_partyu
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.person_keg_partyunit,
+        kw.person_plan_partyunit,
         ball_rope,
         exx.xio,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.party_title) == exx.xio
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_partyunit_delete():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_partyunit_delete():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     before_sue_person.add_partnerunit(exx.xio)
@@ -1088,13 +1088,13 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_partyu
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    before_ball_kegunit = before_sue_person.get_keg_obj(ball_rope)
-    before_ball_kegunit.laborunit.add_party(exx.xio)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_ball_planunit = before_sue_person.get_plan_obj(ball_rope)
+    before_ball_planunit.laborunit.add_party(exx.xio)
 
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_ball_kegunit = after_sue_person.get_keg_obj(ball_rope)
-    after_ball_kegunit.laborunit.del_partyunit(exx.xio)
+    after_ball_planunit = after_sue_person.get_plan_obj(ball_rope)
+    after_ball_planunit.laborunit.del_partyunit(exx.xio)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -1104,17 +1104,17 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_partyu
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.person_keg_partyunit,
+        kw.person_plan_partyunit,
         ball_rope,
         exx.xio,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.party_title) == exx.xio
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healerunit_insert_KegUnitUpdate():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_healerunit_insert_PlanUnitUpdate():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     before_sue_person.add_partnerunit(exx.xio)
@@ -1122,11 +1122,11 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
 
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_ball_kegunit = after_sue_person.get_keg_obj(ball_rope)
-    after_ball_kegunit.healerunit.set_healer_name(exx.xio)
+    after_ball_planunit = after_sue_person.get_plan_obj(ball_rope)
+    after_ball_planunit.healerunit.set_healer_name(exx.xio)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -1136,17 +1136,17 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.person_keg_healerunit,
+        kw.person_plan_healerunit,
         ball_rope,
         exx.xio,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist)
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.healer_name) == exx.xio
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healerunit_insert_KegUnitInsert():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_healerunit_insert_PlanUnitInsert():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     before_sue_person.add_partnerunit(exx.xio)
@@ -1156,9 +1156,9 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    after_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    after_ball_kegunit = after_sue_person.get_keg_obj(ball_rope)
-    after_ball_kegunit.healerunit.set_healer_name(exx.xio)
+    after_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    after_ball_planunit = after_sue_person.get_plan_obj(ball_rope)
+    after_ball_planunit.healerunit.set_healer_name(exx.xio)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -1168,18 +1168,18 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.INSERT,
-        kw.person_keg_healerunit,
+        kw.person_plan_healerunit,
         ball_rope,
         exx.xio,
     ]
     ball_personatom = get_from_nested_dict(sue_persondelta.personatoms, x_keylist, True)
     assert ball_personatom
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.healer_name) == exx.xio
     assert get_personatom_total_count(sue_persondelta) == 3
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healerunit_delete_KegUnitUpdate():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_healerunit_delete_PlanUnitUpdate():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     before_sue_person.add_partnerunit(exx.xio)
@@ -1187,13 +1187,13 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    before_ball_kegunit = before_sue_person.get_keg_obj(ball_rope)
-    before_ball_kegunit.healerunit.set_healer_name(exx.xio)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_ball_planunit = before_sue_person.get_plan_obj(ball_rope)
+    before_ball_planunit.healerunit.set_healer_name(exx.xio)
 
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_ball_kegunit = after_sue_person.get_keg_obj(ball_rope)
-    after_ball_kegunit.healerunit.del_healer_name(exx.xio)
+    after_ball_planunit = after_sue_person.get_plan_obj(ball_rope)
+    after_ball_planunit.healerunit.del_healer_name(exx.xio)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -1203,7 +1203,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.person_keg_healerunit,
+        kw.person_plan_healerunit,
         ball_rope,
         exx.xio,
     ]
@@ -1211,12 +1211,12 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
         sue_persondelta.personatoms, x_keylist, if_missing_return_None=True
     )
     assert ball_personatom
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.healer_name) == exx.xio
     assert get_personatom_total_count(sue_persondelta) == 1
 
 
-def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healerunit_delete_KegUnitDelete():
+def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_plan_healerunit_delete_PlanUnitDelete():
     # ESTABLISH
     before_sue_person = personunit_shop(exx.sue)
     before_sue_person.add_partnerunit(exx.xio)
@@ -1224,12 +1224,12 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     sports_rope = before_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = before_sue_person.make_rope(sports_rope, ball_str)
-    before_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    before_ball_kegunit = before_sue_person.get_keg_obj(ball_rope)
-    before_ball_kegunit.healerunit.set_healer_name(exx.xio)
+    before_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    before_ball_planunit = before_sue_person.get_plan_obj(ball_rope)
+    before_ball_planunit.healerunit.set_healer_name(exx.xio)
 
     after_sue_person = copy_deepcopy(before_sue_person)
-    after_sue_person.del_keg_obj(ball_rope)
+    after_sue_person.del_plan_obj(ball_rope)
 
     # WHEN
     sue_persondelta = persondelta_shop()
@@ -1239,7 +1239,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
     print(f"{print_personatom_keys(sue_persondelta)=}")
     x_keylist = [
         kw.DELETE,
-        kw.person_keg_healerunit,
+        kw.person_plan_healerunit,
         ball_rope,
         exx.xio,
     ]
@@ -1247,7 +1247,7 @@ def test_PersonDelta_add_all_different_personatoms_Creates_PersonAtom_keg_healer
         sue_persondelta.personatoms, x_keylist, if_missing_return_None=True
     )
     assert ball_personatom
-    assert ball_personatom.get_value(kw.keg_rope) == ball_rope
+    assert ball_personatom.get_value(kw.plan_rope) == ball_rope
     assert ball_personatom.get_value(kw.healer_name) == exx.xio
     assert get_personatom_total_count(sue_persondelta) == 2
 
@@ -1262,9 +1262,9 @@ def test_PersonDelta_add_all_personatoms_Creates_PersonAtoms():
     sports_rope = after_sue_person.make_l1_rope(sports_str)
     ball_str = "basketball"
     ball_rope = after_sue_person.make_rope(sports_rope, ball_str)
-    after_sue_person.set_keg_obj(kegunit_shop(ball_str), sports_rope)
-    after_ball_kegunit = after_sue_person.get_keg_obj(ball_rope)
-    after_ball_kegunit.laborunit.add_party(exx.xio)
+    after_sue_person.set_plan_obj(planunit_shop(ball_str), sports_rope)
+    after_ball_planunit = after_sue_person.get_plan_obj(ball_rope)
+    after_ball_planunit.laborunit.add_party(exx.xio)
 
     before_sue_person = personunit_shop(exx.sue)
     sue1_persondelta = persondelta_shop()

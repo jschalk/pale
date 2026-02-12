@@ -31,7 +31,7 @@ def get_person_agenda_dataframe(
             columns=[
                 "person_name",
                 "fund_ratio",
-                "keg_label",
+                "plan_label",
                 "parent_rope",
                 "begin",
                 "close",
@@ -41,19 +41,19 @@ def get_person_agenda_dataframe(
                 "morph",
             ]
         )
-    x_keg_list = []
-    for x_keg in agenda_dict.values():
-        keg_dict = {
+    x_plan_list = []
+    for x_plan in agenda_dict.values():
+        plan_dict = {
             "person_name": x_person.person_name,
-            "fund_ratio": x_keg.fund_ratio,
-            "keg_label": x_keg.keg_label,
-            "parent_rope": x_keg.parent_rope,
-            "begin": x_keg.begin,
-            "close": x_keg.close,
-            "addin": x_keg.addin,
-            "denom": x_keg.denom,
-            "numor": x_keg.numor,
-            "morph": x_keg.morph,
+            "fund_ratio": x_plan.fund_ratio,
+            "plan_label": x_plan.plan_label,
+            "parent_rope": x_plan.parent_rope,
+            "begin": x_plan.begin,
+            "close": x_plan.close,
+            "addin": x_plan.addin,
+            "denom": x_plan.denom,
+            "numor": x_plan.numor,
+            "morph": x_plan.morph,
         }
-        x_keg_list.append(keg_dict)
-    return DataFrame(x_keg_list)
+        x_plan_list.append(plan_dict)
+    return DataFrame(x_plan_list)

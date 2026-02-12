@@ -16,7 +16,7 @@ from src.ch09_person_lesson.lesson_main import (
     lessonunit_shop,
 )
 from src.ch09_person_lesson.test._util.ch09_examples import (
-    get_atom_example_kegunit_sports,
+    get_atom_example_planunit_sports,
     get_persondelta_sue_example,
 )
 from src.ref.keywords import Ch09Keywords as kw, ExampleStrs as exx
@@ -154,7 +154,7 @@ def test_LessonUnit_set_persondelta_SetsAttribute():
 
     # WHEN
     x_persondelta = persondelta_shop()
-    x_persondelta.set_personatom(get_atom_example_kegunit_sports())
+    x_persondelta.set_personatom(get_atom_example_planunit_sports())
     bob_lessonunit.set_persondelta(x_persondelta)
 
     # THEN
@@ -181,7 +181,7 @@ def test_LessonUnit_personatom_exists_ReturnsObj():
     bob_lessonunit.set_persondelta(x_persondelta)
 
     # WHEN
-    sports_personatom = get_atom_example_kegunit_sports()
+    sports_personatom = get_atom_example_planunit_sports()
 
     # THEN
     assert bob_lessonunit.personatom_exists(sports_personatom) is False
@@ -197,7 +197,7 @@ def test_LessonUnit_personatom_exists_ReturnsObj():
 def test_LessonUnit_del_persondelta_SetsAttribute():
     # ESTABLISH
     x_persondelta = persondelta_shop()
-    x_persondelta.set_personatom(get_atom_example_kegunit_sports())
+    x_persondelta.set_personatom(get_atom_example_planunit_sports())
     bob_lessonunit = lessonunit_shop(person_name=exx.bob, _persondelta=x_persondelta)
     assert bob_lessonunit._persondelta != persondelta_shop()
     assert bob_lessonunit._persondelta == x_persondelta

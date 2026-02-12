@@ -29,7 +29,7 @@ class MomentRope(RopeTerm):  # Created to help track the object class relations
 
 class PersonName(LabelTerm):
     """The LabelTerm used to identify a PersonUnit.
-    Must be a LabelTerm/NameTerm because when identifying if a KegUnit is an active pledge the PersonName will be compared
+    Must be a LabelTerm/NameTerm because when identifying if a PlanUnit is an active pledge the PersonName will be compared
     against PartnerNames. If they match the pledge will be active."""
 
     pass

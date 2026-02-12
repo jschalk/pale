@@ -1,4 +1,4 @@
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch10_person_listen.keep_tool import save_duty_person, save_vision_person
 from src.ch10_person_listen.listen_main import (
@@ -90,9 +90,9 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
     )
 
     zia_vision = get_example_zia_speaker()
-    zia_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
-    clean_kegunit = zia_vision.get_keg_obj(a23_clean_rope())
-    clean_kegunit.laborunit.add_party(exx.yao)
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
+    clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
+    clean_planunit.laborunit.add_party(exx.yao)
     save_vision_person(
         sue_texas_lessonfilehandler.moment_mstr_dir,
         sue_texas_lessonfilehandler.person_name,
@@ -222,7 +222,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
         new_yao_vision, sue_texas_lessonfilehandler, get_texas_rope()
     )
     print(f"{new_yao_vision.get_missing_fact_reason_contexts().keys()=}")
-    print(f"{new_yao_vision.kegroot.factunits.keys()=}")
+    print(f"{new_yao_vision.planroot.factunits.keys()=}")
     assert (
         new_yao_vision.get_missing_fact_reason_contexts().get(a23_eat_rope())
         is not None
@@ -340,7 +340,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
         new_yao_vision1, sue_texas_lessonfilehandler, get_texas_rope()
     )
     print(f"{new_yao_vision1.get_missing_fact_reason_contexts().keys()=}")
-    print(f"{new_yao_vision1.kegroot.factunits.keys()=}")
+    print(f"{new_yao_vision1.planroot.factunits.keys()=}")
     assert (
         new_yao_vision1.get_missing_fact_reason_contexts().get(a23_eat_rope())
         is not None
@@ -398,14 +398,14 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
 
 #     sue_speaker.add_partnerunit(exx.yao)
 #     sue_speaker.set_partner_respect(20)
-#     sue_speaker.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
-#     sue_speaker.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
-#     sue_speaker.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
-#     sue_speaker.edit_keg_attr(
+#     sue_speaker.set_plan_obj(planunit_shop(exx.clean), situation_rope)
+#     sue_speaker.set_plan_obj(planunit_shop(dirty_str), situation_rope)
+#     sue_speaker.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
+#     sue_speaker.edit_plan_attr(
 #         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
 #     )
-#     sweep_keg = sue_speaker.get_keg_obj(sweep_rope)
-#     sweep_keg.laborunit.add_party(exx.yao)
+#     sweep_plan = sue_speaker.get_plan_obj(sweep_rope)
+#     sweep_plan.laborunit.add_party(exx.yao)
 
 #     sue_texas_lessonfilehandler = get_texas_lessonfilehandler()
 #     save_vision_person(sue_texas_lessonfilehandler, exx.sue, sue_speaker.get_json(), True)
@@ -413,14 +413,14 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
 #     yao_duty.add_partnerunit(exx.yao)
 #     yao_duty.add_partnerunit(exx.sue)
 #     new_yao_vision = create_listen_basis(yao_duty)
-#     print(f"{new_yao_vision.get_keg_dict().keys()=}")
+#     print(f"{new_yao_vision.get_plan_dict().keys()=}")
 #     # assert new_yao_vision.get_missing_fact_reason_contexts().get(situation_rope) is None
 #     listen_to_agendas_duty_vision(new_yao_vision, texas_lessonfilehandler)
-#     print(f"{new_yao_vision.get_keg_dict().keys()=}")
+#     print(f"{new_yao_vision.get_plan_dict().keys()=}")
 #     assert new_yao_vision.get_missing_fact_reason_contexts().get(situation_rope) is not None
 
 #     # assert new_yao_vision.get_missing_fact_reason_contexts().keys() == {situation_rope}
-#     # sue_speaker.add_fact(situation_rope, a23_clean_rope, create_missing_kegs=True)
+#     # sue_speaker.add_fact(situation_rope, a23_clean_rope, create_missing_plans=True)
 
 #     # # WHEN
 #     # listen_to_facts_duty_vision(yao_duty, yao_vision, missing_fact_fact_contexts)
@@ -449,14 +449,14 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
 #     running_str = "running"
 #     running_rope = yao_duty.make_rope(fridge_rope, running_str)
 
-#     yao_duty.set_keg_obj(kegunit_shop(running_str), fridge_rope)
-#     yao_duty.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
-#     yao_duty.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
-#     yao_duty.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
-#     yao_duty.edit_keg_attr(
+#     yao_duty.set_plan_obj(planunit_shop(running_str), fridge_rope)
+#     yao_duty.set_plan_obj(planunit_shop(exx.clean), situation_rope)
+#     yao_duty.set_plan_obj(planunit_shop(dirty_str), situation_rope)
+#     yao_duty.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
+#     yao_duty.edit_plan_attr(
 #         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
 #     )
-#     yao_duty.edit_keg_attr(
+#     yao_duty.edit_plan_attr(
 #         sweep_rope, reason_context=fridge_rope, reason_case=running_rope
 #     )
 #     assert len(yao_duty.get_missing_fact_reason_contexts()) == 2
@@ -466,8 +466,8 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
 
 #     # WHEN
 #     yao_vision = personunit_shop(exx.yao)
-#     yao_vision.add_fact(situation_rope, a23_clean_rope, create_missing_kegs=True)
-#     yao_vision.add_fact(fridge_rope, running_rope, create_missing_kegs=True)
+#     yao_vision.add_fact(situation_rope, a23_clean_rope, create_missing_plans=True)
+#     yao_vision.add_fact(fridge_rope, running_rope, create_missing_plans=True)
 #     missing_fact_fact_contexts = list(yao_duty.get_missing_fact_reason_contexts().keys())
 #     listen_to_facts_duty_vision(yao_duty, yao_vision, missing_fact_fact_contexts)
 

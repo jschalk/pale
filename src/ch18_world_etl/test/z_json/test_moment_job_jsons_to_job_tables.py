@@ -4,7 +4,7 @@ from src.ch00_py.db_toolbox import db_table_exists, get_row_count
 from src.ch00_py.file_toolbox import save_json
 from src.ch02_partner.group import awardunit_shop
 from src.ch03_labor.labor import laborunit_shop
-from src.ch06_keg.healer import healerunit_shop
+from src.ch06_plan.healer import healerunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson._ref.ch09_path import (
     create_job_path,
@@ -32,20 +32,20 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     situation_rope = sue_person.make_l1_rope(kw.reason_active)
     clean_rope = sue_person.make_rope(situation_rope, exx.clean)
     dirty_rope = sue_person.make_rope(situation_rope, "dirty")
-    sue_person.add_keg(casa_rope)
-    sue_person.add_keg(clean_rope)
-    sue_person.add_keg(dirty_rope)
-    sue_person.edit_keg_attr(
+    sue_person.add_plan(casa_rope)
+    sue_person.add_plan(clean_rope)
+    sue_person.add_plan(dirty_rope)
+    sue_person.edit_plan_attr(
         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
-    sue_person.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.run))
-    sue_person.edit_keg_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
+    sue_person.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.run))
+    sue_person.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     sue_laborunit = laborunit_shop()
     sue_laborunit.add_party(exx.sue)
-    sue_person.edit_keg_attr(casa_rope, laborunit=sue_laborunit)
+    sue_person.edit_plan_attr(casa_rope, laborunit=sue_laborunit)
     sue_person.add_fact(situation_rope, clean_rope)
-    # print(f"{sue_person.get_keg_obj(casa_rope).laborunit=}")
-    # print(f"{sue_person.get_keg_obj(casa_rope).to_dict()=}")
+    # print(f"{sue_person.get_plan_obj(casa_rope).laborunit=}")
+    # print(f"{sue_person.get_plan_obj(casa_rope).to_dict()=}")
     save_job_file(moment_mstr_dir, sue_person)
 
     with sqlite3_connect(":memory:") as conn:
@@ -59,10 +59,10 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
         prncase_job_table = prime_table(kw.prncase, kw.job, None)
         prnreas_job_table = prime_table(kw.prnreas, kw.job, None)
         prnlabo_job_table = prime_table(kw.prnlabo, kw.job, None)
-        prnkegg_job_table = prime_table(kw.prnkegg, kw.job, None)
+        prnplan_job_table = prime_table(kw.prnplan, kw.job, None)
         prnunit_job_table = prime_table(kw.prnunit, kw.job, None)
         assert not db_table_exists(cursor, prnunit_job_table)
-        assert not db_table_exists(cursor, prnkegg_job_table)
+        assert not db_table_exists(cursor, prnplan_job_table)
         assert not db_table_exists(cursor, prnptnr_job_table)
         assert not db_table_exists(cursor, prnmemb_job_table)
         assert not db_table_exists(cursor, prngrou_job_table)
@@ -78,7 +78,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
 
         # THEN
         assert get_row_count(cursor, prnunit_job_table) == 1
-        assert get_row_count(cursor, prnkegg_job_table) == 5
+        assert get_row_count(cursor, prnplan_job_table) == 5
         assert get_row_count(cursor, prnptnr_job_table) == 2
         assert get_row_count(cursor, prnmemb_job_table) == 3
         assert get_row_count(cursor, prngrou_job_table) == 3

@@ -10,8 +10,8 @@ from src.ch02_partner.partner import partnerunit_shop
 from src.ch03_labor.labor import laborheir_shop, laborunit_shop, partyheir_shop
 from src.ch04_rope.rope import create_rope
 from src.ch05_reason.reason_main import caseunit_shop, factheir_shop, reasonheir_shop
-from src.ch06_keg.healer import healerunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.healer import healerunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch18_world_etl.etl_sqlstr import create_sound_and_heard_tables
 from src.ch18_world_etl.obj2db_person import (
@@ -22,9 +22,9 @@ from src.ch18_world_etl.obj2db_person import (
     insert_h_agg_prnfact,
     insert_h_agg_prngrou,
     insert_h_agg_prnheal,
-    insert_h_agg_prnkegg,
     insert_h_agg_prnlabo,
     insert_h_agg_prnmemb,
+    insert_h_agg_prnplan,
     insert_h_agg_prnptnr,
     insert_h_agg_prnreas,
     insert_h_agg_prnunit,
@@ -87,7 +87,7 @@ def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg():
         assert rows == expected_data
 
 
-def test_insert_h_agg_prnkegg_CreatesTableRowsFor_prnkegg_h_agg():
+def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg():
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -95,7 +95,7 @@ def test_insert_h_agg_prnkegg_CreatesTableRowsFor_prnkegg_h_agg():
     x_person_name = 2
     casa_rope = create_rope(exx.a23, "casa")
     x_parent_rope = casa_rope
-    x_keg_label = "clean"
+    x_plan_label = "clean"
     x_begin = 5.0
     x_close = 6.0
     x_addin = 7.0
@@ -107,36 +107,36 @@ def test_insert_h_agg_prnkegg_CreatesTableRowsFor_prnkegg_h_agg():
     x_star = 13
     x_pledge = 14
     x_problem_bool = 15
-    x_keg = kegunit_shop(exx.casa)
-    x_keg.parent_rope = x_parent_rope
-    x_keg.keg_label = x_keg_label
-    x_keg.begin = x_begin
-    x_keg.close = x_close
-    x_keg.addin = x_addin
-    x_keg.numor = x_numor
-    x_keg.denom = x_denom
-    x_keg.morph = x_morph
-    x_keg.gogo_want = x_gogo_want
-    x_keg.stop_want = x_stop_want
-    x_keg.star = x_star
-    x_keg.pledge = x_pledge
-    x_keg.problem_bool = x_problem_bool
-    x_keg.begin = x_begin
-    x_keg.close = x_close
-    x_keg.addin = x_addin
-    x_keg.numor = x_numor
-    x_keg.denom = x_denom
-    x_keg.morph = x_morph
-    x_keg.gogo_want = x_gogo_want
-    x_keg.stop_want = x_stop_want
-    x_keg.star = x_star
-    x_keg.pledge = x_pledge
-    x_keg.problem_bool = x_problem_bool
+    x_plan = planunit_shop(exx.casa)
+    x_plan.parent_rope = x_parent_rope
+    x_plan.plan_label = x_plan_label
+    x_plan.begin = x_begin
+    x_plan.close = x_close
+    x_plan.addin = x_addin
+    x_plan.numor = x_numor
+    x_plan.denom = x_denom
+    x_plan.morph = x_morph
+    x_plan.gogo_want = x_gogo_want
+    x_plan.stop_want = x_stop_want
+    x_plan.star = x_star
+    x_plan.pledge = x_pledge
+    x_plan.problem_bool = x_problem_bool
+    x_plan.begin = x_begin
+    x_plan.close = x_close
+    x_plan.addin = x_addin
+    x_plan.numor = x_numor
+    x_plan.denom = x_denom
+    x_plan.morph = x_morph
+    x_plan.gogo_want = x_gogo_want
+    x_plan.stop_want = x_stop_want
+    x_plan.star = x_star
+    x_plan.pledge = x_pledge
+    x_plan.problem_bool = x_problem_bool
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
-        x_table_name = "person_kegunit_h_put_agg"
+        x_table_name = "person_planunit_h_put_agg"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
@@ -146,7 +146,7 @@ def test_insert_h_agg_prnkegg_CreatesTableRowsFor_prnkegg_h_agg():
         )
 
         # WHEN
-        insert_h_agg_prnkegg(cursor, x_objkeysholder, x_keg)
+        insert_h_agg_prnplan(cursor, x_objkeysholder, x_plan)
 
         # THEN
         clean_rope = create_rope(casa_rope, "clean")
@@ -192,7 +192,7 @@ def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
-        x_table_name = "person_keg_reasonunit_h_put_agg"
+        x_table_name = "person_plan_reasonunit_h_put_agg"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
@@ -246,7 +246,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
-        x_table_name = "person_keg_reason_caseunit_h_put_agg"
+        x_table_name = "person_plan_reason_caseunit_h_put_agg"
         print(
             f"{get_table_columns(cursor, x_table_name)=} {len(get_table_columns(cursor, x_table_name))=}"
         )
@@ -530,7 +530,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 # def test_insert_h_agg_prnawar_CreatesTableRowsFor_prnawar_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     # x_args = get_person_calc_dimen_args("person_keg_awardunit")
+#     # x_args = get_person_calc_dimen_args("person_plan_awardunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     x_count += 1
@@ -561,7 +561,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_keg_awardunit_h_put_agg"
+#         x_table_name = "person_plan_awardunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
@@ -611,7 +611,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
-        x_table_name = "person_keg_factunit_h_put_agg"
+        x_table_name = "person_plan_factunit_h_put_agg"
         assert get_row_count(cursor, x_table_name) == 0
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
@@ -656,7 +656,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 # def test_insert_h_agg_prnheal_CreatesTableRowsFor_prnheal_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     # x_args = get_person_calc_dimen_args("person_keg_healerunit")
+#     # x_args = get_person_calc_dimen_args("person_plan_healerunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     x_count += 1
@@ -679,7 +679,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_keg_healerunit_h_put_agg"
+#         x_table_name = "person_plan_healerunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
@@ -712,7 +712,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 # def test_insert_h_agg_prnlabo_CreatesTableRowsFor_prnlabo_h_agg():
 #     # sourcery skip: extract-method
 #     # ESTABLISH
-#     # x_args = get_person_calc_dimen_args("person_keg_partyunit")
+#     # x_args = get_person_calc_dimen_args("person_plan_partyunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
 #     #     x_count += 1
@@ -740,7 +740,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 #     with sqlite3_connect(":memory:") as conn:
 #         cursor = conn.cursor()
 #         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_keg_partyunit_h_put_agg"
+#         x_table_name = "person_plan_partyunit_h_put_agg"
 #         assert get_row_count(cursor, x_table_name) == 0
 #         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
@@ -785,29 +785,29 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
     situation_rope = sue_person.make_l1_rope(kw.reason_active)
     clean_rope = sue_person.make_rope(situation_rope, "clean")
     dirty_rope = sue_person.make_rope(situation_rope, "dirty")
-    sue_person.add_keg(casa_rope)
-    sue_person.add_keg(clean_rope)
-    sue_person.add_keg(dirty_rope)
-    sue_person.edit_keg_attr(
+    sue_person.add_plan(casa_rope)
+    sue_person.add_plan(clean_rope)
+    sue_person.add_plan(dirty_rope)
+    sue_person.edit_plan_attr(
         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
-    sue_person.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.run))
-    sue_person.edit_keg_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
+    sue_person.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.run))
+    sue_person.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
     casa_laborunit = laborunit_shop()
     casa_laborunit.add_party(exx.sue, True)
-    sue_person.edit_keg_attr(casa_rope, laborunit=casa_laborunit)
+    sue_person.edit_plan_attr(casa_rope, laborunit=casa_laborunit)
     sue_person.add_fact(situation_rope, clean_rope)
 
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_sound_and_heard_tables(cursor)
-        prnfact_h_agg_table = f"{kw.person_keg_factunit}_h_put_agg"
-        prncase_h_agg_table = f"{kw.person_keg_reason_caseunit}_h_put_agg"
-        prnreas_h_agg_table = f"{kw.person_keg_reasonunit}_h_put_agg"
-        prnkegg_h_agg_table = f"{kw.person_kegunit}_h_put_agg"
+        prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
+        prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
+        prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
+        prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
         prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
         assert get_row_count(cursor, prnunit_h_agg_table) == 0
-        assert get_row_count(cursor, prnkegg_h_agg_table) == 0
+        assert get_row_count(cursor, prnplan_h_agg_table) == 0
         assert get_row_count(cursor, prnfact_h_agg_table) == 0
         assert get_row_count(cursor, prnreas_h_agg_table) == 0
         assert get_row_count(cursor, prncase_h_agg_table) == 0
@@ -818,7 +818,7 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 
         # THEN
         assert get_row_count(cursor, prnunit_h_agg_table) == 1
-        assert get_row_count(cursor, prnkegg_h_agg_table) == 5
+        assert get_row_count(cursor, prnplan_h_agg_table) == 5
         assert get_row_count(cursor, prnfact_h_agg_table) == 1
         assert get_row_count(cursor, prnreas_h_agg_table) == 1
         assert get_row_count(cursor, prncase_h_agg_table) == 1
@@ -840,17 +840,17 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #     situation_rope = sue_person.make_l1_rope(kw.reason_active)
 #     clean_rope = sue_person.make_rope(situation_rope, "clean")
 #     dirty_rope = sue_person.make_rope(situation_rope, "dirty")
-#     sue_person.add_keg(casa_rope)
-#     sue_person.add_keg(clean_rope)
-#     sue_person.add_keg(dirty_rope)
-#     sue_person.edit_keg_attr(
+#     sue_person.add_plan(casa_rope)
+#     sue_person.add_plan(clean_rope)
+#     sue_person.add_plan(dirty_rope)
+#     sue_person.edit_plan_attr(
 #         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
 #     )
-#     sue_person.edit_keg_attr(casa_rope, awardunit=awardunit_shop(exx.run))
-#     sue_person.edit_keg_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
+#     sue_person.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.run))
+#     sue_person.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
 #     casa_laborunit = laborunit_shop()
 #     casa_laborunit.add_party(exx.sue, True)
-#     sue_person.edit_keg_attr(casa_rope, laborunit=casa_laborunit)
+#     sue_person.edit_plan_attr(casa_rope, laborunit=casa_laborunit)
 #     sue_person.add_fact(situation_rope, clean_rope)
 
 #     with sqlite3_connect(":memory:") as conn:
@@ -859,16 +859,16 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #         prnmemb_h_agg_table = f"{kw.person_partner_membership}_h_put_agg"
 #         prnptnr_h_agg_table = f"{kw.person_partnerunit}_h_put_agg"
 #         prngrou_h_agg_table = f"{kw.person_groupunit}_h_put_agg"
-#         prnawar_h_agg_table = f"{kw.person_keg_awardunit}_h_put_agg"
-#         prnfact_h_agg_table = f"{kw.person_keg_factunit}_h_put_agg"
-#         prnheal_h_agg_table = f"{kw.person_keg_healerunit}_h_put_agg"
-#         prncase_h_agg_table = f"{kw.person_keg_reason_caseunit}_h_put_agg"
-#         prnreas_h_agg_table = f"{kw.person_keg_reasonunit}_h_put_agg"
-#         prnlabo_h_agg_table = f"{kw.person_keg_partyunit}_h_put_agg"
-#         prnkegg_h_agg_table = f"{kw.person_kegunit}_h_put_agg"
+#         prnawar_h_agg_table = f"{kw.person_plan_awardunit}_h_put_agg"
+#         prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
+#         prnheal_h_agg_table = f"{kw.person_plan_healerunit}_h_put_agg"
+#         prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
+#         prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
+#         prnlabo_h_agg_table = f"{kw.person_plan_partyunit}_h_put_agg"
+#         prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
 #         prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
 #         assert get_row_count(cursor, prnunit_h_agg_table) == 0
-#         assert get_row_count(cursor, prnkegg_h_agg_table) == 0
+#         assert get_row_count(cursor, prnplan_h_agg_table) == 0
 #         assert get_row_count(cursor, prnptnr_h_agg_table) == 0
 #         assert get_row_count(cursor, prnmemb_h_agg_table) == 0
 #         assert get_row_count(cursor, prngrou_h_agg_table) == 0
@@ -884,7 +884,7 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 
 #         # THEN
 #         assert get_row_count(cursor, prnunit_h_agg_table) == 1
-#         assert get_row_count(cursor, prnkegg_h_agg_table) == 5
+#         assert get_row_count(cursor, prnplan_h_agg_table) == 5
 #         assert get_row_count(cursor, prnptnr_h_agg_table) == 2
 #         assert get_row_count(cursor, prnmemb_h_agg_table) == 3
 #         assert get_row_count(cursor, prngrou_h_agg_table) == 3

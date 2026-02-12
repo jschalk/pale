@@ -2,8 +2,8 @@ from os.path import exists as os_path_exists, isdir as os_path_isdir
 from src.ch00_py.file_toolbox import create_path, get_json_filename, set_dir
 from src.ch01_allot.allot import default_grain_num_if_None
 from src.ch04_rope.rope import default_knot_if_None
-from src.ch06_keg.healer import healerunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.healer import healerunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson._ref.ch09_path import create_person_dir_path
 from src.ch09_person_lesson.lasso import lassounit_shop
@@ -390,13 +390,13 @@ def test_MomentUnit_create_init_job_from_guts_Scenario3_gut_FilesAreListenedTo(
     sue_gut = personunit_shop(exx.sue, exx.a23_slash, knot=exx.slash)
     sue_gut.add_partnerunit(exx.bob)
     save_gut_file(moment_mstr_dir, sue_gut)
-    # create Bob gut with agenda keg for Sue
+    # create Bob gut with agenda plan for Sue
     bob_gut = personunit_shop(exx.bob, exx.a23_slash, knot=exx.slash)
     bob_gut.add_partnerunit(exx.sue)
     casa_rope = bob_gut.make_l1_rope("casa")
     clean_rope = bob_gut.make_rope(casa_rope, "clean")
-    bob_gut.add_keg(clean_rope, pledge=True)
-    bob_gut.get_keg_obj(clean_rope).laborunit.add_party(exx.sue)
+    bob_gut.add_plan(clean_rope, pledge=True)
+    bob_gut.get_plan_obj(clean_rope).laborunit.add_party(exx.sue)
     save_gut_file(moment_mstr_dir, bob_gut)
     a23_lasso = lassounit_shop(exx.a23_slash, exx.slash)
     assert not open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_agenda_dict()
@@ -408,7 +408,7 @@ def test_MomentUnit_create_init_job_from_guts_Scenario3_gut_FilesAreListenedTo(
     assert open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_agenda_dict()
     sue_agenda = open_job_file(moment_mstr_dir, a23_lasso, exx.sue).get_agenda_dict()
     assert len(sue_agenda) == 1
-    assert sue_agenda.get(clean_rope).get_keg_rope() == clean_rope
+    assert sue_agenda.get(clean_rope).get_plan_rope() == clean_rope
 
 
 def test_MomentUnit__set_all_healer_dutys_Setsdutys(
@@ -429,21 +429,21 @@ def test_MomentUnit__set_all_healer_dutys_Setsdutys(
     yao_gut_person.add_partnerunit(exx.yao)
     texas_str = "Texas"
     texas_rope = sue_gut_person.make_l1_rope(texas_str)
-    sue_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
-    yao_gut_person.set_l1_keg(kegunit_shop(texas_str, problem_bool=True))
+    sue_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
+    yao_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     dallas_str = "dallas"
     dallas_rope = sue_gut_person.make_rope(texas_rope, dallas_str)
     dallas_healerunit = healerunit_shop({exx.sue, exx.yao})
-    dallas_keg = kegunit_shop(dallas_str, healerunit=dallas_healerunit)
+    dallas_plan = planunit_shop(dallas_str, healerunit=dallas_healerunit)
     elpaso_str = "el paso"
     elpaso_rope = sue_gut_person.make_rope(texas_rope, elpaso_str)
     elpaso_healerunit = healerunit_shop({exx.sue})
-    elpaso_keg = kegunit_shop(elpaso_str, healerunit=elpaso_healerunit)
+    elpaso_plan = planunit_shop(elpaso_str, healerunit=elpaso_healerunit)
 
-    sue_gut_person.set_keg_obj(dallas_keg, texas_rope)
-    sue_gut_person.set_keg_obj(elpaso_keg, texas_rope)
-    yao_gut_person.set_keg_obj(dallas_keg, texas_rope)
-    yao_gut_person.set_keg_obj(elpaso_keg, texas_rope)
+    sue_gut_person.set_plan_obj(dallas_plan, texas_rope)
+    sue_gut_person.set_plan_obj(elpaso_plan, texas_rope)
+    yao_gut_person.set_plan_obj(dallas_plan, texas_rope)
+    yao_gut_person.set_plan_obj(elpaso_plan, texas_rope)
 
     save_gut_file(x_moment_mstr_dir, sue_gut_person)
     save_gut_file(x_moment_mstr_dir, yao_gut_person)

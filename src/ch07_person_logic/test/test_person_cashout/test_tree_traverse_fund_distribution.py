@@ -4,7 +4,7 @@ from src.ch01_allot.allot import default_pool_num
 from src.ch02_partner.group import awardline_shop, awardunit_shop
 from src.ch02_partner.partner import partnerunit_shop
 from src.ch04_rope.rope import RopeTerm, to_rope
-from src.ch06_keg.keg import KegUnit, kegunit_shop
+from src.ch06_plan.plan import PlanUnit, planunit_shop
 from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
 from src.ch07_person_logic.test._util.ch07_examples import (
     get_personunit_with7am_clean_table_reason,
@@ -15,84 +15,84 @@ from src.ch07_person_logic.test._util.ch07_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PersonUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario0():
+def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario0():
     # ESTABLISH
     x_personunit = get_personunit_with7am_clean_table_reason()
     casa_rope = x_personunit.make_l1_rope("casa")
     catt_rope = x_personunit.make_l1_rope("cat have dinner")
     wk_rope = x_personunit.make_l1_rope("sem_jours")
-    x_personunit.kegroot.fund_onset = 13
-    x_personunit.kegroot.fund_cease = 13
-    x_personunit.get_keg_obj(casa_rope).fund_onset = 13
-    x_personunit.get_keg_obj(casa_rope).fund_cease = 13
-    x_personunit.get_keg_obj(catt_rope).fund_onset = 13
-    x_personunit.get_keg_obj(catt_rope).fund_cease = 13
-    x_personunit.get_keg_obj(wk_rope).fund_onset = 13
-    x_personunit.get_keg_obj(wk_rope).fund_cease = 13
+    x_personunit.planroot.fund_onset = 13
+    x_personunit.planroot.fund_cease = 13
+    x_personunit.get_plan_obj(casa_rope).fund_onset = 13
+    x_personunit.get_plan_obj(casa_rope).fund_cease = 13
+    x_personunit.get_plan_obj(catt_rope).fund_onset = 13
+    x_personunit.get_plan_obj(catt_rope).fund_cease = 13
+    x_personunit.get_plan_obj(wk_rope).fund_onset = 13
+    x_personunit.get_plan_obj(wk_rope).fund_cease = 13
 
-    assert x_personunit.kegroot.fund_onset == 13
-    assert x_personunit.kegroot.fund_cease == 13
-    assert x_personunit.get_keg_obj(casa_rope).fund_onset == 13
-    assert x_personunit.get_keg_obj(casa_rope).fund_cease == 13
-    assert x_personunit.get_keg_obj(catt_rope).fund_onset == 13
-    assert x_personunit.get_keg_obj(catt_rope).fund_cease == 13
-    assert x_personunit.get_keg_obj(wk_rope).fund_onset == 13
-    assert x_personunit.get_keg_obj(wk_rope).fund_cease == 13
+    assert x_personunit.planroot.fund_onset == 13
+    assert x_personunit.planroot.fund_cease == 13
+    assert x_personunit.get_plan_obj(casa_rope).fund_onset == 13
+    assert x_personunit.get_plan_obj(casa_rope).fund_cease == 13
+    assert x_personunit.get_plan_obj(catt_rope).fund_onset == 13
+    assert x_personunit.get_plan_obj(catt_rope).fund_cease == 13
+    assert x_personunit.get_plan_obj(wk_rope).fund_onset == 13
+    assert x_personunit.get_plan_obj(wk_rope).fund_cease == 13
 
     # WHEN
     x_personunit.cashout()
 
     # THEN
-    assert x_personunit.kegroot.fund_onset != 13
-    assert x_personunit.kegroot.fund_cease != 13
-    assert x_personunit.get_keg_obj(casa_rope).fund_onset != 13
-    assert x_personunit.get_keg_obj(casa_rope).fund_cease != 13
-    assert x_personunit.get_keg_obj(catt_rope).fund_onset != 13
-    assert x_personunit.get_keg_obj(catt_rope).fund_cease != 13
-    assert x_personunit.get_keg_obj(wk_rope).fund_onset != 13
-    assert x_personunit.get_keg_obj(wk_rope).fund_cease != 13
+    assert x_personunit.planroot.fund_onset != 13
+    assert x_personunit.planroot.fund_cease != 13
+    assert x_personunit.get_plan_obj(casa_rope).fund_onset != 13
+    assert x_personunit.get_plan_obj(casa_rope).fund_cease != 13
+    assert x_personunit.get_plan_obj(catt_rope).fund_onset != 13
+    assert x_personunit.get_plan_obj(catt_rope).fund_cease != 13
+    assert x_personunit.get_plan_obj(wk_rope).fund_onset != 13
+    assert x_personunit.get_plan_obj(wk_rope).fund_cease != 13
 
 
-def test_PersonUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario1():
+def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario1():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     yao_personunit = personunit_shop("Yao")
 
     auto_str = "auto"
     auto_rope = yao_personunit.make_l1_rope(auto_str)
-    auto_keg = kegunit_shop(auto_str, star=10)
-    yao_personunit.set_l1_keg(auto_keg)
+    auto_plan = planunit_shop(auto_str, star=10)
+    yao_personunit.set_l1_plan(auto_plan)
 
     carn_str = "carn"
     carn_rope = yao_personunit.make_l1_rope(carn_str)
-    carn_keg = kegunit_shop(carn_str, star=60)
-    yao_personunit.set_l1_keg(carn_keg)
+    carn_plan = planunit_shop(carn_str, star=60)
+    yao_personunit.set_l1_plan(carn_plan)
     lamb_str = "lambs"
     lamb_rope = yao_personunit.make_rope(carn_rope, lamb_str)
-    lamb_keg = kegunit_shop(lamb_str, star=1)
-    yao_personunit.set_keg_obj(lamb_keg, parent_rope=carn_rope)
+    lamb_plan = planunit_shop(lamb_str, star=1)
+    yao_personunit.set_plan_obj(lamb_plan, parent_rope=carn_rope)
     duck_str = "ducks"
     duck_rope = yao_personunit.make_rope(carn_rope, duck_str)
-    duck_keg = kegunit_shop(duck_str, star=2)
-    yao_personunit.set_keg_obj(duck_keg, parent_rope=carn_rope)
+    duck_plan = planunit_shop(duck_str, star=2)
+    yao_personunit.set_plan_obj(duck_plan, parent_rope=carn_rope)
 
     coal_str = "coal"
     coal_rope = yao_personunit.make_l1_rope(coal_str)
-    coal_keg = kegunit_shop(coal_str, star=30)
-    yao_personunit.set_l1_keg(coal_keg)
+    coal_plan = planunit_shop(coal_str, star=30)
+    yao_personunit.set_l1_plan(coal_plan)
 
-    assert yao_personunit.kegroot.fund_onset is None
-    assert yao_personunit.kegroot.fund_cease is None
-    assert yao_personunit.get_keg_obj(auto_rope).fund_onset is None
-    assert yao_personunit.get_keg_obj(auto_rope).fund_cease is None
-    assert yao_personunit.get_keg_obj(carn_rope).fund_onset is None
-    assert yao_personunit.get_keg_obj(carn_rope).fund_cease is None
-    assert yao_personunit.get_keg_obj(coal_rope).fund_onset is None
-    assert yao_personunit.get_keg_obj(coal_rope).fund_cease is None
-    lamb_before = yao_personunit.get_keg_obj(rope=lamb_rope)
+    assert yao_personunit.planroot.fund_onset is None
+    assert yao_personunit.planroot.fund_cease is None
+    assert yao_personunit.get_plan_obj(auto_rope).fund_onset is None
+    assert yao_personunit.get_plan_obj(auto_rope).fund_cease is None
+    assert yao_personunit.get_plan_obj(carn_rope).fund_onset is None
+    assert yao_personunit.get_plan_obj(carn_rope).fund_cease is None
+    assert yao_personunit.get_plan_obj(coal_rope).fund_onset is None
+    assert yao_personunit.get_plan_obj(coal_rope).fund_cease is None
+    lamb_before = yao_personunit.get_plan_obj(rope=lamb_rope)
     assert lamb_before.fund_onset is None
     assert lamb_before.fund_cease is None
-    duck_before = yao_personunit.get_keg_obj(rope=duck_rope)
+    duck_before = yao_personunit.get_plan_obj(rope=duck_rope)
     assert duck_before.fund_onset is None
     assert duck_before.fund_cease is None
 
@@ -100,63 +100,63 @@ def test_PersonUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario1():
     yao_personunit.cashout()
 
     # THEN
-    assert yao_personunit.kegroot.fund_onset == 0.0
-    assert yao_personunit.kegroot.fund_cease == default_pool_num()
-    assert yao_personunit.get_keg_obj(auto_rope).fund_onset == 0.0
-    assert yao_personunit.get_keg_obj(auto_rope).fund_cease == default_pool_num() * 0.1
-    assert yao_personunit.get_keg_obj(carn_rope).fund_onset == default_pool_num() * 0.1
-    assert yao_personunit.get_keg_obj(carn_rope).fund_cease == default_pool_num() * 0.7
-    assert yao_personunit.get_keg_obj(coal_rope).fund_onset == default_pool_num() * 0.7
-    assert yao_personunit.get_keg_obj(coal_rope).fund_cease == default_pool_num() * 1.0
+    assert yao_personunit.planroot.fund_onset == 0.0
+    assert yao_personunit.planroot.fund_cease == default_pool_num()
+    assert yao_personunit.get_plan_obj(auto_rope).fund_onset == 0.0
+    assert yao_personunit.get_plan_obj(auto_rope).fund_cease == default_pool_num() * 0.1
+    assert yao_personunit.get_plan_obj(carn_rope).fund_onset == default_pool_num() * 0.1
+    assert yao_personunit.get_plan_obj(carn_rope).fund_cease == default_pool_num() * 0.7
+    assert yao_personunit.get_plan_obj(coal_rope).fund_onset == default_pool_num() * 0.7
+    assert yao_personunit.get_plan_obj(coal_rope).fund_cease == default_pool_num() * 1.0
 
-    duck_after = yao_personunit.get_keg_obj(rope=duck_rope)
+    duck_after = yao_personunit.get_plan_obj(rope=duck_rope)
     assert duck_after.fund_onset == default_pool_num() * 0.1
     assert duck_after.fund_cease == default_pool_num() * 0.5
-    lamb_after = yao_personunit.get_keg_obj(rope=lamb_rope)
+    lamb_after = yao_personunit.get_plan_obj(rope=lamb_rope)
     assert lamb_after.fund_onset == default_pool_num() * 0.5
     assert lamb_after.fund_cease == default_pool_num() * 0.7
 
 
-def test_PersonUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario2_DifferentOrderOfKegs():
+def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario2_DifferentOrderOfPlans():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     yao_personunit = personunit_shop("Yao")
 
     auto_str = "auto"
     auto_rope = yao_personunit.make_l1_rope(auto_str)
-    auto_keg = kegunit_shop(auto_str, star=10)
-    yao_personunit.set_l1_keg(auto_keg)
+    auto_plan = planunit_shop(auto_str, star=10)
+    yao_personunit.set_l1_plan(auto_plan)
 
     yarn_str = "yarn"
     yarn_rope = yao_personunit.make_l1_rope(yarn_str)
-    yarn_keg = kegunit_shop(yarn_str, star=60)
-    yao_personunit.set_l1_keg(yarn_keg)
+    yarn_plan = planunit_shop(yarn_str, star=60)
+    yao_personunit.set_l1_plan(yarn_plan)
     lamb_str = "lambs"
     lamb_rope = yao_personunit.make_rope(yarn_rope, lamb_str)
-    lamb_keg = kegunit_shop(lamb_str, star=1)
-    yao_personunit.set_keg_obj(lamb_keg, parent_rope=yarn_rope)
+    lamb_plan = planunit_shop(lamb_str, star=1)
+    yao_personunit.set_plan_obj(lamb_plan, parent_rope=yarn_rope)
     duck_str = "ducks"
     duck_rope = yao_personunit.make_rope(yarn_rope, duck_str)
-    duck_keg = kegunit_shop(duck_str, star=2)
-    yao_personunit.set_keg_obj(duck_keg, parent_rope=yarn_rope)
+    duck_plan = planunit_shop(duck_str, star=2)
+    yao_personunit.set_plan_obj(duck_plan, parent_rope=yarn_rope)
 
     coal_str = "coal"
     coal_rope = yao_personunit.make_l1_rope(coal_str)
-    coal_keg = kegunit_shop(coal_str, star=30)
-    yao_personunit.set_l1_keg(coal_keg)
+    coal_plan = planunit_shop(coal_str, star=30)
+    yao_personunit.set_l1_plan(coal_plan)
 
-    assert yao_personunit.kegroot.fund_onset is None
-    assert yao_personunit.kegroot.fund_cease is None
-    assert yao_personunit.get_keg_obj(auto_rope).fund_onset is None
-    assert yao_personunit.get_keg_obj(auto_rope).fund_cease is None
-    assert yao_personunit.get_keg_obj(yarn_rope).fund_onset is None
-    assert yao_personunit.get_keg_obj(yarn_rope).fund_cease is None
-    assert yao_personunit.get_keg_obj(coal_rope).fund_onset is None
-    assert yao_personunit.get_keg_obj(coal_rope).fund_cease is None
-    lamb_before = yao_personunit.get_keg_obj(rope=lamb_rope)
+    assert yao_personunit.planroot.fund_onset is None
+    assert yao_personunit.planroot.fund_cease is None
+    assert yao_personunit.get_plan_obj(auto_rope).fund_onset is None
+    assert yao_personunit.get_plan_obj(auto_rope).fund_cease is None
+    assert yao_personunit.get_plan_obj(yarn_rope).fund_onset is None
+    assert yao_personunit.get_plan_obj(yarn_rope).fund_cease is None
+    assert yao_personunit.get_plan_obj(coal_rope).fund_onset is None
+    assert yao_personunit.get_plan_obj(coal_rope).fund_cease is None
+    lamb_before = yao_personunit.get_plan_obj(rope=lamb_rope)
     assert lamb_before.fund_onset is None
     assert lamb_before.fund_cease is None
-    duck_before = yao_personunit.get_keg_obj(rope=duck_rope)
+    duck_before = yao_personunit.get_plan_obj(rope=duck_rope)
     assert duck_before.fund_onset is None
     assert duck_before.fund_cease is None
 
@@ -164,150 +164,150 @@ def test_PersonUnit_cashout_Sets_kegunit_fund_onset_fund_cease_Scenario2_Differe
     yao_personunit.cashout()
 
     # THEN
-    assert yao_personunit.kegroot.fund_onset == 0.0
-    assert yao_personunit.kegroot.fund_cease == default_pool_num()
-    assert yao_personunit.get_keg_obj(auto_rope).fund_onset == 0.0
-    assert yao_personunit.get_keg_obj(auto_rope).fund_cease == default_pool_num() * 0.1
-    assert yao_personunit.get_keg_obj(coal_rope).fund_onset == default_pool_num() * 0.1
-    assert yao_personunit.get_keg_obj(coal_rope).fund_cease == default_pool_num() * 0.4
-    assert yao_personunit.get_keg_obj(yarn_rope).fund_onset == default_pool_num() * 0.4
-    assert yao_personunit.get_keg_obj(yarn_rope).fund_cease == default_pool_num() * 1.0
+    assert yao_personunit.planroot.fund_onset == 0.0
+    assert yao_personunit.planroot.fund_cease == default_pool_num()
+    assert yao_personunit.get_plan_obj(auto_rope).fund_onset == 0.0
+    assert yao_personunit.get_plan_obj(auto_rope).fund_cease == default_pool_num() * 0.1
+    assert yao_personunit.get_plan_obj(coal_rope).fund_onset == default_pool_num() * 0.1
+    assert yao_personunit.get_plan_obj(coal_rope).fund_cease == default_pool_num() * 0.4
+    assert yao_personunit.get_plan_obj(yarn_rope).fund_onset == default_pool_num() * 0.4
+    assert yao_personunit.get_plan_obj(yarn_rope).fund_cease == default_pool_num() * 1.0
 
-    duck_after = yao_personunit.get_keg_obj(rope=duck_rope)
+    duck_after = yao_personunit.get_plan_obj(rope=duck_rope)
     assert duck_after.fund_onset == default_pool_num() * 0.4
     assert duck_after.fund_cease == default_pool_num() * 0.8
-    lamb_after = yao_personunit.get_keg_obj(rope=lamb_rope)
+    lamb_after = yao_personunit.get_plan_obj(rope=lamb_rope)
     assert lamb_after.fund_onset == default_pool_num() * 0.8
     assert lamb_after.fund_cease == default_pool_num() * 1.0
 
 
-def test_PersonUnit_cashout_Sets_fund_ratio_WithSomeKegsOfZero_starScenario0():
+def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario0():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = sue_person.make_rope(casa_rope, floor_str)
-    floor_keg = kegunit_shop(floor_str, pledge=True)
-    sue_person.set_keg_obj(floor_keg, casa_rope)
-    sue_person.set_l1_keg(kegunit_shop("unimportant"))
+    floor_plan = planunit_shop(floor_str, pledge=True)
+    sue_person.set_plan_obj(floor_plan, casa_rope)
+    sue_person.set_l1_plan(planunit_shop("unimportant"))
 
     situation_str = "cleaniness situation"
     situation_rope = sue_person.make_rope(casa_rope, situation_str)
-    sue_person.set_keg_obj(kegunit_shop(situation_str, star=0), casa_rope)
+    sue_person.set_plan_obj(planunit_shop(situation_str, star=0), casa_rope)
 
     non_str = "not clean"
     yes_str = "yes clean"
     non_rope = sue_person.make_rope(situation_rope, non_str)
     yes_rope = sue_person.make_rope(situation_rope, yes_str)
-    sue_person.set_keg_obj(kegunit_shop(non_str), situation_rope)
-    sue_person.set_keg_obj(kegunit_shop(yes_str, star=2), situation_rope)
+    sue_person.set_plan_obj(planunit_shop(non_str), situation_rope)
+    sue_person.set_plan_obj(planunit_shop(yes_str, star=2), situation_rope)
 
-    assert sue_person.kegroot.fund_ratio is None
-    assert sue_person.get_keg_obj(casa_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(floor_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(situation_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(non_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(yes_rope).fund_ratio is None
+    assert sue_person.planroot.fund_ratio is None
+    assert sue_person.get_plan_obj(casa_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(floor_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(situation_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(non_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(yes_rope).fund_ratio is None
 
     # WHEN
     sue_person.cashout()
 
     # THEN
     print(f"{sue_person.fund_pool=}")
-    assert sue_person.kegroot.fund_ratio == 1
-    assert sue_person.get_keg_obj(casa_rope).fund_ratio == 0.5
-    assert sue_person.get_keg_obj(floor_rope).fund_ratio == 0.5
-    assert sue_person.get_keg_obj(situation_rope).fund_ratio == 0.0
-    assert sue_person.get_keg_obj(non_rope).fund_ratio == 0.0
-    assert sue_person.get_keg_obj(yes_rope).fund_ratio == 0.0
+    assert sue_person.planroot.fund_ratio == 1
+    assert sue_person.get_plan_obj(casa_rope).fund_ratio == 0.5
+    assert sue_person.get_plan_obj(floor_rope).fund_ratio == 0.5
+    assert sue_person.get_plan_obj(situation_rope).fund_ratio == 0.0
+    assert sue_person.get_plan_obj(non_rope).fund_ratio == 0.0
+    assert sue_person.get_plan_obj(yes_rope).fund_ratio == 0.0
 
 
-def test_PersonUnit_cashout_Sets_fund_ratio_WithSomeKegsOfZero_starScenario1():
+def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
     floor_str = "mop floor"
     floor_rope = sue_person.make_rope(casa_rope, floor_str)
-    floor_keg = kegunit_shop(floor_str, pledge=True)
-    sue_person.set_keg_obj(floor_keg, casa_rope)
-    sue_person.set_l1_keg(kegunit_shop("unimportant"))
+    floor_plan = planunit_shop(floor_str, pledge=True)
+    sue_person.set_plan_obj(floor_plan, casa_rope)
+    sue_person.set_l1_plan(planunit_shop("unimportant"))
 
     situation_str = "cleaniness situation"
     situation_rope = sue_person.make_rope(casa_rope, situation_str)
-    sue_person.set_keg_obj(kegunit_shop(situation_str), casa_rope)
+    sue_person.set_plan_obj(planunit_shop(situation_str), casa_rope)
 
-    situation_keg = sue_person.get_keg_obj(situation_rope)
-    print(f"{situation_keg.star=}")
-    print("This should raise error: 'Kegunit._'")
+    situation_plan = sue_person.get_plan_obj(situation_rope)
+    print(f"{situation_plan.star=}")
+    print("This should raise error: 'Planunit._'")
 
     clean_rope = sue_person.make_rope(situation_rope, exx.clean)
     very_str = "very_much"
     mod_str = "moderately"
     dirty_str = "dirty"
 
-    sue_person.set_keg_obj(kegunit_shop(exx.clean, star=0), situation_rope)
-    sue_person.set_keg_obj(kegunit_shop(very_str), clean_rope)
-    sue_person.set_keg_obj(kegunit_shop(mod_str, star=2), clean_rope)
-    sue_person.set_keg_obj(kegunit_shop(dirty_str), clean_rope)
+    sue_person.set_plan_obj(planunit_shop(exx.clean, star=0), situation_rope)
+    sue_person.set_plan_obj(planunit_shop(very_str), clean_rope)
+    sue_person.set_plan_obj(planunit_shop(mod_str, star=2), clean_rope)
+    sue_person.set_plan_obj(planunit_shop(dirty_str), clean_rope)
 
     very_rope = sue_person.make_rope(clean_rope, very_str)
     mod_rope = sue_person.make_rope(clean_rope, mod_str)
     dirty_rope = sue_person.make_rope(clean_rope, dirty_str)
-    assert sue_person.get_keg_obj(casa_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(floor_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(situation_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(clean_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(very_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(mod_rope).fund_ratio is None
-    assert sue_person.get_keg_obj(dirty_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(casa_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(floor_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(situation_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(clean_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(very_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(mod_rope).fund_ratio is None
+    assert sue_person.get_plan_obj(dirty_rope).fund_ratio is None
 
     # WHEN
     sue_person.cashout()
 
     # THEN
     print(f"{sue_person.fund_pool=}")
-    assert sue_person.get_keg_obj(casa_rope).fund_ratio == 0.5
-    assert sue_person.get_keg_obj(floor_rope).fund_ratio == 0.25
-    assert sue_person.get_keg_obj(situation_rope).fund_ratio == 0.25
-    assert sue_person.get_keg_obj(clean_rope).fund_ratio == 0
-    assert sue_person.get_keg_obj(very_rope).fund_ratio == 0
-    assert sue_person.get_keg_obj(mod_rope).fund_ratio == 0
-    assert sue_person.get_keg_obj(dirty_rope).fund_ratio == 0
+    assert sue_person.get_plan_obj(casa_rope).fund_ratio == 0.5
+    assert sue_person.get_plan_obj(floor_rope).fund_ratio == 0.25
+    assert sue_person.get_plan_obj(situation_rope).fund_ratio == 0.25
+    assert sue_person.get_plan_obj(clean_rope).fund_ratio == 0
+    assert sue_person.get_plan_obj(very_rope).fund_ratio == 0
+    assert sue_person.get_plan_obj(mod_rope).fund_ratio == 0
+    assert sue_person.get_plan_obj(dirty_rope).fund_ratio == 0
 
 
-def test_PersonUnit_cashout_WhenKegUnitHasFundsBut_kidsHaveNostarDistributeFundsToPartnerUnits_Scenario0():
+def test_PersonUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFundsToPartnerUnits_Scenario0():
     # ESTABLISH
     sue_personunit = personunit_shop("Sue")
     sue_personunit.add_partnerunit(exx.yao)
     casa_rope = sue_personunit.make_l1_rope(exx.casa)
-    casa_keg = kegunit_shop(exx.casa, star=1)
+    casa_plan = planunit_shop(exx.casa, star=1)
 
     swim_rope = sue_personunit.make_rope(casa_rope, exx.swim)
-    swim_keg = kegunit_shop(exx.swim, star=8)
+    swim_plan = planunit_shop(exx.swim, star=8)
 
     clean_str = "cleaning"
     clean_rope = sue_personunit.make_rope(casa_rope, clean_str)
-    clean_keg = kegunit_shop(clean_str, star=2)
-    sue_personunit.set_keg_obj(kegunit_shop(clean_str), casa_rope)
+    clean_plan = planunit_shop(clean_str, star=2)
+    sue_personunit.set_plan_obj(planunit_shop(clean_str), casa_rope)
 
     sweep_str = "sweep"
     sweep_rope = sue_personunit.make_rope(clean_rope, sweep_str)
-    sweep_keg = kegunit_shop(sweep_str, star=0)
+    sweep_plan = planunit_shop(sweep_str, star=0)
     vacuum_str = "vacuum"
     vacuum_rope = sue_personunit.make_rope(clean_rope, vacuum_str)
-    vacuum_keg = kegunit_shop(vacuum_str, star=0)
+    vacuum_plan = planunit_shop(vacuum_str, star=0)
 
-    sue_personunit.set_l1_keg(casa_keg)
-    sue_personunit.set_keg_obj(swim_keg, casa_rope)
-    sue_personunit.set_keg_obj(clean_keg, casa_rope)
-    sue_personunit.set_keg_obj(sweep_keg, clean_rope)  # _star=0
-    sue_personunit.set_keg_obj(vacuum_keg, clean_rope)  # _star=0
+    sue_personunit.set_l1_plan(casa_plan)
+    sue_personunit.set_plan_obj(swim_plan, casa_rope)
+    sue_personunit.set_plan_obj(clean_plan, casa_rope)
+    sue_personunit.set_plan_obj(sweep_plan, clean_rope)  # _star=0
+    sue_personunit.set_plan_obj(vacuum_plan, clean_rope)  # _star=0
 
-    assert sue_personunit.get_keg_obj(casa_rope).fund_ratio is None
-    assert sue_personunit.get_keg_obj(swim_rope).fund_ratio is None
-    assert sue_personunit.get_keg_obj(clean_rope).fund_ratio is None
-    assert sue_personunit.get_keg_obj(sweep_rope).fund_ratio is None
-    assert sue_personunit.get_keg_obj(vacuum_rope).fund_ratio is None
+    assert sue_personunit.get_plan_obj(casa_rope).fund_ratio is None
+    assert sue_personunit.get_plan_obj(swim_rope).fund_ratio is None
+    assert sue_personunit.get_plan_obj(clean_rope).fund_ratio is None
+    assert sue_personunit.get_plan_obj(sweep_rope).fund_ratio is None
+    assert sue_personunit.get_plan_obj(vacuum_rope).fund_ratio is None
     assert sue_personunit.get_groupunit(exx.yao) is None
 
     assert not sue_personunit.offtrack_fund
@@ -320,11 +320,11 @@ def test_PersonUnit_cashout_WhenKegUnitHasFundsBut_kidsHaveNostarDistributeFunds
     # THEN
     print(f"{sue_personunit.fund_pool=}")
     clean_fund_ratio = 0.2
-    assert sue_personunit.get_keg_obj(casa_rope).fund_ratio == 1
-    assert sue_personunit.get_keg_obj(swim_rope).fund_ratio == 0.8
-    assert sue_personunit.get_keg_obj(clean_rope).fund_ratio == clean_fund_ratio
-    assert sue_personunit.get_keg_obj(sweep_rope).fund_ratio == 0
-    assert sue_personunit.get_keg_obj(vacuum_rope).fund_ratio == 0
+    assert sue_personunit.get_plan_obj(casa_rope).fund_ratio == 1
+    assert sue_personunit.get_plan_obj(swim_rope).fund_ratio == 0.8
+    assert sue_personunit.get_plan_obj(clean_rope).fund_ratio == clean_fund_ratio
+    assert sue_personunit.get_plan_obj(sweep_rope).fund_ratio == 0
+    assert sue_personunit.get_plan_obj(vacuum_rope).fund_ratio == 0
     assert sue_personunit.get_groupunit(exx.yao).fund_give == 0
     assert sue_personunit.get_groupunit(exx.yao).fund_take == 0
 
@@ -337,83 +337,83 @@ def test_PersonUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
     sue_person.cashout()
-    # keg tree has no awardunits
-    assert sue_person.kegroot.awardlines == {}
+    # plan tree has no awardunits
+    assert sue_person.planroot.awardlines == {}
     wk_str = "sem_jours"
     nation_str = "nation"
     sue_awardunit = awardunit_shop(awardee_title=exx.sue)
     sue_person.add_partnerunit(partner_name=exx.sue)
-    sue_person.kegroot.set_awardunit(awardunit=sue_awardunit)
-    # keg tree has awardlines
-    assert sue_person.kegroot.awardheirs.get(exx.sue) is None
+    sue_person.planroot.set_awardunit(awardunit=sue_awardunit)
+    # plan tree has awardlines
+    assert sue_person.planroot.awardheirs.get(exx.sue) is None
 
     # WHEN
     sue_person.cashout()
 
     # THEN
-    assert sue_person.kegroot.awardheirs.get(exx.sue) is not None
-    assert sue_person.kegroot.awardheirs.get(exx.sue).awardee_title == exx.sue
-    assert sue_person.kegroot.awardlines != {}
-    root_rope = to_rope(sue_person.kegroot.keg_label)
-    root_keg = sue_person.get_keg_obj(rope=root_rope)
-    sue_awardline = sue_person.kegroot.awardlines.get(exx.sue)
-    print(f"{sue_awardline.fund_give=} {root_keg.fund_ratio=} ")
-    print(f"  {sue_awardline.fund_take=} {root_keg.fund_ratio=} ")
+    assert sue_person.planroot.awardheirs.get(exx.sue) is not None
+    assert sue_person.planroot.awardheirs.get(exx.sue).awardee_title == exx.sue
+    assert sue_person.planroot.awardlines != {}
+    root_rope = to_rope(sue_person.planroot.plan_label)
+    root_plan = sue_person.get_plan_obj(rope=root_rope)
+    sue_awardline = sue_person.planroot.awardlines.get(exx.sue)
+    print(f"{sue_awardline.fund_give=} {root_plan.fund_ratio=} ")
+    print(f"  {sue_awardline.fund_take=} {root_plan.fund_ratio=} ")
     sum_x = 0
     cat_rope = sue_person.make_l1_rope("cat have dinner")
-    cat_keg = sue_person.get_keg_obj(cat_rope)
+    cat_plan = sue_person.get_plan_obj(cat_rope)
     wk_rope = sue_person.make_l1_rope(wk_str)
-    wk_keg = sue_person.get_keg_obj(wk_rope)
+    wk_plan = sue_person.get_plan_obj(wk_rope)
     casa_rope = sue_person.make_l1_rope(exx.casa)
-    casa_keg = sue_person.get_keg_obj(casa_rope)
+    casa_plan = sue_person.get_plan_obj(casa_rope)
     nation_rope = sue_person.make_l1_rope(nation_str)
-    nation_keg = sue_person.get_keg_obj(nation_rope)
-    sum_x = cat_keg.fund_ratio
-    print(f"{cat_keg.fund_ratio=} {sum_x} ")
-    sum_x += wk_keg.fund_ratio
-    print(f"{wk_keg.fund_ratio=} {sum_x} ")
-    sum_x += casa_keg.fund_ratio
-    print(f"{casa_keg.fund_ratio=} {sum_x} ")
-    sum_x += nation_keg.fund_ratio
-    print(f"{nation_keg.fund_ratio=} {sum_x} ")
+    nation_plan = sue_person.get_plan_obj(nation_rope)
+    sum_x = cat_plan.fund_ratio
+    print(f"{cat_plan.fund_ratio=} {sum_x} ")
+    sum_x += wk_plan.fund_ratio
+    print(f"{wk_plan.fund_ratio=} {sum_x} ")
+    sum_x += casa_plan.fund_ratio
+    print(f"{casa_plan.fund_ratio=} {sum_x} ")
+    sum_x += nation_plan.fund_ratio
+    print(f"{nation_plan.fund_ratio=} {sum_x} ")
     tolerance = 1e-10
     assert sum_x < 1.0 + tolerance
 
-    # for kid_keg in root_keg.kids.values():
-    #     sum_x += kid_keg.fund_ratio
-    #     print(f"  {kid_keg.fund_ratio=} {sum_x=} {kid_keg.get_keg_rope()=}")
+    # for kid_plan in root_plan.kids.values():
+    #     sum_x += kid_plan.fund_ratio
+    #     print(f"  {kid_plan.fund_ratio=} {sum_x=} {kid_plan.get_plan_rope()=}")
     assert round(sue_awardline.fund_give, 15) == default_pool_num()
     assert round(sue_awardline.fund_take, 15) == default_pool_num()
     x_awardline = awardline_shop(exx.sue, default_pool_num(), default_pool_num())
-    assert sue_person.kegroot.awardlines == {x_awardline.awardee_title: x_awardline}
+    assert sue_person.planroot.awardlines == {x_awardline.awardee_title: x_awardline}
 
 
-def test_PersonUnit_cashout_TreeTraverseSets_awardlines_ToRootKegUnitFromNon_RootKegUnit():
+def test_PersonUnit_cashout_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_RootPlanUnit():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
     sue_person.cashout()
     sue_person.add_partnerunit(exx.sue)
     casa_rope = sue_person.make_l1_rope("casa")
-    sue_person.get_keg_obj(casa_rope).set_awardunit(
+    sue_person.get_plan_obj(casa_rope).set_awardunit(
         awardunit_shop(awardee_title=exx.sue)
     )
-    assert sue_person.kegroot.awardlines == {}
+    assert sue_person.planroot.awardlines == {}
 
     # WHEN
     sue_person.cashout()
 
     # THEN
-    assert sue_person.kegroot.awardlines != {}
-    print(f"{sue_person.kegroot.awardlines=}")
+    assert sue_person.planroot.awardlines != {}
+    print(f"{sue_person.planroot.awardlines=}")
     x_awardline = awardline_shop(
         awardee_title=exx.sue,
         fund_give=0.230769231 * default_pool_num(),
         fund_take=0.230769231 * default_pool_num(),
     )
-    assert sue_person.kegroot.awardlines == {x_awardline.awardee_title: x_awardline}
-    casa_kegunit = sue_person.get_keg_obj(casa_rope)
-    assert casa_kegunit.awardlines != {}
-    assert casa_kegunit.awardlines == {x_awardline.awardee_title: x_awardline}
+    assert sue_person.planroot.awardlines == {x_awardline.awardee_title: x_awardline}
+    casa_planunit = sue_person.get_plan_obj(casa_rope)
+    assert casa_planunit.awardlines != {}
+    assert casa_planunit.awardlines == {x_awardline.awardee_title: x_awardline}
 
 
 def test_PersonUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_take():
@@ -425,11 +425,11 @@ def test_PersonUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
-    root_rope = to_rope(sue_person.kegroot.keg_label)
-    x_kegroot = sue_person.get_keg_obj(root_rope)
-    x_kegroot.set_awardunit(awardunit=yao_awardunit)
-    x_kegroot.set_awardunit(awardunit=zia_awardunit)
-    x_kegroot.set_awardunit(awardunit=xio_awardunit)
+    root_rope = to_rope(sue_person.planroot.plan_label)
+    x_planroot = sue_person.get_plan_obj(root_rope)
+    x_planroot.set_awardunit(awardunit=yao_awardunit)
+    x_planroot.set_awardunit(awardunit=zia_awardunit)
+    x_planroot.set_awardunit(awardunit=xio_awardunit)
     assert len(sue_person.get_partnerunit_group_titles_dict()) == 3
 
     # WHEN
@@ -455,8 +455,8 @@ def test_PersonUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     # ESTABLISH
     sue_person.set_partnerunit(partnerunit_shop(exx.sue))
     sue_awardunit = awardunit_shop(exx.sue, give_force=37)
-    x_kegroot.set_awardunit(sue_awardunit)
-    assert len(x_kegroot.awardunits) == 4
+    x_planroot.set_awardunit(sue_awardunit)
+    assert len(x_planroot.awardunits) == 4
     assert len(sue_person.get_partnerunit_group_titles_dict()) == 4
 
     # WHEN
@@ -487,7 +487,7 @@ def test_PersonUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take
     # ESTABLISH
     x_person = personunit_shop(exx.bob)
     swim_rope = x_person.make_l1_rope(exx.swim)
-    x_person.set_l1_keg(kegunit_shop(exx.swim))
+    x_person.set_l1_plan(planunit_shop(exx.swim))
 
     x_person.set_partnerunit(partnerunit_shop(exx.yao))
     x_person.set_partnerunit(partnerunit_shop(exx.zia))
@@ -495,10 +495,10 @@ def test_PersonUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
-    swim_keg = x_person.get_keg_obj(swim_rope)
-    swim_keg.set_awardunit(yao_awardunit)
-    swim_keg.set_awardunit(zia_awardunit)
-    swim_keg.set_awardunit(xio_awardunit)
+    swim_plan = x_person.get_plan_obj(swim_rope)
+    swim_plan.set_awardunit(yao_awardunit)
+    swim_plan.set_awardunit(zia_awardunit)
+    swim_plan.set_awardunit(xio_awardunit)
     assert len(x_person.get_partnerunit_group_titles_dict()) == 3
 
     # WHEN
@@ -528,7 +528,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take(
     # ESTABLISH
     x_person = personunit_shop(exx.yao)
     swim_rope = x_person.make_l1_rope(exx.swim)
-    x_person.set_l1_keg(kegunit_shop(exx.swim))
+    x_person.set_l1_plan(planunit_shop(exx.swim))
 
     x_person.set_partnerunit(partnerunit_shop(exx.yao))
     x_person.set_partnerunit(partnerunit_shop(exx.zia))
@@ -536,10 +536,10 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take(
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
-    swim_keg = x_person.get_keg_obj(swim_rope)
-    swim_keg.set_awardunit(yao_awardunit)
-    swim_keg.set_awardunit(zia_awardunit)
-    swim_keg.set_awardunit(xio_awardunit)
+    swim_plan = x_person.get_plan_obj(swim_rope)
+    swim_plan.set_awardunit(yao_awardunit)
+    swim_plan.set_awardunit(zia_awardunit)
+    swim_plan.set_awardunit(xio_awardunit)
     assert len(x_person.get_partnerunit_group_titles_dict()) == 2
 
     # WHEN
@@ -570,7 +570,7 @@ def test_PersonUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fu
     # ESTABLISH
     x_person = personunit_shop(exx.yao)
     swim_rope = x_person.make_l1_rope(exx.swim)
-    x_person.set_l1_keg(kegunit_shop(exx.swim))
+    x_person.set_l1_plan(planunit_shop(exx.swim))
 
     x_person.set_partnerunit(partnerunit_shop(exx.yao))
     x_person.set_partnerunit(partnerunit_shop(exx.zia))
@@ -578,37 +578,37 @@ def test_PersonUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fu
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
-    swim_keg = x_person.get_keg_obj(swim_rope)
-    swim_keg.set_awardunit(yao_awardunit)
-    swim_keg.set_awardunit(zia_awardunit)
-    swim_keg.set_awardunit(xio_awardunit)
+    swim_plan = x_person.get_plan_obj(swim_rope)
+    swim_plan.set_awardunit(yao_awardunit)
+    swim_plan.set_awardunit(zia_awardunit)
+    swim_plan.set_awardunit(xio_awardunit)
 
     # no awardunits attached to this one
-    x_person.set_l1_keg(kegunit_shop("hunt", star=3))
+    x_person.set_l1_plan(planunit_shop("hunt", star=3))
 
     # WHEN
     x_person.cashout()
 
     # THEN
-    x_kegroot = x_person.get_keg_obj(x_person.kegroot.get_keg_rope())
+    x_planroot = x_person.get_plan_obj(x_person.planroot.get_plan_rope())
     with pytest_raises(Exception) as excinfo:
-        x_kegroot.awardunits[str(exx.yao)]
+        x_planroot.awardunits[str(exx.yao)]
     print(f"{excinfo.value=}")
     assert str(excinfo.value) == f"'{exx.yao}'"
     with pytest_raises(Exception) as excinfo:
-        x_kegroot.awardunits[str(exx.zia)]
+        x_planroot.awardunits[str(exx.zia)]
     assert str(excinfo.value) == f"'{exx.zia}'"
     with pytest_raises(Exception) as excinfo:
-        x_kegroot.awardunits[str(exx.xio)]
+        x_planroot.awardunits[str(exx.xio)]
     assert str(excinfo.value) == f"'{exx.xio}'"
     with pytest_raises(Exception) as excinfo:
-        x_kegroot.kids["hunt"].awardheirs[str(exx.yao)]
+        x_planroot.kids["hunt"].awardheirs[str(exx.yao)]
     assert str(excinfo.value) == f"'{exx.yao}'"
     with pytest_raises(Exception) as excinfo:
-        x_kegroot.kids["hunt"].awardheirs[str(exx.zia)]
+        x_planroot.kids["hunt"].awardheirs[str(exx.zia)]
     assert str(excinfo.value) == f"'{exx.zia}'"
     with pytest_raises(Exception) as excinfo:
-        x_kegroot.kids["hunt"].awardheirs[str(exx.xio)]
+        x_planroot.kids["hunt"].awardheirs[str(exx.xio)]
     assert str(excinfo.value) == f"'{exx.xio}'"
 
     # THEN
@@ -640,22 +640,22 @@ def test_PersonUnit_set_awardunit_CalculatesInheritedAwardUnitPersonFund():
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     Xio_awardunit = awardunit_shop(exx.xio, give_force=10)
-    sue_person.kegroot.set_awardunit(yao_awardunit)
-    sue_person.kegroot.set_awardunit(zia_awardunit)
-    sue_person.kegroot.set_awardunit(Xio_awardunit)
-    assert len(sue_person.kegroot.awardunits) == 3
+    sue_person.planroot.set_awardunit(yao_awardunit)
+    sue_person.planroot.set_awardunit(zia_awardunit)
+    sue_person.planroot.set_awardunit(Xio_awardunit)
+    assert len(sue_person.planroot.awardunits) == 3
 
     # WHEN
-    keg_dict = sue_person.get_keg_dict()
+    plan_dict = sue_person.get_plan_dict()
 
     # THEN
-    print(f"{keg_dict.keys()=}")
-    keg_bob = keg_dict.get(sue_person.kegroot.get_keg_rope())
-    assert len(keg_bob.awardheirs) == 3
+    print(f"{plan_dict.keys()=}")
+    plan_bob = plan_dict.get(sue_person.planroot.get_plan_rope())
+    assert len(plan_bob.awardheirs) == 3
 
-    bheir_yao = keg_bob.awardheirs.get(exx.yao)
-    bheir_zia = keg_bob.awardheirs.get(exx.zia)
-    bheir_Xio = keg_bob.awardheirs.get(exx.xio)
+    bheir_yao = plan_bob.awardheirs.get(exx.yao)
+    bheir_zia = plan_bob.awardheirs.get(exx.zia)
+    bheir_Xio = plan_bob.awardheirs.get(exx.xio)
     assert bheir_yao.fund_give == 0.5 * default_pool_num()
     assert bheir_yao.fund_take == 0.75 * default_pool_num()
     assert bheir_zia.fund_give == 0.25 * default_pool_num()
@@ -673,7 +673,7 @@ def test_PersonUnit_set_awardunit_CalculatesInheritedAwardUnitPersonFund():
 
     # fund_give_sum = 0
     # fund_take_sum = 0
-    # for group in x_person.kegroot.awardheirs.values():
+    # for group in x_person.planroot.awardheirs.values():
     #     print(f"{group=}")
     #     assert group.fund_give is not None
     #     assert group.fund_give in [0.25, 0.5]
@@ -695,10 +695,10 @@ def test_PersonUnit_cashout_SetsGroupLinkPersonCredAndDebt():
     sue_awardunit = awardunit_shop(exx.sue, 20, take_force=40)
     bob_awardunit = awardunit_shop(exx.bob, 10, take_force=5)
     zia_awardunit = awardunit_shop(exx.zia, 10, take_force=5)
-    root_rope = yao_person.kegroot.get_keg_rope()
-    yao_person.edit_keg_attr(root_rope, awardunit=sue_awardunit)
-    yao_person.edit_keg_attr(root_rope, awardunit=bob_awardunit)
-    yao_person.edit_keg_attr(root_rope, awardunit=zia_awardunit)
+    root_rope = yao_person.planroot.get_plan_rope()
+    yao_person.edit_plan_attr(root_rope, awardunit=sue_awardunit)
+    yao_person.edit_plan_attr(root_rope, awardunit=bob_awardunit)
+    yao_person.edit_plan_attr(root_rope, awardunit=zia_awardunit)
 
     sue_partnerunit = yao_person.get_partner(exx.sue)
     bob_partnerunit = yao_person.get_partner(exx.bob)
@@ -739,7 +739,7 @@ def test_PersonUnit_cashout_SetsGroupLinkPersonCredAndDebt():
 
     # ESTABLISH another pledge, check metrics are as expected
     yao_person.set_partnerunit(partnerunit_shop(exx.xio))
-    yao_person.kegroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=13))
+    yao_person.planroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=13))
 
     # WHEN
     yao_person.cashout()
@@ -783,16 +783,16 @@ def test_PersonUnit_cashout_SetsPartnerUnitPerson_fund():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
     swim_rope = yao_person.make_l1_rope(exx.swim)
-    yao_person.set_l1_keg(kegunit_shop(exx.swim))
+    yao_person.set_l1_plan(planunit_shop(exx.swim))
     yao_person.set_partnerunit(partnerunit_shop(exx.sue))
     yao_person.set_partnerunit(partnerunit_shop(exx.bob))
     yao_person.set_partnerunit(partnerunit_shop(exx.zia))
     bl_sue = awardunit_shop(exx.sue, 20, take_force=40)
     bl_bob = awardunit_shop(exx.bob, 10, take_force=5)
     bl_zia = awardunit_shop(exx.zia, 10, take_force=5)
-    yao_person.get_keg_obj(swim_rope).set_awardunit(bl_sue)
-    yao_person.get_keg_obj(swim_rope).set_awardunit(bl_bob)
-    yao_person.get_keg_obj(swim_rope).set_awardunit(bl_zia)
+    yao_person.get_plan_obj(swim_rope).set_awardunit(bl_sue)
+    yao_person.get_plan_obj(swim_rope).set_awardunit(bl_bob)
+    yao_person.get_plan_obj(swim_rope).set_awardunit(bl_zia)
 
     sue_partnerunit = yao_person.get_partner(exx.sue)
     bob_partnerunit = yao_person.get_partner(exx.bob)
@@ -831,7 +831,7 @@ def test_PersonUnit_cashout_SetsPartnerUnitPerson_fund():
 
     # WHEN another pledge, check metrics are as expected
     yao_person.set_partnerunit(partnerunit_shop(exx.xio))
-    yao_person.kegroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=10))
+    yao_person.planroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=10))
     yao_person.cashout()
 
     # THEN
@@ -878,21 +878,21 @@ def test_PersonUnit_cashout_SetsPartGroupedLWPartnerUnitPerson_fund():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
     swim_rope = yao_person.make_l1_rope(exx.swim)
-    yao_person.set_l1_keg(kegunit_shop(exx.swim))
+    yao_person.set_l1_plan(planunit_shop(exx.swim))
     yao_person.set_partnerunit(partnerunit_shop(exx.sue))
     yao_person.set_partnerunit(partnerunit_shop(exx.bob))
     yao_person.set_partnerunit(partnerunit_shop(exx.zia))
     sue_awardunit = awardunit_shop(exx.sue, 20, take_force=40)
     bob_awardunit = awardunit_shop(exx.bob, 10, take_force=5)
     zia_awardunit = awardunit_shop(exx.zia, 10, take_force=5)
-    swim_keg = yao_person.get_keg_obj(swim_rope)
-    swim_keg.set_awardunit(sue_awardunit)
-    swim_keg.set_awardunit(bob_awardunit)
-    swim_keg.set_awardunit(zia_awardunit)
+    swim_plan = yao_person.get_plan_obj(swim_rope)
+    swim_plan.set_awardunit(sue_awardunit)
+    swim_plan.set_awardunit(bob_awardunit)
+    swim_plan.set_awardunit(zia_awardunit)
 
     # no awardunits attached to this one
     hunt_str = "hunt"
-    yao_person.set_l1_keg(kegunit_shop(hunt_str, star=3))
+    yao_person.set_l1_plan(planunit_shop(hunt_str, star=3))
 
     # WHEN
     yao_person.cashout()
@@ -945,7 +945,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_tak
     # ESTABLISH
     bob_person = personunit_shop(exx.bob)
     swim_rope = bob_person.make_l1_rope(exx.swim)
-    bob_person.set_l1_keg(kegunit_shop(exx.swim))
+    bob_person.set_l1_plan(planunit_shop(exx.swim))
 
     bob_person.set_partnerunit(partnerunit_shop(exx.yao))
     bob_person.set_partnerunit(partnerunit_shop(exx.zia))
@@ -953,10 +953,10 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_tak
     yao_awardunit = awardunit_shop(exx.yao, give_force=20, take_force=6)
     zia_awardunit = awardunit_shop(exx.zia, give_force=10, take_force=1)
     xio_awardunit = awardunit_shop(exx.xio, give_force=10)
-    swim_keg = bob_person.get_keg_obj(swim_rope)
-    swim_keg.set_awardunit(yao_awardunit)
-    swim_keg.set_awardunit(zia_awardunit)
-    swim_keg.set_awardunit(xio_awardunit)
+    swim_plan = bob_person.get_plan_obj(swim_rope)
+    swim_plan.set_awardunit(yao_awardunit)
+    swim_plan.set_awardunit(zia_awardunit)
+    swim_plan.set_awardunit(xio_awardunit)
     assert len(bob_person.get_partnerunit_group_titles_dict()) == 2
 
     # WHEN
@@ -978,7 +978,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_tak
 def test_PersonUnit_cashout_SetsPartnerUnit_fund_give_fund_take():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
-    yao_person.set_l1_keg(kegunit_shop("swim"))
+    yao_person.set_l1_plan(planunit_shop("swim"))
     yao_person.set_partnerunit(partnerunit_shop(exx.sue, 8))
     yao_person.set_partnerunit(partnerunit_shop(exx.bob))
     yao_person.set_partnerunit(partnerunit_shop(exx.zia))
@@ -1057,21 +1057,21 @@ class PartnerAgendaMetrics:
 
 @dataclass
 class AwardAgendaMetrics:
-    sum_person_agenda_kegs_fund_total = 0
+    sum_person_agenda_plans_fund_total = 0
     agenda_no_count = 0
     agenda_yes_count = 0
     agenda_no_person_i_sum = 0
     agenda_yes_person_i_sum = 0
 
-    def set_awardagendametrics_sums(self, agenda_dict: dict[RopeTerm, KegUnit]):
-        for agenda_keg in agenda_dict.values():
-            self.sum_person_agenda_kegs_fund_total += agenda_keg.get_keg_fund_total()
-            if agenda_keg.awardlines == {}:
+    def set_awardagendametrics_sums(self, agenda_dict: dict[RopeTerm, PlanUnit]):
+        for agenda_plan in agenda_dict.values():
+            self.sum_person_agenda_plans_fund_total += agenda_plan.get_plan_fund_total()
+            if agenda_plan.awardlines == {}:
                 self.agenda_no_count += 1
-                self.agenda_no_person_i_sum += agenda_keg.get_keg_fund_total()
+                self.agenda_no_person_i_sum += agenda_plan.get_plan_fund_total()
             else:
                 self.agenda_yes_count += 1
-                self.agenda_yes_person_i_sum += agenda_keg.get_keg_fund_total()
+                self.agenda_yes_person_i_sum += agenda_plan.get_plan_fund_total()
 
 
 def test_PersonUnit_agenda_cred_debt_SetAttrs():
@@ -1097,8 +1097,8 @@ def test_PersonUnit_agenda_cred_debt_SetAttrs():
 
     # WHEN
     agenda_dict = yao_person.get_agenda_dict()
-    # for keg_rope in yao_person._keg_dict.keys():
-    #     print(f"{keg_rope=}")
+    # for plan_rope in yao_person._plan_dict.keys():
+    #     print(f"{plan_rope=}")
     # for x_partner in yao_person.partners.values():
     #     for x_membership in x_partner.memberships.values():
     #         print(f"{x_membership.group_title=}")
@@ -1108,7 +1108,7 @@ def test_PersonUnit_agenda_cred_debt_SetAttrs():
     assert len(agenda_dict) == 69
     x_awardagendametrics = AwardAgendaMetrics()
     x_awardagendametrics.set_awardagendametrics_sums(agenda_dict=agenda_dict)
-    # print(f"{sum_person_agenda_kegs_fund_total=}")
+    # print(f"{sum_person_agenda_plans_fund_total=}")
     # assert x_awardagendametrics.agenda_no_count == 14
     assert x_awardagendametrics.agenda_yes_count == 49
     predicted_agenda_no_person_i_sum = int(0.004908864 * default_pool_num())
@@ -1123,12 +1123,12 @@ def test_PersonUnit_agenda_cred_debt_SetAttrs():
     assert are_equal(
         x_awardagendametrics.agenda_no_person_i_sum
         + x_awardagendametrics.agenda_yes_person_i_sum,
-        x_awardagendametrics.sum_person_agenda_kegs_fund_total,
+        x_awardagendametrics.sum_person_agenda_plans_fund_total,
     )
-    predicted_sum_person_agenda_kegs_fund_total = 0.007974264 * default_pool_num()
+    predicted_sum_person_agenda_plans_fund_total = 0.007974264 * default_pool_num()
     assert (
-        x_awardagendametrics.sum_person_agenda_kegs_fund_total
-        == predicted_sum_person_agenda_kegs_fund_total
+        x_awardagendametrics.sum_person_agenda_plans_fund_total
+        == predicted_sum_person_agenda_plans_fund_total
     )
 
     x_groupagendametrics = GroupAgendaMetrics()
@@ -1151,11 +1151,11 @@ def test_PersonUnit_agenda_cred_debt_SetAttrs():
     x_partneragendametrics.set_partneragendametrics_sums(yao_person)
     assert are_equal(
         x_partneragendametrics.sum_agenda_cred,
-        x_awardagendametrics.sum_person_agenda_kegs_fund_total,
+        x_awardagendametrics.sum_person_agenda_plans_fund_total,
     )
     assert are_equal(
         x_partneragendametrics.sum_agenda_debt,
-        x_awardagendametrics.sum_person_agenda_kegs_fund_total,
+        x_awardagendametrics.sum_person_agenda_plans_fund_total,
     )
     assert are_equal(x_partneragendametrics.sum_agenda_ratio_cred, 1)
     assert are_equal(x_partneragendametrics.sum_agenda_ratio_debt, 1)
@@ -1263,15 +1263,15 @@ def test_PersonUnit_cashout_CreatesGroupUnitWith_personunit_v001():
 
     # WHEN
     yao_person.cashout()
-    keg_dict = yao_person._keg_dict
+    plan_dict = yao_person._plan_dict
 
     # THEN
-    # print(f"{len(keg_dict)=}")
-    db_keg = keg_dict.get(yao_person.make_l1_rope("D&B"))
-    assert len(db_keg.awardunits) == 3
-    # for keg_key in keg_dict:
-    #     print(f"{keg_key=}")
-    #     if keg.keg_label == "D&B":
-    #         print(f"{keg.keg_label=} {keg.awardunits=}")
-    #         db_awardunit_len = len(keg.awardunits)
+    # print(f"{len(plan_dict)=}")
+    db_plan = plan_dict.get(yao_person.make_l1_rope("D&B"))
+    assert len(db_plan.awardunits) == 3
+    # for plan_key in plan_dict:
+    #     print(f"{plan_key=}")
+    #     if plan.plan_label == "D&B":
+    #         print(f"{plan.plan_label=} {plan.awardunits=}")
+    #         db_awardunit_len = len(plan.awardunits)
     # assert db_awardunit_len == 3

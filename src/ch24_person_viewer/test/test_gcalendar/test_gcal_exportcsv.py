@@ -2,7 +2,7 @@ from csv import DictReader as csv_DictReader
 from datetime import datetime
 from io import StringIO as io_StringIO
 from src.ch07_person_logic.person_main import personunit_shop
-from src.ch13_time.epoch_main import add_epoch_kegunit, get_default_epoch_config_dict
+from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
 from src.ch24_person_viewer.gcalendar import (
     create_gcalendar_csv,
     create_gcalendar_events_list,
@@ -47,32 +47,32 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario0_Empty():
 def test_PersonUnit_cashout_SetsAttr_ScenarioX_SingleBranch_fund_ratio():
     # ESTABLISH
     sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_keg(wx.mop_rope, pledge=True, star=1)
-    mop_keg = sue_person.get_keg_obj(wx.mop_rope)
-    assert not sue_person.kegroot.fund_onset
-    assert not sue_person.kegroot.fund_cease
-    assert not sue_person.kegroot.fund_ratio
-    assert not mop_keg.fund_onset
-    assert not mop_keg.fund_cease
-    assert not mop_keg.fund_ratio
+    sue_person.add_plan(wx.mop_rope, pledge=True, star=1)
+    mop_plan = sue_person.get_plan_obj(wx.mop_rope)
+    assert not sue_person.planroot.fund_onset
+    assert not sue_person.planroot.fund_cease
+    assert not sue_person.planroot.fund_ratio
+    assert not mop_plan.fund_onset
+    assert not mop_plan.fund_cease
+    assert not mop_plan.fund_ratio
 
     # WHEN
     sue_person.cashout()
 
     # THEN
-    assert sue_person.kegroot.fund_onset == 0
-    assert sue_person.kegroot.fund_cease == 1000000000.0
-    assert sue_person.kegroot.fund_ratio == 1.0
-    assert mop_keg.fund_onset == 0
-    assert mop_keg.fund_cease == sue_person.fund_pool
-    assert mop_keg.fund_ratio
-    assert mop_keg.fund_ratio == 1.0
+    assert sue_person.planroot.fund_onset == 0
+    assert sue_person.planroot.fund_cease == 1000000000.0
+    assert sue_person.planroot.fund_ratio == 1.0
+    assert mop_plan.fund_onset == 0
+    assert mop_plan.fund_cease == sue_person.fund_pool
+    assert mop_plan.fund_ratio
+    assert mop_plan.fund_ratio == 1.0
 
 
 def test_create_gcalendar_events_list_ReturnsObj_Scenario1_1AllDayPledge():
     # ESTABLISH
     sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_keg(wx.mop_rope, pledge=True, star=1)
+    sue_person.add_plan(wx.mop_rope, pledge=True, star=1)
     apr7 = datetime(2010, 5, 7, 9)
     print(f"{apr7=}")
 
@@ -101,9 +101,9 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario1_1AllDayPledge():
 def test_create_gcalendar_events_list_ReturnsObj_Scenario2_3AllDayPledge():
     # ESTABLISH
     sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_keg(wx.mop_rope, pledge=True, star=2)
-    sue_person.add_keg(wx.sweep_rope, pledge=True, star=1)
-    sue_person.add_keg(wx.scrub_rope, pledge=True, star=1)
+    sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
+    sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
+    sue_person.add_plan(wx.scrub_rope, pledge=True, star=1)
     apr7 = datetime(2010, 5, 7, 9)
     print(f"{apr7=}")
 
@@ -139,9 +139,9 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario2_3AllDayPledge():
 # def test_create_gcalendar_events_list_ReturnsObj_Scenario3_OneEpoch_pledge():
 #     # ESTABLISH
 #     sue_person = personunit_shop(wx.sue, wx.a23)
-#     sue_person.add_keg(wx.mop_rope, pledge=True, star=2)
+#     sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
 #     default_epoch_config = get_default_epoch_config_dict()
-#     add_epoch_kegunit(sue_person, default_epoch_config)
+#     add_epoch_planunit(sue_person, default_epoch_config)
 #     sue_person.edit_reason(wx.mop_rope, reason_context=, reason_case=)
 #     apr7 = datetime(2010, 5, 7, 9)
 #     print(f"{apr7=}")
@@ -184,7 +184,7 @@ def test_create_gcalendar_csv_ReturnsObj():
             "End Date": "10/08/2025",
             "End Time": "10:00:00",
             "All Day Event": "False",
-            "Description": "Quarterly kegning session",
+            "Description": "Quarterly planning session",
         },
         {
             "Subject": "All Hands Day",

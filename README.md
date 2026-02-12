@@ -108,25 +108,25 @@ PersonUnit PartnerUnit objects
 
 PersonUnit GroupUnit objects
 
-PersonUnit KegUnit objects
+PersonUnit PlanUnit objects
 
-PersonUnit KegUnit hierarchical structure
+PersonUnit PlanUnit hierarchical structure
 
-PersonUnit KegUnit AwardUnit objects
+PersonUnit PlanUnit AwardUnit objects
 
-PersonUnit KegUnit AwardLine objects
+PersonUnit PlanUnit AwardLine objects
 
-PersonUnit KegUnit AwardHeir objects
+PersonUnit PlanUnit AwardHeir objects
 
-PersonUnit KegUnit AwardHeir objects
+PersonUnit PlanUnit AwardHeir objects
 
-PersonUnit KegUnit Reason CaseUnit objects
+PersonUnit PlanUnit Reason CaseUnit objects
 
-PersonUnit KegUnit Reason CaseHeir objects
+PersonUnit PlanUnit Reason CaseHeir objects
 
-PersonUnit KegUnit FactUnit objects
+PersonUnit PlanUnit FactUnit objects
 
-PersonUnit KegUnit FactHeir objects1
+PersonUnit PlanUnit FactHeir objects1
 
 
 ## 1.3 Test-Driven-Development

@@ -32,8 +32,8 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 # TODO create function that updates all nabuable otx fields.
 # identify the change
 #
-# update semantic_type: ReasonNum person_keg_reason_caseunit_h_agg_put reason_lower, reason_upper
-# update semantic_type: ReasonNum person_keg_factunit_h_agg_put fact_lower, fact_upper
+# update semantic_type: ReasonNum person_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
+# update semantic_type: ReasonNum person_plan_factunit_h_agg_put fact_lower, fact_upper
 # update semantic_type: TimeNum moment_paybook_h_agg tran_time
 # update semantic_type: TimeNum moment_budunit_h_agg bud_time
 # update semantic_type: TimeNum moment_timeh_agg time
@@ -196,7 +196,7 @@ def test_insert_prncase_special_h_agg_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        prncase_h_agg = prime_tbl(kw.person_keg_reason_caseunit, "h", "agg", "put")
+        prncase_h_agg = prime_tbl(kw.person_plan_reason_caseunit, "h", "agg", "put")
         spark1 = 1
         s1_reason_upper = 500
         s1_reason_lower = 600
@@ -208,7 +208,7 @@ def test_insert_prncase_special_h_agg_PopulatesTable_Scenario0():
             x_spark_num=spark1,
             x_moment_rope=exx.sue,
             x_person_name=exx.a23,
-            x_keg_rope=wx.clean_rope,
+            x_plan_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
             x_reason_state=wx.days_rope,
             x_reason_lower=s1_reason_lower,
@@ -221,7 +221,7 @@ def test_insert_prncase_special_h_agg_PopulatesTable_Scenario0():
   {kw.spark_num}
 , {kw.moment_rope}
 , {kw.person_name}
-, {kw.keg_rope}
+, {kw.plan_rope}
 , {kw.reason_context}
 , {kw.reason_state}
 , {kw.reason_upper}_otx
@@ -249,7 +249,7 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
-        prncase_h_agg = prime_tbl(kw.person_keg_reason_caseunit, "h", "agg", "put")
+        prncase_h_agg = prime_tbl(kw.person_plan_reason_caseunit, "h", "agg", "put")
         spark1 = 1
         s1_reason_upper = 500
         s1_reason_lower = 600
@@ -258,7 +258,7 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
             x_spark_num=spark1,
             x_moment_rope=exx.a23,
             x_person_name=exx.sue,
-            x_keg_rope=wx.clean_rope,
+            x_plan_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
             x_reason_state=wx.days_rope,
             x_reason_lower=s1_reason_lower,
@@ -271,7 +271,7 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
             x_spark_num=spark1,
             x_moment_rope=exx.a23,
             x_person_name=exx.sue,
-            x_keg_rope=wx.clean_rope,
+            x_plan_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
             x_reason_state=wx.days_rope,
         )
@@ -282,7 +282,7 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
         assert gen_row0.spark_num == spark1
         assert gen_row0.moment_rope == exx.a23
         assert gen_row0.person_name == exx.sue
-        assert gen_row0.keg_rope == wx.clean_rope
+        assert gen_row0.plan_rope == wx.clean_rope
         assert gen_row0.reason_context == wx.day_rope
         assert gen_row0.reason_state == wx.days_rope
         assert gen_row0.reason_lower_otx == s1_reason_lower
@@ -296,7 +296,7 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
   {kw.spark_num}
 , {kw.moment_rope}
 , {kw.person_name}
-, {kw.keg_rope}
+, {kw.plan_rope}
 , {kw.reason_context}
 , {kw.reason_state}
 , {kw.reason_lower}_otx
@@ -324,7 +324,7 @@ FROM {prncase_h_agg}
 #     x_spark_num: SparkInt,
 #     x_moment_rope: MomentRope,
 #     x_person_name: PersonName,
-#     x_keg_rope: RopeTerm,
+#     x_plan_rope: RopeTerm,
 #     x_reason_context: RopeTerm,
 #     x_reason_state: RopeTerm,
 #     x_reason_lower: ReasonNum,
@@ -338,7 +338,7 @@ FROM {prncase_h_agg}
 #     x_spark_num: SparkInt,
 #     x_moment_rope: MomentRope,
 #     x_person_name: PersonName,
-#     x_keg_rope: RopeTerm,
+#     x_plan_rope: RopeTerm,
 #     x_reason_context: RopeTerm,
 #     x_reason_state: RopeTerm,
 # ) -> list[tuple]:
@@ -350,7 +350,7 @@ FROM {prncase_h_agg}
 #     x_spark_num: SparkInt,
 #     x_moment_rope: MomentRope,
 #     x_person_name: PersonName,
-#     x_keg_rope: RopeTerm,
+#     x_plan_rope: RopeTerm,
 #     x_fact_context: RopeTerm,
 #     x_fact_state: RopeTerm,
 #     x_fact_upper: FactNum,
@@ -364,18 +364,18 @@ FROM {prncase_h_agg}
 #     x_spark_num: SparkInt,
 #     x_moment_rope: MomentRope,
 #     x_person_name: PersonName,
-#     x_keg_rope: RopeTerm,
+#     x_plan_rope: RopeTerm,
 #     x_fact_context: RopeTerm,
 # ) -> list[tuple]:
 #     pass
 
 
-# def insert_prnkegg_special_h_agg(
+# def insert_prnplan_special_h_agg(
 #     cursor: sqlite3_Cursor,
 #     x_spark_num: SparkInt,
 #     x_moment_rope: MomentRope,
 #     x_person_name: PersonName,
-#     x_keg_rope: RopeTerm,
+#     x_plan_rope: RopeTerm,
 #     x_denom: int,
 # ) -> list[tuple]:
 #     pass

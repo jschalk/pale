@@ -68,7 +68,7 @@ def test_IdeaRef_get_headers_list_ReturnsObj_Scenario2():
     # ESTABLISH
 
     x3_idearef = idearef_shop("0003", kw.person_partnerunit)
-    x3_idearef.set_attribute(kw.keg_rope, True)
+    x3_idearef.set_attribute(kw.plan_rope, True)
     x3_idearef.set_attribute(kw.group_title, False)
     x3_idearef.set_attribute(kw.partner_name, True)
 
@@ -76,7 +76,7 @@ def test_IdeaRef_get_headers_list_ReturnsObj_Scenario2():
     x_headers_list = x3_idearef.get_headers_list()
 
     # THEN
-    assert x_headers_list == [kw.partner_name, kw.group_title, kw.keg_rope]
+    assert x_headers_list == [kw.partner_name, kw.group_title, kw.plan_rope]
 
 
 def test_IdeaRef_get_otx_keys_list_ReturnsObj_Scenario0():
@@ -107,7 +107,7 @@ def test_IdeaRef_get_otx_keys_list_ReturnsObj_Scenario2():
     # ESTABLISH
 
     x3_idearef = idearef_shop("0003", kw.person_partnerunit)
-    x3_idearef.set_attribute(kw.keg_rope, True)
+    x3_idearef.set_attribute(kw.plan_rope, True)
     x3_idearef.set_attribute(kw.group_title, False)
     x3_idearef.set_attribute(kw.partner_name, True)
 
@@ -115,7 +115,7 @@ def test_IdeaRef_get_otx_keys_list_ReturnsObj_Scenario2():
     x_otx_keys_list = x3_idearef.get_otx_keys_list()
 
     # THEN
-    assert x_otx_keys_list == [kw.partner_name, kw.keg_rope]
+    assert x_otx_keys_list == [kw.partner_name, kw.plan_rope]
 
 
 def test_IdeaRef_get_otx_values_list_ReturnsObj_Scenario0():
@@ -146,7 +146,7 @@ def test_IdeaRef_get_otx_values_list_ReturnsObj_Scenario2():
     # ESTABLISH
 
     x3_idearef = idearef_shop("0003", kw.person_partnerunit)
-    x3_idearef.set_attribute(kw.keg_rope, True)
+    x3_idearef.set_attribute(kw.plan_rope, True)
     x3_idearef.set_attribute(kw.group_title, False)
     x3_idearef.set_attribute(kw.reason_context, False)
     x3_idearef.set_attribute(kw.partner_name, False)

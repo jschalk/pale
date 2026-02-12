@@ -11,21 +11,21 @@ def test_get_person_unique_short_ropes_ReturnsObj_Scenario0_RootOnly():
     unique_short_ropes = get_person_unique_short_ropes(sue_person)
 
     # THEN
-    assert unique_short_ropes == {sue_person.kegroot.get_keg_rope(): "Amy23"}
+    assert unique_short_ropes == {sue_person.planroot.get_plan_rope(): "Amy23"}
 
 
-def test_get_person_unique_short_ropess_ReturnsObj_Scenario1_KegsWithUniqueLabels():
+def test_get_person_unique_short_ropess_ReturnsObj_Scenario1_PlansWithUniqueLabels():
     # ESTABLISH
     sue_person = personunit_shop("Sue", exx.a23)
     casa_rope = sue_person.make_l1_rope(exx.casa)
     mop_rope = sue_person.make_rope(casa_rope, exx.mop)
-    sue_person.add_keg(mop_rope)
+    sue_person.add_plan(mop_rope)
 
     # WHEN
     unique_short_ropes = get_person_unique_short_ropes(sue_person)
 
     # THEN
-    root_rope = sue_person.kegroot.get_keg_rope()
+    root_rope = sue_person.planroot.get_plan_rope()
     assert unique_short_ropes == {
         root_rope: "Amy23",
         casa_rope: exx.casa,
@@ -33,7 +33,7 @@ def test_get_person_unique_short_ropess_ReturnsObj_Scenario1_KegsWithUniqueLabel
     }
 
 
-def test_get_person_unique_short_ropess_ReturnsObj_Scenario2_KegsWithCommonLabels():
+def test_get_person_unique_short_ropess_ReturnsObj_Scenario2_PlansWithCommonLabels():
     # ESTABLISH
     sue_person = personunit_shop("Sue", exx.a23)
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -41,14 +41,14 @@ def test_get_person_unique_short_ropess_ReturnsObj_Scenario2_KegsWithCommonLabel
     sports_str = "sports"
     sports_rope = sue_person.make_l1_rope(sports_str)
     sports_mop_rope = sue_person.make_rope(sports_rope, exx.mop)
-    sue_person.add_keg(casa_mop_rope)
-    sue_person.add_keg(sports_mop_rope)
+    sue_person.add_plan(casa_mop_rope)
+    sue_person.add_plan(sports_mop_rope)
 
     # WHEN
     unique_short_ropes = get_person_unique_short_ropes(sue_person)
 
     # THEN
-    root_rope = sue_person.kegroot.get_keg_rope()
+    root_rope = sue_person.planroot.get_plan_rope()
     knot = sue_person.knot
     expected_short_casa_mop = f"{exx.casa}{knot}{exx.mop}"
     assert unique_short_ropes.get(casa_mop_rope) == expected_short_casa_mop

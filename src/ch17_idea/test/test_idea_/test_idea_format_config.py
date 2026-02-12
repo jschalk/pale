@@ -6,8 +6,8 @@ from src.ch17_idea.idea_config import (
     get_idea_format_headers,
     get_idea_formats_dir,
     get_idearef_from_file,
-    idea_format_00013_kegunit_v0_0_0,
-    idea_format_00019_kegunit_v0_0_0,
+    idea_format_00013_planunit_v0_0_0,
+    idea_format_00019_planunit_v0_0_0,
     idea_format_00020_person_partner_membership_v0_0_0,
     idea_format_00021_person_partnerunit_v0_0_0,
 )
@@ -26,8 +26,8 @@ def test_config_str_functions_ReturnsObj():
     assert idea_format_00021_person_partnerunit_v0_0_0() == x00021_idea
     x00020_idea = "idea_format_00020_person_partner_membership_v0_0_0"
     assert idea_format_00020_person_partner_membership_v0_0_0() == x00020_idea
-    x0003_idea = "idea_format_00013_kegunit_v0_0_0"
-    assert idea_format_00013_kegunit_v0_0_0() == x0003_idea
+    x0003_idea = "idea_format_00013_planunit_v0_0_0"
+    assert idea_format_00013_planunit_v0_0_0() == x0003_idea
 
 
 def test_get_idea_formats_dir_ReturnsObj():
@@ -87,7 +87,7 @@ def get_sorted_headers_str(idea_filename):
     # print(f"{idea_attributes=}")
     header_str = "".join(f",{x_header}" for x_header in idea_attributes)
     return header_str[1:]
-    # return create_sorted_kegatenated_str(list(idea_attributes))
+    # return create_sorted_planatenated_str(list(idea_attributes))
 
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
@@ -104,12 +104,12 @@ def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario1_SingleExample():
     # ESTABLISH / WHEN
-    br00019_headers = get_sorted_headers_str(idea_format_00019_kegunit_v0_0_0())
+    br00019_headers = get_sorted_headers_str(idea_format_00019_planunit_v0_0_0())
 
     # THEN
     print(f"{br00019_headers=}")
-    expected_keg_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.keg_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
-    assert br00019_headers == expected_keg_headers_str
+    expected_plan_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.plan_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
+    assert br00019_headers == expected_plan_headers_str
 
 
 def check_sorted_headers_exist(idea_format_filename: str, x_headers: dict):
@@ -225,9 +225,9 @@ def test_get_idearef_obj_HasAttrs_idea_format_00020_person_partner_membership_v0
     assert headers_list[7] == kw.group_debt_lumen
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00013_kegunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00013_planunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00013_kegunit_v0_0_0()
+    idea_name = idea_format_00013_planunit_v0_0_0()
 
     # WHEN
     format_00003_idearef = get_idearef_obj(idea_name)
@@ -239,14 +239,14 @@ def test_get_idearef_obj_HasAttrs_idea_format_00013_kegunit_v0_0_0():
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_rope
     assert headers_list[3] == kw.person_name
-    assert headers_list[4] == kw.keg_rope
+    assert headers_list[4] == kw.plan_rope
     assert headers_list[5] == kw.star
     assert headers_list[6] == kw.pledge
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00019_kegunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_idea_format_00019_planunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00019_kegunit_v0_0_0()
+    idea_name = idea_format_00019_planunit_v0_0_0()
 
     # WHEN
     format_00019_idearef = get_idearef_obj(idea_name)
@@ -258,7 +258,7 @@ def test_get_idearef_obj_HasAttrs_idea_format_00019_kegunit_v0_0_0():
     assert headers_list[1] == kw.face_name
     assert headers_list[2] == kw.moment_rope
     assert headers_list[3] == kw.person_name
-    assert headers_list[4] == kw.keg_rope
+    assert headers_list[4] == kw.plan_rope
     assert headers_list[5] == kw.begin
     assert headers_list[6] == kw.close
     assert headers_list[7] == kw.addin

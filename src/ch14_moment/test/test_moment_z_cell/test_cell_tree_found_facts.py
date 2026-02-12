@@ -78,7 +78,7 @@ def test_set_cell_trees_found_facts_Scenario2_ChildNodeWithOneFactIsAssignedToAn
     bob5_personspark.add_partnerunit(exx.yao)
     bob5_yao_personspark.add_partnerunit(exx.sue)
     bob5_yao_sue_personspark.add_partnerunit(exx.bob)
-    bob5_yao_sue_personspark.add_keg(clean_fact.fact_state, 1)
+    bob5_yao_sue_personspark.add_plan(clean_fact.fact_state, 1)
     bob5_yao_sue_personspark.add_fact(clean_fact.fact_context, clean_fact.fact_state)
     bob5_cell = cellunit_shop(exx.bob, das, personadjust=bob5_personspark)
     bob5_yao_cell = cellunit_shop(exx.bob, das_y, personadjust=bob5_yao_personspark)

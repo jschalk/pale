@@ -1,8 +1,8 @@
 from src.ch07_person_logic.person_tool import (
-    person_keg_reason_caseunit_exists,
-    person_keg_reason_caseunit_get_obj,
-    person_keg_reasonunit_exists,
-    person_keg_reasonunit_get_obj,
+    person_plan_reason_caseunit_exists,
+    person_plan_reason_caseunit_get_obj,
+    person_plan_reasonunit_exists,
+    person_plan_reasonunit_get_obj,
 )
 from src.ch13_time.epoch_reason import (
     set_epoch_cases_by_args_dict,
@@ -22,12 +22,12 @@ def test_set_epoch_cases_for_dayly_SetsAttr_Scenario0_MiddleDayEvery3Days():
     # ESTABLISH
     bob_person = get_bob_five_person()
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
     mop_xdays_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.days_rope,
         kw.reason_state: wx.days_rope,
     }
@@ -36,13 +36,13 @@ def test_set_epoch_cases_for_dayly_SetsAttr_Scenario0_MiddleDayEvery3Days():
     mop_days_lower_day = 1
     mop_days_upper_day = 2
     mop_every_xdays = 3
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_xdays_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_xdays_args)
 
     # WHEN
     set_epoch_cases_for_dayly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         dayly_lower_min=mop_dayly_lower_min,
         dayly_duration_min=mop_day_duration,
@@ -52,10 +52,10 @@ def test_set_epoch_cases_for_dayly_SetsAttr_Scenario0_MiddleDayEvery3Days():
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_xdays_args)
-    assert person_keg_reason_caseunit_exists(bob_person, mop_dayly_args)
-    day_case = person_keg_reason_caseunit_get_obj(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_xdays_args)
+    assert person_plan_reason_caseunit_exists(bob_person, mop_dayly_args)
+    day_case = person_plan_reason_caseunit_get_obj(bob_person, mop_dayly_args)
     assert day_case.reason_state == wx.day_rope
     assert day_case.reason_lower == mop_dayly_lower_min
     assert day_case.reason_lower == 600
@@ -67,17 +67,17 @@ def test_set_epoch_cases_for_dayly_SetsAttr_Scenario1_IncludeRange():
     # ESTABLISH
     bob_person = get_bob_five_person()
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
     mop_xdays_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.days_rope,
         kw.reason_state: wx.days_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -88,14 +88,14 @@ def test_set_epoch_cases_for_dayly_SetsAttr_Scenario1_IncludeRange():
     mop_every_xdays = 3
     mop_range_lower_min = 200
     mop_range_duration = 300
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_xdays_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_xdays_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
 
     # WHEN
     set_epoch_cases_for_dayly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         dayly_lower_min=mop_dayly_lower_min,
         dayly_duration_min=mop_day_duration,
@@ -107,11 +107,11 @@ def test_set_epoch_cases_for_dayly_SetsAttr_Scenario1_IncludeRange():
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_xdays_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_range_args)
-    assert person_keg_reason_caseunit_exists(bob_person, mop_dayly_args)
-    range_case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_xdays_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_range_args)
+    assert person_plan_reason_caseunit_exists(bob_person, mop_dayly_args)
+    range_case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
     assert range_case.reason_state == wx.five_rope
     assert range_case.reason_lower == 200
     assert range_case.reason_upper == 500
@@ -122,12 +122,12 @@ def test_set_epoch_cases_for_weekly_SetsAttr_Scenario0_ThirdDayEvery7Weeks():
     # ESTABLISH
     bob_person = get_bob_five_person()
     mop_weekly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.week_rope,
         kw.reason_state: wx.week_rope,
     }
     mop_xweeks_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.weeks_rope,
         kw.reason_state: wx.weeks_rope,
     }
@@ -136,13 +136,13 @@ def test_set_epoch_cases_for_weekly_SetsAttr_Scenario0_ThirdDayEvery7Weeks():
     mop_week_lower = 2
     mop_week_upper = 3
     mop_every_xweeks = 7
-    assert not person_keg_reasonunit_exists(bob_person, mop_weekly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_xweeks_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_weekly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_xweeks_args)
 
     # WHEN
     set_epoch_cases_for_weekly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         weekly_lower_min=mop_weekly_lower_min,
         weekly_duration_min=mop_weekly_duration_min,
@@ -152,10 +152,10 @@ def test_set_epoch_cases_for_weekly_SetsAttr_Scenario0_ThirdDayEvery7Weeks():
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_weekly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_xweeks_args)
-    assert person_keg_reason_caseunit_exists(bob_person, mop_weekly_args)
-    week_case = person_keg_reason_caseunit_get_obj(bob_person, mop_weekly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_weekly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_xweeks_args)
+    assert person_plan_reason_caseunit_exists(bob_person, mop_weekly_args)
+    week_case = person_plan_reason_caseunit_get_obj(bob_person, mop_weekly_args)
     assert week_case.reason_state == wx.week_rope
     assert week_case.reason_lower == mop_weekly_lower_min
     assert week_case.reason_lower == 600
@@ -167,17 +167,17 @@ def test_set_epoch_cases_for_weekly_SetsAttr_Scenario1_IncludeRange():
     # ESTABLISH
     bob_person = get_bob_five_person()
     mop_weekly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.week_rope,
         kw.reason_state: wx.week_rope,
     }
     mop_xweeks_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.weeks_rope,
         kw.reason_state: wx.weeks_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -188,14 +188,14 @@ def test_set_epoch_cases_for_weekly_SetsAttr_Scenario1_IncludeRange():
     mop_every_xweeks = 7
     mop_range_lower_min = 200
     mop_range_duration = 300
-    assert not person_keg_reasonunit_exists(bob_person, mop_weekly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_xweeks_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_weekly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_xweeks_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
 
     # WHEN
     set_epoch_cases_for_weekly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         weekly_lower_min=mop_weekly_lower_min,
         weekly_duration_min=mop_weekly_duration_min,
@@ -207,11 +207,11 @@ def test_set_epoch_cases_for_weekly_SetsAttr_Scenario1_IncludeRange():
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_weekly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_xweeks_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_range_args)
-    assert person_keg_reason_caseunit_exists(bob_person, mop_weekly_args)
-    five_case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_weekly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_xweeks_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_range_args)
+    assert person_plan_reason_caseunit_exists(bob_person, mop_weekly_args)
+    five_case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
     assert five_case.reason_state == wx.five_rope
     assert five_case.reason_lower == mop_range_lower_min
     assert five_case.reason_lower == 200
@@ -225,12 +225,12 @@ def test_set_epoch_cases_for_yearly_monthday_SetsAttr_Scenario0_NoRange():
     bob_person = get_bob_five_person()
     month_geo_rope = bob_person.make_rope(wx.five_year_rope, wx.Geo)
     mop_monthday_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: month_geo_rope,
         kw.reason_state: month_geo_rope,
     }
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
@@ -238,14 +238,14 @@ def test_set_epoch_cases_for_yearly_monthday_SetsAttr_Scenario0_NoRange():
     mop_length_days = 4
     mop_dayly_lower_min = 600
     mop_day_duration = 90
-    assert not person_keg_reasonunit_exists(bob_person, mop_monthday_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reason_caseunit_exists(bob_person, mop_monthday_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_monthday_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reason_caseunit_exists(bob_person, mop_monthday_args)
 
     # WHEN
     set_epoch_cases_for_yearly_monthday(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         dayly_lower_min=mop_dayly_lower_min,
         dayly_duration_min=mop_day_duration,
@@ -255,8 +255,8 @@ def test_set_epoch_cases_for_yearly_monthday_SetsAttr_Scenario0_NoRange():
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_monthday_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_monthday_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
 
 
 def test_set_epoch_cases_for_yearly_monthday_SetsAttr_Scenario1_IncludesRange():
@@ -264,17 +264,17 @@ def test_set_epoch_cases_for_yearly_monthday_SetsAttr_Scenario1_IncludesRange():
     bob_person = get_bob_five_person()
     month_geo_rope = bob_person.make_rope(wx.five_year_rope, wx.Geo)
     mop_monthday_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: month_geo_rope,
         kw.reason_state: month_geo_rope,
     }
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -284,15 +284,15 @@ def test_set_epoch_cases_for_yearly_monthday_SetsAttr_Scenario1_IncludesRange():
     mop_day_duration = 90
     mop_range_lower_min = 200
     mop_range_duration = 300
-    assert not person_keg_reasonunit_exists(bob_person, mop_monthday_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
-    assert not person_keg_reason_caseunit_exists(bob_person, mop_monthday_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_monthday_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reason_caseunit_exists(bob_person, mop_monthday_args)
 
     # WHEN
     set_epoch_cases_for_yearly_monthday(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         dayly_lower_min=mop_dayly_lower_min,
         dayly_duration_min=mop_day_duration,
@@ -304,16 +304,16 @@ def test_set_epoch_cases_for_yearly_monthday_SetsAttr_Scenario1_IncludesRange():
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_monthday_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_monthday_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
 
 
 def test_set_epoch_cases_for_monthly_SetsAttr_Scenario0_AllDays_within_month_range():
     # ESTABLISH
     bob_person = get_bob_five_person()
-    mop_year_args = {kw.keg_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
+    mop_year_args = {kw.plan_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
@@ -321,13 +321,13 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario0_AllDays_within_month_ran
     mop_length_days = 4
     mop_dayly_lower_min = 600
     mop_day_duration = 90
-    assert not person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
 
     # WHEN
     set_epoch_cases_for_monthly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         monthday=mop_monthday,
         length_days=mop_length_days,
@@ -336,9 +336,9 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario0_AllDays_within_month_ran
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    year_reasonunit = person_keg_reasonunit_get_obj(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    year_reasonunit = person_plan_reasonunit_get_obj(bob_person, mop_year_args)
     year_cases = year_reasonunit.cases
     print(f"{year_cases.keys()=}")
     month_geo_rope = bob_person.make_rope(wx.five_year_rope, wx.Geo)
@@ -351,9 +351,9 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario0_AllDays_within_month_ran
 def test_set_epoch_cases_for_monthly_SetsAttr_Scenario1_OneDayNot_within_month_range():
     # ESTABLISH
     bob_person = get_bob_five_person()
-    mop_year_args = {kw.keg_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
+    mop_year_args = {kw.plan_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
@@ -361,13 +361,13 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario1_OneDayNot_within_month_r
     mop_length_days = 4
     mop_dayly_lower_min = 600
     mop_day_duration = 90
-    assert not person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
 
     # WHEN
     set_epoch_cases_for_monthly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         monthday=mop_monthday,
         length_days=mop_length_days,
@@ -376,9 +376,9 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario1_OneDayNot_within_month_r
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    year_reasonunit = person_keg_reasonunit_get_obj(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    year_reasonunit = person_plan_reasonunit_get_obj(bob_person, mop_year_args)
     year_cases = year_reasonunit.cases
     for month_case in year_cases.values():
         print(f"{month_case.reason_state} {month_case.reason_upper=}")
@@ -392,14 +392,14 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario1_OneDayNot_within_month_r
 def test_set_epoch_cases_for_monthly_SetsAttr_Scenario2_Include_epoch_five_range():
     # ESTABLISH
     bob_person = get_bob_five_person()
-    mop_year_args = {kw.keg_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
+    mop_year_args = {kw.plan_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -409,14 +409,14 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario2_Include_epoch_five_range
     mop_day_duration = 90
     mop_range_lower_min = 200
     mop_range_duration = 300
-    assert not person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
 
     # WHEN
     set_epoch_cases_for_monthly(
         x_person=bob_person,
-        keg_rope=wx.mop_rope,
+        plan_rope=wx.mop_rope,
         epoch_label=wx.five_str,
         monthday=mop_monthday,
         length_days=mop_length_days,
@@ -427,10 +427,10 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario2_Include_epoch_five_range
     )
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_range_args)
-    year_reasonunit = person_keg_reasonunit_get_obj(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_range_args)
+    year_reasonunit = person_plan_reasonunit_get_obj(bob_person, mop_year_args)
     year_cases = year_reasonunit.cases
     for month_case in year_cases.values():
         print(f"{month_case.reason_state} {month_case.reason_upper=}")
@@ -439,7 +439,7 @@ def test_set_epoch_cases_for_monthly_SetsAttr_Scenario2_Include_epoch_five_range
     assert year_reasonunit.case_exists(month_geo_rope)
     assert not year_reasonunit.case_exists(month_trump_rope)
     assert len(year_reasonunit.cases) == 14
-    range_case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+    range_case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
     assert range_case.reason_state == wx.five_rope
     assert range_case.reason_lower == 200
     assert range_case.reason_upper == 500
@@ -450,17 +450,17 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario0_dayly_AndIncludeRange()
     # ESTABLISH
     bob_person = get_bob_five_person()
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
     mop_xdays_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.days_rope,
         kw.reason_state: wx.days_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -472,7 +472,7 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario0_dayly_AndIncludeRange()
     mop_range_lower_min = 200
     mop_range_duration = 300
     mop_epoch_cases_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.epoch_label: wx.five_str,
         kw.dayly_lower_min: mop_dayly_lower_min,
         kw.dayly_duration_min: mop_day_duration,
@@ -482,19 +482,19 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario0_dayly_AndIncludeRange()
         kw.range_lower_min: mop_range_lower_min,
         kw.range_duration: mop_range_duration,
     }
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_xdays_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_xdays_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
 
     # WHEN
     set_epoch_cases_by_args_dict(bob_person, mop_epoch_cases_args)
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_xdays_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_range_args)
-    assert person_keg_reason_caseunit_exists(bob_person, mop_dayly_args)
-    range_case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_xdays_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_range_args)
+    assert person_plan_reason_caseunit_exists(bob_person, mop_dayly_args)
+    range_case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
     assert range_case.reason_state == wx.five_rope
     assert range_case.reason_lower == 200
     assert range_case.reason_upper == 500
@@ -505,17 +505,17 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario1_weekly_AndIncludeRange(
     # ESTABLISH
     bob_person = get_bob_five_person()
     mop_weekly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.week_rope,
         kw.reason_state: wx.week_rope,
     }
     mop_xweeks_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.weeks_rope,
         kw.reason_state: wx.weeks_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -527,7 +527,7 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario1_weekly_AndIncludeRange(
     mop_range_lower_min = 200
     mop_range_duration = 300
     mop_epoch_cases_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.epoch_label: wx.five_str,
         kw.weekly_lower_min: mop_weekly_lower_min,
         kw.weekly_duration_min: mop_weekly_duration_min,
@@ -537,19 +537,19 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario1_weekly_AndIncludeRange(
         kw.range_lower_min: mop_range_lower_min,
         kw.range_duration: mop_range_duration,
     }
-    assert not person_keg_reasonunit_exists(bob_person, mop_weekly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_xweeks_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_weekly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_xweeks_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
 
     # WHEN
     set_epoch_cases_by_args_dict(bob_person, mop_epoch_cases_args)
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_weekly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_xweeks_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_range_args)
-    assert person_keg_reason_caseunit_exists(bob_person, mop_weekly_args)
-    five_case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_weekly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_xweeks_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_range_args)
+    assert person_plan_reason_caseunit_exists(bob_person, mop_weekly_args)
+    five_case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
     assert five_case.reason_state == wx.five_rope
     assert five_case.reason_lower == mop_range_lower_min
     assert five_case.reason_lower == 200
@@ -563,17 +563,17 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario2_yearly_monthday_AndIncl
     bob_person = get_bob_five_person()
     month_geo_rope = bob_person.make_rope(wx.five_year_rope, wx.Geo)
     mop_monthday_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: month_geo_rope,
         kw.reason_state: month_geo_rope,
     }
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -584,7 +584,7 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario2_yearly_monthday_AndIncl
     mop_range_lower_min = 200
     mop_range_duration = 300
     mop_epoch_cases_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.epoch_label: wx.five_str,
         kw.dayly_lower_min: mop_dayly_lower_min,
         kw.dayly_duration_min: mop_day_duration,
@@ -594,30 +594,30 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario2_yearly_monthday_AndIncl
         kw.range_lower_min: mop_range_lower_min,
         kw.range_duration: mop_range_duration,
     }
-    assert not person_keg_reasonunit_exists(bob_person, mop_monthday_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
-    assert not person_keg_reason_caseunit_exists(bob_person, mop_monthday_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_monthday_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reason_caseunit_exists(bob_person, mop_monthday_args)
 
     # WHEN
     set_epoch_cases_by_args_dict(bob_person, mop_epoch_cases_args)
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_monthday_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_monthday_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
 
 
 def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario3_monthly_AndIncludeRange():
     # ESTABLISH
     bob_person = get_bob_five_person()
-    mop_year_args = {kw.keg_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
+    mop_year_args = {kw.plan_rope: wx.mop_rope, kw.reason_context: wx.five_year_rope}
     mop_dayly_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.day_rope,
         kw.reason_state: wx.day_rope,
     }
     mop_range_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.reason_context: wx.five_rope,
         kw.reason_state: wx.five_rope,
     }
@@ -628,7 +628,7 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario3_monthly_AndIncludeRange
     mop_range_lower_min = 200
     mop_range_duration = 300
     mop_epoch_cases_args = {
-        kw.keg_rope: wx.mop_rope,
+        kw.plan_rope: wx.mop_rope,
         kw.epoch_label: wx.five_str,
         kw.monthly_monthday_lower: mop_monthday,
         kw.monthly_duration_days: mop_length_days,
@@ -637,18 +637,18 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario3_monthly_AndIncludeRange
         kw.range_lower_min: mop_range_lower_min,
         kw.range_duration: mop_range_duration,
     }
-    assert not person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert not person_keg_reasonunit_exists(bob_person, mop_range_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert not person_plan_reasonunit_exists(bob_person, mop_range_args)
 
     # WHEN
     set_epoch_cases_by_args_dict(bob_person, mop_epoch_cases_args)
 
     # THEN
-    assert person_keg_reasonunit_exists(bob_person, mop_year_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_dayly_args)
-    assert person_keg_reasonunit_exists(bob_person, mop_range_args)
-    year_reasonunit = person_keg_reasonunit_get_obj(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_year_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_dayly_args)
+    assert person_plan_reasonunit_exists(bob_person, mop_range_args)
+    year_reasonunit = person_plan_reasonunit_get_obj(bob_person, mop_year_args)
     year_cases = year_reasonunit.cases
     for month_case in year_cases.values():
         print(f"{month_case.reason_state} {month_case.reason_upper=}")
@@ -657,7 +657,7 @@ def test_set_epoch_cases_by_args_dict_SetsAttr_Scenario3_monthly_AndIncludeRange
     assert year_reasonunit.case_exists(month_geo_rope)
     assert not year_reasonunit.case_exists(month_trump_rope)
     assert len(year_reasonunit.cases) == 14
-    range_case = person_keg_reason_caseunit_get_obj(bob_person, mop_range_args)
+    range_case = person_plan_reason_caseunit_get_obj(bob_person, mop_range_args)
     assert range_case.reason_state == wx.five_rope
     assert range_case.reason_lower == 200
     assert range_case.reason_upper == 500

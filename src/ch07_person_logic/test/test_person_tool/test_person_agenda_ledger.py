@@ -257,11 +257,11 @@ def test_get_partner_mandate_ledger_ReturnsObj_Scenario5_Zero_fund_agenda_give()
     clean_rope = sue_person.make_rope(floor_rope, exx.clean)
     dirty_rope = sue_person.make_rope(floor_rope, dirty_str)
     mop_rope = sue_person.make_rope(casa_rope, exx.mop)
-    sue_person.add_keg(floor_rope)
-    sue_person.add_keg(clean_rope)
-    sue_person.add_keg(dirty_rope)
-    sue_person.add_keg(mop_rope, pledge=True)
-    sue_person.edit_keg_attr(
+    sue_person.add_plan(floor_rope)
+    sue_person.add_plan(clean_rope)
+    sue_person.add_plan(dirty_rope)
+    sue_person.add_plan(mop_rope, pledge=True)
+    sue_person.edit_plan_attr(
         mop_rope, reason_context=floor_rope, reason_case=clean_rope
     )
     sue_person.add_partnerunit(exx.yao, 13, 5)

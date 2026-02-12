@@ -1,15 +1,15 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, open_file
 from src.ch04_rope.rope import create_rope
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch13_time.test._util.ch13_examples import (
-    add_time_creg_kegunit,
-    add_time_five_kegunit,
+    add_time_creg_planunit,
+    add_time_five_planunit,
 )
 from src.ch17_idea.idea_config import (
-    idea_format_00013_kegunit_v0_0_0,
-    idea_format_00019_kegunit_v0_0_0,
+    idea_format_00013_planunit_v0_0_0,
+    idea_format_00019_planunit_v0_0_0,
     idea_format_00020_person_partner_membership_v0_0_0,
     idea_format_00021_person_partnerunit_v0_0_0,
 )
@@ -132,47 +132,47 @@ def test_create_idea_df_Arg_idea_format_00020_person_partner_membership_v0_0_0()
     assert len(membership_dataframe) == 10
 
 
-def test_create_idea_df_Arg_idea_format_00013_kegunit_v0_0_0():
+def test_create_idea_df_Arg_idea_format_00013_planunit_v0_0_0():
     # ESTABLISH
     amy_moment_rope = create_rope("amy56")
     sue_personunit = personunit_shop(exx.sue, amy_moment_rope)
     casa_rope = sue_personunit.make_l1_rope(exx.casa)
     casa_star = 31
-    sue_personunit.set_l1_keg(kegunit_shop(exx.casa, star=casa_star))
+    sue_personunit.set_l1_plan(planunit_shop(exx.casa, star=casa_star))
     clean_rope = sue_personunit.make_rope(casa_rope, exx.clean)
-    sue_personunit.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
+    sue_personunit.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
 
     # WHEN
-    x_idea_name = idea_format_00013_kegunit_v0_0_0()
-    kegunit_format = create_idea_df(sue_personunit, x_idea_name)
+    x_idea_name = idea_format_00013_planunit_v0_0_0()
+    planunit_format = create_idea_df(sue_personunit, x_idea_name)
 
     # THEN
-    array_headers = list(kegunit_format.columns)
+    array_headers = list(planunit_format.columns)
     assert array_headers == get_idearef_obj(x_idea_name).get_headers_list()
 
-    assert kegunit_format.loc[0, kw.person_name] == sue_personunit.person_name
-    assert kegunit_format.loc[0, kw.pledge] == ""
-    assert kegunit_format.loc[0, kw.moment_rope] == amy_moment_rope
-    assert kegunit_format.loc[0, kw.keg_rope] == casa_rope
-    assert kegunit_format.loc[0, kw.star] == casa_star
+    assert planunit_format.loc[0, kw.person_name] == sue_personunit.person_name
+    assert planunit_format.loc[0, kw.pledge] == ""
+    assert planunit_format.loc[0, kw.moment_rope] == amy_moment_rope
+    assert planunit_format.loc[0, kw.plan_rope] == casa_rope
+    assert planunit_format.loc[0, kw.star] == casa_star
 
-    assert kegunit_format.loc[1, kw.person_name] == sue_personunit.person_name
-    assert kegunit_format.loc[1, kw.pledge] == "Yes"
-    assert kegunit_format.loc[1, kw.moment_rope] == amy_moment_rope
-    assert kegunit_format.loc[1, kw.keg_rope] == clean_rope
-    assert kegunit_format.loc[1, kw.star] == 1
-    assert len(kegunit_format) == 2
+    assert planunit_format.loc[1, kw.person_name] == sue_personunit.person_name
+    assert planunit_format.loc[1, kw.pledge] == "Yes"
+    assert planunit_format.loc[1, kw.moment_rope] == amy_moment_rope
+    assert planunit_format.loc[1, kw.plan_rope] == clean_rope
+    assert planunit_format.loc[1, kw.star] == 1
+    assert len(planunit_format) == 2
 
 
-def test_save_idea_csv_Arg_idea_format_00019_kegunit_v0_0_0():
+def test_save_idea_csv_Arg_idea_format_00019_planunit_v0_0_0():
     # ESTABLISH
     sue_personunit = personunit_shop("Sue", create_rope("amy56"))
-    sue_personunit = add_time_creg_kegunit(sue_personunit)
-    sue_personunit = add_time_five_kegunit(sue_personunit)
-    x_idea_name = idea_format_00019_kegunit_v0_0_0()
+    sue_personunit = add_time_creg_planunit(sue_personunit)
+    sue_personunit = add_time_five_planunit(sue_personunit)
+    x_idea_name = idea_format_00019_planunit_v0_0_0()
 
     # WHEN
-    # name_filename = f"{exx.sue}_kegunit_example_00019.csv"
+    # name_filename = f"{exx.sue}_planunit_example_00019.csv"
     # csv_example_path = create_path(idea_moments_dir(), name_filename)
     # save_idea_csv(x_idea_name, sue_personunit, get_temp_dir(), name_filename)
     idea_df = create_idea_df(sue_personunit, x_idea_name)
@@ -241,7 +241,7 @@ def test_save_idea_csv_Arg_idea_format_00021_person_partnerunit_v0_0_0_SaveToCSV
     assert open_file(idea_moments_dir(), name_filename) == sue2_partner_example_csv
 
 
-def test_save_idea_csv_Arg_idea_format_00013_kegunit_v0_0_0(
+def test_save_idea_csv_Arg_idea_format_00013_planunit_v0_0_0(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -249,12 +249,12 @@ def test_save_idea_csv_Arg_idea_format_00013_kegunit_v0_0_0(
     sue_personunit = personunit_shop(exx.sue, amy_moment_rope)
     casa_rope = sue_personunit.make_l1_rope(exx.casa)
     casa_star = 31
-    sue_personunit.set_l1_keg(kegunit_shop(exx.casa, star=casa_star))
+    sue_personunit.set_l1_plan(planunit_shop(exx.casa, star=casa_star))
     clean_rope = sue_personunit.make_rope(casa_rope, exx.clean)
-    sue_personunit.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    x_idea_name = idea_format_00013_kegunit_v0_0_0()
-    kegunit_format = create_idea_df(sue_personunit, x_idea_name)
-    name_filename = f"{exx.sue}_kegunit_example_000.csv"
+    sue_personunit.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    x_idea_name = idea_format_00013_planunit_v0_0_0()
+    planunit_format = create_idea_df(sue_personunit, x_idea_name)
+    name_filename = f"{exx.sue}_planunit_example_000.csv"
     csv_example_path = create_path(idea_moments_dir(), name_filename)
     assert not os_path_exists(csv_example_path)
 

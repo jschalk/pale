@@ -1,4 +1,4 @@
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch09_person_lesson.lesson_filehandler import lessonfilehandler_shop
@@ -40,8 +40,8 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_PersonWhenNo_part
     yao_duty.set_partner_respect(zia_pool)
 
     zia_vision = personunit_shop(exx.zia, exx.a23)
-    zia_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
-    zia_vision.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_vision.add_partnerunit(exx.yao, partner_debt_lumen=12)
     a23_lasso = lassounit_shop(exx.a23)
     yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
@@ -57,7 +57,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_PersonWhenNo_part
     assert len(new_yao_vision.get_agenda_dict()) == 0
 
     # WHEN
-    print(f"{len(new_yao_vision.get_keg_dict())=}")
+    print(f"{len(new_yao_vision.get_plan_dict())=}")
     listen_to_agendas_duty_vision(
         new_yao_vision, yao_dakota_lessonfilehandler, get_dakota_rope()
     )
@@ -78,13 +78,13 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Person(
     yao_duty.set_partner_respect(zia_pool)
 
     zia_vision = personunit_shop(exx.zia, exx.a23)
-    zia_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
-    zia_vision.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_vision.add_partnerunit(exx.yao, partner_debt_lumen=12)
-    clean_kegunit = zia_vision.get_keg_obj(a23_clean_rope())
-    cuisine_kegunit = zia_vision.get_keg_obj(a23_cuisine_rope())
-    clean_kegunit.laborunit.add_party(exx.yao)
-    cuisine_kegunit.laborunit.add_party(exx.yao)
+    clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
+    cuisine_planunit = zia_vision.get_plan_obj(a23_cuisine_rope())
+    clean_planunit.laborunit.add_party(exx.yao)
+    cuisine_planunit.laborunit.add_party(exx.yao)
     a23_lasso = lassounit_shop(exx.a23)
     yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_vision_person(
@@ -102,7 +102,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Person(
     assert len(new_yao_vision.get_agenda_dict()) == 0
 
     # WHEN
-    print(f"{len(new_yao_vision.get_keg_dict())=}")
+    print(f"{len(new_yao_vision.get_plan_dict())=}")
     listen_to_agendas_duty_vision(
         new_yao_vision, yao_dakota_lessonfilehandler, get_dakota_rope()
     )
@@ -117,16 +117,16 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPersonWithDetailsD
     # ESTABLISH
     zia_vision = get_example_zia_speaker()
     bob_vision = get_example_bob_speaker()
-    bob_vision.edit_keg_attr(
+    bob_vision.edit_plan_attr(
         a23_cuisine_rope(),
         reason_del_case_reason_context=a23_eat_rope(),
         reason_del_case_reason_state=a23_hungry_rope(),
     )
-    bob_cuisine_kegunit = bob_vision.get_keg_obj(a23_cuisine_rope())
-    zia_cuisine_kegunit = zia_vision.get_keg_obj(a23_cuisine_rope())
-    assert bob_cuisine_kegunit != zia_cuisine_kegunit
-    assert len(zia_cuisine_kegunit.reasonunits) == 1
-    assert len(bob_cuisine_kegunit.reasonunits) == 0
+    bob_cuisine_planunit = bob_vision.get_plan_obj(a23_cuisine_rope())
+    zia_cuisine_planunit = zia_vision.get_plan_obj(a23_cuisine_rope())
+    assert bob_cuisine_planunit != zia_cuisine_planunit
+    assert len(zia_cuisine_planunit.reasonunits) == 1
+    assert len(bob_cuisine_planunit.reasonunits) == 0
     sue_dakota_lessonfilehandler = get_dakota_lessonfilehandler()
     save_vision_person(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
@@ -155,7 +155,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPersonWithDetailsD
         duty_person=yao_duty,
     )
     new_yao_job1 = create_listen_basis(yao_duty)
-    assert new_yao_job1.keg_exists(a23_cuisine_rope()) is False
+    assert new_yao_job1.plan_exists(a23_cuisine_rope()) is False
 
     # WHEN
     listen_to_agendas_duty_vision(
@@ -163,12 +163,12 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPersonWithDetailsD
     )
 
     # THEN
-    assert new_yao_job1.keg_exists(a23_cuisine_rope())
-    new_cuisine_keg = new_yao_job1.get_keg_obj(a23_cuisine_rope())
+    assert new_yao_job1.plan_exists(a23_cuisine_rope())
+    new_cuisine_plan = new_yao_job1.get_plan_obj(a23_cuisine_rope())
     zia_partnerunit = new_yao_job1.get_partner(exx.zia)
     bob_partnerunit = new_yao_job1.get_partner(exx.bob)
     assert zia_partnerunit.partner_debt_lumen < bob_partnerunit.partner_debt_lumen
-    assert new_cuisine_keg.get_reasonunit(a23_eat_rope()) is None
+    assert new_cuisine_plan.get_reasonunit(a23_eat_rope()) is None
 
     yao_zia_partner_debt_lumen = 15
     yao_bob_partner_debt_lumen = 5
@@ -176,7 +176,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPersonWithDetailsD
     yao_duty.add_partnerunit(exx.bob, None, yao_bob_partner_debt_lumen)
     yao_duty.set_partner_respect(100)
     new_yao_job2 = create_listen_basis(yao_duty)
-    assert new_yao_job2.keg_exists(a23_cuisine_rope()) is False
+    assert new_yao_job2.plan_exists(a23_cuisine_rope()) is False
 
     # WHEN
     listen_to_agendas_duty_vision(
@@ -184,13 +184,13 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPersonWithDetailsD
     )
 
     # THEN
-    assert new_yao_job2.keg_exists(a23_cuisine_rope())
-    new_cuisine_keg = new_yao_job2.get_keg_obj(a23_cuisine_rope())
+    assert new_yao_job2.plan_exists(a23_cuisine_rope())
+    new_cuisine_plan = new_yao_job2.get_plan_obj(a23_cuisine_rope())
     zia_partnerunit = new_yao_job2.get_partner(exx.zia)
     bob_partnerunit = new_yao_job2.get_partner(exx.bob)
     assert zia_partnerunit.partner_debt_lumen > bob_partnerunit.partner_debt_lumen
-    zia_eat_reasonunit = zia_cuisine_kegunit.get_reasonunit(a23_eat_rope())
-    assert new_cuisine_keg.get_reasonunit(a23_eat_rope()) == zia_eat_reasonunit
+    zia_eat_reasonunit = zia_cuisine_planunit.get_reasonunit(a23_eat_rope())
+    assert new_cuisine_plan.get_reasonunit(a23_eat_rope()) == zia_eat_reasonunit
 
 
 def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPerson(
@@ -218,13 +218,13 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPerson(
     )
 
     zia_vision = personunit_shop(exx.zia, exx.a23)
-    zia_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
-    zia_vision.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_vision.add_partnerunit(exx.yao, partner_debt_lumen=12)
-    clean_kegunit = zia_vision.get_keg_obj(a23_clean_rope())
-    cuisine_kegunit = zia_vision.get_keg_obj(a23_cuisine_rope())
-    clean_kegunit.laborunit.add_party(exx.yao)
-    cuisine_kegunit.laborunit.add_party(exx.yao)
+    clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
+    cuisine_planunit = zia_vision.get_plan_obj(a23_cuisine_rope())
+    clean_planunit.laborunit.add_party(exx.yao)
+    cuisine_planunit.laborunit.add_party(exx.yao)
     save_vision_person(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.person_name,
@@ -239,25 +239,25 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesIrrationalPerson(
     zia_vision.add_partnerunit(exx.yao, partner_debt_lumen=12)
     vacuum_str = "vacuum"
     vacuum_rope = sue_vision.make_l1_rope(vacuum_str)
-    sue_vision.set_l1_keg(kegunit_shop(vacuum_str, pledge=True))
-    vacuum_kegunit = sue_vision.get_keg_obj(vacuum_rope)
-    vacuum_kegunit.laborunit.add_party(exx.yao)
+    sue_vision.set_l1_plan(planunit_shop(vacuum_str, pledge=True))
+    vacuum_planunit = sue_vision.get_plan_obj(vacuum_rope)
+    vacuum_planunit.laborunit.add_party(exx.yao)
 
     egg_str = "egg first"
     egg_rope = sue_vision.make_l1_rope(egg_str)
-    sue_vision.set_l1_keg(kegunit_shop(egg_str))
+    sue_vision.set_l1_plan(planunit_shop(egg_str))
     chicken_str = "chicken first"
     chicken_rope = sue_vision.make_l1_rope(chicken_str)
-    sue_vision.set_l1_keg(kegunit_shop(chicken_str))
+    sue_vision.set_l1_plan(planunit_shop(chicken_str))
     # set egg pledge is True when chicken first is False
-    sue_vision.edit_keg_attr(
+    sue_vision.edit_plan_attr(
         egg_rope,
         pledge=True,
         reason_context=chicken_rope,
         reason_requisite_active=True,
     )
     # set chick pledge is True when egg first is False
-    sue_vision.edit_keg_attr(
+    sue_vision.edit_plan_attr(
         chicken_rope,
         pledge=True,
         reason_context=egg_rope,
@@ -314,13 +314,13 @@ def test_listen_to_agenda_duty_vision_agenda_ProcessesMissingDebtorvisionPerson(
     )
 
     zia_vision = personunit_shop(exx.zia, exx.a23)
-    zia_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
-    zia_vision.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_vision.add_partnerunit(exx.yao, partner_debt_lumen=12)
-    clean_kegunit = zia_vision.get_keg_obj(a23_clean_rope())
-    cuisine_kegunit = zia_vision.get_keg_obj(a23_cuisine_rope())
-    clean_kegunit.laborunit.add_party(exx.yao)
-    cuisine_kegunit.laborunit.add_party(exx.yao)
+    clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
+    cuisine_planunit = zia_vision.get_plan_obj(a23_cuisine_rope())
+    clean_planunit.laborunit.add_party(exx.yao)
+    cuisine_planunit.laborunit.add_party(exx.yao)
     yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_vision_person(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
@@ -375,13 +375,13 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPerson_duty_AndNotPerson_v
 
     # Save Zia to visions
     zia_vision = personunit_shop(exx.zia, exx.a23)
-    zia_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
-    zia_vision.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
+    zia_vision.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), a23_casa_rope())
     zia_vision.add_partnerunit(exx.yao, partner_debt_lumen=12)
-    clean_kegunit = zia_vision.get_keg_obj(a23_clean_rope())
-    cuisine_kegunit = zia_vision.get_keg_obj(a23_cuisine_rope())
-    clean_kegunit.laborunit.add_party(exx.yao)
-    cuisine_kegunit.laborunit.add_party(exx.yao)
+    clean_planunit = zia_vision.get_plan_obj(a23_clean_rope())
+    cuisine_planunit = zia_vision.get_plan_obj(a23_cuisine_rope())
+    clean_planunit.laborunit.add_party(exx.yao)
+    cuisine_planunit.laborunit.add_party(exx.yao)
     save_vision_person(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.person_name,
@@ -395,9 +395,9 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPerson_duty_AndNotPerson_v
     yao_old_vision = personunit_shop(exx.yao, exx.a23)
     vacuum_str = "vacuum"
     vacuum_rope = yao_old_vision.make_l1_rope(vacuum_str)
-    yao_old_vision.set_l1_keg(kegunit_shop(vacuum_str, pledge=True))
-    vacuum_kegunit = yao_old_vision.get_keg_obj(vacuum_rope)
-    vacuum_kegunit.laborunit.add_party(exx.yao)
+    yao_old_vision.set_l1_plan(planunit_shop(vacuum_str, pledge=True))
+    vacuum_planunit = yao_old_vision.get_plan_obj(vacuum_rope)
+    vacuum_planunit.laborunit.add_party(exx.yao)
     save_vision_person(
         yao_dakota_lessonfilehandler.moment_mstr_dir,
         yao_dakota_lessonfilehandler.person_name,
@@ -426,9 +426,9 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPersonNotSpeakerSe
     # yao_vision has task a23_clean_rope
     # yao_new_vision fact_states yao_duty task run_rope and not a23_clean_rope
     yao_duty = get_example_yao_speaker()
-    assert yao_duty.keg_exists(a23_run_rope()) is False
-    assert yao_duty.keg_exists(a23_clean_rope()) is False
-    yao_duty.set_keg_obj(kegunit_shop(run_str(), pledge=True), a23_casa_rope())
+    assert yao_duty.plan_exists(a23_run_rope()) is False
+    assert yao_duty.plan_exists(a23_clean_rope()) is False
+    yao_duty.set_plan_obj(planunit_shop(run_str(), pledge=True), a23_casa_rope())
     sue_dakota_lessonfilehandler = get_dakota_lessonfilehandler()
     save_duty_person(
         moment_mstr_dir=sue_dakota_lessonfilehandler.moment_mstr_dir,
@@ -439,9 +439,9 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPersonNotSpeakerSe
         duty_person=yao_duty,
     )
     yao_old_vision = get_example_yao_speaker()
-    assert yao_old_vision.keg_exists(a23_run_rope()) is False
-    assert yao_old_vision.keg_exists(a23_clean_rope()) is False
-    yao_old_vision.set_keg_obj(kegunit_shop(exx.clean, pledge=True), a23_casa_rope())
+    assert yao_old_vision.plan_exists(a23_run_rope()) is False
+    assert yao_old_vision.plan_exists(a23_clean_rope()) is False
+    yao_old_vision.set_plan_obj(planunit_shop(exx.clean, pledge=True), a23_casa_rope())
     save_vision_person(
         sue_dakota_lessonfilehandler.moment_mstr_dir,
         sue_dakota_lessonfilehandler.person_name,
@@ -452,8 +452,8 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPersonNotSpeakerSe
     )
 
     yao_new_vision = create_listen_basis(yao_duty)
-    assert yao_new_vision.keg_exists(a23_run_rope()) is False
-    assert yao_new_vision.keg_exists(a23_clean_rope()) is False
+    assert yao_new_vision.plan_exists(a23_run_rope()) is False
+    assert yao_new_vision.plan_exists(a23_clean_rope()) is False
 
     # WHEN
     listen_to_agendas_duty_vision(
@@ -461,5 +461,5 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPersonNotSpeakerSe
     )
 
     # THEN
-    assert yao_new_vision.keg_exists(a23_clean_rope()) is False
-    assert yao_new_vision.keg_exists(a23_run_rope())
+    assert yao_new_vision.plan_exists(a23_clean_rope()) is False
+    assert yao_new_vision.plan_exists(a23_run_rope())

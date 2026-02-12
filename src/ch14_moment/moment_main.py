@@ -41,7 +41,7 @@ from src.ch11_bud.cell_main import cellunit_shop
 from src.ch13_time.epoch_main import (
     EpochUnit,
     TimeNum,
-    add_epoch_kegunit,
+    add_epoch_planunit,
     epochunit_shop,
 )
 from src.ch14_moment._ref.ch14_semantic_types import (
@@ -381,7 +381,7 @@ class MomentUnit:
     def add_epoch_to_gut(self, person_name: PersonName) -> None:
         """Adds the epoch to the gut file for the given person."""
         x_gut = open_gut_file(self.moment_mstr_dir, self.get_lasso(), person_name)
-        add_epoch_kegunit(x_gut, self.get_epoch_config())
+        add_epoch_planunit(x_gut, self.get_epoch_config())
         save_gut_file(self.moment_mstr_dir, x_gut)
 
     def add_epoch_to_guts(self) -> None:

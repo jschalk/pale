@@ -1,5 +1,5 @@
 from src.ch04_rope.rope import LabelTerm, RopeTerm, create_rope
-from src.ch07_person_logic.person_main import PersonUnit, kegunit_shop, personunit_shop
+from src.ch07_person_logic.person_main import PersonUnit, personunit_shop, planunit_shop
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch09_person_lesson.lesson_filehandler import (
     LessonFileHandler,
@@ -88,7 +88,7 @@ def run_rope() -> RopeTerm:
 
 def get_example_yao_person() -> PersonUnit:
     yao_speaker = personunit_shop(exx.yao, ch10_example_moment_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(run_str()), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(run_str()), casa_rope())
     yao_speaker.add_partnerunit(exx.yao, partner_debt_lumen=10)
     yao_speaker.add_partnerunit(exx.zia, partner_debt_lumen=30)
     yao_speaker.add_partnerunit(exx.bob, partner_debt_lumen=40)
@@ -98,13 +98,13 @@ def get_example_yao_person() -> PersonUnit:
 
 def get_example_yao_vision1_speaker() -> PersonUnit:
     yao_speaker = get_example_yao_person()
-    yao_speaker.del_keg_obj(run_rope())
+    yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_partner_respect(40)
-    yao_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), casa_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(hungry_str()), eat_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(full_str()), eat_rope())
-    cuisine_kegunit = yao_speaker.get_keg_obj(cuisine_rope())
-    cuisine_kegunit.laborunit.add_party(exx.yao)
+    yao_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(hungry_str()), eat_rope())
+    yao_speaker.set_plan_obj(planunit_shop(full_str()), eat_rope())
+    cuisine_planunit = yao_speaker.get_plan_obj(cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
     yao_speaker.edit_reason(cuisine_rope(), eat_rope(), hungry_rope())
     yao_speaker.add_fact(eat_rope(), hungry_rope())
     return yao_speaker
@@ -112,19 +112,19 @@ def get_example_yao_vision1_speaker() -> PersonUnit:
 
 def get_example_yao_vision2_speaker() -> PersonUnit:
     yao_speaker = get_example_yao_person()
-    yao_speaker.del_keg_obj(run_rope())
+    yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_partner_respect(30)
-    yao_speaker.set_keg_obj(kegunit_shop(exx.cuisine, pledge=True), casa_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(hungry_str()), eat_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(full_str()), eat_rope())
-    cuisine_kegunit = yao_speaker.get_keg_obj(cuisine_rope())
-    cuisine_kegunit.laborunit.add_party(exx.yao)
+    yao_speaker.set_plan_obj(planunit_shop(exx.cuisine, pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(hungry_str()), eat_rope())
+    yao_speaker.set_plan_obj(planunit_shop(full_str()), eat_rope())
+    cuisine_planunit = yao_speaker.get_plan_obj(cuisine_rope())
+    cuisine_planunit.laborunit.add_party(exx.yao)
     yao_speaker.edit_reason(cuisine_rope(), eat_rope(), hungry_rope())
     yao_speaker.add_fact(eat_rope(), hungry_rope())
 
-    yao_speaker.set_keg_obj(kegunit_shop(sweep_str(), pledge=True), casa_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(dirty_str()), sanitation_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(exx.clean), sanitation_rope())
+    yao_speaker.set_plan_obj(planunit_shop(sweep_str(), pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(dirty_str()), sanitation_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.clean), sanitation_rope())
     yao_speaker.edit_reason(sweep_rope(), sanitation_rope(), dirty_rope())
     yao_speaker.add_fact(sweep_rope(), dirty_rope())
     return yao_speaker
@@ -132,11 +132,11 @@ def get_example_yao_vision2_speaker() -> PersonUnit:
 
 def get_example_yao_vision3_speaker() -> PersonUnit:
     yao_speaker = get_example_yao_person()
-    yao_speaker.del_keg_obj(run_rope())
+    yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_partner_respect(10)
-    yao_speaker.set_keg_obj(kegunit_shop(sweep_str(), pledge=True), casa_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(dirty_str()), sanitation_rope())
-    yao_speaker.set_keg_obj(kegunit_shop(exx.clean), sanitation_rope())
+    yao_speaker.set_plan_obj(planunit_shop(sweep_str(), pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(dirty_str()), sanitation_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.clean), sanitation_rope())
     yao_speaker.edit_reason(sweep_rope(), sanitation_rope(), dirty_rope())
     yao_speaker.add_fact(sweep_rope(), dirty_rope())
     return yao_speaker
@@ -231,15 +231,15 @@ def get_zia_utah_lessonfilehandler() -> LessonFileHandler:
 
 def get_example_yao_gut_with_3_healers():
     yao_gut = get_example_yao_person()
-    iowa_keg = kegunit_shop(get_iowa_str(), problem_bool=True)
-    ohio_keg = kegunit_shop(get_ohio_str(), problem_bool=True)
-    utah_keg = kegunit_shop(get_utah_str(), problem_bool=True)
-    iowa_keg.healerunit.set_healer_name(get_yao_iowa_lessonfilehandler().person_name)
-    ohio_keg.healerunit.set_healer_name(get_yao_ohio_lessonfilehandler().person_name)
-    utah_keg.healerunit.set_healer_name(get_zia_utah_lessonfilehandler().person_name)
-    yao_gut.set_keg_obj(iowa_keg, get_usa_rope())
-    yao_gut.set_keg_obj(ohio_keg, get_usa_rope())
-    yao_gut.set_keg_obj(utah_keg, get_usa_rope())
+    iowa_plan = planunit_shop(get_iowa_str(), problem_bool=True)
+    ohio_plan = planunit_shop(get_ohio_str(), problem_bool=True)
+    utah_plan = planunit_shop(get_utah_str(), problem_bool=True)
+    iowa_plan.healerunit.set_healer_name(get_yao_iowa_lessonfilehandler().person_name)
+    ohio_plan.healerunit.set_healer_name(get_yao_ohio_lessonfilehandler().person_name)
+    utah_plan.healerunit.set_healer_name(get_zia_utah_lessonfilehandler().person_name)
+    yao_gut.set_plan_obj(iowa_plan, get_usa_rope())
+    yao_gut.set_plan_obj(ohio_plan, get_usa_rope())
+    yao_gut.set_plan_obj(utah_plan, get_usa_rope())
 
     return yao_gut
 
@@ -256,20 +256,20 @@ def test_listen_to_person_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
     moment_mstr_dir = env_dir()
     moment_rope = ch10_example_moment_rope()
     yao_gut0 = get_example_yao_gut_with_3_healers()
-    yao_gut0.set_l1_keg(kegunit_shop(get_location_str()))
-    yao_gut0.set_keg_obj(kegunit_shop(get_in_mer_str()), get_location_rope())
-    yao_gut0.set_keg_obj(kegunit_shop(get_on_land_str()), get_location_rope())
-    yao_gut0.set_l1_keg(kegunit_shop(get_swim_str(), pledge=True))
+    yao_gut0.set_l1_plan(planunit_shop(get_location_str()))
+    yao_gut0.set_plan_obj(planunit_shop(get_in_mer_str()), get_location_rope())
+    yao_gut0.set_plan_obj(planunit_shop(get_on_land_str()), get_location_rope())
+    yao_gut0.set_l1_plan(planunit_shop(get_swim_str(), pledge=True))
     yao_gut0.edit_reason(get_swim_rope(), get_location_rope(), get_in_mer_rope())
     yao_gut0.add_fact(get_location_rope(), get_in_mer_rope())
     print(f"{yao_gut0.get_fact(get_location_rope())=}")
-    yao_gut0.del_keg_obj(run_rope())
+    yao_gut0.del_plan_obj(run_rope())
     assert yao_gut0._keep_dict.get(get_iowa_rope())
     assert yao_gut0._keep_dict.get(get_ohio_rope())
     assert yao_gut0._keep_dict.get(get_utah_rope())
     yao_gut0.cashout()
     assert len(yao_gut0._keep_dict) == 3
-    # print(f"{yao_gut0._keg_dict.keys()=}")
+    # print(f"{yao_gut0._plan_dict.keys()=}")
 
     yao_vision1 = get_example_yao_vision1_speaker()
     yao_vision2 = get_example_yao_vision2_speaker()
@@ -370,19 +370,19 @@ def test_listen_to_person_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
     assert yao_job_partners.keys() == yao_gut0_partners.keys()
     assert yao_job_partners == yao_gut0_partners
     assert len(yao_job.to_dict().get(kw.partners)) == 3
-    assert len(yao_job._keg_dict) == 4
-    print(f"{yao_job._keg_dict.keys()=}")
-    print(f"{yao_job.get_kegroot_factunits_dict().keys()=}")
-    assert yao_job.keg_exists(cuisine_rope()) is False
-    assert yao_job.keg_exists(clean_rope()) is False
-    assert yao_job.keg_exists(run_rope()) is False
-    assert yao_job.keg_exists(get_swim_rope())
-    assert yao_job.keg_exists(get_in_mer_rope())
-    assert yao_job.keg_exists(get_on_land_rope()) is False
+    assert len(yao_job._plan_dict) == 4
+    print(f"{yao_job._plan_dict.keys()=}")
+    print(f"{yao_job.get_planroot_factunits_dict().keys()=}")
+    assert yao_job.plan_exists(cuisine_rope()) is False
+    assert yao_job.plan_exists(clean_rope()) is False
+    assert yao_job.plan_exists(run_rope()) is False
+    assert yao_job.plan_exists(get_swim_rope())
+    assert yao_job.plan_exists(get_in_mer_rope())
+    assert yao_job.plan_exists(get_on_land_rope()) is False
     assert yao_job.get_fact(get_location_rope()) is not None
     assert yao_job.get_fact(get_location_rope()).fact_state == get_in_mer_rope()
     assert len(yao_job.get_agenda_dict()) == 1
-    assert len(yao_job.kegroot.factunits) == 1
+    assert len(yao_job.planroot.factunits) == 1
     assert yao_job != yao_gut0
 
 

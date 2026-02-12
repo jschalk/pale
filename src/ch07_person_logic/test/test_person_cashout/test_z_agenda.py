@@ -1,6 +1,6 @@
 from src.ch03_labor.labor import laborunit_shop
 from src.ch04_rope.rope import RopeTerm
-from src.ch06_keg.keg import KegUnit, kegunit_shop
+from src.ch06_plan.plan import PlanUnit, planunit_shop
 from src.ch07_person_logic.person_main import get_personunit_from_dict, personunit_shop
 from src.ch07_person_logic.test._util.ch07_examples import (
     get_personunit_with7am_clean_table_reason,
@@ -14,11 +14,11 @@ from src.ch07_person_logic.test._util.ch07_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def get_tasks_count(agenda_dict: dict[RopeTerm, KegUnit]) -> int:
-    return sum(bool(x_kegunit.task) for x_kegunit in agenda_dict.values())
+def get_tasks_count(agenda_dict: dict[RopeTerm, PlanUnit]) -> int:
+    return sum(bool(x_planunit.task) for x_planunit in agenda_dict.values())
 
 
-def test_PersonUnit_get_agenda_dict_ReturnsObj_WithTwoKegs():
+def test_PersonUnit_get_agenda_dict_ReturnsObj_WithTwoPlans():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
 
@@ -33,7 +33,7 @@ def test_PersonUnit_get_agenda_dict_ReturnsObj_WithTwoKegs():
     assert sue_person.make_l1_rope("cat have dinner") in agenda_dict.keys()
 
 
-def test_PersonUnit_get_agenda_dict_ReturnsAgendaWithOnlyCorrectKegs():
+def test_PersonUnit_get_agenda_dict_ReturnsAgendaWithOnlyCorrectPlans():
     # ESTABLISH
     x_person = get_personunit_with_4_levels_and_2reasons()
     wk_str = "sem_jours"
@@ -65,11 +65,11 @@ def test_PersonUnit_get_agenda_dict_WithLargePerson_fund():
     assert agenda_dict.get(x_person.make_l1_rope("cat have dinner")).fund_ratio
 
     print(f"{agenda_dict.keys()=} {x_person.make_l1_rope(exx.casa)=}")
-    print(f"{agenda_dict.get(x_person.make_l1_rope(exx.casa)).keg_label=}")
+    print(f"{agenda_dict.get(x_person.make_l1_rope(exx.casa)).plan_label=}")
     assert agenda_dict.get(x_person.make_l1_rope(exx.casa)).fund_ratio
 
 
-def test_PersonUnit_get_agenda_dict_WithNo7amKegExample():
+def test_PersonUnit_get_agenda_dict_WithNo7amPlanExample():
     # ESTABLISH
     x_person = get_personunit_with7am_clean_table_reason()
 
@@ -81,15 +81,15 @@ def test_PersonUnit_get_agenda_dict_WithNo7amKegExample():
     assert len(agenda_dict) == 1
     clean_str = "clean table"
     print(f"{agenda_dict.keys()=} {x_person.make_l1_rope(clean_str)=}")
-    # print(f"{agenda_dict[0].keg_label=}")
+    # print(f"{agenda_dict[0].plan_label=}")
     assert len(agenda_dict) == 1
 
     cat_str = "cat have dinner"
-    cat_agenda_keg = agenda_dict.get(x_person.make_l1_rope(cat_str))
-    assert cat_agenda_keg.keg_label != clean_str
+    cat_agenda_plan = agenda_dict.get(x_person.make_l1_rope(cat_str))
+    assert cat_agenda_plan.plan_label != clean_str
 
 
-def test_PersonUnit_get_agenda_dict_With7amKegExample():
+def test_PersonUnit_get_agenda_dict_With7amPlanExample():
     # ESTABLISH
     # set facts as midevening to 8am
     x_person = get_personunit_with7am_clean_table_reason()
@@ -110,14 +110,14 @@ def test_PersonUnit_get_agenda_dict_With7amKegExample():
     )
 
     # THEN
-    print(x_person.kegroot.factunits[x24hr_rope])
-    print(x_person.get_keg_obj(clean_rope).reasonunits)
-    print(x_person.get_keg_obj(clean_rope).keg_active)
+    print(x_person.planroot.factunits[x24hr_rope])
+    print(x_person.get_plan_obj(clean_rope).reasonunits)
+    print(x_person.get_plan_obj(clean_rope).plan_active)
     agenda_dict = x_person.get_agenda_dict()
     print(f"{len(agenda_dict)=} {agenda_dict.keys()=}")
     assert len(agenda_dict) == 6
-    clean_keg = agenda_dict.get(clean_rope)
-    assert clean_keg.keg_label == clean_str
+    clean_plan = agenda_dict.get(clean_rope)
+    assert clean_plan.plan_label == clean_str
 
 
 def test_personunit_v001_AgendaExists():
@@ -129,10 +129,10 @@ def test_personunit_v001_AgendaExists():
         fact_context=min_rope, fact_state=min_rope, fact_lower=0, fact_upper=1399
     )
     assert yao_person
-    # for keg_kid in yao_person.kegroot.kids.values():
-    #     # print(keg_kid.keg_label)
-    #     assert str(type(keg_kid)) != "<class 'str'>"
-    #     assert keg_kid.pledge is not None
+    # for plan_kid in yao_person.planroot.kids.values():
+    #     # print(plan_kid.plan_label)
+    #     assert str(type(plan_kid)) != "<class 'str'>"
+    #     assert plan_kid.pledge is not None
 
     # WHEN
     agenda_dict = yao_person.get_agenda_dict()
@@ -190,15 +190,15 @@ def test_PersonUnit_get_agenda_dict_PersonUnitHasCorrectAttributes_personunit_v0
     # yao_person.add_fact(fact_context=movie_rope, fact_state=movie_str)
 
     # WHEN
-    keg_pledge_list = yao_person.get_agenda_dict()
+    plan_pledge_list = yao_person.get_agenda_dict()
 
     # THEN
-    assert len(keg_pledge_list) == 27
+    assert len(plan_pledge_list) == 27
 
     wk1_rope = yao_person.make_rope(month_wk_rope, "1st wk")
     yao_person.add_fact(month_wk_rope, wk1_rope)
-    keg_pledge_list = yao_person.get_agenda_dict()
-    assert len(keg_pledge_list) == 27
+    plan_pledge_list = yao_person.get_agenda_dict()
+    assert len(plan_pledge_list) == 27
 
     sem_jour_str = "sem_jours"
     sem_jour_rope = yao_person.make_l1_rope(sem_jour_str)
@@ -206,28 +206,28 @@ def test_PersonUnit_get_agenda_dict_PersonUnitHasCorrectAttributes_personunit_v0
     mon_rope = yao_person.make_rope(sem_jour_rope, mon_str)
 
     yao_person.add_fact(fact_context=sem_jour_rope, fact_state=mon_rope)
-    keg_pledge_list = yao_person.get_agenda_dict()
-    assert len(keg_pledge_list) == 39
+    plan_pledge_list = yao_person.get_agenda_dict()
+    assert len(plan_pledge_list) == 39
 
     yao_person.add_fact(fact_context=sem_jour_rope, fact_state=sem_jour_rope)
-    keg_pledge_list = yao_person.get_agenda_dict()
-    assert len(keg_pledge_list) == 53
+    plan_pledge_list = yao_person.get_agenda_dict()
+    assert len(plan_pledge_list) == 53
 
     # yao_person.add_fact(fact_context=nations_rope, fact_state=nations_rope)
-    # keg_pledge_list = yao_person.get_agenda_dict()
-    # assert len(keg_pledge_list) == 53
+    # plan_pledge_list = yao_person.get_agenda_dict()
+    # assert len(plan_pledge_list) == 53
 
     # for reason_context in yao_person.get_missing_fact_reason_contexts():
     #     print(f"{reason_context=}")
 
-    # for agenda_keg in keg_pledge_list:
-    #     print(f"{agenda_keg.keg_uid=} {agenda_keg.parent_rope=}")
+    # for agenda_plan in plan_pledge_list:
+    #     print(f"{agenda_plan.plan_uid=} {agenda_plan.parent_rope=}")
 
-    # for agenda_keg in keg_pledge_list:
-    #     # print(f"{agenda_keg.parent_rope=}")
+    # for agenda_plan in plan_pledge_list:
+    #     # print(f"{agenda_plan.parent_rope=}")
     #     pass
 
-    print(len(keg_pledge_list))
+    print(len(plan_pledge_list))
 
 
 def test_PersonUnit_get_agenda_dict_PersonUnitCanCleanOn_reason_context_personunit_v001_with_large_agenda():
@@ -239,11 +239,11 @@ def test_PersonUnit_get_agenda_dict_PersonUnitCanCleanOn_reason_context_personun
     # for reason_context in yao_person.get_missing_fact_reason_contexts():
     #     print(f"{reason_context=}")
 
-    # for agenda_keg in yao_person.get_agenda_dict():
+    # for agenda_plan in yao_person.get_agenda_dict():
     #     print(
-    #         f"{agenda_keg.parent_rope=} {agenda_keg.keg_label} {len(agenda_keg.reasonunits)=}"
+    #         f"{agenda_plan.parent_rope=} {agenda_plan.plan_label} {len(agenda_plan.reasonunits)=}"
     #     )
-    #     for reason in agenda_keg.reasonunits.values():
+    #     for reason in agenda_plan.reasonunits.values():
     #         if reason.reason_context == sem_jours:
     #             print(f"         {sem_jours}")
 
@@ -269,9 +269,9 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Range():
     jour_str = "jour"
     jour_rope = zia_person.make_rope(ziet_rope, jour_str)
 
-    zia_person.set_l1_keg(kegunit_shop(run_str, pledge=True))
-    zia_person.set_keg_obj(kegunit_shop(jour_str, begin=0, close=500), ziet_rope)
-    zia_person.edit_keg_attr(
+    zia_person.set_l1_plan(planunit_shop(run_str, pledge=True))
+    zia_person.set_plan_obj(planunit_shop(jour_str, begin=0, close=500), ziet_rope)
+    zia_person.edit_plan_attr(
         run_rope,
         reason_context=jour_rope,
         reason_case=jour_rope,
@@ -282,12 +282,12 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Range():
         fact_context=jour_rope, fact_state=jour_rope, fact_lower=30, fact_upper=87
     )
     zia_person.get_agenda_dict()
-    run_reasonunits = zia_person.kegroot.kids[run_str].reasonunits[jour_rope]
+    run_reasonunits = zia_person.planroot.kids[run_str].reasonunits[jour_rope]
     print(f"{run_reasonunits=}")
     print(f"{run_reasonunits.cases[jour_rope].case_active=}")
     print(f"{run_reasonunits.cases[jour_rope].task=}")
     print(f"{zia_person.get_reason_contexts()=}")
-    assert len(zia_person.get_keg_dict()) == 4
+    assert len(zia_person.get_plan_dict()) == 4
     assert len(zia_person.get_agenda_dict()) == 1
     print(f"{zia_person.get_agenda_dict().keys()=}")
     assert zia_person.get_agenda_dict().get(run_rope).task is True
@@ -312,9 +312,9 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Division():
     jour_str = "jour"
     jour_rope = zia_person.make_rope(ziet_rope, jour_str)
 
-    zia_person.set_l1_keg(kegunit_shop(run_str, pledge=True))
-    zia_person.set_keg_obj(kegunit_shop(jour_str, begin=0, close=500), ziet_rope)
-    zia_person.edit_keg_attr(
+    zia_person.set_l1_plan(planunit_shop(run_str, pledge=True))
+    zia_person.set_plan_obj(planunit_shop(jour_str, begin=0, close=500), ziet_rope)
+    zia_person.edit_plan_attr(
         run_rope,
         reason_context=jour_rope,
         reason_case=jour_rope,
@@ -323,8 +323,8 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Division():
         reason_divisor=2,
     )
 
-    run_keg = zia_person.get_keg_obj(run_rope)
-    # print(f"{run_keg.factheirs=}")
+    run_plan = zia_person.get_plan_obj(run_rope)
+    # print(f"{run_plan.factheirs=}")
     zia_person.add_fact(
         fact_context=jour_rope, fact_state=jour_rope, fact_lower=1, fact_upper=2
     )
@@ -341,15 +341,15 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Division():
         fact_context=jour_rope, fact_state=jour_rope, fact_lower=401, fact_upper=402
     )
     assert len(zia_person.get_agenda_dict()) == 1
-    # print(f"{run_keg.factheirs=}")
-    print(f"{run_keg.factunits=}")
+    # print(f"{run_plan.factheirs=}")
+    print(f"{run_plan.factunits=}")
 
     # WHEN
     zia_person.set_agenda_task_complete(task_rope=run_rope, reason_context=jour_rope)
 
     # THEN
-    print(f"{run_keg.factunits=}")
-    # print(f"{run_keg.factheirs=}")
+    print(f"{run_plan.factunits=}")
+    # print(f"{run_plan.factheirs=}")
     assert len(zia_person.get_agenda_dict()) == 0
 
 
@@ -361,30 +361,30 @@ def test_get_personunit_from_dict_LoadsPledgeFromJSON():
     yao_person = get_personunit_from_dict(person_dict=yao_person_dict)
 
     # THEN
-    assert len(yao_person.get_keg_dict()) == 252
-    print(f"{len(yao_person.get_keg_dict())=}")
+    assert len(yao_person.get_plan_dict()) == 252
+    print(f"{len(yao_person.get_plan_dict())=}")
     casa_rope = yao_person.make_l1_rope(exx.casa)
     body_str = "exercise"
     body_rope = yao_person.make_rope(casa_rope, body_str)
     veg_str = "veggies every morning"
     veg_rope = yao_person.make_rope(body_rope, veg_str)
-    veg_keg = yao_person.get_keg_obj(veg_rope)
-    assert not veg_keg.keg_active
-    assert veg_keg.pledge
+    veg_plan = yao_person.get_plan_obj(veg_rope)
+    assert not veg_plan.plan_active
+    assert veg_plan.pledge
 
-    # keg_list = yao_person.get_keg_dict()
+    # plan_list = yao_person.get_plan_dict()
     # pledge_true_count = 0
-    # for keg in keg_list:
-    #     if str(type(keg)).find(".keg.KegUnit'>") > 0:
-    #         assert keg.keg_active in (True, False)
-    #     assert keg.pledge in (True, False)
-    #     # if keg.keg_active:
-    #     #     print(keg.keg_label)
-    #     if keg.pledge:
+    # for plan in plan_list:
+    #     if str(type(plan)).find(".plan.PlanUnit'>") > 0:
+    #         assert plan.plan_active in (True, False)
+    #     assert plan.pledge in (True, False)
+    #     # if plan.plan_active:
+    #     #     print(plan.plan_label)
+    #     if plan.pledge:
     #         pledge_true_count += 1
-    #         # if keg.pledge is False:
-    #         #     print(f"pledge is false {keg.keg_label}")
-    #         # for reason in keg.reasonunits.values():
+    #         # if plan.pledge is False:
+    #         #     print(f"pledge is false {plan.plan_label}")
+    #         # for reason in plan.reasonunits.values():
     #         #     assert reason.reason_active in (True, False)
     # assert pledge_true_count > 0
 
@@ -415,28 +415,28 @@ def test_PersonUnit_set_fact_Isue116Resolved_SetstaskAsTrue():
     yao_person.add_fact(
         gregziet_rope, gregziet_rope, fact_lower=1063998720, fact_upper=1064130373
     )
-    pledge_keg_list = yao_person.get_agenda_dict()
+    pledge_plan_list = yao_person.get_agenda_dict()
 
     # THEN
-    assert len(pledge_keg_list) == 66
+    assert len(pledge_plan_list) == 66
     db_rope = yao_person.make_l1_rope("D&B")
     evening_str = "late_evening_go_to_sleep"
     evening_rope = yao_person.make_rope(db_rope, evening_str)
-    evening_keg = yao_person._keg_dict.get(evening_rope)
-    # for keg_x in yao_person.get_agenda_dict():
-    #     # if keg_x.task != True:
-    #     #     print(f"{len(pledge_keg_list)=} {keg_x.task=} {keg_x.get_keg_rope()}")
-    #     if keg_x.keg_label == evening_keg_label:
-    #         evening_keg = keg_x
-    #         print(f"{keg_x.get_keg_rope()=}")
+    evening_plan = yao_person._plan_dict.get(evening_rope)
+    # for plan_x in yao_person.get_agenda_dict():
+    #     # if plan_x.task != True:
+    #     #     print(f"{len(pledge_plan_list)=} {plan_x.task=} {plan_x.get_plan_rope()}")
+    #     if plan_x.plan_label == evening_plan_label:
+    #         evening_plan = plan_x
+    #         print(f"{plan_x.get_plan_rope()=}")
 
-    print(f"\nKeg = '{evening_str}' and reason '{gregziet_rope}'")
-    factheir_gregziet = evening_keg.factheirs.get(gregziet_rope)
+    print(f"\nPlan = '{evening_str}' and reason '{gregziet_rope}'")
+    factheir_gregziet = evening_plan.factheirs.get(gregziet_rope)
     print(f"\n{factheir_gregziet=}")
 
-    # for reasonheir in agenda_keg.reasonheirs.values():
+    # for reasonheir in agenda_plan.reasonheirs.values():
     #     print(f"{reasonheir.reason_context=} {reasonheir.reason_active=} {reasonheir.task=}")
-    reasonheir_gregziet = evening_keg.reasonheirs.get(gregziet_rope)
+    reasonheir_gregziet = evening_plan.reasonheirs.get(gregziet_rope)
     reasonheir_str = f"\nreasonheir_gregziet= '{reasonheir_gregziet.reason_context}', reason_active={reasonheir_gregziet.reason_active}, task={reasonheir_gregziet.task}"
     print(reasonheir_str)
 
@@ -447,14 +447,14 @@ def test_PersonUnit_set_fact_Isue116Resolved_SetstaskAsTrue():
     print(f" {caseunit.case_active=} , {caseunit._is_segregate()=} caseunit passes")
 
     # print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_task_bool()=}")
-    assert get_tasks_count(pledge_keg_list) == 64
+    assert get_tasks_count(pledge_plan_list) == 64
 
 
 def test_PersonUnit_agenda_IsSetByLaborUnit_1PartnerGroup():
     # ESTABLISH
     yao_person = personunit_shop(exx.yao)
     casa_rope = yao_person.make_l1_rope(exx.casa)
-    yao_person.set_l1_keg(kegunit_shop(exx.casa, pledge=True))
+    yao_person.set_l1_plan(planunit_shop(exx.casa, pledge=True))
     assert len(yao_person.get_agenda_dict()) == 1
 
     yao_person.add_partnerunit(exx.sue)
@@ -463,7 +463,7 @@ def test_PersonUnit_agenda_IsSetByLaborUnit_1PartnerGroup():
     assert len(yao_person.get_agenda_dict()) == 1
 
     # WHEN
-    yao_person.edit_keg_attr(casa_rope, laborunit=laborunit_sue)
+    yao_person.edit_plan_attr(casa_rope, laborunit=laborunit_sue)
 
     # THEN
     assert len(yao_person.get_agenda_dict()) == 0
@@ -474,13 +474,13 @@ def test_PersonUnit_agenda_IsSetByLaborUnit_1PartnerGroup():
     laborunit_yao.add_party(party_title=exx.yao)
 
     # WHEN
-    yao_person.edit_keg_attr(casa_rope, laborunit=laborunit_yao)
+    yao_person.edit_plan_attr(casa_rope, laborunit=laborunit_yao)
 
     # THEN
     assert len(yao_person.get_agenda_dict()) == 1
 
     # agenda_dict = yao_person.get_agenda_dict()
-    # print(f"{agenda_dict[0].keg_label=}")
+    # print(f"{agenda_dict[0].plan_label=}")
 
 
 def test_PersonUnit_get_agenda_dict_IsSetByLaborUnit_2PartnerGroup():
@@ -488,7 +488,7 @@ def test_PersonUnit_get_agenda_dict_IsSetByLaborUnit_2PartnerGroup():
     yao_person = personunit_shop(exx.yao)
     yao_person.add_partnerunit(exx.yao)
     casa_rope = yao_person.make_l1_rope(exx.casa)
-    yao_person.set_l1_keg(kegunit_shop(exx.casa, pledge=True))
+    yao_person.set_l1_plan(planunit_shop(exx.casa, pledge=True))
 
     yao_person.add_partnerunit(exx.sue)
     sue_partnerunit = yao_person.get_partner(exx.sue)
@@ -499,7 +499,7 @@ def test_PersonUnit_get_agenda_dict_IsSetByLaborUnit_2PartnerGroup():
     assert len(yao_person.get_agenda_dict()) == 1
 
     # WHEN
-    yao_person.edit_keg_attr(casa_rope, laborunit=run_laborunit)
+    yao_person.edit_plan_attr(casa_rope, laborunit=run_laborunit)
 
     # THEN
     assert len(yao_person.get_agenda_dict()) == 0
@@ -521,13 +521,13 @@ def test_PersonUnit_get_all_pledges_ReturnsObj():
     sweep_rope = zia_person.make_rope(clean_rope, sweep_str)
     couch_str = "couch"
     couch_rope = zia_person.make_rope(casa_rope, couch_str)
-    zia_person.set_keg_obj(kegunit_shop(couch_str), casa_rope)
-    zia_person.set_keg_obj(kegunit_shop(exx.clean, pledge=True), casa_rope)
-    zia_person.set_keg_obj(kegunit_shop(sweep_str, pledge=True), clean_rope)
-    sweep_keg = zia_person.get_keg_obj(sweep_rope)
+    zia_person.set_plan_obj(planunit_shop(couch_str), casa_rope)
+    zia_person.set_plan_obj(planunit_shop(exx.clean, pledge=True), casa_rope)
+    zia_person.set_plan_obj(planunit_shop(sweep_str, pledge=True), clean_rope)
+    sweep_plan = zia_person.get_plan_obj(sweep_rope)
     zia_person.add_partnerunit(exx.yao)
-    sweep_keg.laborunit.add_party(exx.yao)
-    print(f"{sweep_keg}")
+    sweep_plan.laborunit.add_party(exx.yao)
+    print(f"{sweep_plan}")
     agenda_dict = zia_person.get_agenda_dict()
     assert agenda_dict.get(clean_rope) is not None
     assert agenda_dict.get(sweep_rope) is None
@@ -537,6 +537,6 @@ def test_PersonUnit_get_all_pledges_ReturnsObj():
     all_pledges_dict = zia_person.get_all_pledges()
 
     # THEN
-    assert all_pledges_dict.get(sweep_rope) == zia_person.get_keg_obj(sweep_rope)
-    assert all_pledges_dict.get(clean_rope) == zia_person.get_keg_obj(clean_rope)
+    assert all_pledges_dict.get(sweep_rope) == zia_person.get_plan_obj(sweep_rope)
+    assert all_pledges_dict.get(clean_rope) == zia_person.get_plan_obj(clean_rope)
     assert all_pledges_dict.get(couch_rope) is None

@@ -1,50 +1,50 @@
 from src.ch03_labor.labor import laborheir_shop, laborunit_shop
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PersonUnit_cashout_Sets_kegroot_laborheirFrom_kegroot_laborunit():
+def test_PersonUnit_cashout_Sets_planroot_laborheirFrom_planroot_laborunit():
     # ESTABLISH
     sue_laborunit = laborunit_shop()
     sue_laborunit.add_party(exx.sue)
     yao_person = personunit_shop("Yao")
-    root_rope = yao_person.kegroot.get_keg_rope()
-    yao_person.edit_keg_attr(root_rope, laborunit=sue_laborunit)
-    assert yao_person.kegroot.laborunit == sue_laborunit
-    assert not yao_person.kegroot.laborheir
+    root_rope = yao_person.planroot.get_plan_rope()
+    yao_person.edit_plan_attr(root_rope, laborunit=sue_laborunit)
+    assert yao_person.planroot.laborunit == sue_laborunit
+    assert not yao_person.planroot.laborheir
 
     # WHEN
     yao_person.cashout()
 
     # THEN
-    assert yao_person.kegroot.laborheir is not None
+    assert yao_person.planroot.laborheir is not None
     expected_laborheir = laborheir_shop()
     expected_laborheir.set_partys(
         parent_laborheir=None, laborunit=sue_laborunit, groupunits=None
     )
-    assert yao_person.kegroot.laborheir == expected_laborheir
+    assert yao_person.planroot.laborheir == expected_laborheir
 
 
-def test_PersonUnit_cashout_Set_child_keg_laborheir_FromParent_laborunit():
+def test_PersonUnit_cashout_Set_child_plan_laborheir_FromParent_laborunit():
     # ESTABLISH
     x_laborunit = laborunit_shop()
     bob_person = personunit_shop(exx.bob)
     run_str = "run"
     run_rope = bob_person.make_l1_rope(run_str)
     bob_person.add_partnerunit(exx.bob)
-    bob_person.set_l1_keg(kegunit_shop(run_str))
-    bob_person.edit_keg_attr(run_rope, laborunit=x_laborunit)
-    run_keg = bob_person.get_keg_obj(run_rope)
-    assert run_keg.laborunit == x_laborunit
-    assert not run_keg.laborheir
+    bob_person.set_l1_plan(planunit_shop(run_str))
+    bob_person.edit_plan_attr(run_rope, laborunit=x_laborunit)
+    run_plan = bob_person.get_plan_obj(run_rope)
+    assert run_plan.laborunit == x_laborunit
+    assert not run_plan.laborheir
 
     # WHEN
     bob_person.cashout()
 
     # THEN
-    assert run_keg.laborheir
-    assert run_keg.laborheir.person_name_is_labor
+    assert run_plan.laborheir
+    assert run_plan.laborheir.person_name_is_labor
 
     expected_laborheir = laborheir_shop()
     expected_laborheir.set_partys(
@@ -57,13 +57,13 @@ def test_PersonUnit_cashout_Set_child_keg_laborheir_FromParent_laborunit():
     )
     print(f"{expected_laborheir.person_name_is_labor=}")
     assert (
-        run_keg.laborheir.person_name_is_labor
+        run_plan.laborheir.person_name_is_labor
         == expected_laborheir.person_name_is_labor
     )
-    assert run_keg.laborheir == expected_laborheir
+    assert run_plan.laborheir == expected_laborheir
 
 
-def test_PersonUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_Scenario0():
+def test_PersonUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario0():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     swim_rope = sue_person.make_l1_rope(exx.swim)
@@ -79,14 +79,14 @@ def test_PersonUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_S
     yao_partnerunit = sue_person.get_partner(exx.yao)
     yao_partnerunit.add_membership(swimmers_str)
 
-    sue_person.set_l1_keg(kegunit_shop(exx.swim))
-    sue_person.set_keg_obj(kegunit_shop(morn_str), parent_rope=swim_rope)
-    sue_person.set_keg_obj(kegunit_shop(four_str), parent_rope=morn_rope)
-    sue_person.edit_keg_attr(swim_rope, laborunit=x_laborunit)
+    sue_person.set_l1_plan(planunit_shop(exx.swim))
+    sue_person.set_plan_obj(planunit_shop(morn_str), parent_rope=swim_rope)
+    sue_person.set_plan_obj(planunit_shop(four_str), parent_rope=morn_rope)
+    sue_person.edit_plan_attr(swim_rope, laborunit=x_laborunit)
     # print(sue_person.make_rope(four_rope=}\n{morn_rope=))
-    four_keg = sue_person.get_keg_obj(four_rope)
-    assert four_keg.laborunit == laborunit_shop()
-    assert four_keg.laborheir is None
+    four_plan = sue_person.get_plan_obj(four_rope)
+    assert four_plan.laborunit == laborunit_shop()
+    assert four_plan.laborheir is None
 
     # WHEN
     sue_person.cashout()
@@ -98,11 +98,11 @@ def test_PersonUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_S
         laborunit=x_laborunit,
         groupunits=sue_person.groupunits,
     )
-    assert four_keg.laborheir is not None
-    assert four_keg.laborheir == x_laborheir
+    assert four_plan.laborheir is not None
+    assert four_plan.laborheir == x_laborheir
 
 
-def test_PersonUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_Scenario1_solo_AttrIsPassed():
+def test_PersonUnit_cashout_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario1_solo_AttrIsPassed():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     swim_rope = sue_person.make_l1_rope(exx.swim)
@@ -119,14 +119,14 @@ def test_PersonUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_S
     yao_partnerunit = sue_person.get_partner(exx.yao)
     yao_partnerunit.add_membership(swimmers_str)
 
-    sue_person.set_l1_keg(kegunit_shop(exx.swim))
-    sue_person.set_keg_obj(kegunit_shop(morn_str), parent_rope=swim_rope)
-    sue_person.set_keg_obj(kegunit_shop(four_str), parent_rope=morn_rope)
-    sue_person.edit_keg_attr(swim_rope, laborunit=swimmers_laborunit)
+    sue_person.set_l1_plan(planunit_shop(exx.swim))
+    sue_person.set_plan_obj(planunit_shop(morn_str), parent_rope=swim_rope)
+    sue_person.set_plan_obj(planunit_shop(four_str), parent_rope=morn_rope)
+    sue_person.edit_plan_attr(swim_rope, laborunit=swimmers_laborunit)
     # print(sue_person.make_rope(four_rope=}\n{morn_rope=))
-    four_keg = sue_person.get_keg_obj(four_rope)
-    assert four_keg.laborunit == laborunit_shop()
-    assert not four_keg.laborheir
+    four_plan = sue_person.get_plan_obj(four_rope)
+    assert four_plan.laborunit == laborunit_shop()
+    assert not four_plan.laborheir
 
     # WHEN
     sue_person.cashout()
@@ -138,13 +138,13 @@ def test_PersonUnit_cashout_Set_grandchild_keg_laborheir_From_kegkid_laborunit_S
         laborunit=swimmers_laborunit,
         groupunits=sue_person.groupunits,
     )
-    assert four_keg.laborheir
-    assert four_keg.laborheir == expected_laborheir
-    swimmers_party = four_keg.laborheir.partys.get(swimmers_str)
+    assert four_plan.laborheir
+    assert four_plan.laborheir == expected_laborheir
+    swimmers_party = four_plan.laborheir.partys.get(swimmers_str)
     assert swimmers_party.solo == swimmers_solo_bool
 
 
-def test_PersonUnit__get_filtered_awardunits_keg_CleansKeg_Laborunit():
+def test_PersonUnit__get_filtered_awardunits_plan_CleansPlan_Laborunit():
     # ESTABLISH
     sue1_person = personunit_shop(exx.sue)
     sue1_person.add_partnerunit(exx.xio)
@@ -152,29 +152,29 @@ def test_PersonUnit__get_filtered_awardunits_keg_CleansKeg_Laborunit():
 
     casa_rope = sue1_person.make_l1_rope(exx.casa)
     swim_rope = sue1_person.make_l1_rope(exx.swim)
-    root_rope = sue1_person.kegroot.get_keg_rope()
-    sue1_person.set_keg_obj(kegunit_shop(exx.casa), parent_rope=root_rope)
-    sue1_person.set_keg_obj(kegunit_shop(exx.swim), parent_rope=root_rope)
+    root_rope = sue1_person.planroot.get_plan_rope()
+    sue1_person.set_plan_obj(planunit_shop(exx.casa), parent_rope=root_rope)
+    sue1_person.set_plan_obj(planunit_shop(exx.swim), parent_rope=root_rope)
     swim_laborunit = laborunit_shop()
     swim_laborunit.add_party(party_title=exx.xio)
     swim_laborunit.add_party(party_title=exx.zia)
-    sue1_person.edit_keg_attr(swim_rope, laborunit=swim_laborunit)
-    sue1_person_swim_keg = sue1_person.get_keg_obj(swim_rope)
-    sue1_person_swim_partys = sue1_person_swim_keg.laborunit.partys
+    sue1_person.edit_plan_attr(swim_rope, laborunit=swim_laborunit)
+    sue1_person_swim_plan = sue1_person.get_plan_obj(swim_rope)
+    sue1_person_swim_partys = sue1_person_swim_plan.laborunit.partys
     assert len(sue1_person_swim_partys) == 2
 
     # WHEN
     sue2_person = personunit_shop(exx.sue)
     sue2_person.add_partnerunit(exx.xio)
-    cleaned_keg = sue2_person._get_filtered_awardunits_keg(sue1_person_swim_keg)
+    cleaned_plan = sue2_person._get_filtered_awardunits_plan(sue1_person_swim_plan)
 
     # THEN
-    cleaned_swim_partys = cleaned_keg.laborunit.partys
+    cleaned_swim_partys = cleaned_plan.laborunit.partys
     assert len(cleaned_swim_partys) == 1
     assert list(cleaned_swim_partys) == [exx.xio]
 
 
-def test_PersonUnit_set_keg_CleansKeg_awardunits():
+def test_PersonUnit_set_plan_CleansPlan_awardunits():
     # ESTABLISH
     sue1_person = personunit_shop("Sue")
     sue1_person.add_partnerunit(exx.xio)
@@ -182,29 +182,29 @@ def test_PersonUnit_set_keg_CleansKeg_awardunits():
 
     casa_rope = sue1_person.make_l1_rope(exx.casa)
     swim_rope = sue1_person.make_l1_rope(exx.swim)
-    sue1_person.set_keg_obj(
-        kegunit_shop(exx.casa), parent_rope=sue1_person.kegroot.get_keg_rope()
+    sue1_person.set_plan_obj(
+        planunit_shop(exx.casa), parent_rope=sue1_person.planroot.get_plan_rope()
     )
-    sue1_person.set_keg_obj(
-        kegunit_shop(exx.swim), parent_rope=sue1_person.kegroot.get_keg_rope()
+    sue1_person.set_plan_obj(
+        planunit_shop(exx.swim), parent_rope=sue1_person.planroot.get_plan_rope()
     )
     swim_laborunit = laborunit_shop()
     swim_laborunit.add_party(party_title=exx.xio)
     swim_laborunit.add_party(party_title=exx.zia)
-    sue1_person.edit_keg_attr(swim_rope, laborunit=swim_laborunit)
-    sue1_person_swim_keg = sue1_person.get_keg_obj(swim_rope)
-    sue1_person_swim_partys = sue1_person_swim_keg.laborunit.partys
+    sue1_person.edit_plan_attr(swim_rope, laborunit=swim_laborunit)
+    sue1_person_swim_plan = sue1_person.get_plan_obj(swim_rope)
+    sue1_person_swim_partys = sue1_person_swim_plan.laborunit.partys
     assert len(sue1_person_swim_partys) == 2
 
     # WHEN
     sue2_person = personunit_shop("Sue")
     sue2_person.add_partnerunit(exx.xio)
-    sue2_person.set_l1_keg(
-        sue1_person_swim_keg, get_rid_of_missing_awardunits_awardee_titles=False
+    sue2_person.set_l1_plan(
+        sue1_person_swim_plan, get_rid_of_missing_awardunits_awardee_titles=False
     )
 
     # THEN
-    sue2_person_swim_keg = sue2_person.get_keg_obj(swim_rope)
-    sue2_person_swim_partys = sue2_person_swim_keg.laborunit.partys
+    sue2_person_swim_plan = sue2_person.get_plan_obj(swim_rope)
+    sue2_person_swim_partys = sue2_person_swim_plan.laborunit.partys
     assert len(sue2_person_swim_partys) == 1
     assert list(sue2_person_swim_partys) == [exx.xio]

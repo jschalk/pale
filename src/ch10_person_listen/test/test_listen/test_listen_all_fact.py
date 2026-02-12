@@ -1,4 +1,4 @@
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch10_person_listen.listen_main import (
     get_debtors_roll,
@@ -119,10 +119,10 @@ def test_set_listen_to_speaker_fact_SetsFact():
 
     yao_listener.add_partnerunit(exx.yao)
     yao_listener.set_partner_respect(20)
-    yao_listener.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
-    yao_listener.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
-    yao_listener.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
-    yao_listener.edit_keg_attr(
+    yao_listener.set_plan_obj(planunit_shop(exx.clean), situation_rope)
+    yao_listener.set_plan_obj(planunit_shop(dirty_str), situation_rope)
+    yao_listener.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
+    yao_listener.edit_plan_attr(
         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
     missing_fact_fact_contexts = list(
@@ -130,7 +130,7 @@ def test_set_listen_to_speaker_fact_SetsFact():
     )
 
     yao_speaker = personunit_shop(exx.yao)
-    yao_speaker.add_fact(situation_rope, clean_rope, create_missing_kegs=True)
+    yao_speaker.add_fact(situation_rope, clean_rope, create_missing_plans=True)
     assert yao_listener.get_missing_fact_reason_contexts().keys() == {situation_rope}
 
     # WHEN
@@ -158,14 +158,14 @@ def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
     running_str = "running"
     running_rope = yao_listener.make_rope(fridge_rope, running_str)
 
-    yao_listener.set_keg_obj(kegunit_shop(running_str), fridge_rope)
-    yao_listener.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
-    yao_listener.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
-    yao_listener.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
-    yao_listener.edit_keg_attr(
+    yao_listener.set_plan_obj(planunit_shop(running_str), fridge_rope)
+    yao_listener.set_plan_obj(planunit_shop(exx.clean), situation_rope)
+    yao_listener.set_plan_obj(planunit_shop(dirty_str), situation_rope)
+    yao_listener.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
+    yao_listener.edit_plan_attr(
         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
     )
-    yao_listener.edit_keg_attr(
+    yao_listener.edit_plan_attr(
         sweep_rope, reason_context=fridge_rope, reason_case=running_rope
     )
     assert len(yao_listener.get_missing_fact_reason_contexts()) == 2
@@ -175,8 +175,8 @@ def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
 
     # WHEN
     yao_speaker = personunit_shop(exx.yao)
-    yao_speaker.add_fact(situation_rope, clean_rope, create_missing_kegs=True)
-    yao_speaker.add_fact(fridge_rope, running_rope, create_missing_kegs=True)
+    yao_speaker.add_fact(situation_rope, clean_rope, create_missing_plans=True)
+    yao_speaker.add_fact(fridge_rope, running_rope, create_missing_plans=True)
     missing_fact_fact_contexts = list(
         yao_listener.get_missing_fact_reason_contexts().keys()
     )
@@ -190,7 +190,7 @@ def test_set_listen_to_speaker_fact_DoesNotOverrideFact():
     assert yao_listener.get_fact(fridge_rope).fact_state == running_rope
 
 
-def test_migrate_all_facts_AddsKegUnitsAndSetsFactUnits():
+def test_migrate_all_facts_AddsPlanUnitsAndSetsFactUnits():
     # ESTABLISH
     yao_src = personunit_shop(exx.yao)
     casa_rope = yao_src.make_l1_rope(exx.casa)
@@ -210,22 +210,22 @@ def test_migrate_all_facts_AddsKegUnitsAndSetsFactUnits():
 
     yao_src.add_partnerunit(exx.yao)
     yao_src.set_partner_respect(20)
-    yao_src.set_keg_obj(kegunit_shop(exx.clean), situation_rope)
-    yao_src.set_keg_obj(kegunit_shop(dirty_str), situation_rope)
-    yao_src.set_keg_obj(kegunit_shop(sweep_str, pledge=True), casa_rope)
+    yao_src.set_plan_obj(planunit_shop(exx.clean), situation_rope)
+    yao_src.set_plan_obj(planunit_shop(dirty_str), situation_rope)
+    yao_src.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
     yao_src.edit_reason(sweep_rope, situation_rope, dirty_rope)
     # missing_fact_fact_contexts = list(yao_src.get_missing_fact_reason_contexts().keys())
-    yao_src.set_keg_obj(kegunit_shop(rain_str), weather_rope)
-    yao_src.set_keg_obj(kegunit_shop(snow_str), weather_rope)
+    yao_src.set_plan_obj(planunit_shop(rain_str), weather_rope)
+    yao_src.set_plan_obj(planunit_shop(snow_str), weather_rope)
     yao_src.add_fact(weather_rope, rain_rope)
     yao_src.add_fact(situation_rope, clean_rope)
     yao_src.cashout()
 
     yao_dst = personunit_shop(exx.yao)
-    assert yao_dst.keg_exists(clean_rope) is False
-    assert yao_dst.keg_exists(dirty_rope) is False
-    assert yao_dst.keg_exists(rain_rope) is False
-    assert yao_dst.keg_exists(snow_rope) is False
+    assert yao_dst.plan_exists(clean_rope) is False
+    assert yao_dst.plan_exists(dirty_rope) is False
+    assert yao_dst.plan_exists(rain_rope) is False
+    assert yao_dst.plan_exists(snow_rope) is False
     assert yao_dst.get_fact(weather_rope) is None
     assert yao_dst.get_fact(situation_rope) is None
 
@@ -233,10 +233,10 @@ def test_migrate_all_facts_AddsKegUnitsAndSetsFactUnits():
     migrate_all_facts(yao_src, yao_dst)
 
     # THEN
-    assert yao_dst.keg_exists(clean_rope)
-    assert yao_dst.keg_exists(dirty_rope)
-    assert yao_dst.keg_exists(rain_rope)
-    assert yao_dst.keg_exists(snow_rope)
+    assert yao_dst.plan_exists(clean_rope)
+    assert yao_dst.plan_exists(dirty_rope)
+    assert yao_dst.plan_exists(rain_rope)
+    assert yao_dst.plan_exists(snow_rope)
     assert yao_dst.get_fact(weather_rope) is not None
     assert yao_dst.get_fact(situation_rope) is not None
     assert yao_dst.get_fact(weather_rope).fact_state == rain_rope

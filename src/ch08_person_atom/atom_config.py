@@ -96,7 +96,7 @@ def get_atom_args_class_types() -> dict[str, str]:
         "pledge": "bool",
         "problem_bool": "bool",
         "respect_grain": "float",
-        "keg_rope": "RopeTerm",
+        "plan_rope": "RopeTerm",
         "star": "int",
         "stop_want": "float",
         "solo": "int",
@@ -190,7 +190,7 @@ def get_normalized_person_table_build() -> dict[str : dict[str, any]]:
 
         normal_table_dict["columns"] = {}
         normal_columns_dict = normal_table_dict.get("columns")
-        normal_columns_dict["keg_uid"] = {
+        normal_columns_dict["plan_uid"] = {
             "sqlite_datatype": "INTEGER",
             "nullable": False,
             "primary_key": True,
@@ -229,13 +229,13 @@ def get_person_dimens() -> set:
         "personunit",
         "person_partnerunit",
         "person_partner_membership",
-        "person_kegunit",
-        "person_keg_awardunit",
-        "person_keg_reasonunit",
-        "person_keg_reason_caseunit",
-        "person_keg_partyunit",
-        "person_keg_healerunit",
-        "person_keg_factunit",
+        "person_planunit",
+        "person_plan_awardunit",
+        "person_plan_reasonunit",
+        "person_plan_reason_caseunit",
+        "person_plan_partyunit",
+        "person_plan_healerunit",
+        "person_plan_factunit",
     }
 
 
@@ -249,7 +249,7 @@ def get_all_person_dimen_keys() -> set:
         "healer_name",
         "reason_state",
         "person_name",
-        "keg_rope",
+        "plan_rope",
         "party_title",
     }
 
@@ -268,7 +268,7 @@ def get_all_person_dimen_delete_keys() -> set:
         "healer_name_ERASE",
         "reason_state_ERASE",
         "person_name_ERASE",
-        "keg_rope_ERASE",
+        "plan_rope_ERASE",
         "party_title_ERASE",
     }
 

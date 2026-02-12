@@ -34,16 +34,16 @@ def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_bool):
     for idea_format in sorted(dimens_idea_format_dict.keys()):
         print(f"{idea_format=}")
     assert len(dimens_idea_format_dict) == 10
-    person_kegunit_filename = f"idea_format_00026_{kw.person_kegunit}_v0_0_0.json"
-    assert dimens_idea_format_dict.get(person_kegunit_filename)
-    person_kegunit_dict = dimens_idea_format_dict.get(person_kegunit_filename)
-    assert person_kegunit_dict.get(kw.dimens) == [kw.person_kegunit]
-    assert person_kegunit_dict.get(kw.attributes)
-    person_kegunit_attributes = person_kegunit_dict.get(kw.attributes)
-    assert kw.moment_rope in person_kegunit_attributes
-    assert kw.person_name in person_kegunit_attributes
-    assert kw.keg_rope in person_kegunit_attributes
-    assert kw.gogo_want in person_kegunit_attributes
+    person_planunit_filename = f"idea_format_00026_{kw.person_planunit}_v0_0_0.json"
+    assert dimens_idea_format_dict.get(person_planunit_filename)
+    person_planunit_dict = dimens_idea_format_dict.get(person_planunit_filename)
+    assert person_planunit_dict.get(kw.dimens) == [kw.person_planunit]
+    assert person_planunit_dict.get(kw.attributes)
+    person_planunit_attributes = person_planunit_dict.get(kw.attributes)
+    assert kw.moment_rope in person_planunit_attributes
+    assert kw.person_name in person_planunit_attributes
+    assert kw.plan_rope in person_planunit_attributes
+    assert kw.gogo_want in person_planunit_attributes
 
 
 def test_get_idea_brick_md_ReturnsObj():

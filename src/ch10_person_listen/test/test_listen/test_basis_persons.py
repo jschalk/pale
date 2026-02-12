@@ -1,6 +1,6 @@
 from src.ch01_allot.allot import default_pool_num, validate_pool_num
 from src.ch02_partner.partner import RespectNum
-from src.ch06_keg.keg import kegunit_shop
+from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch10_person_listen.basis_person import (
     create_empty_person_from_person,
@@ -14,7 +14,7 @@ def test_create_empty_person_from_person_ReturnsObj():
     # ESTABLISH
     mana_grain_float = 0.7
     yao_gut = personunit_shop(exx.yao, knot=exx.slash, mana_grain=mana_grain_float)
-    yao_gut.set_l1_keg(kegunit_shop("Iowa"))
+    yao_gut.set_l1_plan(planunit_shop("Iowa"))
     zia_partner_cred_lumen = 47
     zia_partner_debt_lumen = 41
     zia_credor_pool = 87
@@ -59,7 +59,7 @@ def test_create_empty_person_from_person_ReturnsObj():
 def test_create_listen_basis_ReturnsObj():
     # ESTABLISH
     yao_duty = personunit_shop(exx.yao, knot=exx.slash)
-    yao_duty.set_l1_keg(kegunit_shop("Iowa"))
+    yao_duty.set_l1_plan(planunit_shop("Iowa"))
     zia_partner_cred_lumen = 47
     zia_partner_debt_lumen = 41
     zia_credor_pool = 8700
@@ -94,8 +94,8 @@ def test_create_listen_basis_ReturnsObj():
     assert yao_basis_vision.credor_respect == yao_duty.credor_respect
     assert yao_basis_vision.debtor_respect == yao_duty.debtor_respect
     yao_basis_vision.cashout()
-    assert len(yao_basis_vision._keg_dict) != len(yao_duty._keg_dict)
-    assert len(yao_basis_vision._keg_dict) == 1
+    assert len(yao_basis_vision._plan_dict) != len(yao_duty._plan_dict)
+    assert len(yao_basis_vision._plan_dict) == 1
     vision_zia_partnerunit = yao_basis_vision.get_partner(exx.zia)
     assert (
         yao_basis_vision.get_partnerunits_dict().keys()
@@ -121,7 +121,7 @@ def test_get_default_job_ReturnsObj():
     bob_partnerunit = sue_personunit.get_partner(exx.bob)
     bob_partnerunit.add_membership(f"{exx.slash}swimmers")
     sue_personunit.set_partner_respect(sue_partner_pool)
-    sue_personunit.set_l1_keg(kegunit_shop(exx.casa))
+    sue_personunit.set_l1_plan(planunit_shop(exx.casa))
     sue_personunit.set_max_tree_traverse(sue_max_tree_traverse)
 
     # WHEN
@@ -141,4 +141,4 @@ def test_get_default_job_ReturnsObj():
     assert default_job.debtor_respect == RespectNum(default_pool_num())
     assert default_job.max_tree_traverse == sue_max_tree_traverse
     assert len(default_job.get_partnerunits_dict()) == 1
-    assert len(default_job._keg_dict) == 1
+    assert len(default_job._plan_dict) == 1

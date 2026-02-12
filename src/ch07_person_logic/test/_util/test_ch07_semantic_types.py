@@ -14,7 +14,7 @@ def test_PersonName_Exists():
     # THEN
     assert bob_PersonName_str == exx.bob
     doc_str = f"""The {kw.LabelTerm} used to identify a PersonUnit.
-Must be a {kw.LabelTerm}/{kw.NameTerm} because when identifying if a KegUnit is an active {kw.pledge} the {kw.PersonName} will be compared
+Must be a {kw.LabelTerm}/{kw.NameTerm} because when identifying if a PlanUnit is an active {kw.pledge} the {kw.PersonName} will be compared
 against {kw.PartnerName}s. If they match the {kw.pledge} will be active."""
     assert inspect_getdoc(bob_PersonName_str) == doc_str
 

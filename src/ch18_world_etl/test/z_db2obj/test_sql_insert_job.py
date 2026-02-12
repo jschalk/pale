@@ -9,9 +9,9 @@ from src.ch18_world_etl.obj2db_person import (
     create_prnfact_metrics_insert_sqlstr,
     create_prngrou_metrics_insert_sqlstr,
     create_prnheal_metrics_insert_sqlstr,
-    create_prnkegg_metrics_insert_sqlstr,
     create_prnlabo_metrics_insert_sqlstr,
     create_prnmemb_metrics_insert_sqlstr,
+    create_prnplan_metrics_insert_sqlstr,
     create_prnptnr_metrics_insert_sqlstr,
     create_prnreas_metrics_insert_sqlstr,
 )
@@ -31,7 +31,7 @@ def test_create_personunit_metrics_insert_sqlstr_ReturnsObj():
     x_keeps_justified = False
     x_offtrack_fund = 55.5
     x_rational = True
-    x_sum_healerunit_kegs_fund_total = 66.6
+    x_sum_healerunit_plans_fund_total = 66.6
     x_tree_traverse_count = 7
     x_credor_respect = 88.2
     x_debtor_respect = 88.4
@@ -47,7 +47,7 @@ def test_create_personunit_metrics_insert_sqlstr_ReturnsObj():
         kw.keeps_justified: x_keeps_justified,
         kw.offtrack_fund: x_offtrack_fund,
         kw.rational: x_rational,
-        kw.sum_healerunit_kegs_fund_total: x_sum_healerunit_kegs_fund_total,
+        kw.sum_healerunit_plans_fund_total: x_sum_healerunit_plans_fund_total,
         kw.tree_traverse_count: x_tree_traverse_count,
         kw.credor_respect: x_credor_respect,
         kw.debtor_respect: x_debtor_respect,
@@ -76,10 +76,10 @@ def test_create_personunit_metrics_insert_sqlstr_ReturnsObj():
         assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnkegg_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnplan_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_person_calc_dimen_args("person_kegunit")
+    x_args = get_person_calc_dimen_args("person_planunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -121,7 +121,7 @@ def test_create_prnkegg_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
-        kw.keg_active: x_active,
+        kw.plan_active: x_active,
         kw.all_partner_cred: x_all_partner_cred,
         kw.all_partner_debt: x_all_partner_debt,
         kw.descendant_pledge_count: x_descendant_pledge_count,
@@ -143,7 +143,7 @@ def test_create_prnkegg_metrics_insert_sqlstr_ReturnsObj():
         kw.star: x_star,
         kw.morph: x_morph,
         kw.numor: x_numor,
-        kw.keg_rope: x_rope,
+        kw.plan_rope: x_rope,
         kw.pledge: x_pledge,
         kw.problem_bool: x_problem_bool,
         kw.stop_want: x_stop_want,
@@ -152,14 +152,14 @@ def test_create_prnkegg_metrics_insert_sqlstr_ReturnsObj():
     assert x_args == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_prnkegg_metrics_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnplan_metrics_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "person_kegunit_job"
+        table_name = "person_planunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -170,7 +170,7 @@ def test_create_prnkegg_metrics_insert_sqlstr_ReturnsObj():
 def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_person_calc_dimen_args("person_keg_reasonunit")
+    x_args = get_person_calc_dimen_args("person_plan_reasonunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -201,7 +201,7 @@ def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
-        kw.keg_rope: x_rope,
+        kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.active_requisite: x_active_requisite,
         kw.task: x_task,
@@ -219,7 +219,7 @@ def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "person_keg_reasonunit_job"
+        table_name = "person_plan_reasonunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print(expected_sqlstr)
         print("")
@@ -230,7 +230,7 @@ def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
 def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_person_calc_dimen_args("person_keg_reason_caseunit")
+    x_args = get_person_calc_dimen_args("person_plan_reason_caseunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -266,7 +266,7 @@ def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
-        kw.keg_rope: x_rope,
+        kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.reason_state: x_reason_state,
         kw.reason_lower: x_reason_lower,
@@ -286,7 +286,7 @@ def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "person_keg_reason_caseunit_job"
+        table_name = "person_plan_reason_caseunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         # print(expected_sqlstr)
         print("")
@@ -297,7 +297,7 @@ def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
 def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_person_calc_dimen_args("person_keg_awardunit")
+    x_args = get_person_calc_dimen_args("person_plan_awardunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -331,7 +331,7 @@ def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
-        kw.keg_rope: x_rope,
+        kw.plan_rope: x_rope,
         kw.awardee_title: x_awardee_title,
         kw.give_force: x_give_force,
         kw.take_force: x_take_force,
@@ -349,7 +349,7 @@ def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "person_keg_awardunit_job"
+        table_name = "person_plan_awardunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -360,7 +360,7 @@ def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
 def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_person_calc_dimen_args("person_keg_factunit")
+    x_args = get_person_calc_dimen_args("person_plan_factunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -393,7 +393,7 @@ def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
-        kw.keg_rope: x_rope,
+        kw.plan_rope: x_rope,
         kw.fact_context: x_fact_context,
         kw.fact_state: x_fact_state,
         kw.fact_lower: x_fact_lower,
@@ -410,7 +410,7 @@ def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "person_keg_factunit_job"
+        table_name = "person_plan_factunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -421,7 +421,7 @@ def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
 def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_person_calc_dimen_args("person_keg_healerunit")
+    x_args = get_person_calc_dimen_args("person_plan_healerunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -451,7 +451,7 @@ def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
-        kw.keg_rope: x_rope,
+        kw.plan_rope: x_rope,
         kw.healer_name: x_healer_name,
     }
     # all args included in values dict
@@ -465,7 +465,7 @@ def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "person_keg_healerunit_job"
+        table_name = "person_plan_healerunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)
@@ -476,7 +476,7 @@ def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
 def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_args = get_person_calc_dimen_args("person_keg_partyunit")
+    x_args = get_person_calc_dimen_args("person_plan_partyunit")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -508,7 +508,7 @@ def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
-        kw.keg_rope: x_rope,
+        kw.plan_rope: x_rope,
         kw.party_title: x_party_title,
         kw.solo: x_solo,
         kw.person_name_is_labor: x__person_name_is_labor,
@@ -524,7 +524,7 @@ def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj():
     with sqlite3_connect(":memory:") as conn:
         cursor = conn.cursor()
         create_job_tables(cursor)
-        table_name = "person_keg_partyunit_job"
+        table_name = "person_plan_partyunit_job"
         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
         print("")
         print(expected_sqlstr)

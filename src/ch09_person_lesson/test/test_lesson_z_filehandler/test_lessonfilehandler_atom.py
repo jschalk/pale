@@ -8,9 +8,9 @@ from src.ch09_person_lesson.test._util.ch09_env import (
 )
 from src.ch09_person_lesson.test._util.ch09_examples import (
     get_atom_example_factunit_knee,
-    get_atom_example_kegunit_ball,
-    get_atom_example_kegunit_knee,
-    get_atom_example_kegunit_sports,
+    get_atom_example_planunit_ball,
+    get_atom_example_planunit_knee,
+    get_atom_example_planunit_sports,
     get_ch09_example_moment_lasso as moment_lasso,
 )
 from src.ref.keywords import ExampleStrs as exx
@@ -170,14 +170,14 @@ def test_LessonFileHandler_get_person_from_atom_files_ReturnsFileWithZeroAtoms(
     assert yao_person.respect_grain == yao_lessonfilehandler.respect_grain
 
 
-def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_SimpleKeg(
+def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_SimplePlan(
     temp_dir_setup,
 ):
     # ESTABLISH
     yao_lessonfilehandler = lessonfilehandler_shop(env_dir(), moment_lasso(), exx.yao)
 
     # save atom files
-    sports_atom = get_atom_example_kegunit_sports(
+    sports_atom = get_atom_example_planunit_sports(
         yao_lessonfilehandler.moment_lasso.moment_rope
     )
     yao_lessonfilehandler.save_atom_file(sports_atom)
@@ -192,7 +192,7 @@ def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_SimpleKeg(
     sports_str = "sports"
     sports_rope = yao_person.make_l1_rope(sports_str)
 
-    assert yao_person.keg_exists(sports_rope)
+    assert yao_person.plan_exists(sports_rope)
 
 
 def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_WithFactUnit(
@@ -203,9 +203,11 @@ def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_WithFactUnit(
 
     # save atom files
     x_moment_rope = yao_lessonfilehandler.moment_lasso.moment_rope
-    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_sports(x_moment_rope))
-    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_ball(x_moment_rope))
-    yao_lessonfilehandler.save_atom_file(get_atom_example_kegunit_knee(x_moment_rope))
+    yao_lessonfilehandler.save_atom_file(
+        get_atom_example_planunit_sports(x_moment_rope)
+    )
+    yao_lessonfilehandler.save_atom_file(get_atom_example_planunit_ball(x_moment_rope))
+    yao_lessonfilehandler.save_atom_file(get_atom_example_planunit_knee(x_moment_rope))
     yao_lessonfilehandler.save_atom_file(get_atom_example_factunit_knee(x_moment_rope))
     print(f"{get_dir_file_strs(yao_lessonfilehandler.atoms_dir).keys()=}")
 
@@ -219,4 +221,4 @@ def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_WithFactUnit(
     sports_str = "sports"
     sports_rope = yao_person.make_l1_rope(sports_str)
 
-    assert yao_person.keg_exists(sports_rope)
+    assert yao_person.plan_exists(sports_rope)

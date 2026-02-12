@@ -46,7 +46,7 @@ def test_MomentUnit_add_epoch_to_gut_SetsFile_Scenario0(temp_dir_setup):
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)
-    assert not init_sue_gut.keg_exists(five_rope)
+    assert not init_sue_gut.plan_exists(five_rope)
 
     # WHEN
     a23_moment.add_epoch_to_gut(exx.sue)
@@ -54,7 +54,7 @@ def test_MomentUnit_add_epoch_to_gut_SetsFile_Scenario0(temp_dir_setup):
     # THEN
     a23_lasso = lassounit_shop(exx.a23)
     post_sue_gut = open_gut_file(moment_mstr_dir, a23_lasso, exx.sue)
-    assert post_sue_gut.keg_exists(five_rope)
+    assert post_sue_gut.plan_exists(five_rope)
 
 
 def test_MomentUnit_add_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
@@ -66,7 +66,7 @@ def test_MomentUnit_add_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     time_rope = init_sue_gut.make_l1_rope(kw.time)
     five_rope = init_sue_gut.make_rope(time_rope, kw.five)
     save_gut_file(moment_mstr_dir, init_sue_gut)
-    assert not init_sue_gut.keg_exists(five_rope)
+    assert not init_sue_gut.plan_exists(five_rope)
 
     # WHEN
     a23_moment.add_epoch_to_guts()
@@ -74,4 +74,4 @@ def test_MomentUnit_add_epoch_to_guts_SetsFiles_Scenario0(temp_dir_setup):
     # THEN
     a23_lasso = lassounit_shop(exx.a23)
     post_sue_gut = open_gut_file(moment_mstr_dir, a23_lasso, exx.sue)
-    assert post_sue_gut.keg_exists(five_rope)
+    assert post_sue_gut.plan_exists(five_rope)

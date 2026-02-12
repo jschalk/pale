@@ -8,7 +8,7 @@ from src.ch17_idea.idea_db_tool import (
 from src.ref.keywords import Ch17Keywords as kw
 
 
-def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_keg_partyunit():
+def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_plan_partyunit():
     # ESTABLISH
     with sqlite3_connect(":memory:") as conn:
         idea_number = "br000XX"
@@ -16,13 +16,13 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_keg_partyunit
             kw.spark_num,
             kw.face_name,
             kw.moment_rope,
-            kw.keg_rope,
+            kw.plan_rope,
             kw.party_title,
             kw.person_name,
             kw.partner_name,
             kw.amount,
         ]
-        prnlabo_cat = "person_keg_partyunit"
+        prnlabo_cat = "person_plan_partyunit"
         src_table = f"{idea_number}_raw"
         dst_table = f"{prnlabo_cat}_raw"
         idea_config = get_idea_config_dict()
@@ -44,11 +44,11 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_keg_partyunit
         )
 
         # THEN
-        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.person_name}, {kw.keg_rope}, {kw.party_title}"
+        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.person_name}, {kw.plan_rope}, {kw.party_title}"
         expected_sqlstr = f"""INSERT INTO {prnlabo_cat}_raw ({kw.idea_number}, {columns_str})
 SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
 FROM {idea_number}_raw
-WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_rope} IS NOT NULL AND {kw.person_name} IS NOT NULL AND {kw.keg_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
+WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_rope} IS NOT NULL AND {kw.person_name} IS NOT NULL AND {kw.plan_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
 GROUP BY {columns_str}
 ;
 """
@@ -66,7 +66,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_person_partnerunit()
             kw.spark_num,
             kw.face_name,
             kw.moment_rope,
-            kw.keg_rope,
+            kw.plan_rope,
             kw.party_title,
             kw.person_name,
             kw.partner_name,
@@ -115,7 +115,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_person_partnerunit()
             kw.spark_num,
             kw.face_name,
             kw.moment_rope,
-            kw.keg_rope,
+            kw.plan_rope,
             kw.party_title,
             kw.person_name,
             kw.partner_name,

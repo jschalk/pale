@@ -81,7 +81,7 @@ def test_get_person_agenda_dataframe_ReturnsDataFrame():
     partnerunit_colums = {
         kw.person_name,
         "fund_ratio",
-        kw.keg_label,
+        kw.plan_label,
         kw.parent_rope,
         kw.begin,
         kw.close,
@@ -109,7 +109,7 @@ def test_get_person_agenda_dataframe_ReturnsEmptyDataFrame():
     partnerunit_colums = {
         kw.person_name,
         "fund_ratio",
-        kw.keg_label,
+        kw.plan_label,
         kw.parent_rope,
         kw.begin,
         kw.close,

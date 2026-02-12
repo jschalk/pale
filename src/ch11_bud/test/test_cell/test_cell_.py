@@ -115,8 +115,8 @@ def test_cellunit_shop_ReturnsObj_Scenario2_Withreason_contexts():
     # ESTABLISH
     sue_person = personunit_shop(exx.sue, exx.a23)
     clean_fact = clean_factunit()
-    sue_person.add_keg(clean_factunit().fact_state)
-    sue_person.add_keg(MOP_ROPE, pledge=True)
+    sue_person.add_plan(clean_factunit().fact_state)
+    sue_person.add_plan(MOP_ROPE, pledge=True)
     sue_person.edit_reason(MOP_ROPE, clean_fact.fact_context, clean_fact.fact_state)
 
     # WHEN
@@ -133,17 +133,17 @@ def test_cellunit_shop_ReturnsObj_Scenario3_clear_facts():
     # ESTABLISH
     sue_person = personunit_shop(exx.sue, exx.a23)
     clean_fact = clean_factunit()
-    sue_person.add_keg(clean_factunit().fact_state)
-    sue_person.add_keg(MOP_ROPE, pledge=True)
+    sue_person.add_plan(clean_factunit().fact_state)
+    sue_person.add_plan(MOP_ROPE, pledge=True)
     sue_person.edit_reason(MOP_ROPE, clean_fact.fact_context, clean_fact.fact_state)
     sue_person.add_fact(clean_fact.fact_context, clean_fact.fact_state)
-    assert len(sue_person.get_kegroot_factunits_dict()) == 1
+    assert len(sue_person.get_planroot_factunits_dict()) == 1
 
     # WHEN
     x_cellunit = cellunit_shop(exx.sue, personadjust=sue_person)
 
     # THEN
-    assert len(x_cellunit.personadjust.get_kegroot_factunits_dict()) == 0
+    assert len(x_cellunit.personadjust.get_planroot_factunits_dict()) == 0
     assert x_cellunit.personadjust != sue_person
 
 
@@ -192,11 +192,11 @@ def test_CellUnit_eval_personspark_SetsAttr_Scenario1():
     clean_fact = clean_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     clean_fact = clean_factunit()
-    yao_person.add_keg(clean_fact.fact_state)
-    yao_person.add_keg(MOP_ROPE, pledge=True)
+    yao_person.add_plan(clean_fact.fact_state)
+    yao_person.add_plan(MOP_ROPE, pledge=True)
     yao_person.edit_reason(MOP_ROPE, clean_fact.fact_context, clean_fact.fact_state)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_cellunit = cellunit_shop(exx.yao)
     assert yao_cellunit.personspark_facts == {}
@@ -213,10 +213,10 @@ def test_CellUnit_eval_personspark_SetsAttr_Scenario1():
     expected_adjust_person = copy_deepcopy(yao_person)
     expected_adjust_person.del_fact(clean_fact.fact_context)
     expected_adjust_person.cashout()
-    expected_kegroot = expected_adjust_person.kegroot
-    generated_kegroot = yao_cellunit.personadjust.kegroot
+    expected_planroot = expected_adjust_person.planroot
+    generated_planroot = yao_cellunit.personadjust.planroot
     assert yao_cellunit.personadjust.to_dict() != yao_person.to_dict()
-    assert generated_kegroot.to_dict() == expected_kegroot.to_dict()
+    assert generated_planroot.to_dict() == expected_planroot.to_dict()
     assert yao_cellunit.personadjust.to_dict() == expected_adjust_person.to_dict()
 
 
@@ -277,7 +277,7 @@ def test_CellUnit_set_found_facts_from_dict_SetsAttr():
     clean_fact = clean_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(exx.yao)
@@ -296,7 +296,7 @@ def test_CellUnit_set_personspark_facts_from_dict_SetsAttr():
     clean_fact = clean_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(exx.yao)
@@ -315,7 +315,7 @@ def test_CellUnit_set_boss_facts_from_other_facts_SetsAttr_Scenario0_found_facts
     clean_fact = clean_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(exx.yao)
@@ -339,7 +339,7 @@ def test_CellUnit_set_boss_facts_from_other_facts_SetsAttr_Scenario1_personspark
     clean_fact = clean_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(exx.yao)
@@ -364,7 +364,7 @@ def test_CellUnit_set_boss_facts_from_other_facts_SetsAttr_Scenario2_personspark
     sky_fact = sky_blue_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_personspark_fact_dict = {sky_fact.fact_context: sky_fact.to_dict()}
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
@@ -392,7 +392,7 @@ def test_CellUnit_add_other_facts_to_boss_facts_SetsAttr_Scenario0_found_facts_o
     clean_fact = clean_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(exx.yao)
@@ -415,7 +415,7 @@ def test_CellUnit_add_other_facts_to_boss_facts_SetsAttr_Scenario1_personspark_f
     clean_fact = clean_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     yao_found_fact_dict = {clean_fact.fact_context: clean_fact.to_dict()}
     yao_cellunit = cellunit_shop(exx.yao)
@@ -440,7 +440,7 @@ def test_CellUnit_add_other_facts_to_boss_facts_SetsAttr_Scenario2_personspark_f
     sky_fact = sky_blue_factunit()
     yao_person = personunit_shop(exx.yao, exx.a23)
     yao_person.add_fact(
-        clean_fact.fact_context, clean_fact.fact_state, create_missing_kegs=True
+        clean_fact.fact_context, clean_fact.fact_state, create_missing_plans=True
     )
     run_rope = yao_person.make_l1_rope("run")
     run_fact = factunit_shop(run_rope, run_rope)
@@ -574,13 +574,13 @@ def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario0():
         sue_quota300,
         personadjust=sue_person,
     )
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() == {}
+    assert sue_cell.personadjust.get_planroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_personadjust_facts()
 
     # THEN
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() == {}
+    assert sue_cell.personadjust.get_planroot_factunits_dict() == {}
 
 
 def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario1():
@@ -594,7 +594,7 @@ def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario1():
     casa_clean_fact = clean_factunit()
     clean_facts = {casa_clean_fact.fact_context: casa_clean_fact}
     sue_person = personunit_shop(exx.sue, exx.a23)
-    sue_person.add_keg(casa_clean_fact.fact_state)
+    sue_person.add_plan(casa_clean_fact.fact_state)
     sue_cell = cellunit_shop(
         sue_bud_person,
         sue_ancestors,
@@ -605,14 +605,14 @@ def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario1():
         personadjust=sue_person,
         personspark_facts=clean_facts,
     )
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() == {}
+    assert sue_cell.personadjust.get_planroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_personadjust_facts()
 
     # THEN
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() != {}
-    sue_person_facts = sue_cell.personadjust.get_kegroot_factunits_dict()
+    assert sue_cell.personadjust.get_planroot_factunits_dict() != {}
+    sue_person_facts = sue_cell.personadjust.get_planroot_factunits_dict()
     sue_person_casa_fact_dict = sue_person_facts.get(CASA_ROPE)
     assert sue_person_casa_fact_dict.get(kw.fact_state) == casa_clean_fact.fact_state
 
@@ -630,8 +630,8 @@ def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario2():
     clean_facts = {casa_clean_fact.fact_context: casa_clean_fact}
     dirty_facts = {casa_dirty_fact.fact_context: casa_dirty_fact}
     sue_person = personunit_shop(exx.sue, exx.a23)
-    sue_person.add_keg(casa_clean_fact.fact_state)
-    sue_person.add_keg(casa_dirty_fact.fact_state)
+    sue_person.add_plan(casa_clean_fact.fact_state)
+    sue_person.add_plan(casa_dirty_fact.fact_state)
     sue_cell = cellunit_shop(
         sue_bud_person,
         sue_ancestors,
@@ -643,14 +643,14 @@ def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario2():
         personspark_facts=clean_facts,
         found_facts=dirty_facts,
     )
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() == {}
+    assert sue_cell.personadjust.get_planroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_personadjust_facts()
 
     # THEN
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() != {}
-    sue_person_facts = sue_cell.personadjust.get_kegroot_factunits_dict()
+    assert sue_cell.personadjust.get_planroot_factunits_dict() != {}
+    sue_person_facts = sue_cell.personadjust.get_planroot_factunits_dict()
     sue_person_casa_fact_dict = sue_person_facts.get(CASA_ROPE)
     assert sue_person_casa_fact_dict.get(kw.fact_state) == casa_dirty_fact.fact_state
 
@@ -670,9 +670,9 @@ def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario3():
     dirty_facts = {casa_dirty_fact.fact_context: casa_dirty_fact}
     grimy_facts = {casa_grimy_fact.fact_context: casa_grimy_fact}
     sue_person = personunit_shop(exx.sue, exx.a23)
-    sue_person.add_keg(casa_clean_fact.fact_state)
-    sue_person.add_keg(casa_dirty_fact.fact_state)
-    sue_person.add_keg(casa_grimy_fact.fact_state)
+    sue_person.add_plan(casa_clean_fact.fact_state)
+    sue_person.add_plan(casa_dirty_fact.fact_state)
+    sue_person.add_plan(casa_grimy_fact.fact_state)
     sue_cell = cellunit_shop(
         sue_bud_person,
         sue_ancestors,
@@ -685,14 +685,14 @@ def test_CellUnit_set_personadjust_facts_ReturnsObj_Scenario3():
         found_facts=dirty_facts,
         boss_facts=grimy_facts,
     )
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() == {}
+    assert sue_cell.personadjust.get_planroot_factunits_dict() == {}
 
     # WHEN
     sue_cell.set_personadjust_facts()
 
     # THEN
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() != {}
-    sue_person_facts = sue_cell.personadjust.get_kegroot_factunits_dict()
+    assert sue_cell.personadjust.get_planroot_factunits_dict() != {}
+    sue_person_facts = sue_cell.personadjust.get_planroot_factunits_dict()
     sue_person_casa_fact_dict = sue_person_facts.get(CASA_ROPE)
     assert sue_person_casa_fact_dict.get(kw.fact_state) == casa_grimy_fact.fact_state
 
@@ -777,12 +777,12 @@ def test_CellUnit_calc_partner_mandate_ledger_ReturnsObj_Scenario0():
     sue_person.add_partnerunit(exx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
-    sue_person.add_keg(clean_fact.fact_state)
-    sue_person.add_keg(dirty_fact.fact_state)
-    sue_person.add_keg(MOP_ROPE, 1, pledge=True)
+    sue_person.add_plan(clean_fact.fact_state)
+    sue_person.add_plan(dirty_fact.fact_state)
+    sue_person.add_plan(MOP_ROPE, 1, pledge=True)
     sue_person.edit_reason(MOP_ROPE, dirty_fact.fact_context, dirty_fact.fact_state)
     sue_person.add_fact(
-        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_kegs=True
+        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_plans=True
     )
     sky_blue_fact = sky_blue_factunit()
     sue_personspark_factunits = {clean_fact.fact_context: clean_fact}
@@ -804,7 +804,7 @@ def test_CellUnit_calc_partner_mandate_ledger_ReturnsObj_Scenario0():
     sue_cell.reason_contexts = set()
     assert not sue_cell.reason_contexts
     assert sue_cell.boss_facts == {sky_blue_fact.fact_context: sky_blue_fact}
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() == {}
+    assert sue_cell.personadjust.get_planroot_factunits_dict() == {}
     assert sue_cell._partner_mandate_ledger == {}
 
     # WHEN
@@ -813,13 +813,13 @@ def test_CellUnit_calc_partner_mandate_ledger_ReturnsObj_Scenario0():
     # THEN
     assert sue_cell.reason_contexts == {clean_fact.fact_context}
     assert sue_cell.boss_facts == {}
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() != {}
-    assert set(sue_cell.personadjust.get_kegroot_factunits_dict().keys()) == {
+    assert sue_cell.personadjust.get_planroot_factunits_dict() != {}
+    assert set(sue_cell.personadjust.get_planroot_factunits_dict().keys()) == {
         clean_fact.fact_context
     }
-    # keg_dict = sue_cell.personadjust.get_keg_dict()
-    # for keg_rope, keg_obj in keg_dict.items():
-    #     print(f"{keg_rope=} {keg_obj.fund_onset=} {keg_obj.fund_cease}")
+    # plan_dict = sue_cell.personadjust.get_plan_dict()
+    # for plan_rope, plan_obj in plan_dict.items():
+    #     print(f"{plan_rope=} {plan_obj.fund_onset=} {plan_obj.fund_cease}")
     assert sue_cell._partner_mandate_ledger != {}
     assert sue_cell._partner_mandate_ledger == {exx.yao: 311, exx.sue: 133}
 
@@ -917,10 +917,10 @@ def test_create_child_cellunits_ReturnsObj_Scenario2_boss_facts():
     yao_person.add_partnerunit(exx.yao, 7, 2)
     yao_person.add_partnerunit(exx.bob, 0, 2)
     clean_fact = clean_factunit()
-    yao_person.add_keg(CASA_ROPE, 1)
-    yao_person.add_keg(MOP_ROPE, 1, pledge=True)
-    yao_person.add_keg(clean_fact.fact_state)
-    yao_person.add_keg(dirty_fact.fact_state)
+    yao_person.add_plan(CASA_ROPE, 1)
+    yao_person.add_plan(MOP_ROPE, 1, pledge=True)
+    yao_person.add_plan(clean_fact.fact_state)
+    yao_person.add_plan(dirty_fact.fact_state)
     yao_person.edit_reason(MOP_ROPE, dirty_fact.fact_context, dirty_fact.fact_state)
     yao_cell = cellunit_shop(
         exx.yao, celldepth=yao_celldepth, quota=yao_quota, personadjust=yao_person
@@ -956,12 +956,12 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     sue_person.add_partnerunit(exx.yao, 7, 2)
     clean_fact = clean_factunit()
     dirty_fact = dirty_factunit()
-    sue_person.add_keg(clean_fact.fact_state)
-    sue_person.add_keg(dirty_fact.fact_state)
-    sue_person.add_keg(MOP_ROPE, 1, pledge=True)
+    sue_person.add_plan(clean_fact.fact_state)
+    sue_person.add_plan(dirty_fact.fact_state)
+    sue_person.add_plan(MOP_ROPE, 1, pledge=True)
     sue_person.edit_reason(MOP_ROPE, dirty_fact.fact_context, dirty_fact.fact_state)
     sue_person.add_fact(
-        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_kegs=True
+        dirty_fact.fact_context, dirty_fact.fact_state, create_missing_plans=True
     )
     sky_blue_fact = sky_blue_factunit()
     sue_personspark_factunits = {clean_fact.fact_context: clean_fact}
@@ -982,7 +982,7 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     sue_cell.reason_contexts = set()
     assert not sue_cell.reason_contexts
     assert sue_cell.boss_facts == {sky_blue_fact.fact_context: sky_blue_fact}
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() == {}
+    assert sue_cell.personadjust.get_planroot_factunits_dict() == {}
     assert sue_cell._partner_mandate_ledger == {}
 
     # WHEN
@@ -994,13 +994,13 @@ def test_create_child_cellunits_ReturnsObj_Scenario3_StateOfCellAdjustIsReset():
     # # THEN
     assert sue_cell.reason_contexts == {dirty_fact.fact_context}
     assert sue_cell.boss_facts == {}
-    assert sue_cell.personadjust.get_kegroot_factunits_dict() != {}
-    assert set(sue_cell.personadjust.get_kegroot_factunits_dict().keys()) == {
+    assert sue_cell.personadjust.get_planroot_factunits_dict() != {}
+    assert set(sue_cell.personadjust.get_planroot_factunits_dict().keys()) == {
         dirty_fact.fact_context
     }
-    # keg_dict = sue_cell.personadjust.get_keg_dict()
-    # for keg_rope, keg_obj in keg_dict.items():
-    #     print(f"{keg_rope=} {keg_obj.fund_onset=} {keg_obj.fund_cease}")
+    # plan_dict = sue_cell.personadjust.get_plan_dict()
+    # for plan_rope, plan_obj in plan_dict.items():
+    #     print(f"{plan_rope=} {plan_obj.fund_onset=} {plan_obj.fund_cease}")
     assert sue_cell._partner_mandate_ledger != {}
     assert sue_cell._partner_mandate_ledger == {exx.yao: 311, exx.sue: 133}
 

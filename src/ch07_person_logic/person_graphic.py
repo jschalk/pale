@@ -10,7 +10,7 @@ from src.ch00_py.plotly_toolbox import (
     conditional_fig_show,
 )
 from src.ch04_rope.rope import RopeTerm, get_parent_rope, is_sub_rope
-from src.ch06_keg.keg import KegUnit
+from src.ch06_plan.plan import PlanUnit
 from src.ch07_person_logic.person_main import PersonUnit
 from src.ch07_person_logic.person_report import (
     get_person_agenda_dataframe,
@@ -22,35 +22,35 @@ def _get_dot_diameter(x_ratio: float):
     return ((x_ratio**0.4)) * 100
 
 
-def _get_parent_y(x_keg: KegUnit, kegunit_y_coordinate_dict: dict) -> RopeTerm:
-    parent_rope = get_parent_rope(x_keg.get_keg_rope())
-    return kegunit_y_coordinate_dict.get(parent_rope)
+def _get_parent_y(x_plan: PlanUnit, planunit_y_coordinate_dict: dict) -> RopeTerm:
+    parent_rope = get_parent_rope(x_plan.get_plan_rope())
+    return planunit_y_coordinate_dict.get(parent_rope)
 
 
-def _get_color_for_kegunit_trace(x_kegunit: KegUnit, mode: str) -> str:
+def _get_color_for_planunit_trace(x_planunit: PlanUnit, mode: str) -> str:
     if mode is None:
-        if x_kegunit.tree_level == 0:
+        if x_planunit.tree_level == 0:
             return "Red"
-        elif x_kegunit.tree_level == 1:
+        elif x_planunit.tree_level == 1:
             return "Pink"
-        elif x_kegunit.tree_level == 2:
+        elif x_planunit.tree_level == 2:
             return "Green"
-        elif x_kegunit.tree_level == 3:
+        elif x_planunit.tree_level == 3:
             return "Blue"
-        elif x_kegunit.tree_level == 4:
+        elif x_planunit.tree_level == 4:
             return "Purple"
-        elif x_kegunit.tree_level == 5:
+        elif x_planunit.tree_level == 5:
             return "Gold"
         else:
             return "Black"
     elif mode == "task":
-        return "Red" if x_kegunit.pledge else "Pink"
+        return "Red" if x_planunit.pledge else "Pink"
     elif mode == "Keep":
-        if x_kegunit.problem_bool and x_kegunit.healerunit.any_healer_name_exists():
+        if x_planunit.problem_bool and x_planunit.healerunit.any_healer_name_exists():
             return "Purple"
-        elif x_kegunit.healerunit.any_healer_name_exists():
+        elif x_planunit.healerunit.any_healer_name_exists():
             return "Blue"
-        elif x_kegunit.problem_bool:
+        elif x_planunit.problem_bool:
             return "Red"
         else:
             return "Pink"
@@ -61,65 +61,63 @@ def _add_individual_trace(
     anno_list: list,
     parent_y,
     source_y,
-    kid_keg: KegUnit,
+    kid_plan: PlanUnit,
     mode: str,
 ):
     trace_list.append(
         plotly_Scatter(
-            x=[kid_keg.tree_level - 1, kid_keg.tree_level],
+            x=[kid_plan.tree_level - 1, kid_plan.tree_level],
             y=[parent_y, source_y],
-            marker_size=_get_dot_diameter(kid_keg.fund_ratio),
-            name=kid_keg.keg_label,
-            marker_color=_get_color_for_kegunit_trace(kid_keg, mode=mode),
+            marker_size=_get_dot_diameter(kid_plan.fund_ratio),
+            name=kid_plan.plan_label,
+            marker_color=_get_color_for_planunit_trace(kid_plan, mode=mode),
         )
     )
     anno_list.append(
         dict(
-            x=kid_keg.tree_level,
-            y=source_y + (_get_dot_diameter(kid_keg.fund_ratio) / 150) + 0.002,
-            text=kid_keg.keg_label,
+            x=kid_plan.tree_level,
+            y=source_y + (_get_dot_diameter(kid_plan.fund_ratio) / 150) + 0.002,
+            text=kid_plan.plan_label,
             showarrow=False,
         )
     )
 
 
-def _create_kegunit_traces(
+def _create_planunit_traces(
     trace_list, anno_list, x_person: PersonUnit, source_y: float, mode: str
 ):
-    kegs = [x_person.kegroot]
-    y_kegunit_y_coordinate_dict = {None: 0}
-    prev_rope = x_person.kegroot.get_keg_rope()
+    plans = [x_person.planroot]
+    y_planunit_y_coordinate_dict = {None: 0}
+    prev_rope = x_person.planroot.get_plan_rope()
     source_y = 0
-    while kegs != []:
-        x_keg = kegs.pop(-1)
-        if is_sub_rope(x_keg.get_keg_rope(), prev_rope) is False:
+    while plans != []:
+        x_plan = plans.pop(-1)
+        if is_sub_rope(x_plan.get_plan_rope(), prev_rope) is False:
             source_y -= 1
         _add_individual_trace(
             trace_list=trace_list,
             anno_list=anno_list,
-            parent_y=_get_parent_y(x_keg, y_kegunit_y_coordinate_dict),
+            parent_y=_get_parent_y(x_plan, y_planunit_y_coordinate_dict),
             source_y=source_y,
-            kid_keg=x_keg,
+            kid_plan=x_plan,
             mode=mode,
         )
-        kegs.extend(iter(x_keg.kids.values()))
-        y_kegunit_y_coordinate_dict[x_keg.get_keg_rope()] = source_y
-        prev_rope = x_keg.get_keg_rope()
+        plans.extend(iter(x_plan.kids.values()))
+        y_planunit_y_coordinate_dict[x_plan.get_plan_rope()] = source_y
+        prev_rope = x_plan.get_plan_rope()
 
 
 def _update_layout_fig(x_fig: plotly_Figure, mode: str, x_person: PersonUnit):
     fig_label = "Tree with lines Layout"
     if mode == "task":
-        fig_label = "Keg Tree with task kegs in Red."
-    fig_label += f" (Kegs: {len(x_person._keg_dict)})"
-    fig_label += (
-        f" (sum_healerunit_kegs_fund_total: {x_person.sum_healerunit_kegs_fund_total})"
-    )
+        fig_label = "Plan Tree with task plans in Red."
+    fig_label += f" (Plans: {len(x_person._plan_dict)})"
+    fig_label += f" (sum_healerunit_plans_fund_total: {x_person.sum_healerunit_plans_fund_total})"
     fig_label += f" (keeps_justified: {x_person.keeps_justified})"
     x_fig.update_layout(title_text=fig_label, font_size=12)
 
 
-def display_kegtree(
+def display_plantree(
     x_person: PersonUnit, mode: str = None, graphics_bool: bool = False
 ) -> plotly_Figure:
     """Mode can be None, task, Keep"""
@@ -129,7 +127,7 @@ def display_kegtree(
     source_y = 0
     trace_list = []
     anno_list = []
-    _create_kegunit_traces(trace_list, anno_list, x_person, source_y, mode=mode)
+    _create_planunit_traces(trace_list, anno_list, x_person, source_y, mode=mode)
     _update_layout_fig(x_fig, mode, x_person=x_person)
     while trace_list:
         x_trace = trace_list.pop(-1)
@@ -196,7 +194,7 @@ def get_person_agenda_plotly_fig(x_person: PersonUnit) -> plotly_Figure:
     column_header_list = [
         "person_name",
         "fund_ratio",
-        "keg_label",
+        "plan_label",
         "parent_rope",
     ]
     df = get_person_agenda_dataframe(x_person)
@@ -207,7 +205,7 @@ def get_person_agenda_plotly_fig(x_person: PersonUnit) -> plotly_Figure:
             values=[
                 df.person_name,
                 df.fund_ratio,
-                df.keg_label,
+                df.plan_label,
                 df.parent_rope,
             ],
             fill_color="lavender",
@@ -235,7 +233,7 @@ def add_ch07_rect(fig, x, y, text):
     )
 
 
-def create_keg_rect(
+def create_plan_rect(
     fig: plotly_Figure,
     base_width,
     base_h,
@@ -412,7 +410,7 @@ def personunit_graph2(graphics_bool) -> plotly_Figure:
     # Add shapes
     base_w = 0.1
     base_h = 0.125
-    create_keg_rect(fig, base_w, base_h, 0, 0, 1, "Root Keg")
+    create_plan_rect(fig, base_w, base_h, 0, 0, 1, "Root Plan")
     add_group_rect(fig, base_w, base_h, 1, 0, 1, "groups")
     add_people_rect(fig, base_w, base_h, 0, 0, 1, "people")
 
@@ -422,8 +420,8 @@ def personunit_graph2(graphics_bool) -> plotly_Figure:
             y=[3.75, 3.5, 3.25],
             text=[
                 "What Persons Are Made Of: Graph 1",
-                "Pledges are from Kegs",
-                "All kegs build from one",
+                "Pledges are from Plans",
+                "All plans build from one",
             ],
             mode="text",
         )
@@ -437,12 +435,12 @@ def personunit_graph3(graphics_bool) -> plotly_Figure:
     # Add shapes
     base_w = 0.1
     base_h = 0.125
-    create_keg_rect(fig, base_w, base_h, 2, 0.4, 0.7, "Sub Keg")
-    create_keg_rect(fig, base_w, base_h, 2, 0.3, 0.4, "Sub Keg")
-    create_keg_rect(fig, base_w, base_h, 1, 0, 0.3, "Sub Keg")
-    create_keg_rect(fig, base_w, base_h, 1, 0.3, 0.7, "Sub Keg")
-    create_keg_rect(fig, base_w, base_h, 1, 0.7, 1, "Sub Keg")
-    create_keg_rect(fig, base_w, base_h, 0, 0, 1, "Root Keg")
+    create_plan_rect(fig, base_w, base_h, 2, 0.4, 0.7, "Sub Plan")
+    create_plan_rect(fig, base_w, base_h, 2, 0.3, 0.4, "Sub Plan")
+    create_plan_rect(fig, base_w, base_h, 1, 0, 0.3, "Sub Plan")
+    create_plan_rect(fig, base_w, base_h, 1, 0.3, 0.7, "Sub Plan")
+    create_plan_rect(fig, base_w, base_h, 1, 0.7, 1, "Sub Plan")
+    create_plan_rect(fig, base_w, base_h, 0, 0, 1, "Root Plan")
     add_group_rect(fig, base_w, base_h, 1, 0, 1, "groups")
     add_people_rect(fig, base_w, base_h, 0, 0, 1, "people")
 
@@ -452,8 +450,8 @@ def personunit_graph3(graphics_bool) -> plotly_Figure:
             y=[3.75, 3.5, 3.25],
             text=[
                 "What Persons Are Made Of: Graph 1",
-                "Pledges are from Kegs",
-                "All kegs build from one",
+                "Pledges are from Plans",
+                "All plans build from one",
             ],
             mode="text",
         )
@@ -467,12 +465,12 @@ def personunit_graph4(graphics_bool) -> plotly_Figure:
     # Add shapes
     base_w = 0.1
     base_h = 0.125
-    create_keg_rect(fig, base_w, base_h, 2, 0.4, 0.7, "Case against Pledge")
-    create_keg_rect(fig, base_w, base_h, 2, 0.1, 0.4, "Case for Pledge")
-    create_keg_rect(fig, base_w, base_h, 1, 0, 0.1, "Keg")
-    create_keg_rect(fig, base_w, base_h, 1, 0.1, 0.7, "Pledge Reason Base")
-    create_keg_rect(fig, base_w, base_h, 0, 0, 1, "Root Keg")
-    create_keg_rect(fig, base_w, base_h, 1, 0.7, 1, "Pledge Itself", True)
+    create_plan_rect(fig, base_w, base_h, 2, 0.4, 0.7, "Case against Pledge")
+    create_plan_rect(fig, base_w, base_h, 2, 0.1, 0.4, "Case for Pledge")
+    create_plan_rect(fig, base_w, base_h, 1, 0, 0.1, "Plan")
+    create_plan_rect(fig, base_w, base_h, 1, 0.1, 0.7, "Pledge Reason Base")
+    create_plan_rect(fig, base_w, base_h, 0, 0, 1, "Root Plan")
+    create_plan_rect(fig, base_w, base_h, 1, 0.7, 1, "Pledge Itself", True)
     add_group_rect(fig, base_w, base_h, 1, 0, 1, "groups")
     add_people_rect(fig, base_w, base_h, 0, 0, 1, "people")
 
@@ -482,8 +480,8 @@ def personunit_graph4(graphics_bool) -> plotly_Figure:
             y=[3.75, 3.5, 3.25],
             text=[
                 "What Persons Are Made Of: Graph 1",
-                "Some Kegs are pledges, others are reasons for pledges",
-                "All kegs build from one",
+                "Some Plans are pledges, others are reasons for pledges",
+                "All plans build from one",
             ],
             mode="text",
         )
@@ -494,7 +492,7 @@ def personunit_graph4(graphics_bool) -> plotly_Figure:
 def fund_graph0(
     x_person: PersonUnit, mode: str = None, graphics_bool: bool = False
 ) -> plotly_Figure:
-    fig = display_kegtree(x_person, mode, False)
+    fig = display_plantree(x_person, mode, False)
     fig.update_xaxes(range=[-1, 11])
     fig.update_yaxes(range=[-5.5, 3])
 
@@ -521,8 +519,8 @@ def fund_graph0(
     add_simp_rect(fig, 4, -3.2, 5, -2.8, laborunit_str)
     add_rect_arrow(fig, 4, -2.9, 3.1, -2.9, green_str)
     add_keep__rect(fig, -0.5, -4.5, 10, 2.3, d_sue1_label, "", "", "")
-    d_sue1_p0 = "Fund Source is KegRoot. Each Keg fund range calculated by star "
-    d_sue1_p1 = "KegRoot Fund ranges: Black arrows. Sum of childless Keg's fund(s) equal kegroot's fund "
+    d_sue1_p0 = "Fund Source is PlanRoot. Each Plan fund range calculated by star "
+    d_sue1_p1 = "PlanRoot Fund ranges: Black arrows. Sum of childless Plan's fund(s) equal planroot's fund "
     d_sue1_p2 = "Regular Fund: Green arrows, all fund_grains end up at PartnerUnits"
     d_sue1_p3 = "Agenda Fund: Blue arrows, fund_grains from active tasks"
     d_sue1_p4 = f"fund_pool = {x_person.fund_pool} "
@@ -566,8 +564,8 @@ def fund_graph0(
     add_simp_rect(fig, 9, -4.0, 9.75, -2.2, partnerunit_str, "gold")
 
     fund_t0 = "PersonUnit.fund_pool"
-    fund_t1_0 = "KegUnit.fund_onset"
-    fund_t1_1 = "KegUnit.fund_cease"
+    fund_t1_0 = "PlanUnit.fund_onset"
+    fund_t1_1 = "PlanUnit.fund_cease"
     fund_t2_0 = "AwardHeir.fund_give"
     fund_t2_1 = "AwardHeir.fund_take"
 
