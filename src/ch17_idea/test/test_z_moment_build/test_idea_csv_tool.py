@@ -332,7 +332,7 @@ def test_add_person_to_br00022_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00022_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -378,7 +378,7 @@ def test_add_person_to_br00024_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00024_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -400,7 +400,7 @@ def test_add_person_to_br00025_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00025_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -434,7 +434,7 @@ def test_add_person_to_br00026_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00026_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -460,7 +460,7 @@ def test_add_person_to_br00027_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00027_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -507,7 +507,7 @@ def test_add_person_to_br00028_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00028_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -575,7 +575,7 @@ def test_add_personunit_to_stance_csv_strs_ReturnsObj():
     br00029_header = x_ideas.get("br00029")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     add_personunit_to_stance_csv_strs(bob_person, x_ideas, csv_delimiter)
 
     # THEN

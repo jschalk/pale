@@ -256,7 +256,7 @@ def test_listen_to_speaker_agenda_ProcessesIrrationalPerson():
         reason_context=egg_rope,
         reason_requisite_active=False,
     )
-    sue_personunit.enact_plan()
+    sue_personunit.conpute()
     assert sue_personunit.rational is False
     assert len(sue_personunit.get_agenda_dict()) == 3
 
@@ -266,7 +266,7 @@ def test_listen_to_speaker_agenda_ProcessesIrrationalPerson():
     yao_vision.add_partnerunit(exx.sue, sue_partner_cred_lumen, sue_partner_debt_lumen)
     yao_vision.set_partner_respect(yao_pool)
     yao_vision = listen_to_speaker_agenda(yao_vision, sue_personunit)
-    yao_vision.enact_plan()
+    yao_vision.conpute()
 
     # THEN irrational person is ignored
     assert len(yao_vision.get_agenda_dict()) != 3

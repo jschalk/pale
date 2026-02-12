@@ -52,7 +52,7 @@ def test_create_empty_person_from_person_ReturnsObj():
     assert yao_empty_vision.credor_respect == RespectNum(validate_pool_num())
     assert yao_empty_vision.debtor_respect != yao_gut.debtor_respect
     assert yao_empty_vision.debtor_respect == RespectNum(validate_pool_num())
-    yao_empty_vision.enact_plan()
+    yao_empty_vision.conpute()
     assert yao_empty_vision.partners == {}
 
 
@@ -93,7 +93,7 @@ def test_create_listen_basis_ReturnsObj():
     assert yao_basis_vision.respect_grain == yao_duty.respect_grain
     assert yao_basis_vision.credor_respect == yao_duty.credor_respect
     assert yao_basis_vision.debtor_respect == yao_duty.debtor_respect
-    yao_basis_vision.enact_plan()
+    yao_basis_vision.conpute()
     assert len(yao_basis_vision._plan_dict) != len(yao_duty._plan_dict)
     assert len(yao_basis_vision._plan_dict) == 1
     vision_zia_partnerunit = yao_basis_vision.get_partner(exx.zia)
@@ -128,7 +128,7 @@ def test_get_default_job_ReturnsObj():
     default_job = get_default_job(sue_personunit)
 
     # THEN
-    default_job.enact_plan()
+    default_job.conpute()
     assert default_job.person_name == sue_personunit.person_name
     assert default_job.person_name == exx.sue
     assert default_job.moment_rope == sue_personunit.moment_rope

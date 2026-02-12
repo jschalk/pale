@@ -97,17 +97,17 @@ def check_person_desc_str(
 ):
     if keyword in config_args:
         keyword_config = config_args.get(keyword)
-        populate_by_enact_plan_value = keyword_config.get(kw.populate_by_enact_plan)
-        assert_fail_str = f"{keyword=} {description=} {populate_by_enact_plan_value=} "
+        populate_by_conpute_value = keyword_config.get(kw.populate_by_conpute)
+        assert_fail_str = f"{keyword=} {description=} {populate_by_conpute_value=} "
         # print(f"{keyword} {assert_fail_str=}")
-        enact_plan_str = f", {src_label} {kw.enact_plan}"
+        conpute_str = f", {src_label} {kw.conpute}"
         seed_str = f", {src_label} seed"
-        if keyword_config.get(kw.populate_by_enact_plan):
-            assert enact_plan_str in description, assert_fail_str
+        if keyword_config.get(kw.populate_by_conpute):
+            assert conpute_str in description, assert_fail_str
             assert seed_str not in description, assert_fail_str
         else:
             assert seed_str in description, assert_fail_str
-            assert enact_plan_str not in description, assert_fail_str
+            assert conpute_str not in description, assert_fail_str
 
 
 def check_mmtunit_desc_str(

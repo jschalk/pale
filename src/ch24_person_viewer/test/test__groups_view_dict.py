@@ -23,7 +23,7 @@ from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
     # ESTABLISH
     sue_believer = personunit_shop(exx.sue)
-    sue_believer.enact_plan()
+    sue_believer.conpute()
 
     # WHEN
     groups_view_dict = get_groups_view_dict(sue_believer)
@@ -52,7 +52,7 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     bob_partner = sue_believer.get_partner(bob_str)
 #     yao_partner.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
 #     bob_partner.add_membership(swim_str, bob_swim_cred_lumen, bob_swim_debt_lumen)
-#     sue_believer.enact_plan()
+#     sue_believer.conpute()
 
 #     # WHEN
 #     groups_view_dict = get_groups_view_dict(sue_believer)
@@ -132,7 +132,7 @@ def test_get_groups_view_dict_ReturnsObj_Scenario0_Empty():
 #     yao_swim_debt_lumen = 313
 #     yao_partnerunit = sue_believer.get_partner(exx.yao)
 #     yao_partnerunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
-#     sue_believer.enact_plan()
+#     sue_believer.conpute()
 
 #     # WHEN
 #     groups_view_dict = get_groups_view_dict(sue_believer)

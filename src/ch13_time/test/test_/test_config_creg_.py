@@ -499,7 +499,7 @@ def test_add_time_creg_planunit_ReturnsObjWith_offset_PlanUnits():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person = add_time_creg_planunit(sue_person)
-    sue_person.enact_plan()
+    sue_person.conpute()
     time_rope = sue_person.make_l1_rope(kw.time)
     creg_rope = sue_person.make_rope(time_rope, kw.creg)
     five_rope = sue_person.make_rope(time_rope, kw.five)
@@ -524,7 +524,7 @@ def test_add_time_creg_planunit_ReturnsObjWith_offset_PlanUnits():
 def test_add_epoch_planunit_SetsAttr_Scenario0():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
-    sue_person.enact_plan()
+    sue_person.conpute()
     time_rope = sue_person.make_l1_rope(kw.time)
     creg_rope = sue_person.make_rope(time_rope, kw.creg)
     creg_yr1_jan1_offset_rope = sue_person.make_rope(creg_rope, kw.yr1_jan1_offset)
@@ -788,7 +788,7 @@ def test_add_time_five_planunit_SetsAttr_Scenario0_AddsMultiple_epochs():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person = add_time_creg_planunit(sue_person)
-    sue_person.enact_plan()
+    sue_person.conpute()
     time_rope = sue_person.make_l1_rope(kw.time)
     creg_rope = sue_person.make_rope(time_rope, kw.creg)
     five_rope = sue_person.make_rope(time_rope, kw.five)
@@ -843,7 +843,7 @@ def test_get_epoch_min_from_dt_ReturnsObj():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person = add_time_creg_planunit(sue_person)
-    sue_person.enact_plan()
+    sue_person.conpute()
     x_datetime = datetime(2022, 10, 30, 0, 0)
     time_rope = sue_person.make_l1_rope(kw.time)
     creg_rope = sue_person.make_rope(time_rope, kw.creg)
