@@ -635,7 +635,7 @@ def test_save_persontime_file_SavesFile(temp_dir_setup):
     t55_persontime_path = create_persontime_path(
         mstr_dir, a23_lasso, exx.sue, t55_bud_time
     )
-    print(f"{t55_persontime.moment_rope=}")
+    print(f"{t55_persontime.planroot.get_plan_rope()=}")
     print(f"               {mstr_dir=}")
     print(f"      {t55_persontime_path=}")
     assert os_path_exists(t55_persontime_path) is False

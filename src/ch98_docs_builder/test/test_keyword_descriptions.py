@@ -30,6 +30,7 @@ def test_get_keywords_description_ReturnsObj_HasAllkeywords():
 
 
 def test_get_keywords_description_ReturnsObj_CheckDescriptions():
+    # sourcery skip: no-conditionals-in-tests
     # ESTABLISH / WHEN
     ch_dict = get_chxx_prefix_path_dict()
     person_args = get_person_dimen_config(kw.personunit)

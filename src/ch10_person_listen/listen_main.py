@@ -195,7 +195,9 @@ def listen_to_agendas_create_init_job_from_guts(
 ):
     for x_partnerunit in get_ordered_debtors_roll(listener_job):
         speaker_id = x_partnerunit.partner_name
-        moment_lasso = lassounit_shop(listener_job.moment_rope, listener_job.knot)
+        moment_lasso = lassounit_shop(
+            listener_job.planroot.get_plan_rope(), listener_job.knot
+        )
         speaker_gut = open_gut_file(moment_mstr_dir, moment_lasso, speaker_id)
         if speaker_gut is None:
             speaker_gut = create_empty_person_from_person(listener_job, speaker_id)
@@ -204,7 +206,9 @@ def listen_to_agendas_create_init_job_from_guts(
 
 
 def listen_to_agendas_jobs_into_job(moment_mstr_dir: str, listener_job: PersonUnit):
-    moment_lasso = lassounit_shop(listener_job.moment_rope, listener_job.knot)
+    moment_lasso = lassounit_shop(
+        listener_job.planroot.get_plan_rope(), listener_job.knot
+    )
     for x_partnerunit in get_ordered_debtors_roll(listener_job):
         speaker_id = x_partnerunit.partner_name
         speaker_job = open_job_file(moment_mstr_dir, moment_lasso, speaker_id)
@@ -277,7 +281,7 @@ def listen_to_facts_duty_vision(
 
 
 def listen_to_facts_gut_job(moment_mstr_dir: str, new_job: PersonUnit):
-    moment_lasso = lassounit_shop(new_job.moment_rope, new_job.knot)
+    moment_lasso = lassounit_shop(new_job.planroot.get_plan_rope(), new_job.knot)
     old_job = open_job_file(moment_mstr_dir, moment_lasso, new_job.person_name)
     for x_partnerunit in get_ordered_debtors_roll(old_job):
         speaker_id = x_partnerunit.partner_name

@@ -16,7 +16,7 @@ def get_moment_epochholder(momentunit: MomentUnit) -> EpochHolder:
     # create empty personunit
     x_personunit = personunit_shop(
         person_name="for_EpochHolder_calculation",
-        moment_rope=momentunit.moment_rope,
+        plan_root_rope=momentunit.moment_rope,
         knot=momentunit.knot,
         fund_grain=momentunit.fund_grain,
         respect_grain=momentunit.respect_grain,

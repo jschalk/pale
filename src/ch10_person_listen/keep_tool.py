@@ -39,7 +39,7 @@ def job_file_exists(
 
 
 def save_job_file(moment_mstr_dir: str, personunit: PersonUnit):
-    moment_lasso = lassounit_shop(personunit.moment_rope, personunit.knot)
+    moment_lasso = lassounit_shop(personunit.planroot.get_plan_rope(), personunit.knot)
     job_path = create_job_path(moment_mstr_dir, moment_lasso, personunit.person_name)
     save_person_file(job_path, None, personunit)
 
@@ -148,7 +148,7 @@ def get_duty_person(
     if os_path_exists(keep_duty_path) is False:
         return None
     duty_person = get_personunit_from_dict(open_json(keep_duty_path))
-    # duty_person.moment_rope = moment_rope
+    # duty_person.planroot.get_plan_rope() = moment_rope
     return duty_person
 
 

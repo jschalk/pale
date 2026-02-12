@@ -518,6 +518,7 @@ def insert_job_prnunit(
     cursor: sqlite3_Cursor, x_objkeysholder: ObjKeysHolder, x_person: PersonUnit
 ):
     x_dict = copy_deepcopy(x_person.__dict__)
+    x_dict["moment_rope"] = x_person.planroot.get_plan_rope()
     insert_sqlstr = create_personunit_metrics_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
@@ -525,7 +526,8 @@ def insert_job_prnunit(
 def insert_job_obj(cursor: sqlite3_Cursor, job_person: PersonUnit):
     job_person.conpute()
     x_objkeysholder = ObjKeysHolder(
-        moment_rope=job_person.moment_rope, person_name=job_person.person_name
+        moment_rope=job_person.planroot.get_plan_rope(),
+        person_name=job_person.person_name,
     )
     insert_job_prnunit(cursor, x_objkeysholder, job_person)
     for x_plan in job_person.get_plan_dict().values():
@@ -1190,6 +1192,7 @@ def insert_h_agg_prnunit(
     x_dict = copy_deepcopy(x_person.__dict__)
     x_dict["spark_num"] = x_objkeysholder.spark_num
     x_dict["face_name"] = x_objkeysholder.face_name
+    x_dict["moment_rope"] = x_person.planroot.get_plan_rope()
     insert_sqlstr = create_prnunit_h_put_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
@@ -1204,7 +1207,7 @@ def insert_h_agg_obj(
     x_objkeysholder = ObjKeysHolder(
         spark_num=spark_num,
         face_name=face_name,
-        moment_rope=job_person.moment_rope,
+        moment_rope=job_person.planroot.get_plan_rope(),
         person_name=job_person.person_name,
     )
     insert_h_agg_prnunit(cursor, x_objkeysholder, job_person)

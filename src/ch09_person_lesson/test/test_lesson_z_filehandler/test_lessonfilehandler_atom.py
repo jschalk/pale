@@ -163,7 +163,10 @@ def test_LessonFileHandler_get_person_from_atom_files_ReturnsFileWithZeroAtoms(
 
     # THEN
     assert yao_person.person_name == exx.yao
-    assert yao_person.moment_rope == yao_lessonfilehandler.moment_lasso.moment_rope
+    assert (
+        yao_person.planroot.get_plan_rope()
+        == yao_lessonfilehandler.moment_lasso.moment_rope
+    )
     assert yao_person.knot == yao_lessonfilehandler.moment_lasso.knot
     assert yao_person.fund_pool == yao_lessonfilehandler.fund_pool
     assert yao_person.fund_grain == yao_lessonfilehandler.fund_grain
@@ -187,7 +190,10 @@ def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_SimplePlan(
 
     # THEN
     assert yao_person.person_name == exx.yao
-    assert yao_person.moment_rope == yao_lessonfilehandler.moment_lasso.moment_rope
+    assert (
+        yao_person.planroot.get_plan_rope()
+        == yao_lessonfilehandler.moment_lasso.moment_rope
+    )
     assert yao_person.knot == yao_lessonfilehandler.moment_lasso.knot
     sports_str = "sports"
     sports_rope = yao_person.make_l1_rope(sports_str)
@@ -216,7 +222,10 @@ def test_LessonFileHandler_get_person_from_atom_files_ReturnsFile_WithFactUnit(
 
     # THEN
     assert yao_person.person_name == exx.yao
-    assert yao_person.moment_rope == yao_lessonfilehandler.moment_lasso.moment_rope
+    assert (
+        yao_person.planroot.get_plan_rope()
+        == yao_lessonfilehandler.moment_lasso.moment_rope
+    )
     assert yao_person.knot == yao_lessonfilehandler.moment_lasso.knot
     sports_str = "sports"
     sports_rope = yao_person.make_l1_rope(sports_str)

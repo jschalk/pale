@@ -143,11 +143,11 @@ class LessonUnit:
 
     def get_lesson_edited_person(self, before_person: PersonUnit) -> PersonUnit:
         if (
-            self.moment_rope != before_person.moment_rope
+            self.moment_rope != before_person.planroot.get_plan_rope()
             or self.person_name != before_person.person_name
         ):
             raise lesson_person_conflict_Exception(
-                f"lesson person conflict {self.moment_rope} != {before_person.moment_rope} or {self.person_name} != {before_person.person_name}"
+                f"lesson person conflict {self.moment_rope} != {before_person.planroot.get_plan_rope()} or {self.person_name} != {before_person.person_name}"
             )
         return self._persondelta.get_atom_edited_person(before_person)
 

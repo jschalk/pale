@@ -12,7 +12,6 @@ def test_PersonUnit_Exists():
 
     # THEN
     assert x_person
-    assert x_person.moment_rope is None
     assert x_person.person_name is None
     assert x_person.partners is None
     assert x_person.planroot is None
@@ -60,7 +59,6 @@ def test_PersonUnit_Exists():
         kw.credor_respect,
         kw.debtor_respect,
         kw.groupunits,
-        kw.moment_rope,
         kw.fund_grain,
         kw.fund_pool,
         kw.last_lesson_id,
@@ -71,16 +69,16 @@ def test_PersonUnit_Exists():
     }
 
 
-def test_personunit_shop_ReturnsObj_Scenario0_RaiseErrorWhen_moment_rope_IsLabel():
+def test_personunit_shop_ReturnsObj_Scenario0_RaiseErrorWhen_plan_root_rope_IsLabel():
     # ESTABLISH
     iowa_str = "Iowa"
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
-        personunit_shop(person_name=exx.sue, moment_rope=iowa_str, knot=exx.slash)
+        personunit_shop(person_name=exx.sue, plan_root_rope=iowa_str, knot=exx.slash)
 
     # THEN
-    exception_str = f"Person '{exx.sue}' cannot set moment_rope='{iowa_str}' where knot='{exx.slash}'"
+    exception_str = f"Person '{exx.sue}' cannot set plan_root_rope='{iowa_str}' where knot='{exx.slash}'"
     assert str(excinfo.value) == exception_str
 
 
@@ -96,7 +94,7 @@ def test_personunit_shop_ReturnsObj_Scenario1_WithParameters():
     # WHEN
     x_person = personunit_shop(
         person_name=exx.sue,
-        moment_rope=iowa_rope,
+        plan_root_rope=iowa_rope,
         knot=slash_knot,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,
@@ -107,9 +105,9 @@ def test_personunit_shop_ReturnsObj_Scenario1_WithParameters():
     # THEN
     assert x_person
     assert x_person.person_name == exx.sue
-    assert x_person.moment_rope == iowa_rope
     assert x_person.partners == {}
     assert x_person.planroot is not None
+    assert x_person.planroot.get_plan_rope() == iowa_rope
     assert x_person.max_tree_traverse == 3
     assert x_person.knot == slash_knot
     assert x_person.fund_pool == x_fund_pool
@@ -142,12 +140,12 @@ def test_personunit_shop_ReturnsObj_Scenario2_WithoutParameters():
 
     # THEN
     assert x_person.person_name == ""
-    assert x_person.moment_rope == get_default_rope()
     assert x_person.knot == default_knot_if_None()
     assert x_person.fund_pool == validate_pool_num()
     assert x_person.fund_grain == default_grain_num_if_None()
     assert x_person.respect_grain == default_grain_num_if_None()
     assert x_person.mana_grain == default_grain_num_if_None()
+    assert x_person.planroot.get_plan_rope() == get_default_rope()
     assert x_person.planroot.fund_grain == x_person.fund_grain
     assert x_person.planroot.knot == x_person.knot
     assert x_person.planroot.plan_uid == 1

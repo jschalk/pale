@@ -206,7 +206,7 @@ def get_yao_ohio_lessonfilehandler() -> LessonFileHandler:
     yao_person = get_example_yao_person()
     return lessonfilehandler_shop(
         moment_mstr_dir=env_dir(),
-        moment_lasso=lassounit_shop(yao_person.moment_rope),
+        moment_lasso=lassounit_shop(yao_person.planroot.get_plan_rope()),
         person_name=yao_person.person_name,
     )
 
@@ -215,7 +215,7 @@ def get_yao_iowa_lessonfilehandler() -> LessonFileHandler:
     yao_person = get_example_yao_person()
     return lessonfilehandler_shop(
         moment_mstr_dir=env_dir(),
-        moment_lasso=lassounit_shop(yao_person.moment_rope),
+        moment_lasso=lassounit_shop(yao_person.planroot.get_plan_rope()),
         person_name=yao_person.person_name,
     )
 
@@ -224,7 +224,7 @@ def get_zia_utah_lessonfilehandler() -> LessonFileHandler:
     yao_person = get_example_yao_person()
     return lessonfilehandler_shop(
         moment_mstr_dir=env_dir(),
-        moment_lasso=lassounit_shop(yao_person.moment_rope),
+        moment_lasso=lassounit_shop(yao_person.planroot.get_plan_rope()),
         person_name="Zia",
     )
 

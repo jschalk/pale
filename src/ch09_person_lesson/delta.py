@@ -117,7 +117,7 @@ class PersonDelta:
 
     def add_all_personatoms(self, after_person: PersonUnit):
         before_person = personunit_shop(
-            after_person.person_name, after_person.moment_rope
+            after_person.person_name, after_person.planroot.get_plan_rope()
         )
         self.add_all_different_personatoms(before_person, after_person)
 

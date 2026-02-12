@@ -40,7 +40,7 @@ def test_create_empty_person_from_person_ReturnsObj():
     # THEN
     assert yao_empty_vision.person_name != yao_gut.person_name
     assert yao_empty_vision.person_name == exx.zia
-    assert yao_empty_vision.moment_rope == yao_gut.moment_rope
+    assert yao_empty_vision.planroot.get_plan_rope() == yao_gut.planroot.get_plan_rope()
     assert yao_empty_vision.last_lesson_id is None
     assert yao_empty_vision.get_partnerunits_dict() == {}
     assert yao_empty_vision.knot == yao_gut.knot
@@ -84,7 +84,9 @@ def test_create_listen_basis_ReturnsObj():
 
     # THEN
     assert yao_basis_vision.person_name == yao_duty.person_name
-    assert yao_basis_vision.moment_rope == yao_duty.moment_rope
+    assert (
+        yao_basis_vision.planroot.get_plan_rope() == yao_duty.planroot.get_plan_rope()
+    )
     assert yao_basis_vision.last_lesson_id == yao_duty.last_lesson_id
     assert yao_basis_vision.get_partnerunits_dict() == yao_duty.get_partnerunits_dict()
     assert yao_basis_vision.knot == yao_duty.knot
@@ -131,8 +133,10 @@ def test_get_default_job_ReturnsObj():
     default_job.conpute()
     assert default_job.person_name == sue_personunit.person_name
     assert default_job.person_name == exx.sue
-    assert default_job.moment_rope == sue_personunit.moment_rope
-    assert default_job.moment_rope == exx.a23_slash
+    assert (
+        default_job.planroot.get_plan_rope() == sue_personunit.planroot.get_plan_rope()
+    )
+    assert default_job.planroot.get_plan_rope() == exx.a23_slash
     assert default_job.knot == exx.slash
     assert default_job.fund_pool == sue_partner_pool
     assert default_job.fund_grain == x_fund_grain
