@@ -340,7 +340,7 @@ class MomentUnit:
         x_tranbook = tranbook_shop(self.moment_rope, x_tranunits)
         for person_name, x_personbudhistory in self.personbudhistorys.items():
             for x_bud_time, x_budunit in x_personbudhistory.buds.items():
-                for partner_name, x_amount in x_budunit._bud_partner_nets.items():
+                for partner_name, x_amount in x_budunit.bud_partner_nets.items():
                     x_tranbook.add_tranunit(
                         person_name, partner_name, x_bud_time, x_amount
                     )

@@ -341,5 +341,5 @@ def create_bud_mandate_ledgers(moment_mstr_dir: str, moment_lasso: LassoUnit):
                 dst_filename=BUD_MANDATE_FILENAME,
             )
             save_json(bud_root_dir, BUD_MANDATE_FILENAME, bud_partner_mandate_ledger)
-            budunit._bud_partner_nets = bud_partner_mandate_ledger
+            budunit.bud_partner_nets = bud_partner_mandate_ledger
     save_json(moment_json_path, None, momentunit.to_dict())

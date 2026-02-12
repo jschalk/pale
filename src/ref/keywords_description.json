@@ -21,7 +21,7 @@
   "brick_agg": "TODO", 
   "brick_raw": "TODO", 
   "brick_valid": "TODO", 
-  "bud_partner_nets": "TODO", 
+  "bud_partner_nets": "ledger of bud outcome. dict[PartnerName, FundNum]. FundNum can be negative.", 
   "bud_person_name": "TODO", 
   "bud_time": ", bud arg, Nabuable arg", 
   "build_order": "TODO", 

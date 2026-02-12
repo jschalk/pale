@@ -76,7 +76,7 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro1_SimpleBu
     assert open_json(bob37_bud_mandate_path) == expected_bud_partner_nets
     gen_a23_momentunit = get_momentunit_from_dict(open_json(a23_json_path))
     gen_bob37_budunit = gen_a23_momentunit.get_budunit(exx.bob, tp37)
-    assert gen_bob37_budunit._bud_partner_nets == expected_bud_partner_nets
+    assert gen_bob37_budunit.bud_partner_nets == expected_bud_partner_nets
 
 
 def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro2_BudExists(
@@ -144,4 +144,4 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro2_BudExist
     assert open_json(bob37_bud_mandate_path) == expected_bud_partner_nets
     gen_a23_momentunit = get_momentunit_from_dict(open_json(a23_json_path))
     gen_bob37_budunit = gen_a23_momentunit.get_budunit(exx.bob, tp37)
-    assert gen_bob37_budunit._bud_partner_nets == expected_bud_partner_nets
+    assert gen_bob37_budunit.bud_partner_nets == expected_bud_partner_nets

@@ -23,8 +23,8 @@ def test_BudUnit_Exists():
     assert not x_budunit.bud_time
     assert not x_budunit.quota
     assert not x_budunit.celldepth
-    assert not x_budunit._bud_partner_nets
-    assert not x_budunit._magnitude
+    assert not x_budunit.bud_partner_nets
+    assert not x_budunit.magnitude
 
 
 def test_budunit_shop_ReturnsObj():
@@ -38,9 +38,9 @@ def test_budunit_shop_ReturnsObj():
     assert t4_budunit
     assert t4_budunit.bud_time == t4_bud_time
     assert t4_budunit.quota == default_pool_num()
-    assert t4_budunit._magnitude == 0
+    assert t4_budunit.magnitude == 0
     assert t4_budunit.celldepth == 2
-    assert not t4_budunit._bud_partner_nets
+    assert not t4_budunit.bud_partner_nets
 
 
 def test_budunit_shop_ReturnsObjWith_bud_partner_net():
@@ -65,22 +65,22 @@ def test_budunit_shop_ReturnsObjWith_bud_partner_net():
     assert x_budunit.bud_time == t4_bud_time
     assert x_budunit.quota == t4_quota
     assert x_budunit.celldepth == t4_celldepth
-    assert x_budunit._magnitude == 677
-    assert x_budunit._bud_partner_nets == t4_bud_partner_nets
+    assert x_budunit.magnitude == 677
+    assert x_budunit.bud_partner_nets == t4_bud_partner_nets
 
 
 def test_BudUnit_set_bud_partner_net_SetsAttr():
     # ESTABLISH
     yao_budunit = budunit_shop("Yao", 33)
-    assert yao_budunit._bud_partner_nets == {}
+    assert yao_budunit.bud_partner_nets == {}
 
     # WHEN
     sue_bud_partner_net = -44
     yao_budunit.set_bud_partner_net(exx.sue, sue_bud_partner_net)
 
     # THEN
-    assert yao_budunit._bud_partner_nets != {}
-    assert yao_budunit._bud_partner_nets.get(exx.sue) == sue_bud_partner_net
+    assert yao_budunit.bud_partner_nets != {}
+    assert yao_budunit.bud_partner_nets.get(exx.sue) == sue_bud_partner_net
 
 
 def test_BudUnit_bud_partner_net_exists_ReturnsObj():
@@ -138,13 +138,13 @@ def test_BudUnit_calc_magnitude_SetsAttr_Scenario0():
     # ESTABLISH
     t4_bud_time = 4
     t4_budunit = budunit_shop(t4_bud_time)
-    assert t4_budunit._magnitude == 0
+    assert t4_budunit.magnitude == 0
 
     # WHEN
     t4_budunit.calc_magnitude()
 
     # THEN
-    assert t4_budunit._magnitude == 0
+    assert t4_budunit.magnitude == 0
 
 
 def test_BudUnit_calc_magnitude_SetsAttr_Scenario1():
@@ -153,13 +153,13 @@ def test_BudUnit_calc_magnitude_SetsAttr_Scenario1():
     t4_bud_partner_nets = {"Sue": -4, "Yao": 2, "Zia": 2}
 
     t4_budunit = budunit_shop(t4_bud_time, bud_partner_nets=t4_bud_partner_nets)
-    assert t4_budunit._magnitude == 0
+    assert t4_budunit.magnitude == 0
 
     # WHEN
     t4_budunit.calc_magnitude()
 
     # THEN
-    assert t4_budunit._magnitude == 4
+    assert t4_budunit.magnitude == 4
 
 
 def test_BudUnit_calc_magnitude_SetsAttr_Scenario2():
@@ -168,13 +168,13 @@ def test_BudUnit_calc_magnitude_SetsAttr_Scenario2():
     t4_bud_partner_nets = {"Bob": -13, "Sue": -7, "Yao": 18, "Zia": 2}
 
     t4_budunit = budunit_shop(t4_bud_time, bud_partner_nets=t4_bud_partner_nets)
-    assert t4_budunit._magnitude == 0
+    assert t4_budunit.magnitude == 0
 
     # WHEN
     t4_budunit.calc_magnitude()
 
     # THEN
-    assert t4_budunit._magnitude == 20
+    assert t4_budunit.magnitude == 20
 
 
 def test_BudUnit_calc_magnitude_SetsAttr_Scenario3_RaisesError():
@@ -236,7 +236,7 @@ def test_get_budunit_from_dict_ReturnsObj_Sccenario0():
     assert x_budunit
     assert x_budunit.bud_time == t4_bud_time
     assert x_budunit.quota == t4_quota
-    assert x_budunit._magnitude == 0
+    assert x_budunit.magnitude == 0
     assert x_budunit == t4_budunit
 
 
@@ -263,7 +263,7 @@ def test_get_budunit_from_dict_ReturnsObj_Scenario1():
     assert x_budunit
     assert x_budunit.bud_time == t4_bud_time
     assert x_budunit.quota == t4_quota
-    assert x_budunit._magnitude == t4_magnitude
-    assert x_budunit._bud_partner_nets == t4_bud_partner_nets
+    assert x_budunit.magnitude == t4_magnitude
+    assert x_budunit.bud_partner_nets == t4_bud_partner_nets
     assert x_budunit.celldepth == t4_celldepth
     assert x_budunit == t4_budunit
