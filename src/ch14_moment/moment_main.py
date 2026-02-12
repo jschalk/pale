@@ -129,7 +129,7 @@ class MomentUnit:
     # person administration
     def _set_all_healer_dutys(self, person_name: PersonName):
         x_gut = open_gut_file(self.moment_mstr_dir, self.get_lasso(), person_name)
-        x_gut.cashout()
+        x_gut.enact_plan()
         for healer_name, healer_dict in x_gut._healers_dict.items():
             for keep_rope in healer_dict.keys():
                 create_treasury_db_file(
@@ -173,7 +173,7 @@ class MomentUnit:
 
     def rotate_job(self, person_name: PersonName) -> PersonUnit:
         x_job = open_job_file(self.moment_mstr_dir, self.get_lasso(), person_name)
-        x_job.cashout()
+        x_job.enact_plan()
         # # if personunit has healers create job from healers.
         # create personunit from debtors roll
         mstr_dir = self.moment_mstr_dir

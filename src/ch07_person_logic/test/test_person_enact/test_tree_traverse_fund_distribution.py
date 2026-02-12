@@ -15,7 +15,7 @@ from src.ch07_person_logic.test._util.ch07_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario0():
+def test_PersonUnit_enact_plan_Sets_planunit_fund_onset_fund_cease_Scenario0():
     # ESTABLISH
     x_personunit = get_personunit_with7am_clean_table_reason()
     casa_rope = x_personunit.make_l1_rope("casa")
@@ -40,7 +40,7 @@ def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario0():
     assert x_personunit.get_plan_obj(wk_rope).fund_cease == 13
 
     # WHEN
-    x_personunit.cashout()
+    x_personunit.enact_plan()
 
     # THEN
     assert x_personunit.planroot.fund_onset != 13
@@ -53,7 +53,7 @@ def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario0():
     assert x_personunit.get_plan_obj(wk_rope).fund_cease != 13
 
 
-def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario1():
+def test_PersonUnit_enact_plan_Sets_planunit_fund_onset_fund_cease_Scenario1():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     yao_personunit = personunit_shop("Yao")
@@ -97,7 +97,7 @@ def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario1():
     assert duck_before.fund_cease is None
 
     # WHEN
-    yao_personunit.cashout()
+    yao_personunit.enact_plan()
 
     # THEN
     assert yao_personunit.planroot.fund_onset == 0.0
@@ -117,7 +117,7 @@ def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario1():
     assert lamb_after.fund_cease == default_pool_num() * 0.7
 
 
-def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario2_DifferentOrderOfPlans():
+def test_PersonUnit_enact_plan_Sets_planunit_fund_onset_fund_cease_Scenario2_DifferentOrderOfPlans():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     yao_personunit = personunit_shop("Yao")
@@ -161,7 +161,7 @@ def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario2_Differ
     assert duck_before.fund_cease is None
 
     # WHEN
-    yao_personunit.cashout()
+    yao_personunit.enact_plan()
 
     # THEN
     assert yao_personunit.planroot.fund_onset == 0.0
@@ -181,7 +181,7 @@ def test_PersonUnit_cashout_Sets_planunit_fund_onset_fund_cease_Scenario2_Differ
     assert lamb_after.fund_cease == default_pool_num() * 1.0
 
 
-def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario0():
+def test_PersonUnit_enact_plan_Sets_fund_ratio_WithSomePlansOfZero_starScenario0():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -210,7 +210,7 @@ def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario0():
     assert sue_person.get_plan_obj(yes_rope).fund_ratio is None
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     print(f"{sue_person.fund_pool=}")
@@ -222,7 +222,7 @@ def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario0():
     assert sue_person.get_plan_obj(yes_rope).fund_ratio == 0.0
 
 
-def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
+def test_PersonUnit_enact_plan_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -262,7 +262,7 @@ def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
     assert sue_person.get_plan_obj(dirty_rope).fund_ratio is None
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     print(f"{sue_person.fund_pool=}")
@@ -275,7 +275,7 @@ def test_PersonUnit_cashout_Sets_fund_ratio_WithSomePlansOfZero_starScenario1():
     assert sue_person.get_plan_obj(dirty_rope).fund_ratio == 0
 
 
-def test_PersonUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFundsToPartnerUnits_Scenario0():
+def test_PersonUnit_enact_plan_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFundsToPartnerUnits_Scenario0():
     # ESTABLISH
     sue_personunit = personunit_shop("Sue")
     sue_personunit.add_partnerunit(exx.yao)
@@ -315,7 +315,7 @@ def test_PersonUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFund
     assert sue_personunit.get_partner(exx.yao).fund_take == 0
 
     # WHEN
-    sue_personunit.cashout()
+    sue_personunit.enact_plan()
 
     # THEN
     print(f"{sue_personunit.fund_pool=}")
@@ -333,10 +333,10 @@ def test_PersonUnit_cashout_WhenPlanUnitHasFundsBut_kidsHaveNostarDistributeFund
     assert sue_personunit.get_partner(exx.yao).fund_take == default_pool_num()
 
 
-def test_PersonUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
+def test_PersonUnit_enact_plan_TreeTraverseSetsAwardLine_fundFromRoot():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
-    sue_person.cashout()
+    sue_person.enact_plan()
     # plan tree has no awardunits
     assert sue_person.planroot.awardlines == {}
     wk_str = "sem_jours"
@@ -348,7 +348,7 @@ def test_PersonUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
     assert sue_person.planroot.awardheirs.get(exx.sue) is None
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.planroot.awardheirs.get(exx.sue) is not None
@@ -388,10 +388,10 @@ def test_PersonUnit_cashout_TreeTraverseSetsAwardLine_fundFromRoot():
     assert sue_person.planroot.awardlines == {x_awardline.awardee_title: x_awardline}
 
 
-def test_PersonUnit_cashout_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_RootPlanUnit():
+def test_PersonUnit_enact_plan_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_RootPlanUnit():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
-    sue_person.cashout()
+    sue_person.enact_plan()
     sue_person.add_partnerunit(exx.sue)
     casa_rope = sue_person.make_l1_rope("casa")
     sue_person.get_plan_obj(casa_rope).set_awardunit(
@@ -400,7 +400,7 @@ def test_PersonUnit_cashout_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_Ro
     assert sue_person.planroot.awardlines == {}
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.planroot.awardlines != {}
@@ -416,7 +416,7 @@ def test_PersonUnit_cashout_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_Ro
     assert casa_planunit.awardlines == {x_awardline.awardee_title: x_awardline}
 
 
-def test_PersonUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_take():
+def test_PersonUnit_enact_plan_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_take():
     # ESTABLISH
     sue_person = personunit_shop(exx.sue)
     sue_person.set_partnerunit(partnerunit_shop(exx.yao))
@@ -433,7 +433,7 @@ def test_PersonUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     assert len(sue_person.get_partnerunit_group_titles_dict()) == 3
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     yao_groupunit = sue_person.get_groupunit(exx.yao)
@@ -460,7 +460,7 @@ def test_PersonUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     assert len(sue_person.get_partnerunit_group_titles_dict()) == 4
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     yao_groupunit = sue_person.get_groupunit(exx.yao)
@@ -483,7 +483,7 @@ def test_PersonUnit_cashout_WithRootLevelAwardUnitSetsGroupUnit_fund_give_fund_t
     assert round(debt_sum1) == 1 * default_pool_num()
 
 
-def test_PersonUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take():
+def test_PersonUnit_enact_plan_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take():
     # ESTABLISH
     x_person = personunit_shop(exx.bob)
     swim_rope = x_person.make_l1_rope(exx.swim)
@@ -502,7 +502,7 @@ def test_PersonUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take
     assert len(x_person.get_partnerunit_group_titles_dict()) == 3
 
     # WHEN
-    x_person.cashout()
+    x_person.enact_plan()
 
     # THEN
     yao_groupunit = x_person.get_groupunit(exx.yao)
@@ -524,7 +524,7 @@ def test_PersonUnit_cashout_WithLevel3AwardUnitSetsGroupUnit_fund_give_fund_take
     assert groupunit_fund_take_sum == 1 * default_pool_num()
 
 
-def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take():
+def test_PersonUnit_enact_plan_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take():
     # ESTABLISH
     x_person = personunit_shop(exx.yao)
     swim_rope = x_person.make_l1_rope(exx.swim)
@@ -543,7 +543,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take(
     assert len(x_person.get_partnerunit_group_titles_dict()) == 2
 
     # WHEN
-    x_person.cashout()
+    x_person.enact_plan()
 
     # THEN
     yao_groupunit = x_person.get_groupunit(exx.yao)
@@ -566,7 +566,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsGroup_fund_give_fund_take(
     assert groupunit_fund_take_sum == 1 * default_pool_num()
 
 
-def test_PersonUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fund_give_fund_take():
+def test_PersonUnit_enact_plan_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fund_give_fund_take():
     # ESTABLISH
     x_person = personunit_shop(exx.yao)
     swim_rope = x_person.make_l1_rope(exx.swim)
@@ -587,7 +587,7 @@ def test_PersonUnit_cashout_WithLevel3AwardUnitAndEmptyAncestorsSetsGroupUnit_fu
     x_person.set_l1_plan(planunit_shop("hunt", star=3))
 
     # WHEN
-    x_person.cashout()
+    x_person.enact_plan()
 
     # THEN
     x_planroot = x_person.get_plan_obj(x_person.planroot.get_plan_rope())
@@ -686,7 +686,7 @@ def test_PersonUnit_set_awardunit_CalculatesInheritedAwardUnitPersonFund():
     # assert fund_take_sum == 1
 
 
-def test_PersonUnit_cashout_SetsGroupLinkPersonCredAndDebt():
+def test_PersonUnit_enact_plan_SetsGroupLinkPersonCredAndDebt():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
     yao_person.set_partnerunit(partnerunit_shop(exx.sue))
@@ -714,7 +714,7 @@ def test_PersonUnit_cashout_SetsGroupLinkPersonCredAndDebt():
     assert zia_zia_membership.fund_take is None
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert sue_sue_membership.fund_give == 0.5 * default_pool_num()
@@ -742,7 +742,7 @@ def test_PersonUnit_cashout_SetsGroupLinkPersonCredAndDebt():
     yao_person.planroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=13))
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     xio_groupunit = yao_person.get_groupunit(exx.xio)
@@ -779,7 +779,7 @@ def test_PersonUnit_cashout_SetsGroupLinkPersonCredAndDebt():
     assert x_fund_take_sum == 1.0 * default_pool_num()
 
 
-def test_PersonUnit_cashout_SetsPartnerUnitPerson_fund():
+def test_PersonUnit_enact_plan_SetsPartnerUnitPerson_fund():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
     swim_rope = yao_person.make_l1_rope(exx.swim)
@@ -806,7 +806,7 @@ def test_PersonUnit_cashout_SetsPartnerUnitPerson_fund():
     assert zia_partnerunit.fund_take == 0
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert sue_partnerunit.fund_give == 0.5 * default_pool_num()
@@ -832,7 +832,7 @@ def test_PersonUnit_cashout_SetsPartnerUnitPerson_fund():
     # WHEN another pledge, check metrics are as expected
     yao_person.set_partnerunit(partnerunit_shop(exx.xio))
     yao_person.planroot.set_awardunit(awardunit_shop(exx.xio, 20, take_force=10))
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     xio_partnerunit = yao_person.get_partner(exx.xio)
@@ -874,7 +874,7 @@ def test_PersonUnit_cashout_SetsPartnerUnitPerson_fund():
     )
 
 
-def test_PersonUnit_cashout_SetsPartGroupedLWPartnerUnitPerson_fund():
+def test_PersonUnit_enact_plan_SetsPartGroupedLWPartnerUnitPerson_fund():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
     swim_rope = yao_person.make_l1_rope(exx.swim)
@@ -895,7 +895,7 @@ def test_PersonUnit_cashout_SetsPartGroupedLWPartnerUnitPerson_fund():
     yao_person.set_l1_plan(planunit_shop(hunt_str, star=3))
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     sue_groupunit = yao_person.get_groupunit(exx.sue)
@@ -941,7 +941,7 @@ def test_PersonUnit_cashout_SetsPartGroupedLWPartnerUnitPerson_fund():
     )
 
 
-def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_take():
+def test_PersonUnit_enact_plan_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_take():
     # ESTABLISH
     bob_person = personunit_shop(exx.bob)
     swim_rope = bob_person.make_l1_rope(exx.swim)
@@ -960,7 +960,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_tak
     assert len(bob_person.get_partnerunit_group_titles_dict()) == 2
 
     # WHEN
-    bob_person.cashout()
+    bob_person.enact_plan()
 
     # THEN
     assert len(bob_person.get_partnerunit_group_titles_dict()) != len(
@@ -975,7 +975,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnitAndSetsPartner_fund_give_fund_tak
     assert partnerunit_fund_take_sum == default_pool_num()
 
 
-def test_PersonUnit_cashout_SetsPartnerUnit_fund_give_fund_take():
+def test_PersonUnit_enact_plan_SetsPartnerUnit_fund_give_fund_take():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
     yao_person.set_l1_plan(planunit_shop("swim"))
@@ -993,7 +993,7 @@ def test_PersonUnit_cashout_SetsPartnerUnit_fund_give_fund_take():
     assert zia_partnerunit.fund_take == 0
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     fund_give_sum = (
@@ -1185,7 +1185,7 @@ def are_equal(x1: float, x2: float):
     return abs(x1 - x2) < e10
 
 
-def test_PersonUnit_cashout_SetsAttrsWhenNoFactUnitsNoReasonUnitsEmpty_agenda_ratio_cred_debt():
+def test_PersonUnit_enact_plan_SetsAttrsWhenNoFactUnitsNoReasonUnitsEmpty_agenda_ratio_cred_debt():
     # ESTABLISH
     yao_person = personunit_shop("Yao")
     sue_partnerunit = partnerunit_shop(exx.sue, 0.5, partner_debt_lumen=2)
@@ -1218,7 +1218,7 @@ def test_PersonUnit_cashout_SetsAttrsWhenNoFactUnitsNoReasonUnitsEmpty_agenda_ra
     assert not zia_partner.fund_agenda_ratio_take
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert yao_person.reason_contexts == set()
@@ -1248,10 +1248,10 @@ def test_PersonUnit_cashout_SetsAttrsWhenNoFactUnitsNoReasonUnitsEmpty_agenda_ra
     assert zia_partner.fund_agenda_ratio_take == 0.5
 
 
-def test_PersonUnit_cashout_CreatesGroupUnitWith_personunit_v001():
+def test_PersonUnit_enact_plan_CreatesGroupUnitWith_personunit_v001():
     # ESTABLISH / WHEN
     yao_person = personunit_v001()
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert yao_person.groupunits is not None
@@ -1262,7 +1262,7 @@ def test_PersonUnit_cashout_CreatesGroupUnitWith_personunit_v001():
     assert everyone_partners_len == 22
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
     plan_dict = yao_person._plan_dict
 
     # THEN

@@ -92,7 +92,7 @@ def test_get_person_partner_agenda_award_csv_ReturnsObj_ScenarioMultiplePartnerU
     assert person_partner_agenda_award_csv_str == example_csv_str
 
 
-def test_get_person_partner_agenda_award_csv_ReturnsObj_cashout_True():
+def test_get_person_partner_agenda_award_csv_ReturnsObj_enact_plan_True():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao)
@@ -109,7 +109,7 @@ def test_get_person_partner_agenda_award_csv_ReturnsObj_cashout_True():
 
     # WHEN
     person_partner_agenda_award_csv_str = get_person_partner_agenda_award_csv(
-        sue_person, cashout=True
+        sue_person, enact_plan=True
     )
 
     # THEN
@@ -157,7 +157,7 @@ def test_get_partner_mandate_ledger_ReturnsObj_Scenario0_MultiplePartnerUnit():
     assert example_bud_net_dict == person_bud_net_dict
 
 
-def test_get_partner_mandate_ledger_ReturnsObj_Scenario1_cashout_True():
+def test_get_partner_mandate_ledger_ReturnsObj_Scenario1_enact_plan_True():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao, 13, 5)
@@ -174,7 +174,7 @@ def test_get_partner_mandate_ledger_ReturnsObj_Scenario1_cashout_True():
     assert get_partner_mandate_ledger(sue_person) == pre_settle_partner_mandate_ledger
 
     # WHEN
-    sue_person_settle_net_dict = get_partner_mandate_ledger(sue_person, cashout=True)
+    sue_person_settle_net_dict = get_partner_mandate_ledger(sue_person, enact_plan=True)
 
     # THEN
     assert sue_person_settle_net_dict != pre_settle_partner_mandate_ledger
@@ -225,7 +225,7 @@ def test_get_partner_mandate_ledger_ReturnsObj_Scenario4_MandateSumEqual_fund_po
     assert get_partner_mandate_ledger(sue_person) == pre_settle_partner_mandate_ledger
 
     # WHEN
-    sue_person_settle_net_dict = get_partner_mandate_ledger(sue_person, cashout=True)
+    sue_person_settle_net_dict = get_partner_mandate_ledger(sue_person, enact_plan=True)
 
     # THEN
     assert sue_person_settle_net_dict != pre_settle_partner_mandate_ledger
@@ -267,7 +267,7 @@ def test_get_partner_mandate_ledger_ReturnsObj_Scenario5_Zero_fund_agenda_give()
     sue_person.add_partnerunit(exx.yao, 13, 5)
 
     # WHEN
-    sue_person_settle_net_dict = get_partner_mandate_ledger(sue_person, cashout=True)
+    sue_person_settle_net_dict = get_partner_mandate_ledger(sue_person, enact_plan=True)
 
     # THEN
     assert sue_person_settle_net_dict == {exx.yao: sue_fund_pool}
@@ -302,7 +302,7 @@ def test_get_partner_agenda_net_ledger_ReturnsObj_ScenarioMultiplePartnerUnit():
     assert example_bud_net_dict == person_bud_net_dict
 
 
-def test_get_partner_agenda_net_ledger_ReturnsObj_cashout_True():
+def test_get_partner_agenda_net_ledger_ReturnsObj_enact_plan_True():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao, 13, 5)
@@ -312,7 +312,9 @@ def test_get_partner_agenda_net_ledger_ReturnsObj_cashout_True():
     assert get_partner_agenda_net_ledger(sue_person) == {}
 
     # WHEN
-    sue_person_settle_net_dict = get_partner_agenda_net_ledger(sue_person, cashout=True)
+    sue_person_settle_net_dict = get_partner_agenda_net_ledger(
+        sue_person, enact_plan=True
+    )
 
     # THEN
     print(f"{sue_person_settle_net_dict=}")

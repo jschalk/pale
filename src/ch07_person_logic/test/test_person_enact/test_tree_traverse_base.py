@@ -77,7 +77,7 @@ def test_PersonUnit_clear_plan_dict_and_person_obj_settle_attrs_SetsAttrs_Scenar
     assert not sue_person._healers_dict
 
 
-def test_PersonUnit_cashout_ClearsDescendantAttributes():
+def test_PersonUnit_enact_plan_ClearsDescendantAttributes():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -118,7 +118,7 @@ def test_PersonUnit_cashout_ClearsDescendantAttributes():
     assert mon_plan.all_partner_debt == -2
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.planroot.descendant_pledge_count == 2
@@ -133,7 +133,7 @@ def test_PersonUnit_cashout_ClearsDescendantAttributes():
     assert sue_person.planroot.all_partner_debt is True
 
 
-def test_PersonUnit_cashout_RootOnlySetsDescendantAttributes():
+def test_PersonUnit_enact_plan_RootOnlySetsDescendantAttributes():
     # ESTABLISH
     yao_person = personunit_shop(person_name="Yao")
     assert yao_person.planroot.descendant_pledge_count is None
@@ -141,7 +141,7 @@ def test_PersonUnit_cashout_RootOnlySetsDescendantAttributes():
     assert yao_person.planroot.all_partner_debt is None
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert yao_person.planroot.descendant_pledge_count == 0
@@ -149,7 +149,7 @@ def test_PersonUnit_cashout_RootOnlySetsDescendantAttributes():
     assert yao_person.planroot.all_partner_debt is True
 
 
-def test_PersonUnit_cashout_NLevelSetsDescendantAttributes_1():
+def test_PersonUnit_enact_plan_NLevelSetsDescendantAttributes_1():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -178,7 +178,7 @@ def test_PersonUnit_cashout_NLevelSetsDescendantAttributes_1():
     assert mon_plan.all_partner_debt is None
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert x_planroot.descendant_pledge_count == 3
@@ -193,7 +193,7 @@ def test_PersonUnit_cashout_NLevelSetsDescendantAttributes_1():
     assert mon_plan.all_partner_debt is True
 
 
-def test_PersonUnit_cashout_NLevelSetsDescendantAttributes_2():
+def test_PersonUnit_enact_plan_NLevelSetsDescendantAttributes_2():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
@@ -219,7 +219,7 @@ def test_PersonUnit_cashout_NLevelSetsDescendantAttributes_2():
     # print(sue_person.kids[exx.casa].kids[email_str].awardunit)
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
     # print(sue_person.kids[exx.casa].kids[email_str])
     # print(sue_person.kids[exx.casa].kids[email_str].awardunit)
 
@@ -242,7 +242,7 @@ def test_PersonUnit_cashout_NLevelSetsDescendantAttributes_2():
     assert wk_plan.kids[tue_str].all_partner_debt is True
 
 
-def test_PersonUnit_cashout_SetsPlanUnitAttr_awardunits():
+def test_PersonUnit_enact_plan_SetsPlanUnitAttr_awardunits():
     # ESTABLISH
     sue_person = personunit_shop(exx.sue)
     sue_person.add_partnerunit(exx.yao)
@@ -266,7 +266,7 @@ def test_PersonUnit_cashout_SetsPlanUnitAttr_awardunits():
     assert len(sue_person.planroot.kids[exx.swim].awardunits) == 3
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     print(f"{sue_person._plan_dict.keys()=} ")
@@ -285,17 +285,17 @@ def test_PersonUnit_cashout_SetsPlanUnitAttr_awardunits():
     assert len(sue_person.planroot.kids["swim"].awardheirs) == 3
 
 
-def test_PersonUnit_cashout_TreeTraverseSetsClearsAwardLineestors():
+def test_PersonUnit_enact_plan_TreeTraverseSetsClearsAwardLineestors():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
-    sue_person.cashout()
+    sue_person.enact_plan()
     # plan tree has no awardunits
     assert sue_person.planroot.awardlines == {}
     sue_person.planroot.awardlines = {1: "testtest"}
     assert sue_person.planroot.awardlines != {}
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert not sue_person.planroot.awardlines
@@ -305,13 +305,13 @@ def test_PersonUnit_cashout_TreeTraverseSetsClearsAwardLineestors():
     casa_plan = sue_person.planroot.kids[exx.casa]
     casa_plan.awardlines = {1: "testtest"}
     assert casa_plan.awardlines != {}
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert not sue_person.planroot.kids[exx.casa].awardlines
 
 
-def test_PersonUnit_cashout_DoesNotKeepNonRequired_awardheirs():
+def test_PersonUnit_enact_plan_DoesNotKeepNonRequired_awardheirs():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     yao_person = personunit_shop(exx.yao)
@@ -335,7 +335,7 @@ def test_PersonUnit_cashout_DoesNotKeepNonRequired_awardheirs():
     assert len(swim_plan.awardheirs) == 0
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert len(swim_plan.awardunits) == 3
@@ -345,7 +345,7 @@ def test_PersonUnit_cashout_DoesNotKeepNonRequired_awardheirs():
     assert len(swim_plan.awardheirs) == 3
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert len(swim_plan.awardunits) == 2
@@ -417,18 +417,18 @@ def test_PersonUnit_get_plan_dict_ReturnsObjWhenSingle():
     assert problems_dict == {texas_rope: texas_plan}
 
 
-def test_PersonUnit_cashout_CreatesFullyPopulated_plan_dict():
+def test_PersonUnit_enact_plan_CreatesFullyPopulated_plan_dict():
     # ESTABLISH
     sue_personunit = get_personunit_with_4_levels_and_2reasons()
 
     # WHEN
-    sue_personunit.cashout()
+    sue_personunit.enact_plan()
 
     # THEN
     assert len(sue_personunit._plan_dict) == 17
 
 
-def test_PersonUnit_cashout_Resets_offtrack_kids_star_set():
+def test_PersonUnit_enact_plan_Resets_offtrack_kids_star_set():
     # ESTABLISH
     sue_personunit = personunit_shop("Sue")
     sue_personunit.offtrack_kids_star_set = set("YY")
@@ -437,13 +437,13 @@ def test_PersonUnit_cashout_Resets_offtrack_kids_star_set():
     assert sue_personunit.offtrack_kids_star_set != x_set
 
     # WHEN
-    sue_personunit.cashout()
+    sue_personunit.enact_plan()
 
     # THEN
     assert sue_personunit.offtrack_kids_star_set == x_set
 
 
-def test_PersonUnit_cashout_WhenPlanRootHas_starButAll_kidsHaveZero_starAddTo_offtrack_kids_star_set_Scenario0():
+def test_PersonUnit_enact_plan_WhenPlanRootHas_starButAll_kidsHaveZero_starAddTo_offtrack_kids_star_set_Scenario0():
     # ESTABLISH
     sue_personunit = personunit_shop("Sue")
     casa_rope = sue_personunit.make_l1_rope(exx.casa)
@@ -452,7 +452,7 @@ def test_PersonUnit_cashout_WhenPlanRootHas_starButAll_kidsHaveZero_starAddTo_of
     assert sue_personunit.offtrack_kids_star_set == set()
 
     # WHEN
-    sue_personunit.cashout()
+    sue_personunit.enact_plan()
 
     # THEN
     root_rope = sue_personunit.planroot.get_plan_rope()
@@ -460,13 +460,13 @@ def test_PersonUnit_cashout_WhenPlanRootHas_starButAll_kidsHaveZero_starAddTo_of
 
     # WHEN
     sue_personunit.edit_plan_attr(casa_rope, star=2)
-    sue_personunit.cashout()
+    sue_personunit.enact_plan()
 
     # THEN
     assert sue_personunit.offtrack_kids_star_set == set()
 
 
-def test_PersonUnit_cashout_WhenPlanUnitHas_starButAll_kidsHaveZero_starAddTo_offtrack_kids_star_set():
+def test_PersonUnit_enact_plan_WhenPlanUnitHas_starButAll_kidsHaveZero_starAddTo_offtrack_kids_star_set():
     # ESTABLISH
     sue_personunit = personunit_shop("Sue")
     casa_rope = sue_personunit.make_l1_rope(exx.casa)
@@ -496,13 +496,13 @@ def test_PersonUnit_cashout_WhenPlanUnitHas_starButAll_kidsHaveZero_starAddTo_of
     assert sue_personunit.offtrack_kids_star_set == set()
 
     # WHEN
-    sue_personunit.cashout()
+    sue_personunit.enact_plan()
 
     # THEN
     assert sue_personunit.offtrack_kids_star_set == {clean_rope}
 
 
-def test_PersonUnit_cashout_CreatesNewGroupUnits_Scenario0():
+def test_PersonUnit_enact_plan_CreatesNewGroupUnits_Scenario0():
     # ESTABLISH
     yao_person = personunit_shop(exx.yao)
     yao_partner_cred_lumen = 3
@@ -522,7 +522,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnits_Scenario0():
     assert not yao_person.groupunit_exists(exx.xio)
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert yao_person.groupunit_exists(exx.yao)
@@ -547,7 +547,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnits_Scenario0():
     assert zia_membership.group_debt_lumen == zia_partner_debt_lumen
 
 
-def test_PersonUnit_cashout_CreatesNewGroupUnits_Scenario1():
+def test_PersonUnit_enact_plan_CreatesNewGroupUnits_Scenario1():
     # ESTABLISH
     yao_person = personunit_shop(exx.yao)
     swim_rope = yao_person.make_l1_rope(exx.swim)
@@ -564,7 +564,7 @@ def test_PersonUnit_cashout_CreatesNewGroupUnits_Scenario1():
     assert not yao_person.groupunit_exists(exx.xio)
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     assert yao_person.groupunit_exists(exx.yao)
@@ -594,7 +594,7 @@ def test_PersonUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
     swim_plan.set_awardunit(awardunit_shop(exx.yao))
     swim_plan.set_awardunit(awardunit_shop(exx.zia))
     swim_plan.set_awardunit(awardunit_shop(exx.xio))
-    yao_person.cashout()
+    yao_person.enact_plan()
     assert yao_person.groupunit_exists(exx.yao)
     assert yao_person.groupunit_exists(exx.zia)
     assert yao_person.groupunit_exists(exx.xio)
@@ -613,7 +613,7 @@ def test_PersonUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
     # ESTABLISH
     swim_plan.set_awardunit(awardunit_shop(exx.run))
     assert not yao_person.groupunit_exists(exx.run)
-    yao_person.cashout()
+    yao_person.enact_plan()
     assert yao_person.groupunit_exists(exx.run)
 
     # WHEN
@@ -624,7 +624,7 @@ def test_PersonUnit_get_tree_traverse_generated_groupunits_ReturnsObj():
     assert symmerty_group_titles == {exx.xio, exx.run}
 
 
-def test_PersonUnit_cashout_Sets_planroot_factheir_With_range_factheirs():
+def test_PersonUnit_enact_plan_Sets_planroot_factheir_With_range_factheirs():
     # ESTABLISH
     yao_person = personunit_shop(exx.yao)
     wk_rope = yao_person.make_l1_rope(exx.wk)
@@ -650,7 +650,7 @@ def test_PersonUnit_cashout_Sets_planroot_factheir_With_range_factheirs():
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
-        yao_person.cashout()
+        yao_person.enact_plan()
 
     # THEN
     exception_str = f"Cannot have fact for range inheritor '{tue_rope}'. A ranged fact plan must have _begin, _close"
@@ -674,7 +674,7 @@ def test_PersonUnit_cashout_Sets_planroot_factheir_With_range_factheirs():
     # assert root_plan.factheirs == {tue_rope: tue_factheir, wk_rope: wk_factheir}
 
 
-def test_PersonUnit_cashout_SetsPlanUnit_factheir_With_range_factheirs():
+def test_PersonUnit_enact_plan_SetsPlanUnit_factheir_With_range_factheirs():
     # ESTABLISH
     yao_person = personunit_shop(exx.yao)
     wk_rope = yao_person.make_l1_rope(exx.wk)
@@ -701,7 +701,7 @@ def test_PersonUnit_cashout_SetsPlanUnit_factheir_With_range_factheirs():
     # assert ball_plan.factheirs.get(tue_rope) is None
 
     # WHEN
-    yao_person.cashout()
+    yao_person.enact_plan()
 
     # THEN
     # wk_factunit = factunit_shop(wk_rope, wk_rope, wk_reason_lower, wk_reason_upper)

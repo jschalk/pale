@@ -124,8 +124,8 @@ class PersonDelta:
     def add_all_different_personatoms(
         self, before_person: PersonUnit, after_person: PersonUnit
     ):
-        before_person.cashout()
-        after_person.cashout()
+        before_person.enact_plan()
+        after_person.enact_plan()
         self.add_personatoms_personunit_simple_attrs(before_person, after_person)
         self.add_personatoms_partners(before_person, after_person)
         self.add_personatoms_plans(before_person, after_person)
@@ -883,7 +883,7 @@ def person_built_from_delta_is_valid(
     x_person = personunit_shop() if x_person is None else x_person
     x_person = x_delta.get_atom_edited_person(x_person)
     try:
-        x_person.cashout()
+        x_person.enact_plan()
     except Exception:
         return False
     return True

@@ -35,7 +35,7 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_justified_IsFalse(
     sue_gut_person.set_plan_obj(planunit_shop(dallas_str), texas_rope)
     sue_gut_person.edit_plan_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
     sue_gut_person.edit_plan_attr(dallas_rope, healerunit=healerunit_shop({exx.sue}))
-    sue_gut_person.cashout()
+    sue_gut_person.enact_plan()
     a23_lasso = lassounit_shop(exx.a23)
     assert sue_gut_person.keeps_justified is False
     save_gut_file(env_dir(), sue_gut_person)
@@ -60,7 +60,7 @@ def test_get_keep_ropes_RaisesErrorWhen_keeps_buildable_IsFalse(
     texas_rope = sue_gut_person.make_l1_rope(texas_str)
     sue_gut_person.set_l1_plan(planunit_shop(texas_str, problem_bool=True))
     sue_gut_person.edit_plan_attr(texas_rope, healerunit=healerunit_shop({exx.sue}))
-    sue_gut_person.cashout()
+    sue_gut_person.enact_plan()
     assert sue_gut_person.keeps_justified
     assert sue_gut_person.keeps_buildable is False
     save_gut_file(env_dir(), sue_gut_person)
@@ -90,7 +90,7 @@ def test_get_keep_ropes_ReturnsObj(temp_dir_setup, graphics_bool):
     elpaso_plan = planunit_shop(elpaso_str, healerunit=healerunit_shop({exx.sue}))
     sue_gut_person.set_plan_obj(dallas_plan, texas_rope)
     sue_gut_person.set_plan_obj(elpaso_plan, texas_rope)
-    sue_gut_person.cashout()
+    sue_gut_person.enact_plan()
     display_plantree(sue_gut_person, mode="Keep", graphics_bool=graphics_bool)
     save_gut_file(env_dir(), sue_gut_person)
 

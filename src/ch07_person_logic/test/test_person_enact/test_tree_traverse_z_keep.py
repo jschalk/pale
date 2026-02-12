@@ -6,44 +6,44 @@ from src.ch07_person_logic.test._util.ch07_examples import get_personunit_with_4
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenPersonUnit_Empty():
+def test_PersonUnit_enact_plan_Sets_keeps_justified_WhenPersonUnit_Empty():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     assert sue_person.keeps_justified is False
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.keeps_justified
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenThereAreNotAny():
+def test_PersonUnit_enact_plan_Sets_keeps_justified_WhenThereAreNotAny():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
     assert sue_person.keeps_justified is False
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.keeps_justified
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenSinglePlanUnit_healerunit_any_group_title_exists_IsTrue():
+def test_PersonUnit_enact_plan_Sets_keeps_justified_WhenSinglePlanUnit_healerunit_any_group_title_exists_IsTrue():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.set_l1_plan(planunit_shop("Texas", healerunit=healerunit_shop({"Yao"})))
     assert sue_person.keeps_justified is False
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.keeps_justified is False
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenSingleProblemAndKeep():
+def test_PersonUnit_enact_plan_Sets_keeps_justified_WhenSingleProblemAndKeep():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao)
@@ -54,13 +54,13 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenSingleProblemAndKeep():
     assert sue_person.keeps_justified is False
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.keeps_justified
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelAboveProblem():
+def test_PersonUnit_enact_plan_Sets_keeps_justified_WhenKeepIsLevelAboveProblem():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     sue_person.add_partnerunit(exx.yao)
@@ -76,13 +76,13 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelAboveProblem():
     assert sue_person.keeps_justified is False
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.keeps_justified
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelBelowProblem():
+def test_PersonUnit_enact_plan_Sets_keeps_justified_WhenKeepIsLevelBelowProblem():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     texas_str = "Texas"
@@ -93,13 +93,13 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenKeepIsLevelBelowProblem():
     assert sue_person.keeps_justified is False
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.keeps_justified is False
 
 
-def test_PersonUnit_cashout_RaisesErrorWhenKeepIsLevelBelowProblem():
+def test_PersonUnit_enact_plan_RaisesErrorWhenKeepIsLevelBelowProblem():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     texas_str = "Texas"
@@ -113,7 +113,7 @@ def test_PersonUnit_cashout_RaisesErrorWhenKeepIsLevelBelowProblem():
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
-        sue_person.cashout(keep_exceptions=True)
+        sue_person.enact_plan(keep_exceptions=True)
 
     # THEN
     assert (
@@ -122,7 +122,7 @@ def test_PersonUnit_cashout_RaisesErrorWhenKeepIsLevelBelowProblem():
     )
 
 
-def test_PersonUnit_cashout_Sets_keeps_justified_WhenTwoKeepsAre_OnTheEqualLine():
+def test_PersonUnit_enact_plan_Sets_keeps_justified_WhenTwoKeepsAre_OnTheEqualLine():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     yao_healerunit = healerunit_shop({"Yao"})
@@ -135,7 +135,7 @@ def test_PersonUnit_cashout_Sets_keeps_justified_WhenTwoKeepsAre_OnTheEqualLine(
     assert sue_person.keeps_justified is False
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.keeps_justified is False
@@ -151,7 +151,7 @@ def test_PersonUnit_get_plan_dict_RaisesErrorWhen_keeps_justified_IsFalse():
     sue_person.set_l1_plan(texas_plan)
     elpaso_plan = planunit_shop("El Paso", healerunit=yao_healerunit, problem_bool=True)
     sue_person.set_plan_obj(elpaso_plan, texas_rope)
-    sue_person.cashout()
+    sue_person.enact_plan()
     assert sue_person.keeps_justified is False
 
     # WHEN / THEN

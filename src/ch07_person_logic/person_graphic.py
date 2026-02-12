@@ -122,7 +122,7 @@ def display_plantree(
 ) -> plotly_Figure:
     """Mode can be None, task, Keep"""
 
-    x_person.cashout()
+    x_person.enact_plan()
     x_fig = plotly_Figure()
     source_y = 0
     trace_list = []

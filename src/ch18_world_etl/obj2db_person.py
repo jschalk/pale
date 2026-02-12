@@ -523,7 +523,7 @@ def insert_job_prnunit(
 
 
 def insert_job_obj(cursor: sqlite3_Cursor, job_person: PersonUnit):
-    job_person.cashout()
+    job_person.enact_plan()
     x_objkeysholder = ObjKeysHolder(
         moment_rope=job_person.moment_rope, person_name=job_person.person_name
     )
@@ -1200,7 +1200,7 @@ def insert_h_agg_obj(
     spark_num: SparkInt,
     face_name: FaceName,
 ):
-    job_person.cashout()
+    job_person.enact_plan()
     x_objkeysholder = ObjKeysHolder(
         spark_num=spark_num,
         face_name=face_name,

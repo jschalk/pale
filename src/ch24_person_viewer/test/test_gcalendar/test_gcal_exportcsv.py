@@ -44,7 +44,7 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario0_Empty():
     assert sue_gcal_events == []
 
 
-def test_PersonUnit_cashout_SetsAttr_ScenarioX_SingleBranch_fund_ratio():
+def test_PersonUnit_enact_plan_SetsAttr_ScenarioX_SingleBranch_fund_ratio():
     # ESTABLISH
     sue_person = personunit_shop(wx.sue, wx.a23)
     sue_person.add_plan(wx.mop_rope, pledge=True, star=1)
@@ -57,7 +57,7 @@ def test_PersonUnit_cashout_SetsAttr_ScenarioX_SingleBranch_fund_ratio():
     assert not mop_plan.fund_ratio
 
     # WHEN
-    sue_person.cashout()
+    sue_person.enact_plan()
 
     # THEN
     assert sue_person.planroot.fund_onset == 0

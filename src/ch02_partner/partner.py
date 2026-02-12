@@ -64,7 +64,7 @@ class PartnerUnit:
     debtor_pool: RespectNum = None
     irrational_partner_debt_lumen: int = None  # set by listening process
     inallocable_partner_debt_lumen: int = None  # set by listening process
-    # set by cashout()
+    # set by enact_plan()
     fund_give: FundNum = None
     fund_take: FundNum = None
     fund_agenda_give: FundNum = None
