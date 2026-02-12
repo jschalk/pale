@@ -89,8 +89,8 @@ def export_sqlite_tables_to_csv(db_path, output_dir="."):
             column_names = [description[0] for description in cursor.description]
 
             # Write to CSV
-            file_name = f"{table_name}_{row_count}.csv"
-            file_path = os_path_join(output_dir, file_name)
+            filename = f"{table_name}_{row_count}.csv"
+            file_path = os_path_join(output_dir, filename)
 
             with open(file_path, "w", newline="", encoding="utf-8") as f:
                 writer = csv_writer(f)

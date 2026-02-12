@@ -19,6 +19,7 @@
   "GroupTitle": {"init_chapter": "ch02", "semantic_type": "str"}, 
   "HealerName": {"init_chapter": "ch02", "semantic_type": "str"}, 
   "INSERT": {"init_chapter": "ch00"}, 
+  "filename": {"init_chapter": "ch00"}, 
   "KnotTerm": {"init_chapter": "ch04", "semantic_type": "str"}, 
   "LabelTerm": {"init_chapter": "ch01", "semantic_type": "str"}, 
   "Lasso": {"init_chapter": "ch09"}, 

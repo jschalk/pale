@@ -261,8 +261,8 @@ def test_create_person_spark_csv_path_ReturnsObj():
     a23_e3_dir_path = create_person_spark_dir_path(
         x_moment_mstr_dir, a23_lasso, exx.bob, spark3
     )
-    csv_file_name = f"{x4_filename}.csv"
-    expected_a23_bob_e3_dir = create_path(a23_e3_dir_path, csv_file_name)
+    csv_filename = f"{x4_filename}.csv"
+    expected_a23_bob_e3_dir = create_path(a23_e3_dir_path, csv_filename)
     assert gen_csv_path == expected_a23_bob_e3_dir
 
 
