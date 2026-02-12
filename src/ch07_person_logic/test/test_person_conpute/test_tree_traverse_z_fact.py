@@ -8,7 +8,7 @@ from src.ch07_person_logic.test._util.ch07_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PersonUnit_enact_plan_ChangesPlanUnit_pledge_task():
+def test_PersonUnit_conpute_ChangesPlanUnit_pledge_task():
     # ESTABLISH
     yao_person = get_personunit_1task_1ceo_minutes_reason_1fact()
     hr_str = "hr"
@@ -30,7 +30,7 @@ def test_PersonUnit_enact_plan_ChangesPlanUnit_pledge_task():
     assert mail_plan.task is False
 
     # WHEN
-    yao_person.enact_plan()
+    yao_person.conpute()
 
     # THEN
     mail_plan = yao_person.get_plan_obj(mail_rope)
@@ -38,7 +38,7 @@ def test_PersonUnit_enact_plan_ChangesPlanUnit_pledge_task():
     assert mail_plan.task
 
 
-def test_PersonUnit_enact_plan_ExecutesWithRangeRootFacts():
+def test_PersonUnit_conpute_ExecutesWithRangeRootFacts():
     # ESTABLISH
     zia_person = personunit_shop("Zia")
     casa_rope = zia_person.make_l1_rope(exx.casa)
@@ -59,7 +59,7 @@ def test_PersonUnit_enact_plan_ExecutesWithRangeRootFacts():
     assert zia_person.planroot.factheirs == {}
 
     # WHEN
-    zia_person.enact_plan()
+    zia_person.conpute()
 
     # THEN
     assert zia_person.planroot.factheirs != {}
@@ -69,7 +69,7 @@ def test_PersonUnit_enact_plan_ExecutesWithRangeRootFacts():
     }
 
 
-def test_PersonUnit_enact_plan_RaisesErrorIfNon_RangeRootHasFactUnit():
+def test_PersonUnit_conpute_RaisesErrorIfNon_RangeRootHasFactUnit():
     # ESTABLISH
     zia_person = personunit_shop("Zia")
     casa_rope = zia_person.make_l1_rope(exx.casa)
@@ -87,7 +87,7 @@ def test_PersonUnit_enact_plan_RaisesErrorIfNon_RangeRootHasFactUnit():
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
-        zia_person.enact_plan()
+        zia_person.conpute()
 
     # THEN
     assert (
@@ -96,7 +96,7 @@ def test_PersonUnit_enact_plan_RaisesErrorIfNon_RangeRootHasFactUnit():
     )
 
 
-def test_PersonUnit_enact_plan_FactHeirsInherited():
+def test_PersonUnit_conpute_FactHeirsInherited():
     # ESTABLISH
     zia_person = personunit_shop("Zia")
     swim_rope = zia_person.make_l1_rope(exx.swim)
@@ -123,7 +123,7 @@ def test_PersonUnit_enact_plan_FactHeirsInherited():
     assert slow_plan.factheirs == {}
 
     # WHEN
-    zia_person.enact_plan()
+    zia_person.conpute()
 
     # THEN
     assert swim_plan.factheirs != {}
@@ -154,7 +154,7 @@ def test_PersonUnit_enact_plan_FactHeirsInherited():
     assert str(type(fact_x1)).find(".reason.FactHeir'>")
 
 
-def test_PersonUnit_enact_plan_FactUnitMoldsFactHeir():
+def test_PersonUnit_conpute_FactUnitMoldsFactHeir():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     zia_person = personunit_shop("Zia")
@@ -177,7 +177,7 @@ def test_PersonUnit_enact_plan_FactUnitMoldsFactHeir():
     zia_person.add_fact(
         fact_context=earth_rope, fact_state=earth_rope, fact_lower=1.0, fact_upper=5.0
     )
-    zia_person.enact_plan()
+    zia_person.conpute()
 
     # THEN
     first_earthheir = factheir_shop(
@@ -192,7 +192,7 @@ def test_PersonUnit_enact_plan_FactUnitMoldsFactHeir():
     zia_person.add_fact(
         fact_context=earth_rope, fact_state=earth_rope, fact_lower=3.0, fact_upper=5.0
     )
-    zia_person.enact_plan()
+    zia_person.conpute()
 
     # THEN
     after_earthheir = factheir_shop(
@@ -202,7 +202,7 @@ def test_PersonUnit_enact_plan_FactUnitMoldsFactHeir():
     assert swim_plan.factheirs == after_earthdict
 
 
-def test_PersonUnit_enact_plan_FactHeirDeletesFactUnit():
+def test_PersonUnit_conpute_FactHeirDeletesFactUnit():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue")
@@ -224,7 +224,7 @@ def test_PersonUnit_enact_plan_FactHeirDeletesFactUnit():
     assert swim_plan.factheirs == {}
 
     # WHEN
-    sue_person.enact_plan()
+    sue_person.conpute()
 
     # THEN
     assert swim_plan.factheirs == first_earthdict
@@ -232,14 +232,14 @@ def test_PersonUnit_enact_plan_FactHeirDeletesFactUnit():
     # WHEN
     earth_curb = factunit_shop(earth_rope, earth_rope, fact_lower=3.0, fact_upper=4.0)
     swim_plan.set_factunit(factunit=earth_curb)
-    sue_person.enact_plan()
+    sue_person.conpute()
 
     # THEN
     assert swim_plan.factheirs == first_earthdict
     assert swim_plan.factunits == {}
 
 
-def test_PersonUnit_enact_plan_SetstaskAsComplete():
+def test_PersonUnit_conpute_SetstaskAsComplete():
     # ESTABLISH
     yao_person = get_personunit_1task_1ceo_minutes_reason_1fact()
     mail_str = "obtain mail"
@@ -254,7 +254,7 @@ def test_PersonUnit_enact_plan_SetstaskAsComplete():
     assert mail_plan.task
 
     # WHEN
-    yao_person.enact_plan()
+    yao_person.conpute()
 
     # THEN
     assert mail_plan.pledge

@@ -81,7 +81,7 @@ def create_idea_df(x_personunit: PersonUnit, idea_name: str) -> DataFrame:
     x_persondelta = persondelta_shop()
     x_persondelta.add_all_personatoms(x_personunit)
     x_idearef = get_idearef_obj(idea_name)
-    x_moment_rope = x_personunit.moment_rope
+    x_moment_rope = x_personunit.planroot.get_plan_rope()
     x_person_name = x_personunit.person_name
     sorted_personatoms = _get_sorted_insert_str_personatoms(x_persondelta, x_idearef)
     d2_list = _create_d2_list(

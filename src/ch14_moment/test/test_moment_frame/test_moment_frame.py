@@ -63,7 +63,7 @@ def test_get_moment_epochholder_ReturnsObj_Scenario1_MomentUnit_NonDefaultAttrs(
     # assert a23_epochholder.x_min == a23_offi_time_max
     a23_personunit = a23_epochholder.x_personunit
     assert a23_personunit.person_name == "for_EpochHolder_calculation"
-    assert a23_personunit.moment_rope == a23_momentunit.moment_rope
+    assert a23_personunit.planroot.get_plan_rope() == a23_momentunit.moment_rope
     assert a23_personunit.knot == a23_momentunit.knot
     assert a23_personunit.fund_grain == a23_momentunit.fund_grain
     assert a23_personunit.respect_grain == a23_momentunit.respect_grain

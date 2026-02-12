@@ -178,7 +178,7 @@ def awardline_shop(awardee_title: GroupTitle, fund_give: float, fund_take: float
 @dataclass
 class GroupUnit(GroupCore):
     memberships: dict[PartnerName, MemberShip] = None
-    # calculated by Parent Object method "enact_plan"
+    # calculated by Parent Object method "conpute"
     fund_give: float = None
     fund_take: float = None
     fund_agenda_give: float = None

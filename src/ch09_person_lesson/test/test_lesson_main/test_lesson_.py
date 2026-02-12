@@ -501,7 +501,7 @@ def test_LessonUnit_get_edited_person_RaisesErrorWhenlessonAttrsAndPersonAttrsAr
     # ESTABLISH
     xia_str = "Xia"
     bob_lessonunit = lessonunit_shop(exx.yao, xia_str, moment_rope=exx.a23)
-    before_sue_personunit = personunit_shop(exx.sue, moment_rope=exx.a23)
+    before_sue_personunit = personunit_shop(exx.sue, plan_root_rope=exx.a23)
 
     # WHEN / THEN
     with pytest_raises(Exception) as excinfo:

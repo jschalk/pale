@@ -195,7 +195,9 @@ def listen_to_agendas_create_init_job_from_guts(
 ):
     for x_partnerunit in get_ordered_debtors_roll(listener_job):
         speaker_id = x_partnerunit.partner_name
-        moment_lasso = lassounit_shop(listener_job.moment_rope, listener_job.knot)
+        moment_lasso = lassounit_shop(
+            listener_job.planroot.get_plan_rope(), listener_job.knot
+        )
         speaker_gut = open_gut_file(moment_mstr_dir, moment_lasso, speaker_id)
         if speaker_gut is None:
             speaker_gut = create_empty_person_from_person(listener_job, speaker_id)
@@ -204,7 +206,9 @@ def listen_to_agendas_create_init_job_from_guts(
 
 
 def listen_to_agendas_jobs_into_job(moment_mstr_dir: str, listener_job: PersonUnit):
-    moment_lasso = lassounit_shop(listener_job.moment_rope, listener_job.knot)
+    moment_lasso = lassounit_shop(
+        listener_job.planroot.get_plan_rope(), listener_job.knot
+    )
     for x_partnerunit in get_ordered_debtors_roll(listener_job):
         speaker_id = x_partnerunit.partner_name
         speaker_job = open_job_file(moment_mstr_dir, moment_lasso, speaker_id)
@@ -277,7 +281,7 @@ def listen_to_facts_duty_vision(
 
 
 def listen_to_facts_gut_job(moment_mstr_dir: str, new_job: PersonUnit):
-    moment_lasso = lassounit_shop(new_job.moment_rope, new_job.knot)
+    moment_lasso = lassounit_shop(new_job.planroot.get_plan_rope(), new_job.knot)
     old_job = open_job_file(moment_mstr_dir, moment_lasso, new_job.person_name)
     for x_partnerunit in get_ordered_debtors_roll(old_job):
         speaker_id = x_partnerunit.partner_name
@@ -330,8 +334,8 @@ def listen_to_person_visions(
     )
     new_job = create_listen_basis(gut)
     pre_job_dict = new_job.to_dict()
-    gut.enact_plan()
-    new_job.enact_plan()
+    gut.conpute()
+    new_job.conpute()
 
     for x_healer_name, keep_dict in gut._healers_dict.items():
         listener_id = listener_lessonfilehandler.person_name
@@ -403,7 +407,7 @@ def listen_to_vision_agenda(listener: PersonUnit, vision: PersonUnit):
             listener.set_plan_obj(x_plan, x_plan.parent_rope)
     for x_fact_rope, x_fact_unit in vision.planroot.factunits.items():
         listener.planroot.set_factunit(x_fact_unit)
-    listener.enact_plan()
+    listener.conpute()
 
 
 def create_vision_file_from_duty_file(

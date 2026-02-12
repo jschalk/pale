@@ -128,7 +128,7 @@ def test_insert_idea_csv_ChangesDBState_add_to_empty_table(
 
 def test_insert_idea_csv_ChangesDBState_Inserts(
     setup_database_and_csv: tuple[sqlite3_Connection, str, str], temp_dir_setup
-):
+):  # sourcery skip: extract-duplicate-method
     """Test the insert_csv function using pytest."""
     # ESTABLISH
     conn, test_csv_filepath = setup_database_and_csv
@@ -166,8 +166,8 @@ def test_insert_idea_csv_ChangesDBState_Inserts(
     cursor.execute(f"SELECT * FROM {br_tablename}")
     assert cursor.fetchall() == expected_table_data
 
-    if os_path_exists(zia_csv_filepath):
-        os_remove(zia_csv_filepath)
+    # if os_path_exists(zia_csv_filepath):
+    os_remove(zia_csv_filepath)
 
 
 def test_insert_idea_csv_ChangesDBState_CanCreateTable(
@@ -203,8 +203,8 @@ def test_insert_idea_csv_ChangesDBState_CanCreateTable(
     cursor.execute(f"SELECT * FROM {br_tablename}")
     assert cursor.fetchall() == expected_table_data
 
-    if os_path_exists(zia_csv_filepath):
-        os_remove(zia_csv_filepath)
+    # if os_path_exists(zia_csv_filepath):
+    os_remove(zia_csv_filepath)
 
 
 def test_create_idea_table_from_csv_NolessonableExists(

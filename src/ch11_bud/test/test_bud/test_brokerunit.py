@@ -22,10 +22,10 @@ def test_PersonBudHistory_Exists():
     assert x_personbudhistory
     assert not x_personbudhistory.person_name
     assert not x_personbudhistory.buds
-    assert not x_personbudhistory._sum_budunit_quota
-    assert not x_personbudhistory._sum_partner_bud_nets
-    assert not x_personbudhistory._bud_time_min
-    assert not x_personbudhistory._bud_time_max
+    assert not x_personbudhistory.sum_budunit_quota
+    assert not x_personbudhistory.sum_partner_bud_nets
+    assert not x_personbudhistory.bud_time_min
+    assert not x_personbudhistory.bud_time_max
 
 
 def test_personbudhistory_shop_ReturnsObj():
@@ -38,10 +38,10 @@ def test_personbudhistory_shop_ReturnsObj():
     assert x_personbudhistory
     assert x_personbudhistory.person_name == exx.sue
     assert x_personbudhistory.buds == {}
-    assert not x_personbudhistory._sum_budunit_quota
-    assert x_personbudhistory._sum_partner_bud_nets == {}
-    assert not x_personbudhistory._bud_time_min
-    assert not x_personbudhistory._bud_time_max
+    assert not x_personbudhistory.sum_budunit_quota
+    assert x_personbudhistory.sum_partner_bud_nets == {}
+    assert not x_personbudhistory.bud_time_min
+    assert not x_personbudhistory.bud_time_max
 
 
 def test_PersonBudHistory_set_bud_SetsAttr():
@@ -317,8 +317,8 @@ def test_get_personbudhistory_from_dict_ReturnsObj_Scenario2():
     assert x_personbudhistory.person_name == exx.sue
     assert x_personbudhistory.get_bud(x4_bud_time) != None
     assert x_personbudhistory.get_bud(x7_bud_time) != None
-    assert x_personbudhistory.get_bud(x7_bud_time)._bud_partner_nets != {}
-    assert len(x_personbudhistory.get_bud(x7_bud_time)._bud_partner_nets) == 2
+    assert x_personbudhistory.get_bud(x7_bud_time).bud_partner_nets != {}
+    assert len(x_personbudhistory.get_bud(x7_bud_time).bud_partner_nets) == 2
     assert x_personbudhistory.buds == sue_personbudhistory.buds
     assert x_personbudhistory == sue_personbudhistory
 

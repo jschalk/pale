@@ -332,7 +332,7 @@ def test_add_person_to_br00022_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00022_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -378,7 +378,7 @@ def test_add_person_to_br00024_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00024_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -400,7 +400,7 @@ def test_add_person_to_br00025_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00025_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -434,7 +434,7 @@ def test_add_person_to_br00026_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00026_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -460,7 +460,7 @@ def test_add_person_to_br00027_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00027_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -507,7 +507,7 @@ def test_add_person_to_br00028_csv_ReturnsObj():
     print(f"{csv_header=}")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     x_csv = add_person_to_br00028_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
@@ -575,7 +575,7 @@ def test_add_personunit_to_stance_csv_strs_ReturnsObj():
     br00029_header = x_ideas.get("br00029")
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
     add_personunit_to_stance_csv_strs(bob_person, x_ideas, csv_delimiter)
 
     # THEN
@@ -877,8 +877,8 @@ def test_add_lesson_to_br00028_csv_ReturnsObj():
     x_csv = add_lesson_to_br00028_csv(csv_header, sue7_lesson, csv_delimiter)
 
     # THEN
-    # root_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},,{bob_person.moment_rope},,,,,,,,,1,False,False\n"
-    # mop_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_person.moment_rope},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},{casa_gogo_want},{casa_stop_want},{casa_star},{casa_pledge},{casa_problem_bool}\n"
+    # root_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},,{bob_person.planroot.get_plan_rope()},,,,,,,,,1,False,False\n"
+    # mop_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{bob_person.planroot.get_plan_rope()},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},{casa_gogo_want},{casa_stop_want},{casa_star},{casa_pledge},{casa_problem_bool}\n"
     mop_row = f"{exx.sue},{spark7},{exx.a23},{exx.bob},{a23_rope},mop,{casa_begin},{casa_close},{casa_addin},{casa_numor},{casa_denom},{casa_morph},,,{casa_star},{casa_pledge},\n"
     casa_row = (
         f"{exx.sue},{spark7},{exx.a23},{exx.bob},{a23_rope},casa,,,,,,,,,0,False,\n"

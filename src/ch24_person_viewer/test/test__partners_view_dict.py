@@ -9,7 +9,7 @@ from src.ref.keywords import Ch24Keywords as kw, ExampleStrs as exx
 def test_get_partners_view_dict_ReturnsObj_Scenario0_Empty():
     # ESTABLISH
     sue_believer = personunit_shop(exx.sue)
-    sue_believer.enact_plan()
+    sue_believer.conpute()
 
     # WHEN
     partners_view_dict = get_partners_view_dict(sue_believer)
@@ -31,7 +31,7 @@ def test_get_partners_view_dict_ReturnsObj_Scenario1_partners():
     bob_debt_lumen = 290
     sue_believer.add_partnerunit(exx.yao, yao_cred_lumen, yao_debt_lumen)
     sue_believer.add_partnerunit(exx.bob, bob_cred_lumen, bob_debt_lumen)
-    sue_believer.enact_plan()
+    sue_believer.conpute()
 
     # WHEN
     partners_view_dict = get_partners_view_dict(sue_believer)
@@ -178,7 +178,7 @@ def test_get_partners_view_dict_ReturnsObj_Scenario2_memberships():
     yao_swim_debt_lumen = 313
     yao_partnerunit = sue_believer.get_partner(exx.yao)
     yao_partnerunit.add_membership(swim_str, yao_swim_cred_lumen, yao_swim_debt_lumen)
-    sue_believer.enact_plan()
+    sue_believer.conpute()
 
     # WHEN
     partners_view_dict = get_partners_view_dict(sue_believer)

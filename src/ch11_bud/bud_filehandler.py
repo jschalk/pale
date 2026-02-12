@@ -208,14 +208,14 @@ def save_persontime_file(
     x_persontime: PersonUnit,
     x_bud_time: TimeNum = None,
 ):
-    x_persontime.enact_plan()
+    x_persontime.conpute()
     if x_persontime.rational is False:
         raise _save_valid_persontime_Exception(
             "persontime could not be saved PersonUnit.rational is False"
         )
     persontime_json_path = create_persontime_path(
         moment_mstr_dir,
-        lassounit_shop(x_persontime.moment_rope, x_persontime.knot),
+        lassounit_shop(x_persontime.planroot.get_plan_rope(), x_persontime.knot),
         x_persontime.person_name,
         x_bud_time,
     )

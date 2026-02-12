@@ -210,10 +210,10 @@ def person_get_obj(x_dimen: str, x_person: PersonUnit, jkeys: dict[str, any]) ->
 
 
 def get_person_partner_agenda_award_array(
-    x_person: PersonUnit, enact_plan: bool = None
+    x_person: PersonUnit, conpute: bool = None
 ) -> list[list]:
-    if enact_plan:
-        x_person.enact_plan()
+    if conpute:
+        x_person.conpute()
 
     x_list = [
         [
@@ -228,25 +228,25 @@ def get_person_partner_agenda_award_array(
 
 
 def get_person_partner_agenda_award_csv(
-    x_person: PersonUnit, enact_plan: bool = None
+    x_person: PersonUnit, conpute: bool = None
 ) -> str:
     x_partner_agenda_award_array = get_person_partner_agenda_award_array(
-        x_person, enact_plan
+        x_person, conpute
     )
     x_headers = ["partner_name", "fund_agenda_take", "fund_agenda_give"]
     return create_csv(x_headers, x_partner_agenda_award_array)
 
 
 def get_partner_mandate_ledger(
-    x_person: PersonUnit, enact_plan: bool = None
+    x_person: PersonUnit, conpute: bool = None
 ) -> dict[PartnerName, FundNum]:
     if not x_person:
         return {}
     if len(x_person.partners) == 0:
         return {x_person.person_name: x_person.fund_pool}
 
-    if enact_plan:
-        x_person.enact_plan()
+    if conpute:
+        x_person.conpute()
     person_partners = x_person.partners.values()
     mandates = {
         x_partner.partner_name: x_partner.fund_agenda_give
@@ -272,10 +272,10 @@ def reset_mandates_to_minimum(
 
 
 def get_partner_agenda_net_ledger(
-    x_person: PersonUnit, enact_plan: bool = None
+    x_person: PersonUnit, conpute: bool = None
 ) -> dict[PartnerName, FundNum]:
-    if enact_plan:
-        x_person.enact_plan()
+    if conpute:
+        x_person.conpute()
 
     x_dict = {}
     for x_partner in x_person.partners.values():

@@ -119,8 +119,7 @@ class is_RopeTermException(Exception):
 class PersonUnit:
     person_name: PersonName = None
     partners: dict[PartnerName, PartnerUnit] = None
-    planroot: PlanUnit = None
-    moment_rope: MomentRope = None  # defined by Moment creator func
+    planroot: PlanUnit = None  # planroot.get_rope defines moment_rope
     knot: KnotTerm = None  # defined by Moment
     fund_pool: FundNum = None  # defined by Moment buud creator func
     fund_grain: FundGrain = None  # defined by Moment
@@ -130,7 +129,7 @@ class PersonUnit:
     debtor_respect: RespectNum = None  # mostly set by default
     max_tree_traverse: int = None  # mostly set by default
     last_lesson_id: int = None  # mosterly set by default
-    # fields calculated by enact_plan
+    # fields calculated by conpute
     _plan_dict: dict[RopeTerm, PlanUnit] = None
     _keep_dict: dict[RopeTerm, PlanUnit] = None
     _healers_dict: dict[HealerName, dict[RopeTerm, PlanUnit]] = None
@@ -193,7 +192,7 @@ class PersonUnit:
         return self.make_rope(self.planroot.plan_label, l1_label)
 
     def set_knot(self, new_knot: KnotTerm):
-        self.enact_plan()
+        self.conpute()
         if self.knot != new_knot:
             for x_plan_rope in self._plan_dict.keys():
                 if is_string_in_rope(new_knot, x_plan_rope):
@@ -490,7 +489,7 @@ class PersonUnit:
         self.planroot.del_factunit(fact_context)
 
     def get_plan_dict(self, problem: bool = None) -> dict[RopeTerm, PlanUnit]:
-        self.enact_plan()
+        self.conpute()
         if not problem:
             return self._plan_dict
         if self.keeps_justified is False:
@@ -503,7 +502,7 @@ class PersonUnit:
         }
 
     def get_tree_metrics(self) -> TreeMetrics:
-        self.enact_plan()
+        self.conpute()
         tree_metrics = treemetrics_shop()
         tree_metrics.evaluate_label(
             tree_level=self.planroot.tree_level,
@@ -693,7 +692,7 @@ class PersonUnit:
                 self._shift_plan_kids(x_rope=rope)
             parent_plan = self.get_plan_obj(parent_rope)
             parent_plan.del_kid(get_tail_label(rope, self.knot))
-        self.enact_plan()
+        self.conpute()
 
     def _shift_plan_kids(self, x_rope: RopeTerm):
         parent_rope = get_parent_rope(x_rope)
@@ -863,7 +862,7 @@ reason_case:    {reason_case}"""
     def get_agenda_dict(
         self, necessary_reason_context: RopeTerm = None
     ) -> dict[RopeTerm, PlanUnit]:
-        self.enact_plan()
+        self.conpute()
         return {
             x_plan.get_plan_rope(): x_plan
             for x_plan in self._plan_dict.values()
@@ -871,7 +870,7 @@ reason_case:    {reason_case}"""
         }
 
     def get_all_pledges(self) -> dict[RopeTerm, PlanUnit]:
-        self.enact_plan()
+        self.conpute()
         all_plans = self._plan_dict.values()
         return {x_plan.get_plan_rope(): x_plan for x_plan in all_plans if x_plan.pledge}
 
@@ -1245,7 +1244,7 @@ reason_case:    {reason_case}"""
                 x_plan.inherit_awardheirs(parent_plan.awardheirs)
             x_plan.set_awardheirs_fund_give_fund_take()
 
-    def enact_plan(self, keep_exceptions: bool = False):
+    def conpute(self, keep_exceptions: bool = False):
         self._clear_plan_dict_and_person_obj_settle_attrs()
         self._set_plan_dict()
         self._set_plantree_range_attrs()
@@ -1444,7 +1443,7 @@ reason_case:    {reason_case}"""
 
 def personunit_shop(
     person_name: PersonName = None,
-    moment_rope: RopeTerm = None,
+    plan_root_rope: RopeTerm = None,
     knot: KnotTerm = None,
     fund_pool: FundNum = None,
     fund_grain: FundGrain = None,
@@ -1453,14 +1452,14 @@ def personunit_shop(
 ) -> PersonUnit:
     knot = default_knot_if_None(knot)
     person_name = "" if person_name is None else person_name
-    moment_rope = get_default_rope(knot) if moment_rope is None else moment_rope
-    if is_labelterm(moment_rope, knot):
-        exception_str = f"Person '{person_name}' cannot set moment_rope='{moment_rope}' where knot='{knot}'"
+    plan_root_rope = (
+        get_default_rope(knot) if plan_root_rope is None else plan_root_rope
+    )
+    if is_labelterm(plan_root_rope, knot):
+        exception_str = f"Person '{person_name}' cannot set plan_root_rope='{plan_root_rope}' where knot='{knot}'"
         raise is_RopeTermException(exception_str)
-    root_plan_label = get_tail_label(moment_rope, knot)
     x_person = PersonUnit(
         person_name=person_name,
-        moment_rope=moment_rope,
         partners=get_empty_dict_if_None(),
         groupunits={},
         knot=knot,
@@ -1481,12 +1480,12 @@ def personunit_shop(
         range_inheritors={},
     )
     x_person.planroot = planunit_shop(
-        plan_label=root_plan_label,
+        plan_label=get_tail_label(plan_root_rope, knot),
         plan_uid=1,
         tree_level=0,
         knot=x_person.knot,
         fund_grain=x_person.fund_grain,
-        parent_rope="",
+        parent_rope=get_parent_rope(plan_root_rope, knot),
     )
     x_person.set_max_tree_traverse(3)
     x_person.rational = False
@@ -1501,8 +1500,6 @@ def get_personunit_from_dict(person_dict: dict) -> PersonUnit:
     )
     person_knot = obj_from_person_dict(person_dict, "knot")
     x_person.knot = default_knot_if_None(person_knot)
-    planroot_label = person_dict.get("planroot").get("plan_label")
-    x_person.moment_rope = create_rope(planroot_label, None, person_knot)
     x_person.fund_pool = validate_pool_num(
         obj_from_person_dict(person_dict, "fund_pool")
     )

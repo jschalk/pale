@@ -129,7 +129,7 @@ class MomentUnit:
     # person administration
     def _set_all_healer_dutys(self, person_name: PersonName):
         x_gut = open_gut_file(self.moment_mstr_dir, self.get_lasso(), person_name)
-        x_gut.enact_plan()
+        x_gut.conpute()
         for healer_name, healer_dict in x_gut._healers_dict.items():
             for keep_rope in healer_dict.keys():
                 create_treasury_db_file(
@@ -173,7 +173,7 @@ class MomentUnit:
 
     def rotate_job(self, person_name: PersonName) -> PersonUnit:
         x_job = open_job_file(self.moment_mstr_dir, self.get_lasso(), person_name)
-        x_job.enact_plan()
+        x_job.conpute()
         # # if personunit has healers create job from healers.
         # create personunit from debtors roll
         mstr_dir = self.moment_mstr_dir
@@ -340,7 +340,7 @@ class MomentUnit:
         x_tranbook = tranbook_shop(self.moment_rope, x_tranunits)
         for person_name, x_personbudhistory in self.personbudhistorys.items():
             for x_bud_time, x_budunit in x_personbudhistory.buds.items():
-                for partner_name, x_amount in x_budunit._bud_partner_nets.items():
+                for partner_name, x_amount in x_budunit.bud_partner_nets.items():
                     x_tranbook.add_tranunit(
                         person_name, partner_name, x_bud_time, x_amount
                     )

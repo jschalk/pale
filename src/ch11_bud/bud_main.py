@@ -195,40 +195,41 @@ class BudUnit:
     bud_time: TimeNum = None
     quota: FundNum = None
     celldepth: int = None  # non-negative
-    _magnitude: FundNum = None  # how much of the actual quota is distributed
-    _bud_partner_nets: dict[PartnerName, FundNum] = None  # ledger of bud outcome
+    # Calculated
+    magnitude: FundNum = None  # how much of the actual quota is distributed
+    bud_partner_nets: dict[PartnerName, FundNum] = None  # ledger of bud outcome
 
     def set_bud_partner_net(
         self, x_partner_name: PartnerName, bud_partner_net: FundNum
     ):
-        self._bud_partner_nets[x_partner_name] = bud_partner_net
+        self.bud_partner_nets[x_partner_name] = bud_partner_net
 
     def bud_partner_net_exists(self, x_partner_name: PartnerName) -> bool:
-        return self._bud_partner_nets.get(x_partner_name) != None
+        return self.bud_partner_nets.get(x_partner_name) != None
 
     def get_bud_partner_net(self, x_partner_name: PartnerName) -> FundNum:
-        return self._bud_partner_nets.get(x_partner_name)
+        return self.bud_partner_nets.get(x_partner_name)
 
     def del_bud_partner_net(self, x_partner_name: PartnerName):
-        self._bud_partner_nets.pop(x_partner_name)
+        self.bud_partner_nets.pop(x_partner_name)
 
     def calc_magnitude(self):
-        bud_partner_nets = self._bud_partner_nets.values()
+        bud_partner_nets = self.bud_partner_nets.values()
         x_cred_sum = sum(da_net for da_net in bud_partner_nets if da_net > 0)
         x_debt_sum = sum(da_net for da_net in bud_partner_nets if da_net < 0)
         if x_cred_sum + x_debt_sum != 0:
             exception_str = f"magnitude cannot be calculated: debt_bud_partner_net={x_debt_sum}, cred_bud_partner_net={x_cred_sum}"
             raise calc_magnitudeException(exception_str)
-        self._magnitude = x_cred_sum
+        self.magnitude = x_cred_sum
 
-    def to_dict(self) -> dict[str,]:
+    def to_dict(self) -> dict[str, FundNum | int]:
         """Returns dict that is serializable to JSON."""
 
         x_dict = {"bud_time": self.bud_time, "quota": self.quota}
-        if self._bud_partner_nets:
-            x_dict["bud_partner_nets"] = self._bud_partner_nets
-        if self._magnitude:
-            x_dict["magnitude"] = self._magnitude
+        if self.bud_partner_nets:
+            x_dict["bud_partner_nets"] = self.bud_partner_nets
+        if self.magnitude:
+            x_dict["magnitude"] = self.magnitude
         if self.celldepth != DEFAULT_CELLDEPTH:
             x_dict["celldepth"] = self.celldepth
         return x_dict
@@ -250,8 +251,8 @@ def budunit_shop(
         bud_time=bud_time,
         quota=quota,
         celldepth=celldepth,
-        _bud_partner_nets=get_empty_dict_if_None(bud_partner_nets),
-        _magnitude=get_0_if_None(magnitude),
+        bud_partner_nets=get_empty_dict_if_None(bud_partner_nets),
+        magnitude=get_0_if_None(magnitude),
     )
 
 
@@ -260,10 +261,10 @@ class PersonBudHistory:
     person_name: PersonName = None
     buds: dict[TimeNum, BudUnit] = None
     # calculated fields
-    _sum_budunit_quota: FundNum = None
-    _sum_partner_bud_nets: int = None
-    _bud_time_min: TimeNum = None
-    _bud_time_max: TimeNum = None
+    sum_budunit_quota: FundNum = None
+    sum_partner_bud_nets: int = None
+    bud_time_min: TimeNum = None
+    bud_time_max: TimeNum = None
 
     def set_bud(self, x_bud: BudUnit):
         self.buds[x_bud.bud_time] = x_bud
@@ -287,15 +288,15 @@ class PersonBudHistory:
             for x_bud in self.buds.values()
         ]
 
-    def get_headers(self) -> list:
+    def get_headers(self) -> list[str]:
         return ["person_name", "bud_time", "quota"]
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[PartnerName,]:
         """Returns dict that is serializable to JSON."""
 
         return {"person_name": self.person_name, "buds": self._get_buds_dict()}
 
-    def _get_buds_dict(self) -> dict:
+    def _get_buds_dict(self) -> dict[TimeNum, dict[str, FundNum | int]]:
         return {x_bud.bud_time: x_bud.to_dict() for x_bud in self.buds.values()}
 
     def get_bud_times(self) -> set[TimeNum]:
@@ -304,7 +305,7 @@ class PersonBudHistory:
     def get_tranbook(self, moment_rope: MomentRope) -> TranBook:
         x_tranbook = tranbook_shop(moment_rope)
         for x_bud_time, x_bud in self.buds.items():
-            for dst_partner_name, x_quota in x_bud._bud_partner_nets.items():
+            for dst_partner_name, x_quota in x_bud.bud_partner_nets.items():
                 x_tranbook.add_tranunit(
                     person_name=self.person_name,
                     partner_name=dst_partner_name,
@@ -315,7 +316,7 @@ class PersonBudHistory:
 
 
 def personbudhistory_shop(person_name: PersonName) -> PersonBudHistory:
-    return PersonBudHistory(person_name=person_name, buds={}, _sum_partner_bud_nets={})
+    return PersonBudHistory(person_name=person_name, buds={}, sum_partner_bud_nets={})
 
 
 def get_budunit_from_dict(x_dict: dict) -> BudUnit:

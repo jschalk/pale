@@ -36,7 +36,10 @@ def test_LessonFileHandler_default_gut_person_ReturnsObj():
     sue_default_gut = sue_lessonfilehandler.default_gut_person()
 
     # THEN
-    assert sue_default_gut.moment_rope == sue_lessonfilehandler.moment_lasso.moment_rope
+    assert (
+        sue_default_gut.planroot.get_plan_rope()
+        == sue_lessonfilehandler.moment_lasso.moment_rope
+    )
     assert sue_default_gut.person_name == sue_lessonfilehandler.person_name
     assert sue_default_gut.knot == sue_lessonfilehandler.moment_lasso.knot
     assert sue_default_gut.fund_pool == sue_lessonfilehandler.fund_pool
@@ -163,7 +166,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesgutFileAndLessonFile
 
     # THEN
     gut_person = open_gut_file(env_dir(), a23_lasso, exx.sue)
-    assert gut_person.moment_rope == exx.a23
+    assert gut_person.planroot.get_plan_rope() == exx.a23
     assert gut_person.person_name == exx.sue
     assert gut_person.respect_grain == seven_int
     assert os_path_exists(init_lesson_file_path)
@@ -193,7 +196,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlygutFile(
 
     # THEN
     gut_person = open_gut_file(env_dir(), a23_lasso, exx.sue)
-    assert gut_person.moment_rope == exx.a23
+    assert gut_person.planroot.get_plan_rope() == exx.a23
     assert gut_person.person_name == exx.sue
     assert gut_person.respect_grain == seven_int
     assert os_path_exists(init_lesson_file_path)
@@ -223,7 +226,7 @@ def test_LessonFileHandler_initialize_lesson_gut_files_SavesOnlyLessonFile(
     sue_lessonfilehandler.initialize_lesson_gut_files()
 
     # THEN
-    assert sue_gut_person.moment_rope == exx.a23
+    assert sue_gut_person.planroot.get_plan_rope() == exx.a23
     assert sue_gut_person.person_name == exx.sue
     assert sue_gut_person.respect_grain == seven_int
     assert sue_gut_person.partner_exists(exx.bob)

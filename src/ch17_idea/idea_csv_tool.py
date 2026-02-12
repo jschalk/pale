@@ -225,7 +225,7 @@ def add_person_to_br00020_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_person.moment_rope,
+                x_person.planroot.get_plan_rope(),
                 x_person.person_name,
                 partnerunit.partner_name,
                 membership.group_title,
@@ -248,7 +248,7 @@ def add_person_to_br00021_csv(
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_person.moment_rope,
+            x_person.planroot.get_plan_rope(),
             x_person.person_name,
             partnerunit.partner_name,
             if_none_str(partnerunit.partner_cred_lumen),
@@ -271,7 +271,7 @@ def add_person_to_br00022_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_person.moment_rope,
+                x_person.planroot.get_plan_rope(),
                 x_person.person_name,
                 planunit.get_plan_rope(),
                 awardunit.awardee_title,
@@ -294,7 +294,7 @@ def add_person_to_br00023_csv(
         x_row = [
             if_none_str(face_name),
             if_none_str(spark_num),
-            x_person.moment_rope,
+            x_person.planroot.get_plan_rope(),
             x_person.person_name,
             x_person.planroot.get_plan_rope(),
             factunit.fact_context,
@@ -319,7 +319,7 @@ def add_person_to_br00024_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_person.moment_rope,
+                x_person.planroot.get_plan_rope(),
                 x_person.person_name,
                 planunit.get_plan_rope(),
                 group_title,
@@ -341,7 +341,7 @@ def add_person_to_br00025_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_person.moment_rope,
+                x_person.planroot.get_plan_rope(),
                 x_person.person_name,
                 planunit.get_plan_rope(),
                 group_title,
@@ -364,7 +364,7 @@ def add_person_to_br00026_csv(
                 x_row = [
                     if_none_str(face_name),
                     if_none_str(spark_num),
-                    x_person.moment_rope,
+                    x_person.planroot.get_plan_rope(),
                     x_person.person_name,
                     planunit.get_plan_rope(),
                     reasonunit.reason_context,
@@ -390,7 +390,7 @@ def add_person_to_br00027_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_person.moment_rope,
+                x_person.planroot.get_plan_rope(),
                 x_person.person_name,
                 planunit.get_plan_rope(),
                 reasonunit.reason_context,
@@ -413,7 +413,7 @@ def add_person_to_br00028_csv(
             x_row = [
                 if_none_str(face_name),
                 if_none_str(spark_num),
-                x_person.moment_rope,
+                x_person.planroot.get_plan_rope(),
                 x_person.person_name,
                 planunit.get_plan_rope(),
                 if_none_str(planunit.begin),
@@ -443,7 +443,7 @@ def add_person_to_br00029_csv(
     x_row = [
         if_none_str(face_name),
         if_none_str(spark_num),
-        x_person.moment_rope,
+        x_person.planroot.get_plan_rope(),
         x_person.person_name,
         if_none_str(x_person.credor_respect),
         if_none_str(x_person.debtor_respect),

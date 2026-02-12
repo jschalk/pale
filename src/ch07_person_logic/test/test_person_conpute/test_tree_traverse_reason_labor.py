@@ -4,7 +4,7 @@ from src.ch07_person_logic.person_main import personunit_shop
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PersonUnit_enact_plan_Sets_planroot_laborheirFrom_planroot_laborunit():
+def test_PersonUnit_conpute_Sets_planroot_laborheirFrom_planroot_laborunit():
     # ESTABLISH
     sue_laborunit = laborunit_shop()
     sue_laborunit.add_party(exx.sue)
@@ -15,7 +15,7 @@ def test_PersonUnit_enact_plan_Sets_planroot_laborheirFrom_planroot_laborunit():
     assert not yao_person.planroot.laborheir
 
     # WHEN
-    yao_person.enact_plan()
+    yao_person.conpute()
 
     # THEN
     assert yao_person.planroot.laborheir is not None
@@ -26,7 +26,7 @@ def test_PersonUnit_enact_plan_Sets_planroot_laborheirFrom_planroot_laborunit():
     assert yao_person.planroot.laborheir == expected_laborheir
 
 
-def test_PersonUnit_enact_plan_Set_child_plan_laborheir_FromParent_laborunit():
+def test_PersonUnit_conpute_Set_child_plan_laborheir_FromParent_laborunit():
     # ESTABLISH
     x_laborunit = laborunit_shop()
     bob_person = personunit_shop(exx.bob)
@@ -40,7 +40,7 @@ def test_PersonUnit_enact_plan_Set_child_plan_laborheir_FromParent_laborunit():
     assert not run_plan.laborheir
 
     # WHEN
-    bob_person.enact_plan()
+    bob_person.conpute()
 
     # THEN
     assert run_plan.laborheir
@@ -63,7 +63,7 @@ def test_PersonUnit_enact_plan_Set_child_plan_laborheir_FromParent_laborunit():
     assert run_plan.laborheir == expected_laborheir
 
 
-def test_PersonUnit_enact_plan_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario0():
+def test_PersonUnit_conpute_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario0():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     swim_rope = sue_person.make_l1_rope(exx.swim)
@@ -89,7 +89,7 @@ def test_PersonUnit_enact_plan_Set_grandchild_plan_laborheir_From_plankid_laboru
     assert four_plan.laborheir is None
 
     # WHEN
-    sue_person.enact_plan()
+    sue_person.conpute()
 
     # THEN
     x_laborheir = laborheir_shop()
@@ -102,7 +102,7 @@ def test_PersonUnit_enact_plan_Set_grandchild_plan_laborheir_From_plankid_laboru
     assert four_plan.laborheir == x_laborheir
 
 
-def test_PersonUnit_enact_plan_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario1_solo_AttrIsPassed():
+def test_PersonUnit_conpute_Set_grandchild_plan_laborheir_From_plankid_laborunit_Scenario1_solo_AttrIsPassed():
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     swim_rope = sue_person.make_l1_rope(exx.swim)
@@ -129,7 +129,7 @@ def test_PersonUnit_enact_plan_Set_grandchild_plan_laborheir_From_plankid_laboru
     assert not four_plan.laborheir
 
     # WHEN
-    sue_person.enact_plan()
+    sue_person.conpute()
 
     # THEN
     expected_laborheir = laborheir_shop()

@@ -50,7 +50,7 @@ def test_create_bud_mandate_ledgers_Scenaro1_BudExists(temp_dir_setup):
     bob37_bud_mandate_path = bud_mandate_path(mstr_dir, a23_lasso, exx.bob, tp37)
     assert os_path_exists(bob37_bud_mandate_path) is False
     bob37_budunit = amy23_moment.get_budunit(exx.bob, tp37)
-    assert bob37_budunit._bud_partner_nets == {}
+    assert bob37_budunit.bud_partner_nets == {}
 
     # WHEN
     create_bud_mandate_ledgers(mstr_dir, a23_lasso)
@@ -62,7 +62,7 @@ def test_create_bud_mandate_ledgers_Scenaro1_BudExists(temp_dir_setup):
     gen_a23_momentunit = get_momentunit_from_dict(open_json(a23_json_path))
     gen_a23_momentunit.set_all_tranbook()
     gen_bob37_budunit = gen_a23_momentunit.get_budunit(exx.bob, tp37)
-    assert gen_bob37_budunit._bud_partner_nets == expected_bud_partner_nets
+    assert gen_bob37_budunit.bud_partner_nets == expected_bud_partner_nets
     expected_a23_all_tranbook = tranbook_shop(exx.a23)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.bob, tp37, 450)
     assert gen_a23_momentunit.all_tranbook == expected_a23_all_tranbook
@@ -94,7 +94,7 @@ def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_partner_mandate_ledge
     bob37_bud_mandate_path = bud_mandate_path(mstr_dir, a23_lasso, exx.bob, tp37)
     assert os_path_exists(bob37_bud_mandate_path) is False
     bob37_budunit = amy23_moment.get_budunit(exx.bob, tp37)
-    assert bob37_budunit._bud_partner_nets == {}
+    assert bob37_budunit.bud_partner_nets == {}
 
     # WHEN
     create_bud_mandate_ledgers(mstr_dir, a23_lasso)
@@ -111,7 +111,7 @@ def test_create_bud_mandate_ledgers_Scenaro2_Mutliple_cell_partner_mandate_ledge
     assert open_json(bob37_bud_mandate_path) == expected_bud_partner_nets
     gen_a23_momentunit = get_momentunit_from_dict(open_json(a23_json_path))
     gen_bob37_budunit = gen_a23_momentunit.get_budunit(exx.bob, tp37)
-    assert gen_bob37_budunit._bud_partner_nets == expected_bud_partner_nets
+    assert gen_bob37_budunit.bud_partner_nets == expected_bud_partner_nets
     expected_a23_all_tranbook = tranbook_shop(exx.a23)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.sue, tp37, 84)
     expected_a23_all_tranbook.add_tranunit(exx.bob, exx.xio, tp37, 84)

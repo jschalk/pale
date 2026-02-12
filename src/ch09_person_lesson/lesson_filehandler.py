@@ -13,7 +13,7 @@ from src.ch00_py.file_toolbox import (
     save_json,
 )
 from src.ch01_allot.allot import default_grain_num_if_None, validate_pool_num
-from src.ch04_rope.rope import validate_labelterm
+from src.ch04_rope.rope import get_parent_rope, get_tail_label, validate_labelterm
 from src.ch07_person_logic.person_main import (
     PersonUnit,
     get_personunit_from_dict,
@@ -52,7 +52,7 @@ def open_person_file(dest_dir: str, filename: str = None) -> PersonUnit:
 
 
 def save_gut_file(moment_mstr_dir: str, personunit: PersonUnit):
-    moment_lasso = lassounit_shop(personunit.moment_rope, personunit.knot)
+    moment_lasso = lassounit_shop(personunit.planroot.get_plan_rope(), personunit.knot)
     gut_path = create_gut_path(moment_mstr_dir, moment_lasso, personunit.person_name)
     save_person_file(gut_path, None, personunit)
 
@@ -63,7 +63,12 @@ def open_gut_file(
     gut_path = create_gut_path(moment_mstr_dir, moment_lasso, person_name)
     gut_person = open_person_file(gut_path)
     if gut_person:
-        gut_person.moment_rope = moment_lasso.moment_rope
+        gut_person.planroot.plan_label = get_tail_label(
+            moment_lasso.moment_rope, moment_lasso.knot
+        )
+        gut_person.planroot.parent_rope = get_parent_rope(
+            moment_lasso.moment_rope, moment_lasso.knot
+        )
     return gut_person
 
 
@@ -105,7 +110,7 @@ class LessonFileHandler:
     def default_gut_person(self) -> PersonUnit:
         x_personunit = personunit_shop(
             person_name=self.person_name,
-            moment_rope=self.moment_lasso.moment_rope,
+            plan_root_rope=self.moment_lasso.moment_rope,
             knot=self.moment_lasso.knot,
             fund_pool=self.fund_pool,
             fund_grain=self.fund_grain,
