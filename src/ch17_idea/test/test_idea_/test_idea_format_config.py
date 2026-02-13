@@ -92,10 +92,10 @@ def get_sorted_headers_str(idea_filename):
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
     # ESTABLISH
-    filename = idea_format_00021_person_partnerunit_v0_0_0()
+    filebasename = idea_format_00021_person_partnerunit_v0_0_0()
 
     # WHEN
-    br00021_headers = get_sorted_headers_str(filename)
+    br00021_headers = get_sorted_headers_str(filebasename)
 
     # THEN
     expected_br00021_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.partner_name},{kw.partner_cred_lumen},{kw.partner_debt_lumen}"
