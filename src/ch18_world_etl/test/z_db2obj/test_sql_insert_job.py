@@ -22,6 +22,7 @@ def test_create_personunit_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("personunit")
+    x_args.add("moment_rope")
     # for x_arg in sorted(x_args):
     #     print(f"{x_arg=}")
 
@@ -80,6 +81,7 @@ def test_create_prnplan_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_planunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -171,6 +173,7 @@ def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_reasonunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -231,6 +234,7 @@ def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_reason_caseunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -298,6 +302,7 @@ def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_awardunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -361,6 +366,7 @@ def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_factunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -422,6 +428,7 @@ def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_healerunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -477,6 +484,7 @@ def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_partyunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -537,6 +545,7 @@ def test_create_prnptnr_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_partnerunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -616,6 +625,7 @@ def test_create_prnmemb_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_partner_membership")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1
@@ -691,6 +701,7 @@ def test_create_prngrou_metrics_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_groupunit")
+    x_args.add("moment_rope")
     # x_count = 0
     # for x_arg in get_default_sorted_list(x_args):
     #     x_count += 1

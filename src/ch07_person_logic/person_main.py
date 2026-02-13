@@ -55,7 +55,6 @@ from src.ch07_person_logic._ref.ch07_semantic_types import (
     KnotTerm,
     LabelTerm,
     ManaGrain,
-    MomentRope,
     PartnerName,
     PersonName,
     ReasonNum,
@@ -119,16 +118,16 @@ class is_RopeTermException(Exception):
 class PersonUnit:
     person_name: PersonName = None
     partners: dict[PartnerName, PartnerUnit] = None
-    planroot: PlanUnit = None  # planroot.get_rope defines moment_rope
-    knot: KnotTerm = None  # defined by Moment
-    fund_pool: FundNum = None  # defined by Moment buud creator func
-    fund_grain: FundGrain = None  # defined by Moment
-    respect_grain: RespectGrain = None  # defined by Moment
-    mana_grain: ManaGrain = None  # defined by Moment
+    planroot: PlanUnit = None  # planroot.get_rope defines plan_root_rope
+    knot: KnotTerm = None  # often must defined by creator class
+    fund_pool: FundNum = None  # often must defined by creator class
+    fund_grain: FundGrain = None  # often must defined by creator class
+    respect_grain: RespectGrain = None  # often must defined by creator class
+    mana_grain: ManaGrain = None  # often must defined by creator class
     credor_respect: RespectNum = None  # mostly set by default
     debtor_respect: RespectNum = None  # mostly set by default
     max_tree_traverse: int = None  # mostly set by default
-    last_lesson_id: int = None  # mosterly set by default
+    last_lesson_id: int = None  #
     # fields calculated by conpute
     _plan_dict: dict[RopeTerm, PlanUnit] = None
     _keep_dict: dict[RopeTerm, PlanUnit] = None

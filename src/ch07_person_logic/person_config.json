@@ -7,11 +7,7 @@
         "populate_by_conpute": true, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": true, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": true, 
@@ -41,11 +37,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 
@@ -69,11 +61,6 @@
       }, 
       "plan_rope": {
         "class_type": "RopeTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -114,11 +101,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 
@@ -135,11 +118,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "party_title": {
         "class_type": "TitleTerm", 
         "populate_by_conpute": false, 
@@ -168,11 +147,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 
@@ -217,11 +192,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 
@@ -252,11 +223,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 
@@ -323,11 +290,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "partner_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 
@@ -355,11 +318,7 @@
   "person_partnerunit": {
     "abbreviation": "prnptnr", 
     "jkeys": {
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "partner_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 
@@ -390,11 +349,7 @@
   "personunit": {
     "abbreviation": "prnunit", 
     "jkeys": {
-      "moment_rope": {
-        "class_type": "LabelTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
+
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 

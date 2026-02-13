@@ -65,8 +65,8 @@ def test_person_set_knot_Modifies_parent_rope():
 
     # THEN
     assert cuisine_plan.get_plan_rope() != semicolon_cuisine_rope
-    zia_moment_rope = zia_person.planroot.plan_label
-    slash_casa_rope = create_rope(zia_moment_rope, exx.casa, knot=exx.slash)
+    zia_plan_root_rope = zia_person.planroot.plan_label
+    slash_casa_rope = create_rope(zia_plan_root_rope, exx.casa, knot=exx.slash)
     slash_cuisine_rope = create_rope(slash_casa_rope, exx.cuisine, knot=exx.slash)
     assert cuisine_plan.get_plan_rope() == slash_cuisine_rope
 
