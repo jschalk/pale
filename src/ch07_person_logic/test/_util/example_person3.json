@@ -1,6 +1,279 @@
 {
   "fund_grain": 1, 
   "fund_pool": 1000000000.0, 
+  "knot": ";", 
+  "mana_grain": 1, 
+  "max_tree_traverse": 2, 
+  "partners": {
+    "A a ron Jones": {
+      "memberships": {
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
+        "A a ron Jones": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "A a ron Jones" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "A a ron Jones"
+    }, 
+    "America": {
+      "memberships": {
+        ";Everyone": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
+        ";Family"  : { "group_cred_lumen": 6.45, "group_debt_lumen": 1, "group_title": ";Family"   }, 
+        ";Friends" : { "group_cred_lumen": 6.10, "group_debt_lumen": 1, "group_title": ";Friends"  }, 
+        "America"  : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "America"   }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "America"
+    }, 
+    "Anna": {
+      "memberships": {
+        ";Everyone": { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
+        ";Family"  : { "group_cred_lumen": 6.2, "group_debt_lumen": 1, "group_title": ";Family"   }, 
+        "Anna"     : { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": "Anna"      }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Anna"
+    }, 
+    "Benjamin Stoddert": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";ACME General": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Benjamin Stoddert": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": "Benjamin Stoddert"
+        }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Benjamin Stoddert"
+    }, 
+    "Bob302": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 6.25, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        "Bob302": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Bob302"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Bob302"
+    }, 
+    "Chuck Lee": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Chuck Lee"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Chuck Lee"     }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Chuck Lee"
+    }, 
+    "Ernesto Chavez": {
+      "memberships": {
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Philosophy": {"group_cred_lumen": 6.5, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
+        "Ernesto Chavez": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Ernesto Chavez"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Ernesto Chavez"
+    }, 
+    "Jacque Chirac": {
+      "memberships": {
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
+        "Jacque Chirac": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jacque Chirac" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Jacque Chirac"
+    }, 
+    "Jane Randolph": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Jane Randolph": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jane Randolph" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Jane Randolph"
+    }, 
+    "Maria Reynolds": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 6.75, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Maria Reynolds": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Maria Reynolds"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Maria Reynolds"
+    }, 
+    "Martha Doubs": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Martha Doubs" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Martha Doubs"  }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Martha Doubs"
+    }, 
+    "Mikayla": {
+      "memberships": {
+        ";ACME DevOps": { "group_cred_lumen": 10, "group_debt_lumen": 1, "group_title": ";ACME DevOps" }, 
+        ";Everyone"   : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Everyone"    }, 
+        ";Philosophy" : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Philosophy"  }, 
+        "Mikayla"     : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": "Mikayla"      }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Mikayla"
+    }, 
+    "Norberto": {
+      "memberships": {
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
+        "Norberto"     : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Norberto"      }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Norberto"
+    }, 
+    "Perrison": {
+      "memberships": {
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Friends": {"group_cred_lumen": 6.4, "group_debt_lumen": 1, "group_title": ";Friends"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 5, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        "Perrison": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Perrison"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Perrison"
+    }, 
+    "Philipa": {
+      "memberships": {
+        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Philosophy": {"group_cred_lumen": 52, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
+        "Philipa": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Philipa"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Philipa"
+    }, 
+    "Prashant": {
+      "memberships": {
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 2, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        "Prashant": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Prashant"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Prashant"
+    }, 
+    "Renee Elise Goldsberry": {
+      "memberships": {
+        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Friends": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Friends"}, 
+        ";People who identify by UTEP": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";People who identify by UTEP"
+        }, 
+        ";Philosophy": {"group_cred_lumen": 3, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
+        ";SHOW ME2": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";SHOW ME2"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        ";hurt by us dollar": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";hurt by us dollar"
+        }, 
+        "Renee Elise Goldsberry": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": "Renee Elise Goldsberry"
+        }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Renee Elise Goldsberry"
+    }, 
+    "Sam zamora": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Sam zamora"   : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Sam zamora"    }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Sam zamora"
+    }, 
+    "Shadwell Harris": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Shadwell Harris": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Shadwell Harris"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Shadwell Harris"
+    }, 
+    "Thomas OSU": {
+      "memberships": {
+        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Thomas OSU": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Thomas OSU"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Thomas OSU"
+    }, 
+    "Travis Fox": {
+      "memberships": {
+        ";Everyone" : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone"  }, 
+        ";Family"   : { "group_cred_lumen": 6.35, "group_debt_lumen": 1, "group_title": ";Family"    }, 
+        "Travis Fox": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "Travis Fox" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Travis Fox"
+    }, 
+    "WIlliam Wellace": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "WIlliam Wellace": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "WIlliam Wellace"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "WIlliam Wellace"
+    }
+  }, 
+  "person_name": "Yao", 
   "planroot": {
     "factunits": {
       ";amy45;hr_number": {
@@ -16,18 +289,12 @@
         "fact_upper": 59
       }
     }, 
-    "plan_label": "amy45", 
-    "plan_uid": 1, 
     "kids": {
       "ACME": {
         "is_expanded": false, 
-        "plan_label": "ACME", 
-        "plan_uid": 100, 
         "kids": {
           "ACME Employee Responsiblities": {
             "is_expanded": false, 
-            "plan_label": "ACME Employee Responsiblities", 
-            "plan_uid": 102, 
             "kids": {
               "Employee Intruction manuel.": {
                 "is_expanded": false, 
@@ -60,8 +327,6 @@
                 "star": 1
               }, 
               "Know Abuse Deterrence and Reporting guildlines": {
-                "plan_label": "Know Abuse Deterrence and Reporting guildlines", 
-                "plan_uid": 106, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -93,11 +358,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Know Abuse Deterrence and Reporting guildlines", 
+                "plan_uid": 106, 
                 "star": 1
               }, 
               "Know Discrimination Harassment Bully guildlines": {
-                "plan_label": "Know Discrimination Harassment Bully guildlines", 
-                "plan_uid": 107, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -128,11 +393,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Know Discrimination Harassment Bully guildlines", 
+                "plan_uid": 107, 
                 "star": 1
               }, 
               "PC1025 Identifying and Supporting houseless Youth": {
-                "plan_label": "PC1025 Identifying and Supporting houseless Youth", 
-                "plan_uid": 109, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "is_expanded": false, 
@@ -165,11 +430,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "PC1025 Identifying and Supporting houseless Youth", 
+                "plan_uid": 109, 
                 "star": 1
               }, 
               "PC1026 Rick administration and Hazard Analysis": {
-                "plan_label": "PC1026 Rick administration and Hazard Analysis", 
-                "plan_uid": 112, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "is_expanded": false, 
@@ -178,11 +443,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "PC1026 Rick administration and Hazard Analysis", 
+                "plan_uid": 112, 
                 "star": 1
               }, 
               "PC1027 Adult Sexual Misconduct: Staff to Student/ IX": {
-                "plan_label": "PC1027 Adult Sexual Misconduct: Staff to Student/ IX", 
-                "plan_uid": 108, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "is_expanded": false, 
@@ -215,11 +480,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "PC1027 Adult Sexual Misconduct: Staff to Student/ IX", 
+                "plan_uid": 108, 
                 "star": 1
               }, 
               "PC1029 Information Security Awareness traaining": {
-                "plan_label": "PC1029 Information Security Awareness traaining", 
-                "plan_uid": 111, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "is_expanded": false, 
@@ -252,11 +517,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "PC1029 Information Security Awareness traaining", 
+                "plan_uid": 111, 
                 "star": 1
               }, 
               "PRM1003 ACME OSHA COVID-19 Rick Reduction traaining": {
-                "plan_label": "PRM1003 ACME OSHA COVID-19 Rick Reduction traaining", 
-                "plan_uid": 110, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "is_expanded": false, 
@@ -289,11 +554,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "PRM1003 ACME OSHA COVID-19 Rick Reduction traaining", 
+                "plan_uid": 110, 
                 "star": 1
               }, 
               "PRM1005 ACME Staff  and Safety": {
-                "plan_label": "PRM1005 ACME Staff  and Safety", 
-                "plan_uid": 105, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -324,22 +589,20 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "PRM1005 ACME Staff  and Safety", 
+                "plan_uid": 105, 
                 "star": 1
               }
             }, 
+            "plan_label": "ACME Employee Responsiblities", 
+            "plan_uid": 102, 
             "star": 1
           }, 
           "IT DEPT": {
-            "plan_label": "IT DEPT", 
-            "plan_uid": 101, 
             "kids": {
               "IT DEPT off-hrs responsiblities": {
-                "plan_label": "IT DEPT off-hrs responsiblities", 
-                "plan_uid": 136, 
                 "kids": {
                   "check ETLs ran correctly": {
-                    "plan_label": "check ETLs ran correctly", 
-                    "plan_uid": 137, 
                     "kids": {
                       "check emails": {
                         "plan_label": "check emails", 
@@ -360,14 +623,14 @@
                         "star": 1
                       }, 
                       "check mechanisms": {
-                        "plan_label": "check mechanisms", 
-                        "plan_uid": 139, 
                         "kids": {
                           "MECHANISM2": { "plan_label": "MECHANISM2", "plan_uid": 171, "star": 1 }, 
                           "MECHANISM3": { "plan_label": "MECHANISM3", "plan_uid": 172, "star": 1 }, 
                           "MECHANISM5": { "plan_label": "MECHANISM5", "plan_uid": 173, "star": 1 }, 
                           "MECHANISM7": { "plan_label": "MECHANISM7", "plan_uid": 170, "star": 1 }
                         }, 
+                        "plan_label": "check mechanisms", 
+                        "plan_uid": 139, 
                         "pledge": true, 
                         "reasonunits": {
                           ";amy45;jour_minute;": {
@@ -384,6 +647,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "check ETLs ran correctly", 
+                    "plan_uid": 137, 
                     "reasonunits": {
                       ";amy45;jour_minute;": {
                         "cases": {
@@ -436,6 +701,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "IT DEPT off-hrs responsiblities", 
+                "plan_uid": 136, 
                 "reasonunits": {
                   ";amy45;jour_minute;": {
                     "cases": {
@@ -451,8 +718,6 @@
                 "star": 1
               }, 
               "IT DEPT regular hrs responsiblities": {
-                "plan_label": "IT DEPT regular hrs responsiblities", 
-                "plan_uid": 133, 
                 "kids": {
                   "Add to Azure DevOps": {
                     "plan_label": "Add to Azure DevOps", 
@@ -473,8 +738,6 @@
                     "star": 1
                   }, 
                   "Datawarehouse": {
-                    "plan_label": "Datawarehouse", 
-                    "plan_uid": 135, 
                     "kids": {
                       "Datawarehouse Expertise acquisition": {
                         "plan_label": "Datawarehouse Expertise acquisition", 
@@ -495,14 +758,14 @@
                         "star": 1
                       }, 
                       "dev quantification script \"TIMOTHY\"": {
-                        "plan_label": "dev quantification script \"TIMOTHY\"", 
-                        "plan_uid": 157, 
                         "kids": {
                           "MECHANISM2": { "plan_label": "MECHANISM2", "plan_uid": 176, "star": 1 }, 
                           "MECHANISM7": { "plan_label": "MECHANISM7", "plan_uid": 175, "star": 1 }, 
                           "WPRD"      : { "plan_label": "WPRD"      , "plan_uid": 177, "star": 1 }, 
                           "WPRDD"     : { "plan_label": "WPRDD"     , "plan_uid": 174, "star": 1 }
                         }, 
+                        "plan_label": "dev quantification script \"TIMOTHY\"", 
+                        "plan_uid": 157, 
                         "pledge": true, 
                         "reasonunits": {
                           ";amy45;jour_minute;": {
@@ -537,6 +800,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "Datawarehouse", 
+                    "plan_uid": 135, 
                     "star": 1
                   }, 
                   "IT DEPT general": {
@@ -575,8 +840,6 @@
                     "star": 1
                   }, 
                   "Synergy": {
-                    "plan_label": "Synergy", 
-                    "plan_uid": 140, 
                     "kids": {
                       "check for access": {
                         "plan_label": "check for access", 
@@ -596,6 +859,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "Synergy", 
+                    "plan_uid": 140, 
                     "reasonunits": {
                       ";amy45;jour_minute;": {
                         "cases": {
@@ -629,6 +894,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "IT DEPT regular hrs responsiblities", 
+                "plan_uid": 133, 
                 "pledge": true, 
                 "reasonunits": {
                   ";amy45;jour_minute;": {
@@ -645,6 +912,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "IT DEPT", 
+            "plan_uid": 101, 
             "reasonunits": {
               ";amy45;jour_minute;": {
                 "cases": {
@@ -660,39 +929,31 @@
             "star": 1
           }
         }, 
+        "plan_label": "ACME", 
+        "plan_uid": 100, 
         "star": 1
       }, 
       "Aaron Donald objects effected by him": {
         "is_expanded": false, 
-        "plan_label": "Aaron Donald objects effected by him", 
-        "plan_uid": 261, 
         "kids": {
           "compelling"    : { "plan_label": "compelling"    , "plan_uid": 262, "star": 1 }, 
           "not compelling": { "plan_label": "not compelling", "plan_uid": 263, "star": 1 }
         }, 
+        "plan_label": "Aaron Donald objects effected by him", 
+        "plan_uid": 261, 
         "star": 1
       }, 
       "Asset administration": {
         "is_expanded": false, 
-        "plan_label": "Asset administration", 
-        "plan_uid": 199, 
         "kids": {
           "American sovereignty": {
-            "plan_label": "American sovereignty", 
-            "plan_uid": 204, 
             "kids": {
               "portland sovereignty": {
-                "plan_label": "portland sovereignty", 
-                "plan_uid": 206, 
                 "kids": {
                   "downtown": {
                     "is_expanded": false, 
-                    "plan_label": "downtown", 
-                    "plan_uid": 207, 
                     "kids": {
                       "PSU Sports": {
-                        "plan_label": "PSU Sports", 
-                        "plan_uid": 210, 
                         "kids": {
                           "browsing": {
                             "plan_label": "browsing", 
@@ -747,6 +1008,8 @@
                             "star": 1
                           }
                         }, 
+                        "plan_label": "PSU Sports", 
+                        "plan_uid": 210, 
                         "reasonunits": {
                           ";amy45;Nation-States;": {
                             "cases": {
@@ -758,8 +1021,6 @@
                         "star": 1
                       }, 
                       "flats": {
-                        "plan_label": "flats", 
-                        "plan_uid": 208, 
                         "kids": {
                           "be reponsible for rent": {
                             "plan_label": "be reponsible for rent", 
@@ -792,8 +1053,6 @@
                             "star": 1
                           }, 
                           "go for parent_rope": {
-                            "plan_label": "go for parent_rope", 
-                            "plan_uid": 214, 
                             "kids": {
                               "maybe watch a video": {
                                 "plan_label": "maybe watch a video", 
@@ -809,6 +1068,8 @@
                                 "star": 1
                               }
                             }, 
+                            "plan_label": "go for parent_rope", 
+                            "plan_uid": 214, 
                             "reasonunits": {
                               ";amy45;Nation-States;": {
                                 "cases": {
@@ -833,6 +1094,8 @@
                             "star": 1
                           }
                         }, 
+                        "plan_label": "flats", 
+                        "plan_uid": 208, 
                         "reasonunits": {
                           ";amy45;Nation-States;": {
                             "cases": {
@@ -846,6 +1109,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "downtown", 
+                    "plan_uid": 207, 
                     "reasonunits": {
                       ";amy45;Nation-States;": {
                         "cases": {
@@ -857,6 +1122,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "portland sovereignty", 
+                "plan_uid": 206, 
                 "reasonunits": {
                   ";amy45;Nation-States;": {
                     "cases": {
@@ -881,6 +1148,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "American sovereignty", 
+            "plan_uid": 204, 
             "reasonunits": {
               ";amy45;Nation-States;": {
                 "cases": { ";amy45;Nation-States;USA": {"reason_state": ";amy45;Nation-States;USA"} }, 
@@ -903,15 +1172,17 @@
             "star": 1
           }
         }, 
+        "plan_label": "Asset administration", 
+        "plan_uid": 199, 
         "star": 1
       }, 
       "Bob Dylan": {
-        "plan_label": "Bob Dylan", 
-        "plan_uid": 269, 
         "kids": {
           "Aint me Babe"      : { "plan_label": "Aint me Babe"      , "plan_uid": 270, "star": 1 }, 
           "tangled up in blue": { "plan_label": "tangled up in blue", "plan_uid": 271, "star": 1 }
         }, 
+        "plan_label": "Bob Dylan", 
+        "plan_uid": 269, 
         "star": 1
       }, 
       "D&B": {
@@ -921,8 +1192,6 @@
           "America"       : { "awardee_title": "America"       , "give_force": 1.0, "take_force": 1.0 }
         }, 
         "is_expanded": false, 
-        "plan_label": "D&B", 
-        "plan_uid": 96, 
         "kids": {
           "Aarons friends are desperate for of housing support": {
             "awardunits": {
@@ -933,8 +1202,6 @@
               }
             }, 
             "is_expanded": false, 
-            "plan_label": "Aarons friends are desperate for of housing support", 
-            "plan_uid": 99, 
             "kids": {
               "Ask Chuck monthly what I can do": {
                 "awardunits": {
@@ -957,6 +1224,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "Aarons friends are desperate for of housing support", 
+            "plan_uid": 99, 
             "reasonunits": {
               ";amy45;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -971,8 +1240,6 @@
             "awardunits": {
               ";hurt by us dollar": {"awardee_title": ";hurt by us dollar", "give_force": 1.0, "take_force": 1.0}
             }, 
-            "plan_label": "develop D&B software", 
-            "plan_uid": 169, 
             "kids": {
               "test program": {
                 "plan_label": "test program", 
@@ -1003,6 +1270,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "develop D&B software", 
+            "plan_uid": 169, 
             "reasonunits": {
               ";amy45;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -1015,8 +1284,6 @@
           }, 
           "donate to pro-climate committees": {
             "is_expanded": false, 
-            "plan_label": "donate to pro-climate committees", 
-            "plan_uid": 167, 
             "kids": {
               "donate to influential people that are pro-Climate Death": {
                 "awardunits": {
@@ -1061,6 +1328,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "donate to pro-climate committees", 
+            "plan_uid": 167, 
             "reasonunits": {
               ";amy45;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -1087,8 +1356,6 @@
           }, 
           "sympathetic receptive": {
             "is_expanded": false, 
-            "plan_label": "sympathetic receptive", 
-            "plan_uid": 161, 
             "kids": {
               "sympathetic receptive to David": {
                 "awardunits": {
@@ -1098,8 +1365,6 @@
                     "take_force": 1.0
                   }
                 }, 
-                "plan_label": "sympathetic receptive to David", 
-                "plan_uid": 162, 
                 "kids": {
                   "be available for phone call": {
                     "awardunits": {
@@ -1176,6 +1441,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "sympathetic receptive to David", 
+                "plan_uid": 162, 
                 "reasonunits": {
                   ";amy45;Aaron Donald objects effected by him;": {
                     "cases": {
@@ -1187,6 +1454,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "sympathetic receptive", 
+            "plan_uid": 161, 
             "reasonunits": {
               ";amy45;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -1199,8 +1468,6 @@
           }, 
           "write letters to reps": {
             "is_expanded": false, 
-            "plan_label": "write letters to reps", 
-            "plan_uid": 165, 
             "kids": {
               "write letters about Climate Death to congressman": {
                 "awardunits": {
@@ -1223,6 +1490,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "write letters to reps", 
+            "plan_uid": 165, 
             "reasonunits": {
               ";amy45;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -1234,6 +1503,8 @@
             "star": 1
           }
         }, 
+        "plan_label": "D&B", 
+        "plan_uid": 96, 
         "reasonunits": {
           ";amy45;Aaron Donald objects effected by him;": {
             "cases": {
@@ -1246,8 +1517,6 @@
       }, 
       "Freelancing": {
         "is_expanded": false, 
-        "plan_label": "Freelancing", 
-        "plan_uid": 103, 
         "kids": {
           "Submit hrs on website": {
             "is_expanded": false, 
@@ -1273,6 +1542,8 @@
             "star": 1
           }
         }, 
+        "plan_label": "Freelancing", 
+        "plan_uid": 103, 
         "reasonunits": {
           ";amy45;jour_minute;": {
             "cases": {
@@ -1288,103 +1559,101 @@
         "star": 1
       }, 
       "Moods": {
-        "plan_label": "Moods", 
-        "plan_uid": 264, 
         "kids": {
           "Bllod Meridan by Cormac": {"plan_label": "Bllod Meridan by Cormac", "plan_uid": 265, "star": 1}, 
           "Happy": {
-            "plan_label": "Happy", 
-            "plan_uid": 266, 
             "kids": {
               "Happy - angerish": {"plan_label": "Happy - angerish", "plan_uid": 267, "star": 1}
             }, 
+            "plan_label": "Happy", 
+            "plan_uid": 266, 
             "star": 1
           }, 
           "hungry": {"plan_label": "hungry", "plan_uid": 268, "star": 1}
         }, 
+        "plan_label": "Moods", 
+        "plan_uid": 264, 
         "star": 1
       }, 
       "Nation-States": {
-        "plan_label": "Nation-States", 
-        "plan_uid": 234, 
         "kids": {
           "France2": {"plan_label": "France2", "plan_uid": 235, "star": 1}, 
           "USA": {
-            "plan_label": "USA", 
-            "plan_uid": 236, 
             "kids": {
               "Portland OR": {
-                "plan_label": "Portland OR", 
-                "plan_uid": 237, 
                 "kids": {
                   "Downtown": {
-                    "plan_label": "Downtown", 
-                    "plan_uid": 239, 
                     "kids": {
                       "Northfield Apt": {
-                        "plan_label": "Northfield Apt", 
-                        "plan_uid": 245, 
                         "kids": {
                           "10th floor gaarden": { "plan_label": "10th floor gaarden", "plan_uid": 246, "star": 1 }, 
                           "Apt X4XX"          : { "plan_label": "Apt X4XX"          , "plan_uid": 247, "star": 1 }, 
                           "Gym"               : { "plan_label": "Gym"               , "plan_uid": 248, "star": 1 }, 
                           "workspace"         : { "plan_label": "workspace"         , "plan_uid": 249, "star": 1 }
                         }, 
+                        "plan_label": "Northfield Apt", 
+                        "plan_uid": 245, 
                         "star": 1
                       }, 
                       "PSU": {
-                        "plan_label": "PSU", 
-                        "plan_uid": 240, 
                         "kids": {
                           "Park Squares": { "plan_label": "Park Squares", "plan_uid": 241, "star": 1 }, 
                           "Pool"        : { "plan_label": "Pool"        , "plan_uid": 242, "star": 1 }, 
                           "Stott Field" : { "plan_label": "Stott Field" , "plan_uid": 243, "star": 1 }, 
                           "library"     : { "plan_label": "library"     , "plan_uid": 244, "star": 1 }
                         }, 
+                        "plan_label": "PSU", 
+                        "plan_uid": 240, 
                         "star": 1
                       }
                     }, 
+                    "plan_label": "Downtown", 
+                    "plan_uid": 239, 
                     "star": 1
                   }
                 }, 
+                "plan_label": "Portland OR", 
+                "plan_uid": 237, 
                 "star": 1
               }, 
               "Texas": {"plan_label": "Texas", "plan_uid": 238, "star": 1}
             }, 
+            "plan_label": "USA", 
+            "plan_uid": 236, 
             "star": 1
           }
         }, 
+        "plan_label": "Nation-States", 
+        "plan_uid": 234, 
         "star": 1
       }, 
       "No Movie playing": {
         "is_expanded": false, 
-        "plan_label": "No Movie playing", 
-        "plan_uid": 272, 
         "kids": {
           "Big Lewbwski"     : { "plan_label": "Big Lewbwski"     , "plan_uid": 273, "star": 1 }, 
           "Jedi Movie eps IV": { "plan_label": "Jedi Movie eps IV", "plan_uid": 274, "star": 1 }
         }, 
+        "plan_label": "No Movie playing", 
+        "plan_uid": 272, 
         "star": 1
       }, 
       "Seasons": {
+        "kids": { "Summer": {"plan_label": "Summer", "plan_uid": 276, "star": 1} }, 
         "plan_label": "Seasons", 
         "plan_uid": 275, 
-        "kids": { "Summer": {"plan_label": "Summer", "plan_uid": 276, "star": 1} }, 
         "star": 1
       }, 
       "Tired Situation": {
-        "plan_label": "Tired Situation", 
-        "plan_uid": 277, 
         "kids": {
           "Not tired": { "plan_label": "Not tired", "plan_uid": 278, "star": 1 }, 
           "Tired"    : { "plan_label": "Tired"    , "plan_uid": 279, "star": 1 }
         }, 
+        "plan_label": "Tired Situation", 
+        "plan_uid": 277, 
         "star": 1
       }, 
       "Ultimate Frisbee": {
         "is_expanded": false, 
-        "plan_label": "Ultimate Frisbee", 
-        "plan_uid": 200, 
         "kids": {
           "check on m33": {
             "plan_label": "check on m33", 
@@ -1411,8 +1680,6 @@
             "star": 1
           }, 
           "playing ultimate": {
-            "plan_label": "playing ultimate", 
-            "plan_uid": 201, 
             "kids": {
               "check PSU mini": {
                 "plan_label": "check PSU mini", 
@@ -1426,6 +1693,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "playing ultimate", 
+            "plan_uid": 201, 
             "reasonunits": {
               ";amy45;Moods;": {
                 "cases": { ";amy45;Moods;Happy": {"reason_state": ";amy45;Moods;Happy"} }, 
@@ -1448,6 +1717,8 @@
             "star": 1
           }
         }, 
+        "plan_label": "Ultimate Frisbee", 
+        "plan_uid": 200, 
         "reasonunits": {
           ";amy45;Moods;": {
             "cases": { ";amy45;Moods;Happy": {"reason_state": ";amy45;Moods;Happy"} }, 
@@ -1458,12 +1729,8 @@
       }, 
       "Water Living": {
         "is_expanded": false, 
-        "plan_label": "Water Living", 
-        "plan_uid": 223, 
         "kids": {
           "Swimming in Williamette watershed": {
-            "plan_label": "Swimming in Williamette watershed", 
-            "plan_uid": 225, 
             "kids": {
               "Go climbing at east Circuit": {
                 "plan_label": "Go climbing at east Circuit", 
@@ -1511,6 +1778,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "Swimming in Williamette watershed", 
+            "plan_uid": 225, 
             "reasonunits": {
               ";amy45;WaterExistence;": {
                 "cases": {
@@ -1522,55 +1791,53 @@
             "star": 1
           }
         }, 
+        "plan_label": "Water Living", 
+        "plan_uid": 223, 
         "star": 1
       }, 
       "WaterExistence": {
-        "plan_label": "WaterExistence", 
-        "plan_uid": 256, 
         "kids": {
           "Williamette WaterShed": {
-            "plan_label": "Williamette WaterShed", 
-            "plan_uid": 257, 
             "kids": {
               "East Side of Watershed": {
+                "kids": { "flat": {"plan_label": "flat", "plan_uid": 260, "star": 1} }, 
                 "plan_label": "East Side of Watershed", 
                 "plan_uid": 258, 
-                "kids": { "flat": {"plan_label": "flat", "plan_uid": 260, "star": 1} }, 
                 "star": 1
               }, 
               "West side of Watershed": {"plan_label": "West side of Watershed", "plan_uid": 259, "star": 1}
             }, 
+            "plan_label": "Williamette WaterShed", 
+            "plan_uid": 257, 
             "star": 1
           }
         }, 
+        "plan_label": "WaterExistence", 
+        "plan_uid": 256, 
         "star": 1
       }, 
       "Websites": {
         "is_expanded": false, 
-        "plan_label": "Websites", 
-        "plan_uid": 250, 
         "kids": {
           "AOL AIM": {
+            "kids": { "PSU Ultimate": {"plan_label": "PSU Ultimate", "plan_uid": 254, "star": 1} }, 
             "plan_label": "AOL AIM", 
             "plan_uid": 253, 
-            "kids": { "PSU Ultimate": {"plan_label": "PSU Ultimate", "plan_uid": 254, "star": 1} }, 
             "star": 1
           }, 
           "Faaceboook": {"plan_label": "Faaceboook", "plan_uid": 251, "star": 1}, 
           "Github": {"plan_label": "Github", "plan_uid": 252, "star": 1}, 
           "YahooVideo": {"plan_label": "YahooVideo", "plan_uid": 255, "star": 1}
         }, 
+        "plan_label": "Websites", 
+        "plan_uid": 250, 
         "star": 1
       }, 
       "casa": {
         "is_expanded": false, 
-        "plan_label": "casa", 
-        "plan_uid": 2, 
         "kids": {
           "Boring Ops": {
             "is_expanded": false, 
-            "plan_label": "Boring Ops", 
-            "plan_uid": 148, 
             "kids": {
               "be reponsible for rent": {
                 "awardunits": {
@@ -1673,6 +1940,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "Boring Ops", 
+            "plan_uid": 148, 
             "star": 1
           }, 
           "Housing": {
@@ -1680,32 +1949,24 @@
               ";MerVista Apt": {"awardee_title": ";MerVista Apt", "give_force": 1.0, "take_force": 1.0}
             }, 
             "is_expanded": false, 
-            "plan_label": "Housing", 
-            "plan_uid": 180, 
             "kids": {
               "Bike Garage": {"plan_label": "Bike Garage", "plan_uid": 185, "star": 1}, 
               "Bike Gym": {"plan_label": "Bike Gym", "plan_uid": 184, "star": 1}, 
               "Flat": {
-                "plan_label": "Flat", 
-                "plan_uid": 181, 
                 "kids": {
                   "bathroom #2": {"plan_label": "bathroom #2", "plan_uid": 196, "star": 1}, 
                   "bedroom #1": {
-                    "plan_label": "bedroom #1", 
-                    "plan_uid": 191, 
                     "kids": {
                       "big bathroom": { "plan_label": "big bathroom", "plan_uid": 195, "star": 1 }, 
                       "closet"      : { "plan_label": "closet"      , "plan_uid": 194, "star": 1 }
                     }, 
+                    "plan_label": "bedroom #1", 
+                    "plan_uid": 191, 
                     "star": 1
                   }, 
                   "bedroom #2": {
-                    "plan_label": "bedroom #2", 
-                    "plan_uid": 192, 
                     "kids": {
                       "bed area": {
-                        "plan_label": "bed area", 
-                        "plan_uid": 197, 
                         "kids": {
                           "heater maintenance": {
                             "awardunits": {
@@ -1716,10 +1977,14 @@
                             "star": 1
                           }
                         }, 
+                        "plan_label": "bed area", 
+                        "plan_uid": 197, 
                         "star": 1
                       }, 
                       "closet": {"plan_label": "closet", "plan_uid": 193, "star": 1}
                     }, 
+                    "plan_label": "bedroom #2", 
+                    "plan_uid": 192, 
                     "star": 1
                   }, 
                   "cuisine": {"plan_label": "cuisine", "plan_uid": 189, "star": 1}, 
@@ -1727,12 +1992,16 @@
                   "maintenance": {"plan_label": "maintenance", "plan_uid": 187, "star": 1}, 
                   "nursery": {"plan_label": "nursery", "plan_uid": 188, "star": 1}
                 }, 
+                "plan_label": "Flat", 
+                "plan_uid": 181, 
                 "star": 1
               }, 
               "Lifting Gym": {"plan_label": "Lifting Gym", "plan_uid": 183, "star": 1}, 
               "Playing in nurserys": {"plan_label": "Playing in nurserys", "plan_uid": 186, "star": 1}, 
               "Pool": {"plan_label": "Pool", "plan_uid": 182, "star": 1}
             }, 
+            "plan_label": "Housing", 
+            "plan_uid": 180, 
             "star": 1
           }, 
           "call high school friend": {
@@ -1782,8 +2051,6 @@
           }, 
           "cleaning": {
             "is_expanded": false, 
-            "plan_label": "cleaning", 
-            "plan_uid": 146, 
             "kids": {
               "check cat water": {
                 "awardunits": {
@@ -2518,6 +2785,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "cleaning", 
+            "plan_uid": 146, 
             "reasonunits": {
               ";amy45;Nation-States;": {
                 "cases": {
@@ -2531,8 +2800,6 @@
             "star": 1
           }, 
           "exercise": {
-            "plan_label": "exercise", 
-            "plan_uid": 147, 
             "kids": {
               "5 push-ups": {
                 "awardunits": {
@@ -2638,8 +2905,6 @@
                   ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1.0}
                 }, 
                 "is_expanded": false, 
-                "plan_label": "daily exercise 20min", 
-                "plan_uid": 67, 
                 "kids": {
                   "I do not be desperate for of I have to exercise": {
                     "plan_label": "I do not be desperate for of I have to exercise", 
@@ -2659,6 +2924,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "daily exercise 20min", 
+                "plan_uid": 67, 
                 "pledge": true, 
                 "reasonunits": {
                   ";amy45;jour_minute;": {
@@ -2724,8 +2991,6 @@
                 "star": 1
               }, 
               "full traaining": {
-                "plan_label": "full traaining", 
-                "plan_uid": 81, 
                 "kids": {
                   "bike or stuff": {
                     "awardunits": {
@@ -2757,8 +3022,6 @@
                       ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1.0}
                     }, 
                     "is_expanded": false, 
-                    "plan_label": "chest and arms (mon)", 
-                    "plan_uid": 84, 
                     "kids": {
                       "bi and triceps exercises": {
                         "is_expanded": false, 
@@ -2773,6 +3036,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "chest and arms (mon)", 
+                    "plan_uid": 84, 
                     "pledge": true, 
                     "reasonunits": {
                       ";amy45;jour_minute;": {
@@ -2858,10 +3123,13 @@
                       ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1.0}
                     }, 
                     "is_expanded": false, 
-                    "plan_label": "shoulders and back", 
-                    "plan_uid": 82, 
                     "kids": {
-                      "back exercises": {"is_expanded": false, "plan_label": "back exercises", "plan_uid": 132, "star": 1}, 
+                      "back exercises": {
+                        "is_expanded": false, 
+                        "plan_label": "back exercises", 
+                        "plan_uid": 132, 
+                        "star": 1
+                      }, 
                       "shoulder exercises": {
                         "is_expanded": false, 
                         "plan_label": "shoulder exercises", 
@@ -2869,6 +3137,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "shoulders and back", 
+                    "plan_uid": 82, 
                     "pledge": true, 
                     "reasonunits": {
                       ";amy45;jour_minute;": {
@@ -2914,6 +3184,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "full traaining", 
+                "plan_uid": 81, 
                 "star": 1
               }, 
               "morning multivitamin": {
@@ -3030,6 +3302,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "exercise", 
+            "plan_uid": 147, 
             "star": 1
           }, 
           "keep up with friends": {
@@ -3046,8 +3320,6 @@
           }, 
           "responsible for kids": {
             "is_expanded": false, 
-            "plan_label": "responsible for kids", 
-            "plan_uid": 144, 
             "kids": {
               "clip fingernails": {
                 "awardunits": {
@@ -3154,6 +3426,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "responsible for kids", 
+            "plan_uid": 144, 
             "reasonunits": {
               ";amy45;Nation-States;": {
                 "cases": {
@@ -3192,6 +3466,8 @@
             "star": 1
           }
         }, 
+        "plan_label": "casa", 
+        "plan_uid": 2, 
         "star": 1
       }, 
       "ced_jour": {"begin": 0, "close": 80000, "plan_label": "ced_jour", "star": 40}, 
@@ -3216,7 +3492,6 @@
       "month_wk": {
         "begin": 1, 
         "close": 5, 
-        "plan_label": "month_wk", 
         "kids": {
           "1st wk": { "gogo_want": 1, "plan_label": "1st wk", "star": 40, "stop_want": 2 }, 
           "2nd wk": { "gogo_want": 2, "plan_label": "2nd wk", "star": 40, "stop_want": 3 }, 
@@ -3224,10 +3499,10 @@
           "4th wk": { "gogo_want": 4, "plan_label": "4th wk", "star": 40, "stop_want": 5 }, 
           "5th wk": { "gogo_want": 5, "plan_label": "5th wk", "star": 40, "stop_want": 6 }
         }, 
+        "plan_label": "month_wk", 
         "star": 40
       }, 
       "sem_jours": {
-        "plan_label": "sem_jours", 
         "kids": {
           "Fri" : { "plan_label": "Fri" , "star": 40 }, 
           "Mon" : { "plan_label": "Mon" , "star": 20 }, 
@@ -3237,12 +3512,12 @@
           "Tue" : { "plan_label": "Tue" , "star": 20 }, 
           "Wed" : { "plan_label": "Wed" , "star": 20 }
         }, 
+        "plan_label": "sem_jours", 
         "star": 40
       }, 
       "yr_month": {
         "begin": 1, 
         "close": 13, 
-        "plan_label": "yr_month", 
         "kids": {
           "April"    : { "gogo_want":  4, "plan_label": "April"    , "star": 40, "stop_want":  5 }, 
           "August"   : { "gogo_want":  8, "plan_label": "August"   , "star": 40, "stop_want":  9 }, 
@@ -3257,284 +3532,14 @@
           "October"  : { "gogo_want": 10, "plan_label": "October"  , "star": 40, "stop_want": 11 }, 
           "September": { "gogo_want":  9, "plan_label": "September", "star": 40, "stop_want": 10 }
         }, 
+        "plan_label": "yr_month", 
         "star": 40
       }, 
       "yr_wk": {"begin": 0, "close": 52, "plan_label": "yr_wk", "star": 40}
     }, 
+    "plan_label": "amy45", 
+    "plan_uid": 1, 
     "star": 1
   }, 
-  "knot": ";", 
-  "mana_grain": 1, 
-  "max_tree_traverse": 2, 
-  "partners": {
-    "A a ron Jones": {
-      "memberships": {
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
-        "A a ron Jones": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "A a ron Jones" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "A a ron Jones"
-    }, 
-    "America": {
-      "memberships": {
-        ";Everyone": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
-        ";Family"  : { "group_cred_lumen": 6.45, "group_debt_lumen": 1, "group_title": ";Family"   }, 
-        ";Friends" : { "group_cred_lumen": 6.10, "group_debt_lumen": 1, "group_title": ";Friends"  }, 
-        "America"  : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "America"   }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "America"
-    }, 
-    "Anna": {
-      "memberships": {
-        ";Everyone": { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
-        ";Family"  : { "group_cred_lumen": 6.2, "group_debt_lumen": 1, "group_title": ";Family"   }, 
-        "Anna"     : { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": "Anna"      }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Anna"
-    }, 
-    "Benjamin Stoddert": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";ACME General": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Benjamin Stoddert": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": "Benjamin Stoddert"
-        }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Benjamin Stoddert"
-    }, 
-    "Bob302": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 6.25, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        "Bob302": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Bob302"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Bob302"
-    }, 
-    "Chuck Lee": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Chuck Lee"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Chuck Lee"     }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Chuck Lee"
-    }, 
-    "Ernesto Chavez": {
-      "memberships": {
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Philosophy": {"group_cred_lumen": 6.5, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
-        "Ernesto Chavez": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Ernesto Chavez"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Ernesto Chavez"
-    }, 
-    "Jacque Chirac": {
-      "memberships": {
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
-        "Jacque Chirac": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jacque Chirac" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Jacque Chirac"
-    }, 
-    "Jane Randolph": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Jane Randolph": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jane Randolph" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Jane Randolph"
-    }, 
-    "Maria Reynolds": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 6.75, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Maria Reynolds": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Maria Reynolds"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Maria Reynolds"
-    }, 
-    "Martha Doubs": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Martha Doubs" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Martha Doubs"  }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Martha Doubs"
-    }, 
-    "Mikayla": {
-      "memberships": {
-        ";ACME DevOps": { "group_cred_lumen": 10, "group_debt_lumen": 1, "group_title": ";ACME DevOps" }, 
-        ";Everyone"   : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Everyone"    }, 
-        ";Philosophy" : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Philosophy"  }, 
-        "Mikayla"     : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": "Mikayla"      }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Mikayla"
-    }, 
-    "Norberto": {
-      "memberships": {
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
-        "Norberto"     : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Norberto"      }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Norberto"
-    }, 
-    "Perrison": {
-      "memberships": {
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Friends": {"group_cred_lumen": 6.4, "group_debt_lumen": 1, "group_title": ";Friends"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 5, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        "Perrison": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Perrison"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Perrison"
-    }, 
-    "Philipa": {
-      "memberships": {
-        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Philosophy": {"group_cred_lumen": 52, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
-        "Philipa": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Philipa"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Philipa"
-    }, 
-    "Prashant": {
-      "memberships": {
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 2, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        "Prashant": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Prashant"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Prashant"
-    }, 
-    "Renee Elise Goldsberry": {
-      "memberships": {
-        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Friends": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Friends"}, 
-        ";People who identify by UTEP": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";People who identify by UTEP"
-        }, 
-        ";Philosophy": {"group_cred_lumen": 3, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
-        ";SHOW ME2": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";SHOW ME2"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        ";hurt by us dollar": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";hurt by us dollar"
-        }, 
-        "Renee Elise Goldsberry": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": "Renee Elise Goldsberry"
-        }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Renee Elise Goldsberry"
-    }, 
-    "Sam zamora": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Sam zamora"   : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Sam zamora"    }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Sam zamora"
-    }, 
-    "Shadwell Harris": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Shadwell Harris": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Shadwell Harris"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Shadwell Harris"
-    }, 
-    "Thomas OSU": {
-      "memberships": {
-        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Thomas OSU": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Thomas OSU"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Thomas OSU"
-    }, 
-    "Travis Fox": {
-      "memberships": {
-        ";Everyone" : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone"  }, 
-        ";Family"   : { "group_cred_lumen": 6.35, "group_debt_lumen": 1, "group_title": ";Family"    }, 
-        "Travis Fox": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "Travis Fox" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Travis Fox"
-    }, 
-    "WIlliam Wellace": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "WIlliam Wellace": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "WIlliam Wellace"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "WIlliam Wellace"
-    }
-  }, 
-  "person_name": "Yao", 
   "respect_grain": 1
 }

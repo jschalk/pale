@@ -2,9 +2,9 @@
   "attributes": {
     "face_name"        : { "otx_key": true }, 
     "healer_name_ERASE": { "otx_key": true }, 
-    "plan_rope"         : { "otx_key": true }, 
     "moment_rope"      : { "otx_key": true }, 
-    "person_name"        : { "otx_key": true }, 
+    "person_name"      : { "otx_key": true }, 
+    "plan_rope"        : { "otx_key": true }, 
     "spark_num"        : { "otx_key": true }
   }, 
   "dimens": ["momentunit", "personunit", "person_planunit", "person_plan_healerunit"], 

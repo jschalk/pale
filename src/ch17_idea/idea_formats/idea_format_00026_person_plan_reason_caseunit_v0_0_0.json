@@ -1,9 +1,9 @@
 {
   "attributes": {
     "face_name"     : { "otx_key": true  }, 
-    "plan_rope"      : { "otx_key": true  }, 
     "moment_rope"   : { "otx_key": true  }, 
-    "person_name"     : { "otx_key": true  }, 
+    "person_name"   : { "otx_key": true  }, 
+    "plan_rope"     : { "otx_key": true  }, 
     "reason_context": { "otx_key": true  }, 
     "reason_divisor": { "otx_key": false }, 
     "reason_lower"  : { "otx_key": false }, 

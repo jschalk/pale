@@ -8,7 +8,7 @@
     "mana_grain"       : { "otx_key": false }, 
     "max_tree_traverse": { "otx_key": false }, 
     "moment_rope"      : { "otx_key": true  }, 
-    "person_name"        : { "otx_key": true  }, 
+    "person_name"      : { "otx_key": true  }, 
     "respect_grain"    : { "otx_key": false }, 
     "spark_num"        : { "otx_key": true  }
   }, 
