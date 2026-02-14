@@ -118,7 +118,7 @@ class is_RopeTermException(Exception):
 class PersonUnit:
     person_name: PersonName = None
     partners: dict[PartnerName, PartnerUnit] = None
-    planroot: PlanUnit = None  # planroot.get_rope defines plan_root_rope
+    planroot: PlanUnit = None  # planroot.get_rope defines planroot_rope
     knot: KnotTerm = None  # often must defined by creator class
     fund_pool: FundNum = None  # often must defined by creator class
     fund_grain: FundGrain = None  # often must defined by creator class
@@ -1442,7 +1442,7 @@ reason_case:    {reason_case}"""
 
 def personunit_shop(
     person_name: PersonName = None,
-    plan_root_rope: RopeTerm = None,
+    planroot_rope: RopeTerm = None,
     knot: KnotTerm = None,
     fund_pool: FundNum = None,
     fund_grain: FundGrain = None,
@@ -1451,11 +1451,9 @@ def personunit_shop(
 ) -> PersonUnit:
     knot = default_knot_if_None(knot)
     person_name = "" if person_name is None else person_name
-    plan_root_rope = (
-        get_default_rope(knot) if plan_root_rope is None else plan_root_rope
-    )
-    if is_labelterm(plan_root_rope, knot):
-        exception_str = f"Person '{person_name}' cannot set plan_root_rope='{plan_root_rope}' where knot='{knot}'"
+    planroot_rope = get_default_rope(knot) if planroot_rope is None else planroot_rope
+    if is_labelterm(planroot_rope, knot):
+        exception_str = f"Person '{person_name}' cannot set planroot_rope='{planroot_rope}' where knot='{knot}'"
         raise is_RopeTermException(exception_str)
     x_person = PersonUnit(
         person_name=person_name,
@@ -1479,12 +1477,12 @@ def personunit_shop(
         range_inheritors={},
     )
     x_person.planroot = planunit_shop(
-        plan_label=get_tail_label(plan_root_rope, knot),
+        plan_label=get_tail_label(planroot_rope, knot),
         plan_uid=1,
         tree_level=0,
         knot=x_person.knot,
         fund_grain=x_person.fund_grain,
-        parent_rope=get_parent_rope(plan_root_rope, knot),
+        parent_rope=get_parent_rope(planroot_rope, knot),
     )
     x_person.set_max_tree_traverse(3)
     x_person.rational = False

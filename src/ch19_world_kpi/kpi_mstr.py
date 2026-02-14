@@ -81,8 +81,8 @@ def create_calendar_markdown_files(moment_mstr_dir: str, output_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_calendar_md_path = create_path(output_dir, f"{moment_label}_calendar.md")
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, person_lasso)
         moment_epochholder = get_moment_epochholder(x_momentunit)
         moment_year_num = moment_epochholder._year_num
         moment_epoch_config = x_momentunit.epoch.to_dict()

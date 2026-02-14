@@ -8,17 +8,17 @@ def create_moment_mstr_path(world_dir: str) -> str:
     return create_path(world_dir, "moment_mstr")
 
 
-def create_moment_ote1_csv_path(moment_mstr_dir: str, moment_lasso: LassoUnit) -> str:
+def create_moment_ote1_csv_path(moment_mstr_dir: str, person_lasso: LassoUnit) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_rope\\moment_ote1_agg.csv"""
     moments_dir = create_path(moment_mstr_dir, "moments")
-    moment_path = create_path(moments_dir, moment_lasso.make_path())
+    moment_path = create_path(moments_dir, person_lasso.make_path())
     return create_path(moment_path, "moment_ote1_agg.csv")
 
 
-def create_moment_ote1_json_path(moment_mstr_dir: str, moment_lasso: LassoUnit) -> str:
+def create_moment_ote1_json_path(moment_mstr_dir: str, person_lasso: LassoUnit) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_rope\\moment_ote1_agg.json"""
     moments_dir = create_path(moment_mstr_dir, "moments")
-    moment_path = create_path(moments_dir, moment_lasso.make_path())
+    moment_path = create_path(moments_dir, person_lasso.make_path())
     return create_path(moment_path, "moment_ote1_agg.json")
 
 

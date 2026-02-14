@@ -182,8 +182,8 @@ def test_create_world_db_path_ReturnsObj():
 
 def test_create_moment_ote1_csv_path_HasDocString():
     # ESTABLISH
-    moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
-    doc_str = create_moment_ote1_csv_path("moment_mstr_dir", moment_lasso)
+    person_lasso = lassounit_shop(create_rope(kw.moment_rope))
+    doc_str = create_moment_ote1_csv_path("moment_mstr_dir", person_lasso)
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
     assert LINUX_OS or inspect_getdoc(create_moment_ote1_csv_path) == doc_str
@@ -191,8 +191,8 @@ def test_create_moment_ote1_csv_path_HasDocString():
 
 def test_create_moment_ote1_json_path_HasDocString():
     # ESTABLISH
-    moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
-    doc_str = create_moment_ote1_json_path("moment_mstr_dir", moment_lasso)
+    person_lasso = lassounit_shop(create_rope(kw.moment_rope))
+    doc_str = create_moment_ote1_json_path("moment_mstr_dir", person_lasso)
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
     assert LINUX_OS or inspect_getdoc(create_moment_ote1_json_path) == doc_str

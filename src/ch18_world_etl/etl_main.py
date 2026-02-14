@@ -622,8 +622,8 @@ def etl_heard_vld_tables_to_moment_jsons(cursor: sqlite3_Cursor, moment_mstr_dir
     for moment_label_set in cursor.fetchall():
         moment_label = moment_label_set[0]
         moment_dict = get_moment_dict_from_heard_tables(cursor, moment_label)
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        moment_json_path = create_moment_json_path(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        moment_json_path = create_moment_json_path(moment_mstr_dir, person_lasso)
         save_json(moment_json_path, None, moment_dict)
 
 
@@ -696,8 +696,8 @@ def etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs(
 """
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        ote1_csv_path = create_moment_ote1_csv_path(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        ote1_csv_path = create_moment_ote1_csv_path(moment_mstr_dir, person_lasso)
         save_file(ote1_csv_path, None, empty_ote1_csv_str)
 
     save_to_split_csvs(
@@ -709,8 +709,8 @@ def etl_moment_ote1_agg_csvs_to_jsons(moment_mstr_dir: str):
     idea_types = get_idea_sqlite_types()
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        csv_path = create_moment_ote1_csv_path(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        csv_path = create_moment_ote1_csv_path(moment_mstr_dir, person_lasso)
         csv_arrays = open_csv_with_types(csv_path, idea_types)
         x_dict = {}
         header_row = csv_arrays.pop(0)
@@ -722,7 +722,7 @@ def etl_moment_ote1_agg_csvs_to_jsons(moment_mstr_dir: str):
                 x_dict[person_name] = {}
             person_dict = x_dict.get(person_name)
             person_dict[int(bud_time)] = spark_num
-        json_path = create_moment_ote1_json_path(moment_mstr_dir, moment_lasso)
+        json_path = create_moment_ote1_json_path(moment_mstr_dir, person_lasso)
         save_json(json_path, None, x_dict)
 
 
@@ -730,47 +730,47 @@ def etl_create_buds_root_cells(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_dir = create_path(moments_dir, moment_label)
-        moment_lasso = lassounit_shop(create_rope(moment_label))
+        person_lasso = lassounit_shop(create_rope(moment_label))
         ote1_json_path = create_path(moment_dir, "moment_ote1_agg.json")
         if os_path_exists(ote1_json_path):
             ote1_dict = open_json(ote1_json_path)
-            x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+            x_momentunit = get_default_path_momentunit(moment_mstr_dir, person_lasso)
             x_momentunit.create_buds_root_cells(ote1_dict)
 
 
 def etl_create_moment_cell_trees(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        create_moment_persons_cell_trees(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        create_moment_persons_cell_trees(moment_mstr_dir, person_lasso)
 
 
 def etl_set_cell_trees_found_facts(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        set_cell_trees_found_facts(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        set_cell_trees_found_facts(moment_mstr_dir, person_lasso)
 
 
 def etl_set_cell_trees_decrees(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        set_cell_trees_decrees(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        set_cell_trees_decrees(moment_mstr_dir, person_lasso)
 
 
 def etl_set_cell_tree_cell_mandates(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        set_cell_tree_cell_mandates(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        set_cell_tree_cell_mandates(moment_mstr_dir, person_lasso)
 
 
 def etl_create_bud_mandate_ledgers(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        create_bud_mandate_ledgers(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        create_bud_mandate_ledgers(moment_mstr_dir, person_lasso)
 
 
 def etl_heard_vld_to_spark_person_csvs(
@@ -793,8 +793,8 @@ def etl_heard_vld_to_spark_person_csvs(
 def etl_spark_person_csvs_to_lesson_json(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        moment_path = create_path(moments_dir, moment_lasso.make_path())
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        moment_path = create_path(moments_dir, person_lasso.make_path())
         persons_path = create_path(moment_path, "persons")
         for person_name in get_level1_dirs(persons_path):
             person_path = create_path(persons_path, person_name)
@@ -803,13 +803,13 @@ def etl_spark_person_csvs_to_lesson_json(moment_mstr_dir: str):
                 spark_lesson = lessonunit_shop(
                     person_name=person_name,
                     face_name=None,
-                    moment_rope=moment_lasso.moment_rope,
+                    moment_rope=person_lasso.moment_rope,
                     spark_num=spark_num,
                 )
                 spark_dir = create_path(sparks_path, spark_num)
                 add_personatoms_from_csv(spark_lesson, spark_dir)
                 spark_all_lesson_path = create_spark_all_lesson_path(
-                    moment_mstr_dir, moment_lasso, person_name, spark_num
+                    moment_mstr_dir, person_lasso, person_name, spark_num
                 )
                 save_json(
                     spark_all_lesson_path,
@@ -869,7 +869,7 @@ def etl_spark_lesson_json_to_spark_inherited_personunits(moment_mstr_dir: str):
     for moment_label in get_level1_dirs(moments_dir):
         moment_path = create_path(moments_dir, moment_label)
         moment_rope = create_rope(moment_label)
-        moment_lasso = lassounit_shop(moment_rope)
+        person_lasso = lassounit_shop(moment_rope)
         persons_dir = create_path(moment_path, "persons")
         for person_name in get_level1_dirs(persons_dir):
             person_dir = create_path(persons_dir, person_name)
@@ -878,7 +878,7 @@ def etl_spark_lesson_json_to_spark_inherited_personunits(moment_mstr_dir: str):
             for spark_num in get_level1_dirs(sparks_dir):
                 prev_spark_num = create_lesson_json_and_get_spark_num(
                     moment_mstr_dir,
-                    moment_lasso,
+                    person_lasso,
                     person_name,
                     prev_spark_num,
                     spark_num,
@@ -886,20 +886,20 @@ def etl_spark_lesson_json_to_spark_inherited_personunits(moment_mstr_dir: str):
 
 
 def create_lesson_json_and_get_spark_num(
-    moment_mstr_dir, moment_lasso, person_name, prev_spark_num, spark_num
+    moment_mstr_dir, person_lasso, person_name, prev_spark_num, spark_num
 ):
     prev_person = _get_prev_spark_num_personunit(
-        moment_mstr_dir, moment_lasso, person_name, prev_spark_num
+        moment_mstr_dir, person_lasso, person_name, prev_spark_num
     )
     personspark_path = create_personspark_path(
-        moment_mstr_dir, moment_lasso, person_name, spark_num
+        moment_mstr_dir, person_lasso, person_name, spark_num
     )
     spark_dir = create_person_spark_dir_path(
-        moment_mstr_dir, moment_lasso, person_name, spark_num
+        moment_mstr_dir, person_lasso, person_name, spark_num
     )
 
     spark_all_lesson_path = create_spark_all_lesson_path(
-        moment_mstr_dir, moment_lasso, person_name, spark_num
+        moment_mstr_dir, person_lasso, person_name, spark_num
     )
     spark_lesson = get_lessonunit_from_dict(open_json(spark_all_lesson_path))
     sift_delta = get_minimal_persondelta(spark_lesson._persondelta, prev_person)
@@ -916,12 +916,12 @@ def create_lesson_json_and_get_spark_num(
 
 
 def _get_prev_spark_num_personunit(
-    moment_mstr_dir, moment_lasso: LassoUnit, person_name, prev_spark_num
+    moment_mstr_dir, person_lasso: LassoUnit, person_name, prev_spark_num
 ) -> PersonUnit:
     if prev_spark_num is None:
-        return personunit_shop(person_name, moment_lasso.moment_rope)
+        return personunit_shop(person_name, person_lasso.moment_rope)
     prev_personspark_path = create_personspark_path(
-        moment_mstr_dir, moment_lasso, person_name, prev_spark_num
+        moment_mstr_dir, person_lasso, person_name, prev_spark_num
     )
     return open_person_file(prev_personspark_path)
 
@@ -929,31 +929,31 @@ def _get_prev_spark_num_personunit(
 def etl_spark_inherited_personunits_to_moment_gut(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        person_sparks = collect_person_spark_dir_sets(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        person_sparks = collect_person_spark_dir_sets(moment_mstr_dir, person_lasso)
         persons_max_spark_num_dict = get_persons_downhill_spark_nums(person_sparks)
         for person_name, max_spark_num in persons_max_spark_num_dict.items():
             max_personspark_path = create_personspark_path(
-                moment_mstr_dir, moment_lasso, person_name, max_spark_num
+                moment_mstr_dir, person_lasso, person_name, max_spark_num
             )
             max_spark_person_json = open_file(max_personspark_path)
-            gut_path = create_gut_path(moment_mstr_dir, moment_lasso, person_name)
+            gut_path = create_gut_path(moment_mstr_dir, person_lasso, person_name)
             save_file(gut_path, None, max_spark_person_json)
 
 
 def add_moment_epoch_to_guts(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, person_lasso)
         x_momentunit.add_epoch_to_guts()
 
 
 def etl_moment_guts_to_moment_jobs(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, person_lasso)
         x_momentunit.generate_all_jobs()
 
 
@@ -962,11 +962,11 @@ def etl_moment_job_jsons_to_job_tables(cursor: sqlite3_Cursor, moment_mstr_dir: 
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_rope = create_rope(moment_label)
-        moment_lasso = lassounit_shop(moment_rope)
+        person_lasso = lassounit_shop(moment_rope)
         moment_path = create_path(moments_dir, moment_label)
         persons_dir = create_path(moment_path, "persons")
         for person_name in get_level1_dirs(persons_dir):
-            job_obj = open_job_file(moment_mstr_dir, moment_lasso, person_name)
+            job_obj = open_job_file(moment_mstr_dir, person_lasso, person_name)
             insert_job_obj(cursor, job_obj)
 
 
@@ -991,8 +991,8 @@ def etl_moment_json_partner_nets_to_moment_partner_nets_table(
     cursor.execute(CREATE_MOMENT_PARTNER_NETS_SQLSTR)
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
-        moment_lasso = lassounit_shop(create_rope(moment_label))
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(create_rope(moment_label))
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, person_lasso)
         x_momentunit.set_all_tranbook()
         insert_tranunit_partners_net(cursor, x_momentunit.all_tranbook)
 

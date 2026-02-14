@@ -69,16 +69,16 @@ def test_PersonUnit_Exists():
     }
 
 
-def test_personunit_shop_ReturnsObj_Scenario0_RaiseErrorWhen_plan_root_rope_IsLabel():
+def test_personunit_shop_ReturnsObj_Scenario0_RaiseErrorWhen_planroot_rope_IsLabel():
     # ESTABLISH
     iowa_str = "Iowa"
 
     # WHEN
     with pytest_raises(Exception) as excinfo:
-        personunit_shop(person_name=exx.sue, plan_root_rope=iowa_str, knot=exx.slash)
+        personunit_shop(person_name=exx.sue, planroot_rope=iowa_str, knot=exx.slash)
 
     # THEN
-    exception_str = f"Person '{exx.sue}' cannot set plan_root_rope='{iowa_str}' where knot='{exx.slash}'"
+    exception_str = f"Person '{exx.sue}' cannot set planroot_rope='{iowa_str}' where knot='{exx.slash}'"
     assert str(excinfo.value) == exception_str
 
 
@@ -94,7 +94,7 @@ def test_personunit_shop_ReturnsObj_Scenario1_WithParameters():
     # WHEN
     x_person = personunit_shop(
         person_name=exx.sue,
-        plan_root_rope=iowa_rope,
+        planroot_rope=iowa_rope,
         knot=slash_knot,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,

@@ -174,10 +174,10 @@ def collect_stance_csv_strs(world_dir: str) -> dict[str, str]:
     for moment_label in get_level1_dirs(moments_dir):
         x_knot = default_knot_if_None()
         moment_rope = create_rope(moment_label, None, x_knot)
-        moment_lasso = lassounit_shop(moment_rope, x_knot)
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        person_lasso = lassounit_shop(moment_rope, x_knot)
+        x_momentunit = get_default_path_momentunit(moment_mstr_dir, person_lasso)
         add_momentunit_to_stance_csv_strs(x_momentunit, x_csv_strs, ",")
-        moment_dir = create_path(moments_dir, moment_lasso.make_path())
+        moment_dir = create_path(moments_dir, person_lasso.make_path())
         persons_dir = create_path(moment_dir, "persons")
         for person_name in get_level1_dirs(persons_dir):
             person_dir = create_path(persons_dir, person_name)
