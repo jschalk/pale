@@ -13,7 +13,7 @@ def create_empty_person_from_person(
     x_mana_grain = ref_person.mana_grain
     return personunit_shop(
         person_name=x_person_name,
-        plan_root_rope=ref_person.planroot.get_plan_rope(),
+        planroot_rope=ref_person.planroot.get_plan_rope(),
         knot=x_knot,
         fund_pool=x_fund_pool,
         fund_grain=x_fund_grain,

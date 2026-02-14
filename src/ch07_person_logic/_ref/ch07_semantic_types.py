@@ -21,12 +21,6 @@ from src.ch04_rope._ref.ch04_semantic_types import (
 from src.ch05_reason._ref.ch05_semantic_types import FactNum, ReasonNum
 
 
-class MomentRope(RopeTerm):  # Created to help track the object class relations
-    """The RopeTerm for a Moment. Must contain knots."""
-
-    pass
-
-
 class PersonName(LabelTerm):
     """The LabelTerm used to identify a PersonUnit.
     Must be a LabelTerm/NameTerm because when identifying if a PlanUnit is an active pledge the PersonName will be compared

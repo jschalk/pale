@@ -101,11 +101,11 @@ def rename_files_and_dirs(
         if "." not in root:
             # List of file extensions to consider
             file_extensions = ["txt", ".py", ".json", ".ui"]
-            for file_name in files:
-                if any(file_name.endswith(ext) for ext in file_extensions):
-                    old_file_path = os_path_join(root, file_name)
-                    new_file_name = file_name.replace(old_string, new_string)
-                    new_file_path = os_path_join(root, new_file_name)
+            for filename in files:
+                if any(filename.endswith(ext) for ext in file_extensions):
+                    old_file_path = os_path_join(root, filename)
+                    new_filename = filename.replace(old_string, new_string)
+                    new_file_path = os_path_join(root, new_filename)
                     if old_file_path != new_file_path:
                         os_rename(old_file_path, new_file_path)
                         print(f"{old_string=} {new_string=} {new_file_path=}")

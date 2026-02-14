@@ -20,6 +20,7 @@
   "boss_facts": "TODO", 
   "brick_agg": "TODO", 
   "brick_raw": "TODO", 
+  "filename": "Should always include extension ala filebasename + '.' + extension", 
   "brick_valid": "TODO", 
   "bud_partner_nets": "ledger of bud outcome. dict[PartnerName, FundNum]. FundNum can be negative.", 
   "bud_person_name": "TODO", 

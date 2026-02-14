@@ -1,9 +1,5 @@
 from inspect import getdoc as inspect_getdoc
-from src.ch07_person_logic._ref.ch07_semantic_types import (
-    ManaGrain,
-    MomentRope,
-    PersonName,
-)
+from src.ch07_person_logic._ref.ch07_semantic_types import ManaGrain, PersonName
 from src.ref.keywords import Ch07Keywords as kw, ExampleStrs as exx
 
 
@@ -17,16 +13,6 @@ def test_PersonName_Exists():
 Must be a {kw.LabelTerm}/{kw.NameTerm} because when identifying if a PlanUnit is an active {kw.pledge} the {kw.PersonName} will be compared
 against {kw.PartnerName}s. If they match the {kw.pledge} will be active."""
     assert inspect_getdoc(bob_PersonName_str) == doc_str
-
-
-def test_MomentRope_Exists():
-    # ESTABLISH
-    # WHEN
-    bob_MomentRope_str = MomentRope(exx.bob)
-    # THEN
-    assert bob_MomentRope_str == exx.bob
-    doc_str = f"The {kw.RopeTerm} for a Moment. Must contain knots."
-    assert inspect_getdoc(bob_MomentRope_str) == doc_str
 
 
 def test_ManaGrain_Exists():

@@ -36,8 +36,8 @@ def create_init_stance_idea_csv_strs() -> dict[str, str]:
     moment_csv_strs = {}
     for idea_number in stance_idea_numbers:
         idea_format_filename = get_idea_format_filename(idea_number)
-        for idea_columns, idea_file_name in idea_format_headers.items():
-            if idea_file_name == idea_format_filename:
+        for idea_columns, idea_filename in idea_format_headers.items():
+            if idea_filename == idea_format_filename:
                 moment_csv_strs[idea_number] = f"spark_num,face_name,{idea_columns}\n"
     return moment_csv_strs
 

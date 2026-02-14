@@ -134,7 +134,7 @@ def test_get_all_person_calc_args_ReturnsObj():
         kw.person_partnerunit,
     }
 
-    assert len(all_person_calc_args) == 77
+    assert len(all_person_calc_args) == 76
 
 
 def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesKeysExist():
@@ -192,7 +192,6 @@ def test_get_person_calc_dimen_args_ReturnsObj():
     # print(person_partnerunit_args.difference(set(PartnerUnit().__dict__.keys())))
     # assert person_partnerunit_args == set(PartnerUnit().__dict__.keys())
     assert person_partnerunit_args == {
-        kw.moment_rope,
         kw.person_name,
         kw.credor_pool,
         kw.debtor_pool,
@@ -210,7 +209,6 @@ def test_get_person_calc_dimen_args_ReturnsObj():
         kw.groupmark,
     }
     assert person_planunit_args == {
-        kw.moment_rope,
         kw.person_name,
         kw.morph,
         kw.denom,
@@ -241,7 +239,6 @@ def test_get_person_calc_dimen_args_ReturnsObj():
     }
     print(f"{person_groupunit_args=}")
     assert person_groupunit_args == {
-        kw.moment_rope,
         kw.person_name,
         kw.debtor_pool,
         kw.credor_pool,
@@ -772,6 +769,12 @@ def test_get_person_config_dict_ReturnsObj_EachArgHasOne_sqlite_datatype():
         # print(f""""{x_arg}": "{list(arg_types)[0]}",""")
         assert_failure_str = f""""{x_arg}": "{list(arg_types)[0]}","""
         assert list(arg_types)[0] == sqlite_datatype_dict.get(x_arg), assert_failure_str
+    all_args_set = set(all_args.keys())
+    sqlite_args_set = set(sqlite_datatype_dict.keys())
+    # TODO figure out how to add knot to person_config
+    all_args_set.add(kw.knot)
+    print(sqlite_args_set.difference(all_args))
+    assert all_args_set == sqlite_args_set
 
 
 def test_get_person_calc_args_type_dict_ReturnsObj():
@@ -864,4 +867,5 @@ def test_get_person_calc_args_type_dict_ReturnsObj():
     assert person_calc_args_type_dict.get(kw.max_tree_traverse) == "int"
     assert person_calc_args_type_dict.get(kw.mana_grain) == "float"
     assert person_calc_args_type_dict.get(kw.respect_grain) == "float"
-    assert len(person_calc_args_type_dict) == 72
+    assert person_calc_args_type_dict.get(kw.knot) == "KnotTerm"
+    assert len(person_calc_args_type_dict) == 73

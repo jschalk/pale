@@ -46,7 +46,7 @@ def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg():
     x_max_tree_traverse = 22
     x_mana_grain = 4.0
     x_respect_grain = 0.2
-    sue_person = personunit_shop(x_person_name, plan_root_rope=exx.a23)
+    sue_person = personunit_shop(x_person_name, planroot_rope=exx.a23)
     sue_person.fund_pool = x_fund_pool
     sue_person.fund_grain = x_fund_grain
     sue_person.mana_grain = x_mana_grain
