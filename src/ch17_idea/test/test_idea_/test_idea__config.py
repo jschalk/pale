@@ -624,6 +624,15 @@ def test_get_idea_format_filenames_ReturnsObj():
     assert _validate_idea_format_files(idea_filenames_sorted)
 
 
+def change_erase_attrs(idea_attrs: set):
+    idea_attrs_list = get_default_sorted_list(idea_attrs)
+    if idea_attrs_list[-1].find("_ERASE") > 0:
+        delete_attr_with_erase = idea_attrs_list[-1]
+        delete_attr_without_erase = delete_attr_with_erase.replace("_ERASE", "")
+        idea_attrs.remove(delete_attr_with_erase)
+        idea_attrs.add(delete_attr_without_erase)
+
+
 def _validate_idea_format_files(idea_filenames: set[str]):
     all_dimen_keys_dict = {
         dimen: set(dict.get(kw.jkeys).keys())
@@ -676,12 +685,7 @@ def _validate_idea_format_files(idea_filenames: set[str]):
                     assert attr_in_optional, assert_fail_str
         # check all implied dimens are there
         idea_attrs = set(ref_dict.get(kw.attributes).keys())
-        idea_attrs_list = get_default_sorted_list(idea_attrs)
-        if idea_attrs_list[-1].find("_ERASE") > 0:
-            delete_attr_with_erase = idea_attrs_list[-1]
-            delete_attr_without_erase = delete_attr_with_erase.replace("_ERASE", "")
-            idea_attrs.remove(delete_attr_with_erase)
-            idea_attrs.add(delete_attr_without_erase)
+        change_erase_attrs(idea_attrs)
 
         for x_dimen, dimen_keys in all_dimen_keys_dict.items():
             # if x_dimen == kw.person_plan_factunit and x_dimen in format_dimens:

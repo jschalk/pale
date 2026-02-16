@@ -946,3 +946,49 @@ def get_dimens_with_idea_element(x_arg: str) -> set[str]:
         if x_arg in dimen_args:
             x_set.add(x_dimen)
     return x_set
+
+
+def get_dimen_minimum_put_idea_names() -> dict[str, str]:
+    """Returns all dimens and the idea format with only the args for that dimen."""
+
+    return {
+        "moment_budunit": idea_format_00001_moment_budunit_v0_0_0(),
+        "moment_epoch_hour": idea_format_00003_moment_epoch_hour_v0_0_0(),
+        "moment_epoch_month": idea_format_00004_moment_epoch_month_v0_0_0(),
+        "moment_epoch_weekday": idea_format_00005_moment_epoch_weekday_v0_0_0(),
+        "moment_paybook": idea_format_00002_moment_paybook_v0_0_0(),
+        "moment_timeoffi": idea_format_00006_moment_timeoffi_v0_0_0(),
+        "momentunit": idea_format_00000_momentunit_v0_0_0(),
+        "nabu_timenum": idea_format_00070_nabu_epochtime_v0_0_0(),
+        "person_partner_membership": idea_format_00020_person_partner_membership_v0_0_0(),
+        "person_partnerunit": idea_format_00021_person_partnerunit_v0_0_0(),
+        "person_plan_awardunit": idea_format_00022_person_plan_awardunit_v0_0_0(),
+        "person_plan_factunit": idea_format_00023_person_plan_factunit_v0_0_0(),
+        "person_plan_healerunit": idea_format_00025_person_plan_healerunit_v0_0_0(),
+        "person_plan_partyunit": idea_format_00024_person_plan_partyunit_v0_0_0(),
+        "person_plan_reason_caseunit": idea_format_00026_person_plan_reason_caseunit_v0_0_0(),
+        "person_plan_reasonunit": idea_format_00027_person_plan_reasonunit_v0_0_0(),
+        "person_planunit": idea_format_00028_person_planunit_v0_0_0(),
+        "personunit": idea_format_00029_personunit_v0_0_0(),
+        "translate_label": idea_format_00044_translate_label_v0_0_0(),
+        "translate_name": idea_format_00043_translate_name_v0_0_0(),
+        "translate_title": idea_format_00042_translate_title_v0_0_0(),
+        "translate_rope": idea_format_00045_translate_rope_v0_0_0(),
+    }
+
+
+def get_dimen_minimum_del_idea_names() -> dict[str, str]:
+    """Returns all dimens and the idea format with only the args for that dimen."""
+
+    return {
+        "person_partner_membership": idea_format_00050_delete_person_partner_membership_v0_0_0(),
+        "person_partnerunit": idea_format_00051_delete_person_partnerunit_v0_0_0(),
+        "person_plan_awardunit": idea_format_00052_delete_person_plan_awardunit_v0_0_0(),
+        "person_plan_factunit": idea_format_00053_delete_person_plan_factunit_v0_0_0(),
+        "person_plan_healerunit": idea_format_00055_delete_person_plan_healerunit_v0_0_0(),
+        "person_plan_partyunit": idea_format_00054_delete_person_plan_partyunit_v0_0_0(),
+        "person_plan_reason_caseunit": idea_format_00056_delete_person_plan_reason_caseunit_v0_0_0(),
+        "person_plan_reasonunit": idea_format_00057_delete_person_plan_reasonunit_v0_0_0(),
+        "person_planunit": idea_format_00058_delete_person_planunit_v0_0_0(),
+        "personunit": idea_format_00059_delete_personunit_v0_0_0(),
+    }

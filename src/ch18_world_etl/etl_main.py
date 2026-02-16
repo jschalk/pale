@@ -207,7 +207,7 @@ def etl_brick_raw_tables_to_brick_agg_tables(conn_or_cursor: sqlite3_Connection)
             idea_filename = get_idea_format_filename(idea_number)
             idearef = get_idearef_obj(idea_filename)
             key_columns_set = set(idearef.get_otx_keys_list())
-            idea_columns_set = set(idearef._attributes.keys())
+            idea_columns_set = set(idearef.attributes.keys())
             value_columns_set = idea_columns_set.difference(key_columns_set)
             idea_columns = get_default_sorted_list(idea_columns_set)
             key_columns_list = get_default_sorted_list(key_columns_set, idea_columns)
@@ -226,7 +226,7 @@ def etl_brick_raw_tables_to_brick_agg_tables(conn_or_cursor: sqlite3_Connection)
             insert_clause_sqlstr = create_insert_into_clause_str(
                 conn_or_cursor,
                 agg_tablename,
-                columns_set=set(idearef._attributes.keys()),
+                columns_set=set(idearef.attributes.keys()),
             )
             insert_from_select_sqlstr = f"""
 {insert_clause_sqlstr}

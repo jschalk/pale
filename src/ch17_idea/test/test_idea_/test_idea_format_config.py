@@ -1,6 +1,9 @@
 from src.ch00_py.file_toolbox import create_path, get_dir_file_strs
 from src.ch17_idea.idea_config import (
     get_default_sorted_list,
+    get_dimen_minimum_del_idea_names,
+    get_dimen_minimum_put_idea_names,
+    get_idea_config_dict,
     get_idea_elements_sort_order,
     get_idea_format_filenames,
     get_idea_format_headers,
@@ -17,6 +20,7 @@ from src.ch17_idea.idea_main import (
     get_idearef_obj,
 )
 from src.ch17_idea.test._util.ch17_env import src_chapter_dir
+from src.ch17_idea.test.test_idea_.test_idea__config import change_erase_attrs
 from src.ref.keywords import Ch17Keywords as kw
 
 
@@ -53,8 +57,8 @@ def test_get_idearef_obj_ReturnsObj():
         kw.personunit,
         kw.momentunit,
     }
-    assert x_idearef._attributes != {}
-    assert len(x_idearef._attributes) == 7
+    assert x_idearef.attributes != {}
+    assert len(x_idearef.attributes) == 7
 
 
 def test_get_headers_list_ReturnsObj():
@@ -185,8 +189,8 @@ def test_get_idearef_obj_HasAttrs_idea_format_00021_person_partnerunit_v0_0_0():
     format_00001_idearef = get_idearef_obj(idea_name)
 
     # THEN
-    assert len(format_00001_idearef._attributes) == 7
-    assert format_00001_idearef._attributes == {
+    assert len(format_00001_idearef.attributes) == 7
+    assert format_00001_idearef.attributes == {
         kw.partner_name: {kw.otx_key: True},
         kw.partner_cred_lumen: {kw.otx_key: False},
         kw.partner_debt_lumen: {kw.otx_key: False},
@@ -213,7 +217,7 @@ def test_get_idearef_obj_HasAttrs_idea_format_00020_person_partner_membership_v0
     format_00021_idearef = get_idearef_obj(idea_name)
 
     # THEN
-    assert len(format_00021_idearef._attributes) == 8
+    assert len(format_00021_idearef.attributes) == 8
     headers_list = format_00021_idearef.get_headers_list()
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
@@ -233,7 +237,7 @@ def test_get_idearef_obj_HasAttrs_idea_format_00013_planunit_v0_0_0():
     format_00003_idearef = get_idearef_obj(idea_name)
 
     # THEN
-    assert len(format_00003_idearef._attributes) == 7
+    assert len(format_00003_idearef.attributes) == 7
     headers_list = format_00003_idearef.get_headers_list()
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
@@ -252,7 +256,7 @@ def test_get_idearef_obj_HasAttrs_idea_format_00019_planunit_v0_0_0():
     format_00019_idearef = get_idearef_obj(idea_name)
 
     # THEN
-    assert len(format_00019_idearef._attributes) == 13
+    assert len(format_00019_idearef.attributes) == 13
     headers_list = format_00019_idearef.get_headers_list()
     assert headers_list[0] == kw.spark_num
     assert headers_list[1] == kw.face_name
@@ -267,3 +271,56 @@ def test_get_idearef_obj_HasAttrs_idea_format_00019_planunit_v0_0_0():
     assert headers_list[10] == kw.morph
     assert headers_list[11] == kw.gogo_want
     assert headers_list[12] == kw.stop_want
+
+
+def test_get_dimen_minimum_put_idea_names_ReturnsObj():
+    # ESTABLISH / WHEN
+    dimen_minimum_put_idea_names = get_dimen_minimum_put_idea_names()
+
+    # THEN
+    assert dimen_minimum_put_idea_names
+    dimen_minimum_keys = set(dimen_minimum_put_idea_names.keys())
+    idea_config_dict = get_idea_config_dict()
+    idea_config_dimens = set(idea_config_dict.keys())
+    # print(f"{idea_config_dimens=}")
+    assert dimen_minimum_keys == idea_config_dimens
+    for idea_dimen, dimen_config in idea_config_dict.items():
+        idea_name = dimen_minimum_put_idea_names.get(idea_dimen)
+        format_idearef = get_idearef_obj(idea_name)
+
+        print(f"{idea_dimen=} {format_idearef.idea_name=}")
+        dimen_args = set(dimen_config.get(kw.jkeys).keys())
+        dimen_args.update(set(dimen_config.get(kw.jvalues).keys()))
+
+        idearef_args = set(format_idearef.attributes.keys())
+        # print(f"  {dimen_args=}")
+        # print(f"{idearef_args=}")
+        assert dimen_args == idearef_args
+
+
+def test_get_dimen_minimum_del_idea_names_ReturnsObj():
+    # ESTABLISH / WHEN
+    dimen_minimum_del_idea_names = get_dimen_minimum_del_idea_names()
+
+    # THEN
+    assert dimen_minimum_del_idea_names
+    dimen_minimum_keys = set(dimen_minimum_del_idea_names.keys())
+    idea_config_dict = get_idea_config_dict()
+    idea_config_dimens = set()
+    for idea_dimen, dimen_config in idea_config_dict.items():
+        if dimen_config.get(kw.idea_category) == kw.person:
+            idea_config_dimens.add(idea_dimen)
+    print(f"{idea_config_dimens=}")
+    assert dimen_minimum_keys == idea_config_dimens
+    for idea_dimen in idea_config_dimens:
+        dimen_config = idea_config_dict.get(idea_dimen)
+        idea_name = dimen_minimum_del_idea_names.get(idea_dimen)
+        format_idearef = get_idearef_obj(idea_name)
+
+        print(f"{idea_dimen=} {format_idearef.idea_name=}")
+        dimen_args = set(dimen_config.get(kw.jkeys).keys())
+        idearef_args = set(format_idearef.attributes.keys())
+        change_erase_attrs(idearef_args)
+        print(f"  {dimen_args=}")
+        print(f"{idearef_args=}")
+        assert dimen_args == idearef_args
