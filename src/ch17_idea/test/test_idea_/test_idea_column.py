@@ -9,7 +9,7 @@ def test_IdeaRef_Exists():
     # THEN
     assert not x_idearef.idea_name
     assert not x_idearef.dimens
-    assert not x_idearef._attributes
+    assert not x_idearef.attributes
 
 
 def test_idearef_shop_ReturnsObj():
@@ -22,21 +22,21 @@ def test_idearef_shop_ReturnsObj():
     # THEN
     assert x_idearef.idea_name == x1_idea_name
     assert x_idearef.dimens == [kw.person_partnerunit]
-    assert x_idearef._attributes == {}
+    assert x_idearef.attributes == {}
 
 
 def test_IdeaRef_set_attribute_SetsAttr():
     # ESTABLISH
     x_idearef = idearef_shop("0003", kw.person_partnerunit)
     x_attribute = "1"
-    assert x_idearef._attributes == {}
+    assert x_idearef.attributes == {}
 
     # WHEN
     x_idearef.set_attribute(x_attribute, True)
 
     # THEN
-    assert x_idearef._attributes != {}
-    assert x_idearef._attributes == {x_attribute: {"otx_key": True}}
+    assert x_idearef.attributes != {}
+    assert x_idearef.attributes == {x_attribute: {"otx_key": True}}
 
 
 def test_IdeaRef_get_headers_list_ReturnsObj_Scenario0():

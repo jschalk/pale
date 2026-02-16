@@ -1,4 +1,277 @@
 {
+  "knot": ";", 
+  "mana_grain": 1, 
+  "max_tree_traverse": 20, 
+  "partners": {
+    "A a ron Jones": {
+      "memberships": {
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
+        "A a ron Jones": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "A a ron Jones" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "A a ron Jones"
+    }, 
+    "America": {
+      "memberships": {
+        ";Everyone": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
+        ";Family"  : { "group_cred_lumen": 6.45, "group_debt_lumen": 1, "group_title": ";Family"   }, 
+        ";Friends" : { "group_cred_lumen": 6.10, "group_debt_lumen": 1, "group_title": ";Friends"  }, 
+        "America"  : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "America"   }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "America"
+    }, 
+    "Anna": {
+      "memberships": {
+        ";Everyone": { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
+        ";Family"  : { "group_cred_lumen": 6.2, "group_debt_lumen": 1, "group_title": ";Family"   }, 
+        "Anna"     : { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": "Anna"      }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Anna"
+    }, 
+    "Benjamin Stoddert": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";ACME General": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Benjamin Stoddert": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": "Benjamin Stoddert"
+        }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Benjamin Stoddert"
+    }, 
+    "Bob302": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 6.25, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        "Bob302": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Bob302"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Bob302"
+    }, 
+    "Chuck Lee": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Chuck Lee"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Chuck Lee"     }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Chuck Lee"
+    }, 
+    "Ernesto Chavez": {
+      "memberships": {
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Philosophy": {"group_cred_lumen": 6.5, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
+        "Ernesto Chavez": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Ernesto Chavez"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Ernesto Chavez"
+    }, 
+    "Jacque Chirac": {
+      "memberships": {
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
+        "Jacque Chirac": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jacque Chirac" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Jacque Chirac"
+    }, 
+    "Jane Randolph": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Jane Randolph": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jane Randolph" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Jane Randolph"
+    }, 
+    "Maria Reynolds": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 6.75, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Maria Reynolds": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Maria Reynolds"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Maria Reynolds"
+    }, 
+    "Martha Doubs": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Martha Doubs" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Martha Doubs"  }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Martha Doubs"
+    }, 
+    "Mikayla": {
+      "memberships": {
+        ";ACME DevOps": { "group_cred_lumen": 10, "group_debt_lumen": 1, "group_title": ";ACME DevOps" }, 
+        ";Everyone"   : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Everyone"    }, 
+        ";Philosophy" : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Philosophy"  }, 
+        "Mikayla"     : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": "Mikayla"      }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Mikayla"
+    }, 
+    "Norberto": {
+      "memberships": {
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
+        "Norberto"     : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Norberto"      }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Norberto"
+    }, 
+    "Perrison": {
+      "memberships": {
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Friends": {"group_cred_lumen": 6.4, "group_debt_lumen": 1, "group_title": ";Friends"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 5, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        "Perrison": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Perrison"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Perrison"
+    }, 
+    "Philipa": {
+      "memberships": {
+        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Philosophy": {"group_cred_lumen": 52, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
+        "Philipa": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Philipa"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Philipa"
+    }, 
+    "Prashant": {
+      "memberships": {
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 2, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        "Prashant": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Prashant"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Prashant"
+    }, 
+    "Renee Elise Goldsberry": {
+      "memberships": {
+        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        ";Friends": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Friends"}, 
+        ";People who identify by UTEP": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";People who identify by UTEP"
+        }, 
+        ";Philosophy": {"group_cred_lumen": 3, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
+        ";SHOW ME2": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";SHOW ME2"}, 
+        ";appreciates US DOLLAR": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";appreciates US DOLLAR"
+        }, 
+        ";hurt by us dollar": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": ";hurt by us dollar"
+        }, 
+        "Renee Elise Goldsberry": {
+          "group_cred_lumen": 1, 
+          "group_debt_lumen": 1, 
+          "group_title": "Renee Elise Goldsberry"
+        }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Renee Elise Goldsberry"
+    }, 
+    "Sam zamora": {
+      "memberships": {
+        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
+        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
+        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
+        "Sam zamora"   : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Sam zamora"    }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Sam zamora"
+    }, 
+    "Shadwell Harris": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Shadwell Harris": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Shadwell Harris"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Shadwell Harris"
+    }, 
+    "Thomas OSU": {
+      "memberships": {
+        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "Thomas OSU": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Thomas OSU"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Thomas OSU"
+    }, 
+    "Travis Fox": {
+      "memberships": {
+        ";Everyone" : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone"  }, 
+        ";Family"   : { "group_cred_lumen": 6.35, "group_debt_lumen": 1, "group_title": ";Family"    }, 
+        "Travis Fox": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "Travis Fox" }
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "Travis Fox"
+    }, 
+    "WIlliam Wellace": {
+      "memberships": {
+        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
+        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
+        "WIlliam Wellace": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "WIlliam Wellace"}
+      }, 
+      "partner_cred_lumen": 1, 
+      "partner_debt_lumen": 1, 
+      "partner_name": "WIlliam Wellace"
+    }
+  }, 
+  "person_name": "Bob", 
   "planroot": {
     "factunits": {
       "A;Aaron Donald objects effected by him;": {
@@ -22,22 +295,14 @@
         "fact_upper": 1064130373
       }
     }, 
-    "plan_label": "A", 
-    "plan_uid": 1, 
     "kids": {
       "ACME": {
         "is_expanded": false, 
-        "plan_label": "ACME", 
-        "plan_uid": 100, 
         "kids": {
           "ACME Employee Responsiblities": {
             "is_expanded": false, 
-            "plan_label": "ACME Employee Responsiblities", 
-            "plan_uid": 102, 
             "kids": {
               "Abuse Deterrence and Reporting guildlines": {
-                "plan_label": "Abuse Deterrence and Reporting guildlines", 
-                "plan_uid": 106, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -58,11 +323,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Abuse Deterrence and Reporting guildlines", 
+                "plan_uid": 106, 
                 "star": 1
               }, 
               "Know ACME Staff  and Safety #2 guildlines": {
-                "plan_label": "Know ACME Staff  and Safety #2 guildlines", 
-                "plan_uid": 105, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -82,11 +347,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Know ACME Staff  and Safety #2 guildlines", 
+                "plan_uid": 105, 
                 "star": 1
               }, 
               "Know Adult Sexual Misconduct guildlines": {
-                "plan_label": "Know Adult Sexual Misconduct guildlines", 
-                "plan_uid": 108, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -107,6 +372,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Know Adult Sexual Misconduct guildlines", 
+                "plan_uid": 108, 
                 "star": 1
               }, 
               "Know Employee Intruction manuel.": {
@@ -128,8 +395,6 @@
                 "star": 1
               }, 
               "Know Identifying and Supporting Houseless Youth guildlines": {
-                "plan_label": "Know Identifying and Supporting Houseless Youth guildlines", 
-                "plan_uid": 109, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -150,11 +415,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Know Identifying and Supporting Houseless Youth guildlines", 
+                "plan_uid": 109, 
                 "star": 1
               }, 
               "Know Information Security Awareness guildlines": {
-                "plan_label": "Know Information Security Awareness guildlines", 
-                "plan_uid": 111, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -175,11 +440,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Know Information Security Awareness guildlines", 
+                "plan_uid": 111, 
                 "star": 1
               }, 
               "Know retaliation guildlines": {
-                "plan_label": "Know retaliation guildlines", 
-                "plan_uid": 107, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -199,11 +464,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Know retaliation guildlines", 
+                "plan_uid": 107, 
                 "star": 1
               }, 
               "Rick administration and Hazard Analysis": {
-                "plan_label": "Rick administration and Hazard Analysis", 
-                "plan_uid": 112, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -223,11 +488,11 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "Rick administration and Hazard Analysis", 
+                "plan_uid": 112, 
                 "star": 1
               }, 
               "know OSHA COVID-19 Rick Reduction guildlines": {
-                "plan_label": "know OSHA COVID-19 Rick Reduction guildlines", 
-                "plan_uid": 110, 
                 "kids": {
                   "Accomplish Fall 2021 traaining": {
                     "plan_label": "Accomplish Fall 2021 traaining", 
@@ -248,23 +513,21 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "know OSHA COVID-19 Rick Reduction guildlines", 
+                "plan_uid": 110, 
                 "star": 1
               }
             }, 
+            "plan_label": "ACME Employee Responsiblities", 
+            "plan_uid": 102, 
             "star": 1
           }, 
           "IT DEPT": {
             "is_expanded": false, 
-            "plan_label": "IT DEPT", 
-            "plan_uid": 101, 
             "kids": {
               "IT DEPT off-hrs responsiblities": {
-                "plan_label": "IT DEPT off-hrs responsiblities", 
-                "plan_uid": 136, 
                 "kids": {
                   "check ETLs ran correctly": {
-                    "plan_label": "check ETLs ran correctly", 
-                    "plan_uid": 137, 
                     "kids": {
                       "check emails": {
                         "plan_label": "check emails", 
@@ -286,14 +549,14 @@
                         "star": 1
                       }, 
                       "check mechanisms": {
-                        "plan_label": "check mechanisms", 
-                        "plan_uid": 139, 
                         "kids": {
                           "MECHANISM1": { "plan_label": "MECHANISM1", "plan_uid": 170, "star": 1 }, 
                           "MECHANISM2": { "plan_label": "MECHANISM2", "plan_uid": 171, "star": 1 }, 
                           "MECHANISM3": { "plan_label": "MECHANISM3", "plan_uid": 172, "star": 1 }, 
                           "MECHANISM4": { "plan_label": "MECHANISM4", "plan_uid": 173, "star": 1 }
                         }, 
+                        "plan_label": "check mechanisms", 
+                        "plan_uid": 139, 
                         "pledge": true, 
                         "reasonunits": {
                           "A;ziet;gregziet;": {
@@ -311,6 +574,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "check ETLs ran correctly", 
+                    "plan_uid": 137, 
                     "reasonunits": {
                       "A;ziet;gregziet;": {
                         "cases": {
@@ -365,6 +630,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "IT DEPT off-hrs responsiblities", 
+                "plan_uid": 136, 
                 "reasonunits": {
                   "A;ziet;gregziet;": {
                     "cases": {
@@ -381,8 +648,6 @@
                 "star": 1
               }, 
               "IT DEPT regular hrs responsiblities": {
-                "plan_label": "IT DEPT regular hrs responsiblities", 
-                "plan_uid": 133, 
                 "kids": {
                   "Add to Azure DevOps": {
                     "plan_label": "Add to Azure DevOps", 
@@ -404,8 +669,6 @@
                     "star": 1
                   }, 
                   "Datawarehouse": {
-                    "plan_label": "Datawarehouse", 
-                    "plan_uid": 135, 
                     "kids": {
                       "Datawarehouse Expertise acquisition": {
                         "plan_label": "Datawarehouse Expertise acquisition", 
@@ -427,14 +690,14 @@
                         "star": 1
                       }, 
                       "dev quantification script \"T2R8\"": {
-                        "plan_label": "dev quantification script \"T2R8\"", 
-                        "plan_uid": 157, 
                         "kids": {
                           "MECHANISM1"  : { "plan_label": "MECHANISM1"  , "plan_uid": 175, "star": 1 }, 
                           "MECHANISM2"  : { "plan_label": "MECHANISM2"  , "plan_uid": 176, "star": 1 }, 
                           "MECHANISM4D" : { "plan_label": "MECHANISM4D" , "plan_uid": 177, "star": 1 }, 
                           "MECHANISM4DD": { "plan_label": "MECHANISM4DD", "plan_uid": 174, "star": 1 }
                         }, 
+                        "plan_label": "dev quantification script \"T2R8\"", 
+                        "plan_uid": 157, 
                         "pledge": true, 
                         "reasonunits": {
                           "A;ziet;gregziet;": {
@@ -471,6 +734,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "Datawarehouse", 
+                    "plan_uid": 135, 
                     "star": 1
                   }, 
                   "IT DEPT general": {
@@ -511,8 +776,6 @@
                     "star": 1
                   }, 
                   "SQLIte": {
-                    "plan_label": "SQLIte", 
-                    "plan_uid": 140, 
                     "kids": {
                       "check for access": {
                         "plan_label": "check for access", 
@@ -533,6 +796,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "SQLIte", 
+                    "plan_uid": 140, 
                     "reasonunits": {
                       "A;ziet;gregziet;": {
                         "cases": {
@@ -569,6 +834,8 @@
                   }
                 }, 
                 "morph": false, 
+                "plan_label": "IT DEPT regular hrs responsiblities", 
+                "plan_uid": 133, 
                 "pledge": true, 
                 "reasonunits": {
                   "A;ziet;gregziet;": {
@@ -586,6 +853,8 @@
                 "star": 1.0
               }
             }, 
+            "plan_label": "IT DEPT", 
+            "plan_uid": 101, 
             "reasonunits": {
               "A;ziet;gregziet;": {
                 "cases": {
@@ -602,38 +871,30 @@
             "star": 1
           }
         }, 
+        "plan_label": "ACME", 
+        "plan_uid": 100, 
         "star": 1
       }, 
       "Aaron Donald objects effected by him": {
         "is_expanded": false, 
-        "plan_label": "Aaron Donald objects effected by him", 
-        "plan_uid": 261, 
         "kids": {
           "compelling"    : { "plan_label": "compelling"    , "plan_uid": 262, "star": 1 }, 
           "not compelling": { "plan_label": "not compelling", "plan_uid": 263, "star": 1 }
         }, 
+        "plan_label": "Aaron Donald objects effected by him", 
+        "plan_uid": 261, 
         "star": 1
       }, 
       "Asset administration": {
         "is_expanded": false, 
-        "plan_label": "Asset administration", 
-        "plan_uid": 199, 
         "kids": {
           "American sovereignty": {
-            "plan_label": "American sovereignty", 
-            "plan_uid": 204, 
             "kids": {
               "portland sovereignty": {
-                "plan_label": "portland sovereignty", 
-                "plan_uid": 206, 
                 "kids": {
                   "downtown": {
-                    "plan_label": "downtown", 
-                    "plan_uid": 207, 
                     "kids": {
                       "Local college": {
-                        "plan_label": "Local college", 
-                        "plan_uid": 210, 
                         "kids": {
                           "browsing": {
                             "plan_label": "browsing", 
@@ -686,6 +947,8 @@
                             "star": 1
                           }
                         }, 
+                        "plan_label": "Local college", 
+                        "plan_uid": 210, 
                         "reasonunits": {
                           "A;Nation-States;": {
                             "cases": {
@@ -697,8 +960,6 @@
                         "star": 1
                       }, 
                       "flats": {
-                        "plan_label": "flats", 
-                        "plan_uid": 208, 
                         "kids": {
                           "be reponsible for rent": {
                             "plan_label": "be reponsible for rent", 
@@ -714,8 +975,6 @@
                             "star": 1
                           }, 
                           "enjoy silent ziet": {
-                            "plan_label": "enjoy silent ziet", 
-                            "plan_uid": 214, 
                             "kids": {
                               "maybe watch a video": {
                                 "plan_label": "maybe watch a video", 
@@ -729,6 +988,8 @@
                                 "star": 1
                               }
                             }, 
+                            "plan_label": "enjoy silent ziet", 
+                            "plan_uid": 214, 
                             "reasonunits": {
                               "A;Nation-States;": {
                                 "cases": {
@@ -766,6 +1027,8 @@
                             "star": 1
                           }
                         }, 
+                        "plan_label": "flats", 
+                        "plan_uid": 208, 
                         "reasonunits": {
                           "A;Nation-States;": {
                             "cases": {
@@ -777,6 +1040,8 @@
                         "star": 1
                       }
                     }, 
+                    "plan_label": "downtown", 
+                    "plan_uid": 207, 
                     "reasonunits": {
                       "A;Nation-States;": {
                         "cases": {
@@ -788,6 +1053,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "portland sovereignty", 
+                "plan_uid": 206, 
                 "reasonunits": {
                   "A;Nation-States;": {
                     "cases": {
@@ -810,6 +1077,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "American sovereignty", 
+            "plan_uid": 204, 
             "reasonunits": {
               "A;Nation-States;": {
                 "cases": { "A;Nation-States;USA": {"reason_state": ";A;Nation-States;USA"} }, 
@@ -830,18 +1099,18 @@
             "star": 1
           }
         }, 
+        "plan_label": "Asset administration", 
+        "plan_uid": 199, 
         "star": 1
       }, 
       "Better Stuff Proposal": {
         "is_expanded": false, 
-        "plan_label": "Better Stuff Proposal", 
         "kids": {
           "decrease carbon footprint": {
-            "plan_label": "decrease carbon footprint", 
             "kids": {
               "never fly a private G5": {
-                "plan_label": "never fly a private G5", 
                 "morph": false, 
+                "plan_label": "never fly a private G5", 
                 "pledge": true, 
                 "reasonunits": {
                   "A;ziet;gregziet;": {
@@ -859,19 +1128,21 @@
               }
             }, 
             "morph": false, 
+            "plan_label": "decrease carbon footprint", 
             "star": 1.0
           }
         }, 
         "morph": false, 
+        "plan_label": "Better Stuff Proposal", 
         "star": 1.0
       }, 
       "Bob Dylan": {
-        "plan_label": "Bob Dylan", 
-        "plan_uid": 269, 
         "kids": {
           "Aint me Babe"      : { "plan_label": "Aint me Babe"      , "plan_uid": 270, "star": 1 }, 
           "tangled up in blue": { "plan_label": "tangled up in blue", "plan_uid": 271, "star": 1 }
         }, 
+        "plan_label": "Bob Dylan", 
+        "plan_uid": 269, 
         "star": 1
       }, 
       "D&B": {
@@ -881,15 +1152,11 @@
           "America"       : { "awardee_title": "America"       , "give_force": 1.0, "take_force": 1 }
         }, 
         "is_expanded": false, 
-        "plan_label": "D&B", 
-        "plan_uid": 96, 
         "kids": {
           "bens friends be desperate for of housing support": {
             "awardunits": {
               "Renee Elise Goldsberry": {"awardee_title": "Renee Elise Goldsberry", "give_force": 1.0, "take_force": 1}
             }, 
-            "plan_label": "bens friends be desperate for of housing support", 
-            "plan_uid": 99, 
             "kids": {
               "Ask Aaron monthly what I can do": {
                 "awardunits": {
@@ -908,6 +1175,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "bens friends be desperate for of housing support", 
+            "plan_uid": 99, 
             "reasonunits": {
               "A;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -922,8 +1191,6 @@
             "awardunits": {
               ";hurt by us dollar": {"awardee_title": ";hurt by us dollar", "give_force": 1.0, "take_force": 1}
             }, 
-            "plan_label": "develop D&B software", 
-            "plan_uid": 169, 
             "kids": {
               "test program": {
                 "plan_label": "test program", 
@@ -951,6 +1218,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "develop D&B software", 
+            "plan_uid": 169, 
             "reasonunits": {
               "A;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -962,8 +1231,6 @@
             "star": 1
           }, 
           "donate to pro-climate committees": {
-            "plan_label": "donate to pro-climate committees", 
-            "plan_uid": 167, 
             "kids": {
               "donate to influential people that are pro-Climate Death": {
                 "awardunits": {
@@ -994,6 +1261,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "donate to pro-climate committees", 
+            "plan_uid": 167, 
             "reasonunits": {
               "A;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -1030,15 +1299,12 @@
             "star": 1
           }, 
           "sympathetic receptive": {
-            "plan_label": "sympathetic receptive", 
-            "plan_uid": 161, 
             "kids": {
               "Ernesto Chavez": {
-                "plan_label": "Ernesto Chavez", 
                 "kids": {
                   "available for phone call": {
-                    "plan_label": "available for phone call", 
                     "morph": false, 
+                    "plan_label": "available for phone call", 
                     "pledge": true, 
                     "reasonunits": {
                       "A;ziet;gregziet;": {
@@ -1057,6 +1323,7 @@
                   }
                 }, 
                 "morph": false, 
+                "plan_label": "Ernesto Chavez", 
                 "reasonunits": { "A;ziet;gregziet;": {"reason_context": ";A;ziet;gregziet;"} }, 
                 "star": 4.0
               }, 
@@ -1064,8 +1331,6 @@
                 "awardunits": {
                   "Renee Elise Goldsberry": {"awardee_title": "Renee Elise Goldsberry", "give_force": 1.0, "take_force": 1}
                 }, 
-                "plan_label": "sympathetic receptive to Aaron", 
-                "plan_uid": 162, 
                 "kids": {
                   "be available for phone call": {
                     "awardunits": {
@@ -1125,6 +1390,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "sympathetic receptive to Aaron", 
+                "plan_uid": 162, 
                 "reasonunits": {
                   "A;Aaron Donald objects effected by him;": {
                     "cases": {
@@ -1136,6 +1403,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "sympathetic receptive", 
+            "plan_uid": 161, 
             "reasonunits": {
               "A;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -1147,8 +1416,6 @@
             "star": 1
           }, 
           "write letters to reps": {
-            "plan_label": "write letters to reps", 
-            "plan_uid": 165, 
             "kids": {
               "write letters about Climate Death to congressman": {
                 "awardunits": {
@@ -1178,6 +1445,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "write letters to reps", 
+            "plan_uid": 165, 
             "reasonunits": {
               "A;Aaron Donald objects effected by him;": {
                 "cases": {
@@ -1189,6 +1458,8 @@
             "star": 1
           }
         }, 
+        "plan_label": "D&B", 
+        "plan_uid": 96, 
         "reasonunits": {
           "A;Aaron Donald objects effected by him;": {
             "cases": {
@@ -1200,107 +1471,105 @@
         "star": 1
       }, 
       "Moods": {
-        "plan_label": "Moods", 
-        "plan_uid": 264, 
         "kids": {
           "Bllod Meridan by Cormac": {"plan_label": "Bllod Meridan by Cormac", "plan_uid": 265, "star": 1}, 
           "Happy": {
-            "plan_label": "Happy", 
-            "plan_uid": 266, 
             "kids": {
               "Happy - angerish": {"plan_label": "Happy - angerish", "plan_uid": 267, "star": 1}
             }, 
+            "plan_label": "Happy", 
+            "plan_uid": 266, 
             "star": 1
           }, 
-          "I will waste ziet": {"plan_label": "I will waste ziet", "morph": false, "star": 1.0}, 
+          "I will waste ziet": {"morph": false, "plan_label": "I will waste ziet", "star": 1.0}, 
           "hungry": {"plan_label": "hungry", "plan_uid": 268, "star": 1}
         }, 
+        "plan_label": "Moods", 
+        "plan_uid": 264, 
         "star": 1
       }, 
       "Nation-States": {
         "is_expanded": false, 
-        "plan_label": "Nation-States", 
-        "plan_uid": 234, 
         "kids": {
           "France2": {"plan_label": "France2", "plan_uid": 235, "star": 1}, 
           "USA": {
-            "plan_label": "USA", 
-            "plan_uid": 236, 
             "kids": {
               "Portland OR": {
-                "plan_label": "Portland OR", 
-                "plan_uid": 237, 
                 "kids": {
                   "Downtown": {
-                    "plan_label": "Downtown", 
-                    "plan_uid": 239, 
                     "kids": {
                       "Flats": {
-                        "plan_label": "Flats", 
-                        "plan_uid": 245, 
                         "kids": {
                           "10th floor gaarden": { "plan_label": "10th floor gaarden", "plan_uid": 246, "star": 1 }, 
                           "Apt 450"           : { "plan_label": "Apt 450"           , "plan_uid": 247, "star": 1 }, 
                           "Gym"               : { "plan_label": "Gym"               , "plan_uid": 248, "star": 1 }, 
                           "workspace"         : { "plan_label": "workspace"         , "plan_uid": 249, "star": 1 }
                         }, 
+                        "plan_label": "Flats", 
+                        "plan_uid": 245, 
                         "star": 1
                       }, 
                       "PSU": {
-                        "plan_label": "PSU", 
-                        "plan_uid": 240, 
                         "kids": {
                           "Park Squares": { "plan_label": "Park Squares", "plan_uid": 241, "star": 1 }, 
                           "Pool"        : { "plan_label": "Pool"        , "plan_uid": 242, "star": 1 }, 
                           "Stott Field" : { "plan_label": "Stott Field" , "plan_uid": 243, "star": 1 }, 
                           "library"     : { "plan_label": "library"     , "plan_uid": 244, "star": 1 }
                         }, 
+                        "plan_label": "PSU", 
+                        "plan_uid": 240, 
                         "star": 1
                       }
                     }, 
+                    "plan_label": "Downtown", 
+                    "plan_uid": 239, 
                     "star": 1
                   }
                 }, 
+                "plan_label": "Portland OR", 
+                "plan_uid": 237, 
                 "star": 1
               }, 
               "Texas": {"plan_label": "Texas", "plan_uid": 238, "star": 1}
             }, 
+            "plan_label": "USA", 
+            "plan_uid": 236, 
             "star": 1
           }
         }, 
+        "plan_label": "Nation-States", 
+        "plan_uid": 234, 
         "star": 1
       }, 
       "No Movie playing": {
         "is_expanded": false, 
-        "plan_label": "No Movie playing", 
-        "plan_uid": 272, 
         "kids": {
           "Big Lewbwski"     : { "plan_label": "Big Lewbwski"     , "plan_uid": 273, "star": 1 }, 
           "Jedi Movie eps IV": { "plan_label": "Jedi Movie eps IV", "plan_uid": 274, "star": 1 }
         }, 
+        "plan_label": "No Movie playing", 
+        "plan_uid": 272, 
         "star": 1
       }, 
       "Seasons": {
         "is_expanded": false, 
+        "kids": { "Summer": {"plan_label": "Summer", "plan_uid": 276, "star": 1} }, 
         "plan_label": "Seasons", 
         "plan_uid": 275, 
-        "kids": { "Summer": {"plan_label": "Summer", "plan_uid": 276, "star": 1} }, 
         "star": 1
       }, 
       "Tired Situation": {
         "is_expanded": false, 
-        "plan_label": "Tired Situation", 
-        "plan_uid": 277, 
         "kids": {
           "Not tired": { "plan_label": "Not tired", "plan_uid": 278, "star": 1 }, 
           "Tired"    : { "plan_label": "Tired"    , "plan_uid": 279, "star": 1 }
         }, 
+        "plan_label": "Tired Situation", 
+        "plan_uid": 277, 
         "star": 1
       }, 
       "Ultimate Frisbee": {
         "is_expanded": false, 
-        "plan_label": "Ultimate Frisbee", 
-        "plan_uid": 200, 
         "kids": {
           "check on m33": {
             "plan_label": "check on m33", 
@@ -1327,8 +1596,6 @@
             "star": 1
           }, 
           "playing ultimate": {
-            "plan_label": "playing ultimate", 
-            "plan_uid": 201, 
             "kids": {
               "check for mini ultimate at park": {
                 "plan_label": "check for mini ultimate at park", 
@@ -1342,6 +1609,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "playing ultimate", 
+            "plan_uid": 201, 
             "reasonunits": {
               "A;Moods;": {
                 "cases": { "A;Moods;Happy": {"reason_state": ";A;Moods;Happy"} }, 
@@ -1364,6 +1633,8 @@
             "star": 1
           }
         }, 
+        "plan_label": "Ultimate Frisbee", 
+        "plan_uid": 200, 
         "reasonunits": {
           "A;Moods;": {
             "cases": { "A;Moods;Happy": {"reason_state": ";A;Moods;Happy"} }, 
@@ -1374,12 +1645,8 @@
       }, 
       "Water Living": {
         "is_expanded": false, 
-        "plan_label": "Water Living", 
-        "plan_uid": 223, 
         "kids": {
           "Swimming in Williamette watershed": {
-            "plan_label": "Swimming in Williamette watershed", 
-            "plan_uid": 225, 
             "kids": {
               "Go climbing at east Circuit": {
                 "plan_label": "Go climbing at east Circuit", 
@@ -1427,6 +1694,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "Swimming in Williamette watershed", 
+            "plan_uid": 225, 
             "reasonunits": {
               "A;WaterExistence;": {
                 "cases": {
@@ -1438,56 +1707,54 @@
             "star": 1
           }
         }, 
+        "plan_label": "Water Living", 
+        "plan_uid": 223, 
         "star": 1
       }, 
       "WaterExistence": {
         "is_expanded": false, 
-        "plan_label": "WaterExistence", 
-        "plan_uid": 256, 
         "kids": {
           "Williamette WaterShed": {
-            "plan_label": "Williamette WaterShed", 
-            "plan_uid": 257, 
             "kids": {
               "East Side of Watershed": {
+                "kids": { "flat": {"plan_label": "flat", "plan_uid": 260, "star": 1} }, 
                 "plan_label": "East Side of Watershed", 
                 "plan_uid": 258, 
-                "kids": { "flat": {"plan_label": "flat", "plan_uid": 260, "star": 1} }, 
                 "star": 1
               }, 
               "West side of Watershed": {"plan_label": "West side of Watershed", "plan_uid": 259, "star": 1}
             }, 
+            "plan_label": "Williamette WaterShed", 
+            "plan_uid": 257, 
             "star": 1
           }
         }, 
+        "plan_label": "WaterExistence", 
+        "plan_uid": 256, 
         "star": 1
       }, 
       "Websites": {
         "is_expanded": false, 
-        "plan_label": "Websites", 
-        "plan_uid": 250, 
         "kids": {
           "AOL AIM": {
+            "kids": { "PSU Ultimate": {"plan_label": "PSU Ultimate", "plan_uid": 254, "star": 1} }, 
             "plan_label": "AOL AIM", 
             "plan_uid": 253, 
-            "kids": { "PSU Ultimate": {"plan_label": "PSU Ultimate", "plan_uid": 254, "star": 1} }, 
             "star": 1
           }, 
           "Faaceboook": {"plan_label": "Faaceboook", "plan_uid": 251, "star": 1}, 
           "Github": {"plan_label": "Github", "plan_uid": 252, "star": 1}, 
           "YahooVideo": {"plan_label": "YahooVideo", "plan_uid": 255, "star": 1}
         }, 
+        "plan_label": "Websites", 
+        "plan_uid": 250, 
         "star": 1
       }, 
       "casa": {
         "is_expanded": false, 
-        "plan_label": "casa", 
-        "plan_uid": 2, 
         "kids": {
           "Boring Ops": {
             "is_expanded": false, 
-            "plan_label": "Boring Ops", 
-            "plan_uid": 148, 
             "kids": {
               "be reponsible for rent": {
                 "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
@@ -1568,6 +1835,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "Boring Ops", 
+            "plan_uid": 148, 
             "star": 1
           }, 
           "Housing": {
@@ -1575,32 +1844,24 @@
               ";MerVista Apt": {"awardee_title": ";MerVista Apt", "give_force": 1.0, "take_force": 1}
             }, 
             "is_expanded": false, 
-            "plan_label": "Housing", 
-            "plan_uid": 180, 
             "kids": {
               "Bike Garage": {"plan_label": "Bike Garage", "plan_uid": 185, "star": 1}, 
               "Bike Gym": {"plan_label": "Bike Gym", "plan_uid": 184, "star": 1}, 
               "Flat": {
-                "plan_label": "Flat", 
-                "plan_uid": 181, 
                 "kids": {
                   "bathroom #2": {"plan_label": "bathroom #2", "plan_uid": 196, "star": 1}, 
                   "bedroom #1": {
-                    "plan_label": "bedroom #1", 
-                    "plan_uid": 191, 
                     "kids": {
                       "big bathroom": { "plan_label": "big bathroom", "plan_uid": 195, "star": 1 }, 
                       "closet"      : { "plan_label": "closet"      , "plan_uid": 194, "star": 1 }
                     }, 
+                    "plan_label": "bedroom #1", 
+                    "plan_uid": 191, 
                     "star": 1
                   }, 
                   "bedroom #2": {
-                    "plan_label": "bedroom #2", 
-                    "plan_uid": 192, 
                     "kids": {
                       "bed area": {
-                        "plan_label": "bed area", 
-                        "plan_uid": 197, 
                         "kids": {
                           "heater maintenance": {
                             "awardunits": {
@@ -1611,10 +1872,14 @@
                             "star": 1
                           }
                         }, 
+                        "plan_label": "bed area", 
+                        "plan_uid": 197, 
                         "star": 1
                       }, 
                       "closet": {"plan_label": "closet", "plan_uid": 193, "star": 1}
                     }, 
+                    "plan_label": "bedroom #2", 
+                    "plan_uid": 192, 
                     "star": 1
                   }, 
                   "cuisine": {"plan_label": "cuisine", "plan_uid": 189, "star": 1}, 
@@ -1622,21 +1887,25 @@
                   "maintenance": {"plan_label": "maintenance", "plan_uid": 187, "star": 1}, 
                   "nursery": {"plan_label": "nursery", "plan_uid": 188, "star": 1}
                 }, 
+                "plan_label": "Flat", 
+                "plan_uid": 181, 
                 "star": 1
               }, 
               "Lifting Gym": {"plan_label": "Lifting Gym", "plan_uid": 183, "star": 1}, 
               "Playing in nurserys": {"plan_label": "Playing in nurserys", "plan_uid": 186, "star": 1}, 
               "Pool": {"plan_label": "Pool", "plan_uid": 182, "star": 1}
             }, 
+            "plan_label": "Housing", 
+            "plan_uid": 180, 
             "star": 1
           }, 
           "call Crazy pete to say hi": {
             "awardunits": {
               "Perrison": {"awardee_title": "Perrison", "give_force": 1.0, "take_force": 1}
             }, 
+            "morph": false, 
             "plan_label": "call Crazy pete to say hi", 
             "plan_uid": 35, 
-            "morph": false, 
             "pledge": true, 
             "reasonunits": {
               "A;ziet;gregziet;": {
@@ -1667,8 +1936,6 @@
             "star": 1
           }, 
           "cleaning": {
-            "plan_label": "cleaning", 
-            "plan_uid": 146, 
             "kids": {
               "check cat water": {
                 "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
@@ -1751,9 +2018,9 @@
               }, 
               "clean cat poo": {
                 "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
+                "morph": false, 
                 "plan_label": "clean cat poo", 
                 "plan_uid": 9, 
-                "morph": false, 
                 "pledge": true, 
                 "reasonunits": {
                   "A;ziet;gregziet;": {
@@ -1893,12 +2160,12 @@
                 "star": 1
               }, 
               "laundry basket situation": {
-                "plan_label": "laundry basket situation", 
                 "kids": {
-                  "full"    : { "plan_label": "full"    , "morph": false, "star": 1.0 }, 
-                  "not full": { "plan_label": "not full", "morph": false, "star": 1.0 }
+                  "full"    : { "morph": false, "plan_label": "full"    , "star": 1.0 }, 
+                  "not full": { "morph": false, "plan_label": "not full", "star": 1.0 }
                 }, 
                 "morph": false, 
+                "plan_label": "laundry basket situation", 
                 "star": 1.0
               }, 
               "laundry mon": {
@@ -1956,8 +2223,8 @@
                 "star": 1
               }, 
               "laundry thur": {
-                "plan_label": "laundry thur", 
                 "morph": false, 
+                "plan_label": "laundry thur", 
                 "pledge": true, 
                 "reasonunits": {
                   "A;casa;cleaning;laundry basket situation;": {
@@ -2165,6 +2432,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "cleaning", 
+            "plan_uid": 146, 
             "reasonunits": {
               "A;Nation-States;": {
                 "cases": {
@@ -2177,8 +2446,6 @@
           }, 
           "exercise": {
             "is_expanded": false, 
-            "plan_label": "exercise", 
-            "plan_uid": 147, 
             "kids": {
               "5 push-ups": {
                 "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
@@ -2299,8 +2566,6 @@
                 "star": 1
               }, 
               "full traaining": {
-                "plan_label": "full traaining", 
-                "plan_uid": 81, 
                 "kids": {
                   "bike or stuff": {
                     "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
@@ -2324,12 +2589,12 @@
                   }, 
                   "chest and arms (mon)": {
                     "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
-                    "plan_label": "chest and arms (mon)", 
-                    "plan_uid": 84, 
                     "kids": {
                       "bi and triceps exercises": { "plan_label": "bi and triceps exercises", "plan_uid": 130, "star": 1 }, 
                       "chest  exercises"        : { "plan_label": "chest  exercises"        , "plan_uid": 129, "star": 1 }
                     }, 
+                    "plan_label": "chest and arms (mon)", 
+                    "plan_uid": 84, 
                     "pledge": true, 
                     "reasonunits": {
                       "A;ziet;gregziet;": {
@@ -2405,24 +2670,24 @@
                   }, 
                   "shoulders and back": {
                     "awardunits": { ";Family": {"awardee_title": ";Family", "give_force": 1.0, "take_force": 1} }, 
-                    "plan_label": "shoulders and back", 
-                    "plan_uid": 82, 
                     "kids": {
                       "back exercises": {
+                        "morph": false, 
                         "plan_label": "back exercises", 
                         "plan_uid": 132, 
-                        "morph": false, 
                         "pledge": true, 
                         "star": 1.0
                       }, 
                       "shoulder exercises": {
+                        "morph": false, 
                         "plan_label": "shoulder exercises", 
                         "plan_uid": 131, 
-                        "morph": false, 
                         "pledge": true, 
                         "star": 1.0
                       }
                     }, 
+                    "plan_label": "shoulders and back", 
+                    "plan_uid": 82, 
                     "pledge": true, 
                     "reasonunits": {
                       "A;ziet;gregziet;": {
@@ -2460,6 +2725,8 @@
                     "star": 1
                   }
                 }, 
+                "plan_label": "full traaining", 
+                "plan_uid": 81, 
                 "star": 1
               }, 
               "morning multivitamin": {
@@ -2524,11 +2791,10 @@
               }, 
               "stretch": {
                 "is_expanded": false, 
-                "plan_label": "stretch", 
                 "kids": {
                   "back": {
-                    "plan_label": "back", 
                     "morph": false, 
+                    "plan_label": "back", 
                     "pledge": true, 
                     "reasonunits": {
                       "A;ziet;gregziet;": {
@@ -2546,8 +2812,8 @@
                     "star": 30.0
                   }, 
                   "legs": {
-                    "plan_label": "legs", 
                     "morph": false, 
+                    "plan_label": "legs", 
                     "pledge": true, 
                     "reasonunits": {
                       "A;ziet;gregziet;": {
@@ -2564,9 +2830,10 @@
                     }, 
                     "star": 30.0
                   }, 
-                  "waist": {"plan_label": "waist", "morph": false, "pledge": true, "star": 30.0}
+                  "waist": {"morph": false, "plan_label": "waist", "pledge": true, "star": 30.0}
                 }, 
                 "morph": false, 
+                "plan_label": "stretch", 
                 "pledge": true, 
                 "reasonunits": {
                   "A;ziet;gregziet;": {
@@ -2624,6 +2891,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "exercise", 
+            "plan_uid": 147, 
             "star": 1
           }, 
           "keep up with friends": {
@@ -2639,8 +2908,6 @@
           }, 
           "responsible for kids": {
             "is_expanded": false, 
-            "plan_label": "responsible for kids", 
-            "plan_uid": 144, 
             "kids": {
               "clip oldest nails": {
                 "awardunits": { "America": {"awardee_title": "America", "give_force": 1.0, "take_force": 1} }, 
@@ -2695,6 +2962,8 @@
                 "star": 1
               }
             }, 
+            "plan_label": "responsible for kids", 
+            "plan_uid": 144, 
             "reasonunits": {
               "A;Nation-States;": {
                 "cases": {
@@ -2706,8 +2975,8 @@
             "star": 1
           }, 
           "say double hi to birds": {
-            "plan_label": "say double hi to birds", 
             "morph": false, 
+            "plan_label": "say double hi to birds", 
             "pledge": true, 
             "reasonunits": {
               "A;ziet;gregziet;": {
@@ -2746,24 +3015,24 @@
           }
         }, 
         "morph": false, 
+        "plan_label": "casa", 
+        "plan_uid": 2, 
         "star": 20.0
       }, 
       "ziet": {
         "is_expanded": false, 
-        "plan_label": "ziet", 
         "kids": {
           "gregziet": {
             "begin": 0, 
             "close": 1472657760, 
-            "plan_label": "gregziet", 
             "kids": {
               "400 yr segment": {
                 "denom": 7, 
                 "gogo_want": 0.0, 
                 "is_expanded": false, 
-                "plan_label": "400 yr segment", 
                 "morph": true, 
                 "numor": 1, 
+                "plan_label": "400 yr segment", 
                 "star": 1, 
                 "stop_want": 210379680.0
               }, 
@@ -2771,9 +3040,9 @@
                 "denom": 210379680, 
                 "gogo_want": 0.0, 
                 "is_expanded": false, 
-                "plan_label": "400 yr segments", 
                 "morph": false, 
                 "numor": 1, 
+                "plan_label": "400 yr segments", 
                 "star": 1, 
                 "stop_want": 7.0
               }, 
@@ -2781,9 +3050,9 @@
                 "denom": 1022679.0, 
                 "gogo_want": 0.0, 
                 "is_expanded": false, 
-                "plan_label": "jour", 
                 "morph": true, 
                 "numor": 1, 
+                "plan_label": "jour", 
                 "star": 1, 
                 "stop_want": 1440.0
               }, 
@@ -2791,9 +3060,9 @@
                 "denom": 1440, 
                 "gogo_want": 0.0, 
                 "is_expanded": false, 
-                "plan_label": "jours", 
                 "morph": false, 
                 "numor": 1, 
+                "plan_label": "jours", 
                 "star": 1, 
                 "stop_want": 1022679.0
               }, 
@@ -2801,9 +3070,9 @@
                 "denom": 146097.0, 
                 "gogo_want": 0.0, 
                 "is_expanded": false, 
-                "plan_label": "wk", 
                 "morph": true, 
                 "numor": 1, 
+                "plan_label": "wk", 
                 "star": 1, 
                 "stop_want": 10080.0
               }, 
@@ -2811,55 +3080,54 @@
                 "denom": 10080, 
                 "gogo_want": 0.0, 
                 "is_expanded": false, 
-                "plan_label": "wks", 
                 "morph": false, 
                 "numor": 1, 
+                "plan_label": "wks", 
                 "star": 1, 
                 "stop_want": 146097.0
               }, 
               "x2": {
                 "gogo_want": 0.0, 
-                "plan_label": "x2", 
                 "kids": {
                   "Sept 4th 2023 9am": {
                     "gogo_want": 1064350680.0, 
-                    "plan_label": "Sept 4th 2023 9am", 
                     "morph": false, 
+                    "plan_label": "Sept 4th 2023 9am", 
                     "star": 1.0, 
                     "stop_want": 1064350680.0
                   }, 
                   "monthly 1st business journee": {
                     "gogo_want": 0.0, 
-                    "plan_label": "monthly 1st business journee", 
                     "kids": {
                       "2023 Feb 9am": {
                         "gogo_want": 1064041020.0, 
-                        "plan_label": "2023 Feb 9am", 
                         "morph": false, 
+                        "plan_label": "2023 Feb 9am", 
                         "star": 1.0, 
                         "stop_want": 1064041020.0
                       }
                     }, 
                     "morph": false, 
+                    "plan_label": "monthly 1st business journee", 
                     "star": 1.0, 
                     "stop_want": 1472657760.0
                   }
                 }, 
                 "morph": false, 
+                "plan_label": "x2", 
                 "star": 1.0, 
                 "stop_want": 1472657760.0
               }
             }, 
+            "plan_label": "gregziet", 
             "star": 1
           }, 
           "tech": {
-            "plan_label": "tech", 
             "kids": {
               "365 yr": {
                 "begin": 0, 
                 "close": 525600, 
                 "is_expanded": false, 
-                "plan_label": "365 yr", 
                 "kids": {
                   "1-Jan": {
                     "gogo_want": 0, 
@@ -2946,13 +3214,13 @@
                     "stop_want": 393120
                   }
                 }, 
+                "plan_label": "365 yr", 
                 "star": 1
               }, 
               "366 yr": {
                 "begin": 0, 
                 "close": 527040, 
                 "is_expanded": false, 
-                "plan_label": "366 yr", 
                 "kids": {
                   "1-Jan": {
                     "gogo_want": 0, 
@@ -3039,155 +3307,155 @@
                     "stop_want": 394560
                   }
                 }, 
+                "plan_label": "366 yr", 
                 "star": 1
               }, 
               "400 yr segment": {
                 "begin": 0.0, 
                 "close": 210379680.0, 
                 "is_expanded": false, 
-                "plan_label": "400 yr segment", 
                 "kids": {
                   "0-100-25 leap yrs": {
                     "gogo_want": 0, 
                     "is_expanded": false, 
-                    "plan_label": "0-100-25 leap yrs", 
                     "kids": {
                       "4yr with leap": {
                         "denom": 25, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "4yr with leap", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "4yr with leap", 
                         "star": 1, 
                         "stop_want": 2103840.0
                       }
                     }, 
+                    "plan_label": "0-100-25 leap yrs", 
                     "star": 1, 
                     "stop_want": 52596000
                   }, 
                   "100-104-0 leap yrs": {
                     "gogo_want": 52596000, 
                     "is_expanded": false, 
-                    "plan_label": "100-104-0 leap yrs", 
                     "kids": {
                       "4yr wo leap": {
                         "denom": 1, 
                         "gogo_want": 52596000.0, 
                         "is_expanded": false, 
-                        "plan_label": "4yr wo leap", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "4yr wo leap", 
                         "star": 1, 
                         "stop_want": 54698400.0
                       }
                     }, 
+                    "plan_label": "100-104-0 leap yrs", 
                     "star": 1, 
                     "stop_want": 54698400
                   }, 
                   "104-200-24 leap yrs": {
                     "gogo_want": 54698400, 
                     "is_expanded": false, 
-                    "plan_label": "104-200-24 leap yrs", 
                     "kids": {
                       "4yr with leap": {
                         "denom": 24, 
                         "gogo_want": 2279100.0, 
                         "is_expanded": false, 
-                        "plan_label": "4yr with leap", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "4yr with leap", 
                         "star": 1, 
                         "stop_want": 4382940.0
                       }
                     }, 
+                    "plan_label": "104-200-24 leap yrs", 
                     "star": 1, 
                     "stop_want": 105190560
                   }, 
                   "200-204-0 leap yrs": {
                     "gogo_want": 105190560, 
                     "is_expanded": false, 
-                    "plan_label": "200-204-0 leap yrs", 
                     "kids": {
                       "4yr wo leap": {
                         "denom": 1, 
                         "gogo_want": 105190560.0, 
                         "is_expanded": false, 
-                        "plan_label": "4yr wo leap", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "4yr wo leap", 
                         "star": 1, 
                         "stop_want": 107292960.0
                       }
                     }, 
+                    "plan_label": "200-204-0 leap yrs", 
                     "star": 1, 
                     "stop_want": 107292960
                   }, 
                   "204-300-24 leap yrs": {
                     "gogo_want": 107292960, 
                     "is_expanded": false, 
-                    "plan_label": "204-300-24 leap yrs", 
                     "kids": {
                       "4yr with leap": {
                         "denom": 24, 
                         "gogo_want": 4470540.0, 
                         "is_expanded": false, 
-                        "plan_label": "4yr with leap", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "4yr with leap", 
                         "star": 1, 
                         "stop_want": 6574380.0
                       }
                     }, 
+                    "plan_label": "204-300-24 leap yrs", 
                     "star": 1, 
                     "stop_want": 157785120
                   }, 
                   "300-304-0 leap yrs": {
                     "gogo_want": 157785120, 
                     "is_expanded": false, 
-                    "plan_label": "300-304-0 leap yrs", 
                     "kids": {
                       "4yr wo leap": {
                         "denom": 1, 
                         "gogo_want": 157785120.0, 
                         "is_expanded": false, 
-                        "plan_label": "4yr wo leap", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "4yr wo leap", 
                         "star": 1, 
                         "stop_want": 159887520.0
                       }
                     }, 
+                    "plan_label": "300-304-0 leap yrs", 
                     "star": 1, 
                     "stop_want": 159887520
                   }, 
                   "304-400-24 leap yrs": {
                     "gogo_want": 159887520, 
                     "is_expanded": false, 
-                    "plan_label": "304-400-24 leap yrs", 
                     "kids": {
                       "4yr with leap": {
                         "denom": 24, 
                         "gogo_want": 6661980.0, 
                         "is_expanded": false, 
-                        "plan_label": "4yr with leap", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "4yr with leap", 
                         "star": 1, 
                         "stop_want": 8765820.0
                       }
                     }, 
+                    "plan_label": "304-400-24 leap yrs", 
                     "star": 1, 
                     "stop_want": 210379680
                   }
                 }, 
+                "plan_label": "400 yr segment", 
                 "star": 1
               }, 
               "4yr with leap": {
                 "begin": 0.0, 
                 "close": 2103840.0, 
                 "is_expanded": false, 
-                "plan_label": "4yr with leap", 
                 "kids": {
                   "1-yr": {
                     "gogo_want": 0, 
@@ -3218,13 +3486,13 @@
                     "stop_want": 2103840
                   }
                 }, 
+                "plan_label": "4yr with leap", 
                 "star": 1
               }, 
               "4yr wo leap": {
                 "begin": 0, 
                 "close": 2102400, 
                 "is_expanded": false, 
-                "plan_label": "4yr wo leap", 
                 "kids": {
                   "1-yr": {
                     "gogo_want": 0, 
@@ -3255,13 +3523,13 @@
                     "stop_want": 2102400
                   }
                 }, 
+                "plan_label": "4yr wo leap", 
                 "star": 1
               }, 
               "hr": {
                 "begin": 0, 
                 "close": 60, 
                 "is_expanded": false, 
-                "plan_label": "hr", 
                 "kids": {
                   "0-:00": {
                     "gogo_want": 0, 
@@ -3684,13 +3952,13 @@
                     "stop_want": 10
                   }
                 }, 
+                "plan_label": "hr", 
                 "star": 1
               }, 
               "jour": {
                 "begin": 0, 
                 "close": 1440, 
                 "is_expanded": false, 
-                "plan_label": "jour", 
                 "kids": {
                   "10am": {
                     "gogo_want": 600, 
@@ -3861,267 +4129,267 @@
                     "stop_want": 1320
                   }
                 }, 
+                "plan_label": "jour", 
                 "star": 1
               }, 
               "month": {
                 "is_expanded": false, 
-                "plan_label": "month", 
                 "kids": {
                   "Apr": {
                     "begin": 0, 
                     "close": 43200, 
                     "is_expanded": false, 
-                    "plan_label": "Apr", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 30.0
                       }
                     }, 
+                    "plan_label": "Apr", 
                     "star": 1
                   }, 
                   "Aug": {
                     "begin": 0, 
                     "close": 44640, 
                     "is_expanded": false, 
-                    "plan_label": "Aug", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 31.0
                       }
                     }, 
+                    "plan_label": "Aug", 
                     "star": 1
                   }, 
                   "Dec": {
                     "begin": 0, 
                     "close": 44640, 
                     "is_expanded": false, 
-                    "plan_label": "Dec", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 31.0
                       }
                     }, 
+                    "plan_label": "Dec", 
                     "star": 1
                   }, 
                   "Feb28": {
                     "begin": 0, 
                     "close": 40320, 
                     "is_expanded": false, 
-                    "plan_label": "Feb28", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 28.0
                       }
                     }, 
+                    "plan_label": "Feb28", 
                     "star": 1
                   }, 
                   "Feb29": {
                     "begin": 0, 
                     "close": 41760, 
                     "is_expanded": false, 
-                    "plan_label": "Feb29", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 29.0
                       }
                     }, 
+                    "plan_label": "Feb29", 
                     "star": 1
                   }, 
                   "Jan": {
                     "begin": 0, 
                     "close": 44640, 
                     "is_expanded": false, 
-                    "plan_label": "Jan", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 31.0
                       }
                     }, 
+                    "plan_label": "Jan", 
                     "star": 1
                   }, 
                   "Jul": {
                     "begin": 0, 
                     "close": 44640, 
                     "is_expanded": false, 
-                    "plan_label": "Jul", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 31.0
                       }
                     }, 
+                    "plan_label": "Jul", 
                     "star": 1
                   }, 
                   "Jun": {
                     "begin": 0, 
                     "close": 43200, 
                     "is_expanded": false, 
-                    "plan_label": "Jun", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 30.0
                       }
                     }, 
+                    "plan_label": "Jun", 
                     "star": 1
                   }, 
                   "Mar": {
                     "begin": 0, 
                     "close": 44640, 
                     "is_expanded": false, 
-                    "plan_label": "Mar", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 31.0
                       }
                     }, 
+                    "plan_label": "Mar", 
                     "star": 1
                   }, 
                   "May": {
                     "begin": 0, 
                     "close": 44640, 
                     "is_expanded": false, 
-                    "plan_label": "May", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 31.0
                       }
                     }, 
+                    "plan_label": "May", 
                     "star": 1
                   }, 
                   "Nov": {
                     "begin": 0, 
                     "close": 43200, 
                     "is_expanded": false, 
-                    "plan_label": "Nov", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 30.0
                       }
                     }, 
+                    "plan_label": "Nov", 
                     "star": 1
                   }, 
                   "Oct": {
                     "begin": 0, 
                     "close": 44640, 
                     "is_expanded": false, 
-                    "plan_label": "Oct", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 31.0
                       }
                     }, 
+                    "plan_label": "Oct", 
                     "star": 1
                   }, 
                   "Sep": {
                     "begin": 0, 
                     "close": 43200, 
                     "is_expanded": false, 
-                    "plan_label": "Sep", 
                     "kids": {
                       "jours": {
                         "denom": 1440, 
                         "gogo_want": 0.0, 
                         "is_expanded": false, 
-                        "plan_label": "jours", 
                         "morph": true, 
                         "numor": 1, 
+                        "plan_label": "jours", 
                         "star": 1, 
                         "stop_want": 30.0
                       }
                     }, 
+                    "plan_label": "Sep", 
                     "star": 1
                   }
                 }, 
+                "plan_label": "month", 
                 "star": 1
               }, 
               "wk": {
                 "begin": 0.0, 
                 "close": 10080.0, 
                 "is_expanded": false, 
-                "plan_label": "wk", 
                 "kids": {
                   "Fri": {
                     "gogo_want": 8640, 
@@ -4173,290 +4441,22 @@
                     "stop_want": 7200
                   }
                 }, 
+                "plan_label": "wk", 
                 "star": 1
               }
             }, 
+            "plan_label": "tech", 
             "star": 1
           }
         }, 
+        "plan_label": "ziet", 
         "star": 1
       }
     }, 
+    "plan_label": "A", 
+    "plan_uid": 1, 
     "star": 1
   }, 
-  "knot": ";", 
-  "mana_grain": 1, 
-  "max_tree_traverse": 20, 
-  "partners": {
-    "A a ron Jones": {
-      "memberships": {
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
-        "A a ron Jones": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "A a ron Jones" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "A a ron Jones"
-    }, 
-    "America": {
-      "memberships": {
-        ";Everyone": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
-        ";Family"  : { "group_cred_lumen": 6.45, "group_debt_lumen": 1, "group_title": ";Family"   }, 
-        ";Friends" : { "group_cred_lumen": 6.10, "group_debt_lumen": 1, "group_title": ";Friends"  }, 
-        "America"  : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "America"   }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "America"
-    }, 
-    "Anna": {
-      "memberships": {
-        ";Everyone": { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": ";Everyone" }, 
-        ";Family"  : { "group_cred_lumen": 6.2, "group_debt_lumen": 1, "group_title": ";Family"   }, 
-        "Anna"     : { "group_cred_lumen": 1.0, "group_debt_lumen": 1, "group_title": "Anna"      }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Anna"
-    }, 
-    "Benjamin Stoddert": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";ACME General": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Benjamin Stoddert": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": "Benjamin Stoddert"
-        }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Benjamin Stoddert"
-    }, 
-    "Bob302": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 6.25, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        "Bob302": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Bob302"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Bob302"
-    }, 
-    "Chuck Lee": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Chuck Lee"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Chuck Lee"     }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Chuck Lee"
-    }, 
-    "Ernesto Chavez": {
-      "memberships": {
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Philosophy": {"group_cred_lumen": 6.5, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
-        "Ernesto Chavez": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Ernesto Chavez"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Ernesto Chavez"
-    }, 
-    "Jacque Chirac": {
-      "memberships": {
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
-        "Jacque Chirac": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jacque Chirac" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Jacque Chirac"
-    }, 
-    "Jane Randolph": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Jane Randolph": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Jane Randolph" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Jane Randolph"
-    }, 
-    "Maria Reynolds": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 6.75, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Maria Reynolds": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Maria Reynolds"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Maria Reynolds"
-    }, 
-    "Martha Doubs": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Martha Doubs" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Martha Doubs"  }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Martha Doubs"
-    }, 
-    "Mikayla": {
-      "memberships": {
-        ";ACME DevOps": { "group_cred_lumen": 10, "group_debt_lumen": 1, "group_title": ";ACME DevOps" }, 
-        ";Everyone"   : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Everyone"    }, 
-        ";Philosophy" : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": ";Philosophy"  }, 
-        "Mikayla"     : { "group_cred_lumen":  1, "group_debt_lumen": 1, "group_title": "Mikayla"      }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Mikayla"
-    }, 
-    "Norberto": {
-      "memberships": {
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        ";MerVista Apt": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";MerVista Apt" }, 
-        "Norberto"     : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Norberto"      }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Norberto"
-    }, 
-    "Perrison": {
-      "memberships": {
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Friends": {"group_cred_lumen": 6.4, "group_debt_lumen": 1, "group_title": ";Friends"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 5, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        "Perrison": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Perrison"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Perrison"
-    }, 
-    "Philipa": {
-      "memberships": {
-        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Philosophy": {"group_cred_lumen": 52, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
-        "Philipa": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Philipa"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Philipa"
-    }, 
-    "Prashant": {
-      "memberships": {
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 2, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        "Prashant": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Prashant"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Prashant"
-    }, 
-    "Renee Elise Goldsberry": {
-      "memberships": {
-        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        ";Friends": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Friends"}, 
-        ";People who identify by UTEP": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";People who identify by UTEP"
-        }, 
-        ";Philosophy": {"group_cred_lumen": 3, "group_debt_lumen": 1, "group_title": ";Philosophy"}, 
-        ";SHOW ME2": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";SHOW ME2"}, 
-        ";appreciates US DOLLAR": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";appreciates US DOLLAR"
-        }, 
-        ";hurt by us dollar": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": ";hurt by us dollar"
-        }, 
-        "Renee Elise Goldsberry": {
-          "group_cred_lumen": 1, 
-          "group_debt_lumen": 1, 
-          "group_title": "Renee Elise Goldsberry"
-        }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Renee Elise Goldsberry"
-    }, 
-    "Sam zamora": {
-      "memberships": {
-        ";ACME DevOps" : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"  }, 
-        ";ACME General": { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME General" }, 
-        ";Everyone"    : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"     }, 
-        "Sam zamora"   : { "group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Sam zamora"    }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Sam zamora"
-    }, 
-    "Shadwell Harris": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Shadwell Harris": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Shadwell Harris"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Shadwell Harris"
-    }, 
-    "Thomas OSU": {
-      "memberships": {
-        ";Climate Death": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Climate Death"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "Thomas OSU": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "Thomas OSU"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Thomas OSU"
-    }, 
-    "Travis Fox": {
-      "memberships": {
-        ";Everyone" : { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": ";Everyone"  }, 
-        ";Family"   : { "group_cred_lumen": 6.35, "group_debt_lumen": 1, "group_title": ";Family"    }, 
-        "Travis Fox": { "group_cred_lumen": 1.00, "group_debt_lumen": 1, "group_title": "Travis Fox" }
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "Travis Fox"
-    }, 
-    "WIlliam Wellace": {
-      "memberships": {
-        ";ACME DevOps": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";ACME DevOps"}, 
-        ";Everyone": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": ";Everyone"}, 
-        "WIlliam Wellace": {"group_cred_lumen": 1, "group_debt_lumen": 1, "group_title": "WIlliam Wellace"}
-      }, 
-      "partner_cred_lumen": 1, 
-      "partner_debt_lumen": 1, 
-      "partner_name": "WIlliam Wellace"
-    }
-  }, 
-  "person_name": "Bob", 
   "respect_grain": 1, 
   "star": 1
 }

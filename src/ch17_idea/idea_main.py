@@ -29,18 +29,18 @@ from src.ch17_idea.idea_db_tool import (
 class IdeaRef:
     idea_name: str = None
     dimens: list[str] = None
-    _attributes: dict[str, dict[str, bool]] = None
+    attributes: dict[str, dict[str, bool]] = None
 
     def set_attribute(self, x_attribute: str, otx_key: bool):
-        self._attributes[x_attribute] = {"otx_key": otx_key}
+        self.attributes[x_attribute] = {"otx_key": otx_key}
 
     def get_headers_list(self) -> list[str]:
-        return get_default_sorted_list(set(self._attributes.keys()))
+        return get_default_sorted_list(set(self.attributes.keys()))
 
     def get_otx_keys_list(self) -> list[str]:
         x_set = {
             x_attr
-            for x_attr, otx_dict in self._attributes.items()
+            for x_attr, otx_dict in self.attributes.items()
             if otx_dict.get("otx_key") is True
         }
         return get_default_sorted_list(x_set)
@@ -48,20 +48,20 @@ class IdeaRef:
     def get_otx_values_list(self) -> list[str]:
         x_set = {
             x_attr
-            for x_attr, otx_dict in self._attributes.items()
+            for x_attr, otx_dict in self.attributes.items()
             if otx_dict.get("otx_key") is False
         }
         return get_default_sorted_list(x_set)
 
 
 def idearef_shop(x_idea_name: str, x_dimens: list[str]) -> IdeaRef:
-    return IdeaRef(idea_name=x_idea_name, dimens=x_dimens, _attributes={})
+    return IdeaRef(idea_name=x_idea_name, dimens=x_dimens, attributes={})
 
 
 def get_idearef_obj(idea_name: str) -> IdeaRef:
     idearef_dict = get_idearef_from_file(idea_name)
     x_idearef = idearef_shop(idea_name, idearef_dict.get("dimens"))
-    x_idearef._attributes = idearef_dict.get("attributes")
+    x_idearef.attributes = idearef_dict.get("attributes")
     return x_idearef
 
 
@@ -123,7 +123,7 @@ def _create_d2_list(
 
 
 def _delta_all_pledge_values(d2_list: list[list], x_idearef: IdeaRef) -> list[list]:
-    if "pledge" in x_idearef._attributes:
+    if "pledge" in x_idearef.attributes:
         for x_count, x_header in enumerate(x_idearef.get_headers_list()):
             if x_header == "pledge":
                 pledge_column_number = x_count

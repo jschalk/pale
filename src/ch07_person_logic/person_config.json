@@ -7,7 +7,6 @@
         "populate_by_conpute": true, 
         "sqlite_datatype": "TEXT"
       }, 
-
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": true, 
@@ -24,6 +23,68 @@
       "fund_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}
     }
   }, 
+  "person_partner_membership": {
+    "abbreviation": "prnmemb", 
+    "jkeys": {
+      "group_title": {
+        "class_type": "TitleTerm", 
+        "populate_by_conpute": false, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "partner_name": {
+        "class_type": "NameTerm", 
+        "populate_by_conpute": false, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "person_name": {
+        "class_type": "NameTerm", 
+        "populate_by_conpute": false, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "credor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "debtor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_ratio_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_ratio_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "group_cred_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}, 
+      "group_debt_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}
+    }
+  }, 
+  "person_partnerunit": {
+    "abbreviation": "prnptnr", 
+    "jkeys": {
+      "partner_name": {
+        "class_type": "NameTerm", 
+        "populate_by_conpute": false, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "person_name": {
+        "class_type": "NameTerm", 
+        "populate_by_conpute": false, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "credor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "debtor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_ratio_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_ratio_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_agenda_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "fund_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "groupmark": {"class_type": "str", "populate_by_conpute": true, "sqlite_datatype": "TEXT"}, 
+      "inallocable_partner_debt_lumen": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "irrational_partner_debt_lumen": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
+      "partner_cred_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}, 
+      "partner_debt_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}
+    }
+  }, 
   "person_plan_awardunit": {
     "abbreviation": "prnawar", 
     "jkeys": {
@@ -32,14 +93,13 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
-        "class_type": "RopeTerm", 
+      "person_name": {
+        "class_type": "NameTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-
-      "person_name": {
-        "class_type": "NameTerm", 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -59,13 +119,13 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
-        "class_type": "RopeTerm", 
+      "person_name": {
+        "class_type": "NameTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "person_name": {
-        "class_type": "NameTerm", 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -96,14 +156,13 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-      "plan_rope": {
-        "class_type": "RopeTerm", 
+      "person_name": {
+        "class_type": "NameTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-
-      "person_name": {
-        "class_type": "NameTerm", 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -113,12 +172,6 @@
   "person_plan_partyunit": {
     "abbreviation": "prnlabo", 
     "jkeys": {
-      "plan_rope": {
-        "class_type": "RopeTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
-
       "party_title": {
         "class_type": "TitleTerm", 
         "populate_by_conpute": false, 
@@ -126,6 +179,11 @@
       }, 
       "person_name": {
         "class_type": "NameTerm", 
+        "populate_by_conpute": false, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -142,14 +200,13 @@
   "person_plan_reason_caseunit": {
     "abbreviation": "prncase", 
     "jkeys": {
-      "plan_rope": {
-        "class_type": "RopeTerm", 
+      "person_name": {
+        "class_type": "NameTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-
-      "person_name": {
-        "class_type": "NameTerm", 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -187,14 +244,13 @@
   "person_plan_reasonunit": {
     "abbreviation": "prnreas", 
     "jkeys": {
-      "plan_rope": {
-        "class_type": "RopeTerm", 
+      "person_name": {
+        "class_type": "NameTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-
-      "person_name": {
-        "class_type": "NameTerm", 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
@@ -218,14 +274,13 @@
   "person_planunit": {
     "abbreviation": "prnplan", 
     "jkeys": {
-      "plan_rope": {
-        "class_type": "RopeTerm", 
+      "person_name": {
+        "class_type": "NameTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }, 
-
-      "person_name": {
-        "class_type": "NameTerm", 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
         "populate_by_conpute": false, 
         "sqlite_datatype": "TEXT"
       }
@@ -249,7 +304,6 @@
       "gogo_calc": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
       "gogo_want": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}, 
       "healerunit_ratio": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "plan_active": {"class_type": "int", "populate_by_conpute": true, "sqlite_datatype": "INTEGER"}, 
       "morph": {
         "class_type": "bool", 
         "populate_by_conpute": false, 
@@ -260,6 +314,7 @@
         "populate_by_conpute": false, 
         "sqlite_datatype": "INTEGER"
       }, 
+      "plan_active": {"class_type": "int", "populate_by_conpute": true, "sqlite_datatype": "INTEGER"}, 
       "pledge": {
         "class_type": "bool", 
         "populate_by_conpute": false, 
@@ -282,74 +337,9 @@
       "tree_level": {"class_type": "int", "populate_by_conpute": true, "sqlite_datatype": "INTEGER"}
     }
   }, 
-  "person_partner_membership": {
-    "abbreviation": "prnmemb", 
-    "jkeys": {
-      "group_title": {
-        "class_type": "TitleTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
-
-      "partner_name": {
-        "class_type": "NameTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
-      "person_name": {
-        "class_type": "NameTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }
-    }, 
-    "jvalues": {
-      "credor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "debtor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_ratio_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_ratio_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "group_cred_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}, 
-      "group_debt_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}
-    }
-  }, 
-  "person_partnerunit": {
-    "abbreviation": "prnptnr", 
-    "jkeys": {
-
-      "partner_name": {
-        "class_type": "NameTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }, 
-      "person_name": {
-        "class_type": "NameTerm", 
-        "populate_by_conpute": false, 
-        "sqlite_datatype": "TEXT"
-      }
-    }, 
-    "jvalues": {
-      "credor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "debtor_pool": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_ratio_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_ratio_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_agenda_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_give": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "fund_take": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "groupmark": {"class_type": "str", "populate_by_conpute": true, "sqlite_datatype": "TEXT"}, 
-      "inallocable_partner_debt_lumen": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "irrational_partner_debt_lumen": {"class_type": "float", "populate_by_conpute": true, "sqlite_datatype": "REAL"}, 
-      "partner_cred_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}, 
-      "partner_debt_lumen": {"class_type": "float", "populate_by_conpute": false, "sqlite_datatype": "REAL"}
-    }
-  }, 
   "personunit": {
     "abbreviation": "prnunit", 
     "jkeys": {
-
       "person_name": {
         "class_type": "NameTerm", 
         "populate_by_conpute": false, 

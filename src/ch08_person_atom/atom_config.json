@@ -1,4 +1,41 @@
 {
+  "person_partner_membership": {
+    "DELETE": {"atom_order": 23}, 
+    "INSERT": {"atom_order": 1}, 
+    "UPDATE": {"atom_order": 10}, 
+    "jkeys": {
+      "group_title": {
+        "class_type": "TitleTerm", 
+        "column_order": 1, 
+        "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "partner_name": {
+        "class_type": "NameTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }
+    }, 
+    "jvalues": {
+      "group_cred_lumen": { "class_type": "float", "column_order": 3, "sqlite_datatype": "REAL" }, 
+      "group_debt_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }
+    }, 
+    "normal_specs": {"normal_table_name": "membership"}
+  }, 
+  "person_partnerunit": {
+    "DELETE": {"atom_order": 24}, 
+    "INSERT": {"atom_order": 0}, 
+    "UPDATE": {"atom_order": 9}, 
+    "jkeys": {
+      "partner_name": {"class_type": "NameTerm", "column_order": 0, "sqlite_datatype": "TEXT"}
+    }, 
+    "jvalues": {
+      "partner_cred_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }, 
+      "partner_debt_lumen": { "class_type": "float", "column_order": 1, "sqlite_datatype": "REAL" }
+    }, 
+    "normal_specs": {"normal_table_name": "partnerunit"}
+  }, 
   "person_plan_awardunit": {
     "DELETE": {"atom_order": 21}, 
     "INSERT": {"atom_order": 3}, 
@@ -72,16 +109,16 @@
     "DELETE": {"atom_order": 19}, 
     "INSERT": {"atom_order": 4}, 
     "jkeys": {
-      "plan_rope": {
-        "class_type": "RopeTerm", 
-        "column_order": 0, 
-        "nesting_order": 0, 
-        "sqlite_datatype": "TEXT"
-      }, 
       "party_title": {
         "class_type": "TitleTerm", 
         "column_order": 1, 
         "nesting_order": 1, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "plan_rope": {
+        "class_type": "RopeTerm", 
+        "column_order": 0, 
+        "nesting_order": 0, 
         "sqlite_datatype": "TEXT"
       }
     }, 
@@ -175,43 +212,6 @@
       "stop_want"   : { "class_type": "float", "column_order": 12, "sqlite_datatype": "REAL"    }
     }, 
     "normal_specs": {"normal_table_name": "plan"}
-  }, 
-  "person_partner_membership": {
-    "DELETE": {"atom_order": 23}, 
-    "INSERT": {"atom_order": 1}, 
-    "UPDATE": {"atom_order": 10}, 
-    "jkeys": {
-      "group_title": {
-        "class_type": "TitleTerm", 
-        "column_order": 1, 
-        "nesting_order": 1, 
-        "sqlite_datatype": "TEXT"
-      }, 
-      "partner_name": {
-        "class_type": "NameTerm", 
-        "column_order": 0, 
-        "nesting_order": 0, 
-        "sqlite_datatype": "TEXT"
-      }
-    }, 
-    "jvalues": {
-      "group_cred_lumen": { "class_type": "float", "column_order": 3, "sqlite_datatype": "REAL" }, 
-      "group_debt_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }
-    }, 
-    "normal_specs": {"normal_table_name": "membership"}
-  }, 
-  "person_partnerunit": {
-    "DELETE": {"atom_order": 24}, 
-    "INSERT": {"atom_order": 0}, 
-    "UPDATE": {"atom_order": 9}, 
-    "jkeys": {
-      "partner_name": {"class_type": "NameTerm", "column_order": 0, "sqlite_datatype": "TEXT"}
-    }, 
-    "jvalues": {
-      "partner_cred_lumen": { "class_type": "float", "column_order": 2, "sqlite_datatype": "REAL" }, 
-      "partner_debt_lumen": { "class_type": "float", "column_order": 1, "sqlite_datatype": "REAL" }
-    }, 
-    "normal_specs": {"normal_table_name": "partnerunit"}
   }, 
   "personunit": {
     "UPDATE": {"atom_order": 25}, 

@@ -34,7 +34,8 @@ def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_bool):
     for idea_format in sorted(dimens_idea_format_dict.keys()):
         print(f"{idea_format=}")
     assert len(dimens_idea_format_dict) == 10
-    person_planunit_filename = f"idea_format_00026_{kw.person_planunit}_v0_0_0.json"
+    person_planunit_filename = f"idea_format_00028_{kw.person_planunit}_v0_0_0.json"
+    print(f"{person_planunit_filename=}")
     assert dimens_idea_format_dict.get(person_planunit_filename)
     person_planunit_dict = dimens_idea_format_dict.get(person_planunit_filename)
     assert person_planunit_dict.get(kw.dimens) == [kw.person_planunit]

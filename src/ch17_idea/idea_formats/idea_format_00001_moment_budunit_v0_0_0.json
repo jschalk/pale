@@ -4,7 +4,7 @@
     "celldepth"  : { "otx_key": false }, 
     "face_name"  : { "otx_key": true  }, 
     "moment_rope": { "otx_key": true  }, 
-    "person_name"  : { "otx_key": true  }, 
+    "person_name": { "otx_key": true  }, 
     "quota"      : { "otx_key": false }, 
     "spark_num"  : { "otx_key": true  }
   }, 
