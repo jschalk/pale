@@ -15,7 +15,6 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_plan_partyuni
         idea_cols = [
             kw.spark_num,
             kw.face_name,
-            kw.moment_rope,
             kw.plan_rope,
             kw.party_title,
             kw.person_name,
@@ -44,11 +43,11 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_plan_partyuni
         )
 
         # THEN
-        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.moment_rope}, {kw.person_name}, {kw.plan_rope}, {kw.party_title}"
+        columns_str = f"{kw.spark_num}, {kw.face_name}, {kw.person_name}, {kw.plan_rope}, {kw.party_title}"
         expected_sqlstr = f"""INSERT INTO {prnlabo_cat}_raw ({kw.idea_number}, {columns_str})
 SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
 FROM {idea_number}_raw
-WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.moment_rope} IS NOT NULL AND {kw.person_name} IS NOT NULL AND {kw.plan_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
+WHERE {kw.spark_num} IS NOT NULL AND {kw.face_name} IS NOT NULL AND {kw.person_name} IS NOT NULL AND {kw.plan_rope} IS NOT NULL AND {kw.party_title} IS NOT NULL
 GROUP BY {columns_str}
 ;
 """
@@ -114,7 +113,6 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_person_partnerunit()
         idea_cols = [
             kw.spark_num,
             kw.face_name,
-            kw.moment_rope,
             kw.plan_rope,
             kw.party_title,
             kw.person_name,
@@ -140,7 +138,9 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_person_partnerunit()
         )
 
         # THEN
-        columns_str = "spark_num, face_name, moment_rope, person_name, partner_name, partner_cred_lumen"
+        columns_str = (
+            "spark_num, face_name, person_name, partner_name, partner_cred_lumen"
+        )
         expected_sqlstr = f"""INSERT INTO {kw.person_partnerunit}_raw (idea_number, {columns_str})
 SELECT '{idea_number}' as idea_number, {columns_str}
 FROM {idea_number}_raw

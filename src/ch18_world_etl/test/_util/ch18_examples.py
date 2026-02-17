@@ -140,7 +140,6 @@ WHERE {kw.spark_num} == {x_spark_num} and {kw.moment_rope} == '{x_moment_rope}'
 def insert_prncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_rope: MomentRope,
     x_person_name: PersonName,
     x_plan_rope: RopeTerm,
     x_reason_context: RopeTerm,
@@ -151,7 +150,6 @@ def insert_prncase_special_h_agg(
     prncase_tbl = prime_tbl(kw.person_plan_reason_caseunit, "h", "agg", "put")
     values_dict = {
         "spark_num": x_spark_num,
-        "moment_rope": x_moment_rope,
         "person_name": x_person_name,
         "plan_rope": x_plan_rope,
         "reason_context": x_reason_context,
@@ -166,7 +164,6 @@ def insert_prncase_special_h_agg(
 @dataclass
 class PRNCASEHEARDAGG:
     spark_num: SparkInt
-    moment_rope: MomentRope
     person_name: PersonName
     plan_rope: RopeTerm
     reason_context: RopeTerm
@@ -185,7 +182,6 @@ class PRNCASEHEARDAGG:
 def select_prncase_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_rope: MomentRope,
     x_person_name: PersonName,
     x_plan_rope: RopeTerm,
     x_reason_context: RopeTerm,
@@ -195,7 +191,6 @@ def select_prncase_special_h_agg(
     prncase_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
     select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_rope}
 , {kw.person_name}
 , {kw.plan_rope}
 , {kw.reason_context}
@@ -211,7 +206,6 @@ def select_prncase_special_h_agg(
 , inx_epoch_diff
 FROM {prncase_h_agg_tablename}
 WHERE {kw.spark_num} = {x_spark_num} 
-    AND {kw.moment_rope} = '{x_moment_rope}'
     AND {kw.person_name} = '{x_person_name}'
     AND {kw.plan_rope} = '{x_plan_rope}'
     AND {kw.reason_context} = '{x_reason_context}'
@@ -223,20 +217,19 @@ WHERE {kw.spark_num} = {x_spark_num}
     for row in cursor.fetchall():
         x_prncase_h_agg = PRNCASEHEARDAGG(
             spark_num=row[0],
-            moment_rope=row[1],
-            person_name=row[2],
-            plan_rope=row[3],
-            reason_context=row[4],
-            reason_state=row[5],
-            reason_lower_otx=row[6],
-            reason_lower_inx=row[7],
-            reason_upper_otx=row[8],
-            reason_upper_inx=row[9],
-            reason_divisor=row[10],
-            context_plan_close=row[11],
-            context_plan_denom=row[12],
-            context_plan_morph=row[13],
-            inx_epoch_diff=row[14],
+            person_name=row[1],
+            plan_rope=row[2],
+            reason_context=row[3],
+            reason_state=row[4],
+            reason_lower_otx=row[5],
+            reason_lower_inx=row[6],
+            reason_upper_otx=row[7],
+            reason_upper_inx=row[8],
+            reason_divisor=row[9],
+            context_plan_close=row[10],
+            context_plan_denom=row[11],
+            context_plan_morph=row[12],
+            inx_epoch_diff=row[13],
         )
         prncase_heard_aggs.append(x_prncase_h_agg)
     return prncase_heard_aggs

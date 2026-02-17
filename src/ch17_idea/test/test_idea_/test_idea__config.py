@@ -494,7 +494,7 @@ def _validate_idea_config(x_idea_config: dict):
     translate_config_dict = get_translate_config_dict()
     # for every idea_format file there exists a unique idea_number with leading zeros to make 5 digits
     for idea_dimen, idea_dict in x_idea_config.items():
-        # print(f"{idea_dimen=}")
+        print(f"{idea_dimen=}")
         assert idea_dict.get(kw.idea_category) in get_idea_categorys()
         assert idea_dict.get(kw.jkeys) is not None
         assert idea_dict.get(kw.jvalues) is not None
@@ -559,10 +559,14 @@ def _validate_idea_config(x_idea_config: dict):
         # print(f"  {idea_jkeys_keys=}")
         assert kw.face_name in idea_jkeys_keys
         assert kw.spark_num in idea_jkeys_keys
-        if idea_dict.get(kw.idea_category) in {kw.person, kw.moment}:
+        if idea_dict.get(kw.idea_category) in {kw.person} and kw.plan in idea_dimen:
+            assert kw.moment_rope not in idea_jkeys_keys, idea_dimen
+        elif idea_dict.get(kw.idea_category) in {kw.moment, kw.person}:
             assert kw.moment_rope in idea_jkeys_keys
-        if idea_dict.get(kw.idea_category) == kw.person:
-            idea_jkeys_keys.remove(kw.moment_rope)
+            print(f"2{idea_dimen=}")
+            if idea_dict.get(kw.idea_category) in {kw.person}:
+                idea_jkeys_keys.remove(kw.moment_rope)
+        if idea_dict.get(kw.idea_category) in {kw.person}:
             idea_jkeys_keys.remove(kw.person_name)
         idea_jkeys_keys.remove(kw.face_name)
         idea_jkeys_keys.remove(kw.spark_num)
@@ -882,10 +886,38 @@ def _create_expected_idea_dimen_ref() -> dict[str, list[str]]:
     return expected_idea_dimen_ref
 
 
+def print_sorted(obj, indent=0):
+    """Pretty-print dictionaries with sorted keys and sets printed in sorted order."""
+    space = " " * indent
+
+    if isinstance(obj, dict):
+        print(space + "{")
+        for key in sorted(obj):
+            print(space + f"  {repr(key)}: ", end="")
+            print_sorted(obj[key], indent + 4)
+        print(space + "}")
+
+    elif isinstance(obj, set):
+        # print set elements in sorted order but keep set notation
+        items = sorted(obj)
+        print(space + "{" + ", ".join(repr(x) for x in items) + "}")
+
+    elif isinstance(obj, (list, tuple)):
+        open_c, close_c = ("[", "]") if isinstance(obj, list) else ("(", ")")
+        print(space + open_c)
+        for item in obj:
+            print_sorted(item, indent + 4)
+        print(space + close_c)
+
+    else:
+        print(space + repr(obj))
+
+
 def test_get_idea_dimen_ref_ReturnsObj():
     # ESTABLISH
     expected_idea_dimen_ref = _create_expected_idea_dimen_ref()
-    print(f"{expected_idea_dimen_ref=}")
+    # print(f"{expected_idea_dimen_ref=}")
+    print_sorted(expected_idea_dimen_ref)
 
     # WHEN / THEN
     assert get_idea_dimen_ref() == expected_idea_dimen_ref

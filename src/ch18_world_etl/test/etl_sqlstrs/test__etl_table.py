@@ -317,7 +317,6 @@ def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_
         f"context_plan_{kw.morph}",
         kw.face_name,
         kw.inx_epoch_diff,
-        kw.moment_rope,
         kw.plan_rope,
         kw.reason_context,
         kw.reason_state,
@@ -338,7 +337,6 @@ def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
     assert del_dimen_columns_set
     assert del_dimen_columns_set == {
         kw.plan_rope,
-        kw.moment_rope,
         kw.spark_num,
         kw.person_name,
         kw.face_name,
@@ -355,5 +353,5 @@ def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # THEN
     assert table_sqlstr
     print(table_sqlstr)
-    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, moment_rope TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"
+    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, error_message TEXT)"
     assert table_sqlstr == expected_sqlstr

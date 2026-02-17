@@ -82,7 +82,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
             expected_sql_refs=expected_sql_refs,
             expected_sqlstrs_dict=expected_sqlstrs_dict,
         )
-    print("################################################################")
+    # print("################################################################")
     # for expected_sql_ref in sorted(expected_sql_refs):
     #     print(expected_sql_ref)
     # print("")
@@ -93,6 +93,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
         if gen_sqlstr != expected_sqlstr:
             print(f"{expected_sql_ref=}")
             print(expected_sqlstr)
+        print(f"{expected_sql_ref=}")
         assert gen_sqlstr == expected_sqlstr
     assert create_table_sqlstrs == expected_sqlstrs_dict
 
@@ -458,9 +459,9 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
         assert update_sqlstr == expected_update_sqlstr
 
         static_example_sqlstr = """WITH inconsistency_rows AS (
-SELECT spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title
+SELECT spark_num, face_name, person_name, plan_rope, awardee_title
 FROM person_plan_awardunit_s_put_raw
-GROUP BY spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title
+GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title
 HAVING MIN(give_force) != MAX(give_force)
     OR MIN(take_force) != MAX(take_force)
 )
@@ -469,7 +470,6 @@ SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
 WHERE inconsistency_rows.spark_num = person_plan_awardunit_s_put_raw.spark_num
     AND inconsistency_rows.face_name = person_plan_awardunit_s_put_raw.face_name
-    AND inconsistency_rows.moment_rope = person_plan_awardunit_s_put_raw.moment_rope
     AND inconsistency_rows.person_name = person_plan_awardunit_s_put_raw.person_name
     AND inconsistency_rows.plan_rope = person_plan_awardunit_s_put_raw.plan_rope
     AND inconsistency_rows.awardee_title = person_plan_awardunit_s_put_raw.awardee_title
@@ -625,14 +625,14 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PersonDimen():
             exclude_cols=put_exclude_cols,
             where_block="WHERE error_message IS NULL",
         )
-        # print(put_expected_insert_sqlstr)
+        print(put_expected_insert_sqlstr)
         assert update_sqlstrs[0] == put_expected_insert_sqlstr
 
-        static_example_put_sqlstr = """INSERT INTO person_plan_awardunit_s_put_agg (spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title, give_force, take_force)
-SELECT spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title, MAX(give_force), MAX(take_force)
+        static_example_put_sqlstr = """INSERT INTO person_plan_awardunit_s_put_agg (spark_num, face_name, person_name, plan_rope, awardee_title, give_force, take_force)
+SELECT spark_num, face_name, person_name, plan_rope, awardee_title, MAX(give_force), MAX(take_force)
 FROM person_plan_awardunit_s_put_raw
 WHERE error_message IS NULL
-GROUP BY spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title
+GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title
 ;
 """
         # print(update_sqlstrs[0])
@@ -659,10 +659,10 @@ GROUP BY spark_num, face_name, moment_rope, person_name, plan_rope, awardee_titl
         print(update_sqlstrs[1])
         assert update_sqlstrs[1] == del_expected_insert_sqlstr
 
-        static_example_del_sqlstr = """INSERT INTO person_plan_awardunit_s_del_agg (spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title_ERASE)
-SELECT spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title_ERASE
+        static_example_del_sqlstr = """INSERT INTO person_plan_awardunit_s_del_agg (spark_num, face_name, person_name, plan_rope, awardee_title_ERASE)
+SELECT spark_num, face_name, person_name, plan_rope, awardee_title_ERASE
 FROM person_plan_awardunit_s_del_raw
-GROUP BY spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title_ERASE
+GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title_ERASE
 ;
 """
         assert update_sqlstrs[1] == static_example_del_sqlstr

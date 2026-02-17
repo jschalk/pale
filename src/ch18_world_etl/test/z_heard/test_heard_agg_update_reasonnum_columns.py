@@ -85,13 +85,7 @@ def test_get_update_prncase_inx_epoch_diff_sqlstr_SetsColumnValues():
         insert_otx_inx_time(cursor, spark7, exx.yao, m_label, otx_time, inx_time)
         insert_h_agg_obj(cursor, bob_person, spark7, exx.yao)
         prncase_objs = select_prncase(
-            cursor,
-            spark7,
-            bob_person.planroot.get_plan_rope(),
-            exx.bob,
-            wx.mop_rope,
-            wx.day_rope,
-            wx.day_rope,
+            cursor, spark7, exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
         )
         prncase_obj0 = prncase_objs[0]
         assert prncase_obj0.inx_epoch_diff is None
@@ -102,13 +96,7 @@ def test_get_update_prncase_inx_epoch_diff_sqlstr_SetsColumnValues():
 
         # THEN
         prncase_objs = select_prncase(
-            cursor,
-            spark7,
-            bob_person.planroot.get_plan_rope(),
-            exx.bob,
-            wx.mop_rope,
-            wx.day_rope,
-            wx.day_rope,
+            cursor, spark7, exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
         )
         prncase_obj0 = prncase_objs[0]
         assert prncase_obj0.inx_epoch_diff == otx_time - inx_time

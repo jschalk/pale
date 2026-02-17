@@ -117,7 +117,7 @@ def test_get_sorted_headers_str_ReturnsObj_Scenario1_SingleExample():
 
 
 def check_sorted_headers_exist(idea_format_filename: str, x_headers: dict):
-    # print(f"{idea_format_filename=}")
+    print(f"{idea_format_filename=}")
     sorted_headers = get_sorted_headers_str(idea_format_filename)
     assert_str = f"{idea_format_filename=} {sorted_headers=}"
     assert x_headers.get(sorted_headers) == idea_format_filename, assert_str

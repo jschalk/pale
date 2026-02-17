@@ -157,7 +157,6 @@ def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            None,
             str(x_person_name),
             clean_rope,
             x_begin,
@@ -213,7 +212,6 @@ def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            str(exx.a23),
             str(x_person_name),
             str(x_rope),
             str(x_reason_context),
@@ -254,7 +252,6 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
             face_name=x_face_name,
-            moment_rope=exx.a23,
             person_name=x_person_name,
             rope=x_rope,
             reason_context=x_reason_context,
@@ -271,7 +268,6 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            str(exx.a23),
             str(x_person_name),
             str(x_rope),
             str(x_reason_context),
@@ -616,7 +612,6 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
         x_objkeysholder = ObjKeysHolder(
             spark_num=x_spark_num,
             face_name=x_face_name,
-            moment_rope=exx.a23,
             person_name=x_person_name,
             rope=x_rope,
         )
@@ -632,7 +627,6 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
         expected_row1 = (
             x_spark_num,
             x_face_name,
-            str(exx.a23),
             str(x_person_name),
             str(x_rope),
             str(x_reason_context),
@@ -822,11 +816,9 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
         assert get_row_count(cursor, prnfact_h_agg_table) == 1
         assert get_row_count(cursor, prnreas_h_agg_table) == 1
         assert get_row_count(cursor, prncase_h_agg_table) == 1
-        select_case_sqlstr = (
-            f"""SELECT spark_num, face_name, moment_rope FROM {prncase_h_agg_table};"""
-        )
+        select_case_sqlstr = f"SELECT spark_num, face_name FROM {prncase_h_agg_table};"
         cursor.execute(select_case_sqlstr)
-        assert cursor.fetchall() == [(spark7, exx.yao, exx.a23)]
+        assert cursor.fetchall() == [(spark7, exx.yao)]
 
 
 # def test_insert_h_agg_obj_CreatesTableRows_Scenario1_AllTables():
