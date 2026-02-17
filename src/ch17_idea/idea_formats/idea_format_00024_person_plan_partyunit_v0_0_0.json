@@ -7,6 +7,6 @@
     "solo"       : { "otx_key": false }, 
     "spark_num"  : { "otx_key": true  }
   }, 
-  "dimens": [ "person_planunit", "person_plan_partyunit"], 
+  "dimens": ["person_planunit", "person_plan_partyunit"], 
   "idea_number": "br00024"
 }

@@ -8,6 +8,6 @@
     "spark_num"    : { "otx_key": true  }, 
     "take_force"   : { "otx_key": false }
   }, 
-  "dimens": [ "person_planunit", "person_plan_awardunit"], 
+  "dimens": ["person_planunit", "person_plan_awardunit"], 
   "idea_number": "br00022"
 }

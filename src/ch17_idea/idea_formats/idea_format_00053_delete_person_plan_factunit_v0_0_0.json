@@ -6,6 +6,6 @@
     "plan_rope"         : { "otx_key": true }, 
     "spark_num"         : { "otx_key": true }
   }, 
-  "dimens": [ "person_planunit", "person_plan_factunit"], 
+  "dimens": ["person_planunit", "person_plan_factunit"], 
   "idea_number": "br00053"
 }

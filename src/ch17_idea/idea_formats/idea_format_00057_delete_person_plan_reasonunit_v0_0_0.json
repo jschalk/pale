@@ -6,6 +6,6 @@
     "reason_context_ERASE": { "otx_key": true }, 
     "spark_num"           : { "otx_key": true }
   }, 
-  "dimens": [ "person_planunit", "person_plan_reasonunit"], 
+  "dimens": ["person_planunit", "person_plan_reasonunit"], 
   "idea_number": "br00057"
 }
