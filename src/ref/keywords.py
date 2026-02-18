@@ -58,6 +58,7 @@ class Ch00Keywords(str, Enum):
 
 
 class Ch01Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FirstLabel = "FirstLabel"
     GrainNum = "GrainNum"
     INSERT = "INSERT"
@@ -77,6 +78,7 @@ class Ch01Keywords(str, Enum):
 
 
 class Ch02Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -140,6 +142,7 @@ class Ch02Keywords(str, Enum):
 
 
 class Ch03Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -206,6 +209,7 @@ class Ch03Keywords(str, Enum):
 
 
 class Ch04Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -279,6 +283,7 @@ class Ch04Keywords(str, Enum):
 
 
 class Ch05Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -371,6 +376,7 @@ class Ch05Keywords(str, Enum):
 
 
 class Ch06Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -503,6 +509,7 @@ class Ch06Keywords(str, Enum):
 
 
 class Ch07Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -518,6 +525,7 @@ class Ch07Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -681,6 +689,7 @@ class Ch07Keywords(str, Enum):
 
 
 class Ch08Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     FactNum = "FactNum"
@@ -698,6 +707,7 @@ class Ch08Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -869,6 +879,7 @@ class Ch08Keywords(str, Enum):
 
 
 class Ch09Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     FaceName = "FaceName"
@@ -889,6 +900,7 @@ class Ch09Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -1069,6 +1081,7 @@ class Ch09Keywords(str, Enum):
 
 
 class Ch10Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     FaceName = "FaceName"
@@ -1089,6 +1102,7 @@ class Ch10Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -1270,6 +1284,7 @@ class Ch10Keywords(str, Enum):
 
 
 class Ch11Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     Epoch = "Epoch"
@@ -1291,6 +1306,7 @@ class Ch11Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -1491,6 +1507,7 @@ class Ch11Keywords(str, Enum):
 
 
 class Ch12Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     Epoch = "Epoch"
@@ -1513,6 +1530,7 @@ class Ch12Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -1744,6 +1762,7 @@ class Ch12Keywords(str, Enum):
 class Ch13Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -1770,6 +1789,7 @@ class Ch13Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -1798,8 +1818,11 @@ class Ch13Keywords(str, Enum):
     bud_person_name = "bud_person_name"
     bud_time = "bud_time"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -1834,6 +1857,7 @@ class Ch13Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -2030,11 +2054,14 @@ class Ch13Keywords(str, Enum):
     weeks_lower_week = "weeks_lower_week"
     weeks_upper_week = "weeks_upper_week"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -2043,6 +2070,7 @@ class Ch13Keywords(str, Enum):
 class Ch14Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -2069,6 +2097,7 @@ class Ch14Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -2098,8 +2127,11 @@ class Ch14Keywords(str, Enum):
     bud_person_name = "bud_person_name"
     bud_time = "bud_time"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -2136,6 +2168,7 @@ class Ch14Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -2347,11 +2380,14 @@ class Ch14Keywords(str, Enum):
     weeks_lower_week = "weeks_lower_week"
     weeks_upper_week = "weeks_upper_week"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -2360,6 +2396,7 @@ class Ch14Keywords(str, Enum):
 class Ch15Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -2388,6 +2425,7 @@ class Ch15Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -2417,8 +2455,11 @@ class Ch15Keywords(str, Enum):
     bud_person_name = "bud_person_name"
     bud_time = "bud_time"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -2456,6 +2497,7 @@ class Ch15Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -2675,11 +2717,14 @@ class Ch15Keywords(str, Enum):
     weeks_lower_week = "weeks_lower_week"
     weeks_upper_week = "weeks_upper_week"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -2688,6 +2733,7 @@ class Ch15Keywords(str, Enum):
 class Ch16Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -2716,6 +2762,7 @@ class Ch16Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -2745,8 +2792,11 @@ class Ch16Keywords(str, Enum):
     bud_person_name = "bud_person_name"
     bud_time = "bud_time"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -2785,6 +2835,7 @@ class Ch16Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -3026,11 +3077,14 @@ class Ch16Keywords(str, Enum):
     weeks_lower_week = "weeks_lower_week"
     weeks_upper_week = "weeks_upper_week"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -3039,6 +3093,7 @@ class Ch16Keywords(str, Enum):
 class Ch17Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -3067,6 +3122,7 @@ class Ch17Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -3099,8 +3155,11 @@ class Ch17Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -3140,6 +3199,7 @@ class Ch17Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -3397,11 +3457,14 @@ class Ch17Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -3410,6 +3473,7 @@ class Ch17Keywords(str, Enum):
 class Ch18Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -3438,6 +3502,7 @@ class Ch18Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -3473,8 +3538,11 @@ class Ch18Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -3515,6 +3583,7 @@ class Ch18Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -3794,11 +3863,14 @@ class Ch18Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -3807,6 +3879,7 @@ class Ch18Keywords(str, Enum):
 class Ch19Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -3835,6 +3908,7 @@ class Ch19Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -3870,8 +3944,11 @@ class Ch19Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -3913,6 +3990,7 @@ class Ch19Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -4195,11 +4273,14 @@ class Ch19Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -4208,6 +4289,7 @@ class Ch19Keywords(str, Enum):
 class Ch20Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -4236,6 +4318,7 @@ class Ch20Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -4272,8 +4355,11 @@ class Ch20Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -4316,6 +4402,7 @@ class Ch20Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -4598,11 +4685,14 @@ class Ch20Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -4611,6 +4701,7 @@ class Ch20Keywords(str, Enum):
 class Ch21Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -4640,6 +4731,7 @@ class Ch21Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -4676,8 +4768,11 @@ class Ch21Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -4720,6 +4815,7 @@ class Ch21Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -5005,11 +5101,14 @@ class Ch21Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -5018,6 +5117,7 @@ class Ch21Keywords(str, Enum):
 class Ch22Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -5047,6 +5147,7 @@ class Ch22Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -5083,8 +5184,11 @@ class Ch22Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -5127,6 +5231,7 @@ class Ch22Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -5414,11 +5519,14 @@ class Ch22Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -5427,6 +5535,7 @@ class Ch22Keywords(str, Enum):
 class Ch24Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -5457,6 +5566,7 @@ class Ch24Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -5493,8 +5603,11 @@ class Ch24Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -5537,6 +5650,7 @@ class Ch24Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -5825,11 +5939,14 @@ class Ch24Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value
@@ -5838,6 +5955,7 @@ class Ch24Keywords(str, Enum):
 class Ch98Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -5868,6 +5986,7 @@ class Ch98Keywords(str, Enum):
     NameTerm = "NameTerm"
     PartnerName = "PartnerName"
     PersonName = "PersonName"
+    PersonUnit = "PersonUnit"
     PoolNum = "PoolNum"
     ReasonNum = "ReasonNum"
     RespectGrain = "RespectGrain"
@@ -5904,8 +6023,11 @@ class Ch98Keywords(str, Enum):
     bud_time = "bud_time"
     build_order = "build_order"
     c100 = "c100"
+    c100_length = "c100_length"
     c400_core = "c400_core"
+    c400_core_length = "c400_core_length"
     c400_leap = "c400_leap"
+    c400_leap_length = "c400_leap_length"
     c400_number = "c400_number"
     calc_by_conpute = "calc_by_conpute"
     care_amount = "care_amount"
@@ -5948,6 +6070,7 @@ class Ch98Keywords(str, Enum):
     cycle_count = "cycle_count"
     cycle_max = "cycle_max"
     day = "day"
+    day_length = "day_length"
     dayly_duration_min = "dayly_duration_min"
     dayly_lower_min = "dayly_lower_min"
     days = "days"
@@ -6236,11 +6359,14 @@ class Ch98Keywords(str, Enum):
     weeks_upper_week = "weeks_upper_week"
     world_name = "world_name"
     year = "year"
+    year_length = "year_length"
     year_monthday_duration_days = "year_monthday_duration_days"
     year_monthday_lower = "year_monthday_lower"
     yr1_jan1_offset = "yr1_jan1_offset"
     yr4_core = "yr4_core"
+    yr4_core_length = "yr4_core_length"
     yr4_leap = "yr4_leap"
+    yr4_leap_length = "yr4_leap_length"
 
     def __str__(self):
         return self.value

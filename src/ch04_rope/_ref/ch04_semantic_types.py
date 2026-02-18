@@ -1,6 +1,7 @@
 from src.ch00_py.dict_toolbox import get_None_if_nan
 from src.ch01_allot._ref.ch01_semantic_types import GrainNum, PoolNum, WeightNum
 from src.ch02_partner._ref.ch02_semantic_types import (
+    BreakTerm,
     FundGrain,
     FundNum,
     GroupMark,
@@ -14,7 +15,7 @@ from src.ch02_partner._ref.ch02_semantic_types import (
 )
 
 
-class KnotTerm(str):
+class KnotTerm(BreakTerm):
     """A string to used as a delimiter in RopeTerms."""
 
 

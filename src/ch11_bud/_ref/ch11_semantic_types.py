@@ -30,4 +30,6 @@ class TimeNum(int):
 
 
 class SparkInt(int):
+    """Each Spark is a int that describes the order of data ingestion"""
+
     pass

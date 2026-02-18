@@ -23,4 +23,6 @@ from src.ch07_person_logic._ref.ch07_semantic_types import ManaGrain, PersonName
 
 
 class CRUD_command(str):
+    """database CRUD commands"""
+
     pass

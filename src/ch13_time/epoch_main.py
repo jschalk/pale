@@ -285,11 +285,7 @@ def validate_epoch_config(config_dict: dict) -> bool:
     ]
     for config_key in config_elements:
         config_element = config_dict.get(config_key)
-        len_elements = {
-            "hours_config",
-            "weekdays_config",
-            "months_config",
-        }
+        len_elements = {"hours_config", "weekdays_config", "months_config"}
         if config_element is None:
             return False
         elif config_key in len_elements and len(config_element) == 0:
