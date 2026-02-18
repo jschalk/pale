@@ -1,9 +1,40 @@
+from inspect import getdoc as inspect_getdoc
 from src.ch00_py.keyword_class_builder import get_keywords_src_config
 from src.ch07_person_logic.person_config import get_all_person_calc_args
 from src.ch13_time.epoch_main import get_c400_constants, get_default_epoch_config_dict
 from src.ch14_moment.moment_config import get_moment_config_args
 from src.ch15_nabu.nabu_config import get_nabu_args, get_nabuable_args
 from src.ch16_translate.translate_config import get_translate_config_args
+from src.ch98_docs_builder._ref.ch98_semantic_types import (
+    CRUD_command,
+    EpochLabel,
+    FaceName,
+    FactNum,
+    FirstLabel,
+    FundGrain,
+    FundNum,
+    GrainNum,
+    GroupMark,
+    GroupTitle,
+    HealerName,
+    KnotTerm,
+    LabelTerm,
+    ManaGrain,
+    ManaNum,
+    MomentRope,
+    NameTerm,
+    PartnerName,
+    PersonName,
+    PoolNum,
+    ReasonNum,
+    RespectGrain,
+    RespectNum,
+    RopeTerm,
+    SparkInt,
+    TimeNum,
+    TitleTerm,
+    WeightNum,
+)
 from src.ch98_docs_builder.keyword_description_builder import (
     get_chxx_prefix_path_dict,
     get_chxx_ref_blurb,
@@ -103,8 +134,55 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
         assert "C400Constant for building Epochs" in constant_description
     for config_key, config_obj in get_default_epoch_config_dict().items():
         config_description = keywords_description.get(config_key)
-        print(f"{config_key=} {config_description=}")
+        # print(f"{config_key=} {config_description=}")
         assert f"Epoch config" in config_description
+    for keyword, kw_config in get_keywords_src_config().items():
+        semantic_type = kw_config.get("semantic_type")
+        if semantic_type:
+            # print(f"{keyword} {kw_config=}")
+            x_init_chapter = kw_config.get("init_chapter")
+            kw_desc = f"{semantic_type} first used in {x_init_chapter}"
+            config_description = keywords_description.get(keyword)
+            assert kw_desc in config_description, keyword
+    for semantic_value in get_all_semantic_types_with_values():
+        semantic_value_name = type(semantic_value).__name__
+        semantic_description = keywords_description.get(semantic_value_name)
+        class_doc_str = str(inspect_getdoc(semantic_value)).replace("\n", " ")
+        # print(f"{semantic_value_name=} {semantic_value=} {class_doc_str=}")
+        assert class_doc_str in semantic_description
+
+
+def get_all_semantic_types_with_values() -> list:
+    return [
+        CRUD_command(""),
+        EpochLabel(""),
+        FaceName(""),
+        FactNum(0),
+        FirstLabel(""),
+        FundGrain(0),
+        FundNum(0),
+        GrainNum(0),
+        GroupMark(""),
+        GroupTitle(""),
+        HealerName(""),
+        KnotTerm(""),
+        LabelTerm(""),
+        ManaGrain(0),
+        ManaNum(0),
+        MomentRope(""),
+        NameTerm(""),
+        PartnerName(""),
+        PersonName(""),
+        PoolNum(0),
+        ReasonNum(0),
+        RespectGrain(0),
+        RespectNum(0),
+        RopeTerm(""),
+        SparkInt(0),
+        TimeNum(0),
+        TitleTerm(""),
+        WeightNum(0),
+    ]
 
 
 def check_person_desc_str(

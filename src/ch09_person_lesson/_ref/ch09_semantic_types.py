@@ -23,6 +23,8 @@ from src.ch08_person_atom._ref.ch08_semantic_types import CRUD_command
 
 
 class FaceName(NameTerm):
+    """The Face is the source of all outside data."""
+
     pass
 
 

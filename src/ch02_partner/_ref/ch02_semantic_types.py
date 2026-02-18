@@ -34,6 +34,8 @@ class TitleTerm(str):
 
 
 class GroupTitle(TitleTerm):
+    """If contains SepartorTerms(s) it represents a group otherwise its a PartnerName."""
+
     pass
 
 
