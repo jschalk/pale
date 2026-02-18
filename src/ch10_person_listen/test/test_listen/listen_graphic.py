@@ -185,7 +185,7 @@ def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
                 y=[9, 8.5, 8.0],
                 text=[
                     "Person Listening Structures",
-                    "Flow of Persons to Keeps",
+                    "Circulation of Persons to Keeps",
                     "(Requires justification by problem and with unique name)",
                 ],
                 mode="text",
@@ -245,7 +245,7 @@ def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
                 y=[9, 8.5, 8.0],
                 text=[
                     "Person Listening Structures",
-                    "Flow of Persons to Keeps",
+                    "Circulation of Persons to Keeps",
                     "(Requires justification by problem and with unique name)",
                 ],
                 mode="text",

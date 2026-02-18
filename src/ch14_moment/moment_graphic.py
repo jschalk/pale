@@ -120,7 +120,7 @@ def get_moment_structures0_fig(graphics_bool: bool = False) -> plotly_Figure:
             y=[ry0 + 1.5, ry0 + 1, ry0 + 0.5],
             text=[
                 "momentity Structure",
-                "Flow of guting to Doing",
+                "Circulation of guting to Doing",
                 "We all have an life where we clam chowder gut. And then there is what we do.",
             ],
             mode="text",

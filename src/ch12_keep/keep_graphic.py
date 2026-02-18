@@ -359,7 +359,7 @@ def get_protect_structures0_fig(graphics_bool: bool) -> plotly_Figure:
                 y=[m_y0 + 1.5, m_y0 + 1, m_y0 + 0.5],
                 text=[
                     "Keep Point Structure",
-                    "Flow of Point to Partners",
+                    "Circulation of Point to Partners",
                     "Point starts as cares from Healer. Needs are point coming back to healer.",
                 ],
                 mode="text",
@@ -399,7 +399,7 @@ def get_protect_structures1_fig(graphics_bool: bool) -> plotly_Figure:
                 y=[m_y0 + 1.5, m_y0 + 1, m_y0 + 0.5],
                 text=[
                     "Keep Point Structure",
-                    "Flow of Point to Partners",
+                    "Circulation of Point to Partners",
                     "Point starts as cares from Healer. Needs are point coming back to healer.",
                 ],
                 mode="text",
@@ -479,7 +479,7 @@ def get_protect_structures2_fig(graphics_bool: bool) -> plotly_Figure:
                 y=[m_y0 + 1.5, m_y0 + 1, m_y0 + 0.5],
                 text=[
                     "Keep Point Structure",
-                    "Flow of Point to Partners",
+                    "Circulation of Point to Partners",
                     "Point starts as cares from Healer. Needs are point coming back to healer.",
                 ],
                 mode="text",
@@ -558,7 +558,7 @@ def get_protect_structures3_fig(graphics_bool: bool) -> plotly_Figure:
                 y=[m_y0 + 1.5, m_y0 + 1, m_y0 + 0.5],
                 text=[
                     "Keep Point Structure",
-                    "Flow of Point to Partners",
+                    "Circulation of Point to Partners",
                     "Point starts as cares from Healer. Needs are point coming back to healer.",
                 ],
                 mode="text",
@@ -612,7 +612,7 @@ def get_protect_structures4_fig(graphics_bool: bool) -> plotly_Figure:
                 y=[m_y0 + 1.5, m_y0 + 1, m_y0 + 0.5],
                 text=[
                     "Keep Point Structure",
-                    "Flow of Point to Partners",
+                    "Circulation of Point to Partners",
                     "Point starts as cares from Healer. Needs are point coming back to healer.",
                 ],
                 mode="text",
@@ -693,7 +693,7 @@ def get_protect_structures5_fig(graphics_bool: bool) -> plotly_Figure:
                 y=[m_y0 + 1.5, m_y0 + 1, m_y0 + 0.5],
                 text=[
                     "Keep Point Structure",
-                    "Flow of Point to Partners",
+                    "Circulation of Point to Partners",
                     "Point starts as cares from Healer. Needs are point coming back to healer.",
                 ],
                 mode="text",

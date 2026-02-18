@@ -79,7 +79,7 @@ def test_get_person_agenda_plotly_fig_DisplaysInfo(graphics_bool):
     conditional_fig_show(x_fig, graphics_bool)
 
 
-def test_PersonUnit_fund_flow(graphics_bool):
+def test_PersonUnit_fund_graph0_VisualizesCirculation(graphics_bool):
     # ESTABLISH
     sue_person = personunit_shop(person_name="Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
