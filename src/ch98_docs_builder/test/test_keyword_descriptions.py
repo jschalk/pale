@@ -6,6 +6,7 @@ from src.ch14_moment.moment_config import get_moment_config_args
 from src.ch15_nabu.nabu_config import get_nabu_args, get_nabuable_args
 from src.ch16_translate.translate_config import get_translate_config_args
 from src.ch98_docs_builder._ref.ch98_semantic_types import (
+    BreakTerm,
     CRUD_command,
     EpochLabel,
     FaceName,
@@ -19,6 +20,7 @@ from src.ch98_docs_builder._ref.ch98_semantic_types import (
     HealerName,
     KnotTerm,
     LabelTerm,
+    LobbyID,
     ManaGrain,
     ManaNum,
     MomentRope,
@@ -34,6 +36,7 @@ from src.ch98_docs_builder._ref.ch98_semantic_types import (
     TimeNum,
     TitleTerm,
     WeightNum,
+    WorldName,
 )
 from src.ch98_docs_builder.keyword_description_builder import (
     get_chxx_prefix_path_dict,
@@ -136,6 +139,9 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
         config_description = keywords_description.get(config_key)
         # print(f"{config_key=} {config_description=}")
         assert f"Epoch config" in config_description
+
+    all_semantic_types_with_doc_strs = get_all_semantic_types_with_doc_strs()
+    doc_str_semantic_types = set(all_semantic_types_with_doc_strs.keys())
     for keyword, kw_config in get_keywords_src_config().items():
         semantic_type = kw_config.get("semantic_type")
         if semantic_type:
@@ -144,45 +150,50 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
             kw_desc = f"{semantic_type} first used in {x_init_chapter}"
             config_description = keywords_description.get(keyword)
             assert kw_desc in config_description, keyword
-    for semantic_value in get_all_semantic_types_with_values():
-        semantic_value_name = type(semantic_value).__name__
-        semantic_description = keywords_description.get(semantic_value_name)
-        class_doc_str = str(inspect_getdoc(semantic_value)).replace("\n", " ")
-        # print(f"{semantic_value_name=} {semantic_value=} {class_doc_str=}")
+            assert keyword in doc_str_semantic_types
+    for semantic_class, class_doc_str in all_semantic_types_with_doc_strs.items():
+        semantic_description = keywords_description.get(semantic_class)
+        print(f"{semantic_class=} {class_doc_str=}")
         assert class_doc_str in semantic_description
 
 
-def get_all_semantic_types_with_values() -> list:
-    return [
-        CRUD_command(""),
-        EpochLabel(""),
-        FaceName(""),
-        FactNum(0),
-        FirstLabel(""),
-        FundGrain(0),
-        FundNum(0),
-        GrainNum(0),
-        GroupMark(""),
-        GroupTitle(""),
-        HealerName(""),
-        KnotTerm(""),
-        LabelTerm(""),
-        ManaGrain(0),
-        ManaNum(0),
-        MomentRope(""),
-        NameTerm(""),
-        PartnerName(""),
-        PersonName(""),
-        PoolNum(0),
-        ReasonNum(0),
-        RespectGrain(0),
-        RespectNum(0),
-        RopeTerm(""),
-        SparkInt(0),
-        TimeNum(0),
-        TitleTerm(""),
-        WeightNum(0),
-    ]
+def get_all_semantic_types_with_doc_strs() -> dict[str, str]:
+    x_dict = {
+        BreakTerm.__name__: inspect_getdoc(BreakTerm("")),
+        CRUD_command.__name__: inspect_getdoc(CRUD_command("")),
+        EpochLabel.__name__: inspect_getdoc(EpochLabel("")),
+        FaceName.__name__: inspect_getdoc(FaceName("")),
+        FactNum.__name__: inspect_getdoc(FactNum(0)),
+        FirstLabel.__name__: inspect_getdoc(FirstLabel("")),
+        FundGrain.__name__: inspect_getdoc(FundGrain(0)),
+        FundNum.__name__: inspect_getdoc(FundNum(0)),
+        GrainNum.__name__: inspect_getdoc(GrainNum(0)),
+        GroupMark.__name__: inspect_getdoc(GroupMark("")),
+        GroupTitle.__name__: inspect_getdoc(GroupTitle("")),
+        HealerName.__name__: inspect_getdoc(HealerName("")),
+        KnotTerm.__name__: inspect_getdoc(KnotTerm("")),
+        LabelTerm.__name__: inspect_getdoc(LabelTerm("")),
+        LobbyID.__name__: inspect_getdoc(LobbyID("")),
+        ManaGrain.__name__: inspect_getdoc(ManaGrain(0)),
+        ManaNum.__name__: inspect_getdoc(ManaNum(0)),
+        MomentRope.__name__: inspect_getdoc(MomentRope("")),
+        NameTerm.__name__: inspect_getdoc(NameTerm("")),
+        PartnerName.__name__: inspect_getdoc(PartnerName("")),
+        PersonName.__name__: inspect_getdoc(PersonName("")),
+        PoolNum.__name__: inspect_getdoc(PoolNum(0)),
+        ReasonNum.__name__: inspect_getdoc(ReasonNum(0)),
+        RespectGrain.__name__: inspect_getdoc(RespectGrain(0)),
+        RespectNum.__name__: inspect_getdoc(RespectNum(0)),
+        RopeTerm.__name__: inspect_getdoc(RopeTerm("")),
+        SparkInt.__name__: inspect_getdoc(SparkInt(0)),
+        TimeNum.__name__: inspect_getdoc(TimeNum(0)),
+        TitleTerm.__name__: inspect_getdoc(TitleTerm("")),
+        WeightNum.__name__: inspect_getdoc(WeightNum(0)),
+        WorldName.__name__: inspect_getdoc(WorldName(0)),
+    }
+    for x_key in set(x_dict.keys()):
+        x_dict[x_key] = str(x_dict.get(x_key)).replace("\n", " ")
+    return x_dict
 
 
 def check_person_desc_str(

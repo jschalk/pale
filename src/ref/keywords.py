@@ -58,6 +58,7 @@ class Ch00Keywords(str, Enum):
 
 
 class Ch01Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FirstLabel = "FirstLabel"
     GrainNum = "GrainNum"
     INSERT = "INSERT"
@@ -77,6 +78,7 @@ class Ch01Keywords(str, Enum):
 
 
 class Ch02Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -140,6 +142,7 @@ class Ch02Keywords(str, Enum):
 
 
 class Ch03Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
     FundNum = "FundNum"
@@ -206,6 +209,7 @@ class Ch03Keywords(str, Enum):
 
 
 class Ch04Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -279,6 +283,7 @@ class Ch04Keywords(str, Enum):
 
 
 class Ch05Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -371,6 +376,7 @@ class Ch05Keywords(str, Enum):
 
 
 class Ch06Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -503,6 +509,7 @@ class Ch06Keywords(str, Enum):
 
 
 class Ch07Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     FactNum = "FactNum"
     FirstLabel = "FirstLabel"
     FundGrain = "FundGrain"
@@ -682,6 +689,7 @@ class Ch07Keywords(str, Enum):
 
 
 class Ch08Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     FactNum = "FactNum"
@@ -871,6 +879,7 @@ class Ch08Keywords(str, Enum):
 
 
 class Ch09Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     FaceName = "FaceName"
@@ -1072,6 +1081,7 @@ class Ch09Keywords(str, Enum):
 
 
 class Ch10Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     FaceName = "FaceName"
@@ -1274,6 +1284,7 @@ class Ch10Keywords(str, Enum):
 
 
 class Ch11Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     Epoch = "Epoch"
@@ -1496,6 +1507,7 @@ class Ch11Keywords(str, Enum):
 
 
 class Ch12Keywords(str, Enum):
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     DELETE = "DELETE"
     Epoch = "Epoch"
@@ -1750,6 +1762,7 @@ class Ch12Keywords(str, Enum):
 class Ch13Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -2057,6 +2070,7 @@ class Ch13Keywords(str, Enum):
 class Ch14Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -2382,6 +2396,7 @@ class Ch14Keywords(str, Enum):
 class Ch15Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -2718,6 +2733,7 @@ class Ch15Keywords(str, Enum):
 class Ch16Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -3077,6 +3093,7 @@ class Ch16Keywords(str, Enum):
 class Ch17Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -3456,6 +3473,7 @@ class Ch17Keywords(str, Enum):
 class Ch18Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -3861,6 +3879,7 @@ class Ch18Keywords(str, Enum):
 class Ch19Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -4270,6 +4289,7 @@ class Ch19Keywords(str, Enum):
 class Ch20Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -4681,6 +4701,7 @@ class Ch20Keywords(str, Enum):
 class Ch21Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -5096,6 +5117,7 @@ class Ch21Keywords(str, Enum):
 class Ch22Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -5513,6 +5535,7 @@ class Ch22Keywords(str, Enum):
 class Ch24Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
@@ -5932,6 +5955,7 @@ class Ch24Keywords(str, Enum):
 class Ch98Keywords(str, Enum):
     Anaday = "Anaday"
     Baileyday = "Baileyday"
+    BreakTerm = "BreakTerm"
     CRUD_command = "CRUD_command"
     Chiday = "Chiday"
     DELETE = "DELETE"
