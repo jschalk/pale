@@ -129,6 +129,9 @@ def test_get_all_person_calc_args_ReturnsObj():
     assert kw.stop_want in all_person_calc_args
     assert kw.plan_rope in all_person_calc_args
     assert kw.fund_give in all_person_calc_args
+    assert kw.case_task in all_person_calc_args
+    assert kw.reason_task in all_person_calc_args
+    assert kw.plan_task in all_person_calc_args
     assert all_person_calc_args.get(kw.fund_give) == {
         kw.person_plan_awardunit,
         kw.person_partner_membership,
@@ -136,7 +139,7 @@ def test_get_all_person_calc_args_ReturnsObj():
         kw.person_partnerunit,
     }
 
-    assert len(all_person_calc_args) == 76
+    assert len(all_person_calc_args) == 78
 
 
 def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesKeysExist():
@@ -230,7 +233,7 @@ def test_get_person_calc_dimen_args_ReturnsObj():
         kw.all_partner_debt,
         kw.healerunit_ratio,
         kw.tree_level,
-        kw.task,
+        kw.plan_task,
         kw.fund_grain,
         kw.fund_ratio,
         kw.range_evaluated,
@@ -513,9 +516,9 @@ def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, prncase, jv, kw.case_active) == "INTEGER"
     assert g_popconpute(cfig, prncase, jv, kw.case_active) == True
 
-    assert g_class_type(cfig, prncase, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, prncase, jv, kw.task) == "INTEGER"
-    assert g_popconpute(cfig, prncase, jv, kw.task) == True
+    assert g_class_type(cfig, prncase, jv, kw.case_task) == "bool"
+    assert g_sqlitetype(cfig, prncase, jv, kw.case_task) == "INTEGER"
+    assert g_popconpute(cfig, prncase, jv, kw.case_task) == True
 
     assert g_class_type(cfig, prncase, jv, kw.reason_divisor) == "int"
     assert g_sqlitetype(cfig, prncase, jv, kw.reason_divisor) == "INTEGER"
@@ -545,9 +548,9 @@ def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, prnreas, jv, kw.reason_active) == "INTEGER"
     assert g_popconpute(cfig, prnreas, jv, kw.reason_active) == True
 
-    assert g_class_type(cfig, prnreas, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, prnreas, jv, kw.task) == "INTEGER"
-    assert g_popconpute(cfig, prnreas, jv, kw.task) == True
+    assert g_class_type(cfig, prnreas, jv, kw.reason_task) == "bool"
+    assert g_sqlitetype(cfig, prnreas, jv, kw.reason_task) == "INTEGER"
+    assert g_popconpute(cfig, prnreas, jv, kw.reason_task) == True
 
     assert g_class_type(cfig, prnreas, jv, kw.active_requisite) == "bool"
     assert g_sqlitetype(cfig, prnreas, jv, kw.active_requisite) == "INTEGER"
@@ -565,7 +568,7 @@ def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, prnlabo, jv, kw.person_name_is_labor) == "INTEGER"
     assert g_popconpute(cfig, prnlabo, jv, kw.person_name_is_labor) == True
 
-    assert g_class_type(cfig, prnplan, jv, kw.plan_active) == "int"
+    assert g_class_type(cfig, prnplan, jv, kw.plan_active) == "bool"
     assert g_sqlitetype(cfig, prnplan, jv, kw.plan_active) == "INTEGER"
     assert g_popconpute(cfig, prnplan, jv, kw.plan_active) == True
 
@@ -617,9 +620,9 @@ def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesCorrect():
     assert g_sqlitetype(cfig, prnplan, jv, kw.stop_calc) == "REAL"
     assert g_popconpute(cfig, prnplan, jv, kw.stop_calc) == True
 
-    assert g_class_type(cfig, prnplan, jv, kw.task) == "int"
-    assert g_sqlitetype(cfig, prnplan, jv, kw.task) == "INTEGER"
-    assert g_popconpute(cfig, prnplan, jv, kw.task) == True
+    assert g_class_type(cfig, prnplan, jv, kw.plan_task) == "bool"
+    assert g_sqlitetype(cfig, prnplan, jv, kw.plan_task) == "INTEGER"
+    assert g_popconpute(cfig, prnplan, jv, kw.plan_task) == True
 
     assert g_class_type(cfig, prnplan, jv, kw.addin) == "float"
     assert g_sqlitetype(cfig, prnplan, jv, kw.addin) == "REAL"
@@ -836,7 +839,9 @@ def test_get_person_calc_args_type_dict_ReturnsObj():
     assert person_calc_args_type_dict.get(kw.healer_name) == kw.NameTerm
     assert person_calc_args_type_dict.get(kw.reason_state) == kw.RopeTerm
     assert person_calc_args_type_dict.get(kw.reason_active) == "int"
-    assert person_calc_args_type_dict.get(kw.task) == "int"
+    assert person_calc_args_type_dict.get(kw.case_task) == "bool"
+    assert person_calc_args_type_dict.get(kw.reason_task) == "bool"
+    assert person_calc_args_type_dict.get(kw.plan_task) == "bool"
     assert person_calc_args_type_dict.get(kw.reason_divisor) == "int"
     assert person_calc_args_type_dict.get(kw.reason_upper) == kw.ReasonNum
     assert person_calc_args_type_dict.get(kw.reason_lower) == kw.ReasonNum
@@ -844,7 +849,7 @@ def test_get_person_calc_args_type_dict_ReturnsObj():
     assert person_calc_args_type_dict.get(kw.active_requisite) == "bool"
     assert person_calc_args_type_dict.get(kw.party_title) == kw.TitleTerm
     assert person_calc_args_type_dict.get(kw.person_name_is_labor) == "int"
-    assert person_calc_args_type_dict.get(kw.plan_active) == "int"
+    assert person_calc_args_type_dict.get(kw.plan_active) == "bool"
     assert person_calc_args_type_dict.get(kw.all_partner_cred) == "int"
     assert person_calc_args_type_dict.get(kw.all_partner_debt) == "int"
     assert person_calc_args_type_dict.get(kw.descendant_pledge_count) == "int"
@@ -870,4 +875,4 @@ def test_get_person_calc_args_type_dict_ReturnsObj():
     assert person_calc_args_type_dict.get(kw.mana_grain) == "float"
     assert person_calc_args_type_dict.get(kw.respect_grain) == "float"
     assert person_calc_args_type_dict.get(kw.knot) == "KnotTerm"
-    assert len(person_calc_args_type_dict) == 73
+    assert len(person_calc_args_type_dict) == 75

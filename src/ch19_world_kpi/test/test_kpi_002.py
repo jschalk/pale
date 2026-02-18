@@ -14,7 +14,7 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
     casa_rope = create_rope(exx.a23, "casa")
     casa_pledge = 0
     casa_active = 0
-    casa_task = 0
+    casa_plan_task = 0
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
@@ -26,11 +26,11 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario0_NoPledges():
 , {kw.plan_rope}
 , {kw.pledge}
 , {kw.plan_active}
-, {kw.task}
+, {kw.plan_task}
 )
 VALUES 
-  ('{exx.a23}', '{exx.bob}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
-, ('{exx.a23}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
+  ('{exx.a23}', '{exx.bob}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_plan_task})
+, ('{exx.a23}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_plan_task})
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, job_prnplan_tablename) == 2
@@ -48,7 +48,7 @@ VALUES
             kw.plan_rope,
             kw.pledge,
             kw.plan_active,
-            kw.task,
+            kw.plan_task,
         ]
         assert get_row_count(cursor, moment_kpi002_person_pledges_tablename) == 0
 
@@ -58,11 +58,11 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
     casa_rope = create_rope(exx.a23, "casa")
     casa_pledge = 0
     casa_active = 0
-    casa_task = 0
+    casa_plan_task = 0
     clean_rope = create_rope(casa_rope, "clean")
     clean_pledge = 1
     clean_active = 1
-    clean_task = 1
+    clean_plan_task = 1
 
     with sqlite3_connect(":memory:") as db_conn:
         cursor = db_conn.cursor()
@@ -74,13 +74,13 @@ def test_create_populate_kpi002_table_PopulatesTable_Scenario1_TwoPledges():
 , {kw.plan_rope}
 , {kw.pledge}
 , {kw.plan_active}
-, {kw.task}
+, {kw.plan_task}
 )
 VALUES 
-  ('{exx.a23}', '{exx.bob}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
-, ('{exx.a23}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_task})
-, ('{exx.a23}', '{exx.bob}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_task})
-, ('{exx.a23}', '{exx.yao}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_task})
+  ('{exx.a23}', '{exx.bob}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_plan_task})
+, ('{exx.a23}', '{exx.yao}', '{casa_rope}', {casa_pledge}, {casa_active}, {casa_plan_task})
+, ('{exx.a23}', '{exx.bob}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_plan_task})
+, ('{exx.a23}', '{exx.yao}', '{clean_rope}', {clean_pledge}, {clean_active}, {clean_plan_task})
 """
         cursor.execute(insert_sqlstr)
         assert get_row_count(cursor, job_prnplan_tablename) == 4
@@ -98,6 +98,6 @@ VALUES
             kw.plan_rope,
             kw.pledge,
             kw.plan_active,
-            kw.task,
+            kw.plan_task,
         ]
         assert get_row_count(cursor, moment_kpi002_person_pledges_tablename) == 2

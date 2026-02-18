@@ -186,7 +186,7 @@ def add_trace(
     showlegend: bool = False,
     case_str: str = "",
     expect_str: str = "",
-    expect_task_str: str = "",
+    expect_case_task_str: str = "",
     reason_divisor: float = 0,
 ) -> plotly_figure:
     x_end = x_int if x_end is None else x_end
@@ -206,7 +206,7 @@ def add_trace(
         x=reason_divisor + 0.15, y=y_int, text=expect_str, showarrow=False
     )
     fig.add_annotation(
-        x=reason_divisor + 0.4, y=y_int, text=expect_task_str, showarrow=False
+        x=reason_divisor + 0.4, y=y_int, text=expect_case_task_str, showarrow=False
     )
     fig.add_annotation(x=-0.1, y=y_int, text=case_str, showarrow=False)
 
@@ -219,7 +219,7 @@ def add_traces(
     showlegend: bool = False,
     case_str: str = "",
     expect_str: str = "",
-    expect_task_str: str = "",
+    expect_case_task_str: str = "",
     reason_divisor: float = 1,
 ) -> plotly_figure:
     fact_str = "FactUnit range"
@@ -257,7 +257,7 @@ def add_traces(
             sl,
             case_str=case_str,
             expect_str=expect_str,
-            expect_task_str=expect_task_str,
+            expect_case_task_str=expect_case_task_str,
             reason_divisor=reason_divisor,
         )
     else:
@@ -276,7 +276,7 @@ def add_traces(
             sl,
             case_str=case_str,
             expect_str=expect_str,
-            expect_task_str=expect_task_str,
+            expect_case_task_str=expect_case_task_str,
             reason_divisor=reason_divisor,
         )
         add_trace(
@@ -293,7 +293,7 @@ def add_traces(
 # for CaseActiveFinder tests
 def show_x(
     expect_active: bool,
-    expect_task_bool: bool,
+    expect_case_task_bool: bool,
     x_csf: CaseActiveFinder,
     fig: plotly_figure,
     trace_y: float,
@@ -304,13 +304,13 @@ def show_x(
     if not graphics_bool:
         return
     expect_str = "TRUE" if expect_active else "FALSE"
-    expect_task_str = "TRUE" if expect_task_bool else "FALSE"
+    expect_case_task_str = "TRUE" if expect_case_task_bool else "FALSE"
     add_traces(
-        fig, x_csf, trace_y, showlegend, case_str, expect_str, expect_task_str, 1
+        fig, x_csf, trace_y, showlegend, case_str, expect_str, expect_case_task_str, 1
     )
     if (
         x_csf.get_active_bool() != expect_active
-        or x_csf.get_task_bool() != expect_task_bool
+        or x_csf.get_case_task_bool() != expect_case_task_bool
     ):
         fig.show()
     return 0.1
@@ -331,10 +331,10 @@ def get_fig(pd: float, graphics_bool: bool) -> plotly_figure:
         showlegend=True,
         case_str="Scenario",
         expect_str="case_active",
-        expect_task_str="task Bool",
+        expect_case_task_str="case_task Bool",
         reason_divisor=pd,
     )
-    fig_label = "Given Fact Range and Case Range assert expected Case.case_active, Case.Task Bools."
+    fig_label = "Given Fact Range and Case Range assert expected Case.case_active, Case.case_task Bools."
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(showgrid=False, zeroline=True, showticklabels=False)
     fig.update_layout(plot_bgcolor="white", title=fig_label, title_font_size=20)
@@ -345,7 +345,7 @@ def get_fig(pd: float, graphics_bool: bool) -> plotly_figure:
 class ExpectedCaseAttrs:
     caseactivefinder: CaseActiveFinder
     expected_active: bool
-    expected_task: bool
+    expected_case_task: bool
     add_to_line: float
     description: str = None
 
@@ -354,11 +354,11 @@ def eca_shop(
     caseactivefinder: CaseActiveFinder,
     add_to_line: float,
     expected_active: bool,
-    expected_task: bool,
+    expected_case_task: bool,
     description: str = None,
 ) -> ExpectedCaseAttrs:
     return ExpectedCaseAttrs(
-        caseactivefinder, expected_active, expected_task, add_to_line, description
+        caseactivefinder, expected_active, expected_case_task, add_to_line, description
     )
 
 
@@ -375,11 +375,11 @@ def check_case(
         case_desc = expectedcaseattrs.description
     # case = c_tuple[0]
     # expected_active = c_tuple[1]
-    # expected_task = c_tuple[2]
+    # expected_case_task = c_tuple[2]
     x_caseactivefinder = expectedcaseattrs.caseactivefinder
     show_x(
         expectedcaseattrs.expected_active,
-        expectedcaseattrs.expected_task,
+        expectedcaseattrs.expected_case_task,
         x_caseactivefinder,
         fig,
         linel,
@@ -388,7 +388,9 @@ def check_case(
         graphics_bool,
     )
     assert x_caseactivefinder.get_active_bool() == expectedcaseattrs.expected_active
-    assert x_caseactivefinder.get_task_bool() == expectedcaseattrs.expected_task
+    assert (
+        x_caseactivefinder.get_case_task_bool() == expectedcaseattrs.expected_case_task
+    )
     return linel
 
 
@@ -417,7 +419,7 @@ def check_show_caseactivefinder_scenarios(graphics_bool: bool):
         f"{kw.fact_upper}_full": "REAL",
         "linl_add": "REAL",
         "expected_active": "BOOLEAN",
-        f"expected_{kw.task}": "BOOLEAN",
+        f"expected_{kw.case_task}": "BOOLEAN",
     }
     test_cases = open_csv_with_types(test_cases_csv_path, test_cases_types)
     header = None
@@ -433,7 +435,7 @@ def check_show_caseactivefinder_scenarios(graphics_bool: bool):
             fact_upper_full = test_case[5]
             linl_add = test_case[6]
             expected_active = test_case[7]
-            expected_task = test_case[8]
+            expected_case_task = test_case[8]
             x_caseactivefinder = caseactivefinder_shop(
                 reason_lower,
                 reason_upper,
@@ -442,7 +444,11 @@ def check_show_caseactivefinder_scenarios(graphics_bool: bool):
                 fact_upper_full,
             )
             x_eca = eca_shop(
-                x_caseactivefinder, linl_add, expected_active, expected_task, case_desc
+                x_caseactivefinder,
+                linl_add,
+                expected_active,
+                expected_case_task,
+                case_desc,
             )
             linel = check_case(linel, x_eca, fig, grb, None)
 
@@ -450,7 +456,7 @@ def check_show_caseactivefinder_scenarios(graphics_bool: bool):
     _add_last_trace_and_show(fig, pd, linel, graph_b)
 
 
-def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenari0_fact_range(
+def test_CaseActiveFinder_get_active_get_case_task_bool_ReturnsObj_Scenari0_fact_range(
     graphics_bool,
 ):
     # # ESTABLISH / WHEN / THEN
@@ -468,7 +474,7 @@ def _add_last_trace_and_show(fig: plotly_figure, pd, linel, graphics_bool: bool)
         conditional_fig_show(fig, graphics_bool)
 
 
-def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario1_Seperated_reason_range_Inside_fact_range():
+def test_CaseActiveFinder_get_active_get_case_task_bool_ReturnsObj_Scenario1_Seperated_reason_range_Inside_fact_range():
     # ESTABLISH
     segr_obj = caseactivefinder_shop(
         reason_lower=1305.0,
@@ -482,16 +488,16 @@ def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario1_Seperate
     x_str3 = f"  {segr_obj.fact_lower_full=}  {segr_obj.fact_upper_full=} \tdifference:{segr_obj.fact_upper_full-segr_obj.fact_lower_full}"
     print(x_str2)
     print(x_str3)
-    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_task_bool()=}")
+    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_case_task_bool()=}")
     # assert segr_obj.fact_range_len == 9000
     # assert segr_obj.get_fact_upper_mod_div() == 200
 
     # WHEN / THEN
     assert segr_obj.get_active_bool()
-    assert segr_obj.get_task_bool()
+    assert segr_obj.get_case_task_bool()
 
 
-def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario2_reason_range_Inside_fact_range():
+def test_CaseActiveFinder_get_active_get_case_task_bool_ReturnsObj_Scenario2_reason_range_Inside_fact_range():
     # ESTABLISH
     segr_obj = caseactivefinder_shop(
         reason_lower=1305.0,
@@ -507,14 +513,14 @@ def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario2_reason_r
     print(
         f"  {segr_obj.fact_lower_full=}  {segr_obj.fact_upper_full=} \tdifference:{segr_obj.fact_upper_full-segr_obj.fact_lower_full}"
     )
-    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_task_bool()=}")
+    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_case_task_bool()=}")
 
     # WHEN / THEN
     assert segr_obj.get_active_bool()
-    assert segr_obj.get_task_bool()
+    assert segr_obj.get_case_task_bool()
 
 
-def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario3_reason_range_Outside_fact_range():
+def test_CaseActiveFinder_get_active_get_case_task_bool_ReturnsObj_Scenario3_reason_range_Outside_fact_range():
     # ESTABLISH
     segr_obj = caseactivefinder_shop(
         reason_lower=1305.0,
@@ -530,14 +536,14 @@ def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario3_reason_r
     print(
         f"  {segr_obj.fact_lower_full=}  {segr_obj.fact_upper_full=} \tdifference:{segr_obj.fact_upper_full-segr_obj.fact_lower_full}"
     )
-    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_task_bool()=}")
+    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_case_task_bool()=}")
 
     # WHEN / THEN
     assert segr_obj.get_active_bool() is False
-    assert segr_obj.get_task_bool() is False
+    assert segr_obj.get_case_task_bool() is False
 
 
-def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario4_fact_range_Equals_divisor():
+def test_CaseActiveFinder_get_active_get_case_task_bool_ReturnsObj_Scenario4_fact_range_Equals_divisor():
     # ESTABLISH
     segr_obj = caseactivefinder_shop(
         reason_lower=600.0,
@@ -553,8 +559,8 @@ def test_CaseActiveFinder_get_active_get_task_bool_ReturnsObj_Scenario4_fact_ran
     print(
         f"  {segr_obj.fact_lower_full=}  {segr_obj.fact_upper_full=} \tdifference:{segr_obj.fact_upper_full-segr_obj.fact_lower_full}"
     )
-    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_task_bool()=}")
+    print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_case_task_bool()=}")
 
     # WHEN / THEN
     assert segr_obj.get_active_bool()
-    assert segr_obj.get_task_bool()
+    assert segr_obj.get_case_task_bool()

@@ -76,7 +76,7 @@ def test_PlanUnit_Exists():
         kw.range_evaluated,
         kw.reasonheirs,
         kw.stop_calc,
-        kw.task,
+        kw.plan_task,
         kw.plan_uid,
         kw.addin,
         kw.awardunits,

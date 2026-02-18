@@ -29,7 +29,7 @@ from src.ch10_person_listen.test._util.ch10_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_listen_to_agendas_create_init_job_from_guts_AddstasksToPersonWhenNo_partyunitIsSet(
+def test_listen_to_agendas_create_init_job_from_guts_Addscase_tasksToPersonWhenNo_partyunitIsSet(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -59,7 +59,7 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToPersonWhenNo_par
     assert len(new_yao_job.get_agenda_dict()) == 2
 
 
-def test_listen_to_agendas_create_init_job_from_guts_AddstasksToPerson(
+def test_listen_to_agendas_create_init_job_from_guts_Addscase_tasksToPerson(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -91,7 +91,7 @@ def test_listen_to_agendas_create_init_job_from_guts_AddstasksToPerson(
     assert len(new_yao_job.get_agenda_dict()) == 2
 
 
-def test_listen_to_agendas_create_init_job_from_guts_AddstasksToPersonWithDetailsDecidedBy_partner_debt_lumen(
+def test_listen_to_agendas_create_init_job_from_guts_Addscase_tasksToPersonWithDetailsDecidedBy_partner_debt_lumen(
     temp_dir_setup,
 ):
     # ESTABLISH

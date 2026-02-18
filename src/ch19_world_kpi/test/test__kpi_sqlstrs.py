@@ -50,7 +50,7 @@ SELECT
 , {kw.plan_rope}
 , {kw.pledge}
 , {kw.plan_active}
-, {kw.task}
+, {kw.plan_task}
 FROM {prnplan_job}
 WHERE {kw.pledge} == 1 AND {kw.plan_active} == 1
 ;

@@ -72,7 +72,7 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     person_calc_args = set(get_all_person_calc_args().keys())
     # for person_calc_arg in person_calc_args.difference(table_sorting_priority):
     #     print(f"{person_calc_arg=}")
-    # print(f"{person_calc_args.difference(table_sorting_priority)=}")
+    print(f"{person_calc_args.difference(table_sorting_priority)=}")
     assert person_calc_args.issubset(table_sorting_priority)
     translateable_otx_cols = {f"{trl_arg}_otx" for trl_arg in get_translateable_args()}
     translateable_inx_cols = {f"{trl_arg}_inx" for trl_arg in get_translateable_args()}
@@ -255,46 +255,48 @@ def test_get_idea_elements_sort_order_ReturnsObj():
     assert table_sorting_priority[159] == kw.error_message
     assert table_sorting_priority[160] == kw.person_name_is_labor
     assert table_sorting_priority[161] == kw.plan_active
-    assert table_sorting_priority[162] == kw.task
-    assert table_sorting_priority[163] == kw.reason_active
-    assert table_sorting_priority[164] == kw.case_active
-    assert table_sorting_priority[165] == kw.credor_pool
-    assert table_sorting_priority[166] == kw.debtor_pool
-    assert table_sorting_priority[167] == kw.rational
-    assert table_sorting_priority[168] == kw.fund_give
-    assert table_sorting_priority[169] == kw.fund_take
-    assert table_sorting_priority[170] == kw.fund_onset
-    assert table_sorting_priority[171] == kw.fund_cease
-    assert table_sorting_priority[172] == kw.fund_ratio
-    assert table_sorting_priority[173] == kw.fund_agenda_give
-    assert table_sorting_priority[174] == kw.fund_agenda_take
-    assert table_sorting_priority[175] == kw.fund_agenda_ratio_give
-    assert table_sorting_priority[176] == kw.fund_agenda_ratio_take
-    assert table_sorting_priority[177] == kw.inallocable_partner_debt_lumen
-    assert table_sorting_priority[178] == kw.gogo_calc
-    assert table_sorting_priority[179] == kw.stop_calc
-    assert table_sorting_priority[180] == kw.tree_level
-    assert table_sorting_priority[181] == kw.range_evaluated
-    assert table_sorting_priority[182] == kw.descendant_pledge_count
-    assert table_sorting_priority[183] == kw.healerunit_ratio
-    assert table_sorting_priority[184] == kw.all_partner_cred
-    assert table_sorting_priority[185] == kw.keeps_justified
-    assert table_sorting_priority[186] == kw.offtrack_fund
-    assert table_sorting_priority[187] == kw.parent_heir_active
-    assert table_sorting_priority[188] == kw.irrational_partner_debt_lumen
-    assert table_sorting_priority[189] == kw.sum_healerunit_plans_fund_total
-    assert table_sorting_priority[190] == kw.keeps_buildable
-    assert table_sorting_priority[191] == kw.all_partner_debt
-    assert table_sorting_priority[192] == kw.tree_traverse_count
-    assert table_sorting_priority[193] == kw.net_funds
-    assert table_sorting_priority[194] == kw.fund_rank
-    assert table_sorting_priority[195] == kw.pledges_count
-    assert table_sorting_priority[196] == f"context_plan_{kw.close}"
-    assert table_sorting_priority[197] == f"context_plan_{kw.denom}"
-    assert table_sorting_priority[198] == f"context_plan_{kw.morph}"
-    assert table_sorting_priority[199] == kw.inx_epoch_diff
+    assert table_sorting_priority[162] == kw.plan_task
+    assert table_sorting_priority[163] == kw.case_task
+    assert table_sorting_priority[164] == kw.reason_active
+    assert table_sorting_priority[165] == kw.reason_task
+    assert table_sorting_priority[166] == kw.case_active
+    assert table_sorting_priority[167] == kw.credor_pool
+    assert table_sorting_priority[168] == kw.debtor_pool
+    assert table_sorting_priority[169] == kw.rational
+    assert table_sorting_priority[170] == kw.fund_give
+    assert table_sorting_priority[171] == kw.fund_take
+    assert table_sorting_priority[172] == kw.fund_onset
+    assert table_sorting_priority[173] == kw.fund_cease
+    assert table_sorting_priority[174] == kw.fund_ratio
+    assert table_sorting_priority[175] == kw.fund_agenda_give
+    assert table_sorting_priority[176] == kw.fund_agenda_take
+    assert table_sorting_priority[177] == kw.fund_agenda_ratio_give
+    assert table_sorting_priority[178] == kw.fund_agenda_ratio_take
+    assert table_sorting_priority[179] == kw.inallocable_partner_debt_lumen
+    assert table_sorting_priority[180] == kw.gogo_calc
+    assert table_sorting_priority[181] == kw.stop_calc
+    assert table_sorting_priority[182] == kw.tree_level
+    assert table_sorting_priority[183] == kw.range_evaluated
+    assert table_sorting_priority[184] == kw.descendant_pledge_count
+    assert table_sorting_priority[185] == kw.healerunit_ratio
+    assert table_sorting_priority[186] == kw.all_partner_cred
+    assert table_sorting_priority[187] == kw.keeps_justified
+    assert table_sorting_priority[188] == kw.offtrack_fund
+    assert table_sorting_priority[189] == kw.parent_heir_active
+    assert table_sorting_priority[190] == kw.irrational_partner_debt_lumen
+    assert table_sorting_priority[191] == kw.sum_healerunit_plans_fund_total
+    assert table_sorting_priority[192] == kw.keeps_buildable
+    assert table_sorting_priority[193] == kw.all_partner_debt
+    assert table_sorting_priority[194] == kw.tree_traverse_count
+    assert table_sorting_priority[195] == kw.net_funds
+    assert table_sorting_priority[196] == kw.fund_rank
+    assert table_sorting_priority[197] == kw.pledges_count
+    assert table_sorting_priority[198] == f"context_plan_{kw.close}"
+    assert table_sorting_priority[199] == f"context_plan_{kw.denom}"
+    assert table_sorting_priority[200] == f"context_plan_{kw.morph}"
+    assert table_sorting_priority[201] == kw.inx_epoch_diff
 
-    assert len(table_sorting_priority) == 200
+    assert len(table_sorting_priority) == 202
     all_args = copy_copy(atom_args)
     all_args.update(all_person_dimen_delete_keys)
     all_args.update(moment_args)

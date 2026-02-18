@@ -107,7 +107,7 @@ def test_create_prnplan_metrics_insert_sqlstr_ReturnsObj():
     x_tree_level = 11
     x_range_evaluated = 12
     x_stop_calc = 13
-    x_task = 14
+    x_plan_task = 14
     x_addin = 15
     x_begin = 16
     x_close = 17
@@ -136,7 +136,7 @@ def test_create_prnplan_metrics_insert_sqlstr_ReturnsObj():
         kw.tree_level: x_tree_level,
         kw.range_evaluated: x_range_evaluated,
         kw.stop_calc: x_stop_calc,
-        kw.task: x_task,
+        kw.plan_task: x_plan_task,
         kw.addin: x_addin,
         kw.begin: x_begin,
         kw.close: x_close,
@@ -198,8 +198,8 @@ def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
     x_rope = 1
     x_reason_context = 2
     x_active_requisite = 3
-    x_task = 4
-    x_reason_active = 5
+    x_reason_active = 4
+    x_reason_task = 5
     x__heir_active = 6
     values_dict = {
         kw.moment_rope: x_moment_rope,
@@ -207,8 +207,8 @@ def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
         kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
         kw.active_requisite: x_active_requisite,
-        kw.task: x_task,
         kw.reason_active: x_reason_active,
+        kw.reason_task: x_reason_task,
         kw.parent_heir_active: x__heir_active,
     }
     # all args included in values dict
@@ -265,7 +265,7 @@ def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
     x_reason_lower = 5
     x_reason_upper = 4
     x_reason_divisor = 6
-    x_task = 7
+    x_case_task = 7
     x_case_active = 8
     values_dict = {
         kw.moment_rope: x_moment_rope,
@@ -276,7 +276,7 @@ def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
         kw.reason_lower: x_reason_lower,
         kw.reason_upper: x_reason_upper,
         kw.reason_divisor: x_reason_divisor,
-        kw.task: x_task,
+        kw.case_task: x_case_task,
         kw.case_active: x_case_active,
     }
     # all args included in values dict

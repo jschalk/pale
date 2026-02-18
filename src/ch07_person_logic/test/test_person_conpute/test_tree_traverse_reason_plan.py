@@ -17,9 +17,9 @@ def test_agenda_returned_WhenNoReasonsExist():
 
     # THEN
     casa_rope = sue_person.make_l1_rope("casa")
-    assert sue_person.get_plan_obj(casa_rope).task is True
+    assert sue_person.get_plan_obj(casa_rope).plan_task is True
     cat_rope = sue_person.make_l1_rope("cat have dinner")
-    assert sue_person.get_plan_obj(cat_rope).task is True
+    assert sue_person.get_plan_obj(cat_rope).plan_task is True
 
 
 def test_PersonUnit_reasonheirs_AreInherited_v1():
@@ -47,7 +47,7 @@ def test_PersonUnit_reasonheirs_AreInherited_v1():
     case_tue = casa_plan.get_reasonheir(wk_rope).get_case(tue_rope)
     tue_case = caseunit_shop(reason_state=tue_rope)
     tue_case.case_active = False
-    tue_case.task = False
+    tue_case.case_task = False
     cases = {tue_case.reason_state: tue_case}
     built_wk_reasonheir = reasonheir_shop(
         reason_context=wk_rope,
@@ -55,8 +55,8 @@ def test_PersonUnit_reasonheirs_AreInherited_v1():
         reason_active=False,
         parent_heir_active=True,
     )
-    tue_task = built_wk_reasonheir.cases.get(case_tue.reason_state).task
-    assert case_tue.task == tue_task
+    tue_case_task = built_wk_reasonheir.cases.get(case_tue.reason_state).case_task
+    assert case_tue.case_task == tue_case_task
     assert case_tue == built_wk_reasonheir.cases[case_tue.reason_state]
     wk_reasonheir = casa_plan.get_reasonheir(wk_rope)
     assert wk_reasonheir.cases == built_wk_reasonheir.cases
@@ -74,7 +74,7 @@ def test_PersonUnit_reasonheirs_AreInheritedTo4LevelsFromRoot():
 
     wed_case = caseunit_shop(reason_state=wed_rope)
     wed_case.case_active = False
-    wed_case.task = False
+    wed_case.case_task = False
 
     cases_x = {wed_case.reason_state: wed_case}
     casa_wk_build_reasonunit = reasonunit_shop(reason_context=wk_rope, cases=cases_x)
@@ -112,7 +112,7 @@ def test_PersonUnit_reasonheirs_AreInheritedTo4LevelsFromRoot():
         rla_wk_reasonheir.active_requisite == casa_wk_built_reasonheir.active_requisite
     )
     assert rla_wk_reasonheir.reason_active == casa_wk_built_reasonheir.reason_active
-    assert rla_wk_reasonheir.task == casa_wk_built_reasonheir.task
+    assert rla_wk_reasonheir.reason_task == casa_wk_built_reasonheir.reason_task
     assert rla_wk_reasonheir.parent_heir_active
     assert rla_wk_reasonheir.parent_heir_active != casa_wk_built_reasonheir
 
@@ -124,7 +124,7 @@ def test_PersonUnit_reasonheirs_AreInheritedTo4LevelsFromRoot():
         cost_wk_reasonheir.active_requisite == casa_wk_built_reasonheir.active_requisite
     )
     assert cost_wk_reasonheir.reason_active == casa_wk_built_reasonheir.reason_active
-    assert cost_wk_reasonheir.task == casa_wk_built_reasonheir.task
+    assert cost_wk_reasonheir.reason_task == casa_wk_built_reasonheir.reason_task
     assert cost_wk_reasonheir.parent_heir_active
     assert cost_wk_reasonheir.parent_heir_active != casa_wk_built_reasonheir
 
@@ -140,7 +140,7 @@ def test_PersonUnit_reasonheirs_AreInheritedTo4LevelsFromLevel2():
 
     wed_case = caseunit_shop(reason_state=wed_rope)
     wed_case.case_active = False
-    wed_case.task = False
+    wed_case.case_task = False
     cases = {wed_case.reason_state: wed_case}
     casa_wk_build_reasonunit = reasonunit_shop(wk_rope, cases=cases)
     casa_wk_built_reasonheir = reasonheir_shop(
@@ -183,7 +183,7 @@ def test_PersonUnit_reasonheirs_AreInheritedTo4LevelsFromLevel2():
         rla_wk_reasonheir.active_requisite == casa_wk_built_reasonheir.active_requisite
     )
     assert rla_wk_reasonheir.reason_active == casa_wk_built_reasonheir.reason_active
-    assert rla_wk_reasonheir.task == casa_wk_built_reasonheir.task
+    assert rla_wk_reasonheir.reason_task == casa_wk_built_reasonheir.reason_task
     assert rla_wk_reasonheir.parent_heir_active
     assert rla_wk_reasonheir.parent_heir_active != casa_wk_built_reasonheir
 
@@ -195,7 +195,7 @@ def test_PersonUnit_reasonheirs_AreInheritedTo4LevelsFromLevel2():
         cost_wk_reasonheir.active_requisite == casa_wk_built_reasonheir.active_requisite
     )
     assert cost_wk_reasonheir.reason_active == casa_wk_built_reasonheir.reason_active
-    assert cost_wk_reasonheir.task == casa_wk_built_reasonheir.task
+    assert cost_wk_reasonheir.reason_task == casa_wk_built_reasonheir.reason_task
     assert cost_wk_reasonheir.parent_heir_active
     assert cost_wk_reasonheir.parent_heir_active != casa_wk_built_reasonheir
 

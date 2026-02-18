@@ -58,7 +58,7 @@ def get_person_viewer_template() -> str:
             <input type="checkbox" id="show_pledge"><label for="show_pledge">pledge</label>
             <input type="checkbox" id="show_descendant_pledge_count"><label for="show_descendant_pledge_count">descendant_pledge_count</label>
             <input type="checkbox" id="show_plan_active"><label for="show_plan_active">plan_active</label>
-            <input type="checkbox" id="show_task"><label for="show_task">task</label>
+            <input type="checkbox" id="show_case_task"><label for="show_case_task">case_task</label>
             <input type="checkbox" id="show_star"><label for="show_star">star</label>
             <input type="checkbox" id="show_plan_fund_total"><label for="show_plan_fund_total">plan_fund_total</label>
             <input type="checkbox" id="show_fund_onset"><label for="show_fund_onset">fund_onset</label>

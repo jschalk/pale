@@ -15,7 +15,7 @@ def test_get_person_viewer_template_ReturnsObj():
         kw.all_partner_debt,
         kw.awardheirs,
         kw.awardlines,
-        kw.task,
+        kw.case_task,
         kw.descendant_pledge_count,
         kw.factheirs,
         kw.fund_cease,

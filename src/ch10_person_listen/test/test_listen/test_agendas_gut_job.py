@@ -30,7 +30,7 @@ from src.ch10_person_listen.test._util.ch10_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_listen_to_agendas_jobs_into_job_AddstasksToPersonWhenNo_partyunitIsSet(
+def test_listen_to_agendas_jobs_into_job_Addscase_tasksToPersonWhenNo_partyunitIsSet(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -60,7 +60,7 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPersonWhenNo_partyunitIsSet(
     assert len(new_yao_job.get_agenda_dict()) == 2
 
 
-def test_listen_to_agendas_jobs_into_job_AddstasksToPerson(temp_dir_setup):
+def test_listen_to_agendas_jobs_into_job_Addscase_tasksToPerson(temp_dir_setup):
     # ESTABLISH
     moment_mstr_dir = env_dir()
     yao_gut = personunit_shop(exx.yao, exx.a23)
@@ -91,7 +91,7 @@ def test_listen_to_agendas_jobs_into_job_AddstasksToPerson(temp_dir_setup):
     assert len(new_yao_job.get_agenda_dict()) == 2
 
 
-def test_listen_to_agendas_jobs_into_job_AddstasksToPersonWithDetailsDecidedBy_partner_debt_lumen(
+def test_listen_to_agendas_jobs_into_job_Addscase_tasksToPersonWithDetailsDecidedBy_partner_debt_lumen(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -282,7 +282,7 @@ def test_listen_to_agendas_jobs_into_job_ListensToPerson_gut_AndNotPerson_job(
     yao_gut.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
     yao_pool = 87
     yao_gut.set_partner_respect(yao_pool)
-    # save yao without task to dutys
+    # save yao without case_task to dutys
     save_gut_file(moment_mstr_dir, yao_gut)
 
     # Save Zia to job
@@ -296,7 +296,7 @@ def test_listen_to_agendas_jobs_into_job_ListensToPerson_gut_AndNotPerson_job(
     cuisine_planunit.laborunit.add_party(exx.yao)
     save_job_file(moment_mstr_dir, zia_job)
 
-    # save yao with task to dutys
+    # save yao with case_task to dutys
     yao_old_job = personunit_shop(exx.yao, exx.a23)
     vacuum_str = "vacuum"
     vacuum_rope = yao_old_job.make_l1_rope(vacuum_str)

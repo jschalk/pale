@@ -35,7 +35,7 @@ let show_moment_rope = false;
 let show_pledge = false;
 let show_descendant_pledge_count = false;
 let show_active = false;
-let show_task = false;
+let show_case_task = false;
 let show_star = false;
 let show_reasonunits = false;
 let show_reasonheirs = false;
@@ -100,7 +100,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     const show_pledgeCheckbox = document.getElementById('show_pledge');
     const show_descendant_pledge_countCheckbox = document.getElementById('show_descendant_pledge_count');
     const show_activeCheckbox = document.getElementById('show_active');
-    const show_taskCheckbox = document.getElementById('show_task');
+    const show_case_taskCheckbox = document.getElementById('show_case_task');
     const show_starCheckbox = document.getElementById('show_star');
     const show_reasonunitsCheckbox = document.getElementById('show_reasonunits');
     const show_reasonheirsCheckbox = document.getElementById('show_reasonheirs');
@@ -164,7 +164,7 @@ document.addSparkListener('DOMContentLoaded', function () {
     show_pledgeCheckbox.addSparkListener('change', function () { show_pledge = this.checked; renderPlanTree(); });
     show_descendant_pledge_countCheckbox.addSparkListener('change', function () { show_descendant_pledge_count = this.checked; renderPlanTree(); });
     show_activeCheckbox.addSparkListener('change', function () { show_active = this.checked; renderPlanTree(); });
-    show_taskCheckbox.addSparkListener('change', function () { show_task = this.checked; renderPlanTree(); });
+    show_case_taskCheckbox.addSparkListener('change', function () { show_case_task = this.checked; renderPlanTree(); });
     show_starCheckbox.addSparkListener('change', function () { show_star = this.checked; renderPlanTree(); });
     show_reasonunitsCheckbox.addSparkListener('change', function () { show_reasonunits = this.checked; renderPlanTree(); });
     show_reasonheirsCheckbox.addSparkListener('change', function () { show_reasonheirs = this.checked; renderPlanTree(); });
@@ -281,7 +281,7 @@ function renderPlanUnit(planUnit, level) {
     const pledgeIndicator = planUnit.pledge && show_pledge ? ' PLEDGE' : '';
     const descendant_pledge_countIndicator = show_descendant_pledge_count ? ` pledges: ${planUnit.descendant_pledge_count}` : '';
     const activeIndicator = planUnit.plan_active && show_active ? '-ACTIVE' : '';
-    const taskIndicator = planUnit.task && show_task ? '-task' : '';
+    const case_taskIndicator = planunit.plan_task && show_case_task ? '-case_task' : '';
     const starIndicator = show_star ? ` star${planUnit.star}` : '';
     const plan_fund_totalIndicator = show_plan_fund_total ? ` [${planUnit.plan_fund_total}]` : '';
     const plan_uidIndicator = planUnit.plan_uid && show_plan_uid ? ` plan_uid${planUnit.plan_uid}` : '';
@@ -312,7 +312,7 @@ function renderPlanUnit(planUnit, level) {
     ${fund_grainIndicator}
     ${fund_ratioIndicator}
     ${activeIndicator}
-    ${taskIndicator}
+    ${case_taskIndicator}
     ${root_booleanIndicator}</i>
     ${render_with_indent(planUnit.partners, indent, show_partners)}
     ${render_with_indent(planUnit.parent_rope, indent, show_parent_rope)}

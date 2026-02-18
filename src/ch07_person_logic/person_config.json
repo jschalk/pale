@@ -115,10 +115,10 @@
     }, 
     "jvalues": {
       "case_active": {"calc_by_conpute": true, "class_type": "int", "sqlite_datatype": "INTEGER"}, 
+      "case_task": {"calc_by_conpute": true, "class_type": "bool", "sqlite_datatype": "INTEGER"}, 
       "reason_divisor": {"calc_by_conpute": false, "class_type": "int", "sqlite_datatype": "INTEGER"}, 
       "reason_lower": {"calc_by_conpute": false, "class_type": "ReasonNum", "sqlite_datatype": "REAL"}, 
-      "reason_upper": {"calc_by_conpute": false, "class_type": "ReasonNum", "sqlite_datatype": "REAL"}, 
-      "task": {"calc_by_conpute": true, "class_type": "int", "sqlite_datatype": "INTEGER"}
+      "reason_upper": {"calc_by_conpute": false, "class_type": "ReasonNum", "sqlite_datatype": "REAL"}
     }
   }, 
   "person_plan_reasonunit": {
@@ -132,7 +132,7 @@
       "active_requisite"  : { "calc_by_conpute": false, "class_type": "bool", "sqlite_datatype": "INTEGER" }, 
       "parent_heir_active": { "calc_by_conpute": true , "class_type": "int" , "sqlite_datatype": "INTEGER" }, 
       "reason_active"     : { "calc_by_conpute": true , "class_type": "int" , "sqlite_datatype": "INTEGER" }, 
-      "task"              : { "calc_by_conpute": true , "class_type": "int" , "sqlite_datatype": "INTEGER" }
+      "reason_task"       : { "calc_by_conpute": true , "class_type": "bool", "sqlite_datatype": "INTEGER" }
     }
   }, 
   "person_planunit": {
@@ -158,14 +158,14 @@
       "healerunit_ratio": {"calc_by_conpute": true, "class_type": "float", "sqlite_datatype": "REAL"}, 
       "morph": {"calc_by_conpute": false, "class_type": "bool", "sqlite_datatype": "INTEGER"}, 
       "numor": {"calc_by_conpute": false, "class_type": "int", "sqlite_datatype": "INTEGER"}, 
-      "plan_active": {"calc_by_conpute": true, "class_type": "int", "sqlite_datatype": "INTEGER"}, 
+      "plan_active": {"calc_by_conpute": true, "class_type": "bool", "sqlite_datatype": "INTEGER"}, 
+      "plan_task": {"calc_by_conpute": true, "class_type": "bool", "sqlite_datatype": "INTEGER"}, 
       "pledge": {"calc_by_conpute": false, "class_type": "bool", "sqlite_datatype": "INTEGER"}, 
       "problem_bool": {"calc_by_conpute": false, "class_type": "bool", "sqlite_datatype": "INTEGER"}, 
       "range_evaluated": {"calc_by_conpute": true, "class_type": "int", "sqlite_datatype": "INTEGER"}, 
       "star": {"calc_by_conpute": false, "class_type": "int", "sqlite_datatype": "INTEGER"}, 
       "stop_calc": {"calc_by_conpute": true, "class_type": "float", "sqlite_datatype": "REAL"}, 
       "stop_want": {"calc_by_conpute": false, "class_type": "float", "sqlite_datatype": "REAL"}, 
-      "task": {"calc_by_conpute": true, "class_type": "int", "sqlite_datatype": "INTEGER"}, 
       "tree_level": {"calc_by_conpute": true, "class_type": "int", "sqlite_datatype": "INTEGER"}
     }
   }, 

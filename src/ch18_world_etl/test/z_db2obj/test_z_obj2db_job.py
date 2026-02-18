@@ -149,7 +149,7 @@ def test_insert_job_prnplan_CreatesTableRowsFor_prnplan_job():
     x_pledge = 14
     x_problem_bool = 15
     x_active = 16
-    x_task = 17
+    x_plan_task = 17
     x_fund_grain = 18.0
     x_fund_onset = 19.0
     x_fund_cease = 20.0
@@ -177,7 +177,7 @@ def test_insert_job_prnplan_CreatesTableRowsFor_prnplan_job():
     x_plan.pledge = x_pledge
     x_plan.problem_bool = x_problem_bool
     x_plan.plan_active = x_active
-    x_plan.task = x_task
+    x_plan.plan_task = x_plan_task
     x_plan.fund_grain = x_fund_grain
     x_plan.fund_onset = x_fund_onset
     x_plan.fund_cease = x_fund_cease
@@ -202,7 +202,7 @@ def test_insert_job_prnplan_CreatesTableRowsFor_prnplan_job():
     x_plan.pledge = x_pledge
     x_plan.problem_bool = x_problem_bool
     x_plan.plan_active = x_active
-    x_plan.task = x_task
+    x_plan.plan_task = x_plan_task
     x_plan.fund_grain = x_fund_grain
     x_plan.fund_onset = x_fund_onset
     x_plan.fund_cease = x_fund_cease
@@ -251,7 +251,7 @@ def test_insert_job_prnplan_CreatesTableRowsFor_prnplan_job():
             x_problem_bool,
             x_fund_grain,
             x_active,
-            x_task,
+            x_plan_task,
             x_fund_onset,
             x_fund_cease,
             x_fund_ratio,
@@ -289,13 +289,13 @@ def test_insert_job_prnreas_CreatesTableRowsFor_prnreas_job():
     x_rope = 3
     x_reason_context = 4
     x_active_requisite = 5
-    x_task = 6
-    x_reason_active = 7
+    x_reason_active = 6
+    x_reason_task = 7
     x__heir_active = 8
     x_reasonheir = reasonheir_shop(reason_context=x_reason_context)
     x_reasonheir.reason_context = x_reason_context
     x_reasonheir.active_requisite = x_active_requisite
-    x_reasonheir.task = x_task
+    x_reasonheir.reason_task = x_reason_task
     x_reasonheir.reason_active = x_reason_active
     x_reasonheir.parent_heir_active = x__heir_active
 
@@ -322,8 +322,8 @@ def test_insert_job_prnreas_CreatesTableRowsFor_prnreas_job():
             str(x_rope),
             str(x_reason_context),
             x_active_requisite,
-            x_task,
             x_reason_active,
+            x_reason_task,
             x__heir_active,
         )
         expected_data = [expected_row1]
@@ -353,14 +353,14 @@ def test_insert_job_prncase_CreatesTableRowsFor_prncase_job():
     x_reason_lower = 7.0
     x_reason_upper = 6.0
     x_reason_divisor = 8
-    x_task = 9
+    x_case_task = 9
     x_case_active = 10
     x_caseunit = caseunit_shop(reason_state=x_reason_state)
     x_caseunit.reason_state = x_reason_state
     x_caseunit.reason_lower = x_reason_lower
     x_caseunit.reason_upper = x_reason_upper
     x_caseunit.reason_divisor = x_reason_divisor
-    x_caseunit.task = x_task
+    x_caseunit.case_task = x_case_task
     x_caseunit.case_active = x_case_active
 
     with sqlite3_connect(":memory:") as conn:
@@ -392,7 +392,7 @@ def test_insert_job_prncase_CreatesTableRowsFor_prncase_job():
             x_reason_lower,
             x_reason_upper,
             x_reason_divisor,
-            x_task,
+            x_case_task,
             x_case_active,
         )
         expected_data = [expected_row1]

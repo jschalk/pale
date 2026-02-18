@@ -113,10 +113,10 @@ def test_PersonUnit_conpute_Sets_plan_dict():
 
     wed = caseunit_shop(reason_state=wed_rope)
     wed.case_active = True
-    wed.task = False
+    wed.case_task = False
     usa = caseunit_shop(reason_state=usa_rope)
     usa.case_active = True
-    usa.task = False
+    usa.case_task = False
 
     wed_lu = reasonunit_shop(wk_rope, cases={wed.reason_state: wed})
     sta_lu = reasonunit_shop(nation_rope, cases={usa.reason_state: usa})
@@ -124,14 +124,14 @@ def test_PersonUnit_conpute_Sets_plan_dict():
         reason_context=wk_rope,
         cases={wed.reason_state: wed},
         reason_active=True,
-        task=False,
+        reason_task=False,
         parent_heir_active=True,
     )
     sta_lh = reasonheir_shop(
         reason_context=nation_rope,
         cases={usa.reason_state: usa},
         reason_active=True,
-        task=False,
+        reason_task=False,
         parent_heir_active=True,
     )
 
@@ -169,13 +169,13 @@ def test_PersonUnit_conpute_Sets_plan_dict():
     # usa_case = wk_reasonheir.cases.get(usa_rope)
     print(f"    {casa_plan.plan_label=}")
     # print(f"    {usa_case.reason_context=}")
-    # print(f"    {usa_case.task=}")
-    # print(f"    {usa_case.task=}")
-    assert wk_reasonheir.task is False
+    # print(f"    {usa_case.case_task=}")
+    # print(f"    {usa_case.case_task=}")
+    assert wk_reasonheir.reason_task is False
     # print(f"      cases: {w=}")
     # w_state = usa_case.cases[wed_rope].reason_state
     # print(f"      {w_state=}")
-    # assert usa_case.task == w_state.task
+    # assert usa_case.case_task == w_state.case_task
     # assert usa_case.case_active == w_state.reason_active
     # assert wk_reasonheir.cases == wk_reasonheir.cases
 
@@ -403,10 +403,10 @@ def test_PersonUnit_conpute_OptionWeekJoursReturnsObj_personunit_v001():
     tue_rope = yao_personunit.make_rope(wk_rope, tue_str)
     mon_case_x = caseunit_shop(reason_state=mon_rope)
     mon_case_x.case_active = False
-    mon_case_x.task = False
+    mon_case_x.case_task = False
     tue_case_x = caseunit_shop(reason_state=tue_rope)
     tue_case_x.case_active = False
-    tue_case_x.task = False
+    tue_case_x.case_task = False
     mt_cases = {
         mon_case_x.reason_state: mon_case_x,
         tue_case_x.reason_state: tue_case_x,

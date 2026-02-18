@@ -88,7 +88,7 @@ def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj():
     x_tree_level = 11
     x_range_evaluated = 12
     x_stop_calc = 13
-    x_task = 14
+    x_case_task = 14
     x_addin = 15
     x_begin = 16
     x_close = 17

@@ -24,7 +24,7 @@ def test_allocate_irrational_partner_debt_lumen_SetsPersonAttr():
     assert zia_partnerunit.irrational_partner_debt_lumen == zia_partner_debt_lumen
 
 
-def test_generate_perspective_agenda_GrabsAgendatasks():
+def test_generate_perspective_agenda_GrabsAgendacase_tasks():
     # ESTABLISH
     yao_speaker = personunit_shop(exx.yao)
     yao_speaker.add_partnerunit(exx.yao)

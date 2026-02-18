@@ -14,8 +14,8 @@ from src.ch07_person_logic.test._util.ch07_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def get_tasks_count(agenda_dict: dict[RopeTerm, PlanUnit]) -> int:
-    return sum(bool(x_planunit.task) for x_planunit in agenda_dict.values())
+def get_case_tasks_count(agenda_dict: dict[RopeTerm, PlanUnit]) -> int:
+    return sum(bool(x_planunit.plan_task) for x_planunit in agenda_dict.values())
 
 
 def test_PersonUnit_get_agenda_dict_ReturnsObj_WithTwoPlans():
@@ -259,7 +259,7 @@ def test_PersonUnit_get_agenda_dict_PersonUnitCanCleanOn_reason_context_personun
     assert len(pledge_list) == 29
 
 
-def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Range():
+def test_PersonUnit_set_agenda_case_task_as_complete_SetsAttr_Range():
     # ESTABLISH
     zia_person = personunit_shop("Zia")
 
@@ -285,15 +285,17 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Range():
     run_reasonunits = zia_person.planroot.kids[run_str].reasonunits[jour_rope]
     print(f"{run_reasonunits=}")
     print(f"{run_reasonunits.cases[jour_rope].case_active=}")
-    print(f"{run_reasonunits.cases[jour_rope].task=}")
+    print(f"{run_reasonunits.cases[jour_rope].case_task=}")
     print(f"{zia_person.get_reason_contexts()=}")
     assert len(zia_person.get_plan_dict()) == 4
     assert len(zia_person.get_agenda_dict()) == 1
     print(f"{zia_person.get_agenda_dict().keys()=}")
-    assert zia_person.get_agenda_dict().get(run_rope).task is True
+    assert zia_person.get_agenda_dict().get(run_rope).plan_task is True
 
     # WHEN
-    zia_person.set_agenda_task_complete(task_rope=run_rope, reason_context=jour_rope)
+    zia_person.set_agenda_plan_task_complete(
+        plan_task_rope=run_rope, reason_context=jour_rope
+    )
 
     # THEN
     agenda_dict = zia_person.get_agenda_dict()
@@ -301,7 +303,7 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Range():
     assert agenda_dict == {}
 
 
-def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Division():
+def test_PersonUnit_set_agenda_case_task_as_complete_SetsAttr_Division():
     # ESTABLISH
     zia_person = personunit_shop("Zia")
 
@@ -345,7 +347,9 @@ def test_PersonUnit_set_agenda_task_as_complete_SetsAttr_Division():
     print(f"{run_plan.factunits=}")
 
     # WHEN
-    zia_person.set_agenda_task_complete(task_rope=run_rope, reason_context=jour_rope)
+    zia_person.set_agenda_plan_task_complete(
+        plan_task_rope=run_rope, reason_context=jour_rope
+    )
 
     # THEN
     print(f"{run_plan.factunits=}")
@@ -402,7 +406,7 @@ def test_get_personunit_from_dict_LoadsPledgeFromJSON():
     assert len(yao_person.get_agenda_dict()) > 0
 
 
-def test_PersonUnit_set_fact_Isue116Resolved_SetstaskAsTrue():
+def test_PersonUnit_set_fact_Isue116Resolved_Setscase_taskAsTrue():
     # ESTABLISH
     yao_person = personunit_v002()
     print(f"{yao_person.get_reason_contexts()=}")
@@ -424,8 +428,8 @@ def test_PersonUnit_set_fact_Isue116Resolved_SetstaskAsTrue():
     evening_rope = yao_person.make_rope(db_rope, evening_str)
     evening_plan = yao_person._plan_dict.get(evening_rope)
     # for plan_x in yao_person.get_agenda_dict():
-    #     # if plan_x.task != True:
-    #     #     print(f"{len(pledge_plan_list)=} {plan_x.task=} {plan_x.get_plan_rope()}")
+    #     # if plan_x.case_task != True:
+    #     #     print(f"{len(pledge_plan_list)=} {plan_x.case_task=} {plan_x.get_plan_rope()}")
     #     if plan_x.plan_label == evening_plan_label:
     #         evening_plan = plan_x
     #         print(f"{plan_x.get_plan_rope()=}")
@@ -435,19 +439,19 @@ def test_PersonUnit_set_fact_Isue116Resolved_SetstaskAsTrue():
     print(f"\n{factheir_gregziet=}")
 
     # for reasonheir in agenda_plan.reasonheirs.values():
-    #     print(f"{reasonheir.reason_context=} {reasonheir.reason_active=} {reasonheir.task=}")
+    #     print(f"{reasonheir.reason_context=} {reasonheir.reason_active=} {reasonheir.reason_task=}")
     reasonheir_gregziet = evening_plan.reasonheirs.get(gregziet_rope)
-    reasonheir_str = f"\nreasonheir_gregziet= '{reasonheir_gregziet.reason_context}', reason_active={reasonheir_gregziet.reason_active}, task={reasonheir_gregziet.task}"
+    reasonheir_str = f"\nreasonheir_gregziet= '{reasonheir_gregziet.reason_context}', reason_active={reasonheir_gregziet.reason_active}, case_task={reasonheir_gregziet.reason_task}"
     print(reasonheir_str)
 
     caseunit = reasonheir_gregziet.cases.get(gregziet_rope)
     print(f"----\n {caseunit=}")
-    print(f" {caseunit._get_task_bool(factheir=factheir_gregziet)=}")
+    print(f" {caseunit._get_case_task_bool(factheir=factheir_gregziet)=}")
     print(f" {caseunit.case_active=} , {caseunit._is_range()=} caseunit fails")
     print(f" {caseunit.case_active=} , {caseunit._is_segregate()=} caseunit passes")
 
-    # print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_task_bool()=}")
-    assert get_tasks_count(pledge_plan_list) == 64
+    # print(f"  {segr_obj.get_active_bool()=}  {segr_obj.get_case_task_bool()=}")
+    assert get_case_tasks_count(pledge_plan_list) == 64
 
 
 def test_PersonUnit_agenda_IsSetByLaborUnit_1PartnerGroup():

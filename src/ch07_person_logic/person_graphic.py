@@ -43,7 +43,7 @@ def _get_color_for_planunit_trace(x_planunit: PlanUnit, mode: str) -> str:
             return "Gold"
         else:
             return "Black"
-    elif mode == "task":
+    elif mode == "case_task":
         return "Red" if x_planunit.pledge else "Pink"
     elif mode == "Keep":
         if x_planunit.problem_bool and x_planunit.healerunit.any_healer_name_exists():
@@ -109,8 +109,8 @@ def _create_planunit_traces(
 
 def _update_layout_fig(x_fig: plotly_Figure, mode: str, x_person: PersonUnit):
     fig_label = "Tree with lines Layout"
-    if mode == "task":
-        fig_label = "Plan Tree with task plans in Red."
+    if mode == "case_task":
+        fig_label = "Plan Tree with case_task plans in Red."
     fig_label += f" (Plans: {len(x_person._plan_dict)})"
     fig_label += f" (sum_healerunit_plans_fund_total: {x_person.sum_healerunit_plans_fund_total})"
     fig_label += f" (keeps_justified: {x_person.keeps_justified})"
@@ -120,7 +120,7 @@ def _update_layout_fig(x_fig: plotly_Figure, mode: str, x_person: PersonUnit):
 def display_plantree(
     x_person: PersonUnit, mode: str = None, graphics_bool: bool = False
 ) -> plotly_Figure:
-    """Mode can be None, task, Keep"""
+    """Mode can be None, case_task, Keep"""
 
     x_person.conpute()
     x_fig = plotly_Figure()
@@ -522,7 +522,7 @@ def fund_graph0(
     d_sue1_p0 = "Fund Source is PlanRoot. Each Plan fund range calculated by star "
     d_sue1_p1 = "PlanRoot Fund ranges: Black arrows. Sum of childless Plan's fund(s) equal planroot's fund "
     d_sue1_p2 = "Regular Fund: Green arrows, all fund_grains end up at PartnerUnits"
-    d_sue1_p3 = "Agenda Fund: Blue arrows, fund_grains from active tasks"
+    d_sue1_p3 = "Agenda Fund: Blue arrows, fund_grains from active case_tasks"
     d_sue1_p4 = f"fund_pool = {x_person.fund_pool} "
     fig.add_trace(
         plotly_Scatter(

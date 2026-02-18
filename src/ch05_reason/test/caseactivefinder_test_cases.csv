@@ -1,4 +1,4 @@
-case_desc,reason_lower,reason_upper,reason_divisor,fact_lower_full,fact_upper_full,linl_add,expected_active,expected_task
+case_desc,reason_lower,reason_upper,reason_divisor,fact_lower_full,fact_upper_full,linl_add,expected_active,expected_case_task
 "caseb1_1", 0.3, 0.7, 1, 0.5, 0.8, -0.1,"true","true",
 "caseb1_2", 0.3, 0.7, 1, 0.2, 0.5, -0.1,"true","false",
 "caseb1_3", 0.3, 0.7, 1, 0.4, 0.6, -0.1,"true","false",
