@@ -41,7 +41,7 @@ def rebuild_keywords_description_contents():
             rebuilt_kw_desc[keyword] = get_chxx_ref_blurb(ch_dict, keyword)
         if keyword in person_config_args:
             keyword_config = person_config_args.get(keyword)
-            if keyword_config.get("populate_by_conpute"):
+            if keyword_config.get("calc_by_conpute"):
                 # rebuilt_kw_desc[keyword] = f"Person conpute"
                 pass
             else:
@@ -49,7 +49,7 @@ def rebuild_keywords_description_contents():
                 pass
         # if keyword in plan_config_args:
         #     keyword_config = plan_config_args.get(keyword)
-        #     if keyword_config.get("populate_by_conpute"):
+        #     if keyword_config.get("calc_by_conpute"):
         #         rebuilt_kw_desc[keyword] = f"Set by Person conpute process"
         #     else:
         #         rebuilt_kw_desc[keyword] = f"Plan seed data"

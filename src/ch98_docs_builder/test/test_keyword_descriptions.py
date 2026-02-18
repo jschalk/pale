@@ -98,12 +98,12 @@ def check_person_desc_str(
 ):
     if keyword in config_args:
         keyword_config = config_args.get(keyword)
-        populate_by_conpute_value = keyword_config.get(kw.populate_by_conpute)
-        assert_fail_str = f"{keyword=} {description=} {populate_by_conpute_value=} "
+        calc_by_conpute_value = keyword_config.get(kw.calc_by_conpute)
+        assert_fail_str = f"{keyword=} {description=} {calc_by_conpute_value=} "
         # print(f"{keyword} {assert_fail_str=}")
         conpute_str = f", {src_label} {kw.conpute}"
         seed_str = f", {src_label} seed"
-        if keyword_config.get(kw.populate_by_conpute):
+        if keyword_config.get(kw.calc_by_conpute):
             assert conpute_str in description, assert_fail_str
             assert seed_str not in description, assert_fail_str
         else:

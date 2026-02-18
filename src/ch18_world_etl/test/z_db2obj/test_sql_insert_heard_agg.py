@@ -74,7 +74,6 @@ def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_rope = exx.a23
     x_person_name = "Sue"
     x_active = 1
     x_all_partner_cred = 2
@@ -105,7 +104,6 @@ def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
         kw.addin: x_addin,
         kw.begin: x_begin,
@@ -146,7 +144,6 @@ def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_rope = exx.a23
     x_person_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -154,7 +151,6 @@ def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
         kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
@@ -186,7 +182,6 @@ def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_rope = exx.a23
     x_person_name = "Sue"
     x_rope = 1
     x_reason_context = 2
@@ -197,7 +192,6 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
         kw.plan_rope: x_rope,
         kw.reason_context: x_reason_context,
@@ -279,7 +273,6 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj():
 def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
     # sourcery skip: extract-method
     # ESTABLISH
-    x_moment_rope = exx.a23
     x_person_name = "Sue"
     x_rope = 1
     x_fact_context = 2
@@ -289,7 +282,6 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
     values_dict = {
         kw.spark_num: 77,
         kw.face_name: exx.yao,
-        kw.moment_rope: x_moment_rope,
         kw.person_name: x_person_name,
         kw.plan_rope: x_rope,
         kw.fact_context: x_fact_context,

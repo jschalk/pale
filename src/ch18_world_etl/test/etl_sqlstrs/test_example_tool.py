@@ -206,8 +206,7 @@ def test_insert_prncase_special_h_agg_PopulatesTable_Scenario0():
         insert_prncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
-            x_moment_rope=exx.sue,
-            x_person_name=exx.a23,
+            x_person_name=exx.sue,
             x_plan_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
             x_reason_state=wx.days_rope,
@@ -219,7 +218,6 @@ def test_insert_prncase_special_h_agg_PopulatesTable_Scenario0():
         assert get_row_count(cursor, prncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_rope}
 , {kw.person_name}
 , {kw.plan_rope}
 , {kw.reason_context}
@@ -234,7 +232,6 @@ FROM {prncase_h_agg}
         expected_row = (
             spark1,
             exx.sue,
-            exx.a23,
             wx.clean_rope,
             wx.day_rope,
             wx.days_rope,
@@ -256,7 +253,6 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
         insert_prncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
-            x_moment_rope=exx.a23,
             x_person_name=exx.sue,
             x_plan_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
@@ -269,7 +265,6 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
         gen_rows = select_prncase_special_h_agg(
             cursor=cursor,
             x_spark_num=spark1,
-            x_moment_rope=exx.a23,
             x_person_name=exx.sue,
             x_plan_rope=wx.clean_rope,
             x_reason_context=wx.day_rope,
@@ -280,7 +275,6 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
         assert gen_rows
         gen_row0 = gen_rows[0]
         assert gen_row0.spark_num == spark1
-        assert gen_row0.moment_rope == exx.a23
         assert gen_row0.person_name == exx.sue
         assert gen_row0.plan_rope == wx.clean_rope
         assert gen_row0.reason_context == wx.day_rope
@@ -294,7 +288,6 @@ def test_select_prncase_special_h_agg_PopulatesTable_Scenario0():
         assert get_row_count(cursor, prncase_h_agg) == 1
         select_sqlstr = f"""SELECT 
   {kw.spark_num}
-, {kw.moment_rope}
 , {kw.person_name}
 , {kw.plan_rope}
 , {kw.reason_context}
@@ -308,7 +301,6 @@ FROM {prncase_h_agg}
         print(rows)
         expected_row = (
             spark1,
-            exx.a23,
             exx.sue,
             wx.clean_rope,
             wx.day_rope,

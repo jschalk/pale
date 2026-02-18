@@ -1,7 +1,6 @@
 {
   "attributes": {
     "face_name"     : { "otx_key": true  }, 
-    "moment_rope"   : { "otx_key": true  }, 
     "person_name"   : { "otx_key": true  }, 
     "plan_rope"     : { "otx_key": true  }, 
     "reason_context": { "otx_key": true  }, 
@@ -11,9 +10,6 @@
     "reason_upper"  : { "otx_key": false }, 
     "spark_num"     : { "otx_key": true  }
   }, 
-  "dimens": [
-    "momentunit", "personunit", "person_planunit", "person_plan_reasonunit", 
-    "person_plan_reason_caseunit"
-  ], 
+  "dimens": ["person_planunit", "person_plan_reasonunit", "person_plan_reason_caseunit"], 
   "idea_number": "br00026"
 }

@@ -69,7 +69,7 @@ def test_get_person_config_dict_ReturnsObj_CheckLevel1Keys():
         assert len(attribute_keys) == 3
 
 
-def test_get_person_config_dict_ReturnsObj_Check_populate_by_conpute():
+def test_get_person_config_dict_ReturnsObj_Check_calc_by_conpute():
     # ESTABLISH / WHEN
     person_config = get_person_config_dict()
 
@@ -80,9 +80,11 @@ def test_get_person_config_dict_ReturnsObj_Check_populate_by_conpute():
         for level2_key, fm_attribute_dict in attribute_dict.items():
             if level2_key != abbr_str:
                 for fm_attr_key, fm_attr_value in fm_attribute_dict.items():
-                    populate_by_conpute_value = fm_attr_value.get("populate_by_conpute")
-                    assertion_fail_str = f"{fm_attr_key} Value must be Boolean {populate_by_conpute_value=}"
-                    assert populate_by_conpute_value in [
+                    calc_by_conpute_value = fm_attr_value.get("calc_by_conpute")
+                    assertion_fail_str = (
+                        f"{fm_attr_key} Value must be Boolean {calc_by_conpute_value=}"
+                    )
+                    assert calc_by_conpute_value in [
                         True,
                         False,
                     ], assertion_fail_str
@@ -153,7 +155,7 @@ def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesKeysExist():
                     assert set(attr_dict.keys()) == {
                         kw.class_type,
                         kw.sqlite_datatype,
-                        kw.populate_by_conpute,
+                        kw.calc_by_conpute,
                     }
 
 
@@ -275,7 +277,7 @@ def g_popconpute(
     dimen = config.get(key1)
     j_dict = dimen.get(key2)
     j_arg = j_dict.get(key3)
-    return j_arg.get(kw.populate_by_conpute)
+    return j_arg.get(kw.calc_by_conpute)
 
 
 def test_get_person_config_dict_ReturnsObj_CheckArgDataTypesCorrect():

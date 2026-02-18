@@ -112,7 +112,6 @@
     "jkeys": {
       "awardee_title": {}, 
       "face_name": {}, 
-      "moment_rope": {}, 
       "person_name": {}, 
       "plan_rope": {}, 
       "spark_num": {}
@@ -126,7 +125,6 @@
     "jkeys": {
       "face_name": {}, 
       "fact_context": {}, 
-      "moment_rope": {}, 
       "person_name": {}, 
       "plan_rope": {}, 
       "spark_num": {}
@@ -140,7 +138,6 @@
     "jkeys": {
       "face_name": {}, 
       "healer_name": {}, 
-      "moment_rope": {}, 
       "person_name": {}, 
       "plan_rope": {}, 
       "spark_num": {}
@@ -153,7 +150,6 @@
     "idea_category": "person", 
     "jkeys": {
       "face_name": {}, 
-      "moment_rope": {}, 
       "party_title": {}, 
       "person_name": {}, 
       "plan_rope": {}, 
@@ -167,7 +163,6 @@
     "idea_category": "person", 
     "jkeys": {
       "face_name": {}, 
-      "moment_rope": {}, 
       "person_name": {}, 
       "plan_rope": {}, 
       "reason_context": {}, 
@@ -182,7 +177,6 @@
     "idea_category": "person", 
     "jkeys": {
       "face_name": {}, 
-      "moment_rope": {}, 
       "person_name": {}, 
       "plan_rope": {}, 
       "reason_context": {}, 
@@ -194,13 +188,7 @@
     "allowed_crud": "delete_insert_update", 
     "build_order": 18, 
     "idea_category": "person", 
-    "jkeys": {
-      "face_name": {}, 
-      "moment_rope": {}, 
-      "person_name": {}, 
-      "plan_rope": {}, 
-      "spark_num": {}
-    }, 
+    "jkeys": {"face_name": {}, "person_name": {}, "plan_rope": {}, "spark_num": {}}, 
     "jvalues": {
       "addin": {}, 
       "begin": {}, 
