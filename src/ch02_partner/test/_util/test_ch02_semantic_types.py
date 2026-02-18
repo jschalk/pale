@@ -1,5 +1,6 @@
 from inspect import getdoc as inspect_getdoc
 from src.ch02_partner._ref.ch02_semantic_types import (
+    BreakTerm,
     FundGrain,
     FundNum,
     GroupMark,
@@ -13,6 +14,17 @@ from src.ch02_partner._ref.ch02_semantic_types import (
     default_groupmark_if_None,
 )
 from src.ref.keywords import Ch02Keywords as kw, ExampleStrs as exx
+
+
+def test_BreakTerm_Exists():
+    # ESTABLISH
+    semi_colon_str = ";"
+    # WHEN
+    semi_colon_break = BreakTerm(semi_colon_str)
+    # THEN
+    assert semi_colon_break == semi_colon_str
+    doc_str = "All str separator classes are BreakTerms. Meant to envoke the analogy of the necessity to break experience reality into things so they can be understood."
+    assert inspect_getdoc(semi_colon_break) == doc_str
 
 
 def test_NameTerm_Exists():

@@ -2,7 +2,13 @@ from src.ch00_py.dict_toolbox import get_None_if_nan
 from src.ch01_allot._ref.ch01_semantic_types import GrainNum, PoolNum, WeightNum
 
 
-class GroupMark(str):
+class BreakTerm(str):
+    """All str separator classes are BreakTerms. Meant to envoke the analogy of the necessity to break experience reality into things so they can be understood."""
+
+    pass
+
+
+class GroupMark(BreakTerm):
     """GroupMark(s) exist in TitleTerms to indicate its a group, no GroupMark indicates it is a PartnerName."""
 
     pass
