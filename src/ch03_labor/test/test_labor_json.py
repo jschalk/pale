@@ -76,7 +76,7 @@ def test_LaborUnit_to_dict_ReturnsDictWithSingle_partyunit():
 
     # THEN
     assert obj_dict is not None
-    example_dict = {"partys": {bob_party_title: bob_partyunit.to_dict()}}
+    example_dict = {kw.partys: {bob_party_title: bob_partyunit.to_dict()}}
     print(f"{example_dict=}")
     assert obj_dict == example_dict
 
@@ -89,7 +89,7 @@ def test_get_laborunit_from_dict_ReturnsObj_Scenario0():
     run_partyunit = expected_laborunit.get_partyunit(exx.run)
     xio_partyunit = expected_laborunit.get_partyunit(exx.xio)
     src_laborunit_dict = {
-        "partys": {
+        kw.partys: {
             exx.run: run_partyunit.to_dict(),
             exx.xio: xio_partyunit.to_dict(),
         }

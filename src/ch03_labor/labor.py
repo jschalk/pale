@@ -96,7 +96,7 @@ class LaborHeir:
         person_name: PartnerName,
     ):
         self.person_name_is_labor = self.get_person_name_is_labor_bool(
-            groupunits, person_name
+            groupunits=groupunits, person_name=person_name
         )
 
     def get_person_name_is_labor_bool(

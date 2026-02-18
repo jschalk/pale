@@ -1,5 +1,6 @@
 from src.ch00_py.keyword_class_builder import get_keywords_src_config
 from src.ch07_person_logic.person_config import get_all_person_calc_args
+from src.ch13_time.epoch_main import get_c400_constants, get_default_epoch_config_dict
 from src.ch14_moment.moment_config import get_moment_config_args
 from src.ch15_nabu.nabu_config import get_nabu_args, get_nabuable_args
 from src.ch16_translate.translate_config import get_translate_config_args
@@ -31,7 +32,7 @@ def test_get_keywords_description_ReturnsObj_HasAllkeywords():
 
 def test_get_keywords_description_ReturnsObj_CheckDescriptions():
     # sourcery skip: no-conditionals-in-tests
-    # ESTABLISH / WHEN
+    # ESTABLISH
     ch_dict = get_chxx_prefix_path_dict()
     person_args = get_person_dimen_config(kw.personunit)
     plan_args = get_person_dimen_config(kw.person_planunit)
@@ -62,8 +63,11 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
     all_person_calc_args = get_all_person_calc_args()
     # print(f"{person_config_args.keys()=}")
 
+    # WHEN
+    keywords_description = get_keywords_description()
+
     # THEN
-    for keyword, desc in get_keywords_description().items():
+    for keyword, desc in keywords_description.items():
         if keyword in ch_dict:
             assert desc == get_chxx_ref_blurb(ch_dict, keyword)
         # print(f"{keyword=} {desc=}")
@@ -91,6 +95,16 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
         check_mmtunit_desc_str(mmtunit_args, keyword, desc, "Moment")
         check_mmtunit_desc_str(nabu_args, keyword, desc, kw.nabu)
         check_mmtunit_desc_str(nabuable_args, keyword, desc, "Nabuable")
+    for constant_name, constant_int in get_c400_constants().__dict__.items():
+        formated_constant = f"{constant_int:,}"
+        constant_description = keywords_description.get(constant_name)
+        # print(f"{constant_name} {formated_constant} {constant_description=}")
+        assert formated_constant in constant_description
+        assert "C400Constant for building Epochs" in constant_description
+    for config_key, config_obj in get_default_epoch_config_dict().items():
+        config_description = keywords_description.get(config_key)
+        print(f"{config_key=} {config_description=}")
+        assert f"Epoch config" in config_description
 
 
 def check_person_desc_str(
