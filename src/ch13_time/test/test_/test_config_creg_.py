@@ -711,7 +711,7 @@ def test_PersonUnit_create_agenda_plan_CreatesAllPersonAttributes():
     assert len(sue_person.planroot.kids) == 3
 
 
-def test_PlanCore_get_agenda_dict_ReturnsObj_BugFindAndFix_active_SettingError():  # https://github.com/jschalk/pale/issues/69
+def test_PlanCore_get_agenda_dict_ReturnsObj_BugFindAndFix_active_SettingError():  # https://github.com/jschalk/keg/issues/69
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     add_time_creg_planunit(sue_person)

@@ -1,5 +1,5 @@
 """
-Pale
+Keg
 
 A Python package for communiticating across cultures.
 """
