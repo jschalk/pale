@@ -6,7 +6,7 @@ What does each one do?
 - **ch00_py**: Creates helper tools for OS and python data manipulation.
 - **ch01_allot**: Defines how to allot a pool number to a weighted ledger.
 - **ch02_partner**: Defines debt and cred to Partners and Memberships to Groups.
-- **ch03_labor**: Introduces why Pale has been created.
+- **ch03_labor**: Introduces Labor concept: How jtasks are assigned.
 - **ch04_rope**: Defines Term Classes: Knots, Labels, RopeTerms, FirstLabels
 - **ch05_reason**: Defines ReasonUnits, FactUnits, and Facts decide if a Reason is Active
 - **ch06_plan**: Defines PlanUnits with sub-plans, Awardees, Labor, Reasons, Facts, etc.
@@ -27,4 +27,4 @@ What does each one do?
 - **ch21_lobby**: Defines Lobby Tools for gifts, World Scenarios.
 - **ch22_finance**: Defines Finance Tools for 
 - **ch24_person_viewer**: Tools for Visualizing PersonUnits
-- **ch98_docs_builder**: Defines Tools that create Pale documentation.
+- **ch98_docs_builder**: Defines Tools that create documentation.
