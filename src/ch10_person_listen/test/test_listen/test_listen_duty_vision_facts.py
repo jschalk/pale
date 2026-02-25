@@ -69,7 +69,7 @@ def test_listen_to_facts_duty_vision_SetsSingleFactUnit_v1(temp_dir_setup):
     assert new_yao_vision.get_missing_fact_reason_contexts().get(a23_eat_rope()) is None
 
 
-def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferenttask(
+def test_listen_to_facts_duty_vision_SetsSingleFactUnitWithDifferentcase_task(
     temp_dir_setup,
 ):
     # ESTABLISH

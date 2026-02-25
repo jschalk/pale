@@ -1,15 +1,6 @@
 from dataclasses import dataclass
-from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
-from src.ch00_py.db_toolbox import create_insert_query, get_row_count, get_table_columns
-from src.ch00_py.dict_toolbox import get_empty_set_if_None
-from src.ch05_reason.reason_main import caseunit_shop
-from src.ch14_moment.moment_config import get_moment_dimens
-from src.ch15_nabu.nabu_config import get_nabu_dimens
-from src.ch17_idea.idea_config import (
-    get_default_sorted_list,
-    get_idea_config_dict,
-    get_idea_sqlite_types,
-)
+from sqlite3 import Cursor as sqlite3_Cursor
+from src.ch00_py.db_toolbox import create_insert_query
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     FaceName,
     FactNum,
@@ -20,19 +11,7 @@ from src.ch18_world_etl._ref.ch18_semantic_types import (
     SparkInt,
     TimeNum,
 )
-from src.ch18_world_etl.etl_config import (
-    etl_idea_category_config_dict,
-    get_dimen_abbv7,
-    get_etl_category_stages_dict,
-    get_prime_columns,
-    remove_inx_columns,
-    remove_otx_columns,
-)
-from src.ch18_world_etl.etl_main import etl_heard_raw_tables_to_heard_agg_tables
-from src.ch18_world_etl.etl_sqlstr import (
-    create_prime_tablename as prime_tbl,
-    create_sound_and_heard_tables,
-)
+from src.ch18_world_etl.etl_sqlstr import create_prime_tablename as prime_tbl
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
@@ -149,13 +128,13 @@ def insert_prncase_special_h_agg(
 ) -> list[tuple]:
     prncase_tbl = prime_tbl(kw.person_plan_reason_caseunit, "h", "agg", "put")
     values_dict = {
-        "spark_num": x_spark_num,
+        kw.spark_num: x_spark_num,
         "person_name": x_person_name,
         "plan_rope": x_plan_rope,
-        "reason_context": x_reason_context,
-        "reason_state": x_reason_state,
-        "reason_upper_otx": x_reason_upper,
-        "reason_lower_otx": x_reason_lower,
+        kw.reason_context: x_reason_context,
+        kw.reason_state: x_reason_state,
+        f"{kw.reason_upper}_otx": x_reason_upper,
+        f"{kw.reason_lower}_otx": x_reason_lower,
     }
     insert_sqlstr = create_insert_query(cursor, prncase_tbl, values_dict)
     cursor.execute(insert_sqlstr)

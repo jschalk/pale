@@ -12,7 +12,7 @@ from os import walk as os_walk
 from os.path import join as os_path_join
 from pathlib import Path as pathlib_Path
 from re import compile as re_compile
-from src.ch00_py.dict_toolbox import uppercase_in_str, uppercase_is_first
+from src.ch00_py.dict_toolbox import uppercase_in_str
 from src.ch00_py.file_toolbox import create_path, get_dir_filenames, open_file
 from src.ch00_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
@@ -223,6 +223,7 @@ def get_chapters_obj_metrics(excluded_functions) -> dict:
 
 def env_file_has_required_elements(env_filepath: str):
     file_funcs, class_bases = get_func_names_and_class_bases_from_file(env_filepath)
+    cursor0_exists = "cursor0" in file_funcs
     get_temp_dir_exists = "get_temp_dir" in file_funcs
     temp_dir_setup_str = """
 @pytest_fixture()
@@ -233,7 +234,7 @@ def temp_dir_setup():
     yield env_dir
     delete_dir(dir=env_dir)"""
     temp_dir_setup_exists = temp_dir_setup_str in open_file(env_filepath)
-    return temp_dir_setup_exists and get_temp_dir_exists
+    return (temp_dir_setup_exists and get_temp_dir_exists) or cursor0_exists
 
 
 def evaluate_and_add_classes(
@@ -390,6 +391,7 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
     func_total_count = len(all_test_functions)
     sorted_test_functions_names = sorted(all_test_functions.keys())
 
+    print(f"check all {func_total_count} functions...")
     for function_count, function_name in enumerate(sorted_test_functions_names):
         test_function_str = all_test_functions.get(function_name)
         establish_str_exists = test_function_str.find("ESTABLISH") > -1
@@ -397,15 +399,16 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
         then_str_exists = test_function_str.find("THEN") > -1
         fail_str = f"'ESTABLISH'/'WHEN'/'THEN' missing in '{function_name}'"
         assert establish_str_exists and when_str_exists and then_str_exists, fail_str
+        # check that no test creates it's own cursor in memory
+        memory_cursor_fail_str = f"{function_name} init memory cursor"
+        assert ":memory:" not in test_function_str, memory_cursor_fail_str
+
+        # check for each example key in the function str.
         for key_str in sorted(example_strs.keys()):
             value_str = example_strs.get(key_str)
             declare_str = f"""{key_str}_str = "{value_str}"\n"""
             fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
             assert declare_str not in test_function_str, fail2_str
-            # TODO to further clean up tests consider removing all standalone string declarations
-            # standalone_str = f""""{value_str}\""""
-            # fail3_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{standalone_str}' with Enum class reference."
-            # assert standalone_str not in test_function_str, fail3_str
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")
@@ -469,9 +472,7 @@ class _ImportCollector(ast_NodeVisitor):
         self.generic_visit(node)
 
 
-def find_incorrect_imports(
-    py_file_path: str | pathlib_Path, min_number: int
-) -> list[str]:
+def find_incorrect_imports(py_file_path: str, min_number: int) -> list[str]:
     p = pathlib_Path(py_file_path)
     file_text = p.read_text(encoding="utf-8")
     tree = ast_parse(file_text, filename=str(p))

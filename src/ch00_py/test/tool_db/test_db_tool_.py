@@ -1,6 +1,7 @@
 from pytest import raises as pytest_raises
 from sqlite3 import (
     Connection as sqlite3_Connection,
+    Cursor,
     connect as sqlite3_connect,
     sqlite_version as sqlite3_sqlite_version,
 )
@@ -30,7 +31,7 @@ from src.ch00_py.db_toolbox import (
     sqlite_obj_str,
 )
 from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
-from src.ch00_py.test._util.ch00_env import get_temp_dir, temp_dir_setup
+from src.ch00_py.test._util.ch00_env import cursor0, get_temp_dir, temp_dir_setup
 from src.ref.keywords import ExampleStrs as exx
 
 
@@ -123,20 +124,22 @@ def test_RowData_Exists():
     assert x_rowdata.row_dict is None
 
 
-def test_rowdata_shop_ReturnsObj():  # sourcery skip: extract-duplicate-method
+def test_rowdata_shop_ReturnsObj(
+    cursor0: Cursor,
+):  # sourcery skip: extract-duplicate-method
     # ESTABLISH
     x_tablename = "earth"
-    with sqlite3_connect(":memory:") as conn:
-        res = conn.execute("SELECT 'Earth' AS name, 6378 AS radius")
-        row = res.fetchone()
-        print(f"{row=}")
-        print(f"{type(row)=}")
 
-        conn.row_factory = dict_factory
-        res2 = conn.execute("SELECT 'Earth' AS name, 6378 AS radius")
-        row2 = res2.fetchone()
-        print(f"{row2=}")
-        print(f"{type(row2)=}")
+    res = cursor0.execute("SELECT 'Earth' AS name, 6378 AS radius")
+    row = res.fetchone()
+    print(f"{row=}")
+    print(f"{type(row)=}")
+
+    cursor0.row_factory = dict_factory
+    res2 = cursor0.execute("SELECT 'Earth' AS name, 6378 AS radius")
+    row2 = res2.fetchone()
+    print(f"{row2=}")
+    print(f"{type(row2)=}")
 
     # WHEN
     x_rowdata = rowdata_shop(x_tablename, row2)
@@ -147,33 +150,33 @@ def test_rowdata_shop_ReturnsObj():  # sourcery skip: extract-duplicate-method
     assert x_rowdata.row_dict == {"name": "Earth", "radius": 6378}
 
 
-def test_rowdata_shop_RaiseErrorIf_row_dict_IsNotDict():
+def test_rowdata_shop_RaiseErrorIf_row_dict_IsNotDict(cursor0: Cursor):
     # ESTABLISH
     x_tablename = "earth"
 
     # WHEN / THEN
-    with sqlite3_connect(":memory:") as conn:
-        conn.row_factory = None
-        res = conn.execute("SELECT 'Earth' AS name, 6378 AS radius")
-        row = res.fetchone()
-        print(f"{row=}")
-        print(f"{type(row)=}")
+    cursor0.row_factory = None
+    res = cursor0.execute("SELECT 'Earth' AS name, 6378 AS radius")
+    row = res.fetchone()
+    print(f"{row=}")
+    print(f"{type(row)=}")
 
     with pytest_raises(Exception) as excinfo:
         rowdata_shop(x_tablename, row)
     assert str(excinfo.value) == "row_dict is not dictionary"
 
 
-def test_rowdata_shop_ReturnsObjWithoutNone():  # sourcery skip: extract-method
+def test_rowdata_shop_ReturnsObjWithoutNone(
+    cursor0: Cursor,
+):  # sourcery skip: extract-method
     # ESTABLISH
     x_tablename = "earth"
-    with sqlite3_connect(":memory:") as conn:
-        conn.row_factory = dict_factory
-        res2 = conn.execute("SELECT 'Earth' AS name, 6378 AS radius, NULL as color")
-        row2 = res2.fetchone()
-        print(f"{row2=}")
-        print(f"{type(row2)=}")
-        print(f"{type(res2)=}")
+    cursor0.row_factory = dict_factory
+    res2 = cursor0.execute("SELECT 'Earth' AS name, 6378 AS radius, NULL as color")
+    row2 = res2.fetchone()
+    print(f"{row2=}")
+    print(f"{type(row2)=}")
+    print(f"{type(res2)=}")
 
     # WHEN
     x_rowdata = rowdata_shop(x_tablename, row2)
@@ -184,14 +187,13 @@ def test_rowdata_shop_ReturnsObjWithoutNone():  # sourcery skip: extract-method
     assert x_rowdata.row_dict == {"name": "Earth", "radius": 6378}
 
 
-def test_get_rowdata_ReturnsObj():
+def test_get_rowdata_ReturnsObj(cursor0: Cursor):
     # ESTABLISH
     x_tablename = "earth"
 
     # WHEN
-    with sqlite3_connect(":memory:") as conn:
-        select_sqlstr = "SELECT 'Earth' AS name, 6378 AS radius, NULL as color"
-        x_rowdata = get_rowdata(x_tablename, conn, select_sqlstr)
+    select_sqlstr = "SELECT 'Earth' AS name, 6378 AS radius, NULL as color"
+    x_rowdata = get_rowdata(x_tablename, cursor0, select_sqlstr)
 
     # THEN
     assert x_rowdata
@@ -524,15 +526,13 @@ def test_create_table_from_csv_DoesNotEmptyTable(
     conn.close()
 
 
-def test_table_exists_ReturnsObjWhenPassedConnectionObj():
+def test_table_exists_ReturnsObjWhenPassedConnectionObj(cursor0: Cursor):
     # ESTABLISH
-    conn = sqlite3_connect(":memory:")
     users_tablename = "users"
-    assert db_table_exists(conn, users_tablename) is False
+    assert db_table_exists(cursor0, users_tablename) is False
 
     # WHEN
-    cursor = conn.cursor()
-    cursor.execute(
+    cursor0.execute(
         """
         CREATE TABLE users (
             id INTEGER PRIMARY KEY,
@@ -542,28 +542,26 @@ def test_table_exists_ReturnsObjWhenPassedConnectionObj():
     )
 
     # THEN
-    assert db_table_exists(conn, users_tablename)
+    assert db_table_exists(cursor0, users_tablename)
 
 
-def test_table_exists_ReturnsObjWhenPassedCusorObj():
+def test_table_exists_ReturnsObjWhenPassedCusorObj(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        users_tablename = "users"
-        assert db_table_exists(cursor, users_tablename) is False
+    users_tablename = "users"
+    assert db_table_exists(cursor0, users_tablename) is False
 
-        # WHEN
-        cursor.execute(
-            """
-            CREATE TABLE users (
-                id INTEGER PRIMARY KEY,
-                name TEXT NOT NULL
-            )
+    # WHEN
+    cursor0.execute(
         """
+        CREATE TABLE users (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL
         )
+    """
+    )
 
-        # THEN
-        assert db_table_exists(cursor, users_tablename)
+    # THEN
+    assert db_table_exists(cursor0, users_tablename)
 
 
 def test_sqlite_version_IsAcceptable():
@@ -583,262 +581,240 @@ def test_sqlite_version_IsAcceptable():
     assert (major, minor, patch) >= (3, 30, 0), sqlite_old_message
 
 
-def test_get_table_columns_ReturnsObj_Scenario0_TableDoesNotExist():
+def test_get_table_columns_ReturnsObj_Scenario0_TableDoesNotExist(cursor0: Cursor):
     # ESTABLISH
     x_tablename = "some_dark_side_table"
-    with sqlite3_connect(":memory:") as conn:
-        assert db_table_exists(conn, x_tablename) is False
+    assert db_table_exists(cursor0, x_tablename) is False
 
-        # WHEN / THEN
-        assert get_table_columns(conn, x_tablename) == []
+    # WHEN / THEN
+    assert get_table_columns(cursor0, x_tablename) == []
 
 
-def test_get_table_columns_ReturnsObj_Scenario1_TableExists():
+def test_get_table_columns_ReturnsObj_Scenario1_TableExists(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_table_sqlstr = get_create_test_table_sqlstr()
-        x_tablename = get_example_test_tablename()
-        print(create_table_sqlstr)
-        print(x_tablename)
-        cursor.execute(create_table_sqlstr)
+    create_table_sqlstr = get_create_test_table_sqlstr()
+    x_tablename = get_example_test_tablename()
+    print(create_table_sqlstr)
+    print(x_tablename)
+    cursor0.execute(create_table_sqlstr)
 
-        # WHEN / THEN
-        assert get_table_columns(conn, x_tablename) == ["id", "name", "age", "email"]
-        assert get_table_columns(cursor, x_tablename) == ["id", "name", "age", "email"]
+    # WHEN / THEN
+    assert get_table_columns(cursor0, x_tablename) == ["id", "name", "age", "email"]
 
 
-def test_create_select_inconsistency_query_ReturnsObj_Scenario0():
+def test_create_select_inconsistency_query_ReturnsObj_Scenario0(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        x_columns = ["id", "name", "age", "email", "hair"]
-        create_table_from_columns(cursor, x_tablename, x_columns, {})
+    x_tablename = "dark_side"
+    x_columns = ["id", "name", "age", "email", "hair"]
+    create_table_from_columns(cursor0, x_tablename, x_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_select_inconsistency_query(
-            cursor, x_tablename, {"id"}, {"email"}
-        )
+    # WHEN
+    gen_sqlstr = create_select_inconsistency_query(
+        cursor0, x_tablename, {"id"}, {"email"}
+    )
 
-        # THEN
-        expected_sqlstr = """SELECT id
+    # THEN
+    expected_sqlstr = """SELECT id
 FROM dark_side
 GROUP BY id
 HAVING MIN(name) != MAX(name)
     OR MIN(age) != MAX(age)
     OR MIN(hair) != MAX(hair)
 """
-        assert gen_sqlstr == expected_sqlstr
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_inconsistency_query_ReturnsObj_Scenario1():
+def test_create_select_inconsistency_query_ReturnsObj_Scenario1(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        x_columns = ["id", "name", "age", "email", "hair"]
-        create_table_from_columns(cursor, x_tablename, x_columns, {})
+    x_tablename = "dark_side"
+    x_columns = ["id", "name", "age", "email", "hair"]
+    create_table_from_columns(cursor0, x_tablename, x_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_select_inconsistency_query(
-            cursor, x_tablename, {"id", "name"}, {"email"}
-        )
+    # WHEN
+    gen_sqlstr = create_select_inconsistency_query(
+        cursor0, x_tablename, {"id", "name"}, {"email"}
+    )
 
-        # THEN
-        expected_sqlstr = """SELECT id, name
+    # THEN
+    expected_sqlstr = """SELECT id, name
 FROM dark_side
 GROUP BY id, name
 HAVING MIN(age) != MAX(age)
     OR MIN(hair) != MAX(hair)
 """
-        assert gen_sqlstr == expected_sqlstr
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_inconsistency_query_ReturnsObj_Scenario2():
+def test_create_select_inconsistency_query_ReturnsObj_Scenario2(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        x_columns = ["id", "name", "age", "email", "hair"]
-        create_table_from_columns(cursor, x_tablename, x_columns, {})
+    x_tablename = "dark_side"
+    x_columns = ["id", "name", "age", "email", "hair"]
+    create_table_from_columns(cursor0, x_tablename, x_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_select_inconsistency_query(
-            cursor, x_tablename, {"id", "name", "age", "email", "hair"}, {}
-        )
+    # WHEN
+    gen_sqlstr = create_select_inconsistency_query(
+        cursor0, x_tablename, {"id", "name", "age", "email", "hair"}, {}
+    )
 
-        # THEN
-        expected_sqlstr = """SELECT id, name, age, email, hair
+    # THEN
+    expected_sqlstr = """SELECT id, name, age, email, hair
 FROM dark_side
 GROUP BY id, name, age, email, hair
 HAVING 1=2
 """
-        assert gen_sqlstr == expected_sqlstr
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_query_ReturnsObj_Scenario0():
+def test_create_select_query_ReturnsObj_Scenario0(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        x_columns = ["id", "name", "age"]
-        create_table_from_columns(cursor, x_tablename, x_columns, {})
-        x_select_columns = set()
+    x_tablename = "dark_side"
+    x_columns = ["id", "name", "age"]
+    create_table_from_columns(cursor0, x_tablename, x_columns, {})
+    x_select_columns = set()
 
-        # WHEN
-        gen_sqlstr = create_select_query(cursor, x_tablename, x_select_columns)
+    # WHEN
+    gen_sqlstr = create_select_query(cursor0, x_tablename, x_select_columns)
 
-        # THEN
-        expected_sqlstr = f"""SELECT id, name, age
+    # THEN
+    expected_sqlstr = f"""SELECT id, name, age
 FROM {x_tablename}
 
 """
-        assert gen_sqlstr == expected_sqlstr
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_query_ReturnsObj_Scenario1_WhereClauseExists():
+def test_create_select_query_ReturnsObj_Scenario1_WhereClauseExists(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        x_columns = ["id", "name", "age"]
-        create_table_from_columns(cursor, x_tablename, x_columns, {})
-        x_select_columns = set()
-        x_where = {"name": "bob"}
+    x_tablename = "dark_side"
+    x_columns = ["id", "name", "age"]
+    create_table_from_columns(cursor0, x_tablename, x_columns, {})
+    x_select_columns = set()
+    x_where = {"name": "bob"}
 
-        # WHEN
-        gen_sqlstr = create_select_query(cursor, x_tablename, x_select_columns, x_where)
+    # WHEN
+    gen_sqlstr = create_select_query(cursor0, x_tablename, x_select_columns, x_where)
 
-        # THEN
-        expected_sqlstr = f"""SELECT id, name, age
+    # THEN
+    expected_sqlstr = f"""SELECT id, name, age
 FROM {x_tablename}
 WHERE name = 'bob'
 """
-        assert gen_sqlstr == expected_sqlstr
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_query_ReturnsObj_Scenario2_WhereClauseHasAllElements():
+def test_create_select_query_ReturnsObj_Scenario2_WhereClauseHasAllElements(
+    cursor0: Cursor,
+):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        id_str = "id"
-        name_str = "name"
-        age_str = "age"
-        x_columns = [id_str, name_str, age_str]
-        column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
-        create_table_from_columns(cursor, x_tablename, x_columns, column_types)
-        x_select_columns = set()
-        x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
+    x_tablename = "dark_side"
+    id_str = "id"
+    name_str = "name"
+    age_str = "age"
+    x_columns = [id_str, name_str, age_str]
+    column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
+    create_table_from_columns(cursor0, x_tablename, x_columns, column_types)
+    x_select_columns = set()
+    x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
 
-        # WHEN
-        gen_sqlstr = create_select_query(cursor, x_tablename, x_select_columns, x_where)
+    # WHEN
+    gen_sqlstr = create_select_query(cursor0, x_tablename, x_select_columns, x_where)
 
-        # THEN
-        expected_sqlstr = f"""SELECT {id_str}, {name_str}, {age_str}
+    # THEN
+    expected_sqlstr = f"""SELECT {id_str}, {name_str}, {age_str}
 FROM {x_tablename}
 WHERE {id_str} = 3
   AND {name_str} = 'bob'
   AND {age_str} = 23.5
 """
-        print(f"{gen_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"{gen_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_query_ReturnsObj_Scenario3_StringIsFlat():
+def test_create_select_query_ReturnsObj_Scenario3_StringIsFlat(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        id_str = "id"
-        name_str = "name"
-        age_str = "age"
-        x_columns = [id_str, name_str, age_str]
-        column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
-        create_table_from_columns(cursor, x_tablename, x_columns, column_types)
-        x_select_columns = set()
-        x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
+    x_tablename = "dark_side"
+    id_str = "id"
+    name_str = "name"
+    age_str = "age"
+    x_columns = [id_str, name_str, age_str]
+    column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
+    create_table_from_columns(cursor0, x_tablename, x_columns, column_types)
+    x_select_columns = set()
+    x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
 
-        # WHEN
-        gen_sqlstr = create_select_query(
-            cursor, x_tablename, x_select_columns, x_where, flat_bool=True
-        )
+    # WHEN
+    gen_sqlstr = create_select_query(
+        cursor0, x_tablename, x_select_columns, x_where, flat_bool=True
+    )
 
-        # THEN
-        expected_sqlstr = f"""SELECT {id_str}, {name_str}, {age_str} FROM {x_tablename} WHERE {id_str} = 3 AND {name_str} = 'bob' AND {age_str} = 23.5"""
-        print(f"{gen_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    # THEN
+    expected_sqlstr = f"""SELECT {id_str}, {name_str}, {age_str} FROM {x_tablename} WHERE {id_str} = 3 AND {name_str} = 'bob' AND {age_str} = 23.5"""
+    print(f"{gen_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_query_ReturnsObj_Scenario4_ColumnOrdering():
+def test_create_select_query_ReturnsObj_Scenario4_ColumnOrdering(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        id_str = "id"
-        name_str = "name"
-        age_str = "age"
-        x_columns = [id_str, name_str, age_str]
-        column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
-        create_table_from_columns(cursor, x_tablename, x_columns, column_types)
-        x_select_columns = {age_str, id_str}
-        x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
+    x_tablename = "dark_side"
+    id_str = "id"
+    name_str = "name"
+    age_str = "age"
+    x_columns = [id_str, name_str, age_str]
+    column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
+    create_table_from_columns(cursor0, x_tablename, x_columns, column_types)
+    x_select_columns = {age_str, id_str}
+    x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
 
-        # WHEN
-        gen_sqlstr = create_select_query(
-            cursor, x_tablename, x_select_columns, x_where, flat_bool=True
-        )
+    # WHEN
+    gen_sqlstr = create_select_query(
+        cursor0, x_tablename, x_select_columns, x_where, flat_bool=True
+    )
 
-        # THEN
-        expected_sqlstr = f"""SELECT {id_str}, {age_str} FROM {x_tablename} WHERE {id_str} = 3 AND {name_str} = 'bob' AND {age_str} = 23.5"""
-        print(f"{gen_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    # THEN
+    expected_sqlstr = f"""SELECT {id_str}, {age_str} FROM {x_tablename} WHERE {id_str} = 3 AND {name_str} = 'bob' AND {age_str} = 23.5"""
+    print(f"{gen_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_select_query_ReturnsObj_Scenario4():
+def test_create_select_query_ReturnsObj_Scenario4(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        id_str = "id"
-        name_str = "name"
-        age_str = "age"
-        x_columns = [id_str, name_str, age_str]
-        column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
-        create_table_from_columns(cursor, x_tablename, x_columns, column_types)
-        x_select_columns = {age_str, id_str}
-        x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
+    x_tablename = "dark_side"
+    id_str = "id"
+    name_str = "name"
+    age_str = "age"
+    x_columns = [id_str, name_str, age_str]
+    column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
+    create_table_from_columns(cursor0, x_tablename, x_columns, column_types)
+    x_select_columns = {age_str, id_str}
+    x_where = {id_str: 3, name_str: "bob", age_str: 23.5}
 
-        # WHEN
-        gen_sqlstr = create_select_query(
-            cursor, x_tablename, x_select_columns, x_where, flat_bool=True
-        )
+    # WHEN
+    gen_sqlstr = create_select_query(
+        cursor0, x_tablename, x_select_columns, x_where, flat_bool=True
+    )
 
-        # THEN
-        expected_sqlstr = f"""SELECT {id_str}, {age_str} FROM {x_tablename} WHERE {id_str} = 3 AND {name_str} = 'bob' AND {age_str} = 23.5"""
-        print(f"{gen_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    # THEN
+    expected_sqlstr = f"""SELECT {id_str}, {age_str} FROM {x_tablename} WHERE {id_str} = 3 AND {name_str} = 'bob' AND {age_str} = 23.5"""
+    print(f"{gen_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_insert_query_ReturnsObj_Scenario0():
+def test_create_insert_query_ReturnsObj_Scenario0(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        id_str = "id"
-        name_str = "name"
-        age_str = "age"
-        x_columns = [id_str, name_str, age_str]
-        column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
-        create_table_from_columns(cursor, x_tablename, x_columns, column_types)
-        x_insert_values = {id_str: 3, name_str: "bob", age_str: 23.5}
+    x_tablename = "dark_side"
+    id_str = "id"
+    name_str = "name"
+    age_str = "age"
+    x_columns = [id_str, name_str, age_str]
+    column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
+    create_table_from_columns(cursor0, x_tablename, x_columns, column_types)
+    x_insert_values = {id_str: 3, name_str: "bob", age_str: 23.5}
 
-        # WHEN
-        gen_sqlstr = create_insert_query(cursor, x_tablename, x_insert_values)
+    # WHEN
+    gen_sqlstr = create_insert_query(cursor0, x_tablename, x_insert_values)
 
-        # THEN
-        expected_sqlstr = f"""INSERT INTO {x_tablename} ({id_str}, {name_str}, {age_str})
+    # THEN
+    expected_sqlstr = f"""INSERT INTO {x_tablename} ({id_str}, {name_str}, {age_str})
 VALUES (
   3
 , 'bob'
@@ -846,55 +822,51 @@ VALUES (
 )
 ;
 """
-        print(f"{gen_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"{gen_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_insert_query_ReturnsObj_Scenario1():
+def test_create_insert_query_ReturnsObj_Scenario1(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        id_str = "id"
-        name_str = "name"
-        age_str = "age"
-        x_columns = [id_str, name_str, age_str]
-        column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
-        create_table_from_columns(cursor, x_tablename, x_columns, column_types)
-        x_insert_values = {id_str: 3, name_str: "bob", age_str: 23.5}
+    x_tablename = "dark_side"
+    id_str = "id"
+    name_str = "name"
+    age_str = "age"
+    x_columns = [id_str, name_str, age_str]
+    column_types = {id_str: "INTEGER", name_str: "TEXT", age_str: "REAL"}
+    create_table_from_columns(cursor0, x_tablename, x_columns, column_types)
+    x_insert_values = {id_str: 3, name_str: "bob", age_str: 23.5}
 
-        # WHEN
-        gen_sqlstr = create_insert_query(cursor, x_tablename, x_insert_values, True)
+    # WHEN
+    gen_sqlstr = create_insert_query(cursor0, x_tablename, x_insert_values, True)
 
-        # THEN
-        expected_sqlstr = f"""INSERT INTO {x_tablename} ({id_str}, {name_str}, {age_str})
+    # THEN
+    expected_sqlstr = f"""INSERT INTO {x_tablename} ({id_str}, {name_str}, {age_str})
 VALUES (3, 'bob', 23.5);"""
-        print(f"{gen_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"{gen_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_update_inconsistency_error_query_ReturnsObj_Scenario0():
+def test_create_update_inconsistency_error_query_ReturnsObj_Scenario0(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        x_columns = ["id", "name", "age", "email", "hair"]
-        x_error_holder_column = "error_holder2"
-        x_error_str = "error_str2"
-        create_table_from_columns(cursor, x_tablename, x_columns, {})
+    x_tablename = "dark_side"
+    x_columns = ["id", "name", "age", "email", "hair"]
+    x_error_holder_column = "error_holder2"
+    x_error_str = "error_str2"
+    create_table_from_columns(cursor0, x_tablename, x_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_update_inconsistency_error_query(
-            cursor,
-            x_tablename,
-            {"id"},
-            {"email"},
-            x_error_holder_column,
-            x_error_str,
-        )
+    # WHEN
+    gen_sqlstr = create_update_inconsistency_error_query(
+        cursor0,
+        x_tablename,
+        {"id"},
+        {"email"},
+        x_error_holder_column,
+        x_error_str,
+    )
 
-        # THEN
-        expected_sqlstr = f"""WITH inconsistency_rows AS (
+    # THEN
+    expected_sqlstr = f"""WITH inconsistency_rows AS (
 SELECT id
 FROM dark_side
 GROUP BY id
@@ -908,32 +880,30 @@ FROM inconsistency_rows
 WHERE inconsistency_rows.id = dark_side.id
 ;
 """
-        print(f"""{gen_sqlstr=}""")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"""{gen_sqlstr=}""")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_update_inconsistency_error_query_ReturnsObj_Scenario1():
+def test_create_update_inconsistency_error_query_ReturnsObj_Scenario1(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_tablename = "dark_side"
-        x_columns = ["id", "name", "age", "email", "hair"]
-        x_error_holder_column = "error_holder2"
-        x_error_str = "error_relevant_elements"
-        create_table_from_columns(cursor, x_tablename, x_columns, {})
+    x_tablename = "dark_side"
+    x_columns = ["id", "name", "age", "email", "hair"]
+    x_error_holder_column = "error_holder2"
+    x_error_str = "error_relevant_elements"
+    create_table_from_columns(cursor0, x_tablename, x_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_update_inconsistency_error_query(
-            cursor,
-            x_tablename,
-            {"id", "name"},
-            {"email"},
-            x_error_holder_column,
-            x_error_str,
-        )
+    # WHEN
+    gen_sqlstr = create_update_inconsistency_error_query(
+        cursor0,
+        x_tablename,
+        {"id", "name"},
+        {"email"},
+        x_error_holder_column,
+        x_error_str,
+    )
 
-        # THEN
-        expected_sqlstr = f"""WITH inconsistency_rows AS (
+    # THEN
+    expected_sqlstr = f"""WITH inconsistency_rows AS (
 SELECT id, name
 FROM dark_side
 GROUP BY id, name
@@ -947,253 +917,235 @@ WHERE inconsistency_rows.id = dark_side.id
     AND inconsistency_rows.name = dark_side.name
 ;
 """
-        assert gen_sqlstr == expected_sqlstr
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_table2table_agg_insert_query_ReturnsObj_Scenario0():
+def test_create_table2table_agg_insert_query_ReturnsObj_Scenario0(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        src_tablename = "side1"
-        src_columns = ["id", "name", "age", "email", hair_str]
-        create_table_from_columns(cursor, src_tablename, src_columns, {})
-        dst_tablename = "side2"
-        dst_columns = ["name", "age", "email", hair_str]
-        create_table_from_columns(cursor, dst_tablename, dst_columns, {})
+    hair_str = "hair"
+    src_tablename = "side1"
+    src_columns = ["id", "name", "age", "email", hair_str]
+    create_table_from_columns(cursor0, src_tablename, src_columns, {})
+    dst_tablename = "side2"
+    dst_columns = ["name", "age", "email", hair_str]
+    create_table_from_columns(cursor0, dst_tablename, dst_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            dst_table=dst_tablename,
-            src_table=src_tablename,
-            focus_cols={"name", "age"},
-            exclude_cols={hair_str},
-            where_block="WHERE error_holder IS NULL",
-        )
+    # WHEN
+    gen_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        dst_table=dst_tablename,
+        src_table=src_tablename,
+        focus_cols={"name", "age"},
+        exclude_cols={hair_str},
+        where_block="WHERE error_holder IS NULL",
+    )
 
-        # THEN
-        expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, age, email)
+    # THEN
+    expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, age, email)
 SELECT name, age, MAX(email)
 FROM {src_tablename}
 WHERE error_holder IS NULL
 GROUP BY name, age
 ;
 """
-        print(f"     {gen_sqlstr=}")
-        print(f"{expected_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"     {gen_sqlstr=}")
+    print(f"{expected_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_table2table_agg_insert_query_ReturnsObj_Scenario1():
+def test_create_table2table_agg_insert_query_ReturnsObj_Scenario1(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        src_tablename = "side1"
-        src_columns = ["id", "name", "age", "email", hair_str]
-        create_table_from_columns(cursor, src_tablename, src_columns, {})
-        dst_tablename = "side2"
-        dst_columns = ["name", "age", hair_str]
-        create_table_from_columns(cursor, dst_tablename, dst_columns, {})
+    hair_str = "hair"
+    src_tablename = "side1"
+    src_columns = ["id", "name", "age", "email", hair_str]
+    create_table_from_columns(cursor0, src_tablename, src_columns, {})
+    dst_tablename = "side2"
+    dst_columns = ["name", "age", hair_str]
+    create_table_from_columns(cursor0, dst_tablename, dst_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            dst_table=dst_tablename,
-            src_table=src_tablename,
-            focus_cols={"name"},
-            exclude_cols={hair_str},
-            where_block="WHERE error_holder IS NULL",
-        )
+    # WHEN
+    gen_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        dst_table=dst_tablename,
+        src_table=src_tablename,
+        focus_cols={"name"},
+        exclude_cols={hair_str},
+        where_block="WHERE error_holder IS NULL",
+    )
 
-        # THEN
-        expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, age)
+    # THEN
+    expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, age)
 SELECT name, MAX(age)
 FROM {src_tablename}
 WHERE error_holder IS NULL
 GROUP BY name
 ;
 """
-        print(f"     {gen_sqlstr=}")
-        print(f"{expected_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"     {gen_sqlstr=}")
+    print(f"{expected_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_table2table_agg_insert_query_ReturnsObj_Scenario3():
+def test_create_table2table_agg_insert_query_ReturnsObj_Scenario3(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        email_str = "email"
-        age_str = "age"
-        style_str = "style"
-        src_tablename = "side1"
-        src_columns = ["id", "name", age_str, style_str, email_str, hair_str]
-        create_table_from_columns(cursor, src_tablename, src_columns, {})
-        dst_tablename = "side2"
-        dst_columns = ["name", age_str, style_str, hair_str]
-        create_table_from_columns(cursor, dst_tablename, dst_columns, {})
+    hair_str = "hair"
+    email_str = "email"
+    age_str = "age"
+    style_str = "style"
+    src_tablename = "side1"
+    src_columns = ["id", "name", age_str, style_str, email_str, hair_str]
+    create_table_from_columns(cursor0, src_tablename, src_columns, {})
+    dst_tablename = "side2"
+    dst_columns = ["name", age_str, style_str, hair_str]
+    create_table_from_columns(cursor0, dst_tablename, dst_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            dst_table=dst_tablename,
-            src_table=src_tablename,
-            focus_cols={style_str, "name"},
-            exclude_cols={age_str},
-            where_block="WHERE error_holder IS NULL",
-        )
+    # WHEN
+    gen_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        dst_table=dst_tablename,
+        src_table=src_tablename,
+        focus_cols={style_str, "name"},
+        exclude_cols={age_str},
+        where_block="WHERE error_holder IS NULL",
+    )
 
-        # THEN
-        expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, style, hair)
+    # THEN
+    expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, style, hair)
 SELECT name, style, MAX(hair)
 FROM {src_tablename}
 WHERE error_holder IS NULL
 GROUP BY name, style
 ;
 """
-        print(f"     {gen_sqlstr=}")
-        print(f"{expected_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"     {gen_sqlstr=}")
+    print(f"{expected_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_table2table_agg_insert_query_ReturnsObj_Scenario4():
+def test_create_table2table_agg_insert_query_ReturnsObj_Scenario4(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        email_str = "email"
-        age_str = "age"
-        style_str = "style"
-        src_tablename = "side1"
-        src_columns = ["id", "name", age_str, style_str, email_str, hair_str]
-        create_table_from_columns(cursor, src_tablename, src_columns, {})
-        dst_tablename = "side2"
-        dst_columns = ["name", age_str, style_str, hair_str]
-        create_table_from_columns(cursor, dst_tablename, dst_columns, {})
+    hair_str = "hair"
+    email_str = "email"
+    age_str = "age"
+    style_str = "style"
+    src_tablename = "side1"
+    src_columns = ["id", "name", age_str, style_str, email_str, hair_str]
+    create_table_from_columns(cursor0, src_tablename, src_columns, {})
+    dst_tablename = "side2"
+    dst_columns = ["name", age_str, style_str, hair_str]
+    create_table_from_columns(cursor0, dst_tablename, dst_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            dst_table=dst_tablename,
-            src_table=src_tablename,
-            focus_cols={style_str, "name"},
-            exclude_cols={age_str},
-            where_block="",
-        )
+    # WHEN
+    gen_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        dst_table=dst_tablename,
+        src_table=src_tablename,
+        focus_cols={style_str, "name"},
+        exclude_cols={age_str},
+        where_block="",
+    )
 
-        # THEN
-        expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, style, hair)
+    # THEN
+    expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, style, hair)
 SELECT name, style, MAX(hair)
 FROM {src_tablename}
 GROUP BY name, style
 ;
 """
-        print(f"     {gen_sqlstr=}")
-        print(f"{expected_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"     {gen_sqlstr=}")
+    print(f"{expected_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_create_table2table_agg_insert_query_ReturnsObj_Scenario5():
+def test_create_table2table_agg_insert_query_ReturnsObj_Scenario5(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        email_str = "email"
-        age_str = "age"
-        style_str = "style"
-        src_tablename = "side1"
-        src_columns = ["id", "name", age_str, style_str, email_str, hair_str]
-        create_table_from_columns(cursor, src_tablename, src_columns, {})
-        dst_tablename = "side2"
-        dst_columns = ["name", age_str, style_str, hair_str]
-        create_table_from_columns(cursor, dst_tablename, dst_columns, {})
+    hair_str = "hair"
+    email_str = "email"
+    age_str = "age"
+    style_str = "style"
+    src_tablename = "side1"
+    src_columns = ["id", "name", age_str, style_str, email_str, hair_str]
+    create_table_from_columns(cursor0, src_tablename, src_columns, {})
+    dst_tablename = "side2"
+    dst_columns = ["name", age_str, style_str, hair_str]
+    create_table_from_columns(cursor0, dst_tablename, dst_columns, {})
 
-        # WHEN
-        gen_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            dst_table=dst_tablename,
-            src_table=src_tablename,
-            focus_cols=None,
-            exclude_cols={"id"},
-            where_block="",
-        )
+    # WHEN
+    gen_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        dst_table=dst_tablename,
+        src_table=src_tablename,
+        focus_cols=None,
+        exclude_cols={"id"},
+        where_block="",
+    )
 
-        # THEN
-        expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, age, style, hair)
+    # THEN
+    expected_sqlstr = f"""INSERT INTO {dst_tablename} (name, age, style, hair)
 SELECT name, age, style, hair
 FROM {src_tablename}
 GROUP BY name, age, style, hair
 ;
 """
-        print(f"     {gen_sqlstr=}")
-        print(f"{expected_sqlstr=}")
-        assert gen_sqlstr == expected_sqlstr
+    print(f"     {gen_sqlstr=}")
+    print(f"{expected_sqlstr=}")
+    assert gen_sqlstr == expected_sqlstr
 
 
-def test_required_columns_exist_ReturnsObj_Scenario0():
+def test_required_columns_exist_ReturnsObj_Scenario0(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        x_table1 = "side1"
-        src_columns = ["id", "name", "age", "email", hair_str]
-        create_table_from_columns(cursor, x_table1, src_columns, {})
-        x_table2 = "side2"
-        dst_columns = ["name", "age", hair_str]
-        create_table_from_columns(cursor, x_table2, dst_columns, {})
+    hair_str = "hair"
+    x_table1 = "side1"
+    src_columns = ["id", "name", "age", "email", hair_str]
+    create_table_from_columns(cursor0, x_table1, src_columns, {})
+    x_table2 = "side2"
+    dst_columns = ["name", "age", hair_str]
+    create_table_from_columns(cursor0, x_table2, dst_columns, {})
 
-        # WHEN / THEN
-        assert required_columns_exist(cursor, x_table1, {"name", "email"})
-        assert required_columns_exist(cursor, x_table1, {"name", "address"}) is False
-        assert required_columns_exist(cursor, x_table2, {"name", "email"}) is False
-        assert required_columns_exist(cursor, x_table2, {"name"})
+    # WHEN / THEN
+    assert required_columns_exist(cursor0, x_table1, {"name", "email"})
+    assert required_columns_exist(cursor0, x_table1, {"name", "address"}) is False
+    assert required_columns_exist(cursor0, x_table2, {"name", "email"}) is False
+    assert required_columns_exist(cursor0, x_table2, {"name"})
 
 
-def test_get_db_tables_ReturnsObj_Scenario0_AllTablenames():
+def test_get_db_tables_ReturnsObj_Scenario0_AllTablenames(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        x_table1 = "side1"
-        src_columns = ["id", "name", "age", "email", hair_str]
-        create_table_from_columns(cursor, x_table1, src_columns, {})
-        x_table2 = "side2"
-        dst_columns = ["name", "age", hair_str]
-        create_table_from_columns(cursor, x_table2, dst_columns, {})
+    hair_str = "hair"
+    x_table1 = "side1"
+    src_columns = ["id", "name", "age", "email", hair_str]
+    create_table_from_columns(cursor0, x_table1, src_columns, {})
+    x_table2 = "side2"
+    dst_columns = ["name", "age", hair_str]
+    create_table_from_columns(cursor0, x_table2, dst_columns, {})
 
-        # WHEN / THEN
-        assert get_db_tables(cursor) == {x_table1: 1, x_table2: 1}
+    # WHEN / THEN
+    assert get_db_tables(cursor0) == {x_table1: 1, x_table2: 1}
 
 
-def test_get_db_tables_ReturnsObj_Scenario1_TablenamesContainsString():
+def test_get_db_tables_ReturnsObj_Scenario1_TablenamesContainsString(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        hair_str = "hair"
-        x_table1 = "side1"
-        src_columns = ["id", "name", "age", "email", hair_str]
-        create_table_from_columns(cursor, x_table1, src_columns, {})
-        x_table2 = "side2"
-        dst_columns = ["name", "age", hair_str]
-        create_table_from_columns(cursor, x_table2, dst_columns, {})
+    hair_str = "hair"
+    x_table1 = "side1"
+    src_columns = ["id", "name", "age", "email", hair_str]
+    create_table_from_columns(cursor0, x_table1, src_columns, {})
+    x_table2 = "side2"
+    dst_columns = ["name", "age", hair_str]
+    create_table_from_columns(cursor0, x_table2, dst_columns, {})
 
-        # WHEN / THEN
-        assert get_db_tables(cursor, "2") == {x_table2: 1}
+    # WHEN / THEN
+    assert get_db_tables(cursor0, "2") == {x_table2: 1}
 
 
-def test_get_db_tables_ReturnsObj_Scenario1_TablenamesStartWithString():
+def test_get_db_tables_ReturnsObj_Scenario1_TablenamesStartWithString(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        x_table1 = "side1"
-        x_table2 = "side2"
-        x_table3 = "run2"
-        create_table_from_columns(cursor, x_table1, ["id", "age"], {})
-        create_table_from_columns(cursor, x_table2, ["id", "age"], {})
-        create_table_from_columns(cursor, x_table3, ["id", "age"], {})
+    x_table1 = "side1"
+    x_table2 = "side2"
+    x_table3 = "run2"
+    create_table_from_columns(cursor0, x_table1, ["id", "age"], {})
+    create_table_from_columns(cursor0, x_table2, ["id", "age"], {})
+    create_table_from_columns(cursor0, x_table3, ["id", "age"], {})
 
-        # WHEN / THEN
-        assert get_db_tables(cursor, "2") == {x_table2: 1, x_table3: 1}
-        assert get_db_tables(cursor, "2", "side") == {x_table2: 1}
+    # WHEN / THEN
+    assert get_db_tables(cursor0, "2") == {x_table2: 1, x_table3: 1}
+    assert get_db_tables(cursor0, "2", "side") == {x_table2: 1}

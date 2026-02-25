@@ -1,4 +1,4 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor, connect as sqlite3_connect
 from src.ch00_py.db_toolbox import (
     create_insert_into_clause_str as get_insert_sql,
     create_select_query as get_select_sql,
@@ -37,6 +37,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_person_heard_vld_tablenames,
     get_prime_create_table_sqlstrs,
 )
+from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ref.keywords import Ch18Keywords as kw
 
 
@@ -211,102 +212,100 @@ def test_get_person_heard_vld_tablenames_ReturnsObj_PersonDimens():
     assert agg_tablenames.issubset(set(get_prime_create_table_sqlstrs().keys()))
 
 
-def test_create_sound_and_heard_tables_CreatesMomentRawTables():
+def test_create_sound_and_heard_tables_CreatesMomentRawTables(cursor0: Cursor):
     # ESTABLISH
-    with sqlite3_connect(":memory:") as moment_db_conn:
-        cursor = moment_db_conn.cursor()
-        assert len(get_db_tables(cursor)) == 0
-        agg_str = "agg"
-        raw_str = "raw"
-        vld_str = "vld"
-        put_str = "put"
-        del_str = "del"
-        prnunit_s_put_agg_table = prime_tbl("personunit", "s", agg_str, put_str)
-        prnptnr_s_put_agg_table = prime_tbl("prnptnr", "s", agg_str, put_str)
-        prnmemb_s_put_agg_table = prime_tbl("prnmemb", "s", agg_str, put_str)
-        prnfact_s_del_agg_table = prime_tbl("prnfact", "s", agg_str, del_str)
-        prnfact_s_del_vld_table = prime_tbl("prnfact", "s", vld_str, del_str)
-        momentunit_s_agg_table = prime_tbl(kw.momentunit, "s", agg_str)
-        momentunit_s_vld_table = prime_tbl(kw.momentunit, "s", vld_str)
-        trltitl_s_agg_table = prime_tbl("trltitl", "s", agg_str)
-        mmthour_h_vld_table = prime_tbl("mmthour", "h", vld_str)
-        nabtime_s_raw_table = prime_tbl("nabtime", "s", raw_str)
-        trltitl_s_raw_table = prime_tbl("trltitl", "s", raw_str)
-        trlcore_s_raw_table = prime_tbl("trlcore", "s", raw_str)
-        trlcore_s_agg_table = prime_tbl("trlcore", "s", agg_str)
-        trlcore_s_vld_table = prime_tbl("trlcore", "s", vld_str)
+    assert len(get_db_tables(cursor0)) == 0
+    agg_str = "agg"
+    raw_str = "raw"
+    vld_str = "vld"
+    put_str = "put"
+    del_str = "del"
+    prnunit_s_put_agg_table = prime_tbl("personunit", "s", agg_str, put_str)
+    prnptnr_s_put_agg_table = prime_tbl("prnptnr", "s", agg_str, put_str)
+    prnmemb_s_put_agg_table = prime_tbl("prnmemb", "s", agg_str, put_str)
+    prnfact_s_del_agg_table = prime_tbl("prnfact", "s", agg_str, del_str)
+    prnfact_s_del_vld_table = prime_tbl("prnfact", "s", vld_str, del_str)
+    momentunit_s_agg_table = prime_tbl(kw.momentunit, "s", agg_str)
+    momentunit_s_vld_table = prime_tbl(kw.momentunit, "s", vld_str)
+    trltitl_s_agg_table = prime_tbl("trltitl", "s", agg_str)
+    mmthour_h_vld_table = prime_tbl("mmthour", "h", vld_str)
+    nabtime_s_raw_table = prime_tbl("nabtime", "s", raw_str)
+    trltitl_s_raw_table = prime_tbl("trltitl", "s", raw_str)
+    trlcore_s_raw_table = prime_tbl("trlcore", "s", raw_str)
+    trlcore_s_agg_table = prime_tbl("trlcore", "s", agg_str)
+    trlcore_s_vld_table = prime_tbl("trlcore", "s", vld_str)
 
-        assert not db_table_exists(cursor, prnunit_s_put_agg_table)
-        assert not db_table_exists(cursor, prnptnr_s_put_agg_table)
-        assert not db_table_exists(cursor, prnmemb_s_put_agg_table)
-        assert not db_table_exists(cursor, prnfact_s_del_agg_table)
-        assert not db_table_exists(cursor, prnfact_s_del_vld_table)
-        assert not db_table_exists(cursor, momentunit_s_agg_table)
-        assert not db_table_exists(cursor, momentunit_s_vld_table)
-        assert not db_table_exists(cursor, trltitl_s_agg_table)
-        assert not db_table_exists(cursor, mmthour_h_vld_table)
-        assert not db_table_exists(cursor, nabtime_s_raw_table)
-        assert not db_table_exists(cursor, trltitl_s_raw_table)
-        assert not db_table_exists(cursor, trlcore_s_raw_table)
-        assert not db_table_exists(cursor, trlcore_s_agg_table)
-        assert not db_table_exists(cursor, trlcore_s_vld_table)
+    assert not db_table_exists(cursor0, prnunit_s_put_agg_table)
+    assert not db_table_exists(cursor0, prnptnr_s_put_agg_table)
+    assert not db_table_exists(cursor0, prnmemb_s_put_agg_table)
+    assert not db_table_exists(cursor0, prnfact_s_del_agg_table)
+    assert not db_table_exists(cursor0, prnfact_s_del_vld_table)
+    assert not db_table_exists(cursor0, momentunit_s_agg_table)
+    assert not db_table_exists(cursor0, momentunit_s_vld_table)
+    assert not db_table_exists(cursor0, trltitl_s_agg_table)
+    assert not db_table_exists(cursor0, mmthour_h_vld_table)
+    assert not db_table_exists(cursor0, nabtime_s_raw_table)
+    assert not db_table_exists(cursor0, trltitl_s_raw_table)
+    assert not db_table_exists(cursor0, trlcore_s_raw_table)
+    assert not db_table_exists(cursor0, trlcore_s_agg_table)
+    assert not db_table_exists(cursor0, trlcore_s_vld_table)
 
-        # WHEN
-        create_sound_and_heard_tables(cursor)
+    # WHEN
+    create_sound_and_heard_tables(cursor0)
 
-        # THEN
-        cursor.execute("SELECT * FROM sqlite_master WHERE type = 'table'")
-        # print(f"{cursor.fetchall()=}")
-        # x_count = 0
-        # for x_row in cursor.fetchall():
-        #     print(f"{x_count} {x_row[1]=}")
-        #     x_count += 1
-        assert db_table_exists(cursor, prnunit_s_put_agg_table)
-        assert db_table_exists(cursor, prnptnr_s_put_agg_table)
-        assert db_table_exists(cursor, prnmemb_s_put_agg_table)
-        assert db_table_exists(cursor, prnfact_s_del_agg_table)
-        assert db_table_exists(cursor, prnfact_s_del_vld_table)
-        assert db_table_exists(cursor, momentunit_s_agg_table)
-        assert db_table_exists(cursor, momentunit_s_vld_table)
-        assert db_table_exists(cursor, trltitl_s_agg_table)
-        assert db_table_exists(cursor, mmthour_h_vld_table)
-        assert db_table_exists(cursor, nabtime_s_raw_table)
-        assert db_table_exists(cursor, trltitl_s_raw_table)
-        assert db_table_exists(cursor, trlcore_s_raw_table)
-        assert db_table_exists(cursor, trlcore_s_agg_table)
-        assert db_table_exists(cursor, trlcore_s_vld_table)
-        assert len(get_db_tables(cursor)) == 182
+    # THEN
+    cursor0.execute("SELECT * FROM sqlite_master WHERE type = 'table'")
+    # print(f"{cursor.fetchall()=}")
+    # x_count = 0
+    # for x_row in cursor.fetchall():
+    #     print(f"{x_count} {x_row[1]=}")
+    #     x_count += 1
+    assert db_table_exists(cursor0, prnunit_s_put_agg_table)
+    assert db_table_exists(cursor0, prnptnr_s_put_agg_table)
+    assert db_table_exists(cursor0, prnmemb_s_put_agg_table)
+    assert db_table_exists(cursor0, prnfact_s_del_agg_table)
+    assert db_table_exists(cursor0, prnfact_s_del_vld_table)
+    assert db_table_exists(cursor0, momentunit_s_agg_table)
+    assert db_table_exists(cursor0, momentunit_s_vld_table)
+    assert db_table_exists(cursor0, trltitl_s_agg_table)
+    assert db_table_exists(cursor0, mmthour_h_vld_table)
+    assert db_table_exists(cursor0, nabtime_s_raw_table)
+    assert db_table_exists(cursor0, trltitl_s_raw_table)
+    assert db_table_exists(cursor0, trlcore_s_raw_table)
+    assert db_table_exists(cursor0, trlcore_s_agg_table)
+    assert db_table_exists(cursor0, trlcore_s_vld_table)
+    assert len(get_db_tables(cursor0)) == 182
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.translate_title
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
-            cursor, dimen
-        )
+    # WHEN
+    update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
+        cursor0, dimen
+    )
 
-        # THEN
-        x_tablename = prime_tbl(dimen, "s", "raw")
-        dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-        exclude_cols = {kw.idea_number, kw.error_message}
-        expected_update_sqlstr = create_update_inconsistency_error_query(
-            cursor,
-            x_tablename,
-            dimen_focus_columns,
-            exclude_cols,
-            error_holder_column=kw.error_message,
-            error_str="Inconsistent data",
-        )
-        assert update_sqlstr == expected_update_sqlstr
+    # THEN
+    x_tablename = prime_tbl(dimen, "s", "raw")
+    dimen_config = get_idea_config_dict().get(dimen)
+    dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+    exclude_cols = {kw.idea_number, kw.error_message}
+    expected_update_sqlstr = create_update_inconsistency_error_query(
+        cursor0,
+        x_tablename,
+        dimen_focus_columns,
+        exclude_cols,
+        error_holder_column=kw.error_message,
+        error_str="Inconsistent data",
+    )
+    assert update_sqlstr == expected_update_sqlstr
 
-        static_example_sqlstr = """WITH inconsistency_rows AS (
+    static_example_sqlstr = """WITH inconsistency_rows AS (
 SELECT spark_num, face_name, otx_title
 FROM translate_title_s_raw
 GROUP BY spark_num, face_name, otx_title
@@ -323,45 +322,45 @@ WHERE inconsistency_rows.spark_num = translate_title_s_raw.spark_num
     AND inconsistency_rows.otx_title = translate_title_s_raw.otx_title
 ;
 """
-        print(update_sqlstr)
-        assert update_sqlstr == static_example_sqlstr
+    print(update_sqlstr)
+    assert update_sqlstr == static_example_sqlstr
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario1_MomentDimen():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario1_MomentDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.moment_epoch_hour
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
-            cursor, dimen
-        )
+    # WHEN
+    update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
+        cursor0, dimen
+    )
 
-        # THEN
-        x_tablename = prime_tbl(dimen, "s", "raw")
-        dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-        exclude_cols = {
-            kw.idea_number,
-            kw.spark_num,
-            kw.face_name,
-            kw.error_message,
-        }
-        expected_update_sqlstr = create_update_inconsistency_error_query(
-            cursor,
-            x_tablename,
-            dimen_focus_columns,
-            exclude_cols,
-            error_holder_column=kw.error_message,
-            error_str="Inconsistent data",
-        )
-        print(expected_update_sqlstr)
-        assert update_sqlstr == expected_update_sqlstr
+    # THEN
+    x_tablename = prime_tbl(dimen, "s", "raw")
+    dimen_config = get_idea_config_dict().get(dimen)
+    dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+    exclude_cols = {
+        kw.idea_number,
+        kw.spark_num,
+        kw.face_name,
+        kw.error_message,
+    }
+    expected_update_sqlstr = create_update_inconsistency_error_query(
+        cursor0,
+        x_tablename,
+        dimen_focus_columns,
+        exclude_cols,
+        error_holder_column=kw.error_message,
+        error_str="Inconsistent data",
+    )
+    print(expected_update_sqlstr)
+    assert update_sqlstr == expected_update_sqlstr
 
-        static_example_sqlstr = """WITH inconsistency_rows AS (
+    static_example_sqlstr = """WITH inconsistency_rows AS (
 SELECT moment_rope, cumulative_minute
 FROM moment_epoch_hour_s_raw
 GROUP BY moment_rope, cumulative_minute
@@ -374,45 +373,45 @@ WHERE inconsistency_rows.moment_rope = moment_epoch_hour_s_raw.moment_rope
     AND inconsistency_rows.cumulative_minute = moment_epoch_hour_s_raw.cumulative_minute
 ;
 """
-        # print(update_sqlstr)
-        assert update_sqlstr == static_example_sqlstr
+    # print(update_sqlstr)
+    assert update_sqlstr == static_example_sqlstr
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario2_NabuDimen():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario2_NabuDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.nabu_timenum
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
-            cursor, dimen
-        )
+    # WHEN
+    update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
+        cursor0, dimen
+    )
 
-        # THEN
-        x_tablename = prime_tbl(dimen, "s", "raw")
-        dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-        exclude_cols = {
-            kw.idea_number,
-            kw.spark_num,
-            kw.face_name,
-            kw.error_message,
-        }
-        expected_update_sqlstr = create_update_inconsistency_error_query(
-            cursor,
-            x_tablename,
-            dimen_focus_columns,
-            exclude_cols,
-            error_holder_column=kw.error_message,
-            error_str="Inconsistent data",
-        )
-        print(expected_update_sqlstr)
-        assert update_sqlstr == expected_update_sqlstr
+    # THEN
+    x_tablename = prime_tbl(dimen, "s", "raw")
+    dimen_config = get_idea_config_dict().get(dimen)
+    dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+    exclude_cols = {
+        kw.idea_number,
+        kw.spark_num,
+        kw.face_name,
+        kw.error_message,
+    }
+    expected_update_sqlstr = create_update_inconsistency_error_query(
+        cursor0,
+        x_tablename,
+        dimen_focus_columns,
+        exclude_cols,
+        error_holder_column=kw.error_message,
+        error_str="Inconsistent data",
+    )
+    print(expected_update_sqlstr)
+    assert update_sqlstr == expected_update_sqlstr
 
-        static_example_sqlstr = """WITH inconsistency_rows AS (
+    static_example_sqlstr = """WITH inconsistency_rows AS (
 SELECT moment_rope, otx_time
 FROM nabu_timenum_s_raw
 GROUP BY moment_rope, otx_time
@@ -425,40 +424,40 @@ WHERE inconsistency_rows.moment_rope = nabu_timenum_s_raw.moment_rope
     AND inconsistency_rows.otx_time = nabu_timenum_s_raw.otx_time
 ;
 """
-        # print(update_sqlstr)
-        assert update_sqlstr == static_example_sqlstr
+    # print(update_sqlstr)
+    assert update_sqlstr == static_example_sqlstr
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario3_PersonDimen():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario3_PersonDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.person_plan_awardunit
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
-            cursor, dimen
-        )
+    # WHEN
+    update_sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
+        cursor0, dimen
+    )
 
-        # THEN
-        x_tablename = prime_tbl(dimen, "s", "raw", "put")
-        dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-        exclude_cols = {kw.idea_number, kw.error_message}
-        expected_update_sqlstr = create_update_inconsistency_error_query(
-            cursor,
-            x_tablename,
-            dimen_focus_columns,
-            exclude_cols,
-            error_holder_column=kw.error_message,
-            error_str="Inconsistent data",
-        )
-        print(expected_update_sqlstr)
-        assert update_sqlstr == expected_update_sqlstr
+    # THEN
+    x_tablename = prime_tbl(dimen, "s", "raw", "put")
+    dimen_config = get_idea_config_dict().get(dimen)
+    dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+    exclude_cols = {kw.idea_number, kw.error_message}
+    expected_update_sqlstr = create_update_inconsistency_error_query(
+        cursor0,
+        x_tablename,
+        dimen_focus_columns,
+        exclude_cols,
+        error_holder_column=kw.error_message,
+        error_str="Inconsistent data",
+    )
+    print(expected_update_sqlstr)
+    assert update_sqlstr == expected_update_sqlstr
 
-        static_example_sqlstr = """WITH inconsistency_rows AS (
+    static_example_sqlstr = """WITH inconsistency_rows AS (
 SELECT spark_num, face_name, person_name, plan_rope, awardee_title
 FROM person_plan_awardunit_s_put_raw
 GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title
@@ -475,197 +474,197 @@ WHERE inconsistency_rows.spark_num = person_plan_awardunit_s_put_raw.spark_num
     AND inconsistency_rows.awardee_title = person_plan_awardunit_s_put_raw.awardee_title
 ;
 """
-        print(update_sqlstr)
-        assert update_sqlstr == static_example_sqlstr
+    print(update_sqlstr)
+    assert update_sqlstr == static_example_sqlstr
 
 
-def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_TranslateDimen():
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_TranslateDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.translate_title
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor, dimen)
+    # WHEN
+    update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor0, dimen)
 
-        # THEN
-        raw_tablename = prime_tbl(dimen, "s", "raw")
-        agg_tablename = prime_tbl(dimen, "s", "agg")
-        dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-        exclude_cols = {kw.idea_number, kw.error_message}
-        expected_insert_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            src_table=raw_tablename,
-            dst_table=agg_tablename,
-            focus_cols=dimen_focus_columns,
-            exclude_cols=exclude_cols,
-            where_block="WHERE error_message IS NULL",
-        )
-        # print(expected_insert_sqlstr)
-        assert update_sqlstrs[0] == expected_insert_sqlstr
+    # THEN
+    raw_tablename = prime_tbl(dimen, "s", "raw")
+    agg_tablename = prime_tbl(dimen, "s", "agg")
+    dimen_config = get_idea_config_dict().get(dimen)
+    dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+    exclude_cols = {kw.idea_number, kw.error_message}
+    expected_insert_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        src_table=raw_tablename,
+        dst_table=agg_tablename,
+        focus_cols=dimen_focus_columns,
+        exclude_cols=exclude_cols,
+        where_block="WHERE error_message IS NULL",
+    )
+    # print(expected_insert_sqlstr)
+    assert update_sqlstrs[0] == expected_insert_sqlstr
 
-        static_example_sqlstr = """INSERT INTO translate_title_s_agg (spark_num, face_name, otx_title, inx_title, otx_knot, inx_knot, unknown_str)
+    static_example_sqlstr = """INSERT INTO translate_title_s_agg (spark_num, face_name, otx_title, inx_title, otx_knot, inx_knot, unknown_str)
 SELECT spark_num, face_name, otx_title, MAX(inx_title), MAX(otx_knot), MAX(inx_knot), MAX(unknown_str)
 FROM translate_title_s_raw
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name, otx_title
 ;
 """
-        print(update_sqlstrs[0])
-        assert update_sqlstrs[0] == static_example_sqlstr
+    print(update_sqlstrs[0])
+    assert update_sqlstrs[0] == static_example_sqlstr
 
 
-def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario1_MomentDimen():
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario1_MomentDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.moment_epoch_hour
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor, dimen)
+    # WHEN
+    update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor0, dimen)
 
-        # THEN
-        raw_tablename = prime_tbl(dimen, "s", "raw")
-        agg_tablename = prime_tbl(dimen, "s", "agg")
-        dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-        dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
-        exclude_cols = {kw.idea_number, kw.error_message}
-        print("yeah")
-        expected_insert_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            src_table=raw_tablename,
-            dst_table=agg_tablename,
-            focus_cols=dimen_focus_columns,
-            exclude_cols=exclude_cols,
-            where_block="WHERE error_message IS NULL",
-        )
-        print(expected_insert_sqlstr)
-        assert update_sqlstrs[0] == expected_insert_sqlstr
+    # THEN
+    raw_tablename = prime_tbl(dimen, "s", "raw")
+    agg_tablename = prime_tbl(dimen, "s", "agg")
+    dimen_config = get_idea_config_dict().get(dimen)
+    dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+    dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
+    exclude_cols = {kw.idea_number, kw.error_message}
+    print("yeah")
+    expected_insert_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        src_table=raw_tablename,
+        dst_table=agg_tablename,
+        focus_cols=dimen_focus_columns,
+        exclude_cols=exclude_cols,
+        where_block="WHERE error_message IS NULL",
+    )
+    print(expected_insert_sqlstr)
+    assert update_sqlstrs[0] == expected_insert_sqlstr
 
-        static_example_sqlstr = """INSERT INTO moment_epoch_hour_s_agg (spark_num, face_name, moment_rope, cumulative_minute, hour_label)
+    static_example_sqlstr = """INSERT INTO moment_epoch_hour_s_agg (spark_num, face_name, moment_rope, cumulative_minute, hour_label)
 SELECT spark_num, face_name, moment_rope, cumulative_minute, MAX(hour_label)
 FROM moment_epoch_hour_s_raw
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name, moment_rope, cumulative_minute
 ;
 """
-        print(update_sqlstrs[0])
-        assert update_sqlstrs[0] == static_example_sqlstr
+    print(update_sqlstrs[0])
+    assert update_sqlstrs[0] == static_example_sqlstr
 
 
-def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen():
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.nabu_timenum
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor, dimen)
+    # WHEN
+    update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor0, dimen)
 
-        # THEN
-        raw_tablename = prime_tbl(dimen, "s", "raw")
-        agg_tablename = prime_tbl(dimen, "s", "agg")
-        dimen_config = get_idea_config_dict().get(dimen)
-        dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-        dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
-        exclude_cols = {kw.idea_number, kw.error_message}
-        print("yeah")
-        expected_insert_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            src_table=raw_tablename,
-            dst_table=agg_tablename,
-            focus_cols=dimen_focus_columns,
-            exclude_cols=exclude_cols,
-            where_block="WHERE error_message IS NULL",
-        )
-        print(expected_insert_sqlstr)
-        assert update_sqlstrs[0] == expected_insert_sqlstr
+    # THEN
+    raw_tablename = prime_tbl(dimen, "s", "raw")
+    agg_tablename = prime_tbl(dimen, "s", "agg")
+    dimen_config = get_idea_config_dict().get(dimen)
+    dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
+    dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
+    exclude_cols = {kw.idea_number, kw.error_message}
+    print("yeah")
+    expected_insert_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        src_table=raw_tablename,
+        dst_table=agg_tablename,
+        focus_cols=dimen_focus_columns,
+        exclude_cols=exclude_cols,
+        where_block="WHERE error_message IS NULL",
+    )
+    print(expected_insert_sqlstr)
+    assert update_sqlstrs[0] == expected_insert_sqlstr
 
-        static_example_sqlstr = """INSERT INTO nabu_timenum_s_agg (spark_num, face_name, moment_rope, otx_time, inx_time)
+    static_example_sqlstr = """INSERT INTO nabu_timenum_s_agg (spark_num, face_name, moment_rope, otx_time, inx_time)
 SELECT spark_num, face_name, moment_rope, otx_time, MAX(inx_time)
 FROM nabu_timenum_s_raw
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name, moment_rope, otx_time
 ;
 """
-        print(update_sqlstrs[0])
-        assert update_sqlstrs[0] == static_example_sqlstr
+    print(update_sqlstrs[0])
+    assert update_sqlstrs[0] == static_example_sqlstr
 
 
-def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PersonDimen():
+def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PersonDimen(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-duplicate-method, extract-method
     # ESTABLISH
     dimen = kw.person_plan_awardunit
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        # WHEN
-        update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor, dimen)
+    # WHEN
+    update_sqlstrs = create_sound_agg_insert_sqlstrs(cursor0, dimen)
 
-        # THEN
-        put_raw_tablename = prime_tbl(dimen, "s", "raw", "put")
-        put_agg_tablename = prime_tbl(dimen, "s", "agg", "put")
-        put_dimen_config = get_idea_config_dict().get(dimen)
-        put_dimen_focus_columns = set(put_dimen_config.get(kw.jkeys).keys())
-        put_exclude_cols = {kw.idea_number, kw.error_message}
-        put_expected_insert_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            src_table=put_raw_tablename,
-            dst_table=put_agg_tablename,
-            focus_cols=put_dimen_focus_columns,
-            exclude_cols=put_exclude_cols,
-            where_block="WHERE error_message IS NULL",
-        )
-        print(put_expected_insert_sqlstr)
-        assert update_sqlstrs[0] == put_expected_insert_sqlstr
+    # THEN
+    put_raw_tablename = prime_tbl(dimen, "s", "raw", "put")
+    put_agg_tablename = prime_tbl(dimen, "s", "agg", "put")
+    put_dimen_config = get_idea_config_dict().get(dimen)
+    put_dimen_focus_columns = set(put_dimen_config.get(kw.jkeys).keys())
+    put_exclude_cols = {kw.idea_number, kw.error_message}
+    put_expected_insert_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        src_table=put_raw_tablename,
+        dst_table=put_agg_tablename,
+        focus_cols=put_dimen_focus_columns,
+        exclude_cols=put_exclude_cols,
+        where_block="WHERE error_message IS NULL",
+    )
+    print(put_expected_insert_sqlstr)
+    assert update_sqlstrs[0] == put_expected_insert_sqlstr
 
-        static_example_put_sqlstr = """INSERT INTO person_plan_awardunit_s_put_agg (spark_num, face_name, person_name, plan_rope, awardee_title, give_force, take_force)
+    static_example_put_sqlstr = """INSERT INTO person_plan_awardunit_s_put_agg (spark_num, face_name, person_name, plan_rope, awardee_title, give_force, take_force)
 SELECT spark_num, face_name, person_name, plan_rope, awardee_title, MAX(give_force), MAX(take_force)
 FROM person_plan_awardunit_s_put_raw
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title
 ;
 """
-        # print(update_sqlstrs[0])
-        assert update_sqlstrs[0] == static_example_put_sqlstr
+    # print(update_sqlstrs[0])
+    assert update_sqlstrs[0] == static_example_put_sqlstr
 
-        # del
-        del_raw_tablename = prime_tbl(dimen, "s", "raw", "del")
-        del_agg_tablename = prime_tbl(dimen, "s", "agg", "del")
-        del_dimen_focus_columns = set(put_dimen_config.get(kw.jkeys).keys())
-        del_dimen_focus_columns = get_default_sorted_list(del_dimen_focus_columns)
-        last_element = del_dimen_focus_columns.pop(-1)
-        del_dimen_focus_columns.append(f"{last_element}_ERASE")
-        print(f"{del_dimen_focus_columns=} {last_element}")
-        del_exclude_cols = {kw.idea_number, kw.error_message}
-        del_expected_insert_sqlstr = create_table2table_agg_insert_query(
-            cursor,
-            src_table=del_raw_tablename,
-            dst_table=del_agg_tablename,
-            focus_cols=del_dimen_focus_columns,
-            exclude_cols=del_exclude_cols,
-            where_block="",
-        )
-        print(del_expected_insert_sqlstr)
-        print(update_sqlstrs[1])
-        assert update_sqlstrs[1] == del_expected_insert_sqlstr
+    # del
+    del_raw_tablename = prime_tbl(dimen, "s", "raw", "del")
+    del_agg_tablename = prime_tbl(dimen, "s", "agg", "del")
+    del_dimen_focus_columns = set(put_dimen_config.get(kw.jkeys).keys())
+    del_dimen_focus_columns = get_default_sorted_list(del_dimen_focus_columns)
+    last_element = del_dimen_focus_columns.pop(-1)
+    del_dimen_focus_columns.append(f"{last_element}_ERASE")
+    print(f"{del_dimen_focus_columns=} {last_element}")
+    del_exclude_cols = {kw.idea_number, kw.error_message}
+    del_expected_insert_sqlstr = create_table2table_agg_insert_query(
+        cursor0,
+        src_table=del_raw_tablename,
+        dst_table=del_agg_tablename,
+        focus_cols=del_dimen_focus_columns,
+        exclude_cols=del_exclude_cols,
+        where_block="",
+    )
+    print(del_expected_insert_sqlstr)
+    print(update_sqlstrs[1])
+    assert update_sqlstrs[1] == del_expected_insert_sqlstr
 
-        static_example_del_sqlstr = """INSERT INTO person_plan_awardunit_s_del_agg (spark_num, face_name, person_name, plan_rope, awardee_title_ERASE)
+    static_example_del_sqlstr = """INSERT INTO person_plan_awardunit_s_del_agg (spark_num, face_name, person_name, plan_rope, awardee_title_ERASE)
 SELECT spark_num, face_name, person_name, plan_rope, awardee_title_ERASE
 FROM person_plan_awardunit_s_del_raw
 GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title_ERASE
 ;
 """
-        assert update_sqlstrs[1] == static_example_del_sqlstr
+    assert update_sqlstrs[1] == static_example_del_sqlstr
 
 
 def test_create_insert_into_translate_core_raw_sqlstr_ReturnsObj():
@@ -784,7 +783,7 @@ GROUP BY spark_num, face_name
     assert label_sqlstr == expected_label_sqlstr
 
 
-def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PersonDimens():
+def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PersonDimens(cursor0: Cursor):
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     person_dimens_config = get_idea_config_dict({kw.person})
@@ -793,55 +792,55 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PersonDimens():
     insert_s_vld_sqlstrs = get_insert_into_sound_vld_sqlstrs()
 
     # THEN
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        for person_dimen in person_dimens_config:
-            # print(f"{person_dimen=}")
-            s_put_agg_tablename = prime_tbl(person_dimen, "s", "agg", "put")
-            s_del_agg_tablename = prime_tbl(person_dimen, "s", "agg", "del")
-            s_put_vld_tablename = prime_tbl(person_dimen, "s", "vld", "put")
-            s_del_vld_tablename = prime_tbl(person_dimen, "s", "vld", "del")
-            s_put_agg_cols = get_table_columns(cursor, s_put_agg_tablename)
-            s_del_agg_cols = get_table_columns(cursor, s_del_agg_tablename)
-            s_put_agg_cols.remove(kw.error_message)
-            s_del_agg_cols.remove(kw.error_message)
-            s_put_agg_cols = set(s_put_agg_cols)
-            s_del_agg_cols = set(s_del_agg_cols)
-            s_put_vld_cols = set(get_table_columns(cursor, s_put_vld_tablename))
-            s_del_vld_cols = set(get_table_columns(cursor, s_del_vld_tablename))
-            s_put_vld_tbl = s_put_vld_tablename
-            s_del_vld_tbl = s_del_vld_tablename
-            s_put_agg_tbl = s_put_agg_tablename
-            s_del_agg_tbl = s_del_agg_tablename
-            s_put_vld_insert_sql = get_insert_sql(cursor, s_put_vld_tbl, s_put_vld_cols)
-            s_del_vld_insert_sql = get_insert_sql(cursor, s_del_vld_tbl, s_del_vld_cols)
-            s_put_agg_select_sql = get_select_sql(
-                cursor, s_put_agg_tbl, s_put_agg_cols, flat_bool=True
-            )
-            s_del_agg_select_sql = get_select_sql(
-                cursor, s_del_agg_tbl, s_del_agg_cols, flat_bool=True
-            )
-            where_clause = "WHERE error_message IS NULL"
-            s_put_agg_select_sql = f"{s_put_agg_select_sql}{where_clause}"
-            s_del_agg_select_sql = f"{s_del_agg_select_sql}{where_clause}"
-            s_put_vld_insert_select = f"{s_put_vld_insert_sql} {s_put_agg_select_sql}"
-            s_del_vld_insert_select = f"{s_del_vld_insert_sql} {s_del_agg_select_sql}"
-            # print(f"{s_put_vld_insert_sql=}")
-            # create_select_query(cursor=)
-            abbv7 = get_dimen_abbv7(person_dimen)
-            put_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_PUT_SQLSTR"
-            del_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_DEL_SQLSTR"
-            print(f'{put_sqlstr_ref}= "{s_put_vld_insert_select}"')
-            print(f'{del_sqlstr_ref}= "{s_del_vld_insert_select}"')
-            # print(f"""'{s_put_vld_tablename}': {put_sqlstr_ref},""")
-            # print(f"""'{s_del_vld_tablename}': {del_sqlstr_ref},""")
-            assert insert_s_vld_sqlstrs.get(s_put_vld_tbl) == s_put_vld_insert_select
-            assert insert_s_vld_sqlstrs.get(s_del_vld_tbl) == s_del_vld_insert_select
+    for person_dimen in person_dimens_config:
+        # print(f"{person_dimen=}")
+        s_put_agg_tablename = prime_tbl(person_dimen, "s", "agg", "put")
+        s_del_agg_tablename = prime_tbl(person_dimen, "s", "agg", "del")
+        s_put_vld_tablename = prime_tbl(person_dimen, "s", "vld", "put")
+        s_del_vld_tablename = prime_tbl(person_dimen, "s", "vld", "del")
+        s_put_agg_cols = get_table_columns(cursor0, s_put_agg_tablename)
+        s_del_agg_cols = get_table_columns(cursor0, s_del_agg_tablename)
+        s_put_agg_cols.remove(kw.error_message)
+        s_del_agg_cols.remove(kw.error_message)
+        s_put_agg_cols = set(s_put_agg_cols)
+        s_del_agg_cols = set(s_del_agg_cols)
+        s_put_vld_cols = set(get_table_columns(cursor0, s_put_vld_tablename))
+        s_del_vld_cols = set(get_table_columns(cursor0, s_del_vld_tablename))
+        s_put_vld_tbl = s_put_vld_tablename
+        s_del_vld_tbl = s_del_vld_tablename
+        s_put_agg_tbl = s_put_agg_tablename
+        s_del_agg_tbl = s_del_agg_tablename
+        s_put_vld_insert_sql = get_insert_sql(cursor0, s_put_vld_tbl, s_put_vld_cols)
+        s_del_vld_insert_sql = get_insert_sql(cursor0, s_del_vld_tbl, s_del_vld_cols)
+        s_put_agg_select_sql = get_select_sql(
+            cursor0, s_put_agg_tbl, s_put_agg_cols, flat_bool=True
+        )
+        s_del_agg_select_sql = get_select_sql(
+            cursor0, s_del_agg_tbl, s_del_agg_cols, flat_bool=True
+        )
+        where_clause = "WHERE error_message IS NULL"
+        s_put_agg_select_sql = f"{s_put_agg_select_sql}{where_clause}"
+        s_del_agg_select_sql = f"{s_del_agg_select_sql}{where_clause}"
+        s_put_vld_insert_select = f"{s_put_vld_insert_sql} {s_put_agg_select_sql}"
+        s_del_vld_insert_select = f"{s_del_vld_insert_sql} {s_del_agg_select_sql}"
+        # print(f"{s_put_vld_insert_sql=}")
+        # create_select_query(cursor=)
+        abbv7 = get_dimen_abbv7(person_dimen)
+        put_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_PUT_SQLSTR"
+        del_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_DEL_SQLSTR"
+        print(f'{put_sqlstr_ref}= "{s_put_vld_insert_select}"')
+        print(f'{del_sqlstr_ref}= "{s_del_vld_insert_select}"')
+        # print(f"""'{s_put_vld_tablename}': {put_sqlstr_ref},""")
+        # print(f"""'{s_del_vld_tablename}': {del_sqlstr_ref},""")
+        assert insert_s_vld_sqlstrs.get(s_put_vld_tbl) == s_put_vld_insert_select
+        assert insert_s_vld_sqlstrs.get(s_del_vld_tbl) == s_del_vld_insert_select
 
 
-def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
+def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens(
+    cursor0: Cursor,
+):
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     moment_dimens_config = get_idea_config_dict({kw.moment, kw.nabu})
@@ -851,36 +850,34 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     insert_s_vld_sqlstrs = get_insert_into_sound_vld_sqlstrs()
 
     # THEN
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        for moment_dimen in moment_dimens_config:
-            # print(f"{moment_dimen=}")
-            s_agg_tablename = prime_tbl(moment_dimen, "s", "agg")
-            s_vld_tablename = prime_tbl(moment_dimen, "s", "vld")
-            s_agg_cols = get_table_columns(cursor, s_agg_tablename)
-            s_agg_cols.remove(kw.error_message)
-            s_agg_cols = set(s_agg_cols)
-            s_vld_cols = set(get_table_columns(cursor, s_vld_tablename))
-            s_vld_tbl = s_vld_tablename
-            s_agg_tbl = s_agg_tablename
-            s_vld_insert_sql = get_insert_sql(cursor, s_vld_tbl, s_vld_cols)
-            s_agg_select_sql = get_select_sql(
-                cursor, s_agg_tbl, s_agg_cols, flat_bool=True
-            )
-            where_clause = "WHERE error_message IS NULL"
-            s_agg_select_sql = f"{s_agg_select_sql}{where_clause}"
-            s_vld_insert_select = f"{s_vld_insert_sql} {s_agg_select_sql}"
-            # create_select_query(cursor=)
-            abbv7 = get_dimen_abbv7(moment_dimen)
-            sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_SQLSTR"
-            # print(f'{sqlstr_ref}= "{s_vld_insert_select}"')
-            print(f""""{s_vld_tablename}": {sqlstr_ref},""")
-            assert insert_s_vld_sqlstrs.get(s_vld_tbl) == s_vld_insert_select
+    for moment_dimen in moment_dimens_config:
+        # print(f"{moment_dimen=}")
+        s_agg_tablename = prime_tbl(moment_dimen, "s", "agg")
+        s_vld_tablename = prime_tbl(moment_dimen, "s", "vld")
+        s_agg_cols = get_table_columns(cursor0, s_agg_tablename)
+        s_agg_cols.remove(kw.error_message)
+        s_agg_cols = set(s_agg_cols)
+        s_vld_cols = set(get_table_columns(cursor0, s_vld_tablename))
+        s_vld_tbl = s_vld_tablename
+        s_agg_tbl = s_agg_tablename
+        s_vld_insert_sql = get_insert_sql(cursor0, s_vld_tbl, s_vld_cols)
+        s_agg_select_sql = get_select_sql(
+            cursor0, s_agg_tbl, s_agg_cols, flat_bool=True
+        )
+        where_clause = "WHERE error_message IS NULL"
+        s_agg_select_sql = f"{s_agg_select_sql}{where_clause}"
+        s_vld_insert_select = f"{s_vld_insert_sql} {s_agg_select_sql}"
+        # create_select_query(cursor=)
+        abbv7 = get_dimen_abbv7(moment_dimen)
+        sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_SQLSTR"
+        # print(f'{sqlstr_ref}= "{s_vld_insert_select}"')
+        print(f""""{s_vld_tablename}": {sqlstr_ref},""")
+        assert insert_s_vld_sqlstrs.get(s_vld_tbl) == s_vld_insert_select
 
 
-def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PersonDimens():
+def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PersonDimens(cursor0: Cursor):
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     person_dimens_config = get_idea_config_dict({kw.person})
@@ -889,55 +886,55 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PersonDimens():
     insert_h_raw_sqlstrs = get_insert_into_heard_raw_sqlstrs()
 
     # THEN
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        for person_dimen in person_dimens_config:
-            # print(f"{person_dimen=}")
-            s_put_vld_tablename = prime_tbl(person_dimen, "s", "vld", "put")
-            s_del_vld_tablename = prime_tbl(person_dimen, "s", "vld", "del")
-            h_put_raw_tablename = prime_tbl(person_dimen, "h", "raw", "put")
-            h_del_raw_tablename = prime_tbl(person_dimen, "h", "raw", "del")
-            s_put_cols = set(get_table_columns(cursor, s_put_vld_tablename))
-            s_del_cols = set(get_table_columns(cursor, s_del_vld_tablename))
-            # s_put_cols = set(s_put_cols).remove(kw.error_message)
-            # s_del_cols = set(s_del_cols).remove(kw.error_message)
-            h_put_raw_cols = set(get_table_columns(cursor, h_put_raw_tablename))
-            h_del_raw_cols = set(get_table_columns(cursor, h_del_raw_tablename))
-            h_put_cols = set_translateable_otx_inx_args(h_put_raw_cols)
-            h_del_cols = set_translateable_otx_inx_args(h_del_raw_cols)
-            h_put_cols.remove(kw.translate_spark_num)
-            h_del_cols.remove(kw.translate_spark_num)
-            h_put_cols = {col for col in h_put_cols if col[-3:] != "inx"}
-            h_del_cols = {col for col in h_del_cols if col[-3:] != "inx"}
-            h_put_raw_tbl = h_put_raw_tablename
-            h_del_raw_tbl = h_del_raw_tablename
-            s_put_vld_tbl = s_put_vld_tablename
-            s_del_vld_tbl = s_del_vld_tablename
-            h_put_raw_insert_sql = get_insert_sql(cursor, h_put_raw_tbl, h_put_cols)
-            h_del_raw_insert_sql = get_insert_sql(cursor, h_del_raw_tbl, h_del_cols)
-            s_put_vld_select_sql = get_select_sql(
-                cursor, s_put_vld_tbl, s_put_cols, flat_bool=True
-            )
-            s_del_vld_select_sql = get_select_sql(
-                cursor, s_del_vld_tbl, s_del_cols, flat_bool=True
-            )
-            h_put_raw_insert_select = f"{h_put_raw_insert_sql} {s_put_vld_select_sql}"
-            h_del_raw_insert_select = f"{h_del_raw_insert_sql} {s_del_vld_select_sql}"
-            # create_select_query(cursor=)
-            abbv7 = get_dimen_abbv7(person_dimen)
-            put_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_PUT_SQLSTR"
-            del_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_DEL_SQLSTR"
-            print(f'{put_sqlstr_ref}= "{h_put_raw_insert_select}"')
-            print(f'{del_sqlstr_ref}= "{h_del_raw_insert_select}"')
-            # print(f"""'{h_put_raw_tablename}': {put_sqlstr_ref},""")
-            # print(f"""'{h_del_raw_tablename}': {del_sqlstr_ref},""")
-            assert insert_h_raw_sqlstrs.get(h_put_raw_tbl) == h_put_raw_insert_select
-            assert insert_h_raw_sqlstrs.get(h_del_raw_tbl) == h_del_raw_insert_select
+    for person_dimen in person_dimens_config:
+        # print(f"{person_dimen=}")
+        s_put_vld_tablename = prime_tbl(person_dimen, "s", "vld", "put")
+        s_del_vld_tablename = prime_tbl(person_dimen, "s", "vld", "del")
+        h_put_raw_tablename = prime_tbl(person_dimen, "h", "raw", "put")
+        h_del_raw_tablename = prime_tbl(person_dimen, "h", "raw", "del")
+        s_put_cols = set(get_table_columns(cursor0, s_put_vld_tablename))
+        s_del_cols = set(get_table_columns(cursor0, s_del_vld_tablename))
+        # s_put_cols = set(s_put_cols).remove(kw.error_message)
+        # s_del_cols = set(s_del_cols).remove(kw.error_message)
+        h_put_raw_cols = set(get_table_columns(cursor0, h_put_raw_tablename))
+        h_del_raw_cols = set(get_table_columns(cursor0, h_del_raw_tablename))
+        h_put_cols = set_translateable_otx_inx_args(h_put_raw_cols)
+        h_del_cols = set_translateable_otx_inx_args(h_del_raw_cols)
+        h_put_cols.remove(kw.translate_spark_num)
+        h_del_cols.remove(kw.translate_spark_num)
+        h_put_cols = {col for col in h_put_cols if col[-3:] != "inx"}
+        h_del_cols = {col for col in h_del_cols if col[-3:] != "inx"}
+        h_put_raw_tbl = h_put_raw_tablename
+        h_del_raw_tbl = h_del_raw_tablename
+        s_put_vld_tbl = s_put_vld_tablename
+        s_del_vld_tbl = s_del_vld_tablename
+        h_put_raw_insert_sql = get_insert_sql(cursor0, h_put_raw_tbl, h_put_cols)
+        h_del_raw_insert_sql = get_insert_sql(cursor0, h_del_raw_tbl, h_del_cols)
+        s_put_vld_select_sql = get_select_sql(
+            cursor0, s_put_vld_tbl, s_put_cols, flat_bool=True
+        )
+        s_del_vld_select_sql = get_select_sql(
+            cursor0, s_del_vld_tbl, s_del_cols, flat_bool=True
+        )
+        h_put_raw_insert_select = f"{h_put_raw_insert_sql} {s_put_vld_select_sql}"
+        h_del_raw_insert_select = f"{h_del_raw_insert_sql} {s_del_vld_select_sql}"
+        # create_select_query(cursor=)
+        abbv7 = get_dimen_abbv7(person_dimen)
+        put_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_PUT_SQLSTR"
+        del_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_DEL_SQLSTR"
+        print(f'{put_sqlstr_ref}= "{h_put_raw_insert_select}"')
+        print(f'{del_sqlstr_ref}= "{h_del_raw_insert_select}"')
+        # print(f"""'{h_put_raw_tablename}': {put_sqlstr_ref},""")
+        # print(f"""'{h_del_raw_tablename}': {del_sqlstr_ref},""")
+        assert insert_h_raw_sqlstrs.get(h_put_raw_tbl) == h_put_raw_insert_select
+        assert insert_h_raw_sqlstrs.get(h_del_raw_tbl) == h_del_raw_insert_select
 
 
-def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
+def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens(
+    cursor0: Cursor,
+):
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     moment_dimens_config = get_idea_config_dict({kw.moment, kw.nabu})
@@ -946,27 +943,25 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens():
     insert_h_raw_sqlstrs = get_insert_into_heard_raw_sqlstrs()
 
     # THEN
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
+    create_sound_and_heard_tables(cursor0)
 
-        for moment_dimen in moment_dimens_config:
-            # print(f"{moment_dimen=}")
-            s_vld_tablename = prime_tbl(moment_dimen, "s", "vld")
-            h_raw_tablename = prime_tbl(moment_dimen, "h", "raw")
-            s_cols = set(get_table_columns(cursor, s_vld_tablename))
-            h_raw_cols = get_table_columns(cursor, h_raw_tablename)
-            h_raw_cols.remove(kw.error_message)
-            v_cols = set_translateable_otx_inx_args(h_raw_cols)
-            v_cols = {col for col in v_cols if col[-3:] != "inx"}
-            h_raw_tbl = h_raw_tablename
-            s_vld_tbl = s_vld_tablename
-            h_raw_insert_sql = get_insert_sql(cursor, h_raw_tbl, v_cols)
-            s_vld_select_sql = get_select_sql(cursor, s_vld_tbl, s_cols, flat_bool=True)
-            h_raw_insert_select = f"{h_raw_insert_sql} {s_vld_select_sql}"
-            # create_select_query(cursor=)
-            abbv7 = get_dimen_abbv7(moment_dimen)
-            sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_SQLSTR"
-            # print(f'{sqlstr_ref}= "{h_raw_insert_select}"')
-            print(f""""{h_raw_tablename}": {sqlstr_ref},""")
-            assert insert_h_raw_sqlstrs.get(h_raw_tbl) == h_raw_insert_select
+    for moment_dimen in moment_dimens_config:
+        # print(f"{moment_dimen=}")
+        s_vld_tablename = prime_tbl(moment_dimen, "s", "vld")
+        h_raw_tablename = prime_tbl(moment_dimen, "h", "raw")
+        s_cols = set(get_table_columns(cursor0, s_vld_tablename))
+        h_raw_cols = get_table_columns(cursor0, h_raw_tablename)
+        h_raw_cols.remove(kw.error_message)
+        v_cols = set_translateable_otx_inx_args(h_raw_cols)
+        v_cols = {col for col in v_cols if col[-3:] != "inx"}
+        h_raw_tbl = h_raw_tablename
+        s_vld_tbl = s_vld_tablename
+        h_raw_insert_sql = get_insert_sql(cursor0, h_raw_tbl, v_cols)
+        s_vld_select_sql = get_select_sql(cursor0, s_vld_tbl, s_cols, flat_bool=True)
+        h_raw_insert_select = f"{h_raw_insert_sql} {s_vld_select_sql}"
+        # create_select_query(cursor=)
+        abbv7 = get_dimen_abbv7(moment_dimen)
+        sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_SQLSTR"
+        # print(f'{sqlstr_ref}= "{h_raw_insert_select}"')
+        print(f""""{h_raw_tablename}": {sqlstr_ref},""")
+        assert insert_h_raw_sqlstrs.get(h_raw_tbl) == h_raw_insert_select

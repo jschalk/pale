@@ -18,7 +18,7 @@ def test_personunit_graph_Showsgraph0PersonGraph(graphics_bool):
     # ESTABLISH / WHEN / THEN
     display_plantree(get_personunit_with_4_levels(), graphics_bool)
     display_plantree(
-        get_personunit_with_4_levels_and_2reasons(), kw.task, graphics_bool
+        get_personunit_with_4_levels_and_2reasons(), kw.case_task, graphics_bool
     )
     display_plantree(get_personunit_x1_3levels_1reason_1facts(), graphics_bool)
     personunit_graph0(graphics_bool)

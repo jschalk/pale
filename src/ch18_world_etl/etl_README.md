@@ -10,13 +10,13 @@ The design focuses on **traceability, auditability, and simplicity** — every s
 ## 1. Overview
 
 Data in this system originates from **Excel sources**.
-It flows through a series of **structured stages** that progressively clean, validate, and transform the data into consistent, meaningful tables.
+It goes through a series of **structured stages** that progressively clean, validate, and transform the data into consistent, meaningful tables.
 
 The process starts in **Idea_bricks** tables and ends in **Sound** and **Heard** tables, where the data is finalized and ready for analysis or downstream logic.
 
 ---
 
-## 2. Data Flow Summary
+## 2. Data Migration Summary
 
 ```mermaid
 flowchart LR
@@ -107,7 +107,7 @@ Each dimension advances through a fixed set of stages (Sound and Heard) with cle
 ## 7. Verification and Audit
 
 * Every stage can be exported as a CSV or opened in Excel for inspection.
-* Each dimension’s flow can be traced end-to-end through consistent table names.
+* Each dimension’s changes can be traced end-to-end through consistent table names.
 * Queries are limited to one insert and one update per stage, ensuring reproducible transformations.
 * Validation stages (`Vld`) mark the points where data is confirmed to meet final schema and rule expectations.
 

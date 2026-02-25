@@ -1,8 +1,9 @@
 from pytest import raises as pytest_raises
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor
 from src.ch00_py.db_toolbox import get_rowdata
 from src.ch04_rope.rope import create_rope
 from src.ch08_person_atom.atom_main import get_personatom_from_rowdata, personatom_shop
+from src.ch08_person_atom.test._util.ch08_env import cursor0
 from src.ref.keywords import Ch08Keywords as kw
 
 
@@ -83,7 +84,7 @@ VALUES (
     assert generated_sqlstr == example_sqlstr
 
 
-def test_get_personatom_from_rowdata_ReturnsObj_plan_factunit():
+def test_get_personatom_from_rowdata_ReturnsObj_plan_factunit(cursor0: Cursor):
     # ESTABLISH
     sports_str = "sports"
     sports_rope = create_rope("a", sports_str)
@@ -98,8 +99,7 @@ def test_get_personatom_from_rowdata_ReturnsObj_plan_factunit():
 , '{knee_rope}' as {x_dimen}_{kw.INSERT}_{kw.fact_context}
 , {knee_fact_lower} as {x_dimen}_{kw.INSERT}_{kw.fact_lower}
 """
-    with sqlite3_connect(":memory:") as x_conn:
-        x_rowdata = get_rowdata(kw.atom_hx, x_conn, x_sqlstr)
+    x_rowdata = get_rowdata(kw.atom_hx, cursor0, x_sqlstr)
 
     # WHEN
     x_personatom = get_personatom_from_rowdata(x_rowdata)

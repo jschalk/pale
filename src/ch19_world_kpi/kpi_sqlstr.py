@@ -28,7 +28,7 @@ SELECT
 , plan_rope
 , pledge
 , plan_active
-, task
+, plan_task
 FROM person_planunit_job
 WHERE pledge == 1 AND plan_active == 1
 ;

@@ -250,9 +250,9 @@ def test_listen_to_person_visions_Pipeline_Scenario1_yao_gut_CanOnlyReferenceIts
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     # yao0_gut with 3 debotors of different partner_cred_lumens
-    # yao_vision1 with 1 task, fact that doesn't make that task active
-    # yao_vision2 with 2 tasks, one is equal fact that makes task active
-    # yao_vision3 with 1 new task, fact stays with it
+    # yao_vision1 with 1 case_task, fact that doesn't make that case_task active
+    # yao_vision2 with 2 case_tasks, one is equal fact that makes case_task active
+    # yao_vision3 with 1 new case_task, fact stays with it
     moment_mstr_dir = env_dir()
     moment_rope = ch10_example_moment_rope()
     yao_gut0 = get_example_yao_gut_with_3_healers()

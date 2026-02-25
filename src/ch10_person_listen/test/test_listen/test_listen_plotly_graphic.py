@@ -22,4 +22,4 @@ def test_fund_graph_ShowsGraph(graphics_bool):
     x_personunit = get_fund_breakdown_person()
 
     # THEN
-    fund_graph13(x_personunit, kw.task, graphics_bool)
+    fund_graph13(x_personunit, kw.case_task, graphics_bool)

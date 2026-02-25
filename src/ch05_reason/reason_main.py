@@ -217,7 +217,7 @@ class CaseActiveFinder:
             return True
         return False
 
-    def get_task_bool(self) -> bool:
+    def get_case_task_bool(self) -> bool:
         if self.get_active_bool():
             x_collasped_fact_range_active = get_collasped_fact_range_active(
                 self.reason_lower,
@@ -302,7 +302,7 @@ class CaseUnit:
     reason_upper: ReasonNum = None
     reason_divisor: int = None
     case_active: bool = None
-    task: bool = None
+    case_task: bool = None
     knot: KnotTerm = None
 
     def get_obj_key(self):
@@ -339,7 +339,7 @@ class CaseUnit:
 
     def set_case_active(self, x_factheir: FactHeir):
         self.case_active = self._get_active(factheir=x_factheir)
-        self.task = self._get_task_bool(factheir=x_factheir)
+        self.case_task = self._get_case_task_bool(factheir=x_factheir)
 
     def _get_active(self, factheir: FactHeir) -> bool:
         x_case_active = None
@@ -375,10 +375,10 @@ class CaseUnit:
             and self.reason_upper is not None
         )
 
-    def _get_task_bool(self, factheir: FactHeir) -> bool:
-        x_task = None
+    def _get_case_task_bool(self, factheir: FactHeir) -> bool:
+        x_case_task = None
         if self.case_active and self._is_range():
-            x_task = factheir.fact_upper > self.reason_upper
+            x_case_task = factheir.fact_upper > self.reason_upper
         elif self.case_active and self._is_segregate():
             segr_obj = caseactivefinder_shop(
                 reason_lower=self.reason_lower,
@@ -387,11 +387,11 @@ class CaseUnit:
                 fact_lower_full=factheir.fact_lower,
                 fact_upper_full=factheir.fact_upper,
             )
-            x_task = segr_obj.get_task_bool()
+            x_case_task = segr_obj.get_case_task_bool()
         elif self.case_active in [True, False]:
-            x_task = False
+            x_case_task = False
 
-        return x_task
+        return x_case_task
 
     def _get_range_segregate_case_active(self, factheir: FactHeir) -> bool:
         x_case_active = None
@@ -585,7 +585,7 @@ def reasonunit_shop(
 @dataclass
 class ReasonHeir(ReasonCore):
     reason_active: bool = None
-    task: bool = None
+    reason_task: bool = None
     parent_heir_active: bool = None
 
     def inherit_from_reasonheir(self, x_reasonunit: ReasonUnit):
@@ -628,28 +628,28 @@ class ReasonHeir(ReasonCore):
 
     def is_any_case_true(self) -> tuple[bool, bool]:
         any_case_true = False
-        any_task_true = False
+        any_case_task_true = False
         for x_caseunit in self.cases.values():
             if x_caseunit.case_active:
                 any_case_true = True
-                if x_caseunit.task:
-                    any_task_true = True
-        return any_case_true, any_task_true
+                if x_caseunit.case_task:
+                    any_case_task_true = True
+        return any_case_true, any_case_task_true
 
-    def _set_attr_reason_active(self, any_case_true: bool):
+    def set_attr_reason_active(self, any_case_true: bool):
         self.reason_active = any_case_true or self.is_active_requisite_operational()
 
-    def _set_attr_task(self, any_task_true: bool):
-        self.task = True if any_task_true else None
-        if self.reason_active and self.task is None:
-            self.task = False
+    def set_attr_reason_task(self, any_case_task_true: bool):
+        self.reason_task = True if any_case_task_true else None
+        if self.reason_active and self.reason_task is None:
+            self.reason_task = False
 
     def set_reason_active(self, factheirs: dict[RopeTerm, FactHeir]):
         self.clear_reason_active()
         self.set_cases_case_active(self._get_fact_context(factheirs))
-        any_case_true, any_task_true = self.is_any_case_true()
-        self._set_attr_reason_active(any_case_true)
-        self._set_attr_task(any_task_true)
+        any_case_true, any_case_task_true = self.is_any_case_true()
+        self.set_attr_reason_active(any_case_true)
+        self.set_attr_reason_task(any_case_task_true)
 
 
 def reasonheir_shop(
@@ -657,7 +657,7 @@ def reasonheir_shop(
     cases: dict[RopeTerm, CaseUnit] = None,
     active_requisite: bool = None,
     reason_active: bool = None,
-    task: bool = None,
+    reason_task: bool = None,
     parent_heir_active: bool = None,
     knot: KnotTerm = None,
 ):
@@ -666,7 +666,7 @@ def reasonheir_shop(
         cases=get_empty_dict_if_None(cases),
         active_requisite=active_requisite,
         reason_active=reason_active,
-        task=task,
+        reason_task=reason_task,
         parent_heir_active=parent_heir_active,
         knot=default_knot_if_None(knot),
     )

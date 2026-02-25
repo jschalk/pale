@@ -73,7 +73,7 @@ def test_get_plan_view_dict_ReturnsObj_Scenario0_EmptyPlan():
         kw.tree_level,
         kw.range_evaluated,
         kw.reasonheirs,
-        kw.task,
+        kw.plan_task,
         kw.laborheir,
         kw.gogo_calc,
         kw.stop_calc,

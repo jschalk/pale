@@ -187,7 +187,7 @@ def planattrholder_shop(
 @dataclass
 class PlanUnit:
     """
-    Represents a planual unit within pale. Can represent a pledge, a task, a different plan's
+    Represents a planual unit within pale. Can represent a pledge, a plan_task, a different plan's
     reason or fact, a parent plan of other plans.
     Funds: Funds come from the parent plan and go to the child plans.
     Awards: Desribes whom the funding comes from and whome it goes to.
@@ -240,7 +240,7 @@ class PlanUnit:
     tree_level : int that describes Depth tree_level in plan hierarchy.
     range_evaluated : bool Flag indicating whether range has been evaluated.
     reasonheirs : dict[RopeTerm, ReasonHeir] parent plan provided reasoning branches.
-    task : bool describes if a unit can be changed to inactive with fact range change.
+    plan_task : bool describes if a unit can be changed to inactive with fact range change.
     laborheir : LaborHeir parent plan provided labor relationships
     gogo_calc : float
     stop_calc : float
@@ -285,7 +285,7 @@ class PlanUnit:
     tree_level: int = None
     range_evaluated: bool = None
     reasonheirs: dict[RopeTerm, ReasonHeir] = None
-    task: bool = None
+    plan_task: bool = None
     laborheir: LaborHeir = None
     gogo_calc: float = None
     stop_calc: float = None
@@ -366,9 +366,9 @@ class PlanUnit:
         return get_dict_from_factunits(self.factunits)
 
     def set_factunit_to_complete(self, fact_contextunit: FactUnit):
-        # if a plan is considered a task then a factheir.fact_lower attribute can be increased to
-        # a number <= factheir.fact_upper so the plan no longer is a task. This method finds
-        # the minimal factheir.fact_lower to modify plan.task is False. plan_core.factheir cannot be straight up manipulated
+        # if a plan is considered a plan_task then a factheir.fact_lower attribute can be increased to
+        # a number <= factheir.fact_upper so the plan no longer is a plan_task. This method finds
+        # the minimal factheir.fact_lower to modify plan.plan_task is False. plan_core.factheir cannot be straight up manipulated
         # so it is mandatory that plan.factunit is different.
         # self.set_factunits(reason_context=fact, fact=reason_context, reason_lower=reason_upper, reason_upper=fact_upper)
         self.factunits[fact_contextunit.fact_context] = factunit_shop(
@@ -796,21 +796,23 @@ class PlanUnit:
     ):
         prev_to_now_active = deepcopy(self.plan_active)
         self.plan_active = self._create_active_bool(groupunits, person_name)
-        self._set_plan_task()
+        self.set_plan_task()
         self.record_plan_active_hx(
             tree_traverse_count, prev_to_now_active, self.plan_active
         )
 
-    def _set_plan_task(self):
-        self.task = False
+    def set_plan_task(self):
+        self.plan_task = False
         if self.pledge and self.plan_active and self.reasonheirs_satisfied():
-            self.task = True
+            self.plan_task = True
 
     def reasonheirs_satisfied(self) -> bool:
-        return self.reasonheirs == {} or self._any_reasonheir_task_true()
+        return self.reasonheirs == {} or self._any_reasonheir_reason_task_true()
 
-    def _any_reasonheir_task_true(self) -> bool:
-        return any(x_reasonheir.task for x_reasonheir in self.reasonheirs.values())
+    def _any_reasonheir_reason_task_true(self) -> bool:
+        return any(
+            x_reasonheir.reason_task for x_reasonheir in self.reasonheirs.values()
+        )
 
     def _create_active_bool(
         self,
@@ -1038,7 +1040,7 @@ def planunit_shop(
     fund_grain: FundGrain = None,
     fund_onset: FundNum = None,
     fund_cease: FundNum = None,
-    task: bool = None,
+    plan_task: bool = None,
     plan_active: bool = None,
     descendant_pledge_count: int = None,
     all_partner_cred: bool = None,
@@ -1082,7 +1084,7 @@ def planunit_shop(
         fund_grain=default_grain_num_if_None(fund_grain),
         fund_onset=fund_onset,
         fund_cease=fund_cease,
-        task=task,
+        plan_task=plan_task,
         plan_active=plan_active,
         descendant_pledge_count=descendant_pledge_count,
         all_partner_cred=all_partner_cred,

@@ -185,7 +185,7 @@ def get_listen_structures2_fig(graphics_bool: bool = False) -> plotly_Figure:
                 y=[9, 8.5, 8.0],
                 text=[
                     "Person Listening Structures",
-                    "Flow of Persons to Keeps",
+                    "Circulation of Persons to Keeps",
                     "(Requires justification by problem and with unique name)",
                 ],
                 mode="text",
@@ -245,7 +245,7 @@ def get_listen_structures3_fig(graphics_bool: bool = False) -> plotly_Figure:
                 y=[9, 8.5, 8.0],
                 text=[
                     "Person Listening Structures",
-                    "Flow of Persons to Keeps",
+                    "Circulation of Persons to Keeps",
                     "(Requires justification by problem and with unique name)",
                 ],
                 mode="text",
@@ -265,7 +265,7 @@ def fund_graph13(
     green_str = "Green"
     d_sue1_p1 = "How fund is distributed."
     d_sue1_p2 = "Regular Fund: Green arrows, all fund_grains end up at PartnerUnits"
-    d_sue1_p3 = "Agenda Fund: Blue arrows, fund_grains from active tasks"
+    d_sue1_p3 = "Agenda Fund: Blue arrows, fund_grains from active case_tasks"
     d_sue1_p4 = f"Mana = {default_pool_num()} "
     laborunit_str = "      AwardUnits"
     add_simp_rect(fig, 2, -0.3, 3, 0.3, laborunit_str)

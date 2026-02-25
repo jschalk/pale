@@ -28,7 +28,7 @@ from src.ch10_person_listen.test._util.ch10_examples import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_PersonWhenNo_partyunitIsSet(
+def test_listen_to_agenda_duty_vision_agenda_Addscase_tasksTovision_PersonWhenNo_partyunitIsSet(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -66,7 +66,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_PersonWhenNo_part
     assert len(new_yao_vision.get_agenda_dict()) == 2
 
 
-def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Person(
+def test_listen_to_agenda_duty_vision_agenda_Addscase_tasksTovision_Person(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -111,7 +111,7 @@ def test_listen_to_agenda_duty_vision_agenda_AddstasksTovision_Person(
     assert len(new_yao_vision.get_agenda_dict()) == 2
 
 
-def test_listen_to_agenda_duty_vision_agenda_AddstasksTovisionPersonWithDetailsDecidedBy_partner_debt_lumen(
+def test_listen_to_agenda_duty_vision_agenda_Addscase_tasksTovisionPersonWithDetailsDecidedBy_partner_debt_lumen(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -361,7 +361,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPerson_duty_AndNotPerson_v
     yao_duty.add_partnerunit(exx.zia, zia_partner_cred_lumen, zia_partner_debt_lumen)
     yao_pool = 87
     yao_duty.set_partner_respect(yao_pool)
-    # save yao without task to dutys
+    # save yao without case_task to dutys
     a23_lasso = lassounit_shop(exx.a23)
     yao_dakota_lessonfilehandler = lessonfilehandler_shop(env_dir(), a23_lasso, exx.yao)
     save_duty_person(
@@ -391,7 +391,7 @@ def test_listen_to_agenda_duty_vision_agenda_ListensToPerson_duty_AndNotPerson_v
         zia_vision,
     )
 
-    # save yao with task to visions
+    # save yao with case_task to visions
     yao_old_vision = personunit_shop(exx.yao, exx.a23)
     vacuum_str = "vacuum"
     vacuum_rope = yao_old_vision.make_l1_rope(vacuum_str)
@@ -422,9 +422,9 @@ def test_listen_to_agenda_duty_vision_agenda_GetsAgendaFromSrcPersonNotSpeakerSe
     temp_dir_setup,
 ):
     # ESTABLISH
-    # yao_duty has task run_rope
-    # yao_vision has task a23_clean_rope
-    # yao_new_vision fact_states yao_duty task run_rope and not a23_clean_rope
+    # yao_duty has case_task run_rope
+    # yao_vision has case_task a23_clean_rope
+    # yao_new_vision fact_states yao_duty case_task run_rope and not a23_clean_rope
     yao_duty = get_example_yao_speaker()
     assert yao_duty.plan_exists(a23_run_rope()) is False
     assert yao_duty.plan_exists(a23_clean_rope()) is False

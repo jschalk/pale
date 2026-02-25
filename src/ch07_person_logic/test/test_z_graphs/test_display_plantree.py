@@ -32,7 +32,7 @@ def test_display_plantree_Scenario0(graphics_bool):
     x_fig = display_plantree(a_person, graphics_bool)
 
 
-def test_display_plantree_Scenario1_shows_tasks(graphics_bool):
+def test_display_plantree_Scenario1_shows_case_tasks(graphics_bool):
     # ESTABLISH
     # a_person = get_1label_person()
     # a_person = get_2label_person()
@@ -45,7 +45,7 @@ def test_display_plantree_Scenario1_shows_tasks(graphics_bool):
     print(f"Person {a_person.planroot.plan_label}: Labels ({len(a_person._plan_dict)})")
 
     # WHEN / THEN
-    display_plantree(a_person, mode=kw.task, graphics_bool=graphics_bool)
+    display_plantree(a_person, mode=kw.case_task, graphics_bool=graphics_bool)
 
 
 def test_get_person_partners_plotly_fig_DisplaysInfo(graphics_bool):
@@ -79,7 +79,7 @@ def test_get_person_agenda_plotly_fig_DisplaysInfo(graphics_bool):
     conditional_fig_show(x_fig, graphics_bool)
 
 
-def test_PersonUnit_fund_flow(graphics_bool):
+def test_PersonUnit_fund_graph0_VisualizesCirculation(graphics_bool):
     # ESTABLISH
     sue_person = personunit_shop(person_name="Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -107,4 +107,4 @@ def test_PersonUnit_fund_flow(graphics_bool):
     sue_person.add_plan(dinner_rope, star=30, pledge=True)
 
     # WHEN / THEN
-    fund_graph0(sue_person, kw.task, graphics_bool)
+    fund_graph0(sue_person, kw.case_task, graphics_bool)

@@ -37,7 +37,7 @@ def test_listen_to_speaker_agenda_ReturnsEqualPerson():
     assert after_yao_personunit == yao_personunit
 
 
-def test_listen_to_speaker_agenda_ReturnsSingletaskPerson():
+def test_listen_to_speaker_agenda_ReturnsSinglecase_taskPerson():
     # ESTABLISH
     before_yao_personunit = personunit_shop(exx.yao)
     before_yao_personunit.add_partnerunit(exx.zia)
@@ -69,7 +69,7 @@ def test_listen_to_speaker_agenda_ReturnsSingletaskPerson():
     assert len(after_yao_personunit.get_agenda_dict()) == 1
 
 
-def test_listen_to_speaker_agenda_ReturnsLevel2taskPerson():
+def test_listen_to_speaker_agenda_ReturnsLevel2case_taskPerson():
     # ESTABLISH
     before_yao_personunit = personunit_shop(exx.yao)
     before_yao_personunit.add_partnerunit(exx.zia)
@@ -106,7 +106,7 @@ def test_listen_to_speaker_agenda_ReturnsLevel2taskPerson():
     assert len(after_yao_personunit.get_agenda_dict()) == 1
 
 
-def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskPerson():
+def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2case_taskPerson():
     # ESTABLISH
     before_yao_personunit = personunit_shop(exx.yao)
     before_yao_personunit.add_partnerunit(exx.zia)
@@ -159,7 +159,7 @@ def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskPerson():
     assert after_fly_planunit.star == 18
 
 
-def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2taskPersonWhereAnPlanUnitExistsInAdvance():
+def test_listen_to_speaker_agenda_Returns2AgendaPlansLevel2case_taskPersonWhereAnPlanUnitExistsInAdvance():
     # ESTABLISH
     before_yao_personunit = personunit_shop(exx.yao)
     before_yao_personunit.add_partnerunit(exx.zia)

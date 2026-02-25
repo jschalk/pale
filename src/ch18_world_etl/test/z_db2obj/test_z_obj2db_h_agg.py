@@ -1,4 +1,4 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor, connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count, get_table_columns
 from src.ch02_partner.group import (
     awardheir_shop,
@@ -29,11 +29,11 @@ from src.ch18_world_etl.obj2db_person import (
     insert_h_agg_prnreas,
     insert_h_agg_prnunit,
 )
-from src.ch18_world_etl.test._util.ch18_env import temp_dir_setup
+from src.ch18_world_etl.test._util.ch18_env import cursor0, temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg():
+def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -55,39 +55,37 @@ def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg():
     sue_person.credor_respect = x_credor_respect
     sue_person.debtor_respect = x_debtor_respect
 
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        x_table_name = "personunit_h_put_agg"
-        assert get_row_count(cursor, x_table_name) == 0
-        objkeysholder = ObjKeysHolder(x_spark_num, x_face_name)
+    create_sound_and_heard_tables(cursor0)
+    x_table_name = "personunit_h_put_agg"
+    assert get_row_count(cursor0, x_table_name) == 0
+    objkeysholder = ObjKeysHolder(x_spark_num, x_face_name)
 
-        # WHEN
-        insert_h_agg_prnunit(cursor, objkeysholder, sue_person)
+    # WHEN
+    insert_h_agg_prnunit(cursor0, objkeysholder, sue_person)
 
-        # THEN
-        assert get_row_count(cursor, x_table_name) == 1
-        select_sqlstr = f"SELECT * FROM {x_table_name};"
-        cursor.execute(select_sqlstr)
-        rows = cursor.fetchall()
-        expected_row1 = (
-            x_spark_num,
-            x_face_name,
-            exx.a23,
-            x_person_name,
-            x_credor_respect,
-            x_debtor_respect,
-            x_fund_pool,
-            x_max_tree_traverse,
-            x_fund_grain,
-            x_mana_grain,
-            x_respect_grain,
-        )
-        expected_data = [expected_row1]
-        assert rows == expected_data
+    # THEN
+    assert get_row_count(cursor0, x_table_name) == 1
+    select_sqlstr = f"SELECT * FROM {x_table_name};"
+    cursor0.execute(select_sqlstr)
+    rows = cursor0.fetchall()
+    expected_row1 = (
+        x_spark_num,
+        x_face_name,
+        exx.a23,
+        x_person_name,
+        x_credor_respect,
+        x_debtor_respect,
+        x_fund_pool,
+        x_max_tree_traverse,
+        x_fund_grain,
+        x_mana_grain,
+        x_respect_grain,
+    )
+    expected_data = [expected_row1]
+    assert rows == expected_data
 
 
-def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg():
+def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -133,49 +131,47 @@ def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg():
     x_plan.pledge = x_pledge
     x_plan.problem_bool = x_problem_bool
 
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        x_table_name = "person_planunit_h_put_agg"
-        assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(
-            spark_num=x_spark_num,
-            face_name=x_face_name,
-            moment_rope=exx.a23,
-            person_name=x_person_name,
-        )
+    create_sound_and_heard_tables(cursor0)
+    x_table_name = "person_planunit_h_put_agg"
+    assert get_row_count(cursor0, x_table_name) == 0
+    x_objkeysholder = ObjKeysHolder(
+        spark_num=x_spark_num,
+        face_name=x_face_name,
+        moment_rope=exx.a23,
+        person_name=x_person_name,
+    )
 
-        # WHEN
-        insert_h_agg_prnplan(cursor, x_objkeysholder, x_plan)
+    # WHEN
+    insert_h_agg_prnplan(cursor0, x_objkeysholder, x_plan)
 
-        # THEN
-        clean_rope = create_rope(casa_rope, "clean")
-        assert get_row_count(cursor, x_table_name) == 1
-        select_sqlstr = f"SELECT * FROM {x_table_name};"
-        cursor.execute(select_sqlstr)
-        rows = cursor.fetchall()
-        expected_row1 = (
-            x_spark_num,
-            x_face_name,
-            str(x_person_name),
-            clean_rope,
-            x_begin,
-            x_close,
-            x_addin,
-            x_numor,
-            x_denom,
-            x_morph,
-            x_gogo_want,
-            x_stop_want,
-            x_star,
-            x_pledge,
-            x_problem_bool,
-        )
-        expected_data = [expected_row1]
-        assert rows == expected_data
+    # THEN
+    clean_rope = create_rope(casa_rope, "clean")
+    assert get_row_count(cursor0, x_table_name) == 1
+    select_sqlstr = f"SELECT * FROM {x_table_name};"
+    cursor0.execute(select_sqlstr)
+    rows = cursor0.fetchall()
+    expected_row1 = (
+        x_spark_num,
+        x_face_name,
+        str(x_person_name),
+        clean_rope,
+        x_begin,
+        x_close,
+        x_addin,
+        x_numor,
+        x_denom,
+        x_morph,
+        x_gogo_want,
+        x_stop_want,
+        x_star,
+        x_pledge,
+        x_problem_bool,
+    )
+    expected_data = [expected_row1]
+    assert rows == expected_data
 
 
-def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg():
+def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -188,40 +184,38 @@ def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg():
     x_reasonheir.reason_context = x_reason_context
     x_reasonheir.active_requisite = x_active_requisite
 
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        x_table_name = "person_plan_reasonunit_h_put_agg"
-        assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(
-            spark_num=x_spark_num,
-            face_name=x_face_name,
-            moment_rope=exx.a23,
-            person_name=x_person_name,
-            rope=x_rope,
-        )
+    create_sound_and_heard_tables(cursor0)
+    x_table_name = "person_plan_reasonunit_h_put_agg"
+    assert get_row_count(cursor0, x_table_name) == 0
+    x_objkeysholder = ObjKeysHolder(
+        spark_num=x_spark_num,
+        face_name=x_face_name,
+        moment_rope=exx.a23,
+        person_name=x_person_name,
+        rope=x_rope,
+    )
 
-        # WHEN
-        insert_h_agg_prnreas(cursor, x_objkeysholder, x_reasonheir)
+    # WHEN
+    insert_h_agg_prnreas(cursor0, x_objkeysholder, x_reasonheir)
 
-        # THEN
-        assert get_row_count(cursor, x_table_name) == 1
-        select_sqlstr = f"SELECT * FROM {x_table_name};"
-        cursor.execute(select_sqlstr)
-        rows = cursor.fetchall()
-        expected_row1 = (
-            x_spark_num,
-            x_face_name,
-            str(x_person_name),
-            str(x_rope),
-            str(x_reason_context),
-            x_active_requisite,
-        )
-        expected_data = [expected_row1]
-        assert rows == expected_data
+    # THEN
+    assert get_row_count(cursor0, x_table_name) == 1
+    select_sqlstr = f"SELECT * FROM {x_table_name};"
+    cursor0.execute(select_sqlstr)
+    rows = cursor0.fetchall()
+    expected_row1 = (
+        x_spark_num,
+        x_face_name,
+        str(x_person_name),
+        str(x_rope),
+        str(x_reason_context),
+        x_active_requisite,
+    )
+    expected_data = [expected_row1]
+    assert rows == expected_data
 
 
-def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
+def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -241,50 +235,48 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
     x_caseunit.reason_upper = x_reason_upper_otx
     x_caseunit.reason_divisor = x_reason_divisor
 
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        x_table_name = "person_plan_reason_caseunit_h_put_agg"
-        print(
-            f"{get_table_columns(cursor, x_table_name)=} {len(get_table_columns(cursor, x_table_name))=}"
-        )
-        assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(
-            spark_num=x_spark_num,
-            face_name=x_face_name,
-            person_name=x_person_name,
-            rope=x_rope,
-            reason_context=x_reason_context,
-        )
+    create_sound_and_heard_tables(cursor0)
+    x_table_name = "person_plan_reason_caseunit_h_put_agg"
+    print(
+        f"{get_table_columns(cursor0, x_table_name)=} {len(get_table_columns(cursor0, x_table_name))=}"
+    )
+    assert get_row_count(cursor0, x_table_name) == 0
+    x_objkeysholder = ObjKeysHolder(
+        spark_num=x_spark_num,
+        face_name=x_face_name,
+        person_name=x_person_name,
+        rope=x_rope,
+        reason_context=x_reason_context,
+    )
 
-        # WHEN
-        insert_h_agg_prncase(cursor, x_objkeysholder, x_caseunit)
+    # WHEN
+    insert_h_agg_prncase(cursor0, x_objkeysholder, x_caseunit)
 
-        # THEN
-        assert get_row_count(cursor, x_table_name) == 1
-        select_sqlstr = f"SELECT * FROM {x_table_name};"
-        cursor.execute(select_sqlstr)
-        rows = cursor.fetchall()
-        expected_row1 = (
-            x_spark_num,
-            x_face_name,
-            str(x_person_name),
-            str(x_rope),
-            str(x_reason_context),
-            str(x_reason_state),
-            x_reason_lower_otx,
-            x_reason_lower_inx,
-            x_reason_upper_otx,
-            x_reason_upper_inx,
-            x_reason_divisor,
-            None,
-            None,
-            None,
-            None,
-        )
-        expected_data = [expected_row1]
-        assert len(rows[0]) == len(expected_data[0])
-        assert rows == expected_data
+    # THEN
+    assert get_row_count(cursor0, x_table_name) == 1
+    select_sqlstr = f"SELECT * FROM {x_table_name};"
+    cursor0.execute(select_sqlstr)
+    rows = cursor0.fetchall()
+    expected_row1 = (
+        x_spark_num,
+        x_face_name,
+        str(x_person_name),
+        str(x_rope),
+        str(x_reason_context),
+        str(x_reason_state),
+        x_reason_lower_otx,
+        x_reason_lower_inx,
+        x_reason_upper_otx,
+        x_reason_upper_inx,
+        x_reason_divisor,
+        None,
+        None,
+        None,
+        None,
+    )
+    expected_data = [expected_row1]
+    assert len(rows[0]) == len(expected_data[0])
+    assert rows == expected_data
 
 
 # def test_insert_h_agg_prnmemb_CreatesTableRowsFor_prnmemb_h_agg():
@@ -300,7 +292,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     #     print(f"""    x_membership.{x_arg} = x_{x_arg}""")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+#     #     print(f"""        x_{x_arg},""")
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
@@ -330,41 +322,41 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     x_membership.fund_agenda_ratio_give = x_fund_agenda_ratio_give
 #     x_membership.fund_agenda_ratio_take = x_fund_agenda_ratio_take
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_partner_membership_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name)
 
-#         # WHEN
-#         insert_h_agg_prnmemb(cursor, x_objkeysholder, x_membership)
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     x_table_name = "person_partner_membership_h_put_agg"
+#     assert get_row_count(cursor0, x_table_name) == 0
+#     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name)
 
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             x_spark_num,
-#             x_face_name,
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_partner_name),
-#             str(x_group_title),
-#             x_group_cred_lumen,
-#             x_group_debt_lumen,
-#             x_credor_pool,
-#             x_debtor_pool,
-#             x_fund_give,
-#             x_fund_take,
-#             x_fund_agenda_give,
-#             x_fund_agenda_take,
-#             x_fund_agenda_ratio_give,
-#             x_fund_agenda_ratio_take,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+#     # WHEN
+#     insert_h_agg_prnmemb(cursor0, x_objkeysholder, x_membership)
+
+#     # THEN
+#     assert get_row_count(cursor0, x_table_name) == 1
+#     select_sqlstr = f"SELECT * FROM {x_table_name};"
+#     cursor0.execute(select_sqlstr)
+#     rows = cursor0.fetchall()
+#     expected_row1 = (
+#         x_spark_num,
+#         x_face_name,
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_partner_name),
+#         str(x_group_title),
+#         x_group_cred_lumen,
+#         x_group_debt_lumen,
+#         x_credor_pool,
+#         x_debtor_pool,
+#         x_fund_give,
+#         x_fund_take,
+#         x_fund_agenda_give,
+#         x_fund_agenda_take,
+#         x_fund_agenda_ratio_give,
+#         x_fund_agenda_ratio_take,
+#     )
+#     expected_data = [expected_row1]
+#     assert rows == expected_data
 
 
 # def test_insert_h_agg_prnptnr_CreatesTableRowsFor_prnptnr_h_agg():
@@ -380,7 +372,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     #     print(f"""    x_partner.{x_arg} = x_{x_arg}""")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+#     #     print(f"""        x_{x_arg},""")
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
@@ -415,43 +407,43 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     x_partner.irrational_partner_debt_lumen = x_irrational_partner_debt_lumen
 #     x_partner.groupmark = x_groupmark
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_partnerunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name)
 
-#         # WHEN
-#         insert_h_agg_prnptnr(cursor, x_objkeysholder, x_partner)
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     x_table_name = "person_partnerunit_h_put_agg"
+#     assert get_row_count(cursor0, x_table_name) == 0
+#     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name)
 
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             x_spark_num,
-#             x_face_name,
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_partner_name),
-#             x_partner_cred_lumen,
-#             x_partner_debt_lumen,
-#             str(x_groupmark),
-#             x_credor_pool,
-#             x_debtor_pool,
-#             x_fund_give,
-#             x_fund_take,
-#             x_fund_agenda_give,
-#             x_fund_agenda_take,
-#             x_fund_agenda_ratio_give,
-#             x_fund_agenda_ratio_take,
-#             x_inallocable_partner_debt_lumen,
-#             x_irrational_partner_debt_lumen,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+#     # WHEN
+#     insert_h_agg_prnptnr(cursor0, x_objkeysholder, x_partner)
+
+#     # THEN
+#     assert get_row_count(cursor0, x_table_name) == 1
+#     select_sqlstr = f"SELECT * FROM {x_table_name};"
+#     cursor0.execute(select_sqlstr)
+#     rows = cursor0.fetchall()
+#     expected_row1 = (
+#         x_spark_num,
+#         x_face_name,
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_partner_name),
+#         x_partner_cred_lumen,
+#         x_partner_debt_lumen,
+#         str(x_groupmark),
+#         x_credor_pool,
+#         x_debtor_pool,
+#         x_fund_give,
+#         x_fund_take,
+#         x_fund_agenda_give,
+#         x_fund_agenda_take,
+#         x_fund_agenda_ratio_give,
+#         x_fund_agenda_ratio_take,
+#         x_inallocable_partner_debt_lumen,
+#         x_irrational_partner_debt_lumen,
+#     )
+#     expected_data = [expected_row1]
+#     assert rows == expected_data
 
 
 # def test_insert_h_agg_prngrou_CreatesTableRowsFor_prngrou_h_agg():
@@ -467,7 +459,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     #     print(f"""    x_group.{x_arg} = x_{x_arg}""")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+#     #     print(f"""        x_{x_arg},""")
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
@@ -490,37 +482,37 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     x_group.fund_agenda_give = x_fund_agenda_give
 #     x_group.fund_agenda_take = x_fund_agenda_take
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_groupunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name)
 
-#         # WHEN
-#         insert_h_agg_prngrou(cursor, x_objkeysholder, x_group)
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     x_table_name = "person_groupunit_h_put_agg"
+#     assert get_row_count(cursor0, x_table_name) == 0
+#     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name)
 
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             x_spark_num,
-#             x_face_name,
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_group_title),
-#             x_fund_grain,
-#             x_credor_pool,
-#             x_debtor_pool,
-#             x_fund_give,
-#             x_fund_take,
-#             x_fund_agenda_give,
-#             x_fund_agenda_take,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+#     # WHEN
+#     insert_h_agg_prngrou(cursor0, x_objkeysholder, x_group)
+
+#     # THEN
+#     assert get_row_count(cursor0, x_table_name) == 1
+#     select_sqlstr = f"SELECT * FROM {x_table_name};"
+#     cursor0.execute(select_sqlstr)
+#     rows = cursor0.fetchall()
+#     expected_row1 = (
+#         x_spark_num,
+#         x_face_name,
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_group_title),
+#         x_fund_grain,
+#         x_credor_pool,
+#         x_debtor_pool,
+#         x_fund_give,
+#         x_fund_take,
+#         x_fund_agenda_give,
+#         x_fund_agenda_take,
+#     )
+#     expected_data = [expected_row1]
+#     assert rows == expected_data
 
 
 # def test_insert_h_agg_prnawar_CreatesTableRowsFor_prnawar_h_agg():
@@ -536,7 +528,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     #     print(f"""    x_awardheir.{x_arg} = x_{x_arg}""")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+#     #     print(f"""        x_{x_arg},""")
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
@@ -554,38 +546,38 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg():
 #     x_awardheir.fund_give = x_fund_give
 #     x_awardheir.fund_take = x_fund_take
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_plan_awardunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
-#         # WHEN
-#         insert_h_agg_prnawar(cursor, x_objkeysholder, x_awardheir)
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     x_table_name = "person_plan_awardunit_h_put_agg"
+#     assert get_row_count(cursor0, x_table_name) == 0
+#     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 1
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             x_spark_num,
-#             x_face_name,
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_rope),
-#             str(x_awardee_title),
-#             x_give_force,
-#             x_take_force,
-#             x_fund_give,
-#             x_fund_take,
-#         )
-#         expected_data = [expected_row1]
-#         assert rows == expected_data
+#     # WHEN
+#     insert_h_agg_prnawar(cursor0, x_objkeysholder, x_awardheir)
+
+#     # THEN
+#     assert get_row_count(cursor0, x_table_name) == 1
+#     select_sqlstr = f"SELECT * FROM {x_table_name};"
+#     cursor0.execute(select_sqlstr)
+#     rows = cursor0.fetchall()
+#     expected_row1 = (
+#         x_spark_num,
+#         x_face_name,
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_rope),
+#         str(x_awardee_title),
+#         x_give_force,
+#         x_take_force,
+#         x_fund_give,
+#         x_fund_take,
+#     )
+#     expected_data = [expected_row1]
+#     assert rows == expected_data
 
 
-def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
+def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
@@ -604,47 +596,45 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
     x_factheir.fact_lower = x_fact_lower_otx
     x_factheir.fact_upper = x_fact_upper_otx
 
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        x_table_name = "person_plan_factunit_h_put_agg"
-        assert get_row_count(cursor, x_table_name) == 0
-        x_objkeysholder = ObjKeysHolder(
-            spark_num=x_spark_num,
-            face_name=x_face_name,
-            person_name=x_person_name,
-            rope=x_rope,
-        )
+    create_sound_and_heard_tables(cursor0)
+    x_table_name = "person_plan_factunit_h_put_agg"
+    assert get_row_count(cursor0, x_table_name) == 0
+    x_objkeysholder = ObjKeysHolder(
+        spark_num=x_spark_num,
+        face_name=x_face_name,
+        person_name=x_person_name,
+        rope=x_rope,
+    )
 
-        # WHEN
-        insert_h_agg_prnfact(cursor, x_objkeysholder, x_factheir)
+    # WHEN
+    insert_h_agg_prnfact(cursor0, x_objkeysholder, x_factheir)
 
-        # THEN
-        assert get_row_count(cursor, x_table_name) == 1
-        select_sqlstr = f"SELECT * FROM {x_table_name};"
-        cursor.execute(select_sqlstr)
-        rows = cursor.fetchall()
-        expected_row1 = (
-            x_spark_num,
-            x_face_name,
-            str(x_person_name),
-            str(x_rope),
-            str(x_reason_context),
-            str(x_fact_state),
-            x_fact_lower_otx,
-            x_fact_lower_inx,
-            x_fact_upper_otx,
-            x_fact_upper_inx,
-            None,
-            None,
-            None,
-            None,
-        )
-        expected_data = [expected_row1]
-        assert len(rows[0]) == len(expected_data[0])
-        print(rows[0])
-        print(expected_data[0])
-        assert rows == expected_data
+    # THEN
+    assert get_row_count(cursor0, x_table_name) == 1
+    select_sqlstr = f"SELECT * FROM {x_table_name};"
+    cursor0.execute(select_sqlstr)
+    rows = cursor0.fetchall()
+    expected_row1 = (
+        x_spark_num,
+        x_face_name,
+        str(x_person_name),
+        str(x_rope),
+        str(x_reason_context),
+        str(x_fact_state),
+        x_fact_lower_otx,
+        x_fact_lower_inx,
+        x_fact_upper_otx,
+        x_fact_upper_inx,
+        None,
+        None,
+        None,
+        None,
+    )
+    expected_data = [expected_row1]
+    assert len(rows[0]) == len(expected_data[0])
+    print(rows[0])
+    print(expected_data[0])
+    assert rows == expected_data
 
 
 # def test_insert_h_agg_prnheal_CreatesTableRowsFor_prnheal_h_agg():
@@ -660,7 +650,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 #     #     print(f"""    x_healerunit.{x_arg} = x_{x_arg}""")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+#     #     print(f"""        x_{x_arg},""")
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
@@ -670,37 +660,37 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 #     x_healerunit.set_healer_name(exx.bob)
 #     x_healerunit.set_healer_name(exx.sue)
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_plan_healerunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
-#         # WHEN
-#         insert_h_agg_prnheal(cursor, x_objkeysholder, x_healerunit)
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     x_table_name = "person_plan_healerunit_h_put_agg"
+#     assert get_row_count(cursor0, x_table_name) == 0
+#     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 2
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             x_spark_num,
-#             x_face_name,
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_rope),
-#             exx.bob,
-#         )
-#         expected_row2 = (
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_rope),
-#             exx.sue,
-#         )
-#         expected_data = [expected_row1, expected_row2]
-#         assert rows == expected_data
+#     # WHEN
+#     insert_h_agg_prnheal(cursor0, x_objkeysholder, x_healerunit)
+
+#     # THEN
+#     assert get_row_count(cursor0, x_table_name) == 2
+#     select_sqlstr = f"SELECT * FROM {x_table_name};"
+#     cursor0.execute(select_sqlstr)
+#     rows = cursor0.fetchall()
+#     expected_row1 = (
+#         x_spark_num,
+#         x_face_name,
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_rope),
+#         exx.bob,
+#     )
+#     expected_row2 = (
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_rope),
+#         exx.sue,
+#     )
+#     expected_data = [expected_row1, expected_row2]
+#     assert rows == expected_data
 
 
 # def test_insert_h_agg_prnlabo_CreatesTableRowsFor_prnlabo_h_agg():
@@ -716,7 +706,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 #     #     print(f"""    x_laborheir.{x_arg} = x_{x_arg}""")
 #     # print("")
 #     # for x_arg in get_default_sorted_list(x_args):
-#     #     print(f"""            x_{x_arg},""")
+#     #     print(f"""        x_{x_arg},""")
 
 #     x_spark_num = 77
 #     x_face_name = exx.yao
@@ -731,44 +721,46 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg():
 #     sue_partyheir = partyheir_shop(exx.sue, sue_solo_bool)
 #     x_laborheir.partys = {exx.bob: bob_partyheir, exx.sue: sue_partyheir}
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         x_table_name = "person_plan_partyunit_h_put_agg"
-#         assert get_row_count(cursor, x_table_name) == 0
-#         x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
-#         # WHEN
-#         insert_h_agg_prnlabo(cursor, x_objkeysholder, x_laborheir)
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     x_table_name = "person_plan_partyunit_h_put_agg"
+#     assert get_row_count(cursor0, x_table_name) == 0
+#     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23, person_name=x_person_name, rope=x_rope)
 
-#         # THEN
-#         assert get_row_count(cursor, x_table_name) == 2
-#         select_sqlstr = f"SELECT * FROM {x_table_name};"
-#         cursor.execute(select_sqlstr)
-#         rows = cursor.fetchall()
-#         expected_row1 = (
-#             x_spark_num,
-#             x_face_name,
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_rope),
-#             exx.bob,
-#             bob_solo_bool,
-#             x__person_name_is_labor,
-#         )
-#         expected_row2 = (
-#             str(exx.a23),
-#             str(x_person_name),
-#             str(x_rope),
-#             exx.sue,
-#             sue_solo_bool,
-#             x__person_name_is_labor,
-#         )
-#         expected_data = [expected_row1, expected_row2]
-#         assert rows == expected_data
+#     # WHEN
+#     insert_h_agg_prnlabo(cursor0, x_objkeysholder, x_laborheir)
+
+#     # THEN
+#     assert get_row_count(cursor0, x_table_name) == 2
+#     select_sqlstr = f"SELECT * FROM {x_table_name};"
+#     cursor0.execute(select_sqlstr)
+#     rows = cursor0.fetchall()
+#     expected_row1 = (
+#         x_spark_num,
+#         x_face_name,
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_rope),
+#         exx.bob,
+#         bob_solo_bool,
+#         x__person_name_is_labor,
+#     )
+#     expected_row2 = (
+#         str(exx.a23),
+#         str(x_person_name),
+#         str(x_rope),
+#         exx.sue,
+#         sue_solo_bool,
+#         x__person_name_is_labor,
+#     )
+#     expected_data = [expected_row1, expected_row2]
+#     assert rows == expected_data
 
 
-def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
+def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables(
+    cursor0: Cursor,
+):
     # sourcery skip: extract-method
     # ESTABLISH
     sue_person = personunit_shop(exx.sue, exx.a23)
@@ -792,33 +784,31 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
     sue_person.edit_plan_attr(casa_rope, laborunit=casa_laborunit)
     sue_person.add_fact(situation_rope, clean_rope)
 
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
-        prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
-        prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
-        prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
-        prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
-        assert get_row_count(cursor, prnunit_h_agg_table) == 0
-        assert get_row_count(cursor, prnplan_h_agg_table) == 0
-        assert get_row_count(cursor, prnfact_h_agg_table) == 0
-        assert get_row_count(cursor, prnreas_h_agg_table) == 0
-        assert get_row_count(cursor, prncase_h_agg_table) == 0
+    create_sound_and_heard_tables(cursor0)
+    prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
+    prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
+    prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
+    prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
+    prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
+    assert get_row_count(cursor0, prnunit_h_agg_table) == 0
+    assert get_row_count(cursor0, prnplan_h_agg_table) == 0
+    assert get_row_count(cursor0, prnfact_h_agg_table) == 0
+    assert get_row_count(cursor0, prnreas_h_agg_table) == 0
+    assert get_row_count(cursor0, prncase_h_agg_table) == 0
 
-        # WHEN
-        spark7 = 7
-        insert_h_agg_obj(cursor, sue_person, spark7, face_name=exx.yao)
+    # WHEN
+    spark7 = 7
+    insert_h_agg_obj(cursor0, sue_person, spark7, face_name=exx.yao)
 
-        # THEN
-        assert get_row_count(cursor, prnunit_h_agg_table) == 1
-        assert get_row_count(cursor, prnplan_h_agg_table) == 5
-        assert get_row_count(cursor, prnfact_h_agg_table) == 1
-        assert get_row_count(cursor, prnreas_h_agg_table) == 1
-        assert get_row_count(cursor, prncase_h_agg_table) == 1
-        select_case_sqlstr = f"SELECT spark_num, face_name FROM {prncase_h_agg_table};"
-        cursor.execute(select_case_sqlstr)
-        assert cursor.fetchall() == [(spark7, exx.yao)]
+    # THEN
+    assert get_row_count(cursor0, prnunit_h_agg_table) == 1
+    assert get_row_count(cursor0, prnplan_h_agg_table) == 5
+    assert get_row_count(cursor0, prnfact_h_agg_table) == 1
+    assert get_row_count(cursor0, prnreas_h_agg_table) == 1
+    assert get_row_count(cursor0, prncase_h_agg_table) == 1
+    select_case_sqlstr = f"SELECT spark_num, face_name FROM {prncase_h_agg_table};"
+    cursor0.execute(select_case_sqlstr)
+    assert cursor0.fetchall() == [(spark7, exx.yao)]
 
 
 # def test_insert_h_agg_obj_CreatesTableRows_Scenario1_AllTables():
@@ -836,7 +826,7 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #     sue_person.add_plan(clean_rope)
 #     sue_person.add_plan(dirty_rope)
 #     sue_person.edit_plan_attr(
-#         casa_rope, reason_context=situation_rope, reason_case=dirty_rope
+#     casa_rope, reason_context=situation_rope, reason_case=dirty_rope
 #     )
 #     sue_person.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.run))
 #     sue_person.edit_plan_attr(casa_rope, healerunit=healerunit_shop({exx.bob}))
@@ -845,44 +835,44 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables():
 #     sue_person.edit_plan_attr(casa_rope, laborunit=casa_laborunit)
 #     sue_person.add_fact(situation_rope, clean_rope)
 
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         prnmemb_h_agg_table = f"{kw.person_partner_membership}_h_put_agg"
-#         prnptnr_h_agg_table = f"{kw.person_partnerunit}_h_put_agg"
-#         prngrou_h_agg_table = f"{kw.person_groupunit}_h_put_agg"
-#         prnawar_h_agg_table = f"{kw.person_plan_awardunit}_h_put_agg"
-#         prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
-#         prnheal_h_agg_table = f"{kw.person_plan_healerunit}_h_put_agg"
-#         prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
-#         prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
-#         prnlabo_h_agg_table = f"{kw.person_plan_partyunit}_h_put_agg"
-#         prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
-#         prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
-#         assert get_row_count(cursor, prnunit_h_agg_table) == 0
-#         assert get_row_count(cursor, prnplan_h_agg_table) == 0
-#         assert get_row_count(cursor, prnptnr_h_agg_table) == 0
-#         assert get_row_count(cursor, prnmemb_h_agg_table) == 0
-#         assert get_row_count(cursor, prngrou_h_agg_table) == 0
-#         assert get_row_count(cursor, prnawar_h_agg_table) == 0
-#         assert get_row_count(cursor, prnfact_h_agg_table) == 0
-#         assert get_row_count(cursor, prnheal_h_agg_table) == 0
-#         assert get_row_count(cursor, prnreas_h_agg_table) == 0
-#         assert get_row_count(cursor, prncase_h_agg_table) == 0
-#         assert get_row_count(cursor, prnlabo_h_agg_table) == 0
 
-#         # WHEN
-#         insert_h_agg_obj(cursor, sue_person)
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     prnmemb_h_agg_table = f"{kw.person_partner_membership}_h_put_agg"
+#     prnptnr_h_agg_table = f"{kw.person_partnerunit}_h_put_agg"
+#     prngrou_h_agg_table = f"{kw.person_groupunit}_h_put_agg"
+#     prnawar_h_agg_table = f"{kw.person_plan_awardunit}_h_put_agg"
+#     prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
+#     prnheal_h_agg_table = f"{kw.person_plan_healerunit}_h_put_agg"
+#     prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
+#     prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
+#     prnlabo_h_agg_table = f"{kw.person_plan_partyunit}_h_put_agg"
+#     prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
+#     prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
+#     assert get_row_count(cursor0, prnunit_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnplan_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnptnr_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnmemb_h_agg_table) == 0
+#     assert get_row_count(cursor0, prngrou_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnawar_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnfact_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnheal_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnreas_h_agg_table) == 0
+#     assert get_row_count(cursor0, prncase_h_agg_table) == 0
+#     assert get_row_count(cursor0, prnlabo_h_agg_table) == 0
 
-#         # THEN
-#         assert get_row_count(cursor, prnunit_h_agg_table) == 1
-#         assert get_row_count(cursor, prnplan_h_agg_table) == 5
-#         assert get_row_count(cursor, prnptnr_h_agg_table) == 2
-#         assert get_row_count(cursor, prnmemb_h_agg_table) == 3
-#         assert get_row_count(cursor, prngrou_h_agg_table) == 3
-#         assert get_row_count(cursor, prnawar_h_agg_table) == 1
-#         assert get_row_count(cursor, prnfact_h_agg_table) == 1
-#         assert get_row_count(cursor, prnheal_h_agg_table) == 1
-#         assert get_row_count(cursor, prnreas_h_agg_table) == 1
-#         assert get_row_count(cursor, prncase_h_agg_table) == 1
-#         assert get_row_count(cursor, prnlabo_h_agg_table) == 1
+#     # WHEN
+#     insert_h_agg_obj(cursor0, sue_person)
+
+#     # THEN
+#     assert get_row_count(cursor0, prnunit_h_agg_table) == 1
+#     assert get_row_count(cursor0, prnplan_h_agg_table) == 5
+#     assert get_row_count(cursor0, prnptnr_h_agg_table) == 2
+#     assert get_row_count(cursor0, prnmemb_h_agg_table) == 3
+#     assert get_row_count(cursor0, prngrou_h_agg_table) == 3
+#     assert get_row_count(cursor0, prnawar_h_agg_table) == 1
+#     assert get_row_count(cursor0, prnfact_h_agg_table) == 1
+#     assert get_row_count(cursor0, prnheal_h_agg_table) == 1
+#     assert get_row_count(cursor0, prnreas_h_agg_table) == 1
+#     assert get_row_count(cursor0, prncase_h_agg_table) == 1
+#     assert get_row_count(cursor0, prnlabo_h_agg_table) == 1

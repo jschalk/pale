@@ -208,7 +208,7 @@ def get_personunit_with7am_clean_table_reason() -> PersonUnit:
     return sue_person
 
 
-def get_personunit_1task_1ceo_minutes_reason_1fact() -> PersonUnit:
+def get_personunit_1case_task_1ceo_minutes_reason_1fact() -> PersonUnit:
     yao_person = personunit_shop("Yao")
     hr_min_str = "hr"
     hr_min_plan = planunit_shop(hr_min_str)
@@ -350,7 +350,7 @@ def get_personunit_laundry_example1() -> PersonUnit:
     basket_rope = yao_person.make_rope(casa_rope, basket_str)
     b_full_rope = yao_person.make_rope(basket_rope, b_full_str)
     b_smel_rope = yao_person.make_rope(basket_rope, b_smel_str)
-    laundry_task_rope = yao_person.make_rope(casa_rope, do_laundry_str)
+    laundry_plan_task_rope = yao_person.make_rope(casa_rope, do_laundry_str)
     yao_person.set_l1_plan(planunit_shop(exx.casa))
     yao_person.set_plan_obj(planunit_shop(basket_str), casa_rope)
     yao_person.set_plan_obj(planunit_shop(b_full_str), basket_rope)
@@ -362,15 +362,15 @@ def get_personunit_laundry_example1() -> PersonUnit:
 
     # laundry requirement
     yao_person.edit_plan_attr(
-        laundry_task_rope, reason_context=basket_rope, reason_case=b_full_rope
+        laundry_plan_task_rope, reason_context=basket_rope, reason_case=b_full_rope
     )
     # laundry requirement
     yao_person.edit_plan_attr(
-        laundry_task_rope, reason_context=basket_rope, reason_case=b_smel_rope
+        laundry_plan_task_rope, reason_context=basket_rope, reason_case=b_smel_rope
     )
     cali_laborunit = laborunit_shop()
     cali_laborunit.add_party(cali_str)
-    yao_person.edit_plan_attr(laundry_task_rope, laborunit=cali_laborunit)
+    yao_person.edit_plan_attr(laundry_plan_task_rope, laborunit=cali_laborunit)
     yao_person.add_fact(fact_context=basket_rope, fact_state=b_full_rope)
 
     return yao_person

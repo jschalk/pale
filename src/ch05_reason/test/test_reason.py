@@ -74,7 +74,7 @@ def test_ReasonHeir_Exists():
         kw.reason_context,
         kw.reason_active,
         kw.parent_heir_active,
-        kw.task,
+        kw.reason_task,
     }
 
 
@@ -392,7 +392,7 @@ def test_ReasonHeir_correctSetsPledgeState():
     range_3_to_6_reason.set_reason_active(factheirs=range_5_to_8_facts)
     # THEN
     assert range_3_to_6_reason.reason_active is True
-    assert range_3_to_6_reason.task is True
+    assert range_3_to_6_reason.reason_task is True
 
     # WHEN
     range_5_to_6_fact = factheir_shop(wk_rope, wk_rope, fact_lower=5, fact_upper=6)
@@ -400,7 +400,7 @@ def test_ReasonHeir_correctSetsPledgeState():
     range_3_to_6_reason.set_reason_active(factheirs=range_5_to_6_facts)
     # THEN
     assert range_3_to_6_reason.reason_active is True
-    assert range_3_to_6_reason.task is False
+    assert range_3_to_6_reason.reason_task is False
 
     # WHEN
     range_0_to_1_fact = factheir_shop(wk_rope, wk_rope, fact_lower=0, fact_upper=1)
@@ -408,7 +408,7 @@ def test_ReasonHeir_correctSetsPledgeState():
     range_3_to_6_reason.set_reason_active(factheirs=range_0_to_1_facts)
     # THEN
     assert range_3_to_6_reason.reason_active is False
-    assert range_3_to_6_reason.task is None
+    assert range_3_to_6_reason.reason_task is None
 
 
 def test_ReasonCore_get_cases_count():

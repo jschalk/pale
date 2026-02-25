@@ -3,14 +3,14 @@ from src.ch05_reason.reason_main import factheir_shop, factunit_shop
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch07_person_logic.test._util.ch07_examples import (
-    get_personunit_1task_1ceo_minutes_reason_1fact,
+    get_personunit_1case_task_1ceo_minutes_reason_1fact,
 )
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_PersonUnit_conpute_ChangesPlanUnit_pledge_task():
+def test_PersonUnit_conpute_ChangesPlanUnit_pledge_case_task():
     # ESTABLISH
-    yao_person = get_personunit_1task_1ceo_minutes_reason_1fact()
+    yao_person = get_personunit_1case_task_1ceo_minutes_reason_1fact()
     hr_str = "hr"
     hr_rope = yao_person.make_l1_rope(hr_str)
 
@@ -27,7 +27,7 @@ def test_PersonUnit_conpute_ChangesPlanUnit_pledge_task():
         fact_context=hr_rope, fact_state=hr_rope, fact_lower=82, fact_upper=95
     )
     assert mail_plan.pledge is True
-    assert mail_plan.task is False
+    assert mail_plan.plan_task is False
 
     # WHEN
     yao_person.conpute()
@@ -35,7 +35,7 @@ def test_PersonUnit_conpute_ChangesPlanUnit_pledge_task():
     # THEN
     mail_plan = yao_person.get_plan_obj(mail_rope)
     assert mail_plan.pledge
-    assert mail_plan.task
+    assert mail_plan.plan_task
 
 
 def test_PersonUnit_conpute_ExecutesWithRangeRootFacts():
@@ -239,9 +239,9 @@ def test_PersonUnit_conpute_FactHeirDeletesFactUnit():
     assert swim_plan.factunits == {}
 
 
-def test_PersonUnit_conpute_SetstaskAsComplete():
+def test_PersonUnit_conpute_Setscase_taskAsComplete():
     # ESTABLISH
-    yao_person = get_personunit_1task_1ceo_minutes_reason_1fact()
+    yao_person = get_personunit_1case_task_1ceo_minutes_reason_1fact()
     mail_str = "obtain mail"
     assert yao_person is not None
     assert len(yao_person.planroot.kids[mail_str].reasonunits) == 1
@@ -251,11 +251,11 @@ def test_PersonUnit_conpute_SetstaskAsComplete():
     hr_rope = yao_person.make_l1_rope(hr_str)
     yao_person.add_fact(hr_rope, hr_rope, fact_lower=82, fact_upper=85)
     assert mail_plan.pledge
-    assert mail_plan.task
+    assert mail_plan.plan_task
 
     # WHEN
     yao_person.conpute()
 
     # THEN
     assert mail_plan.pledge
-    assert not mail_plan.task
+    assert not mail_plan.plan_task

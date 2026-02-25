@@ -1,14 +1,13 @@
 from os import makedirs as os_makedirs
 from pytest import fixture as pytest_fixture
 from src.ch00_py.file_toolbox import delete_dir
-from typing import Any, Generator, Literal
 
 
 def get_temp_dir() -> str:
     return "src/ch98_docs_builder"
 
 
-def get_temp_dir() -> Literal["src\\ch98_docs_builder\\test\\_util\\temp"]:
+def get_temp_dir() -> str:
     return "src\\ch98_docs_builder\\test\\_util\\temp"
 
 

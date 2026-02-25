@@ -1,5 +1,5 @@
 from os.path import exists as os_path_exists
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor, connect as sqlite3_connect
 from src.ch00_py.db_toolbox import db_table_exists, get_row_count
 from src.ch00_py.file_toolbox import save_json
 from src.ch02_partner.group import awardunit_shop
@@ -15,12 +15,12 @@ from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch18_world_etl.etl_main import etl_moment_job_jsons_to_job_tables
 from src.ch18_world_etl.etl_sqlstr import create_prime_tablename as prime_table
-from src.ch18_world_etl.test._util.ch18_env import get_temp_dir, temp_dir_setup
+from src.ch18_world_etl.test._util.ch18_env import cursor0, get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
-    temp_dir_setup,
+    temp_dir_setup, cursor0: Cursor
 ):  # sourcery skip: extract-method
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
@@ -48,50 +48,48 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     # print(f"{sue_person.get_plan_obj(casa_rope).to_dict()=}")
     save_job_file(moment_mstr_dir, sue_person)
 
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        prnmemb_job_table = prime_table(kw.prnmemb, kw.job, None)
-        prnptnr_job_table = prime_table(kw.prnptnr, kw.job, None)
-        prngrou_job_table = prime_table(kw.prngrou, kw.job, None)
-        prnawar_job_table = prime_table(kw.prnawar, kw.job, None)
-        prnfact_job_table = prime_table(kw.prnfact, kw.job, None)
-        prnheal_job_table = prime_table(kw.prnheal, kw.job, None)
-        prncase_job_table = prime_table(kw.prncase, kw.job, None)
-        prnreas_job_table = prime_table(kw.prnreas, kw.job, None)
-        prnlabo_job_table = prime_table(kw.prnlabo, kw.job, None)
-        prnplan_job_table = prime_table(kw.prnplan, kw.job, None)
-        prnunit_job_table = prime_table(kw.prnunit, kw.job, None)
-        assert not db_table_exists(cursor, prnunit_job_table)
-        assert not db_table_exists(cursor, prnplan_job_table)
-        assert not db_table_exists(cursor, prnptnr_job_table)
-        assert not db_table_exists(cursor, prnmemb_job_table)
-        assert not db_table_exists(cursor, prngrou_job_table)
-        assert not db_table_exists(cursor, prnawar_job_table)
-        assert not db_table_exists(cursor, prnfact_job_table)
-        assert not db_table_exists(cursor, prnheal_job_table)
-        assert not db_table_exists(cursor, prnreas_job_table)
-        assert not db_table_exists(cursor, prncase_job_table)
-        assert not db_table_exists(cursor, prnlabo_job_table)
+    prnmemb_job_table = prime_table(kw.prnmemb, kw.job, None)
+    prnptnr_job_table = prime_table(kw.prnptnr, kw.job, None)
+    prngrou_job_table = prime_table(kw.prngrou, kw.job, None)
+    prnawar_job_table = prime_table(kw.prnawar, kw.job, None)
+    prnfact_job_table = prime_table(kw.prnfact, kw.job, None)
+    prnheal_job_table = prime_table(kw.prnheal, kw.job, None)
+    prncase_job_table = prime_table(kw.prncase, kw.job, None)
+    prnreas_job_table = prime_table(kw.prnreas, kw.job, None)
+    prnlabo_job_table = prime_table(kw.prnlabo, kw.job, None)
+    prnplan_job_table = prime_table(kw.prnplan, kw.job, None)
+    prnunit_job_table = prime_table(kw.prnunit, kw.job, None)
+    assert not db_table_exists(cursor0, prnunit_job_table)
+    assert not db_table_exists(cursor0, prnplan_job_table)
+    assert not db_table_exists(cursor0, prnptnr_job_table)
+    assert not db_table_exists(cursor0, prnmemb_job_table)
+    assert not db_table_exists(cursor0, prngrou_job_table)
+    assert not db_table_exists(cursor0, prnawar_job_table)
+    assert not db_table_exists(cursor0, prnfact_job_table)
+    assert not db_table_exists(cursor0, prnheal_job_table)
+    assert not db_table_exists(cursor0, prnreas_job_table)
+    assert not db_table_exists(cursor0, prncase_job_table)
+    assert not db_table_exists(cursor0, prnlabo_job_table)
 
-        # WHEN
-        etl_moment_job_jsons_to_job_tables(cursor, moment_mstr_dir)
+    # WHEN
+    etl_moment_job_jsons_to_job_tables(cursor0, moment_mstr_dir)
 
-        # THEN
-        assert get_row_count(cursor, prnunit_job_table) == 1
-        assert get_row_count(cursor, prnplan_job_table) == 5
-        assert get_row_count(cursor, prnptnr_job_table) == 2
-        assert get_row_count(cursor, prnmemb_job_table) == 3
-        assert get_row_count(cursor, prngrou_job_table) == 3
-        assert get_row_count(cursor, prnawar_job_table) == 1
-        assert get_row_count(cursor, prnfact_job_table) == 1
-        assert get_row_count(cursor, prnheal_job_table) == 1
-        assert get_row_count(cursor, prnreas_job_table) == 1
-        assert get_row_count(cursor, prncase_job_table) == 1
-        assert get_row_count(cursor, prnlabo_job_table) == 1
+    # THEN
+    assert get_row_count(cursor0, prnunit_job_table) == 1
+    assert get_row_count(cursor0, prnplan_job_table) == 5
+    assert get_row_count(cursor0, prnptnr_job_table) == 2
+    assert get_row_count(cursor0, prnmemb_job_table) == 3
+    assert get_row_count(cursor0, prngrou_job_table) == 3
+    assert get_row_count(cursor0, prnawar_job_table) == 1
+    assert get_row_count(cursor0, prnfact_job_table) == 1
+    assert get_row_count(cursor0, prnheal_job_table) == 1
+    assert get_row_count(cursor0, prnreas_job_table) == 1
+    assert get_row_count(cursor0, prncase_job_table) == 1
+    assert get_row_count(cursor0, prnlabo_job_table) == 1
 
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
-    temp_dir_setup,
+    temp_dir_setup, cursor0: Cursor
 ):  # sourcery skip: extract-method
     # ESTABLISH
     sue_inx = "Suzy"
@@ -115,71 +113,69 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     a23_bob_job_path = create_job_path(moment_mstr_dir, a23_lasso, bob_inx)
     assert os_path_exists(moment_json_path)
     assert os_path_exists(a23_bob_job_path)
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        prnptnr_job_tablename = prime_table("prnptnr", kw.job, None)
-        assert not db_table_exists(cursor, prnptnr_job_tablename)
+    prnptnr_job_tablename = prime_table("prnptnr", kw.job, None)
+    assert not db_table_exists(cursor0, prnptnr_job_tablename)
 
-        # WHEN
-        etl_moment_job_jsons_to_job_tables(cursor, moment_mstr_dir)
+    # WHEN
+    etl_moment_job_jsons_to_job_tables(cursor0, moment_mstr_dir)
 
-        # THEN
-        assert get_row_count(cursor, prnptnr_job_tablename) == 3
-        rows = cursor.execute(f"SELECT * FROM {prnptnr_job_tablename}").fetchall()
-        print(rows)
-        assert rows == [
-            (
-                exx.a23,
-                "Bobby",
-                "Bobby",
-                77.0,
-                1.0,
-                ";",
-                368421053.0,
-                333333334.0,
-                368421053.0,
-                333333334.0,
-                368421053.0,
-                333333334.0,
-                0.368421053,
-                0.333333334,
-                0.0,
-                0.0,
-            ),
-            (
-                exx.a23,
-                "Bobby",
-                "Suzy",
-                88.0,
-                1.0,
-                ";",
-                421052631.0,
-                333333333.0,
-                421052631.0,
-                333333333.0,
-                421052631.0,
-                333333333.0,
-                0.421052631,
-                0.333333333,
-                0.0,
-                0.0,
-            ),
-            (
-                exx.a23,
-                "Bobby",
-                "Yaoe",
-                44.0,
-                1.0,
-                ";",
-                210526316.0,
-                333333333.0,
-                210526316.0,
-                333333333.0,
-                210526316.0,
-                333333333.0,
-                0.210526316,
-                0.333333333,
-                0.0,
-                0.0,
-            ),
-        ]
+    # THEN
+    assert get_row_count(cursor0, prnptnr_job_tablename) == 3
+    rows = cursor0.execute(f"SELECT * FROM {prnptnr_job_tablename}").fetchall()
+    print(rows)
+    assert rows == [
+        (
+            exx.a23,
+            "Bobby",
+            "Bobby",
+            77.0,
+            1.0,
+            ";",
+            368421053.0,
+            333333334.0,
+            368421053.0,
+            333333334.0,
+            368421053.0,
+            333333334.0,
+            0.368421053,
+            0.333333334,
+            0.0,
+            0.0,
+        ),
+        (
+            exx.a23,
+            "Bobby",
+            "Suzy",
+            88.0,
+            1.0,
+            ";",
+            421052631.0,
+            333333333.0,
+            421052631.0,
+            333333333.0,
+            421052631.0,
+            333333333.0,
+            0.421052631,
+            0.333333333,
+            0.0,
+            0.0,
+        ),
+        (
+            exx.a23,
+            "Bobby",
+            "Yaoe",
+            44.0,
+            1.0,
+            ";",
+            210526316.0,
+            333333333.0,
+            210526316.0,
+            333333333.0,
+            210526316.0,
+            333333333.0,
+            0.210526316,
+            0.333333333,
+            0.0,
+            0.0,
+        ),
+    ]
