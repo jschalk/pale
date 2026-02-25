@@ -1,4 +1,4 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor, connect as sqlite3_connect
 from src.ch00_py.db_toolbox import create_insert_query
 from src.ch07_person_logic.person_config import get_person_calc_dimen_args
 from src.ch18_world_etl.etl_sqlstr import create_job_tables
@@ -15,10 +15,11 @@ from src.ch18_world_etl.obj2db_person import (
     create_prnptnr_metrics_insert_sqlstr,
     create_prnreas_metrics_insert_sqlstr,
 )
+from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_create_personunit_metrics_insert_sqlstr_ReturnsObj():
+def test_create_personunit_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("personunit")
@@ -66,18 +67,16 @@ def test_create_personunit_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "personunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print(expected_sqlstr)
-        print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "personunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print(expected_sqlstr)
+    print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnplan_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnplan_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_planunit")
@@ -158,18 +157,16 @@ def test_create_prnplan_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_planunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print(expected_sqlstr)
-        print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_planunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print(expected_sqlstr)
+    print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_reasonunit")
@@ -219,18 +216,16 @@ def test_create_prnreas_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_plan_reasonunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print(expected_sqlstr)
-        print("")
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_plan_reasonunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print(expected_sqlstr)
+    print("")
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prncase_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_reason_caseunit")
@@ -287,18 +282,16 @@ def test_create_prncase_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_plan_reason_caseunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        # print(expected_sqlstr)
-        print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_plan_reason_caseunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    # print(expected_sqlstr)
+    print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_awardunit")
@@ -351,18 +344,16 @@ def test_create_prnawar_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_plan_awardunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_plan_awardunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_factunit")
@@ -413,18 +404,16 @@ def test_create_prnfact_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_plan_factunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_plan_factunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_healerunit")
@@ -469,18 +458,16 @@ def test_create_prnheal_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_plan_healerunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_plan_healerunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_plan_partyunit")
@@ -529,19 +516,17 @@ def test_create_prnlabo_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_plan_partyunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_plan_partyunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnptnr_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnptnr_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_partnerunit")
@@ -610,18 +595,16 @@ def test_create_prnptnr_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_partnerunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_partnerunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnmemb_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prnmemb_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_partner_membership")
@@ -686,18 +669,16 @@ def test_create_prnmemb_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_partner_membership_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_partner_membership_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prngrou_metrics_insert_sqlstr_ReturnsObj():
+def test_create_prngrou_metrics_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_args = get_person_calc_dimen_args("person_groupunit")
@@ -754,12 +735,10 @@ def test_create_prngrou_metrics_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_job_tables(cursor)
-        table_name = "person_groupunit_job"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_job_tables(cursor0)
+    table_name = "person_groupunit_job"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr

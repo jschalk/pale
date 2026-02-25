@@ -1,4 +1,4 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor, connect as sqlite3_connect
 from src.ch13_time.epoch_main import DEFAULT_EPOCH_LENGTH, get_c400_constants
 from src.ch15_nabu.nabu_config import get_nabu_config_dict
 from src.ch17_idea.idea_config import get_dimens_with_idea_element
@@ -9,6 +9,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     get_update_heard_agg_timenum_sqlstrs,
     update_heard_agg_timenum_columns,
 )
+from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ch18_world_etl.test._util.ch18_examples import (
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
     insert_mmtunit_special_c400_number as insert_c400_number,
@@ -102,33 +103,35 @@ WHERE {mmtpayy_h_agg_tablename}.{kw.spark_num} IN (SELECT {kw.spark_num} FROM {c
     assert generated_update_heard_agg_timenum_sqlstr == expected_sqlstr
 
 
-def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario2_PopulatesTableWithSingleRecord():
+def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario2_PopulatesTableWithSingleRecord(
+    cursor0: Cursor,
+):
     # ESTABLISH
     spark1 = 1
     s1_otx_time = 44
     s1_inx_time = 55
     x200_offi_time = 200
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        insert_otx_inx_time(cursor, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
-        insert_offi_time_otx(cursor, spark1, exx.sue, exx.a23, x200_offi_time)
-        mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
-        assert not select_offi_time_inx(cursor, spark1, exx.a23)[0][3]
+    create_sound_and_heard_tables(cursor0)
+    insert_otx_inx_time(cursor0, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
+    insert_offi_time_otx(cursor0, spark1, exx.sue, exx.a23, x200_offi_time)
+    mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
+    assert not select_offi_time_inx(cursor0, spark1, exx.a23)[0][3]
 
-        # WHEN
-        update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(
-            mmtoffi_h_agg_tablename, kw.offi_time
-        )
-        cursor.execute(update_mmtoffi_sql)
+    # WHEN
+    update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(
+        mmtoffi_h_agg_tablename, kw.offi_time
+    )
+    cursor0.execute(update_mmtoffi_sql)
 
-        # THEN
-        x211_offi_time = x200_offi_time + s1_otx_time - s1_inx_time
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == x211_offi_time
+    # THEN
+    x211_offi_time = x200_offi_time + s1_otx_time - s1_inx_time
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == x211_offi_time
 
 
-def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario3_PopulatesTableWithTwoRecords():
+def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario3_PopulatesTableWithTwoRecords(
+    cursor0: Cursor,
+):
     # ESTABLISH
     spark1 = 1
     spark3 = 3
@@ -139,35 +142,35 @@ def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario3_PopulatesTable
     s3_inx_time = 550
     s3_offi_time_otx = 2000
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        insert_otx_inx_time(cursor, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
-        insert_otx_inx_time(cursor, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
-        insert_offi_time_otx(cursor, spark1, exx.sue, exx.a23, s1_offi_time_otx)
-        insert_offi_time_otx(cursor, spark3, exx.sue, exx.a23, s3_offi_time_otx)
-        mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] is None
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] is None
+    create_sound_and_heard_tables(cursor0)
+    insert_otx_inx_time(cursor0, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
+    insert_otx_inx_time(cursor0, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
+    insert_offi_time_otx(cursor0, spark1, exx.sue, exx.a23, s1_offi_time_otx)
+    insert_offi_time_otx(cursor0, spark3, exx.sue, exx.a23, s3_offi_time_otx)
+    mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] is None
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] is None
 
-        # WHEN
-        update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(
-            mmtoffi_h_agg_tablename, kw.offi_time
-        )
-        cursor.execute(update_mmtoffi_sql)
+    # WHEN
+    update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(
+        mmtoffi_h_agg_tablename, kw.offi_time
+    )
+    cursor0.execute(update_mmtoffi_sql)
 
-        # THEN
-        s1_inx_epoch_diff = s1_otx_time - s1_inx_time
-        s3_inx_epoch_diff = s3_otx_time - s3_inx_time
-        s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
-        s3_offi_time_inx = s3_offi_time_otx + s3_inx_epoch_diff
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == s1_offi_time_inx
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == s3_offi_time_inx
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == 189
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == 1850
+    # THEN
+    s1_inx_epoch_diff = s1_otx_time - s1_inx_time
+    s3_inx_epoch_diff = s3_otx_time - s3_inx_time
+    s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
+    s3_offi_time_inx = s3_offi_time_otx + s3_inx_epoch_diff
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == s1_offi_time_inx
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == s3_offi_time_inx
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == 189
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == 1850
 
 
-def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario4_PopulatesTableWithTwoRecordsAndDoesModularMath():
+def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario4_PopulatesTableWithTwoRecordsAndDoesModularMath(
+    cursor0: Cursor,
+):
     # ESTABLISH
     spark1 = 1
     spark3 = 3
@@ -182,33 +185,31 @@ def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario4_PopulatesTable
     s3_inx_time = 550
     s3_offi_time_otx = 2000
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        insert_c400_number(cursor, spark1, exx.sue, exx.a23, a23_c400_number)
-        insert_otx_inx_time(cursor, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
-        insert_otx_inx_time(cursor, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
-        insert_offi_time_otx(cursor, spark1, exx.sue, exx.a23, s1_offi_time_otx)
-        insert_offi_time_otx(cursor, spark3, exx.sue, exx.a23, s3_offi_time_otx)
-        mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] is None
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] is None
+    create_sound_and_heard_tables(cursor0)
+    insert_c400_number(cursor0, spark1, exx.sue, exx.a23, a23_c400_number)
+    insert_otx_inx_time(cursor0, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
+    insert_otx_inx_time(cursor0, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
+    insert_offi_time_otx(cursor0, spark1, exx.sue, exx.a23, s1_offi_time_otx)
+    insert_offi_time_otx(cursor0, spark3, exx.sue, exx.a23, s3_offi_time_otx)
+    mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] is None
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] is None
 
-        # WHEN
-        update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(
-            mmtoffi_h_agg_tablename, kw.offi_time
-        )
-        cursor.execute(update_mmtoffi_sql)
+    # WHEN
+    update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(
+        mmtoffi_h_agg_tablename, kw.offi_time
+    )
+    cursor0.execute(update_mmtoffi_sql)
 
-        # THEN
-        s1_inx_epoch_diff = s1_otx_time - s1_inx_time
-        s3_inx_epoch_diff = s3_otx_time - s3_inx_time
-        s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
-        s3_offi_time_inx = (s3_offi_time_otx + s3_inx_epoch_diff) % a23_epoch_length
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == s1_offi_time_inx
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == s3_offi_time_inx
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == 189
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == 1850
+    # THEN
+    s1_inx_epoch_diff = s1_otx_time - s1_inx_time
+    s3_inx_epoch_diff = s3_otx_time - s3_inx_time
+    s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
+    s3_offi_time_inx = (s3_offi_time_otx + s3_inx_epoch_diff) % a23_epoch_length
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == s1_offi_time_inx
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == s3_offi_time_inx
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == 189
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == 1850
 
 
 def test_get_update_heard_agg_timenum_sqlstrs_ReturnsObj():
@@ -238,7 +239,9 @@ def test_get_update_heard_agg_timenum_sqlstrs_ReturnsObj():
     assert gen_update_sqlstrs == expected_update_sqlstrs
 
 
-def test_update_heard_agg_timenum_columns_UpdatesDB_Scenario0_TwoRecordsAndDoesModularMath():
+def test_update_heard_agg_timenum_columns_UpdatesDB_Scenario0_TwoRecordsAndDoesModularMath(
+    cursor0: Cursor,
+):
     # ESTABLISH
     spark1 = 1
     spark3 = 3
@@ -253,27 +256,25 @@ def test_update_heard_agg_timenum_columns_UpdatesDB_Scenario0_TwoRecordsAndDoesM
     s3_inx_time = 550
     s3_offi_time_otx = 2000
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        insert_c400_number(cursor, spark1, exx.sue, exx.a23, a23_c400_number)
-        insert_otx_inx_time(cursor, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
-        insert_otx_inx_time(cursor, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
-        insert_offi_time_otx(cursor, spark1, exx.sue, exx.a23, s1_offi_time_otx)
-        insert_offi_time_otx(cursor, spark3, exx.sue, exx.a23, s3_offi_time_otx)
-        mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] is None
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] is None
+    create_sound_and_heard_tables(cursor0)
+    insert_c400_number(cursor0, spark1, exx.sue, exx.a23, a23_c400_number)
+    insert_otx_inx_time(cursor0, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
+    insert_otx_inx_time(cursor0, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
+    insert_offi_time_otx(cursor0, spark1, exx.sue, exx.a23, s1_offi_time_otx)
+    insert_offi_time_otx(cursor0, spark3, exx.sue, exx.a23, s3_offi_time_otx)
+    mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] is None
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] is None
 
-        # WHEN
-        update_heard_agg_timenum_columns(cursor)
+    # WHEN
+    update_heard_agg_timenum_columns(cursor0)
 
-        # THEN
-        s1_inx_epoch_diff = s1_otx_time - s1_inx_time
-        s3_inx_epoch_diff = s3_otx_time - s3_inx_time
-        s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
-        s3_offi_time_inx = (s3_offi_time_otx + s3_inx_epoch_diff) % a23_epoch_length
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == s1_offi_time_inx
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == s3_offi_time_inx
-        assert select_offi_time_inx(cursor, spark1, exx.a23)[0][3] == 189
-        assert select_offi_time_inx(cursor, spark3, exx.a23)[0][3] == 1850
+    # THEN
+    s1_inx_epoch_diff = s1_otx_time - s1_inx_time
+    s3_inx_epoch_diff = s3_otx_time - s3_inx_time
+    s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
+    s3_offi_time_inx = (s3_offi_time_otx + s3_inx_epoch_diff) % a23_epoch_length
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == s1_offi_time_inx
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == s3_offi_time_inx
+    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == 189
+    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == 1850

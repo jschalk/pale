@@ -1,4 +1,4 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor, connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count, get_table_columns
 from src.ch18_world_etl.etl_main import (
     etl_sound_raw_tables_to_sound_agg_tables,
@@ -11,10 +11,13 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_sound_and_heard_tables,
     create_sound_raw_update_inconsist_error_message_sqlstr,
 )
+from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdatesTable_Scenario0():
+def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdatesTable_Scenario0(
+    cursor0: Cursor,
+):
     # ESTABLISH
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -25,12 +28,10 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdat
     spark5 = 5
     spark7 = 7
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        cursor.execute(CREATE_TRLROPE_SOUND_RAW_SQLSTR)
-        trlrope_str = "translate_rope"
-        trlrope_s_raw_tablename = create_prime_tablename(trlrope_str, "s", "raw")
-        insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
+    cursor0.execute(CREATE_TRLROPE_SOUND_RAW_SQLSTR)
+    trlrope_str = "translate_rope"
+    trlrope_s_raw_tablename = create_prime_tablename(trlrope_str, "s", "raw")
+    insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -41,10 +42,10 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdat
 , {kw.unknown_str}
 , {kw.error_message}
 )"""
-        b117 = "br00117"
-        b045 = "br00045"
-        b077 = "br00077"
-        values_clause = f"""
+    b117 = "br00117"
+    b045 = "br00045"
+    b077 = "br00077"
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.yao}', '{yao_inx}', NULL, NULL, NULL, NULL)
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, NULL)
@@ -54,21 +55,21 @@ VALUES
 , ('{b045}', {spark7}, '{exx.yao}', '{exx.yao}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        error_count_sqlstr = f"SELECT COUNT(*) FROM {trlrope_s_raw_tablename} WHERE {kw.error_message} IS NOT NULL"
-        assert cursor.execute(error_count_sqlstr).fetchone()[0] == 0
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    error_count_sqlstr = f"SELECT COUNT(*) FROM {trlrope_s_raw_tablename} WHERE {kw.error_message} IS NOT NULL"
+    assert cursor0.execute(error_count_sqlstr).fetchone()[0] == 0
 
-        # WHEN
-        sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
-            cursor, trlrope_str
-        )
-        cursor.execute(sqlstr)
+    # WHEN
+    sqlstr = create_sound_raw_update_inconsist_error_message_sqlstr(
+        cursor0, trlrope_str
+    )
+    cursor0.execute(sqlstr)
 
-        # THEN
-        assert cursor.execute(error_count_sqlstr).fetchone()[0] == 2
+    # THEN
+    assert cursor0.execute(error_count_sqlstr).fetchone()[0] == 2
 
 
-def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0():
+def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0(cursor0: Cursor):
     # ESTABLISH
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -79,11 +80,9 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0():
     spark5 = 5
     spark7 = 7
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        trlrope_s_raw_tablename = create_prime_tablename(kw.translate_rope, "s", "raw")
-        insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
+    create_sound_and_heard_tables(cursor0)
+    trlrope_s_raw_tablename = create_prime_tablename(kw.translate_rope, "s", "raw")
+    insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -94,10 +93,10 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0():
 , {kw.unknown_str}
 , {kw.error_message}
 )"""
-        b117 = "br00117"
-        b045 = "br00045"
-        b077 = "br00077"
-        values_clause = f"""
+    b117 = "br00117"
+    b045 = "br00045"
+    b077 = "br00077"
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.yao}', '{yao_inx}', NULL, NULL, NULL, NULL)
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, NULL)
@@ -107,21 +106,23 @@ VALUES
 , ('{b045}', {spark7}, '{exx.yao}', '{exx.yao}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        error_count_sqlstr = f"SELECT COUNT(*) FROM {trlrope_s_raw_tablename} WHERE {kw.error_message} IS NOT NULL"
-        assert cursor.execute(error_count_sqlstr).fetchone()[0] == 0
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    error_count_sqlstr = f"SELECT COUNT(*) FROM {trlrope_s_raw_tablename} WHERE {kw.error_message} IS NOT NULL"
+    assert cursor0.execute(error_count_sqlstr).fetchone()[0] == 0
 
-        # WHEN
-        set_sound_raw_tables_error_message(cursor)
+    # WHEN
+    set_sound_raw_tables_error_message(cursor0)
 
-        # THEN
-        assert cursor.execute(error_count_sqlstr).fetchone()[0] == 2
-        error_select_sqlstr = f"SELECT idea_number, spark_num FROM {trlrope_s_raw_tablename} WHERE {kw.error_message} IS NOT NULL"
-        cursor.execute(error_select_sqlstr)
-        assert cursor.fetchall() == [("br00117", 1), ("br00077", 1)]
+    # THEN
+    assert cursor0.execute(error_count_sqlstr).fetchone()[0] == 2
+    error_select_sqlstr = f"SELECT idea_number, spark_num FROM {trlrope_s_raw_tablename} WHERE {kw.error_message} IS NOT NULL"
+    cursor0.execute(error_select_sqlstr)
+    assert cursor0.fetchall() == [("br00117", 1), ("br00077", 1)]
 
 
-def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_person_raw_del():
+def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_person_raw_del(
+    cursor0: Cursor,
+):
     # ESTABLISH
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -132,13 +133,9 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_person_raw_de
     spark5 = 5
     spark7 = 7
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        persona_s_raw_del = create_prime_tablename(
-            kw.person_partnerunit, "s", "raw", "del"
-        )
-        insert_into_clause = f"""INSERT INTO {persona_s_raw_del} (
+    create_sound_and_heard_tables(cursor0)
+    persona_s_raw_del = create_prime_tablename(kw.person_partnerunit, "s", "raw", "del")
+    insert_into_clause = f"""INSERT INTO {persona_s_raw_del} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -146,10 +143,10 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_person_raw_de
 , {kw.person_name}
 , {kw.partner_name}_ERASE
 )"""
-        b117 = "br00117"
-        b045 = "br00045"
-        b077 = "br00077"
-        values_clause = f"""
+    b117 = "br00117"
+    b045 = "br00045"
+    b077 = "br00077"
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}','{exx.yao}', '{yao_inx}')
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}','{exx.bob}', '{bob_inx}')
@@ -157,17 +154,17 @@ VALUES
 , ('{b077}', {spark1}, '{exx.sue}', '{exx.a23}','{exx.bob}', '{exx.bob}')
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        error_count_sqlstr = f"SELECT COUNT(*) FROM {persona_s_raw_del}"
-        assert cursor.execute(error_count_sqlstr).fetchone()[0] == 4
-        assert kw.error_message not in get_table_columns(cursor, persona_s_raw_del)
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    error_count_sqlstr = f"SELECT COUNT(*) FROM {persona_s_raw_del}"
+    assert cursor0.execute(error_count_sqlstr).fetchone()[0] == 4
+    assert kw.error_message not in get_table_columns(cursor0, persona_s_raw_del)
 
-        # WHEN
-        set_sound_raw_tables_error_message(cursor)
+    # WHEN
+    set_sound_raw_tables_error_message(cursor0)
 
-        # THEN No Error message is added and updated
-        assert cursor.execute(error_count_sqlstr).fetchone()[0] == 4
-        assert kw.error_message not in get_table_columns(cursor, persona_s_raw_del)
+    # THEN No Error message is added and updated
+    assert cursor0.execute(error_count_sqlstr).fetchone()[0] == 4
+    assert kw.error_message not in get_table_columns(cursor0, persona_s_raw_del)
 
 
 # TODO copy over and use these tests?
@@ -180,7 +177,9 @@ VALUES
 # test_moment_raw_tables2moment_agg_tables_Scenario6_mmtpayy_Some_error_message
 
 
-def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario0():
+def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario0(
+    cursor0: Cursor,
+):
     # ESTABLISH
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -191,11 +190,9 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
     spark5 = 5
     spark7 = 7
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s", "raw")
-        insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
+    create_sound_and_heard_tables(cursor0)
+    trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s", "raw")
+    insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -206,11 +203,11 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
 , {kw.unknown_str}
 , {kw.error_message}
 )"""
-        b117 = "br00117"
-        b020 = "br00020"
-        b045 = "br00045"
-        inconsistent_data_str = "Inconsistent data"
-        values_clause = f"""
+    b117 = "br00117"
+    b020 = "br00020"
+    b045 = "br00045"
+    inconsistent_data_str = "Inconsistent data"
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.yao}', '{yao_inx}', NULL, NULL, NULL, '{inconsistent_data_str}')
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.bob}', '{bob_inx}', NULL, NULL, NULL, NULL)
@@ -221,9 +218,9 @@ VALUES
 , ('{b045}', {spark7}, '{exx.yao}', '{exx.yao}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', '{inconsistent_data_str}')
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "put")
-        insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "put")
+    insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -234,7 +231,7 @@ VALUES
 , {kw.partner_debt_lumen}
 , {kw.error_message}
 )"""
-        values_clause = f"""
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.yao}', NULL, NULL, '{inconsistent_data_str}')
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
@@ -244,62 +241,52 @@ VALUES
 , ('{b020}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}', NULL, NULL, NULL)
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        trlrope_s_agg_tablename = create_prime_tablename("TRLROPE", "s", "agg")
-        prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "put")
-        assert get_row_count(cursor, trlrope_s_raw_tablename) == 7
-        assert get_row_count(cursor, prnptnr_s_put_raw_tblname) == 6
-        assert get_row_count(cursor, trlrope_s_agg_tablename) == 0
-        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 0
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    trlrope_s_agg_tablename = create_prime_tablename("TRLROPE", "s", "agg")
+    prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "put")
+    assert get_row_count(cursor0, trlrope_s_raw_tablename) == 7
+    assert get_row_count(cursor0, prnptnr_s_put_raw_tblname) == 6
+    assert get_row_count(cursor0, trlrope_s_agg_tablename) == 0
+    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 0
 
-        # WHEN
-        insert_sound_raw_selects_into_sound_agg_tables(cursor)
+    # WHEN
+    insert_sound_raw_selects_into_sound_agg_tables(cursor0)
 
-        # THEN
-        assert get_row_count(cursor, trlrope_s_agg_tablename) == 2
-        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 2
+    # THEN
+    assert get_row_count(cursor0, trlrope_s_agg_tablename) == 2
+    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 2
 
-        select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
-        cursor.execute(select_agg_sqlstr)
-        rows = cursor.fetchall()
-        print(rows)
-        assert len(rows) == 2
-        assert rows == [
-            (spark1, exx.sue, exx.bob, bob_inx, None, None, None, None),
-            (spark2, exx.sue, exx.sue, exx.sue, rdx, rdx, ukx, None),
-        ]
+    select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
+    cursor0.execute(select_agg_sqlstr)
+    rows = cursor0.fetchall()
+    print(rows)
+    assert len(rows) == 2
+    assert rows == [
+        (spark1, exx.sue, exx.bob, bob_inx, None, None, None, None),
+        (spark2, exx.sue, exx.sue, exx.sue, rdx, rdx, ukx, None),
+    ]
 
-        select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
-        cursor.execute(select_agg_sqlstr)
-        rows = cursor.fetchall()
-        print(rows)
-        assert len(rows) == 2
-        assert rows == [
-            (spark1, exx.sue, exx.a23, exx.bob, exx.bob, None, None, None),
-            (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
-        ]
+    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
+    cursor0.execute(select_agg_sqlstr)
+    rows = cursor0.fetchall()
+    print(rows)
+    assert len(rows) == 2
+    assert rows == [
+        (spark1, exx.sue, exx.a23, exx.bob, exx.bob, None, None, None),
+        (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
+    ]
 
 
-def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario1_del_table():
+def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario1_del_table(
+    cursor0: Cursor,
+):
     # ESTABLISH
-    yao_inx = "Yaoito"
-    bob_inx = "Bobito"
-    rdx = ":"
-    ukx = "Unknown"
     spark1 = 1
-    spark2 = 2
-    spark5 = 5
-    spark7 = 7
     b117 = "br00117"
     b020 = "br00020"
-    b045 = "br00045"
-    inconsistent_data_str = "Inconsistent data"
-
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        prnptnr_s_del_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "del")
-        insert_into_clause = f"""INSERT INTO {prnptnr_s_del_raw_tblname} (
+    create_sound_and_heard_tables(cursor0)
+    prnptnr_s_del_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "del")
+    insert_into_clause = f"""INSERT INTO {prnptnr_s_del_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -307,7 +294,7 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
 , {kw.person_name}
 , {kw.partner_name}_ERASE
 )"""
-        values_clause = f"""
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.yao}')
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.bob}')
@@ -317,29 +304,31 @@ VALUES
 , ('{b020}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}')
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        prnptnr_s_del_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "del")
-        assert get_row_count(cursor, prnptnr_s_del_raw_tblname) == 6
-        assert get_row_count(cursor, prnptnr_s_del_agg_tblname) == 0
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    prnptnr_s_del_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "del")
+    assert get_row_count(cursor0, prnptnr_s_del_raw_tblname) == 6
+    assert get_row_count(cursor0, prnptnr_s_del_agg_tblname) == 0
 
-        # WHEN
-        insert_sound_raw_selects_into_sound_agg_tables(cursor)
+    # WHEN
+    insert_sound_raw_selects_into_sound_agg_tables(cursor0)
 
-        # THEN
-        assert get_row_count(cursor, prnptnr_s_del_agg_tblname) == 3
+    # THEN
+    assert get_row_count(cursor0, prnptnr_s_del_agg_tblname) == 3
 
-        select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_del_agg_tblname};"""
-        cursor.execute(select_agg_sqlstr)
-        rows = cursor.fetchall()
-        print(rows)
-        assert rows == [
-            (spark1, exx.sue, exx.a23, exx.bob, exx.bob, None),
-            (spark1, exx.sue, exx.a23, exx.bob, exx.yao, None),
-            (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None),
-        ]
+    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_del_agg_tblname};"""
+    cursor0.execute(select_agg_sqlstr)
+    rows = cursor0.fetchall()
+    print(rows)
+    assert rows == [
+        (spark1, exx.sue, exx.a23, exx.bob, exx.bob, None),
+        (spark1, exx.sue, exx.a23, exx.bob, exx.yao, None),
+        (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None),
+    ]
 
 
-def test_etl_sound_raw_tables_to_sound_agg_tables_PopulatesValidTable_Scenario0():
+def test_etl_sound_raw_tables_to_sound_agg_tables_PopulatesValidTable_Scenario0(
+    cursor0: Cursor,
+):
     # ESTABLISH
     yao_inx = "Yaoito"
     bob_inx = "Bobito"
@@ -350,11 +339,9 @@ def test_etl_sound_raw_tables_to_sound_agg_tables_PopulatesValidTable_Scenario0(
     spark5 = 5
     spark7 = 7
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s", "raw")
-        insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
+    create_sound_and_heard_tables(cursor0)
+    trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s", "raw")
+    insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -365,11 +352,11 @@ def test_etl_sound_raw_tables_to_sound_agg_tables_PopulatesValidTable_Scenario0(
 , {kw.unknown_str}
 , {kw.error_message}
 )"""
-        b117 = "br00117"
-        b020 = "br00020"
-        b045 = "br00045"
-        inconsistent_data_str = "Inconsistent data"
-        values_clause = f"""
+    b117 = "br00117"
+    b020 = "br00020"
+    b045 = "br00045"
+    inconsistent_data_str = "Inconsistent data"
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.yao}', '{yao_inx}', NULL, NULL, NULL, NULL)
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.yao}', '{exx.yao}', NULL, NULL, NULL, NULL)
@@ -381,9 +368,9 @@ VALUES
 , ('{b045}', {spark7}, '{exx.yao}', '{exx.bob}', '{yao_inx}', '{rdx}', '{rdx}', '{ukx}', NULL)
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "put")
-        insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s", "raw", "put")
+    insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -394,7 +381,7 @@ VALUES
 , {kw.partner_debt_lumen}
 , {kw.error_message}
 )"""
-        values_clause = f"""
+    values_clause = f"""
 VALUES
   ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.yao}', NULL, NULL, NULL)
 , ('{b117}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.bob}', '{exx.bob}', NULL, NULL, NULL)
@@ -405,38 +392,38 @@ VALUES
 , ('{b020}', {spark1}, '{exx.sue}', '{exx.a23}', '{exx.yao}', '{exx.yao}', NULL, NULL, NULL)
 ;
 """
-        cursor.execute(f"{insert_into_clause} {values_clause}")
-        trlrope_s_agg_tablename = create_prime_tablename("TRLROPE", "s", "agg")
-        prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "put")
-        assert get_row_count(cursor, trlrope_s_raw_tablename) == 8
-        assert get_row_count(cursor, prnptnr_s_put_raw_tblname) == 7
-        assert get_row_count(cursor, trlrope_s_agg_tablename) == 0
-        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 0
+    cursor0.execute(f"{insert_into_clause} {values_clause}")
+    trlrope_s_agg_tablename = create_prime_tablename("TRLROPE", "s", "agg")
+    prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s", "agg", "put")
+    assert get_row_count(cursor0, trlrope_s_raw_tablename) == 8
+    assert get_row_count(cursor0, prnptnr_s_put_raw_tblname) == 7
+    assert get_row_count(cursor0, trlrope_s_agg_tablename) == 0
+    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 0
 
-        # WHEN
-        etl_sound_raw_tables_to_sound_agg_tables(cursor)
+    # WHEN
+    etl_sound_raw_tables_to_sound_agg_tables(cursor0)
 
-        # THEN
-        assert get_row_count(cursor, trlrope_s_agg_tablename) == 4
-        assert get_row_count(cursor, prnptnr_s_put_agg_tblname) == 3
+    # THEN
+    assert get_row_count(cursor0, trlrope_s_agg_tablename) == 4
+    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 3
 
-        select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
-        cursor.execute(select_agg_sqlstr)
-        rows = cursor.fetchall()
-        print(rows)
-        assert rows == [
-            (spark1, exx.sue, exx.bob, bob_inx, None, None, None, None),
-            (spark2, exx.sue, exx.sue, exx.sue, rdx, rdx, ukx, None),
-            (spark5, exx.sue, exx.bob, bob_inx, rdx, rdx, ukx, None),
-            (spark7, exx.yao, exx.bob, yao_inx, rdx, rdx, ukx, None),
-        ]
+    select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
+    cursor0.execute(select_agg_sqlstr)
+    rows = cursor0.fetchall()
+    print(rows)
+    assert rows == [
+        (spark1, exx.sue, exx.bob, bob_inx, None, None, None, None),
+        (spark2, exx.sue, exx.sue, exx.sue, rdx, rdx, ukx, None),
+        (spark5, exx.sue, exx.bob, bob_inx, rdx, rdx, ukx, None),
+        (spark7, exx.yao, exx.bob, yao_inx, rdx, rdx, ukx, None),
+    ]
 
-        select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
-        cursor.execute(select_agg_sqlstr)
-        rows = cursor.fetchall()
-        print(rows)
-        assert rows == [
-            (spark1, exx.sue, exx.a23, exx.bob, exx.bob, None, None, None),
-            (spark1, exx.sue, exx.a23, exx.bob, exx.yao, None, None, None),
-            (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
-        ]
+    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
+    cursor0.execute(select_agg_sqlstr)
+    rows = cursor0.fetchall()
+    print(rows)
+    assert rows == [
+        (spark1, exx.sue, exx.a23, exx.bob, exx.bob, None, None, None),
+        (spark1, exx.sue, exx.a23, exx.bob, exx.yao, None, None, None),
+        (spark1, exx.sue, exx.a23, exx.yao, exx.yao, None, None, None),
+    ]

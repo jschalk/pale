@@ -1,4 +1,4 @@
-from sqlite3 import connect as sqlite3_connect
+from sqlite3 import Cursor, connect as sqlite3_connect
 from src.ch00_py.db_toolbox import create_insert_query
 from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict as get_etl_config,
@@ -20,10 +20,11 @@ from src.ch18_world_etl.obj2db_person import (
     create_prnreas_h_put_agg_insert_sqlstr,
     create_prnunit_h_put_agg_insert_sqlstr,
 )
+from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_moment_rope = exx.a23
@@ -60,18 +61,16 @@ def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        table_name = "personunit_h_put_agg"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        # print(expected_sqlstr)
-        # print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_sound_and_heard_tables(cursor0)
+    table_name = "personunit_h_put_agg"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    # print(expected_sqlstr)
+    # print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
@@ -130,18 +129,16 @@ def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        table_name = "person_planunit_h_put_agg"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        # print(expected_sqlstr)
-        # print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_sound_and_heard_tables(cursor0)
+    table_name = "person_planunit_h_put_agg"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    # print(expected_sqlstr)
+    # print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
@@ -168,18 +165,16 @@ def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        table_name = "person_plan_reasonunit_h_put_agg"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        # print(expected_sqlstr)
-        print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_sound_and_heard_tables(cursor0)
+    table_name = "person_plan_reasonunit_h_put_agg"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    # print(expected_sqlstr)
+    print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
@@ -214,15 +209,13 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        table_name = "person_plan_reason_caseunit_h_put_agg"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        # print(expected_sqlstr)
-        print("")
-        print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_sound_and_heard_tables(cursor0)
+    table_name = "person_plan_reason_caseunit_h_put_agg"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    # print(expected_sqlstr)
+    print("")
+    print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_prnawar_h_put_agg_insert_sqlstr_ReturnsObj():
@@ -236,16 +229,16 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fund_give = 5
 #     x_fund_take = 6
 #     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_rope: x_moment_rope,
-#         kw.person_name: x_person_name,
-#         kw.plan_rope: x_rope,
-#         kw.awardee_title: x_awardee_title,
-#         kw.give_force: x_give_force,
-#         kw.take_force: x_take_force,
-#         kw.fund_give: x_fund_give,
-#         kw.fund_take: x_fund_take,
+#     kw.spark_num: 77,
+#     kw.face_name: exx.yao,
+#     kw.moment_rope: x_moment_rope,
+#     kw.person_name: x_person_name,
+#     kw.plan_rope: x_rope,
+#     kw.awardee_title: x_awardee_title,
+#     kw.give_force: x_give_force,
+#     kw.take_force: x_take_force,
+#     kw.fund_give: x_fund_give,
+#     kw.fund_take: x_fund_take,
 #     }
 #     all args included in values dict
 #     etl_config = get_etl_config()
@@ -259,18 +252,17 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj():
 
 #     # THEN
 #     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "person_plan_awardunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print("")
-#         print(expected_sqlstr)
-#         # print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     table_name = "person_plan_awardunit_h_put_agg"
+#     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+#     print("")
+#     print(expected_sqlstr)
+#     # print(insert_sqlstr)
+#     assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
+def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
@@ -303,15 +295,13 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
     # THEN
     assert insert_sqlstr
-    with sqlite3_connect(":memory:") as conn:
-        cursor = conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        table_name = "person_plan_factunit_h_put_agg"
-        expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-        print("")
-        print(expected_sqlstr)
-        # print(insert_sqlstr)
-        assert insert_sqlstr == expected_sqlstr
+    create_sound_and_heard_tables(cursor0)
+    table_name = "person_plan_factunit_h_put_agg"
+    expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+    print("")
+    print(expected_sqlstr)
+    # print(insert_sqlstr)
+    assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_prnheal_h_put_agg_insert_sqlstr_ReturnsObj():
@@ -321,12 +311,12 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_rope = 1
 #     x_healer_name = 2
 #     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_rope: x_moment_rope,
-#         kw.person_name: x_person_name,
-#         kw.plan_rope: x_rope,
-#         kw.healer_name: x_healer_name,
+#     kw.spark_num: 77,
+#     kw.face_name: exx.yao,
+#     kw.moment_rope: x_moment_rope,
+#     kw.person_name: x_person_name,
+#     kw.plan_rope: x_rope,
+#     kw.healer_name: x_healer_name,
 #     }
 #     all args included in values dict
 #     etl_config = get_etl_config()
@@ -340,15 +330,14 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 #     # THEN
 #     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "person_plan_healerunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print("")
-#         print(expected_sqlstr)
-#         # print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     table_name = "person_plan_healerunit_h_put_agg"
+#     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+#     print("")
+#     print(expected_sqlstr)
+#     # print(insert_sqlstr)
+#     assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_prnlabo_h_put_agg_insert_sqlstr_ReturnsObj():
@@ -360,14 +349,14 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_solo = 4
 #     x__person_name_is_labor = 3
 #     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_rope: x_moment_rope,
-#         kw.person_name: x_person_name,
-#         kw.plan_rope: x_rope,
-#         kw.party_title: x_party_title,
-#         kw.solo: x_solo,
-#         kw.person_name_is_labor: x__person_name_is_labor,
+#     kw.spark_num: 77,
+#     kw.face_name: exx.yao,
+#     kw.moment_rope: x_moment_rope,
+#     kw.person_name: x_person_name,
+#     kw.plan_rope: x_rope,
+#     kw.party_title: x_party_title,
+#     kw.solo: x_solo,
+#     kw.person_name_is_labor: x__person_name_is_labor,
 #     }
 #     all args included in values dict
 #     etl_config = get_etl_config()
@@ -381,16 +370,15 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 #     # THEN
 #     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "person_plan_partyunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print("")
-#         print(expected_sqlstr)
-#         print("")
-#         print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     table_name = "person_plan_partyunit_h_put_agg"
+#     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+#     print("")
+#     print(expected_sqlstr)
+#     print("")
+#     print(insert_sqlstr)
+#     assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_prnptnr_h_put_agg_insert_sqlstr_ReturnsObj():
@@ -412,24 +400,24 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_irrational_partner_debt_lumen = 13
 #     x_groupmark = 13
 #     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_rope: x_moment_rope,
-#         kw.person_name: x_person_name,
-#         kw.partner_name: x_partner_name,
-#         kw.partner_cred_lumen: x_partner_cred_lumen,
-#         kw.partner_debt_lumen: x_partner_debt_lumen,
-#         kw.credor_pool: x_credor_pool,
-#         kw.debtor_pool: x_debtor_pool,
-#         kw.fund_give: x_fund_give,
-#         kw.fund_take: x_fund_take,
-#         kw.fund_agenda_give: x_fund_agenda_give,
-#         kw.fund_agenda_take: x_fund_agenda_take,
-#         kw.fund_agenda_ratio_give: x_fund_agenda_ratio_give,
-#         kw.fund_agenda_ratio_take: x_fund_agenda_ratio_take,
-#         kw.inallocable_partner_debt_lumen: x_inallocable_partner_debt_lumen,
-#         kw.irrational_partner_debt_lumen: x_irrational_partner_debt_lumen,
-#         kw.groupmark: x_groupmark,
+#     kw.spark_num: 77,
+#     kw.face_name: exx.yao,
+#     kw.moment_rope: x_moment_rope,
+#     kw.person_name: x_person_name,
+#     kw.partner_name: x_partner_name,
+#     kw.partner_cred_lumen: x_partner_cred_lumen,
+#     kw.partner_debt_lumen: x_partner_debt_lumen,
+#     kw.credor_pool: x_credor_pool,
+#     kw.debtor_pool: x_debtor_pool,
+#     kw.fund_give: x_fund_give,
+#     kw.fund_take: x_fund_take,
+#     kw.fund_agenda_give: x_fund_agenda_give,
+#     kw.fund_agenda_take: x_fund_agenda_take,
+#     kw.fund_agenda_ratio_give: x_fund_agenda_ratio_give,
+#     kw.fund_agenda_ratio_take: x_fund_agenda_ratio_take,
+#     kw.inallocable_partner_debt_lumen: x_inallocable_partner_debt_lumen,
+#     kw.irrational_partner_debt_lumen: x_irrational_partner_debt_lumen,
+#     kw.groupmark: x_groupmark,
 #     }
 #     all args included in values dict
 #     etl_config = get_etl_config()
@@ -443,15 +431,14 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 #     # THEN
 #     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "person_partnerunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print("")
-#         print(expected_sqlstr)
-#         # print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     table_name = "person_partnerunit_h_put_agg"
+#     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+#     print("")
+#     print(expected_sqlstr)
+#     # print(insert_sqlstr)
+#     assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_prnmemb_h_put_agg_insert_sqlstr_ReturnsObj():
@@ -471,22 +458,22 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fund_agenda_ratio_give = 11
 #     x_fund_agenda_ratio_take = 12
 #     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_rope: x_moment_rope,
-#         kw.person_name: x_person_name,
-#         kw.partner_name: x_partner_name,
-#         kw.group_title: x_group_title,
-#         kw.group_cred_lumen: x_group_cred_lumen,
-#         kw.group_debt_lumen: x_group_debt_lumen,
-#         kw.credor_pool: x_credor_pool,
-#         kw.debtor_pool: x_debtor_pool,
-#         kw.fund_give: x_fund_give,
-#         kw.fund_take: x_fund_take,
-#         kw.fund_agenda_give: x_fund_agenda_give,
-#         kw.fund_agenda_take: x_fund_agenda_take,
-#         kw.fund_agenda_ratio_give: x_fund_agenda_ratio_give,
-#         kw.fund_agenda_ratio_take: x_fund_agenda_ratio_take,
+#     kw.spark_num: 77,
+#     kw.face_name: exx.yao,
+#     kw.moment_rope: x_moment_rope,
+#     kw.person_name: x_person_name,
+#     kw.partner_name: x_partner_name,
+#     kw.group_title: x_group_title,
+#     kw.group_cred_lumen: x_group_cred_lumen,
+#     kw.group_debt_lumen: x_group_debt_lumen,
+#     kw.credor_pool: x_credor_pool,
+#     kw.debtor_pool: x_debtor_pool,
+#     kw.fund_give: x_fund_give,
+#     kw.fund_take: x_fund_take,
+#     kw.fund_agenda_give: x_fund_agenda_give,
+#     kw.fund_agenda_take: x_fund_agenda_take,
+#     kw.fund_agenda_ratio_give: x_fund_agenda_ratio_give,
+#     kw.fund_agenda_ratio_take: x_fund_agenda_ratio_take,
 #     }
 #     all args included in values dict
 #     etl_config = get_etl_config()
@@ -500,15 +487,14 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 #     # THEN
 #     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "person_partner_membership_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print("")
-#         print(expected_sqlstr)
-#         # print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     table_name = "person_partner_membership_h_put_agg"
+#     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+#     print("")
+#     print(expected_sqlstr)
+#     # print(insert_sqlstr)
+#     assert insert_sqlstr == expected_sqlstr
 
 
 # def test_create_prngrou_h_put_agg_insert_sqlstr_ReturnsObj():
@@ -524,18 +510,18 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 #     x_fund_agenda_give = 7
 #     x_fund_agenda_take = 8
 #     values_dict = {
-#         kw.spark_num: 77,
-#         kw.face_name: exx.yao,
-#         kw.moment_rope: x_moment_rope,
-#         kw.person_name: x_person_name,
-#         kw.group_title: x_group_title,
-#         kw.credor_pool: x_credor_pool,
-#         kw.debtor_pool: x_debtor_pool,
-#         kw.fund_grain: x_fund_grain,
-#         kw.fund_give: x_fund_give,
-#         kw.fund_take: x_fund_take,
-#         kw.fund_agenda_give: x_fund_agenda_give,
-#         kw.fund_agenda_take: x_fund_agenda_take,
+#     kw.spark_num: 77,
+#     kw.face_name: exx.yao,
+#     kw.moment_rope: x_moment_rope,
+#     kw.person_name: x_person_name,
+#     kw.group_title: x_group_title,
+#     kw.credor_pool: x_credor_pool,
+#     kw.debtor_pool: x_debtor_pool,
+#     kw.fund_grain: x_fund_grain,
+#     kw.fund_give: x_fund_give,
+#     kw.fund_take: x_fund_take,
+#     kw.fund_agenda_give: x_fund_agenda_give,
+#     kw.fund_agenda_take: x_fund_agenda_take,
 #     }
 #     all args included in values dict
 #     etl_config = get_etl_config()
@@ -549,12 +535,11 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj():
 
 #     # THEN
 #     assert insert_sqlstr
-#     with sqlite3_connect(":memory:") as conn:
-#         cursor = conn.cursor()
-#         create_sound_and_heard_tables(cursor)
-#         table_name = "person_groupunit_h_put_agg"
-#         expected_sqlstr = create_insert_query(cursor, table_name, values_dict)
-#         print("")
-#         print(expected_sqlstr)
-#         # print(insert_sqlstr)
-#         assert insert_sqlstr == expected_sqlstr
+#     cursor = conn.cursor()
+#     create_sound_and_heard_tables(cursor0)
+#     table_name = "person_groupunit_h_put_agg"
+#     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
+#     print("")
+#     print(expected_sqlstr)
+#     # print(insert_sqlstr)
+#     assert insert_sqlstr == expected_sqlstr

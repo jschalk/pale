@@ -27,6 +27,7 @@ def test_Chapters_AllImportsAreFromLibrariesInLessThanEqual_aXX():
     for chapter_desc in mod_descs_sorted:
         chapter_dir = chapter_descs.get(chapter_desc)
         chapter_desc_str_number = get_chapter_desc_str_number(chapter_desc)
+        print(f"{chapter_desc=}")
         desc_number_int = int(chapter_desc_str_number)
         chapter_files = sorted(list(get_python_files_with_flag(chapter_dir).keys()))
         # print(f"{desc_number_str} src.{chapter_desc}")

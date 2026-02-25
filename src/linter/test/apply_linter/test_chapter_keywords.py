@@ -64,6 +64,7 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
         "set_knot",
         "set_otx2inx",
         "to_dict",
+        "cursor0",
     }
 
     # WHEN

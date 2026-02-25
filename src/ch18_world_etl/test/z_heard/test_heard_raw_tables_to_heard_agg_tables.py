@@ -1,4 +1,4 @@
-from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
+from sqlite3 import Cursor
 from src.ch00_py.db_toolbox import get_row_count, get_table_columns
 from src.ch00_py.dict_toolbox import get_empty_set_if_None
 from src.ch14_moment.moment_config import get_moment_dimens
@@ -19,6 +19,7 @@ from src.ch18_world_etl.etl_sqlstr import (
     create_sound_and_heard_tables,
     get_insert_heard_agg_sqlstrs,
 )
+from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
@@ -72,7 +73,7 @@ GROUP BY {raw_columns_str}
     assert gen_sqlstr == expected_table2table_agg_insert_sqlstr
 
 
-def test_get_insert_heard_agg_sqlstrs_ReturnsObj():
+def test_get_insert_heard_agg_sqlstrs_ReturnsObj(cursor0: Cursor):
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH / WHEN
     insert_heard_agg_sqlstrs = get_insert_heard_agg_sqlstrs()
@@ -82,30 +83,30 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj():
     agg_str = "agg"
     agg_sqlstrs = insert_heard_agg_sqlstrs
     etl_idea_category_config = etl_idea_category_config_dict()
-    with sqlite3_connect(":memory:") as moment_db_conn:
-        cursor = moment_db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        for idea_category, category_dict in etl_idea_category_config.items():
-            category_config = get_idea_config_dict(idea_category)
-            if h_dict := category_dict.get("stages").get(h_str):
-                agg_dict = h_dict.get(agg_str)
-                # print(f"{idea_category=}")
-                if agg_dict.get("del") is None:
-                    for dimen in sorted(category_config.keys()):
-                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, agg_dict)
-                if agg_dict.get("del") is not None:
-                    del_dict = agg_dict.get("del")
-                    for dimen in sorted(category_config.keys()):
-                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, del_dict, "del")
-                if agg_dict.get("put") is not None:
-                    put_dict = agg_dict.get("put")
-                    for dimen in sorted(category_config.keys()):
-                        check_insert_sqlstr_exists(dimen, agg_sqlstrs, put_dict, "put")
+    create_sound_and_heard_tables(cursor0)
+    for idea_category, category_dict in etl_idea_category_config.items():
+        category_config = get_idea_config_dict(idea_category)
+        if h_dict := category_dict.get("stages").get(h_str):
+            agg_dict = h_dict.get(agg_str)
+            # print(f"{idea_category=}")
+            if agg_dict.get("del") is None:
+                for dimen in sorted(category_config.keys()):
+                    check_insert_sqlstr_exists(dimen, agg_sqlstrs, agg_dict)
+            if agg_dict.get("del") is not None:
+                del_dict = agg_dict.get("del")
+                for dimen in sorted(category_config.keys()):
+                    check_insert_sqlstr_exists(dimen, agg_sqlstrs, del_dict, "del")
+            if agg_dict.get("put") is not None:
+                put_dict = agg_dict.get("put")
+                for dimen in sorted(category_config.keys()):
+                    check_insert_sqlstr_exists(dimen, agg_sqlstrs, put_dict, "put")
     # gen_heard_agg_tablenames = set(insert_heard_agg_sqlstrs.keys())
     # assert gen_heard_agg_tablenames.issubset()
 
 
-def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
+def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0(
+    cursor0: Cursor,
+):
     # ESTABLISH
     yao_inx = "Yaoito"
     spark1 = 1
@@ -117,14 +118,10 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0():
     x22_debt = 22
     x66_debt = 66
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        prnptnr_h_raw_put_tablename = prime_tbl(
-            kw.person_partnerunit, "h", "raw", "put"
-        )
-        print(f"{get_table_columns(cursor, prnptnr_h_raw_put_tablename)=}")
-        insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
+    create_sound_and_heard_tables(cursor0)
+    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h", "raw", "put")
+    print(f"{get_table_columns(cursor0, prnptnr_h_raw_put_tablename)=}")
+    insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_rope}_inx
@@ -141,21 +138,19 @@ VALUES
 , ({spark7}, '{exx.bob}', '{exx.a23}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
-        cursor.execute(insert_into_clause)
-        assert get_row_count(cursor, prnptnr_h_raw_put_tablename) == 5
-        prnptnr_h_agg_put_tablename = prime_tbl(
-            kw.person_partnerunit, "h", "agg", "put"
-        )
-        assert get_row_count(cursor, prnptnr_h_agg_put_tablename) == 0
+    cursor0.execute(insert_into_clause)
+    assert get_row_count(cursor0, prnptnr_h_raw_put_tablename) == 5
+    prnptnr_h_agg_put_tablename = prime_tbl(kw.person_partnerunit, "h", "agg", "put")
+    assert get_row_count(cursor0, prnptnr_h_agg_put_tablename) == 0
 
-        # WHEN
-        sqlstr = get_insert_heard_agg_sqlstrs().get(prnptnr_h_agg_put_tablename)
-        print(sqlstr)
-        cursor.execute(sqlstr)
+    # WHEN
+    sqlstr = get_insert_heard_agg_sqlstrs().get(prnptnr_h_agg_put_tablename)
+    print(sqlstr)
+    cursor0.execute(sqlstr)
 
-        # THEN
-        assert get_row_count(cursor, prnptnr_h_agg_put_tablename) == 4
-        select_sqlstr = f"""SELECT {kw.spark_num}
+    # THEN
+    assert get_row_count(cursor0, prnptnr_h_agg_put_tablename) == 4
+    select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
 , {kw.person_name}
@@ -164,18 +159,20 @@ VALUES
 , {kw.partner_debt_lumen}
 FROM {prnptnr_h_agg_put_tablename}
 """
-        cursor.execute(select_sqlstr)
-        rows = cursor.fetchall()
-        print(rows)
-        assert rows == [
-            (spark1, exx.sue, exx.a23, exx.yao, yao_inx, 44.0, 22.0),
-            (spark2, exx.yao, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
-            (spark5, exx.sue, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
-            (spark7, exx.bob, exx.a23, exx.bob, exx.bob, 55.0, 66.0),
-        ]
+    cursor0.execute(select_sqlstr)
+    rows = cursor0.fetchall()
+    print(rows)
+    assert rows == [
+        (spark1, exx.sue, exx.a23, exx.yao, yao_inx, 44.0, 22.0),
+        (spark2, exx.yao, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
+        (spark5, exx.sue, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
+        (spark7, exx.bob, exx.a23, exx.bob, exx.bob, 55.0, 66.0),
+    ]
 
 
-def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0():
+def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0(
+    cursor0: Cursor,
+):
     # ESTABLISH
     yao_inx = "Yaoito"
     spark1 = 1
@@ -187,14 +184,10 @@ def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0():
     x22_debt = 22
     x66_debt = 66
 
-    with sqlite3_connect(":memory:") as db_conn:
-        cursor = db_conn.cursor()
-        create_sound_and_heard_tables(cursor)
-        prnptnr_h_raw_put_tablename = prime_tbl(
-            kw.person_partnerunit, "h", "raw", "put"
-        )
-        print(f"{get_table_columns(cursor, prnptnr_h_raw_put_tablename)=}")
-        insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
+    create_sound_and_heard_tables(cursor0)
+    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h", "raw", "put")
+    print(f"{get_table_columns(cursor0, prnptnr_h_raw_put_tablename)=}")
+    insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
   {kw.spark_num}
 , {kw.face_name}_inx
 , {kw.moment_rope}_inx
@@ -211,19 +204,17 @@ VALUES
 , ({spark7}, '{exx.bob}', '{exx.a23}','{exx.bob}', '{exx.bob}', {x55_credit}, {x66_debt})
 ;
 """
-        cursor.execute(insert_into_clause)
-        assert get_row_count(cursor, prnptnr_h_raw_put_tablename) == 5
-        prnptnr_h_agg_put_tablename = prime_tbl(
-            kw.person_partnerunit, "h", "agg", "put"
-        )
-        assert get_row_count(cursor, prnptnr_h_agg_put_tablename) == 0
+    cursor0.execute(insert_into_clause)
+    assert get_row_count(cursor0, prnptnr_h_raw_put_tablename) == 5
+    prnptnr_h_agg_put_tablename = prime_tbl(kw.person_partnerunit, "h", "agg", "put")
+    assert get_row_count(cursor0, prnptnr_h_agg_put_tablename) == 0
 
-        # WHEN
-        etl_heard_raw_tables_to_heard_agg_tables(cursor)
+    # WHEN
+    etl_heard_raw_tables_to_heard_agg_tables(cursor0)
 
-        # THEN
-        assert get_row_count(cursor, prnptnr_h_agg_put_tablename) == 4
-        select_sqlstr = f"""SELECT {kw.spark_num}
+    # THEN
+    assert get_row_count(cursor0, prnptnr_h_agg_put_tablename) == 4
+    select_sqlstr = f"""SELECT {kw.spark_num}
 , {kw.face_name}
 , {kw.moment_rope}
 , {kw.person_name}
@@ -232,12 +223,12 @@ VALUES
 , {kw.partner_debt_lumen}
 FROM {prnptnr_h_agg_put_tablename}
 """
-        cursor.execute(select_sqlstr)
-        rows = cursor.fetchall()
-        print(rows)
-        assert rows == [
-            (spark1, exx.sue, exx.a23, exx.yao, yao_inx, 44.0, 22.0),
-            (spark2, exx.yao, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
-            (spark5, exx.sue, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
-            (spark7, exx.bob, exx.a23, exx.bob, exx.bob, 55.0, 66.0),
-        ]
+    cursor0.execute(select_sqlstr)
+    rows = cursor0.fetchall()
+    print(rows)
+    assert rows == [
+        (spark1, exx.sue, exx.a23, exx.yao, yao_inx, 44.0, 22.0),
+        (spark2, exx.yao, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
+        (spark5, exx.sue, exx.a23, exx.bob, exx.bob, 55.0, 22.0),
+        (spark7, exx.bob, exx.a23, exx.bob, exx.bob, 55.0, 66.0),
+    ]
