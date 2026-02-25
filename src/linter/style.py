@@ -12,7 +12,7 @@ from os import walk as os_walk
 from os.path import join as os_path_join
 from pathlib import Path as pathlib_Path
 from re import compile as re_compile
-from src.ch00_py.dict_toolbox import uppercase_in_str, uppercase_is_first
+from src.ch00_py.dict_toolbox import uppercase_in_str
 from src.ch00_py.file_toolbox import create_path, get_dir_filenames, open_file
 from src.ch00_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
@@ -409,19 +409,6 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
             declare_str = f"""{key_str}_str = "{value_str}"\n"""
             fail2_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{declare_str}' with Enum class reference."
             assert declare_str not in test_function_str, fail2_str
-            # confirm that no test creates it's own cursor
-            # TODO to further c
-            # lean up tests consider removing all standalone string declarations
-            # standalone_str = f""""{value_str}\""""
-            # fail3_str = f"#{function_count} of {func_total_count}:'{function_name}' Replace '{standalone_str}' with Enum class reference."
-            # assert standalone_str not in test_function_str, fail3_str
-        # print(f"{function_name=}")
-        if (
-            function_name
-            == "test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario1_del_table"
-        ):
-            print(f"{function_name=}")
-            print(test_function_str)
 
 
 _CH_PATTERN = re_compile(r"^src\.ch(\d+)(?:[._]|$)")
@@ -485,9 +472,7 @@ class _ImportCollector(ast_NodeVisitor):
         self.generic_visit(node)
 
 
-def find_incorrect_imports(
-    py_file_path: str | pathlib_Path, min_number: int
-) -> list[str]:
+def find_incorrect_imports(py_file_path: str, min_number: int) -> list[str]:
     p = pathlib_Path(py_file_path)
     file_text = p.read_text(encoding="utf-8")
     tree = ast_parse(file_text, filename=str(p))
