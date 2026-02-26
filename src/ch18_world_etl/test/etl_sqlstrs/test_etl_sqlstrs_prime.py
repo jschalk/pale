@@ -280,7 +280,6 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables(cursor0: Cursor):
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.translate_title
     create_sound_and_heard_tables(cursor0)
@@ -329,7 +328,6 @@ WHERE inconsistency_rows.spark_num = translate_title_s_raw.spark_num
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario1_MomentDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.moment_epoch_hour
     create_sound_and_heard_tables(cursor0)
@@ -380,7 +378,6 @@ WHERE inconsistency_rows.moment_rope = moment_epoch_hour_s_raw.moment_rope
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario2_NabuDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.nabu_timenum
     create_sound_and_heard_tables(cursor0)
@@ -431,7 +428,6 @@ WHERE inconsistency_rows.moment_rope = nabu_timenum_s_raw.moment_rope
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario3_PersonDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.person_plan_awardunit
     create_sound_and_heard_tables(cursor0)
@@ -481,7 +477,6 @@ WHERE inconsistency_rows.spark_num = person_plan_awardunit_s_put_raw.spark_num
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_TranslateDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.translate_title
     create_sound_and_heard_tables(cursor0)
@@ -520,7 +515,6 @@ GROUP BY spark_num, face_name, otx_title
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario1_MomentDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.moment_epoch_hour
     create_sound_and_heard_tables(cursor0)
@@ -561,7 +555,6 @@ GROUP BY spark_num, face_name, moment_rope, cumulative_minute
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     dimen = kw.nabu_timenum
     create_sound_and_heard_tables(cursor0)
@@ -602,7 +595,6 @@ GROUP BY spark_num, face_name, moment_rope, otx_time
 def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PersonDimen(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-duplicate-method, extract-method
     # ESTABLISH
     dimen = kw.person_plan_awardunit
     create_sound_and_heard_tables(cursor0)

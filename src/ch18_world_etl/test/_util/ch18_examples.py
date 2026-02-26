@@ -1,6 +1,12 @@
 from dataclasses import dataclass
 from sqlite3 import Cursor as sqlite3_Cursor
 from src.ch00_py.db_toolbox import create_insert_query
+from src.ch07_person_logic.person_tool import PersonUnit, person_planunit_get_obj
+from src.ch13_time.epoch_reason import set_epoch_cases_by_args_dict
+from src.ch13_time.test._util.ch13_examples import (
+    Ch13ExampleStrs as wx,
+    get_bob_five_person,
+)
 from src.ch18_world_etl._ref.ch18_semantic_types import (
     FaceName,
     FactNum,
@@ -248,3 +254,21 @@ def insert_prnplan_special_h_agg(
     x_denom: int,
 ) -> list[tuple]:
     pass
+
+
+def get_bob_five_with_mop_dayly() -> PersonUnit:
+    """Returns a person obj with mop plan that has a daily reasonunit"""
+    bob_person = get_bob_five_person()
+    x_dayly_lower_min = 600
+    x_dayly_duration_min = 90
+    mop_dayly_args = {
+        kw.plan_rope: wx.mop_rope,
+        kw.reason_context: wx.day_rope,
+        kw.reason_state: wx.day_rope,
+        kw.epoch_label: wx.five_str,
+        kw.dayly_lower_min: x_dayly_lower_min,
+        kw.dayly_duration_min: x_dayly_duration_min,
+    }
+    day_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.day_rope})
+    set_epoch_cases_by_args_dict(bob_person, mop_dayly_args)
+    return bob_person

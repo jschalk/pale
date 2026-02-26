@@ -43,7 +43,7 @@ def get_context_nabuable_args() -> set:
     }
 
 
-def set_nabuable_otx_inx_args(args: set) -> set:  # sourcery skip: extract-method
+def set_nabuable_otx_inx_args(args: set) -> set:
     """Receives set of args, returns a set with all "Nabuable" args replaced with "_otx" and "_inx" """
     all_nabuable = get_nabuable_args()
     transformed_args = set()

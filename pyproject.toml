@@ -16,6 +16,7 @@ license = {text = "MIT"}
 name = "keg"
 readme = "README.md"
 requires-python = ">=3.7"
+version = "0.1.0"
 
 [build-system]
 build-backend = "setuptools.build_meta"
@@ -49,3 +50,6 @@ test = [
 name = "cz_conventional_commits"
 tag_format = "v$version"
 version = "0.1.0"
+
+[tool.setuptools.packages.find]
+where = ["."]

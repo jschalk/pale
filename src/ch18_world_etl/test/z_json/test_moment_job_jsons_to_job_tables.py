@@ -21,7 +21,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
     temp_dir_setup, cursor0: Cursor
-):  # sourcery skip: extract-method
+):
     # ESTABLISH
     moment_mstr_dir = get_temp_dir()
     sue_person = personunit_shop(exx.sue, exx.a23)
@@ -90,7 +90,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     temp_dir_setup, cursor0: Cursor
-):  # sourcery skip: extract-method
+):
     # ESTABLISH
     sue_inx = "Suzy"
     bob_inx = "Bobby"

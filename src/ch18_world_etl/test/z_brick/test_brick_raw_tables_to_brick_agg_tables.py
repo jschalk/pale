@@ -278,7 +278,7 @@ VALUES
 def test_get_max_brick_sparks_spark_num_ReturnsObj_Scenario2_MultipleTable(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-duplicate-method, extract-method
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     spark1 = 1
     spark3 = 3

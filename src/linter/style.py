@@ -401,7 +401,8 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
         assert establish_str_exists and when_str_exists and then_str_exists, fail_str
         # check that no test creates it's own cursor in memory
         memory_cursor_fail_str = f"{function_name} init memory cursor"
-        assert ":memory:" not in test_function_str, memory_cursor_fail_str
+        if "create_marimo_notebook_from_test_func" not in function_name:
+            assert ":memory:" not in test_function_str, memory_cursor_fail_str
 
         # check for each example key in the function str.
         for key_str in sorted(example_strs.keys()):

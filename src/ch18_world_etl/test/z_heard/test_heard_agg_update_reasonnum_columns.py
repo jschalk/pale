@@ -40,6 +40,7 @@ from src.ch18_world_etl.etl_sqlstr import (
 from src.ch18_world_etl.obj2db_person import insert_h_agg_obj
 from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ch18_world_etl.test._util.ch18_examples import (
+    get_bob_five_with_mop_dayly,
     insert_mmtoffi_special_offi_time_otx as insert_offi_time_otx,
     insert_mmtunit_special_c400_number as insert_c400_number,
     insert_nabtime_h_agg_otx_inx_time as insert_otx_inx_time,
@@ -50,30 +51,11 @@ from src.ch18_world_etl.test._util.ch18_examples import (
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-def get_bob_five_with_mop_dayly() -> PersonUnit:
-    bob_person = get_bob_five_person()
-    print(f"{bob_person.planroot.get_plan_rope()=}")
-    x_dayly_lower_min = 600
-    x_dayly_duration_min = 90
-    mop_dayly_args = {
-        kw.plan_rope: wx.mop_rope,
-        kw.reason_context: wx.day_rope,
-        kw.reason_state: wx.day_rope,
-        kw.epoch_label: wx.five_str,
-        kw.dayly_lower_min: x_dayly_lower_min,
-        kw.dayly_duration_min: x_dayly_duration_min,
-    }
-    day_plan = person_planunit_get_obj(bob_person, {kw.plan_rope: wx.day_rope})
-    set_epoch_cases_by_args_dict(bob_person, mop_dayly_args)
-    return bob_person
-
-
 # TODO create function that updates all nabuable otx fields.
 # identify the change
 # update semantic_type: ReasonNum person_plan_reason_caseunit_h_agg_put reason_lower, reason_upper
 # update semantic_type: ReasonNum person_plan_factunit_h_agg_put fact_lower, fact_upper
 def test_get_update_prncase_inx_epoch_diff_sqlstr_SetsColumnValues(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     spark7 = 7
     bob_person = get_bob_five_with_mop_dayly()
@@ -83,23 +65,23 @@ def test_get_update_prncase_inx_epoch_diff_sqlstr_SetsColumnValues(cursor0: Curs
     m_label = bob_person.planroot.get_plan_rope()
     insert_otx_inx_time(cursor0, spark7, exx.yao, m_label, otx_time, inx_time)
     insert_h_agg_obj(cursor0, bob_person, spark7, exx.yao)
-    prncase_objs = select_prncase(
+    prncase_old_objs = select_prncase(
         cursor0, spark7, exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
     )
-    prncase_obj0 = prncase_objs[0]
-    assert prncase_obj0.inx_epoch_diff is None
+    prncase_old_obj0 = prncase_old_objs[0]
+    assert prncase_old_obj0.inx_epoch_diff is None
 
     # WHEN
     update_sql = get_update_prncase_inx_epoch_diff_sqlstr()
     cursor0.execute(update_sql)
 
     # THEN
-    prncase_objs = select_prncase(
+    prncase_new_objs = select_prncase(
         cursor0, spark7, exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
     )
-    prncase_obj0 = prncase_objs[0]
-    assert prncase_obj0.inx_epoch_diff == otx_time - inx_time
-    assert prncase_obj0.inx_epoch_diff == 186
+    prncase_new_obj0 = prncase_new_objs[0]
+    assert prncase_new_obj0.inx_epoch_diff == otx_time - inx_time
+    assert prncase_new_obj0.inx_epoch_diff == 186
 
 
 # def test_get_update_prnfact_inx_epoch_diff_sqlstr_SetsTable(): # ESTABLISH # WHEN # THEN
@@ -110,8 +92,7 @@ def test_get_update_prncase_inx_epoch_diff_sqlstr_SetsColumnValues(cursor0: Curs
 
 
 # def test_add_frame_to_db_caseunit_SetsAttr_Scenario0_NoWrap_dayly():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     spark7 = 7
 #     bob_person = get_bob_five_person()
 #     print(f"{bob_person.planroot.get_plan_rope()=}")

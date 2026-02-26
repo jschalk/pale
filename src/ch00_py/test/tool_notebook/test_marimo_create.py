@@ -6,6 +6,135 @@ from src.ref.keywords import Ch00Keywords as kw, ExampleStrs as exx
 
 def test_create_marimo_notebook_from_test_func_ReturnsObj_Scenario1(temp_dir_setup):
     # ESTABLISH
+    test_file_path = create_path(get_temp_dir(), "test_sql_inserts.py")
+    example_import_str = "from sqlite3 import Cursor\nfrom src.ch00_py.test._util.ch00_envv import cursor0"
+    save_file(test_file_path, None, example_import_str)
+    # source test name: test_custom_insert_ModifiesTable_Scenario0
+    test_func_str = '''
+def test_custom_insert_ModifiesTable_Scenario0(cursor0: Cursor):
+    # ESTABLISH
+    create_orders_table_sql = """CREATE TABLE IF NOT EXISTS orders (id INTEGER PRIMARY KEY, customer TEXT, stuff INTEGER);"""
+    cursor0.execute(create_orders_table_sql)
+    create_cust_totals_table_sql = """CREATE TABLE  IF NOT EXISTS customer_totals (customer TEXT, total_stuff INTEGER);"""
+    cursor0.execute(create_cust_totals_table_sql)
+    conn.commit()
+
+    # Populate source table
+    rows = [("Alice", 50), ("Alice", 25), ("Bob", 40), ("Bob", 60), ("Charlie", 30)]
+    cursor0.executemany("INSERT INTO orders (customer, stuff) VALUES (?, ?)", rows)
+    conn.commit()
+    assert cursor0.execute("SELECT COUNT(*) FROM customer_totals").fetchone()[0] == 0
+
+    # WHEN Execute Aggregate INSERT using GROUP BY
+    cursor0.execute(
+        """
+    INSERT INTO customer_totals (customer, total_stuff)
+    SELECT customer, SUM(stuff)
+    FROM orders
+    GROUP BY customer;
+    """
+    )
+    conn.commit()
+    print("Aggregate insert completed.")
+
+    # THEN
+    assert cursor0.execute("SELECT COUNT(*) FROM customer_totals").fetchone()[0] == 3
+    cursor0.execute(
+        "SELECT customer, total_stuff FROM customer_totals ORDER BY customer"
+    )
+    results = cursor0.fetchall()
+    print("Rows by customer, total_stuff")
+    count = 0
+    for row in results:
+        print(f"Row #{count} {row}")
+        count += 1
+'''
+
+    # WHEN
+    marimo_file_str = create_marimo_notebook_from_test(test_file_path, test_func_str)
+
+    # THEN
+    expected_marimo_str = '''import marimo
+
+__generated_with = "0.20.2"
+app = marimo.App()
+
+with app.setup(hide_code=True):
+    # source file: src\\ch00_py\\test\\_util\\temp\\test_sql_inserts.py
+    # source test name: test_custom_insert_ModifiesTable_Scenario0
+    from sqlite3 import Cursor
+    from src.ch00_py.test._util.ch00_envv import cursor0
+    from sqlite3 import connect as sqlite3_connect
+
+    conn = sqlite3_connect(":memory:")
+    cursor0 = conn.cursor()
+    print("cursor0 created for SQLite db in memory.")
+
+
+@app.cell
+def _():
+    # ESTABLISH
+    create_orders_table_sql = """CREATE TABLE IF NOT EXISTS orders (id INTEGER PRIMARY KEY, customer TEXT, stuff INTEGER);"""
+    cursor0.execute(create_orders_table_sql)
+    create_cust_totals_table_sql = """CREATE TABLE  IF NOT EXISTS customer_totals (customer TEXT, total_stuff INTEGER);"""
+    cursor0.execute(create_cust_totals_table_sql)
+    conn.commit()
+
+    return
+
+
+@app.cell
+def _():
+    # Populate source table
+    rows = [("Alice", 50), ("Alice", 25), ("Bob", 40), ("Bob", 60), ("Charlie", 30)]
+    cursor0.executemany("INSERT INTO orders (customer, stuff) VALUES (?, ?)", rows)
+    conn.commit()
+    assert cursor0.execute("SELECT COUNT(*) FROM customer_totals").fetchone()[0] == 0
+
+    return
+
+
+@app.cell
+def _():
+    # WHEN Execute Aggregate INSERT using GROUP BY
+    cursor0.execute(
+        """
+    INSERT INTO customer_totals (customer, total_stuff)
+    SELECT customer, SUM(stuff)
+    FROM orders
+    GROUP BY customer;
+    """
+    )
+    conn.commit()
+    print("Aggregate insert completed.")
+
+    return
+
+
+@app.cell
+def _():
+    # THEN
+    assert cursor0.execute("SELECT COUNT(*) FROM customer_totals").fetchone()[0] == 3
+    cursor0.execute(
+        "SELECT customer, total_stuff FROM customer_totals ORDER BY customer"
+    )
+    results = cursor0.fetchall()
+    print("Rows by customer, total_stuff")
+    count = 0
+    for row in results:
+        print(f"Row #{count} {row}")
+        count += 1
+    return
+
+
+if __name__ == "__main__":
+    app.run()
+'''
+    assert marimo_file_str == expected_marimo_str
+
+
+def test_create_marimo_notebook_from_test_func_ReturnsObj_Scenario2(temp_dir_setup):
+    # ESTABLISH
     test_function_str = """
 def test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1(
     cursor0: Cursor,
@@ -33,26 +162,33 @@ def test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1(
     assert rows == [("Blue", 2), ("Red", 1)]
 """
     # create test file so that imports and be collected
-    example_import_str = "from src.color import insert_color_casa_into_casa_agg"
+    example_color_import_str = "from src.color import insert_color_casa_into_casa_agg"
+    example_cursor0_import_str = "from src.ch00_py.test._util.ch00_envv import cursor0"
+    example_import_str = f"{example_color_import_str}\n{example_cursor0_import_str}"
     test_file_str = f"{example_import_str}\n\n\n{test_function_str}"
     test_file_path = create_path(get_temp_dir(), "test_color_sql.py")
     save_file(test_file_path, None, test_file_str)
-    test_name = "test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1"
 
     # WHEN
-    marimo_file_str = create_marimo_notebook_from_test(test_file_path, test_name)
+    marimo_file_str = create_marimo_notebook_from_test(
+        test_file_path, test_function_str
+    )
 
     # THEN
     assert marimo_file_str
     print(marimo_file_str)
+    print(example_import_str)
+    assert f"    {example_color_import_str}" in marimo_file_str
+    assert f"    {example_cursor0_import_str}" in marimo_file_str
     expected_front = """import marimo
 
+__generated_with = "0.20.2"
 app = marimo.App()
 
-
-with app.setup:
-    import marimo as mo"""
+with app.setup(hide_code=True):
+    # source file: src\\ch00_py\\test\\_util\\temp\\test_color_sql.py
+    # source test name: test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1
+    from src.color import insert_color_casa_into_casa_agg
+    from src.ch00_py.test._util.ch00_envv import cursor0
+    from sqlite3 import connect as sqlite3_connect"""
     assert marimo_file_str.find(expected_front) == 0
-    assert f"    {example_import_str}" in marimo_file_str
-    # TODO complete this test
-    # assert 1 == 2

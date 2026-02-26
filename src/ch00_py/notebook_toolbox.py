@@ -49,18 +49,97 @@ def get_imports_from_source(source: str) -> List[str]:
     return imports
 
 
-def create_marimo_notebook_from_test(test_file_path: Path, func_name: str) -> str:
-    test_file_str = open_file(test_file_path)
-    # p rint(f"{len(test_file_str)=}")
-    imports_list = get_imports_from_source(test_file_str)
-    # p rint("")
-    marimo_str = """import marimo
+def extract_function_name(function_string):
+    # Split the string at the first open bracket
+    function_name_part = function_string.split(" ")[1]
+    function_name_part = function_name_part.split("(")[0]
+    # Strip any extra whitespace and return the function name
+    return function_name_part.strip()
 
+
+from typing import List
+
+
+def get_marimo_cells(function_str: str) -> List[str]:
+    # sourcery skip: remove-redundant-slice-index, str-prefix-suffix
+    """
+    Split a Python function string into cells using comment boundaries.
+
+    Rules:
+    - A comment line creates a new cell.
+    - Lines continue in the same cell until a new comment
+      appears after a non-comment line.
+    - Blank lines belong to the current cell.
+    """
+
+    lines = function_str.splitlines(keepends=True)
+
+    cells: list[list[str]] = []
+    current_cell: list[str] = []
+
+    def is_comment(line: str) -> bool:
+        return line.lstrip()[0:1] == "#"
+
+    prev_was_code = False
+
+    for line in lines:
+        comment = is_comment(line)
+
+        # Start new cell when:
+        # 1) first comment encountered
+        # 2) comment follows code
+        if comment and (prev_was_code or not current_cell) and current_cell:
+            cells.append(current_cell)
+            current_cell = []
+
+        current_cell.append(line)
+
+        # Track whether previous meaningful line was code
+        if line.strip() != "":
+            prev_was_code = not comment
+
+    if current_cell:
+        cells.append(current_cell)
+
+    cells = cells[1:]
+
+    for cell in cells:
+        cell.insert(0, "@app.cell\ndef _():\n")
+        cell.append("    return\n\n\n")
+
+    # join lines back into strings
+    return ["".join(cell) for cell in cells]
+
+
+def create_marimo_notebook_from_test(test_file_path: Path, test_func_str: str) -> str:
+    marimo_str = f"""import marimo
+
+__generated_with = "0.20.2"
 app = marimo.App()
 
-
-with app.setup:
-    import marimo as mo"""
+with app.setup(hide_code=True):
+    # source file: {test_file_path}
+    # source test name: {extract_function_name(test_func_str)}"""
+    test_file_str = open_file(test_file_path)
+    imports_list = get_imports_from_source(test_file_str)
     for import_line in imports_list:
         marimo_str += f"\n    {import_line}"
+
+    p_str = "p"
+    marimo_str = f"""{marimo_str}
+    from sqlite3 import connect as sqlite3_connect
+
+    conn = sqlite3_connect(":memory:")
+    cursor0 = conn.cursor()
+    {p_str}rint("cursor0 created for SQLite db in memory.")
+
+
+"""
+    cell_strs = get_marimo_cells(test_func_str)
+    for cell_str in cell_strs:
+        marimo_str = f"{marimo_str}{cell_str}"
+    trailer_str = """if __name__ == "__main__":
+    app.run()
+"""
+    marimo_str = f"{marimo_str}{trailer_str}"
     return marimo_str

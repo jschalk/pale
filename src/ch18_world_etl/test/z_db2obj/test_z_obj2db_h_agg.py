@@ -34,7 +34,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
@@ -86,7 +85,6 @@ def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg(cursor0: Curs
 
 
 def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
@@ -172,7 +170,6 @@ def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg(cursor0: Cursor)
 
 
 def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
@@ -216,7 +213,6 @@ def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg(cursor0: Cursor)
 
 
 def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
@@ -280,8 +276,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 
 # def test_insert_h_agg_prnmemb_CreatesTableRowsFor_prnmemb_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     # x_args = get_person_calc_dimen_args("person_partner_membership")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
@@ -360,8 +355,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 
 # def test_insert_h_agg_prnptnr_CreatesTableRowsFor_prnptnr_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     # x_args = get_person_calc_dimen_args("person_partnerunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
@@ -447,8 +441,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 
 # def test_insert_h_agg_prngrou_CreatesTableRowsFor_prngrou_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     # x_args = get_person_calc_dimen_args("person_groupunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
@@ -516,8 +509,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 
 # def test_insert_h_agg_prnawar_CreatesTableRowsFor_prnawar_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     # x_args = get_person_calc_dimen_args("person_plan_awardunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
@@ -578,7 +570,6 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 
 def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_spark_num = 77
     x_face_name = exx.yao
@@ -638,8 +629,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor)
 
 
 # def test_insert_h_agg_prnheal_CreatesTableRowsFor_prnheal_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     # x_args = get_person_calc_dimen_args("person_plan_healerunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
@@ -694,8 +684,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor)
 
 
 # def test_insert_h_agg_prnlabo_CreatesTableRowsFor_prnlabo_h_agg():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     # x_args = get_person_calc_dimen_args("person_plan_partyunit")
 #     # x_count = 0
 #     # for x_arg in get_default_sorted_list(x_args):
@@ -761,7 +750,6 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor)
 def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     sue_person = personunit_shop(exx.sue, exx.a23)
     sue_person.add_partnerunit(exx.sue)
@@ -812,8 +800,7 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables(
 
 
 # def test_insert_h_agg_obj_CreatesTableRows_Scenario1_AllTables():
-#     # sourcery skip: extract-method
-#     # ESTABLISH
+# #     # ESTABLISH
 #     sue_person = personunit_shop(exx.sue, exx.a23)
 #     sue_person.add_partnerunit(exx.sue)
 #     sue_person.add_partnerunit(exx.bob)

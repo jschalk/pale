@@ -25,7 +25,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
 def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_moment_rope = exx.a23
     x_person_name = "Sue"
@@ -71,7 +70,6 @@ def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 
 
 def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
     x_active = 1
@@ -139,7 +137,6 @@ def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 
 
 def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
     x_rope = 1
@@ -175,7 +172,6 @@ def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 
 
 def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
     x_rope = 1
@@ -263,7 +259,6 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 
 
 def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_person_name = "Sue"
     x_rope = 1

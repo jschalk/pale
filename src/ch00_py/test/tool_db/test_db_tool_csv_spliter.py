@@ -8,7 +8,6 @@ from src.ref.keywords import ExampleStrs as exx
 
 
 def test_save_to_split_csvs_CreatesFiles_Scenario0(temp_dir_setup, cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_tablename = "test_table56"
     key_columns = ["user", "hair"]
@@ -82,7 +81,6 @@ VALUES
 def test_save_to_split_csvs_CreatesFiles_Scenario1_add_col1_prefix(
     temp_dir_setup, cursor0: Cursor
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_tablename = "test_table567"
     key_columns = ["user", "hair"]
@@ -160,7 +158,6 @@ VALUES
 def test_save_to_split_csvs_CreatesFiles_Scenario2_add_col2_prefix(
     temp_dir_setup, cursor0: Cursor
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_tablename = "test_table568"
     key_columns = ["user", "hair", "y_int"]
@@ -209,7 +206,6 @@ def test_save_to_split_csvs_CreatesFiles_Scenario2_add_col2_prefix(
 def test_save_to_split_csvs_CreatesFiles_Scenario3_trim_col(
     temp_dir_setup, cursor0: Cursor
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     # TODO get rid of trim_col option. It's a temporary solution
     x_tablename = "test_table568"

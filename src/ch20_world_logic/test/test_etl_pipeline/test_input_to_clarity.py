@@ -540,7 +540,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
 
 def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     temp_dir_setup,
-):  # sourcery skip: extract-method
+):
     # ESTABLISH:
     fay_str = "Fay"
     fay_world = worldunit_shop(fay_str, worlds_dir())

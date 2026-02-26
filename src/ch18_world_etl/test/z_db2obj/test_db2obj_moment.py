@@ -70,7 +70,6 @@ VALUES (
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scenario1(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method, inline-immediately-returned-variable
     # ESTABLISH
     create_sound_and_heard_tables(cursor0)
     momentunit_h_vld_tablename = create_prime_tablename("momentunit", "h", "vld")
@@ -325,7 +324,6 @@ VALUES
 def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtoffi_Attrs_Scenario0(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     offi_time5 = 5
     offi_time7 = 7
@@ -575,7 +573,6 @@ VALUES
 def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario5_mmtoffi(
     cursor0: Cursor,
 ):
-    # sourcery skip: extract-method
     # ESTABLISH
     offi_time5 = 5
     offi_time7 = 7

@@ -49,7 +49,6 @@ def test_ObjKeysHolder_Exists():
 
 
 def test_insert_job_prnunit_CreatesTableRowsFor_personunit_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     x_moment_rope = exx.a23
     x_person_name = "Sue"
@@ -116,7 +115,6 @@ def test_insert_job_prnunit_CreatesTableRowsFor_personunit_job(cursor0: Cursor):
 
 
 def test_insert_job_prnplan_CreatesTableRowsFor_prnplan_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_planunit")
     # x_count = 0
@@ -265,7 +263,6 @@ def test_insert_job_prnplan_CreatesTableRowsFor_prnplan_job(cursor0: Cursor):
 
 
 def test_insert_job_prnreas_CreatesTableRowsFor_prnreas_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_plan_reasonunit")
     # x_count = 0
@@ -325,7 +322,6 @@ def test_insert_job_prnreas_CreatesTableRowsFor_prnreas_job(cursor0: Cursor):
 
 
 def test_insert_job_prncase_CreatesTableRowsFor_prncase_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_plan_reason_caseunit")
     # x_count = 0
@@ -392,7 +388,6 @@ def test_insert_job_prncase_CreatesTableRowsFor_prncase_job(cursor0: Cursor):
 
 
 def test_insert_job_prnmemb_CreatesTableRowsFor_prnmemb_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_partner_membership")
     # x_count = 0
@@ -469,7 +464,6 @@ def test_insert_job_prnmemb_CreatesTableRowsFor_prnmemb_job(cursor0: Cursor):
 
 
 def test_insert_job_prnptnr_CreatesTableRowsFor_prnptnr_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_partnerunit")
     # x_count = 0
@@ -553,7 +547,6 @@ def test_insert_job_prnptnr_CreatesTableRowsFor_prnptnr_job(cursor0: Cursor):
 
 
 def test_insert_job_prngrou_CreatesTableRowsFor_prngrou_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_groupunit")
     # x_count = 0
@@ -619,7 +612,6 @@ def test_insert_job_prngrou_CreatesTableRowsFor_prngrou_job(cursor0: Cursor):
 
 
 def test_insert_job_prnawar_CreatesTableRowsFor_prnawar_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_plan_awardunit")
     # x_count = 0
@@ -678,7 +670,6 @@ def test_insert_job_prnawar_CreatesTableRowsFor_prnawar_job(cursor0: Cursor):
 
 
 def test_insert_job_prnfact_CreatesTableRowsFor_prnfact_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_plan_factunit")
     # x_count = 0
@@ -734,7 +725,6 @@ def test_insert_job_prnfact_CreatesTableRowsFor_prnfact_job(cursor0: Cursor):
 
 
 def test_insert_job_prnheal_CreatesTableRowsFor_prnheal_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_plan_healerunit")
     # x_count = 0
@@ -787,7 +777,6 @@ def test_insert_job_prnheal_CreatesTableRowsFor_prnheal_job(cursor0: Cursor):
 
 
 def test_insert_job_prnlabo_CreatesTableRowsFor_prnlabo_job(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     # x_args = get_person_calc_dimen_args("person_plan_partyunit")
     # x_count = 0
@@ -849,7 +838,6 @@ def test_insert_job_prnlabo_CreatesTableRowsFor_prnlabo_job(cursor0: Cursor):
 
 
 def test_insert_job_obj_CreatesTableRows_Scenario0(cursor0: Cursor):
-    # sourcery skip: extract-method
     # ESTABLISH
     sue_person = personunit_shop(exx.sue, exx.a23)
     sue_person.add_partnerunit(exx.sue)
