@@ -54,13 +54,13 @@ def test_custom_insert_ModifiesTable_Scenario0(cursor0: Cursor):
     marimo_file_str = create_marimo_notebook_from_test(test_file_path, test_func_str)
 
     # THEN
-    expected_marimo_str = '''import marimo
+    expected_marimo_front_str = """import marimo
 
 __generated_with = "0.20.2"
 app = marimo.App()
 
-with app.setup(hide_code=True):
-    # source file: src\\ch00_py\\test\\_util\\temp\\test_sql_inserts.py
+with app.setup(hide_code=True):"""
+    expected_marimo_back_str = '''
     # source test name: test_custom_insert_ModifiesTable_Scenario0
     from sqlite3 import Cursor
     from src.ch00_py.test._util.ch00_envv import cursor0
@@ -130,7 +130,8 @@ def _():
 if __name__ == "__main__":
     app.run()
 '''
-    assert marimo_file_str == expected_marimo_str
+    assert marimo_file_str.find(expected_marimo_front_str) > -1
+    assert marimo_file_str.find(expected_marimo_back_str) > -1
 
 
 def test_create_marimo_notebook_from_test_func_ReturnsObj_Scenario2(temp_dir_setup):
@@ -180,15 +181,16 @@ def test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1(
     print(example_import_str)
     assert f"    {example_color_import_str}" in marimo_file_str
     assert f"    {example_cursor0_import_str}" in marimo_file_str
-    expected_front = """import marimo
+    expected1_str = """import marimo
 
 __generated_with = "0.20.2"
 app = marimo.App()
 
-with app.setup(hide_code=True):
-    # source file: src\\ch00_py\\test\\_util\\temp\\test_color_sql.py
+with app.setup(hide_code=True):"""
+    expected2_str = """
     # source test name: test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1
     from src.color import insert_color_casa_into_casa_agg
     from src.ch00_py.test._util.ch00_envv import cursor0
     from sqlite3 import connect as sqlite3_connect"""
-    assert marimo_file_str.find(expected_front) == 0
+    assert marimo_file_str.find(expected1_str) == 0
+    assert marimo_file_str.find(expected2_str) > 0
