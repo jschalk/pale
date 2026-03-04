@@ -4,6 +4,7 @@ from src.ch00_py.chapter_desc_main import (
     get_chapter_desc_str_number,
 )
 from src.ch00_py.file_toolbox import create_path, get_dir_filenames
+from src.ch00_py.notebook_toolbox import get_top_level_functions
 from src.ch98_docs_builder.doc_builder import get_chapter_descs
 from src.linter.style import (
     check_all_test_functions_are_formatted,
@@ -12,7 +13,6 @@ from src.linter.style import (
     find_incorrect_imports,
     get_docstring,
     get_python_files_with_flag,
-    get_top_level_functions,
 )
 
 
