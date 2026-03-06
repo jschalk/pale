@@ -1,8 +1,8 @@
-from math import remainder
-from src.ch00_py.file_toolbox import create_path, save_file
+from os.path import exists as os_path_exists
+from src.ch00_py.file_toolbox import create_path, open_file, save_file
 from src.ch00_py.notebook_toolbox import (
-    create_marimo_notebook_from_test_file,
     create_marimo_notebook_from_test_str,
+    save_marimo_notebook_from_test_file,
 )
 from src.ch00_py.test._util.ch00_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch00Keywords as kw, ExampleStrs as exx
@@ -270,7 +270,7 @@ with app.setup(hide_code=True):"""
     assert marimo_file_str.find(expected2_str) > 0
 
 
-def test_create_marimo_notebook_from_test_file_ReturnsObj_Scenario2(temp_dir_setup):
+def test_save_marimo_notebook_from_test_file_ReturnsObj_Scenario2(temp_dir_setup):
     # ESTABLISH
     test_function_str = """
 def test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1(
@@ -305,17 +305,22 @@ def test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1(
     test_file_str = f"{example_import_str}\n\n\n{test_function_str}"
     test_file_path = create_path(get_temp_dir(), "test_color_sql.py")
     save_file(test_file_path, None, test_file_str)
+    dest_file_path = create_path(get_temp_dir(), "test_marimo01.py")
+    assert not os_path_exists(dest_file_path)
 
     # WHEN
     casa_testname = "test_insert_color_casa_into_casa_agg_PopulatesTable_Scenario1"
-    marimo_file_str = create_marimo_notebook_from_test_file(
-        test_file_path, casa_testname
+    return_value = save_marimo_notebook_from_test_file(
+        test_file_path, casa_testname, dest_file_path
     )
 
     # THEN
+    assert os_path_exists(dest_file_path)
+    assert not return_value
+    marimo_file_str = open_file(dest_file_path)
     assert marimo_file_str
-    print(marimo_file_str)
-    print(example_import_str)
+    # print(marimo_file_str)
+    # print(example_import_str)
     assert f"    {example_color_import_str}" in marimo_file_str
     assert f"    {example_cursor0_import_str}" in marimo_file_str
     expected1_str = """import marimo

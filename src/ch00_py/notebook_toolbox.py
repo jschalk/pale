@@ -9,7 +9,7 @@ from ast import (
     walk as ast_walk,
 )
 from pathlib import Path
-from src.ch00_py.file_toolbox import open_file
+from src.ch00_py.file_toolbox import open_file, save_file
 from textwrap import dedent as textwrap_dedent
 from typing import List
 
@@ -179,7 +179,10 @@ with app.setup(hide_code=True):
     return marimo_str
 
 
-def create_marimo_notebook_from_test_file(test_file_path: Path, testname: str) -> str:
+def save_marimo_notebook_from_test_file(
+    test_file_path: Path, testname: str, dest_file_path: Path
+) -> str:
     file_top_level_functions = get_top_level_functions(test_file_path)
     test_func_str = file_top_level_functions.get(testname)
-    return create_marimo_notebook_from_test_str(test_file_path, test_func_str)
+    notebook_str = create_marimo_notebook_from_test_str(test_file_path, test_func_str)
+    save_file(dest_file_path, None, notebook_str)
