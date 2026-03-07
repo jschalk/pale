@@ -234,15 +234,65 @@ def insert_prnfact_special_h_agg(
     pass
 
 
+@dataclass
+class PRNFACTHEARDAGG:
+    spark_num: SparkInt
+    person_name: PersonName
+    plan_rope: RopeTerm
+    fact_context: RopeTerm
+    fact_state: RopeTerm
+    fact_lower_otx: float
+    fact_lower_inx: float
+    fact_upper_otx: float
+    fact_upper_inx: float
+    inx_epoch_diff: int
+
+
 def select_prnfact_special_h_agg(
     cursor: sqlite3_Cursor,
     x_spark_num: SparkInt,
-    x_moment_rope: MomentRope,
     x_person_name: PersonName,
     x_plan_rope: RopeTerm,
     x_fact_context: RopeTerm,
 ) -> list[tuple]:
-    pass
+    x_dimen = kw.person_plan_factunit
+    prnfact_h_agg_tablename = prime_tbl(x_dimen, "h", "agg", "put")
+    print(f"{prnfact_h_agg_tablename=}")
+    select_sqlstr = f"""SELECT 
+  {kw.spark_num}
+, {kw.person_name}
+, {kw.plan_rope}
+, {kw.fact_context}
+, {kw.fact_state}
+, {kw.fact_lower}_otx
+, {kw.fact_lower}_inx
+, {kw.fact_upper}_otx
+, {kw.fact_upper}_inx
+FROM {prnfact_h_agg_tablename}
+WHERE {kw.spark_num} = {x_spark_num} 
+    AND {kw.person_name} = '{x_person_name}'
+    AND {kw.plan_rope} = '{x_plan_rope}'
+    AND {kw.fact_context} = '{x_fact_context}'
+    AND {kw.fact_state} = '{x_fact_context}'
+;
+"""
+    cursor.execute(select_sqlstr)
+    prnfact_heard_aggs = []
+    for row in cursor.fetchall():
+        x_prnfact_h_agg = PRNFACTHEARDAGG(
+            spark_num=row[0],
+            person_name=row[1],
+            plan_rope=row[2],
+            fact_context=row[3],
+            fact_state=row[4],
+            fact_lower_otx=row[5],
+            fact_lower_inx=row[6],
+            fact_upper_otx=row[7],
+            fact_upper_inx=row[8],
+            inx_epoch_diff=row[13],
+        )
+        prnfact_heard_aggs.append(x_prnfact_h_agg)
+    return prnfact_heard_aggs
 
 
 def insert_prnplan_special_h_agg(

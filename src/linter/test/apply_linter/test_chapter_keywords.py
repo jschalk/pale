@@ -46,25 +46,26 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
     # sourcery skip: no-conditionals-in-tests
     # ESTABLISH
     excluded_functions = {
+        "_",  # marimo notebooks use this function name for cells
         "__str__",
-        "get_inx_value",
-        "_is_inx_knot_inclusion_correct",
-        "_is_otx_knot_inclusion_correct",
+        "get_inx_value",  # used in Nabu/Translate
+        "_is_inx_knot_inclusion_correct",  # used in Nabu/Translate
+        "_is_otx_knot_inclusion_correct",  # used in Nabu/Translate
         "unknown_str_in_otx2inx",  # RopeMap method overrides MapCore method
-        "del_otx2inx",
-        "temp_dir_setup",
-        "find_replace_rope",
-        "get_temp_dir",
+        "del_otx2inx",  # used in Nabu/Translate
+        "temp_dir_setup",  # used in pytests for file environment setup
+        "find_replace_rope",  # used by ReasonUnit, CaseUnit, FactUnit classes
+        "get_temp_dir",  # used in pytests for file environment dir
         "get_obj_key",
         "is_valid",
-        "otx_exists",
-        "otx2inx_exists",
-        "reveal_inx",
+        "otx_exists",  # used in Nabu/Translate
+        "otx2inx_exists",  # used in Nabu/Translate
+        "reveal_inx",  # used in Nabu/Translate
         "set_all_otx2inx",  # RopeMap method overrides MapCore method
         "set_knot",
-        "set_otx2inx",
-        "to_dict",
-        "cursor0",
+        "set_otx2inx",  # used in Nabu/Translate
+        "to_dict",  # used to return class custom dictionary, usually for json file storage
+        "cursor0",  # used in pytests for temp sqlite database
     }
 
     # WHEN

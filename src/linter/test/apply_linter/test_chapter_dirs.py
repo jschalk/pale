@@ -143,12 +143,15 @@ def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter_Scenario1():
 def test_Chapters_DoNotHaveEmptyDirectories():
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH
-    exclude_dir = "src/ch20_world_logic/test/test_world_examples/worlds"
+    excluded_dirs = {
+        "src/ch20_world_logic/test/test_world_examples/worlds",
+        "src/ch18_world_etl/test/zz_notebooks",
+    }
 
     # WHEN / THEN
     for chapter_desc, chapter_dir in get_chapter_descs().items():
         for dirpath, dirnames, filenames in os_walk(chapter_dir):
-            if not path_contains_subpath(dirpath, exclude_dir):
+            if not is_excluded_subpath(dirpath, excluded_dirs):
                 assert_fail_str = f"{chapter_desc} Empty directory found: {dirpath}"
                 if dirnames == ["__pycache__"] and filenames == []:
                     print(f"{dirnames} {dirpath}")
@@ -156,3 +159,10 @@ def test_Chapters_DoNotHaveEmptyDirectories():
                 # print(f"{dirnames=}")
                 # print(f"{filenames=}")
                 assert dirnames or filenames, assert_fail_str
+
+
+def is_excluded_subpath(dirpath: str, excluded_dirs: set[str]) -> bool:
+    for exclude_dir in excluded_dirs:
+        if path_contains_subpath(dirpath, exclude_dir):
+            return True
+    return False
