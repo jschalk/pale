@@ -46,7 +46,6 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
     # sourcery skip: no-conditionals-in-tests
     # ESTABLISH
     excluded_functions = {
-        "_",  # marimo notebooks use this function name for cells
         "__str__",
         "get_inx_value",  # used in Nabu/Translate
         "_is_inx_knot_inclusion_correct",  # used in Nabu/Translate
