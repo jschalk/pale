@@ -4,7 +4,6 @@ from ast import (
     ImportFrom as ast_ImportFrom,
     NodeVisitor as ast_NodeVisitor,
     get_docstring as ast_get_docstring,
-    get_source_segment as ast_get_source_segment,
     parse as ast_parse,
     walk as ast_walk,
 )
@@ -20,7 +19,6 @@ from src.ch98_docs_builder.doc_builder import (
     get_chapter_descs,
     get_func_names_and_class_bases_from_file,
 )
-from textwrap import dedent as textwrap_dedent
 
 
 def filename_style_is_correct(filename: str) -> bool:
@@ -110,40 +108,6 @@ def get_json_files(directory) -> set[str]:
                 json_files.add(os_path_join(root, file))
 
     return json_files
-
-
-def get_top_level_functions(file_path) -> dict[str, str]:
-    with open(file_path, "r", encoding="utf-8") as f:
-        source_code = f.read()
-
-    tree = ast_parse(source_code)
-    functions = {}
-
-    for node in tree.body:
-        if isinstance(node, ast_FunctionDef):
-            # Get the function name
-            func_name = node.name
-
-            # Extract the exact source text of the function
-            # (ast.get_source_segment is available in Python 3.8+)
-            func_source = ast_get_source_segment(source_code, node)
-
-            # Optional: dedent to remove extra indentation
-            if func_source:
-                func_source = textwrap_dedent(func_source)
-
-            functions[func_name] = func_source
-
-    return functions
-
-    # with open(file_path, "r") as f:
-    #     tree = ast_parse(f.read(), filename=file_path)
-
-    # functions = []
-    # functions.extend(
-    #     node.name for node in tree.body if isinstance(node, ast_FunctionDef)
-    # )
-    # return functions
 
 
 def get_semantic_types_filename(chapter_desc_prefix: str) -> str:
@@ -401,7 +365,7 @@ def check_all_test_functions_are_formatted(all_test_functions: dict[str, str]):
         assert establish_str_exists and when_str_exists and then_str_exists, fail_str
         # check that no test creates it's own cursor in memory
         memory_cursor_fail_str = f"{function_name} init memory cursor"
-        if "create_marimo_notebook_from_test_func" not in function_name:
+        if "create_marimo_notebook_from_test_str" not in function_name:
             assert ":memory:" not in test_function_str, memory_cursor_fail_str
 
         # check for each example key in the function str.
