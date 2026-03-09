@@ -846,7 +846,7 @@ def add_personatoms_from_csv(spark_lesson: LessonUnit, spark_dir: str):
                         "person_name",
                     }:
                         x_atom.set_arg(col_name, row_value)
-                spark_lesson._persondelta.set_personatom(x_atom)
+                spark_lesson.persondelta.set_personatom(x_atom)
 
         if os_path_exists(del_path):
             del_rows = open_csv_with_types(del_path, idea_sqlite_types)
@@ -861,7 +861,7 @@ def add_personatoms_from_csv(spark_lesson: LessonUnit, spark_dir: str):
                         "person_name",
                     }:
                         x_atom.set_arg(col_name, row_value)
-                spark_lesson._persondelta.set_personatom(x_atom)
+                spark_lesson.persondelta.set_personatom(x_atom)
 
 
 def etl_spark_lesson_json_to_spark_inherited_personunits(moment_mstr_dir: str):
@@ -902,7 +902,7 @@ def create_lesson_json_and_get_spark_num(
         moment_mstr_dir, person_lasso, person_name, spark_num
     )
     spark_lesson = get_lessonunit_from_dict(open_json(spark_all_lesson_path))
-    sift_delta = get_minimal_persondelta(spark_lesson._persondelta, prev_person)
+    sift_delta = get_minimal_persondelta(spark_lesson.persondelta, prev_person)
     curr_person = spark_lesson.get_lesson_edited_person(prev_person)
     save_json(personspark_path, None, curr_person.to_dict())
     expressed_lesson = copy_deepcopy(spark_lesson)

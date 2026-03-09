@@ -49,9 +49,9 @@ def test_LessonUnit_Exists():
     assert not x_lessonunit.moment_rope
     assert not x_lessonunit.person_name
     # TODO get rid of underscore Attributes
-    assert not x_lessonunit._lesson_id
-    assert not x_lessonunit._persondelta
-    assert not x_lessonunit._delta_start
+    assert not x_lessonunit.lesson_id
+    assert not x_lessonunit.persondelta
+    assert not x_lessonunit.delta_start
     assert not x_lessonunit.lessons_dir
     assert not x_lessonunit.atoms_dir
     assert not x_lessonunit.spark_num
@@ -59,9 +59,9 @@ def test_LessonUnit_Exists():
         kw.face_name,
         kw.moment_rope,
         kw.person_name,
-        "_lesson_id",
-        "_persondelta",
-        "_delta_start",
+        "lesson_id",
+        "persondelta",
+        "delta_start",
         "lessons_dir",
         "atoms_dir",
         kw.spark_num,
@@ -78,9 +78,9 @@ def test_lessonunit_shop_ReturnsObjEstablishWithEmptyArgs():
     assert not bob_lessonunit.face_name
     assert bob_lessonunit.moment_rope == get_default_rope()
     assert bob_lessonunit.person_name == exx.bob
-    assert bob_lessonunit._lesson_id == 0
-    assert bob_lessonunit._persondelta == persondelta_shop()
-    assert bob_lessonunit._delta_start == 0
+    assert bob_lessonunit.lesson_id == 0
+    assert bob_lessonunit.persondelta == persondelta_shop()
+    assert bob_lessonunit.delta_start == 0
     assert not bob_lessonunit.lessons_dir
     assert not bob_lessonunit.atoms_dir
     assert not bob_lessonunit.spark_num
@@ -101,9 +101,9 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
         face_name=exx.sue,
         person_name=exx.bob,
         moment_rope=amy45_str,
-        _lesson_id=bob_lesson_id,
-        _persondelta=bob_persondelta,
-        _delta_start=bob_delta_start,
+        lesson_id=bob_lesson_id,
+        persondelta=bob_persondelta,
+        delta_start=bob_delta_start,
         lessons_dir=bob_lessons_dir,
         atoms_dir=bob_atoms_dir,
         spark_num=amy45_e5_spark_num,
@@ -113,9 +113,9 @@ def test_lessonunit_shop_ReturnsObjEstablishWithNonEmptyArgs():
     assert bob_lessonunit.face_name == exx.sue
     assert bob_lessonunit.person_name == exx.bob
     assert bob_lessonunit.moment_rope == amy45_str
-    assert bob_lessonunit._lesson_id == bob_lesson_id
-    assert bob_lessonunit._persondelta == bob_persondelta
-    assert bob_lessonunit._delta_start == bob_delta_start
+    assert bob_lessonunit.lesson_id == bob_lesson_id
+    assert bob_lessonunit.persondelta == bob_persondelta
+    assert bob_lessonunit.delta_start == bob_delta_start
     assert bob_lessonunit.lessons_dir == bob_lessons_dir
     assert bob_lessonunit.atoms_dir == bob_atoms_dir
     assert bob_lessonunit.spark_num == amy45_e5_spark_num
@@ -162,7 +162,7 @@ def test_LessonUnit_del_face_SetsAttribute():
 def test_LessonUnit_set_persondelta_SetsAttribute():
     # ESTABLISH
     bob_lessonunit = lessonunit_shop(person_name=exx.bob)
-    assert bob_lessonunit._persondelta == persondelta_shop()
+    assert bob_lessonunit.persondelta == persondelta_shop()
 
     # WHEN
     x_persondelta = persondelta_shop()
@@ -170,20 +170,20 @@ def test_LessonUnit_set_persondelta_SetsAttribute():
     bob_lessonunit.set_persondelta(x_persondelta)
 
     # THEN
-    assert bob_lessonunit._persondelta == x_persondelta
+    assert bob_lessonunit.persondelta == x_persondelta
 
 
 def test_LessonUnit_set_delta_start_SetsAttribute():
     # ESTABLISH
     bob_lessonunit = lessonunit_shop(exx.bob)
-    assert bob_lessonunit._delta_start == 0
+    assert bob_lessonunit.delta_start == 0
 
     # WHEN
     x_delta_start = 11
     bob_lessonunit.set_delta_start(x_delta_start)
 
     # THEN
-    assert bob_lessonunit._delta_start == x_delta_start
+    assert bob_lessonunit.delta_start == x_delta_start
 
 
 def test_LessonUnit_personatom_exists_ReturnsObj():
@@ -210,15 +210,15 @@ def test_LessonUnit_del_persondelta_SetsAttribute():
     # ESTABLISH
     x_persondelta = persondelta_shop()
     x_persondelta.set_personatom(get_atom_example_planunit_sports())
-    bob_lessonunit = lessonunit_shop(person_name=exx.bob, _persondelta=x_persondelta)
-    assert bob_lessonunit._persondelta != persondelta_shop()
-    assert bob_lessonunit._persondelta == x_persondelta
+    bob_lessonunit = lessonunit_shop(person_name=exx.bob, persondelta=x_persondelta)
+    assert bob_lessonunit.persondelta != persondelta_shop()
+    assert bob_lessonunit.persondelta == x_persondelta
 
     # WHEN
     bob_lessonunit.del_persondelta()
 
     # THEN
-    assert bob_lessonunit._persondelta == persondelta_shop()
+    assert bob_lessonunit.persondelta == persondelta_shop()
 
 
 def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
@@ -252,7 +252,7 @@ def test_LessonUnit_get_step_dict_ReturnsObj_Simple():
 def test_LessonUnit_get_step_dict_ReturnsObj_WithPersonDeltaPopulated():
     # ESTABLISH
     sue_persondelta = get_persondelta_sue_example()
-    bob_lessonunit = lessonunit_shop(exx.bob, _persondelta=sue_persondelta)
+    bob_lessonunit = lessonunit_shop(exx.bob, persondelta=sue_persondelta)
 
     # WHEN
     x_dict = bob_lessonunit.get_step_dict()
@@ -275,7 +275,7 @@ def test_LessonUnit_get_step_dict_ReturnsObj_delta_start():
     sue_persondelta = get_persondelta_sue_example()
     x_delta_start = 7
     bob_lessonunit = lessonunit_shop(
-        exx.bob, _persondelta=sue_persondelta, _delta_start=x_delta_start
+        exx.bob, persondelta=sue_persondelta, delta_start=x_delta_start
     )
 
     # WHEN
@@ -324,7 +324,7 @@ def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Simple():
 def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario0_WithPersonDeltaPopulated():
     # ESTABLISH
     sue_persondelta = get_persondelta_sue_example()
-    bob_lessonunit = lessonunit_shop(exx.bob, _persondelta=sue_persondelta)
+    bob_lessonunit = lessonunit_shop(exx.bob, persondelta=sue_persondelta)
 
     # WHEN
     total_dict = bob_lessonunit.get_serializable_step_dict()
@@ -339,7 +339,7 @@ def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario0_WithPersonDe
 def test_LessonUnit_get_serializable_step_dict_ReturnsObj_Scenario1_WithPersonDeltaPopulated():
     # ESTABLISH
     sue_persondelta = get_persondelta_sue_example()
-    bob_lessonunit = lessonunit_shop(exx.bob, _persondelta=sue_persondelta)
+    bob_lessonunit = lessonunit_shop(exx.bob, persondelta=sue_persondelta)
 
     # WHEN
     generated_dict = bob_lessonunit.get_serializable_step_dict()
@@ -375,7 +375,7 @@ def test_get_lessonunit_from_dict_ReturnsObj_WithPersonDeltaPopulated():
     # ESTABLISH
     sue_persondelta = get_persondelta_sue_example()
     bob_lessonunit = lessonunit_shop(
-        exx.bob, _persondelta=sue_persondelta, spark_num=778
+        exx.bob, persondelta=sue_persondelta, spark_num=778
     )
 
     # WHEN
@@ -388,7 +388,7 @@ def test_get_lessonunit_from_dict_ReturnsObj_WithPersonDeltaPopulated():
     assert generated_bob_lessonunit.face_name == bob_lessonunit.face_name
     assert generated_bob_lessonunit.spark_num == bob_lessonunit.spark_num
     assert generated_bob_lessonunit.moment_rope == bob_lessonunit.moment_rope
-    assert generated_bob_lessonunit._persondelta == bob_lessonunit._persondelta
+    assert generated_bob_lessonunit.persondelta == bob_lessonunit.persondelta
     assert generated_bob_lessonunit == bob_lessonunit
 
 
@@ -457,7 +457,7 @@ def test_LessonUnit_add_p_personatom_Sets_PersonUnit_partnerunits():
     bob_optional_dict = {cw_str: bob_partnerunit.to_dict().get(cw_str)}
     bob_optional_dict[dw_str] = bob_partnerunit.to_dict().get(dw_str)
     print(f"{bob_required_dict=}")
-    assert bob_lessonunit._persondelta.personatoms == {}
+    assert bob_lessonunit.persondelta.personatoms == {}
 
     # WHEN
     bob_lessonunit.add_p_personatom(
@@ -468,9 +468,9 @@ def test_LessonUnit_add_p_personatom_Sets_PersonUnit_partnerunits():
     )
 
     # THEN
-    assert len(bob_lessonunit._persondelta.personatoms) == 1
+    assert len(bob_lessonunit.persondelta.personatoms) == 1
     assert (
-        bob_lessonunit._persondelta.personatoms.get(kw.INSERT)
+        bob_lessonunit.persondelta.personatoms.get(kw.INSERT)
         .get(kw.person_partnerunit)
         .get(exx.bob)
         is not None
@@ -492,8 +492,8 @@ def test_LessonUnit_get_edited_person_ReturnsObj_PersonUnit_insert_partner():
     x_partner_debt_lumen = 66
     x_personatom.set_jvalue("partner_cred_lumen", x_partner_cred_lumen)
     x_personatom.set_jvalue("partner_debt_lumen", x_partner_debt_lumen)
-    sue_lessonunit._persondelta.set_personatom(x_personatom)
-    print(f"{sue_lessonunit._persondelta.personatoms.keys()=}")
+    sue_lessonunit.persondelta.set_personatom(x_personatom)
+    print(f"{sue_lessonunit.persondelta.personatoms.keys()=}")
 
     # WHEN
     after_sue_personunit = sue_lessonunit.get_lesson_edited_person(
@@ -541,7 +541,7 @@ def test_LessonUnit_is_empty_ReturnsObj():
     bob_optional_dict = {cw_str: bob_partnerunit.to_dict().get(cw_str)}
     bob_optional_dict[dw_str] = bob_partnerunit.to_dict().get(dw_str)
     print(f"{bob_required_dict=}")
-    assert bob_lessonunit._persondelta.personatoms == {}
+    assert bob_lessonunit.persondelta.personatoms == {}
     assert bob_lessonunit.is_empty()
 
     # WHEN
@@ -553,11 +553,11 @@ def test_LessonUnit_is_empty_ReturnsObj():
     )
 
     # THEN
-    assert len(bob_lessonunit._persondelta.personatoms) == 1
+    assert len(bob_lessonunit.persondelta.personatoms) == 1
     assert bob_lessonunit.is_empty() is False
 
     # WHEN
-    bob_lessonunit._persondelta.personatoms = {}
+    bob_lessonunit.persondelta.personatoms = {}
 
     # THEN
     assert bob_lessonunit.is_empty()
@@ -570,7 +570,7 @@ def test_LessonUnit_is_empty_ReturnsObj():
         jkeys=bob_required_dict,
         jvalues=bob_optional_dict,
     )
-    assert len(bob_lessonunit_update._persondelta.personatoms) == 1
+    assert len(bob_lessonunit_update.persondelta.personatoms) == 1
     assert bob_lessonunit_update.is_empty() is False
 
     # Test for DELETE_str operation
@@ -581,5 +581,5 @@ def test_LessonUnit_is_empty_ReturnsObj():
         jkeys=bob_required_dict,
         jvalues={},
     )
-    assert len(bob_lessonunit_delete._persondelta.personatoms) == 1
+    assert len(bob_lessonunit_delete.persondelta.personatoms) == 1
     assert bob_lessonunit_delete.is_empty() is False
