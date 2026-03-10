@@ -268,8 +268,8 @@ def test_save_to_split_csvs_CreatesFiles_Scenario4_knot_is_NULL(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH
-    # TODO get rid of knot is NULL option. It's a temporary solution that assumes the knot is a
-    # single character length
+    # TODO get rid of knot is NULL option. It's a temporary solution that assumes the knot is a single character length
+    # means the knot column in the tables need to be populated not by knot column of original inputs but by calculated knot for each moment
     x_tablename = "test_table568"
     key_columns = ["hair", "user"]
     create_sql = f"""CREATE TABLE {x_tablename} (hair INTEGER,user TEXT,y_int INTEGER, run TEXT, {kw.knot} TEXT);"""
