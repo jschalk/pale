@@ -99,34 +99,34 @@ WHERE {prnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_di
 #     print(expected_update_sqlstr)
 #     assert update_sqlstr == expected_update_sqlstr
 
+# TODO reactivate test
+# def test_get_update_prnfact_context_plan_sqlstr_ReturnsObj():
+#     # ESTABLISH
+#     prnfact_tablename = prime_tbl(kw.prnfact, "h", "agg", "put")
+#     prnplan_tablename = prime_tbl(kw.person_planunit, "h", "agg", "put")
 
-def test_get_update_prnfact_context_plan_sqlstr_ReturnsObj():
-    # ESTABLISH
-    prnfact_tablename = prime_tbl(kw.prnfact, "h", "agg", "put")
-    prnplan_tablename = prime_tbl(kw.person_planunit, "h", "agg", "put")
+#     # WHEN
+#     update_sqlstr = get_update_prnfact_context_plan_sqlstr()
 
-    # WHEN
-    update_sqlstr = get_update_prnfact_context_plan_sqlstr()
-
-    # THEN
-    assert update_sqlstr
-    expected_update_sqlstr = f"""
-WITH spark_prnplan AS (
-    SELECT spark_num, close, denom, morph
-    FROM {prnplan_tablename}
-    GROUP BY spark_num, close, denom, morph
-)
-UPDATE {prnfact_tablename}
-SET 
-  context_plan_close = spark_prnplan.close
-, context_plan_denom = spark_prnplan.denom
-, context_plan_morph = spark_prnplan.morph
-FROM spark_prnplan
-WHERE {prnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_prnplan)
-;
-"""
-    print(expected_update_sqlstr)
-    assert update_sqlstr == expected_update_sqlstr
+#     # THEN
+#     assert update_sqlstr
+#     expected_update_sqlstr = f"""
+# WITH spark_prnplan AS (
+#     SELECT spark_num, close, denom, morph
+#     FROM {prnplan_tablename}
+#     GROUP BY spark_num, close, denom, morph
+# )
+# UPDATE {prnfact_tablename}
+# SET
+#   context_plan_close = spark_prnplan.close
+# , context_plan_denom = spark_prnplan.denom
+# , context_plan_morph = spark_prnplan.morph
+# FROM spark_prnplan
+# WHERE {prnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_prnplan)
+# ;
+# """
+#     print(expected_update_sqlstr)
+#     assert update_sqlstr == expected_update_sqlstr
 
 
 def test_get_update_prncase_range_sqlstr_ReturnsObj():

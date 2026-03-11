@@ -1132,7 +1132,9 @@ def get_update_heard_agg_timenum_sqlstrs() -> dict[str]:
 # Create "_otx" and "_inx" columns for
 # reason_lower, reason_upper, fact_lower, fact_upper, tran_time, bud_time,
 def get_update_prncase_inx_epoch_diff_sqlstr() -> str:
-    """Returns update statement that sets h_put_agg.inx_epoch_diff column from nabtime values"""
+    """Returns update statement that sets h_put_agg.inx_epoch_diff column from nabtime values
+    reference key: pchap0
+    """
 
     nabtime_tablename = create_prime_tablename("nabu_timenum", "h", "agg")
     prncase_abbv = "person_plan_reason_caseunit"
@@ -1154,7 +1156,9 @@ WHERE {prncase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_di
 
 
 def get_update_prnfact_inx_epoch_diff_sqlstr() -> str:
-    """Returns update statement that sets h_put_agg.inx_epoch_diff column from nabtime values"""
+    """Returns update statement that sets h_put_agg.inx_epoch_diff column from nabtime values
+    reference key: pfhap0
+    """
     nabtime_tablename = create_prime_tablename("nabu_timenum", "h", "agg")
     prnfact_tablename = create_prime_tablename("prnfact", "h", "agg", "put")
     return f"""
@@ -1178,6 +1182,7 @@ def get_update_prncase_context_plan_sqlstr() -> str:
     context_plan_close = spark_prnplan.close
     context_plan_denom = spark_prnplan.denom
     context_plan_morph = spark_prnplan.morph
+    reference key: pchap1
     """
     return """
 UPDATE person_plan_reason_caseunit_h_put_agg as prncase
@@ -1199,21 +1204,16 @@ def get_update_prnfact_context_plan_sqlstr() -> str:
     context_plan_denom = spark_prnplan.denom
     context_plan_morph = spark_prnplan.morph
     """
-    prnfact_tablename = create_prime_tablename("prnfact", "h", "agg", "put")
-    prnplan_tablename = create_prime_tablename("prnplan", "h", "agg", "put")
     return f"""
-WITH spark_prnplan AS (
-    SELECT spark_num, close, denom, morph
-    FROM {prnplan_tablename}
-    GROUP BY spark_num, close, denom, morph
-)
-UPDATE {prnfact_tablename}
+UPDATE person_plan_factunit_h_put_agg as prnfact
 SET 
-  context_plan_close = spark_prnplan.close
-, context_plan_denom = spark_prnplan.denom
-, context_plan_morph = spark_prnplan.morph
-FROM spark_prnplan
-WHERE {prnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_prnplan)
+  context_plan_close = prnplan.close
+, context_plan_denom = prnplan.denom
+, context_plan_morph = prnplan.morph
+FROM person_planunit_h_put_agg prnplan
+WHERE prnfact.spark_num = prnplan.spark_num
+    AND prnfact.person_name = prnplan.person_name
+    AND prnfact.fact_context = prnplan.plan_rope
 ;
 """
 

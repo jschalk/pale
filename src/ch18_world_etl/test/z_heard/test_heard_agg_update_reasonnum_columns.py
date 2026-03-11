@@ -57,7 +57,7 @@ from src.ch18_world_etl.test._util.ch18_examples import (
     insert_prncase_special_h_agg as insert_prncase,
     insert_prnfact_special_h_agg as insert_prnfact,
     select_mmtoffi_special_offi_time_inx as select_offi_time_inx,
-    select_prncase_special_h_agg as select_prncase,
+    select_prncase_special_h_agg as pchap1_select_prncase,
     select_prnfact_special_h_agg as select_prnfact,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
@@ -75,218 +75,6 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 # 3. create update queries to set the nabuable fields using inx_epoch_diff column
 # 4. create test for function that both updates inx_epoch_diff and nabuable fields
 # 5. create a heard_agg test that confirms heard_vld pulls from nabuable_inx fields (probably not case now)
-
-
-# update semantic_type: ReasonNum person_plan_reason_caseunit_h_agg_put inx_epoch_diff
-def test_get_update_prncase_inx_epoch_diff_sqlstr_Scenario0_Simple_SetColumnValues(
-    cursor0: Cursor,
-):
-    # ESTABLISH
-    spark7 = 7
-    bob_person = get_bob_five_with_mop_dayly()
-    create_sound_and_heard_tables(cursor0)
-    h_agg_table = create_prime_tablename(kw.prncase, "h", "agg", "put")
-    otx_time = 199
-    inx_time = 13
-    moment_rope = bob_person.planroot.get_plan_rope()
-    insert_otx_inx_time(cursor0, spark7, exx.yao, moment_rope, otx_time, inx_time)
-    insert_h_agg_obj(cursor0, bob_person, spark7, exx.yao)
-    print(f"{h_agg_table=}")
-    sel_prncase_str = f"SELECT {kw.inx_epoch_diff} FROM {h_agg_table};"
-    assert get_row_count(cursor0, h_agg_table) == 1
-    assert cursor0.execute(sel_prncase_str).fetchone()[0] is None
-
-    # WHEN
-    cursor0.execute(get_update_prncase_inx_epoch_diff_sqlstr())
-
-    # THEN
-    assert get_row_count(cursor0, h_agg_table) == 1
-    after_inx_epoch_diff = cursor0.execute(sel_prncase_str).fetchone()[0]
-    assert after_inx_epoch_diff
-    assert after_inx_epoch_diff == otx_time - inx_time
-    assert after_inx_epoch_diff == 186
-
-
-def test_get_update_prnfact_inx_epoch_diff_sqlstr_Scenario0_Simple_SetColumnValues(
-    cursor0: Cursor,
-):
-    # ESTABLISH
-    spark7 = 7
-    bob_person = get_bob_five_with_mop_dayly()
-    bob_person.add_fact(wx.time_rope, wx.time_rope, 0, 100)
-    create_sound_and_heard_tables(cursor0)
-    h_agg_table = create_prime_tablename(kw.prnfact, "h", "agg", "put")
-    otx_time = 199
-    inx_time = 13
-    moment_rope = bob_person.planroot.get_plan_rope()
-    insert_otx_inx_time(cursor0, spark7, exx.yao, moment_rope, otx_time, inx_time)
-    insert_h_agg_obj(cursor0, bob_person, spark7, exx.yao)
-    # TODO create SQL query that selects only the fields of interest (ok that it cannot be reused in other tests)
-    print(f"{h_agg_table=}")
-    sel_prnfact_str = f"SELECT {kw.inx_epoch_diff} FROM {h_agg_table};"
-    assert get_row_count(cursor0, h_agg_table) == 1
-    assert cursor0.execute(sel_prnfact_str).fetchone()[0] is None
-
-    # WHEN
-    cursor0.execute(get_update_prnfact_inx_epoch_diff_sqlstr())
-
-    # THEN
-    assert get_row_count(cursor0, h_agg_table) == 1
-    after_inx_epoch_diff = cursor0.execute(sel_prnfact_str).fetchone()[0]
-    assert after_inx_epoch_diff
-    assert after_inx_epoch_diff == otx_time - inx_time
-    assert after_inx_epoch_diff == 186
-
-
-def insert_into_prncase(cursor0: Cursor, x_values: list[list]) -> str:
-    """x_cols = [kw.spark_num, kw.person_name, kw.reason_context]"""
-    x_cols = [kw.spark_num, kw.person_name, kw.reason_context]
-    tablename = create_prime_db_table(cursor0, kw.prncase, "h", "agg", "put")
-    insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
-    cursor0.execute(insert_sql)
-    return insert_sql
-
-
-def insert_into_prnplan(cursor0: Cursor, x_values: list[list]) -> str:
-    """x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close, kw.denom, kw.morph]"""
-    x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close, kw.denom, kw.morph]
-    tablename = create_prime_db_table(cursor0, kw.prnplan, "h", "agg", "put")
-    insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
-    cursor0.execute(insert_sql)
-    return insert_sql
-
-
-def select_prncase(cursor0: Cursor, print_rows: bool = False) -> list[tuple]:
-    """SELECT spark_num, person_name, reason_context, context_plan_close, context_plan_denom, context_plan_morph"""
-    prncase_h_agg_table = create_prime_tablename(kw.prncase, "h", "agg", "put")
-    sel_prncase_str = f"""
-SELECT spark_num, person_name, reason_context, context_plan_close, context_plan_denom, context_plan_morph 
-FROM {prncase_h_agg_table}
-ORDER BY spark_num, person_name, reason_context, context_plan_close, context_plan_denom, context_plan_morph
-;"""
-    x_rows = cursor0.execute(sel_prncase_str).fetchall()
-    if print_rows:
-        print(x_rows)
-    return x_rows
-
-
-def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario0_1row(
-    cursor0: Cursor,
-):
-    # ESTABLISH
-    spark7 = 7
-    prncase_vals = [[spark7, exx.sue, wx.clean_rope]]
-    x0_close, x0_denom, x0_morph = (44, 55, 66)
-    prncase_insert_sql = insert_into_prncase(cursor0, prncase_vals)
-    prnplan_in_vals = [[spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph]]
-    prnplan_insert_sql = insert_into_prnplan(cursor0, prnplan_in_vals)
-    assert select_prncase(cursor0, True) == [
-        (spark7, exx.sue, wx.clean_rope, None, None, None)
-    ]
-
-    # WHEN
-    cursor0.execute(get_update_prncase_context_plan_sqlstr())
-
-    # THEN
-    assert select_prncase(cursor0) == [
-        (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph)
-    ]
-
-
-def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario1_2rows(
-    cursor0: Cursor,
-):
-    # ESTABLISH
-    spark7, spark9 = (7, 9)
-    x0_close, x0_denom, x0_morph = (44, 55, 66)
-    x1_close, x1_denom, x1_morph = (77, 88, 99)
-    prnplan_in_vals = [
-        [spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph],
-        [spark9, exx.sue, wx.clean_rope, x1_close, x1_denom, x1_morph],
-    ]
-    prnplan_insert_sql = insert_into_prnplan(cursor0, prnplan_in_vals)
-    prncase_vals = [[spark7, exx.sue, wx.clean_rope], [spark9, exx.sue, wx.clean_rope]]
-    prncase_insert_sql = insert_into_prncase(cursor0, prncase_vals)
-
-    # BEFORE
-    assert select_prncase(cursor0) == [
-        (spark7, exx.sue, wx.clean_rope, None, None, None),
-        (spark9, exx.sue, wx.clean_rope, None, None, None),
-    ]
-
-    # WHEN
-    update_sql = get_update_prncase_context_plan_sqlstr()
-    cursor0.execute(update_sql)
-
-    # THEN
-    assert select_prncase(cursor0, True) == [
-        (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph),
-        (spark9, exx.sue, wx.clean_rope, x1_close, x1_denom, x1_morph),
-    ]
-
-
-def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario3_DifferentPersons(
-    cursor0: Cursor,
-):
-    # ESTABLISH
-    spark7 = 7
-    x0_close, x0_denom, x0_morph = (44, 55, 66)
-    x1_close, x1_denom, x1_morph = (77, 88, 99)
-    prnplan_in_vals = [
-        [spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph],
-        [spark7, exx.zia, wx.clean_rope, x1_close, x1_denom, x1_morph],
-    ]
-    prnplan_insert_sql = insert_into_prnplan(cursor0, prnplan_in_vals)
-    prncase_vals = [[spark7, exx.sue, wx.clean_rope], [spark7, exx.zia, wx.clean_rope]]
-    prncase_insert_sql = insert_into_prncase(cursor0, prncase_vals)
-
-    # BEFORE
-    assert select_prncase(cursor0) == [
-        (spark7, exx.sue, wx.clean_rope, None, None, None),
-        (spark7, exx.zia, wx.clean_rope, None, None, None),
-    ]
-
-    # WHEN
-    update_sql = get_update_prncase_context_plan_sqlstr()
-    cursor0.execute(update_sql)
-
-    # THEN
-    assert select_prncase(cursor0, True) == [
-        (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph),
-        (spark7, exx.zia, wx.clean_rope, x1_close, x1_denom, x1_morph),
-    ]
-
-
-def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario4_Different_plan_rope(
-    cursor0: Cursor,
-):
-    # ESTABLISH
-    spark7 = 7
-    x0_close, x0_denom, x0_morph = (44, 55, 66)
-    x1_close, x1_denom, x1_morph = (77, 88, 99)
-    prnplan_in_vals = [
-        [spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph],
-        [spark7, exx.sue, wx.mop_rope, x1_close, x1_denom, x1_morph],
-    ]
-    prnplan_insert_sql = insert_into_prnplan(cursor0, prnplan_in_vals)
-    prncase_vals = [[spark7, exx.sue, wx.clean_rope], [spark7, exx.sue, wx.mop_rope]]
-    prncase_insert_sql = insert_into_prncase(cursor0, prncase_vals)
-
-    # BEFORE
-    assert select_prncase(cursor0) == [
-        (spark7, exx.sue, wx.clean_rope, None, None, None),
-        (spark7, exx.sue, wx.mop_rope, None, None, None),
-    ]
-
-    # WHEN
-    update_sql = get_update_prncase_context_plan_sqlstr()
-    cursor0.execute(update_sql)
-
-    # THEN
-    assert select_prncase(cursor0, True) == [
-        (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph),
-        (spark7, exx.sue, wx.mop_rope, x1_close, x1_denom, x1_morph),
-    ]
 
 
 # identify the change
@@ -351,7 +139,7 @@ def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario4_Different
 #         inx_time = 0
 #         insert_otx_inx_time(cursor, spark7, exx.yao, m_label, otx_time, inx_time)
 #         insert_h_agg_obj(cursor, bob_person, spark7, exx.yao)
-#         prncase_objs = select_prncase(
+#         prncase_objs = pchap1_select_prncase(
 #             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
 #         )
 #         print(f"{prncase_objs=}")
@@ -368,7 +156,7 @@ def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario4_Different
 #         add_frame_to_db_caseunit(cursor, day_plan.close, day_plan.denom, day_plan.morph)
 
 #         # THEN
-#         after_prncase_obj0 = select_prncase(
+#         after_prncase_obj0 = pchap1_select_prncase(
 #             cursor, spark7, "YY", exx.bob, wx.mop_rope, wx.day_rope, wx.day_rope
 #         )[0]
 #         expected_lower_inx = prncase_obj0.reason_lower_otx + otx_time - inx_time
