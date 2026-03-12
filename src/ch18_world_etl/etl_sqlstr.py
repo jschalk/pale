@@ -1136,21 +1136,12 @@ def get_update_prncase_inx_epoch_diff_sqlstr() -> str:
     reference key: pchap0
     """
 
-    nabtime_tablename = create_prime_tablename("nabu_timenum", "h", "agg")
-    prncase_abbv = "person_plan_reason_caseunit"
-    prncase_tablename = create_prime_tablename(prncase_abbv, "h", "agg", "put")
     return f"""
-WITH spark_inx_epoch_diff AS (
-    SELECT 
-      spark_num
-    , otx_time - inx_time AS inx_epoch_diff
-    FROM {nabtime_tablename}
-    GROUP BY spark_num, otx_time, inx_time
-)
-UPDATE {prncase_tablename}
-SET inx_epoch_diff = spark_inx_epoch_diff.inx_epoch_diff
-FROM spark_inx_epoch_diff
-WHERE {prncase_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
+UPDATE person_plan_reason_caseunit_h_put_agg as prncase
+SET inx_epoch_diff = otx_time - inx_time
+FROM nabu_timenum_h_agg as nabtime
+WHERE prncase.spark_num = nabtime.spark_num
+    AND prncase.plan_rope LIKE nabtime.moment_rope || '%'
 ;
 """
 
@@ -1159,20 +1150,13 @@ def get_update_prnfact_inx_epoch_diff_sqlstr() -> str:
     """Returns update statement that sets h_put_agg.inx_epoch_diff column from nabtime values
     reference key: pfhap0
     """
-    nabtime_tablename = create_prime_tablename("nabu_timenum", "h", "agg")
-    prnfact_tablename = create_prime_tablename("prnfact", "h", "agg", "put")
+
     return f"""
-WITH spark_inx_epoch_diff AS (
-    SELECT 
-      spark_num
-    , otx_time - inx_time AS inx_epoch_diff
-    FROM {nabtime_tablename}
-    GROUP BY spark_num, otx_time, inx_time
-)
-UPDATE {prnfact_tablename}
-SET inx_epoch_diff = spark_inx_epoch_diff.inx_epoch_diff
-FROM spark_inx_epoch_diff
-WHERE {prnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
+UPDATE person_plan_factunit_h_put_agg as prnfact
+SET inx_epoch_diff = otx_time - inx_time
+FROM nabu_timenum_h_agg as nabtime
+WHERE prnfact.spark_num = nabtime.spark_num
+    AND prnfact.plan_rope LIKE nabtime.moment_rope || '%'
 ;
 """
 
