@@ -1226,38 +1226,37 @@ def get_update_prncase_range_sqlstr() -> str:
 UPDATE person_plan_reason_caseunit_h_put_agg as prncase
 SET
  reason_lower_inx =
-  CASE 
-   WHEN reason_divisor IS NOT NULL THEN 
+  CASE
+   WHEN reason_divisor IS NOT NULL THEN
     CASE
      WHEN context_plan_morph = 1
      THEN (reason_lower_otx + inx_epoch_diff) % reason_divisor
      WHEN context_plan_morph IS NULL
-     THEN reason_lower_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER) % reason_divisor
+     THEN (reason_lower_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER)) % reason_divisor
     END
    WHEN context_plan_denom IS NOT NULL THEN
     CASE
      WHEN context_plan_morph = 1
      THEN (reason_lower_otx + inx_epoch_diff) % context_plan_denom
      WHEN context_plan_morph IS NULL
-     THEN reason_lower_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER) % context_plan_denom
+     THEN (reason_lower_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER)) % context_plan_denom
     END
-    
   END,
  reason_upper_inx =
-  CASE 
-   WHEN reason_divisor IS NOT NULL THEN 
+  CASE
+   WHEN reason_divisor IS NOT NULL THEN
     CASE
      WHEN context_plan_morph = 1
      THEN (reason_upper_otx + inx_epoch_diff) % reason_divisor
      WHEN context_plan_morph IS NULL
-     THEN reason_upper_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER) % reason_divisor
+     THEN (reason_upper_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER)) % reason_divisor
     END
    WHEN context_plan_denom IS NOT NULL THEN
     CASE
      WHEN context_plan_morph = 1
      THEN (reason_upper_otx + inx_epoch_diff) % context_plan_denom
      WHEN context_plan_morph IS NULL
-     THEN reason_upper_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER) % context_plan_denom
+     THEN (reason_upper_otx + CAST(inx_epoch_diff / IFNULL(context_plan_denom, 1) AS INTEGER)) % context_plan_denom
     END
   END
 ;
