@@ -5,191 +5,144 @@ from src.ch18_world_etl.etl_config import create_prime_tablename
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_db_table,
     create_prime_tablename as prime_tbl,
-    get_update_prnfact_context_plan_sqlstr,
-    get_update_prnfact_inx_epoch_diff_sqlstr,
     get_update_prnfact_range_sqlstr,
 )
 from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
+# # TODO reactivate
+# def test_get_update_prnfact_range_sqlstr_ReturnsObj():
+#     # ESTABLISH
+#     prnfact_tablename = prime_tbl(kw.person_plan_fact_factunit, "h", "agg", "put")
 
-def test_get_update_prnfact_range_sqlstr_ReturnsObj():
-    # ESTABLISH
-    prnfact_tablename = prime_tbl(kw.prnfact, "h", "agg", "put")
+#     # WHEN
+#     update_sqlstr = get_update_prnfact_range_sqlstr()
+
+#     # THEN
+#     assert update_sqlstr
+#     expected_update_sqlstr = f"""
+# UPDATE {prnfact_tablename} as prnfact
+# SET
+#  {kw.fact_lower}_inx =
+#   fact
+#    WHEN {kw.fact_divisor} IS NOT NULL THEN
+#     fact
+#      WHEN context_plan_morph = 1
+#      THEN ({kw.fact_lower}_otx + {kw.inx_epoch_diff}) % {kw.fact_divisor}
+#      WHEN context_plan_morph IS NULL
+#      THEN ({kw.fact_lower}_otx + CAST({kw.inx_epoch_diff} / IFNULL(context_plan_close, 1) AS INTEGER)) % {kw.fact_divisor}
+#     END
+#    WHEN context_plan_close IS NOT NULL THEN
+#     fact
+#      WHEN context_plan_morph = 1
+#      THEN ({kw.fact_lower}_otx + {kw.inx_epoch_diff}) % context_plan_close
+#      WHEN context_plan_morph IS NULL
+#      THEN ({kw.fact_lower}_otx + CAST({kw.inx_epoch_diff} / IFNULL(context_plan_close, 1) AS INTEGER)) % context_plan_close
+#     END
+#   END,
+#  {kw.fact_upper}_inx =
+#   fact
+#    WHEN {kw.fact_divisor} IS NOT NULL THEN
+#     fact
+#      WHEN context_plan_morph = 1
+#      THEN ({kw.fact_upper}_otx + {kw.inx_epoch_diff}) % {kw.fact_divisor}
+#      WHEN context_plan_morph IS NULL
+#      THEN ({kw.fact_upper}_otx + CAST({kw.inx_epoch_diff} / IFNULL(context_plan_close, 1) AS INTEGER)) % {kw.fact_divisor}
+#     END
+#    WHEN context_plan_close IS NOT NULL THEN
+#     fact
+#      WHEN context_plan_morph = 1
+#      THEN ({kw.fact_upper}_otx + {kw.inx_epoch_diff}) % context_plan_close
+#      WHEN context_plan_morph IS NULL
+#      THEN ({kw.fact_upper}_otx + CAST({kw.inx_epoch_diff} / IFNULL(context_plan_close, 1) AS INTEGER)) % context_plan_close
+#     END
+#   END
+# ;
+# """
+#     print(update_sqlstr)
+#     assert update_sqlstr == expected_update_sqlstr
+
+
+def pfhap2_insert_prnfact(cursor0: Cursor, x_values: list[list]) -> str:
+    """x_cols = "fact_lower_otx", "fact_upper_otx", "context_plan_close", kw.inx_epoch_diff"""
+
+    x_cols = [
+        "fact_lower_otx",
+        "fact_upper_otx",
+        "context_plan_close",
+        kw.inx_epoch_diff,
+    ]
+    tablename = create_prime_db_table(cursor0, kw.prnfact, "h", "agg", "put")
+    insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
+    cursor0.execute(insert_sql)
+    return insert_sql
+
+
+def pfhap2_select_prnfact(cursor0: Cursor, print_rows: bool = False) -> list[tuple]:
+    """SELECT fact_lower_otx, fact_lower_inx, fact_upper_otx, fact_upper_inx"""
+
+    prnfact_h_agg_table = create_prime_tablename(kw.prnfact, "h", "agg", "put")
+    sel_prnfact_str = f"""
+SELECT fact_lower_otx, fact_lower_inx, fact_upper_otx, fact_upper_inx
+FROM {prnfact_h_agg_table}
+ORDER BY fact_lower_otx, fact_lower_inx, fact_upper_otx, fact_upper_inx
+;"""
+    x_rows = cursor0.execute(sel_prnfact_str).fetchall()
+    if print_rows:
+        print(x_rows)
+    return x_rows
+
+
+def test_test_get_update_prnfact_context_plan_sqlstr_SQLTEST_Scenario0_NoWrap_dayly(
+    cursor0,
+):
+    # ESTABLISH modeled after # def test_add_frame_to_factunit_SetsAttr_epoch_Scenario0_NoWrap
+
+    fact_lower_otx, fact_upper_otx = (7777, 8000)
+    context_plan_close = 5259492000
+    inx_epoch_diff = 100
+    prnfact_val = [fact_lower_otx, fact_upper_otx, context_plan_close, inx_epoch_diff]
+    prnfact_insert_sql = pfhap2_insert_prnfact(cursor0, [prnfact_val])
+
+    # BEFORE
+    assert pfhap2_select_prnfact(cursor0) == [
+        (fact_lower_otx, None, fact_upper_otx, None)
+    ]
 
     # WHEN
-    update_sqlstr = get_update_prnfact_range_sqlstr()
+    cursor0.execute(get_update_prnfact_range_sqlstr())
 
     # THEN
-    assert update_sqlstr
-    expected_update_sqlstr = f"""
-WITH spark_prnfact AS (
-    SELECT 
-      spark_num
-    , IFNULL(reason_divisor, IFNULL(context_plan_close, context_plan_denom)) modulus
-    , FACT WHEN morph = 1 THEN inx_epoch_diff / IFNULL(context_plan_denom, 1) ELSE inx_epoch_diff END calc_epoch_diff
-    FROM {prnfact_tablename}
-    GROUP BY spark_num, reason_divisor, context_plan_close, context_plan_denom, context_plan_morph
-)
-UPDATE {prnfact_tablename}
-SET 
-  reason_lower_inx = (reason_lower_otx + spark_prnfact.calc_epoch_diff) % spark_prnfact.modulus
-, reason_upper_inx = (reason_upper_otx + spark_prnfact.calc_epoch_diff) % spark_prnfact.modulus
-FROM spark_prnfact
-WHERE {prnfact_tablename}.spark_num IN (SELECT spark_num FROM spark_prnfact)
-;
-"""
-    print(expected_update_sqlstr)
-    assert update_sqlstr == expected_update_sqlstr
+    fact_lower_inx = fact_lower_otx + inx_epoch_diff
+    fact_upper_inx = fact_upper_otx + inx_epoch_diff
+    assert pfhap2_select_prnfact(cursor0) == [
+        (fact_lower_otx, fact_lower_inx, fact_upper_otx, fact_upper_inx)
+    ]
+    assert pfhap2_select_prnfact(cursor0) == [(7777, 7877, 8000, 8100)]
 
 
-# def pfhap1_insert_prnfact(cursor0: Cursor, x_values: list[list]) -> str:
-#     """x_cols = [kw.spark_num, kw.person_name, kw.fact_context]"""
-#     x_cols = [kw.spark_num, kw.person_name, kw.fact_context]
-#     tablename = create_prime_db_table(cursor0, kw.prnfact, "h", "agg", "put")
-#     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
-#     cursor0.execute(insert_sql)
-#     return insert_sql
+def test_test_get_update_prnfact_context_plan_sqlstr_SQLTEST_Scenario1_Wrap_dayly(
+    cursor0,
+):
+    # ESTABLISH modeled after test_add_frame_to_factunit_SetsAttr_Scenario1_Wrap_dayly
+    fact_lower_otx, fact_upper_otx = (7777, 8000)
+    context_plan_close = 5259492000
+    inx_epoch_diff = 200 + context_plan_close
+    prnfact_val = [fact_lower_otx, fact_upper_otx, context_plan_close, inx_epoch_diff]
+    prnfact_insert_sql = pfhap2_insert_prnfact(cursor0, [prnfact_val])
 
+    # BEFORE
+    assert pfhap2_select_prnfact(cursor0) == [
+        (fact_lower_otx, None, fact_upper_otx, None)
+    ]
 
-# def pfhap1_insert_prnplan(cursor0: Cursor, x_values: list[list]) -> str:
-#     """x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close, kw.denom, kw.morph]"""
-#     x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close, kw.denom, kw.morph]
-#     tablename = create_prime_db_table(cursor0, kw.prnplan, "h", "agg", "put")
-#     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
-#     cursor0.execute(insert_sql)
-#     return insert_sql
+    # WHEN
+    cursor0.execute(get_update_prnfact_range_sqlstr())
 
-
-# def pfhap1_select_prnfact(cursor0: Cursor, print_rows: bool = False) -> list[tuple]:
-#     """SELECT spark_num, person_name, fact_context, context_plan_close, context_plan_denom, context_plan_morph"""
-#     prnfact_h_agg_table = create_prime_tablename(kw.prnfact, "h", "agg", "put")
-#     sel_prnfact_str = f"""
-# SELECT spark_num, person_name, fact_context, context_plan_close, context_plan_denom, context_plan_morph
-# FROM {prnfact_h_agg_table}
-# ORDER BY spark_num, person_name, fact_context, context_plan_close, context_plan_denom, context_plan_morph
-# ;"""
-#     x_rows = cursor0.execute(sel_prnfact_str).fetchall()
-#     if print_rows:
-#         print(x_rows)
-#     return x_rows
-
-
-# def test_test_get_update_prnfact_context_plan_sqlstr_SQLTEST_Scenario0_1row(
-#     cursor0: Cursor,
-# ):
-#     # ESTABLISH
-#     spark7 = 7
-#     prnfact_vals = [[spark7, exx.sue, wx.clean_rope]]
-#     x0_close, x0_denom, x0_morph = (44, 55, 66)
-#     prnfact_insert_sql = pfhap1_insert_prnfact(cursor0, prnfact_vals)
-#     prnplan_in_vals = [[spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph]]
-#     prnplan_insert_sql = pfhap1_insert_prnplan(cursor0, prnplan_in_vals)
-#     assert pfhap1_select_prnfact(cursor0, True) == [
-#         (spark7, exx.sue, wx.clean_rope, None, None, None)
-#     ]
-
-#     # WHEN
-#     cursor0.execute(get_update_prnfact_context_plan_sqlstr())
-
-#     # THEN
-#     assert pfhap1_select_prnfact(cursor0) == [
-#         (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph)
-#     ]
-
-
-# def test_test_get_update_prnfact_context_plan_sqlstr_SQLTEST_Scenario1_2rows(
-#     cursor0: Cursor,
-# ):
-#     # ESTABLISH
-#     spark7, spark9 = (7, 9)
-#     x0_close, x0_denom, x0_morph = (44, 55, 66)
-#     x1_close, x1_denom, x1_morph = (77, 88, 99)
-#     prnplan_in_vals = [
-#         [spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph],
-#         [spark9, exx.sue, wx.clean_rope, x1_close, x1_denom, x1_morph],
-#     ]
-#     prnplan_insert_sql = pfhap1_insert_prnplan(cursor0, prnplan_in_vals)
-#     print(prnplan_insert_sql)
-#     prnfact_vals = [[spark7, exx.sue, wx.clean_rope], [spark9, exx.sue, wx.clean_rope]]
-#     prnfact_insert_sql = pfhap1_insert_prnfact(cursor0, prnfact_vals)
-
-#     # BEFORE
-#     assert pfhap1_select_prnfact(cursor0) == [
-#         (spark7, exx.sue, wx.clean_rope, None, None, None),
-#         (spark9, exx.sue, wx.clean_rope, None, None, None),
-#     ]
-
-#     # WHEN
-#     update_sql = get_update_prnfact_context_plan_sqlstr()
-#     cursor0.execute(update_sql)
-
-#     # THEN
-#     assert pfhap1_select_prnfact(cursor0, True) == [
-#         (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph),
-#         (spark9, exx.sue, wx.clean_rope, x1_close, x1_denom, x1_morph),
-#     ]
-
-
-# def test_test_get_update_prnfact_context_plan_sqlstr_SQLTEST_Scenario3_DifferentPersons(
-#     cursor0: Cursor,
-# ):
-#     # ESTABLISH
-#     spark7 = 7
-#     x0_close, x0_denom, x0_morph = (44, 55, 66)
-#     x1_close, x1_denom, x1_morph = (77, 88, 99)
-#     prnplan_in_vals = [
-#         [spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph],
-#         [spark7, exx.zia, wx.clean_rope, x1_close, x1_denom, x1_morph],
-#     ]
-#     prnplan_insert_sql = pfhap1_insert_prnplan(cursor0, prnplan_in_vals)
-#     prnfact_vals = [[spark7, exx.sue, wx.clean_rope], [spark7, exx.zia, wx.clean_rope]]
-#     prnfact_insert_sql = pfhap1_insert_prnfact(cursor0, prnfact_vals)
-
-#     # BEFORE
-#     assert pfhap1_select_prnfact(cursor0) == [
-#         (spark7, exx.sue, wx.clean_rope, None, None, None),
-#         (spark7, exx.zia, wx.clean_rope, None, None, None),
-#     ]
-
-#     # WHEN
-#     update_sql = get_update_prnfact_context_plan_sqlstr()
-#     cursor0.execute(update_sql)
-
-#     # THEN
-#     assert pfhap1_select_prnfact(cursor0, True) == [
-#         (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph),
-#         (spark7, exx.zia, wx.clean_rope, x1_close, x1_denom, x1_morph),
-#     ]
-
-
-# def test_test_get_update_prnfact_context_plan_sqlstr_SQLTEST_Scenario4_Different_plan_rope(
-#     cursor0: Cursor,
-# ):
-#     # ESTABLISH
-#     spark7 = 7
-#     x0_close, x0_denom, x0_morph = (44, 55, 66)
-#     x1_close, x1_denom, x1_morph = (77, 88, 99)
-#     prnplan_in_vals = [
-#         [spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph],
-#         [spark7, exx.sue, wx.mop_rope, x1_close, x1_denom, x1_morph],
-#     ]
-#     prnplan_insert_sql = pfhap1_insert_prnplan(cursor0, prnplan_in_vals)
-#     prnfact_vals = [[spark7, exx.sue, wx.clean_rope], [spark7, exx.sue, wx.mop_rope]]
-#     prnfact_insert_sql = pfhap1_insert_prnfact(cursor0, prnfact_vals)
-
-#     # BEFORE
-#     assert pfhap1_select_prnfact(cursor0) == [
-#         (spark7, exx.sue, wx.clean_rope, None, None, None),
-#         (spark7, exx.sue, wx.mop_rope, None, None, None),
-#     ]
-
-#     # WHEN
-#     update_sql = get_update_prnfact_context_plan_sqlstr()
-#     cursor0.execute(update_sql)
-
-#     # THEN
-#     assert pfhap1_select_prnfact(cursor0, True) == [
-#         (spark7, exx.sue, wx.clean_rope, x0_close, x0_denom, x0_morph),
-#         (spark7, exx.sue, wx.mop_rope, x1_close, x1_denom, x1_morph),
-#     ]
+    # THEN
+    fact_lower_inx = (fact_lower_otx + inx_epoch_diff) % context_plan_close
+    fact_upper_inx = (fact_upper_otx + inx_epoch_diff) % context_plan_close
+    assert pfhap2_select_prnfact(cursor0) == [
+        (fact_lower_otx, fact_lower_inx, fact_upper_otx, fact_upper_inx)
+    ]
+    assert pfhap2_select_prnfact(cursor0) == [(7777, 7977, 8000, 8200)]

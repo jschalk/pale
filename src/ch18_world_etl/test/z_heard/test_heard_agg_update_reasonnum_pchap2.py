@@ -132,7 +132,7 @@ def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario0_NoWrap_da
 def test_test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario1_Wrap_dayly(
     cursor0,
 ):
-    # ESTABLISH modeled after test_add_frame_to_caseunit_SetsAttr_Scenario0_NoWrap_dayly
+    # ESTABLISH modeled after test_add_frame_to_caseunit_SetsAttr_Scenario1_Wrap_dayly
     reason_lower_otx, reason_upper_otx, reason_divisor = (600, 690, 1440)
     context_plan_denom, context_plan_morph = (1440, True)
     inx_epoch_diff = 1000
