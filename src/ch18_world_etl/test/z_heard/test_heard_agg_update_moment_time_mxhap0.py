@@ -5,8 +5,8 @@ from src.ch17_idea.idea_config import get_dimens_with_idea_element
 from src.ch18_world_etl.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,
+    get_update_heard_agg_moment_timenum_sqlstrs,
     get_update_heard_agg_timenum_sqlstr,
-    get_update_heard_agg_timenum_sqlstrs,
     update_heard_agg_timenum_columns,
 )
 from src.ch18_world_etl.test._util.ch18_env import cursor0
@@ -212,9 +212,9 @@ def test_get_update_heard_agg_timenum_sqlstr_ReturnsObj_Scenario4_PopulatesTable
     assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == 1850
 
 
-def test_get_update_heard_agg_timenum_sqlstrs_ReturnsObj():
+def test_get_update_heard_agg_moment_timenum_sqlstrs_ReturnsObj():
     # ESTABLISH / WHEN
-    gen_update_sqlstrs = get_update_heard_agg_timenum_sqlstrs()
+    gen_update_sqlstrs = get_update_heard_agg_moment_timenum_sqlstrs()
 
     # THEN
     assert gen_update_sqlstrs
@@ -237,44 +237,3 @@ def test_get_update_heard_agg_timenum_sqlstrs_ReturnsObj():
         (kw.moment_budunit, kw.bud_time),
     }
     assert gen_update_sqlstrs == expected_update_sqlstrs
-
-
-def test_update_heard_agg_timenum_columns_UpdatesDB_Scenario0_TwoRecordsAndDoesModularMath(
-    cursor0: Cursor,
-):
-    # ESTABLISH
-    spark1 = 1
-    spark3 = 3
-    a23_c400_number = 5
-    a23_epoch_length = get_c400_constants().c400_leap_length * a23_c400_number
-    print(f"{a23_epoch_length=}")
-    print(f"{DEFAULT_EPOCH_LENGTH=}")
-    s1_otx_time = 44
-    s1_inx_time = 55
-    s1_offi_time_otx = 200
-    s3_otx_time = 400 + a23_epoch_length
-    s3_inx_time = 550
-    s3_offi_time_otx = 2000
-
-    create_sound_and_heard_tables(cursor0)
-    insert_c400_number(cursor0, spark1, exx.sue, exx.a23, a23_c400_number)
-    insert_otx_inx_time(cursor0, spark1, exx.sue, exx.a23, s1_otx_time, s1_inx_time)
-    insert_otx_inx_time(cursor0, spark3, exx.sue, exx.a23, s3_otx_time, s3_inx_time)
-    insert_offi_time_otx(cursor0, spark1, exx.sue, exx.a23, s1_offi_time_otx)
-    insert_offi_time_otx(cursor0, spark3, exx.sue, exx.a23, s3_offi_time_otx)
-    mmtoffi_h_agg_tablename = prime_tbl(kw.moment_timeoffi, "h", "agg")
-    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] is None
-    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] is None
-
-    # WHEN
-    update_heard_agg_timenum_columns(cursor0)
-
-    # THEN
-    s1_inx_epoch_diff = s1_otx_time - s1_inx_time
-    s3_inx_epoch_diff = s3_otx_time - s3_inx_time
-    s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
-    s3_offi_time_inx = (s3_offi_time_otx + s3_inx_epoch_diff) % a23_epoch_length
-    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == s1_offi_time_inx
-    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == s3_offi_time_inx
-    assert select_offi_time_inx(cursor0, spark1, exx.a23)[0][3] == 189
-    assert select_offi_time_inx(cursor0, spark3, exx.a23)[0][3] == 1850

@@ -1115,7 +1115,7 @@ WHERE {dst_tablename}.spark_num IN (SELECT spark_num FROM spark_inx_epoch_diff)
 """
 
 
-def get_update_heard_agg_timenum_sqlstrs() -> dict[str]:
+def get_update_heard_agg_moment_timenum_sqlstrs() -> dict[str]:
     mmtoffi_tbl = create_prime_tablename("moment_timeoffi", "h", "agg")
     mmtoffi_key = ("moment_timeoffi", "offi_time")
     mmtpayy_tbl = create_prime_tablename("moment_paybook", "h", "agg")
@@ -1278,7 +1278,6 @@ SET
 """
 
 
-# TODO build test for this
 def update_caseunit_heard_agg_timenum_columns(cursor: sqlite3_Connection):
     cursor.execute(get_update_prncase_inx_epoch_diff_sqlstr())
     cursor.execute(get_update_prncase_context_plan_sqlstr())
@@ -1291,15 +1290,14 @@ def update_factunit_heard_agg_timenum_columns(cursor: sqlite3_Connection):
     cursor.execute(get_update_prnfact_range_sqlstr())
 
 
-# TODO build test for this
 def update_heard_agg_timenum_columns(cursor: sqlite3_Connection):
     # for bud_time, tran_time, offi_time
-    for update_sqlstr in get_update_heard_agg_timenum_sqlstrs().values():
+    for update_sqlstr in get_update_heard_agg_moment_timenum_sqlstrs().values():
         cursor.execute(update_sqlstr)
-    # # for reason_lower, reason_upper
-    # update_caseunit_heard_agg_timenum_columns(cursor)
-    # # for fact_lower, fact_upper
-    # update_factunit_heard_agg_timenum_columns(cursor)
+    # for reason_lower, reason_upper
+    update_caseunit_heard_agg_timenum_columns(cursor)
+    # for fact_lower, fact_upper
+    update_factunit_heard_agg_timenum_columns(cursor)
 
 
 # TODO integrate timenum_inx in agg to valid insert
