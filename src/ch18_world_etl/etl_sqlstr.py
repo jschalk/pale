@@ -1118,12 +1118,6 @@ def get_update_heard_agg_moment_timenum_sqlstrs() -> dict[str]:
     }
 
 
-# TODO add_epoch_frame process should to pipeline
-# All _inx rope columns have been set. This is where the check for epoch_rope happens
-# Identify the epoch_rope from the moment
-# Identify how much should be added/deleted.
-# Create "_otx" and "_inx" columns for
-# reason_lower, reason_upper, fact_lower, fact_upper, tran_time, bud_time,
 def get_update_prncase_inx_epoch_diff_sqlstr() -> str:
     """Returns update statement that sets h_put_agg.inx_epoch_diff column from nabtime values
     reference key: pchap0
