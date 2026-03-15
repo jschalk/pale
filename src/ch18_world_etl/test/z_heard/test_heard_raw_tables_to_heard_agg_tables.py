@@ -2,8 +2,6 @@ from sqlite3 import Cursor
 from src.ch00_py.db_toolbox import get_row_count, get_table_columns
 from src.ch00_py.dict_toolbox import get_empty_set_if_None
 from src.ch13_time.test._util.ch13_examples import Ch13ExampleStrs as wx
-from src.ch14_moment.moment_config import get_moment_dimens
-from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch17_idea.idea_config import get_default_sorted_list, get_idea_config_dict
 from src.ch18_world_etl.etl_config import (
     etl_idea_category_config_dict,
