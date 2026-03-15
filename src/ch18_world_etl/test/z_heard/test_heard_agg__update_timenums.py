@@ -13,13 +13,13 @@ from src.ch18_world_etl.test._util.ch18_examples import (
     insert_nabtime_h_agg_otx_inx_time as insert_otx_inx_time,
     select_mmtoffi_special_offi_time_inx as select_offi_time_inx,
 )
-from src.ch18_world_etl.test.z_heard.test_heard_agg_update_casenum_pchapx import (
+from src.ch18_world_etl.test.z_heard.test_heard_agg__update_casenum_pchapx import (
     pchapx_insert_nabtime,
     pchapx_insert_prncase,
     pchapx_insert_prnplan,
     pchapx_select_prncase,
 )
-from src.ch18_world_etl.test.z_heard.test_heard_agg_update_factnum_pfhapx import (
+from src.ch18_world_etl.test.z_heard.test_heard_agg__update_factnum_pfhapx import (
     pfhapx_insert_nabtime,
     pfhapx_insert_prnfact,
     pfhapx_insert_prnplan,
