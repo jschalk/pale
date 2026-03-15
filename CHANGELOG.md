@@ -1,3 +1,10 @@
+## [0.81.101](https://github.com/jschalk/keg/compare/v0.81.100...v0.81.101) (2026-03-15)
+
+
+### Bug Fixes
+
+* set version baseline ([8de9a46](https://github.com/jschalk/keg/commit/8de9a4662f7c059a4165575a8d287bd2c2601833))
+
 # 1.0.0 (2026-03-15)
 
 
