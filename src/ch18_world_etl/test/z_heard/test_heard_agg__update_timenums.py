@@ -70,8 +70,8 @@ def test_update_heard_agg_timenum_columns_SQLTEST_Scenario0_TwoRecordsAndDoesMod
     s1_offi_time_inx = s1_offi_time_otx + s1_inx_epoch_diff
     s3_offi_time_inx = (s3_offi_time_otx + s3_inx_epoch_diff) % a23_epoch_length
     assert mxhap0_select_mmtoffi(cursor0, True) == [
-        (1, exx.a23, 200, s1_offi_time_inx),
-        (3, exx.a23, 2000, s3_offi_time_inx),
+        (1, exx.a23, s1_offi_time_otx, s1_offi_time_inx),
+        (3, exx.a23, s3_offi_time_otx, s3_offi_time_inx),
     ]
     assert mxhap0_select_mmtoffi(cursor0) == [
         (1, exx.a23, 200, 189),

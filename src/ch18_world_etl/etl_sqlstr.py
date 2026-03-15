@@ -1148,7 +1148,13 @@ def get_update_prnfact_inx_epoch_diff_sqlstr() -> str:
 UPDATE person_plan_factunit_h_put_agg as prnfact
 SET inx_epoch_diff = otx_time - inx_time
 FROM nabu_timenum_h_agg as nabtime
-WHERE prnfact.spark_num = nabtime.spark_num
+WHERE
+    nabtime.spark_num = (
+        SELECT MAX(n2.spark_num)
+        FROM nabu_timenum_h_agg as n2
+        WHERE n2.spark_num <= prnfact.spark_num
+            AND prnfact.plan_rope LIKE n2.moment_rope || '%'
+        )
     AND prnfact.plan_rope LIKE nabtime.moment_rope || '%'
 ;
 """
