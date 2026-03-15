@@ -1,3 +1,10 @@
+## [0.81.104](https://github.com/jschalk/keg/compare/v0.81.103...v0.81.104) (2026-03-15)
+
+
+### Bug Fixes
+
+* [#1079](https://github.com/jschalk/keg/issues/1079) mmt timenums update query changed to incorporate previous spark_nums ([51f4bf6](https://github.com/jschalk/keg/commit/51f4bf61d8c432b5ee60d3b62e94e52c939d50db))
+
 ## [0.81.103](https://github.com/jschalk/keg/compare/v0.81.102...v0.81.103) (2026-03-15)
 
 
