@@ -1,3 +1,10 @@
+## [0.81.103](https://github.com/jschalk/keg/compare/v0.81.102...v0.81.103) (2026-03-15)
+
+
+### Bug Fixes
+
+* [#1085](https://github.com/jschalk/keg/issues/1085) change WorldUnit to WorldDir, change world_logic to world_apex ([227c5ba](https://github.com/jschalk/keg/commit/227c5baf981c781091b6ab4f081e68a49dd3f8a9))
+
 ## [0.81.102](https://github.com/jschalk/keg/compare/v0.81.101...v0.81.102) (2026-03-15)
 
 
