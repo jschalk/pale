@@ -50,6 +50,98 @@ from src.ch19_world_kpi.kpi_mstr import (
 from src.ch20_world_logic._ref.ch20_semantic_types import WorldName
 
 
+# TODO move moment_mstr_dir to ch18
+def calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir: str):
+    etl_create_buds_root_cells(moment_mstr_dir)
+    etl_create_moment_cell_trees(moment_mstr_dir)
+    etl_set_cell_trees_found_facts(moment_mstr_dir)
+    etl_set_cell_trees_decrees(moment_mstr_dir)
+    etl_set_cell_tree_cell_mandates(moment_mstr_dir)
+    etl_create_bud_mandate_ledgers(moment_mstr_dir)
+
+
+def sheets_input_to_clarity_with_cursor(
+    cursor: sqlite3_Cursor, input_dir: str, moment_mstr_dir: str
+):
+    delete_dir(moment_mstr_dir)
+    set_dir(moment_mstr_dir)
+
+    # collect excel file data into central location
+    etl_input_dfs_to_brick_raw_tables(cursor, input_dir)
+    # brick raw to sound raw, check by spark_nums
+    etl_brick_raw_tables_to_brick_agg_tables(cursor)
+    etl_brick_agg_tables_to_sparks_brick_agg_table(cursor)
+    etl_sparks_brick_agg_table_to_sparks_brick_valid_table(cursor)
+    etl_brick_agg_tables_to_brick_valid_tables(cursor)
+    etl_brick_valid_tables_to_sound_raw_tables(cursor)
+    # sound raw to heard raw, filter through translates
+    etl_sound_raw_tables_to_sound_agg_tables(cursor)
+    etl_translate_sound_agg_tables_to_translate_sound_vld_tables(cursor)
+    etl_sound_agg_tables_to_sound_vld_tables(cursor)
+    etl_sound_vld_tables_to_heard_raw_tables(cursor)
+    # heard raw to moment/person jsons
+    etl_heard_raw_tables_to_heard_agg_tables(cursor)
+    etl_heard_agg_tables_to_heard_vld_tables(cursor)
+    etl_heard_vld_tables_to_moment_jsons(cursor, moment_mstr_dir)
+    etl_heard_vld_to_spark_person_csvs(cursor, moment_mstr_dir)
+    etl_spark_person_csvs_to_lesson_json(moment_mstr_dir)
+    etl_spark_lesson_json_to_spark_inherited_personunits(moment_mstr_dir)
+    etl_spark_inherited_personunits_to_moment_gut(moment_mstr_dir)
+    add_moment_epoch_to_guts(moment_mstr_dir)
+    etl_moment_guts_to_moment_jobs(moment_mstr_dir)
+    etl_heard_raw_tables_to_moment_ote1_agg(cursor)
+    etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs(cursor, moment_mstr_dir)
+    etl_moment_ote1_agg_csvs_to_jsons(moment_mstr_dir)
+    calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir)
+    etl_moment_job_jsons_to_job_tables(cursor, moment_mstr_dir)
+    etl_moment_json_partner_nets_to_moment_partner_nets_table(cursor, moment_mstr_dir)
+    populate_kpi_bundle(cursor)
+    create_last_run_metrics_json(cursor, moment_mstr_dir)
+
+
+def create_stances(
+    world_dir: str,
+    output_dir: str,
+    world_name: str,
+    moment_mstr_dir: str,
+    prettify_excel_bool=True,
+):
+    # TODO why is create_stance0001_file not drawing from world db instead of files?
+    # it should be the database because that's the end of the core pipeline so it should
+    # be the source of truth.
+    create_stance0001_file(world_dir, output_dir, world_name, prettify_excel_bool)
+    create_calendar_markdown_files(moment_mstr_dir, output_dir)
+
+
+def sheets_input_to_clarity_mstr(
+    world_db_path: str, input_dir: str, moment_mstr_dir: str
+):
+    with sqlite3_connect(world_db_path) as db_conn:
+        cursor = db_conn.cursor()
+        sheets_input_to_clarity_with_cursor(cursor, input_dir, moment_mstr_dir)
+        db_conn.commit()
+    db_conn.close()
+
+
+def stance_sheets_to_clarity_mstr(
+    world_db_path: str, input_dir: str, moment_mstr_dir: str
+):
+    max_brick_agg_spark_num = 0
+    if os_path_exists(world_db_path):
+        with sqlite3_connect(world_db_path) as db_conn0:
+            cursor0 = db_conn0.cursor()
+            max_brick_agg_spark_num = get_max_brick_agg_spark_num(cursor0)
+        db_conn0.close()
+    next_spark_num = max_brick_agg_spark_num + 1
+    update_spark_num_in_excel_files(input_dir, next_spark_num)
+    sheets_input_to_clarity_mstr(
+        world_db_path=world_db_path,
+        input_dir=input_dir,
+        moment_mstr_dir=moment_mstr_dir,
+    )
+    delete_dir(input_dir)
+
+
 @dataclass
 class WorldUnit:
     world_name: WorldName = None
@@ -78,83 +170,6 @@ class WorldUnit:
         set_dir(self._world_dir)
         set_dir(self._brick_dir)
         set_dir(self._moment_mstr_dir)
-
-    def calc_moment_bud_partner_mandate_net_ledgers(self):
-        mstr_dir = self._moment_mstr_dir
-        etl_create_buds_root_cells(mstr_dir)
-        etl_create_moment_cell_trees(mstr_dir)
-        etl_set_cell_trees_found_facts(mstr_dir)
-        etl_set_cell_trees_decrees(mstr_dir)
-        etl_set_cell_tree_cell_mandates(mstr_dir)
-        etl_create_bud_mandate_ledgers(mstr_dir)
-
-    def sheets_input_to_clarity_mstr(self):
-        with sqlite3_connect(self.get_world_db_path()) as db_conn:
-            cursor = db_conn.cursor()
-            self.sheets_input_to_clarity_with_cursor(cursor)
-            db_conn.commit()
-        db_conn.close()
-
-    def stance_sheets_to_clarity_mstr(self):
-        max_brick_agg_spark_num = 0
-        if os_path_exists(self.get_world_db_path()):
-            with sqlite3_connect(self.get_world_db_path()) as db_conn0:
-                cursor0 = db_conn0.cursor()
-                max_brick_agg_spark_num = get_max_brick_agg_spark_num(cursor0)
-            db_conn0.close()
-        next_spark_num = max_brick_agg_spark_num + 1
-        update_spark_num_in_excel_files(self._input_dir, next_spark_num)
-        self.sheets_input_to_clarity_mstr()
-        delete_dir(self._input_dir)
-
-    def sheets_input_to_clarity_with_cursor(self, cursor: sqlite3_Cursor):
-        mstr_dir = self._moment_mstr_dir
-        delete_dir(mstr_dir)
-        set_dir(mstr_dir)
-
-        # collect excel file data into central location
-        etl_input_dfs_to_brick_raw_tables(cursor, self._input_dir)
-        # brick raw to sound raw, check by spark_nums
-        etl_brick_raw_tables_to_brick_agg_tables(cursor)
-        etl_brick_agg_tables_to_sparks_brick_agg_table(cursor)
-        etl_sparks_brick_agg_table_to_sparks_brick_valid_table(cursor)
-        etl_brick_agg_tables_to_brick_valid_tables(cursor)
-        etl_brick_valid_tables_to_sound_raw_tables(cursor)
-        # sound raw to heard raw, filter through translates
-        etl_sound_raw_tables_to_sound_agg_tables(cursor)
-        etl_translate_sound_agg_tables_to_translate_sound_vld_tables(cursor)
-        etl_sound_agg_tables_to_sound_vld_tables(cursor)
-        etl_sound_vld_tables_to_heard_raw_tables(cursor)
-        # heard raw to moment/person jsons
-        etl_heard_raw_tables_to_heard_agg_tables(cursor)
-        etl_heard_agg_tables_to_heard_vld_tables(cursor)
-        etl_heard_vld_tables_to_moment_jsons(cursor, mstr_dir)
-        etl_heard_vld_to_spark_person_csvs(cursor, mstr_dir)
-        etl_spark_person_csvs_to_lesson_json(mstr_dir)
-        etl_spark_lesson_json_to_spark_inherited_personunits(mstr_dir)
-        etl_spark_inherited_personunits_to_moment_gut(mstr_dir)
-        add_moment_epoch_to_guts(mstr_dir)
-        etl_moment_guts_to_moment_jobs(mstr_dir)
-        etl_heard_raw_tables_to_moment_ote1_agg(cursor)
-        etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs(cursor, mstr_dir)
-        etl_moment_ote1_agg_csvs_to_jsons(mstr_dir)
-        self.calc_moment_bud_partner_mandate_net_ledgers()
-        etl_moment_job_jsons_to_job_tables(cursor, mstr_dir)
-        etl_moment_json_partner_nets_to_moment_partner_nets_table(cursor, mstr_dir)
-        populate_kpi_bundle(cursor)
-        create_last_run_metrics_json(cursor, mstr_dir)
-
-    def create_stances(self, prettify_excel_bool=True):
-        # TODO why is create_stance0001_file not drawing from world db instead of files?
-        # it should be the database because that's the end of the core pipeline so it should
-        # be the source of truth.
-        create_stance0001_file(
-            self._world_dir, self.output_dir, self.world_name, prettify_excel_bool
-        )
-        create_calendar_markdown_files(self._moment_mstr_dir, self.output_dir)
-
-    def create_world_kpi_csvs(self):
-        create_kpi_csvs(self.get_world_db_path(), self.output_dir)
 
 
 def worldunit_shop(

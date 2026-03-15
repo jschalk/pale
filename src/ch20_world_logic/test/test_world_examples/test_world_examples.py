@@ -7,7 +7,12 @@ from src.ch00_py.file_toolbox import (
     get_level1_dirs,
 )
 from src.ch20_world_logic.test._util.ch20_env import temp_dir_setup
-from src.ch20_world_logic.world import worldunit_shop
+from src.ch20_world_logic.world import (
+    create_kpi_csvs,
+    create_stances,
+    sheets_input_to_clarity_mstr,
+    worldunit_shop,
+)
 from src.ref.keywords import ExampleStrs as exx
 
 
@@ -48,9 +53,21 @@ def test_sheets_input_to_clarity_mstr_Examples(temp_dir_setup, run_big_tests):
         print(f"before WHEN {os_path_exists(input_dir)=}")
 
         # WHEN
-        example_worldunit.sheets_input_to_clarity_mstr()
-        example_worldunit.create_stances()
-        example_worldunit.create_world_kpi_csvs()
+        sheets_input_to_clarity_mstr(
+            world_db_path=example_worldunit.get_world_db_path(),
+            input_dir=example_worldunit._input_dir,
+            moment_mstr_dir=example_worldunit._moment_mstr_dir,
+        )
+        create_stances(
+            example_worldunit._world_dir,
+            example_worldunit.output_dir,
+            example_worldunit.world_name,
+            example_worldunit._moment_mstr_dir,
+            prettify_excel_bool=False,
+        )
+        create_kpi_csvs(
+            example_worldunit.get_world_db_path(), example_worldunit.output_dir
+        )
 
         # THEN
         print(f"after WHEN {os_path_exists(input_dir)=}")

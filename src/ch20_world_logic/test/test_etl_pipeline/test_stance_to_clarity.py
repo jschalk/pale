@@ -11,11 +11,15 @@ from src.ch20_world_logic.test._util.ch20_env import (
     get_temp_dir as worlds_dir,
     temp_dir_setup,
 )
-from src.ch20_world_logic.world import WorldUnit, worldunit_shop
+from src.ch20_world_logic.world import (
+    WorldUnit,
+    stance_sheets_to_clarity_mstr,
+    worldunit_shop,
+)
 from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
-def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
+def test_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     temp_dir_setup,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
@@ -60,7 +64,11 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     assert not os_path_exists(fay_db_path)
 
     # WHEN
-    fay_world.stance_sheets_to_clarity_mstr()
+    stance_sheets_to_clarity_mstr(
+        world_db_path=fay_world.get_world_db_path(),
+        input_dir=fay_world._input_dir,
+        moment_mstr_dir=fay_world._moment_mstr_dir,
+    )
 
     # THEN
     assert os_path_exists(fay_db_path)
@@ -143,7 +151,7 @@ def create_brick_agg_record(world: WorldUnit, spark_num: int):
     db_conn.close()
 
 
-def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
+def test_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     temp_dir_setup,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
@@ -178,7 +186,11 @@ def test_WorldUnit_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     assert os_path_exists(input_file_path)
 
     # WHEN
-    fay_world.stance_sheets_to_clarity_mstr()
+    stance_sheets_to_clarity_mstr(
+        world_db_path=fay_world.get_world_db_path(),
+        input_dir=fay_world._input_dir,
+        moment_mstr_dir=fay_world._moment_mstr_dir,
+    )
 
     # THEN
     assert os_path_exists(fay_db_path)

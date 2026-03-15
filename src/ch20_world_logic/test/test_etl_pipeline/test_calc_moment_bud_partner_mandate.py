@@ -20,11 +20,14 @@ from src.ch20_world_logic.test._util.ch20_env import (
 from src.ch20_world_logic.test._util.ch20_examples import (
     get_bob_mop_reason_personunit_example,
 )
-from src.ch20_world_logic.world import worldunit_shop
+from src.ch20_world_logic.world import (
+    calc_moment_bud_partner_mandate_net_ledgers,
+    worldunit_shop,
+)
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro0_BudEmpty(
+def test_calc_moment_bud_partner_mandate_net_ledgers_Scenaro0_BudEmpty(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -41,13 +44,13 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro0_BudEmpty
     assert count_dirs_files(a23_persons_path) == 0
 
     # WHEN
-    fay_world.calc_moment_bud_partner_mandate_net_ledgers()
+    calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir)
 
     # THEN
     assert count_dirs_files(a23_persons_path) == 0
 
 
-def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro1_SimpleBud(
+def test_calc_moment_bud_partner_mandate_net_ledgers_Scenaro1_SimpleBud(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -68,7 +71,7 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro1_SimpleBu
     assert os_path_exists(bob37_bud_mandate_path) is False
 
     # WHEN
-    fay_world.calc_moment_bud_partner_mandate_net_ledgers()
+    calc_moment_bud_partner_mandate_net_ledgers(mstr_dir)
 
     # THEN
     assert os_path_exists(bob37_bud_mandate_path)
@@ -79,7 +82,7 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro1_SimpleBu
     assert gen_bob37_budunit.bud_partner_nets == expected_bud_partner_nets
 
 
-def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro2_BudExists(
+def test_calc_moment_bud_partner_mandate_net_ledgers_Scenaro2_BudExists(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -136,7 +139,7 @@ def test_WorldUnit_calc_moment_bud_partner_mandate_net_ledgers_Scenaro2_BudExist
     assert os_path_exists(bob37_bud_mandate_path) is False
 
     # WHEN
-    fay_world.calc_moment_bud_partner_mandate_net_ledgers()
+    calc_moment_bud_partner_mandate_net_ledgers(mstr_dir)
 
     # THEN
     assert os_path_exists(bob37_bud_mandate_path)

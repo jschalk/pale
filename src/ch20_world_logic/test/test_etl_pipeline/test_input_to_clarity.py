@@ -33,11 +33,15 @@ from src.ch20_world_logic.test._util.ch20_env import (
     get_temp_dir as worlds_dir,
     temp_dir_setup,
 )
-from src.ch20_world_logic.world import worldunit_shop
+from src.ch20_world_logic.world import (
+    sheets_input_to_clarity_mstr,
+    sheets_input_to_clarity_with_cursor,
+    worldunit_shop,
+)
 from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
-def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113PopulatesTables(
+def test_sheets_input_to_clarity_with_cursor_Scenario0_br000113PopulatesTables(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH:
@@ -139,10 +143,12 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     # self.person_tables_to_spark_person_csvs(cursor)
 
     # # create all moment_job and mandate reports
-    # self.calc_moment_bud_partner_mandate_net_ledgers()
+    # calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir)
 
     # WHEN
-    fay_world.sheets_input_to_clarity_with_cursor(cursor0)
+    sheets_input_to_clarity_with_cursor(
+        cursor0, fay_world._input_dir, fay_world._moment_mstr_dir
+    )
 
     # THEN
     # select_translate_core = f"SELECT * FROM {trlcore_sound_vld}"
@@ -200,7 +206,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario0_br000113Populat
     assert os_path_exists(last_run_metrics_path)
 
 
-def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayRows(
+def test_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayRows(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH:
@@ -317,10 +323,12 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     # self.person_tables_to_spark_person_csvs(cursor)
 
     # # create all moment_job and mandate reports
-    # self.calc_moment_bud_partner_mandate_net_ledgers()
+    # calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir)
 
     # WHEN
-    fay_world.sheets_input_to_clarity_with_cursor(cursor0)
+    sheets_input_to_clarity_with_cursor(
+        cursor0, fay_world._input_dir, fay_world._moment_mstr_dir
+    )
 
     # THEN
     assert get_row_count(cursor0, br00113_raw) == 1
@@ -359,7 +367,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayR
     assert get_row_count(cursor0, kw.moment_kpi001_partner_nets) == 1
 
 
-def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentTranBook(
+def test_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentTranBook(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH:
@@ -390,13 +398,15 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentT
     assert not db_table_exists(cursor0, kw.moment_partner_nets)
 
     # WHEN
-    fay_world.sheets_input_to_clarity_with_cursor(cursor0)
+    sheets_input_to_clarity_with_cursor(
+        cursor0, fay_world._input_dir, fay_world._moment_mstr_dir
+    )
 
     # THEN
     assert get_row_count(cursor0, kw.moment_partner_nets) == 1
 
 
-def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_IsStillCreated(
+def test_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_IsStillCreated(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH
@@ -421,13 +431,15 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIde
     assert os_path_exists(a23_ote1_csv_path) is False
 
     # WHEN
-    fay_world.sheets_input_to_clarity_with_cursor(cursor0)
+    sheets_input_to_clarity_with_cursor(
+        cursor0, fay_world._input_dir, fay_world._moment_mstr_dir
+    )
 
     # THEN
     assert os_path_exists(a23_ote1_csv_path)
 
 
-def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario4_DeletesPreviousFiles(
+def test_sheets_input_to_clarity_with_cursor_Scenario4_DeletesPreviousFiles(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH
@@ -447,14 +459,16 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario4_DeletesPrevious
     print(f"{testing3_path=}")
 
     # WHEN
-    fay_world.sheets_input_to_clarity_with_cursor(cursor0)
+    sheets_input_to_clarity_with_cursor(
+        cursor0, fay_world._input_dir, fay_world._moment_mstr_dir
+    )
 
     # THEN
     assert os_path_exists(testing2_path)
     assert os_path_exists(testing3_path) is False
 
 
-def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
+def test_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH
@@ -530,7 +544,9 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
     assert count_dirs_files(fay_world.worlds_dir) == 5
 
     # WHEN
-    fay_world.sheets_input_to_clarity_with_cursor(cursor0)
+    sheets_input_to_clarity_with_cursor(
+        cursor0, fay_world._input_dir, fay_world._moment_mstr_dir
+    )
 
     # THEN
     assert os_path_exists(wrong_a23_moment_dir) is False
@@ -542,7 +558,7 @@ def test_WorldUnit_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
     assert count_dirs_files(fay_world.worlds_dir) == 42
 
 
-def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
+def test_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     temp_dir_setup,
 ):
     # ESTABLISH:
@@ -590,7 +606,11 @@ def test_WorldUnit_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     assert not os_path_exists(fay_db_path)
 
     # WHEN
-    fay_world.sheets_input_to_clarity_mstr()
+    sheets_input_to_clarity_mstr(
+        world_db_path=fay_world.get_world_db_path(),
+        input_dir=fay_world._input_dir,
+        moment_mstr_dir=fay_world._moment_mstr_dir,
+    )
 
     # THEN
     assert os_path_exists(fay_db_path)
