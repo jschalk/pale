@@ -3,6 +3,7 @@ from src.ch00_py.db_toolbox import (
     create_table2table_agg_insert_query,
     create_update_inconsistency_error_query,
 )
+from src.ch13_time.epoch_main import DEFAULT_EPOCH_LENGTH, get_c400_constants
 from src.ch17_idea.idea_config import get_idea_config_dict, get_quick_ideas_column_ref
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table, get_default_sorted_list
 from src.ch18_world_etl._ref.ch18_semantic_types import KnotTerm
@@ -1085,12 +1086,11 @@ def get_update_heard_agg_timenum_sqlstr(dst_tablename: str, focus_column: str) -
     Return Update statement that will set the timenum inx column
     reference key: mxhap0"""
 
-    #   spark_num, mod(otx_time - inx_time, IFNULL(x_moment.c400_number, 1472657760)) AS inx_epoch_diff
     return f"""
 UPDATE {dst_tablename} as dst_table
 SET {focus_column}_inx = mod(
     dst_table.{focus_column}_otx + IFNULL(nabtime.otx_time - nabtime.inx_time, 0)
-    , IFNULL(c400_number * 210379680, 1472657760)
+    , IFNULL(c400_number * {get_c400_constants().c400_leap_length}, {DEFAULT_EPOCH_LENGTH})
     )
 FROM {dst_tablename} as dst2_table
 LEFT JOIN nabu_timenum_h_agg as nabtime ON dst2_table.spark_num = nabtime.spark_num

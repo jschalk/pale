@@ -172,3 +172,8 @@ def test_get_update_prncase_inx_epoch_diff_sqlstr_SQLTEST_Three_rows_Two_person_
         (9, exx.a23_dash, expected_zia9_inx_epoch_diff),
         (9, wx.clean_rope, expected_yao9_inx_epoch_diff),
     ]
+    assert pchap0_select_prncase(cursor0) == [
+        (7, wx.clean_rope, 186),
+        (9, exx.a23_dash, -6),
+        (9, wx.clean_rope, 998),
+    ]

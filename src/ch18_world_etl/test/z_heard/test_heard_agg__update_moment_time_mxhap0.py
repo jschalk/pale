@@ -84,7 +84,6 @@ def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario0_PopulatesTableWit
     # WHEN
     mxhap0_table = create_prime_tablename(kw.mmtoffi, "h", "agg")
     update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(mxhap0_table, kw.offi_time)
-    print(update_mmtoffi_sql)
     cursor0.execute(update_mmtoffi_sql)
 
     # THEN
@@ -92,7 +91,7 @@ def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario0_PopulatesTableWit
     assert mxhap0_select_mmtoffi(cursor0, True) == [
         (spark7, exx.a23, s7_offi_time_otx, s7_offi_time_inx)
     ]
-    assert mxhap0_select_mmtoffi(cursor0, True) == [(7, exx.a23, 200, 189)]
+    assert mxhap0_select_mmtoffi(cursor0) == [(7, exx.a23, 200, 189)]
 
 
 def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario1_PopulatesTableWhen_nabtime_RowDoesNotExist(
@@ -114,7 +113,6 @@ def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario1_PopulatesTableWhe
     # WHEN
     mxhap0_table = create_prime_tablename(kw.mmtoffi, "h", "agg")
     update_mmtoffi_sql = get_update_heard_agg_timenum_sqlstr(mxhap0_table, kw.offi_time)
-    print(update_mmtoffi_sql)
     cursor0.execute(update_mmtoffi_sql)
 
     # THEN
@@ -122,7 +120,7 @@ def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario1_PopulatesTableWhe
     assert mxhap0_select_mmtoffi(cursor0, True) == [
         (spark7, exx.a23, s7_offi_time_otx, s7_offi_time_inx)
     ]
-    assert mxhap0_select_mmtoffi(cursor0, True) == [(7, exx.a23, 200, 200)]
+    assert mxhap0_select_mmtoffi(cursor0) == [(7, exx.a23, 200, 200)]
 
 
 def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario3_PopulatesTableWithTwoRecords(
@@ -222,7 +220,7 @@ def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario4_PopulatesTableWit
         (1, exx.a23, 200, s1_offi_time_inx),
         (3, exx.a23, 2000, s3_offi_time_inx),
     ]
-    assert mxhap0_select_mmtoffi(cursor0, True) == [
+    assert mxhap0_select_mmtoffi(cursor0) == [
         (1, exx.a23, 200, 189),
         (3, exx.a23, 2000, 1850),
     ]
