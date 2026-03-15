@@ -157,7 +157,7 @@ def test_get_update_prncase_inx_epoch_diff_sqlstr_SQLTEST_Three_rows_Two_person_
     ]
 
 
-def test_get_update_prncase_inx_epoch_diff_sqlstr_SQLTEST_One_row(
+def test_get_update_prncase_inx_epoch_diff_sqlstr_SQLTEST_Populates_inx_epoch_diff_FromPreviousSparkNum(
     cursor0: Cursor,
 ):
     # ESTABLISH
