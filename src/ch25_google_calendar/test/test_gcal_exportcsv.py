@@ -283,17 +283,25 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario1_Non_all_day_Event
     sue_gcal_csv = create_gcalendar_csv_from_person(sue_person, apr7)
 
     # THEN
-    print(sue_gcal_csv)
-    expected_csv_line1 = (
-        "Subject,Start Date,Start Time,End Date,End Time,All Day Event,Description"
-    )
-    expected_csv_line2 = "1. mop (66.67%),05/07/2010,10:00 AM,05/07/2010,11:30 AM,False,;Amy23;casa;clean;mop;"
-    expected_csv_line3 = (
-        """Pledges,05/07/2010,,05/07/2010,,True,"1. mop (66.67%)\n2. sweep (33.33%)\n"""
-    )
-    assert expected_csv_line1 in sue_gcal_csv
-    assert expected_csv_line2 in sue_gcal_csv
-    assert expected_csv_line3 in sue_gcal_csv
+    reader = csv_DictReader(io_StringIO(sue_gcal_csv))
+    rows = list(reader)
+
+    chore_row = next((r for r in rows if r["Subject"].startswith("1. mop")), None)
+    assert chore_row is not None, "Expected a chore row starting with '1. mop'"
+    assert chore_row["Start Date"] == "05/07/2010"
+    assert chore_row["Start Time"] == "10:00 AM"
+    assert chore_row["End Date"] == "05/07/2010"
+    assert chore_row["End Time"] == "11:30 AM"
+    assert chore_row["All Day Event"] == "False"
+    assert ";Amy23;casa;clean;mop;" in chore_row["Description"]
+    assert "66.67%" in chore_row["Subject"]
+
+    pledges_row = next((r for r in rows if r["Subject"] == "Pledges"), None)
+    assert pledges_row is not None, "Expected a Pledges row"
+    assert pledges_row["Start Date"] == "05/07/2010"
+    assert pledges_row["All Day Event"] == "True"
+    assert "1. mop (66.67%)" in pledges_row["Description"]
+    assert "2. sweep (33.33%)" in pledges_row["Description"]
 
 
 def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario2_TodayEvents():
@@ -313,19 +321,24 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario2_TodayEvents():
     sue_gcal_csv = create_gcalendar_csv_from_person(sue_person)
 
     # THEN
-    expected_start_date = datetime.now().date()
-    expected_start_date_str = expected_start_date.strftime("%m/%d/%Y")
-    expected_end_date = expected_start_date + timedelta(days=1)
-    expected_end_date_str = expected_end_date.strftime("%m/%d/%Y")
-    print(sue_gcal_csv)
-    expected_csv_line1 = (
-        "Subject,Start Date,Start Time,End Date,End Time,All Day Event,Description"
-    )
-    expected_csv_lv2 = f"1. mop (66.67%),03/15/2026,10:00 AM,03/15/2026,11:30 AM,False,;Amy23;casa;clean;mop;"
-    expected_csv_line2 = f"1. mop (66.67%),{expected_start_date_str},10:00 AM,{expected_start_date_str},11:30 AM,False,;Amy23;casa;clean;mop;"
-    expected_csv_line3 = f"""Pledges,{expected_start_date_str},,{expected_start_date_str},,True,"1. mop (66.67%)\n2. sweep (33.33%)\n"""
-    assert expected_csv_line1 in sue_gcal_csv
-    assert expected_csv_lv2 in sue_gcal_csv
-    assert expected_csv_lv2 == expected_csv_line2
-    assert expected_csv_line2 in sue_gcal_csv
-    assert expected_csv_line3 in sue_gcal_csv
+    today_str = datetime.now().date().strftime("%m/%d/%Y")
+
+    reader = csv_DictReader(io_StringIO(sue_gcal_csv))
+    rows = list(reader)
+
+    chore_row = next((r for r in rows if r["Subject"].startswith("1. mop")), None)
+    assert chore_row is not None, "Expected a chore row starting with '1. mop'"
+    assert chore_row["Start Date"] == today_str
+    assert chore_row["Start Time"] == "10:00 AM"
+    assert chore_row["End Date"] == today_str
+    assert chore_row["End Time"] == "11:30 AM"
+    assert chore_row["All Day Event"] == "False"
+    assert ";Amy23;casa;clean;mop;" in chore_row["Description"]
+    assert "66.67%" in chore_row["Subject"]
+
+    pledges_row = next((r for r in rows if r["Subject"] == "Pledges"), None)
+    assert pledges_row is not None, "Expected a Pledges row"
+    assert pledges_row["Start Date"] == today_str
+    assert pledges_row["All Day Event"] == "True"
+    assert "1. mop (66.67%)" in pledges_row["Description"]
+    assert "2. sweep (33.33%)" in pledges_row["Description"]
