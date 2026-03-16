@@ -261,8 +261,7 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario0_OneEpoch_pledge()
     assert expected_csv_line3 in sue_gcal_csv
 
 
-def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario0_OneEpoch_pledge():
-    # ESTABLISH
+def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario1_Non_all_day_EventExists():
     # ESTABLISH
     sue_person = personunit_shop(wx.sue, wx.a23)
     sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
