@@ -528,9 +528,6 @@ def test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario14_Wraps_range(
     ]
     assert pchap2_select_prncase(cursor0, True) == [(7777, 7878, 9777, 9878)]
 
-    # TODO
-    # remove context_plan_close from entire codebase if not needed
-
 
 def test_get_update_prncase_context_plan_sqlstr_SQLTEST_Scenario15_inx_epoch_diff_IsNull(
     cursor0,

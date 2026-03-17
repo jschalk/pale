@@ -7,14 +7,14 @@ from src.ch13_time.epoch_reason import (
     set_epoch_base_case_dayly,
     set_epoch_base_case_weekly,
 )
-from src.ch24_person_viewer.test._util.ch24_examples import ExampleValuesRef as wx
-from src.ch25_google_calendar.gcalendar import (
+from src.ch13_time.test._util.ch13_examples import Ch13ExampleStrs as wx
+from src.ch19_world_kpi.gcalendar import (
     create_gcalendar_csv_from_list,
     create_gcalendar_csv_from_person,
     create_gcalendar_events_list,
     gcal_readable_percent,
 )
-from src.ref.keywords import Ch25Keywords as kw
+from src.ref.keywords import Ch19Keywords as kw
 
 
 def test_gcal_readable_percent_ReturnsObj():
@@ -38,58 +38,58 @@ def test_gcal_readable_percent_ReturnsObj():
 
 def test_create_gcalendar_events_list_ReturnsObj_Scenario0_Empty():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
     default_epoch_config = get_default_epoch_config_dict()
-    add_epoch_planunit(sue_person, default_epoch_config)
+    add_epoch_planunit(bob_person, default_epoch_config)
     apr7 = datetime(2010, 5, 7, 9)
     print(f"{apr7=}")
 
     # WHEN
-    sue_gcal_events = create_gcalendar_events_list(sue_person, apr7)
+    bob_gcal_events = create_gcalendar_events_list(bob_person, apr7)
 
     # THEN
-    assert sue_gcal_events == []
+    assert bob_gcal_events == []
 
 
 def test_PersonUnit_conpute_SetsAttr_ScenarioX_SingleBranch_fund_ratio():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=1)
-    mop_plan = sue_person.get_plan_obj(wx.mop_rope)
-    assert not sue_person.planroot.fund_onset
-    assert not sue_person.planroot.fund_cease
-    assert not sue_person.planroot.fund_ratio
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=1)
+    mop_plan = bob_person.get_plan_obj(wx.mop_rope)
+    assert not bob_person.planroot.fund_onset
+    assert not bob_person.planroot.fund_cease
+    assert not bob_person.planroot.fund_ratio
     assert not mop_plan.fund_onset
     assert not mop_plan.fund_cease
     assert not mop_plan.fund_ratio
 
     # WHEN
-    sue_person.conpute()
+    bob_person.conpute()
 
     # THEN
-    assert sue_person.planroot.fund_onset == 0
-    assert sue_person.planroot.fund_cease == 1000000000.0
-    assert sue_person.planroot.fund_ratio == 1.0
+    assert bob_person.planroot.fund_onset == 0
+    assert bob_person.planroot.fund_cease == 1000000000.0
+    assert bob_person.planroot.fund_ratio == 1.0
     assert mop_plan.fund_onset == 0
-    assert mop_plan.fund_cease == sue_person.fund_pool
+    assert mop_plan.fund_cease == bob_person.fund_pool
     assert mop_plan.fund_ratio
     assert mop_plan.fund_ratio == 1.0
 
 
 def test_create_gcalendar_events_list_ReturnsObj_Scenario1_1AllDayPledge():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
     default_epoch_config = get_default_epoch_config_dict()
-    add_epoch_planunit(sue_person, default_epoch_config)
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=1)
+    add_epoch_planunit(bob_person, default_epoch_config)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=1)
     apr7 = datetime(2010, 5, 7, 9)
     print(f"{apr7=}")
 
     # WHEN
-    sue_gcal_events = create_gcalendar_events_list(sue_person, day=apr7)
+    bob_gcal_events = create_gcalendar_events_list(bob_person, day=apr7)
 
     # THEN
-    gcal_tobe_description = f"""1. {wx.mop_str} (100%)
+    gcal_agenda_list_str = f"""1. {wx.mop_str} (100%)
 """
     description_str = "Description"
     expected_apr7str = "05/07/2010"
@@ -98,32 +98,32 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario1_1AllDayPledge():
         "Start Date": expected_apr7str,
         "End Date": expected_apr7str,
         "All Day Event": "True",
-        description_str: gcal_tobe_description,
+        description_str: gcal_agenda_list_str,
     }
-    init_gcal_event = sue_gcal_events[0]
-    assert len(sue_gcal_events) == 1
+    init_gcal_event = bob_gcal_events[0]
+    assert len(bob_gcal_events) == 1
     assert init_gcal_event.keys() == expected_event_dict.keys()
-    assert init_gcal_event.get(description_str) == gcal_tobe_description
-    assert sue_gcal_events == [expected_event_dict]
+    assert init_gcal_event.get(description_str) == gcal_agenda_list_str
+    assert bob_gcal_events == [expected_event_dict]
 
 
 def test_create_gcalendar_events_list_ReturnsObj_Scenario2_3AllDayPledge():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
     default_epoch_config = get_default_epoch_config_dict()
-    add_epoch_planunit(sue_person, default_epoch_config)
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
-    sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
-    sue_person.add_plan(wx.scrub_rope, pledge=True, star=1)
+    add_epoch_planunit(bob_person, default_epoch_config)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=2)
+    bob_person.add_plan(wx.sweep_rope, pledge=True, star=1)
+    bob_person.add_plan(wx.scrub_rope, pledge=True, star=1)
     apr7 = datetime(2010, 5, 7, 9)
     print(f"{apr7=}")
 
     # WHEN
-    sue_gcal_events = create_gcalendar_events_list(sue_person, day=apr7)
+    bob_gcal_events = create_gcalendar_events_list(bob_person, day=apr7)
 
     # THEN
-    assert len(sue_gcal_events) == 1
-    gcal_tobe_description = f"""1. {wx.mop_str} (50%)
+    assert len(bob_gcal_events) == 1
+    gcal_agenda_list_str = f"""1. {wx.mop_str} (50%)
 2. {wx.scrub_str} (25%)
 3. {wx.sweep_str} (25%)
 """
@@ -135,36 +135,36 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario2_3AllDayPledge():
         start_date_str: expected_apr7str,
         "End Date": expected_apr7str,
         "All Day Event": "True",
-        description_str: gcal_tobe_description,
+        description_str: gcal_agenda_list_str,
     }
-    init_gcal_event = sue_gcal_events[0]
+    init_gcal_event = bob_gcal_events[0]
     assert init_gcal_event.keys() == expected_event_dict.keys()
-    assert init_gcal_event.get(description_str) == gcal_tobe_description
+    assert init_gcal_event.get(description_str) == gcal_agenda_list_str
     assert init_gcal_event.get(start_date_str) == expected_apr7str
-    print(sue_gcal_events)
+    print(bob_gcal_events)
     print([expected_event_dict])
-    assert sue_gcal_events == [expected_event_dict]
+    assert bob_gcal_events == [expected_event_dict]
 
 
 def test_create_gcalendar_events_list_ReturnsObj_Scenario3_OneEpoch_pledge():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_plan(wx.sweep_rope, pledge=True, star=1)
 
     # add mop task but only at a point during the day
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=2)
     default_epoch_config = get_default_epoch_config_dict()
     default_epoch_label = default_epoch_config.get(kw.epoch_label)
-    add_epoch_planunit(sue_person, default_epoch_config)
-    set_epoch_base_case_dayly(sue_person, wx.mop_rope, default_epoch_label, 600, 90)
+    add_epoch_planunit(bob_person, default_epoch_config)
+    set_epoch_base_case_dayly(bob_person, wx.mop_rope, default_epoch_label, 600, 90)
     apr7 = datetime(2010, 5, 7)
     print(f"{apr7=}")
 
     # WHEN
-    sue_gcal_events = create_gcalendar_events_list(sue_person, apr7)
+    bob_gcal_events = create_gcalendar_events_list(bob_person, apr7)
 
     # THEN
-    gcal_tobe_description = f"""1. {wx.mop_str} (66.67%)
+    gcal_agenda_list_str = f"""1. {wx.mop_str} (66.67%)
 2. {wx.sweep_str} (33.33%)
 """
     description_str = "Description"
@@ -175,14 +175,14 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario3_OneEpoch_pledge():
         start_date_str: expected_apr7str,
         "End Date": expected_apr7str,
         "All Day Event": "True",
-        description_str: gcal_tobe_description,
+        description_str: gcal_agenda_list_str,
     }
-    init_gcal_event = sue_gcal_events[1]
-    assert len(sue_gcal_events) == 2
-    assert init_gcal_event.get(description_str) == gcal_tobe_description
+    init_gcal_event = bob_gcal_events[1]
+    assert len(bob_gcal_events) == 2
+    assert init_gcal_event.get(description_str) == gcal_agenda_list_str
     assert init_gcal_event.get(start_date_str) == expected_apr7str
     assert init_gcal_event == expected_all_day_event_dict
-    print(sue_gcal_events[0])
+    print(bob_gcal_events[0])
     expected_mop_event = {
         "Subject": f"1. {wx.mop_str} (66.67%)",
         start_date_str: expected_apr7str,
@@ -192,7 +192,7 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario3_OneEpoch_pledge():
         "All Day Event": "False",
         description_str: wx.mop_rope,
     }
-    assert sue_gcal_events == [expected_mop_event, expected_all_day_event_dict]
+    assert bob_gcal_events == [expected_mop_event, expected_all_day_event_dict]
 
 
 def test_create_gcalendar_csv_from_list_ReturnsObj():
@@ -240,53 +240,55 @@ def test_create_gcalendar_csv_from_list_ReturnsObj():
 
 def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario0_OneEpoch_pledge():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_plan(wx.sweep_rope, pledge=True, star=1)
 
     # add mop task but only at a point during the day
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=2)
     default_epoch_config = get_default_epoch_config_dict()
     default_epoch_label = default_epoch_config.get(kw.epoch_label)
-    add_epoch_planunit(sue_person, default_epoch_config)
-    set_epoch_base_case_dayly(sue_person, wx.mop_rope, default_epoch_label, 600, 90)
+    add_epoch_planunit(bob_person, default_epoch_config)
+    set_epoch_base_case_dayly(bob_person, wx.mop_rope, default_epoch_label, 600, 90)
     apr7 = datetime(2010, 5, 7)
 
     # WHEN
-    sue_gcal_csv = create_gcalendar_csv_from_person(sue_person, apr7)
+    bob_gcal_csv = create_gcalendar_csv_from_person(bob_person, apr7)
 
     # THEN
-    print(sue_gcal_csv)
+    print(bob_gcal_csv)
     expected_csv_line1 = (
         "Subject,Start Date,Start Time,End Date,End Time,All Day Event,Description"
     )
-    expected_csv_line2 = "1. mop (66.67%),05/07/2010,10:00 AM,05/07/2010,11:30 AM,False,;Amy23;casa;clean;mop;"
+    expected_csv_line2 = (
+        "1. mop (66.67%),05/07/2010,10:00 AM,05/07/2010,11:30 AM,False,;YY;mop;"
+    )
     expected_csv_line3 = (
         """Pledges,05/07/2010,,05/07/2010,,True,"1. mop (66.67%)\n2. sweep (33.33%)\n"""
     )
-    assert expected_csv_line1 in sue_gcal_csv
-    assert expected_csv_line2 in sue_gcal_csv
-    assert expected_csv_line3 in sue_gcal_csv
+    assert expected_csv_line1 in bob_gcal_csv
+    assert expected_csv_line2 in bob_gcal_csv
+    assert expected_csv_line3 in bob_gcal_csv
 
 
 def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario1_Non_all_day_EventExists():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_plan(wx.sweep_rope, pledge=True, star=1)
 
     # add mop task but only at a point during the day
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=2)
     default_epoch_config = get_default_epoch_config_dict()
     default_epoch_label = default_epoch_config.get(kw.epoch_label)
-    add_epoch_planunit(sue_person, default_epoch_config)
-    set_epoch_base_case_dayly(sue_person, wx.mop_rope, default_epoch_label, 600, 90)
+    add_epoch_planunit(bob_person, default_epoch_config)
+    set_epoch_base_case_dayly(bob_person, wx.mop_rope, default_epoch_label, 600, 90)
     apr7 = datetime(2010, 5, 7)
     print(f"{apr7=}")
 
     # WHEN
-    sue_gcal_csv = create_gcalendar_csv_from_person(sue_person, apr7)
+    bob_gcal_csv = create_gcalendar_csv_from_person(bob_person, apr7)
 
     # THEN
-    reader = csv_DictReader(io_StringIO(sue_gcal_csv))
+    reader = csv_DictReader(io_StringIO(bob_gcal_csv))
     rows = list(reader)
 
     chore_row = next((r for r in rows if r["Subject"].startswith("1. mop")), None)
@@ -296,7 +298,7 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario1_Non_all_day_Event
     assert chore_row["End Date"] == "05/07/2010"
     assert chore_row["End Time"] == "11:30 AM"
     assert chore_row["All Day Event"] == "False"
-    assert ";Amy23;casa;clean;mop;" in chore_row["Description"]
+    assert ";YY;mop;" in chore_row["Description"]
     assert "66.67%" in chore_row["Subject"]
 
     pledges_row = next((r for r in rows if r["Subject"] == "Pledges"), None)
@@ -309,24 +311,24 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario1_Non_all_day_Event
 
 def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario2_TodayEvents():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_plan(wx.sweep_rope, pledge=True, star=1)
 
     # add mop task but only at a point during the day
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=2)
     default_epoch_config = get_default_epoch_config_dict()
     default_epoch_label = default_epoch_config.get(kw.epoch_label)
-    add_epoch_planunit(sue_person, default_epoch_config)
-    set_epoch_base_case_dayly(sue_person, wx.mop_rope, default_epoch_label, 600, 90)
+    add_epoch_planunit(bob_person, default_epoch_config)
+    set_epoch_base_case_dayly(bob_person, wx.mop_rope, default_epoch_label, 600, 90)
     apr7 = datetime(2010, 5, 7)
 
     # WHEN
-    sue_gcal_csv = create_gcalendar_csv_from_person(sue_person)
+    bob_gcal_csv = create_gcalendar_csv_from_person(bob_person)
 
     # THEN
     today_str = datetime.now().date().strftime("%m/%d/%Y")
 
-    reader = csv_DictReader(io_StringIO(sue_gcal_csv))
+    reader = csv_DictReader(io_StringIO(bob_gcal_csv))
     rows = list(reader)
 
     chore_row = next((r for r in rows if r["Subject"].startswith("1. mop")), None)
@@ -336,7 +338,7 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario2_TodayEvents():
     assert chore_row["End Date"] == today_str
     assert chore_row["End Time"] == "11:30 AM"
     assert chore_row["All Day Event"] == "False"
-    assert ";Amy23;casa;clean;mop;" in chore_row["Description"]
+    assert ";YY;mop;" in chore_row["Description"]
     assert "66.67%" in chore_row["Subject"]
 
     pledges_row = next((r for r in rows if r["Subject"] == "Pledges"), None)
@@ -349,23 +351,23 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario2_TodayEvents():
 
 def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario3_WeeklyEventDisplayed():
     # ESTABLISH
-    sue_person = personunit_shop(wx.sue, wx.a23)
-    sue_person.add_plan(wx.sweep_rope, pledge=True, star=1)
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_plan(wx.sweep_rope, pledge=True, star=1)
 
     # add mop task but only at a point during the day
-    sue_person.add_plan(wx.mop_rope, pledge=True, star=2)
+    bob_person.add_plan(wx.mop_rope, pledge=True, star=2)
     default_epoch_config = get_default_epoch_config_dict()
     default_epoch_label = default_epoch_config.get(kw.epoch_label)
-    add_epoch_planunit(sue_person, default_epoch_config)
-    set_epoch_base_case_weekly(sue_person, wx.mop_rope, default_epoch_label, 3700, 90)
+    add_epoch_planunit(bob_person, default_epoch_config)
+    set_epoch_base_case_weekly(bob_person, wx.mop_rope, default_epoch_label, 3700, 90)
     apr7 = datetime(2010, 5, 7)
     print(f"{apr7=}")
 
     # WHEN
-    sue_gcal_csv = create_gcalendar_csv_from_person(sue_person, apr7)
+    bob_gcal_csv = create_gcalendar_csv_from_person(bob_person, apr7)
 
     # THEN
-    reader = csv_DictReader(io_StringIO(sue_gcal_csv))
+    reader = csv_DictReader(io_StringIO(bob_gcal_csv))
     rows = list(reader)
 
     chore_row = next((r for r in rows if r["Subject"].startswith("1. mop")), None)

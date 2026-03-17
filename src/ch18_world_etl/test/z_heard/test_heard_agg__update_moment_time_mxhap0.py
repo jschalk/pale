@@ -226,7 +226,6 @@ def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario4_PopulatesTableWit
     ]
 
 
-# TODO reactivate and pass this test
 def test_get_update_heard_agg_timenum_sqlstr_SQLTEST_Scenario5_CanDstTableCanJoinOnPreviousSparkNum(
     cursor0: Cursor,
 ):

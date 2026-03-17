@@ -430,7 +430,6 @@ def add_epoch_frame_to_personunit(
     add_frame_to_personunit(x_person, epoch_frame_min, epoch_rope)
 
 
-# TODO create tests for set_epoch_fact
 def set_epoch_fact(
     person: PersonUnit, epoch_label: LabelTerm, timeline_lower: int, timeline_upper: int
 ):
