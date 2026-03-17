@@ -73,8 +73,8 @@ def set_epoch_base_case_weekly(
 ):
     """Given an epoch_label set reason for a plan that would make it a weekly occurance
     Example:
-    Given: sue_personunit, plan_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=600, duration=90
-    Add a reason to mop_plan that indicates it's to be active between minute 600 and minute 690 of the week
+    Given: sue_personunit, plan_rope=;amy23;casa;mop;, epoch_label=lizzy9, lower_min=3000, duration=90
+    Add a reason to mop_plan that indicates it's to be active between minute 3000 and minute 3090 of the week
     """
     if weekly_lower_min and weekly_duration_min:
         week_rope = get_week_rope(x_person, epoch_label)
@@ -430,7 +430,6 @@ def add_epoch_frame_to_personunit(
     add_frame_to_personunit(x_person, epoch_frame_min, epoch_rope)
 
 
-# TODO create tests for set_epoch_fact
 def set_epoch_fact(
     person: PersonUnit, epoch_label: LabelTerm, timeline_lower: int, timeline_upper: int
 ):

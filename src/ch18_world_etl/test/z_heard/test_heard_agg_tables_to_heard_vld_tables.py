@@ -14,7 +14,6 @@ from src.ch18_world_etl.test._util.ch18_env import cursor0
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 
-# TODO change file name to test_heard_agg_z_to_heard_vld_tables.py
 def test_get_insert_heard_vld_sqlstrs_ReturnsObj_CheckMomentDimen(cursor0: Cursor):
     # sourcery skip: no-loop-in-tests
     # ESTABLISH / WHEN

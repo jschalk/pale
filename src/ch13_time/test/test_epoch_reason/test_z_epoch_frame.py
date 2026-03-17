@@ -11,10 +11,11 @@ from src.ch07_person_logic.person_tool import (
     person_plan_reasonunit_get_obj,
     person_planunit_get_obj,
 )
-from src.ch13_time.epoch_main import add_epoch_planunit
+from src.ch13_time.epoch_main import add_epoch_planunit, get_epoch_rope
 from src.ch13_time.epoch_reason import (
     add_epoch_frame_to_personunit,
     set_epoch_cases_by_args_dict,
+    set_epoch_fact,
 )
 from src.ch13_time.test._util.ch13_examples import (
     Ch13ExampleStrs as wx,
@@ -881,3 +882,21 @@ def test_add_epoch_frame_to_personunit_SetsAttrs_Scenario0_IgnoreNonRangeReasons
     assert root_five_fact.fact_upper != x_upper_min
     assert root_clean_fact.fact_lower is None
     assert root_clean_fact.fact_upper is None
+
+
+def test_set_epoch_fact_Scenario0():
+    # ESTABLISH
+    bob_person = get_bob_five_person()
+    moment_rope = bob_person.planroot.get_plan_rope()
+    five_rope = get_epoch_rope(moment_rope, kw.five, bob_person.knot)
+    x_lower_min = 7777
+    x_upper_min = 8000
+    assert not bob_person.get_fact(five_rope)
+
+    # WHEN
+    set_epoch_fact(bob_person, kw.five, x_lower_min, x_upper_min)
+
+    # THEN
+    root_five_fact = bob_person.get_fact(five_rope)
+    assert root_five_fact.fact_lower == x_lower_min
+    assert root_five_fact.fact_upper == x_upper_min
