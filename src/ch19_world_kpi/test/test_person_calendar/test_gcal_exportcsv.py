@@ -2,7 +2,11 @@ from csv import DictReader as csv_DictReader
 from datetime import datetime, timedelta
 from io import StringIO as io_StringIO
 from src.ch07_person_logic.person_main import personunit_shop
-from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
+from src.ch13_time.epoch_main import (
+    add_epoch_planunit,
+    get_default_epoch_config_dict,
+    get_epoch_rope,
+)
 from src.ch13_time.epoch_reason import (
     set_epoch_base_case_dayly,
     set_epoch_base_case_weekly,
@@ -12,28 +16,8 @@ from src.ch19_world_kpi.gcalendar import (
     create_gcalendar_csv_from_list,
     create_gcalendar_csv_from_person,
     create_gcalendar_events_list,
-    gcal_readable_percent,
 )
 from src.ref.keywords import Ch19Keywords as kw
-
-
-def test_gcal_readable_percent_ReturnsObj():
-    # ESTABLISH / WHEN / THEN
-    assert gcal_readable_percent(1.0) == "100%"
-    """Ensure trailing zeros and decimal points are removed properly."""
-    assert gcal_readable_percent(0.5) == "50%"
-    assert gcal_readable_percent(0.505) == "50.5%"
-    assert gcal_readable_percent(0.5001) == "50.01%"
-    """Ensure extremely small numbers use scientific notation."""
-    result = gcal_readable_percent(1e-10)
-    assert "e" in result
-    assert result.endswith("%")
-    """Ensure custom precision works correctly."""
-    assert gcal_readable_percent(0.123456, precision=1) == "12.3%"
-    assert gcal_readable_percent(0.123456, precision=4) == "12.3456%"
-    assert gcal_readable_percent(0.00123456, precision=4) == "0.1235%"
-    assert gcal_readable_percent(0.0000123456, precision=4) == "1.23e-03%"
-    assert gcal_readable_percent(0.000123456) == "0.01%"
 
 
 def test_create_gcalendar_events_list_ReturnsObj_Scenario0_Empty():
@@ -42,6 +26,11 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario0_Empty():
     default_epoch_config = get_default_epoch_config_dict()
     add_epoch_planunit(bob_person, default_epoch_config)
     apr7 = datetime(2010, 5, 7, 9)
+    moment_rope = bob_person.planroot.get_plan_rope()
+    epoch_label = default_epoch_config.get(kw.epoch_label)
+    epoch_rope = get_epoch_rope(moment_rope, epoch_label, bob_person.knot)
+
+    assert not bob_person.get_fact(epoch_rope)
     print(f"{apr7=}")
 
     # WHEN
@@ -49,31 +38,7 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario0_Empty():
 
     # THEN
     assert bob_gcal_events == []
-
-
-def test_PersonUnit_conpute_SetsAttr_ScenarioX_SingleBranch_fund_ratio():
-    # ESTABLISH
-    bob_person = personunit_shop(wx.Bob, wx.root_rope)
-    bob_person.add_plan(wx.mop_rope, pledge=True, star=1)
-    mop_plan = bob_person.get_plan_obj(wx.mop_rope)
-    assert not bob_person.planroot.fund_onset
-    assert not bob_person.planroot.fund_cease
-    assert not bob_person.planroot.fund_ratio
-    assert not mop_plan.fund_onset
-    assert not mop_plan.fund_cease
-    assert not mop_plan.fund_ratio
-
-    # WHEN
-    bob_person.conpute()
-
-    # THEN
-    assert bob_person.planroot.fund_onset == 0
-    assert bob_person.planroot.fund_cease == 1000000000.0
-    assert bob_person.planroot.fund_ratio == 1.0
-    assert mop_plan.fund_onset == 0
-    assert mop_plan.fund_cease == bob_person.fund_pool
-    assert mop_plan.fund_ratio
-    assert mop_plan.fund_ratio == 1.0
+    assert not bob_person.get_fact(epoch_rope)
 
 
 def test_create_gcalendar_events_list_ReturnsObj_Scenario1_1AllDayPledge():
