@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 from io import StringIO as io_StringIO
 from src.ch04_rope.rope import is_sub_rope
+from src.ch05_reason.reason_main import ReasonHeir
 from src.ch06_plan.plan import PlanUnit
 from src.ch07_person_logic.person_main import PersonUnit, get_sorted_plan_list
 from src.ch13_time.epoch_main import (
@@ -40,6 +41,14 @@ class DayEvent:
     day_min_upper: int = None
 
 
+def planunit_is_scheduled_in_day(reasonheir: ReasonHeir, epoch_rope) -> bool:
+    case = reasonheir.get_case(reasonheir.reason_context)
+    divisor_remainder = case.reason_divisor % 1440
+    if is_sub_rope(reasonheir.reason_context, epoch_rope) and divisor_remainder == 0:
+        return True
+    return False
+
+
 def get_dayevents(
     person: PersonUnit, epoch_label: LabelTerm, day: datetime
 ) -> list[DayEvent]:
@@ -55,9 +64,7 @@ def get_dayevents(
     dayevents = []
     for item_rank, agenda_item in enumerate(agenda_list, start=1):
         for reason_context, reasonheir in agenda_item.reasonheirs.items():
-            epoch_case = reasonheir.get_case(reason_context)
-            divisor_remainder = epoch_case.reason_divisor % 1440
-            if is_sub_rope(reason_context, epoch_rope) and divisor_remainder == 0:
+            if planunit_is_scheduled_in_day(reasonheir, epoch_rope):
                 epoch_reasonheir = agenda_item.get_reasonheir(reason_context)
                 if epoch_reasonheir:
                     epoch_case = epoch_reasonheir.get_case(reason_context)
@@ -116,9 +123,9 @@ def minute_to_clock_time(minute: int) -> str:
     return f"{hours_12}:{mins:02d} {period}"
 
 
-def get_inflection_points_str(dayevents: list[DayEvent]) -> str:
+def get_gcal_priorities_schedule_str(dayevents: list[DayEvent]) -> str:
     inflections_dict = get_inflection_points_dict(dayevents)
-    x_str = "Schedule Inflections"
+    x_str = "Schedule Priorities"
     for inflection_minute in sorted(list(inflections_dict.keys())):
         dayevent = inflections_dict.get(inflection_minute)
         clock_time = minute_to_clock_time(inflection_minute)
@@ -130,10 +137,7 @@ def get_inflection_points_str(dayevents: list[DayEvent]) -> str:
     return x_str
 
 
-# TODO create test for this
-# TODO create test get_gcal_agenda_list_by_time_str
-# TODO create test get_gcal_inflection_point_str
-def get_gcal_agenda_list_str(
+def get_gcal_all_agenda_str(
     x_person: PersonUnit, epoch_label: LabelTerm, day: datetime
 ) -> str:
     epoch_min_lower = get_epoch_min_from_dt(x_person, epoch_label, day)
@@ -141,28 +145,45 @@ def get_gcal_agenda_list_str(
     epoch_min_upper = get_epoch_min_from_dt(x_person, epoch_label, next_day)
     set_epoch_fact(x_person, epoch_label, epoch_min_lower, epoch_min_upper)
 
-    moment_rope = x_person.planroot.get_plan_rope()
-    epoch_rope = get_epoch_rope(moment_rope, epoch_label, x_person.knot)
     agenda_plans_dict = x_person.get_agenda_dict()
     agenda_list = get_sorted_plan_list(agenda_plans_dict, "fund_ratio")
+    moment_rope = x_person.planroot.get_plan_rope()
+    epoch_rope = get_epoch_rope(moment_rope, epoch_label, x_person.knot)
     gcal_agenda_list_str = ""
-    # TODO replace for loop with iteration through get_dayevents list
     for item_rank, agenda_item in enumerate(agenda_list, start=1):
         item_fund_ratio_str = gcal_readable_percent(agenda_item.fund_ratio)
         event_subject = f"{item_rank}. {agenda_item.plan_label} ({item_fund_ratio_str})"
+
         for reason_context, reasonheir in agenda_item.reasonheirs.items():
-            epoch_case = reasonheir.get_case(reason_context)
-            divisor_remainder = epoch_case.reason_divisor % 1440
-            if is_sub_rope(reason_context, epoch_rope) and divisor_remainder == 0:
+            if planunit_is_scheduled_in_day(reasonheir, epoch_rope):
                 epoch_reasonheir = agenda_item.get_reasonheir(reason_context)
-                if epoch_reasonheir:
-                    epoch_case = epoch_reasonheir.get_case(reason_context)
-                    day_reason_lower = epoch_case.reason_lower % 1440
-                    day_reason_upper = epoch_case.reason_upper % 1440
-                    start_date = day + timedelta(minutes=day_reason_lower)
-                    end_date = day + timedelta(minutes=day_reason_upper)
+                epoch_case = epoch_reasonheir.get_case(reason_context)
+                day_reason_lower = epoch_case.reason_lower % 1440
+                day_reason_upper = epoch_case.reason_upper % 1440
+                clock_lower = minute_to_clock_time(day_reason_lower)
+                clock_upper = minute_to_clock_time(day_reason_upper)
+                clock_range = f" {clock_lower}-{clock_upper}"
+                event_subject += clock_range
         gcal_agenda_list_str += f"{event_subject}\n"
     return gcal_agenda_list_str
+
+
+def get_gcal_partners_str(x_person: PersonUnit) -> str:
+    x_str = "Person Partners"
+    partners_list = list(x_person.partners.values())
+    partners_list.sort(
+        key=lambda pu: (
+            -pu.fund_agenda_ratio_give - pu.fund_agenda_ratio_take,
+            pu.partner_name,
+        )
+    )
+
+    for partner in partners_list:
+        give_left = partner.fund_agenda_ratio_give - partner.fund_agenda_ratio_take
+        agenda_relative_give = gcal_readable_percent(give_left)
+
+        x_str += f"\n{agenda_relative_give} {partner.partner_name}"
+    return x_str
 
 
 def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[dict]:
@@ -173,40 +194,26 @@ def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[di
     next_day = day + timedelta(days=1)
     epoch_min_upper = get_epoch_min_from_dt(x_person, default_epoch_label, next_day)
     set_epoch_fact(x_person, default_epoch_label, epoch_min_lower, epoch_min_upper)
-    moment_rope = x_person.planroot.get_plan_rope()
-    epoch_rope = get_epoch_rope(moment_rope, default_epoch_label, x_person.knot)
 
-    agenda_plans_dict = x_person.get_agenda_dict()
-    agenda_list = get_sorted_plan_list(agenda_plans_dict, "fund_ratio")
     gcal_agenda_list_str = ""
     day_events = []
-    # TODO replace for loop with iteration through get_dayevents list
-    for item_rank, agenda_item in enumerate(agenda_list, start=1):
-        item_fund_ratio_str = gcal_readable_percent(agenda_item.fund_ratio)
-        event_subject = f"{item_rank}. {agenda_item.plan_label} ({item_fund_ratio_str})"
-        for reason_context, reasonheir in agenda_item.reasonheirs.items():
-            if (
-                is_sub_rope(reason_context, epoch_rope)
-                and (reasonheir.get_case(reason_context).reason_divisor % 1440) == 0
-            ):
-                epoch_reasonheir = agenda_item.get_reasonheir(reason_context)
-                if epoch_reasonheir:
-                    epoch_case = epoch_reasonheir.get_case(reason_context)
-                    day_reason_lower = epoch_case.reason_lower % 1440
-                    day_reason_upper = epoch_case.reason_upper % 1440
-                    start_date = day + timedelta(minutes=day_reason_lower)
-                    end_date = day + timedelta(minutes=day_reason_upper)
-                    event_dict = {
-                        "Subject": event_subject,
-                        "Start Date": start_date.strftime("%m/%d/%Y"),
-                        "Start Time": start_date.strftime("%I:%M %p"),
-                        "End Date": end_date.strftime("%m/%d/%Y"),
-                        "End Time": end_date.strftime("%I:%M %p"),
-                        "All Day Event": "False",
-                        "Description": agenda_item.get_plan_rope(),
-                    }
-                    day_events.append(event_dict)
-    gcal_agenda_list_str = get_gcal_agenda_list_str(x_person, default_epoch_label, day)
+    dayevent_objs = get_dayevents(x_person, default_epoch_label, day)
+    for dayevent_obj in dayevent_objs:
+        item_fund_ratio_str = gcal_readable_percent(dayevent_obj.plan.fund_ratio)
+        event_subject = f"{dayevent_obj.item_rank}. {dayevent_obj.plan.plan_label} ({item_fund_ratio_str})"
+        start_date = day + timedelta(minutes=dayevent_obj.day_min_lower)
+        end_date = day + timedelta(minutes=dayevent_obj.day_min_upper)
+        event_dict = {
+            "Subject": event_subject,
+            "Start Date": start_date.strftime("%m/%d/%Y"),
+            "Start Time": start_date.strftime("%I:%M %p"),
+            "End Date": end_date.strftime("%m/%d/%Y"),
+            "End Time": end_date.strftime("%I:%M %p"),
+            "All Day Event": "False",
+            "Description": dayevent_obj.plan.get_plan_rope(),
+        }
+        day_events.append(event_dict)
+    gcal_agenda_list_str = get_gcal_all_agenda_str(x_person, default_epoch_label, day)
     all_day_events = {
         "Subject": "Pledges",
         "Start Date": day.strftime("%m/%d/%Y"),

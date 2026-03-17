@@ -11,7 +11,7 @@ from src.ch19_world_kpi.gcalendar import (
     DayEvent,
     gcal_readable_percent,
     get_dayevents,
-    get_gcal_agenda_list_str,
+    get_gcal_all_agenda_str,
 )
 from src.ref.keywords import Ch19Keywords as kw
 
@@ -94,7 +94,7 @@ def test_gcal_readable_percent_ReturnsObj():
     assert gcal_readable_percent(0.000123456) == "0.01%"
 
 
-def test_get_gcal_agenda_list_str_ReturnsObj_Scenario1_1AllDayPledge():
+def test_get_gcal_all_agenda_str_ReturnsObj_Scenario1_1AllDayPledge():
     # ESTABLISH
     bob_person = personunit_shop(wx.Bob, wx.root_rope)
     default_epoch_config = get_default_epoch_config_dict()
@@ -105,7 +105,7 @@ def test_get_gcal_agenda_list_str_ReturnsObj_Scenario1_1AllDayPledge():
     print(f"{apr7=}")
 
     # WHEN
-    bob_agenda_str = get_gcal_agenda_list_str(bob_person, epoch_label, day=apr7)
+    bob_agenda_str = get_gcal_all_agenda_str(bob_person, epoch_label, day=apr7)
 
     # THEN
     expected_gcal_agenda_list_str = f"""1. {wx.mop_str} (100%)
@@ -113,7 +113,7 @@ def test_get_gcal_agenda_list_str_ReturnsObj_Scenario1_1AllDayPledge():
     assert bob_agenda_str == expected_gcal_agenda_list_str
 
 
-def test_get_gcal_agenda_list_str_ReturnsObj_Scenario2_3AllDayPledge():
+def test_get_gcal_all_agenda_str_ReturnsObj_Scenario2_3AllDayPledge():
     # ESTABLISH
     bob_person = personunit_shop(wx.Bob, wx.root_rope)
     default_epoch_config = get_default_epoch_config_dict()
@@ -126,7 +126,7 @@ def test_get_gcal_agenda_list_str_ReturnsObj_Scenario2_3AllDayPledge():
     print(f"{apr7=}")
 
     # WHEN
-    bob_agenda_str = get_gcal_agenda_list_str(bob_person, epoch_label, day=apr7)
+    bob_agenda_str = get_gcal_all_agenda_str(bob_person, epoch_label, day=apr7)
 
     # THEN
     expected_gcal_agenda_list_str = f"""1. {wx.mop_str} (50%)
@@ -136,7 +136,7 @@ def test_get_gcal_agenda_list_str_ReturnsObj_Scenario2_3AllDayPledge():
     assert bob_agenda_str == expected_gcal_agenda_list_str
 
 
-def test_get_gcal_agenda_list_str_ReturnsObj_Scenario3_OneEpoch_pledge():
+def test_get_gcal_all_agenda_str_ReturnsObj_Scenario3_OneEpoch_pledge():
     # ESTABLISH
     bob_person = personunit_shop(wx.Bob, wx.root_rope)
     bob_person.add_plan(wx.sweep_rope, pledge=True, star=1)
@@ -151,10 +151,10 @@ def test_get_gcal_agenda_list_str_ReturnsObj_Scenario3_OneEpoch_pledge():
     print(f"{apr7=}")
 
     # WHEN
-    bob_agenda_str = get_gcal_agenda_list_str(bob_person, default_epoch_label, apr7)
+    bob_agenda_str = get_gcal_all_agenda_str(bob_person, default_epoch_label, apr7)
 
     # THEN
-    expected_gcal_agenda_list_str = f"""1. {wx.mop_str} (66.67%)
+    expected_gcal_agenda_list_str = f"""1. {wx.mop_str} (66.67%) 10:00 AM-11:30 AM
 2. {wx.sweep_str} (33.33%)
 """
     print(f"{bob_agenda_str=}")

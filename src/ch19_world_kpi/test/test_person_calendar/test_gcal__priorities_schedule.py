@@ -2,8 +2,8 @@ from src.ch06_plan.plan import planunit_shop
 from src.ch19_world_kpi.gcalendar import (
     DayEvent,
     gcal_readable_percent,
+    get_gcal_priorities_schedule_str,
     get_inflection_points_dict,
-    get_inflection_points_str,
 )
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
@@ -92,7 +92,7 @@ def test_get_inflection_points_dict_ReturnsObj_Scenario4_Same_fund_ratio_dayeven
     assert inflection_points == {0: y60_dayevent, 60: y90_dayevent, 90: None}
 
 
-def test_get_inflection_points_str_ReturnsObj_Scenario1_Same_fund_ratio_DayEvent():
+def test_get_gcal_priorities_schedule_str_ReturnsObj_Scenario1_Same_fund_ratio_DayEvent():
     # ESTABLISH
     x1_fund_ratio = 0.1
     x1_plan = planunit_shop(exx.mop, fund_ratio=x1_fund_ratio)
@@ -103,13 +103,15 @@ def test_get_inflection_points_str_ReturnsObj_Scenario1_Same_fund_ratio_DayEvent
     y90_dayevent = DayEvent(x2_plan, 2, 30, day_min_upper=90)
 
     # WHEN
-    inflection_points_str = get_inflection_points_str([y60_dayevent, y90_dayevent])
+    inflection_points_str = get_gcal_priorities_schedule_str(
+        [y60_dayevent, y90_dayevent]
+    )
 
     # THEN
     print(inflection_points_str)
     y60_readable_fund_ratio = gcal_readable_percent(y60_dayevent.plan.fund_ratio)
     y90_readable_fund_ratio = gcal_readable_percent(y90_dayevent.plan.fund_ratio)
-    expected_str = f"""Schedule Inflections
+    expected_str = f"""Schedule Priorities
 12:00 AM 1. {exx.mop} {y60_readable_fund_ratio}
 1:00 AM 2. {exx.casa} {y90_readable_fund_ratio}
 1:30 AM Nothing scheduled."""
