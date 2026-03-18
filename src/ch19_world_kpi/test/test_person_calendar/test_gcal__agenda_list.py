@@ -1,10 +1,6 @@
 from datetime import datetime
 from src.ch07_person_logic.person_main import personunit_shop
-from src.ch13_time.epoch_main import (
-    add_epoch_planunit,
-    get_default_epoch_config_dict,
-    get_epoch_rope,
-)
+from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
 from src.ch13_time.epoch_reason import set_epoch_base_case_dayly
 from src.ch13_time.test._util.ch13_examples import Ch13ExampleStrs as wx
 from src.ch19_world_kpi.gcalendar import (
@@ -109,8 +105,7 @@ def test_get_gcal_all_agenda_str_ReturnsObj_Scenario1_1AllDayPledge():
     bob_agenda_str = get_gcal_all_agenda_str(bob_person, epoch_label, day=apr7)
 
     # THEN
-    expected_gcal_agenda_list_str = f"""1. {wx.mop_str} (100%)
-"""
+    expected_gcal_agenda_list_str = f"""All Agenda Items\n1. {wx.mop_str} (100%)"""
     assert bob_agenda_str == expected_gcal_agenda_list_str
 
 
@@ -130,10 +125,9 @@ def test_get_gcal_all_agenda_str_ReturnsObj_Scenario2_3AllDayPledge():
     bob_agenda_str = get_gcal_all_agenda_str(bob_person, epoch_label, day=apr7)
 
     # THEN
-    expected_gcal_agenda_list_str = f"""1. {wx.mop_str} (50%)
+    expected_gcal_agenda_list_str = f"""All Agenda Items\n1. {wx.mop_str} (50%)
 2. {wx.scrub_str} (25%)
-3. {wx.sweep_str} (25%)
-"""
+3. {wx.sweep_str} (25%)"""
     assert bob_agenda_str == expected_gcal_agenda_list_str
 
 
@@ -155,8 +149,7 @@ def test_get_gcal_all_agenda_str_ReturnsObj_Scenario3_OneEpoch_pledge():
     bob_agenda_str = get_gcal_all_agenda_str(bob_person, default_epoch_label, apr7)
 
     # THEN
-    expected_gcal_agenda_list_str = f"""1. {wx.mop_str} (66.67%) 10:00 AM-11:30 AM
-2. {wx.sweep_str} (33.33%)
-"""
+    expected_gcal_agenda_list_str = f"""All Agenda Items\n1. {wx.mop_str} (66.67%) 10:00 AM-11:30 AM
+2. {wx.sweep_str} (33.33%)"""
     print(f"{bob_agenda_str=}")
     assert bob_agenda_str == expected_gcal_agenda_list_str

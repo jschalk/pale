@@ -54,8 +54,7 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario1_1AllDayPledge():
     bob_gcal_events = create_gcalendar_events_list(bob_person, day=apr7)
 
     # THEN
-    gcal_agenda_list_str = f"""1. {wx.mop_str} (100%)
-"""
+    gcal_agenda_list_str = f"""All Agenda Items\n1. {wx.mop_str} (100%)"""
     description_str = "Description"
     expected_apr7str = "05/07/2010"
     expected_event_dict = {
@@ -88,10 +87,9 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario2_3AllDayPledge():
 
     # THEN
     assert len(bob_gcal_events) == 1
-    gcal_agenda_list_str = f"""1. {wx.mop_str} (50%)
+    gcal_agenda_list_str = f"""All Agenda Items\n1. {wx.mop_str} (50%)
 2. {wx.scrub_str} (25%)
-3. {wx.sweep_str} (25%)
-"""
+3. {wx.sweep_str} (25%)"""
     description_str = "Description"
     start_date_str = "Start Date"
     expected_apr7str = "05/07/2010"
@@ -129,9 +127,8 @@ def test_create_gcalendar_events_list_ReturnsObj_Scenario3_OneEpoch_pledge():
     bob_gcal_events = create_gcalendar_events_list(bob_person, apr7)
 
     # THEN
-    gcal_agenda_list_str = f"""1. {wx.mop_str} (66.67%) 10:00 AM-11:30 AM
-2. {wx.sweep_str} (33.33%)
-"""
+    gcal_agenda_list_str = f"""All Agenda Items\n1. {wx.mop_str} (66.67%) 10:00 AM-11:30 AM
+2. {wx.sweep_str} (33.33%)"""
     description_str = "Description"
     start_date_str = "Start Date"
     expected_apr7str = "05/07/2010"
@@ -227,7 +224,7 @@ def test_create_gcalendar_csv_from_person_ReturnsObj_Scenario0_OneEpoch_pledge()
     expected_csv_line2 = (
         "1. mop (66.67%),05/07/2010,10:00 AM,05/07/2010,11:30 AM,False,;YY;mop;"
     )
-    expected_csv_line3 = """Pledges,05/07/2010,,05/07/2010,,True,"1. mop (66.67%) 10:00 AM-11:30 AM\n2. sweep (33.33%)\n"""
+    expected_csv_line3 = """Pledges,05/07/2010,,05/07/2010,,True,"All Agenda Items\n1. mop (66.67%) 10:00 AM-11:30 AM\n2. sweep (33.33%)"""
     assert expected_csv_line1 in bob_gcal_csv
     assert expected_csv_line2 in bob_gcal_csv
     assert expected_csv_line3 in bob_gcal_csv

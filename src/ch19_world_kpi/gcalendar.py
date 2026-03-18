@@ -151,7 +151,7 @@ def get_gcal_all_agenda_str(
     agenda_list = get_sorted_plan_list(agenda_plans_dict, "fund_ratio")
     moment_rope = x_person.planroot.get_plan_rope()
     epoch_rope = get_epoch_rope(moment_rope, epoch_label, x_person.knot)
-    gcal_agenda_list_str = ""
+    gcal_agenda_list_str = "All Agenda Items"
     for item_rank, agenda_item in enumerate(agenda_list, start=1):
         item_fund_ratio_str = gcal_readable_percent(agenda_item.fund_ratio)
         event_subject = f"{item_rank}. {agenda_item.plan_label} ({item_fund_ratio_str})"
@@ -166,7 +166,7 @@ def get_gcal_all_agenda_str(
                 clock_upper = minute_to_clock_time(day_reason_upper)
                 clock_range = f" {clock_lower}-{clock_upper}"
                 event_subject += clock_range
-        gcal_agenda_list_str += f"{event_subject}\n"
+        gcal_agenda_list_str += f"\n{event_subject}"
     return gcal_agenda_list_str
 
 
@@ -206,6 +206,25 @@ def get_gcal_memberships_str(x_person: PersonUnit, group_title: GroupTitle) -> s
     return create_partners_only_list_str(partners_list, x_str)
 
 
+def get_gcal_day_report(
+    x_person: PersonUnit,
+    day: datetime,
+    epoch_label: LabelTerm = None,
+    group_title: GroupTitle = None,
+) -> str:
+    """parameter x_person is assumed to have already conputed."""
+    x_str = f"Day Report for {x_person.person_name}\n"
+    if not epoch_label:
+        epoch_label = get_default_epoch_config_dict().get("epoch_label")
+    x_dayevents = get_dayevents(x_person, epoch_label, day)
+    x_str += f"\n{get_gcal_priorities_schedule_str(x_dayevents)}"
+    x_str += f"\n{get_gcal_all_agenda_str(x_person, epoch_label, day)}"
+    x_str += f"\n{get_gcal_partners_str(x_person)}"
+    if group_title:
+        x_str += f"\n{get_gcal_memberships_str(x_person, group_title)}"
+    return x_str
+
+
 def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[dict]:
     x_person = copy_deepcopy(x_person)
     default_epoch_config = get_default_epoch_config_dict()
@@ -237,7 +256,7 @@ def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[di
         "All Day Event": "True",
         "Description": gcal_agenda_list_str,
     }
-    if gcal_agenda_list_str != "":
+    if x_person.get_agenda_dict() != {}:
         day_events.append(all_day_events)
     return day_events
 
