@@ -3,6 +3,7 @@ from csv import DictWriter as csv_DictWriter
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from io import StringIO as io_StringIO
+from src.ch02_partner.partner import PartnerUnit
 from src.ch04_rope.rope import is_sub_rope
 from src.ch05_reason.reason_main import ReasonHeir
 from src.ch06_plan.plan import PlanUnit
@@ -13,7 +14,7 @@ from src.ch13_time.epoch_main import (
     get_epoch_rope,
 )
 from src.ch13_time.epoch_reason import set_epoch_fact
-from src.ch19_world_kpi._ref.ch19_semantic_types import LabelTerm, RopeTerm
+from src.ch19_world_kpi._ref.ch19_semantic_types import GroupTitle, LabelTerm, RopeTerm
 
 
 def gcal_readable_percent(value: float, precision=2):
@@ -49,13 +50,17 @@ def planunit_is_scheduled_in_day(reasonheir: ReasonHeir, epoch_rope) -> bool:
     return False
 
 
-def get_dayevents(
-    person: PersonUnit, epoch_label: LabelTerm, day: datetime
-) -> list[DayEvent]:
+def set_day_epoch_fact(person: PersonUnit, epoch_label: LabelTerm, day: datetime):
     epoch_min_lower = get_epoch_min_from_dt(person, epoch_label, day)
     next_day = day + timedelta(days=1)
     epoch_min_upper = get_epoch_min_from_dt(person, epoch_label, next_day)
     set_epoch_fact(person, epoch_label, epoch_min_lower, epoch_min_upper)
+
+
+def get_dayevents(
+    person: PersonUnit, epoch_label: LabelTerm, day: datetime
+) -> list[DayEvent]:
+    set_day_epoch_fact(person, epoch_label, day)
 
     moment_rope = person.planroot.get_plan_rope()
     epoch_rope = get_epoch_rope(moment_rope, epoch_label, person.knot)
@@ -80,15 +85,15 @@ def get_dayevents(
     return dayevents
 
 
-def get_inflection_points_dict(dayevents: list[DayEvent]) -> dict[int, PlanUnit]:
+def get_inflection_points_dict(dayevents: list[DayEvent]) -> dict[int, DayEvent | None]:
     """
-    Returns a list of (time, event) tuples representing inflection points �
-    moments where the "most important active event" changes.
+    Returns a dict[day_minute, DayEvent] representing inflection day_minutes where the
+    "most important active event" changes.
 
     An inflection point occurs when:
     - A more important event starts while another is ongoing
     - The current top event ends and a different one takes over (or nothing)
-    - A gap exists between events (represented as (time, None))
+    - A gap exists between events (represented as day_minute: None)
     """
     # Collect all relevant timestamps
     timestamps = sorted(
@@ -140,16 +145,13 @@ def get_gcal_priorities_schedule_str(dayevents: list[DayEvent]) -> str:
 def get_gcal_all_agenda_str(
     x_person: PersonUnit, epoch_label: LabelTerm, day: datetime
 ) -> str:
-    epoch_min_lower = get_epoch_min_from_dt(x_person, epoch_label, day)
-    next_day = day + timedelta(days=1)
-    epoch_min_upper = get_epoch_min_from_dt(x_person, epoch_label, next_day)
-    set_epoch_fact(x_person, epoch_label, epoch_min_lower, epoch_min_upper)
+    set_day_epoch_fact(x_person, epoch_label, day)
 
     agenda_plans_dict = x_person.get_agenda_dict()
     agenda_list = get_sorted_plan_list(agenda_plans_dict, "fund_ratio")
     moment_rope = x_person.planroot.get_plan_rope()
     epoch_rope = get_epoch_rope(moment_rope, epoch_label, x_person.knot)
-    gcal_agenda_list_str = ""
+    gcal_agenda_list_str = "All Agenda Items"
     for item_rank, agenda_item in enumerate(agenda_list, start=1):
         item_fund_ratio_str = gcal_readable_percent(agenda_item.fund_ratio)
         event_subject = f"{item_rank}. {agenda_item.plan_label} ({item_fund_ratio_str})"
@@ -164,13 +166,17 @@ def get_gcal_all_agenda_str(
                 clock_upper = minute_to_clock_time(day_reason_upper)
                 clock_range = f" {clock_lower}-{clock_upper}"
                 event_subject += clock_range
-        gcal_agenda_list_str += f"{event_subject}\n"
+        gcal_agenda_list_str += f"\n{event_subject}"
     return gcal_agenda_list_str
 
 
 def get_gcal_partners_str(x_person: PersonUnit) -> str:
     x_str = "Person Partners"
     partners_list = list(x_person.partners.values())
+    return create_partners_only_list_str(partners_list, x_str)
+
+
+def create_partners_only_list_str(partners_list: list[PartnerUnit], x_str: str) -> str:
     partners_list.sort(
         key=lambda pu: (
             -pu.fund_agenda_ratio_give - pu.fund_agenda_ratio_take,
@@ -181,23 +187,52 @@ def get_gcal_partners_str(x_person: PersonUnit) -> str:
     for partner in partners_list:
         give_left = partner.fund_agenda_ratio_give - partner.fund_agenda_ratio_take
         agenda_relative_give = gcal_readable_percent(give_left)
-
         x_str += f"\n{agenda_relative_give} {partner.partner_name}"
+    return x_str
+
+
+def get_gcal_memberships_str(x_person: PersonUnit, group_title: GroupTitle) -> str:
+    x_str = f"{group_title} Group"
+    groupunit = x_person.get_groupunit(group_title)
+    group_partner_names = []
+    if not groupunit or len(groupunit.memberships) == 0:
+        x_str += "\nNo memberships"
+    else:
+        for partner_name in groupunit.memberships.keys():
+            group_partner_names.append(partner_name)
+    partners_list = []
+    for group_partner_name in group_partner_names:
+        partners_list.append(x_person.get_partner(group_partner_name))
+    return create_partners_only_list_str(partners_list, x_str)
+
+
+def get_gcal_day_report(
+    x_person: PersonUnit,
+    day: datetime,
+    epoch_label: LabelTerm = None,
+    group_title: GroupTitle = None,
+) -> str:
+    """parameter x_person is assumed to have already conputed."""
+    x_str = f"Day Report for {x_person.person_name}\n"
+    if not epoch_label:
+        epoch_label = get_default_epoch_config_dict().get("epoch_label")
+    x_dayevents = get_dayevents(x_person, epoch_label, day)
+    x_str += f"\n{get_gcal_priorities_schedule_str(x_dayevents)}"
+    x_str += f"\n{get_gcal_all_agenda_str(x_person, epoch_label, day)}"
+    x_str += f"\n{get_gcal_partners_str(x_person)}"
+    if group_title:
+        x_str += f"\n{get_gcal_memberships_str(x_person, group_title)}"
     return x_str
 
 
 def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[dict]:
     x_person = copy_deepcopy(x_person)
     default_epoch_config = get_default_epoch_config_dict()
-    default_epoch_label = default_epoch_config.get("epoch_label")
-    epoch_min_lower = get_epoch_min_from_dt(x_person, default_epoch_label, day)
-    next_day = day + timedelta(days=1)
-    epoch_min_upper = get_epoch_min_from_dt(x_person, default_epoch_label, next_day)
-    set_epoch_fact(x_person, default_epoch_label, epoch_min_lower, epoch_min_upper)
+    epoch_label = default_epoch_config.get("epoch_label")
 
     gcal_agenda_list_str = ""
     day_events = []
-    dayevent_objs = get_dayevents(x_person, default_epoch_label, day)
+    dayevent_objs = get_dayevents(x_person, epoch_label, day)
     for dayevent_obj in dayevent_objs:
         item_fund_ratio_str = gcal_readable_percent(dayevent_obj.plan.fund_ratio)
         event_subject = f"{dayevent_obj.item_rank}. {dayevent_obj.plan.plan_label} ({item_fund_ratio_str})"
@@ -213,7 +248,7 @@ def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[di
             "Description": dayevent_obj.plan.get_plan_rope(),
         }
         day_events.append(event_dict)
-    gcal_agenda_list_str = get_gcal_all_agenda_str(x_person, default_epoch_label, day)
+    gcal_agenda_list_str = get_gcal_all_agenda_str(x_person, epoch_label, day)
     all_day_events = {
         "Subject": "Pledges",
         "Start Date": day.strftime("%m/%d/%Y"),
@@ -221,7 +256,7 @@ def create_gcalendar_events_list(x_person: PersonUnit, day: datetime) -> list[di
         "All Day Event": "True",
         "Description": gcal_agenda_list_str,
     }
-    if gcal_agenda_list_str != "":
+    if x_person.get_agenda_dict() != {}:
         day_events.append(all_day_events)
     return day_events
 

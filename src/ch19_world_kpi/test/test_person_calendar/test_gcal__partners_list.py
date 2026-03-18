@@ -1,6 +1,10 @@
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch13_time.test._util.ch13_examples import Ch13ExampleStrs as wx
-from src.ch19_world_kpi.gcalendar import gcal_readable_percent, get_gcal_partners_str
+from src.ch19_world_kpi.gcalendar import (
+    gcal_readable_percent,
+    get_gcal_memberships_str,
+    get_gcal_partners_str,
+)
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
@@ -44,3 +48,37 @@ def test_get_gcal_partners_str_ReturnsObj_Scenario2_TwoPartnersCorrectOrder():
 16.67% {exx.sue}
 -16.67% {exx.bob}"""
     assert gcal_partners_str == expected_gcal_partners_str
+
+
+def test_get_gcal_memberships_str_ReturnsObj_Scenario0_NoMembership():
+    # ESTABLISH
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_partnerunit(exx.bob, 2)
+
+    # WHEN
+    run_memberships_str = get_gcal_memberships_str(bob_person, exx.run)
+
+    # THEN
+    assert run_memberships_str
+    expected_run_memberships_str = f"""{exx.run} Group\nNo memberships"""
+    print(run_memberships_str)
+    print(expected_run_memberships_str)
+    assert run_memberships_str == expected_run_memberships_str
+
+
+def test_get_gcal_memberships_str_ReturnsObj_Scenario1_TwoPartners():
+    # ESTABLISH
+    bob_person = personunit_shop(wx.Bob, wx.root_rope)
+    bob_person.add_partnerunit(exx.bob, 2)
+    bob_person.add_partnerunit(exx.sue, 1)
+    bob_person.get_partner(exx.sue).add_membership(exx.run)
+    bob_person.conpute()
+
+    # WHEN
+    run_memberships_str = get_gcal_memberships_str(bob_person, exx.run)
+
+    # THEN
+    assert run_memberships_str
+    expected_run_memberships_str = f"""{exx.run} Group
+-16.67% {exx.sue}"""
+    assert run_memberships_str == expected_run_memberships_str
