@@ -22,8 +22,8 @@ What does each one do?
 - **ch16_translate**: Defines TranslateUnit tools that translate MomentUnits into inside language.
 - **ch17_idea**: Defines Idea Bricks: Spreadsheet data formats of any MomentUnit data.
 - **ch18_world_etl**: Defines the tools that use Idea Bricks to build MomentUnits.
-- **ch19_world_kpi**: Defines the analytics outcomes of completed MomentUnits.
-- **ch20_world_apex**: Defines WorldDirs that admin MomentUnits input data and outcomes
+- **ch20_world_kpi**: Defines the analytics outcomes of completed MomentUnits.
+- **ch21_world_apex**: Defines WorldDirs that admin MomentUnits input data and outcomes
 - **ch22_lobby**: Defines Lobby Tools for gifts, World Scenarios.
 - **ch23_finance**: Defines Finance Tools for 
 - **ch24_person_viewer**: Tools for Visualizing PersonUnits
