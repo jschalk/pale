@@ -9,6 +9,7 @@ from src.ch00_py.keyword_class_builder import (
 )
 from src.ch98_docs_builder.doc_builder import get_chapter_desc_prefix, get_chapter_descs
 from src.linter.style import (
+    check_custom_exception_classes_style,
     function_name_style_is_correct,
     get_all_semantic_types_from_ref_files,
     get_chapters_obj_metrics,
@@ -69,12 +70,13 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
 
     # WHEN
     chapters_func_class_metrics = get_chapters_obj_metrics(excluded_functions)
-    duplicate_func_names = chapters_func_class_metrics.get("duplicate_func_names")
-    unnecessarily_excluded_funcs = chapters_func_class_metrics.get(
-        "unnecessarily_excluded_funcs"
+    duplicate_func_names = chapters_func_class_metrics.duplicate_func_names
+    unnecessarily_excluded_funcs = (
+        chapters_func_class_metrics.unnecessarily_excluded_funcs
     )
-    semantic_types = chapters_func_class_metrics.get("semantic_types")
-    all_functions = chapters_func_class_metrics.get("all_functions")
+    check_custom_exception_classes_style(chapters_func_class_metrics.all_classes)
+    semantic_types = chapters_func_class_metrics.semantic_types
+    all_functions = chapters_func_class_metrics.all_functions
 
     # THEN
     flagged_func_name_count = {}

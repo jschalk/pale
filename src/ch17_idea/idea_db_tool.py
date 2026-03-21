@@ -190,7 +190,7 @@ def append_df_to_excel(file_path: str, sheet_name: str, dataframe: DataFrame):
         dataframe.to_excel(file_path, index=False, sheet_name=sheet_name)
 
 
-class pandas_tools_ExcelWriterException(Exception):
+class PandasToolsExcelWriterError(Exception):
     pass
 
 
@@ -225,7 +225,7 @@ def upsert_sheet(
             append_df_to_excel(file_path, sheet_name, dataframe)
 
     except (PermissionError, FileNotFoundError, OSError) as e:
-        raise pandas_tools_ExcelWriterException(f"An error occurred: {e}") from e
+        raise PandasToolsExcelWriterError(f"An error occurred: {e}") from e
 
 
 def sheet_exists(file_path: str, sheet_name: str):
@@ -457,7 +457,7 @@ def update_all_face_name_spark_num_columns(
             workbook.save(excel_file_path)
 
 
-class sqlite_data_type_Exception(Exception):
+class SqliteDataTypeError(Exception):
     pass
 
 
@@ -470,7 +470,7 @@ def is_column_type_valid(df: DataFrame, column: str, sqlite_data_type: str) -> b
     elif sqlite_data_type == "TEXT":
         expected_data_type = "str"
     else:
-        raise sqlite_data_type_Exception(f"{sqlite_data_type} is not valid sqlite_type")
+        raise SqliteDataTypeError(f"{sqlite_data_type} is not valid sqlite_type")
     if column not in df.columns:
         return False
     # If column is completely empty (all NaN), accept it

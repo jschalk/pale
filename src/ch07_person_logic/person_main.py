@@ -66,51 +66,47 @@ from src.ch07_person_logic.person_config import max_tree_traverse_default
 from src.ch07_person_logic.tree_metric import TreeMetrics, treemetrics_shop
 
 
-class InvalidPersonException(Exception):
+class InvalidPersonError(Exception):
     pass
 
 
-class InvalidLabelException(Exception):
+class InvalidLabelError(Exception):
     pass
 
 
-class NewKnotException(Exception):
+class NewKnotError(Exception):
     pass
 
 
-class reason_caseException(Exception):
+class ReasonCaseError(Exception):
     pass
 
 
-class PartnerUnitsCredorDebtorSumException(Exception):
+class PartnerMissingError(Exception):
     pass
 
 
-class PartnerMissingException(Exception):
+class KeepJustError(Exception):
     pass
 
 
-class keeps_justException(Exception):
+class BitRatioError(Exception):
     pass
 
 
-class _bit_RatioException(Exception):
+class LastLessonIDError(Exception):
     pass
 
 
-class _last_lesson_idException(Exception):
+class HealerunitGroupTitleError(Exception):
     pass
 
 
-class healerunit_group_title_Exception(Exception):
+class GogoCalcStopCalcError(Exception):
     pass
 
 
-class gogo_calc_stop_calc_Exception(Exception):
-    pass
-
-
-class is_RopeTermException(Exception):
+class IsRopeTermError(Exception):
     pass
 
 
@@ -149,13 +145,13 @@ class PersonUnit:
     def set_last_lesson_id(self, x_last_lesson_id: int):
         if self.last_lesson_id is not None and x_last_lesson_id < self.last_lesson_id:
             exception_str = f"Cannot set _last_lesson_id to {x_last_lesson_id} because it is less than {self.last_lesson_id}."
-            raise _last_lesson_idException(exception_str)
+            raise LastLessonIDError(exception_str)
         self.last_lesson_id = x_last_lesson_id
 
     def set_fund_pool(self, x_fund_pool):
         if valid_allotment_ratio(x_fund_pool, self.fund_grain) is False:
             exception_str = f"Person '{self.person_name}' cannot set fund_pool='{x_fund_pool}'. It is not divisible by fund_grain '{self.fund_grain}'"
-            raise _bit_RatioException(exception_str)
+            raise BitRatioError(exception_str)
 
         self.fund_pool = validate_pool_num(x_fund_pool)
 
@@ -167,13 +163,13 @@ class PersonUnit:
     def set_credor_respect(self, new_credor_respect: int):
         if valid_allotment_ratio(new_credor_respect, self.respect_grain) is False:
             exception_str = f"Person '{self.person_name}' cannot set credor_respect='{new_credor_respect}'. It is not divisible byrespect_grain'{self.respect_grain}'"
-            raise _bit_RatioException(exception_str)
+            raise BitRatioError(exception_str)
         self.credor_respect = new_credor_respect
 
     def set_debtor_respect(self, new_debtor_respect: int):
         if valid_allotment_ratio(new_debtor_respect, self.respect_grain) is False:
             exception_str = f"Person '{self.person_name}' cannot set debtor_respect='{new_debtor_respect}'. It is not divisible byrespect_grain'{self.respect_grain}'"
-            raise _bit_RatioException(exception_str)
+            raise BitRatioError(exception_str)
         self.debtor_respect = new_debtor_respect
 
     def make_rope(
@@ -196,7 +192,7 @@ class PersonUnit:
             for x_plan_rope in self._plan_dict.keys():
                 if is_string_in_rope(new_knot, x_plan_rope):
                     exception_str = f"Cannot modify knot to '{new_knot}' because it exists an plan plan_label '{x_plan_rope}'"
-                    raise NewKnotException(exception_str)
+                    raise NewKnotError(exception_str)
 
             # modify all rope attrs in planunits
             self.knot = default_knot_if_None(new_knot)
@@ -205,7 +201,7 @@ class PersonUnit:
 
     def set_max_tree_traverse(self, x_int: int):
         if x_int < 2 or not float(x_int).is_integer():
-            raise InvalidPersonException(
+            raise InvalidPersonError(
                 f"set_max_tree_traverse: '{x_int}' must be number that is 2 or greater"
             )
         else:
@@ -351,9 +347,7 @@ class PersonUnit:
         partner_debt_lumen: int = None,
     ):
         if self.partners.get(partner_name) is None:
-            raise PartnerMissingException(
-                f"PartnerUnit '{partner_name}' does not exist."
-            )
+            raise PartnerMissingError(f"PartnerUnit '{partner_name}' does not exist.")
         x_partnerunit = self.get_partner(partner_name)
         if partner_cred_lumen is not None:
             x_partnerunit.set_partner_cred_lumen(partner_cred_lumen)
@@ -463,7 +457,7 @@ class PersonUnit:
             fact_context_plan.has_begin_close()
             and self._is_plan_rangeroot(fact_context) is False
         ):
-            raise InvalidPersonException(
+            raise InvalidPersonError(
                 f"Non rangeroot fact:{fact_context} can only be set by rangeroot fact"
             )
         elif fact_context_plan.has_begin_close() and self._is_plan_rangeroot(
@@ -493,7 +487,7 @@ class PersonUnit:
             return self._plan_dict
         if self.keeps_justified is False:
             exception_str = f"Cannot return problem set because keeps_justified={self.keeps_justified}."
-            raise keeps_justException(exception_str)
+            raise KeepJustError(exception_str)
 
         x_plans = self._plan_dict.values()
         return {
@@ -610,12 +604,12 @@ class PersonUnit:
             x_str = (
                 f"set_plan failed because '{plan_kid.plan_label}' is not a LabelTerm."
             )
-            raise InvalidPersonException(x_str)
+            raise InvalidPersonError(x_str)
 
         x_first_label = get_first_label_from_rope(parent_rope, self.knot)
         if self.planroot.plan_label != x_first_label:
             exception_str = f"set_plan failed because parent_rope '{parent_rope}' has an invalid root rope. Should be {self.planroot.get_plan_rope()}."
-            raise InvalidPersonException(exception_str)
+            raise InvalidPersonError(exception_str)
 
         plan_kid.knot = self.knot
         if plan_kid.fund_grain != self.fund_grain:
@@ -627,7 +621,7 @@ class PersonUnit:
         # create any missing plans
         if not create_missing_ancestors and self.plan_exists(parent_rope) is False:
             x_str = f"set_plan failed because '{parent_rope}' plan does not exist."
-            raise InvalidPersonException(x_str)
+            raise InvalidPersonError(x_str)
         parent_rope_plan = self.get_plan_obj(parent_rope, create_missing_ancestors)
         parent_rope_plan.add_kid(plan_kid)
 
@@ -684,7 +678,7 @@ class PersonUnit:
 
     def del_plan_obj(self, rope: RopeTerm, del_children: bool = True):
         if rope == self.planroot.get_plan_rope():
-            raise InvalidPersonException("Planroot cannot be deleted")
+            raise InvalidPersonError("Planroot cannot be deleted")
         parent_rope = get_parent_rope(rope)
         if self.plan_exists(rope):
             if not del_children:
@@ -705,9 +699,9 @@ class PersonUnit:
     def edit_plan_label(self, old_rope: RopeTerm, new_plan_label: LabelTerm):
         if self.knot in new_plan_label:
             exception_str = f"Cannot modify '{old_rope}' because new_plan_label {new_plan_label} contains knot {self.knot}"
-            raise InvalidLabelException(exception_str)
+            raise InvalidLabelError(exception_str)
         if self.plan_exists(old_rope) is False:
-            raise InvalidPersonException(f"Plan {old_rope=} does not exist")
+            raise InvalidPersonError(f"Plan {old_rope=} does not exist")
 
         parent_rope = get_parent_rope(rope=old_rope)
         new_rope = (
@@ -811,14 +805,14 @@ class PersonUnit:
             for x_healer_name in healerunit.healer_names:
                 if self.get_partnerunit_group_titles_dict().get(x_healer_name) is None:
                     exception_str = f"Plan cannot edit healerunit because group_title '{x_healer_name}' does not exist as group in Person"
-                    raise healerunit_group_title_Exception(exception_str)
+                    raise HealerunitGroupTitleError(exception_str)
 
         if (
             reason_context
             and reason_case
             and not is_sub_rope(reason_case, reason_context)
         ):
-            raise reason_caseException(
+            raise ReasonCaseError(
                 f"""Plan cannot edit reason because reason_case is not sub_rope to reason_context 
 reason_context: {reason_context}
 reason_case:    {reason_case}"""
@@ -1032,9 +1026,9 @@ reason_case:    {reason_case}"""
 
     def get_plan_obj(self, rope: RopeTerm, if_missing_create: bool = False) -> PlanUnit:
         if rope is None:
-            raise InvalidPersonException("get_plan_obj received rope=None")
+            raise InvalidPersonError("get_plan_obj received rope=None")
         if self.plan_exists(rope) is False and not if_missing_create:
-            raise InvalidPersonException(f"get_plan_obj failed. no plan at '{rope}'")
+            raise InvalidPersonError(f"get_plan_obj failed. no plan at '{rope}'")
         labelterms = get_all_rope_labels(rope, knot=self.knot)
         if len(labelterms) == 1:
             return self.planroot
@@ -1072,10 +1066,6 @@ reason_case:    {reason_case}"""
             for x_reason_context in x_plan.reasonunits.keys():
                 self.reason_contexts.add(x_reason_context)
 
-    def _raise_gogo_calc_stop_calc_exception(self, plan_rope: RopeTerm):
-        exception_str = f"Error has occurred, Plan '{plan_rope}' is having gogo_calc and stop_calc set twice"
-        raise gogo_calc_stop_calc_Exception(exception_str)
-
     def _distribute_range_attrs(self, rangeroot_plan: PlanUnit):
         """Populates PersonUnit.range_inheritors, sets PlanUnit.gogo_calc, PlanUnit.stop_calc"""
         single_rangeroot_plan_list = [rangeroot_plan]
@@ -1083,7 +1073,8 @@ reason_case:    {reason_case}"""
             x_planunit = single_rangeroot_plan_list.pop()
             x_plan_rope = x_planunit.get_plan_rope()
             if x_planunit.range_evaluated:
-                self._raise_gogo_calc_stop_calc_exception(x_plan_rope)
+                exception_str = f"Error has occurred, Plan '{x_plan_rope}' is having gogo_calc and stop_calc set twice"
+                raise GogoCalcStopCalcError(exception_str)
             if x_planunit.has_begin_close():
                 x_planunit.gogo_calc = x_planunit.begin
                 x_planunit.stop_calc = x_planunit.close
@@ -1166,7 +1157,7 @@ reason_case:    {reason_case}"""
         if keep_justified_by_problem is False or healerunit_count > 1:
             if keep_exceptions:
                 exception_str = f"PlanUnit '{rope}' cannot sponsor ancestor keeps."
-                raise keeps_justException(exception_str)
+                raise KeepJustError(exception_str)
             self.keeps_justified = False
 
     def _clear_plantree_fund_and_plan_active(self):
@@ -1456,7 +1447,7 @@ def personunit_shop(
     planroot_rope = get_default_rope(knot) if planroot_rope is None else planroot_rope
     if is_labelterm(planroot_rope, knot):
         exception_str = f"Person '{person_name}' cannot set planroot_rope='{planroot_rope}' where knot='{knot}'"
-        raise is_RopeTermException(exception_str)
+        raise IsRopeTermError(exception_str)
     x_person = PersonUnit(
         person_name=person_name,
         partners=get_empty_dict_if_None(),

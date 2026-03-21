@@ -4,11 +4,7 @@ from src.ch01_allot.allot import allot_scale, default_grain_num_if_None
 from src.ch02_partner._ref.ch02_semantic_types import FundGrain, GroupTitle, PartnerName
 
 
-class InvalidGroupException(Exception):
-    pass
-
-
-class membership_group_title_Exception(Exception):
+class MembershipGroupTitleError(Exception):
     pass
 
 
@@ -189,11 +185,11 @@ class GroupUnit(GroupCore):
 
     def set_g_membership(self, x_membership: MemberShip):
         if x_membership.group_title != self.group_title:
-            raise membership_group_title_Exception(
+            raise MembershipGroupTitleError(
                 f"GroupUnit.group_title={self.group_title} cannot set membership.group_title={x_membership.group_title}"
             )
         if x_membership.partner_name is None:
-            raise membership_group_title_Exception(
+            raise MembershipGroupTitleError(
                 f"membership group_title={x_membership.group_title} cannot be set when _partner_name is None."
             )
 

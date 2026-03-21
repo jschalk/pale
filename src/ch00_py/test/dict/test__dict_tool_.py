@@ -28,6 +28,7 @@ from src.ch00_py.dict_toolbox import (
     get_str_in_all_sub_dict,
     get_str_in_sub_dict,
     is_2d_with_unique_keys,
+    is_camel_case,
     modular_addition,
     set_in_nested_dict,
     set_modular_dict_values,
@@ -66,6 +67,19 @@ def test_uppercase_is_first_ReturnsObj():
     assert uppercase_is_first("") == False
     assert uppercase_is_first(" ") == False
     assert uppercase_is_first("mixed123Case") == False
+
+
+def test_is_camel_case_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert is_camel_case("hello") == False
+    assert is_camel_case("123abc") == False
+    assert is_camel_case("123ABC") == False
+    assert is_camel_case("") == False
+    assert is_camel_case(" ") == False
+    assert is_camel_case("MyClass")
+    assert is_camel_case("MyCLASS")
+    assert is_camel_case("My_Class") is False
+    assert is_camel_case("myClass") is False
 
 
 def test_get_1_if_None_ReturnsObj():
@@ -258,7 +272,7 @@ def test_get_all_nondictionary_objs_ReturnsDict():
     assert get_from_nested_dict(y_dict, mount_list) == mount_obj
 
 
-def test_get_from_nested_dict_RaisesNestedException():
+def test_get_from_nested_dict_RaisesNestedError():
     # ESTABLISH
     y_dict = {}
     sports_str = "sports"

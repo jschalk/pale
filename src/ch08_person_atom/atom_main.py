@@ -29,7 +29,7 @@ from src.ch08_person_atom.atom_config import (
 )
 
 
-class PersonAtomDescriptionException(Exception):
+class PersonAtomDescriptionError(Exception):
     pass
 
 
@@ -43,7 +43,7 @@ class PersonAtom:
 
     def get_insert_sqlstr(self) -> str:
         if self.is_valid() is False:
-            raise PersonAtomDescriptionException(
+            raise PersonAtomDescriptionError(
                 f"Cannot get_insert_sqlstr '{self.dimen}' with is_valid=False."
             )
 
@@ -573,10 +573,6 @@ def jvalues_different(dimen: str, x_obj: any, y_obj: any) -> bool:
         return (x_obj.partner_cred_lumen != y_obj.partner_cred_lumen) or (
             x_obj.partner_debt_lumen != y_obj.partner_debt_lumen
         )
-
-
-class InvalidPersonAtomException(Exception):
-    pass
 
 
 def get_personatom_from_rowdata(x_rowdata: RowData) -> PersonAtom:

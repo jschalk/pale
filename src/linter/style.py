@@ -7,11 +7,12 @@ from ast import (
     parse as ast_parse,
     walk as ast_walk,
 )
+from dataclasses import dataclass
 from os import walk as os_walk
-from os.path import join as os_path_join
+from os.path import exists as os_path_exists, join as os_path_join
 from pathlib import Path as pathlib_Path
 from re import compile as re_compile
-from src.ch00_py.dict_toolbox import uppercase_in_str
+from src.ch00_py.dict_toolbox import is_camel_case, uppercase_in_str
 from src.ch00_py.file_toolbox import create_path, get_dir_filenames, open_file
 from src.ch00_py.keyword_class_builder import get_example_strs_config
 from src.ch98_docs_builder.doc_builder import (
@@ -22,9 +23,9 @@ from src.ch98_docs_builder.doc_builder import (
 
 
 def filename_style_is_correct(filename: str) -> bool:
-    if (filename.endswith(".py") or filename.endswith(".json")) and uppercase_in_str(
-        filename
-    ):
+    filename_has_uppercase_char = uppercase_in_str(filename)
+    relevant_file_type = filename.endswith(".py") or filename.endswith(".json")
+    if relevant_file_type and filename_has_uppercase_char:
         return False
     elif filename.endswith(".py") and filename.endswith("s.py"):
         return False
@@ -142,7 +143,37 @@ def add_or_count_function_name_occurance(all_functions: dict, function_name: str
         all_functions[function_name] = 1
 
 
-def get_chapters_obj_metrics(excluded_functions) -> dict:
+def check_if_function_name_repeats(
+    file_functions: list,
+    all_functions: dict,
+    non_excluded_functions: set,
+    excluded_functions: dict,
+    file_path: str,
+    duplicate_func_names: set,
+    x_count: int,
+):
+    for function_name in file_functions:
+        add_or_count_function_name_occurance(all_functions, function_name)
+        x_count += 1
+        if function_name in non_excluded_functions:
+            print(
+                f"Function #{x_count}: Duplicate function {function_name} in {file_path}"
+            )
+            duplicate_func_names.add(function_name)
+        if function_name not in excluded_functions:
+            non_excluded_functions.add(function_name)
+
+
+@dataclass
+class ChaptersObjMetrics:
+    all_functions: dict
+    duplicate_func_names: set
+    unnecessarily_excluded_funcs: dict
+    semantic_types: set
+    all_classes: dict
+
+
+def get_chapters_obj_metrics(excluded_functions) -> ChaptersObjMetrics:
     """Reads every python file to track all functions and classes."""
     x_count = 0
     duplicate_func_names = set()
@@ -161,21 +192,21 @@ def get_chapters_obj_metrics(excluded_functions) -> dict:
             for x_class, x_bases in class_bases.items():
                 evaluate_and_add_classes(
                     x_bases,
-                    filenames[1],
+                    file_path,
                     all_classes,
                     x_class,
                     semantic_type_candidates,
                 )
-            for function_name in file_functions:
-                add_or_count_function_name_occurance(all_functions, function_name)
-                x_count += 1
-                if function_name in non_excluded_functions:
-                    print(
-                        f"Function #{x_count}: Duplicate function {function_name} in {file_path}"
-                    )
-                    duplicate_func_names.add(function_name)
-                if function_name not in excluded_functions:
-                    non_excluded_functions.add(function_name)
+            check_if_function_name_repeats(
+                file_functions,
+                all_functions,
+                non_excluded_functions,
+                excluded_functions,
+                file_path,
+                duplicate_func_names,
+                x_count,
+            )
+
     print(f"{duplicate_func_names=}")
     # print(f"{duplicate_func_names=}")
     # print(f"{len(non_excluded_functions)=}")
@@ -184,12 +215,30 @@ def get_chapters_obj_metrics(excluded_functions) -> dict:
         all_functions, excluded_functions
     )
     semantic_types = get_semantic_types(semantic_type_candidates)
-    return {
-        "all_functions": all_functions,
-        "duplicate_func_names": duplicate_func_names,
-        "unnecessarily_excluded_funcs": unnecessarily_excluded_funcs,
-        "semantic_types": semantic_types,
-    }
+    return ChaptersObjMetrics(
+        all_functions=all_functions,
+        duplicate_func_names=duplicate_func_names,
+        unnecessarily_excluded_funcs=unnecessarily_excluded_funcs,
+        semantic_types=semantic_types,
+        all_classes=all_classes,
+    )
+
+
+def check_custom_exception_classes_style(all_classes: dict[str, str]):
+    x_count = 0
+    for x_class, class_str in all_classes.items():
+        if "exception" in class_str.lower():
+            x_count += 1
+            # print(f"{x_count}. {class_str[26:]}")
+            file_path = class_str[26:]
+            if not os_path_exists(file_path):
+                raise AssertionError("File does not exist")
+            file_str = open_file(file_path)
+            exception_assert_fail_str = f"{x_count}. {x_class} {class_str}"
+            assert file_str.count(x_class) > 1, exception_assert_fail_str
+            assert "Exception" not in x_class, x_class
+            assert x_class.endswith("Error"), x_class
+            assert is_camel_case(x_class), x_class
 
 
 def env_file_has_required_elements(env_filepath: str):

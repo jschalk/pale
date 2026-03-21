@@ -8,7 +8,7 @@ from src.ch09_person_lesson._ref.ch09_semantic_types import (
 )
 
 
-class Lasso_init_knot_not_presentException(Exception):
+class LassoInitKnotNotPresentError(Exception):
     pass
 
 
@@ -30,6 +30,6 @@ def lassounit_shop(moment_rope: MomentRope = None, knot: KnotTerm = None) -> Las
     knot = default_knot_if_None(knot)
     if moment_rope.find(knot) != 0:
         exception_str = f"moment_rope '{moment_rope}' must have knot '{knot}' at position 0 in string"
-        raise Lasso_init_knot_not_presentException(exception_str)
+        raise LassoInitKnotNotPresentError(exception_str)
 
     return LassoUnit(moment_rope=moment_rope, knot=knot)

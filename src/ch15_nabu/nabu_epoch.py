@@ -67,17 +67,17 @@ def get_timenabu_from_dict(x_dict: dict) -> NabuTime:
     )
 
 
-class inherit_timenabuException(Exception):
+class InheritTimeNabuError(Exception):
     pass
 
 
 def inherit_timenabu(new: NabuTime, old: NabuTime):
     if new.face_name != old.face_name:
         exception_str = "Core attrs in conflict"
-        raise inherit_timenabuException(exception_str)
+        raise InheritTimeNabuError(exception_str)
     if new.spark_num <= old.spark_num:
         exception_str = "older NabuTime is not older"
-        raise inherit_timenabuException(exception_str)
+        raise InheritTimeNabuError(exception_str)
     for otx_epoch_length, inx_epoch_diff in old.otx2inx.items():
         if not new.otx_exists(otx_epoch_length):
             new.set_otx2inx(otx_epoch_length, inx_epoch_diff)

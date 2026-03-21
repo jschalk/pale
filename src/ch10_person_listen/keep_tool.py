@@ -171,7 +171,7 @@ def save_all_gut_dutys(
         )
 
 
-class get_keep_ropesException(Exception):
+class GetKeepRopesError(Exception):
     pass
 
 
@@ -182,10 +182,10 @@ def get_keep_ropes(
     x_gut_person.conpute()
     if x_gut_person.keeps_justified is False:
         x_str = f"Cannot get_keep_ropes from '{person_name}' gut person because 'PersonUnit.keeps_justified' is False."
-        raise get_keep_ropesException(x_str)
+        raise GetKeepRopesError(x_str)
     if x_gut_person.keeps_buildable is False:
         x_str = f"Cannot get_keep_ropes from '{person_name}' gut person because 'PersonUnit.keeps_buildable' is False."
-        raise get_keep_ropesException(x_str)
+        raise GetKeepRopesError(x_str)
     person_healer_dict = x_gut_person._healers_dict.get(person_name)
     if person_healer_dict is None:
         return get_empty_set_if_None()

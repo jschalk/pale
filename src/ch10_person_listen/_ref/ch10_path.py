@@ -28,7 +28,7 @@ def create_keeps_dir_path(
     return create_path(person_dir, "keeps")
 
 
-class _keep_ropeMissingException(Exception):
+class KeepRopeMissingError(Exception):
     pass
 
 
@@ -41,7 +41,7 @@ def create_keep_rope_path(
 ) -> str:
     """Returns path: moment_mstr_dir\\moments\\moment_rope\\persons\\person_name\\keeps\\planroot\\level1_label"""
     if keep_rope is None:
-        raise _keep_ropeMissingException(
+        raise KeepRopeMissingError(
             f"'{person_name}' cannot save to keep_path because it does not have keep_rope."
         )
 

@@ -4,10 +4,6 @@ from src.ch02_partner.group import GroupTitle, GroupUnit
 from src.ch02_partner.partner import PartnerName
 
 
-class InvalidLaborHeirPopulateException(Exception):
-    pass
-
-
 @dataclass
 class PartyUnit:
     party_title: GroupTitle = None

@@ -28,7 +28,7 @@ from src.ch16_translate.map_term import (
 from src.ch16_translate.translate_config import default_unknown_str_if_None
 
 
-class check_attrException(Exception):
+class CheckAttrError(Exception):
     pass
 
 
@@ -137,7 +137,7 @@ class TranslateUnit:
         unit_attr = getattr(mapcore, attr)
         if self_attr != unit_attr:
             exception_str = f"set_mapcore Error: TranslateUnit {attr} is '{self_attr}', MapCore is '{unit_attr}'."
-            raise check_attrException(exception_str)
+            raise CheckAttrError(exception_str)
 
     def is_valid(self) -> bool:
         return (
@@ -360,7 +360,7 @@ def _add_translate_core_keys(
     return map_dict
 
 
-class TranslateCoreAttrConflictException(Exception):
+class TranslateCoreAttrConflictError(Exception):
     pass
 
 
@@ -371,9 +371,9 @@ def inherit_translateunit(older: TranslateUnit, newer: TranslateUnit) -> Transla
         or older.inx_knot != newer.inx_knot
         or older.unknown_str != newer.unknown_str
     ):
-        raise TranslateCoreAttrConflictException("Core attrs in conflict")
+        raise TranslateCoreAttrConflictError("Core attrs in conflict")
     if older.spark_num >= newer.spark_num:
-        raise TranslateCoreAttrConflictException("older translateunit is not older")
+        raise TranslateCoreAttrConflictError("older translateunit is not older")
     newer.set_namemap(inherit_namemap(newer.namemap, older.namemap))
     newer.set_titlemap(inherit_titlemap(newer.titlemap, older.titlemap))
     newer.set_labelmap(inherit_labelmap(newer.labelmap, older.labelmap))

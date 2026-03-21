@@ -73,13 +73,13 @@ def delete_dir(dir: str):
             os_remove(dir)
 
 
-class InvalidFileCopyException(Exception):
+class InvalidFileCopyError(Exception):
     pass
 
 
 def copy_dir(src_dir: str, dest_dir: str):
     if os_path_exists(dest_dir):
-        raise InvalidFileCopyException(
+        raise InvalidFileCopyError(
             f"Cannot copy '{src_dir}' to '{dest_dir}' since '{dest_dir}' exists"
         )
     else:
@@ -99,7 +99,7 @@ def save_file(dest_dir: str, filename: str, file_str: str, replace: bool = True)
             f.write(file_str)
 
 
-class CouldNotOpenFileException(Exception):
+class CouldNotOpenFileError(Exception):
     pass
 
 
@@ -111,9 +111,7 @@ def open_file(dest_dir: str, filename: str = None):
         with open(file_path, "r") as f:
             x_str = f.read()
     except (PermissionError, FileNotFoundError, OSError) as e:
-        raise CouldNotOpenFileException(
-            f"Could not load file {file_path} {e.args}"
-        ) from e
+        raise CouldNotOpenFileError(f"Could not load file {file_path} {e.args}") from e
     return x_str
 
 

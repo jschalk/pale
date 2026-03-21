@@ -23,7 +23,7 @@ from src.ch10_person_listen.keep_tool import (
 )
 
 
-class Missing_debtor_respectException(Exception):
+class MissingDebtorRespectError(Exception):
     pass
 
 
@@ -173,7 +173,7 @@ def listen_to_speaker_fact(
 
 def listen_to_speaker_agenda(listener: PersonUnit, speaker: PersonUnit) -> PersonUnit:
     if listener.partner_exists(speaker.person_name) is False:
-        raise Missing_debtor_respectException(
+        raise MissingDebtorRespectError(
             f"listener '{listener.person_name}' person is assumed to have {speaker.person_name} partnerunit."
         )
     perspective_person = get_perspective_person(speaker, listener.person_name)

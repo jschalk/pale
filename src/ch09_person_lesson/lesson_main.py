@@ -20,7 +20,7 @@ from src.ch09_person_lesson.delta import (
 )
 
 
-class lesson_person_conflict_Exception(Exception):
+class LessonPersonConflictError(Exception):
     pass
 
 
@@ -147,7 +147,7 @@ class LessonUnit:
             self.moment_rope != before_person.planroot.get_plan_rope()
             or self.person_name != before_person.person_name
         ):
-            raise lesson_person_conflict_Exception(
+            raise LessonPersonConflictError(
                 f"lesson person conflict {self.moment_rope} != {before_person.planroot.get_plan_rope()} or {self.person_name} != {before_person.person_name}"
             )
         return self.persondelta.get_atom_edited_person(before_person)

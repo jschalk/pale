@@ -63,19 +63,19 @@ from src.ch06_plan.healer import HealerUnit, get_healerunit_from_dict, healeruni
 from src.ch06_plan.range_toolbox import RangeUnit, get_morphed_rangeunit
 
 
-class InvalidPlanException(Exception):
+class InvalidPlanError(Exception):
     pass
 
 
-class PlanetDescendantsException(Exception):
+class PlanetDescendantsError(Exception):
     pass
 
 
-class plan_label_NotEmptyException(Exception):
+class PlanLabelNotEmptyError(Exception):
     pass
 
 
-class ranged_fact_plan_Exception(Exception):
+class RangedFactPlanError(Exception):
     pass
 
 
@@ -327,7 +327,7 @@ class PlanUnit:
             and self.begin is None
             and self.close is None
         ):
-            raise ranged_fact_plan_Exception(
+            raise RangedFactPlanError(
                 f"Cannot have fact for range inheritor '{self.get_plan_rope()}'. A ranged fact plan must have _begin, _close"
             )
         x_factheir = factheir_shop(
@@ -453,7 +453,7 @@ class PlanUnit:
             count_x += 1
 
         if count_x == max_count:
-            raise PlanetDescendantsException(
+            raise PlanetDescendantsError(
                 f"Plan '{self.get_plan_rope()}' either has an infinite loop or more than {max_count} descendants."
             )
 
@@ -534,7 +534,7 @@ class PlanUnit:
     def set_plan_label(self, plan_label: str):
         if plan_label in {None, ""}:
             exception_str = "Cannot set Plan's Label empty or None"
-            raise plan_label_NotEmptyException(exception_str)
+            raise PlanLabelNotEmptyError(exception_str)
         else:
             self.plan_label = plan_label
 
@@ -728,7 +728,7 @@ class PlanUnit:
         try:
             self.reasonunits.pop(reason_context)
         except KeyError as e:
-            raise InvalidPlanException(f"No ReasonUnit at '{reason_context}'") from e
+            raise InvalidPlanError(f"No ReasonUnit at '{reason_context}'") from e
 
     def del_reasonunit_case(self, reason_context: RopeTerm, case: RopeTerm):
         reason_unit = self.reasonunits[reason_context]

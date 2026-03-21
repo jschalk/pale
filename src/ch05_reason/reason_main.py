@@ -13,7 +13,7 @@ from src.ch04_rope.rope import (
 from src.ch05_reason._ref.ch05_semantic_types import FactNum, ReasonNum
 
 
-class InvalidReasonException(Exception):
+class InvalidReasonError(Exception):
     pass
 
 
@@ -155,7 +155,7 @@ def factheir_shop(
     )
 
 
-class CaseActiveFinderException(Exception):
+class CaseActiveFinderError(Exception):
     pass
 
 
@@ -177,25 +177,25 @@ class CaseActiveFinder:
             self.fact_lower_full,
             self.fact_upper_full,
         ):
-            raise CaseActiveFinderException("No parameter can be None")
+            raise CaseActiveFinderError("No parameter can be None")
 
         if self.fact_lower_full > self.fact_upper_full:
-            raise CaseActiveFinderException(
+            raise CaseActiveFinderError(
                 f"{self.fact_lower_full=} cannot be greater than {self.fact_upper_full=}"
             )
 
         if self.reason_divisor <= 0:
-            raise CaseActiveFinderException(
+            raise CaseActiveFinderError(
                 f"{self.reason_divisor=} cannot be less/equal to zero"
             )
 
         if self.reason_lower < 0 or self.reason_lower > self.reason_divisor:
-            raise CaseActiveFinderException(
+            raise CaseActiveFinderError(
                 f"{self.reason_lower=} cannot be less than zero or greater than {self.reason_divisor=}"
             )
 
         if self.reason_upper < 0 or self.reason_upper > self.reason_divisor:
-            raise CaseActiveFinderException(
+            raise CaseActiveFinderError(
                 f"{self.reason_upper=} cannot be less than zero or greater than {self.reason_divisor=}"
             )
 
@@ -529,7 +529,7 @@ class ReasonCore:
         try:
             self.cases.pop(case)
         except KeyError as e:
-            raise InvalidReasonException(f"Reason unable to delete case {e}") from e
+            raise InvalidReasonError(f"Reason unable to delete case {e}") from e
 
     def find_replace_rope(self, old_rope: RopeTerm, new_rope: RopeTerm):
         self.reason_context = rebuild_rope(self.reason_context, old_rope, new_rope)

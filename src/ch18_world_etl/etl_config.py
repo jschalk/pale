@@ -123,7 +123,7 @@ def get_dimen_abbv2(dimen: str) -> str:
     }.get(dimen)
 
 
-class prime_tablenameException(Exception):
+class PrimeTablenameError(Exception):
     pass
 
 
@@ -169,7 +169,7 @@ def create_prime_tablename(
     if stage1 is None:
         return tablename
     if stage1 not in {"raw", "agg", "vld"}:
-        raise prime_tablenameException(f"'{stage1}' is not a valid stage")
+        raise PrimeTablenameError(f"'{stage1}' is not a valid stage")
 
     return f"{tablename}_{put_del}_{stage1}" if put_del else f"{tablename}_{stage1}"
 

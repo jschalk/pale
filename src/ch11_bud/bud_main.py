@@ -19,11 +19,11 @@ from src.ch11_bud._ref.ch11_semantic_types import (
 )
 
 
-class calc_magnitudeException(Exception):
+class CalcMagnitudeError(Exception):
     pass
 
 
-class tran_time_Exception(Exception):
+class TranTimeError(Exception):
     pass
 
 
@@ -78,10 +78,10 @@ class TranBook:
             exception_str = (
                 f"Cannot set tranunit for tran_time={tran_time}, TimeNum is blocked"
             )
-            raise tran_time_Exception(exception_str)
+            raise TranTimeError(exception_str)
         if offi_time_max != None and tran_time >= offi_time_max:
             exception_str = f"Cannot set tranunit for tran_time={tran_time}, TimeNum is greater than current time={offi_time_max}"
-            raise tran_time_Exception(exception_str)
+            raise TranTimeError(exception_str)
         x_keylist = [person_name, partner_name, tran_time]
         set_in_nested_dict(self.tranunits, x_keylist, amount)
 
@@ -219,7 +219,7 @@ class BudUnit:
         x_debt_sum = sum(da_net for da_net in bud_partner_nets if da_net < 0)
         if x_cred_sum + x_debt_sum != 0:
             exception_str = f"magnitude cannot be calculated: debt_bud_partner_net={x_debt_sum}, cred_bud_partner_net={x_cred_sum}"
-            raise calc_magnitudeException(exception_str)
+            raise CalcMagnitudeError(exception_str)
         self.magnitude = x_cred_sum
 
     def to_dict(self) -> dict[str, FundNum | int]:
