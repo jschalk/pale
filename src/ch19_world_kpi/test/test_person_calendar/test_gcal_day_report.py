@@ -2,11 +2,14 @@ from datetime import datetime
 from src.ch06_plan.plan import planunit_shop
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
-from src.ch19_world_kpi.gcalendar import gcal_readable_percent, get_gcal_day_report
+from src.ch19_world_kpi.gcalendar import (
+    gcal_readable_percent,
+    get_gcal_day_report_from_personunit,
+)
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
-def test_get_gcal_day_report_ReturnsObj_Scenario0_EmptyPerson():
+def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario0_EmptyPerson():
     # ESTABLISH
     sue_person = personunit_shop(exx.sue, exx.a23)
     add_epoch_planunit(sue_person)
@@ -14,7 +17,7 @@ def test_get_gcal_day_report_ReturnsObj_Scenario0_EmptyPerson():
     sue_person.conpute()
 
     # WHEN
-    sue_day_report_str = get_gcal_day_report(sue_person, apr7)
+    sue_day_report_str = get_gcal_day_report_from_personunit(sue_person, apr7)
 
     # THEN
     assert sue_day_report_str
@@ -25,7 +28,7 @@ def test_get_gcal_day_report_ReturnsObj_Scenario0_EmptyPerson():
     assert "Group" not in sue_day_report_str
 
 
-def test_get_gcal_day_report_ReturnsObj_Scenario1_NonEmptyPerson():
+def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson():
     # ESTABLISH
     sue_person = personunit_shop(exx.sue, exx.a23)
     add_epoch_planunit(sue_person)
@@ -39,7 +42,9 @@ def test_get_gcal_day_report_ReturnsObj_Scenario1_NonEmptyPerson():
     sue_person.conpute()
 
     # WHEN
-    sue_day_report_str = get_gcal_day_report(sue_person, apr7, group_title=exx.run)
+    sue_day_report_str = get_gcal_day_report_from_personunit(
+        sue_person, apr7, group_title=exx.run
+    )
 
     # THEN
     assert sue_day_report_str

@@ -20,7 +20,7 @@ from src.ch20_world_apex.world import (
 from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
-def test_create_stances_Senario0_EmptyWorld_CreatesFile(
+def test_create_stances_CreatesFile_Senario0_EmptyWorld(
     temp_dir_setup,
 ):
     # ESTABLISH
@@ -48,7 +48,7 @@ def test_create_stances_Senario0_EmptyWorld_CreatesFile(
     assert os_path_exists(fay_stance0001_path)
 
 
-def test_create_stances_Senario1_Add_CreatesFile(temp_dir_setup):
+def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp_dir_setup):
     # ESTABLISH
     fay_str = "Fay"
     output_dir = create_path(worlds_dir(), "output")
@@ -91,7 +91,7 @@ def test_create_stances_Senario1_Add_CreatesFile(temp_dir_setup):
     assert br00021_sheet_df.iloc[0][kw.face_name] == "Fay"
 
 
-def test_create_stances_Senario2_CreatedStanceCanBeIdeasForOtherWorldDir(
+def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorldDir(
     temp_dir_setup,
 ):
     # sourcery skip: no-loop-in-tests
@@ -164,7 +164,7 @@ def test_create_stances_Senario2_CreatedStanceCanBeIdeasForOtherWorldDir(
         assert_frame_equal(fay_sheet_df, bob_sheet_df)
 
 
-def test_create_stances_Senario3_Create_calendar_markdown(
+def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
     temp_dir_setup,
 ):
     # ESTABLISH

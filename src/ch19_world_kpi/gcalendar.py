@@ -206,7 +206,7 @@ def get_gcal_memberships_str(x_person: PersonUnit, group_title: GroupTitle) -> s
     return create_partners_only_list_str(partners_list, x_str)
 
 
-def get_gcal_day_report(
+def get_gcal_day_report_from_personunit(
     x_person: PersonUnit,
     day: datetime,
     epoch_label: LabelTerm = None,
