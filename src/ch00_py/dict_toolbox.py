@@ -4,6 +4,7 @@ from copy import deepcopy as copy_deepcopy
 from csv import reader as csv_reader, writer as csv_writer
 from io import StringIO as io_StringIO
 from json import dumps as json_dumps, loads as json_loads
+from re import fullmatch as re_fullmatch
 
 
 def uppercase_in_str(x_str: str) -> bool:
@@ -12,6 +13,10 @@ def uppercase_in_str(x_str: str) -> bool:
 
 def uppercase_is_first(x_str: str) -> bool:
     return x_str != "" and x_str[0].isupper()
+
+
+def is_camel_case(s: str) -> bool:
+    return bool(re_fullmatch(r"[A-Z][a-zA-Z0-9]*", s)) and "_" not in s
 
 
 def get_empty_dict_if_None(x_dict: dict = None) -> dict:
@@ -76,11 +81,11 @@ def set_in_nested_dict(x_dict: dict, x_keylist: list[any], x_obj: any):
     last_dict[last_key] = x_obj
 
 
-class NestedValueException(Exception):
+class NestedValueError(Exception):
     pass
 
 
-class is_2d_with_unique_keys_Exception(Exception):
+class Is2dWithUniqueKeysError(Exception):
     pass
 
 
@@ -152,12 +157,12 @@ def _sub_get_from_nested_dict(x_dict: dict, x_keylist: list) -> any:
     x_count = 0
     for x_key in x_keylist:
         if temp_dict.get(x_key) is None:
-            raise NestedValueException(f"'{x_key}' failed at level {x_count}.")
+            raise NestedValueError(f"'{x_key}' failed at level {x_count}.")
         x_count += 1
         temp_dict = temp_dict.get(x_key)
 
     if temp_dict.get(last_key) is None:
-        raise NestedValueException(f"'{last_key}' failed at level {x_count}.")
+        raise NestedValueError(f"'{last_key}' failed at level {x_count}.")
     return temp_dict[last_key]
 
 
@@ -393,7 +398,7 @@ def is_2d_with_unique_keys(x_dict: dict) -> bool:
 
 def get_nested_dict_key_by_level(x_dict: dict) -> list:
     if is_2d_with_unique_keys(x_dict) is False:
-        raise is_2d_with_unique_keys_Exception("dictionary is not 2d_with_unique_keys.")
+        raise Is2dWithUniqueKeysError("dictionary is not 2d_with_unique_keys.")
     key_set_by_level = get_nested_dict_keys_by_level(x_dict)
     ordered_keys = sorted(key_set_by_level.keys())
     return [max(key_set_by_level[key]) for key in ordered_keys]

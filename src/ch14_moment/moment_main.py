@@ -62,15 +62,11 @@ def get_default_job_listen_count() -> int:
     return 3
 
 
-class budunit_Exception(Exception):
+class BudUnitError(Exception):
     pass
 
 
-class set_paypurchase_Exception(Exception):
-    pass
-
-
-class set_offi_time_max_Exception(Exception):
+class SetOffiTimeMaxError(Exception):
     pass
 
 
@@ -216,7 +212,7 @@ class MomentUnit:
         self.offi_time_max = get_0_if_None(self.offi_time_max)
         if bud_time < self.offi_time_max and not allow_prev_to_offi_time_max_entry:
             exception_str = f"Cannot set budunit because bud_time {bud_time} is less than MomentUnit.offi_time_max {self.offi_time_max}."
-            raise budunit_Exception(exception_str)
+            raise BudUnitError(exception_str)
         if self.personbudhistory_exists(person_name) is False:
             self.set_personbudhistory(personbudhistory_shop(person_name))
         x_personbudhistory = self.get_personbudhistory(person_name)
@@ -322,10 +318,10 @@ class MomentUnit:
         x_tran_times = self.paybook.get_tran_times()
         if x_tran_times != set() and max(x_tran_times) >= x_offi_time_max:
             exception_str = f"Cannot set offi_time_max {x_offi_time_max}, paypurchase with greater tran_time exists"
-            raise set_offi_time_max_Exception(exception_str)
+            raise SetOffiTimeMaxError(exception_str)
         # if self.offi_time > x_offi_time_max:
         #     exception_str = f"Cannot set offi_time_max={x_offi_time_max} because it is less than offi_time={self.offi_time}"
-        #     raise set_offi_time_max_Exception(exception_str)
+        #     raise SetOffiTimeMaxError(exception_str)
         self.offi_time_max = x_offi_time_max
 
     # def set_offi_time(

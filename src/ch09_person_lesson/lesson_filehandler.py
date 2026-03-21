@@ -79,11 +79,11 @@ def gut_file_exists(
     return os_path_exists(gut_path)
 
 
-class SaveLessonFileException(Exception):
+class SaveLessonFileError(Exception):
     pass
 
 
-class LessonFileMissingException(Exception):
+class LessonFileMissingError(Exception):
     pass
 
 
@@ -210,20 +210,20 @@ class LessonFileHandler:
             x_lesson = self.validate_lessonunit(x_lesson)
 
         if x_lesson.atoms_dir != self.atoms_dir:
-            raise SaveLessonFileException(
+            raise SaveLessonFileError(
                 f"LessonUnit file cannot be saved because lessonunit.atoms_dir is incorrect: {x_lesson.atoms_dir}. It must be {self.atoms_dir}."
             )
         if x_lesson.lessons_dir != self.lessons_dir:
-            raise SaveLessonFileException(
+            raise SaveLessonFileError(
                 f"LessonUnit file cannot be saved because lessonunit.lessons_dir is incorrect: {x_lesson.lessons_dir}. It must be {self.lessons_dir}."
             )
         if x_lesson.person_name != self.person_name:
-            raise SaveLessonFileException(
+            raise SaveLessonFileError(
                 f"LessonUnit file cannot be saved because lessonunit.person_name is incorrect: {x_lesson.person_name}. It must be {self.person_name}."
             )
         lesson_filename = self.lesson_filename(x_lesson.lesson_id)
         if not replace and self.hub_lesson_file_exists(x_lesson.lesson_id):
-            raise SaveLessonFileException(
+            raise SaveLessonFileError(
                 f"LessonUnit file {lesson_filename} exists and cannot be saved over."
             )
         x_lesson.save_files()
@@ -250,7 +250,7 @@ class LessonFileHandler:
 
     def get_lessonunit(self, lesson_id: int) -> LessonUnit:
         if self.hub_lesson_file_exists(lesson_id) is False:
-            raise LessonFileMissingException(
+            raise LessonFileMissingError(
                 f"LessonUnit file_number {lesson_id} does not exist."
             )
         x_lessons_dir = self.lessons_dir

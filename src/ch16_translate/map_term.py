@@ -28,11 +28,11 @@ from src.ch16_translate._ref.ch16_semantic_types import (
 from src.ch16_translate.translate_config import default_unknown_str_if_None
 
 
-class set_all_otx2inxException(Exception):
+class SetAllotx2inxError(Exception):
     pass
 
 
-class set_label_Exception(Exception):
+class SetLabelError(Exception):
     pass
 
 
@@ -54,7 +54,7 @@ class MapCore:
         if raise_exception_if_invalid and str_in_dict(self.unknown_str, x_otx2inx):
             error_dict = get_str_in_sub_dict(self.unknown_str, x_otx2inx)
             exception_str = f"otx2inx cannot have unknown_str '{self.unknown_str}' in any str. Affected keys include {list(error_dict.keys())}."
-            raise set_all_otx2inxException(exception_str)
+            raise SetAllotx2inxError(exception_str)
         self.otx2inx = x_otx2inx
 
     def to_dict(self) -> dict:
@@ -308,7 +308,7 @@ class RopeMap:
         if raise_exception_if_invalid and str_in_dict(self.unknown_str, x_otx2inx):
             error_dict = get_str_in_sub_dict(self.unknown_str, x_otx2inx)
             exception_str = f"otx2inx cannot have unknown_str '{self.unknown_str}' in any str. Affected keys include {list(error_dict.keys())}."
-            raise set_all_otx2inxException(exception_str)
+            raise SetAllotx2inxError(exception_str)
         self.otx2inx = x_otx2inx
 
     def set_otx2inx(self, otx_rope: str, inx_rope: str):
@@ -354,10 +354,10 @@ class RopeMap:
     def set_label(self, otx_label: LabelTerm, inx_label: LabelTerm):
         if self.otx_knot in otx_label:
             exception_str = f"label cannot have otx_label '{otx_label}'. It must be not have knot {self.otx_knot}."
-            raise set_label_Exception(exception_str)
+            raise SetLabelError(exception_str)
         if self.inx_knot in inx_label:
             exception_str = f"label cannot have inx_label '{inx_label}'. It must be not have knot {self.inx_knot}."
-            raise set_label_Exception(exception_str)
+            raise SetLabelError(exception_str)
 
         self.labelmap.set_otx2inx(otx_label, inx_label)
         self._set_new_label_to_otx_inx(otx_label, inx_label)
@@ -450,7 +450,7 @@ def get_ropemap_from_dict(x_dict: dict) -> RopeMap:
     )
 
 
-class MapCoreAttrConflictException(Exception):
+class MapCoreAttrConflictError(Exception):
     pass
 
 
@@ -461,9 +461,9 @@ def _check_core_attrs_match(new_obj: MapCore, old_obj: MapCore):
         or old_obj.inx_knot != new_obj.inx_knot
         or old_obj.unknown_str != new_obj.unknown_str
     ):
-        raise MapCoreAttrConflictException("Core attrs in conflict")
+        raise MapCoreAttrConflictError("Core attrs in conflict")
     if old_obj.spark_num >= new_obj.spark_num:
-        raise MapCoreAttrConflictException("older mapunit is not older")
+        raise MapCoreAttrConflictError("older mapunit is not older")
 
 
 def _inherit_mapunit(new: MapCore, old: MapCore):

@@ -144,7 +144,7 @@ class RowData:
     row_dict: str = None
 
 
-class row_dict_Exception(Exception):
+class RowDictError(Exception):
     pass
 
 
@@ -153,7 +153,7 @@ def rowdata_shop(
     row_dict: str,
 ):
     if str(type(row_dict)) != "<class 'dict'>":
-        raise row_dict_Exception("row_dict is not dictionary")
+        raise RowDictError("row_dict is not dictionary")
     x_dict = {
         x_key: x_value for x_key, x_value in row_dict.items() if x_value is not None
     }
@@ -282,7 +282,7 @@ def get_grouping_with_all_values_equal_sql_query(
     return f"{_get_grouping_select_clause(groupby_columns, value_columns)} FROM {x_table} {where_clause}{_get_grouping_groupby_clause(groupby_columns)} {_get_having_equal_value_clause(value_columns)}"
 
 
-class insert_csv_Exception(Exception):
+class InsertCSVError(Exception):
     pass
 
 
@@ -314,13 +314,13 @@ def insert_csv(csv_file_path: str, conn_or_cursor: sqlite3_Connection, table_nam
                 conn_or_cursor.execute(insert_query, row)
 
     except sqlite3_Error as e:
-        raise insert_csv_Exception(f"SQLite error: {e}") from e
+        raise InsertCSVError(f"SQLite error: {e}") from e
 
     except Exception as e:
-        raise insert_csv_Exception(f"Error: {e}") from e
+        raise InsertCSVError(f"Error: {e}") from e
 
 
-class sqlite3_Error_Exception(Exception):
+class Sqlite3Error(Exception):
     pass
 
 
@@ -373,10 +373,10 @@ def create_table_from_csv(
         create_table_from_columns(conn_or_cursor, table_name, headers, column_types)
 
     except sqlite3_Error as e:
-        raise sqlite3_Error_Exception(f"SQLite error: {e}") from e
+        raise Sqlite3Error(f"SQLite error: {e}") from e
 
     # except Exception as e:
-    #     raise Exception(f"Error: {e}")
+    #     raise Error(f"Error: {e}")
 
 
 def db_table_exists(conn_or_cursor: sqlite3_Connection, tablename: str) -> bool:

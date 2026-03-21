@@ -15,10 +15,6 @@ def get_default_rope(knot=None) -> FirstLabel:
     return RopeTerm(f"{knot}YY{knot}")
 
 
-class knot_not_in_parent_rope_Exception(Exception):
-    pass
-
-
 def to_rope(label: LabelTerm, knot: KnotTerm = None) -> LabelTerm:
     x_knot = default_knot_if_None(knot)
     if label is None:
@@ -27,11 +23,11 @@ def to_rope(label: LabelTerm, knot: KnotTerm = None) -> LabelTerm:
     return label if label.endswith(x_knot) else LabelTerm(f"{label}{x_knot}")
 
 
-class init_knot_not_presentException(Exception):
+class InitKnotNotPresentError(Exception):
     pass
 
 
-class knot_in_label_Exception(Exception):
+class KnotInLabelError(Exception):
     pass
 
 
@@ -52,15 +48,15 @@ def create_rope(
             exception_str = (
                 f"Parent rope must have knot '{knot}' at position 0 in string"
             )
-            raise init_knot_not_presentException(exception_str)
+            raise InitKnotNotPresentError(exception_str)
 
     tail_label = LabelTerm(tail_label)
     if tail_label.is_label(knot) is False:
-        raise knot_in_label_Exception(f"knot '{knot}' is in {tail_label}")
+        raise KnotInLabelError(f"knot '{knot}' is in {tail_label}")
     if tail_label is None:
         return RopeTerm(parent_rope)
     if tail_label.is_label(knot) is False:
-        raise knot_in_label_Exception(f"knot '{knot}' is in {tail_label}")
+        raise KnotInLabelError(f"knot '{knot}' is in {tail_label}")
     if parent_rope in {"", None}:
         x_rope = to_rope(tail_label, knot)
     elif parent_rope.endswith(knot):
@@ -166,7 +162,7 @@ def all_ropes_between(
     return x_list
 
 
-class ForeFatherException(Exception):
+class ForeFatherError(Exception):
     pass
 
 
@@ -174,7 +170,7 @@ def get_forefather_ropes(rope: RopeTerm) -> dict[RopeTerm]:
     ancestor_ropes = get_ancestor_ropes(rope=rope)
     popped_rope = ancestor_ropes.pop(0)
     if popped_rope != rope:
-        raise ForeFatherException(
+        raise ForeFatherError(
             f"Incorrect rope {popped_rope} from out of ancestor_ropes."
         )
     return {a_rope: None for a_rope in ancestor_ropes}
@@ -184,7 +180,7 @@ def create_rope_from_labels(labels: list[LabelTerm], knot: KnotTerm = None) -> R
     return to_rope(default_knot_if_None(knot).join(labels), knot) if labels else ""
 
 
-class InvalidknotReplaceException(Exception):
+class InvalidknotReplaceError(Exception):
     pass
 
 
@@ -194,13 +190,13 @@ def is_string_in_rope(string: str, rope: RopeTerm) -> bool:
 
 def replace_knot(rope: RopeTerm, old_knot: KnotTerm, new_knot: KnotTerm) -> str:
     if is_string_in_rope(string=new_knot, rope=rope):
-        raise InvalidknotReplaceException(
+        raise InvalidknotReplaceError(
             f"Cannot replace_knot '{old_knot}' with '{new_knot}' because the new one exists in rope '{rope}'."
         )
     return rope.replace(old_knot, new_knot)
 
 
-class ValidateLabelTermException(Exception):
+class ValidateLabelTermError(Exception):
     pass
 
 
@@ -213,11 +209,11 @@ def validate_labelterm(
     x_labelterm: LabelTerm, x_knot: KnotTerm, ropeterm_required: bool = False
 ) -> LabelTerm:
     if is_labelterm(x_labelterm, x_knot) and ropeterm_required:
-        raise ValidateLabelTermException(
+        raise ValidateLabelTermError(
             f"'{x_labelterm}' must not be a LabelTerm. Must contain knot: '{x_knot}'"
         )
     elif is_labelterm(x_labelterm, x_knot) is False and not ropeterm_required:
-        raise ValidateLabelTermException(
+        raise ValidateLabelTermError(
             f"'{x_labelterm}' must be a LabelTerm. Cannot contain knot: '{x_knot}'"
         )
     return x_labelterm

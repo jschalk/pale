@@ -23,7 +23,7 @@ def is_nameterm(x_nameterm: NameTerm, groupmark: GroupMark):
     return x_nameterm.is_name(groupmark=groupmark)
 
 
-class ValidateNameTermException(Exception):
+class ValidateNameTermError(Exception):
     pass
 
 
@@ -31,17 +31,17 @@ def validate_nameterm(
     x_nameterm: NameTerm, x_groupmark: str, not_nameterm_required: bool = False
 ) -> NameTerm:
     if is_nameterm(x_nameterm, x_groupmark) and not_nameterm_required:
-        raise ValidateNameTermException(
+        raise ValidateNameTermError(
             f"'{x_nameterm}' must not be a NameTerm. Must contain GroupMark: '{x_groupmark}'"
         )
     elif is_nameterm(x_nameterm, x_groupmark) is False and not not_nameterm_required:
-        raise ValidateNameTermException(
+        raise ValidateNameTermError(
             f"'{x_nameterm}' must be a NameTerm. Cannot contain GroupMark: '{x_groupmark}'"
         )
     return x_nameterm
 
 
-class Bad_partner_nameMemberShipException(Exception):
+class InvalidPartnerNameMemberShipError(Exception):
     pass
 
 
@@ -181,7 +181,7 @@ class PartnerUnit:
         group_title_is_partner_name = is_nameterm(x_group_title, self.groupmark)
         if group_title_is_partner_name and self.partner_name != x_group_title:
             exception_str = f"PartnerUnit with partner_name='{self.partner_name}' cannot have link to '{x_group_title}'."
-            raise Bad_partner_nameMemberShipException(exception_str)
+            raise InvalidPartnerNameMemberShipError(exception_str)
 
         x_membership.partner_name = self.partner_name
         self.memberships[x_membership.group_title] = x_membership
@@ -321,7 +321,7 @@ def partnerunit_shop(
     return x_partnerunit
 
 
-class calc_give_take_net_Exception(Exception):
+class CalcGiveTakeNetError(Exception):
     pass
 
 
@@ -336,5 +336,5 @@ def calc_give_take_net(x_give: float, x_take: float) -> float:
         else:
             parameters_str = f"calc_give_take_net x_give={x_give} and x_take={x_take}."
         exception_str = f"{parameters_str} Only non-negative numbers allowed."
-        raise calc_give_take_net_Exception(exception_str)
+        raise CalcGiveTakeNetError(exception_str)
     return x_give - x_take

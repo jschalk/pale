@@ -199,7 +199,7 @@ def open_bud_file(
         return get_budunit_from_dict(open_json(bud_json_path))
 
 
-class _save_valid_persontime_Exception(Exception):
+class SaveValidPersontimeError(Exception):
     pass
 
 
@@ -210,7 +210,7 @@ def save_persontime_file(
 ):
     x_persontime.conpute()
     if x_persontime.rational is False:
-        raise _save_valid_persontime_Exception(
+        raise SaveValidPersontimeError(
             "persontime could not be saved PersonUnit.rational is False"
         )
     persontime_json_path = create_persontime_path(

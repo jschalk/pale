@@ -14,7 +14,6 @@ from src.ch06_plan.plan import PlanUnit
 from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
 from src.ch08_person_atom.atom_config import CRUD_command
 from src.ch08_person_atom.atom_main import (
-    InvalidPersonAtomException,
     PersonAtom,
     get_personatom_from_dict,
     jvalues_different,
@@ -23,6 +22,10 @@ from src.ch08_person_atom.atom_main import (
     sift_personatom,
 )
 from src.ch09_person_lesson._ref.ch09_semantic_types import RopeTerm, TitleTerm
+
+
+class InvalidPersonAtomError(Exception):
+    pass
 
 
 @dataclass
@@ -65,7 +68,7 @@ class PersonDelta:
 
     def set_personatom(self, x_personatom: PersonAtom):
         if x_personatom.is_valid() is False:
-            raise InvalidPersonAtomException(
+            raise InvalidPersonAtomError(
                 f"""'{x_personatom.dimen}' {x_personatom.crud_str} PersonAtom is invalid
                 {x_personatom.is_jkeys_valid()=}
                 {x_personatom.is_jvalues_valid()=}"""
@@ -81,7 +84,7 @@ class PersonDelta:
 
     def c_personatom_exists(self, x_personatom: PersonAtom) -> bool:
         if x_personatom.is_valid() is False:
-            raise InvalidPersonAtomException(
+            raise InvalidPersonAtomError(
                 f"""'{x_personatom.dimen}' {x_personatom.crud_str} PersonAtom is invalid
                 {x_personatom.is_jkeys_valid()=}
                 {x_personatom.is_jvalues_valid()=}"""

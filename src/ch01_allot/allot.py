@@ -26,7 +26,7 @@ def valid_allotment_ratio(big_number: float, grain_num: float) -> bool:
     return (big_number % grain_num) == 0
 
 
-class missing_base_residual_Exception(Exception):
+class MissingBaseResidualError(Exception):
     pass
 
 
@@ -49,7 +49,7 @@ def _get_missing_scale_list(
             x_count += 1
 
             if missing_base_residual < 0:
-                raise missing_base_residual_Exception(
+                raise MissingBaseResidualError(
                     f"missing_base_residual calculation failed probably due to missing_scale not being a multiple of grain_unit. missing_scale={missing_scale} grain_unit={grain_unit}."
                 )
     else:
@@ -59,7 +59,7 @@ def _get_missing_scale_list(
             x_count += 1
 
             if missing_base_residual > 0:
-                raise missing_base_residual_Exception(
+                raise MissingBaseResidualError(
                     f"missing_base_residual calculation failed probably due to missing_scale not being a multiple of grain_unit. missing_scale={missing_scale} grain_unit={grain_unit}."
                 )
 
