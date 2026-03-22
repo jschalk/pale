@@ -167,16 +167,6 @@ VALUES
     assert kw.error_message not in get_table_columns(cursor0, persona_s_raw_del)
 
 
-# TODO copy over and use these tests?
-# test_moment_raw_tables2moment_agg_tables_Scenario0_momentunit_WithNo_error_message
-# test_moment_raw_tables2moment_agg_tables_Scenario1_momentunit_With_error_message
-# test_moment_raw_tables2moment_agg_tables_Scenario2_mmthour_Some_error_message
-# test_moment_raw_tables2moment_agg_tables_Scenario3_mmtmont_Some_error_message
-# test_moment_raw_tables2moment_agg_tables_Scenario4_mmtweek_Some_error_message
-# test_moment_raw_tables2moment_agg_tables_Scenario5_momentbud_Some_error_message
-# test_moment_raw_tables2moment_agg_tables_Scenario6_mmtpayy_Some_error_message
-
-
 def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scenario0(
     cursor0: Cursor,
 ):

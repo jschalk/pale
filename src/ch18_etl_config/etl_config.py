@@ -344,6 +344,34 @@ def get_del_dimen_columns_set(x_dimen: str) -> set[str]:
     return set(columns_list)
 
 
+def get_stages_order_general() -> list[str]:
+    return [
+        "brick_raw",
+        "brick_agg",
+        "sound_raw",
+        "sound_agg",
+        "sound_vld",
+        "heard_raw",
+        "heard_agg",
+        "heard_vld",
+    ]
+
+
+def get_stage_abbv5(stage_name: str) -> str:
+    stage_abbv5 = {
+        "sound_raw": "s_raw",
+        "sound_agg": "s_agg",
+        "sound_vld": "s_vld",
+        "heard_raw": "h_raw",
+        "heard_agg": "h_agg",
+        "heard_vld": "h_vld",
+    }
+    abb5_str = stage_abbv5.get(stage_name)
+    if abb5_str:
+        return abb5_str
+    return stage_name
+
+
 def get_prime_columns(
     x_dimen: str, table_keylist: list[str], etl_idea_category_config: dict
 ) -> set[str]:

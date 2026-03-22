@@ -14,6 +14,8 @@ from src.ch18_etl_config.etl_config import (
     get_dimen_abbv7,
     get_etl_category_stages_dict,
     get_prime_columns,
+    get_stage_abbv5,
+    get_stages_order_general,
     remove_inx_columns,
     remove_otx_columns,
     remove_staging_columns,
@@ -74,6 +76,35 @@ def test_get_dimen_abbv2_HasAll_dimens():
 
     assert gen_abbv2_set == expected_abbv2_set
     assert len(gen_abbv2_set) == len(ALL_DIMEN_ABBV7)
+
+
+def test_get_stages_order_general_ReturnsObj():
+    # ESTABLISH / WHEN
+    stages_order_general = get_stages_order_general()
+    # THEN
+    assert stages_order_general
+    assert stages_order_general == [
+        kw.brick_raw,
+        kw.brick_agg,
+        kw.sound_raw,
+        kw.sound_agg,
+        kw.sound_vld,
+        kw.heard_raw,
+        kw.heard_agg,
+        kw.heard_vld,
+    ]
+
+
+def test_get_stage_abbv5_ReturnsObj():
+    # ESTABLISH / WHEN / THEN
+    assert get_stage_abbv5(kw.brick_raw) == kw.brick_raw
+    assert get_stage_abbv5(kw.brick_agg) == kw.brick_agg
+    assert get_stage_abbv5(kw.sound_raw) == "s_raw"
+    assert get_stage_abbv5(kw.sound_agg) == "s_agg"
+    assert get_stage_abbv5(kw.sound_vld) == "s_vld"
+    assert get_stage_abbv5(kw.heard_raw) == "h_raw"
+    assert get_stage_abbv5(kw.heard_agg) == "h_agg"
+    assert get_stage_abbv5(kw.heard_vld) == "h_vld"
 
 
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():

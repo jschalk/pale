@@ -10,14 +10,12 @@ from src.ch18_etl_config._ref.ch18_path import (
 from src.ch18_etl_config.stance_tool import create_stance0001_file
 from src.ch19_etl_main.etl_main import (
     add_moment_epoch_to_guts,
+    calc_moment_bud_partner_mandate_net_ledgers,
     create_last_run_metrics_json,
     etl_brick_agg_tables_to_brick_valid_tables,
     etl_brick_agg_tables_to_sparks_brick_agg_table,
     etl_brick_raw_tables_to_brick_agg_tables,
     etl_brick_valid_tables_to_sound_raw_tables,
-    etl_create_bud_mandate_ledgers,
-    etl_create_buds_root_cells,
-    etl_create_moment_cell_trees,
     etl_heard_agg_tables_to_heard_vld_tables,
     etl_heard_raw_tables_to_heard_agg_tables,
     etl_heard_raw_tables_to_moment_ote1_agg,
@@ -29,9 +27,6 @@ from src.ch19_etl_main.etl_main import (
     etl_moment_json_partner_nets_to_moment_partner_nets_table,
     etl_moment_ote1_agg_csvs_to_jsons,
     etl_moment_ote1_agg_table_to_moment_ote1_agg_csvs,
-    etl_set_cell_tree_cell_mandates,
-    etl_set_cell_trees_decrees,
-    etl_set_cell_trees_found_facts,
     etl_sound_agg_tables_to_sound_vld_tables,
     etl_sound_raw_tables_to_sound_agg_tables,
     etl_sound_vld_tables_to_heard_raw_tables,
@@ -42,22 +37,8 @@ from src.ch19_etl_main.etl_main import (
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
     get_max_brick_agg_spark_num,
 )
-from src.ch20_kpi.kpi_mstr import (
-    create_calendar_markdown_files,
-    create_kpi_csvs,
-    populate_kpi_bundle,
-)
+from src.ch20_kpi.kpi_mstr import create_calendar_markdown_files, populate_kpi_bundle
 from src.ch21_world._ref.ch21_semantic_types import WorldName
-
-
-# TODO move moment_mstr_dir to ch18
-def calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir: str):
-    etl_create_buds_root_cells(moment_mstr_dir)
-    etl_create_moment_cell_trees(moment_mstr_dir)
-    etl_set_cell_trees_found_facts(moment_mstr_dir)
-    etl_set_cell_trees_decrees(moment_mstr_dir)
-    etl_set_cell_tree_cell_mandates(moment_mstr_dir)
-    etl_create_bud_mandate_ledgers(moment_mstr_dir)
 
 
 def sheets_input_to_clarity_with_cursor(

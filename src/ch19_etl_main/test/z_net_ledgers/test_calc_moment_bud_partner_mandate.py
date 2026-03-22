@@ -1,5 +1,5 @@
 from os.path import exists as os_path_exists
-from src.ch00_py.file_toolbox import count_dirs_files, open_json, save_json
+from src.ch00_py.file_toolbox import count_dirs_files, create_path, open_json, save_json
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson._ref.ch09_path import (
     create_moment_json_path,
@@ -12,17 +12,17 @@ from src.ch14_moment._ref.ch14_path import (
 )
 from src.ch14_moment.moment_main import get_momentunit_from_dict, momentunit_shop
 from src.ch14_moment.test._util.ch14_examples import example_casa_floor_clean_factunit
-from src.ch18_etl_config._ref.ch18_path import create_moment_ote1_json_path
-from src.ch21_world.test._util.ch21_env import (
+from src.ch18_etl_config._ref.ch18_path import (
+    create_moment_mstr_path,
+    create_moment_ote1_json_path,
+)
+from src.ch19_etl_main.etl_main import calc_moment_bud_partner_mandate_net_ledgers
+from src.ch19_etl_main.test._util.ch19_env import (
     get_temp_dir as worlds_dir,
     temp_dir_setup,
 )
-from src.ch21_world.test._util.ch21_examples import (
+from src.ch19_etl_main.test._util.ch19_examples import (
     get_bob_mop_reason_personunit_example,
-)
-from src.ch21_world.world import (
-    calc_moment_bud_partner_mandate_net_ledgers,
-    worlddir_shop,
 )
 from src.ref.keywords import ExampleStrs as exx
 
@@ -31,20 +31,17 @@ def test_calc_moment_bud_partner_mandate_net_ledgers_Scenaro0_BudEmpty(
     temp_dir_setup,
 ):
     # ESTABLISH
-    fay_wdir = worlddir_shop("Fay", worlds_dir())
-    moment_mstr_dir = fay_wdir._moment_mstr_dir
-    amy23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
+    mstr_dir = create_moment_mstr_path(worlds_dir())
+    amy23_moment = momentunit_shop(exx.a23, mstr_dir)
     a23_lasso = lassounit_shop(amy23_moment.moment_rope, amy23_moment.knot)
-    a23_json_path = create_moment_json_path(fay_wdir._moment_mstr_dir, a23_lasso)
+    a23_json_path = create_moment_json_path(mstr_dir, a23_lasso)
     save_json(a23_json_path, None, amy23_moment.to_dict())
     print(f"{a23_json_path=}")
-    a23_persons_path = create_moment_persons_dir_path(
-        fay_wdir._moment_mstr_dir, a23_lasso
-    )
+    a23_persons_path = create_moment_persons_dir_path(mstr_dir, a23_lasso)
     assert count_dirs_files(a23_persons_path) == 0
 
     # WHEN
-    calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir)
+    calc_moment_bud_partner_mandate_net_ledgers(mstr_dir)
 
     # THEN
     assert count_dirs_files(a23_persons_path) == 0
@@ -54,8 +51,7 @@ def test_calc_moment_bud_partner_mandate_net_ledgers_Scenaro1_SimpleBud(
     temp_dir_setup,
 ):
     # ESTABLISH
-    fay_wdir = worlddir_shop("Fay", worlds_dir())
-    mstr_dir = fay_wdir._moment_mstr_dir
+    mstr_dir = create_moment_mstr_path(worlds_dir())
     amy23_moment = momentunit_shop(exx.a23, mstr_dir)
     tp37 = 37
     bud1_quota = 450
@@ -86,8 +82,7 @@ def test_calc_moment_bud_partner_mandate_net_ledgers_Scenaro2_BudExists(
     temp_dir_setup,
 ):
     # ESTABLISH
-    fay_wdir = worlddir_shop("Fay", worlds_dir())
-    mstr_dir = fay_wdir._moment_mstr_dir
+    mstr_dir = create_moment_mstr_path(worlds_dir())
 
     # Create MomentUnit with bob bud at time 37
     amy23_moment = momentunit_shop(exx.a23, mstr_dir)

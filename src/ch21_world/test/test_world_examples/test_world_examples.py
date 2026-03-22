@@ -6,9 +6,9 @@ from src.ch00_py.file_toolbox import (
     get_dir_filenames,
     get_level1_dirs,
 )
+from src.ch20_kpi.kpi_mstr import create_kpi_csvs
 from src.ch21_world.test._util.ch21_env import temp_dir_setup
 from src.ch21_world.world import (
-    create_kpi_csvs,
     create_stances,
     sheets_input_to_clarity_mstr,
     worlddir_shop,
