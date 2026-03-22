@@ -128,14 +128,14 @@ class PrimeTablenameError(Exception):
 
 
 def create_prime_tablename(
-    idea_dimen_or_abbv7: str, stage_desc: str, put_del: str = None
+    idea_dimen_or_abbv7: str, stage_type: str, put_del: str = None
 ) -> str:
     """
     stage examples 's_raw', 'h_agg', 'job'
     """
 
     if put_del not in {None, "put", "del"}:
-        raise PrimeTablenameError(f"'{stage_desc}' '{put_del}' is not a valid put_del")
+        raise PrimeTablenameError(f"'{stage_type}' '{put_del}' is not a valid put_del")
 
     abbv_references = {
         "mmtpayy": "moment_paybook",
@@ -168,9 +168,9 @@ def create_prime_tablename(
         tablename = abbv_references.get(idea_dimen_or_abbv7.lower())
 
     return (
-        f"{tablename}_{put_del}_{stage_desc}"
+        f"{tablename}_{put_del}_{stage_type}"
         if put_del
-        else f"{tablename}_{stage_desc}"
+        else f"{tablename}_{stage_type}"
     )
 
 
@@ -190,98 +190,98 @@ def get_etl_category_stages_dict() -> dict:
     return {
         "person_h_agg_put": {
             "idea_category": "person",
-            "stage_desc": "h_agg",
+            "stage_type": "h_agg",
             "put_del": "put",
         },
         "person_h_agg_del": {
             "idea_category": "person",
-            "stage_desc": "h_agg",
+            "stage_type": "h_agg",
             "put_del": "del",
         },
         "person_h_raw_put": {
             "idea_category": "person",
-            "stage_desc": "h_raw",
+            "stage_type": "h_raw",
             "put_del": "put",
         },
         "person_h_raw_del": {
             "idea_category": "person",
-            "stage_desc": "h_raw",
+            "stage_type": "h_raw",
             "put_del": "del",
         },
         "person_h_vld_put": {
             "idea_category": "person",
-            "stage_desc": "h_vld",
+            "stage_type": "h_vld",
             "put_del": "put",
         },
         "person_h_vld_del": {
             "idea_category": "person",
-            "stage_desc": "h_vld",
+            "stage_type": "h_vld",
             "put_del": "del",
         },
         "person_s_agg_put": {
             "idea_category": "person",
-            "stage_desc": "s_agg",
+            "stage_type": "s_agg",
             "put_del": "put",
         },
         "person_s_agg_del": {
             "idea_category": "person",
-            "stage_desc": "s_agg",
+            "stage_type": "s_agg",
             "put_del": "del",
         },
         "person_s_raw_put": {
             "idea_category": "person",
-            "stage_desc": "s_raw",
+            "stage_type": "s_raw",
             "put_del": "put",
         },
         "person_s_raw_del": {
             "idea_category": "person",
-            "stage_desc": "s_raw",
+            "stage_type": "s_raw",
             "put_del": "del",
         },
         "person_s_vld_put": {
             "idea_category": "person",
-            "stage_desc": "s_vld",
+            "stage_type": "s_vld",
             "put_del": "put",
         },
         "person_s_vld_del": {
             "idea_category": "person",
-            "stage_desc": "s_vld",
+            "stage_type": "s_vld",
             "put_del": "del",
         },
-        "moment_h_agg": {"idea_category": "moment", "stage_desc": "h_agg"},
-        "moment_h_raw": {"idea_category": "moment", "stage_desc": "h_raw"},
-        "moment_h_vld": {"idea_category": "moment", "stage_desc": "h_vld"},
-        "moment_s_agg": {"idea_category": "moment", "stage_desc": "s_agg"},
-        "moment_s_raw": {"idea_category": "moment", "stage_desc": "s_raw"},
-        "moment_s_vld": {"idea_category": "moment", "stage_desc": "s_vld"},
-        "nabu_h_agg": {"idea_category": "nabu", "stage_desc": "h_agg"},
-        "nabu_h_raw": {"idea_category": "nabu", "stage_desc": "h_raw"},
-        "nabu_s_agg": {"idea_category": "nabu", "stage_desc": "s_agg"},
-        "nabu_s_raw": {"idea_category": "nabu", "stage_desc": "s_raw"},
-        "nabu_s_vld": {"idea_category": "nabu", "stage_desc": "s_vld"},
+        "moment_h_agg": {"idea_category": "moment", "stage_type": "h_agg"},
+        "moment_h_raw": {"idea_category": "moment", "stage_type": "h_raw"},
+        "moment_h_vld": {"idea_category": "moment", "stage_type": "h_vld"},
+        "moment_s_agg": {"idea_category": "moment", "stage_type": "s_agg"},
+        "moment_s_raw": {"idea_category": "moment", "stage_type": "s_raw"},
+        "moment_s_vld": {"idea_category": "moment", "stage_type": "s_vld"},
+        "nabu_h_agg": {"idea_category": "nabu", "stage_type": "h_agg"},
+        "nabu_h_raw": {"idea_category": "nabu", "stage_type": "h_raw"},
+        "nabu_s_agg": {"idea_category": "nabu", "stage_type": "s_agg"},
+        "nabu_s_raw": {"idea_category": "nabu", "stage_type": "s_raw"},
+        "nabu_s_vld": {"idea_category": "nabu", "stage_type": "s_vld"},
         "translate_s_agg": {
             "idea_category": "translate",
-            "stage_desc": "s_agg",
+            "stage_type": "s_agg",
         },
         "translate_s_raw": {
             "idea_category": "translate",
-            "stage_desc": "s_raw",
+            "stage_type": "s_raw",
         },
         "translate_s_vld": {
             "idea_category": "translate",
-            "stage_desc": "s_vld",
+            "stage_type": "s_vld",
         },
         "translate_core_s_agg": {
             "idea_category": "translate_core",
-            "stage_desc": "s_agg",
+            "stage_type": "s_agg",
         },
         "translate_core_s_raw": {
             "idea_category": "translate_core",
-            "stage_desc": "s_raw",
+            "stage_type": "s_raw",
         },
         "translate_core_s_vld": {
             "idea_category": "translate_core",
-            "stage_desc": "s_vld",
+            "stage_type": "s_vld",
         },
     }
 
@@ -408,13 +408,13 @@ def get_prime_columns(
 
 
 def create_prime_table_sqlstr(
-    x_dimen: str, stage_desc: str, put_del: str = None
+    x_dimen: str, stage_type: str, put_del: str = None
 ) -> str:
     """Given dimen and stages return the Create Table sqlstr
-    stage_desc example: 's_agg', 'h_raw', 'job'
+    stage_type example: 's_agg', 'h_raw', 'job'
     """
-    tablename = create_prime_tablename(x_dimen, stage_desc, put_del)
-    table_keylist = [stage_desc, put_del] if put_del else [stage_desc]
+    tablename = create_prime_tablename(x_dimen, stage_type, put_del)
+    table_keylist = [stage_type, put_del] if put_del else [stage_type]
     etl_idea_category_config = etl_idea_category_config_dict()
     columns_set = get_prime_columns(x_dimen, table_keylist, etl_idea_category_config)
     columns_list = get_default_sorted_list(columns_set)

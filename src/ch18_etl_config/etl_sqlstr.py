@@ -436,11 +436,11 @@ def create_sound_and_heard_tables(conn_or_cursor: sqlite3_Connection):
 def create_prime_db_table(
     cursor: sqlite3_Connection,
     idea_dimen_or_abbv7: str,
-    stage_desc: str,
+    stage_type: str,
     put_del: str = None,
 ) -> str:
     """Creates table in database and returns tablename"""
-    tablename = create_prime_tablename(idea_dimen_or_abbv7, stage_desc, put_del)
+    tablename = create_prime_tablename(idea_dimen_or_abbv7, stage_type, put_del)
     prime_create_table_sqlstrs = get_prime_create_table_sqlstrs()
     x_create_table_sqlstr = prime_create_table_sqlstrs.get(tablename)
     cursor.execute(x_create_table_sqlstr)

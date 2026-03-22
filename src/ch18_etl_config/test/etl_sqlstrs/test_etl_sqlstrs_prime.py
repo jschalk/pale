@@ -56,24 +56,24 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
     for stage_name in sorted(etl_category_stages_dict.keys(), reverse=True):
         stage_dict = etl_category_stages_dict.get(stage_name)
         x_idea_category = stage_dict.get("idea_category")
-        stage_desc = stage_dict.get("stage_desc")
+        stage_type = stage_dict.get("stage_type")
         x_put_del = stage_dict.get("put_del")
         # if x_idea_category == kw.moment:
         # print(f"{x_idea_category=}")
         for x_dimen in sorted(get_idea_config_dict(x_idea_category)):
             add_dimen_to_agg_variables(
                 x_dimen,
-                stage_desc,
+                stage_type,
                 x_put_del,
                 expected_tablenames,
                 expected_var_refs,
                 expected_sql_refs,
                 expected_sqlstrs_dict,
             )
-    for trlcore_stage_desc in {"s_raw", "s_agg", "s_vld"}:
+    for trlcore_stage_type in {"s_raw", "s_agg", "s_vld"}:
         add_dimen_to_agg_variables(
             x_dimen="translate_core",
-            stage_desc=trlcore_stage_desc,
+            stage_type=trlcore_stage_type,
             x_put_del=None,
             expected_tablenames=expected_tablenames,
             expected_var_refs=expected_var_refs,
@@ -109,7 +109,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
 
 def add_dimen_to_agg_variables(
     x_dimen,
-    stage_desc: str,
+    stage_type: str,
     x_put_del,
     expected_tablenames,
     expected_var_refs,
@@ -117,21 +117,21 @@ def add_dimen_to_agg_variables(
     expected_sqlstrs_dict,
 ):
     abbv7 = get_dimen_abbv7(x_dimen)
-    tablename = prime_tbl(abbv7, stage_desc, x_put_del)
-    table_sql = create_prime_table_sqlstr(x_dimen, stage_desc, x_put_del)
+    tablename = prime_tbl(abbv7, stage_type, x_put_del)
+    table_sql = create_prime_table_sqlstr(x_dimen, stage_type, x_put_del)
 
     if x_put_del:
-        if stage_desc.startswith("h"):
-            stage_desc = stage_desc.replace("h", "HEARD")
-        elif stage_desc.startswith("s"):
-            stage_desc = stage_desc.replace("s", "SOUND")
+        if stage_type.startswith("h"):
+            stage_type = stage_type.replace("h", "HEARD")
+        elif stage_type.startswith("s"):
+            stage_type = stage_type.replace("s", "SOUND")
 
     if x_put_del == "put":
-        global_variable_ref = f"CREATE_{abbv7.upper()}_PUT_{stage_desc.upper()}_SQLSTR"
+        global_variable_ref = f"CREATE_{abbv7.upper()}_PUT_{stage_type.upper()}_SQLSTR"
     elif x_put_del == "del":
-        global_variable_ref = f"CREATE_{abbv7.upper()}_DEL_{stage_desc.upper()}_SQLSTR"
+        global_variable_ref = f"CREATE_{abbv7.upper()}_DEL_{stage_type.upper()}_SQLSTR"
     else:
-        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_desc.upper()}_SQLSTR"
+        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_type.upper()}_SQLSTR"
     # # print(f""""{tablename}": {global_variable_ref},""")
     # print("")
     # print()

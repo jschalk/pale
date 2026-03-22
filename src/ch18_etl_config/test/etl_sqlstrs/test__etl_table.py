@@ -233,29 +233,29 @@ def test_get_etl_category_stages_dict_ReturnsObj():
     expected_count = 0
     etl_idea_category_config = etl_idea_category_config_dict()
     for idea_category, dimen_dict in etl_idea_category_config.items():
-        for stage_desc, stages_dict in dimen_dict.get("stages").items():
+        for stage_type, stages_dict in dimen_dict.get("stages").items():
             expected_count += 1
             if set(stages_dict.keys()) == {"del", "put"}:
-                stage_key_put = f"{idea_category}_{stage_desc}_put"
-                stage_key_del = f"{idea_category}_{stage_desc}_del"
+                stage_key_put = f"{idea_category}_{stage_type}_put"
+                stage_key_del = f"{idea_category}_{stage_type}_del"
                 # print(f"{expected_count} {stage_key_put=}")
                 expected_count += 1
                 expected_dict[stage_key_put] = {
                     kw.idea_category: idea_category,
-                    "stage_desc": stage_desc,
+                    "stage_type": stage_type,
                     "put_del": "put",
                 }
                 expected_dict[stage_key_del] = {
                     kw.idea_category: idea_category,
-                    "stage_desc": stage_desc,
+                    "stage_type": stage_type,
                     "put_del": "del",
                 }
                 # print(f"{expected_count} {stage_key_del=}")
             else:
-                stage_key = f"{idea_category}_{stage_desc}"
+                stage_key = f"{idea_category}_{stage_type}"
                 expected_dict[stage_key] = {
                     kw.idea_category: idea_category,
-                    "stage_desc": stage_desc,
+                    "stage_type": stage_type,
                 }
                 # print(f"{expected_count} {stage_key=} ")
     # print(expected_dict)
