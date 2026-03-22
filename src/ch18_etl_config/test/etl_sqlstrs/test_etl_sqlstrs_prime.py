@@ -59,14 +59,14 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
         x_idea_category = stage_dict.get("idea_category")
         x_stage0 = stage_dict.get("stage0")
         x_stage1 = stage_dict.get("stage1")
+        stage_desc = f"{x_stage0}_{x_stage1}"
         x_put_del = stage_dict.get("put_del")
         # if x_idea_category == kw.moment:
         # print(f"{x_idea_category=}")
         for x_dimen in sorted(get_idea_config_dict(x_idea_category)):
             add_dimen_to_agg_variables(
                 x_dimen,
-                x_stage0,
-                x_stage1,
+                stage_desc,
                 x_put_del,
                 expected_tablenames,
                 expected_var_refs,
@@ -76,8 +76,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
     for trlcore_stage1 in {"raw", "agg", "vld"}:
         add_dimen_to_agg_variables(
             x_dimen="translate_core",
-            x_stage0="s",
-            x_stage1=trlcore_stage1,
+            stage_desc=f"s_{trlcore_stage1}",
             x_put_del=None,
             expected_tablenames=expected_tablenames,
             expected_var_refs=expected_var_refs,
@@ -113,8 +112,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
 
 def add_dimen_to_agg_variables(
     x_dimen,
-    x_stage0,
-    x_stage1,
+    stage_desc,
     x_put_del,
     expected_tablenames,
     expected_var_refs,
@@ -122,23 +120,30 @@ def add_dimen_to_agg_variables(
     expected_sqlstrs_dict,
 ):
     abbv7 = get_dimen_abbv7(x_dimen)
-    stage_desc = f"{x_stage0}_{x_stage1}"
     tablename = prime_tbl(abbv7, stage_desc, x_put_del)
     table_sql = create_prime_table_sqlstr(x_dimen, stage_desc, x_put_del)
-    stage_upper_str = "HEARD" if x_stage0 == "h" else "SOUND"
+
+    # TODO get rid stage_first and stage_second through codebase
+    if x_put_del not in {None, "put", "del"}:
+        raise Exception(f"'{stage_desc}' '{x_put_del}' is not a valid put_del")
+    stage_first_term = stage_desc.split("_")[0]
+    if stage_first_term not in {"s", "h", "job"}:
+        raise Exception(f"'{stage_desc}' is not a valid stage")
+    if stage_first_term == stage_desc:
+        stage_second_term = None
+    else:
+        stage_second_term = stage_desc.split("_")[1]
+    if stage_second_term not in {None, "raw", "agg", "vld"}:
+        raise Exception(f"'{stage_desc}' is not a valid stage")
+
+    stage_upper_str = "HEARD" if stage_first_term == "h" else "SOUND"
     # if tablename not in prime_tablenames:
     if x_put_del == "put":
-        global_variable_ref = (
-            f"CREATE_{abbv7.upper()}_{stage_upper_str}_PUT_{x_stage1.upper()}_SQLSTR"
-        )
+        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_upper_str}_PUT_{stage_second_term.upper()}_SQLSTR"
     elif x_put_del == "del":
-        global_variable_ref = (
-            f"CREATE_{abbv7.upper()}_{stage_upper_str}_DEL_{x_stage1.upper()}_SQLSTR"
-        )
+        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_upper_str}_DEL_{stage_second_term.upper()}_SQLSTR"
     else:
-        global_variable_ref = (
-            f"CREATE_{abbv7.upper()}_{stage_upper_str}_{x_stage1.upper()}_SQLSTR"
-        )
+        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_upper_str}_{stage_second_term.upper()}_SQLSTR"
     # # print(f""""{tablename}": {global_variable_ref},""")
     # print("")
     # print()
