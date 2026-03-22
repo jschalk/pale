@@ -1,4 +1,4 @@
-from sqlite3 import Cursor, connect as sqlite3_connect
+from sqlite3 import Cursor
 from src.ch00_py.db_toolbox import (
     create_insert_into_clause_str as get_insert_sql,
     create_select_query as get_select_sql,
@@ -8,7 +8,7 @@ from src.ch00_py.db_toolbox import (
     get_db_tables,
     get_table_columns,
 )
-from src.ch08_person_atom.atom_config import get_delete_key_name, get_person_dimens
+from src.ch08_person_atom.atom_config import get_person_dimens
 from src.ch14_moment.moment_config import get_moment_dimens
 from src.ch15_nabu.nabu_config import get_nabu_dimens
 from src.ch16_translate.translate_config import (
@@ -20,7 +20,6 @@ from src.ch18_etl_config.etl_config import (
     create_prime_table_sqlstr,
     get_dimen_abbv7,
     get_etl_category_stages_dict,
-    get_prime_columns,
 )
 from src.ch18_etl_config.etl_sqlstr import (
     create_insert_into_translate_core_raw_sqlstr,
@@ -71,10 +70,10 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
                 expected_sql_refs,
                 expected_sqlstrs_dict,
             )
-    for trlcore_stage1 in {"raw", "agg", "vld"}:
+    for trlcore_stage_desc in {"s_raw", "s_agg", "s_vld"}:
         add_dimen_to_agg_variables(
             x_dimen="translate_core",
-            stage_desc=f"s_{trlcore_stage1}",
+            stage_desc=trlcore_stage_desc,
             x_put_del=None,
             expected_tablenames=expected_tablenames,
             expected_var_refs=expected_var_refs,
