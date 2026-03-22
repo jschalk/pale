@@ -580,11 +580,11 @@ def insert_job_obj(cursor: sqlite3_Cursor, job_person: PersonUnit):
         insert_job_prnfact(cursor, x_objkeysholder, x_factheir)
 
 
-def create_prnawar_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnawar_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_prncase_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prncase_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     person_name = values_dict.get("person_name")
@@ -595,7 +595,7 @@ def create_prncase_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     reason_lower_otx = values_dict.get("reason_lower_otx")
     reason_upper_otx = values_dict.get("reason_upper_otx")
     reason_divisor = values_dict.get("reason_divisor")
-    return f"""INSERT INTO person_plan_reason_caseunit_h_put_agg (spark_num, face_name, person_name, plan_rope, reason_context, reason_state, reason_lower_otx, reason_upper_otx, reason_divisor, knot)
+    return f"""INSERT INTO person_plan_reason_caseunit_put_h_agg (spark_num, face_name, person_name, plan_rope, reason_context, reason_state, reason_lower_otx, reason_upper_otx, reason_divisor, knot)
 VALUES (
   {sqlite_obj_str(spark_num, "INTEGER")}
 , {sqlite_obj_str(face_name, "TEXT")}
@@ -612,7 +612,7 @@ VALUES (
 """
 
 
-def create_prnfact_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnfact_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     person_name = values_dict.get("person_name")
@@ -622,7 +622,7 @@ def create_prnfact_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     fact_state = values_dict.get("fact_state")
     fact_lower_otx = values_dict.get("fact_lower_otx")
     fact_upper_otx = values_dict.get("fact_upper_otx")
-    return f"""INSERT INTO person_plan_factunit_h_put_agg (spark_num, face_name, person_name, plan_rope, fact_context, fact_state, fact_lower_otx, fact_upper_otx, knot)
+    return f"""INSERT INTO person_plan_factunit_put_h_agg (spark_num, face_name, person_name, plan_rope, fact_context, fact_state, fact_lower_otx, fact_upper_otx, knot)
 VALUES (
   {sqlite_obj_str(spark_num, "INTEGER")}
 , {sqlite_obj_str(face_name, "TEXT")}
@@ -638,23 +638,23 @@ VALUES (
 """
 
 
-def create_prngrou_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prngrou_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_prnheal_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnheal_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_prnlabo_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnlabo_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_prnmemb_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnmemb_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
-def create_prnplan_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnplan_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     person_name = values_dict.get("person_name")
@@ -674,7 +674,7 @@ def create_prnplan_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     integer_str = "INTEGER"
     real_str = "REAL"
 
-    return f"""INSERT INTO person_planunit_h_put_agg (spark_num, face_name, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, knot)
+    return f"""INSERT INTO person_planunit_put_h_agg (spark_num, face_name, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, knot)
 VALUES (
   {sqlite_obj_str(spark_num, integer_str)}
 , {sqlite_obj_str(face_name, "TEXT")}
@@ -697,7 +697,7 @@ VALUES (
 """
 
 
-def create_prnreas_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnreas_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     person_name = values_dict.get("person_name")
@@ -705,7 +705,7 @@ def create_prnreas_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     knot = values_dict.get("knot")
     reason_context = values_dict.get("reason_context")
     active_requisite = values_dict.get("active_requisite")
-    return f"""INSERT INTO person_plan_reasonunit_h_put_agg (spark_num, face_name, person_name, plan_rope, reason_context, active_requisite, knot)
+    return f"""INSERT INTO person_plan_reasonunit_put_h_agg (spark_num, face_name, person_name, plan_rope, reason_context, active_requisite, knot)
 VALUES (
   {sqlite_obj_str(spark_num, "INTEGER")}
 , {sqlite_obj_str(face_name, "TEXT")}
@@ -719,7 +719,7 @@ VALUES (
 """
 
 
-def create_prnunit_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnunit_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     spark_num = values_dict.get("spark_num")
     face_name = values_dict.get("face_name")
     moment_rope = values_dict.get("moment_rope")
@@ -735,7 +735,7 @@ def create_prnunit_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     mana_grain = values_dict.get("mana_grain")
     respect_grain = values_dict.get("respect_grain")
 
-    return f"""INSERT INTO personunit_h_put_agg (spark_num, face_name, moment_rope, person_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, fund_grain, mana_grain, respect_grain, knot)
+    return f"""INSERT INTO personunit_put_h_agg (spark_num, face_name, moment_rope, person_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, fund_grain, mana_grain, respect_grain, knot)
 VALUES (
   {sqlite_obj_str(spark_num, integer_str)}
 , {sqlite_obj_str(face_name, "TEXT")}
@@ -754,7 +754,7 @@ VALUES (
 """
 
 
-def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
+def create_prnptnr_put_h_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
     pass
 
 
@@ -774,7 +774,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fund_agenda_ratio_give = values_dict.get("fund_agenda_ratio_give")
 #     fund_agenda_ratio_take = values_dict.get("fund_agenda_ratio_take")
 #     real_str = "REAL"
-#     return f"""INSERT INTO person_partner_membership_h_put_agg (spark_num, face_name, moment_rope, person_name, partner_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
+#     return f"""INSERT INTO person_partner_membership_put_h_agg (spark_num, face_name, moment_rope, person_name, partner_name, group_title, group_cred_lumen, group_debt_lumen, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -815,7 +815,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     inallocable_partner_debt_lumen = values_dict.get("inallocable_partner_debt_lumen")
 #     irrational_partner_debt_lumen = values_dict.get("irrational_partner_debt_lumen")
 #     real_str = "REAL"
-#     return f"""INSERT INTO person_partnerunit_h_put_agg (spark_num, face_name, moment_rope, person_name, partner_name, partner_cred_lumen, partner_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_partner_debt_lumen, irrational_partner_debt_lumen)
+#     return f"""INSERT INTO person_partnerunit_put_h_agg (spark_num, face_name, moment_rope, person_name, partner_name, partner_cred_lumen, partner_debt_lumen, groupmark, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take, fund_agenda_ratio_give, fund_agenda_ratio_take, inallocable_partner_debt_lumen, irrational_partner_debt_lumen)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -852,7 +852,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fund_agenda_give = values_dict.get("fund_agenda_give")
 #     fund_agenda_take = values_dict.get("fund_agenda_take")
 #     real_str = "REAL"
-#     return f"""INSERT INTO person_groupunit_h_put_agg (spark_num, face_name, moment_rope, person_name, group_title, fund_grain, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take)
+#     return f"""INSERT INTO person_groupunit_put_h_agg (spark_num, face_name, moment_rope, person_name, group_title, fund_grain, credor_pool, debtor_pool, fund_give, fund_take, fund_agenda_give, fund_agenda_take)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -880,7 +880,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     take_force = values_dict.get("take_force")
 #     fund_give = values_dict.get("fund_give")
 #     fund_take = values_dict.get("fund_take")
-#     return f"""INSERT INTO person_plan_awardunit_h_put_agg (spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title, give_force, take_force, fund_give, fund_take)
+#     return f"""INSERT INTO person_plan_awardunit_put_h_agg (spark_num, face_name, moment_rope, person_name, plan_rope, awardee_title, give_force, take_force, fund_give, fund_take)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -905,7 +905,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     fact_state = values_dict.get("fact_state")
 #     fact_lower = values_dict.get("fact_lower")
 #     fact_upper = values_dict.get("fact_upper")
-#     return f"""INSERT INTO person_plan_factunit_h_put_agg (spark_num, face_name, moment_rope, person_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
+#     return f"""INSERT INTO person_plan_factunit_put_h_agg (spark_num, face_name, moment_rope, person_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -926,7 +926,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     person_name = values_dict.get("person_name")
 #     rope = values_dict.get("plan_rope")
 #     healer_name = values_dict.get("healer_name")
-#     return f"""INSERT INTO person_plan_healerunit_h_put_agg (spark_num, face_name, moment_rope, person_name, plan_rope, healer_name)
+#     return f"""INSERT INTO person_plan_healerunit_put_h_agg (spark_num, face_name, moment_rope, person_name, plan_rope, healer_name)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -948,7 +948,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     case_task = values_dict.get("case_task")
 #     reason_active = values_dict.get("reason_active")
 #     parent_heir_active = values_dict.get("parent_heir_active")
-#     return f"""INSERT INTO person_plan_reasonunit_h_put_agg (spark_num, face_name, moment_rope, person_name, plan_rope, reason_context, active_requisite, reason_task, reason_active, parent_heir_active)
+#     return f"""INSERT INTO person_plan_reasonunit_put_h_agg (spark_num, face_name, moment_rope, person_name, plan_rope, reason_context, active_requisite, reason_task, reason_active, parent_heir_active)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -972,7 +972,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     party_title = values_dict.get("party_title")
 #     solo = values_dict.get("solo")
 #     person_name_is_labor = values_dict.get("person_name_is_labor")
-#     return f"""INSERT INTO person_plan_partyunit_h_put_agg (spark_num, face_name, moment_rope, person_name, plan_rope, party_title, solo, person_name_is_labor)
+#     return f"""INSERT INTO person_plan_partyunit_put_h_agg (spark_num, face_name, moment_rope, person_name, plan_rope, party_title, solo, person_name_is_labor)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -1019,7 +1019,7 @@ def create_prnptnr_h_put_agg_insert_sqlstr(values_dict: dict[str,]) -> str:
 #     integer_str = "INTEGER"
 #     real_str = "REAL"
 
-#     return f"""INSERT INTO person_planunit_h_put_agg (spark_num, face_name, moment_rope, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, plan_active, case_task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_partner_cred, all_partner_debt)
+#     return f"""INSERT INTO person_planunit_put_h_agg (spark_num, face_name, moment_rope, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, fund_grain, plan_active, case_task, fund_onset, fund_cease, fund_ratio, gogo_calc, stop_calc, tree_level, range_evaluated, descendant_pledge_count, healerunit_ratio, all_partner_cred, all_partner_debt)
 # VALUES (
 #   {sqlite_obj_str(spark_num, "INTEGER")}
 # , {sqlite_obj_str(face_name, "TEXT")}
@@ -1109,7 +1109,7 @@ def insert_h_agg_prnawar(
     x_dict["moment_rope"] = x_objkeysholder.moment_rope
     x_dict["person_name"] = x_objkeysholder.person_name
     x_dict["plan_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_prnawar_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_prnawar_put_h_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -1127,7 +1127,7 @@ def insert_h_agg_prnfact(
     x_dict["knot"] = x_objkeysholder.knot
     x_dict["fact_upper_otx"] = x_dict["fact_upper"]
     x_dict["fact_lower_otx"] = x_dict["fact_lower"]
-    insert_sqlstr = create_prnfact_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_prnfact_put_h_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -1143,7 +1143,7 @@ def insert_h_agg_prnheal(
     }
     for healer_name in sorted(x_healer.healer_names):
         x_dict["healer_name"] = healer_name
-        insert_sqlstr = create_prnheal_h_put_agg_insert_sqlstr(x_dict)
+        insert_sqlstr = create_prnheal_put_h_agg_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
@@ -1160,7 +1160,7 @@ def insert_h_agg_prncase(
     x_dict["reason_context"] = x_objkeysholder.reason_context
     x_dict["reason_lower_otx"] = x_dict["reason_lower"]
     x_dict["reason_upper_otx"] = x_dict["reason_upper"]
-    insert_sqlstr = create_prncase_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_prncase_put_h_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -1175,7 +1175,7 @@ def insert_h_agg_prnreas(
     x_dict["moment_rope"] = x_objkeysholder.moment_rope
     x_dict["person_name"] = x_objkeysholder.person_name
     x_dict["plan_rope"] = x_objkeysholder.rope
-    insert_sqlstr = create_prnreas_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_prnreas_put_h_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -1194,7 +1194,7 @@ def insert_h_agg_prnlabo(
         partyheir = x_laborheir.partys.get(party_title)
         x_dict["party_title"] = partyheir.party_title
         x_dict["solo"] = partyheir.solo
-        insert_sqlstr = create_prnlabo_h_put_agg_insert_sqlstr(x_dict)
+        insert_sqlstr = create_prnlabo_put_h_agg_insert_sqlstr(x_dict)
         cursor.execute(insert_sqlstr)
 
 
@@ -1206,7 +1206,7 @@ def insert_h_agg_prnplan(
     x_dict["face_name"] = x_objkeysholder.face_name
     x_dict["plan_rope"] = x_plan.get_plan_rope()
     x_dict["person_name"] = x_objkeysholder.person_name
-    insert_sqlstr = create_prnplan_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_prnplan_put_h_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 
@@ -1217,7 +1217,7 @@ def insert_h_agg_prnunit(
     x_dict["spark_num"] = x_objkeysholder.spark_num
     x_dict["face_name"] = x_objkeysholder.face_name
     x_dict["moment_rope"] = x_person.planroot.get_plan_rope()
-    insert_sqlstr = create_prnunit_h_put_agg_insert_sqlstr(x_dict)
+    insert_sqlstr = create_prnunit_put_h_agg_insert_sqlstr(x_dict)
     cursor.execute(insert_sqlstr)
 
 

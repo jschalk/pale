@@ -1,7 +1,7 @@
 from sqlite3 import Cursor
 from src.ch18_etl_config.etl_sqlstr import (
     CREATE_MMTMONT_SOUND_AGG_SQLSTR,
-    CREATE_PRNPTNR_SOUND_PUT_AGG_SQLSTR,
+    CREATE_PRNPTNR_PUT_SOUND_AGG_SQLSTR,
     CREATE_TRLCORE_SOUND_VLD_SQLSTR,
     create_knot_exists_in_label_error_update_sqlstr,
     create_knot_exists_in_name_error_update_sqlstr,
@@ -22,7 +22,7 @@ def test_create_knot_exists_in_name_error_update_sqlstr_ReturnsObj_PopulatesTabl
     ukx = "Unknown"
     spark1 = 1
 
-    cursor0.execute(CREATE_PRNPTNR_SOUND_PUT_AGG_SQLSTR)
+    cursor0.execute(CREATE_PRNPTNR_PUT_SOUND_AGG_SQLSTR)
     prnptnr_dimen = kw.person_partnerunit
     prnptnr_s_agg_put = create_prime_tablename(prnptnr_dimen, "s_agg", "put")
     insert_prnptnr_sqlstr = f"""INSERT INTO {prnptnr_s_agg_put} (
@@ -132,7 +132,7 @@ def test_set_moment_person_sound_agg_knot_errors_PopulatesTable_Scenario0(
     ukx = "Unknown"
     spark1 = 1
 
-    cursor0.execute(CREATE_PRNPTNR_SOUND_PUT_AGG_SQLSTR)
+    cursor0.execute(CREATE_PRNPTNR_PUT_SOUND_AGG_SQLSTR)
     prnptnr_dimen = kw.person_partnerunit
     prnptnr_s_agg_put = create_prime_tablename(prnptnr_dimen, "s_agg", "put")
     insert_prnptnr_sqlstr = f"""INSERT INTO {prnptnr_s_agg_put} (

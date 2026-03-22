@@ -166,18 +166,9 @@ def create_prime_tablename(
     tablename = idea_dimen_or_abbv7
     if abbv_references.get(idea_dimen_or_abbv7.lower()):
         tablename = abbv_references.get(idea_dimen_or_abbv7.lower())
-    stage_first_term = stage_desc.split("_")[0]
-    if stage_first_term not in {"s", "h", "job"}:
-        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
-    if stage_first_term == stage_desc:
-        stage_second_term = None
-    else:
-        stage_second_term = stage_desc.split("_")[1]
-    if stage_second_term not in {None, "raw", "agg", "vld"}:
-        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
 
     return (
-        f"{tablename}_{stage_first_term}_{put_del}_{stage_second_term}"
+        f"{tablename}_{put_del}_{stage_desc}"
         if put_del
         else f"{tablename}_{stage_desc}"
     )
@@ -372,24 +363,6 @@ def get_prime_columns(
     if not table_keylist or not etl_idea_category_config:
         return set()
 
-    # TODO get rid stage_first and stage_second through codebase
-    stage_desc = table_keylist[0]
-    if len(table_keylist) == 3:
-        put_del = table_keylist[2]
-        if put_del not in {None, "put", "del"}:
-            raise PrimeTablenameError(
-                f"'{stage_desc}' '{put_del}' is not a valid put_del"
-            )
-    stage_first_term = stage_desc.split("_")[0]
-    if stage_first_term not in {"s", "h", "job"}:
-        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
-    if stage_first_term == stage_desc:
-        stage_second_term = None
-    else:
-        stage_second_term = stage_desc.split("_")[1]
-    if stage_second_term not in {None, "raw", "agg", "vld"}:
-        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
-
     columns = get_all_dimen_columns_set(x_dimen)
     if table_keylist[-1] == "del":
         columns = get_del_dimen_columns_set(x_dimen)
@@ -441,20 +414,6 @@ def create_prime_table_sqlstr(
     stage_desc example: 's_agg', 'h_raw', 'job'
     """
     tablename = create_prime_tablename(x_dimen, stage_desc, put_del)
-
-    # TODO get rid stage_first and stage_second through codebase
-    if put_del not in {None, "put", "del"}:
-        raise PrimeTablenameError(f"'{stage_desc}' '{put_del}' is not a valid put_del")
-    stage_first_term = stage_desc.split("_")[0]
-    if stage_first_term not in {"s", "h", "job"}:
-        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
-    if stage_first_term == stage_desc:
-        stage_second_term = None
-    else:
-        stage_second_term = stage_desc.split("_")[1]
-    if stage_second_term not in {None, "raw", "agg", "vld"}:
-        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
-
     table_keylist = [stage_desc, put_del] if put_del else [stage_desc]
     etl_idea_category_config = etl_idea_category_config_dict()
     columns_set = get_prime_columns(x_dimen, table_keylist, etl_idea_category_config)

@@ -109,9 +109,6 @@ def test_get_stage_abbv5_ReturnsObj():
 
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # ESTABLISH
-    raw_str = "raw"
-    agg_str = "agg"
-    vld_str = "vld"
     put_str = "put"
     del_str = "del"
 
@@ -139,26 +136,26 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     trllabe_s_agg_table = create_prime_tablename(kw.trllabe, "s_agg")
     trlrope_s_agg_table = create_prime_tablename(kw.trlrope, "s_agg")
     trltitl_s_agg_table = create_prime_tablename(kw.trltitl, "s_agg")
-    trltitl_h_vld_table = create_prime_tablename(kw.trltitl, f"h_{vld_str}")
-    trltitl_s_raw_table = create_prime_tablename(kw.trltitl, f"s_{raw_str}")
-    trltitl_s_val_table = create_prime_tablename(kw.trltitl, f"s_{vld_str}")
-    trlcore_s_raw_table = create_prime_tablename(kw.trlcore, f"s_{raw_str}")
+    trltitl_h_vld_table = create_prime_tablename(kw.trltitl, "h_vld")
+    trltitl_s_raw_table = create_prime_tablename(kw.trltitl, "s_raw")
+    trltitl_s_val_table = create_prime_tablename(kw.trltitl, "s_vld")
+    trlcore_s_raw_table = create_prime_tablename(kw.trlcore, "s_raw")
     trlcore_s_agg_table = create_prime_tablename(kw.trlcore, "s_agg")
     prnptnr_job_table = create_prime_tablename(kw.prnptnr, kw.job, None)
     prngrou_job_table = create_prime_tablename(kw.prngrou, kw.job, None)
 
     # THEN
-    assert prnunit_s_agg_table == f"{kw.personunit}_s_put_agg"
-    assert prnptnr_s_agg_table == f"{kw.person_partnerunit}_s_put_agg"
-    assert prnmemb_s_agg_table == f"{kw.person_partner_membership}_s_put_agg"
-    assert prnplan_s_agg_table == f"{kw.person_planunit}_s_put_agg"
-    assert prnawar_s_agg_table == f"{kw.person_plan_awardunit}_s_put_agg"
-    assert prnreas_s_agg_table == f"{kw.person_plan_reasonunit}_s_put_agg"
-    assert prncase_s_agg_table == f"{kw.person_plan_reason_caseunit}_s_put_agg"
-    assert prnlabo_s_agg_table == f"{kw.person_plan_partyunit}_s_put_agg"
-    assert prnheal_s_agg_table == f"{kw.person_plan_healerunit}_s_put_agg"
-    assert prnfact_s_agg_table == f"{kw.person_plan_factunit}_s_put_agg"
-    assert prnfact_s_del_table == f"{kw.person_plan_factunit}_s_del_agg"
+    assert prnunit_s_agg_table == f"{kw.personunit}_put_s_agg"
+    assert prnptnr_s_agg_table == f"{kw.person_partnerunit}_put_s_agg"
+    assert prnmemb_s_agg_table == f"{kw.person_partner_membership}_put_s_agg"
+    assert prnplan_s_agg_table == f"{kw.person_planunit}_put_s_agg"
+    assert prnawar_s_agg_table == f"{kw.person_plan_awardunit}_put_s_agg"
+    assert prnreas_s_agg_table == f"{kw.person_plan_reasonunit}_put_s_agg"
+    assert prncase_s_agg_table == f"{kw.person_plan_reason_caseunit}_put_s_agg"
+    assert prnlabo_s_agg_table == f"{kw.person_plan_partyunit}_put_s_agg"
+    assert prnheal_s_agg_table == f"{kw.person_plan_healerunit}_put_s_agg"
+    assert prnfact_s_agg_table == f"{kw.person_plan_factunit}_put_s_agg"
+    assert prnfact_s_del_table == f"{kw.person_plan_factunit}_del_s_agg"
     assert mmtunit_s_agg_table == f"{kw.momentunit}_s_agg"
     assert mmtpayy_s_agg_table == f"{kw.moment_paybook}_s_agg"
     assert mmtbudd_s_agg_table == f"{kw.moment_budunit}_s_agg"
@@ -412,5 +409,5 @@ def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # THEN
     assert table_sqlstr
     print(table_sqlstr)
-    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
+    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_put_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
     assert table_sqlstr == expected_sqlstr

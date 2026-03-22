@@ -40,7 +40,7 @@ def check_insert_sqlstr_exists(
     print(f"{raw_tablename=} {agg_tablename=}")
     # print(f"{stage_dict=}")
     config_dict = etl_idea_category_config_dict()
-    raw_keylist = ["h", "raw", put_del] if put_del else ["h", "raw"]
+    raw_keylist = ["h_raw", put_del] if put_del else ["h_raw"]
     agg_keylist = ["h_agg", put_del] if put_del else ["h_agg"]
     p_agg_columns = get_prime_columns(dimen, agg_keylist, config_dict)
     p_raw_columns = get_prime_columns(dimen, raw_keylist, config_dict)
@@ -84,15 +84,12 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj(cursor0: Cursor):
     insert_heard_agg_sqlstrs = get_insert_heard_agg_sqlstrs()
 
     # THEN
-    h_str = "h"
-    agg_str = "agg"
     agg_sqlstrs = insert_heard_agg_sqlstrs
     etl_idea_category_config = etl_idea_category_config_dict()
     create_sound_and_heard_tables(cursor0)
     for idea_category, category_dict in etl_idea_category_config.items():
         category_config = get_idea_config_dict(idea_category)
-        if h_dict := category_dict.get("stages").get(h_str):
-            agg_dict = h_dict.get(agg_str)
+        if agg_dict := category_dict.get("stages").get("h_agg"):
             # print(f"{idea_category=}")
             if agg_dict.get("del") is None:
                 for dimen in sorted(category_config.keys()):

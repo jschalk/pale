@@ -209,8 +209,8 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
-    insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
+    prnptnr_put_s_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
+    insert_into_clause = f"""INSERT INTO {prnptnr_put_s_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -233,18 +233,18 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     trlrope_s_agg_tablename = create_prime_tablename("trlrope", "s_agg")
-    prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s_agg", "put")
+    prnptnr_put_s_agg_tblname = create_prime_tablename("PRNPTNR", "s_agg", "put")
     assert get_row_count(cursor0, trlrope_s_raw_tablename) == 7
-    assert get_row_count(cursor0, prnptnr_s_put_raw_tblname) == 6
+    assert get_row_count(cursor0, prnptnr_put_s_raw_tblname) == 6
     assert get_row_count(cursor0, trlrope_s_agg_tablename) == 0
-    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 0
+    assert get_row_count(cursor0, prnptnr_put_s_agg_tblname) == 0
 
     # WHEN
     insert_sound_raw_selects_into_sound_agg_tables(cursor0)
 
     # THEN
     assert get_row_count(cursor0, trlrope_s_agg_tablename) == 2
-    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 2
+    assert get_row_count(cursor0, prnptnr_put_s_agg_tblname) == 2
 
     select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
     cursor0.execute(select_agg_sqlstr)
@@ -256,7 +256,7 @@ VALUES
         (spark2, exx.sue, exx.sue, exx.sue, rdx, rdx, ukx, None),
     ]
 
-    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
+    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_put_s_agg_tblname};"""
     cursor0.execute(select_agg_sqlstr)
     rows = cursor0.fetchall()
     print(rows)
@@ -275,8 +275,8 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
     b117 = "br00117"
     b020 = "br00020"
     create_sound_and_heard_tables(cursor0)
-    prnptnr_s_del_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "del")
-    insert_into_clause = f"""INSERT INTO {prnptnr_s_del_raw_tblname} (
+    prnptnr_del_s_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "del")
+    insert_into_clause = f"""INSERT INTO {prnptnr_del_s_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -295,17 +295,17 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    prnptnr_s_del_agg_tblname = create_prime_tablename("PRNPTNR", "s_agg", "del")
-    assert get_row_count(cursor0, prnptnr_s_del_raw_tblname) == 6
-    assert get_row_count(cursor0, prnptnr_s_del_agg_tblname) == 0
+    prnptnr_del_s_agg_tblname = create_prime_tablename("PRNPTNR", "s_agg", "del")
+    assert get_row_count(cursor0, prnptnr_del_s_raw_tblname) == 6
+    assert get_row_count(cursor0, prnptnr_del_s_agg_tblname) == 0
 
     # WHEN
     insert_sound_raw_selects_into_sound_agg_tables(cursor0)
 
     # THEN
-    assert get_row_count(cursor0, prnptnr_s_del_agg_tblname) == 3
+    assert get_row_count(cursor0, prnptnr_del_s_agg_tblname) == 3
 
-    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_del_agg_tblname};"""
+    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_del_s_agg_tblname};"""
     cursor0.execute(select_agg_sqlstr)
     rows = cursor0.fetchall()
     print(rows)
@@ -359,8 +359,8 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
-    insert_into_clause = f"""INSERT INTO {prnptnr_s_put_raw_tblname} (
+    prnptnr_put_s_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
+    insert_into_clause = f"""INSERT INTO {prnptnr_put_s_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
 , {kw.face_name}
@@ -384,18 +384,18 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     trlrope_s_agg_tablename = create_prime_tablename("trlrope", "s_agg")
-    prnptnr_s_put_agg_tblname = create_prime_tablename("PRNPTNR", "s_agg", "put")
+    prnptnr_put_s_agg_tblname = create_prime_tablename("PRNPTNR", "s_agg", "put")
     assert get_row_count(cursor0, trlrope_s_raw_tablename) == 8
-    assert get_row_count(cursor0, prnptnr_s_put_raw_tblname) == 7
+    assert get_row_count(cursor0, prnptnr_put_s_raw_tblname) == 7
     assert get_row_count(cursor0, trlrope_s_agg_tablename) == 0
-    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 0
+    assert get_row_count(cursor0, prnptnr_put_s_agg_tblname) == 0
 
     # WHEN
     etl_sound_raw_tables_to_sound_agg_tables(cursor0)
 
     # THEN
     assert get_row_count(cursor0, trlrope_s_agg_tablename) == 4
-    assert get_row_count(cursor0, prnptnr_s_put_agg_tblname) == 3
+    assert get_row_count(cursor0, prnptnr_put_s_agg_tblname) == 3
 
     select_agg_sqlstr = f"""SELECT * FROM {trlrope_s_agg_tablename};"""
     cursor0.execute(select_agg_sqlstr)
@@ -409,7 +409,7 @@ VALUES
     assert rows[0] == ex_row0
     assert rows == [ex_row0, ex_row1, ex_row2, ex_row3]
 
-    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_agg_tblname};"""
+    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_put_s_agg_tblname};"""
     cursor0.execute(select_agg_sqlstr)
     rows = cursor0.fetchall()
     print(rows)

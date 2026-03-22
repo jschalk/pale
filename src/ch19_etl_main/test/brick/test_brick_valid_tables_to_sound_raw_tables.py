@@ -88,16 +88,16 @@ VALUES
     assert get_row_count(cursor0, br00117_valid_tablename) == 2
     assert get_row_count(cursor0, br00045_valid_tablename) == 3
     trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s_raw")
-    prnptnr_s_put_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
+    prnptnr_put_s_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
     assert not db_table_exists(cursor0, trlrope_s_raw_tablename)
-    assert not db_table_exists(cursor0, prnptnr_s_put_raw_tblname)
+    assert not db_table_exists(cursor0, prnptnr_put_s_raw_tblname)
 
     # WHEN
     etl_brick_valid_tables_to_sound_raw_tables(cursor0)
 
     # THEN
     assert get_row_count(cursor0, trlrope_s_raw_tablename) == 5
-    assert get_row_count(cursor0, prnptnr_s_put_raw_tblname) == 2
+    assert get_row_count(cursor0, prnptnr_put_s_raw_tblname) == 2
     b117 = "br00117"
     b045 = "br00045"
     ex_row0 = (b117, spark1, exx.sue, exx.yao, yao_inx, None, None, None, None)
@@ -118,7 +118,7 @@ VALUES
     assert rows[3] == ex_row0
     assert rows[4] == ex_row1
 
-    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_s_put_raw_tblname};"""
+    select_agg_sqlstr = f"""SELECT * FROM {prnptnr_put_s_raw_tblname};"""
     cursor0.execute(select_agg_sqlstr)
     rows = cursor0.fetchall()
     # print(rows)

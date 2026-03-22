@@ -97,8 +97,8 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
 
     # translate_dimens_config = get_idea_config_dict({kw.translate})
     # for x_dimen in translate_dimens_config:
-    #     s_vld_tablename = prime_tbl(abbv7(x_dimen), "s", "vld")
-    #     expected_s_vld_sqlstr = create_prime_table_sqlstr(x_dimen, "s", "vld")
+    #     s_vld_tablename = prime_tbl(abbv7(x_dimen), "s_vld")
+    #     expected_s_vld_sqlstr = create_prime_table_sqlstr(x_dimen, "s_vld")
 
     #     abbv7 = abbv7(x_dimen)
     #     print(f'CREATE_{abbv7.upper()}_SOUND_VLD_SQLSTR= """{expected_s_vld_sqlstr}"""')
@@ -109,7 +109,7 @@ def test_get_prime_create_table_sqlstrs_ReturnsObj():
 
 def add_dimen_to_agg_variables(
     x_dimen,
-    stage_desc,
+    stage_desc: str,
     x_put_del,
     expected_tablenames,
     expected_var_refs,
@@ -120,27 +120,18 @@ def add_dimen_to_agg_variables(
     tablename = prime_tbl(abbv7, stage_desc, x_put_del)
     table_sql = create_prime_table_sqlstr(x_dimen, stage_desc, x_put_del)
 
-    # TODO get rid stage_first and stage_second through codebase
-    if x_put_del not in {None, "put", "del"}:
-        raise Exception(f"'{stage_desc}' '{x_put_del}' is not a valid put_del")
-    stage_first_term = stage_desc.split("_")[0]
-    if stage_first_term not in {"s", "h", "job"}:
-        raise Exception(f"'{stage_desc}' is not a valid stage")
-    if stage_first_term == stage_desc:
-        stage_second_term = None
-    else:
-        stage_second_term = stage_desc.split("_")[1]
-    if stage_second_term not in {None, "raw", "agg", "vld"}:
-        raise Exception(f"'{stage_desc}' is not a valid stage")
+    if x_put_del:
+        if stage_desc.startswith("h"):
+            stage_desc = stage_desc.replace("h", "HEARD")
+        elif stage_desc.startswith("s"):
+            stage_desc = stage_desc.replace("s", "SOUND")
 
-    stage_upper_str = "HEARD" if stage_first_term == "h" else "SOUND"
-    # if tablename not in prime_tablenames:
     if x_put_del == "put":
-        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_upper_str}_PUT_{stage_second_term.upper()}_SQLSTR"
+        global_variable_ref = f"CREATE_{abbv7.upper()}_PUT_{stage_desc.upper()}_SQLSTR"
     elif x_put_del == "del":
-        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_upper_str}_DEL_{stage_second_term.upper()}_SQLSTR"
+        global_variable_ref = f"CREATE_{abbv7.upper()}_DEL_{stage_desc.upper()}_SQLSTR"
     else:
-        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_upper_str}_{stage_second_term.upper()}_SQLSTR"
+        global_variable_ref = f"CREATE_{abbv7.upper()}_{stage_desc.upper()}_SQLSTR"
     # # print(f""""{tablename}": {global_variable_ref},""")
     # print("")
     # print()
@@ -218,31 +209,28 @@ def test_get_person_heard_vld_tablenames_ReturnsObj_PersonDimens():
 def test_create_sound_and_heard_tables_CreatesMomentRawTables(cursor0: Cursor):
     # ESTABLISH
     assert len(get_db_tables(cursor0)) == 0
-    agg_str = "agg"
-    raw_str = "raw"
-    vld_str = "vld"
     put_str = "put"
     del_str = "del"
-    prnunit_s_put_agg_table = prime_tbl(kw.personunit, "s_agg", put_str)
-    prnptnr_s_put_agg_table = prime_tbl(kw.prnptnr, "s_agg", put_str)
-    prnmemb_s_put_agg_table = prime_tbl(kw.prnmemb, "s_agg", put_str)
-    prnfact_s_del_agg_table = prime_tbl(kw.prnfact, "s_agg", del_str)
-    prnfact_s_del_vld_table = prime_tbl(kw.prnfact, f"s_{vld_str}", del_str)
+    prnunit_put_s_agg_table = prime_tbl(kw.personunit, "s_agg", put_str)
+    prnptnr_put_s_agg_table = prime_tbl(kw.prnptnr, "s_agg", put_str)
+    prnmemb_put_s_agg_table = prime_tbl(kw.prnmemb, "s_agg", put_str)
+    prnfact_del_s_agg_table = prime_tbl(kw.prnfact, "s_agg", del_str)
+    prnfact_del_s_vld_table = prime_tbl(kw.prnfact, "s_vld", del_str)
     momentunit_s_agg_table = prime_tbl(kw.momentunit, "s_agg")
-    momentunit_s_vld_table = prime_tbl(kw.momentunit, f"s_{vld_str}")
+    momentunit_s_vld_table = prime_tbl(kw.momentunit, "s_vld")
     trltitl_s_agg_table = prime_tbl(kw.trltitl, "s_agg")
-    mmthour_h_vld_table = prime_tbl(kw.mmthour, f"h_{vld_str}")
-    nabtime_s_raw_table = prime_tbl(kw.nabtime, f"s_{raw_str}")
-    trltitl_s_raw_table = prime_tbl(kw.trltitl, f"s_{raw_str}")
-    trlcore_s_raw_table = prime_tbl(kw.trlcore, f"s_{raw_str}")
+    mmthour_h_vld_table = prime_tbl(kw.mmthour, "h_vld")
+    nabtime_s_raw_table = prime_tbl(kw.nabtime, "s_raw")
+    trltitl_s_raw_table = prime_tbl(kw.trltitl, "s_raw")
+    trlcore_s_raw_table = prime_tbl(kw.trlcore, "s_raw")
     trlcore_s_agg_table = prime_tbl(kw.trlcore, "s_agg")
-    trlcore_s_vld_table = prime_tbl(kw.trlcore, f"s_{vld_str}")
+    trlcore_s_vld_table = prime_tbl(kw.trlcore, "s_vld")
 
-    assert not db_table_exists(cursor0, prnunit_s_put_agg_table)
-    assert not db_table_exists(cursor0, prnptnr_s_put_agg_table)
-    assert not db_table_exists(cursor0, prnmemb_s_put_agg_table)
-    assert not db_table_exists(cursor0, prnfact_s_del_agg_table)
-    assert not db_table_exists(cursor0, prnfact_s_del_vld_table)
+    assert not db_table_exists(cursor0, prnunit_put_s_agg_table)
+    assert not db_table_exists(cursor0, prnptnr_put_s_agg_table)
+    assert not db_table_exists(cursor0, prnmemb_put_s_agg_table)
+    assert not db_table_exists(cursor0, prnfact_del_s_agg_table)
+    assert not db_table_exists(cursor0, prnfact_del_s_vld_table)
     assert not db_table_exists(cursor0, momentunit_s_agg_table)
     assert not db_table_exists(cursor0, momentunit_s_vld_table)
     assert not db_table_exists(cursor0, trltitl_s_agg_table)
@@ -263,11 +251,11 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables(cursor0: Cursor):
     # for x_row in cursor.fetchall():
     #     print(f"{x_count} {x_row[1]=}")
     #     x_count += 1
-    assert db_table_exists(cursor0, prnunit_s_put_agg_table)
-    assert db_table_exists(cursor0, prnptnr_s_put_agg_table)
-    assert db_table_exists(cursor0, prnmemb_s_put_agg_table)
-    assert db_table_exists(cursor0, prnfact_s_del_agg_table)
-    assert db_table_exists(cursor0, prnfact_s_del_vld_table)
+    assert db_table_exists(cursor0, prnunit_put_s_agg_table)
+    assert db_table_exists(cursor0, prnptnr_put_s_agg_table)
+    assert db_table_exists(cursor0, prnmemb_put_s_agg_table)
+    assert db_table_exists(cursor0, prnfact_del_s_agg_table)
+    assert db_table_exists(cursor0, prnfact_del_s_vld_table)
     assert db_table_exists(cursor0, momentunit_s_agg_table)
     assert db_table_exists(cursor0, momentunit_s_vld_table)
     assert db_table_exists(cursor0, trltitl_s_agg_table)
@@ -283,20 +271,19 @@ def test_create_sound_and_heard_tables_CreatesMomentRawTables(cursor0: Cursor):
 def test_create_prime_db_table_CreatesSingleTable(cursor0: Cursor):
     # ESTABLISH
     assert len(get_db_tables(cursor0)) == 0
-    agg_str = "agg"
     put_str = "put"
-    prnunit_s_put_agg_table = prime_tbl(kw.personunit, "s_agg", put_str)
+    prnunit_put_s_agg_table = prime_tbl(kw.personunit, "s_agg", put_str)
 
-    assert not db_table_exists(cursor0, prnunit_s_put_agg_table)
+    assert not db_table_exists(cursor0, prnunit_put_s_agg_table)
     assert len(get_db_tables(cursor0)) == 0
 
     # WHEN
     gen_tablename = create_prime_db_table(cursor0, kw.personunit, "s_agg", put_str)
 
     # THEN
-    assert db_table_exists(cursor0, prnunit_s_put_agg_table)
+    assert db_table_exists(cursor0, prnunit_put_s_agg_table)
     assert len(get_db_tables(cursor0)) == 1
-    assert gen_tablename == prnunit_s_put_agg_table
+    assert gen_tablename == prnunit_put_s_agg_table
 
 
 def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scenario0_TranslateDimen(
@@ -478,20 +465,20 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
 
     static_example_sqlstr = """WITH inconsistency_rows AS (
 SELECT spark_num, face_name, person_name, plan_rope, awardee_title
-FROM person_plan_awardunit_s_put_raw
+FROM person_plan_awardunit_put_s_raw
 GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title
 HAVING MIN(give_force) != MAX(give_force)
     OR MIN(take_force) != MAX(take_force)
     OR MIN(knot) != MAX(knot)
 )
-UPDATE person_plan_awardunit_s_put_raw
+UPDATE person_plan_awardunit_put_s_raw
 SET error_message = 'Inconsistent data'
 FROM inconsistency_rows
-WHERE inconsistency_rows.spark_num = person_plan_awardunit_s_put_raw.spark_num
-    AND inconsistency_rows.face_name = person_plan_awardunit_s_put_raw.face_name
-    AND inconsistency_rows.person_name = person_plan_awardunit_s_put_raw.person_name
-    AND inconsistency_rows.plan_rope = person_plan_awardunit_s_put_raw.plan_rope
-    AND inconsistency_rows.awardee_title = person_plan_awardunit_s_put_raw.awardee_title
+WHERE inconsistency_rows.spark_num = person_plan_awardunit_put_s_raw.spark_num
+    AND inconsistency_rows.face_name = person_plan_awardunit_put_s_raw.face_name
+    AND inconsistency_rows.person_name = person_plan_awardunit_put_s_raw.person_name
+    AND inconsistency_rows.plan_rope = person_plan_awardunit_put_s_raw.plan_rope
+    AND inconsistency_rows.awardee_title = person_plan_awardunit_put_s_raw.awardee_title
 ;
 """
     print(update_sqlstr)
@@ -643,9 +630,9 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PersonDimen(
     print(put_expected_insert_sqlstr)
     assert update_sqlstrs[0] == put_expected_insert_sqlstr
 
-    static_example_put_sqlstr = """INSERT INTO person_plan_awardunit_s_put_agg (spark_num, face_name, person_name, plan_rope, awardee_title, give_force, take_force, knot)
+    static_example_put_sqlstr = """INSERT INTO person_plan_awardunit_put_s_agg (spark_num, face_name, person_name, plan_rope, awardee_title, give_force, take_force, knot)
 SELECT spark_num, face_name, person_name, plan_rope, awardee_title, MAX(give_force), MAX(take_force), MAX(knot)
-FROM person_plan_awardunit_s_put_raw
+FROM person_plan_awardunit_put_s_raw
 WHERE error_message IS NULL
 GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title
 ;
@@ -674,9 +661,9 @@ GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title
     print(update_sqlstrs[1])
     assert update_sqlstrs[1] == del_expected_insert_sqlstr
 
-    static_example_del_sqlstr = """INSERT INTO person_plan_awardunit_s_del_agg (spark_num, face_name, person_name, plan_rope, awardee_title_ERASE)
+    static_example_del_sqlstr = """INSERT INTO person_plan_awardunit_del_s_agg (spark_num, face_name, person_name, plan_rope, awardee_title_ERASE)
 SELECT spark_num, face_name, person_name, plan_rope, awardee_title_ERASE
-FROM person_plan_awardunit_s_del_raw
+FROM person_plan_awardunit_del_s_raw
 GROUP BY spark_num, face_name, person_name, plan_rope, awardee_title_ERASE
 ;
 """
@@ -812,46 +799,46 @@ def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_PersonDimens(cursor0: Curs
 
     for person_dimen in person_dimens_config:
         # print(f"{person_dimen=}")
-        s_put_agg_tablename = prime_tbl(person_dimen, "s_agg", "put")
-        s_del_agg_tablename = prime_tbl(person_dimen, "s_agg", "del")
-        s_put_vld_tablename = prime_tbl(person_dimen, "s_vld", "put")
-        s_del_vld_tablename = prime_tbl(person_dimen, "s_vld", "del")
-        s_put_agg_cols = get_table_columns(cursor0, s_put_agg_tablename)
-        s_del_agg_cols = get_table_columns(cursor0, s_del_agg_tablename)
-        s_put_agg_cols.remove(kw.error_message)
-        s_del_agg_cols.remove(kw.error_message)
-        s_put_agg_cols = set(s_put_agg_cols)
-        s_del_agg_cols = set(s_del_agg_cols)
-        s_put_vld_cols = set(get_table_columns(cursor0, s_put_vld_tablename))
-        s_del_vld_cols = set(get_table_columns(cursor0, s_del_vld_tablename))
-        s_put_vld_tbl = s_put_vld_tablename
-        s_del_vld_tbl = s_del_vld_tablename
-        s_put_agg_tbl = s_put_agg_tablename
-        s_del_agg_tbl = s_del_agg_tablename
-        s_put_vld_insert_sql = get_insert_sql(cursor0, s_put_vld_tbl, s_put_vld_cols)
-        s_del_vld_insert_sql = get_insert_sql(cursor0, s_del_vld_tbl, s_del_vld_cols)
-        s_put_agg_select_sql = get_select_sql(
-            cursor0, s_put_agg_tbl, s_put_agg_cols, flat_bool=True
+        put_s_agg_tablename = prime_tbl(person_dimen, "s_agg", "put")
+        del_s_agg_tablename = prime_tbl(person_dimen, "s_agg", "del")
+        put_s_vld_tablename = prime_tbl(person_dimen, "s_vld", "put")
+        del_s_vld_tablename = prime_tbl(person_dimen, "s_vld", "del")
+        put_s_agg_cols = get_table_columns(cursor0, put_s_agg_tablename)
+        del_s_agg_cols = get_table_columns(cursor0, del_s_agg_tablename)
+        put_s_agg_cols.remove(kw.error_message)
+        del_s_agg_cols.remove(kw.error_message)
+        put_s_agg_cols = set(put_s_agg_cols)
+        del_s_agg_cols = set(del_s_agg_cols)
+        put_s_vld_cols = set(get_table_columns(cursor0, put_s_vld_tablename))
+        del_s_vld_cols = set(get_table_columns(cursor0, del_s_vld_tablename))
+        put_s_vld_tbl = put_s_vld_tablename
+        del_s_vld_tbl = del_s_vld_tablename
+        put_s_agg_tbl = put_s_agg_tablename
+        del_s_agg_tbl = del_s_agg_tablename
+        put_s_vld_insert_sql = get_insert_sql(cursor0, put_s_vld_tbl, put_s_vld_cols)
+        del_s_vld_insert_sql = get_insert_sql(cursor0, del_s_vld_tbl, del_s_vld_cols)
+        put_s_agg_select_sql = get_select_sql(
+            cursor0, put_s_agg_tbl, put_s_agg_cols, flat_bool=True
         )
-        s_del_agg_select_sql = get_select_sql(
-            cursor0, s_del_agg_tbl, s_del_agg_cols, flat_bool=True
+        del_s_agg_select_sql = get_select_sql(
+            cursor0, del_s_agg_tbl, del_s_agg_cols, flat_bool=True
         )
         where_clause = "WHERE error_message IS NULL"
-        s_put_agg_select_sql = f"{s_put_agg_select_sql}{where_clause}"
-        s_del_agg_select_sql = f"{s_del_agg_select_sql}{where_clause}"
-        s_put_vld_insert_select = f"{s_put_vld_insert_sql} {s_put_agg_select_sql}"
-        s_del_vld_insert_select = f"{s_del_vld_insert_sql} {s_del_agg_select_sql}"
-        # print(f"{s_put_vld_insert_sql=}")
+        put_s_agg_select_sql = f"{put_s_agg_select_sql}{where_clause}"
+        del_s_agg_select_sql = f"{del_s_agg_select_sql}{where_clause}"
+        put_s_vld_insert_select = f"{put_s_vld_insert_sql} {put_s_agg_select_sql}"
+        del_s_vld_insert_select = f"{del_s_vld_insert_sql} {del_s_agg_select_sql}"
+        # print(f"{put_s_vld_insert_sql=}")
         # create_select_query(cursor=)
         abbv7 = get_dimen_abbv7(person_dimen)
         put_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_PUT_SQLSTR"
         del_sqlstr_ref = f"INSERT_{abbv7.upper()}_SOUND_VLD_DEL_SQLSTR"
-        # print(f'{put_sqlstr_ref}= "{s_put_vld_insert_select}"')
-        # print(f'{del_sqlstr_ref}= "{s_del_vld_insert_select}"')
-        # print(f"""'{s_put_vld_tablename}': {put_sqlstr_ref},""")
-        # print(f"""'{s_del_vld_tablename}': {del_sqlstr_ref},""")
-        assert insert_s_vld_sqlstrs.get(s_put_vld_tbl) == s_put_vld_insert_select
-        assert insert_s_vld_sqlstrs.get(s_del_vld_tbl) == s_del_vld_insert_select
+        # print(f'{put_sqlstr_ref}= "{put_s_vld_insert_select}"')
+        # print(f'{del_sqlstr_ref}= "{del_s_vld_insert_select}"')
+        # print(f"""'{put_s_vld_tablename}': {put_sqlstr_ref},""")
+        # print(f"""'{del_s_vld_tablename}': {del_sqlstr_ref},""")
+        assert insert_s_vld_sqlstrs.get(put_s_vld_tbl) == put_s_vld_insert_select
+        assert insert_s_vld_sqlstrs.get(del_s_vld_tbl) == del_s_vld_insert_select
 
 
 def test_get_insert_into_sound_vld_sqlstrs_ReturnsObj_Moment_Nabu_Dimens(
@@ -906,46 +893,46 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PersonDimens(cursor0: Curs
 
     for person_dimen in person_dimens_config:
         # print(f"{person_dimen=}")
-        s_put_vld_tablename = prime_tbl(person_dimen, "s_vld", "put")
-        s_del_vld_tablename = prime_tbl(person_dimen, "s_vld", "del")
-        h_put_raw_tablename = prime_tbl(person_dimen, "h_raw", "put")
-        h_del_raw_tablename = prime_tbl(person_dimen, "h_raw", "del")
-        s_put_cols = set(get_table_columns(cursor0, s_put_vld_tablename))
-        s_del_cols = set(get_table_columns(cursor0, s_del_vld_tablename))
-        # s_put_cols = set(s_put_cols).remove(kw.error_message)
+        put_s_vld_tablename = prime_tbl(person_dimen, "s_vld", "put")
+        del_s_vld_tablename = prime_tbl(person_dimen, "s_vld", "del")
+        put_h_raw_tablename = prime_tbl(person_dimen, "h_raw", "put")
+        del_h_raw_tablename = prime_tbl(person_dimen, "h_raw", "del")
+        put_s_cols = set(get_table_columns(cursor0, put_s_vld_tablename))
+        s_del_cols = set(get_table_columns(cursor0, del_s_vld_tablename))
+        # put_s_cols = set(put_s_cols).remove(kw.error_message)
         # s_del_cols = set(s_del_cols).remove(kw.error_message)
-        h_put_raw_cols = set(get_table_columns(cursor0, h_put_raw_tablename))
-        h_del_raw_cols = set(get_table_columns(cursor0, h_del_raw_tablename))
-        h_put_cols = set_translateable_otx_inx_args(h_put_raw_cols)
-        h_del_cols = set_translateable_otx_inx_args(h_del_raw_cols)
-        h_put_cols.remove(kw.translate_spark_num)
+        put_h_raw_cols = set(get_table_columns(cursor0, put_h_raw_tablename))
+        del_h_raw_cols = set(get_table_columns(cursor0, del_h_raw_tablename))
+        put_h_cols = set_translateable_otx_inx_args(put_h_raw_cols)
+        h_del_cols = set_translateable_otx_inx_args(del_h_raw_cols)
+        put_h_cols.remove(kw.translate_spark_num)
         h_del_cols.remove(kw.translate_spark_num)
-        h_put_cols = {col for col in h_put_cols if col[-3:] != "inx"}
+        put_h_cols = {col for col in put_h_cols if col[-3:] != "inx"}
         h_del_cols = {col for col in h_del_cols if col[-3:] != "inx"}
-        h_put_raw_tbl = h_put_raw_tablename
-        h_del_raw_tbl = h_del_raw_tablename
-        s_put_vld_tbl = s_put_vld_tablename
-        s_del_vld_tbl = s_del_vld_tablename
-        h_put_raw_insert_sql = get_insert_sql(cursor0, h_put_raw_tbl, h_put_cols)
-        h_del_raw_insert_sql = get_insert_sql(cursor0, h_del_raw_tbl, h_del_cols)
-        s_put_vld_select_sql = get_select_sql(
-            cursor0, s_put_vld_tbl, s_put_cols, flat_bool=True
+        put_h_raw_tbl = put_h_raw_tablename
+        del_h_raw_tbl = del_h_raw_tablename
+        put_s_vld_tbl = put_s_vld_tablename
+        del_s_vld_tbl = del_s_vld_tablename
+        put_h_raw_insert_sql = get_insert_sql(cursor0, put_h_raw_tbl, put_h_cols)
+        del_h_raw_insert_sql = get_insert_sql(cursor0, del_h_raw_tbl, h_del_cols)
+        put_s_vld_select_sql = get_select_sql(
+            cursor0, put_s_vld_tbl, put_s_cols, flat_bool=True
         )
-        s_del_vld_select_sql = get_select_sql(
-            cursor0, s_del_vld_tbl, s_del_cols, flat_bool=True
+        del_s_vld_select_sql = get_select_sql(
+            cursor0, del_s_vld_tbl, s_del_cols, flat_bool=True
         )
-        h_put_raw_insert_select = f"{h_put_raw_insert_sql} {s_put_vld_select_sql}"
-        h_del_raw_insert_select = f"{h_del_raw_insert_sql} {s_del_vld_select_sql}"
+        put_h_raw_insert_select = f"{put_h_raw_insert_sql} {put_s_vld_select_sql}"
+        del_h_raw_insert_select = f"{del_h_raw_insert_sql} {del_s_vld_select_sql}"
         # create_select_query(cursor=)
         abbv7 = get_dimen_abbv7(person_dimen)
         put_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_PUT_SQLSTR"
         del_sqlstr_ref = f"INSERT_{abbv7.upper()}_HEARD_RAW_DEL_SQLSTR"
-        # print(f'{put_sqlstr_ref}= "{h_put_raw_insert_select}"')
-        # print(f'{del_sqlstr_ref}= "{h_del_raw_insert_select}"')
-        # print(f"""'{h_put_raw_tablename}': {put_sqlstr_ref},""")
-        # print(f"""'{h_del_raw_tablename}': {del_sqlstr_ref},""")
-        assert insert_h_raw_sqlstrs.get(h_put_raw_tbl) == h_put_raw_insert_select
-        assert insert_h_raw_sqlstrs.get(h_del_raw_tbl) == h_del_raw_insert_select
+        # print(f'{put_sqlstr_ref}= "{put_h_raw_insert_select}"')
+        # print(f'{del_sqlstr_ref}= "{del_h_raw_insert_select}"')
+        # print(f"""'{put_h_raw_tablename}': {put_sqlstr_ref},""")
+        # print(f"""'{del_h_raw_tablename}': {del_sqlstr_ref},""")
+        assert insert_h_raw_sqlstrs.get(put_h_raw_tbl) == put_h_raw_insert_select
+        assert insert_h_raw_sqlstrs.get(del_h_raw_tbl) == del_h_raw_insert_select
 
 
 def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_Moment_Nabu_Dimens(
