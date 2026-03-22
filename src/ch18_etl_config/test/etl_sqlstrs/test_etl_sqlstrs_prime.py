@@ -124,7 +124,7 @@ def add_dimen_to_agg_variables(
     abbv7 = get_dimen_abbv7(x_dimen)
     stage_desc = f"{x_stage0}_{x_stage1}"
     tablename = prime_tbl(abbv7, stage_desc, x_put_del)
-    table_sql = create_prime_table_sqlstr(x_dimen, x_stage0, x_stage1, x_put_del)
+    table_sql = create_prime_table_sqlstr(x_dimen, stage_desc, x_put_del)
     stage_upper_str = "HEARD" if x_stage0 == "h" else "SOUND"
     # if tablename not in prime_tablenames:
     if x_put_del == "put":

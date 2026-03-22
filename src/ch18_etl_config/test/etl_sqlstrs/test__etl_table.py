@@ -410,7 +410,7 @@ def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
 def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # ESTABLISH / WHEN
     table_sqlstr = create_prime_table_sqlstr(
-        kw.person_plan_reason_caseunit, "s", "raw", "put"
+        kw.person_plan_reason_caseunit, "s_raw", "put"
     )
 
     # THEN

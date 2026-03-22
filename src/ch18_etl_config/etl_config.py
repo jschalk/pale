@@ -433,15 +433,31 @@ def get_prime_columns(
 
 
 def create_prime_table_sqlstr(
-    x_dimen: str, stage0: str, stage1: str, put_del: str = None
+    x_dimen: str, stage_desc: str, put_del: str = None
 ) -> str:
     """Given dimen and stages return the Create Table sqlstr
-    stage0 must be one: 's', 'h', 'job'
-    stage1 must be one: 'raw', 'agg', 'vld'
+    stage_desc example: 's_agg', 'h_raw', 'job'
     """
-    stage_desc = f"{stage0}_{stage1}"
     tablename = create_prime_tablename(x_dimen, stage_desc, put_del)
-    table_keylist = [stage0, stage1, put_del] if put_del else [stage0, stage1]
+
+    # TODO get rid stage_first and stage_second through codebase
+    if put_del not in {None, "put", "del"}:
+        raise PrimeTablenameError(f"'{stage_desc}' '{put_del}' is not a valid put_del")
+    stage_first_term = stage_desc.split("_")[0]
+    if stage_first_term not in {"s", "h", "job"}:
+        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
+    if stage_first_term == stage_desc:
+        stage_second_term = None
+    else:
+        stage_second_term = stage_desc.split("_")[1]
+    if stage_second_term not in {None, "raw", "agg", "vld"}:
+        raise PrimeTablenameError(f"'{stage_desc}' is not a valid stage")
+
+    table_keylist = (
+        [stage_first_term, stage_second_term, put_del]
+        if put_del
+        else [stage_first_term, stage_second_term]
+    )
     etl_idea_category_config = etl_idea_category_config_dict()
     columns_set = get_prime_columns(x_dimen, table_keylist, etl_idea_category_config)
     columns_list = get_default_sorted_list(columns_set)
