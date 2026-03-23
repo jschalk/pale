@@ -8,7 +8,7 @@ from src.ch00_py.file_toolbox import create_path, get_level1_dirs
 from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch11_bud.bud_filehandler import open_person_file
-from src.ch14_moment.moment_main import get_default_path_momentunit
+from src.ch14_moment.moment_main import open_moment_file
 from src.ch17_idea.idea_csv_tool import (
     add_momentunit_to_stance_csv_strs,
     add_personunit_to_stance_csv_strs,
@@ -175,7 +175,7 @@ def collect_stance_csv_strs(world_dir: str) -> dict[str, str]:
         x_knot = default_knot_if_None()
         moment_rope = create_rope(moment_label, None, x_knot)
         moment_lasso = lassounit_shop(moment_rope, x_knot)
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        x_momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
         add_momentunit_to_stance_csv_strs(x_momentunit, x_csv_strs, ",")
         moment_dir = create_path(moments_dir, moment_lasso.make_path())
         persons_dir = create_path(moment_dir, "persons")

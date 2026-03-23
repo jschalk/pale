@@ -465,9 +465,7 @@ def get_momentunit_from_dict(moment_dict: dict) -> MomentUnit:
     return x_moment
 
 
-def get_default_path_momentunit(
-    moment_mstr_dir: str, moment_lasso: LassoUnit
-) -> MomentUnit:
+def open_moment_file(moment_mstr_dir: str, moment_lasso: LassoUnit) -> MomentUnit:
     moment_json_path = create_moment_json_path(moment_mstr_dir, moment_lasso)
     x_momentunit = get_momentunit_from_dict(open_json(moment_json_path))
     x_momentunit.moment_mstr_dir = moment_mstr_dir

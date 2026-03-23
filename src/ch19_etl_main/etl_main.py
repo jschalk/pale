@@ -60,7 +60,7 @@ from src.ch14_moment.moment_cell import (
     set_cell_trees_decrees,
     set_cell_trees_found_facts,
 )
-from src.ch14_moment.moment_main import get_default_path_momentunit
+from src.ch14_moment.moment_main import open_moment_file
 from src.ch16_translate.translate_config import (
     get_quick_translates_column_ref,
     get_translate_args_class_types,
@@ -730,7 +730,7 @@ def etl_create_buds_root_cells(moment_mstr_dir: str):
         ote1_json_path = create_path(moment_dir, "moment_ote1_agg.json")
         if os_path_exists(ote1_json_path):
             ote1_dict = open_json(ote1_json_path)
-            x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+            x_momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
             x_momentunit.create_buds_root_cells(ote1_dict)
 
 
@@ -940,7 +940,7 @@ def add_moment_epoch_to_guts(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_lasso = lassounit_shop(create_rope(moment_label))
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        x_momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
         x_momentunit.add_epoch_to_guts()
 
 
@@ -948,7 +948,7 @@ def etl_moment_guts_to_moment_jobs(moment_mstr_dir: str):
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_lasso = lassounit_shop(create_rope(moment_label))
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        x_momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
         x_momentunit.generate_all_jobs()
 
 
@@ -990,7 +990,7 @@ def etl_moment_json_partner_nets_to_moment_partner_nets_table(
     moments_dir = create_path(moment_mstr_dir, "moments")
     for moment_label in get_level1_dirs(moments_dir):
         moment_lasso = lassounit_shop(create_rope(moment_label))
-        x_momentunit = get_default_path_momentunit(moment_mstr_dir, moment_lasso)
+        x_momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
         x_momentunit.set_all_tranbook()
         insert_tranunit_partners_net(cursor, x_momentunit.all_tranbook)
 

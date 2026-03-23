@@ -34,14 +34,14 @@ from src.ch21_world.test._util.ch21_env import (
     temp_dir_setup,
 )
 from src.ch21_world.world import (
-    sheets_input_to_clarity_mstr,
-    sheets_input_to_clarity_with_cursor,
+    sheets_input_to_lynx_mstr,
+    sheets_input_to_lynx_with_cursor,
     worlddir_shop,
 )
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
-def test_sheets_input_to_clarity_with_cursor_Scenario0_br000113PopulatesTables(
+def test_sheets_input_to_lynx_with_cursor_Scenario0_br000113PopulatesTables(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH:
@@ -146,7 +146,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario0_br000113PopulatesTables(
     # calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir)
 
     # WHEN
-    sheets_input_to_clarity_with_cursor(
+    sheets_input_to_lynx_with_cursor(
         cursor0, fay_wdir._input_dir, fay_wdir._moment_mstr_dir
     )
 
@@ -206,7 +206,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario0_br000113PopulatesTables(
     assert os_path_exists(last_run_metrics_path)
 
 
-def test_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayRows(
+def test_sheets_input_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH:
@@ -326,7 +326,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayRows(
     # calc_moment_bud_partner_mandate_net_ledgers(moment_mstr_dir)
 
     # WHEN
-    sheets_input_to_clarity_with_cursor(
+    sheets_input_to_lynx_with_cursor(
         cursor0, fay_wdir._input_dir, fay_wdir._moment_mstr_dir
     )
 
@@ -367,7 +367,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario1_PopulateBudPayRows(
     assert get_row_count(cursor0, kw.moment_kpi001_partner_nets) == 1
 
 
-def test_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentTranBook(
+def test_sheets_input_to_lynx_with_cursor_Scenario2_PopulateMomentTranBook(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH:
@@ -398,7 +398,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentTranBook(
     assert not db_table_exists(cursor0, kw.moment_partner_nets)
 
     # WHEN
-    sheets_input_to_clarity_with_cursor(
+    sheets_input_to_lynx_with_cursor(
         cursor0, fay_wdir._input_dir, fay_wdir._moment_mstr_dir
     )
 
@@ -406,7 +406,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario2_PopulateMomentTranBook(
     assert get_row_count(cursor0, kw.moment_partner_nets) == 1
 
 
-def test_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_IsStillCreated(
+def test_sheets_input_to_lynx_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_IsStillCreated(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH
@@ -431,7 +431,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_Is
     assert os_path_exists(a23_ote1_csv_path) is False
 
     # WHEN
-    sheets_input_to_clarity_with_cursor(
+    sheets_input_to_lynx_with_cursor(
         cursor0, fay_wdir._input_dir, fay_wdir._moment_mstr_dir
     )
 
@@ -439,7 +439,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_Is
     assert os_path_exists(a23_ote1_csv_path)
 
 
-def test_sheets_input_to_clarity_with_cursor_Scenario4_DeletesPreviousFiles(
+def test_sheets_input_to_lynx_with_cursor_Scenario4_DeletesPreviousFiles(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH
@@ -459,7 +459,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario4_DeletesPreviousFiles(
     print(f"{testing3_path=}")
 
     # WHEN
-    sheets_input_to_clarity_with_cursor(
+    sheets_input_to_lynx_with_cursor(
         cursor0, fay_wdir._input_dir, fay_wdir._moment_mstr_dir
     )
 
@@ -468,7 +468,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario4_DeletesPreviousFiles(
     assert os_path_exists(testing3_path) is False
 
 
-def test_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
+def test_sheets_input_to_lynx_with_cursor_Scenario5_CreatesFiles(
     temp_dir_setup, cursor0: Cursor
 ):
     # ESTABLISH
@@ -544,7 +544,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
     assert count_dirs_files(fay_wdir.worlds_dir) == 5
 
     # WHEN
-    sheets_input_to_clarity_with_cursor(
+    sheets_input_to_lynx_with_cursor(
         cursor0, fay_wdir._input_dir, fay_wdir._moment_mstr_dir
     )
 
@@ -558,7 +558,7 @@ def test_sheets_input_to_clarity_with_cursor_Scenario5_CreatesFiles(
     assert count_dirs_files(fay_wdir.worlds_dir) == 42
 
 
-def test_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
+def test_sheets_input_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     temp_dir_setup,
 ):
     # ESTABLISH:
@@ -606,7 +606,7 @@ def test_sheets_input_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     assert not os_path_exists(fay_db_path)
 
     # WHEN
-    sheets_input_to_clarity_mstr(
+    sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,

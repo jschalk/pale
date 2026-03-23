@@ -11,11 +11,11 @@ from src.ch21_world.test._util.ch21_env import (
     get_temp_dir as worlds_dir,
     temp_dir_setup,
 )
-from src.ch21_world.world import WorldDir, stance_sheets_to_clarity_mstr, worlddir_shop
+from src.ch21_world.world import WorldDir, stance_sheets_to_lynx_mstr, worlddir_shop
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
-def test_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
+def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     temp_dir_setup,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
@@ -60,7 +60,7 @@ def test_stance_sheets_to_clarity_mstr_Scenario0_CreatesDatabaseFile(
     assert not os_path_exists(fay_db_path)
 
     # WHEN
-    stance_sheets_to_clarity_mstr(
+    stance_sheets_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,
@@ -147,7 +147,7 @@ def create_brick_agg_record(wdir: WorldDir, spark_num: int):
     db_conn.close()
 
 
-def test_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
+def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     temp_dir_setup,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
@@ -182,7 +182,7 @@ def test_stance_sheets_to_clarity_mstr_Scenario1_DatabaseFileExists(
     assert os_path_exists(input_file_path)
 
     # WHEN
-    stance_sheets_to_clarity_mstr(
+    stance_sheets_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,

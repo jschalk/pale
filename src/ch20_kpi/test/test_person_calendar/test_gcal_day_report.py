@@ -1,11 +1,13 @@
 from datetime import datetime
-from src.ch06_plan.plan import planunit_shop
-from src.ch07_person_logic.person_main import personunit_shop
+from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
+from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
-from src.ch20_kpi.gcalendar import (
+from src.ch14_moment.moment_main import momentunit_shop
+from src.ch20_kpi.gcalendar import (  # get_gcal_day_report_from_job_file,
     gcal_readable_percent,
     get_gcal_day_report_from_personunit,
 )
+from src.ch20_kpi.test._util.ch20_env import get_temp_dir
 from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
@@ -28,11 +30,9 @@ def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario0_EmptyPerson():
     assert "Group" not in sue_day_report_str
 
 
-def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson():
-    # ESTABLISH
+def get_sue_clean_example() -> PersonUnit:
     sue_person = personunit_shop(exx.sue, exx.a23)
     add_epoch_planunit(sue_person)
-    apr7 = datetime(2010, 4, 7)
     sue_person.add_partnerunit(exx.bob, 2)
     sue_person.add_partnerunit(exx.sue, 1)
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -40,6 +40,13 @@ def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson
     sue_person.add_plan(clean_rope, 1, pledge=True)
     sue_person.get_partner(exx.sue).add_membership(exx.run)
     sue_person.conpute()
+    return sue_person
+
+
+def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson():
+    # ESTABLISH
+    sue_person = get_sue_clean_example()
+    apr7 = datetime(2010, 4, 7)
 
     # WHEN
     sue_day_report_str = get_gcal_day_report_from_personunit(
@@ -54,3 +61,26 @@ def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson
     assert "Partners" in sue_day_report_str
     assert "Group" in sue_day_report_str
     assert exx.run in sue_day_report_str
+
+
+# def test_get_gcal_day_report_from_job_file_ReturnsObj_Scenario1_NonEmptyPerson():
+#     # ESTABLISH
+#     sue_person = get_sue_clean_example()
+#     apr7 = datetime(2010, 4, 7)
+#     # save momentunit json
+#     mmt_mstr_dir = get_temp_dir()
+#     a23_moment = momentunit_shop(exx.a23, mmt_mstr_dir)
+#     epoch_config = get_default_epoch_config_dict()
+#     x_epoch_label = epoch_config.get("epoch_label")
+#     assert a23_moment.epoch.epoch_label == x_epoch_label
+
+#     # save personunit json as job file
+
+#     # WHEN
+#     sue_day_report_str = get_gcal_day_report_from_job_file(
+#         sue_person, apr7, group_title=exx.run
+#     )
+
+#     # THEN
+#     assert sue_day_report_str
+#     assert "Schedule Priorities" in sue_day_report_str

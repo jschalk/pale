@@ -5,9 +5,9 @@ from src.ch09_person_lesson._ref.ch09_path import create_moment_json_path
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch13_time.epoch_main import get_default_epoch_config_dict
 from src.ch14_moment.moment_main import (
-    get_default_path_momentunit,
     get_momentunit_from_dict,
     momentunit_shop,
+    open_moment_file,
 )
 from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
@@ -240,7 +240,7 @@ def test_get_from_file_ReturnsMomentUnitWith_moment_mstr_dir(temp_dir_setup):
     assert amy45_moment.moment_mstr_dir != x_moment_mstr_dir
 
     # WHEN
-    generated_a45_moment = get_default_path_momentunit(x_moment_mstr_dir, amy45_lasso)
+    generated_a45_moment = open_moment_file(x_moment_mstr_dir, amy45_lasso)
 
     # THEN
     assert generated_a45_moment.moment_mstr_dir == x_moment_mstr_dir
