@@ -16,7 +16,7 @@
   }, 
   "h_agg": {
     "abbv9": "heard_agg", 
-    "description": "Populated by aggregated Heard Raw tables", 
+    "description": "Populated by aggregated Heard Raw tables. Nabu number conversions take place here.", 
     "stage_type_order": 8
   }, 
   "h_raw": {

@@ -182,7 +182,7 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
         stage_type_order = type_dict.get("stage_type_order")
         expected_abbv5_description = f"5 character abbreviation of {abbv9_str}. {stage_type_order=} {type_description_str}"
         abbv5_fail_str = expected_abbv5_description
-        # print(f"{stage_type_abbv5}")
+        print(f"{stage_type_abbv5=}")
         assert expected_abbv5_description == abbv5_keyword_description, abbv5_fail_str
 
         print(f"{abbv9_str=}")
