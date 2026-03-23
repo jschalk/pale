@@ -102,12 +102,12 @@ def test_get_stage_abbv5_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert get_stage_abbv5(kw.brick_raw) == kw.brick_raw
     assert get_stage_abbv5(kw.brick_agg) == kw.brick_agg
-    assert get_stage_abbv5(kw.sound_raw) == "s_raw"
-    assert get_stage_abbv5(kw.sound_agg) == "s_agg"
-    assert get_stage_abbv5(kw.sound_vld) == "s_vld"
-    assert get_stage_abbv5(kw.heard_raw) == "h_raw"
-    assert get_stage_abbv5(kw.heard_agg) == "h_agg"
-    assert get_stage_abbv5(kw.heard_vld) == "h_vld"
+    assert get_stage_abbv5(kw.sound_raw) == kw.s_raw
+    assert get_stage_abbv5(kw.sound_agg) == kw.s_agg
+    assert get_stage_abbv5(kw.sound_vld) == kw.s_vld
+    assert get_stage_abbv5(kw.heard_raw) == kw.h_raw
+    assert get_stage_abbv5(kw.heard_agg) == kw.h_agg
+    assert get_stage_abbv5(kw.heard_vld) == kw.h_vld
 
 
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
@@ -116,66 +116,66 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     del_str = "del"
 
     # WHEN
-    prnunit_s_agg_table = create_prime_tablename(kw.prnunit, "s_agg", put_str)
-    prnptnr_s_agg_table = create_prime_tablename(kw.prnptnr, "s_agg", put_str)
-    prnmemb_s_agg_table = create_prime_tablename(kw.prnmemb, "s_agg", put_str)
-    prnplan_s_agg_table = create_prime_tablename(kw.prnplan, "s_agg", put_str)
-    prnawar_s_agg_table = create_prime_tablename(kw.prnawar, "s_agg", put_str)
-    prnreas_s_agg_table = create_prime_tablename(kw.prnreas, "s_agg", put_str)
-    prncase_s_agg_table = create_prime_tablename(kw.prncase, "s_agg", put_str)
-    prnlabo_s_agg_table = create_prime_tablename(kw.prnlabo, "s_agg", put_str)
-    prnheal_s_agg_table = create_prime_tablename(kw.prnheal, "s_agg", put_str)
-    prnfact_s_agg_table = create_prime_tablename(kw.prnfact, "s_agg", put_str)
-    prnfact_s_del_table = create_prime_tablename(kw.prnfact, "s_agg", del_str)
-    mmtunit_s_agg_table = create_prime_tablename(kw.mmtunit, "s_agg")
-    mmtpayy_s_agg_table = create_prime_tablename(kw.mmtpayy, "s_agg")
-    mmtbudd_s_agg_table = create_prime_tablename(kw.mmtbudd, "s_agg")
-    mmthour_s_agg_table = create_prime_tablename(kw.mmthour, "s_agg")
-    mmtmont_s_agg_table = create_prime_tablename(kw.mmtmont, "s_agg")
-    mmtweek_s_agg_table = create_prime_tablename(kw.mmtweek, "s_agg")
-    mmtoffi_s_agg_table = create_prime_tablename(kw.mmtoffi, "s_agg")
-    nabtime_s_agg_table = create_prime_tablename(kw.nabtime, "s_agg")
-    trlname_s_agg_table = create_prime_tablename(kw.trlname, "s_agg")
-    trllabe_s_agg_table = create_prime_tablename(kw.trllabe, "s_agg")
-    trlrope_s_agg_table = create_prime_tablename(kw.trlrope, "s_agg")
-    trltitl_s_agg_table = create_prime_tablename(kw.trltitl, "s_agg")
-    trltitl_h_vld_table = create_prime_tablename(kw.trltitl, "h_vld")
-    trltitl_s_raw_table = create_prime_tablename(kw.trltitl, "s_raw")
-    trltitl_s_val_table = create_prime_tablename(kw.trltitl, "s_vld")
-    trlcore_s_raw_table = create_prime_tablename(kw.trlcore, "s_raw")
-    trlcore_s_agg_table = create_prime_tablename(kw.trlcore, "s_agg")
+    prnunit_s_agg_table = create_prime_tablename(kw.prnunit, kw.s_agg, put_str)
+    prnptnr_s_agg_table = create_prime_tablename(kw.prnptnr, kw.s_agg, put_str)
+    prnmemb_s_agg_table = create_prime_tablename(kw.prnmemb, kw.s_agg, put_str)
+    prnplan_s_agg_table = create_prime_tablename(kw.prnplan, kw.s_agg, put_str)
+    prnawar_s_agg_table = create_prime_tablename(kw.prnawar, kw.s_agg, put_str)
+    prnreas_s_agg_table = create_prime_tablename(kw.prnreas, kw.s_agg, put_str)
+    prncase_s_agg_table = create_prime_tablename(kw.prncase, kw.s_agg, put_str)
+    prnlabo_s_agg_table = create_prime_tablename(kw.prnlabo, kw.s_agg, put_str)
+    prnheal_s_agg_table = create_prime_tablename(kw.prnheal, kw.s_agg, put_str)
+    prnfact_s_agg_table = create_prime_tablename(kw.prnfact, kw.s_agg, put_str)
+    prnfact_s_del_table = create_prime_tablename(kw.prnfact, kw.s_agg, del_str)
+    mmtunit_s_agg_table = create_prime_tablename(kw.mmtunit, kw.s_agg)
+    mmtpayy_s_agg_table = create_prime_tablename(kw.mmtpayy, kw.s_agg)
+    mmtbudd_s_agg_table = create_prime_tablename(kw.mmtbudd, kw.s_agg)
+    mmthour_s_agg_table = create_prime_tablename(kw.mmthour, kw.s_agg)
+    mmtmont_s_agg_table = create_prime_tablename(kw.mmtmont, kw.s_agg)
+    mmtweek_s_agg_table = create_prime_tablename(kw.mmtweek, kw.s_agg)
+    mmtoffi_s_agg_table = create_prime_tablename(kw.mmtoffi, kw.s_agg)
+    nabtime_s_agg_table = create_prime_tablename(kw.nabtime, kw.s_agg)
+    trlname_s_agg_table = create_prime_tablename(kw.trlname, kw.s_agg)
+    trllabe_s_agg_table = create_prime_tablename(kw.trllabe, kw.s_agg)
+    trlrope_s_agg_table = create_prime_tablename(kw.trlrope, kw.s_agg)
+    trltitl_s_agg_table = create_prime_tablename(kw.trltitl, kw.s_agg)
+    trltitl_h_vld_table = create_prime_tablename(kw.trltitl, kw.h_vld)
+    trltitl_s_raw_table = create_prime_tablename(kw.trltitl, kw.s_raw)
+    trltitl_s_val_table = create_prime_tablename(kw.trltitl, kw.s_vld)
+    trlcore_s_raw_table = create_prime_tablename(kw.trlcore, kw.s_raw)
+    trlcore_s_agg_table = create_prime_tablename(kw.trlcore, kw.s_agg)
     prnptnr_job_table = create_prime_tablename(kw.prnptnr, kw.job, None)
     prngrou_job_table = create_prime_tablename(kw.prngrou, kw.job, None)
 
     # THEN
-    assert prnunit_s_agg_table == f"{kw.personunit}_put_s_agg"
-    assert prnptnr_s_agg_table == f"{kw.person_partnerunit}_put_s_agg"
-    assert prnmemb_s_agg_table == f"{kw.person_partner_membership}_put_s_agg"
-    assert prnplan_s_agg_table == f"{kw.person_planunit}_put_s_agg"
-    assert prnawar_s_agg_table == f"{kw.person_plan_awardunit}_put_s_agg"
-    assert prnreas_s_agg_table == f"{kw.person_plan_reasonunit}_put_s_agg"
-    assert prncase_s_agg_table == f"{kw.person_plan_reason_caseunit}_put_s_agg"
-    assert prnlabo_s_agg_table == f"{kw.person_plan_partyunit}_put_s_agg"
-    assert prnheal_s_agg_table == f"{kw.person_plan_healerunit}_put_s_agg"
-    assert prnfact_s_agg_table == f"{kw.person_plan_factunit}_put_s_agg"
-    assert prnfact_s_del_table == f"{kw.person_plan_factunit}_del_s_agg"
-    assert mmtunit_s_agg_table == f"{kw.momentunit}_s_agg"
-    assert mmtpayy_s_agg_table == f"{kw.moment_paybook}_s_agg"
-    assert mmtbudd_s_agg_table == f"{kw.moment_budunit}_s_agg"
-    assert mmthour_s_agg_table == f"{kw.moment_epoch_hour}_s_agg"
-    assert mmtmont_s_agg_table == f"{kw.moment_epoch_month}_s_agg"
-    assert mmtweek_s_agg_table == f"{kw.moment_epoch_weekday}_s_agg"
-    assert mmtoffi_s_agg_table == f"{kw.moment_timeoffi}_s_agg"
-    assert nabtime_s_agg_table == f"{kw.nabu_timenum}_s_agg"
-    assert trlname_s_agg_table == f"{kw.translate_name}_s_agg"
-    assert trllabe_s_agg_table == f"{kw.translate_label}_s_agg"
-    assert trlrope_s_agg_table == f"{kw.translate_rope}_s_agg"
-    assert trltitl_s_agg_table == f"{kw.translate_title}_s_agg"
-    assert trltitl_h_vld_table == f"{kw.translate_title}_h_vld"
-    assert trltitl_s_raw_table == f"{kw.translate_title}_s_raw"
-    assert trltitl_s_val_table == f"{kw.translate_title}_s_vld"
-    assert trlcore_s_raw_table == f"{kw.translate_core}_s_raw"
-    assert trlcore_s_agg_table == f"{kw.translate_core}_s_agg"
+    assert prnunit_s_agg_table == f"{kw.personunit}_put_{kw.s_agg}"
+    assert prnptnr_s_agg_table == f"{kw.person_partnerunit}_put_{kw.s_agg}"
+    assert prnmemb_s_agg_table == f"{kw.person_partner_membership}_put_{kw.s_agg}"
+    assert prnplan_s_agg_table == f"{kw.person_planunit}_put_{kw.s_agg}"
+    assert prnawar_s_agg_table == f"{kw.person_plan_awardunit}_put_{kw.s_agg}"
+    assert prnreas_s_agg_table == f"{kw.person_plan_reasonunit}_put_{kw.s_agg}"
+    assert prncase_s_agg_table == f"{kw.person_plan_reason_caseunit}_put_{kw.s_agg}"
+    assert prnlabo_s_agg_table == f"{kw.person_plan_partyunit}_put_{kw.s_agg}"
+    assert prnheal_s_agg_table == f"{kw.person_plan_healerunit}_put_{kw.s_agg}"
+    assert prnfact_s_agg_table == f"{kw.person_plan_factunit}_put_{kw.s_agg}"
+    assert prnfact_s_del_table == f"{kw.person_plan_factunit}_del_{kw.s_agg}"
+    assert mmtunit_s_agg_table == f"{kw.momentunit}_{kw.s_agg}"
+    assert mmtpayy_s_agg_table == f"{kw.moment_paybook}_{kw.s_agg}"
+    assert mmtbudd_s_agg_table == f"{kw.moment_budunit}_{kw.s_agg}"
+    assert mmthour_s_agg_table == f"{kw.moment_epoch_hour}_{kw.s_agg}"
+    assert mmtmont_s_agg_table == f"{kw.moment_epoch_month}_{kw.s_agg}"
+    assert mmtweek_s_agg_table == f"{kw.moment_epoch_weekday}_{kw.s_agg}"
+    assert mmtoffi_s_agg_table == f"{kw.moment_timeoffi}_{kw.s_agg}"
+    assert nabtime_s_agg_table == f"{kw.nabu_timenum}_{kw.s_agg}"
+    assert trlname_s_agg_table == f"{kw.translate_name}_{kw.s_agg}"
+    assert trllabe_s_agg_table == f"{kw.translate_label}_{kw.s_agg}"
+    assert trlrope_s_agg_table == f"{kw.translate_rope}_{kw.s_agg}"
+    assert trltitl_s_agg_table == f"{kw.translate_title}_{kw.s_agg}"
+    assert trltitl_h_vld_table == f"{kw.translate_title}_{kw.h_vld}"
+    assert trltitl_s_raw_table == f"{kw.translate_title}_{kw.s_raw}"
+    assert trltitl_s_val_table == f"{kw.translate_title}_{kw.s_vld}"
+    assert trlcore_s_raw_table == f"{kw.translate_core}_{kw.s_raw}"
+    assert trlcore_s_agg_table == f"{kw.translate_core}_{kw.s_agg}"
     assert prnptnr_job_table == f"{kw.person_partnerunit}_job"
     assert prngrou_job_table == f"{kw.person_groupunit}_job"
 
@@ -220,15 +220,15 @@ def test_get_etl_stage_types_config_dict_ReturnsObj_Scenario0_IsFullyPopulated()
     assert etl_stage_types_config
     etl_stage_types = set(etl_stage_types_config.keys())
     assert etl_stage_types == {
-        "h_agg",
-        "h_raw",
-        "h_vld",
-        "s_agg",
-        "s_raw",
-        "s_vld",
-        "b_agg",
-        "b_raw",
-        "b_vld",
+        kw.h_agg,
+        kw.h_raw,
+        kw.h_vld,
+        kw.s_agg,
+        kw.s_raw,
+        kw.s_vld,
+        kw.b_agg,
+        kw.b_raw,
+        kw.b_vld,
     }
     expected_abbv9_stage_types = {
         kw.heard_agg,
@@ -268,15 +268,15 @@ def test_get_ordered_stage_types_ReturnsObj():
     assert ordered_stage_types
     print(ordered_stage_types)
     expected_ordered_stage_types = [
-        "b_raw",
-        "b_agg",
-        "b_vld",
-        "s_raw",
-        "s_agg",
-        "s_vld",
-        "h_raw",
-        "h_agg",
-        "h_vld",
+        kw.b_raw,
+        kw.b_agg,
+        kw.b_vld,
+        kw.s_raw,
+        kw.s_agg,
+        kw.s_vld,
+        kw.h_raw,
+        kw.h_agg,
+        kw.h_vld,
     ]
     assert ordered_stage_types == expected_ordered_stage_types
 
@@ -361,7 +361,7 @@ def test_get_prime_columns_ReturnsObj_Scenario0_EmptyKeylist():
 def test_get_prime_columns_ReturnsObj_Scenario1_EmptyConfig():
     # ESTABLISH
     x_dimen = kw.momentunit
-    table_keylist = ["h_agg"]
+    table_keylist = [kw.h_agg]
 
     # WHEN / THEN
     assert get_prime_columns(x_dimen, table_keylist, {}) == set()
@@ -370,7 +370,7 @@ def test_get_prime_columns_ReturnsObj_Scenario1_EmptyConfig():
 def test_get_prime_columns_ReturnsObj_Scenario2_moment_epoch_month():
     # ESTABLISH
     x_dimen = kw.moment_epoch_month
-    table_keylist = ["h_agg"]
+    table_keylist = [kw.h_agg]
     config_dict = get_idea_config_dict()
 
     # WHEN
@@ -391,7 +391,7 @@ def test_get_prime_columns_ReturnsObj_Scenario2_moment_epoch_month():
 def test_get_prime_columns_ReturnsObj_Scenario3_h_raw_set_translateable_otx_inx_args():
     # ESTABLISH
     x_dimen = kw.moment_epoch_month
-    table_keylist = ["h_raw"]
+    table_keylist = [kw.h_raw]
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
@@ -416,7 +416,7 @@ def test_get_prime_columns_ReturnsObj_Scenario3_h_raw_set_translateable_otx_inx_
 def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args():
     # ESTABLISH
     x_dimen = kw.moment_timeoffi
-    table_keylist = ["h_agg"]
+    table_keylist = [kw.h_agg]
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
@@ -437,7 +437,7 @@ def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args(
 def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_ContextNabuableArgs():
     # ESTABLISH
     x_dimen = kw.person_plan_reason_caseunit
-    table_keylist = ["h_agg", "put"]
+    table_keylist = [kw.h_agg, "put"]
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
@@ -491,7 +491,7 @@ def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
 def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # ESTABLISH / WHEN
     table_sqlstr = create_prime_table_sqlstr(
-        kw.person_plan_reason_caseunit, "s_raw", "put"
+        kw.person_plan_reason_caseunit, kw.s_raw, "put"
     )
 
     # THEN
