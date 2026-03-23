@@ -14,7 +14,7 @@ def pfhapx_insert_nabtime(cursor0: Cursor, x_values: list[list]) -> str:
     """x_cols = [kw.spark_num, kw.moment_rope, kw.otx_time, kw.inx_time]"""
 
     x_cols = [kw.spark_num, kw.moment_rope, kw.otx_time, kw.inx_time]
-    tablename = create_prime_db_table(cursor0, kw.nabu_timenum, "h", "agg")
+    tablename = create_prime_db_table(cursor0, kw.nabu_timenum, "h_agg")
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -24,7 +24,7 @@ def pfhapx_insert_prnplan(cursor0: Cursor, x_values: list[list]) -> str:
     """x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close]"""
 
     x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close]
-    tablename = create_prime_db_table(cursor0, kw.prnplan, "h", "agg", "put")
+    tablename = create_prime_db_table(cursor0, kw.prnplan, "h_agg", "put")
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -41,7 +41,7 @@ def pfhapx_insert_prnfact(cursor0: Cursor, x_values: list[list]) -> str:
         "fact_upper_otx",
     ]
 
-    tablename = create_prime_db_table(cursor0, kw.prnfact, "h", "agg", "put")
+    tablename = create_prime_db_table(cursor0, kw.prnfact, "h_agg", "put")
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -50,7 +50,7 @@ def pfhapx_insert_prnfact(cursor0: Cursor, x_values: list[list]) -> str:
 def pfhapx_select_prnfact(cursor0: Cursor, print_rows: bool = False) -> list[tuple]:
     """SELECT fact_lower_otx, fact_lower_inx, fact_upper_otx, fact_upper_inx"""
 
-    prnfact_h_agg_table = create_prime_tablename(kw.prnfact, "h", "agg", "put")
+    prnfact_h_agg_table = create_prime_tablename(kw.prnfact, "h_agg", "put")
     sel_prnfact_str = f"""
 SELECT fact_lower_otx, fact_lower_inx, fact_upper_otx, fact_upper_inx
 FROM {prnfact_h_agg_table}

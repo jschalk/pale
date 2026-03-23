@@ -128,12 +128,14 @@ class PrimeTablenameError(Exception):
 
 
 def create_prime_tablename(
-    idea_dimen_or_abbv7: str, stage0: str, stage1: str, put_del: str = None
+    idea_dimen_or_abbv7: str, stage_type: str, put_del: str = None
 ) -> str:
     """
-    stage0 must be one: 's', 'h', 'job'
-    stage1 must be one: 'raw', 'agg', 'vld'
+    stage examples 's_raw', 'h_agg', 'job'
     """
+
+    if put_del not in {None, "put", "del"}:
+        raise PrimeTablenameError(f"'{stage_type}' '{put_del}' is not a valid put_del")
 
     abbv_references = {
         "mmtpayy": "moment_paybook",
@@ -164,14 +166,24 @@ def create_prime_tablename(
     tablename = idea_dimen_or_abbv7
     if abbv_references.get(idea_dimen_or_abbv7.lower()):
         tablename = abbv_references.get(idea_dimen_or_abbv7.lower())
-    if stage0 in {"s", "h", "job"}:
-        tablename = f"{tablename}_{stage0}"
-    if stage1 is None:
-        return tablename
-    if stage1 not in {"raw", "agg", "vld"}:
-        raise PrimeTablenameError(f"'{stage1}' is not a valid stage")
 
-    return f"{tablename}_{put_del}_{stage1}" if put_del else f"{tablename}_{stage1}"
+    return (
+        f"{tablename}_{put_del}_{stage_type}"
+        if put_del
+        else f"{tablename}_{stage_type}"
+    )
+
+
+def etl_stage_types_config_path() -> str:
+    "Returns path: ch18_etl_config/etl_stage_types_config.json"
+    src_dir = create_path(os_getcwd(), "src")
+    chapter_dir = create_path(src_dir, "ch18_etl_config")
+    return create_path(chapter_dir, "etl_stage_types_config.json")
+
+
+def etl_stage_types_config_dict() -> dict:
+    """Config data for etl dimenensions (translate, moment, person...) including required columns per stage"""
+    return open_json(etl_stage_types_config_path())
 
 
 def etl_idea_category_config_path() -> str:
@@ -190,116 +202,98 @@ def get_etl_category_stages_dict() -> dict:
     return {
         "person_h_agg_put": {
             "idea_category": "person",
-            "stage0": "h",
-            "stage1": "agg",
+            "stage_type": "h_agg",
             "put_del": "put",
         },
         "person_h_agg_del": {
             "idea_category": "person",
-            "stage0": "h",
-            "stage1": "agg",
+            "stage_type": "h_agg",
             "put_del": "del",
         },
         "person_h_raw_put": {
             "idea_category": "person",
-            "stage0": "h",
-            "stage1": "raw",
+            "stage_type": "h_raw",
             "put_del": "put",
         },
         "person_h_raw_del": {
             "idea_category": "person",
-            "stage0": "h",
-            "stage1": "raw",
+            "stage_type": "h_raw",
             "put_del": "del",
         },
         "person_h_vld_put": {
             "idea_category": "person",
-            "stage0": "h",
-            "stage1": "vld",
+            "stage_type": "h_vld",
             "put_del": "put",
         },
         "person_h_vld_del": {
             "idea_category": "person",
-            "stage0": "h",
-            "stage1": "vld",
+            "stage_type": "h_vld",
             "put_del": "del",
         },
         "person_s_agg_put": {
             "idea_category": "person",
-            "stage0": "s",
-            "stage1": "agg",
+            "stage_type": "s_agg",
             "put_del": "put",
         },
         "person_s_agg_del": {
             "idea_category": "person",
-            "stage0": "s",
-            "stage1": "agg",
+            "stage_type": "s_agg",
             "put_del": "del",
         },
         "person_s_raw_put": {
             "idea_category": "person",
-            "stage0": "s",
-            "stage1": "raw",
+            "stage_type": "s_raw",
             "put_del": "put",
         },
         "person_s_raw_del": {
             "idea_category": "person",
-            "stage0": "s",
-            "stage1": "raw",
+            "stage_type": "s_raw",
             "put_del": "del",
         },
         "person_s_vld_put": {
             "idea_category": "person",
-            "stage0": "s",
-            "stage1": "vld",
+            "stage_type": "s_vld",
             "put_del": "put",
         },
         "person_s_vld_del": {
             "idea_category": "person",
-            "stage0": "s",
-            "stage1": "vld",
+            "stage_type": "s_vld",
             "put_del": "del",
         },
-        "moment_h_agg": {"idea_category": "moment", "stage0": "h", "stage1": "agg"},
-        "moment_h_raw": {"idea_category": "moment", "stage0": "h", "stage1": "raw"},
-        "moment_h_vld": {"idea_category": "moment", "stage0": "h", "stage1": "vld"},
-        "moment_s_agg": {"idea_category": "moment", "stage0": "s", "stage1": "agg"},
-        "moment_s_raw": {"idea_category": "moment", "stage0": "s", "stage1": "raw"},
-        "moment_s_vld": {"idea_category": "moment", "stage0": "s", "stage1": "vld"},
-        "nabu_h_agg": {"idea_category": "nabu", "stage0": "h", "stage1": "agg"},
-        "nabu_h_raw": {"idea_category": "nabu", "stage0": "h", "stage1": "raw"},
-        "nabu_s_agg": {"idea_category": "nabu", "stage0": "s", "stage1": "agg"},
-        "nabu_s_raw": {"idea_category": "nabu", "stage0": "s", "stage1": "raw"},
-        "nabu_s_vld": {"idea_category": "nabu", "stage0": "s", "stage1": "vld"},
+        "moment_h_agg": {"idea_category": "moment", "stage_type": "h_agg"},
+        "moment_h_raw": {"idea_category": "moment", "stage_type": "h_raw"},
+        "moment_h_vld": {"idea_category": "moment", "stage_type": "h_vld"},
+        "moment_s_agg": {"idea_category": "moment", "stage_type": "s_agg"},
+        "moment_s_raw": {"idea_category": "moment", "stage_type": "s_raw"},
+        "moment_s_vld": {"idea_category": "moment", "stage_type": "s_vld"},
+        "nabu_h_agg": {"idea_category": "nabu", "stage_type": "h_agg"},
+        "nabu_h_raw": {"idea_category": "nabu", "stage_type": "h_raw"},
+        "nabu_s_agg": {"idea_category": "nabu", "stage_type": "s_agg"},
+        "nabu_s_raw": {"idea_category": "nabu", "stage_type": "s_raw"},
+        "nabu_s_vld": {"idea_category": "nabu", "stage_type": "s_vld"},
         "translate_s_agg": {
             "idea_category": "translate",
-            "stage0": "s",
-            "stage1": "agg",
+            "stage_type": "s_agg",
         },
         "translate_s_raw": {
             "idea_category": "translate",
-            "stage0": "s",
-            "stage1": "raw",
+            "stage_type": "s_raw",
         },
         "translate_s_vld": {
             "idea_category": "translate",
-            "stage0": "s",
-            "stage1": "vld",
+            "stage_type": "s_vld",
         },
         "translate_core_s_agg": {
             "idea_category": "translate_core",
-            "stage0": "s",
-            "stage1": "agg",
+            "stage_type": "s_agg",
         },
         "translate_core_s_raw": {
             "idea_category": "translate_core",
-            "stage0": "s",
-            "stage1": "raw",
+            "stage_type": "s_raw",
         },
         "translate_core_s_vld": {
             "idea_category": "translate_core",
-            "stage0": "s",
-            "stage1": "vld",
+            "stage_type": "s_vld",
         },
     }
 
@@ -375,10 +369,12 @@ def get_stage_abbv5(stage_name: str) -> str:
 def get_prime_columns(
     x_dimen: str, table_keylist: list[str], etl_idea_category_config: dict
 ) -> set[str]:
-    """Given dimen and config_keylist (ala ["s", "agg", put_del] )
+    """Given dimen and config_keylist (ala ["s_agg", put_del] )
     Return list of columns for that prime table"""
+
     if not table_keylist or not etl_idea_category_config:
         return set()
+
     columns = get_all_dimen_columns_set(x_dimen)
     if table_keylist[-1] == "del":
         columns = get_del_dimen_columns_set(x_dimen)
@@ -424,14 +420,13 @@ def get_prime_columns(
 
 
 def create_prime_table_sqlstr(
-    x_dimen: str, stage0: str, stage1: str, put_del: str = None
+    x_dimen: str, stage_type: str, put_del: str = None
 ) -> str:
     """Given dimen and stages return the Create Table sqlstr
-    stage0 must be one: 's', 'h', 'job'
-    stage1 must be one: 'raw', 'agg', 'vld'
+    stage_type example: 's_agg', 'h_raw', 'job'
     """
-    tablename = create_prime_tablename(x_dimen, stage0, stage1, put_del)
-    table_keylist = [stage0, stage1, put_del] if put_del else [stage0, stage1]
+    tablename = create_prime_tablename(x_dimen, stage_type, put_del)
+    table_keylist = [stage_type, put_del] if put_del else [stage_type]
     etl_idea_category_config = etl_idea_category_config_dict()
     columns_set = get_prime_columns(x_dimen, table_keylist, etl_idea_category_config)
     columns_list = get_default_sorted_list(columns_set)

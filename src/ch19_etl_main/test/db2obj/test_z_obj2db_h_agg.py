@@ -56,7 +56,7 @@ def test_insert_h_agg_prnunit_CreatesTableRowsFor_personunit_h_agg(cursor0: Curs
     sue_person.debtor_respect = x_debtor_respect
 
     create_sound_and_heard_tables(cursor0)
-    x_table_name = "personunit_h_put_agg"
+    x_table_name = "personunit_put_h_agg"
     assert get_row_count(cursor0, x_table_name) == 0
     objkeysholder = ObjKeysHolder(x_spark_num, x_face_name)
 
@@ -133,7 +133,7 @@ def test_insert_h_agg_prnplan_CreatesTableRowsFor_prnplan_h_agg(cursor0: Cursor)
     x_plan.problem_bool = x_problem_bool
 
     create_sound_and_heard_tables(cursor0)
-    x_table_name = "person_planunit_h_put_agg"
+    x_table_name = "person_planunit_put_h_agg"
     assert get_row_count(cursor0, x_table_name) == 0
     x_objkeysholder = ObjKeysHolder(
         spark_num=x_spark_num,
@@ -189,7 +189,7 @@ def test_insert_h_agg_prnreas_CreatesTableRowsFor_prnreas_h_agg(cursor0: Cursor)
     x_reasonheir.active_requisite = x_active_requisite
 
     create_sound_and_heard_tables(cursor0)
-    x_table_name = "person_plan_reasonunit_h_put_agg"
+    x_table_name = "person_plan_reasonunit_put_h_agg"
     assert get_row_count(cursor0, x_table_name) == 0
     x_objkeysholder = ObjKeysHolder(
         spark_num=x_spark_num,
@@ -243,7 +243,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
     x_caseunit.reason_divisor = x_reason_divisor
 
     create_sound_and_heard_tables(cursor0)
-    x_table_name = "person_plan_reason_caseunit_h_put_agg"
+    x_table_name = "person_plan_reason_caseunit_put_h_agg"
     print(
         f"{get_table_columns(cursor0, x_table_name)=} {len(get_table_columns(cursor0, x_table_name))=}"
     )
@@ -334,7 +334,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     x_table_name = "person_partner_membership_h_put_agg"
+#     x_table_name = "person_partner_membership_put_h_agg"
 #     assert get_row_count(cursor0, x_table_name) == 0
 #     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23_dash, person_name=x_person_name)
 
@@ -418,7 +418,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     x_table_name = "person_partnerunit_h_put_agg"
+#     x_table_name = "person_partnerunit_put_h_agg"
 #     assert get_row_count(cursor0, x_table_name) == 0
 #     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23_dash, person_name=x_person_name)
 
@@ -492,7 +492,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     x_table_name = "person_groupunit_h_put_agg"
+#     x_table_name = "person_groupunit_put_h_agg"
 #     assert get_row_count(cursor0, x_table_name) == 0
 #     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23_dash, person_name=x_person_name)
 
@@ -555,7 +555,7 @@ def test_insert_h_agg_prncase_CreatesTableRowsFor_prncase_h_agg(cursor0: Cursor)
 
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     x_table_name = "person_plan_awardunit_h_put_agg"
+#     x_table_name = "person_plan_awardunit_put_h_agg"
 #     assert get_row_count(cursor0, x_table_name) == 0
 #     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23_dash, person_name=x_person_name, rope=x_rope)
 
@@ -603,7 +603,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor)
     x_factheir.fact_upper = x_fact_upper_otx
 
     create_sound_and_heard_tables(cursor0)
-    x_table_name = "person_plan_factunit_h_put_agg"
+    x_table_name = "person_plan_factunit_put_h_agg"
     assert get_row_count(cursor0, x_table_name) == 0
     x_objkeysholder = ObjKeysHolder(
         spark_num=x_spark_num,
@@ -669,7 +669,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor)
 
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     x_table_name = "person_plan_healerunit_h_put_agg"
+#     x_table_name = "person_plan_healerunit_put_h_agg"
 #     assert get_row_count(cursor0, x_table_name) == 0
 #     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23_dash, person_name=x_person_name, rope=x_rope)
 
@@ -729,7 +729,7 @@ def test_insert_h_agg_prnfact_CreatesTableRowsFor_prnfact_h_agg(cursor0: Cursor)
 
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     x_table_name = "person_plan_partyunit_h_put_agg"
+#     x_table_name = "person_plan_partyunit_put_h_agg"
 #     assert get_row_count(cursor0, x_table_name) == 0
 #     x_objkeysholder = ObjKeysHolder(spark_num=x_spark_num, face_name=x_face_name, moment_rope=exx.a23_dash, person_name=x_person_name, rope=x_rope)
 
@@ -789,11 +789,11 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables(
     sue_person.add_fact(situation_rope, clean_rope)
 
     create_sound_and_heard_tables(cursor0)
-    prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
-    prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
-    prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
-    prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
-    prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
+    prnfact_h_agg_table = f"{kw.person_plan_factunit}_put_h_agg"
+    prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_put_h_agg"
+    prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_put_h_agg"
+    prnplan_h_agg_table = f"{kw.person_planunit}_put_h_agg"
+    prnunit_h_agg_table = f"{kw.personunit}_put_h_agg"
     assert get_row_count(cursor0, prnunit_h_agg_table) == 0
     assert get_row_count(cursor0, prnplan_h_agg_table) == 0
     assert get_row_count(cursor0, prnfact_h_agg_table) == 0
@@ -843,17 +843,17 @@ def test_insert_h_agg_obj_CreatesTableRows_Scenario0_ReasonNumRelevantTables(
 
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     prnmemb_h_agg_table = f"{kw.person_partner_membership}_h_put_agg"
-#     prnptnr_h_agg_table = f"{kw.person_partnerunit}_h_put_agg"
-#     prngrou_h_agg_table = f"{kw.person_groupunit}_h_put_agg"
-#     prnawar_h_agg_table = f"{kw.person_plan_awardunit}_h_put_agg"
-#     prnfact_h_agg_table = f"{kw.person_plan_factunit}_h_put_agg"
-#     prnheal_h_agg_table = f"{kw.person_plan_healerunit}_h_put_agg"
-#     prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_h_put_agg"
-#     prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_h_put_agg"
-#     prnlabo_h_agg_table = f"{kw.person_plan_partyunit}_h_put_agg"
-#     prnplan_h_agg_table = f"{kw.person_planunit}_h_put_agg"
-#     prnunit_h_agg_table = f"{kw.personunit}_h_put_agg"
+#     prnmemb_h_agg_table = f"{kw.person_partner_membership}_put_h_agg"
+#     prnptnr_h_agg_table = f"{kw.person_partnerunit}_put_h_agg"
+#     prngrou_h_agg_table = f"{kw.person_groupunit}_put_h_agg"
+#     prnawar_h_agg_table = f"{kw.person_plan_awardunit}_put_h_agg"
+#     prnfact_h_agg_table = f"{kw.person_plan_factunit}_put_h_agg"
+#     prnheal_h_agg_table = f"{kw.person_plan_healerunit}_put_h_agg"
+#     prncase_h_agg_table = f"{kw.person_plan_reason_caseunit}_put_h_agg"
+#     prnreas_h_agg_table = f"{kw.person_plan_reasonunit}_put_h_agg"
+#     prnlabo_h_agg_table = f"{kw.person_plan_partyunit}_put_h_agg"
+#     prnplan_h_agg_table = f"{kw.person_planunit}_put_h_agg"
+#     prnunit_h_agg_table = f"{kw.personunit}_put_h_agg"
 #     assert get_row_count(cursor0, prnunit_h_agg_table) == 0
 #     assert get_row_count(cursor0, prnplan_h_agg_table) == 0
 #     assert get_row_count(cursor0, prnptnr_h_agg_table) == 0

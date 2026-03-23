@@ -8,23 +8,23 @@ from src.ch18_etl_config.etl_config import (
 )
 from src.ch18_etl_config.etl_sqlstr import create_sound_and_heard_tables
 from src.ch19_etl_main.obj2db_person import (
-    create_prnawar_h_put_agg_insert_sqlstr,
-    create_prncase_h_put_agg_insert_sqlstr,
-    create_prnfact_h_put_agg_insert_sqlstr,
-    create_prngrou_h_put_agg_insert_sqlstr,
-    create_prnheal_h_put_agg_insert_sqlstr,
-    create_prnlabo_h_put_agg_insert_sqlstr,
-    create_prnmemb_h_put_agg_insert_sqlstr,
-    create_prnplan_h_put_agg_insert_sqlstr,
-    create_prnptnr_h_put_agg_insert_sqlstr,
-    create_prnreas_h_put_agg_insert_sqlstr,
-    create_prnunit_h_put_agg_insert_sqlstr,
+    create_prnawar_put_h_agg_insert_sqlstr,
+    create_prncase_put_h_agg_insert_sqlstr,
+    create_prnfact_put_h_agg_insert_sqlstr,
+    create_prngrou_put_h_agg_insert_sqlstr,
+    create_prnheal_put_h_agg_insert_sqlstr,
+    create_prnlabo_put_h_agg_insert_sqlstr,
+    create_prnmemb_put_h_agg_insert_sqlstr,
+    create_prnplan_put_h_agg_insert_sqlstr,
+    create_prnptnr_put_h_agg_insert_sqlstr,
+    create_prnreas_put_h_agg_insert_sqlstr,
+    create_prnunit_put_h_agg_insert_sqlstr,
 )
 from src.ch19_etl_main.test._util.ch19_env import cursor0
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
-def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
+def test_create_prnunit_put_h_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # ESTABLISH
     x_moment_rope = exx.a23_dash
     x_knot = exx.dash
@@ -52,18 +52,18 @@ def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     }
     etl_config = get_etl_config()
     prnunit = kw.personunit
-    dst_columns = get_prime_columns(prnunit, ["h", "agg", "put"], etl_config)
+    dst_columns = get_prime_columns(prnunit, ["h_agg", "put"], etl_config)
     # print(f"{dst_columns=}")
     # all args included in values dict
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_prnunit_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnunit_put_h_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     create_sound_and_heard_tables(cursor0)
-    table_name = "personunit_h_put_agg"
+    table_name = "personunit_put_h_agg"
     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
     print(expected_sqlstr)
     print("")
@@ -71,7 +71,7 @@ def test_create_prnunit_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
+def test_create_prnplan_put_h_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # ESTABLISH
     x_person_name = "Sue"
     x_addin = 15
@@ -108,17 +108,17 @@ def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # all args included in values dict
     etl_config = get_etl_config()
     dimen = kw.person_planunit
-    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_prnplan_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnplan_put_h_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     create_sound_and_heard_tables(cursor0)
-    table_name = "person_planunit_h_put_agg"
+    table_name = "person_planunit_put_h_agg"
     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
     print(expected_sqlstr)
     # print("")
@@ -126,7 +126,7 @@ def test_create_prnplan_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
+def test_create_prnreas_put_h_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # ESTABLISH
     x_person_name = "Sue"
     x_rope = 1
@@ -145,17 +145,17 @@ def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # all args included in values dict
     etl_config = get_etl_config()
     dimen = kw.person_plan_reasonunit
-    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_prnreas_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnreas_put_h_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     create_sound_and_heard_tables(cursor0)
-    table_name = "person_plan_reasonunit_h_put_agg"
+    table_name = "person_plan_reasonunit_put_h_agg"
     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
     # print(expected_sqlstr)
     print("")
@@ -163,7 +163,7 @@ def test_create_prnreas_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
+def test_create_prncase_put_h_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # ESTABLISH
     x_person_name = "Sue"
     x_rope = 1
@@ -188,19 +188,19 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # all args included in values dict
     etl_config = get_etl_config()
     dimen = kw.person_plan_reason_caseunit
-    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
     dst_columns = remove_inx_columns(dst_columns)
     dst_columns = remove_staging_columns(dst_columns)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_prncase_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prncase_put_h_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     create_sound_and_heard_tables(cursor0)
-    table_name = "person_plan_reason_caseunit_h_put_agg"
+    table_name = "person_plan_reason_caseunit_put_h_agg"
     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
     # print(expected_sqlstr)
     print("")
@@ -208,7 +208,7 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_prnawar_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_prnawar_put_h_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23_dash
 #     x_person_name = "Sue"
@@ -233,18 +233,18 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     all args included in values dict
 #     etl_config = get_etl_config()
 #     dimen = kw.personunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
 #     print(f"{dst_columns=}")
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_prnawar_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_prnawar_put_h_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     table_name = "person_plan_awardunit_h_put_agg"
+#     table_name = "person_plan_awardunit_put_h_agg"
 #     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
 #     print("")
 #     print(expected_sqlstr)
@@ -252,7 +252,7 @@ def test_create_prncase_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     assert insert_sqlstr == expected_sqlstr
 
 
-def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
+def test_create_prnfact_put_h_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # ESTABLISH
     x_person_name = "Sue"
     x_rope = 1
@@ -275,19 +275,19 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     # all args included in values dict
     etl_config = get_etl_config()
     dimen = kw.person_plan_factunit
-    dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+    dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
     dst_columns = remove_inx_columns(dst_columns)
     dst_columns = remove_staging_columns(dst_columns)
     print(f"{dst_columns=}")
     assert dst_columns == set(values_dict.keys())
 
     # WHEN
-    insert_sqlstr = create_prnfact_h_put_agg_insert_sqlstr(values_dict)
+    insert_sqlstr = create_prnfact_put_h_agg_insert_sqlstr(values_dict)
 
     # THEN
     assert insert_sqlstr
     create_sound_and_heard_tables(cursor0)
-    table_name = "person_plan_factunit_h_put_agg"
+    table_name = "person_plan_factunit_put_h_agg"
     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
     print("")
     print(expected_sqlstr)
@@ -295,7 +295,7 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
     assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_prnheal_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_prnheal_put_h_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23_dash
 #     x_person_name = "Sue"
@@ -312,18 +312,18 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     all args included in values dict
 #     etl_config = get_etl_config()
 #     dimen = kw.personunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
 #     print(f"{dst_columns=}")
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_prnheal_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_prnheal_put_h_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     table_name = "person_plan_healerunit_h_put_agg"
+#     table_name = "person_plan_healerunit_put_h_agg"
 #     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
 #     print("")
 #     print(expected_sqlstr)
@@ -331,7 +331,7 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_prnlabo_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_prnlabo_put_h_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23_dash
 #     x_person_name = "Sue"
@@ -352,18 +352,18 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     all args included in values dict
 #     etl_config = get_etl_config()
 #     dimen = kw.personunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
 #     print(f"{dst_columns=}")
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_prnlabo_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_prnlabo_put_h_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     table_name = "person_plan_partyunit_h_put_agg"
+#     table_name = "person_plan_partyunit_put_h_agg"
 #     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
 #     print("")
 #     print(expected_sqlstr)
@@ -372,7 +372,7 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_prnptnr_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_prnptnr_put_h_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23_dash
 #     x_person_name = "Sue"
@@ -413,18 +413,18 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     all args included in values dict
 #     etl_config = get_etl_config()
 #     dimen = kw.personunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
 #     print(f"{dst_columns=}")
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_prnptnr_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_prnptnr_put_h_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     table_name = "person_partnerunit_h_put_agg"
+#     table_name = "person_partnerunit_put_h_agg"
 #     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
 #     print("")
 #     print(expected_sqlstr)
@@ -432,7 +432,7 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_prnmemb_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_prnmemb_put_h_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23_dash
 #     x_person_name = "Sue"
@@ -469,18 +469,18 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     all args included in values dict
 #     etl_config = get_etl_config()
 #     dimen = kw.personunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
 #     print(f"{dst_columns=}")
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_prnmemb_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_prnmemb_put_h_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     table_name = "person_partner_membership_h_put_agg"
+#     table_name = "person_partner_membership_put_h_agg"
 #     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
 #     print("")
 #     print(expected_sqlstr)
@@ -488,7 +488,7 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     assert insert_sqlstr == expected_sqlstr
 
 
-# def test_create_prngrou_h_put_agg_insert_sqlstr_ReturnsObj():
+# def test_create_prngrou_put_h_agg_insert_sqlstr_ReturnsObj():
 #     # ESTABLISH
 #     x_moment_rope = exx.a23_dash
 #     x_person_name = "Sue"
@@ -517,18 +517,18 @@ def test_create_prnfact_h_put_agg_insert_sqlstr_ReturnsObj(cursor0: Cursor):
 #     all args included in values dict
 #     etl_config = get_etl_config()
 #     dimen = kw.personunit
-#     dst_columns = get_prime_columns(dimen, ["h", "agg", "put"], etl_config)
+#     dst_columns = get_prime_columns(dimen, ["h_agg", "put"], etl_config)
 #     print(f"{dst_columns=}")
 #     assert dst_columns == set(values_dict.keys())
 
 #     # WHEN
-#     insert_sqlstr = create_prngrou_h_put_agg_insert_sqlstr(values_dict)
+#     insert_sqlstr = create_prngrou_put_h_agg_insert_sqlstr(values_dict)
 
 #     # THEN
 #     assert insert_sqlstr
 #     cursor = conn.cursor()
 #     create_sound_and_heard_tables(cursor0)
-#     table_name = "person_groupunit_h_put_agg"
+#     table_name = "person_groupunit_put_h_agg"
 #     expected_sqlstr = create_insert_query(cursor0, table_name, values_dict)
 #     print("")
 #     print(expected_sqlstr)

@@ -8,6 +8,8 @@ from src.ch18_etl_config.etl_config import (
     create_prime_tablename,
     etl_idea_category_config_dict,
     etl_idea_category_config_path,
+    etl_stage_types_config_dict,
+    etl_stage_types_config_path,
     get_all_dimen_columns_set,
     get_del_dimen_columns_set,
     get_dimen_abbv2,
@@ -109,57 +111,53 @@ def test_get_stage_abbv5_ReturnsObj():
 
 def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     # ESTABLISH
-    raw_str = "raw"
-    agg_str = "agg"
-    vld_str = "vld"
     put_str = "put"
     del_str = "del"
 
     # WHEN
-    prnunit_s_agg_table = create_prime_tablename(kw.prnunit, "s", agg_str, put_str)
-    prnptnr_s_agg_table = create_prime_tablename(kw.prnptnr, "s", agg_str, put_str)
-    prnmemb_s_agg_table = create_prime_tablename(kw.prnmemb, "s", agg_str, put_str)
-    prnplan_s_agg_table = create_prime_tablename(kw.prnplan, "s", agg_str, put_str)
-    prnawar_s_agg_table = create_prime_tablename(kw.prnawar, "s", agg_str, put_str)
-    prnreas_s_agg_table = create_prime_tablename(kw.prnreas, "s", agg_str, put_str)
-    prncase_s_agg_table = create_prime_tablename(kw.prncase, "s", agg_str, put_str)
-    prnlabo_s_agg_table = create_prime_tablename(kw.prnlabo, "s", agg_str, put_str)
-    prnheal_s_agg_table = create_prime_tablename(kw.prnheal, "s", agg_str, put_str)
-    prnfact_s_agg_table = create_prime_tablename(kw.prnfact, "s", agg_str, put_str)
-    prnfact_s_del_table = create_prime_tablename(kw.prnfact, "s", agg_str, del_str)
-    mmtunit_s_agg_table = create_prime_tablename(kw.mmtunit, "s", agg_str)
-    mmtpayy_s_agg_table = create_prime_tablename(kw.mmtpayy, "s", agg_str)
-    mmtbudd_s_agg_table = create_prime_tablename(kw.mmtbudd, "s", agg_str)
-    mmthour_s_agg_table = create_prime_tablename(kw.mmthour, "s", agg_str)
-    mmtmont_s_agg_table = create_prime_tablename(kw.mmtmont, "s", agg_str)
-    mmtweek_s_agg_table = create_prime_tablename(kw.mmtweek, "s", agg_str)
-    mmtoffi_s_agg_table = create_prime_tablename(kw.mmtoffi, "s", agg_str)
-    nabtime_s_agg_table = create_prime_tablename(kw.nabtime, "s", agg_str)
-    trlname_s_agg_table = create_prime_tablename(kw.trlname, "s", agg_str)
-    trllabe_s_agg_table = create_prime_tablename(kw.trllabe, "s", agg_str)
-    trlrope_s_agg_table = create_prime_tablename(kw.trlrope, "s", agg_str)
-    trltitl_s_agg_table = create_prime_tablename(kw.trltitl, "s", agg_str)
-    trltitl_h_vld_table = create_prime_tablename(kw.trltitl, "h", vld_str)
-    trltitl_s_raw_table = create_prime_tablename(kw.trltitl, "s", raw_str)
-    trltitl_s_val_table = create_prime_tablename(kw.trltitl, "s", vld_str)
-    trlcore_s_raw_table = create_prime_tablename(kw.trlcore, "s", raw_str)
-    trlcore_s_agg_table = create_prime_tablename(kw.trlcore, "s", agg_str)
+    prnunit_s_agg_table = create_prime_tablename(kw.prnunit, "s_agg", put_str)
+    prnptnr_s_agg_table = create_prime_tablename(kw.prnptnr, "s_agg", put_str)
+    prnmemb_s_agg_table = create_prime_tablename(kw.prnmemb, "s_agg", put_str)
+    prnplan_s_agg_table = create_prime_tablename(kw.prnplan, "s_agg", put_str)
+    prnawar_s_agg_table = create_prime_tablename(kw.prnawar, "s_agg", put_str)
+    prnreas_s_agg_table = create_prime_tablename(kw.prnreas, "s_agg", put_str)
+    prncase_s_agg_table = create_prime_tablename(kw.prncase, "s_agg", put_str)
+    prnlabo_s_agg_table = create_prime_tablename(kw.prnlabo, "s_agg", put_str)
+    prnheal_s_agg_table = create_prime_tablename(kw.prnheal, "s_agg", put_str)
+    prnfact_s_agg_table = create_prime_tablename(kw.prnfact, "s_agg", put_str)
+    prnfact_s_del_table = create_prime_tablename(kw.prnfact, "s_agg", del_str)
+    mmtunit_s_agg_table = create_prime_tablename(kw.mmtunit, "s_agg")
+    mmtpayy_s_agg_table = create_prime_tablename(kw.mmtpayy, "s_agg")
+    mmtbudd_s_agg_table = create_prime_tablename(kw.mmtbudd, "s_agg")
+    mmthour_s_agg_table = create_prime_tablename(kw.mmthour, "s_agg")
+    mmtmont_s_agg_table = create_prime_tablename(kw.mmtmont, "s_agg")
+    mmtweek_s_agg_table = create_prime_tablename(kw.mmtweek, "s_agg")
+    mmtoffi_s_agg_table = create_prime_tablename(kw.mmtoffi, "s_agg")
+    nabtime_s_agg_table = create_prime_tablename(kw.nabtime, "s_agg")
+    trlname_s_agg_table = create_prime_tablename(kw.trlname, "s_agg")
+    trllabe_s_agg_table = create_prime_tablename(kw.trllabe, "s_agg")
+    trlrope_s_agg_table = create_prime_tablename(kw.trlrope, "s_agg")
+    trltitl_s_agg_table = create_prime_tablename(kw.trltitl, "s_agg")
+    trltitl_h_vld_table = create_prime_tablename(kw.trltitl, "h_vld")
+    trltitl_s_raw_table = create_prime_tablename(kw.trltitl, "s_raw")
+    trltitl_s_val_table = create_prime_tablename(kw.trltitl, "s_vld")
+    trlcore_s_raw_table = create_prime_tablename(kw.trlcore, "s_raw")
+    trlcore_s_agg_table = create_prime_tablename(kw.trlcore, "s_agg")
     prnptnr_job_table = create_prime_tablename(kw.prnptnr, kw.job, None)
-    x_prnptnr_raw = create_prime_tablename(kw.prnptnr, "k", raw_str)
     prngrou_job_table = create_prime_tablename(kw.prngrou, kw.job, None)
 
     # THEN
-    assert prnunit_s_agg_table == f"{kw.personunit}_s_put_agg"
-    assert prnptnr_s_agg_table == f"{kw.person_partnerunit}_s_put_agg"
-    assert prnmemb_s_agg_table == f"{kw.person_partner_membership}_s_put_agg"
-    assert prnplan_s_agg_table == f"{kw.person_planunit}_s_put_agg"
-    assert prnawar_s_agg_table == f"{kw.person_plan_awardunit}_s_put_agg"
-    assert prnreas_s_agg_table == f"{kw.person_plan_reasonunit}_s_put_agg"
-    assert prncase_s_agg_table == f"{kw.person_plan_reason_caseunit}_s_put_agg"
-    assert prnlabo_s_agg_table == f"{kw.person_plan_partyunit}_s_put_agg"
-    assert prnheal_s_agg_table == f"{kw.person_plan_healerunit}_s_put_agg"
-    assert prnfact_s_agg_table == f"{kw.person_plan_factunit}_s_put_agg"
-    assert prnfact_s_del_table == f"{kw.person_plan_factunit}_s_del_agg"
+    assert prnunit_s_agg_table == f"{kw.personunit}_put_s_agg"
+    assert prnptnr_s_agg_table == f"{kw.person_partnerunit}_put_s_agg"
+    assert prnmemb_s_agg_table == f"{kw.person_partner_membership}_put_s_agg"
+    assert prnplan_s_agg_table == f"{kw.person_planunit}_put_s_agg"
+    assert prnawar_s_agg_table == f"{kw.person_plan_awardunit}_put_s_agg"
+    assert prnreas_s_agg_table == f"{kw.person_plan_reasonunit}_put_s_agg"
+    assert prncase_s_agg_table == f"{kw.person_plan_reason_caseunit}_put_s_agg"
+    assert prnlabo_s_agg_table == f"{kw.person_plan_partyunit}_put_s_agg"
+    assert prnheal_s_agg_table == f"{kw.person_plan_healerunit}_put_s_agg"
+    assert prnfact_s_agg_table == f"{kw.person_plan_factunit}_put_s_agg"
+    assert prnfact_s_del_table == f"{kw.person_plan_factunit}_del_s_agg"
     assert mmtunit_s_agg_table == f"{kw.momentunit}_s_agg"
     assert mmtpayy_s_agg_table == f"{kw.moment_paybook}_s_agg"
     assert mmtbudd_s_agg_table == f"{kw.moment_budunit}_s_agg"
@@ -179,7 +177,6 @@ def test_create_prime_tablename_ReturnsObj_Scenario0_ExpectedReturns():
     assert trlcore_s_agg_table == f"{kw.translate_core}_s_agg"
     assert prnptnr_job_table == f"{kw.person_partnerunit}_job"
     assert prngrou_job_table == f"{kw.person_groupunit}_job"
-    assert x_prnptnr_raw == f"{kw.person_partnerunit}_raw"
 
 
 def test_get_all_dimen_columns_set_ReturnsObj_Scenario0_idea_config_Dimens():
@@ -202,6 +199,59 @@ def test_get_all_dimen_columns_set_ReturnsObj_Scenario1_translate_core_Dimens():
     # THEN
     expected_columns = {kw.face_name, kw.otx_knot, kw.inx_knot, kw.unknown_str}
     assert translate_core_columns == expected_columns
+
+
+def test_etl_stage_types_config_path_ReturnsObj():
+    # ESTABLISH
+    src_dir = create_path(os_getcwd(), "src")
+    chapter_dir = create_path(src_dir, "ch18_etl_config")
+    # WHEN / THEN
+    assert etl_stage_types_config_path() == create_path(
+        chapter_dir, "etl_stage_types_config.json"
+    )
+
+
+def test_etl_stage_types_config_dict_ReturnsObj_Scenario0_IsFullyPopulated():
+    # ESTABLISH / WHEN
+    etl_stage_types_config = etl_stage_types_config_dict()
+
+    # THEN
+    assert etl_stage_types_config
+    etl_stage_types = set(etl_stage_types_config.keys())
+    assert etl_stage_types == {
+        "h_agg",
+        "h_raw",
+        "h_vld",
+        "s_agg",
+        "s_raw",
+        "s_vld",
+        "b_agg",
+        "b_raw",
+        "b_vld",
+    }
+    expected_abbv9_stage_types = {
+        kw.heard_agg,
+        kw.heard_raw,
+        kw.heard_vld,
+        kw.sound_agg,
+        kw.sound_raw,
+        kw.sound_vld,
+        kw.brick_agg,
+        kw.brick_raw,
+        kw.brick_valid,
+    }
+    for stage_type, stage_type_dict in etl_stage_types_config.items():
+        type_dict_keys = set(stage_type_dict.keys())
+        assert "description" in type_dict_keys
+        assert "abbv9" in type_dict_keys
+        assert "stage_type_order" in type_dict_keys
+        abbv9_str = stage_type_dict.get("abbv9")
+        general_order_int = stage_type_dict.get("stage_type_order")
+        assert abbv9_str in expected_abbv9_stage_types
+        assert abbv9_str[5:6] == "_"
+        assert general_order_int > 0, stage_type
+
+        print(f"{stage_type=} {type_dict_keys=}")
 
 
 def test_etl_idea_category_config_path_ReturnsObj():
@@ -227,6 +277,12 @@ def test_get_etl_idea_category_config_dict_ReturnsObj_Scenario0_IsFullyPopulated
     assert kw.nabu in etl_idea_category_config_dimens
     assert len(etl_idea_category_config_dimens) == 5
 
+    etl_stage_types = set(etl_stage_types_config_dict().keys())
+    for idea_category, cat_dict in etl_idea_category_config.items():
+        for stage_type, stage_dict in cat_dict.get("stages").items():
+            assert stage_type in etl_stage_types
+            print(f"{stage_type=}")
+
 
 def test_get_etl_category_stages_dict_ReturnsObj():
     # sourcery skip: no-conditionals-in-tests
@@ -238,35 +294,31 @@ def test_get_etl_category_stages_dict_ReturnsObj():
     expected_count = 0
     etl_idea_category_config = etl_idea_category_config_dict()
     for idea_category, dimen_dict in etl_idea_category_config.items():
-        for stage0_key, stage0_dict in dimen_dict.get("stages").items():
-            for stage1_key, stage1_dict in stage0_dict.items():
+        for stage_type, stages_dict in dimen_dict.get("stages").items():
+            expected_count += 1
+            if set(stages_dict.keys()) == {"del", "put"}:
+                stage_key_put = f"{idea_category}_{stage_type}_put"
+                stage_key_del = f"{idea_category}_{stage_type}_del"
+                # print(f"{expected_count} {stage_key_put=}")
                 expected_count += 1
-                if set(stage1_dict.keys()) == {"del", "put"}:
-                    stage_key_put = f"{idea_category}_{stage0_key}_{stage1_key}_put"
-                    stage_key_del = f"{idea_category}_{stage0_key}_{stage1_key}_del"
-                    # print(f"{expected_count} {stage_key_put=}")
-                    expected_count += 1
-                    expected_dict[stage_key_put] = {
-                        kw.idea_category: idea_category,
-                        "stage0": stage0_key,
-                        "stage1": stage1_key,
-                        "put_del": "put",
-                    }
-                    expected_dict[stage_key_del] = {
-                        kw.idea_category: idea_category,
-                        "stage0": stage0_key,
-                        "stage1": stage1_key,
-                        "put_del": "del",
-                    }
-                    # print(f"{expected_count} {stage_key_del=}")
-                else:
-                    stage_key = f"{idea_category}_{stage0_key}_{stage1_key}"
-                    expected_dict[stage_key] = {
-                        kw.idea_category: idea_category,
-                        "stage0": stage0_key,
-                        "stage1": stage1_key,
-                    }
-                    # print(f"{expected_count} {stage_key=} ")
+                expected_dict[stage_key_put] = {
+                    kw.idea_category: idea_category,
+                    "stage_type": stage_type,
+                    "put_del": "put",
+                }
+                expected_dict[stage_key_del] = {
+                    kw.idea_category: idea_category,
+                    "stage_type": stage_type,
+                    "put_del": "del",
+                }
+                # print(f"{expected_count} {stage_key_del=}")
+            else:
+                stage_key = f"{idea_category}_{stage_type}"
+                expected_dict[stage_key] = {
+                    kw.idea_category: idea_category,
+                    "stage_type": stage_type,
+                }
+                # print(f"{expected_count} {stage_key=} ")
     # print(expected_dict)
     assert etl_category_stages_dict == expected_dict
 
@@ -282,7 +334,7 @@ def test_get_prime_columns_ReturnsObj_Scenario0_EmptyKeylist():
 def test_get_prime_columns_ReturnsObj_Scenario1_EmptyConfig():
     # ESTABLISH
     x_dimen = kw.momentunit
-    table_keylist = ["h", "agg"]
+    table_keylist = ["h_agg"]
 
     # WHEN / THEN
     assert get_prime_columns(x_dimen, table_keylist, {}) == set()
@@ -291,7 +343,7 @@ def test_get_prime_columns_ReturnsObj_Scenario1_EmptyConfig():
 def test_get_prime_columns_ReturnsObj_Scenario2_moment_epoch_month():
     # ESTABLISH
     x_dimen = kw.moment_epoch_month
-    table_keylist = ["h", "agg"]
+    table_keylist = ["h_agg"]
     config_dict = get_idea_config_dict()
 
     # WHEN
@@ -312,7 +364,7 @@ def test_get_prime_columns_ReturnsObj_Scenario2_moment_epoch_month():
 def test_get_prime_columns_ReturnsObj_Scenario3_h_raw_set_translateable_otx_inx_args():
     # ESTABLISH
     x_dimen = kw.moment_epoch_month
-    table_keylist = ["h", "raw"]
+    table_keylist = ["h_raw"]
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
@@ -337,7 +389,7 @@ def test_get_prime_columns_ReturnsObj_Scenario3_h_raw_set_translateable_otx_inx_
 def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args():
     # ESTABLISH
     x_dimen = kw.moment_timeoffi
-    table_keylist = ["h", "agg"]
+    table_keylist = ["h_agg"]
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
@@ -358,7 +410,7 @@ def test_get_prime_columns_ReturnsObj_Scenario4_h_agg_set_nabuable_otx_inx_args(
 def test_get_prime_columns_ReturnsObj_Scenario5_h_agg_set_nabuable_otx_inx_args_ContextNabuableArgs():
     # ESTABLISH
     x_dimen = kw.person_plan_reason_caseunit
-    table_keylist = ["h", "agg", "put"]
+    table_keylist = ["h_agg", "put"]
     config_dict = etl_idea_category_config_dict()
 
     # WHEN
@@ -412,11 +464,11 @@ def test_get_del_dimen_columns_set_ReturnsObj_Scenario0() -> list[str]:
 def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # ESTABLISH / WHEN
     table_sqlstr = create_prime_table_sqlstr(
-        kw.person_plan_reason_caseunit, "s", "raw", "put"
+        kw.person_plan_reason_caseunit, "s_raw", "put"
     )
 
     # THEN
     assert table_sqlstr
     print(table_sqlstr)
-    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_s_put_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
+    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_put_s_raw (idea_number TEXT, spark_num INTEGER, face_name TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
     assert table_sqlstr == expected_sqlstr

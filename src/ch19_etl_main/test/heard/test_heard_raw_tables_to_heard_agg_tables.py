@@ -34,14 +34,14 @@ def check_insert_sqlstr_exists(
     stage_dict: dict,
     put_del: str = None,
 ):
-    raw_tablename = prime_tbl(dimen, "h", "raw", put_del)
-    agg_tablename = prime_tbl(dimen, "h", "agg", put_del)
+    raw_tablename = prime_tbl(dimen, "h_raw", put_del)
+    agg_tablename = prime_tbl(dimen, "h_agg", put_del)
 
     print(f"{raw_tablename=} {agg_tablename=}")
     # print(f"{stage_dict=}")
     config_dict = etl_idea_category_config_dict()
-    raw_keylist = ["h", "raw", put_del] if put_del else ["h", "raw"]
-    agg_keylist = ["h", "agg", put_del] if put_del else ["h", "agg"]
+    raw_keylist = ["h_raw", put_del] if put_del else ["h_raw"]
+    agg_keylist = ["h_agg", put_del] if put_del else ["h_agg"]
     p_agg_columns = get_prime_columns(dimen, agg_keylist, config_dict)
     p_raw_columns = get_prime_columns(dimen, raw_keylist, config_dict)
     if stage_dict.get("exclude_otx_from_insert"):
@@ -84,15 +84,12 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj(cursor0: Cursor):
     insert_heard_agg_sqlstrs = get_insert_heard_agg_sqlstrs()
 
     # THEN
-    h_str = "h"
-    agg_str = "agg"
     agg_sqlstrs = insert_heard_agg_sqlstrs
     etl_idea_category_config = etl_idea_category_config_dict()
     create_sound_and_heard_tables(cursor0)
     for idea_category, category_dict in etl_idea_category_config.items():
         category_config = get_idea_config_dict(idea_category)
-        if h_dict := category_dict.get("stages").get(h_str):
-            agg_dict = h_dict.get(agg_str)
+        if agg_dict := category_dict.get("stages").get("h_agg"):
             # print(f"{idea_category=}")
             if agg_dict.get("del") is None:
                 for dimen in sorted(category_config.keys()):
@@ -124,7 +121,7 @@ def test_get_insert_heard_agg_sqlstrs_ReturnsObj_PopulatesTable_Scenario0(
     x66_debt = 66
 
     create_sound_and_heard_tables(cursor0)
-    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h", "raw", "put")
+    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h_raw", "put")
     print(f"{get_table_columns(cursor0, prnptnr_h_raw_put_tablename)=}")
     insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
   {kw.spark_num}
@@ -145,7 +142,7 @@ VALUES
 """
     cursor0.execute(insert_into_clause)
     assert get_row_count(cursor0, prnptnr_h_raw_put_tablename) == 5
-    prnptnr_h_agg_put_tablename = prime_tbl(kw.person_partnerunit, "h", "agg", "put")
+    prnptnr_h_agg_put_tablename = prime_tbl(kw.person_partnerunit, "h_agg", "put")
     assert get_row_count(cursor0, prnptnr_h_agg_put_tablename) == 0
 
     # WHEN
@@ -190,7 +187,7 @@ def test_etl_heard_raw_tables_to_heard_agg_tables_PopulatesTable_Scenario0(
     x66_debt = 66
 
     create_sound_and_heard_tables(cursor0)
-    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h", "raw", "put")
+    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h_raw", "put")
     print(f"{get_table_columns(cursor0, prnptnr_h_raw_put_tablename)=}")
     insert_into_clause = f"""INSERT INTO {prnptnr_h_raw_put_tablename} (
   {kw.spark_num}
@@ -211,7 +208,7 @@ VALUES
 """
     cursor0.execute(insert_into_clause)
     assert get_row_count(cursor0, prnptnr_h_raw_put_tablename) == 5
-    prnptnr_h_agg_put_tablename = prime_tbl(kw.person_partnerunit, "h", "agg", "put")
+    prnptnr_h_agg_put_tablename = prime_tbl(kw.person_partnerunit, "h_agg", "put")
     assert get_row_count(cursor0, prnptnr_h_agg_put_tablename) == 0
 
     # WHEN
