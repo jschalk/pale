@@ -246,7 +246,7 @@ def test_PersonUnit_to_dict_ReturnsJSON_Scenario5_BigExample():
     assert len(yao_person.partners) == 22
 
 
-def test_get_personunit_from_dict_ReturnsPlanRoot():
+def test_get_personunit_from_dict_ReturnsObj_Scenario0_PlanRoot():
     # ESTABLISH
     zia_person = get_personunit_x1_3levels_1reason_1facts()
     zia_person.set_max_tree_traverse(23)
@@ -265,7 +265,7 @@ def test_get_personunit_from_dict_ReturnsPlanRoot():
     assert json_planroot.stop_want == zia_stop_want
 
 
-def test_get_personunit_from_dict_ReturnsObj_knot_Example():
+def test_get_personunit_from_dict_ReturnsObj_Scenario1_knot_Example():
     # ESTABLISH
     slash_knot = "/"
     before_bob_person = personunit_shop("Bob", knot=slash_knot)
@@ -280,7 +280,7 @@ def test_get_personunit_from_dict_ReturnsObj_knot_Example():
     assert after_bob_person.knot == before_bob_person.knot
 
 
-def test_get_personunit_from_dict_ReturnsObj_knot_PartnerExample():
+def test_get_personunit_from_dict_ReturnsObj_Scenario2_knot_PartnerExample():
     # ESTABLISH
     slash_knot = "/"
     before_bob_person = personunit_shop("Bob", knot=slash_knot)
@@ -296,7 +296,7 @@ def test_get_personunit_from_dict_ReturnsObj_knot_PartnerExample():
     assert after_bob_partnerunit.groupmark == slash_knot
 
 
-def test_get_personunit_from_dict_ReturnsObj_knot_GroupExample():
+def test_get_personunit_from_dict_ReturnsObj_Scenario3_knot_GroupExample():
     # ESTABLISH
     slash_knot = "/"
     before_bob_person = personunit_shop("Bob", knot=slash_knot)
@@ -313,7 +313,7 @@ def test_get_personunit_from_dict_ReturnsObj_knot_GroupExample():
     assert after_yao_partnerunit.groupmark == slash_knot
 
 
-def test_get_personunit_from_dict_ReturnsObj_Scenario7_planroot_knot_IsApplied():
+def test_get_personunit_from_dict_ReturnsObj_Scenario4_planroot_knot_IsApplied():
     # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue", knot=exx.slash)
@@ -334,7 +334,7 @@ def test_get_personunit_from_dict_ReturnsObj_Scenario7_planroot_knot_IsApplied()
     assert after_bob_person.get_plan_obj(hr_number_rope).knot == exx.slash
 
 
-def test_get_personunit_from_dict_ExportsPersonUnit_star():
+def test_get_personunit_from_dict_ReturnsObj_Scenario5_ExportsPersonUnit_star():
     # ESTABLISH
     x1_person = personunit_v001()
     assert x1_person.planroot.star == 1
@@ -346,6 +346,56 @@ def test_get_personunit_from_dict_ExportsPersonUnit_star():
     assert x1_person.planroot.star == 1
     assert x1_person.planroot.star == x2_person.planroot.star
     assert x1_person.planroot.kids == x2_person.planroot.kids
+
+
+def test_get_personunit_from_dict_ReturnsObj_Scenario6_CheckNumericalPlanUnitAttrs():
+    # ESTABLISH
+    before_person = personunit_v001()
+    casa_rope = before_person.make_l1_rope(exx.casa)
+    before_person.add_plan(casa_rope)
+    before_casa_plan = before_person.get_plan_obj(casa_rope)
+    x_star = 11
+    x_begin = 12
+    x_close = 13
+    x_numor = 14
+    x_denom = 15
+    x_morph = 16
+    x_addin = 19
+    x_gogo_want = 17
+    x_stop_want = 18
+    before_casa_plan.star = x_star
+    before_casa_plan.begin = x_begin
+    before_casa_plan.close = x_close
+    before_casa_plan.numor = x_numor
+    before_casa_plan.denom = x_denom
+    before_casa_plan.morph = x_morph
+    before_casa_plan.addin = x_addin
+    before_casa_plan.gogo_want = x_gogo_want
+    before_casa_plan.stop_want = x_stop_want
+    assert before_casa_plan.star == x_star
+    assert before_casa_plan.begin == x_begin
+    assert before_casa_plan.close == x_close
+    assert before_casa_plan.numor == x_numor
+    assert before_casa_plan.denom == x_denom
+    assert before_casa_plan.morph == x_morph
+    assert before_casa_plan.addin == x_addin
+    assert before_casa_plan.gogo_want == x_gogo_want
+    assert before_casa_plan.stop_want == x_stop_want
+
+    # WHEN
+    after_person = get_personunit_from_dict(before_person.to_dict())
+
+    # THEN
+    after_casa_plan = after_person.get_plan_obj(casa_rope)
+    assert after_casa_plan.star == x_star
+    assert after_casa_plan.begin == x_begin
+    assert after_casa_plan.close == x_close
+    assert after_casa_plan.numor == x_numor
+    assert after_casa_plan.denom == x_denom
+    assert after_casa_plan.morph == x_morph
+    assert after_casa_plan.addin == x_addin
+    assert after_casa_plan.gogo_want == x_gogo_want
+    assert after_casa_plan.stop_want == x_stop_want
 
 
 def test_get_dict_of_person_from_dict_ReturnsDictOfPersonUnits():

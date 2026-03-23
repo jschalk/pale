@@ -176,7 +176,6 @@ def add_epoch_planunit(x_personunit: PersonUnit, epoch_config: dict = None):
     x_hours_list = epoch_config.get("hours_config")
     x_weekdays_list = epoch_config.get("weekdays_config")
     x_yr1_jan1_offset = epoch_config.get("yr1_jan1_offset")
-    print(f"{x_yr1_jan1_offset=}")
 
     planroot_label = get_first_label_from_rope(
         rope=x_personunit.planroot.get_plan_rope(), knot=x_personunit.knot

@@ -309,8 +309,4 @@ def get_gcal_day_report_from_job_file(
     momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
     epoch_label = momentunit.epoch.epoch_label
     job = open_job_file(moment_mstr_dir, moment_lasso, person_name)
-    yr1_jan_offset_plan = job.get_plan_obj(";Amy23;time;creg;yr1_jan1_offset;")
-    print(f"{yr1_jan_offset_plan.addin=}")
-    print(f"{day=}")
-
     return get_gcal_day_report_from_personunit(job, day, epoch_label, focus_group_title)

@@ -1481,13 +1481,6 @@ def personunit_shop(
 
 
 def get_personunit_from_dict(person_dict: dict) -> PersonUnit:
-    # # print(personunit.to_dict().keys())
-    # planroot_kids = person_dict.get("planroot").get("kids")
-    # time_kids = planroot_kids.get("time").get("kids")
-    # creg_kids = time_kids.get("creg").get("kids")
-    # yr1_jan1_offset_dict = creg_kids.get("yr1_jan1_offset")
-    # print(f"get_personunit_from_dict {yr1_jan1_offset_dict=}")
-
     x_person = personunit_shop()
     x_person.set_person_name(obj_from_person_dict(person_dict, "person_name"))
     x_person.set_max_tree_traverse(
@@ -1512,12 +1505,6 @@ def get_personunit_from_dict(person_dict: dict) -> PersonUnit:
         x_person.set_partnerunit(x_partnerunit)
     create_planroot_from_person_dict(x_person, person_dict)
 
-    # yr1_jan1_offset_plan = x_person.get_plan_obj(";Amy23;time;creg;yr1_jan1_offset;")
-    # # print(x_person.get_plan_obj(";Amy23;time;creg;yr1_jan1_offset;"))
-    # if yr1_jan1_offset_plan:
-    #     print(f"{yr1_jan1_offset_plan.addin=}")
-    print("huh")
-
     return x_person
 
 
@@ -1534,6 +1521,7 @@ def create_planroot_from_person_dict(x_person: PersonUnit, person_dict: dict):
         numor=get_obj_from_plan_dict(planroot_dict, "numor"),
         denom=get_obj_from_plan_dict(planroot_dict, "denom"),
         morph=get_obj_from_plan_dict(planroot_dict, "morph"),
+        addin=get_obj_from_plan_dict(planroot_dict, "addin"),
         gogo_want=get_obj_from_plan_dict(planroot_dict, "gogo_want"),
         stop_want=get_obj_from_plan_dict(planroot_dict, "stop_want"),
         problem_bool=get_obj_from_plan_dict(planroot_dict, "problem_bool"),
@@ -1574,6 +1562,7 @@ def create_planroot_kids_from_dict(x_person: PersonUnit, planroot_dict: dict):
             numor=get_obj_from_plan_dict(plan_dict, "numor"),
             denom=get_obj_from_plan_dict(plan_dict, "denom"),
             morph=get_obj_from_plan_dict(plan_dict, "morph"),
+            addin=get_obj_from_plan_dict(plan_dict, "addin"),
             gogo_want=get_obj_from_plan_dict(plan_dict, "gogo_want"),
             stop_want=get_obj_from_plan_dict(plan_dict, "stop_want"),
             pledge=get_obj_from_plan_dict(plan_dict, "pledge"),
