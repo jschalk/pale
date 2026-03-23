@@ -2,13 +2,10 @@ from copy import copy as copy_copy
 from dataclasses import dataclass
 from os import sep as os_sep, walk as os_walk
 from os.path import exists as os_path_exists, join as os_path_join
-from src.ch00_py.file_toolbox import create_path, get_level1_dirs, open_json, save_json
+from src.ch00_py.file_toolbox import create_path, get_level1_dirs, save_json
 from src.ch01_allot.allot import allot_nested_scale
 from src.ch05_reason.reason_main import get_dict_from_factunits
-from src.ch09_person_lesson._ref.ch09_path import (
-    create_moment_json_path,
-    create_moment_persons_dir_path,
-)
+from src.ch09_person_lesson._ref.ch09_path import create_moment_persons_dir_path
 from src.ch09_person_lesson.lasso import LassoUnit
 from src.ch11_bud._ref.ch11_path import (
     CELL_MANDATE_FILENAME,
@@ -32,7 +29,7 @@ from src.ch11_bud.weighted_facts_tool import get_nodes_with_weighted_facts
 from src.ch13_time.epoch_main import TimeNum
 from src.ch14_moment._ref.ch14_path import BUD_MANDATE_FILENAME
 from src.ch14_moment._ref.ch14_semantic_types import FundNum, PersonName, RopeTerm
-from src.ch14_moment.moment_main import get_momentunit_from_dict
+from src.ch14_moment.moment_main import open_moment_file, save_moment_file
 
 
 def create_moment_persons_cell_trees(moment_mstr_dir, moment_lasso: LassoUnit):
@@ -322,8 +319,7 @@ def set_cell_tree_cell_mandates(moment_mstr_dir: str, moment_lasso: LassoUnit):
 
 
 def create_bud_mandate_ledgers(moment_mstr_dir: str, moment_lasso: LassoUnit):
-    moment_json_path = create_moment_json_path(moment_mstr_dir, moment_lasso)
-    momentunit = get_momentunit_from_dict(open_json(moment_json_path))
+    momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
     for personbudhistory in momentunit.personbudhistorys.values():
         for budunit in personbudhistory.buds.values():
             bud_root_dir = create_bud_dir_path(
@@ -342,4 +338,4 @@ def create_bud_mandate_ledgers(moment_mstr_dir: str, moment_lasso: LassoUnit):
             )
             save_json(bud_root_dir, BUD_MANDATE_FILENAME, bud_partner_mandate_ledger)
             budunit.bud_partner_nets = bud_partner_mandate_ledger
-    save_json(moment_json_path, None, momentunit.to_dict())
+    save_moment_file(momentunit, moment_lasso)

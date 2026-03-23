@@ -1,10 +1,12 @@
 from datetime import datetime
 from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
+from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
-from src.ch14_moment.moment_main import momentunit_shop
-from src.ch20_kpi.gcalendar import (  # get_gcal_day_report_from_job_file,
+from src.ch14_moment.moment_main import momentunit_shop, save_moment_file
+from src.ch20_kpi.gcalendar import (
     gcal_readable_percent,
+    get_gcal_day_report_from_job_file,
     get_gcal_day_report_from_personunit,
 )
 from src.ch20_kpi.test._util.ch20_env import get_temp_dir
@@ -63,24 +65,32 @@ def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson
     assert exx.run in sue_day_report_str
 
 
-# def test_get_gcal_day_report_from_job_file_ReturnsObj_Scenario1_NonEmptyPerson():
-#     # ESTABLISH
-#     sue_person = get_sue_clean_example()
-#     apr7 = datetime(2010, 4, 7)
-#     # save momentunit json
-#     mmt_mstr_dir = get_temp_dir()
-#     a23_moment = momentunit_shop(exx.a23, mmt_mstr_dir)
-#     epoch_config = get_default_epoch_config_dict()
-#     x_epoch_label = epoch_config.get("epoch_label")
-#     assert a23_moment.epoch.epoch_label == x_epoch_label
+def test_get_gcal_day_report_from_job_file_ReturnsObj_Scenario1_NonEmptyPerson():
+    # ESTABLISH
+    sue_person = get_sue_clean_example()
+    epoch_config = get_default_epoch_config_dict()
+    x_epoch_label = epoch_config.get("epoch_label")
+    add_epoch_planunit(sue_person, epoch_config)
+    sue_person.conpute()
+    apr7 = datetime(2010, 4, 7)
+    # save momentunit json
+    mmt_mstr_dir = get_temp_dir()
+    a23_moment = momentunit_shop(exx.a23, mmt_mstr_dir)
+    a23_lasso = lassounit_shop(a23_moment.moment_rope, a23_moment.knot)
+    assert a23_moment.epoch.epoch_label == x_epoch_label
+    save_moment_file(a23_moment, a23_lasso)
+    # save personunit json as job file
+    save_job_file(mmt_mstr_dir, sue_person)
 
-#     # save personunit json as job file
+    # WHEN
+    sue_day_report_str = get_gcal_day_report_from_job_file(
+        moment_mstr_dir=mmt_mstr_dir,
+        moment_lasso=a23_lasso,
+        person_name=sue_person.person_name,
+        day=apr7,
+        focus_group_title=exx.run,
+    )
 
-#     # WHEN
-#     sue_day_report_str = get_gcal_day_report_from_job_file(
-#         sue_person, apr7, group_title=exx.run
-#     )
-
-#     # THEN
-#     assert sue_day_report_str
-#     assert "Schedule Priorities" in sue_day_report_str
+    # THEN
+    assert sue_day_report_str
+    assert "Schedule Priorities" in sue_day_report_str
