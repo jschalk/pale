@@ -41,7 +41,7 @@ from src.ch20_kpi.kpi_mstr import create_calendar_markdown_files, populate_kpi_b
 from src.ch21_world._ref.ch21_semantic_types import WorldName
 
 
-def sheets_input_to_clarity_with_cursor(
+def sheets_input_to_lynx_with_cursor(
     cursor: sqlite3_Cursor, input_dir: str, moment_mstr_dir: str
 ):
     delete_dir(moment_mstr_dir)
@@ -60,13 +60,14 @@ def sheets_input_to_clarity_with_cursor(
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables(cursor)
     etl_sound_agg_tables_to_sound_vld_tables(cursor)
     etl_sound_vld_tables_to_heard_raw_tables(cursor)
-    # heard raw to moment/person jsons
+    # heard raw stage to sparkized stage: moment/person jsons files
     etl_heard_raw_tables_to_heard_agg_tables(cursor)
     etl_heard_agg_tables_to_heard_vld_tables(cursor)
     etl_heard_vld_tables_to_moment_jsons(cursor, moment_mstr_dir)
     etl_heard_vld_to_spark_person_csvs(cursor, moment_mstr_dir)
     etl_spark_person_csvs_to_lesson_json(moment_mstr_dir)
     etl_spark_lesson_json_to_spark_inherited_personunits(moment_mstr_dir)
+    # Sparkized files to Lynx stage
     etl_spark_inherited_personunits_to_moment_gut(moment_mstr_dir)
     add_moment_epoch_to_guts(moment_mstr_dir)
     etl_moment_guts_to_moment_jobs(moment_mstr_dir)
@@ -94,17 +95,15 @@ def create_stances(
     create_calendar_markdown_files(moment_mstr_dir, output_dir)
 
 
-def sheets_input_to_clarity_mstr(
-    world_db_path: str, input_dir: str, moment_mstr_dir: str
-):
+def sheets_input_to_lynx_mstr(world_db_path: str, input_dir: str, moment_mstr_dir: str):
     with sqlite3_connect(world_db_path) as db_conn:
         cursor = db_conn.cursor()
-        sheets_input_to_clarity_with_cursor(cursor, input_dir, moment_mstr_dir)
+        sheets_input_to_lynx_with_cursor(cursor, input_dir, moment_mstr_dir)
         db_conn.commit()
     db_conn.close()
 
 
-def stance_sheets_to_clarity_mstr(
+def stance_sheets_to_lynx_mstr(
     world_db_path: str, input_dir: str, moment_mstr_dir: str
 ):
     max_brick_agg_spark_num = 0
@@ -115,7 +114,7 @@ def stance_sheets_to_clarity_mstr(
         db_conn0.close()
     next_spark_num = max_brick_agg_spark_num + 1
     update_spark_num_in_excel_files(input_dir, next_spark_num)
-    sheets_input_to_clarity_mstr(
+    sheets_input_to_lynx_mstr(
         world_db_path=world_db_path,
         input_dir=input_dir,
         moment_mstr_dir=moment_mstr_dir,

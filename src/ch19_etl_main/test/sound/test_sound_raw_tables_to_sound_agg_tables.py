@@ -30,7 +30,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ExecutedSqlUpdat
 
     cursor0.execute(CREATE_TRLROPE_SOUND_RAW_SQLSTR)
     trlrope_str = "translate_rope"
-    trlrope_s_raw_tablename = create_prime_tablename(trlrope_str, "s_raw")
+    trlrope_s_raw_tablename = create_prime_tablename(trlrope_str, kw.s_raw)
     insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
@@ -81,7 +81,7 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario0(cursor0: Curs
     spark7 = 7
 
     create_sound_and_heard_tables(cursor0)
-    trlrope_s_raw_tablename = create_prime_tablename(kw.translate_rope, "s_raw")
+    trlrope_s_raw_tablename = create_prime_tablename(kw.translate_rope, kw.s_raw)
     insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
@@ -134,7 +134,7 @@ def test_set_sound_raw_tables_error_message_UpdatesTable_Scenario1_person_raw_de
     spark7 = 7
 
     create_sound_and_heard_tables(cursor0)
-    persona_s_raw_del = create_prime_tablename(kw.person_partnerunit, "s_raw", "del")
+    persona_s_raw_del = create_prime_tablename(kw.person_partnerunit, kw.s_raw, "del")
     insert_into_clause = f"""INSERT INTO {persona_s_raw_del} (
   {kw.idea_number}
 , {kw.spark_num}
@@ -181,7 +181,7 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
     spark7 = 7
 
     create_sound_and_heard_tables(cursor0)
-    trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s_raw")
+    trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", kw.s_raw)
     insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
@@ -209,7 +209,7 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    prnptnr_put_s_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
+    prnptnr_put_s_raw_tblname = create_prime_tablename("PRNPTNR", kw.s_raw, "put")
     insert_into_clause = f"""INSERT INTO {prnptnr_put_s_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
@@ -275,7 +275,7 @@ def test_insert_sound_raw_selects_into_sound_agg_tables_PopulatesValidTable_Scen
     b117 = "br00117"
     b020 = "br00020"
     create_sound_and_heard_tables(cursor0)
-    prnptnr_del_s_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "del")
+    prnptnr_del_s_raw_tblname = create_prime_tablename("PRNPTNR", kw.s_raw, "del")
     insert_into_clause = f"""INSERT INTO {prnptnr_del_s_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}
@@ -330,7 +330,7 @@ def test_etl_sound_raw_tables_to_sound_agg_tables_PopulatesValidTable_Scenario0(
     spark7 = 7
 
     create_sound_and_heard_tables(cursor0)
-    trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", "s_raw")
+    trlrope_s_raw_tablename = create_prime_tablename("TRLROPE", kw.s_raw)
     insert_into_clause = f"""INSERT INTO {trlrope_s_raw_tablename} (
   {kw.idea_number}
 , {kw.spark_num}
@@ -359,7 +359,7 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    prnptnr_put_s_raw_tblname = create_prime_tablename("PRNPTNR", "s_raw", "put")
+    prnptnr_put_s_raw_tblname = create_prime_tablename("PRNPTNR", kw.s_raw, "put")
     insert_into_clause = f"""INSERT INTO {prnptnr_put_s_raw_tblname} (
   {kw.idea_number}
 , {kw.spark_num}

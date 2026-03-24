@@ -1,3 +1,4 @@
+from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, save_json
 from src.ch01_allot.allot import default_grain_num_if_None
 from src.ch04_rope.rope import create_rope, default_knot_if_None
@@ -5,9 +6,10 @@ from src.ch09_person_lesson._ref.ch09_path import create_moment_json_path
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch13_time.epoch_main import get_default_epoch_config_dict
 from src.ch14_moment.moment_main import (
-    get_default_path_momentunit,
     get_momentunit_from_dict,
     momentunit_shop,
+    open_moment_file,
+    save_moment_file,
 )
 from src.ch14_moment.test._util.ch14_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
@@ -224,7 +226,7 @@ def test_get_momentunit_from_dict_ReturnsObj_Scenario2():
     assert x_moment == amy_moment
 
 
-def test_get_from_file_ReturnsMomentUnitWith_moment_mstr_dir(temp_dir_setup):
+def test_open_moment_file_ReturnsObj_MomentUnit(temp_dir_setup):
     # ESTABLISH
     amy45_str = "Amy"
     amy45_rope = create_rope(amy45_str)
@@ -240,7 +242,7 @@ def test_get_from_file_ReturnsMomentUnitWith_moment_mstr_dir(temp_dir_setup):
     assert amy45_moment.moment_mstr_dir != x_moment_mstr_dir
 
     # WHEN
-    generated_a45_moment = get_default_path_momentunit(x_moment_mstr_dir, amy45_lasso)
+    generated_a45_moment = open_moment_file(x_moment_mstr_dir, amy45_lasso)
 
     # THEN
     assert generated_a45_moment.moment_mstr_dir == x_moment_mstr_dir
@@ -250,3 +252,23 @@ def test_get_from_file_ReturnsMomentUnitWith_moment_mstr_dir(temp_dir_setup):
     x_moments_dir = create_path(x_moment_mstr_dir, "moments")
     expected_a45_moment_dir = create_path(x_moments_dir, amy45_str)
     assert generated_a45_moment.moment_dir == expected_a45_moment_dir
+
+
+def test_save_moment_file_ReturnsObj_MomentUnit(temp_dir_setup):
+    # ESTABLISH
+    x_moment_mstr_dir = create_path(get_temp_dir(), "Fay_bob")
+    amy45_str = "Amy"
+    amy45_rope = create_rope(amy45_str)
+    amy45_moment = momentunit_shop(amy45_rope, x_moment_mstr_dir)
+    sue_epoch_label = "sue casa"
+    amy45_moment.epoch.epoch_label = sue_epoch_label
+    amy45_lasso = lassounit_shop(amy45_rope)
+    amy45_json_path = create_moment_json_path(x_moment_mstr_dir, amy45_lasso)
+    assert not os_path_exists(amy45_json_path)
+
+    # WHEN
+    save_moment_file(amy45_moment, amy45_lasso)
+
+    # THEN
+    assert os_path_exists(amy45_json_path)
+    assert open_moment_file(x_moment_mstr_dir, amy45_lasso) == amy45_moment

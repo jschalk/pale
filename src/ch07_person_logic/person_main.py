@@ -1,14 +1,12 @@
-from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import (
     get_0_if_None,
-    get_1_if_None,
     get_empty_dict_if_None,
     get_False_if_None,
 )
 from src.ch01_allot.allot import (
     allot_scale,
-    default_grain_num_if_None,
+    default_grain_num_if_None as grain_num,
     valid_allotment_ratio,
     validate_pool_num,
 )
@@ -1456,9 +1454,9 @@ def personunit_shop(
         credor_respect=RespectNum(validate_pool_num()),
         debtor_respect=RespectNum(validate_pool_num()),
         fund_pool=validate_pool_num(fund_pool),
-        fund_grain=default_grain_num_if_None(fund_grain),
-        respect_grain=default_grain_num_if_None(respect_grain),
-        mana_grain=default_grain_num_if_None(mana_grain),
+        fund_grain=grain_num(fund_grain),
+        respect_grain=grain_num(respect_grain),
+        mana_grain=grain_num(mana_grain),
         _plan_dict=get_empty_dict_if_None(),
         _keep_dict=get_empty_dict_if_None(),
         _healers_dict=get_empty_dict_if_None(),
@@ -1493,15 +1491,11 @@ def get_personunit_from_dict(person_dict: dict) -> PersonUnit:
     x_person.fund_pool = validate_pool_num(
         obj_from_person_dict(person_dict, "fund_pool")
     )
-    x_person.fund_grain = default_grain_num_if_None(
-        obj_from_person_dict(person_dict, "fund_grain")
-    )
-    x_person.respect_grain = default_grain_num_if_None(
+    x_person.fund_grain = grain_num(obj_from_person_dict(person_dict, "fund_grain"))
+    x_person.respect_grain = grain_num(
         obj_from_person_dict(person_dict, "respect_grain")
     )
-    x_person.mana_grain = default_grain_num_if_None(
-        obj_from_person_dict(person_dict, "mana_grain")
-    )
+    x_person.mana_grain = grain_num(obj_from_person_dict(person_dict, "mana_grain"))
     x_person.credor_respect = obj_from_person_dict(person_dict, "credor_respect")
     x_person.debtor_respect = obj_from_person_dict(person_dict, "debtor_respect")
     x_person.last_lesson_id = obj_from_person_dict(person_dict, "last_lesson_id")
@@ -1510,6 +1504,7 @@ def get_personunit_from_dict(person_dict: dict) -> PersonUnit:
     for x_partnerunit in x_partners:
         x_person.set_partnerunit(x_partnerunit)
     create_planroot_from_person_dict(x_person, person_dict)
+
     return x_person
 
 
@@ -1526,6 +1521,7 @@ def create_planroot_from_person_dict(x_person: PersonUnit, person_dict: dict):
         numor=get_obj_from_plan_dict(planroot_dict, "numor"),
         denom=get_obj_from_plan_dict(planroot_dict, "denom"),
         morph=get_obj_from_plan_dict(planroot_dict, "morph"),
+        addin=get_obj_from_plan_dict(planroot_dict, "addin"),
         gogo_want=get_obj_from_plan_dict(planroot_dict, "gogo_want"),
         stop_want=get_obj_from_plan_dict(planroot_dict, "stop_want"),
         problem_bool=get_obj_from_plan_dict(planroot_dict, "problem_bool"),
@@ -1536,7 +1532,7 @@ def create_planroot_from_person_dict(x_person: PersonUnit, person_dict: dict):
         awardunits=get_obj_from_plan_dict(planroot_dict, "awardunits"),
         is_expanded=get_obj_from_plan_dict(planroot_dict, "is_expanded"),
         knot=x_person.knot,
-        fund_grain=default_grain_num_if_None(x_person.fund_grain),
+        fund_grain=grain_num(x_person.fund_grain),
     )
     create_planroot_kids_from_dict(x_person, planroot_dict)
 
@@ -1566,6 +1562,7 @@ def create_planroot_kids_from_dict(x_person: PersonUnit, planroot_dict: dict):
             numor=get_obj_from_plan_dict(plan_dict, "numor"),
             denom=get_obj_from_plan_dict(plan_dict, "denom"),
             morph=get_obj_from_plan_dict(plan_dict, "morph"),
+            addin=get_obj_from_plan_dict(plan_dict, "addin"),
             gogo_want=get_obj_from_plan_dict(plan_dict, "gogo_want"),
             stop_want=get_obj_from_plan_dict(plan_dict, "stop_want"),
             pledge=get_obj_from_plan_dict(plan_dict, "pledge"),

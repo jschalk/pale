@@ -34,7 +34,7 @@ VALUES
 """
     cursor0.execute(insert_prnptnr_sqlstr)
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
   {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES
@@ -87,7 +87,7 @@ VALUES
 """
     cursor0.execute(insert_mmtmont_sqlstr)
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    trlcore_s_vld_tablename = create_prime_tablename(kw.trlcore, "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename(kw.trlcore, kw.s_vld)
     insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
   {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES
@@ -145,7 +145,7 @@ VALUES
 """
     cursor0.execute(insert_prnptnr_sqlstr)
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
   {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES

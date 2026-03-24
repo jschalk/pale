@@ -10,13 +10,13 @@ from src.ch20_kpi.kpi_mstr import create_kpi_csvs
 from src.ch21_world.test._util.ch21_env import temp_dir_setup
 from src.ch21_world.world import (
     create_stances,
-    sheets_input_to_clarity_mstr,
+    sheets_input_to_lynx_mstr,
     worlddir_shop,
 )
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_sheets_input_to_clarity_mstr_Examples(temp_dir_setup, run_big_tests):
+def test_sheets_input_to_lynx_mstr_Examples(temp_dir_setup, run_big_tests):
     """Find examples in a example directory and run them through the pipeline."""
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH
@@ -53,7 +53,7 @@ def test_sheets_input_to_clarity_mstr_Examples(temp_dir_setup, run_big_tests):
         print(f"before WHEN {os_path_exists(input_dir)=}")
 
         # WHEN
-        sheets_input_to_clarity_mstr(
+        sheets_input_to_lynx_mstr(
             world_db_path=example_worlddir.get_world_db_path(),
             input_dir=example_worlddir._input_dir,
             moment_mstr_dir=example_worlddir._moment_mstr_dir,

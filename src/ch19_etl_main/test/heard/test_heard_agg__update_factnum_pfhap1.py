@@ -14,7 +14,7 @@ from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 def pfhap1_insert_prnfact(cursor0: Cursor, x_values: list[list]) -> str:
     """x_cols = [kw.spark_num, kw.person_name, kw.fact_context]"""
     x_cols = [kw.spark_num, kw.person_name, kw.fact_context]
-    tablename = create_prime_db_table(cursor0, kw.prnfact, "h_agg", "put")
+    tablename = create_prime_db_table(cursor0, kw.prnfact, kw.h_agg, "put")
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -23,7 +23,7 @@ def pfhap1_insert_prnfact(cursor0: Cursor, x_values: list[list]) -> str:
 def pfhap1_insert_prnplan(cursor0: Cursor, x_values: list[list]) -> str:
     """x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close]"""
     x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.close]
-    tablename = create_prime_db_table(cursor0, kw.prnplan, "h_agg", "put")
+    tablename = create_prime_db_table(cursor0, kw.prnplan, kw.h_agg, "put")
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -31,7 +31,7 @@ def pfhap1_insert_prnplan(cursor0: Cursor, x_values: list[list]) -> str:
 
 def pfhap1_select_prnfact(cursor0: Cursor, print_rows: bool = False) -> list[tuple]:
     """SELECT spark_num, person_name, fact_context, context_plan_close"""
-    prnfact_h_agg_table = create_prime_tablename(kw.prnfact, "h_agg", "put")
+    prnfact_h_agg_table = create_prime_tablename(kw.prnfact, kw.h_agg, "put")
     sel_prnfact_str = f"""
 SELECT spark_num, person_name, fact_context, context_plan_close 
 FROM {prnfact_h_agg_table}
@@ -166,8 +166,8 @@ def test_get_update_prnfact_context_plan_sqlstr_SQLTEST_Scenario4_Different_plan
 
 def test_get_update_prnfact_context_plan_sqlstr_ReturnsObj():
     # ESTABLISH
-    prnfact_tablename = prime_tbl(kw.prnfact, "h_agg", "put")
-    prnplan_tablename = prime_tbl(kw.person_planunit, "h_agg", "put")
+    prnfact_tablename = prime_tbl(kw.prnfact, kw.h_agg, "put")
+    prnplan_tablename = prime_tbl(kw.person_planunit, kw.h_agg, "put")
 
     # WHEN
     update_sqlstr = get_update_prnfact_context_plan_sqlstr()

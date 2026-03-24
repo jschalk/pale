@@ -74,7 +74,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     cursor0.execute(CREATE_TRLCORE_SOUND_RAW_SQLSTR)
-    translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s_raw")
+    translate_core_s_raw_tablename = create_prime_tablename("trlcore", kw.s_raw)
     assert get_row_count(cursor0, translate_core_s_raw_tablename) == 0
 
     # WHEN
@@ -124,7 +124,7 @@ VALUES
 # """
 #     cursor0.execute(f"{insert_into_clause} {values_clause}")
 #     create_sound_and_heard_tables(cursor0)
-#     translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s_raw")
+#     translate_core_s_raw_tablename = create_prime_tablename("trlcore", kw.s_raw)
 #     assert get_row_count(cursor0, translate_epoc_s_agg_tablename) == 3
 #     assert get_row_count(cursor0, translate_core_s_raw_tablename) == 0
 
@@ -190,7 +190,7 @@ VALUES
     cursor0.execute(f"{insert_into_clause} {values_clause}")
 
     create_sound_and_heard_tables(cursor0)
-    translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s_raw")
+    translate_core_s_raw_tablename = create_prime_tablename("trlcore", kw.s_raw)
     assert get_row_count(cursor0, translate_rope_s_agg_tablename) == 3
     assert get_row_count(cursor0, translate_name_s_agg_tablename) == 2
     assert get_row_count(cursor0, translate_core_s_raw_tablename) == 0
@@ -228,7 +228,7 @@ def test_update_inconsistency_translate_core_raw_table_UpdatesTable_Scenario0(
     trlname_dimen = kw.translate_name
     translate_name_s_agg_tablename = create_prime_tablename(trlname_dimen, "s_agg")
     trlcore_dimen = kw.translate_core
-    translate_core_s_raw_tablename = create_prime_tablename(trlcore_dimen, "s_raw")
+    translate_core_s_raw_tablename = create_prime_tablename(trlcore_dimen, kw.s_raw)
     insert_into_clause = f"""INSERT INTO {translate_core_s_raw_tablename} (
   source_dimen
 , {kw.face_name}
@@ -286,7 +286,7 @@ def test_insert_translate_core_raw_to_translate_core_agg_table_PopulatesTable_Sc
     trlname_dimen = kw.translate_name
     translate_name_s_agg_tablename = create_prime_tablename(trlname_dimen, "s_agg")
     trlcore_dimen = kw.translate_core
-    translate_core_s_raw_tablename = create_prime_tablename(trlcore_dimen, "s_raw")
+    translate_core_s_raw_tablename = create_prime_tablename(trlcore_dimen, kw.s_raw)
     insert_into_clause = f"""INSERT INTO {translate_core_s_raw_tablename} (
   source_dimen
 , {kw.face_name}
@@ -352,7 +352,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    translate_core_s_vld_tablename = create_prime_tablename(trlcore_dimen, "s_vld")
+    translate_core_s_vld_tablename = create_prime_tablename(trlcore_dimen, kw.s_vld)
     assert get_row_count(cursor0, translate_core_s_vld_tablename) == 0
 
     # WHEN
@@ -412,7 +412,7 @@ VALUES
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
     print(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    translate_core_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    translate_core_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_into_clause = f"""INSERT INTO {translate_core_s_vld_tablename} (
   {kw.face_name}
 , {kw.otx_knot}
@@ -487,7 +487,7 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    translate_core_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    translate_core_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_into_clause = f"""INSERT INTO {translate_core_s_vld_tablename} (
   {kw.face_name}
 , {kw.otx_knot}
@@ -561,7 +561,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    translate_core_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    translate_core_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (
   {kw.face_name}
 , {kw.otx_knot}
@@ -651,7 +651,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    translate_core_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    translate_core_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (
   {kw.face_name}
 , {kw.otx_knot}
@@ -743,7 +743,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    translate_core_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    translate_core_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (
   {kw.face_name}
 , {kw.otx_knot}
@@ -836,7 +836,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
-    translate_core_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    translate_core_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_sqlstr = f"""INSERT INTO {translate_core_s_vld_tablename} (
   {kw.face_name}
 , {kw.otx_knot}
@@ -931,7 +931,7 @@ VALUES ({spark1}, '{exx.bob}', '{bad_sue_otx}', '{sue_inx}');"""
     cursor0.execute(insert_trlname_sqlstr)
     cursor0.execute(insert_trltitl_sqlstr)
 
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     cursor0.execute(CREATE_TRLCORE_SOUND_VLD_SQLSTR)
     insert_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
 {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
@@ -1004,7 +1004,7 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    translate_rope_s_vld_tablename = create_prime_tablename("trlrope", "s_vld")
+    translate_rope_s_vld_tablename = create_prime_tablename("trlrope", kw.s_vld)
     assert get_row_count(cursor0, translate_rope_s_agg_tablename) == 8
     assert get_row_count(cursor0, translate_rope_s_vld_tablename) == 0
 
@@ -1069,7 +1069,7 @@ VALUES
 ;
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
-    translate_rope_s_vld_tablename = create_prime_tablename("trlrope", "s_vld")
+    translate_rope_s_vld_tablename = create_prime_tablename("trlrope", kw.s_vld)
     assert get_row_count(cursor0, translate_rope_s_agg_tablename) == 8
     assert get_row_count(cursor0, translate_rope_s_vld_tablename) == 0
 
@@ -1133,9 +1133,9 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     insert_translate_sound_agg_into_translate_core_raw_table(cursor0)
-    translate_core_s_raw_tablename = create_prime_tablename("trlcore", "s_raw")
+    translate_core_s_raw_tablename = create_prime_tablename("trlcore", kw.s_raw)
     translate_core_s_agg_tablename = create_prime_tablename("trlcore", "s_agg")
-    translate_name_s_vld_tablename = create_prime_tablename("trlname", "s_vld")
+    translate_name_s_vld_tablename = create_prime_tablename("trlname", kw.s_vld)
     assert get_row_count(cursor0, translate_name_s_agg_tablename) == 10
     select_error_count_sqlstr = f"SELECT COUNT(*) FROM {translate_name_s_agg_tablename} WHERE {kw.error_message} IS NOT NULL;"
     assert cursor0.execute(select_error_count_sqlstr).fetchone()[0] == 0
@@ -1195,7 +1195,7 @@ VALUES ({spark1}, '{exx.bob}', '{casa_str}{rdx}', '{casa_str}');"""
     cursor0.execute(insert_trlrope_sqlstr)
     cursor0.execute(insert_trlname_sqlstr)
 
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
 {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES ('{exx.bob}', '{rdx}', '{rdx}', '{ukx}');"""
@@ -1239,7 +1239,7 @@ INSERT INTO {prnptnr_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.perso
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}');"""
     cursor0.execute(insert_prnptnr_sqlstr)
 
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     assert get_row_count(cursor0, trlcore_s_vld_tablename) == 0
 
     # WHEN
@@ -1272,7 +1272,7 @@ INSERT INTO {prnptnr_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.perso
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}'), ({spark1}, '{exx.yao}', '{exx.yao}', '{exx.yao}');"""
     cursor0.execute(insert_prnptnr_sqlstr)
 
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
 {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES ('{exx.bob}', '{rdx}', '{rdx}', '{ukx}');"""
@@ -1313,7 +1313,7 @@ INSERT INTO {prnptnr_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.perso
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}');"""
     cursor0.execute(insert_prnptnr_sqlstr)
 
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     assert get_row_count(cursor0, trlcore_s_vld_tablename) == 0
 
     # WHEN
@@ -1346,7 +1346,7 @@ INSERT INTO {prnptnr_s_agg_tablename} ({kw.spark_num}, {kw.face_name}, {kw.perso
 VALUES ({spark1}, '{exx.bob}', '{exx.bob}', '{exx.bob}'), ({spark1}, '{exx.yao}', '{exx.yao}', '{exx.yao}');"""
     cursor0.execute(insert_prnptnr_sqlstr)
 
-    trlcore_s_vld_tablename = create_prime_tablename("trlcore", "s_vld")
+    trlcore_s_vld_tablename = create_prime_tablename("trlcore", kw.s_vld)
     insert_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename} (
 {kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
 VALUES ('{exx.bob}', '{rdx}', '{rdx}', '{ukx}');"""

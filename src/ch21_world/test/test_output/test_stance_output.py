@@ -14,7 +14,7 @@ from src.ch21_world.test._util.ch21_env import (
 )
 from src.ch21_world.world import (
     create_stances,
-    sheets_input_to_clarity_mstr,
+    sheets_input_to_lynx_mstr,
     worlddir_shop,
 )
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
@@ -27,7 +27,7 @@ def test_create_stances_CreatesFile_Senario0_EmptyWorld(
     fay_str = "Fay"
     output_dir = create_path(worlds_dir(), "output")
     fay_wdir = worlddir_shop(fay_str, worlds_dir(), output_dir)
-    sheets_input_to_clarity_mstr(
+    sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,
@@ -66,7 +66,7 @@ def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp_dir_setup):
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
-    sheets_input_to_clarity_mstr(
+    sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,
@@ -112,7 +112,7 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
-    sheets_input_to_clarity_mstr(
+    sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,
@@ -134,7 +134,7 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
     # print(f"{pandas_read_excel(bob_input_st0001_path)=}")
     print(f"{bob_input_st0001_path=}")
     print(f"{get_sheet_names(bob_input_st0001_path)=}")
-    sheets_input_to_clarity_mstr(
+    sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,
@@ -184,7 +184,7 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
-    sheets_input_to_clarity_mstr(
+    sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir._input_dir,
         moment_mstr_dir=fay_wdir._moment_mstr_dir,
@@ -207,7 +207,7 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
     assert os_path_exists(a23_calendar_md_path)
 
 
-# def test_WorldDir_sheets_input_to_clarity_CreatesFiles(temp_dir_setup):
+# def test_WorldDir_sheets_input_to_lynx_CreatesFiles(temp_dir_setup):
 #     # ESTABLISH
 #     fay_str = "Fay"
 #     fay_wdir = worlddir_shop(fay_str, worlds_dir())
@@ -279,7 +279,7 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
 #     assert count_dirs_files(fay_wdir.worlds_dir) == 7
 
 #     # WHEN
-# sheets_input_to_clarity_mstr(
+# sheets_input_to_lynx_mstr(
 #     world_db_path=fay_wdir.get_world_db_path(),
 #     input_dir=fay_wdir._input_dir,
 #     moment_mstr_dir=fay_wdir._moment_mstr_dir,

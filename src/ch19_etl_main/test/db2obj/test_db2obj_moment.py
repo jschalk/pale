@@ -23,7 +23,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scen
     a23_knot = "."
 
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
     momentunit_insert_sqlstr = f"""INSERT INTO {mmtunit_h_vld_tablename} (
   moment_rope
 , epoch_label
@@ -72,7 +72,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentunit_Attrs_Scen
 ):
     # ESTABLISH
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -106,8 +106,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtpayy_Attrs_Scenari
     tp55 = 55
     bob_sue_tp55_amount = 444
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -143,8 +143,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtpayy_Attrs_Scenari
     a23_bob_sue_tp55_amount = 444
     a45_bob_sue_tp55_amount = 800
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -181,8 +181,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_momentbud_Attrs_Scena
     bob_tp55_quota = 444
     bob_tp55_celldepth = 3
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    momentbud_h_vld_tablename = create_prime_tablename("mmtbudd", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    momentbud_h_vld_tablename = create_prime_tablename("mmtbudd", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -223,8 +223,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmthour_Attrs_Scenari
     hour3_label = "3xm"
     hour4_label = "4xm"
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmthour_h_vld_tablename = create_prime_tablename("mmthour", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmthour_h_vld_tablename = create_prime_tablename("mmthour", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -258,8 +258,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtmont_Attrs_Scenari
     month111_label = "jan111"
     month222_label = "feb222"
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmtmont_h_vld_tablename = create_prime_tablename("mmtmont", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmtmont_h_vld_tablename = create_prime_tablename("mmtmont", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -294,8 +294,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtweek_Attrs_Scenari
     ana_label = "ana_weekday"
     bee_label = "bee_weekday"
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmtweek_h_vld_tablename = create_prime_tablename("mmtweek", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmtweek_h_vld_tablename = create_prime_tablename("mmtweek", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -325,8 +325,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_With_mmtoffi_Attrs_Scenari
     offi_time5 = 5
     offi_time7 = 7
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmtoffi_h_vld_tablename = create_prime_tablename("mmtoffi", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmtoffi_h_vld_tablename = create_prime_tablename("mmtoffi", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -362,7 +362,7 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario0_mome
     a23_knot = "."
 
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
     momentunit_insert_sqlstr = f"""INSERT INTO {mmtunit_h_vld_tablename} (
   moment_rope
 , epoch_label
@@ -411,8 +411,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario1_mmtp
     tp55 = 55
     bob_sue_tp55_amount = 444
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    momentpay_h_vld_tablename = create_prime_tablename("mmtpayy", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -442,8 +442,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_IsFormatted_Scenario2_mome
     bob_tp55_quota = 444
     bob_tp55_celldepth = 3
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    momentbud_h_vld_tablename = create_prime_tablename("mmtbudd", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    momentbud_h_vld_tablename = create_prime_tablename("mmtbudd", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -477,8 +477,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario3_mmthour(
     hour3_label = "3xm"
     hour4_label = "4xm"
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmthour_h_vld_tablename = create_prime_tablename("mmthour", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmthour_h_vld_tablename = create_prime_tablename("mmthour", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -511,8 +511,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario4_mmtmont(
     month111_label = "jan111"
     month222_label = "feb222"
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmtmont_h_vld_tablename = create_prime_tablename("mmtmont", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmtmont_h_vld_tablename = create_prime_tablename("mmtmont", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -545,8 +545,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario5_mmtweek(
     ana_label = "ana_weekday"
     bee_label = "bee_weekday"
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmtweek_h_vld_tablename = create_prime_tablename("mmtweek", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmtweek_h_vld_tablename = create_prime_tablename("mmtweek", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )
@@ -574,8 +574,8 @@ def test_get_moment_dict_from_heard_tables_ReturnsObj_Scenario5_mmtoffi(
     offi_time5 = 5
     offi_time7 = 7
     create_sound_and_heard_tables(cursor0)
-    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", "h_vld")
-    mmtoffi_h_vld_tablename = create_prime_tablename("mmtoffi", "h_vld")
+    mmtunit_h_vld_tablename = create_prime_tablename("mmtunit", kw.h_vld)
+    mmtoffi_h_vld_tablename = create_prime_tablename("mmtoffi", kw.h_vld)
     momentunit_insert_sqlstr = (
         f"INSERT INTO {mmtunit_h_vld_tablename} (moment_rope) VALUES ('{exx.a23}');"
     )

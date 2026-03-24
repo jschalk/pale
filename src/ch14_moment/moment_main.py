@@ -1,7 +1,13 @@
 from copy import deepcopy as copy_deepcopy
 from dataclasses import dataclass
 from src.ch00_py.dict_toolbox import get_0_if_None, get_empty_set_if_None
-from src.ch00_py.file_toolbox import create_path, get_dir_file_strs, open_json, set_dir
+from src.ch00_py.file_toolbox import (
+    create_path,
+    get_dir_file_strs,
+    open_json,
+    save_json,
+    set_dir,
+)
 from src.ch01_allot.allot import default_grain_num_if_None
 from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
 from src.ch09_person_lesson._ref.ch09_path import (
@@ -465,11 +471,15 @@ def get_momentunit_from_dict(moment_dict: dict) -> MomentUnit:
     return x_moment
 
 
-def get_default_path_momentunit(
-    moment_mstr_dir: str, moment_lasso: LassoUnit
-) -> MomentUnit:
+def open_moment_file(moment_mstr_dir: str, moment_lasso: LassoUnit) -> MomentUnit:
     moment_json_path = create_moment_json_path(moment_mstr_dir, moment_lasso)
     x_momentunit = get_momentunit_from_dict(open_json(moment_json_path))
     x_momentunit.moment_mstr_dir = moment_mstr_dir
     x_momentunit._set_moment_dirs()
     return x_momentunit
+
+
+def save_moment_file(momentunit: MomentUnit, moment_lasso: LassoUnit):
+    moment_mstr_dir = momentunit.moment_mstr_dir
+    moment_json_path = create_moment_json_path(moment_mstr_dir, moment_lasso)
+    save_json(moment_json_path, None, momentunit.to_dict())

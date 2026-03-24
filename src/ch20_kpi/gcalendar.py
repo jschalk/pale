@@ -8,13 +8,23 @@ from src.ch04_rope.rope import is_sub_rope
 from src.ch05_reason.reason_main import ReasonHeir
 from src.ch06_plan.plan import PlanUnit
 from src.ch07_person_logic.person_main import PersonUnit, get_sorted_plan_list
+from src.ch09_person_lesson.lasso import LassoUnit
+from src.ch10_person_listen.keep_tool import open_job_file
 from src.ch13_time.epoch_main import (
     get_default_epoch_config_dict,
     get_epoch_min_from_dt,
     get_epoch_rope,
 )
 from src.ch13_time.epoch_reason import set_epoch_fact
-from src.ch20_kpi._ref.ch20_semantic_types import GroupTitle, LabelTerm, RopeTerm
+from src.ch14_moment.moment_main import open_moment_file
+from src.ch20_kpi._ref.ch20_semantic_types import (
+    GroupTitle,
+    KnotTerm,
+    LabelTerm,
+    MomentRope,
+    PersonName,
+    RopeTerm,
+)
 
 
 def gcal_readable_percent(value: float, precision=2):
@@ -287,3 +297,16 @@ def create_gcalendar_csv_from_person(x_person: PersonUnit, day: datetime = None)
         day = datetime.combine(datetime.now().date(), datetime.min.time())
     events_list = create_gcalendar_events_list(x_person, day)
     return create_gcalendar_csv_from_list(events_list)
+
+
+def get_gcal_day_report_from_job_file(
+    moment_mstr_dir: str,
+    moment_lasso: LassoUnit,
+    person_name: PersonName,
+    day: datetime,
+    focus_group_title: GroupTitle = None,
+) -> str:
+    momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
+    epoch_label = momentunit.epoch.epoch_label
+    job = open_job_file(moment_mstr_dir, moment_lasso, person_name)
+    return get_gcal_day_report_from_personunit(job, day, epoch_label, focus_group_title)

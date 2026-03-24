@@ -1,14 +1,11 @@
 from os.path import exists as os_path_exists
 from pandas import read_excel as pandas_read_excel
 from sqlite3 import connect as sqlite3_connect
-from src.ch00_py.file_toolbox import create_path, save_json, set_dir
+from src.ch00_py.file_toolbox import create_path, set_dir
 from src.ch07_person_logic.person_main import personunit_shop
-from src.ch09_person_lesson._ref.ch09_path import (
-    create_gut_path,
-    create_moment_json_path,
-)
 from src.ch09_person_lesson.lasso import lassounit_shop
-from src.ch14_moment.moment_main import momentunit_shop
+from src.ch09_person_lesson.lesson_filehandler import save_gut_file
+from src.ch14_moment.moment_main import momentunit_shop, save_moment_file
 from src.ch17_idea.idea_csv_tool import (
     add_momentunit_to_stance_csv_strs,
     add_personunit_to_stance_csv_strs,
@@ -54,8 +51,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario1_SingleMomentUnit_NoPersonU
     moment_mstr_dir = create_moment_mstr_path(world_dir)
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_lasso = lassounit_shop(exx.a23)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
-    save_json(moment_json_path, None, a23_moment.to_dict())
+    save_moment_file(a23_moment, a23_lasso)
 
     # WHEN
     gen_stance_csv_strs = collect_stance_csv_strs(world_dir)
@@ -74,13 +70,11 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_gut_PersonUnits(
     moment_mstr_dir = create_moment_mstr_path(world_dir)
     a23_moment = momentunit_shop(exx.a23, moment_mstr_dir)
     a23_lasso = lassounit_shop(exx.a23)
-    moment_json_path = create_moment_json_path(moment_mstr_dir, a23_lasso)
-    save_json(moment_json_path, None, a23_moment.to_dict())
+    save_moment_file(a23_moment, a23_lasso)
     # create person gut file
     bob_gut = personunit_shop(exx.bob, exx.a23)
     bob_gut.add_partnerunit("Yao", 44, 55)
-    a23_bob_gut_path = create_gut_path(moment_mstr_dir, a23_lasso, exx.bob)
-    save_json(a23_bob_gut_path, None, bob_gut.to_dict())
+    save_gut_file(moment_mstr_dir, bob_gut)
 
     # WHEN
     gen_stance_csv_strs = collect_stance_csv_strs(world_dir)
@@ -120,7 +114,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
         trlname_dimen = kw.translate_name
-        trlname_s_vld_tablename = prime_tbl(trlname_dimen, "s_vld")
+        trlname_s_vld_tablename = prime_tbl(trlname_dimen, kw.s_vld)
         print(f"{trlname_s_vld_tablename=}")
         insert_trlname_sqlstr = f"""INSERT INTO {trlname_s_vld_tablename}
         ({kw.spark_num}, {kw.face_name}, {kw.otx_name}, {kw.inx_name})
@@ -131,7 +125,7 @@ def test_collect_stance_csv_strs_ReturnsObj_Scenario2_TranslateRowsInDB(
         """
         cursor.execute(insert_trlname_sqlstr)
 
-        trlcore_s_vld_tablename = prime_tbl("TRLCORE", "s_vld")
+        trlcore_s_vld_tablename = prime_tbl("TRLCORE", kw.s_vld)
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename}
         ({kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
         VALUES
@@ -221,7 +215,7 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
         cursor = db_conn.cursor()
         create_sound_and_heard_tables(cursor)
         trlname_dimen = kw.translate_name
-        trlname_s_vld_tablename = prime_tbl(trlname_dimen, "s_vld")
+        trlname_s_vld_tablename = prime_tbl(trlname_dimen, kw.s_vld)
         print(f"{trlname_s_vld_tablename=}")
         insert_trlname_sqlstr = f"""INSERT INTO {trlname_s_vld_tablename}
         ({kw.spark_num}, {kw.face_name}, {kw.otx_name}, {kw.inx_name})
@@ -232,7 +226,7 @@ def test_create_stance0001_file_CreatesFile_Scenario1_TranslateRowsInDB(
         """
         cursor.execute(insert_trlname_sqlstr)
 
-        trlcore_s_vld_tablename = prime_tbl("TRLCORE", "s_vld")
+        trlcore_s_vld_tablename = prime_tbl("TRLCORE", kw.s_vld)
         insert_trlcore_sqlstr = f"""INSERT INTO {trlcore_s_vld_tablename}
         ({kw.face_name}, {kw.otx_knot}, {kw.inx_knot}, {kw.unknown_str})
         VALUES

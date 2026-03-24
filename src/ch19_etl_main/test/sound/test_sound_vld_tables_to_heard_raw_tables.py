@@ -25,7 +25,7 @@ def test_get_insert_into_heard_raw_sqlstrs_ReturnsObj_PopulatesTable_Scenario0(
     x66_debt = 66
 
     create_sound_and_heard_tables(cursor0)
-    personapartner_s_vld_put_tablename = prime_tbl(kw.prnptnr, "s_vld", "put")
+    personapartner_s_vld_put_tablename = prime_tbl(kw.prnptnr, kw.s_vld, "put")
     print(f"{get_table_columns(cursor0, personapartner_s_vld_put_tablename)=}")
     insert_into_clause = f"""INSERT INTO {personapartner_s_vld_put_tablename} (
   {kw.spark_num}
@@ -46,7 +46,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     assert get_row_count(cursor0, personapartner_s_vld_put_tablename) == 4
-    prnawar_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h_raw", "put")
+    prnawar_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, kw.h_raw, "put")
     assert get_row_count(cursor0, prnawar_h_raw_put_tablename) == 0
 
     # WHEN
@@ -90,7 +90,7 @@ def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario0_AddRowsToTable(
     x66_debt = 66
 
     create_sound_and_heard_tables(cursor0)
-    prnptnr_s_vld_put_tablename = prime_tbl(kw.person_partnerunit, "s_vld", "put")
+    prnptnr_s_vld_put_tablename = prime_tbl(kw.person_partnerunit, kw.s_vld, "put")
     print(f"{get_table_columns(cursor0, prnptnr_s_vld_put_tablename)=}")
     insert_into_clause = f"""INSERT INTO {prnptnr_s_vld_put_tablename} (
   {kw.spark_num}
@@ -111,7 +111,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     assert get_row_count(cursor0, prnptnr_s_vld_put_tablename) == 4
-    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h_raw", "put")
+    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, kw.h_raw, "put")
     assert get_row_count(cursor0, prnptnr_h_raw_put_tablename) == 0
 
     # WHEN
@@ -153,7 +153,7 @@ def test_etl_sound_vld_tables_to_heard_raw_tables_Scenario1_Populates_inx_Column
     x66_debt = 66
 
     create_sound_and_heard_tables(cursor0)
-    prnptnr_s_vld_put_tablename = prime_tbl(kw.person_partnerunit, "s_vld", "put")
+    prnptnr_s_vld_put_tablename = prime_tbl(kw.person_partnerunit, kw.s_vld, "put")
     print(f"{get_table_columns(cursor0, prnptnr_s_vld_put_tablename)=}")
     insert_into_clause = f"""INSERT INTO {prnptnr_s_vld_put_tablename} (
   {kw.spark_num}
@@ -174,7 +174,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     assert get_row_count(cursor0, prnptnr_s_vld_put_tablename) == 4
-    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, "h_raw", "put")
+    prnptnr_h_raw_put_tablename = prime_tbl(kw.person_partnerunit, kw.h_raw, "put")
     assert get_row_count(cursor0, prnptnr_h_raw_put_tablename) == 0
 
     # WHEN

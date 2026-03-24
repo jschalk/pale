@@ -48,7 +48,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     assert get_row_count(cursor0, personapartner_s_agg_put_tablename) == 4
-    prnawar_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, "s_vld", "put")
+    prnawar_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, kw.s_vld, "put")
     assert get_row_count(cursor0, prnawar_h_vld_put_tablename) == 0
 
     # WHEN
@@ -114,7 +114,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     assert get_row_count(cursor0, prnptnr_s_agg_put_tablename) == 4
-    prnptnr_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, "s_vld", "put")
+    prnptnr_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, kw.s_vld, "put")
     assert get_row_count(cursor0, prnptnr_h_vld_put_tablename) == 0
 
     # WHEN
@@ -177,7 +177,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     assert get_row_count(cursor0, prnptnr_s_agg_put_tablename) == 4
-    prnptnr_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, "s_vld", "put")
+    prnptnr_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, kw.s_vld, "put")
     assert get_row_count(cursor0, prnptnr_h_vld_put_tablename) == 0
 
     # WHEN
@@ -241,7 +241,7 @@ VALUES
 """
     cursor0.execute(f"{insert_into_clause} {values_clause}")
     assert get_row_count(cursor0, prnptnr_s_agg_put_tablename) == 4
-    prnptnr_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, "s_vld", "put")
+    prnptnr_h_vld_put_tablename = prime_tbl(kw.person_partnerunit, kw.s_vld, "put")
     assert get_row_count(cursor0, prnptnr_h_vld_put_tablename) == 0
 
     # WHEN

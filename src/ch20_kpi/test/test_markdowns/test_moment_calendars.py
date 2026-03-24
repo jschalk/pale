@@ -60,39 +60,3 @@ def test_create_calendar_markdown_files_Senario1_CreatesFileFromMomentUnitJSON(
     assert os_path_exists(a23_calendar_md_path)
     expected_csv_str = get_expected_creg_year0_markdown()
     assert open(a23_calendar_md_path).read() == expected_csv_str
-
-
-# def test_create_calendar_markdown_files_Senario1_Add_CreatesFile(
-#     temp_dir_setup,
-# ):
-#     # ESTABLISH
-#     fay_str = "Fay"
-#     output_dir = create_path(worlds_dir(), "output")
-#     fay_wdir = shop(fay_str, worlds_dir(), output_dir)
-#     spark2 = 2
-#     ex_filename = "Faybob.xlsx"
-#     input_file_path = create_path(fay_wdir._input_dir, ex_filename)
-#     exx.a23 = exx.a23
-#     br00011_columns = [
-#         kw.spark_num,
-#         kw.face_name,
-#         kw.moment_rope,
-#         kw.person_name,
-#         kw.partner_name
-#     ]
-#     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
-#     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-#     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
-#     fay_wdir.sheets_input_to_clarity_mstr()
-
-#     a23_calendar_md_path = create_path(output_dir, f"{exx.a23}_calendar.md")
-#     print(f"      {a23_calendar_md_path=}")
-#     assert not os_path_exists(a23_calendar_md_path)
-
-#     # WHEN
-#     fay_wdir.create_calendar_markdown_files()
-
-#     # THEN
-#     assert os_path_exists(a23_calendar_md_path)
-#     expected_csv_str = "moment_rope,person_name,funds,fund_rank,pledges_count\n"
-#     assert open(a23_calendar_md_path).read() == expected_csv_str

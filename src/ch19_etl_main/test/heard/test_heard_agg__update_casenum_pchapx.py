@@ -14,7 +14,7 @@ def pchapx_insert_nabtime(cursor0: Cursor, x_values: list[list]) -> str:
     """x_cols = [kw.spark_num, kw.moment_rope, kw.otx_time, kw.inx_time]"""
 
     x_cols = [kw.spark_num, kw.moment_rope, kw.otx_time, kw.inx_time]
-    tablename = create_prime_db_table(cursor0, kw.nabu_timenum, "h_agg")
+    tablename = create_prime_db_table(cursor0, kw.nabu_timenum, kw.h_agg)
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -24,7 +24,7 @@ def pchapx_insert_prnplan(cursor0: Cursor, x_values: list[list]) -> str:
     """x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.denom, kw.morph]"""
 
     x_cols = [kw.spark_num, kw.person_name, kw.plan_rope, kw.denom, kw.morph]
-    tablename = create_prime_db_table(cursor0, kw.prnplan, "h_agg", "put")
+    tablename = create_prime_db_table(cursor0, kw.prnplan, kw.h_agg, "put")
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -41,7 +41,7 @@ def pchapx_insert_prncase(cursor0: Cursor, x_values: list[list]) -> str:
         "reason_upper_otx",
     ]
 
-    tablename = create_prime_db_table(cursor0, kw.prncase, "h_agg", "put")
+    tablename = create_prime_db_table(cursor0, kw.prncase, kw.h_agg, "put")
     insert_sql = create_type_reference_insert_sqlstr(tablename, x_cols, x_values)
     cursor0.execute(insert_sql)
     return insert_sql
@@ -50,7 +50,7 @@ def pchapx_insert_prncase(cursor0: Cursor, x_values: list[list]) -> str:
 def pchapx_select_prncase(cursor0: Cursor, print_rows: bool = False) -> list[tuple]:
     """SELECT reason_lower_otx, reason_lower_inx, reason_upper_otx, reason_upper_inx"""
 
-    prncase_h_agg_table = create_prime_tablename(kw.prncase, "h_agg", "put")
+    prncase_h_agg_table = create_prime_tablename(kw.prncase, kw.h_agg, "put")
     sel_prncase_str = f"""
 SELECT reason_lower_otx, reason_lower_inx, reason_upper_otx, reason_upper_inx
 FROM {prncase_h_agg_table}
