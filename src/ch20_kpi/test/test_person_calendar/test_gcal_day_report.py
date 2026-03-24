@@ -1,5 +1,5 @@
 from datetime import datetime
-from src.ch07_person_logic.person_main import PersonUnit, personunit_shop
+from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
@@ -11,6 +11,11 @@ from src.ch20_kpi.gcalendar import (
     get_person_gcal_day_reports,
 )
 from src.ch20_kpi.test._util.ch20_env import get_temp_dir, temp_dir_setup
+from src.ch20_kpi.test._util.ch20_examples import (
+    get_a23_sue_clean_example,
+    get_ep8_sue_clean_example,
+    get_ep8_yao_clean_example,
+)
 from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
@@ -31,47 +36,6 @@ def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario0_EmptyPerson():
     assert "All Agenda Items" in sue_day_report_str
     assert "Partners" in sue_day_report_str
     assert "Group" not in sue_day_report_str
-
-
-def get_a23_sue_clean_example() -> PersonUnit:
-    sue_person = personunit_shop(exx.sue, exx.a23)
-    add_epoch_planunit(sue_person)
-    sue_person.add_partnerunit(exx.bob, 2)
-    sue_person.add_partnerunit(exx.sue, 1)
-    casa_rope = sue_person.make_l1_rope(exx.casa)
-    clean_rope = sue_person.make_rope(casa_rope, exx.clean)
-    sue_person.add_plan(clean_rope, 1, pledge=True)
-    sue_person.get_partner(exx.sue).add_membership(exx.run)
-    sue_person.conpute()
-    return sue_person
-
-
-def get_ep8_sue_clean_example() -> PersonUnit:
-    sue_person = personunit_shop(exx.sue, exx.ep8)
-    add_epoch_planunit(sue_person)
-    sue_person.add_partnerunit(exx.zia, 2)
-    sue_person.add_partnerunit(exx.yao, 1)
-    sue_person.add_partnerunit(exx.sue, 1)
-    casa_rope = sue_person.make_l1_rope(exx.casa)
-    mop_rope = sue_person.make_rope(casa_rope, exx.mop)
-    sue_person.add_plan(mop_rope, 1, pledge=True)
-    sue_person.get_partner(exx.sue).add_membership(exx.run)
-    sue_person.conpute()
-    return sue_person
-
-
-def get_ep8_yao_clean_example() -> PersonUnit:
-    yao_person = personunit_shop(exx.yao, exx.ep8)
-    add_epoch_planunit(yao_person)
-    yao_person.add_partnerunit(exx.zia, 2)
-    yao_person.add_partnerunit(exx.yao, 1)
-    yao_person.add_partnerunit(exx.sue, 1)
-    casa_rope = yao_person.make_l1_rope(exx.casa)
-    swim_rope = yao_person.make_rope(casa_rope, exx.swim)
-    yao_person.add_plan(swim_rope, 1, pledge=True)
-    yao_person.get_partner(exx.yao).add_membership(exx.run)
-    yao_person.conpute()
-    return yao_person
 
 
 def test_get_gcal_day_report_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson():
