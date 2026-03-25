@@ -30,7 +30,7 @@ def test_create_day_report_txt_path_ReturnsObj():
     assert gen_bob_day_report_txt_path == expected_bob_day_report_txt_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_day_report_txt_path_HasDocString():
     # ESTABLISH
     x_moment_mstr_dir = "moment_mstr_dir"

@@ -526,7 +526,7 @@ def test_create_directory_path_ReturnsObj():
     assert kern_path == create_path(elpaso_path, kern_str)
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_is_path_valid_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     assert is_path_valid("run")
@@ -543,7 +543,7 @@ def test_can_usser_edit_paths_ReturnsObj():
     assert can_usser_edit_paths()
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_is_path_existent_or_creatable_ReturnsObj():
     # ESTABLISH / WHEN / THEN
     """I am not able to test. For now make sure it runs."""

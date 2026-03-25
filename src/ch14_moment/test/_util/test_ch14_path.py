@@ -34,7 +34,7 @@ def test_create_bud_partner_mandate_ledger_path_ReturnsObj():
     assert gen_bud_path == expected_bud_path_dir
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_bud_partner_mandate_ledger_path_HasDocString():
     # ESTABLISH
     doc_str = create_bud_partner_mandate_ledger_path(

@@ -1,3 +1,18 @@
+from platform import system
+from pytest import mark as pytest_mark
+
+
+def pytest_configure(config):
+    config.addinivalue_line("markers", "skip_on_linux: skip test on Linux")
+
+
+def pytest_collection_modifyitems(items):
+    skip_linux = pytest_mark.skip(reason="conflict in file path str")
+    for item in items:
+        if "skip_on_linux" in item.keywords and system() == "Linux":
+            item.add_marker(skip_linux)
+
+
 def pytest_addoption(parser):
     parser.addoption("--graphics_bool", action="store", default=False)
     parser.addoption("--run_big_tests", action="store", default=False)

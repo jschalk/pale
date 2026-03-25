@@ -162,7 +162,7 @@ def test_create_job_path_ReturnsObj():
     assert gen_a23_e3_person_path == expected_a23_bob_job_json_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_moments_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_moments_dir_path("moment_mstr_dir")
@@ -172,7 +172,7 @@ def test_create_moments_dir_path_HasDocString():
     assert inspect_getdoc(create_moments_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_moment_dir_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -182,7 +182,7 @@ def test_create_moment_dir_path_HasDocString():
     assert inspect_getdoc(create_moment_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_moment_json_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -195,7 +195,7 @@ def test_create_moment_json_path_HasDocString():
     assert inspect_getdoc(create_moment_json_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_moment_persons_dir_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -208,7 +208,7 @@ def test_create_moment_persons_dir_path_HasDocString():
     assert inspect_getdoc(create_moment_persons_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_person_dir_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -222,7 +222,7 @@ def test_create_person_dir_path_HasDocString():
     assert inspect_getdoc(create_person_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_atoms_dir_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -236,7 +236,7 @@ def test_create_atoms_dir_path_HasDocString():
     assert inspect_getdoc(create_atoms_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_lessons_dir_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -250,7 +250,7 @@ def test_create_lessons_dir_path_HasDocString():
     assert inspect_getdoc(create_lessons_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_gut_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -267,7 +267,7 @@ def test_create_gut_path_HasDocString():
     assert inspect_getdoc(create_gut_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_job_path_HasDocString():
     # ESTABLISH
     x_moment_lasso = lassounit_shop(create_rope(kw.moment_rope))

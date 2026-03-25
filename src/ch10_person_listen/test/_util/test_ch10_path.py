@@ -290,7 +290,7 @@ def test_create_treasury_db_path_ReturnsObj() -> None:
     assert gen_keep_dutys_path == expected_keep_dutys_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keeps_dir_path_HasDocString():
     # ESTABLISH
     x_moment_rope = create_rope(kw.moment_rope)
@@ -304,7 +304,7 @@ def test_create_keeps_dir_path_HasDocString():
     assert inspect_getdoc(create_keeps_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keep_rope_path_HasDocString() -> None:
     # ESTABLISH
     level1_label_str = "level1_label"
@@ -322,7 +322,7 @@ def test_create_keep_rope_path_HasDocString() -> None:
     assert inspect_getdoc(create_keep_rope_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keep_dutys_path_HasDocString() -> None:
     # ESTABLISH
     x_moment_rope = create_rope(kw.moment_rope)
@@ -339,7 +339,7 @@ def test_create_keep_dutys_path_HasDocString() -> None:
     assert inspect_getdoc(create_keep_dutys_path) == expected_doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keep_duty_path_HasDocString() -> None:
     # ESTABLISH
     duty_person_str = "duty_person"
@@ -358,7 +358,7 @@ def test_create_keep_duty_path_HasDocString() -> None:
     assert inspect_getdoc(create_keep_duty_path) == expected_doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keep_grades_path_HasDocString() -> None:
     # ESTABLISH
     x_moment_rope = create_rope(kw.moment_rope)
@@ -376,7 +376,7 @@ def test_create_keep_grades_path_HasDocString() -> None:
     assert inspect_getdoc(create_keep_grades_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keep_grade_path_HasDocString() -> None:
     # ESTABLISH
     x_moment_rope = create_rope(kw.moment_rope)
@@ -395,7 +395,7 @@ def test_create_keep_grade_path_HasDocString() -> None:
     assert inspect_getdoc(create_keep_grade_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keep_visions_path_HasDocString() -> None:
     # ESTABLISH
     x_moment_rope = create_rope(kw.moment_rope)
@@ -412,7 +412,7 @@ def test_create_keep_visions_path_HasDocString() -> None:
     assert inspect_getdoc(create_keep_visions_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_treasury_db_path_HasDocString() -> None:
     # ESTABLISH
     x_moment_rope = create_rope(kw.moment_rope)

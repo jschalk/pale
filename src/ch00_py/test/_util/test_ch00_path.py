@@ -25,7 +25,7 @@ def test_create_src_example_strs_path_ReturnsObj():
     assert keywords_class_file_path == expected_file_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_src_example_strs_path_HasDocString():
     # ESTABLISH
     src_dir = "src"
@@ -52,7 +52,7 @@ def test_create_src_keywords_main_path_ReturnsObj():
     assert keywords_class_file_path == expected_file_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_src_keywords_main_path_HasDocString():
     # ESTABLISH
     src_dir = "src"
@@ -79,7 +79,7 @@ def test_create_keywords_classes_file_path_ReturnsObj():
     assert keywords_class_file_path == expected_keywords_file_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_keywords_classes_file_path_HasDocString():
     # ESTABLISH
     doc_str = create_keywords_classes_file_path("src")

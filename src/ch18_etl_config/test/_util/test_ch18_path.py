@@ -45,7 +45,7 @@ def test_create_moment_mstr_path_ReturnsObj():
     assert gen_last_run_metrics_path == expected_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_moment_mstr_path_HasDocString():
     # ESTABLISH
     doc_str = create_moment_mstr_path(world_dir="world_dir")
@@ -103,7 +103,7 @@ def test_create_stance0001_path_ReturnsObj():
     assert gen_stance0001_xlsx_path == expected_stance000001_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_last_run_metrics_path_HasDocString():
     # ESTABLISH
     doc_str = create_last_run_metrics_path("world_dir")
@@ -112,7 +112,7 @@ def test_create_last_run_metrics_path_HasDocString():
     assert inspect_getdoc(create_last_run_metrics_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_stances_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_stances_dir_path(moment_mstr_dir="moment_mstr_dir")
@@ -121,7 +121,7 @@ def test_create_stances_dir_path_HasDocString():
     assert inspect_getdoc(create_stances_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_stances_person_dir_path_HasDocString():
     # ESTABLISH
     doc_str = create_stances_person_dir_path(
@@ -132,7 +132,7 @@ def test_create_stances_person_dir_path_HasDocString():
     assert inspect_getdoc(create_stances_person_dir_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_stance0001_path_HasDocString():
     # ESTABLISH
     doc_str = create_stance0001_path(output_dir="output_dir")
@@ -183,7 +183,7 @@ def test_create_world_db_path_ReturnsObj():
     assert gen_world_db_path == expected_path
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_moment_ote1_csv_path_HasDocString():
     # ESTABLISH
     moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -193,7 +193,7 @@ def test_create_moment_ote1_csv_path_HasDocString():
     assert inspect_getdoc(create_moment_ote1_csv_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_moment_ote1_json_path_HasDocString():
     # ESTABLISH
     moment_lasso = lassounit_shop(create_rope(kw.moment_rope))
@@ -203,7 +203,7 @@ def test_create_moment_ote1_json_path_HasDocString():
     assert inspect_getdoc(create_moment_ote1_json_path) == doc_str
 
 
-@pytest_mark.skipif(platform_system() == "Linux", reason="conflict in file path str")
+@pytest_mark.skip_on_linux
 def test_create_world_db_path_HasDocString():
     # ESTABLISH
     doc_str = create_world_db_path("moment_mstr_dir")
