@@ -1,5 +1,4 @@
 from inspect import getdoc as inspect_getdoc
-from platform import system as platform_system
 from pytest import mark as pytest_mark
 from src.ch00_py.file_toolbox import create_path
 from src.ch04_rope.rope import create_rope
@@ -13,6 +12,7 @@ from src.ref.keywords import Ch14Keywords as kw, ExampleStrs as exx
 
 
 def test_create_bud_partner_mandate_ledger_path_ReturnsObj():
+    # sourcery skip: extract-duplicate-method, inline-immediately-returned-variable
     # ESTABLISH
     x_moment_mstr_dir = get_temp_dir()
     timenum7 = 7

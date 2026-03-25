@@ -1,6 +1,5 @@
 from os.path import exists as os_path_exist, join as os_path_join
 from pathlib import Path as pathlib_Path
-from platform import system as platform_system
 from pytest import mark as pytest_mark, raises as pytest_raises
 from src.ch00_py.dict_toolbox import get_dict_from_json
 from src.ch00_py.file_toolbox import (
