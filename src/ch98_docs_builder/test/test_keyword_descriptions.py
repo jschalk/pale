@@ -1,4 +1,5 @@
 from inspect import getdoc as inspect_getdoc
+from re import fullmatch as re_fullmatch
 from src.ch00_py.keyword_class_builder import get_keywords_src_config
 from src.ch07_person_logic.person_config import (
     get_all_person_calc_args,
@@ -87,8 +88,9 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
     keywords_description = get_keywords_description()
 
     # THEN
-    check_translate_dimen_keywords_description(keywords_description)
+    # consider turing each of these into their own test. It's not good to have asserts in called functions for tests
     check_general_keywords_descriptions(keywords_description)
+    check_translate_dimen_keywords_description(keywords_description)
     check_c400_constants_keywords_description(keywords_description)
     check_epoch_config_keywords_description(keywords_description)
     all_semantic_types = get_all_semantic_types_with_doc_strs()
@@ -106,6 +108,15 @@ def test_get_keywords_description_ReturnsObj_CheckDescriptions():
 
     check_stages_types_keywords_description(keywords_description)
     check_person_dimen_keywords_description(keywords_description)
+    check_no_chapter_keywords_description(keywords_description)
+
+
+def check_no_chapter_keywords_description(keywords_description: dict[str, str]):
+    for keyword, kw_config in get_keywords_src_config().items():
+        x_init_chapter = kw_config.get("init_chapter")
+        if not bool(re_fullmatch(r"ch\d{2}", x_init_chapter)):
+            config_description = keywords_description.get(keyword)
+            assert "Not used in codebase." in config_description, keyword
 
 
 def check_person_dimen_keywords_description(keywords_description: dict[str, str]):

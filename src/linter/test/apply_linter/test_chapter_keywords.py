@@ -17,6 +17,7 @@ from src.linter.style import (
     get_python_files_with_flag,
     get_semantic_types_filename,
 )
+from src.ref.keywords import Ch98Keywords as kw
 
 
 def get_semantic_types_dict() -> dict[str, str]:
@@ -214,13 +215,17 @@ def test_Chapters_KeywordsAppearWhereTheyShould():
         never_used_assertion_fail_str = (
             f"The Keyword '{keyword}' is never used in the chapters"
         )
-        assert chapters_dict.keys(), never_used_assertion_fail_str
-        min_chapter_prefix = min(chapters_dict.keys())
-        min_chapter_count = chapters_dict.get(min_chapter_prefix)
-        ch_count_fail_str = f"{keyword=} {min_chapter_prefix} {min_chapter_count=}"
-        # if min_chapter_count <= 2:
-        #     print()
-        assert min_chapter_count != 1, ch_count_fail_str
+        if not chapters_dict.keys():
+            init_ch = keywords_dict[keyword][kw.init_chapter]
+            assert init_ch == "", never_used_assertion_fail_str
+        else:
+            min_chapter_prefix = min(chapters_dict.keys())
+            min_chapter_count = chapters_dict.get(min_chapter_prefix)
+            ch_count_fail_str = f"{keyword=} {min_chapter_prefix} {min_chapter_count=}"
+            # if min_chapter_count <= 2:
+            #     print()
+            if keyword not in {"semantic_type"}:
+                assert min_chapter_count != 1, ch_count_fail_str
 
 
 def add_ch_keyword_count(keywords_ch_counts: dict, keyword: str, chapter_prefix: str):

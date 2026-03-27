@@ -15,7 +15,6 @@ def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
     temp_dir_setup,
 ):
     # ESTABLISH
-    # TODO consider adding apr7 to exx enum class
     apr7 = datetime(2010, 4, 7)
     mmt_mstr_dir = get_temp_dir()
     a23_lasso = lassounit_shop(exx.a23)
@@ -32,10 +31,6 @@ def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
     # THEN
     assert not os_path_exists(sue_a23_day_punch_path)
     assert not os_path_exists(sue_ep8_day_punch_path)
-
-
-# TODO
-# consider adding keywords that by intention never appear in codebase to keywords json.
 
 
 # TODO get this going
