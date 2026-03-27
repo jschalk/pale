@@ -44,6 +44,7 @@
   "case_active": ", Case conpute", 
   "case_task": ", Case conpute", 
   "cases": "TODO", 
+  "day_punch": "A report that summarizes the tasks of a person for a day.", 
   "celldepth": ", bud arg", 
   "ch00": "Creates helper tools for OS and python data manipulation.", 
   "ch01": "Defines how to allot a pool number to a weighted ledger.", 

@@ -113,6 +113,7 @@
   "credor_respect": {"init_chapter": "ch07"}, 
   "creg": {"init_chapter": "ch13"}, 
   "crud": {"init_chapter": "ch08"}, 
+  "day_punch": {"init_chapter": "ch19"}, 
   "cumulative_day": {"init_chapter": "ch13"}, 
   "cumulative_minute": {"init_chapter": "ch14"}, 
   "cycle_carees_curr": {"init_chapter": "ch12"}, 

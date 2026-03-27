@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from os.path import exists as os_path_exists
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
@@ -37,8 +38,9 @@ from src.ch19_etl_main.etl_main import (
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
     get_max_brick_agg_spark_num,
 )
+from src.ch20_kpi.gcalendar import save_person_gcal_day_punchs
 from src.ch20_kpi.kpi_mstr import create_calendar_markdown_files, populate_kpi_bundle
-from src.ch21_world._ref.ch21_semantic_types import WorldName
+from src.ch21_world._ref.ch21_semantic_types import GroupTitle, PersonName, WorldName
 
 
 def create_stances(
@@ -170,5 +172,20 @@ def worlddir_shop(
     return x_worlddir
 
 
-def sheets_to_gcal_day_reports():
-    pass
+def sheets_to_gcal_day_punchs(
+    worlddir: WorldDir,
+    person_name: PersonName,
+    day: datetime,
+    focus_group_title: GroupTitle = None,
+):
+    sheets_input_to_lynx_mstr(
+        world_db_path=worlddir.get_world_db_path(),
+        input_dir=worlddir._input_dir,
+        moment_mstr_dir=worlddir._moment_mstr_dir,
+    )
+    save_person_gcal_day_punchs(
+        moment_mstr_dir=worlddir._moment_mstr_dir,
+        person_name=person_name,
+        day=day,
+        focus_group_title=focus_group_title,
+    )
