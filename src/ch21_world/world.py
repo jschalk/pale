@@ -129,29 +129,30 @@ class WorldDir:
     world_name: WorldName = None
     worlds_dir: str = None
     output_dir: str = None
-    _world_dir: str = None
-    _input_dir: str = None
-    _brick_dir: str = None
-    _moment_mstr_dir: str = None
+    input_dir: str = None
+    # calculated dirs
+    world_dir: str = None
+    brick_dir: str = None
+    moment_mstr_dir: str = None
 
     def get_world_db_path(self) -> str:
         "Returns path: world_dir/world.db"
-        return create_world_db_path(self._world_dir)
+        return create_world_db_path(self.world_dir)
 
     def delete_world_db(self):
         delete_dir(self.get_world_db_path())
 
     def set_input_dir(self, x_dir: str):
-        self._input_dir = x_dir
-        set_dir(self._input_dir)
+        self.input_dir = x_dir
+        set_dir(self.input_dir)
 
     def _set_world_dirs(self):
-        self._world_dir = create_path(self.worlds_dir, self.world_name)
-        self._brick_dir = create_path(self._world_dir, "brick")
-        self._moment_mstr_dir = create_moment_mstr_path(self._world_dir)
-        set_dir(self._world_dir)
-        set_dir(self._brick_dir)
-        set_dir(self._moment_mstr_dir)
+        self.world_dir = create_path(self.worlds_dir, self.world_name)
+        self.brick_dir = create_path(self.world_dir, "brick")
+        self.moment_mstr_dir = create_moment_mstr_path(self.world_dir)
+        set_dir(self.world_dir)
+        set_dir(self.brick_dir)
+        set_dir(self.moment_mstr_dir)
 
 
 def worlddir_shop(
@@ -164,11 +165,11 @@ def worlddir_shop(
         world_name=world_name,
         worlds_dir=worlds_dir,
         output_dir=output_dir,
-        _input_dir=input_dir,
+        input_dir=input_dir,
     )
     x_worlddir._set_world_dirs()
-    if not x_worlddir._input_dir:
-        x_worlddir.set_input_dir(create_path(x_worlddir._world_dir, "input"))
+    if not x_worlddir.input_dir:
+        x_worlddir.set_input_dir(create_path(x_worlddir.world_dir, "input"))
     return x_worlddir
 
 
@@ -180,11 +181,11 @@ def sheets_to_gcal_day_punchs(
 ):
     sheets_input_to_lynx_mstr(
         world_db_path=worlddir.get_world_db_path(),
-        input_dir=worlddir._input_dir,
-        moment_mstr_dir=worlddir._moment_mstr_dir,
+        input_dir=worlddir.input_dir,
+        moment_mstr_dir=worlddir.moment_mstr_dir,
     )
     save_person_gcal_day_punchs(
-        moment_mstr_dir=worlddir._moment_mstr_dir,
+        moment_mstr_dir=worlddir.moment_mstr_dir,
         person_name=person_name,
         day=day,
         focus_group_title=focus_group_title,

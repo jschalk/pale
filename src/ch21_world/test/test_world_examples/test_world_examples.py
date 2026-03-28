@@ -55,14 +55,14 @@ def test_sheets_input_to_lynx_mstr_Examples(temp_dir_setup, run_big_tests):
         # WHEN
         sheets_input_to_lynx_mstr(
             world_db_path=example_worlddir.get_world_db_path(),
-            input_dir=example_worlddir._input_dir,
-            moment_mstr_dir=example_worlddir._moment_mstr_dir,
+            input_dir=example_worlddir.input_dir,
+            moment_mstr_dir=example_worlddir.moment_mstr_dir,
         )
         create_stances(
-            example_worlddir._world_dir,
+            example_worlddir.world_dir,
             example_worlddir.output_dir,
             example_worlddir.world_name,
-            example_worlddir._moment_mstr_dir,
+            example_worlddir.moment_mstr_dir,
             prettify_excel_bool=False,
         )
         create_kpi_csvs(

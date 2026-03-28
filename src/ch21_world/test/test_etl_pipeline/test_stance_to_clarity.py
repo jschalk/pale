@@ -24,7 +24,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
     ex_filename = "stance_Faybob.xlsx"
-    input_file_path = create_path(fay_wdir._input_dir, ex_filename)
+    input_file_path = create_path(fay_wdir.input_dir, ex_filename)
     br00113_columns = [
         kw.face_name,
         kw.moment_rope,
@@ -62,8 +62,8 @@ def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     # WHEN
     stance_sheets_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
-        input_dir=fay_wdir._input_dir,
-        moment_mstr_dir=fay_wdir._moment_mstr_dir,
+        input_dir=fay_wdir.input_dir,
+        moment_mstr_dir=fay_wdir.moment_mstr_dir,
     )
 
     # THEN
@@ -158,7 +158,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
     ex_filename = "stance_Faybob.xlsx"
-    input_file_path = create_path(fay_wdir._input_dir, ex_filename)
+    input_file_path = create_path(fay_wdir.input_dir, ex_filename)
     br00113_columns = [
         kw.face_name,
         kw.moment_rope,
@@ -184,8 +184,8 @@ def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     # WHEN
     stance_sheets_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
-        input_dir=fay_wdir._input_dir,
-        moment_mstr_dir=fay_wdir._moment_mstr_dir,
+        input_dir=fay_wdir.input_dir,
+        moment_mstr_dir=fay_wdir.moment_mstr_dir,
     )
 
     # THEN
