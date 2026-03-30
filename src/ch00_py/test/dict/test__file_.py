@@ -408,11 +408,11 @@ def test_get_integer_filenames_ReturnsCoorectObjIfDirectoryDoesNotExist(
 ):
     # ESTABLISH
     env_dir = temp3_dir
-    temp_dir = f"{env_dir}\\temp_does_not_exist"
-    assert os_path_exist(temp_dir) is False
+    does_not_exist_dir = f"{env_dir}\\temp_does_not_exist"
+    assert os_path_exist(does_not_exist_dir) is False
 
     # WHEN
-    files_dict = get_integer_filenames(temp_dir, 0)
+    files_dict = get_integer_filenames(does_not_exist_dir, 0)
 
     # THEN
     assert len(files_dict) == 0

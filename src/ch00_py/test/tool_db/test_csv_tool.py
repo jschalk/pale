@@ -59,9 +59,8 @@ def test_open_csv_with_types_ReturnsObj(temp3_fs, temp3_dir):
 def test_export_sqlite_tables_to_csv_CreatesFiles(temp3_fs, temp3_dir):
     # ESTABLISH
     # 1. Create temporary SQLite DB
-    temp_dir = temp3_dir
-    set_dir(temp_dir)
-    db_path = create_path(temp_dir, "test555.db")
+    set_dir(temp3_dir)
+    db_path = create_path(temp3_dir, "test555.db")
     print(f"{db_path=}")
     conn = sqlite3_connect(db_path)
     cursor = conn.cursor()
@@ -78,12 +77,12 @@ def test_export_sqlite_tables_to_csv_CreatesFiles(temp3_fs, temp3_dir):
 
     # WHEN
     # 3. Run export function
-    export_sqlite_tables_to_csv(str(db_path), str(temp_dir))
+    export_sqlite_tables_to_csv(str(db_path), str(temp3_dir))
 
     # THEN
     # 4. Check output files
-    user_csv = create_path(temp_dir, "users_2.csv")
-    product_csv = create_path(temp_dir, "products_1.csv")
+    user_csv = create_path(temp3_dir, "users_2.csv")
+    product_csv = create_path(temp3_dir, "products_1.csv")
 
     assert os_path_exists(user_csv)
     assert os_path_exists(product_csv)

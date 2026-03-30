@@ -7,7 +7,7 @@ from tempfile import mkdtemp as tempfile_mkdtemp
 
 
 @pytest_fixture
-def temp_directory():
+def ex_directory():
     """Fixture to create a temporary directory with files and subdirectories."""
     test_dir = Path(tempfile_mkdtemp())  # Create a temp directory
 
@@ -26,18 +26,18 @@ def temp_directory():
     shutil_rmtree(test_dir)
 
 
-def test_count_dirs_files_ReturnsObj_Scenario0(temp_directory):
+def test_count_dirs_files_ReturnsObj_Scenario0(ex_directory):
     # ESTABLISH / WHEN / THEN
-    assert count_dirs_files(temp_directory) == 5
+    assert count_dirs_files(ex_directory) == 5
 
     # WHEN / THEN
-    save_file(temp_directory, "testing.txt", "")
-    assert count_dirs_files(temp_directory) == 6
+    save_file(ex_directory, "testing.txt", "")
+    assert count_dirs_files(ex_directory) == 6
 
     # WHEN / THEN
-    test2_dir = create_path(temp_directory, "testing2")
+    test2_dir = create_path(ex_directory, "testing2")
     save_file(test2_dir, "testing.txt", "")
-    assert count_dirs_files(temp_directory) == 8
+    assert count_dirs_files(ex_directory) == 8
 
 
 def test_count_dirs_files_ReturnsObj_Scenario1_DoesNotCreateDir(temp3_fs, temp3_dir):
