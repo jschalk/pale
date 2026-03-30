@@ -7,20 +7,16 @@ from src.ch04_rope.rope import create_rope
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table, upsert_sheet
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename
 from src.ch19_etl_main.etl_main import get_max_brick_agg_spark_num
-from src.ch21_world.test._util.ch21_env import (
-    get_temp_dir as worlds_dir,
-    temp_dir_setup,
-)
 from src.ch21_world.world import WorldDir, stance_sheets_to_lynx_mstr, worlddir_shop
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
 def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
-    temp_dir_setup,
+    temp3_fs,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
     fay_str = "Fay34"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
     ex_filename = "stance_Faybob.xlsx"
@@ -148,11 +144,11 @@ def create_brick_agg_record(wdir: WorldDir, spark_num: int):
 
 
 def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
-    temp_dir_setup,
+    temp3_fs,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
     fay_rope = create_rope("Fay34")
-    fay_wdir = worlddir_shop(fay_rope, worlds_dir())
+    fay_wdir = worlddir_shop(fay_rope, str(temp3_fs))
     spark5 = 5
     create_brick_agg_record(fay_wdir, spark5)
     # delete_dir(fay_wdir.worlds_dir)

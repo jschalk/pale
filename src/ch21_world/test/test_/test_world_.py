@@ -1,9 +1,5 @@
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path, save_file
-from src.ch21_world.test._util.ch21_env import (
-    get_temp_dir as worlds_dir,
-    temp_dir_setup,
-)
 from src.ch21_world.world import WorldDir, WorldName, worlddir_shop
 from src.ref.keywords import ExampleStrs as exx
 
@@ -28,10 +24,10 @@ def test_WorldDir_Exists():
     assert not x_wdir.moment_mstr_dir
 
 
-def test_WorldDir_set_input_dir_SetsDirsAndFiles(temp_dir_setup):
+def test_WorldDir_set_input_dir_SetsDirsAndFiles(temp3_fs):
     # ESTABLISH
     fay_wdir = WorldDir("Fay")
-    x_example_dir = create_path(worlds_dir(), "example_dir")
+    x_example_dir = create_path(str(temp3_fs), "example_dir")
     x_input_dir = create_path(x_example_dir, "input")
 
     assert not fay_wdir.world_dir
@@ -51,11 +47,11 @@ def test_WorldDir_set_input_dir_SetsDirsAndFiles(temp_dir_setup):
     assert os_path_exists(x_input_dir)
 
 
-def test_WorldDir_set_world_dirs_SetsDirsAndFiles(temp_dir_setup):
+def test_WorldDir_set_world_dirs_SetsDirsAndFiles(temp3_fs):
     # ESTABLISH
     fay_str = "Fay"
-    fay_wdir = WorldDir(world_name=fay_str, worlds_dir=worlds_dir())
-    x_world_dir = create_path(worlds_dir(), fay_str)
+    fay_wdir = WorldDir(world_name=fay_str, worlds_dir=str(temp3_fs))
+    x_world_dir = create_path(str(temp3_fs), fay_str)
     x_input_dir = create_path(x_world_dir, "input")
     x_brick_dir = create_path(x_world_dir, "brick")
     x_moment_mstr_dir = create_path(x_world_dir, "moment_mstr")
@@ -82,11 +78,11 @@ def test_WorldDir_set_world_dirs_SetsDirsAndFiles(temp_dir_setup):
     assert os_path_exists(x_moment_mstr_dir)
 
 
-def test_worlddir_shop_ReturnsObj_Scenario0_WithParameters(temp_dir_setup):
+def test_worlddir_shop_ReturnsObj_Scenario0_WithParameters(temp3_fs):
     # ESTABLISH
-    worlds2_dir = create_path(worlds_dir(), "worlds2")
-    example_input_dir = create_path(worlds_dir(), "example_input")
-    output_dir = create_path(worlds_dir(), "output")
+    worlds2_dir = create_path(str(temp3_fs), "worlds2")
+    example_input_dir = create_path(str(temp3_fs), "example_input")
+    output_dir = create_path(str(temp3_fs), "output")
     five_world_name = "five"
 
     # WHEN
@@ -104,37 +100,37 @@ def test_worlddir_shop_ReturnsObj_Scenario0_WithParameters(temp_dir_setup):
     assert x_wdir.input_dir == example_input_dir
 
 
-def test_worlddir_shop_ReturnsObj_Scenario1_WithoutParameters(temp_dir_setup):
+def test_worlddir_shop_ReturnsObj_Scenario1_WithoutParameters(temp3_fs):
     # ESTABLISH
 
     # WHEN
-    x_wdir = worlddir_shop(exx.a23, worlds_dir())
+    x_wdir = worlddir_shop(exx.a23, str(temp3_fs))
 
     # THEN
     assert x_wdir.world_name == exx.a23
-    assert x_wdir.worlds_dir == worlds_dir()
+    assert x_wdir.worlds_dir == str(temp3_fs)
     assert not x_wdir.output_dir
     assert x_wdir.input_dir == create_path(x_wdir.world_dir, "input")
 
 
 def test_worlddir_shop_ReturnsObj_Scenario2_ThirdParameterIs_output_dir(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
-    output_dir = create_path(worlds_dir(), "output")
+    output_dir = create_path(str(temp3_fs), "output")
 
     # WHEN
-    x_wdir = worlddir_shop(exx.a23, worlds_dir(), output_dir)
+    x_wdir = worlddir_shop(exx.a23, str(temp3_fs), output_dir)
 
     # THEN
     assert x_wdir.world_name == exx.a23
-    assert x_wdir.worlds_dir == worlds_dir()
+    assert x_wdir.worlds_dir == str(temp3_fs)
     assert x_wdir.output_dir == output_dir
 
 
-def test_WorldDir_get_world_db_path_ReturnsObj(temp_dir_setup):
+def test_WorldDir_get_world_db_path_ReturnsObj(temp3_fs):
     # ESTABLISH
-    a23_wdir = worlddir_shop(exx.a23, worlds_dir())
+    a23_wdir = worlddir_shop(exx.a23, str(temp3_fs))
 
     # WHEN
     a23_db_path = a23_wdir.get_world_db_path()
@@ -143,9 +139,9 @@ def test_WorldDir_get_world_db_path_ReturnsObj(temp_dir_setup):
     assert a23_db_path == create_path(a23_wdir.world_dir, "world.db")
 
 
-def test_WorldDir_delete_world_db_DeletesFile(temp_dir_setup):
+def test_WorldDir_delete_world_db_DeletesFile(temp3_fs):
     # ESTABLISH
-    a23_wdir = worlddir_shop(exx.a23, worlds_dir())
+    a23_wdir = worlddir_shop(exx.a23, str(temp3_fs))
     a23_db_path = a23_wdir.get_world_db_path()
     print(f"{a23_db_path=}")
     save_file(a23_db_path, None, "example_text")

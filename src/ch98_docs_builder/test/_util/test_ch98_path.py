@@ -5,12 +5,11 @@ from src.ch98_docs_builder._ref.ch98_path import (
     create_chapter_ref_path,
     create_src_keg_terminology_path,
 )
-from src.ch98_docs_builder.test._util.ch98_env import get_temp_dir
 
 
-def test_create_src_keg_terminology_path_ReturnsObj():
+def test_create_src_keg_terminology_path_ReturnsObj(temp3_dir):
     # ESTABLISH
-    src_dir = get_temp_dir()
+    src_dir = temp3_dir
 
     # WHEN
     keywords_class_file_path = create_src_keg_terminology_path(src_dir)
@@ -36,9 +35,9 @@ def test_create_src_keg_terminology_path_HasDocString():
     assert inspect_getdoc(create_src_keg_terminology_path) == doc_str
 
 
-def test_create_chapter_ref_path_ReturnsObj():
+def test_create_chapter_ref_path_ReturnsObj(temp3_dir):
     # ESTABLISH
-    src_dir = get_temp_dir()
+    src_dir = temp3_dir
     chapter_prefix = "ch04"
 
     # WHEN

@@ -7,13 +7,12 @@ from src.ch20_kpi._ref.ch20_path import (
     create_day_punch_txt_path,
     create_moments_dir_path,
 )
-from src.ch20_kpi.test._util.ch20_env import get_temp_dir
 from src.ref.keywords import Ch20Keywords as kw, ExampleStrs as exx
 
 
-def test_create_day_punch_txt_path_ReturnsObj():
+def test_create_day_punch_txt_path_ReturnsObj(temp3_dir):
     # ESTABLISH
-    x_moment_mstr_dir = get_temp_dir()
+    x_moment_mstr_dir = temp3_dir
     a23_lasso = lassounit_shop(exx.a23)
 
     # WHEN

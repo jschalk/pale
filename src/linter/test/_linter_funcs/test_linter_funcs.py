@@ -5,7 +5,6 @@ from src.linter.style import (
     function_name_style_is_correct,
     get_filenames_with_wrong_style,
 )
-from src.linter.test._util.linter_env import get_temp_dir, temp_dir_setup
 
 
 def test_filename_style_is_correct_ReturnsObj():
@@ -46,7 +45,8 @@ def test_function_name_style_is_correct_ReturnsObj():
     assert function_name_style_is_correct("test_get_label_ReturnsObj_correctly")
 
 
-def test_env_file_has_required_elements_ReturnsObj_Scenario0(temp_dir_setup):
+# TODO deprecate this, get rid of all env files, and replace with fixtures in conftest.py
+def test_env_file_has_required_elements_ReturnsObj_Scenario0(temp3_fs):
     # ESTBALISH
 
     ch04_prefix = "ch04"
@@ -64,14 +64,14 @@ def temp_dir_setup():
     delete_dir(dir=env_dir)
 
 """
-    env4_file_path = create_path(get_temp_dir(), env4_filename)
+    env4_file_path = create_path(str(temp3_fs), env4_filename)
     save_file(env4_file_path, None, env4_file_str)
 
     # WHEN / THEN
     assert env_file_has_required_elements(env4_file_path)
 
 
-def test_env_file_has_required_elements_ReturnsObj_Scenario1(temp_dir_setup):
+def test_env_file_has_required_elements_ReturnsObj_Scenario1(temp3_fs):
     # ESTBALISH
 
     ch04_prefix = "ch04"
@@ -79,60 +79,60 @@ def test_env_file_has_required_elements_ReturnsObj_Scenario1(temp_dir_setup):
     env4_file_str = """
 
 @pytest_fixture()
-def temp_dir_setup():
-    env_dir = get_temp_dir()
+def temp3_fs():
+    env_dir = str(temp3_fs)
     delete_dir(dir=env_dir)
     os_makedirs(env_dir)
     yield env_dir
     delete_dir(dir=env_dir)
 
 """
-    env4_file_path = create_path(get_temp_dir(), env4_filename)
+    env4_file_path = create_path(str(temp3_fs), env4_filename)
     save_file(env4_file_path, None, env4_file_str)
 
     # WHEN / THEN
     assert not env_file_has_required_elements(env4_file_path)
 
 
-def test_env_file_has_required_elements_ReturnsObj_Scenario2(temp_dir_setup):
+def test_env_file_has_required_elements_ReturnsObj_Scenario2(temp3_fs):
     # ESTBALISH
 
     ch04_prefix = "ch04"
     env4_filename = f"{ch04_prefix}_env.py"
     env4_file_str = """
-def get_temp_dir():
+def str(temp3_fs):
     pass
 
 
 """
-    env4_file_path = create_path(get_temp_dir(), env4_filename)
+    env4_file_path = create_path(str(temp3_fs), env4_filename)
     save_file(env4_file_path, None, env4_file_str)
 
     # WHEN / THEN
     assert not env_file_has_required_elements(env4_file_path)
 
 
-def test_env_file_has_required_elements_ReturnsObj_Scenario3(temp_dir_setup):
+def test_env_file_has_required_elements_ReturnsObj_Scenario3(temp3_fs):
     # ESTBALISH
 
     ch04_prefix = "ch04"
     env4_filename = f"{ch04_prefix}_env.py"
     env4_file_str = """
 
-def get_temp_dir():
+def str(temp3_fs):
     pass
 
     
 @pytest_fixture()
-def temp_dir_setup():
-    env_dir = get_temp_dir()
+def temp3_fs():
+    env_dir = str(temp3_fs)
     delete_dir(dir=env_dir)
     os_makedirs(env_dir)
     yield env_dir
     delete_dir(env_dir)
 
 """
-    env4_file_path = create_path(get_temp_dir(), env4_filename)
+    env4_file_path = create_path(str(temp3_fs), env4_filename)
     save_file(env4_file_path, None, env4_file_str)
 
     # WHEN / THEN

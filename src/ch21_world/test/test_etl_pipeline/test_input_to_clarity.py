@@ -28,11 +28,7 @@ from src.ch18_etl_config._ref.ch18_path import (
     create_moment_ote1_csv_path,
 )
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename as prime_tbl
-from src.ch21_world.test._util.ch21_env import (
-    cursor0,
-    get_temp_dir as worlds_dir,
-    temp_dir_setup,
-)
+from src.ch21_world.test._util.ch21_env import cursor0
 from src.ch21_world.world import (
     sheets_input_to_lynx_mstr,
     sheets_input_to_lynx_with_cursor,
@@ -42,11 +38,11 @@ from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
 def test_sheets_input_to_lynx_with_cursor_Scenario0_br000113PopulatesTables(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH:
     fay_str = "Fay"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
     e3 = 3
@@ -207,11 +203,11 @@ def test_sheets_input_to_lynx_with_cursor_Scenario0_br000113PopulatesTables(
 
 
 def test_sheets_input_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH:
     fay_str = "Fay"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
     e3 = 3
@@ -368,11 +364,11 @@ def test_sheets_input_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
 
 
 def test_sheets_input_to_lynx_with_cursor_Scenario2_PopulateMomentTranBook(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH:
     fay_str = "Fay"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     # delete_dir(fay_wdir.worlds_dir)
     e3 = 3
     ex_filename = "Faybob.xlsx"
@@ -407,11 +403,11 @@ def test_sheets_input_to_lynx_with_cursor_Scenario2_PopulateMomentTranBook(
 
 
 def test_sheets_input_to_lynx_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_IsStillCreated(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
     fay_str = "Fay"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_wdir.input_dir, ex_filename)
@@ -440,11 +436,11 @@ def test_sheets_input_to_lynx_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_IsSti
 
 
 def test_sheets_input_to_lynx_with_cursor_Scenario4_DeletesPreviousFiles(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
     fay_str = "Fay"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     print(f"{fay_wdir.worlds_dir=}")
     mstr_dir = fay_wdir.moment_mstr_dir
     moments_dir = create_path(mstr_dir, "moments")
@@ -469,11 +465,11 @@ def test_sheets_input_to_lynx_with_cursor_Scenario4_DeletesPreviousFiles(
 
 
 def test_sheets_input_to_lynx_with_cursor_Scenario5_CreatesFiles(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
     fay_str = "Fay"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     # delete_dir(fay_wdir.worlds_dir)
     spark1 = 1
     spark2 = 2
@@ -559,11 +555,11 @@ def test_sheets_input_to_lynx_with_cursor_Scenario5_CreatesFiles(
 
 
 def test_sheets_input_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH:
     fay_str = "Fay"
-    fay_wdir = worlddir_shop(fay_str, worlds_dir())
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
     e3 = 3

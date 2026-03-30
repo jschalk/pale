@@ -8,10 +8,6 @@ from src.ch18_etl_config._ref.ch18_path import (
     create_stance0001_path,
     create_stances_dir_path,
 )
-from src.ch21_world.test._util.ch21_env import (
-    get_temp_dir as worlds_dir,
-    temp_dir_setup,
-)
 from src.ch21_world.world import (
     create_stances,
     sheets_input_to_lynx_mstr,
@@ -20,13 +16,11 @@ from src.ch21_world.world import (
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
-def test_create_stances_CreatesFile_Senario0_EmptyWorld(
-    temp_dir_setup,
-):
+def test_create_stances_CreatesFile_Senario0_EmptyWorld(temp3_fs):
     # ESTABLISH
     fay_str = "Fay"
-    output_dir = create_path(worlds_dir(), "output")
-    fay_wdir = worlddir_shop(fay_str, worlds_dir(), output_dir)
+    output_dir = create_path(str(temp3_fs), "output")
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs), output_dir)
     sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir.input_dir,
@@ -48,11 +42,11 @@ def test_create_stances_CreatesFile_Senario0_EmptyWorld(
     assert os_path_exists(fay_stance0001_path)
 
 
-def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp_dir_setup):
+def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
     # ESTABLISH
     fay_str = "Fay"
-    output_dir = create_path(worlds_dir(), "output")
-    fay_wdir = worlddir_shop(fay_str, worlds_dir(), output_dir)
+    output_dir = create_path(str(temp3_fs), "output")
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs), output_dir)
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_wdir.input_dir, ex_filename)
@@ -92,13 +86,13 @@ def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp_dir_setup):
 
 
 def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorldDir(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # sourcery skip: no-loop-in-tests
     # ESTABLISH
     fay_str = "Fay"
-    fay_output_dir = create_path(worlds_dir(), "Fay_output")
-    fay_wdir = worlddir_shop(fay_str, worlds_dir(), fay_output_dir)
+    fay_output_dir = create_path(str(temp3_fs), "Fay_output")
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs), fay_output_dir)
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_wdir.input_dir, ex_filename)
@@ -125,8 +119,8 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
         moment_mstr_dir=fay_wdir.moment_mstr_dir,
         prettify_excel_bool=False,
     )
-    bob_output_dir = create_path(worlds_dir(), "Bob_output")
-    bob_wdir = worlddir_shop("Bob", worlds_dir(), bob_output_dir)
+    bob_output_dir = create_path(str(temp3_fs), "Bob_output")
+    bob_wdir = worlddir_shop("Bob", str(temp3_fs), bob_output_dir)
     bob_input_st0001_path = create_path(bob_wdir.moment_mstr_dir, "Bob_input.xlsx")
     set_dir(create_stances_dir_path(bob_wdir.moment_mstr_dir))
     shutil_copy2(fay_stance0001_path, dst=bob_input_st0001_path)
@@ -165,12 +159,12 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
 
 
 def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
     fay_str = "Fay"
-    output_dir = create_path(worlds_dir(), "output")
-    fay_wdir = worlddir_shop(fay_str, worlds_dir(), output_dir)
+    output_dir = create_path(str(temp3_fs), "output")
+    fay_wdir = worlddir_shop(fay_str, str(temp3_fs), output_dir)
     spark2 = 2
     ex_filename = "Faybob.xlsx"
     input_file_path = create_path(fay_wdir.input_dir, ex_filename)
@@ -207,10 +201,10 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
     assert os_path_exists(a23_calendar_md_path)
 
 
-# def test_WorldDir_sheets_input_to_lynx_CreatesFiles(temp_dir_setup):
+# def test_WorldDir_sheets_input_to_lynx_CreatesFiles(temp3_fs):
 #     # ESTABLISH
 #     fay_str = "Fay"
-#     fay_wdir = worlddir_shop(fay_str, worlds_dir())
+#     fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
 #     # delete_dir(fay_wdir.worlds_dir)
 #     spark1 = 1
 #     spark2 = 2

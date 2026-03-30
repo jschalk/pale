@@ -8,12 +8,12 @@ from src.ch18_etl_config.etl_sqlstr import (
     create_sound_and_heard_tables,
 )
 from src.ch19_etl_main.etl_main import etl_heard_vld_to_spark_person_csvs
-from src.ch19_etl_main.test._util.ch19_env import cursor0, get_temp_dir, temp_dir_setup
+from src.ch19_etl_main.test._util.ch19_env import cursor0
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_heard_vld_to_spark_person_csvs_PopulatesPersonPulabelTables(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
     sue_inx = "Suzy"
@@ -25,7 +25,7 @@ def test_etl_heard_vld_to_spark_person_csvs_PopulatesPersonPulabelTables(
     sue_partner_cred_lumen7 = 7
     put_agg_tablename = create_prime_tablename(kw.person_partnerunit, kw.h_vld, "put")
     put_agg_csv = f"{put_agg_tablename}.csv"
-    x_dir = get_temp_dir()
+    x_dir = str(temp3_fs)
     a23_lasso = lassounit_shop(exx.a23_dash, exx.dash)
     a23_bob_e3_dir = create_person_spark_dir_path(x_dir, a23_lasso, bob_inx, spark3)
     a23_bob_e7_dir = create_person_spark_dir_path(x_dir, a23_lasso, bob_inx, spark7)

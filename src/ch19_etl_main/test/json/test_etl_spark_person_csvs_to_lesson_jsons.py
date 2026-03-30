@@ -8,12 +8,11 @@ from src.ch11_bud._ref.ch11_path import (
 )
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename
 from src.ch19_etl_main.etl_main import etl_spark_person_csvs_to_lesson_json
-from src.ch19_etl_main.test._util.ch19_env import get_temp_dir, temp_dir_setup
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_spark_person_csvs_to_lesson_json_CreatesFiles_Scenario0_IgnoresCSV_personunit(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
     sue_inx = "Suzy"
@@ -21,7 +20,7 @@ def test_etl_spark_person_csvs_to_lesson_json_CreatesFiles_Scenario0_IgnoresCSV_
     spark3 = 3
     put_agg_tablename = create_prime_tablename(kw.personunit, kw.h_vld, "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
-    moment_mstr_dir = get_temp_dir()
+    moment_mstr_dir = str(temp3_fs)
     a23_lasso = lassounit_shop(exx.a23)
     # a23_bob_dir = create_path(a23_dir, bob_inx)
     # a23_bob_e3_dir = create_path(a23_bob_dir, spark3)
@@ -50,7 +49,7 @@ def test_etl_spark_person_csvs_to_lesson_json_CreatesFiles_Scenario0_IgnoresCSV_
 
 
 def test_etl_spark_person_csvs_to_lesson_json_CreatesFiles_Scenario1(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
     sue_inx = "Suzy"
@@ -63,7 +62,7 @@ def test_etl_spark_person_csvs_to_lesson_json_CreatesFiles_Scenario1(
     prnptnr_str = kw.person_partnerunit
     put_agg_tablename = create_prime_tablename(prnptnr_str, kw.h_vld, "put")
     put_agg_csv_filename = f"{put_agg_tablename}.csv"
-    moment_mstr_dir = get_temp_dir()
+    moment_mstr_dir = str(temp3_fs)
     a23_lasso = lassounit_shop(exx.a23)
     # a23_bob_dir = create_path(a23_dir, bob_inx)
     # a23_bob_e3_dir = create_path(a23_bob_dir, spark3)

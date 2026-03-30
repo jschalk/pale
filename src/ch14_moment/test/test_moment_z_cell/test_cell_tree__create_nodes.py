@@ -1,4 +1,3 @@
-from conftest import temp3_fs
 from os.path import exists as os_path_exists
 from src.ch00_py.file_toolbox import create_path
 from src.ch09_person_lesson.lasso import lassounit_shop

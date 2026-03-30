@@ -6,22 +6,21 @@ from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
 from src.ch14_moment.moment_main import momentunit_shop, save_moment_file
 from src.ch20_kpi._ref.ch20_path import create_day_punch_txt_path as day_punch_path
-from src.ch21_world.test._util.ch21_env import get_temp_dir, temp_dir_setup
 from src.ch21_world.world import sheets_to_gcal_day_punchs, worlddir_shop
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
 def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
     apr7 = datetime(2010, 4, 7)
-    mmt_mstr_dir = get_temp_dir()
+    mmt_mstr_dir = str(temp3_fs)
     a23_lasso = lassounit_shop(exx.a23)
     ep8_lasso = lassounit_shop(exx.ep8)
     sue_a23_day_punch_path = day_punch_path(mmt_mstr_dir, a23_lasso, exx.sue)
     sue_ep8_day_punch_path = day_punch_path(mmt_mstr_dir, ep8_lasso, exx.sue)
-    worlddir = worlddir_shop("HereNow", get_temp_dir())
+    worlddir = worlddir_shop("HereNow", str(temp3_fs))
     assert not os_path_exists(sue_a23_day_punch_path)
     assert not os_path_exists(sue_ep8_day_punch_path)
 
@@ -35,7 +34,7 @@ def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
 
 # TODO get this going
 # def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario1_TwoSueReports(
-#     temp_dir_setup,
+#     temp3_fs,
 # ):
 #     # ESTABLISH
 #     # TODO convert this to dataframe
@@ -50,7 +49,7 @@ def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
 #     # add_epoch_planunit(yao_ep8_person, epoch_config)
 #     apr7 = datetime(2010, 4, 7)
 #     # save momentunit json
-#     mmt_mstr_dir = get_temp_dir()
+#     mmt_mstr_dir = str(temp3_fs)
 #     a23_lasso = lassounit_shop(exx.a23)
 #     ep8_lasso = lassounit_shop(exx.ep8)
 #     # assert exists moment_file(a23_moment, a23_lasso)

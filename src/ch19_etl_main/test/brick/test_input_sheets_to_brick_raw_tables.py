@@ -4,12 +4,12 @@ from src.ch00_py.db_toolbox import db_table_exists, get_row_count, get_table_col
 from src.ch00_py.file_toolbox import create_path
 from src.ch17_idea.idea_db_tool import upsert_sheet
 from src.ch19_etl_main.etl_main import etl_input_dfs_to_brick_raw_tables
-from src.ch19_etl_main.test._util.ch19_env import cursor0, get_temp_dir, temp_dir_setup
+from src.ch19_etl_main.test._util.ch19_env import cursor0
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario0(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
     spark1 = 1
@@ -20,7 +20,7 @@ def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario0(
     hour6am = "6am"
     hour7am = "7am"
     ex_filename = "Faybob.xlsx"
-    input_dir = create_path(get_temp_dir(), "input")
+    input_dir = create_path(str(temp3_fs), "input")
     input_file_path = create_path(input_dir, ex_filename)
     br3_columns = [
         kw.spark_num,
@@ -89,7 +89,7 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
 
 
 def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario1(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
     spark1 = 1
@@ -99,7 +99,7 @@ def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario1(
     hour6am = "6am"
     hour7am = "7am"
     ex_filename = "Faybob.xlsx"
-    input_dir = create_path(get_temp_dir(), "input")
+    input_dir = create_path(str(temp3_fs), "input")
     input_file_path = create_path(input_dir, ex_filename)
     idea_columns = [
         kw.spark_num,
@@ -179,7 +179,7 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
 
 
 # def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario2(
-#     temp_dir_setup,
+#     temp3_fs,
 # ):
 #     # ESTABLISH
 #     spark1 = 1
@@ -189,7 +189,7 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
 #     hour6am = "6am"
 #     hour7am = "7am"
 #     ex_filename = "Faybob.xlsx"
-#     input_dir = create_path(get_temp_dir(), "input")
+#     input_dir = create_path(str(temp3_fs), "input")
 #     input_file_path = create_path(input_dir, ex_filename)
 #     idea_columns = [
 #     kw.spark_num,

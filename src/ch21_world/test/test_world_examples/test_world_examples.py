@@ -7,7 +7,6 @@ from src.ch00_py.file_toolbox import (
     get_level1_dirs,
 )
 from src.ch20_kpi.kpi_mstr import create_kpi_csvs
-from src.ch21_world.test._util.ch21_env import temp_dir_setup
 from src.ch21_world.world import (
     create_stances,
     sheets_input_to_lynx_mstr,
@@ -16,7 +15,7 @@ from src.ch21_world.world import (
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_sheets_input_to_lynx_mstr_Examples(temp_dir_setup, run_big_tests):
+def test_sheets_input_to_lynx_mstr_Examples(temp3_fs, run_big_tests):
     """Find examples in a example directory and run them through the pipeline."""
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH

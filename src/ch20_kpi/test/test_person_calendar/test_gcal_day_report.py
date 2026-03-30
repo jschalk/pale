@@ -14,7 +14,6 @@ from src.ch20_kpi.gcalendar import (
     get_person_gcal_day_punchs,
     save_person_gcal_day_punchs,
 )
-from src.ch20_kpi.test._util.ch20_env import get_temp_dir, temp_dir_setup
 from src.ch20_kpi.test._util.ch20_examples import (
     get_a23_sue_clean_example,
     get_ep8_sue_clean_example,
@@ -62,7 +61,7 @@ def test_get_gcal_day_punch_from_personunit_ReturnsObj_Scenario1_NonEmptyPerson(
     assert exx.run in sue_day_punch_str
 
 
-def test_get_gcal_day_punch_from_job_file_ReturnsObj_Scenario1_NonEmptyPerson():
+def test_get_gcal_day_punch_from_job_file_ReturnsObj_Scenario1_NonEmptyPerson(temp3_fs):
     # ESTABLISH
     sue_person = get_a23_sue_clean_example()
     epoch_config = get_default_epoch_config_dict()
@@ -71,7 +70,7 @@ def test_get_gcal_day_punch_from_job_file_ReturnsObj_Scenario1_NonEmptyPerson():
     sue_person.conpute()
     apr7 = datetime(2010, 4, 7)
     # save momentunit json
-    mmt_mstr_dir = get_temp_dir()
+    mmt_mstr_dir = str(temp3_fs)
     a23_moment = momentunit_shop(exx.a23, mmt_mstr_dir)
     a23_lasso = lassounit_shop(a23_moment.moment_rope, a23_moment.knot)
     assert a23_moment.epoch.epoch_label == x_epoch_label
@@ -94,10 +93,10 @@ def test_get_gcal_day_punch_from_job_file_ReturnsObj_Scenario1_NonEmptyPerson():
 
 
 def test_get_person_gcal_day_punchs_ReturnsObj_Scenario0_NoData(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
-    mmt_mstr_dir = get_temp_dir()
+    mmt_mstr_dir = str(temp3_fs)
     apr7 = datetime(2010, 4, 7)
 
     # WHEN
@@ -113,7 +112,7 @@ def test_get_person_gcal_day_punchs_ReturnsObj_Scenario0_NoData(
 
 
 def test_get_person_gcal_day_punchs_ReturnsObj_Scenario1_Two_day_punchs(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
     sue_a23_person = get_a23_sue_clean_example()
@@ -126,7 +125,7 @@ def test_get_person_gcal_day_punchs_ReturnsObj_Scenario1_Two_day_punchs(
     sue_ep8_person.conpute()
     apr7 = datetime(2010, 4, 7)
     # save momentunit json
-    mmt_mstr_dir = get_temp_dir()
+    mmt_mstr_dir = str(temp3_fs)
     a23_moment = momentunit_shop(exx.a23, mmt_mstr_dir)
     ep8_moment = momentunit_shop(exx.ep8, mmt_mstr_dir)
     a23_lasso = lassounit_shop(a23_moment.moment_rope, a23_moment.knot)
@@ -155,7 +154,7 @@ def test_get_person_gcal_day_punchs_ReturnsObj_Scenario1_Two_day_punchs(
 
 
 def test_get_person_gcal_day_punchs_ReturnsObj_Scenario2_OnlySueReports(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
     sue_a23_person = get_a23_sue_clean_example()
@@ -171,7 +170,7 @@ def test_get_person_gcal_day_punchs_ReturnsObj_Scenario2_OnlySueReports(
     yao_ep8_person.conpute()
     apr7 = datetime(2010, 4, 7)
     # save momentunit json
-    mmt_mstr_dir = get_temp_dir()
+    mmt_mstr_dir = str(temp3_fs)
     a23_moment = momentunit_shop(exx.a23, mmt_mstr_dir)
     ep8_moment = momentunit_shop(exx.ep8, mmt_mstr_dir)
     a23_lasso = lassounit_shop(a23_moment.moment_rope, a23_moment.knot)
@@ -209,7 +208,7 @@ def test_get_person_gcal_day_punchs_ReturnsObj_Scenario2_OnlySueReports(
 
 
 def test_save_person_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # ESTABLISH
     sue_a23_person = get_a23_sue_clean_example()
@@ -225,7 +224,7 @@ def test_save_person_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
     yao_ep8_person.conpute()
     apr7 = datetime(2010, 4, 7)
     # save momentunit json
-    mmt_mstr_dir = get_temp_dir()
+    mmt_mstr_dir = str(temp3_fs)
     a23_moment = momentunit_shop(exx.a23, mmt_mstr_dir)
     ep8_moment = momentunit_shop(exx.ep8, mmt_mstr_dir)
     a23_lasso = lassounit_shop(a23_moment.moment_rope, a23_moment.knot)

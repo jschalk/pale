@@ -13,15 +13,15 @@ from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch14_moment.moment_main import momentunit_shop
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename as prime_table
 from src.ch19_etl_main.etl_main import etl_moment_job_jsons_to_job_tables
-from src.ch19_etl_main.test._util.ch19_env import cursor0, get_temp_dir, temp_dir_setup
+from src.ch19_etl_main.test._util.ch19_env import cursor0
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
-    moment_mstr_dir = get_temp_dir()
+    moment_mstr_dir = str(temp3_fs)
     sue_person = personunit_shop(exx.sue, exx.a23)
     sue_person.add_partnerunit(exx.sue)
     sue_person.add_partnerunit(exx.bob)
@@ -87,7 +87,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario0(
 
 
 def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
-    temp_dir_setup, cursor0: Cursor
+    temp3_fs, cursor0: Cursor
 ):
     # ESTABLISH
     sue_inx = "Suzy"
@@ -96,7 +96,7 @@ def test_etl_moment_job_jsons_to_job_tables_PopulatesTables_Scenario1(
     credit44 = 44
     credit77 = 77
     credit88 = 88
-    moment_mstr_dir = get_temp_dir()
+    moment_mstr_dir = str(temp3_fs)
     bob_job = personunit_shop(bob_inx, exx.a23)
     bob_job.add_partnerunit(bob_inx, credit77)
     bob_job.add_partnerunit(yao_inx, credit44)

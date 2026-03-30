@@ -11,7 +11,6 @@ from src.linter.chapter_migration_tools import (
     rename_files_and_dirs,
     rename_files_and_dirs_4times,
 )
-from src.linter.test._util.linter_env import get_temp_dir, temp_dir_setup
 from tempfile import TemporaryDirectory as tempfile_TemporaryDirectory
 
 
@@ -89,9 +88,9 @@ def test_delete_if_empty_or_pycache_only_DeletesDir():
         assert not delete_if_empty_or_pycache_only(d5)
 
 
-def test_rename_files_and_dirs_NotChangesWhenNoneNeeded(temp_dir_setup):
+def test_rename_files_and_dirs_NotChangesWhenNoneNeeded(temp3_fs):
     # GIVEN
-    env_dir = get_temp_dir()
+    env_dir = str(temp3_fs)
     dolphin_filename = "dolphin.txt"
     lopster_filename = "lopster.txt"
     dolphin_file_text = "trying this"
@@ -113,9 +112,9 @@ def test_rename_files_and_dirs_NotChangesWhenNoneNeeded(temp_dir_setup):
     assert files_dict.get(lopster_filename) == lopster_file_text
 
 
-def test_rename_files_and_dirs_NoChangeTo_dot_git_Dirs(temp_dir_setup):
+def test_rename_files_and_dirs_NoChangeTo_dot_git_Dirs(temp3_fs):
     # GIVEN
-    temp_dir = get_temp_dir()
+    temp_dir = str(temp3_fs)
     dot_git_dir = create_path(temp_dir, ".git")
     dolphin_filename = "dolphin.txt"
     dot_git_file_path = create_path(dot_git_dir, dolphin_filename)
@@ -136,9 +135,9 @@ def test_rename_files_and_dirs_NoChangeTo_dot_git_Dirs(temp_dir_setup):
     assert os_path_exists(dot_git_file_path)
 
 
-def test_rename_files_and_dirs_ChangesWhenNeeded_lowercase(temp_dir_setup):
+def test_rename_files_and_dirs_ChangesWhenNeeded_lowercase(temp3_fs):
     # GIVEN
-    env_dir = get_temp_dir()
+    env_dir = str(temp3_fs)
     dolphin_filename = "dolphin.json"
     lopster_filename = "lopster.json"
     dolphin_file_text = "trying this"
@@ -163,10 +162,10 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_lowercase(temp_dir_setup):
 
 
 def test_rename_files_and_dirs_NoChangesWith_lowercase_parameters(
-    temp_dir_setup,
+    temp3_fs,
 ):  # sourcery skip: extract-duplicate-method
     # GIVEN
-    env_dir = get_temp_dir()
+    env_dir = str(temp3_fs)
     dolphin_filename = "dolphin.json"
     lopster_filename = "lopster.json"
     dolphin_file_text = "trying this"
@@ -191,10 +190,10 @@ def test_rename_files_and_dirs_NoChangesWith_lowercase_parameters(
 
 
 def test_rename_files_and_dirs_NoChangesWith_lowercase_filenames(
-    temp_dir_setup,
+    temp3_fs,
 ):  # sourcery skip: extract-duplicate-method
     # GIVEN
-    env_dir = get_temp_dir()
+    env_dir = str(temp3_fs)
     dolphin_filename = "Dolphin.json"
     lopster_filename = "lopster.json"
     dolphin_file_text = "trying this"
@@ -219,10 +218,10 @@ def test_rename_files_and_dirs_NoChangesWith_lowercase_filenames(
 
 
 def test_rename_files_and_dirs_ChangesWhenNeeded_directory(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # GIVEN
-    env_dir = get_temp_dir()
+    env_dir = str(temp3_fs)
     dolphine_text = "dolphin"
     dolphin_dir = create_path(env_dir, dolphine_text)
     dolphin_filename = f"{dolphine_text}.json"
@@ -255,10 +254,10 @@ def test_rename_files_and_dirs_ChangesWhenNeeded_directory(
 
 
 def test_rename_files_and_dirs_ChangesWhenNeeded_delete_old_directorys(
-    temp_dir_setup,
+    temp3_fs,
 ):
     # GIVEN
-    env_dir = get_temp_dir()
+    env_dir = str(temp3_fs)
     dolphine_text = "dolphin"
     dolphin_dir = create_path(env_dir, dolphine_text)
     dolphin_filename = f"{dolphine_text}.json"
