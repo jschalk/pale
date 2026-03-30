@@ -31,7 +31,7 @@ from src.ch00_py.db_toolbox import (
     sqlite_obj_str,
 )
 from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
-from src.ch00_py.test._util.ch00_env import cursor0, get_temp_dir, temp_dir_setup
+from src.ch00_py.test._util.ch00_env import cursor0
 from src.ref.keywords import ExampleStrs as exx
 
 
@@ -414,18 +414,18 @@ def test_get_grouping_with_all_values_equal_sql_query_ReturnsObj_Scenario1_Inclu
     assert gen_select_clause == example_str
 
 
-def get_example_test_database11_path_literal() -> str:
+def get_example_test_database11_path_literal(x_dir) -> str:
     """get_temp_dir/test_database11.db"""
-    return create_path(get_temp_dir(), "test_database11.db")
+    return create_path(x_dir, "test_database11.db")
 
 
 def get_example_test_tablename() -> str:
     return "test_table"
 
 
-def save_test_csv_file():
-    set_dir(get_temp_dir())
-    test_csv_filepath = create_path(get_temp_dir(), "test_data.csv")
+def save_test_csv_file(x_dir):
+    set_dir(x_dir)
+    test_csv_filepath = create_path(x_dir, "test_data.csv")
     with open(test_csv_filepath, "w", newline="", encoding="utf-8") as csv_file:
         csv_file.write("id,name,age,email\n")
         csv_file.write("1,John Doe,30,john@example.com\n")
@@ -438,14 +438,15 @@ def get_create_test_table_sqlstr():
     return f"""CREATE TABLE {test_table} (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, email TEXT);"""
 
 
-def test_insert_csv_ChangesDBState(temp_dir_setup):
+def test_insert_csv_ChangesDBState(temp3_fs, temp3_dir):
     # sourcery skip: extract-method
     """Test the insert_csv function using pytest."""
     # ESTABLISH
     test_tablename = get_example_test_tablename()
-    csv_path = save_test_csv_file()
+    x_dir = temp3_dir
+    csv_path = save_test_csv_file(x_dir)
     print(f"{csv_path=}")
-    with sqlite3_connect(get_example_test_database11_path_literal()) as conn:
+    with sqlite3_connect(get_example_test_database11_path_literal(x_dir)) as conn:
         cursor = conn.cursor()
         cursor.execute(get_create_test_table_sqlstr())
 
@@ -464,13 +465,14 @@ def test_insert_csv_ChangesDBState(temp_dir_setup):
 
 
 def test_insert_csv_ChangesDBState_WhenPassedCursorObj(
-    temp_dir_setup,
+    temp3_fs, temp3_dir
 ):  # sourcery skip: extract-method
     """Test the insert_csv function using pytest."""
     # ESTABLISH
     test_tablename = get_example_test_tablename()
-    csv_path = save_test_csv_file()
-    with sqlite3_connect(get_example_test_database11_path_literal()) as conn:
+    x_dir = temp3_dir
+    csv_path = save_test_csv_file(x_dir)
+    with sqlite3_connect(get_example_test_database11_path_literal(x_dir)) as conn:
         cursor = conn.cursor()
         cursor.execute(get_create_test_table_sqlstr())
 
@@ -489,15 +491,16 @@ def test_insert_csv_ChangesDBState_WhenPassedCursorObj(
 
 
 def test_insert_csv_ChangesNotCommitted(
-    temp_dir_setup: tuple[sqlite3_Connection, str, str],
+    temp3_fs: tuple[sqlite3_Connection, str, str], temp3_dir
 ):
     """Test that changes are committed to the database."""
     # ESTABLISH
     test_tablename = get_example_test_tablename()
-    csv_path = save_test_csv_file()
+    x_dir = temp3_dir
+    csv_path = save_test_csv_file(x_dir)
 
     # WHEN
-    with sqlite3_connect(get_example_test_database11_path_literal()) as conn:
+    with sqlite3_connect(get_example_test_database11_path_literal(x_dir)) as conn:
         cursor = conn.cursor()
         cursor.execute(get_create_test_table_sqlstr())
 
@@ -505,7 +508,7 @@ def test_insert_csv_ChangesNotCommitted(
 
     # THEN
     # reopen the connection to verify persistence
-    test_database7_path = create_path(get_temp_dir(), "test_database7.db")
+    test_database7_path = create_path(temp3_dir, "test_database7.db")
     with sqlite3_connect(test_database7_path) as conn2:
         cursor2 = conn2.cursor()
         cursor2.execute(get_create_test_table_sqlstr())
@@ -519,7 +522,7 @@ def test_insert_csv_ChangesNotCommitted(
     conn2.close()
 
 
-def test_create_table_from_csv_ChangesDBState(temp_dir_setup):
+def test_create_table_from_csv_ChangesDBState(temp3_fs, temp3_dir):
     # sourcery skip: extract-method
     """Test the create_table_from_csv_with_types function."""
     # ESTABLISH
@@ -531,8 +534,9 @@ def test_create_table_from_csv_ChangesDBState(temp_dir_setup):
         "city": "TEXT",
     }
     new_table = "new_test_table"
-    test_csv_filepath = save_test_csv_file()
-    with sqlite3_connect(get_example_test_database11_path_literal()) as conn:
+    x_dir = temp3_dir
+    test_csv_filepath = save_test_csv_file(x_dir)
+    with sqlite3_connect(get_example_test_database11_path_literal(x_dir)) as conn:
         cursor = conn.cursor()
         assert not db_table_exists(cursor, new_table)
 
@@ -554,13 +558,14 @@ def test_create_table_from_csv_ChangesDBState(temp_dir_setup):
 
 
 def test_create_table_from_csv_DoesNotEmptyTable(
-    temp_dir_setup: tuple[sqlite3_Connection, str, str],
+    temp3_fs: tuple[sqlite3_Connection, str, str], temp3_dir
 ):  # sourcery skip: extract-method
     # ESTABLISH
-    test_csv_filepath = save_test_csv_file()
+    test_csv_filepath = save_test_csv_file(temp3_dir)
     test_table = get_example_test_tablename()
-    set_dir(get_temp_dir())
-    with sqlite3_connect(get_example_test_database11_path_literal()) as conn:
+    x_dir = temp3_dir
+    test_csv_filepath = save_test_csv_file(x_dir)
+    with sqlite3_connect(get_example_test_database11_path_literal(x_dir)) as conn:
         cursor = conn.cursor()
         cursor.execute(get_create_test_table_sqlstr())
 

@@ -3,7 +3,6 @@ from pathlib import Path
 from pytest import fixture as pytest_fixture
 from shutil import rmtree as shutil_rmtree
 from src.ch00_py.file_toolbox import count_dirs_files, create_path, save_file
-from src.ch00_py.test._util.ch00_env import get_temp_dir, temp_dir_setup
 from tempfile import mkdtemp as tempfile_mkdtemp
 
 
@@ -41,9 +40,9 @@ def test_count_dirs_files_ReturnsObj_Scenario0(temp_directory):
     assert count_dirs_files(temp_directory) == 8
 
 
-def test_count_dirs_files_ReturnsObj_Scenario1_DoesNotCreateDir(temp_dir_setup):
+def test_count_dirs_files_ReturnsObj_Scenario1_DoesNotCreateDir(temp3_fs, temp3_dir):
     # ESTABLISH
-    env_dir = get_temp_dir()
+    env_dir = temp3_dir
     sub1_dir = create_path(env_dir, "sub1")
     assert os_path_exists(sub1_dir) is False
 
