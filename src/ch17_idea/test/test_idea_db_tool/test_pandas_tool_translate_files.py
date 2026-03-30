@@ -18,7 +18,7 @@ from src.ch17_idea.idea_db_tool import (
     open_csv,
     save_dataframe_to_csv,
 )
-from src.ref.keywords import Ch17Keywords as kw
+from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
 def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario0_SingleFile(
@@ -95,9 +95,9 @@ def test_move_otx_csvs_to_translate_inx_CreatesTranslateedFiles_Scenario1_Single
     clean_inx_str = "propre"
     clean_otx_rope = create_rope(casa_otx_rope, clean_otx_str)
     clean_inx_rope = create_rope(casa_inx_rope, clean_inx_str)
-    sweep_str = "sweep"
-    sweep_otx_rope = create_rope(clean_otx_rope, sweep_str)
-    sweep_inx_rope = create_rope(clean_inx_rope, sweep_str)
+
+    sweep_otx_rope = create_rope(clean_otx_rope, exx.sweep)
+    sweep_inx_rope = create_rope(clean_inx_rope, exx.sweep)
 
     sue_translateunit = get_casa_maison_translateunit_set_by_label()
     sue_dir = create_path(str(temp3_fs), sue_translateunit.face_name)

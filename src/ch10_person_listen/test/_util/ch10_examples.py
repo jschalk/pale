@@ -135,14 +135,13 @@ def get_fund_breakdown_person() -> PersonUnit:
     hun_y_str = "hungry"
     clean_str = "cleaning"
     clean_rope = sue_person.make_rope(casa_rope, clean_str)
-    sweep_str = "sweep floor"
     dish_str = "clean dishes"
     sue_person.set_l1_plan(planunit_shop(exx.casa, star=30))
     sue_person.set_plan_obj(planunit_shop(cat_str, star=30), casa_rope)
     sue_person.set_plan_obj(planunit_shop(hun_n_str, star=30), cat_rope)
     sue_person.set_plan_obj(planunit_shop(hun_y_str, star=30), cat_rope)
     sue_person.set_plan_obj(planunit_shop(clean_str, star=30), casa_rope)
-    sue_person.set_plan_obj(planunit_shop(sweep_str, star=30, pledge=True), clean_rope)
+    sue_person.set_plan_obj(planunit_shop(exx.sweep, star=30, pledge=True), clean_rope)
     sue_person.set_plan_obj(planunit_shop(dish_str, star=30, pledge=True), clean_rope)
 
     cat_str = "cat have dinner"

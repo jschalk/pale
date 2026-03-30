@@ -1,6 +1,9 @@
 from datetime import datetime
 from os.path import exists as os_path_exists
+from pandas import DataFrame as pandas_DataFrame
+from pytest import fixture as pytest_fixture
 from src.ch00_py.file_toolbox import open_file
+from src.ch04_rope.rope import create_rope, create_rope_from_labels as init_rope
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
@@ -32,11 +35,51 @@ def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
     assert not os_path_exists(sue_ep8_day_punch_path)
 
 
-# TODO get this going
+@pytest_fixture
+def br00013_example() -> pandas_DataFrame:
+    """All rows valid. pledge=True throughout. Covers varied names."""
+    # sue_person = personunit_shop(exx.sue, exx.a23)
+    # add_epoch_planunit(sue_person)
+    # sue_person.add_partnerunit(exx.bob, 2)
+    # sue_person.add_partnerunit(exx.sue, 1)
+    # casa_rope = sue_person.make_l1_rope(exx.casa)
+    # clean_rope = sue_person.make_rope(casa_rope, exx.clean)
+    # sue_person.add_plan(clean_rope, 1, pledge=True)
+    # sue_person.get_partner(exx.sue).add_membership(exx.run)
+
+    h1_mop = init_rope([exx.hn1, "family", exx.casa, exx.clean, exx.mop])
+    h1_tools = init_rope([exx.hn1, "family", exx.casa, exx.clean, exx.scrub])
+    h7_mop = init_rope([exx.hn7, "family", exx.casa, exx.clean, exx.mop])
+    h7_grocery = init_rope([exx.hn7, "family", exx.casa, exx.clean, exx.grocery])
+    h7_brush = init_rope([exx.hn7, "family", exx.casa, exx.clean, exx.brush])
+
+    data = [
+        (0, exx.bob, exx.zia, exx.hn1, h1_mop, 1.0, True),
+        (1, exx.sue, exx.yao, exx.hn1, h1_tools, 2.5, True),
+        (2, exx.yao, exx.bob, exx.hn7, h7_mop, 0.8, True),
+        (3, exx.xio, exx.sue, exx.hn7, h7_grocery, 3.3, True),
+        (4, exx.zia, exx.xio, exx.hn7, h7_brush, 1.1, True),
+    ]
+    cols = [
+        kw.spark_num,
+        kw.face_name,
+        kw.person_name,
+        kw.moment_rope,
+        kw.plan_rope,
+        kw.star,
+        kw.pledge,
+    ]
+    return pandas_DataFrame(data, columns=cols)
+
+
+# # TODO get this going
 # def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario1_TwoSueReports(
 #     temp3_fs,
 # ):
 #     # ESTABLISH
+#     assert 1 == 2
+
+
 #     # TODO convert this to dataframe
 #     # sue_a23_person = get_a23_sue_clean_example()
 #     # sue_ep8_person = get_ep8_sue_clean_example()

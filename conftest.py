@@ -53,34 +53,15 @@ def pytest_generate_tests(metafunc):
 # Create an isolated scratch directory for every test and switch cwd into it.
 # The directory is removed after the test, ensuring empty state for each test.
 
-# TODO delete if not used
-# @pytest.fixture(scope="session")
-# def temp3_fs_root(tmp_path_factory):
-#     root = tmp_path_factory.mktemp("temp3_fs_root")
-#     yield root
-#     shutil.rmtree(root, ignore_errors=True)
 
-
-@pytest.fixture(scope="session")
-def workspace_root():
-    # project root (C:\dev\keg)
-    return Path(__file__).resolve().parent
-
-
-@pytest.fixture
-def ws_src(workspace_root):
-    return workspace_root / "src"
-
-
-# TODO replace all get_temp_dir() calls with temp3_dir and delete get_temp_dir
 @pytest.fixture
 def temp3_dir(tmp_path):
     return tmp_path / uuid4().hex
 
 
-# TODO replace all temp_dir_setup calls with temp3_dir and delete temp_dir_setup
 @pytest.fixture
 def temp3_fs(temp3_dir):
+    """Temporary filesystem for a test, created in pytest's tmp_path. Yields the path to the temp directory."""
     # per-test isolated writable temp folder (opt-in, not autouse)
     test_dir = temp3_dir
     test_dir.mkdir()
@@ -90,11 +71,13 @@ def temp3_fs(temp3_dir):
 
 @pytest.fixture
 def cursor0() -> Generator[Cursor, Any, None]:
+    """Provides a SQLite cursor connected to an in-memory database."""
     with sqlite3_connect(":memory:") as db_conn:
         yield db_conn.cursor()
 
 
 def pytest_runtest_logreport(report):
+    """Called after each test phase (setup, call, teardown). If the test failed and --clip is set, copies the test name to clipboard."""
     if report.failed and _config.getoption("--clip"):
         test_name = report.nodeid.split("::")[-1]
         print(f"\n📋 Copied to clipboard: {test_name}")

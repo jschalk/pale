@@ -50,9 +50,6 @@ def create_stances(
     moment_mstr_dir: str,
     prettify_excel_bool=True,
 ):
-    # TODO why is create_stance0001_file not drawing from world db instead of files?
-    # it should be the database because that's the end of the core pipeline so it should
-    # be the source of truth.
     create_stance0001_file(world_dir, output_dir, world_name, prettify_excel_bool)
     create_calendar_markdown_files(moment_mstr_dir, output_dir)
 

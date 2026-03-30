@@ -38,10 +38,6 @@ def dirty_str() -> str:
     return "dirty"
 
 
-def sweep_str() -> str:
-    return "sweep"
-
-
 def casa_rope() -> RopeTerm:
     return create_rope(ch10_example_moment_rope(), exx.casa)
 
@@ -75,7 +71,7 @@ def dirty_rope() -> RopeTerm:
 
 
 def sweep_rope() -> RopeTerm:
-    return create_rope(casa_rope(), sweep_str())
+    return create_rope(casa_rope(), exx.sweep)
 
 
 def run_rope() -> RopeTerm:
@@ -118,7 +114,7 @@ def get_example_yao_vision2_speaker() -> PersonUnit:
     yao_speaker.edit_reason(cuisine_rope(), eat_rope(), hungry_rope())
     yao_speaker.add_fact(eat_rope(), hungry_rope())
 
-    yao_speaker.set_plan_obj(planunit_shop(sweep_str(), pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.sweep, pledge=True), casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(dirty_str()), sanitation_rope())
     yao_speaker.set_plan_obj(planunit_shop(exx.clean), sanitation_rope())
     yao_speaker.edit_reason(sweep_rope(), sanitation_rope(), dirty_rope())
@@ -130,7 +126,7 @@ def get_example_yao_vision3_speaker() -> PersonUnit:
     yao_speaker = get_example_yao_person()
     yao_speaker.del_plan_obj(run_rope())
     yao_speaker.set_partner_respect(10)
-    yao_speaker.set_plan_obj(planunit_shop(sweep_str(), pledge=True), casa_rope())
+    yao_speaker.set_plan_obj(planunit_shop(exx.sweep, pledge=True), casa_rope())
     yao_speaker.set_plan_obj(planunit_shop(dirty_str()), sanitation_rope())
     yao_speaker.set_plan_obj(planunit_shop(exx.clean), sanitation_rope())
     yao_speaker.edit_reason(sweep_rope(), sanitation_rope(), dirty_rope())

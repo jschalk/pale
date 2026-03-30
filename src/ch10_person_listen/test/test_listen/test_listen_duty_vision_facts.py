@@ -392,14 +392,14 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
 #     a23_clean_rope = sue_speaker.make_rope(situation_rope, exx.clean)
 #     dirty_str = "dirty"
 #     dirty_rope = sue_speaker.make_rope(situation_rope, dirty_str)
-#     sweep_str = "sweep"
-#     sweep_rope = sue_speaker.make_rope(casa_rope, sweep_str)
+#
+#     sweep_rope = sue_speaker.make_rope(casa_rope, exx.sweep)
 
 #     sue_speaker.add_partnerunit(exx.yao)
 #     sue_speaker.set_partner_respect(20)
 #     sue_speaker.set_plan_obj(planunit_shop(exx.clean), situation_rope)
 #     sue_speaker.set_plan_obj(planunit_shop(dirty_str), situation_rope)
-#     sue_speaker.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
+#     sue_speaker.set_plan_obj(planunit_shop(exx.sweep, pledge=True), casa_rope)
 #     sue_speaker.edit_plan_attr(
 #         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
 #     )
@@ -441,8 +441,8 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
 #     a23_clean_rope = yao_duty.make_rope(situation_rope, exx.clean)
 #     dirty_str = "dirty"
 #     dirty_rope = yao_duty.make_rope(situation_rope, dirty_str)
-#     sweep_str = "sweep"
-#     sweep_rope = yao_duty.make_rope(casa_rope, sweep_str)
+#
+#     sweep_rope = yao_duty.make_rope(casa_rope, exx.sweep)
 #     fridge_str = "fridge"
 #     fridge_rope = yao_duty.make_rope(casa_rope, fridge_str)
 #     running_str = "running"
@@ -451,7 +451,7 @@ def test_listen_to_facts_duty_vision_ConfirmNoFactfact_stateedFromPersonsSpeaker
 #     yao_duty.set_plan_obj(planunit_shop(running_str), fridge_rope)
 #     yao_duty.set_plan_obj(planunit_shop(exx.clean), situation_rope)
 #     yao_duty.set_plan_obj(planunit_shop(dirty_str), situation_rope)
-#     yao_duty.set_plan_obj(planunit_shop(sweep_str, pledge=True), casa_rope)
+#     yao_duty.set_plan_obj(planunit_shop(exx.sweep, pledge=True), casa_rope)
 #     yao_duty.edit_plan_attr(
 #         sweep_rope, reason_context=situation_rope, reason_case=dirty_rope
 #     )
