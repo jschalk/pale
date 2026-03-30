@@ -14,11 +14,11 @@ from src.ch17_idea.idea_db_tool import (
     check_dataframe_column_names,
     get_all_excel_sheet_names,
     if_nan_return_None,
+    save_sheet,
     set_dataframe_first_two_columns,
     sheet_exists,
     split_excel_into_dirs,
     update_all_face_name_spark_num_columns,
-    upsert_sheet,
 )
 from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
@@ -105,12 +105,12 @@ def temp_excel_file(temp3_dir) -> Path:
     return Path(temp_excel_path)
 
 
-def test_upsert_sheet_CreatesNewFile(temp_excel_file, sample_dataframe):
+def test_save_sheet_CreatesNewFile(temp_excel_file, sample_dataframe):
     # ESTABLISH
     """Test creating a new Excel file with a specified sheet."""
 
     # WHEN
-    upsert_sheet(temp_excel_file, "Sheet1", sample_dataframe)
+    save_sheet(temp_excel_file, "Sheet1", sample_dataframe)
 
     # THEN
     assert os_path_exists(temp_excel_file)
@@ -121,28 +121,28 @@ def test_upsert_sheet_CreatesNewFile(temp_excel_file, sample_dataframe):
     pandas_testing_assert_frame_equal(df_read, sample_dataframe)
 
 
-def test_upsert_sheet_ReplacesExistingSheet(temp_excel_file, sample_dataframe):
+def test_save_sheet_ReplacesExistingSheet(temp_excel_file, sample_dataframe):
     """Test replacing an existing sheet in the Excel file."""
     # ESTABLISH Create the file and write initial data
     initial_data = DataFrame({"A": [1, 2, 3]})
-    upsert_sheet(temp_excel_file, "Sheet1", initial_data)
+    save_sheet(temp_excel_file, "Sheet1", initial_data)
 
     # WHEN Replace the sheet with new data
-    upsert_sheet(temp_excel_file, "Sheet1", sample_dataframe, replace=True)
+    save_sheet(temp_excel_file, "Sheet1", sample_dataframe, replace=True)
 
     # THEN Verify the content of the replaced sheet
     df_read = pandas_read_excel(temp_excel_file, sheet_name="Sheet1")
     pandas_testing_assert_frame_equal(df_read, sample_dataframe)
 
 
-def test_upsert_sheet_AddNewSheetToExistingFile(temp_excel_file, sample_dataframe):
+def test_save_sheet_AddNewSheetToExistingFile(temp_excel_file, sample_dataframe):
     """Test adding a new sheet to an existing Excel file."""
     # ESTABLISH Create the file and write initial data to one sheet
     initial_data = DataFrame({"A": [1, 2, 3]})
-    upsert_sheet(temp_excel_file, "InitialSheet", initial_data)
+    save_sheet(temp_excel_file, "InitialSheet", initial_data)
 
     # WHEN Add a new sheet with different data
-    upsert_sheet(temp_excel_file, "NewSheet", sample_dataframe, replace=True)
+    save_sheet(temp_excel_file, "NewSheet", sample_dataframe, replace=True)
 
     # THEN Verify both sheets exist and have correct data
     df_initial = pandas_read_excel(temp_excel_file, sheet_name="InitialSheet")
@@ -163,8 +163,8 @@ def test_get_all_excel_sheet_names_ReturnsObj_Scenario0_NoTranslate(
     df2 = DataFrame([["ABC", "XYZ"]], columns=["Foo", "Bar"])
     sheet_name1 = "Sheet1x"
     sheet_name2 = "Sheet2x"
-    upsert_sheet(ex_file_path, sheet_name1, df1)
-    upsert_sheet(ex_file_path, sheet_name2, df2)
+    save_sheet(ex_file_path, sheet_name1, df1)
+    save_sheet(ex_file_path, sheet_name2, df2)
 
     # WHEN
     x_sheet_names = get_all_excel_sheet_names(env_dir)
@@ -190,9 +190,9 @@ def test_get_all_excel_sheet_names_ReturnsObj_Scenario1_TranslateSheetNames(
     honey_name1 = "honey1x"
     sugar_name1 = f"{sugar_str}2x"
     sugar_name2 = f"honey_{sugar_str}3x"
-    upsert_sheet(ex_file_path, honey_name1, df1)
-    upsert_sheet(ex_file_path, sugar_name1, df2)
-    upsert_sheet(ex_file_path, sugar_name2, df2)
+    save_sheet(ex_file_path, honey_name1, df1)
+    save_sheet(ex_file_path, sugar_name1, df2)
+    save_sheet(ex_file_path, sugar_name2, df2)
 
     # WHEN
     x_sheet_names = get_all_excel_sheet_names(env_dir, sub_strs={sugar_str})
@@ -221,19 +221,19 @@ def test_sheet_exists_ReturnsObj_Scenario1(temp3_fs):
     assert sheet_exists(ex_file_path, sugar_name2) is False
 
     # WHEN / THEN
-    upsert_sheet(ex_file_path, honey_name1, df1)
+    save_sheet(ex_file_path, honey_name1, df1)
     assert sheet_exists(ex_file_path, honey_name1)
     assert sheet_exists(ex_file_path, sugar_name1) is False
     assert sheet_exists(ex_file_path, sugar_name2) is False
 
     # WHEN / THEN
-    upsert_sheet(ex_file_path, sugar_name1, df1)
+    save_sheet(ex_file_path, sugar_name1, df1)
     assert sheet_exists(ex_file_path, honey_name1)
     assert sheet_exists(ex_file_path, sugar_name1)
     assert sheet_exists(ex_file_path, sugar_name2) is False
 
     # WHEN / THEN
-    upsert_sheet(ex_file_path, sugar_name2, df1)
+    save_sheet(ex_file_path, sugar_name2, df1)
     assert sheet_exists(ex_file_path, honey_name1)
     assert sheet_exists(ex_file_path, sugar_name1)
     assert sheet_exists(ex_file_path, sugar_name2)
@@ -395,7 +395,7 @@ def test_if_nan_return_None_ReturnsObj(temp3_fs):
     ex1_sheet_name = "ex1"
     ex1_filename = "ex1.xlsx"
     ex1_path = create_path(str(temp3_fs), ex1_filename)
-    upsert_sheet(ex1_path, ex1_sheet_name, ex1_df)
+    save_sheet(ex1_path, ex1_sheet_name, ex1_df)
     gen_df = pandas_read_excel(ex1_path, sheet_name=ex1_sheet_name)
     nan_example = gen_df["example_col"][0]
     print(f"{nan_example=}")

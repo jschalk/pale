@@ -381,6 +381,7 @@
   "s_vld": "5 character abbreviation of sound_vld. stage_type_order=6 The Translated Sound Agg data is aggregated to elimanate duplicates into Sound Valid", 
   "self": "Used so often in Python that it cannot be given any kegolgy meaning.", 
   "semantic_type": "A datatype that is fundamentally int, str, or float", 
+  "sheet": "Object that represents a spreadsheet. It has attributes like filename, table_name, and data.", 
   "solo": "I can't figure out what this purpose is. Where in the codebase is it necessary for a PartyUnit to know if it the only PartyUnit in a LaborUnit, Labor seed.", 
   "sound_agg": "stage_type_order=5 Populated by aggregated Sound Raw dimen data (elimanate duplicates). Translate Core data is validated then used to translate non-Translate dimen data", 
   "sound_raw": "stage_type_order=4 The Brick Valid data is seperated by column into dimen data such as person_planunit and moment_budunit", 

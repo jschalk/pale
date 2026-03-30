@@ -1,6 +1,6 @@
 from pandas import DataFrame
 from src.ch00_py.file_toolbox import create_path
-from src.ch17_idea.idea_db_tool import upsert_sheet
+from src.ch17_idea.idea_db_tool import save_sheet
 from src.ch18_etl_config.idea_collector import (
     IdeaFileRef,
     get_all_excel_ideasheets,
@@ -20,9 +20,9 @@ def test_get_all_excel_ideasheets_ReturnsObj_Scenario0_SheetNames(temp3_fs):
     br00000_str = "br00000"
     br00001_str = "br00001"
     br00002_str = "br00002"
-    upsert_sheet(ex_file_path, br00000_str, df1)
-    upsert_sheet(ex_file_path, br00001_str, df2)
-    upsert_sheet(ex_file_path, br00002_str, df2)
+    save_sheet(ex_file_path, br00000_str, df1)
+    save_sheet(ex_file_path, br00001_str, df2)
+    save_sheet(ex_file_path, br00002_str, df2)
 
     # WHEN
     x_sheet_names = get_all_excel_ideasheets(env_dir)
@@ -92,7 +92,7 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
     df1 = DataFrame([row1, row2], columns=idea_columns)
     br00003_str = "example_br00003"
     br00003_str = "example_br00003"
-    upsert_sheet(ex_file_path, br00003_str, df1)
+    save_sheet(ex_file_path, br00003_str, df1)
 
     # WHEN
     x_ideasheets = get_all_idea_dataframes(env_dir)
@@ -139,8 +139,8 @@ def test_get_all_idea_dataframes_ReturnsObj_Scenario1(temp3_fs):
     df2 = DataFrame([incom_row1, incom_row2], columns=incomplete_idea_columns)
     br00003_ex1_str = "example1_br00003"
     br00003_ex2_str = "example2_br00003"
-    upsert_sheet(ex_file_path, br00003_ex1_str, df1)
-    upsert_sheet(ex_file_path, br00003_ex2_str, df2)
+    save_sheet(ex_file_path, br00003_ex1_str, df1)
+    save_sheet(ex_file_path, br00003_ex2_str, df2)
 
     # WHEN
     x_ideasheets = get_all_idea_dataframes(env_dir)

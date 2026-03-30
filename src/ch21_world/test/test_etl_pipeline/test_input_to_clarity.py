@@ -22,7 +22,7 @@ from src.ch11_bud._ref.ch11_path import (
 from src.ch14_moment._ref.ch14_path import (
     create_bud_partner_mandate_ledger_path as bud_mandate,
 )
-from src.ch17_idea.idea_db_tool import upsert_sheet
+from src.ch17_idea.idea_db_tool import save_sheet
 from src.ch18_etl_config._ref.ch18_path import (
     create_last_run_metrics_path,
     create_moment_ote1_csv_path,
@@ -60,7 +60,7 @@ def test_sheets_input_to_lynx_with_cursor_Scenario0_br000113PopulatesTables(
     br00113row0 = [exx.sue, e3, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
-    upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
+    save_sheet(input_file_path, br00113_ex0_str, br00113_df)
     br00113_raw = f"{br00113_str}_brick_raw"
     br00113_agg = f"{br00113_str}_brick_agg"
     br00113_valid = f"{br00113_str}_brick_valid"
@@ -226,7 +226,7 @@ def test_sheets_input_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
     br00113row0 = [exx.sue, e3, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
-    upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
+    save_sheet(input_file_path, br00113_ex0_str, br00113_df)
 
     br00001_columns = [
         kw.spark_num,
@@ -244,7 +244,7 @@ def test_sheets_input_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
     br1row0 = [e3, exx.sue, exx.a23, exx.sue, tp37, ";", sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
-    upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
+    save_sheet(input_file_path, br00001_ex0_str, br00001_1df)
 
     # Names of tables
     br00113_raw = f"{br00113_str}_brick_raw"
@@ -388,7 +388,7 @@ def test_sheets_input_to_lynx_with_cursor_Scenario2_PopulateMomentTranBook(
     br00002row0 = [e3, exx.sue, exx.a23, exx.sue, exx.bob, tp37, sue_to_bob_amount, ";"]
     br00002_df = DataFrame([br00002row0], columns=br00002_columns)
     br00002_ex0_str = f"example0_{br00002_str}"
-    upsert_sheet(input_file_path, br00002_ex0_str, br00002_df)
+    save_sheet(input_file_path, br00002_ex0_str, br00002_df)
 
     assert not db_table_exists(cursor0, kw.moment_partner_nets)
 
@@ -419,7 +419,7 @@ def test_sheets_input_to_lynx_with_cursor_Scenario3_WhenNoMomentIdeas_ote1_IsSti
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
+    save_sheet(input_file_path, "br00011_ex3", br00011_df)
     moment_mstr = fay_wdir.moment_mstr_dir
     a23_lasso = lassounit_shop(exx.a23)
     a23_ote1_csv_path = create_moment_ote1_csv_path(moment_mstr, a23_lasso)
@@ -502,7 +502,7 @@ def test_sheets_input_to_lynx_with_cursor_Scenario5_CreatesFiles(
     br1row0 = [spark2, exx.sue, exx.a23, exx.sue, tp37, ";", sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
-    upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
+    save_sheet(input_file_path, br00001_ex0_str, br00001_1df)
 
     br3row0 = [spark1, exx.sue, minute_360, exx.a23, hour6am, ";"]
     br3row1 = [spark1, exx.sue, minute_420, exx.a23, hour7am, ";"]
@@ -511,8 +511,8 @@ def test_sheets_input_to_lynx_with_cursor_Scenario5_CreatesFiles(
     br00003_3df = DataFrame([br3row1, br3row0, br3row2], columns=br00003_columns)
     br00003_ex1_str = "example1_br00003"
     br00003_ex3_str = "example3_br00003"
-    upsert_sheet(input_file_path, br00003_ex1_str, br00003_1df)
-    upsert_sheet(input_file_path, br00003_ex3_str, br00003_3df)
+    save_sheet(input_file_path, br00003_ex1_str, br00003_1df)
+    save_sheet(input_file_path, br00003_ex3_str, br00003_3df)
     br00011_columns = [
         kw.spark_num,
         kw.face_name,
@@ -522,7 +522,7 @@ def test_sheets_input_to_lynx_with_cursor_Scenario5_CreatesFiles(
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
+    save_sheet(input_file_path, "br00011_ex3", br00011_df)
     mstr_dir = fay_wdir.moment_mstr_dir
     wrong_a23_moment_dir = create_path(mstr_dir, exx.a23)
     assert os_path_exists(wrong_a23_moment_dir) is False
@@ -578,7 +578,7 @@ def test_sheets_input_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     br00113row0 = [exx.sue, e3, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
-    upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
+    save_sheet(input_file_path, br00113_ex0_str, br00113_df)
 
     br00001_columns = [
         kw.spark_num,
@@ -596,7 +596,7 @@ def test_sheets_input_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     br1row0 = [e3, exx.sue, exx.a23, exx.sue, tp37, ";", sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
-    upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
+    save_sheet(input_file_path, br00001_ex0_str, br00001_1df)
     fay_db_path = fay_wdir.get_world_db_path()
     assert not os_path_exists(fay_db_path)
 

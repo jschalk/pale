@@ -3,7 +3,7 @@ from pandas import DataFrame, read_excel as pandas_read_excel
 from pandas.testing import assert_frame_equal
 from shutil import copy2 as shutil_copy2
 from src.ch00_py.file_toolbox import create_path, set_dir
-from src.ch17_idea.idea_db_tool import get_sheet_names, upsert_sheet
+from src.ch17_idea.idea_db_tool import get_sheet_names, save_sheet
 from src.ch18_etl_config._ref.ch18_path import (
     create_stance0001_path,
     create_stances_dir_path,
@@ -59,7 +59,7 @@ def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
+    save_sheet(input_file_path, "br00011_ex3", br00011_df)
     sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir.input_dir,
@@ -105,7 +105,7 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
+    save_sheet(input_file_path, "br00011_ex3", br00011_df)
     sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir.input_dir,
@@ -177,7 +177,7 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
     ]
     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
+    save_sheet(input_file_path, "br00011_ex3", br00011_df)
     sheets_input_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir.input_dir,
@@ -237,7 +237,7 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
 #     br1row0 = [spark2, exx.sue, exx.a23, exx.sue, tp37, sue_quota, sue_celldepth]
 #     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
 #     br00001_ex0_str = "example0_br00001"
-#     upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
+#     save_sheet(input_file_path, br00001_ex0_str, br00001_1df)
 
 #     br3row0 = [spark1, exx.sue,  minute_360, exx.a23, hour6am]
 #     br3row1 = [spark1, exx.sue,  minute_420, exx.a23, hour7am]
@@ -246,8 +246,8 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
 #     br00003_3df = DataFrame([br3row1, br3row0, br3row2], columns=br00003_columns)
 #     br00003_ex1_str = "example1_br00003"
 #     br00003_ex3_str = "example3_br00003"
-#     upsert_sheet(input_file_path, br00003_ex1_str, br00003_1df)
-#     upsert_sheet(input_file_path, br00003_ex3_str, br00003_3df)
+#     save_sheet(input_file_path, br00003_ex1_str, br00003_1df)
+#     save_sheet(input_file_path, br00003_ex3_str, br00003_3df)
 #     br00011_columns = [
 #         kw.face_name,
 #         kw.spark_num,
@@ -257,7 +257,7 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
 #     ]
 #     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
 #     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-#     upsert_sheet(input_file_path, "br00011_ex3", br00011_df)
+#     save_sheet(input_file_path, "br00011_ex3", br00011_df)
 #     mstr_dir = fay_wdir.moment_mstr_dir
 #     wrong_a23_moment_dir = create_path(mstr_dir, exx.a23)
 #     assert os_path_exists(wrong_a23_moment_dir) is False

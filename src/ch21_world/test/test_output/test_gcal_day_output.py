@@ -2,12 +2,13 @@ from datetime import datetime
 from os.path import exists as os_path_exists
 from pandas import DataFrame as pandas_DataFrame
 from pytest import fixture as pytest_fixture
-from src.ch00_py.file_toolbox import open_file
+from src.ch00_py.file_toolbox import create_path, open_file
 from src.ch04_rope.rope import create_rope, create_rope_from_labels as init_rope
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch10_person_listen.keep_tool import save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
 from src.ch14_moment.moment_main import momentunit_shop, save_moment_file
+from src.ch17_idea.idea_db_tool import save_sheet
 from src.ch20_kpi._ref.ch20_path import create_day_punch_txt_path as day_punch_path
 from src.ch21_world.world import sheets_to_gcal_day_punchs, worlddir_shop
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
@@ -50,8 +51,8 @@ def br00013_example() -> pandas_DataFrame:
     h1_mop = init_rope([exx.hn1, "family", exx.casa, exx.clean, exx.mop])
     h1_tools = init_rope([exx.hn1, "family", exx.casa, exx.clean, exx.scrub])
     h7_mop = init_rope([exx.hn7, "family", exx.casa, exx.clean, exx.mop])
-    h7_grocery = init_rope([exx.hn7, "family", exx.casa, exx.clean, exx.grocery])
-    h7_brush = init_rope([exx.hn7, "family", exx.casa, exx.clean, exx.brush])
+    h7_grocery = init_rope([exx.hn7, "family", exx.casa, exx.clean, "grocery"])
+    h7_brush = init_rope([exx.hn7, "family", exx.casa, exx.clean, "brush"])
 
     data = [
         (0, exx.bob, exx.zia, exx.hn1, h1_mop, 1.0, True),
@@ -74,9 +75,15 @@ def br00013_example() -> pandas_DataFrame:
 
 # # TODO get this going
 # def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario1_TwoSueReports(
-#     temp3_fs,
+#     temp3_fs, br00013_example
 # ):
 #     # ESTABLISH
+#     herenow_worlddir = worlddir_shop("HereNow", str(temp3_fs))
+#     # WHEN
+#     br00013_example_path = create_path(herenow_worlddir.input_dir, "example.xlsx")
+#     save_sheet(br00013_example_path, "")
+#     print(br00013_example)
+#     # THEN
 #     assert 1 == 2
 
 

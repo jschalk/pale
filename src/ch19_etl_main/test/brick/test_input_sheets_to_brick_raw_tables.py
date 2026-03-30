@@ -2,7 +2,7 @@ from pandas import DataFrame
 from sqlite3 import Cursor
 from src.ch00_py.db_toolbox import db_table_exists, get_row_count, get_table_columns
 from src.ch00_py.file_toolbox import create_path
-from src.ch17_idea.idea_db_tool import upsert_sheet
+from src.ch17_idea.idea_db_tool import save_sheet
 from src.ch19_etl_main.etl_main import etl_input_dfs_to_brick_raw_tables
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
@@ -37,7 +37,7 @@ def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario0(
 
     df1 = DataFrame([row0, row1, row2, row3, row4], columns=br3_columns)
     br00003_ex1_str = "example1_br00003"
-    upsert_sheet(input_file_path, br00003_ex1_str, df1)
+    save_sheet(input_file_path, br00003_ex1_str, df1)
     br00003_tablename = f"br00003_{kw.brick_raw}"
     assert not db_table_exists(cursor0, br00003_tablename)
 
@@ -127,9 +127,9 @@ def test_etl_input_dfs_to_brick_raw_tables_PopulatesTables_Scenario1(
     br00003_ex1_str = "example1_br00003"
     br00003_ex2_str = "example2_br00003"
     br00003_ex3_str = "example3_br00003"
-    upsert_sheet(input_file_path, br00003_ex1_str, df1)
-    upsert_sheet(input_file_path, br00003_ex2_str, df2)
-    upsert_sheet(input_file_path, br00003_ex3_str, df3)
+    save_sheet(input_file_path, br00003_ex1_str, df1)
+    save_sheet(input_file_path, br00003_ex2_str, df2)
+    save_sheet(input_file_path, br00003_ex3_str, df3)
     br00003_tablename = f"br00003_{kw.brick_raw}"
     assert not db_table_exists(cursor0, br00003_tablename)
 
@@ -204,7 +204,7 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
 
 #     df1 = DataFrame([df_row0, df_row1, df_row2], columns=idea_columns)
 #     br00003_ex1_str = "example1_br00003"
-#     upsert_sheet(input_file_path, br00003_ex1_str, df1)
+#     save_sheet(input_file_path, br00003_ex1_str, df1)
 #     cursor0 = db_conn.cursor0()
 #     br00003_tablename = f"br00003_{kw.brick_raw}"
 #     assert not db_table_exists(cursor0, br00003_tablename)

@@ -4,7 +4,7 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count
 from src.ch00_py.file_toolbox import create_path
 from src.ch04_rope.rope import create_rope
-from src.ch17_idea.idea_db_tool import create_idea_sorted_table, upsert_sheet
+from src.ch17_idea.idea_db_tool import create_idea_sorted_table, save_sheet
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename
 from src.ch19_etl_main.etl_main import get_max_brick_agg_spark_num
 from src.ch21_world.world import WorldDir, stance_sheets_to_lynx_mstr, worlddir_shop
@@ -34,7 +34,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     br00113row0 = [exx.sue, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
-    upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
+    save_sheet(input_file_path, br00113_ex0_str, br00113_df)
 
     br00001_columns = [
         kw.face_name,
@@ -51,7 +51,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     br1row0 = [exx.sue, exx.a23, exx.sue, tp37, ";", sue_quota, sue_celldepth]
     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
     br00001_ex0_str = "example0_br00001"
-    upsert_sheet(input_file_path, br00001_ex0_str, br00001_1df)
+    save_sheet(input_file_path, br00001_ex0_str, br00001_1df)
     fay_db_path = fay_wdir.get_world_db_path()
     assert not os_path_exists(fay_db_path)
 
@@ -168,7 +168,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     br00113row0 = [exx.sue, a23_rope, exx.sue, exx.sue, exx.sue, sue_inx]
     br00113_df = DataFrame([br00113row0], columns=br00113_columns)
     br00113_ex0_str = f"example0_{br00113_str}"
-    upsert_sheet(input_file_path, br00113_ex0_str, br00113_df)
+    save_sheet(input_file_path, br00113_ex0_str, br00113_df)
     fay_db_path = fay_wdir.get_world_db_path()
     assert os_path_exists(fay_db_path)
     with sqlite3_connect(fay_db_path) as db_conn0:
