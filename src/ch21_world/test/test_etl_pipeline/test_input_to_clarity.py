@@ -28,7 +28,6 @@ from src.ch18_etl_config._ref.ch18_path import (
     create_moment_ote1_csv_path,
 )
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename as prime_tbl
-from src.ch21_world.test._util.ch21_env import cursor0
 from src.ch21_world.world import (
     sheets_input_to_lynx_mstr,
     sheets_input_to_lynx_with_cursor,

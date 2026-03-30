@@ -8,7 +8,6 @@ from src.ch18_etl_config.etl_sqlstr import (
     create_sound_and_heard_tables,
 )
 from src.ch19_etl_main.etl_main import etl_heard_vld_to_spark_person_csvs
-from src.ch19_etl_main.test._util.ch19_env import cursor0
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 

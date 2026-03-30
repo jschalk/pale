@@ -64,7 +64,6 @@ def test_Chapters_CheckStringMetricsFromEveryFile():
         "set_knot",
         "set_otx2inx",  # used in Nabu/Translate
         "to_dict",  # used to return class custom dictionary, usually for json file storage
-        "cursor0",  # used in pytests for temp sqlite database
     }
 
     # WHEN

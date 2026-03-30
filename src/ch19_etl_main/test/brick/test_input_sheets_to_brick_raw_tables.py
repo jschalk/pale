@@ -4,7 +4,6 @@ from src.ch00_py.db_toolbox import db_table_exists, get_row_count, get_table_col
 from src.ch00_py.file_toolbox import create_path
 from src.ch17_idea.idea_db_tool import upsert_sheet
 from src.ch19_etl_main.etl_main import etl_input_dfs_to_brick_raw_tables
-from src.ch19_etl_main.test._util.ch19_env import cursor0
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
 

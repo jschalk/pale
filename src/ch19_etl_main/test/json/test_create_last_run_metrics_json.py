@@ -5,7 +5,6 @@ from src.ch17_idea.idea_db_tool import create_idea_sorted_table
 from src.ch18_etl_config._ref.ch18_path import create_last_run_metrics_path
 from src.ch18_etl_config.etl_sqlstr import create_sound_and_heard_tables
 from src.ch19_etl_main.etl_main import create_last_run_metrics_json
-from src.ch19_etl_main.test._util.ch19_env import cursor0
 from src.ref.keywords import Ch19Keywords as kw
 
 

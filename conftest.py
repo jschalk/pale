@@ -1,12 +1,14 @@
 from platform import system
 from pytest import mark as pytest_mark
-
-import shutil
+from sqlite3 import Cursor, connect as sqlite3_connect
+from typing import Any, Generator
 from pathlib import Path
 from uuid import uuid4
 from pyperclip import copy as pyperclip_copy
 import pytest
 import subprocess
+import shutil
+
 
 _config = None
 
@@ -84,6 +86,12 @@ def temp3_fs(temp3_dir):
     test_dir.mkdir()
     yield test_dir
     # defer cleanup to pytest's tmp_path cleanup instead of recursive rmtree
+
+
+@pytest.fixture
+def cursor0() -> Generator[Cursor, Any, None]:
+    with sqlite3_connect(":memory:") as db_conn:
+        yield db_conn.cursor()
 
 
 def pytest_runtest_logreport(report):

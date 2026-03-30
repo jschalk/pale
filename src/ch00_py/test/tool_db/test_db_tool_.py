@@ -31,7 +31,6 @@ from src.ch00_py.db_toolbox import (
     sqlite_obj_str,
 )
 from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
-from src.ch00_py.test._util.ch00_env import cursor0
 from src.ref.keywords import ExampleStrs as exx
 
 
