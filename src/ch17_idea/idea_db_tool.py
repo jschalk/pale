@@ -572,13 +572,16 @@ def update_spark_num_in_excel_files(directory: str, value) -> None:
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
 
 
-def export_db_to_excel(cursor: sqlite3_Cursor, dest_path: str) -> None:
+def export_db_to_excel(
+    cursor: sqlite3_Cursor, dest_path: str, no_empty_sheets: bool = False
+) -> None:
     """
     Export every table in a SQLite database to a separate sheet in an Excel file.
 
     Args:
         cursor: An active sqlite3_Cursor connected to the database.
         dest_path: File path for the output .xlsx file (e.g. "output.xlsx").
+        no_empty_sheets: Whether to remove empty sheets from the output.
     """
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
     tables = [row[0] for row in cursor.fetchall()]
@@ -597,8 +600,8 @@ def export_db_to_excel(cursor: sqlite3_Cursor, dest_path: str) -> None:
         cursor.execute(f"SELECT * FROM [{table}]")
         rows = cursor.fetchall()
         col_names = [desc[0] for desc in cursor.description]
-
-        ws = wb.create_sheet(title=table[:31])  # Sheet names max 31 chars
+        sheetname = table[-31:] if len(table) > 31 else table
+        ws = wb.create_sheet(title=sheetname)  # Sheet names max 31 chars
 
         # Write and style header row
         for col_idx, col_name in enumerate(col_names, start=1):
@@ -626,3 +629,34 @@ def export_db_to_excel(cursor: sqlite3_Cursor, dest_path: str) -> None:
         ws.freeze_panes = "A2"
 
     wb.save(dest_path)
+    if no_empty_sheets:
+        remove_empty_sheets(dest_path)
+
+
+def remove_empty_sheets(file_path: str) -> list[str]:
+    """
+    Opens an Excel file and deletes all sheets that have no data rows,
+    even if they contain a header row.
+
+    Args:
+        file_path: Path to the .xlsx file to clean up.
+
+    Returns:
+        List of sheet names that were removed.
+    """
+    wb = openpyxl_load_workbook(file_path)
+    removed = []
+
+    for sheet_name in wb.sheetnames:
+        ws = wb[sheet_name]
+        has_data = any(
+            cell.value is not None
+            for row in ws.iter_rows(min_row=2)  # skip header
+            for cell in row
+        )
+        if not has_data:
+            del wb[sheet_name]
+            removed.append(sheet_name)
+
+    wb.save(file_path)
+    return removed

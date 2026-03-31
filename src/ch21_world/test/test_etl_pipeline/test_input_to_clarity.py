@@ -663,51 +663,49 @@ def test_sheets_input_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     db_conn.close()
 
 
-# # TODO reactivate test
-# def test_sheets_input_to_lynx_mstr_Scenario1_Creates_job_Files(temp3_fs):
-#     # ESTABLISH
-#     h1_mop = init_rope(["herenow1", "family", exx.casa, exx.clean, exx.mop])
-#     h1_tools = init_rope(["herenow1", "family", exx.casa, exx.clean, exx.scrub])
+def test_sheets_input_to_lynx_mstr_Scenario1_Creates_job_Files(temp3_fs):
+    # ESTABLISH
+    h1_mop = init_rope(["herenow1", "family", exx.casa, exx.clean, exx.mop])
+    h1_tools = init_rope(["herenow1", "family", exx.casa, exx.clean, exx.scrub])
 
-#     data = [
-#         (0, exx.sue, exx.zia, exx.hn1, h1_mop, 1.0, True),
-#         (0, exx.sue, exx.yao, exx.hn1, h1_tools, 2.5, True),
-#     ]
-#     cols = [
-#         kw.spark_num,
-#         kw.face_name,
-#         kw.person_name,
-#         kw.moment_rope,
-#         kw.plan_rope,
-#         kw.star,
-#         kw.pledge,
-#     ]
-#     br00013_example = pandas_DataFrame(data, columns=cols)
+    data = [
+        (0, exx.sue, exx.zia, exx.hn1, h1_mop, 1, True),
+        (0, exx.sue, exx.yao, exx.hn1, h1_tools, 2, True),
+    ]
+    cols = [
+        kw.spark_num,
+        kw.face_name,
+        kw.person_name,
+        kw.moment_rope,
+        kw.plan_rope,
+        kw.star,
+        kw.pledge,
+    ]
+    br00013_example = pandas_DataFrame(data, columns=cols)
 
-#     here_wdir = worlddir_shop("HereNow", str(temp3_fs))
-#     br00013_example_path = create_path(here_wdir.input_dir, "example.xlsx")
-#     save_sheet(br00013_example_path, "br00013_ex1", br00013_example)
-#     # print(br00013_example().to_dict())
-#     mmt_dir = here_wdir.moment_mstr_dir
-#     hn1_lasso = lassounit_shop(exx.hn1)
-#     hn1_mmt_json_path = create_moment_json_path(mmt_dir, hn1_lasso)
-#     hn1_yao_job_path = create_job_path(mmt_dir, hn1_lasso, exx.yao)
-#     hn1_zia_job_path = create_job_path(mmt_dir, hn1_lasso, exx.zia)
-#     assert not os_path_exists(hn1_mmt_json_path)
-#     assert not os_path_exists(hn1_yao_job_path)
-#     assert not os_path_exists(hn1_zia_job_path)
+    here_wdir = worlddir_shop("HereNow", str(temp3_fs))
+    br00013_example_path = create_path(here_wdir.input_dir, "example.xlsx")
+    save_sheet(br00013_example_path, "br00013_ex1", br00013_example)
+    # print(br00013_example().to_dict())
+    mmt_dir = here_wdir.moment_mstr_dir
+    hn1_lasso = lassounit_shop(exx.hn1)
+    hn1_mmt_json_path = create_moment_json_path(mmt_dir, hn1_lasso)
+    hn1_yao_job_path = create_job_path(mmt_dir, hn1_lasso, exx.yao)
+    hn1_zia_job_path = create_job_path(mmt_dir, hn1_lasso, exx.zia)
+    assert not os_path_exists(hn1_mmt_json_path)
+    assert not os_path_exists(hn1_yao_job_path)
+    assert not os_path_exists(hn1_zia_job_path)
 
-#     # WHEN
-#     sheets_input_to_lynx_mstr(
-#         world_db_path=here_wdir.get_world_db_path(),
-#         input_dir=here_wdir.input_dir,
-#         moment_mstr_dir=here_wdir.moment_mstr_dir,
-#     )
+    # WHEN
+    sheets_input_to_lynx_mstr(
+        world_db_path=here_wdir.get_world_db_path(),
+        input_dir=here_wdir.input_dir,
+        moment_mstr_dir=here_wdir.moment_mstr_dir,
+    )
 
-#     # THEN
-# world_test_ex_dir = "src\ch21_world\test\test_world_examples"
-#     export_db_to_excel(here_wdir.get_world_db_path(), here_wdir.worlds_dir, "export.xlsx")
-#     assert os_path_exists(hn1_mmt_json_path)
-#     assert os_path_exists(hn1_yao_job_path)
-#     assert os_path_exists(hn1_zia_job_path)
-#     assert 1 == 2
+    # THEN
+    # world_test_ex_dir = "src\ch21_world\test\test_world_examples"
+    # export_db_to_excel(here_wdir.get_world_db_path(), here_wdir.worlds_dir, "export.xlsx")
+    assert os_path_exists(hn1_mmt_json_path)
+    assert os_path_exists(hn1_zia_job_path)
+    assert os_path_exists(hn1_yao_job_path)

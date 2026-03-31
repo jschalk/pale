@@ -15,6 +15,7 @@ from src.ch09_person_lesson.lasso import LassoUnit, lassounit_shop
 from src.ch10_person_listen._ref.ch10_path import create_job_path
 from src.ch10_person_listen.keep_tool import open_job_file
 from src.ch13_time.epoch_main import (
+    add_epoch_planunit,
     get_default_epoch_config_dict,
     get_epoch_min_from_dt,
     get_epoch_rope,
@@ -313,6 +314,9 @@ def get_gcal_day_punch_from_job_file(
     momentunit = open_moment_file(moment_mstr_dir, moment_lasso)
     epoch_label = momentunit.epoch.epoch_label
     job = open_job_file(moment_mstr_dir, moment_lasso, person_name)
+    epoch_rope = get_epoch_rope(momentunit.moment_rope, epoch_label, momentunit.knot)
+    if not job.plan_exists(epoch_rope):
+        add_epoch_planunit(job, momentunit.get_epoch_config())
     return get_gcal_day_punch_from_personunit(job, day, epoch_label, focus_group_title)
 
 

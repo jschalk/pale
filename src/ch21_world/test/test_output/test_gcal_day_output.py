@@ -44,33 +44,42 @@ def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
 #     # ESTABLISH
 #     here_wdir = worlddir_shop("HereNow", str(temp3_fs))
 #     br00013_example_path = create_path(here_wdir.input_dir, "example.xlsx")
-#     save_sheet(br00013_example_path, "br00013_ex1", br00013_example())
+#     h1_mop = init_rope(["herenow1", "family", exx.casa, exx.clean, exx.mop])
+#     h1_tools = init_rope(["herenow1", "family", exx.casa, exx.clean, exx.scrub])
+#     h7_mop = init_rope(["herenow7", "family", exx.casa, exx.clean, exx.mop])
+#     h7_grocery = init_rope(["herenow7", "family", exx.casa, exx.clean, "grocery"])
+#     h7_brush = init_rope(["herenow7", "family", exx.casa, exx.clean, "brush"])
 
-#     #     # TODO convert this to dataframe
-#     #     # sue_a23_person = get_a23_sue_clean_example()
-#     #     # sue_ep8_person = get_ep8_sue_clean_example()
-#     #     # yao_ep8_person = get_ep8_yao_clean_example()
-#     #     # TODO save dataframes as sheets
-#     #     epoch_config = get_default_epoch_config_dict()
-#     #     x_epoch_label = epoch_config.get("epoch_label")
-#     #     # add_epoch_planunit(sue_a23_person, epoch_config)
-#     #     # add_epoch_planunit(sue_ep8_person, epoch_config)
-#     #     # add_epoch_planunit(yao_ep8_person, epoch_config)
-#     #     apr7 = datetime(2010, 4, 7)
-#     #     # save momentunit json
-#     #     mmt_mstr_dir = str(temp3_fs)
+#     data = [
+#         (0, exx.sue, exx.zia, exx.hn1, h1_mop, 1, True),
+#         (0, exx.sue, exx.yao, exx.hn1, h1_tools, 2, True),
+#         (2, exx.yao, exx.yao, exx.hn7, h7_mop, 8, True),
+#         (3, exx.sue, exx.sue, exx.hn7, h7_grocery, 3, True),
+#         (4, exx.zia, exx.xio, exx.hn7, h7_brush, 1, True),
+#     ]
+#     cols = [
+#         kw.spark_num,
+#         kw.face_name,
+#         kw.person_name,
+#         kw.moment_rope,
+#         kw.plan_rope,
+#         kw.star,
+#         kw.pledge,
+#     ]
+#     br00013_example = pandas_DataFrame(data, columns=cols)
+#     save_sheet(br00013_example_path, "br00013_ex1", br00013_example)
 #     mmt_dir = here_wdir.moment_mstr_dir
 #     hn1_lasso = lassounit_shop(exx.hn1)
 #     hn7_lasso = lassounit_shop(exx.hn7)
 #     hn1_mmt_json_path = create_moment_json_path(mmt_dir, hn1_lasso)
 #     hn7_mmt_json_path = create_moment_json_path(mmt_dir, hn7_lasso)
-#     hn7_zia_job_path = create_job_path(mmt_dir, hn7_lasso, exx.zia)
+#     hn1_zia_job_path = create_job_path(mmt_dir, hn1_lasso, exx.zia)
 #     hn7_yao_job_path = create_job_path(mmt_dir, hn7_lasso, exx.yao)
 #     hn7_sue_job_path = create_job_path(mmt_dir, hn7_lasso, exx.sue)
 #     hn7_xio_job_path = create_job_path(mmt_dir, hn7_lasso, exx.xio)
 #     assert not os_path_exists(hn1_mmt_json_path)
 #     assert not os_path_exists(hn7_mmt_json_path)
-#     assert not os_path_exists(hn7_zia_job_path)
+#     assert not os_path_exists(hn1_zia_job_path)
 #     assert not os_path_exists(hn7_yao_job_path)
 #     assert not os_path_exists(hn7_sue_job_path)
 #     assert not os_path_exists(hn7_xio_job_path)
@@ -86,7 +95,7 @@ def test_sheets_to_gcal_day_punchs_SavesFiles_Scenario0_TwoSueReports(
 #     # THEN
 #     assert os_path_exists(hn1_mmt_json_path)
 #     assert os_path_exists(hn7_mmt_json_path)
-#     assert os_path_exists(hn7_zia_job_path)
+#     assert os_path_exists(hn1_zia_job_path)
 #     assert os_path_exists(hn7_yao_job_path)
 #     assert os_path_exists(hn7_sue_job_path)
 #     assert os_path_exists(hn7_xio_job_path)
