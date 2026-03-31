@@ -28,6 +28,7 @@ from src.ch18_etl_config._ref.ch18_path import (
     create_moment_ote1_csv_path,
 )
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename as prime_tbl
+from src.ch21_world.test._util.ch21_examples import br00013_example
 from src.ch21_world.world import (
     sheets_input_to_lynx_mstr,
     sheets_input_to_lynx_with_cursor,
@@ -659,3 +660,57 @@ def test_sheets_input_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
         assert get_row_count(cursor, prnptnr_put_heard_agg) == 1
         assert get_row_count(cursor, kw.moment_ote1_agg) == 1
     db_conn.close()
+
+
+# TODO reactiavte this test and convert to using cursor
+# def test_sheets_input_to_lynx_mstr_Scenario1_Creates_job_Files(temp3_fs):
+#     # ESTABLISH
+#     here_wdir = worlddir_shop("HereNow", str(temp3_fs))
+#     br00013_example_path = create_path(here_wdir.input_dir, "example.xlsx")
+#     save_sheet(br00013_example_path, "br00013_ex1", br00013_example())
+#     print(br00013_example())
+
+#     #     # TODO convert this to dataframe
+#     #     # sue_a23_person = get_a23_sue_clean_example()
+#     #     # sue_ep8_person = get_ep8_sue_clean_example()
+#     #     # yao_ep8_person = get_ep8_yao_clean_example()
+#     #     # TODO save dataframes as sheets
+#     #     epoch_config = get_default_epoch_config_dict()
+#     #     x_epoch_label = epoch_config.get("epoch_label")
+#     #     # add_epoch_planunit(sue_a23_person, epoch_config)
+#     #     # add_epoch_planunit(sue_ep8_person, epoch_config)
+#     #     # add_epoch_planunit(yao_ep8_person, epoch_config)
+#     #     apr7 = datetime(2010, 4, 7)
+#     #     # save momentunit json
+#     #     mmt_mstr_dir = str(temp3_fs)
+#     mmt_dir = here_wdir.moment_mstr_dir
+#     hn1_lasso = lassounit_shop(exx.hn1)
+#     hn7_lasso = lassounit_shop(exx.hn7)
+#     hn1_mmt_json_path = create_moment_json_path(mmt_dir, hn1_lasso)
+#     hn7_mmt_json_path = create_moment_json_path(mmt_dir, hn7_lasso)
+#     hn7_zia_job_path = create_job_path(mmt_dir, hn7_lasso, exx.zia)
+#     hn7_yao_job_path = create_job_path(mmt_dir, hn7_lasso, exx.yao)
+#     hn7_sue_job_path = create_job_path(mmt_dir, hn7_lasso, exx.sue)
+#     hn7_xio_job_path = create_job_path(mmt_dir, hn7_lasso, exx.xio)
+#     assert not os_path_exists(hn1_mmt_json_path)
+#     assert not os_path_exists(hn7_mmt_json_path)
+#     assert not os_path_exists(hn7_zia_job_path)
+#     assert not os_path_exists(hn7_yao_job_path)
+#     assert not os_path_exists(hn7_sue_job_path)
+#     assert not os_path_exists(hn7_xio_job_path)
+
+#     # WHEN
+#     sheets_input_to_lynx_mstr(
+#         world_db_path=here_wdir.get_world_db_path(),
+#         input_dir=here_wdir.input_dir,
+#         moment_mstr_dir=here_wdir.moment_mstr_dir,
+#     )
+
+#     # THEN
+#     assert os_path_exists(hn1_mmt_json_path)
+#     assert os_path_exists(hn7_mmt_json_path)
+#     assert os_path_exists(hn7_zia_job_path)
+#     assert os_path_exists(hn7_yao_job_path)
+#     assert os_path_exists(hn7_sue_job_path)
+#     assert os_path_exists(hn7_xio_job_path)
+#     assert 1 == 2
