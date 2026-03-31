@@ -1,8 +1,8 @@
 {
   "attributes": {
+    "contact_name_ERASE": { "otx_key": true }, 
     "face_name"         : { "otx_key": true }, 
     "moment_rope"       : { "otx_key": true }, 
-    "contact_name_ERASE": { "otx_key": true }, 
     "person_name"       : { "otx_key": true }, 
     "spark_num"         : { "otx_key": true }
   }, 

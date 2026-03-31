@@ -38,9 +38,9 @@
     "build_order": 21, 
     "idea_category": "moment", 
     "jkeys": {
+      "contact_name": {}, 
       "face_name": {}, 
       "moment_rope": {}, 
-      "contact_name": {}, 
       "person_name": {}, 
       "spark_num": {}, 
       "tran_time": {}
@@ -83,10 +83,10 @@
     "build_order": 9, 
     "idea_category": "person", 
     "jkeys": {
+      "contact_name": {}, 
       "face_name": {}, 
       "group_title": {}, 
       "moment_rope": {}, 
-      "contact_name": {}, 
       "person_name": {}, 
       "spark_num": {}
     }, 
@@ -97,13 +97,13 @@
     "build_order": 10, 
     "idea_category": "person", 
     "jkeys": {
+      "contact_name": {}, 
       "face_name": {}, 
       "moment_rope": {}, 
-      "contact_name": {}, 
       "person_name": {}, 
       "spark_num": {}
     }, 
-    "jvalues": {"knot": {}, "contact_cred_lumen": {}, "contact_debt_lumen": {}}
+    "jvalues": {"contact_cred_lumen": {}, "contact_debt_lumen": {}, "knot": {}}
   }, 
   "person_plan_awardunit": {
     "allowed_crud": "delete_insert_update", 
