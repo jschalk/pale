@@ -387,7 +387,7 @@ def test_PersonUnit_conpute_TreeTraverseSetsAwardLine_fundFromRoot():
     assert sue_person.planroot.awardlines == {x_awardline.awardee_title: x_awardline}
 
 
-def test_PersonUnit_conpute_TreeTraverseSets_awardlines_ToRootPlanUnitFromNon_RootPlanUnit():
+def test_PersonUnit_conpute_TreeTraverseSets_awardlines_To_planroot_FromNon_planroot_PlanUnit():
     # ESTABLISH
     sue_person = get_personunit_with_4_levels()
     sue_person.conpute()

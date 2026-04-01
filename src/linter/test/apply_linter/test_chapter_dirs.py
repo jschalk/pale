@@ -98,12 +98,14 @@ def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter_Scenario0():
         chapter_blurb_str = "chapter_blurb"
         chapter_number_str = "chapter_number"
         chapter_content_str = "chapter_content"
+        ontology_str = "ontology summary"
         keys_assertion_fail_str = f"ref json for {chapter_desc} missing required key(s)"
         expected_ref_keys = {
             chapter_blurb_str,
             chapter_description_str,
             chapter_number_str,
             chapter_content_str,
+            ontology_str,
         }
         assert ref_keys == expected_ref_keys, keys_assertion_fail_str
         assert chapter_ref_dict.get(chapter_description_str) == chapter_desc
@@ -112,6 +114,12 @@ def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter_Scenario0():
 
         assert len(ref_chapter_blurb) > 0
         assert len(ref_chapter_blurb) <= MAX_CHAPTER_BLURB_LENGTH
+        ontology_assertion_fail_str = (
+            f"{chapter_desc} {ontology_str} str value is empty"
+        )
+        ontology_summary = chapter_ref_dict.get(ontology_str)
+        print(f"{ontology_summary=}")
+        assert ontology_summary, ontology_assertion_fail_str
         ref_chapter_content = chapter_ref_dict.get(chapter_content_str)
         content_assertion_fail_str = f"{chapter_desc} {chapter_content_str} is invalid"
         assert len(ref_chapter_content) > 0, content_assertion_fail_str

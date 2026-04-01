@@ -4,7 +4,7 @@
 - ch00_py: INSERT, Keyword, UPDATE, ch00, filename, init_chapter, keyword, semantic_type, sqlite_datatype
 - ch01_allot: BreakTerm, FirstLabel, GrainNum, LabelTerm, PoolNum, RopeTerm, WeightNum, ch01, parent_rope
 - ch02_contact: ContactName, FundGrain, FundNum, GroupMark, GroupTitle, HealerName, NameTerm, RespectGrain, RespectNum, TitleTerm, awardee_title, awardunits, ch02, conpute, contact_cred_lumen, contact_debt_lumen, contact_name, credor_pool, debtor_pool, fund_agenda_give, fund_agenda_ratio_give, fund_agenda_ratio_take, fund_agenda_take, fund_give, fund_grain, fund_take, give_force, group_cred_lumen, group_debt_lumen, group_title, groupmark, groupunits, inallocable_contact_debt_lumen, irrational_contact_debt_lumen, labor_title, labors, memberships, parent_solo, rational, respect_grain, solo, take_force, workforceheir, workforceunit
-- ch03_workforce: LaborHeir, laborheir, person, person_name, person_name_is_workforce
+- ch03_workforce: LaborHeir, ch03, laborheir, person, person_name, person_name_is_workforce
 - ch04_rope: FactNum, KnotTerm, ManaGrain, ReasonNum, ch04, knot, mana_grain
 - ch05_reason: active_requisite, case_active, case_task, cases, ch05, fact_context, fact_lower, fact_state, fact_upper, factheirs, factunits, parent_heir_active, reason_active, reason_context, reason_divisor, reason_lower, reason_state, reason_task, reason_upper, reasonunits
 - ch06_plan: addin, all_contact_cred, all_contact_debt, awardheirs, awardlines, begin, ch06, close, denom, descendant_pledge_count, fund_cease, fund_onset, fund_pool, fund_ratio, gogo_calc, gogo_want, healer_name, healerunit, healerunit_ratio, is_expanded, kids, morph, numor, plan, plan_active, plan_active_hx, plan_fund_total, plan_label, plan_rope, plan_task, plan_uid, pledge, problem_bool, range_evaluated, range_inheritors, reasonheirs, star, stop_calc, stop_want, tree_level, tree_traverse_count
@@ -20,7 +20,7 @@
 - ch16_translate: ch16, inx_knot, inx_label, inx_name, inx_rope, inx_title, labelmap, namemap, otx_knot, otx_label, otx_name, otx_rope, otx_title, ropemap, titlemap, translate, translate_core, translate_label, translate_name, translate_rope, translate_title, translateunit, unknown_str
 - ch17_idea: allowed_crud, attributes, build_order, ch17, delete_insert, delete_insert_update, delete_update, error_message, fund_rank, idea_category, idea_number, insert_multiple, insert_one_time, insert_update, net_funds, otx_key, pledges_count, sheet, source_dimen, translate_spark_num, world_name
 - ch18_etl_config: b_agg, b_raw, b_vld, brick_agg, brick_raw, brick_valid, ch18, h_agg, h_raw, h_vld, heard_agg, heard_raw, heard_vld, mmtbudd, mmthour, mmtmont, mmtoffi, mmtpayy, mmtunit, mmtweek, moment_ote1_agg, nabtime, person_net_amount, s_agg, s_raw, s_vld, sound_agg, sound_raw, sound_vld, sparks_brick_agg, sparks_brick_valid, trlcore, trllabe, trlname, trlrope, trltitl
-- ch19_etl_main: day_punch, moment_contact_nets
+- ch19_etl_main: ch19, day_punch, moment_contact_nets
 - ch20_kpi: Event, ch20, default_kpi_bundle, gcal, moment_kpi001_contact_nets, moment_kpi002_person_pledges
 - ch21_world: WorldName, ch21
 - ch22_lobby: LobbyID, lobby_id, lobby_mstr_dir, lobbys
