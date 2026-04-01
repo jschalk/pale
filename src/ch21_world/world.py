@@ -3,13 +3,16 @@ from datetime import datetime
 from os.path import exists as os_path_exists
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
-from src.ch17_idea.idea_db_tool import update_spark_num_in_excel_files
+from src.ch17_idea.idea_db_tool import (
+    export_db_to_excel,
+    update_spark_num_in_excel_files,
+)
 from src.ch18_etl_config._ref.ch18_path import (
     create_moment_mstr_path,
     create_world_db_path,
 )
 from src.ch18_etl_config.stance_tool import create_stance0001_file
-from src.ch19_etl_main.etl_main import (
+from src.ch19_etl_steps.etl_main import (
     add_moment_epoch_to_guts,
     calc_moment_bud_contact_mandate_net_ledgers,
     create_last_run_metrics_json,
@@ -38,7 +41,10 @@ from src.ch19_etl_main.etl_main import (
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
     get_max_brick_agg_spark_num,
 )
-from src.ch20_kpi.gcalendar import save_person_gcal_day_punchs
+from src.ch20_kpi.gcalendar import (
+    copy_person_day_punches_to_dst_dir,
+    save_person_gcal_day_punchs,
+)
 from src.ch20_kpi.kpi_mstr import create_calendar_markdown_files, populate_kpi_bundle
 from src.ch21_world._ref.ch21_semantic_types import GroupTitle, PersonName, WorldName
 
@@ -79,7 +85,6 @@ def sheets_input_to_lynx_with_cursor(
     etl_heard_vld_tables_to_moment_jsons(cursor, moment_mstr_dir)
     etl_heard_vld_to_spark_person_csvs(cursor, moment_mstr_dir)
     etl_spark_person_csvs_to_lesson_json(moment_mstr_dir)
-    # TODO fix etl_spark_lesson_json_to_spark_inherited_personunits
     etl_spark_lesson_json_to_spark_inherited_personunits(moment_mstr_dir)
     # Sparkized files to Lynx stage
     etl_spark_inherited_personunits_to_moment_gut(moment_mstr_dir)
@@ -99,6 +104,10 @@ def sheets_input_to_lynx_mstr(world_db_path: str, input_dir: str, moment_mstr_di
     with sqlite3_connect(world_db_path) as db_conn:
         cursor = db_conn.cursor()
         sheets_input_to_lynx_with_cursor(cursor, input_dir, moment_mstr_dir)
+        # TODO add some way to export the db to excel for testing purposes
+        # excel_path = "src/ch21_world/test/test_world_examples/example.xlsx"
+        # export_db_to_excel(cursor, excel_path, True)
+
         db_conn.commit()
     db_conn.close()
 
@@ -187,4 +196,28 @@ def sheets_to_gcal_day_punchs(
         person_name=person_name,
         day=day,
         focus_group_title=focus_group_title,
+    )
+
+
+def create_today_punchs(
+    working_dir: str,
+    input_dir: str,
+    output_dir: str,
+    person_name: PersonName,
+    focus_group_title: GroupTitle = None,
+):
+    worlddir = worlddir_shop(
+        world_name="world01",
+        worlds_dir=working_dir,
+        input_dir=input_dir,
+        output_dir=output_dir,
+    )
+    sheets_to_gcal_day_punchs(
+        worlddir=worlddir,
+        person_name=person_name,
+        day=datetime.now(),
+        focus_group_title=focus_group_title,
+    )
+    copy_person_day_punches_to_dst_dir(
+        worlddir.moment_mstr_dir, worlddir.output_dir, person_name
     )

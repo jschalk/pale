@@ -7,27 +7,19 @@ from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 def br00013_example() -> pandas_DataFrame:
     """All rows valid. pledge=True throughout. Covers varied names."""
-    # sue_person = personunit_shop(exx.sue, exx.a23)
-    # add_epoch_planunit(sue_person)
-    # sue_person.add_contactunit(exx.bob, 2)
-    # sue_person.add_contactunit(exx.sue, 1)
-    # casa_rope = sue_person.make_l1_rope(exx.casa)
-    # clean_rope = sue_person.make_rope(casa_rope, exx.clean)
-    # sue_person.add_plan(clean_rope, 1, pledge=True)
-    # sue_person.get_contact(exx.sue).add_membership(exx.run)
 
-    h1_mop = init_rope([exx.hn1, "family", exx.casa, exx.clean, exx.mop])
-    h1_tools = init_rope([exx.hn1, "family", exx.casa, exx.clean, exx.scrub])
-    h7_mop = init_rope([exx.hn7, "family", exx.casa, exx.clean, exx.mop])
-    h7_grocery = init_rope([exx.hn7, "family", exx.casa, exx.clean, "grocery"])
-    h7_brush = init_rope([exx.hn7, "family", exx.casa, exx.clean, "brush"])
+    hr_mop = init_rope(["herenow_red", "family", exx.casa, exx.clean, exx.mop])
+    hr_tools = init_rope(["herenow_red", "family", exx.casa, exx.clean, exx.scrub])
+    hb_mop = init_rope(["herenow_blu", "family", exx.casa, exx.clean, exx.mop])
+    hb_grocery = init_rope(["herenow_blu", "family", exx.casa, exx.clean, "grocery"])
+    hb_brush = init_rope(["herenow_blu", "family", exx.casa, exx.clean, "brush"])
 
     data = [
-        (0, exx.sue, exx.zia, exx.hn1, h1_mop, 1.0, True),
-        (0, exx.sue, exx.yao, exx.hn1, h1_tools, 2.5, True),
-        (2, exx.yao, exx.yao, exx.hn7, h7_mop, 0.8, True),
-        (2, exx.sue, exx.sue, exx.hn7, h7_grocery, 3.3, True),
-        (2, exx.zia, exx.xio, exx.hn7, h7_brush, 1.1, True),
+        (0, exx.sue, exx.zia, exx.hn_red, hr_mop, 1, True),
+        (0, exx.sue, exx.yao, exx.hn_red, hr_tools, 2, True),
+        (2, exx.yao, exx.yao, exx.hn_blu, hb_mop, 8, True),
+        (3, exx.sue, exx.sue, exx.hn_blu, hb_grocery, 3, True),
+        (4, exx.zia, exx.xio, exx.hn_blu, hb_brush, 1, True),
     ]
     cols = [
         kw.spark_num,

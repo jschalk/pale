@@ -129,7 +129,7 @@ def test_get_plan_view_dict_ReturnsObj_Scenario1_workforceunit():
     print(f"{mop_bob_dict=}")
 
 
-def test_get_plan_view_dict_ReturnsObj_Scenario2_RootPlanUnit_attrs():
+def test_get_plan_view_dict_ReturnsObj_Scenario2_PlanRootUnit_attrs():
     # ESTABLISH
     sue_personunit = get_sue_personunit()
 

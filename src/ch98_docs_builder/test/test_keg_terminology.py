@@ -13,7 +13,7 @@ from src.ch16_translate.translate_config import (
     get_translate_config_dict,
 )
 from src.ch18_etl_config.etl_config import get_etl_stage_types_config_dict
-from src.ch19_etl_main.etl_main import etl_heard_raw_tables_to_moment_ote1_agg
+from src.ch19_etl_steps.etl_main import etl_heard_raw_tables_to_moment_ote1_agg
 from src.ch98_docs_builder._ref.ch98_semantic_types import (
     BreakTerm,
     ContactName,
@@ -58,24 +58,6 @@ from src.ref.keywords import Ch98Keywords as kw
 
 def python_keywords() -> set:
     return {"self", "class", "assert", "import", "global", "yield", "break", "match"}
-
-
-def test_get_keg_terminology_ReturnsObj_HasAllkeywords():
-    # ESTABLISH / WHEN
-    keg_terminology = get_keg_terminology()
-
-    # THEN
-    assert keg_terminology
-    keywords_config = get_keywords_src_config()
-
-    description_keywords = set(keg_terminology.keys())
-    config_keywords = set(keywords_config.keys())
-    config_keywords.update(python_keywords())
-    print(f"{config_keywords.difference(description_keywords)=}")
-    print(f"{description_keywords.difference(config_keywords)=}")
-    assert set(keg_terminology.keys()) == config_keywords
-    for keyword, description in keg_terminology.items():
-        assert description, keyword
 
 
 def test_get_keg_terminology_ReturnsObj_Check_python_keywords():
@@ -201,12 +183,24 @@ def test_get_keg_terminology_ReturnsObj_Check_c400_constants():
         assert "C400Constant for building Epochs" in constant_description
 
 
-def test_get_keg_terminology_ReturnsObj_CheckConfigArgs():
+def test_get_keg_terminology_ReturnsObj_CheckChapter():
     # sourcery skip: no-conditionals-in-tests
     # ESTABLISH / WHEN
     keg_terminology = get_keg_terminology()
     # THEN
     ch_dict = get_chxx_prefix_path_dict()
+    for chxx_prefix, ch_ref_path in ch_dict.items():
+        ch_blurb = get_chxx_ref_blurb(ch_dict, chxx_prefix)
+        ch_desc = keg_terminology.get(chxx_prefix)
+        print(f"{chxx_prefix=} {ch_blurb=}")
+        assert ch_blurb == ch_desc, ch_blurb
+
+
+def test_get_keg_terminology_ReturnsObj_CheckConfigArgs():
+    # sourcery skip: no-conditionals-in-tests
+    # ESTABLISH / WHEN
+    keg_terminology = get_keg_terminology()
+    # THEN
     person_args = get_person_dimen_config(kw.personunit)
     plan_args = get_person_dimen_config(kw.person_planunit)
     reason_args = get_person_dimen_config(kw.person_plan_reasonunit)
@@ -232,13 +226,7 @@ def test_get_keg_terminology_ReturnsObj_CheckConfigArgs():
     mmtunit_args = get_moment_config_args(kw.momentunit)
     nabu_args = get_nabu_args()
     nabuable_args = get_nabuable_args()
-
-    all_person_calc_args = get_all_person_calc_args()
     for keyword, desc in keg_terminology.items():
-        if keyword in ch_dict:
-            assert desc == get_chxx_ref_blurb(ch_dict, keyword)
-        # print(f"{keyword=} {desc=}")
-
         check_person_desc_str(person_args, keyword, desc, "Person")
         check_person_desc_str(plan_args, keyword, desc, "Plan")
         check_person_desc_str(reason_args, keyword, desc, "Reason")
@@ -349,3 +337,21 @@ def check_translate_desc_str(
         assert_fail_str = f"{keyword=} {description=} "
         # print(f"{keyword} {assert_fail_str=}")
         assert f", {src_label.upper()} arg" in description, assert_fail_str
+
+
+def test_get_keg_terminology_ReturnsObj_HasAllkeywords():
+    # ESTABLISH / WHEN
+    keg_terminology = get_keg_terminology()
+
+    # THEN
+    assert keg_terminology
+    keywords_config = get_keywords_src_config()
+
+    description_keywords = set(keg_terminology.keys())
+    config_keywords = set(keywords_config.keys())
+    config_keywords.update(python_keywords())
+    print(f"{config_keywords.difference(description_keywords)=}")
+    print(f"{description_keywords.difference(config_keywords)=}")
+    assert set(keg_terminology.keys()) == config_keywords
+    for keyword, description in keg_terminology.items():
+        assert description, keyword

@@ -5,8 +5,8 @@ What does each one do?
 
 - **ch00_py**: Creates helper tools for OS and python data manipulation.
 - **ch01_allot**: Defines how to allot a pool number to a weighted ledger.
-- **ch02_contact**: Defines debt and cred to Contacts and Memberships to Groups.
-- **ch03_workforce**: Introduces Workforce concept: How tasks are assigned.
+- **ch02_contact**: Defines Contacts, Groups, Memberships, Awardees debt and cred.
+- **ch03_workforce**: Defines Workforce, LaborUnit. How tasks are assigned to labor.
 - **ch04_rope**: Defines Term Classes: Knots, Labels, RopeTerms, FirstLabels
 - **ch05_reason**: Defines ReasonUnits, FactUnits, and Facts decide if a Reason is Active
 - **ch06_plan**: Defines PlanUnits with sub-plans, Awardees, Workforce, Reasons, Facts, etc.
@@ -22,10 +22,11 @@ What does each one do?
 - **ch16_translate**: Defines TranslateUnit tools that translate MomentUnits into inside language.
 - **ch17_idea**: Defines Idea Bricks: Spreadsheet data formats of any MomentUnit data.
 - **ch18_etl_config**: Defines the tools that use Idea Bricks to build MomentUnits.
-- **ch19_etl_main**: Defines the tools that use Idea Bricks to build MomentUnits.
+- **ch19_etl_steps**: Defines the tools that report from core world data.
 - **ch20_kpi**: Defines the analytics outcomes of completed MomentUnits.
 - **ch21_world**: Defines WorldDirs that admin MomentUnits input data and outcomes
 - **ch22_lobby**: Defines Lobby Tools for gifts, World Scenarios.
 - **ch23_finance**: Defines Finance Tools for 
 - **ch24_person_viewer**: Tools for Visualizing PersonUnits
+- **ch30_etl_app**: ETL app to create day punches from excel files.
 - **ch98_docs_builder**: Defines Tools that create documentation.

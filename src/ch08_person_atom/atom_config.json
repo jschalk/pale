@@ -4,16 +4,16 @@
     "INSERT": {"atom_order": 1}, 
     "UPDATE": {"atom_order": 10}, 
     "jkeys": {
-      "group_title": {
-        "class_type": "TitleTerm", 
-        "column_ordinal": 1, 
-        "nesting_order": 1, 
-        "sqlite_datatype": "TEXT"
-      }, 
       "contact_name": {
         "class_type": "NameTerm", 
         "column_ordinal": 0, 
         "nesting_order": 0, 
+        "sqlite_datatype": "TEXT"
+      }, 
+      "group_title": {
+        "class_type": "TitleTerm", 
+        "column_ordinal": 1, 
+        "nesting_order": 1, 
         "sqlite_datatype": "TEXT"
       }
     }, 

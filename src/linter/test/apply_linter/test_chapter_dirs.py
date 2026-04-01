@@ -47,7 +47,7 @@ def test_Chapters_NonTestFilesDoNotHavePrintStatments():
         py_files = [f for f in os_listdir(chapter_dir) if f.endswith(".py")]
         for py_file in py_files:
             py_file_path = create_path(chapter_dir, py_file)
-            py_file_str = open(py_file_path).read()
+            py_file_str = open(py_file_path, encoding="utf-8").read()
             print_str_in_py_file_bool = print_str in py_file_str
             if print_str_in_py_file_bool:
                 print(f"Chapter {chapter_desc} file {py_file_path} has print statement")
@@ -98,12 +98,14 @@ def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter_Scenario0():
         chapter_blurb_str = "chapter_blurb"
         chapter_number_str = "chapter_number"
         chapter_content_str = "chapter_content"
+        ontology_str = "ontology summary"
         keys_assertion_fail_str = f"ref json for {chapter_desc} missing required key(s)"
         expected_ref_keys = {
             chapter_blurb_str,
             chapter_description_str,
             chapter_number_str,
             chapter_content_str,
+            ontology_str,
         }
         assert ref_keys == expected_ref_keys, keys_assertion_fail_str
         assert chapter_ref_dict.get(chapter_description_str) == chapter_desc
@@ -112,6 +114,12 @@ def test_Chapters_ChapterReferenceDir_ref_ExistsForEveryChapter_Scenario0():
 
         assert len(ref_chapter_blurb) > 0
         assert len(ref_chapter_blurb) <= MAX_CHAPTER_BLURB_LENGTH
+        ontology_assertion_fail_str = (
+            f"{chapter_desc} {ontology_str} str value is empty"
+        )
+        ontology_summary = chapter_ref_dict.get(ontology_str)
+        print(f"{ontology_summary=}")
+        assert ontology_summary, ontology_assertion_fail_str
         ref_chapter_content = chapter_ref_dict.get(chapter_content_str)
         content_assertion_fail_str = f"{chapter_desc} {chapter_content_str} is invalid"
         assert len(ref_chapter_content) > 0, content_assertion_fail_str
@@ -126,7 +134,7 @@ def test_Chapters_DoNotHaveEmptyDirectories():
     # ESTABLISH
     excluded_dirs = {
         "src/ch21_world/test/test_world_examples/worlds",
-        "src/ch19_etl_main/test/z_notebooks",
+        "src/ch19_etl_steps/test/z_notebooks",
     }
 
     # WHEN / THEN

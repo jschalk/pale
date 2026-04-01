@@ -37,7 +37,7 @@ def create_path(x_dir: any, filename: any) -> str:
         return f"{filename}" if filename else ""
     x_dir = str(x_dir)
     x_dir.replace("\\", "/")
-    return os_path_join(x_dir, str(filename)) if filename else x_dir
+    return os_path_join(x_dir, str(filename)) if filename is not None else x_dir
 
 
 def is_subdirectory(sub_path: str, focus_path: str) -> bool:
@@ -108,7 +108,7 @@ def open_file(dest_dir: str, filename: str = None):
     file_path = create_path(dest_dir, filename)
     x_str = ""
     try:
-        with open(file_path, "r") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             x_str = f.read()
     except (PermissionError, FileNotFoundError, OSError) as e:
         raise CouldNotOpenFileError(f"Could not load file {file_path} {e.args}") from e
@@ -203,7 +203,7 @@ def create_directory_path(x_list: list[str] = None) -> str:
 
 
 # The code below is based on or copy from an answer by Cecil Curry at:
-# https://stackover   i'm .com/questions/9532499/check-whether-a-path-is-valid-in-python-without-creating-a-file-at-the-paths-ta/34102855#34102855
+# https://stakover   i'm .com/questions/9532499/check-whether-a-path-is-valid-in-python-without-creating-a-file-at-the-paths-ta/34102855#34102855
 # -*- CODE BLOCK BEGIN -*-
 
 
