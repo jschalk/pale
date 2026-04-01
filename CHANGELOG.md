@@ -1,3 +1,15 @@
+# [0.82.0](https://github.com/jschalk/keg/compare/v0.81.110...v0.82.0) (2026-04-01)
+
+
+### Bug Fixes
+
+* cleanup missing chxx keywords ([94bcf3b](https://github.com/jschalk/keg/commit/94bcf3b9772d974075ffbdc4fad0bfb37ac7658a))
+
+
+### Features
+
+* [#1118](https://github.com/jschalk/keg/issues/1118) create etl gui app ([ba3878b](https://github.com/jschalk/keg/commit/ba3878b4f565fafade02023789e8640438790f93))
+
 ## [0.81.110](https://github.com/jschalk/keg/compare/v0.81.109...v0.81.110) (2026-03-31)
 
 
