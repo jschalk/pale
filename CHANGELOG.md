@@ -1,3 +1,10 @@
+## [0.82.1](https://github.com/jschalk/keg/compare/v0.82.0...v0.82.1) (2026-04-01)
+
+
+### Bug Fixes
+
+* closes [#1122](https://github.com/jschalk/keg/issues/1122), closes [#1123](https://github.com/jschalk/keg/issues/1123) ([557b420](https://github.com/jschalk/keg/commit/557b42033fdb3f6e02d64cad90ce82f2ea3da809))
+
 # [0.82.0](https://github.com/jschalk/keg/compare/v0.81.110...v0.82.0) (2026-04-01)
 
 
