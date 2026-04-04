@@ -1,3 +1,11 @@
+# [0.83.0](https://github.com/jschalk/keg/compare/v0.82.1...v0.83.0) (2026-04-04)
+
+
+### Features
+
+* changing deployable version ([1415955](https://github.com/jschalk/keg/commit/1415955a2957561485eafbb7d57adaccd9ad0300))
+* first pypi upload ([9fa7387](https://github.com/jschalk/keg/commit/9fa7387a87f8913806b3bb09cfa8c800adf83917))
+
 ## [0.82.1](https://github.com/jschalk/keg/compare/v0.82.0...v0.82.1) (2026-04-01)
 
 
