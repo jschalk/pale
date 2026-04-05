@@ -10,12 +10,12 @@ from src.ch09_person_lesson._ref.ch09_path import create_moments_dir_path
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch11_bud.bud_filehandler import open_person_file
 from src.ch14_moment.moment_main import open_moment_file
-from src.ch17_idea.idea_csv_tool import (
+from src.ch17_idea.idea_db_tool import csv_dict_to_excel, prettify_excel
+from src.ch17_idea.idea_stance import (
     add_momentunit_to_stance_csv_strs,
     add_personunit_to_stance_csv_strs,
     create_init_stance_idea_csv_strs,
 )
-from src.ch17_idea.idea_db_tool import csv_dict_to_excel, prettify_excel
 from src.ch18_etl_config._ref.ch18_path import (
     create_moment_mstr_path,
     create_stance0001_path,

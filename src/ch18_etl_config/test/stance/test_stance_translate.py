@@ -1,5 +1,5 @@
 from sqlite3 import Cursor, connect as sqlite3_connect
-from src.ch17_idea.idea_csv_tool import create_init_stance_idea_csv_strs
+from src.ch17_idea.idea_stance import create_init_stance_idea_csv_strs
 from src.ch18_etl_config.etl_sqlstr import (
     create_prime_tablename as prime_tbl,
     create_sound_and_heard_tables,

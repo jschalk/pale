@@ -61,7 +61,7 @@ class OptionTable(tk.Frame):
         )
         scrollbar.config(command=self.tree.yview)
 
-        self.tree.heading("action", text="Additional Special Actions")
+        self.tree.heading("action", text="Special Actions")
         self.tree.column("action", anchor=tk.W)
 
         for description in self.options:
@@ -99,7 +99,7 @@ def open_directory(path: str) -> None:
 class ETLApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("ETL Pipeline")
+        self.title("Listening using Keg2 — ETL Launcher")
         self.resizable(False, False)
         self.configure(bg=BG)
 
@@ -155,7 +155,7 @@ class ETLApp(tk.Tk):
 
         tk.Label(
             title_frame,
-            text="ETL  PIPELINE",
+            text="Keg Listening App#1",
             font=(
                 ("Courier New", 17, "bold")
                 if platform.system() == "Windows"
@@ -168,7 +168,7 @@ class ETLApp(tk.Tk):
 
         tk.Label(
             title_frame,
-            text="xlsx → transform → output",
+            text="excel files → db → daily agendas",
             font=MONO,
             bg=BG,
             fg=FG_DIM,
@@ -182,37 +182,21 @@ class ETLApp(tk.Tk):
         card = tk.Frame(self, bg=BG_CARD, bd=0, padx=24, pady=20)
         card.pack(fill="x", padx=28, pady=(16, 0))
 
+        working_dir_tip = "Root directory for the ETL process"
         self._dir_row(
-            card,
-            0,
-            "WORKING DIR",
-            self._working,
-            required=True,
-            tip="Root directory for the ETL process",
+            card, 0, "WORKING DIR", self._working, required=True, tip=working_dir_tip
         )
+        input_dir_tip = "Source Excel files  (optional)"
         self._dir_row(
-            card,
-            1,
-            "INPUT DIR  ",
-            self._input,
-            required=False,
-            tip="Source Excel files  (optional)",
+            card, 1, "INPUT DIR  ", self._input, required=False, tip=input_dir_tip
         )
+        output_dir_tip = "Destination for results  (optional — opened on finish)"
         self._dir_row(
-            card,
-            2,
-            "OUTPUT DIR ",
-            self._output,
-            required=False,
-            tip="Destination for results  (optional — opened on finish)",
+            card, 2, "OUTPUT DIR ", self._output, required=False, tip=output_dir_tip
         )
+        person_tip = "e.g. 'Big Steve'  (optional)"
         self._text_row(
-            card,
-            3,
-            "PERSON NAME",
-            self._person,
-            required=False,
-            tip="Filter by person name  (optional)",
+            card, 3, "PERSON NAME", self._person, required=False, tip=person_tip
         )
 
         # ── run button ──────────────────────────
@@ -221,7 +205,7 @@ class ETLApp(tk.Tk):
 
         self._run_btn = tk.Button(
             btn_frame,
-            text="▶  RUN PIPELINE",
+            text="▶  CREATE DAILY AGENDA",
             font=(
                 ("Courier New", 11, "bold")
                 if platform.system() == "Windows"

@@ -6,12 +6,12 @@ from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch09_person_lesson.lesson_filehandler import save_gut_file
 from src.ch14_moment.moment_main import momentunit_shop, save_moment_file
-from src.ch17_idea.idea_csv_tool import (
+from src.ch17_idea.idea_db_tool import get_sheet_names
+from src.ch17_idea.idea_stance import (
     add_momentunit_to_stance_csv_strs,
     add_personunit_to_stance_csv_strs,
     create_init_stance_idea_csv_strs,
 )
-from src.ch17_idea.idea_db_tool import get_sheet_names
 from src.ch18_etl_config._ref.ch18_path import (
     create_moment_mstr_path,
     create_stance0001_path,
