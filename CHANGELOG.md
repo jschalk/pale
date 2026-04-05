@@ -1,3 +1,10 @@
+## [0.83.1](https://github.com/jschalk/keg/compare/v0.83.0...v0.83.1) (2026-04-05)
+
+
+### Bug Fixes
+
+* [#1127](https://github.com/jschalk/keg/issues/1127) replace "face_name" with "spark_face" ([63a0de3](https://github.com/jschalk/keg/commit/63a0de3d0c4edfda6621b782edcfe27fe56bb2a8))
+
 # [0.83.0](https://github.com/jschalk/keg/compare/v0.82.1...v0.83.0) (2026-04-04)
 
 
