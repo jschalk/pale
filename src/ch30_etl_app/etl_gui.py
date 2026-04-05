@@ -121,23 +121,28 @@ class ETLApp(tk.Tk):
 
     def create_five_time_config_file(self):
         # TODO dataframes and save to file
-        print("create_five_time_config_file...")
+        # prnt("create_five_time_config_file...")
+        pass
 
     def create_random_time_config_file(self):
         # TODO dataframes and save to file
-        print("create_random_time_config_file...")
+        # prnt("create_random_time_config_file...")
+        pass
 
     def create_emmanuel_stance_file(self):
         # TODO dataframes and save to file
-        print("create_emmanuel_stance_file...")
+        # prnt("create_emmanuel_stance_file...")
+        pass
 
     def create_example_moment_ledger_file(self):
         # TODO dataframes and save to file
-        print("create_example_moment_ledger_file...")
+        # prnt("create_example_moment_ledger_file...")
+        pass
 
     def create_example_moment_budget_file(self):
         # TODO dataframes and save to file
-        print("create_example_moment_budget_file...")
+        # prnt("create_example_moment_budget_file...")
+        pass
 
     # ── UI construction ────────────────────────
     def _build_ui(self):
