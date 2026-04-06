@@ -90,7 +90,7 @@ def test_update_spark_num_in_excel_files_SetAttrs(temp3_fs):
     # ESTABLISH
     # Setup: Create test directory and Excel file
     temp_dir = str(temp3_fs)
-    file_path = os_path_join(temp_dir, "example_stance.xlsx")
+    file_path = os_path_join(temp_dir, "example_belief.xlsx")
 
     # Create Excel file with two sheets
     df1 = DataFrame({"name": ["Alice", "Bob"], "score": [80, 90]})

@@ -85,4 +85,5 @@ def pytest_runtest_logreport(report):
     """Called after each test phase (setup, call, teardown). If the test failed and --clip is set, copies the test name to clipboard."""
     if report.failed and _config.getoption("--clip"):
         test_name = report.nodeid.split("::")[-1]
+        print(f"\n📋 Copied to clipboard: {test_name}")
         pyperclip_copy(test_name)

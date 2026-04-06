@@ -545,7 +545,7 @@ def prettify_excel(input_file: str, zoom: int = 120) -> None:
 def update_spark_num_in_excel_files(directory: str, value) -> None:
     """
     Adds or updates the 'spark_num' column with a given value
-    in all Excel files in the directory that contain 'stance' in the filename.
+    in all Excel files in the directory that contain 'belief' in the filename.
 
     Args:
         directory (str): Path to the directory containing Excel files.
@@ -554,7 +554,7 @@ def update_spark_num_in_excel_files(directory: str, value) -> None:
     for filename in os_listdir(directory):
         if (
             filename.lower().endswith((".xlsx", ".xls"))
-            and "stance" in filename.lower()
+            and "belief" in filename.lower()
         ):
             filepath = os_path_join(directory, filename)
 

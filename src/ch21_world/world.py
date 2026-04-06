@@ -11,7 +11,7 @@ from src.ch18_etl_config._ref.ch18_path import (
     create_moment_mstr_path,
     create_world_db_path,
 )
-from src.ch18_etl_config.stance_tool import create_stance0001_file
+from src.ch18_etl_config.belief_tool import create_belief0001_file
 from src.ch19_etl_steps.etl_main import (
     add_moment_epoch_to_guts,
     calc_moment_bud_contact_mandate_net_ledgers,
@@ -49,14 +49,14 @@ from src.ch20_kpi.kpi_mstr import create_calendar_markdown_files, populate_kpi_b
 from src.ch21_world._ref.ch21_semantic_types import GroupTitle, PersonName, WorldName
 
 
-def create_stances(
+def create_beliefs(
     world_dir: str,
     output_dir: str,
     world_name: str,
     moment_mstr_dir: str,
     prettify_excel_bool=True,
 ):
-    create_stance0001_file(world_dir, output_dir, world_name, prettify_excel_bool)
+    create_belief0001_file(world_dir, output_dir, world_name, prettify_excel_bool)
     create_calendar_markdown_files(moment_mstr_dir, output_dir)
 
 
@@ -118,7 +118,7 @@ def sheets_input_to_lynx_mstr(
     db_conn.close()
 
 
-def stance_sheets_to_lynx_mstr(
+def belief_sheets_to_lynx_mstr(
     world_db_path: str, input_dir: str, moment_mstr_dir: str
 ):
     max_brick_agg_spark_num = 0

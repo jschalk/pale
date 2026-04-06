@@ -5,11 +5,9 @@ from src.ch04_rope.rope import to_rope
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson.delta import persondelta_shop
 from src.ch09_person_lesson.lesson_main import lessonunit_shop
-from src.ch17_idea.idea_db_tool import get_ordered_csv
-from src.ch17_idea.idea_main import moment_build_from_df
-from src.ch17_idea.idea_stance import (
-    add_momentunit_to_stance_csv_strs,
-    add_momentunits_to_stance_csv_strs,
+from src.ch17_idea.idea_belief import (
+    add_momentunit_to_belief_csv_strs,
+    add_momentunits_to_belief_csv_strs,
     add_person_to_br00020_csv,
     add_person_to_br00021_csv,
     add_person_to_br00022_csv,
@@ -20,9 +18,11 @@ from src.ch17_idea.idea_stance import (
     add_person_to_br00027_csv,
     add_person_to_br00028_csv,
     add_person_to_br00029_csv,
-    add_personunit_to_stance_csv_strs,
-    create_init_stance_idea_csv_strs,
+    add_personunit_to_belief_csv_strs,
+    create_init_belief_idea_csv_strs,
 )
+from src.ch17_idea.idea_db_tool import get_ordered_csv
+from src.ch17_idea.idea_main import moment_build_from_df
 from src.ch17_idea.test._util.ch17_examples import (  # get_ex2_br00006_df,
     J45_ROPE,
     get_ex2_br00000_df,
@@ -35,17 +35,17 @@ from src.ch17_idea.test._util.ch17_examples import (  # get_ex2_br00006_df,
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
+def test_create_init_belief_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
     temp3_fs,
 ):
     # ESTABLISH
     csv_delimiter = ","
 
     # WHEN
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
 
     # THEN
-    expected_stance_csv_strs = {
+    expected_belief_csv_strs = {
         "br00000": "moment_rope,epoch_label,c400_number,yr1_jan1_offset,monthday_index,fund_grain,mana_grain,respect_grain,knot,job_listen_rotations\n",
         "br00001": "moment_rope,person_name,bud_time,knot,quota,celldepth\n",
         "br00002": "moment_rope,person_name,contact_name,tran_time,amount,knot\n",
@@ -68,27 +68,27 @@ def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
         "br00044": "otx_label,inx_label,otx_knot,inx_knot,unknown_str\n",
         "br00045": "otx_rope,inx_rope,otx_knot,inx_knot,unknown_str\n",
     }
-    expected_br00000_csv = expected_stance_csv_strs.get("br00000")
-    expected_br00001_csv = expected_stance_csv_strs.get("br00001")
-    expected_br00002_csv = expected_stance_csv_strs.get("br00002")
-    expected_br00003_csv = expected_stance_csv_strs.get("br00003")
-    expected_br00004_csv = expected_stance_csv_strs.get("br00004")
-    expected_br00005_csv = expected_stance_csv_strs.get("br00005")
-    # expected_br00006_csv = expected_stance_csv_strs.get("br00006")
-    expected_br00020_csv = expected_stance_csv_strs.get("br00020")
-    expected_br00021_csv = expected_stance_csv_strs.get("br00021")
-    expected_br00022_csv = expected_stance_csv_strs.get("br00022")
-    expected_br00023_csv = expected_stance_csv_strs.get("br00023")
-    expected_br00024_csv = expected_stance_csv_strs.get("br00024")
-    expected_br00025_csv = expected_stance_csv_strs.get("br00025")
-    expected_br00026_csv = expected_stance_csv_strs.get("br00026")
-    expected_br00027_csv = expected_stance_csv_strs.get("br00027")
-    expected_br00028_csv = expected_stance_csv_strs.get("br00028")
-    expected_br00029_csv = expected_stance_csv_strs.get("br00029")
-    expected_br00042_csv = expected_stance_csv_strs.get("br00042")
-    expected_br00043_csv = expected_stance_csv_strs.get("br00043")
-    expected_br00044_csv = expected_stance_csv_strs.get("br00044")
-    expected_br00045_csv = expected_stance_csv_strs.get("br00045")
+    expected_br00000_csv = expected_belief_csv_strs.get("br00000")
+    expected_br00001_csv = expected_belief_csv_strs.get("br00001")
+    expected_br00002_csv = expected_belief_csv_strs.get("br00002")
+    expected_br00003_csv = expected_belief_csv_strs.get("br00003")
+    expected_br00004_csv = expected_belief_csv_strs.get("br00004")
+    expected_br00005_csv = expected_belief_csv_strs.get("br00005")
+    # expected_br00006_csv = expected_belief_csv_strs.get("br00006")
+    expected_br00020_csv = expected_belief_csv_strs.get("br00020")
+    expected_br00021_csv = expected_belief_csv_strs.get("br00021")
+    expected_br00022_csv = expected_belief_csv_strs.get("br00022")
+    expected_br00023_csv = expected_belief_csv_strs.get("br00023")
+    expected_br00024_csv = expected_belief_csv_strs.get("br00024")
+    expected_br00025_csv = expected_belief_csv_strs.get("br00025")
+    expected_br00026_csv = expected_belief_csv_strs.get("br00026")
+    expected_br00027_csv = expected_belief_csv_strs.get("br00027")
+    expected_br00028_csv = expected_belief_csv_strs.get("br00028")
+    expected_br00029_csv = expected_belief_csv_strs.get("br00029")
+    expected_br00042_csv = expected_belief_csv_strs.get("br00042")
+    expected_br00043_csv = expected_belief_csv_strs.get("br00043")
+    expected_br00044_csv = expected_belief_csv_strs.get("br00044")
+    expected_br00045_csv = expected_belief_csv_strs.get("br00045")
     print(f"{expected_br00001_csv=}")
 
     face_spark_str = "spark_num,spark_face,"
@@ -118,7 +118,7 @@ def test_create_init_stance_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
     assert len(x_ideas) == 20
 
 
-def test_add_momentunit_to_stance_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
+def test_add_momentunit_to_belief_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
     temp3_fs,
 ):
     # ESTABLISH
@@ -147,7 +147,7 @@ def test_add_momentunit_to_stance_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
         x_moments_dir,
     )
     csv_delimiter = ","
-    x_csvs = create_init_stance_idea_csv_strs()
+    x_csvs = create_init_belief_idea_csv_strs()
     br00_csv_header = x_csvs.get("br00000")
     br01_csv_header = x_csvs.get("br00001")
     br02_csv_header = x_csvs.get("br00002")
@@ -158,7 +158,7 @@ def test_add_momentunit_to_stance_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
     a23_momentunit = x_momentunits.get(exx.a23_slash)
 
     # WHEN
-    add_momentunit_to_stance_csv_strs(a23_momentunit, x_csvs, csv_delimiter)
+    add_momentunit_to_belief_csv_strs(a23_momentunit, x_csvs, csv_delimiter)
 
     # THEN
     gen_br00000_csv = x_csvs.get("br00000")
@@ -190,7 +190,7 @@ def test_add_momentunit_to_stance_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
     # assert gen_br00006_csv == f"{br06_csv_header}{expected_br00006_csv}"
 
 
-def test_add_momentunits_to_stance_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
+def test_add_momentunits_to_belief_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
     temp3_fs,
 ):
     # ESTABLISH
@@ -217,10 +217,10 @@ def test_add_momentunits_to_stance_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
         x_moments_dir,
     )
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
 
     # WHEN
-    add_momentunits_to_stance_csv_strs(x_momentunits, x_ideas, csv_delimiter)
+    add_momentunits_to_belief_csv_strs(x_momentunits, x_ideas, csv_delimiter)
 
     # THEN
     expected_br00000_csv = get_ordered_csv(get_ex2_br00000_df())
@@ -269,7 +269,7 @@ def test_add_momentunits_to_stance_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
 def test_add_person_to_br00020_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     bob_person.add_contactunit(exx.yao)
     run_credit = 33
@@ -293,7 +293,7 @@ def test_add_person_to_br00020_csv_ReturnsObj():
 def test_add_person_to_br00021_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     yao_credit = 33
     yao_debt = 55
     bob_person = personunit_shop(exx.bob, exx.a23)
@@ -311,7 +311,7 @@ def test_add_person_to_br00021_csv_ReturnsObj():
 def test_add_person_to_br00022_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
     yao_give_force = 55
@@ -334,7 +334,7 @@ def test_add_person_to_br00022_csv_ReturnsObj():
 def test_add_person_to_br00023_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
@@ -358,7 +358,7 @@ def test_add_person_to_br00023_csv_ReturnsObj():
 def test_add_person_to_br00024_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
     bob_person.add_plan(casa_rope)
@@ -380,7 +380,7 @@ def test_add_person_to_br00024_csv_ReturnsObj():
 def test_add_person_to_br00025_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
     bob_person.add_plan(casa_rope)
@@ -402,7 +402,7 @@ def test_add_person_to_br00025_csv_ReturnsObj():
 def test_add_person_to_br00026_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     mop_rope = bob_person.make_l1_rope("mop")
     casa_rope = bob_person.make_l1_rope("casa")
@@ -436,7 +436,7 @@ def test_add_person_to_br00026_csv_ReturnsObj():
 def test_add_person_to_br00027_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     mop_rope = bob_person.make_l1_rope("mop")
     casa_rope = bob_person.make_l1_rope("casa")
@@ -462,7 +462,7 @@ def test_add_person_to_br00027_csv_ReturnsObj():
 def test_add_person_to_br00028_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
     bob_person = personunit_shop(exx.bob, exx.a23)
     mop_rope = bob_person.make_l1_rope("mop")
@@ -515,7 +515,7 @@ def test_add_person_to_br00028_csv_ReturnsObj():
 def test_add_person_to_br00029_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     bob_person.credor_respect = 444
     bob_person.debtor_respect = 555
@@ -535,10 +535,10 @@ def test_add_person_to_br00029_csv_ReturnsObj():
     assert x_csv == f"{csv_header}{person_row}"
 
 
-def test_add_personunit_to_stance_csv_strs_ReturnsObj():
+def test_add_personunit_to_belief_csv_strs_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     bob_person.add_contactunit(exx.yao)
     mop_rope = bob_person.make_l1_rope("mop")
@@ -567,7 +567,7 @@ def test_add_personunit_to_stance_csv_strs_ReturnsObj():
 
     # WHEN
     bob_person.conpute()
-    add_personunit_to_stance_csv_strs(bob_person, x_ideas, csv_delimiter)
+    add_personunit_to_belief_csv_strs(bob_person, x_ideas, csv_delimiter)
 
     # THEN
     assert x_ideas.get("br00020") != br00020_header

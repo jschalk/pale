@@ -25,6 +25,6 @@ def test_SpecialTestThatBuildsDocs(rebuild_jsons):
     save_chapter_blurbs_md(destination_dir)
     save_ropeterm_description_md(destination_dir)
     save_keywords_by_chapter_md(destination_dir)  # docs\keywords_by_chapter.md
-    # 4% of instances resave all json files so that they are ordered alphabetically
+    # 4% of stances resave all json files so that they are ordered alphabetically
     if random_random() < 0.04 or rebuild_jsons:
         resave_chapter_and_keyword_json_files()

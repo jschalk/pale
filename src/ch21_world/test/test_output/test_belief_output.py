@@ -5,18 +5,18 @@ from shutil import copy2 as shutil_copy2
 from src.ch00_py.file_toolbox import create_path, set_dir
 from src.ch17_idea.idea_db_tool import get_sheet_names, save_sheet
 from src.ch18_etl_config._ref.ch18_path import (
-    create_stance0001_path,
-    create_stances_dir_path,
+    create_belief0001_path,
+    create_beliefs_dir_path,
 )
 from src.ch21_world.world import (
-    create_stances,
+    create_beliefs,
     sheets_input_to_lynx_mstr,
     worlddir_shop,
 )
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
-def test_create_stances_CreatesFile_Senario0_EmptyWorld(temp3_fs):
+def test_create_beliefs_CreatesFile_Senario0_EmptyWorld(temp3_fs):
     # ESTABLISH
     fay_str = "Fay"
     output_dir = create_path(str(temp3_fs), "output")
@@ -26,11 +26,11 @@ def test_create_stances_CreatesFile_Senario0_EmptyWorld(temp3_fs):
         input_dir=fay_wdir.input_dir,
         moment_mstr_dir=fay_wdir.moment_mstr_dir,
     )
-    fay_stance0001_path = create_stance0001_path(fay_wdir.output_dir)
-    assert os_path_exists(fay_stance0001_path) is False
+    fay_belief0001_path = create_belief0001_path(fay_wdir.output_dir)
+    assert os_path_exists(fay_belief0001_path) is False
 
     # WHEN
-    create_stances(
+    create_beliefs(
         fay_wdir.world_dir,
         fay_wdir.output_dir,
         fay_wdir.world_name,
@@ -39,10 +39,10 @@ def test_create_stances_CreatesFile_Senario0_EmptyWorld(temp3_fs):
     )
 
     # THEN
-    assert os_path_exists(fay_stance0001_path)
+    assert os_path_exists(fay_belief0001_path)
 
 
-def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
+def test_create_beliefs_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
     # ESTABLISH
     fay_str = "Fay"
     output_dir = create_path(str(temp3_fs), "output")
@@ -65,11 +65,11 @@ def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
         input_dir=fay_wdir.input_dir,
         moment_mstr_dir=fay_wdir.moment_mstr_dir,
     )
-    fay_stance0001_path = create_stance0001_path(fay_wdir.output_dir)
-    assert os_path_exists(fay_stance0001_path) is False
+    fay_belief0001_path = create_belief0001_path(fay_wdir.output_dir)
+    assert os_path_exists(fay_belief0001_path) is False
 
     # WHEN
-    create_stances(
+    create_beliefs(
         fay_wdir.world_dir,
         fay_wdir.output_dir,
         fay_wdir.world_name,
@@ -78,14 +78,14 @@ def test_create_stances_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
     )
 
     # THEN
-    assert os_path_exists(fay_stance0001_path)
-    print(get_sheet_names(fay_stance0001_path))
-    br00021_sheet_df = pandas_read_excel(fay_stance0001_path, "br00021")
+    assert os_path_exists(fay_belief0001_path)
+    print(get_sheet_names(fay_belief0001_path))
+    br00021_sheet_df = pandas_read_excel(fay_belief0001_path, "br00021")
     print(f"{br00021_sheet_df=}")
     assert br00021_sheet_df.iloc[0][kw.spark_face] == "Fay"
 
 
-def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorldDir(
+def test_create_beliefs_CreatesFile_Senario2_CreatedBeliefCanBeIdeasForOtherWorldDir(
     temp3_fs,
 ):
     # sourcery skip: no-loop-in-tests
@@ -111,8 +111,8 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
         input_dir=fay_wdir.input_dir,
         moment_mstr_dir=fay_wdir.moment_mstr_dir,
     )
-    fay_stance0001_path = create_stance0001_path(fay_wdir.output_dir)
-    create_stances(
+    fay_belief0001_path = create_belief0001_path(fay_wdir.output_dir)
+    create_beliefs(
         world_dir=fay_wdir.world_dir,
         output_dir=fay_wdir.output_dir,
         world_name=fay_wdir.world_name,
@@ -122,9 +122,9 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
     bob_output_dir = create_path(str(temp3_fs), "Bob_output")
     bob_wdir = worlddir_shop("Bob", str(temp3_fs), bob_output_dir)
     bob_input_st0001_path = create_path(bob_wdir.moment_mstr_dir, "Bob_input.xlsx")
-    set_dir(create_stances_dir_path(bob_wdir.moment_mstr_dir))
-    shutil_copy2(fay_stance0001_path, dst=bob_input_st0001_path)
-    # print(f" {pandas_read_excel(fay_stance0001_path)=}")
+    set_dir(create_beliefs_dir_path(bob_wdir.moment_mstr_dir))
+    shutil_copy2(fay_belief0001_path, dst=bob_input_st0001_path)
+    # print(f" {pandas_read_excel(fay_belief0001_path)=}")
     # print(f"{pandas_read_excel(bob_input_st0001_path)=}")
     print(f"{bob_input_st0001_path=}")
     print(f"{get_sheet_names(bob_input_st0001_path)=}")
@@ -133,11 +133,11 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
         input_dir=fay_wdir.input_dir,
         moment_mstr_dir=fay_wdir.moment_mstr_dir,
     )
-    bob_stance0001_path = create_stance0001_path(bob_wdir.output_dir)
-    assert os_path_exists(bob_stance0001_path) is False
+    bob_belief0001_path = create_belief0001_path(bob_wdir.output_dir)
+    assert os_path_exists(bob_belief0001_path) is False
 
     # WHEN
-    create_stances(
+    create_beliefs(
         bob_wdir.world_dir,
         bob_wdir.output_dir,
         bob_wdir.world_name,
@@ -146,19 +146,19 @@ def test_create_stances_CreatesFile_Senario2_CreatedStanceCanBeIdeasForOtherWorl
     )
 
     # THEN
-    assert os_path_exists(bob_stance0001_path)
-    print(f"{get_sheet_names(bob_stance0001_path)=}")
-    for sheetname in get_sheet_names(bob_stance0001_path):
+    assert os_path_exists(bob_belief0001_path)
+    print(f"{get_sheet_names(bob_belief0001_path)=}")
+    for sheetname in get_sheet_names(bob_belief0001_path):
         print(f"comparing {sheetname=}...")
-        fay_sheet_df = pandas_read_excel(fay_stance0001_path, sheetname)
-        bob_sheet_df = pandas_read_excel(fay_stance0001_path, sheetname)
+        fay_sheet_df = pandas_read_excel(fay_belief0001_path, sheetname)
+        bob_sheet_df = pandas_read_excel(fay_belief0001_path, sheetname)
         # if sheetname == "br00021":
         #     print(f"{fay_sheet_df=}")
         #     print(f"{bob_sheet_df=}")
         assert_frame_equal(fay_sheet_df, bob_sheet_df)
 
 
-def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
+def test_create_beliefs_CreatesFile_Senario3_Create_calendar_markdown(
     temp3_fs,
 ):
     # ESTABLISH
@@ -189,7 +189,7 @@ def test_create_stances_CreatesFile_Senario3_Create_calendar_markdown(
     assert not os_path_exists(a23_calendar_md_path)
 
     # WHEN
-    create_stances(
+    create_beliefs(
         fay_wdir.world_dir,
         fay_wdir.output_dir,
         fay_wdir.world_name,
