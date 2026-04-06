@@ -15,7 +15,7 @@ import os
 import platform
 from src.ch21_world.world import create_today_punchs
 from src.ch30_etl_app.etl_gui_tool import (
-    create_emmanuel_stance_file,
+    create_emmanuel_belief_file,
     create_example_moment_budget_file,
     create_example_moment_ledger_file,
     create_five_time_config_file,
@@ -210,7 +210,7 @@ class ETLApp(tk.Tk):
         options = {
             "create_five_time_config_file": create_five_time_config_file,
             "create_random_time_config_file": create_random_time_config_file,
-            "create_emmanuel_stance_file": create_emmanuel_stance_file,
+            "create_emmanuel_belief_file": create_emmanuel_belief_file,
             "create_example_moment_ledger_file": create_example_moment_ledger_file,
             "create_example_moment_budget_file": create_example_moment_budget_file,
         }

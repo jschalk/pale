@@ -8,7 +8,7 @@ from src.ch00_py.file_toolbox import (
 )
 from src.ch20_kpi.kpi_mstr import create_kpi_csvs
 from src.ch21_world.world import (
-    create_stances,
+    create_beliefs,
     sheets_input_to_lynx_mstr,
     worlddir_shop,
 )
@@ -57,7 +57,7 @@ def test_sheets_input_to_lynx_mstr_Examples(temp3_fs, run_big_tests):
             input_dir=example_worlddir.input_dir,
             moment_mstr_dir=example_worlddir.moment_mstr_dir,
         )
-        create_stances(
+        create_beliefs(
             example_worlddir.world_dir,
             example_worlddir.output_dir,
             example_worlddir.world_name,

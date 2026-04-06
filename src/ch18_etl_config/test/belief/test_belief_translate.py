@@ -1,15 +1,15 @@
 from sqlite3 import Cursor, connect as sqlite3_connect
-from src.ch17_idea.idea_stance import create_init_stance_idea_csv_strs
-from src.ch18_etl_config.etl_sqlstr import (
-    create_prime_tablename as prime_tbl,
-    create_sound_and_heard_tables,
-)
-from src.ch18_etl_config.stance_tool import (
+from src.ch17_idea.idea_belief import create_init_belief_idea_csv_strs
+from src.ch18_etl_config.belief_tool import (
     add_to_br00042_csv,
     add_to_br00043_csv,
     add_to_br00044_csv,
     add_to_br00045_csv,
-    add_translate_rows_to_stance_csv_strs,
+    add_translate_rows_to_belief_csv_strs,
+)
+from src.ch18_etl_config.etl_sqlstr import (
+    create_prime_tablename as prime_tbl,
+    create_sound_and_heard_tables,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
@@ -54,7 +54,7 @@ def test_add_to_br00042_csv_ReturnsObj(cursor0: Cursor):
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     header_only_csv = x_ideas.get("br00042")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_title},{kw.inx_title},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
@@ -114,7 +114,7 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     header_only_csv = x_ideas.get("br00043")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_name},{kw.inx_name},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
@@ -174,7 +174,7 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     header_only_csv = x_ideas.get("br00044")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_label},{kw.inx_label},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
@@ -234,7 +234,7 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     header_only_csv = x_ideas.get("br00045")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_rope},{kw.inx_rope},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
@@ -252,7 +252,7 @@ VALUES
     assert gen_csv == expected_csv
 
 
-def test_add_translate_rows_to_stance_csv_strs_ReturnsObj(cursor0: Cursor):
+def test_add_translate_rows_to_belief_csv_strs_ReturnsObj(cursor0: Cursor):
     # ESTABLISH database with translate data
     # - [`br00042`](ideas/br00042.md): spark_num, spark_face, otx_title, inx_title, otx_knot, inx_knot, unknown_str
     bob_otx = "Bob"
@@ -342,14 +342,14 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_ideas = create_init_stance_idea_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     br00042_header = x_ideas.get("br00042")
     br00043_header = x_ideas.get("br00043")
     br00044_header = x_ideas.get("br00044")
     br00045_header = x_ideas.get("br00045")
 
     # WHEN
-    add_translate_rows_to_stance_csv_strs(cursor0, x_ideas, csv_delimiter)
+    add_translate_rows_to_belief_csv_strs(cursor0, x_ideas, csv_delimiter)
 
     # THEN
     assert x_ideas.get("br00042") != br00042_header

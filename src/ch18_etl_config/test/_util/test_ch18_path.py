@@ -4,18 +4,18 @@ from src.ch00_py.file_toolbox import create_path
 from src.ch04_rope.rope import create_rope
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch18_etl_config._ref.ch18_path import (
+    create_belief0001_path,
+    create_beliefs_dir_path,
+    create_beliefs_person_dir_path,
     create_last_run_metrics_path,
     create_moment_mstr_path,
     create_moment_ote1_csv_path,
     create_moment_ote1_json_path,
-    create_stance0001_path,
-    create_stances_dir_path,
-    create_stances_person_dir_path,
     create_world_db_path,
 )
 from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
-STANCE0001_FILENAME = "stance0001.xlsx"
+BELIEF0001_FILENAME = "belief0001.xlsx"
 MOMENT_OTE1_AGG_CSV_FILENAME = "moment_ote1_agg.csv"
 MOMENT_OTE1_AGG_JSON_FILENAME = "moment_ote1_agg.json"
 LAST_RUN_METRICS_JSON_FILENAME = "last_run_metrics.json"
@@ -27,7 +27,7 @@ def test_a18_path_constants_ReturnsObj():
     assert MOMENT_OTE1_AGG_CSV_FILENAME == "moment_ote1_agg.csv"
     assert MOMENT_OTE1_AGG_JSON_FILENAME == "moment_ote1_agg.json"
     assert LAST_RUN_METRICS_JSON_FILENAME == "last_run_metrics.json"
-    assert STANCE0001_FILENAME == "stance0001.xlsx"
+    assert BELIEF0001_FILENAME == "belief0001.xlsx"
     assert WORLD_DB_FILENAME == "world.db"
 
 
@@ -64,41 +64,41 @@ def test_create_last_run_metrics_path_ReturnsObj(temp3_dir):
     assert gen_last_run_metrics_path == expected_path
 
 
-def test_create_stances_dir_path_ReturnsObj(temp3_dir):
+def test_create_beliefs_dir_path_ReturnsObj(temp3_dir):
     # ESTABLISH
     x_moment_mstr_dir = temp3_dir
 
     # WHEN
-    gen_bob_stance_dir = create_stances_dir_path(x_moment_mstr_dir)
+    gen_bob_belief_dir = create_beliefs_dir_path(x_moment_mstr_dir)
 
     # THEN
-    expected_stances_dir = create_path(x_moment_mstr_dir, "stances")
-    assert gen_bob_stance_dir == expected_stances_dir
+    expected_beliefs_dir = create_path(x_moment_mstr_dir, "beliefs")
+    assert gen_bob_belief_dir == expected_beliefs_dir
 
 
-def test_create_stances_person_dir_path_ReturnsObj(temp3_dir):
+def test_create_beliefs_person_dir_path_ReturnsObj(temp3_dir):
     # ESTABLISH
     x_moment_mstr_dir = temp3_dir
 
     # WHEN
-    gen_bob_stance_dir = create_stances_person_dir_path(x_moment_mstr_dir, exx.bob)
+    gen_bob_belief_dir = create_beliefs_person_dir_path(x_moment_mstr_dir, exx.bob)
 
     # THEN
-    stances_dir = create_stances_dir_path(x_moment_mstr_dir)
-    expected_bob_stance_dir = create_path(stances_dir, exx.bob)
-    assert gen_bob_stance_dir == expected_bob_stance_dir
+    beliefs_dir = create_beliefs_dir_path(x_moment_mstr_dir)
+    expected_bob_belief_dir = create_path(beliefs_dir, exx.bob)
+    assert gen_bob_belief_dir == expected_bob_belief_dir
 
 
-def test_create_stance0001_path_ReturnsObj(temp3_dir):
+def test_create_belief0001_path_ReturnsObj(temp3_dir):
     # ESTABLISH
     output_dir = temp3_dir
 
     # WHEN
-    gen_stance0001_xlsx_path = create_stance0001_path(output_dir)
+    gen_belief0001_xlsx_path = create_belief0001_path(output_dir)
 
     # THEN
-    expected_stance000001_path = create_path(output_dir, STANCE0001_FILENAME)
-    assert gen_stance0001_xlsx_path == expected_stance000001_path
+    expected_belief000001_path = create_path(output_dir, BELIEF0001_FILENAME)
+    assert gen_belief0001_xlsx_path == expected_belief000001_path
 
 
 @pytest_mark.skip_on_linux
@@ -111,32 +111,32 @@ def test_create_last_run_metrics_path_HasDocString():
 
 
 @pytest_mark.skip_on_linux
-def test_create_stances_dir_path_HasDocString():
+def test_create_beliefs_dir_path_HasDocString():
     # ESTABLISH
-    doc_str = create_stances_dir_path(moment_mstr_dir="moment_mstr_dir")
+    doc_str = create_beliefs_dir_path(moment_mstr_dir="moment_mstr_dir")
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
-    assert inspect_getdoc(create_stances_dir_path) == doc_str
+    assert inspect_getdoc(create_beliefs_dir_path) == doc_str
 
 
 @pytest_mark.skip_on_linux
-def test_create_stances_person_dir_path_HasDocString():
+def test_create_beliefs_person_dir_path_HasDocString():
     # ESTABLISH
-    doc_str = create_stances_person_dir_path(
+    doc_str = create_beliefs_person_dir_path(
         moment_mstr_dir="moment_mstr_dir", person_name=kw.person_name
     )
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
-    assert inspect_getdoc(create_stances_person_dir_path) == doc_str
+    assert inspect_getdoc(create_beliefs_person_dir_path) == doc_str
 
 
 @pytest_mark.skip_on_linux
-def test_create_stance0001_path_HasDocString():
+def test_create_belief0001_path_HasDocString():
     # ESTABLISH
-    doc_str = create_stance0001_path(output_dir="output_dir")
+    doc_str = create_belief0001_path(output_dir="output_dir")
     doc_str = f"Returns path: {doc_str}"
     # WHEN / THEN
-    assert inspect_getdoc(create_stance0001_path) == doc_str
+    assert inspect_getdoc(create_belief0001_path) == doc_str
 
 
 def test_create_moment_ote1_csv_path_ReturnsObj(temp3_dir):

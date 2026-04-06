@@ -7,11 +7,11 @@ from src.ch04_rope.rope import create_rope
 from src.ch17_idea.idea_db_tool import create_idea_sorted_table, save_sheet
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename
 from src.ch19_etl_steps.etl_main import get_max_brick_agg_spark_num
-from src.ch21_world.world import WorldDir, stance_sheets_to_lynx_mstr, worlddir_shop
+from src.ch21_world.world import WorldDir, belief_sheets_to_lynx_mstr, worlddir_shop
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
 
-def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
+def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     temp3_fs,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
@@ -19,7 +19,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     fay_wdir = worlddir_shop(fay_str, str(temp3_fs))
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
-    ex_filename = "stance_Faybob.xlsx"
+    ex_filename = "belief_Faybob.xlsx"
     input_file_path = create_path(fay_wdir.input_dir, ex_filename)
     br00113_columns = [
         kw.spark_face,
@@ -56,7 +56,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     assert not os_path_exists(fay_db_path)
 
     # WHEN
-    stance_sheets_to_lynx_mstr(
+    belief_sheets_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir.input_dir,
         moment_mstr_dir=fay_wdir.moment_mstr_dir,
@@ -143,7 +143,7 @@ def create_brick_agg_record(wdir: WorldDir, spark_num: int):
     db_conn.close()
 
 
-def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
+def test_belief_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     temp3_fs,
 ):  # sourcery skip: extract-method
     # ESTABLISH:
@@ -153,7 +153,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     create_brick_agg_record(fay_wdir, spark5)
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
-    ex_filename = "stance_Faybob.xlsx"
+    ex_filename = "belief_Faybob.xlsx"
     input_file_path = create_path(fay_wdir.input_dir, ex_filename)
     br00113_columns = [
         kw.spark_face,
@@ -178,7 +178,7 @@ def test_stance_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     assert os_path_exists(input_file_path)
 
     # WHEN
-    stance_sheets_to_lynx_mstr(
+    belief_sheets_to_lynx_mstr(
         world_db_path=fay_wdir.get_world_db_path(),
         input_dir=fay_wdir.input_dir,
         moment_mstr_dir=fay_wdir.moment_mstr_dir,
