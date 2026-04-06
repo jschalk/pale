@@ -14,7 +14,7 @@ def create_dimens_idea_format_dict() -> dict:
     x_count = 20
     for idea_dimen, dimen_dict in get_idea_config_dict().items():
         if dimen_dict.get(kw.idea_category) == "person":
-            idea_filename = f"idea_format_{x_count:05}_{idea_dimen}_v0_0_0.json"
+            idea_filename = f"br{x_count:05}_{idea_dimen}_v0_0_0.json"
             attributes_set = {kw.moment_rope, kw.person_name}
             args_dict = get_atom_config_args(idea_dimen)
             attributes_set.update(set(args_dict.keys()))
@@ -33,7 +33,7 @@ def test_create_dimens_idea_format_dict_ReturnsObj(rebuild_jsons):
     for idea_format in sorted(dimens_idea_format_dict.keys()):
         print(f"{idea_format=}")
     assert len(dimens_idea_format_dict) == 10
-    person_planunit_filename = f"idea_format_00028_{kw.person_planunit}_v0_0_0.json"
+    person_planunit_filename = f"br00028_{kw.person_planunit}_v0_0_0.json"
     print(f"{person_planunit_filename=}")
     assert dimens_idea_format_dict.get(person_planunit_filename)
     person_planunit_dict = dimens_idea_format_dict.get(person_planunit_filename)
