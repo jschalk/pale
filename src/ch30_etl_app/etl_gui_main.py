@@ -15,11 +15,11 @@ import os
 import platform
 from src.ch21_world.world import create_today_punchs
 from src.ch30_etl_app.etl_gui_tool import (
+    create_elpaso_time_config_file,
     create_emmanuel_belief_file,
     create_example_moment_budget_file,
     create_example_moment_ledger_file,
     create_five_time_config_file,
-    create_random_time_config_file,
 )
 import subprocess
 import tkinter as tk
@@ -208,8 +208,8 @@ class ETLApp(tk.Tk):
         self._run_btn.pack()
 
         options = {
-            "create_five_time_config_file": create_five_time_config_file,
-            "create_random_time_config_file": create_random_time_config_file,
+            "Create TeamFive Moment Time Config File": create_five_time_config_file,
+            "Create El Paso Moment Time Config File": create_elpaso_time_config_file,
             "create_emmanuel_belief_file": create_emmanuel_belief_file,
             "create_example_moment_ledger_file": create_example_moment_ledger_file,
             "create_example_moment_budget_file": create_example_moment_budget_file,

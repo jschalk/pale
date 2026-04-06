@@ -6,13 +6,16 @@ from pandas import (
     read_excel as pandas_read_excel,
 )
 from pandas.testing import assert_frame_equal as pandas_testing_assert_frame_equal
+import pytest
 from src.ch00_py.file_toolbox import create_path
 from src.ch17_idea.idea_db_tool import (
     csv_dict_to_excel,
     prettify_excel,
+    update_spark_num_in_excel_file,
     update_spark_num_in_excel_files,
 )
 from src.ref.keywords import Ch17Keywords as kw
+from unittest.mock import MagicMock, patch
 
 
 def test_csv_dict_to_excel_SavesFile(temp3_fs):
@@ -84,6 +87,62 @@ def test_prettify_excel_SetsAttrs(temp3_fs):
         assert any(
             width and width > 8 for width in col_widths
         )  # default width is ~8.43
+
+
+def create_excel_file(filepath, sheets_dict):
+    with pandas_ExcelWriter(filepath, engine="xlsxwriter") as writer:
+        for name, df in sheets_dict.items():
+            df.to_excel(writer, sheet_name=name, index=False)
+
+
+def test_update_spark_num_in_excel_file_SetsFile_Scenario0_UpdatesAllSheets(temp3_fs):
+    # ESTABLISH
+    filepath = create_path(str(temp3_fs), "test.xlsx")
+    df1 = DataFrame({"a": [1, 2]})
+    df2 = DataFrame({"b": [3, 4]})
+    create_excel_file(filepath, {"Sheet1": df1, "Sheet2": df2})
+
+    # WHEN
+    update_spark_num_in_excel_file(filepath, 42)
+
+    # THEN
+    result = pandas_read_excel(filepath, sheet_name=None)
+    assert set(result.keys()) == {"Sheet1", "Sheet2"}
+    for df in result.values():
+        assert "spark_num" in df.columns
+        assert all(df["spark_num"] == 42)
+
+
+def test_update_spark_num_in_excel_file_SetsFile_Scenario1_PreservesOtherColumns(
+    temp3_fs,
+):
+    # ESTABLISH
+    filepath = temp3_fs / "test.xlsx"
+    df = DataFrame({"a": [1, 2], "b": [3, 4]})
+    create_excel_file(filepath, {"Sheet1": df})
+    # WHEN
+    update_spark_num_in_excel_file(filepath, 99)
+    # THEN
+    result = pandas_read_excel(filepath, sheet_name=None)
+    out_df = result["Sheet1"]
+
+    assert list(out_df.columns) == ["a", "b", "spark_num"]
+    assert out_df["a"].tolist() == [1, 2]
+    assert out_df["b"].tolist() == [3, 4]
+
+
+# def test_update_spark_num_in_excel_file_SetsFile_Scenario2_EmptyWorkbook(temp3_fs):
+#     # ESTABLISH
+#     filepath = temp3_fs / "test.xlsx"
+
+#     # Create empty workbook
+#     with pandas_ExcelWriter(filepath, engine="xlsxwriter"):
+#         pass
+#     # WHEN
+#     update_spark_num_in_excel_file(filepath, 5)
+#     # THEN
+#     result = pandas_read_excel(filepath, sheet_name=None)
+#     assert result == {}
 
 
 def test_update_spark_num_in_excel_files_SetAttrs(temp3_fs):

@@ -542,7 +542,7 @@ def prettify_excel(input_file: str, zoom: int = 120) -> None:
                 )
 
 
-def update_spark_num_in_excel_files(directory: str, value) -> None:
+def update_spark_num_in_excel_files(directory: str, spark_num: int) -> None:
     """
     Adds or updates the 'spark_num' column with a given value
     in all Excel files in the directory that contain 'belief' in the filename.
@@ -552,25 +552,26 @@ def update_spark_num_in_excel_files(directory: str, value) -> None:
         value: The value to set in the 'spark_num' column.
     """
     for filename in os_listdir(directory):
-        if (
-            filename.lower().endswith((".xlsx", ".xls"))
-            and "belief" in filename.lower()
-        ):
+        is_excel_file = filename.lower().endswith((".xlsx", ".xls"))
+        if is_excel_file and "belief" in filename.lower():
             filepath = os_path_join(directory, filename)
+            update_spark_num_in_excel_file(filepath, spark_num)
 
-            # Read all sheets
-            sheets = pandas_read_excel(filepath, sheet_name=None)
 
-            # Modify each sheet
-            updated_sheets = {}
-            for sheet_name, df in sheets.items():
-                df["spark_num"] = value  # Add or overwrite
-                updated_sheets[sheet_name] = df
+def update_spark_num_in_excel_file(filepath: str, spark_num):
+    # Read all sheets
+    sheets = pandas_read_excel(filepath, sheet_name=None)
 
-            # Write all sheets back to the same file
-            with ExcelWriter(filepath, engine="xlsxwriter") as writer:
-                for sheet_name, df in updated_sheets.items():
-                    df.to_excel(writer, sheet_name=sheet_name, index=False)
+    # Modify each sheet
+    updated_sheets = {}
+    for sheet_name, df in sheets.items():
+        df["spark_num"] = spark_num  # Add or overwrite
+        updated_sheets[sheet_name] = df
+
+    # Write all sheets back to the same file
+    with ExcelWriter(filepath, engine="xlsxwriter") as writer:
+        for sheet_name, df in updated_sheets.items():
+            df.to_excel(writer, sheet_name=sheet_name, index=False)
 
 
 def export_db_to_excel(
