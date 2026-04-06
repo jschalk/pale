@@ -6,7 +6,7 @@ J45_ROPE = create_rope("jeffy45", knot=exx.slash)
 
 
 def get_ex1_br00000_df() -> DataFrame:
-    """idea_format_00000_momentunit_v0_0_0
+    """br00000_momentunit_v0_0_0
     c400_number,moment_rope,fund_grain,monthday_index,mana_grain,respect_grain,knot,epoch_label,yr1_jan1_offset
     """
     x_df = DataFrame(
@@ -28,7 +28,7 @@ def get_ex1_br00000_df() -> DataFrame:
 
 
 def get_ex1_br00001_df() -> DataFrame:
-    """idea_format_00001_moment_budunit_v0_0_0
+    """br00001_moment_budunit_v0_0_0
     moment_rope,person_name,bud_time,knot,quota,celldepth"""
     x_df = DataFrame(
         columns=[
@@ -45,7 +45,7 @@ def get_ex1_br00001_df() -> DataFrame:
 
 
 def get_ex1_br00002_df() -> DataFrame:
-    """idea_format_00002_moment_paybook_v0_0_0
+    """br00002_moment_paybook_v0_0_0
     contact_name,amount,moment_rope,person_name,tran_time"""
     x_df = DataFrame(
         columns=["contact_name", "amount", kw.moment_rope, kw.person_name, "tran_time"]
@@ -55,7 +55,7 @@ def get_ex1_br00002_df() -> DataFrame:
 
 
 def get_ex1_br00003_df() -> DataFrame:
-    """idea_format_00003_moment_epoch_hour_v0_0_0
+    """br00003_moment_epoch_hour_v0_0_0
     cumulative_minute,moment_rope,hour_label"""
     x_df = DataFrame(columns=[kw.moment_rope, "hour_label", "cumulative_minute"])
     x_df.loc[0] = [exx.a23, "12am", 60]
@@ -86,7 +86,7 @@ def get_ex1_br00003_df() -> DataFrame:
 
 
 def get_ex1_br00004_df() -> DataFrame:
-    """idea_format_00004_moment_epoch_month_v0_0_0
+    """br00004_moment_epoch_month_v0_0_0
     cumulative_day,moment_rope,month_label"""
     x_df = DataFrame(columns=[kw.moment_rope, kw.month_label, "cumulative_day"])
     x_df.loc[0] = [exx.a23, exx.March, 31]
@@ -105,7 +105,7 @@ def get_ex1_br00004_df() -> DataFrame:
 
 
 def get_ex1_br00005_df() -> DataFrame:
-    """idea_format_00005_moment_epoch_weekday_v0_0_0
+    """br00005_moment_epoch_weekday_v0_0_0
     moment_rope,weekday_label,weekday_order"""
     x_df = DataFrame(columns=[kw.moment_rope, kw.weekday_label, kw.weekday_order])
     x_df.loc[0] = [exx.a23, exx.Wednesday, 0]
@@ -119,7 +119,7 @@ def get_ex1_br00005_df() -> DataFrame:
 
 
 def get_ex2_br00000_df() -> DataFrame:
-    """idea_format_00000_momentunit_v0_0_0
+    """br00000_momentunit_v0_0_0
     c400_number,moment_rope,fund_grain,monthday_index,mana_grain,respect_grain,knot,epoch_label,yr1_jan1_offset,job_listen_rotations
     """
     x_df = DataFrame(
@@ -142,7 +142,7 @@ def get_ex2_br00000_df() -> DataFrame:
 
 
 def get_ex2_br00001_df() -> DataFrame:
-    """idea_format_00001_moment_budunit_v0_0_0
+    """br00001_moment_budunit_v0_0_0
     moment_rope,person_name,quota,bud_time,knot"""
     x_df = DataFrame(
         columns=[
@@ -163,7 +163,7 @@ def get_ex2_br00001_df() -> DataFrame:
 
 
 def get_ex2_br00002_df() -> DataFrame:
-    """idea_format_00002_moment_paybook_v0_0_0
+    """br00002_moment_paybook_v0_0_0
     contact_name,amount,moment_rope,person_name,tran_time,knot"""
     x_df = DataFrame(
         columns=[
@@ -184,7 +184,7 @@ def get_ex2_br00002_df() -> DataFrame:
 
 
 def get_ex2_br00003_df() -> DataFrame:
-    """idea_format_00003_moment_epoch_hour_v0_0_0
+    """br00003_moment_epoch_hour_v0_0_0
     cumulative_minute,moment_rope,hour_label,knot"""
     x_df = DataFrame(
         columns=[kw.moment_rope, kw.hour_label, kw.cumulative_minute, kw.knot]
@@ -227,7 +227,7 @@ def get_ex2_br00003_df() -> DataFrame:
 
 
 def get_ex2_br00004_df() -> DataFrame:
-    """idea_format_00004_moment_epoch_month_v0_0_0
+    """br00004_moment_epoch_month_v0_0_0
     cumulative_day,moment_rope,month_label, knot"""
     x_df = DataFrame(
         columns=[kw.moment_rope, kw.month_label, kw.cumulative_day, kw.knot]
@@ -263,7 +263,7 @@ def get_ex2_br00004_df() -> DataFrame:
 
 
 def get_ex2_br00005_df() -> DataFrame:
-    """idea_format_00005_moment_epoch_weekday_v0_0_0
+    """br00005_moment_epoch_weekday_v0_0_0
     moment_rope,weekday_label,weekday_order"""
     x_df = DataFrame(
         columns=[kw.moment_rope, kw.weekday_label, kw.weekday_order, kw.knot]
@@ -284,7 +284,7 @@ def get_ex2_br00005_df() -> DataFrame:
 
 
 # def get_ex2_br00006_df() -> DataFrame:
-#     """idea_format_00006_moment_timeoffi_v0_0_0
+#     """br00006_moment_timeoffi_v0_0_0
 #     moment_rope,offi_time,_offi_time_maxt"""
 #     x_df = DataFrame(columns=[kw.moment_rope, "offi_time", "offi_time_max"])
 #     x_df.loc[0] = [exx.a23_slash, 100, 300]

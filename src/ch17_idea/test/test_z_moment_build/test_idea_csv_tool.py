@@ -5,7 +5,9 @@ from src.ch04_rope.rope import to_rope
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson.delta import persondelta_shop
 from src.ch09_person_lesson.lesson_main import lessonunit_shop
-from src.ch17_idea.idea_csv_tool import (
+from src.ch17_idea.idea_db_tool import get_ordered_csv
+from src.ch17_idea.idea_main import moment_build_from_df
+from src.ch17_idea.idea_stance import (
     add_momentunit_to_stance_csv_strs,
     add_momentunits_to_stance_csv_strs,
     add_person_to_br00020_csv,
@@ -21,8 +23,6 @@ from src.ch17_idea.idea_csv_tool import (
     add_personunit_to_stance_csv_strs,
     create_init_stance_idea_csv_strs,
 )
-from src.ch17_idea.idea_db_tool import get_ordered_csv
-from src.ch17_idea.idea_main import moment_build_from_df
 from src.ch17_idea.test._util.ch17_examples import (  # get_ex2_br00006_df,
     J45_ROPE,
     get_ex2_br00000_df,

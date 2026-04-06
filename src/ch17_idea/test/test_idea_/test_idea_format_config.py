@@ -1,5 +1,9 @@
 from src.ch00_py.file_toolbox import create_path, get_dir_file_strs
 from src.ch17_idea.idea_config import (
+    br00013_planunit_v0_0_0,
+    br00019_planunit_v0_0_0,
+    br00020_person_contact_membership_v0_0_0,
+    br00021_person_contactunit_v0_0_0,
     get_default_sorted_list,
     get_dimen_minimum_del_idea_names,
     get_dimen_minimum_put_idea_names,
@@ -9,10 +13,6 @@ from src.ch17_idea.idea_config import (
     get_idea_format_headers,
     get_idea_formats_dir,
     get_idearef_from_file,
-    idea_format_00013_planunit_v0_0_0,
-    idea_format_00019_planunit_v0_0_0,
-    idea_format_00020_person_contact_membership_v0_0_0,
-    idea_format_00021_person_contactunit_v0_0_0,
 )
 from src.ch17_idea.idea_main import (
     _generate_idea_dataframe,
@@ -25,12 +25,12 @@ from src.ref.keywords import Ch17Keywords as kw
 
 def test_config_str_functions_ReturnsObj():
     # ESTABLISH / WHEN / THEN
-    x00021_idea = "idea_format_00021_person_contactunit_v0_0_0"
-    assert idea_format_00021_person_contactunit_v0_0_0() == x00021_idea
-    x00020_idea = "idea_format_00020_person_contact_membership_v0_0_0"
-    assert idea_format_00020_person_contact_membership_v0_0_0() == x00020_idea
-    x0003_idea = "idea_format_00013_planunit_v0_0_0"
-    assert idea_format_00013_planunit_v0_0_0() == x0003_idea
+    x00021_idea = "br00021_person_contactunit_v0_0_0"
+    assert br00021_person_contactunit_v0_0_0() == x00021_idea
+    x00020_idea = "br00020_person_contact_membership_v0_0_0"
+    assert br00020_person_contact_membership_v0_0_0() == x00020_idea
+    x0003_idea = "br00013_planunit_v0_0_0"
+    assert br00013_planunit_v0_0_0() == x0003_idea
 
 
 def test_get_idea_formats_dir_ReturnsObj():
@@ -45,7 +45,7 @@ def test_get_idea_formats_dir_ReturnsObj():
 
 def test_get_idearef_obj_ReturnsObj():
     # ESTABLISH
-    idea_name_00021 = idea_format_00021_person_contactunit_v0_0_0()
+    idea_name_00021 = br00021_person_contactunit_v0_0_0()
 
     # WHEN
     x_idearef = get_idearef_obj(idea_name_00021)
@@ -63,9 +63,7 @@ def test_get_idearef_obj_ReturnsObj():
 
 def test_get_headers_list_ReturnsObj():
     # ESTABLISH / WHEN
-    format_00021_headers = _get_headers_list(
-        idea_format_00021_person_contactunit_v0_0_0()
-    )
+    format_00021_headers = _get_headers_list(br00021_person_contactunit_v0_0_0())
 
     # THEN
     # print(f"{format_00001_headers=}")
@@ -97,7 +95,7 @@ def get_sorted_headers_str(idea_filename):
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
     # ESTABLISH
-    filebasename = idea_format_00021_person_contactunit_v0_0_0()
+    filebasename = br00021_person_contactunit_v0_0_0()
 
     # WHEN
     br00021_headers = get_sorted_headers_str(filebasename)
@@ -109,7 +107,7 @@ def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario1_SingleExample():
     # ESTABLISH / WHEN
-    br00019_headers = get_sorted_headers_str(idea_format_00019_planunit_v0_0_0())
+    br00019_headers = get_sorted_headers_str(br00019_planunit_v0_0_0())
 
     # THEN
     print(f"{br00019_headers=}")
@@ -143,11 +141,9 @@ def test__generate_idea_dataframe_ReturnsObj():
     # ESTABLISH
     empty_d2 = []
     # WHEN
-    x_df = _generate_idea_dataframe(
-        empty_d2, idea_format_00021_person_contactunit_v0_0_0()
-    )
+    x_df = _generate_idea_dataframe(empty_d2, br00021_person_contactunit_v0_0_0())
     # THEN
-    headers_list = _get_headers_list(idea_format_00021_person_contactunit_v0_0_0())
+    headers_list = _get_headers_list(br00021_person_contactunit_v0_0_0())
     assert list(x_df.columns) == headers_list
 
 
@@ -182,9 +178,9 @@ def test_idea_FilesExist():
     assert len(idea_filenames) == len(get_idea_format_filenames())
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00021_person_contactunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_br00021_person_contactunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00021_person_contactunit_v0_0_0()
+    idea_name = br00021_person_contactunit_v0_0_0()
 
     # WHEN
     format_00001_idearef = get_idearef_obj(idea_name)
@@ -211,9 +207,9 @@ def test_get_idearef_obj_HasAttrs_idea_format_00021_person_contactunit_v0_0_0():
     assert headers_list[6] == kw.contact_debt_lumen
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00020_person_contact_membership_v0_0_0():
+def test_get_idearef_obj_HasAttrs_br00020_person_contact_membership_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00020_person_contact_membership_v0_0_0()
+    idea_name = br00020_person_contact_membership_v0_0_0()
 
     # WHEN
     format_00020_idearef = get_idearef_obj(idea_name)
@@ -232,9 +228,9 @@ def test_get_idearef_obj_HasAttrs_idea_format_00020_person_contact_membership_v0
     assert headers_list[8] == kw.knot
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00013_planunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_br00013_planunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00013_planunit_v0_0_0()
+    idea_name = br00013_planunit_v0_0_0()
 
     # WHEN
     format_00003_idearef = get_idearef_obj(idea_name)
@@ -251,9 +247,9 @@ def test_get_idearef_obj_HasAttrs_idea_format_00013_planunit_v0_0_0():
     assert headers_list[6] == kw.pledge
 
 
-def test_get_idearef_obj_HasAttrs_idea_format_00019_planunit_v0_0_0():
+def test_get_idearef_obj_HasAttrs_br00019_planunit_v0_0_0():
     # ESTABLISH
-    idea_name = idea_format_00019_planunit_v0_0_0()
+    idea_name = br00019_planunit_v0_0_0()
 
     # WHEN
     format_00019_idearef = get_idearef_obj(idea_name)

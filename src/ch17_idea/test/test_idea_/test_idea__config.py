@@ -29,6 +29,9 @@ from src.ch16_translate.translate_config import (
     get_translateable_args,
 )
 from src.ch17_idea.idea_config import (
+    br00013_planunit_v0_0_0,
+    br00020_person_contact_membership_v0_0_0,
+    br00021_person_contactunit_v0_0_0,
     get_allowed_curds,
     get_default_sorted_list,
     get_dimens_with_idea_element,
@@ -42,9 +45,6 @@ from src.ch17_idea.idea_config import (
     get_idearef_from_file,
     get_quick_ideas_column_ref,
     idea_config_path,
-    idea_format_00013_planunit_v0_0_0,
-    idea_format_00020_person_contact_membership_v0_0_0,
-    idea_format_00021_person_contactunit_v0_0_0,
 )
 from src.ref.keywords import Ch17Keywords as kw
 
@@ -595,9 +595,9 @@ def test_get_idea_format_filenames_ReturnsObj_CheckSome_idea_format_filesnames_E
     idea_filenames_set = get_idea_format_filenames()
 
     # WHEN / THEN
-    assert idea_format_00021_person_contactunit_v0_0_0() in idea_filenames_set
-    assert idea_format_00020_person_contact_membership_v0_0_0() in idea_filenames_set
-    assert idea_format_00013_planunit_v0_0_0() in idea_filenames_set
+    assert br00021_person_contactunit_v0_0_0() in idea_filenames_set
+    assert br00020_person_contact_membership_v0_0_0() in idea_filenames_set
+    assert br00013_planunit_v0_0_0() in idea_filenames_set
 
 
 def change_erase_attrs(idea_attrs: set):
@@ -638,7 +638,7 @@ def test_get_idea_format_filenames_ReturnsObj_Validate_idea_format_files():
         # print(f"{idea_filename=} {ref_dict.get(kw.idea_number)=}")
         idea_number_value = ref_dict.get(kw.idea_number)
         assert idea_number_value
-        assert idea_number_value[2:8] == idea_filename[12:17]
+        assert idea_number_value[2:8] == idea_filename[2:7]
         idea_numbers_set.add(idea_number_value)
 
         format_dimens = ref_dict.get(kw.dimens)
@@ -711,9 +711,9 @@ def test_get_idea_format_filename_ReturnsObj():
     br00013_filename = get_idea_format_filename(br00013_str)
 
     # THEN
-    assert br00021_filename == idea_format_00021_person_contactunit_v0_0_0()
-    assert br00020_filename == idea_format_00020_person_contact_membership_v0_0_0()
-    assert br00013_filename == idea_format_00013_planunit_v0_0_0()
+    assert br00021_filename == br00021_person_contactunit_v0_0_0()
+    assert br00020_filename == br00020_person_contact_membership_v0_0_0()
+    assert br00013_filename == br00013_planunit_v0_0_0()
 
     all_set = {get_idea_format_filename(br) for br in get_idea_numbers()}
     assert all_set == get_idea_format_filenames()

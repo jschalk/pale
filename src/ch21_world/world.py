@@ -111,7 +111,6 @@ def sheets_input_to_lynx_mstr(
         cursor = db_conn.cursor()
         sheets_input_to_lynx_with_cursor(cursor, input_dir, moment_mstr_dir)
         if export_db and output_dir:
-            # TODO add some way to export the db to excel for testing purposes
             excel_path = create_path(output_dir, "db_export.xlsx")
             export_db_to_excel(cursor, excel_path, True)
 

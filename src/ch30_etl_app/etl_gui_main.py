@@ -14,6 +14,13 @@ To integrate your CLI logic, replace the `create_today_punchs()` call inside
 import os
 import platform
 from src.ch21_world.world import create_today_punchs
+from src.ch30_etl_app.etl_gui_tool import (
+    create_emmanuel_stance_file,
+    create_example_moment_budget_file,
+    create_example_moment_ledger_file,
+    create_five_time_config_file,
+    create_random_time_config_file,
+)
 import subprocess
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
@@ -40,9 +47,10 @@ BTN_ACTIVE = "#f0d060"
 
 
 class OptionTable(tk.Frame):
-    def __init__(self, parent, options: dict, **kwargs):
+    def __init__(self, parent, options: dict, input_dir: str, **kwargs):
         super().__init__(parent, **kwargs)
-        self.options = options  # {description: function}
+        self.options = options
+        self.input_dir = input_dir
         self._build()
 
     def _build(self):
@@ -61,7 +69,7 @@ class OptionTable(tk.Frame):
         )
         scrollbar.config(command=self.tree.yview)
 
-        self.tree.heading("action", text="Additional Special Actions")
+        self.tree.heading("action", text="Special Actions")
         self.tree.column("action", anchor=tk.W)
 
         for description in self.options:
@@ -79,7 +87,7 @@ class OptionTable(tk.Frame):
         description = self.tree.item(selected[0], "values")[0]
         fn = self.options.get(description)
         if callable(fn):
-            fn()
+            fn(self.input_dir())  # ← call it to get the current string value
 
 
 def open_directory(path: str) -> None:
@@ -99,7 +107,7 @@ def open_directory(path: str) -> None:
 class ETLApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("ETL Pipeline")
+        self.title("Listening using Keg2 — ETL Launcher")
         self.resizable(False, False)
         self.configure(bg=BG)
 
@@ -119,31 +127,6 @@ class ETLApp(tk.Tk):
         # Your config: description -> function
         self._build_ui()
 
-    def create_five_time_config_file(self):
-        # TODO dataframes and save to file
-        # prnt("create_five_time_config_file...")
-        pass
-
-    def create_random_time_config_file(self):
-        # TODO dataframes and save to file
-        # prnt("create_random_time_config_file...")
-        pass
-
-    def create_emmanuel_stance_file(self):
-        # TODO dataframes and save to file
-        # prnt("create_emmanuel_stance_file...")
-        pass
-
-    def create_example_moment_ledger_file(self):
-        # TODO dataframes and save to file
-        # prnt("create_example_moment_ledger_file...")
-        pass
-
-    def create_example_moment_budget_file(self):
-        # TODO dataframes and save to file
-        # prnt("create_example_moment_budget_file...")
-        pass
-
     # ── UI construction ────────────────────────
     def _build_ui(self):
         # ── header bar ──────────────────────────
@@ -155,7 +138,7 @@ class ETLApp(tk.Tk):
 
         tk.Label(
             title_frame,
-            text="ETL  PIPELINE",
+            text="Keg Listening App#1",
             font=(
                 ("Courier New", 17, "bold")
                 if platform.system() == "Windows"
@@ -168,7 +151,7 @@ class ETLApp(tk.Tk):
 
         tk.Label(
             title_frame,
-            text="xlsx → transform → output",
+            text="excel files → db → daily agendas",
             font=MONO,
             bg=BG,
             fg=FG_DIM,
@@ -182,37 +165,21 @@ class ETLApp(tk.Tk):
         card = tk.Frame(self, bg=BG_CARD, bd=0, padx=24, pady=20)
         card.pack(fill="x", padx=28, pady=(16, 0))
 
+        working_dir_tip = "Root directory for the ETL process"
         self._dir_row(
-            card,
-            0,
-            "WORKING DIR",
-            self._working,
-            required=True,
-            tip="Root directory for the ETL process",
+            card, 0, "WORKING DIR", self._working, required=True, tip=working_dir_tip
         )
+        input_dir_tip = "Source Excel files  (optional)"
         self._dir_row(
-            card,
-            1,
-            "INPUT DIR  ",
-            self._input,
-            required=False,
-            tip="Source Excel files  (optional)",
+            card, 1, "INPUT DIR  ", self._input, required=False, tip=input_dir_tip
         )
+        output_dir_tip = "Destination for results  (optional — opened on finish)"
         self._dir_row(
-            card,
-            2,
-            "OUTPUT DIR ",
-            self._output,
-            required=False,
-            tip="Destination for results  (optional — opened on finish)",
+            card, 2, "OUTPUT DIR ", self._output, required=False, tip=output_dir_tip
         )
+        person_tip = "e.g. 'Big Steve'  (optional)"
         self._text_row(
-            card,
-            3,
-            "PERSON NAME",
-            self._person,
-            required=False,
-            tip="Filter by person name  (optional)",
+            card, 3, "PERSON NAME", self._person, required=False, tip=person_tip
         )
 
         # ── run button ──────────────────────────
@@ -221,7 +188,7 @@ class ETLApp(tk.Tk):
 
         self._run_btn = tk.Button(
             btn_frame,
-            text="▶  RUN PIPELINE",
+            text="▶  CREATE DAILY AGENDA",
             font=(
                 ("Courier New", 11, "bold")
                 if platform.system() == "Windows"
@@ -241,13 +208,13 @@ class ETLApp(tk.Tk):
         self._run_btn.pack()
 
         options = {
-            "create_five_time_config_file": self.create_five_time_config_file,
-            "create_random_time_config_file": self.create_random_time_config_file,
-            "create_emmanuel_stance_file": self.create_emmanuel_stance_file,
-            "create_example_moment_ledger_file": self.create_example_moment_ledger_file,
-            "create_example_moment_budget_file": self.create_example_moment_budget_file,
+            "create_five_time_config_file": create_five_time_config_file,
+            "create_random_time_config_file": create_random_time_config_file,
+            "create_emmanuel_stance_file": create_emmanuel_stance_file,
+            "create_example_moment_ledger_file": create_example_moment_ledger_file,
+            "create_example_moment_budget_file": create_example_moment_budget_file,
         }
-        table = OptionTable(self, options)
+        table = OptionTable(self, options, input_dir=self._input.get)
         table.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
         # hover effect
