@@ -475,19 +475,19 @@ def is_column_type_valid(df: DataFrame, column: str, sqlite_data_type: str) -> b
     return str(actual_dtype) == expected_data_type
 
 
-def prettify_excel(input_file: str, zoom: int = 120) -> None:
+def prettify_excel(file_path: str, zoom: int = 120) -> None:
     """
     Reads all sheets from an Excel file, applies formatting improvements to each,
     and overwrites the original file. Safely handles sheets with only headers and no data.
 
     Args:
-        input_file (str): Path to the Excel file to overwrite.
+        file_path (str): Path to the Excel file to overwrite.
         zoom (int): Zoom level for each worksheet.
     """
     # Load all sheets
-    sheet_data = pandas_read_excel(input_file, sheet_name=None)
+    sheet_data = pandas_read_excel(file_path, sheet_name=None)
 
-    with ExcelWriter(input_file, engine="xlsxwriter") as writer:
+    with ExcelWriter(file_path, engine="xlsxwriter") as writer:
         for sheet_name, df in sheet_data.items():
             df.to_excel(writer, sheet_name=sheet_name, index=False)
             workbook = writer.book
