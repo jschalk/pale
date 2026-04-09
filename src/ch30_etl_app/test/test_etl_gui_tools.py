@@ -27,7 +27,7 @@ def test_get_option_table_options_ReturnsObj():
         create_example_moment_budget_file,
     }
 
-    for func_desc, func_obj in result.values():
+    for func_desc, func_obj in result.items():
         assert callable(func_obj)
         assert len(func_desc) > 0
         assert func_obj in expected_func_objs

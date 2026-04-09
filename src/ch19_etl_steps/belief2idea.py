@@ -8,6 +8,7 @@ from pandas import (
     to_numeric as pandas_to_numeric,
 )
 from pathlib import Path
+from src.ch17_idea.idea_config import get_idea_numbers
 from typing import List, Tuple
 
 
@@ -141,6 +142,64 @@ def get_excel_sheet_tuples(directory: str) -> List[Tuple[str, str]]:
             wb.close()
 
     return sorted(result)
+
+
+def get_sheets_with_idea_numbers(directory: str) -> List[Tuple[str, str]]:
+    """
+    Returns all (filename, sheet_name) tuples where the sheet_name contains
+    any of the provided br_strings.
+
+    Args:
+        directory:  Path to the directory to search for Excel files.
+        br_strings: Set of strings to match against sheet names.
+
+    Returns:
+        Sorted list of (filename, sheet_name) tuples where sheet_name
+        contains at least one br_string.
+    """
+    idea_numbers = get_idea_numbers()
+    all_tuples = get_excel_sheet_tuples(directory)
+    return [
+        (filename, sheet_name)
+        for filename, sheet_name in all_tuples
+        if any(br in sheet_name.lower() for br in idea_numbers)
+    ]
+
+
+def get_validated_bele_src_idea_number_sheets(
+    bele_src_dir: str,
+    idea_src_dir: str,
+) -> List[Tuple[str, str]]:
+    """
+    Returns all BR sheets found in bele_src_dir.
+    Raises a ValueError if any of those BR sheets also exist in idea_src_dir.
+
+    Args:
+        bele_src_dir: Path to the BELE source directory.
+        idea_src_dir: Path to the IDEA source directory.
+
+    Returns:
+        Sorted list of (filename, sheet_name) tuples from bele_src_dir
+        whose sheet_name contains a BR string.
+
+    Raises:
+        ValueError: If any BR sheet found in bele_src_dir also exists
+                    in idea_src_dir (matched on sheet_name alone).
+    """
+    bele_br_sheets = get_sheets_with_idea_numbers(bele_src_dir)
+    idea_br_sheets = get_sheets_with_idea_numbers(idea_src_dir)
+
+    bele_sheet_names = {sheet_name for _, sheet_name in bele_br_sheets}
+    idea_sheet_names = {sheet_name for _, sheet_name in idea_br_sheets}
+
+    overlapping = bele_sheet_names & idea_sheet_names
+    if overlapping:
+        raise ValueError(
+            f"BR sheets found in both bele_src_dir and idea_src_dir: "
+            f"{sorted(overlapping)}"
+        )
+
+    return bele_br_sheets
 
 
 class MigrationConflictError(Exception):

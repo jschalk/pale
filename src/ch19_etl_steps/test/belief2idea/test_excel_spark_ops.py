@@ -15,8 +15,10 @@ from src.ch19_etl_steps.belief2idea import (  # move_b_src_sheets_to_i_src,
     create_spark_face_spark_nums,
     get_excel_sheet_tuples,
     get_max_spark_num_from_files,
+    get_sheets_with_idea_numbers,
     get_spark_faces_from_df,
     get_spark_faces_from_files,
+    get_validated_bele_src_idea_number_sheets,
     update_spark_num_in_belief_files,
     update_spark_num_in_excel_file,
 )
@@ -253,6 +255,127 @@ def test_get_excel_sheet_tuples_ReturnsObj_Scenario2_EmptyListForNoExcelFiles(tm
     (tmp_path / "readme.md").write_text("nothing here")
     # WHEN
     result = get_excel_sheet_tuples(str(tmp_path))
+    # THEN
+    assert result == []
+
+
+# --- Pytest fixtures & tests ---
+
+
+@pytest_fixture
+def br_excel_dir(tmp_path):
+    """Creates a temp directory with sheets named to test br_string matching."""
+    from openpyxl import Workbook
+
+    wb1 = Workbook()
+    wb1.active.title = "br00002_Sales"
+    wb1.create_sheet("Revenue")
+    wb1.create_sheet("Costs_BR00005")
+    wb1.save(tmp_path / "x300reports.xlsx")
+
+    wb2 = Workbook()
+    wb2.active.title = "Summary"
+    wb2.create_sheet("BR00042_Overview")
+    wb2.save(tmp_path / "report.xlsx")
+
+    return tmp_path
+
+
+def test_get_sheets_with_idea_numbers_ReturnsObj_Scenario0_MatchingTuples(br_excel_dir):
+    """Only tuples whose sheet_name contains a br_string are returned."""
+    # ESTABLISH / WHEN
+    result = get_sheets_with_idea_numbers(str(br_excel_dir))
+    # THEN
+    assert ("x300reports.xlsx", "br00002_Sales") in result
+    assert ("x300reports.xlsx", "Costs_BR00005") in result
+    assert ("report.xlsx", "BR00042_Overview") in result
+    assert ("x300reports.xlsx", "Revenue") not in result
+    assert ("report.xlsx", "Summary") not in result
+
+
+# --- Pytest fixtures & tests ---
+
+
+@pytest_fixture
+def bele_dir(tmp_path):
+    from openpyxl import Workbook
+
+    d = tmp_path / "bele"
+    d.mkdir()
+    wb = Workbook()
+    wb.active.title = "BR00005_Sales"
+    wb.create_sheet("Revenue")
+    wb.create_sheet("BR00042_Costs")
+    wb.save(d / "x300reports.xlsx")
+    return d
+
+
+@pytest_fixture
+def idea_dir_no_overlap(tmp_path):
+    from openpyxl import Workbook
+
+    d = tmp_path / "idea"
+    d.mkdir()
+    wb = Workbook()
+    wb.active.title = "Summary"
+    wb.create_sheet("Details")
+    wb.save(d / "idea_report.xlsx")
+    return d
+
+
+@pytest_fixture
+def idea_dir_with_overlap(tmp_path):
+    from openpyxl import Workbook
+
+    d = tmp_path / "idea_overlap"
+    d.mkdir()
+    wb = Workbook()
+    wb.active.title = "BR00005_Sales"  # overlaps with bele_dir
+    wb.save(d / "idea_report.xlsx")
+    return d
+
+
+def test_get_validated_bele_src_idea_number_sheets_ReturnsBeleBrSheets(
+    bele_dir, idea_dir_no_overlap
+):
+    """Returns only BR sheet tuples from bele_src_dir when there is no overlap."""
+    # ESTABLISH / WHEN
+    result = get_validated_bele_src_idea_number_sheets(
+        str(bele_dir), str(idea_dir_no_overlap)
+    )
+    # THEN
+    assert ("x300reports.xlsx", "BR00005_Sales") in result
+    assert ("x300reports.xlsx", "BR00042_Costs") in result
+    assert ("x300reports.xlsx", "Revenue") not in result
+
+
+def test_get_validated_bele_src_idea_number_sheets_RaisesOnOverlap(
+    bele_dir, idea_dir_with_overlap
+):
+    """Raises ValueError when a BR sheet name exists in both directories."""
+    # ESTABLISH / WHEN / THEN
+    with pytest_raises(ValueError, match="BR00005_Sales"):
+        get_validated_bele_src_idea_number_sheets(
+            str(bele_dir), str(idea_dir_with_overlap)
+        )
+
+
+def test_get_validated_bele_src_idea_number_sheets_ReturnsEmptyWhenNoBeleBrSheets(
+    idea_dir_no_overlap, tmp_path
+):
+    """Returns an empty list when bele_src_dir has no BR sheets."""
+    # ESTABLISH
+    from openpyxl import Workbook
+
+    empty_bele = tmp_path / "empty_bele"
+    empty_bele.mkdir()
+    wb = Workbook()
+    wb.active.title = "Summary"
+    wb.save(empty_bele / "plain.xlsx")
+    # WHEN
+    result = get_validated_bele_src_idea_number_sheets(
+        str(empty_bele), str(idea_dir_no_overlap)
+    )
     # THEN
     assert result == []
 
