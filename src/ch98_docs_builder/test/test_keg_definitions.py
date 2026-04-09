@@ -392,7 +392,7 @@ def test_get_keg_definitions_ReturnsObj_get_idea_config_dict():
     allowed_cruds = set()
     cruds_dimen = {}
     for idea_dimen, idea_dict in idea_config_dict.items():
-        curr_allowed_crud = idea_dict.get("allowed_crud")
+        curr_allowed_crud = idea_dict.get(kw.allowed_crud)
         # print(f"{idea_dimen=} {curr_allowed_crud=}")
         allowed_cruds.add(curr_allowed_crud)
         if cruds_dimen.get(curr_allowed_crud):
@@ -427,3 +427,6 @@ def test_get_keg_definitions_ReturnsObj_get_idea_config_dict():
         # print(f"{crud_description=}")
         # print(f"    {expected_str=}")
         assert expected_str in crud_description, allowed_crud
+
+    expected_allowed_crud_desc = "Each idea config dimen has an allowed_crud that describes whether the data may be updated/deleted/inserted more than one."
+    assert keg_definitions.get(kw.allowed_crud) == expected_allowed_crud_desc

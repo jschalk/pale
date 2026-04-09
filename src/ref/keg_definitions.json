@@ -4,7 +4,7 @@
   "all_contact_cred": ", Plan conpute", 
   "all_contact_debt": ", Plan conpute", 
   "all_tranbook": "TODO", 
-  "allowed_crud": "TODO", 
+  "allowed_crud": "Each idea config dimen has an allowed_crud that describes whether the data may be updated/deleted/inserted more than one.", 
   "amount": ", paybook arg", 
   "Anaday": "First Day of 5 day week of 'Five' Epoch", 
   "ancestors": ", used with Budget Cells", 
