@@ -13,6 +13,7 @@ from src.ch16_translate.translate_config import (
     get_translate_config_args,
     get_translate_config_dict,
 )
+from src.ch17_idea.idea_config import get_idea_config_dict
 from src.ch18_etl_config.etl_config import get_etl_stage_types_config_dict
 from src.ch19_etl_steps.etl_main import etl_heard_raw_tables_to_moment_ote1_agg
 from src.ch98_docs_builder._ref.ch98_semantic_types import (
@@ -382,3 +383,47 @@ def test_get_keg_definitions_ReturnsObj_get_all_person_calc_args():
         print(f"{person_calc_arg=}")
         py_key_description = keg_definitions.get(person_calc_arg)
         assert py_key_description, person_calc_arg
+
+
+def test_get_keg_definitions_ReturnsObj_get_idea_config_dict():
+    # ESTABLISH
+    idea_config_dict = get_idea_config_dict()
+    # print(f"{idea_config_dict.keys()=}")
+    allowed_cruds = set()
+    cruds_dimen = {}
+    for idea_dimen, idea_dict in idea_config_dict.items():
+        curr_allowed_crud = idea_dict.get("allowed_crud")
+        # print(f"{idea_dimen=} {curr_allowed_crud=}")
+        allowed_cruds.add(curr_allowed_crud)
+        if cruds_dimen.get(curr_allowed_crud):
+            cruds_dimen.get(curr_allowed_crud).add(idea_dimen)
+        else:
+            cruds_dimen[curr_allowed_crud] = {idea_dimen}
+    print(f"{allowed_cruds}")
+    print(f"{cruds_dimen}")
+    delete_insert_update_desc = ", ".join(
+        sorted(cruds_dimen.get(kw.delete_insert_update))
+    )
+    UPDATE_desc = ", ".join(sorted(cruds_dimen.get(kw.UPDATE)))
+    delete_insert_desc = ", ".join(sorted(cruds_dimen.get(kw.delete_insert)))
+    insert_one_time_desc = ", ".join(sorted(cruds_dimen.get(kw.insert_one_time)))
+    insert_multiple_desc = ", ".join(sorted(cruds_dimen.get(kw.insert_multiple)))
+    expected_crud_dimens = {
+        kw.delete_insert_update: f"Associated dimens: {delete_insert_update_desc}",
+        kw.UPDATE: f"Associated dimens: {UPDATE_desc}",
+        kw.delete_insert: f"Associated dimens: {delete_insert_desc}",
+        kw.insert_one_time: f"Associated dimens: {insert_one_time_desc}",
+        kw.insert_multiple: f"Associated dimens: {insert_multiple_desc}",
+    }
+    assert set(expected_crud_dimens.keys()) == allowed_cruds
+
+    # WHEN
+    keg_definitions = get_keg_definitions()
+
+    # THEN
+    for allowed_crud, expected_str in expected_crud_dimens.items():
+        print(f"{allowed_crud=}")
+        crud_description = keg_definitions.get(allowed_crud)
+        # print(f"{crud_description=}")
+        # print(f"    {expected_str=}")
+        assert expected_str in crud_description, allowed_crud
