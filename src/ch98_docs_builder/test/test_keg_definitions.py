@@ -94,10 +94,14 @@ def test_get_keg_definitions_ReturnsObj_CheckNoChapter_keywords():
     keg_definitions = get_keg_definitions()
     # THEN
     for keyword, kw_config in get_keywords_src_config().items():
-        x_init_chapter = kw_config.get("init_chapter")
+        x_init_chapter = kw_config.get(kw.init_chapter)
+        assert kw.init_chapter in set(kw_config.keys()), keyword
         if not bool(re_fullmatch(r"ch\d{2}", x_init_chapter)):
             config_description = keg_definitions.get(keyword)
             assert "Not used in codebase." in config_description, keyword
+        assert "exam_tier" in set(kw_config.keys()), keyword
+        x_exam_tier = kw_config.get("exam_tier")
+        assert x_exam_tier >= 0
 
 
 def test_get_keg_definitions_ReturnsObj_Check_person_dimen():
