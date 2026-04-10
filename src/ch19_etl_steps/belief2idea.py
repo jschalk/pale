@@ -109,7 +109,7 @@ def create_spark_face_spark_nums(
 def add_spark_num_column(df: DataFrame, spark_face_spark_nums: dict[str, int]):
     """
     Adds 'spark_num' as the first column based on 'spark_face' values.
-    - mutates original DataFrame (does not )
+    - mutates original DataFrame (does not create new df)
     """
     if "spark_face" not in df.columns:
         # raise ValueError("Column 'spark_face' not found in DataFrame")
@@ -225,6 +225,11 @@ def beliefs_sheets_to_idea_sheets(
     # TODO get face_sparks from bele_src_dir
     # TODO create spark_num, face_spark tuples
     # TODO when being copied over, add spark_num to dataframe
+    bele_spark_faces = get_spark_faces_from_files(bele_src_dir)
+    idea_max_spark_num = get_max_spark_num_from_files(idea_src_dir)
+    spark_face_spark_nums = create_spark_face_spark_nums(
+        bele_spark_faces, idea_max_spark_num
+    )
     bele_br_sheets = get_validated_bele_src_brick_type_sheets(
         bele_src_dir, idea_src_dir
     )
@@ -241,6 +246,7 @@ def beliefs_sheets_to_idea_sheets(
         dst_path = os_path_join(idea_src_dir, filename)
         for sheet_name in sheet_names:
             br_df = pandas_read_excel(src_path, sheet_name)
+            add_spark_num_column(br_df, spark_face_spark_nums)
             save_sheet(dst_path, sheet_name, br_df, False)
             copied.append((dst_path, sheet_name))
 

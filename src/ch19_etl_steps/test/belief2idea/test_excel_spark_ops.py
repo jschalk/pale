@@ -407,7 +407,7 @@ def test_beliefs_sheets_to_idea_sheets_Scenario0_TwoTuples(tmp_path: Path):
     assert len(result) == 2
 
 
-def test_beliefs_sheets_to_idea_sheets_Scenario1_DataReadableByPandas(
+def test_beliefs_sheets_to_idea_sheets_Scenario1_CreatesDestinationFile(
     tmp_path: Path,
 ):
     """Each copied sheet can be read by pandas and contains the original data."""
@@ -419,13 +419,13 @@ def test_beliefs_sheets_to_idea_sheets_Scenario1_DataReadableByPandas(
     wb = openpyxl_Workbook()
     ws1 = wb.active
     ws1.title = "BR00020_Sales"
-    ws1.append(["product", "units", "revenue"])
-    ws1.append(["widget", 10, 500])
-    ws1.append(["gadget", 5, 250])
+    ws1.append([kw.spark_face, "product", "units", "revenue"])
+    ws1.append([exx.sue, "widget", 10, 500])
+    ws1.append([exx.sue, "gadget", 5, 250])
 
     ws2 = wb.create_sheet("BR00004_Costs")
-    ws2.append(["category", "amount"])
-    ws2.append(["rent", 1000])
+    ws2.append([kw.spark_face, "category", "amount"])
+    ws2.append([exx.sue, "rent", 1000])
     wb.create_sheet("Summary")  # non-BR, should be ignored
     wb.save(populated_bele_dir / "AllSales.xlsx")
 
@@ -434,8 +434,10 @@ def test_beliefs_sheets_to_idea_sheets_Scenario1_DataReadableByPandas(
     # THEN
     allsales_dir = os_path_join(str(empty_idea_dir), "AllSales.xlsx")
     df = pandas_read_excel(allsales_dir, sheet_name="BR00020_Sales")
-    assert list(df.columns) == ["product", "units", "revenue"]
+    expected_dst_columns = [kw.spark_num, kw.spark_face, "product", "units", "revenue"]
+    assert list(df.columns) == expected_dst_columns
     assert len(df) == 2
+    assert df[kw.spark_num].min() == 1
     assert df["revenue"].sum() == 750
 
 
@@ -458,6 +460,50 @@ def test_beliefs_sheets_to_idea_sheets_Scenario2_RaisesOnOverlap(tmp_path: Path)
     # WHEN / THEN
     with pytest_raises(ValueError, match="BR00020_Sales"):
         beliefs_sheets_to_idea_sheets(beliefs_dir, ideas_dir)
+
+
+def test_beliefs_sheets_to_idea_sheets_Scenario3_DestinationFileHas_spark_num_SetBy_idea_dir(
+    tmp_path: Path,
+):
+    """Each copied sheet can be read by pandas and contains the original data."""
+    # ESTABLISH
+    idea_dir = tmp_path / "idea"
+    idea_dir.mkdir()
+    populated_bele_dir = tmp_path / "bele"
+    populated_bele_dir.mkdir()
+    idea_wb = openpyxl_Workbook()
+    idea_ws1 = idea_wb.active
+    # TODO create a test where BR00020 works below
+    idea_ws1.title = "BR00021_Sales"
+    expected_dst_columns = [kw.spark_num, kw.spark_face, "product", "units", "revenue"]
+    idea_ws1.append(expected_dst_columns)
+    curr_spark_num = 10
+    idea_ws1.append([curr_spark_num, exx.sue, "widget", 10, 500])
+    idea_wb.save(idea_dir / "OtherFile.xlsx")
+
+    wb = openpyxl_Workbook()
+    ws1 = wb.active
+    ws1.title = "BR00020_Sales"
+    ws1.append([kw.spark_face, "product", "units", "revenue"])
+    ws1.append([exx.sue, "widget", 10, 500])
+    ws1.append([exx.sue, "gadget", 5, 250])
+
+    ws2 = wb.create_sheet("BR00004_Costs")
+    ws2.append([kw.spark_face, "category", "amount"])
+    ws2.append([exx.sue, "rent", 1000])
+    wb.create_sheet("Summary")  # non-BR, should be ignored
+    wb.save(populated_bele_dir / "AllSales.xlsx")
+
+    # WHEN
+    beliefs_sheets_to_idea_sheets(populated_bele_dir, idea_dir)
+    # THEN
+    allsales_dir = os_path_join(str(idea_dir), "AllSales.xlsx")
+    df = pandas_read_excel(allsales_dir, sheet_name="BR00020_Sales")
+    assert list(df.columns) == expected_dst_columns
+    assert len(df) == 2
+    assert df[kw.spark_num].min() == 11
+    assert df[kw.spark_num].min() == curr_spark_num + 1
+    assert df["revenue"].sum() == 750
 
 
 def create_excel_file(filepath, sheets_dict):
