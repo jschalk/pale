@@ -38,8 +38,9 @@ def get_allowed_curds() -> set[str]:
 
 
 def get_brick_formats_dir() -> str:
-    idea_dir = create_path("src", "ch17_idea")
-    return create_path(idea_dir, "brick_formats")
+    """src/ch17_idea/brick_formats"""
+    ch_dir = create_path("src", "ch17_idea")
+    return create_path(ch_dir, "brick_formats")
 
 
 def get_idea_elements_sort_order() -> list[str]:
