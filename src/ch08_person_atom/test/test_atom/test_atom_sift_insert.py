@@ -90,6 +90,7 @@ def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_planunit():
 
 
 def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_awardunit():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -159,6 +160,7 @@ def create_wk_atom(casa_rope, wk_rope):
 
 
 def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_reason_caseunit_Exists():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -200,6 +202,7 @@ def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_reason_caseunit_Exis
 
 
 def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_laborunit():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -231,6 +234,7 @@ def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_laborunit():
 
 
 def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_healerunit():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
@@ -262,6 +266,7 @@ def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_healerunit():
 
 
 def test_sift_atom_ReturnsObj_PersonAtom_INSERT_person_plan_factunit():
+    # sourcery skip: extract-duplicate-method
     # ESTABLISH
     sue_person = personunit_shop("Sue")
     casa_rope = sue_person.make_l1_rope(exx.casa)
