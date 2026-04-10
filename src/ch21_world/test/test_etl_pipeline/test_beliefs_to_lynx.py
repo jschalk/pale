@@ -4,7 +4,7 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count
 from src.ch00_py.file_toolbox import create_path
 from src.ch04_rope.rope import create_rope
-from src.ch17_idea.idea_db_tool import create_idea_sorted_table, save_sheet
+from src.ch17_idea.brick_db_tool import create_idea_sorted_table, save_sheet
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename
 from src.ch19_etl_steps.etl_main import get_max_brick_agg_spark_num
 from src.ch21_world.world import WorldDir, belief_sheets_to_lynx_mstr, worlddir_shop
@@ -67,8 +67,8 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     with sqlite3_connect(fay_db_path) as db_conn:
         br00113_raw = f"{br00113_str}_brick_raw"
         br00113_agg = f"{br00113_str}_brick_agg"
-        br00113_valid = f"{br00113_str}_brick_valid"
-        sparks_brick_valid_tablename = kw.sparks_brick_valid
+        br00113_valid = f"{br00113_str}_brick_vld"
+        sparks_brick_vld_tablename = kw.sparks_brick_vld
         trlname_sound_raw = create_prime_tablename("trlname", kw.s_raw)
         trlname_sound_agg = create_prime_tablename("trlname", "s_agg")
         trlname_sound_vld = create_prime_tablename("trlname", kw.s_vld)
@@ -92,7 +92,7 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
         assert get_row_count(cursor, br00113_raw) == 1
         assert get_row_count(cursor, br00113_agg) == 1
         assert get_row_count(cursor, kw.sparks_brick_agg) == 2
-        assert get_row_count(cursor, sparks_brick_valid_tablename) == 2
+        assert get_row_count(cursor, sparks_brick_vld_tablename) == 2
         assert get_row_count(cursor, br00113_valid) == 2
         assert get_row_count(cursor, trlname_sound_raw) == 2
         assert get_row_count(cursor, momentunit_sound_raw) == 4
