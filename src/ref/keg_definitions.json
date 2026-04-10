@@ -138,6 +138,7 @@
   "Event": "TODO", 
   "every_xdays": "Required fields for creating Epoch every_xdays cases.", 
   "every_xweeks": "Required fields for creating Epoch weekly cases.", 
+  "exam_tier": "Every Keyword has an exam_tier. The highter the exam_tier the more relatively important the keyword.", 
   "Excel": "A spreadsheet format.", 
   "excel": "A spreadsheet format.", 
   "FaceName": "str first used in ch09. The Face is the source of all outside data.", 

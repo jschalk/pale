@@ -15,6 +15,7 @@ from src.ch00_py.keyword_class_builder import (
     get_keywords_by_chapter,
     get_keywords_src_config,
 )
+from src.ref.keywords import Ch00Keywords as kw
 
 
 def test_get_chapter_desc_prefix_ReturnsObj():
@@ -61,7 +62,7 @@ def test_get_keywords_src_config_ReturnsObj():
 
     # THEN
     assert keywords_config
-    req_config_keys = {"init_chapter", "semantic_type"}
+    req_config_keys = {kw.init_chapter, kw.semantic_type, kw.exam_tier}
     for keyword, ref_dict in keywords_config.items():
         ref_keys = set(ref_dict.keys())
         # print(f"{keyword=} {ref_dict=}")
