@@ -8,6 +8,7 @@ from pandas import (
     to_numeric as pandas_to_numeric,
 )
 from pathlib import Path
+from src.ch17_idea.brick_db_tool import save_sheet
 from src.ch17_idea.idea_config import get_brick_types
 from typing import List, Tuple
 
@@ -137,8 +138,7 @@ def get_excel_sheet_tuples(directory: str) -> List[Tuple[str, str]]:
         if filename.lower().endswith(excel_extensions):
             filepath = os_path_join(directory, filename)
             wb = load_workbook(filepath, read_only=True)
-            for sheet_name in wb.sheetnames:
-                result.append((filename, sheet_name))
+            result.extend((filename, sheet_name) for sheet_name in wb.sheetnames)
             wb.close()
 
     return sorted(result)
@@ -192,8 +192,7 @@ def get_validated_bele_src_brick_type_sheets(
     bele_sheet_names = {sheet_name for _, sheet_name in bele_br_sheets}
     idea_sheet_names = {sheet_name for _, sheet_name in idea_br_sheets}
 
-    overlapping = bele_sheet_names & idea_sheet_names
-    if overlapping:
+    if overlapping := bele_sheet_names & idea_sheet_names:
         raise ValueError(
             f"BR sheets found in both bele_src_dir and idea_src_dir: "
             f"{sorted(overlapping)}"
@@ -230,7 +229,7 @@ def beliefs_sheets_to_idea_sheets(
         bele_src_dir, idea_src_dir
     )
 
-    # Group sheet names by their source file for efficient workbook loading
+    # Group sheet names by their source file
     file_to_sheets: dict[str, List[str]] = {}
     for filename, sheet_name in bele_br_sheets:
         file_to_sheets.setdefault(filename, []).append(sheet_name)
@@ -239,34 +238,11 @@ def beliefs_sheets_to_idea_sheets(
 
     for filename, sheet_names in file_to_sheets.items():
         src_path = os_path_join(bele_src_dir, filename)
-        src_wb = load_workbook(src_path, data_only=True)  # resolve formulas to values
-
+        dst_path = os_path_join(idea_src_dir, filename)
         for sheet_name in sheet_names:
-            src_ws = src_wb[sheet_name]
-
-            dest_wb = openpyxl_Workbook()
-            dest_ws = dest_wb.active
-            dest_ws.title = sheet_name
-
-            # Copy column dimensions so pandas read_excel gets clean column widths
-            for col_idx, col_dim in src_ws.column_dimensions.items():
-                dest_ws.column_dimensions[col_idx].width = col_dim.width
-
-            # Copy all cell values row by row (no styling — pandas doesn't need it)
-            for row in src_ws.iter_rows():
-                for cell in row:
-                    dest_ws.cell(
-                        row=cell.row,
-                        column=cell.column,
-                        value=cell.value,
-                    )
-
-            new_filename = f"{sheet_name}.xlsx"
-            dest_path = os_path_join(idea_src_dir, new_filename)
-            dest_wb.save(dest_path)
-            copied.append((new_filename, sheet_name))
-
-        src_wb.close()
+            br_df = pandas_read_excel(src_path, sheet_name)
+            save_sheet(dst_path, sheet_name, br_df, False)
+            copied.append((dst_path, sheet_name))
 
     return sorted(copied)
 

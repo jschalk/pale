@@ -262,7 +262,7 @@ def test_get_excel_sheet_tuples_ReturnsObj_Scenario2_EmptyListForNoExcelFiles(
 
 def test_get_sheets_with_brick_types_ReturnsObj_Scenario0_MatchingTuples(
     tmp_path: Path,
-):
+):  # sourcery skip: extract-duplicate-method
     """Only tuples whose sheet_name contains a br_string are returned."""
     # ESTABLISH
     br_excel_dir = tmp_path / "beliefs"
@@ -315,7 +315,7 @@ def idea_dir_with_overlap(tmp_path):
     return d
 
 
-def test_get_validated_bele_src_brick_type_sheets_ReturnsBeleBrSheets(
+def test_get_validated_bele_src_brick_type_sheets_ReturnsObj_Scenario0_BeleBrSheets(
     idea_dir_no_overlap, tmp_path
 ):
     """Returns only BR sheet tuples from bele_src_dir when there is no overlap."""
@@ -338,7 +338,7 @@ def test_get_validated_bele_src_brick_type_sheets_ReturnsBeleBrSheets(
     assert ("x300reports.xlsx", "Revenue") not in result
 
 
-def test_get_validated_bele_src_brick_type_sheets_RaisesOnOverlap(
+def test_get_validated_bele_src_brick_type_sheets_Scenario1_RaisesOnOverlap(
     idea_dir_with_overlap, tmp_path
 ):
     """Raises ValueError when a BR sheet name exists in both directories."""
@@ -358,7 +358,7 @@ def test_get_validated_bele_src_brick_type_sheets_RaisesOnOverlap(
         )
 
 
-def test_get_validated_bele_src_brick_type_sheets_ReturnsEmptyWhenNoBeleBrSheets(
+def test_get_validated_bele_src_brick_type_sheets_ReturnsObj_Scenario2_EmptyWhenNoBeleBrSheets(
     idea_dir_no_overlap, tmp_path
 ):
     """Returns an empty list when bele_src_dir has no BR sheets."""
@@ -377,7 +377,7 @@ def test_get_validated_bele_src_brick_type_sheets_ReturnsEmptyWhenNoBeleBrSheets
     assert result == []
 
 
-def test_beliefs_sheets_to_idea_sheets_Scenario0_ReturnsObj_TwoTuples(tmp_path: Path):
+def test_beliefs_sheets_to_idea_sheets_Scenario0_TwoTuples(tmp_path: Path):
     """Returns one (filename, sheet_name) tuple per BR sheet copied."""
     # ESTABLISH
     empty_idea_dir = tmp_path / "idea"
@@ -401,12 +401,13 @@ def test_beliefs_sheets_to_idea_sheets_Scenario0_ReturnsObj_TwoTuples(tmp_path: 
     # WHEN
     result = beliefs_sheets_to_idea_sheets(populated_bele_dir, empty_idea_dir)
     # THEN
-    assert ("BR00004_Costs.xlsx", "BR00004_Costs") in result
-    assert ("BR00020_Sales.xlsx", "BR00020_Sales") in result
+    dst_all_sales_path = create_path(empty_idea_dir, "AllSales.xlsx")
+    assert (dst_all_sales_path, "BR00004_Costs") in result
+    assert (dst_all_sales_path, "BR00020_Sales") in result
     assert len(result) == 2
 
 
-def test_beliefs_sheets_to_idea_sheets_Scenario1_ReturnsObj_DataReadableByPandas(
+def test_beliefs_sheets_to_idea_sheets_Scenario1_DataReadableByPandas(
     tmp_path: Path,
 ):
     """Each copied sheet can be read by pandas and contains the original data."""
@@ -431,16 +432,15 @@ def test_beliefs_sheets_to_idea_sheets_Scenario1_ReturnsObj_DataReadableByPandas
     # WHEN
     beliefs_sheets_to_idea_sheets(populated_bele_dir, empty_idea_dir)
     # THEN
-    df = pandas_read_excel(
-        os_path_join(str(empty_idea_dir), "BR00020_Sales.xlsx"),
-        sheet_name="BR00020_Sales",
-    )
+    allsales_dir = os_path_join(str(empty_idea_dir), "AllSales.xlsx")
+    df = pandas_read_excel(allsales_dir, sheet_name="BR00020_Sales")
     assert list(df.columns) == ["product", "units", "revenue"]
     assert len(df) == 2
     assert df["revenue"].sum() == 750
 
 
 def test_beliefs_sheets_to_idea_sheets_Scenario2_RaisesOnOverlap(tmp_path: Path):
+    # sourcery skip: extract-duplicate-method
     """Propagates ValueError from get_bele_br_sheets_validated on sheet name overlap."""
     # ESTABLISH
     beliefs_dir = tmp_path / "bele"
@@ -517,7 +517,7 @@ def test_update_spark_num_in_excel_file_SetsFile_Scenario1_PreservesOtherColumns
 #     assert result == {}
 
 
-# TODO depercate this function
+# TODO deprecate this function
 def test_update_spark_num_in_belief_files_SetAttrs(temp3_fs):
     # ESTABLISH
     # Setup: Create test directory and Excel file
