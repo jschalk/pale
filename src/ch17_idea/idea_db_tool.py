@@ -345,14 +345,14 @@ def create_idea_sorted_table(
     create_table_from_columns(conn, tablename, columns_list, get_idea_sqlite_types())
 
 
-def get_idea_into_dimen_raw_query(
+def get_brick_into_dimen_raw_query(
     conn_or_cursor: sqlite3_Connection,
-    idea_number: str,
+    brick_type: str,
     x_dimen: str,
     x_jkeys: set[str],
     action_str: str = None,
 ) -> str:
-    src_table = f"{idea_number}_raw"
+    src_table = f"{brick_type}_raw"
     src_columns = get_table_columns(conn_or_cursor, src_table)
     dst_table = f"{x_dimen}_put_raw" if action_str else f"{x_dimen}_raw"
     dst_columns = get_table_columns(conn_or_cursor, dst_table)
@@ -361,8 +361,8 @@ def get_idea_into_dimen_raw_query(
     common_columns_header = ", ".join(common_columns_list)
     values_cols = set(common_columns_set)
     values_cols.difference_update(x_jkeys)
-    return f"""INSERT INTO {dst_table} (idea_number, {common_columns_header})
-SELECT '{idea_number}' as idea_number, {common_columns_header}
+    return f"""INSERT INTO {dst_table} (brick_type, {common_columns_header})
+SELECT '{brick_type}' as brick_type, {common_columns_header}
 FROM {src_table}
 {_get_keys_where_str(x_jkeys, dst_columns)}
 GROUP BY {common_columns_header}

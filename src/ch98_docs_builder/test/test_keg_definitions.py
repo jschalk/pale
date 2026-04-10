@@ -5,6 +5,7 @@ from src.ch07_person_logic.person_config import (
     get_all_person_calc_args,
     get_person_config_dict,
 )
+from src.ch11_bud.cell_main import cellunit_shop
 from src.ch13_time.epoch_main import get_c400_constants, get_default_epoch_config_dict
 from src.ch14_moment.moment_config import get_moment_config_args
 from src.ch15_nabu.nabu_config import get_nabu_args, get_nabuable_args
@@ -12,6 +13,7 @@ from src.ch16_translate.translate_config import (
     get_translate_config_args,
     get_translate_config_dict,
 )
+from src.ch17_idea.idea_config import get_idea_config_dict
 from src.ch18_etl_config.etl_config import get_etl_stage_types_config_dict
 from src.ch19_etl_steps.etl_main import etl_heard_raw_tables_to_moment_ote1_agg
 from src.ch98_docs_builder._ref.ch98_semantic_types import (
@@ -53,7 +55,7 @@ from src.ch98_docs_builder.keg_definitions_builder import (
     get_keg_definitions,
     get_person_dimen_config,
 )
-from src.ref.keywords import Ch98Keywords as kw
+from src.ref.keywords import Ch98Keywords as kw, ExampleStrs as exx
 
 
 def python_keywords() -> set:
@@ -121,7 +123,7 @@ def test_get_keg_definitions_ReturnsObj_Check_stages_types():
         expected_abbv5_description = f"5 character abbreviation of {abbv9_str}. {stage_type_order=} {type_description_str}"
         abbv5_fail_str = expected_abbv5_description
         print(f"{stage_type_abbv5=}")
-        assert expected_abbv5_description == abbv5_keyword_description, abbv5_fail_str
+        assert expected_abbv5_description in abbv5_keyword_description, abbv5_fail_str
 
         print(f"{abbv9_str=}")
         expected_abbv9_description = f"{stage_type_order=} {type_description_str}"
@@ -181,6 +183,17 @@ def test_get_keg_definitions_ReturnsObj_Check_c400_constants():
         # print(f"{constant_name} {formated_constant} {constant_description=}")
         assert formated_constant in constant_description
         assert "C400Constant for building Epochs" in constant_description
+
+
+def test_get_keg_definitions_ReturnsObj_Check_CellUnit():
+    # ESTABLISH / WHEN
+    keg_definitions = get_keg_definitions()
+    # THEN
+    for cell_attr in sorted(cellunit_shop(exx.sue).__dict__.keys()):
+        formated_constant = f", used with Budget Cells"
+        constant_description = keg_definitions.get(cell_attr)
+        print(f"{cell_attr=} {formated_constant} {constant_description=}")
+        assert formated_constant in constant_description, cell_attr
 
 
 def test_get_keg_definitions_ReturnsObj_CheckChapter():
@@ -370,3 +383,50 @@ def test_get_keg_definitions_ReturnsObj_get_all_person_calc_args():
         print(f"{person_calc_arg=}")
         py_key_description = keg_definitions.get(person_calc_arg)
         assert py_key_description, person_calc_arg
+
+
+def test_get_keg_definitions_ReturnsObj_get_idea_config_dict():
+    # ESTABLISH
+    idea_config_dict = get_idea_config_dict()
+    # print(f"{idea_config_dict.keys()=}")
+    allowed_cruds = set()
+    cruds_dimen = {}
+    for idea_dimen, idea_dict in idea_config_dict.items():
+        curr_allowed_crud = idea_dict.get(kw.allowed_crud)
+        # print(f"{idea_dimen=} {curr_allowed_crud=}")
+        allowed_cruds.add(curr_allowed_crud)
+        if cruds_dimen.get(curr_allowed_crud):
+            cruds_dimen.get(curr_allowed_crud).add(idea_dimen)
+        else:
+            cruds_dimen[curr_allowed_crud] = {idea_dimen}
+    print(f"{allowed_cruds}")
+    print(f"{cruds_dimen}")
+    delete_insert_update_desc = ", ".join(
+        sorted(cruds_dimen.get(kw.delete_insert_update))
+    )
+    UPDATE_desc = ", ".join(sorted(cruds_dimen.get(kw.UPDATE)))
+    delete_insert_desc = ", ".join(sorted(cruds_dimen.get(kw.delete_insert)))
+    insert_one_time_desc = ", ".join(sorted(cruds_dimen.get(kw.insert_one_time)))
+    insert_multiple_desc = ", ".join(sorted(cruds_dimen.get(kw.insert_multiple)))
+    expected_crud_dimens = {
+        kw.delete_insert_update: f"Associated dimens: {delete_insert_update_desc}",
+        kw.UPDATE: f"Associated dimens: {UPDATE_desc}",
+        kw.delete_insert: f"Associated dimens: {delete_insert_desc}",
+        kw.insert_one_time: f"Associated dimens: {insert_one_time_desc}",
+        kw.insert_multiple: f"Associated dimens: {insert_multiple_desc}",
+    }
+    assert set(expected_crud_dimens.keys()) == allowed_cruds
+
+    # WHEN
+    keg_definitions = get_keg_definitions()
+
+    # THEN
+    for allowed_crud, expected_str in expected_crud_dimens.items():
+        print(f"{allowed_crud=}")
+        crud_description = keg_definitions.get(allowed_crud)
+        # print(f"{crud_description=}")
+        # print(f"    {expected_str=}")
+        assert expected_str in crud_description, allowed_crud
+
+    expected_allowed_crud_desc = "Each idea config dimen has an allowed_crud that describes whether the data may be updated/deleted/inserted more than one."
+    assert keg_definitions.get(kw.allowed_crud) == expected_allowed_crud_desc

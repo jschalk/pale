@@ -1,3 +1,4 @@
+from openpyxl import load_workbook
 from os import listdir as os_listdir
 from os.path import join as os_path_join
 from pandas import (
@@ -7,6 +8,8 @@ from pandas import (
     to_numeric as pandas_to_numeric,
 )
 from pathlib import Path
+from src.ch17_idea.idea_config import get_brick_types
+from typing import List, Tuple
 
 
 def get_spark_faces_from_df(df: DataFrame) -> set:
@@ -116,6 +119,89 @@ def add_spark_num_column(df: DataFrame, spark_face_spark_nums: dict[str, int]):
     df.insert(0, "spark_num", spark_num_series)
 
 
+def get_excel_sheet_tuples(directory: str) -> List[Tuple[str, str]]:
+    """
+    Given a directory, returns a sorted list of (filename, sheet_name) tuples
+    for all Excel files found in that directory.
+
+    Args:
+        directory: Path to the directory to search for Excel files.
+
+    Returns:
+        Sorted list of (filename, sheet_name) tuples.
+    """
+    result = []
+    excel_extensions = (".xlsx", ".xlsm", ".xltx", ".xltm")
+
+    for filename in os_listdir(directory):
+        if filename.lower().endswith(excel_extensions):
+            filepath = os_path_join(directory, filename)
+            wb = load_workbook(filepath, read_only=True)
+            for sheet_name in wb.sheetnames:
+                result.append((filename, sheet_name))
+            wb.close()
+
+    return sorted(result)
+
+
+def get_sheets_with_brick_types(directory: str) -> List[Tuple[str, str]]:
+    """
+    Returns all (filename, sheet_name) tuples where the sheet_name contains
+    any of the provided br_strings.
+
+    Args:
+        directory:  Path to the directory to search for Excel files.
+        br_strings: Set of strings to match against sheet names.
+
+    Returns:
+        Sorted list of (filename, sheet_name) tuples where sheet_name
+        contains at least one br_string.
+    """
+    brick_types = get_brick_types()
+    all_tuples = get_excel_sheet_tuples(directory)
+    return [
+        (filename, sheet_name)
+        for filename, sheet_name in all_tuples
+        if any(br in sheet_name.lower() for br in brick_types)
+    ]
+
+
+def get_validated_bele_src_brick_type_sheets(
+    bele_src_dir: str,
+    idea_src_dir: str,
+) -> List[Tuple[str, str]]:
+    """
+    Returns all BR sheets found in bele_src_dir.
+    Raises a ValueError if any of those BR sheets also exist in idea_src_dir.
+
+    Args:
+        bele_src_dir: Path to the BELE source directory.
+        idea_src_dir: Path to the IDEA source directory.
+
+    Returns:
+        Sorted list of (filename, sheet_name) tuples from bele_src_dir
+        whose sheet_name contains a BR string.
+
+    Raises:
+        ValueError: If any BR sheet found in bele_src_dir also exists
+                    in idea_src_dir (matched on sheet_name alone).
+    """
+    bele_br_sheets = get_sheets_with_brick_types(bele_src_dir)
+    idea_br_sheets = get_sheets_with_brick_types(idea_src_dir)
+
+    bele_sheet_names = {sheet_name for _, sheet_name in bele_br_sheets}
+    idea_sheet_names = {sheet_name for _, sheet_name in idea_br_sheets}
+
+    overlapping = bele_sheet_names & idea_sheet_names
+    if overlapping:
+        raise ValueError(
+            f"BR sheets found in both bele_src_dir and idea_src_dir: "
+            f"{sorted(overlapping)}"
+        )
+
+    return bele_br_sheets
+
+
 class MigrationConflictError(Exception):
     """Raised when there is a conflict between source and destination Excel sheets."""
 
@@ -163,6 +249,62 @@ def compare_br_sheets(src_dir: str, dst_dir: str) -> None:
                 raise MigrationConflictError(
                     f"Conflict in sheet '{sheet_name}' between '{src_file.name}' and '{dst_file.name}'"
                 )
+
+
+# def move_b_src_sheets_to_i_src(src_dir: str, dst_dir: str) -> None:
+#     src_dir = Path(src_dir)
+#     dst_dir = Path(dst_dir)
+
+#     # TODO add compare_br_sheets to raise exception
+#     compare_br_sheets(src_dir, dst_dir)
+
+#     for src_file in src_dir.iterdir():
+#         if not src_file.is_file() or src_file.suffix.lower() not in {".xlsx", ".xls"}:
+#             continue
+
+#         dst_file = dst_dir / src_file.name
+
+#         # Read source sheets
+#         src_sheets = pandas_read_excel(src_file, sheet_name=None)
+
+#         # Filter "br" sheets
+#         br_sheets = {
+#             name: df for name, df in src_sheets.items() if "br" in name.lower()
+#         }
+
+#         if not br_sheets:
+#             continue
+
+#         # Read destination sheets if file exists, else empty
+#         if dst_file.exists():
+#             dst_sheets = pandas_read_excel(dst_file, sheet_name=None)
+#         else:
+#             dst_sheets = {}
+
+#         # Check for conflicts
+#         for sheet_name, src_df in br_sheets.items():
+#             if sheet_name in dst_sheets:
+#                 dst_df = dst_sheets[sheet_name]
+
+#                 # Normalize before comparison
+#                 src_cmp = src_df.fillna("").astype(str)
+#                 dst_cmp = dst_df.fillna("").astype(str)
+
+#                 if not src_cmp.equals(dst_cmp):
+#                     raise MigrationConflictError(
+#                         f"Conflict in sheet '{sheet_name}' for file '{src_file.name}'"
+#                     )
+
+#         # Merge sheets (copy br sheets into destination)
+#         updated_sheets = dict(dst_sheets)  # copy existing
+
+#         for sheet_name, df in br_sheets.items():
+#             updated_sheets[sheet_name] = df
+
+#         # Write back to Excel
+#         with ExcelWriter(dst_file, engine="xlsxwriter") as writer:
+#             for sheet_name, df in updated_sheets.items():
+#                 df.to_excel(writer, sheet_name=sheet_name, index=False)
 
 
 def update_spark_num_in_excel_file(filepath: str, max_spark_num):

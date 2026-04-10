@@ -7,7 +7,7 @@ from src.ch04_rope.rope import create_rope, default_knot_if_None
 from src.ch13_time.epoch_config import get_creg_config, get_five_config
 from src.ch13_time.epoch_main import epochunit_shop
 from src.ch14_moment.moment_main import momentunit_shop
-from src.ch17_idea.idea_belief import (
+from src.ch17_idea.brick_belief_csv import (
     add_momentunits_to_belief_csv_strs,
     create_init_belief_idea_csv_strs,
 )
@@ -16,6 +16,7 @@ from src.ch17_idea.idea_db_tool import (
     prettify_excel,
     remove_empty_sheets,
 )
+from typing import Callable
 
 TEAMFIVE = "TeamFive"
 
@@ -109,3 +110,13 @@ def create_example_moment_budget_file(file_path: str):
     # TODO dict[str, str]s and save to file
     # prnt("create_example_moment_budget_file...")
     pass
+
+
+def get_option_table_options() -> dict[str, Callable]:
+    return {
+        "Create TeamFive Moment with Five time": create_five_time_config_file,
+        "Create El Paso Moment with standard time.": create_elpaso_time_config_file,
+        "create_emmanuel_belief_file": create_emmanuel_belief_file,
+        "create_example_moment_ledger_file": create_example_moment_ledger_file,
+        "create_example_moment_budget_file": create_example_moment_budget_file,
+    }

@@ -43,7 +43,7 @@ def test_IdeaFileRef_Exists():
     assert x_ideafileref.file_dir is None
     assert x_ideafileref.filename is None
     assert x_ideafileref.sheet_name is None
-    assert x_ideafileref.idea_number is None
+    assert x_ideafileref.brick_type is None
 
 
 def test_IdeaFileRef_get_csv_filename_ReturnsObj_Scenario0():
@@ -59,7 +59,7 @@ def test_IdeaFileRef_get_csv_filename_ReturnsObj_Scenario1():
     br00003_str = "br00003"
 
     # WHEN
-    x_ideafileref = IdeaFileRef(idea_number=br00003_str)
+    x_ideafileref = IdeaFileRef(brick_type=br00003_str)
 
     # THEN
     assert x_ideafileref.get_csv_filename() == f"{br00003_str}.csv"

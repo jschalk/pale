@@ -305,7 +305,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
     x_tablename = prime_tbl(dimen, kw.s_raw)
     dimen_config = get_idea_config_dict().get(dimen)
     dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-    exclude_cols = {kw.idea_number, kw.error_message}
+    exclude_cols = {kw.brick_type, kw.error_message}
     expected_update_sqlstr = create_update_inconsistency_error_query(
         cursor0,
         x_tablename,
@@ -354,7 +354,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
     dimen_config = get_idea_config_dict().get(dimen)
     dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
     exclude_cols = {
-        kw.idea_number,
+        kw.brick_type,
         kw.spark_num,
         kw.spark_face,
         kw.error_message,
@@ -405,7 +405,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
     dimen_config = get_idea_config_dict().get(dimen)
     dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
     exclude_cols = {
-        kw.idea_number,
+        kw.brick_type,
         kw.spark_num,
         kw.spark_face,
         kw.error_message,
@@ -454,7 +454,7 @@ def test_create_sound_raw_update_inconsist_error_message_sqlstr_ReturnsObj_Scena
     x_tablename = prime_tbl(dimen, kw.s_raw, "put")
     dimen_config = get_idea_config_dict().get(dimen)
     dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-    exclude_cols = {kw.idea_number, kw.error_message}
+    exclude_cols = {kw.brick_type, kw.error_message}
     expected_update_sqlstr = create_update_inconsistency_error_query(
         cursor0,
         x_tablename,
@@ -503,7 +503,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario0_TranslateDimen(
     agg_tablename = prime_tbl(dimen, "s_agg")
     dimen_config = get_idea_config_dict().get(dimen)
     dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
-    exclude_cols = {kw.idea_number, kw.error_message}
+    exclude_cols = {kw.brick_type, kw.error_message}
     expected_insert_sqlstr = create_table2table_agg_insert_query(
         cursor0,
         src_table=raw_tablename,
@@ -542,7 +542,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario1_MomentDimen(
     dimen_config = get_idea_config_dict().get(dimen)
     dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
     dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
-    exclude_cols = {kw.idea_number, kw.error_message}
+    exclude_cols = {kw.brick_type, kw.error_message}
     print("yeah")
     expected_insert_sqlstr = create_table2table_agg_insert_query(
         cursor0,
@@ -582,7 +582,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario2_NabuDimen(
     dimen_config = get_idea_config_dict().get(dimen)
     dimen_focus_columns = set(dimen_config.get(kw.jkeys).keys())
     dimen_focus_columns = get_default_sorted_list(dimen_focus_columns)
-    exclude_cols = {kw.idea_number, kw.error_message}
+    exclude_cols = {kw.brick_type, kw.error_message}
     print("yeah")
     expected_insert_sqlstr = create_table2table_agg_insert_query(
         cursor0,
@@ -621,7 +621,7 @@ def test_create_sound_agg_insert_sqlstrs_ReturnsObj_Scenario3_PersonDimen(
     put_agg_tablename = prime_tbl(dimen, "s_agg", "put")
     put_dimen_config = get_idea_config_dict().get(dimen)
     put_dimen_focus_columns = set(put_dimen_config.get(kw.jkeys).keys())
-    put_exclude_cols = {kw.idea_number, kw.error_message}
+    put_exclude_cols = {kw.brick_type, kw.error_message}
     put_expected_insert_sqlstr = create_table2table_agg_insert_query(
         cursor0,
         src_table=put_raw_tablename,
@@ -651,7 +651,7 @@ GROUP BY spark_num, spark_face, person_name, plan_rope, awardee_title
     last_element = del_dimen_focus_columns.pop(-1)
     del_dimen_focus_columns.append(f"{last_element}_ERASE")
     print(f"{del_dimen_focus_columns=} {last_element}")
-    del_exclude_cols = {kw.idea_number, kw.error_message}
+    del_exclude_cols = {kw.brick_type, kw.error_message}
     del_expected_insert_sqlstr = create_table2table_agg_insert_query(
         cursor0,
         src_table=del_raw_tablename,

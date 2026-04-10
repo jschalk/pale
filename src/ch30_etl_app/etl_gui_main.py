@@ -14,13 +14,7 @@ To integrate your CLI logic, replace the `create_today_punchs()` call inside
 import os
 import platform
 from src.ch21_world.world import create_today_punchs
-from src.ch30_etl_app.etl_gui_tool import (
-    create_elpaso_time_config_file,
-    create_emmanuel_belief_file,
-    create_example_moment_budget_file,
-    create_example_moment_ledger_file,
-    create_five_time_config_file,
-)
+from src.ch30_etl_app.etl_gui_tool import get_option_table_options
 import subprocess
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
@@ -206,14 +200,7 @@ class ETLApp(tk.Tk):
             command=self._run,
         )
         self._run_btn.pack()
-
-        options = {
-            "Create TeamFive Moment Time Config File": create_five_time_config_file,
-            "Create El Paso Moment Time Config File": create_elpaso_time_config_file,
-            "create_emmanuel_belief_file": create_emmanuel_belief_file,
-            "create_example_moment_ledger_file": create_example_moment_ledger_file,
-            "create_example_moment_budget_file": create_example_moment_budget_file,
-        }
+        options = get_option_table_options()
         table = OptionTable(self, options, i_src_dir=self._i_src_dir.get)
         table.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
