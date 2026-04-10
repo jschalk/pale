@@ -223,6 +223,7 @@
   "idea_category": "TODO", 
   "idea_src": "5 character abbreviation of ideaa_src. stage_type_order=2 Idea files. Brick formats with SparkNum.", 
   "ideaa_src": "stage_type_order=2 Idea files. Brick formats with SparkNum.", 
+  "ii": "Idea Format Identifier. Every brick_type format starts with 'ii' and then 5 numbers.", 
   "import": "Used so often in Python that it cannot be given any kegology meaning.", 
   "inallocable_contact_debt_lumen": ", Contact conpute", 
   "infinity": "As described in Totality and Infinity. Not used in codebase.", 

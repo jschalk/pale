@@ -36,28 +36,28 @@ def test_etl_brick_dfs_to_brick_raw_tables_PopulatesTables_Scenario0(
     row4 = ["spark3", exx.sue, "num55", exx.a23_dash, hour7am, exx.dash]
 
     df1 = DataFrame([row0, row1, row2, row3, row4], columns=br3_columns)
-    br00003_ex1_str = "example1_br00003"
-    save_sheet(i_src_file_path, br00003_ex1_str, df1)
-    br00003_tablename = f"br00003_{kw.brick_raw}"
-    assert not db_table_exists(cursor0, br00003_tablename)
+    ii00003_ex1_str = "example1_ii00003"
+    save_sheet(i_src_file_path, ii00003_ex1_str, df1)
+    ii00003_tablename = f"ii00003_{kw.brick_raw}"
+    assert not db_table_exists(cursor0, ii00003_tablename)
 
     # WHEN
     etl_brick_dfs_to_brick_raw_tables(cursor0, i_src_dir)
 
     # THEN
-    assert db_table_exists(cursor0, br00003_tablename)
-    br00003_table_cols = get_table_columns(cursor0, br00003_tablename)
+    assert db_table_exists(cursor0, ii00003_tablename)
+    ii00003_table_cols = get_table_columns(cursor0, ii00003_tablename)
     file_dir_str = "file_dir"
     filename_str = "filename"
     sheet_name_str = "sheet_name"
-    assert file_dir_str == br00003_table_cols[0]
-    assert filename_str == br00003_table_cols[1]
-    assert sheet_name_str == br00003_table_cols[2]
-    assert kw.error_message == br00003_table_cols[-1]
-    assert get_row_count(cursor0, br00003_tablename) == 5
+    assert file_dir_str == ii00003_table_cols[0]
+    assert filename_str == ii00003_table_cols[1]
+    assert sheet_name_str == ii00003_table_cols[2]
+    assert kw.error_message == ii00003_table_cols[-1]
+    assert get_row_count(cursor0, ii00003_tablename) == 5
     select_agg_sqlstr = f"""
 SELECT * 
-FROM {br00003_tablename} 
+FROM {ii00003_tablename} 
 ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
     cursor0.execute(select_agg_sqlstr)
 
@@ -70,7 +70,7 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
     s_dir = create_path(i_src_dir, ".")
     m_360 = minute_360
     m_420 = minute_420
-    br3_str = br00003_ex1_str
+    br3_str = ii00003_ex1_str
     err4 = f"Conversion errors: {kw.cumulative_minute}: num55"
     err0 = f"Conversion errors: {kw.spark_num}: spark3, {kw.cumulative_minute}: num55"
     row0 = (s_dir, file, br3_str, None, exx.sue, exx.a23_dash, None, hour7am, "-", err0)
@@ -124,32 +124,32 @@ def test_etl_brick_dfs_to_brick_raw_tables_PopulatesTables_Scenario1(
     df1 = DataFrame([row1, row2], columns=brick_columns)
     df2 = DataFrame([incom_row1, incom_row2], columns=incomplete_brick_columns)
     df3 = DataFrame([row2, row1, row3], columns=brick_columns)
-    br00003_ex1_str = "example1_br00003"
-    br00003_ex2_str = "example2_br00003"
-    br00003_ex3_str = "example3_br00003"
-    save_sheet(i_src_file_path, br00003_ex1_str, df1)
-    save_sheet(i_src_file_path, br00003_ex2_str, df2)
-    save_sheet(i_src_file_path, br00003_ex3_str, df3)
-    br00003_tablename = f"br00003_{kw.brick_raw}"
-    assert not db_table_exists(cursor0, br00003_tablename)
+    ii00003_ex1_str = "example1_ii00003"
+    ii00003_ex2_str = "example2_ii00003"
+    ii00003_ex3_str = "example3_ii00003"
+    save_sheet(i_src_file_path, ii00003_ex1_str, df1)
+    save_sheet(i_src_file_path, ii00003_ex2_str, df2)
+    save_sheet(i_src_file_path, ii00003_ex3_str, df3)
+    ii00003_tablename = f"ii00003_{kw.brick_raw}"
+    assert not db_table_exists(cursor0, ii00003_tablename)
 
     # WHEN
     etl_brick_dfs_to_brick_raw_tables(cursor0, i_src_dir)
 
     # THEN
-    assert db_table_exists(cursor0, br00003_tablename)
-    assert get_row_count(cursor0, br00003_tablename) == 5
-    br00003_table_cols = get_table_columns(cursor0, br00003_tablename)
+    assert db_table_exists(cursor0, ii00003_tablename)
+    assert get_row_count(cursor0, ii00003_tablename) == 5
+    ii00003_table_cols = get_table_columns(cursor0, ii00003_tablename)
     file_dir_str = "file_dir"
     filename_str = "filename"
     sheet_name_str = "sheet_name"
-    assert file_dir_str == br00003_table_cols[0]
-    assert filename_str == br00003_table_cols[1]
-    assert sheet_name_str == br00003_table_cols[2]
-    assert kw.error_message == br00003_table_cols[-1]
+    assert file_dir_str == ii00003_table_cols[0]
+    assert filename_str == ii00003_table_cols[1]
+    assert sheet_name_str == ii00003_table_cols[2]
+    assert kw.error_message == ii00003_table_cols[-1]
     select_agg_sqlstr = f"""
 SELECT * 
-FROM {br00003_tablename} 
+FROM {ii00003_tablename} 
 ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
     cursor0.execute(select_agg_sqlstr)
 
@@ -161,8 +161,8 @@ ORDER BY sheet_name, {kw.spark_num}, {kw.cumulative_minute};"""
     s_dir = create_path(i_src_dir, ".")
     m_360 = minute_360
     m_420 = minute_420
-    b1_str = br00003_ex1_str
-    b3_str = br00003_ex3_str
+    b1_str = ii00003_ex1_str
+    b3_str = ii00003_ex3_str
     row0 = (s_dir, file, b1_str, e1, exx.sue, exx.a23_dash, m_360, hour6am, "-", None)
     row1 = (s_dir, file, b1_str, e1, exx.sue, exx.a23_dash, m_420, hour7am, "-", None)
     row2 = (s_dir, file, b3_str, e1, exx.sue, exx.a23_dash, m_360, hour6am, "-", None)

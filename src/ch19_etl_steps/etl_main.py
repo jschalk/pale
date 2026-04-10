@@ -177,7 +177,7 @@ def get_max_brick_agg_spark_num(cursor: sqlite3_Cursor) -> int:
     agg_tables = get_db_tables(cursor, "brick_agg")
     brick_aggs_max_spark_num = 0
     for agg_table in agg_tables:
-        if agg_table.startswith("br") and agg_table.endswith("brick_agg"):
+        if agg_table.startswith("ii") and agg_table.endswith("brick_agg"):
             sqlstr = f"SELECT MAX(spark_num) FROM {agg_table}"
             table_max_spark_num = cursor.execute(sqlstr).fetchone()[0] or 1
             if table_max_spark_num > brick_aggs_max_spark_num:
@@ -390,7 +390,7 @@ def get_sound_raw_tablenames(
 
 def etl_brick_vld_tables_to_sound_raw_tables(cursor: sqlite3_Cursor):
     create_sound_and_heard_tables(cursor)
-    brick_vld_tablenames = get_db_tables(cursor, "_brick_vld", "br")
+    brick_vld_tablenames = get_db_tables(cursor, "_brick_vld", "ii")
     for brick_vld_tablename in brick_vld_tablenames:
         brick_type = brick_vld_tablename[:7]
         brickref_filename = get_brick_format_filename(brick_type)

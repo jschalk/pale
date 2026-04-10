@@ -14,7 +14,7 @@ def create_dimens_brick_format_dict() -> dict:
     x_count = 20
     for idea_dimen, dimen_dict in get_idea_config_dict().items():
         if dimen_dict.get(kw.idea_category) == "person":
-            brick_filename = f"br{x_count:05}_{idea_dimen}_v0_0_0.json"
+            brick_filename = f"ii{x_count:05}_{idea_dimen}_v0_0_0.json"
             attributes_set = {kw.moment_rope, kw.person_name}
             args_dict = get_atom_config_args(idea_dimen)
             attributes_set.update(set(args_dict.keys()))
@@ -33,7 +33,7 @@ def test_create_dimens_brick_format_dict_ReturnsObj(rebuild_jsons):
     for brick_format in sorted(dimens_brick_format_dict.keys()):
         print(f"{brick_format=}")
     assert len(dimens_brick_format_dict) == 10
-    person_planunit_filename = f"br00028_{kw.person_planunit}_v0_0_0.json"
+    person_planunit_filename = f"ii00028_{kw.person_planunit}_v0_0_0.json"
     print(f"{person_planunit_filename=}")
     assert dimens_brick_format_dict.get(person_planunit_filename)
     person_planunit_dict = dimens_brick_format_dict.get(person_planunit_filename)
@@ -63,7 +63,7 @@ def test_get_brick_md_ReturnsObj():
             kw.epoch_label: {kw.otx_key: False},
             kw.yr1_jan1_offset: {kw.otx_key: False},
         },
-        kw.brick_type: "br00000",
+        kw.brick_type: "ii00000",
         kw.dimens: ["momentunit"],
     }
 
@@ -72,7 +72,7 @@ def test_get_brick_md_ReturnsObj():
 
     # THEN
     print(brick_md)
-    expected_brick_md = f"""# Idea `br00000`
+    expected_brick_md = f"""# Idea `ii00000`
 
 ## Dimens `['momentunit']`
 
@@ -96,7 +96,7 @@ def test_get_brick_md_ReturnsObj():
 def test_get_brick_mds_ReturnsObj(temp3_fs):
     # ESTABLISH
     temp_dir = str(temp3_fs)
-    br00000_str = "br00000"
+    ii00000_str = "ii00000"
     brick_config = {
         "attributes": {
             kw.knot: {kw.otx_key: False},
@@ -112,16 +112,16 @@ def test_get_brick_mds_ReturnsObj(temp3_fs):
             kw.epoch_label: {kw.otx_key: False},
             kw.yr1_jan1_offset: {kw.otx_key: False},
         },
-        kw.brick_type: br00000_str,
+        kw.brick_type: ii00000_str,
         kw.dimens: ["momentunit"],
     }
-    save_json(temp_dir, f"{br00000_str}.json", brick_config)
+    save_json(temp_dir, f"{ii00000_str}.json", brick_config)
 
     # WHEN
     brick_mds = get_brick_mds(temp_dir)
 
     # THEN
-    expected_brick_md = f"""# Idea `br00000`
+    expected_brick_md = f"""# Idea `ii00000`
 
 ## Dimens `['momentunit']`
 
@@ -139,8 +139,8 @@ def test_get_brick_mds_ReturnsObj(temp3_fs):
 - `{kw.knot}`
 - `{kw.job_listen_rotations}`
 """
-    assert set(brick_mds.keys()) == {br00000_str}
-    assert brick_mds == {br00000_str: expected_brick_md}
+    assert set(brick_mds.keys()) == {ii00000_str}
+    assert brick_mds == {ii00000_str: expected_brick_md}
 
 
 def test_get_brick_formats_md_ReturnsObj():
@@ -149,4 +149,4 @@ def test_get_brick_formats_md_ReturnsObj():
 
     # THEN
     assert brick_formats_md
-    assert brick_formats_md.find("br00004") > 0
+    assert brick_formats_md.find("ii00004") > 0

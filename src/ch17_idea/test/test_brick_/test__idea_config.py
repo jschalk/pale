@@ -29,9 +29,6 @@ from src.ch16_translate.translate_config import (
     get_translateable_args,
 )
 from src.ch17_idea.idea_config import (
-    br00013_planunit_v0_0_0,
-    br00020_person_contact_membership_v0_0_0,
-    br00021_person_contactunit_v0_0_0,
     get_allowed_curds,
     get_brick_format_filename,
     get_brick_format_filenames,
@@ -45,6 +42,9 @@ from src.ch17_idea.idea_config import (
     get_idea_sqlite_types,
     get_quick_bricks_column_ref,
     idea_config_path,
+    ii00013_planunit_v0_0_0,
+    ii00020_person_contact_membership_v0_0_0,
+    ii00021_person_contactunit_v0_0_0,
 )
 from src.ref.keywords import Ch17Keywords as kw
 
@@ -595,9 +595,9 @@ def test_get_brick_format_filenames_ReturnsObj_CheckSome_brick_format_filesnames
     brick_filenames_set = get_brick_format_filenames()
 
     # WHEN / THEN
-    assert br00021_person_contactunit_v0_0_0() in brick_filenames_set
-    assert br00020_person_contact_membership_v0_0_0() in brick_filenames_set
-    assert br00013_planunit_v0_0_0() in brick_filenames_set
+    assert ii00021_person_contactunit_v0_0_0() in brick_filenames_set
+    assert ii00020_person_contact_membership_v0_0_0() in brick_filenames_set
+    assert ii00013_planunit_v0_0_0() in brick_filenames_set
 
 
 def change_erase_attrs(idea_attrs: set):
@@ -701,19 +701,19 @@ def test_get_brick_format_filenames_ReturnsObj_Validate_brick_format_files():
 
 def test_get_brick_format_filename_ReturnsObj():
     # ESTABLISH
-    br00021_str = "br00021"
-    br00020_str = "br00020"
-    br00013_str = "br00013"
+    ii00021_str = "ii00021"
+    ii00020_str = "ii00020"
+    ii00013_str = "ii00013"
 
     # WHEN
-    br00021_filename = get_brick_format_filename(br00021_str)
-    br00020_filename = get_brick_format_filename(br00020_str)
-    br00013_filename = get_brick_format_filename(br00013_str)
+    ii00021_filename = get_brick_format_filename(ii00021_str)
+    ii00020_filename = get_brick_format_filename(ii00020_str)
+    ii00013_filename = get_brick_format_filename(ii00013_str)
 
     # THEN
-    assert br00021_filename == br00021_person_contactunit_v0_0_0()
-    assert br00020_filename == br00020_person_contact_membership_v0_0_0()
-    assert br00013_filename == br00013_planunit_v0_0_0()
+    assert ii00021_filename == ii00021_person_contactunit_v0_0_0()
+    assert ii00020_filename == ii00020_person_contact_membership_v0_0_0()
+    assert ii00013_filename == ii00013_planunit_v0_0_0()
 
     all_set = {get_brick_format_filename(br) for br in get_brick_types()}
     assert all_set == get_brick_format_filenames()
@@ -832,7 +832,7 @@ def test_get_quick_bricks_column_ref_ReturnsObj():
 
     # THEN
     assert len(x_idea_quick_column_ref) == len(get_brick_types())
-    assert x_idea_quick_column_ref.get("br00000") == {
+    assert x_idea_quick_column_ref.get("ii00000") == {
         kw.spark_num,
         kw.spark_face,
         kw.c400_number,

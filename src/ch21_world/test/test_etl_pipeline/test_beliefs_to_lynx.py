@@ -21,7 +21,7 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     sue_inx = "Suzy"
     ex_filename = "belief_Faybob.xlsx"
     bele_src_dir_file_path = create_path(fay_wdir.bele_src_dir, ex_filename)
-    br00113_columns = [
+    ii00113_columns = [
         kw.spark_face,
         kw.moment_rope,
         kw.person_name,
@@ -30,13 +30,13 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
         kw.inx_name,
     ]
     tp37 = 37
-    br00113_str = "br00113"
-    br00113row0 = [exx.sue, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
-    br00113_df = DataFrame([br00113row0], columns=br00113_columns)
-    br00113_ex0_str = f"example0_{br00113_str}"
-    save_sheet(bele_src_dir_file_path, br00113_ex0_str, br00113_df)
+    ii00113_str = "ii00113"
+    ii00113row0 = [exx.sue, exx.a23, exx.sue, exx.sue, exx.sue, sue_inx]
+    ii00113_df = DataFrame([ii00113row0], columns=ii00113_columns)
+    ii00113_ex0_str = f"example0_{ii00113_str}"
+    save_sheet(bele_src_dir_file_path, ii00113_ex0_str, ii00113_df)
 
-    br00001_columns = [
+    ii00001_columns = [
         kw.spark_face,
         kw.moment_rope,
         kw.person_name,
@@ -49,9 +49,9 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     sue_quota = 235
     sue_celldepth = 3
     br1row0 = [exx.sue, exx.a23, exx.sue, tp37, ";", sue_quota, sue_celldepth]
-    br00001_1df = DataFrame([br1row0], columns=br00001_columns)
-    br00001_ex0_str = "example0_br00001"
-    save_sheet(bele_src_dir_file_path, br00001_ex0_str, br00001_1df)
+    ii00001_1df = DataFrame([br1row0], columns=ii00001_columns)
+    ii00001_ex0_str = "example0_ii00001"
+    save_sheet(bele_src_dir_file_path, ii00001_ex0_str, ii00001_1df)
     fay_db_path = fay_wdir.get_world_db_path()
     assert not os_path_exists(fay_db_path)
     assert os_path_exists(bele_src_dir_file_path)
@@ -67,9 +67,9 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
 
     assert os_path_exists(fay_db_path)
     with sqlite3_connect(fay_db_path) as db_conn:
-        br00113_raw = f"{br00113_str}_brick_raw"
-        br00113_agg = f"{br00113_str}_brick_agg"
-        br00113_valid = f"{br00113_str}_brick_vld"
+        ii00113_raw = f"{ii00113_str}_brick_raw"
+        ii00113_agg = f"{ii00113_str}_brick_agg"
+        ii00113_valid = f"{ii00113_str}_brick_vld"
         sparks_brick_vld_tablename = kw.sparks_brick_vld
         trlname_sound_raw = create_prime_tablename("trlname", kw.s_raw)
         trlname_sound_agg = create_prime_tablename("trlname", "s_agg")
@@ -91,11 +91,11 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
         prncont_put_heard_agg = create_prime_tablename("prncont", kw.h_vld, "put")
 
         cursor = db_conn.cursor()
-        assert get_row_count(cursor, br00113_raw) == 1
-        assert get_row_count(cursor, br00113_agg) == 1
+        assert get_row_count(cursor, ii00113_raw) == 1
+        assert get_row_count(cursor, ii00113_agg) == 1
         assert get_row_count(cursor, kw.sparks_brick_agg) == 2
         assert get_row_count(cursor, sparks_brick_vld_tablename) == 2
-        assert get_row_count(cursor, br00113_valid) == 2
+        assert get_row_count(cursor, ii00113_valid) == 2
         assert get_row_count(cursor, trlname_sound_raw) == 2
         assert get_row_count(cursor, momentunit_sound_raw) == 4
         assert get_row_count(cursor, prnunit_put_sound_raw) == 4
@@ -121,8 +121,8 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
 def create_brick_agg_record(wdir: WorldDir, spark_num: int):
     minute_360 = 360
     hour6am = "6am"
-    agg_br00003_tablename = f"br00003_{kw.brick_agg}"
-    agg_br00003_columns = [
+    agg_ii00003_tablename = f"ii00003_{kw.brick_agg}"
+    agg_ii00003_columns = [
         kw.spark_num,
         kw.spark_face,
         kw.moment_rope,
@@ -131,8 +131,8 @@ def create_brick_agg_record(wdir: WorldDir, spark_num: int):
     ]
     with sqlite3_connect(wdir.get_world_db_path()) as db_conn:
         cursor = db_conn.cursor()
-        create_idea_sorted_table(cursor, agg_br00003_tablename, agg_br00003_columns)
-        insert_into_clause = f"""INSERT INTO {agg_br00003_tablename} (
+        create_idea_sorted_table(cursor, agg_ii00003_tablename, agg_ii00003_columns)
+        insert_into_clause = f"""INSERT INTO {agg_ii00003_tablename} (
   {kw.spark_num}
 , {kw.spark_face}
 , {kw.moment_rope}
@@ -157,7 +157,7 @@ def test_belief_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     sue_inx = "Suzy"
     ex_filename = "belief_Faybob.xlsx"
     bele_src_dir_file_path = create_path(fay_wdir.bele_src_dir, ex_filename)
-    br00113_columns = [
+    ii00113_columns = [
         kw.spark_face,
         kw.moment_rope,
         kw.person_name,
@@ -166,11 +166,11 @@ def test_belief_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
         kw.inx_name,
     ]
     a23_rope = create_rope("amy2345")
-    br00113_str = "br00113"
-    br00113row0 = [exx.sue, a23_rope, exx.sue, exx.sue, exx.sue, sue_inx]
-    br00113_df = DataFrame([br00113row0], columns=br00113_columns)
-    br00113_ex0_str = f"example0_{br00113_str}"
-    save_sheet(bele_src_dir_file_path, br00113_ex0_str, br00113_df)
+    ii00113_str = "ii00113"
+    ii00113row0 = [exx.sue, a23_rope, exx.sue, exx.sue, exx.sue, sue_inx]
+    ii00113_df = DataFrame([ii00113row0], columns=ii00113_columns)
+    ii00113_ex0_str = f"example0_{ii00113_str}"
+    save_sheet(bele_src_dir_file_path, ii00113_ex0_str, ii00113_df)
     fay_db_path = fay_wdir.get_world_db_path()
     assert os_path_exists(fay_db_path)
     with sqlite3_connect(fay_db_path) as db_conn0:

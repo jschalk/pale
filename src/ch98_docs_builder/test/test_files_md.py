@@ -73,4 +73,4 @@ def test_save_brick_formats_CreatesFile(temp3_fs):
     # THEN
     assert os_path_exists(brick_formats_path)
     brick_formats_md = open_file(brick_formats_path)
-    assert brick_formats_md.find("br00004") > 0
+    assert brick_formats_md.find("ii00004") > 0

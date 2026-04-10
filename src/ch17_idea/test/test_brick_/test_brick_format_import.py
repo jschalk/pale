@@ -2,7 +2,7 @@ from src.ch04_rope.rope import create_rope
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch17_idea.brick_db_tool import open_csv
 from src.ch17_idea.brick_main import get_brickref_obj, save_idea_csv
-from src.ch17_idea.idea_config import br00021_person_contactunit_v0_0_0
+from src.ch17_idea.idea_config import ii00021_person_contactunit_v0_0_0
 from src.ref.keywords import Ch17Keywords as kw, ExampleStrs as exx
 
 
@@ -25,7 +25,7 @@ def test_open_csv_ReturnsObjWhenFileExists(temp3_fs):
     sue_personunit.add_contactunit(
         exx.yao, yao_contact_cred_lumen, yao_contact_debt_lumen
     )
-    j1_ideaname = br00021_person_contactunit_v0_0_0()
+    j1_ideaname = ii00021_person_contactunit_v0_0_0()
     name_filename = f"{exx.sue}_contact_example_01.csv"
     save_idea_csv(j1_ideaname, sue_personunit, str(temp3_fs), name_filename)
 

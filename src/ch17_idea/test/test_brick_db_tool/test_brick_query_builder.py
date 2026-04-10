@@ -12,7 +12,7 @@ def test_get_brick_into_dimen_raw_query_ReturnsObj_Scenario0_person_plan_laborun
     cursor0: Cursor,
 ):
     # ESTABLISH
-    brick_type = "br000XX"
+    brick_type = "ii000XX"
     brick_cols = [
         kw.spark_num,
         kw.spark_face,
@@ -62,7 +62,7 @@ def test_get_brick_into_dimen_raw_query_ReturnsObj_Scenario1_person_contactunit(
     cursor0: Cursor,
 ):
     # ESTABLISH
-    brick_type = "br000XX"
+    brick_type = "ii000XX"
     brick_cols = [
         kw.spark_num,
         kw.spark_face,
@@ -112,7 +112,7 @@ def test_get_brick_into_dimen_raw_query_ReturnsObj_Scenario2_person_contactunit(
     cursor0: Cursor,
 ):
     # ESTABLISH
-    brick_type = "br000XX"
+    brick_type = "ii000XX"
     brick_cols = [
         kw.spark_num,
         kw.spark_face,

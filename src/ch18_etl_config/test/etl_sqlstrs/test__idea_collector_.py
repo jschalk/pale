@@ -17,21 +17,21 @@ def test_get_all_excel_bricksheets_ReturnsObj_Scenario0_SheetNames(temp3_fs):
     ex_file_path = create_path(x_dir, ex_filename)
     df1 = DataFrame([["AAA", "BBB"]], columns=["spam", "egg"])
     df2 = DataFrame([["ABC", "XYZ"]], columns=["Foo", "Bar"])
-    br00000_str = "br00000"
-    br00001_str = "br00001"
-    br00002_str = "br00002"
-    save_sheet(ex_file_path, br00000_str, df1)
-    save_sheet(ex_file_path, br00001_str, df2)
-    save_sheet(ex_file_path, br00002_str, df2)
+    ii00000_str = "ii00000"
+    ii00001_str = "ii00001"
+    ii00002_str = "ii00002"
+    save_sheet(ex_file_path, ii00000_str, df1)
+    save_sheet(ex_file_path, ii00001_str, df2)
+    save_sheet(ex_file_path, ii00002_str, df2)
 
     # WHEN
     x_sheet_names = get_all_excel_bricksheets(env_dir)
 
     # THEN
     assert x_sheet_names
-    assert (x_dir, ex_filename, br00000_str) in x_sheet_names
-    assert (x_dir, ex_filename, br00001_str) in x_sheet_names
-    assert (x_dir, ex_filename, br00002_str) in x_sheet_names
+    assert (x_dir, ex_filename, ii00000_str) in x_sheet_names
+    assert (x_dir, ex_filename, ii00001_str) in x_sheet_names
+    assert (x_dir, ex_filename, ii00002_str) in x_sheet_names
     assert len(x_sheet_names) == 3
 
 
@@ -56,13 +56,13 @@ def test_BrickFileRef_get_csv_filename_ReturnsObj_Scenario0():
 
 def test_BrickFileRef_get_csv_filename_ReturnsObj_Scenario1():
     # ESTABLISH
-    br00003_str = "br00003"
+    ii00003_str = "ii00003"
 
     # WHEN
-    x_brickfileref = BrickFileRef(brick_type=br00003_str)
+    x_brickfileref = BrickFileRef(brick_type=ii00003_str)
 
     # THEN
-    assert x_brickfileref.get_csv_filename() == f"{br00003_str}.csv"
+    assert x_brickfileref.get_csv_filename() == f"{ii00003_str}.csv"
 
 
 def test_get_all_brick_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
@@ -90,18 +90,18 @@ def test_get_all_brick_dataframes_ReturnsObj_Scenario0_TranslateSheetNames(
     row2 = [spark1, exx.sue, minute_420, exx.a23, hour7am, ";"]
 
     df1 = DataFrame([row1, row2], columns=brick_columns)
-    br00003_str = "example_br00003"
-    br00003_str = "example_br00003"
-    save_sheet(ex_file_path, br00003_str, df1)
+    ii00003_str = "example_ii00003"
+    ii00003_str = "example_ii00003"
+    save_sheet(ex_file_path, ii00003_str, df1)
 
     # WHEN
     x_bricksheets = get_all_brick_dataframes(env_dir)
 
     # THEN
     assert x_bricksheets
-    br3_brickfileref = BrickFileRef(x_dir, ex_filename, br00003_str, "br00003")
+    br3_brickfileref = BrickFileRef(x_dir, ex_filename, ii00003_str, "ii00003")
     assert x_bricksheets == [br3_brickfileref]
-    # assert (x_dir, ex_filename, br00003_str) in x_bricksheets
+    # assert (x_dir, ex_filename, ii00003_str) in x_bricksheets
     assert len(x_bricksheets) == 1
 
 
@@ -137,18 +137,18 @@ def test_get_all_brick_dataframes_ReturnsObj_Scenario1(temp3_fs):
 
     df1 = DataFrame([row1, row2], columns=brick_columns)
     df2 = DataFrame([incom_row1, incom_row2], columns=incomplete_brick_columns)
-    br00003_ex1_str = "example1_br00003"
-    br00003_ex2_str = "example2_br00003"
-    save_sheet(ex_file_path, br00003_ex1_str, df1)
-    save_sheet(ex_file_path, br00003_ex2_str, df2)
+    ii00003_ex1_str = "example1_ii00003"
+    ii00003_ex2_str = "example2_ii00003"
+    save_sheet(ex_file_path, ii00003_ex1_str, df1)
+    save_sheet(ex_file_path, ii00003_ex2_str, df2)
 
     # WHEN
     x_bricksheets = get_all_brick_dataframes(env_dir)
 
     # THEN
     assert x_bricksheets
-    ex1_brickfileref = BrickFileRef(x_dir, ex_filename, br00003_ex1_str, "br00003")
-    ex2_brickfileref = BrickFileRef(x_dir, ex_filename, br00003_ex2_str, "br00003")
+    ex1_brickfileref = BrickFileRef(x_dir, ex_filename, ii00003_ex1_str, "ii00003")
+    ex2_brickfileref = BrickFileRef(x_dir, ex_filename, ii00003_ex2_str, "ii00003")
 
     assert x_bricksheets == [ex1_brickfileref]
     assert len(x_bricksheets) == 1

@@ -5,10 +5,6 @@ from src.ch17_idea.brick_main import (
     get_brickref_obj,
 )
 from src.ch17_idea.idea_config import (
-    br00013_planunit_v0_0_0,
-    br00019_planunit_v0_0_0,
-    br00020_person_contact_membership_v0_0_0,
-    br00021_person_contactunit_v0_0_0,
     get_brick_format_filenames,
     get_brick_format_headers,
     get_brick_formats_dir,
@@ -18,6 +14,10 @@ from src.ch17_idea.idea_config import (
     get_dimen_minimum_put_brick_names,
     get_idea_config_dict,
     get_idea_elements_sort_order,
+    ii00013_planunit_v0_0_0,
+    ii00019_planunit_v0_0_0,
+    ii00020_person_contact_membership_v0_0_0,
+    ii00021_person_contactunit_v0_0_0,
 )
 from src.ch17_idea.test.test_brick_.test__idea_config import change_erase_attrs
 from src.ref.keywords import Ch17Keywords as kw
@@ -25,12 +25,12 @@ from src.ref.keywords import Ch17Keywords as kw
 
 def test_config_str_functions_ReturnsObj():
     # ESTABLISH / WHEN / THEN
-    x00021_idea = "br00021_person_contactunit_v0_0_0"
-    assert br00021_person_contactunit_v0_0_0() == x00021_idea
-    x00020_idea = "br00020_person_contact_membership_v0_0_0"
-    assert br00020_person_contact_membership_v0_0_0() == x00020_idea
-    x0003_idea = "br00013_planunit_v0_0_0"
-    assert br00013_planunit_v0_0_0() == x0003_idea
+    x00021_idea = "ii00021_person_contactunit_v0_0_0"
+    assert ii00021_person_contactunit_v0_0_0() == x00021_idea
+    x00020_idea = "ii00020_person_contact_membership_v0_0_0"
+    assert ii00020_person_contact_membership_v0_0_0() == x00020_idea
+    x0003_idea = "ii00013_planunit_v0_0_0"
+    assert ii00013_planunit_v0_0_0() == x0003_idea
 
 
 def test_get_brick_formats_dir_ReturnsObj():
@@ -45,7 +45,7 @@ def test_get_brick_formats_dir_ReturnsObj():
 
 def test_get_brickref_obj_ReturnsObj():
     # ESTABLISH
-    brick_name_00021 = br00021_person_contactunit_v0_0_0()
+    brick_name_00021 = ii00021_person_contactunit_v0_0_0()
 
     # WHEN
     x_brickref = get_brickref_obj(brick_name_00021)
@@ -63,7 +63,7 @@ def test_get_brickref_obj_ReturnsObj():
 
 def test_get_headers_list_ReturnsObj():
     # ESTABLISH / WHEN
-    format_00021_headers = _get_headers_list(br00021_person_contactunit_v0_0_0())
+    format_00021_headers = _get_headers_list(ii00021_person_contactunit_v0_0_0())
 
     # THEN
     # print(f"{format_00001_headers=}")
@@ -95,24 +95,24 @@ def get_sorted_headers_str(brick_filename):
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario0_SingleExample():
     # ESTABLISH
-    filebasename = br00021_person_contactunit_v0_0_0()
+    filebasename = ii00021_person_contactunit_v0_0_0()
 
     # WHEN
-    br00021_headers = get_sorted_headers_str(filebasename)
+    ii00021_headers = get_sorted_headers_str(filebasename)
 
     # THEN
-    expected_br00021_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.contact_name},{kw.contact_cred_lumen},{kw.contact_debt_lumen},{kw.knot}"
-    assert br00021_headers == expected_br00021_headers_str
+    expected_ii00021_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.contact_name},{kw.contact_cred_lumen},{kw.contact_debt_lumen},{kw.knot}"
+    assert ii00021_headers == expected_ii00021_headers_str
 
 
 def test_get_sorted_headers_str_ReturnsObj_Scenario1_SingleExample():
     # ESTABLISH / WHEN
-    br00019_headers = get_sorted_headers_str(br00019_planunit_v0_0_0())
+    ii00019_headers = get_sorted_headers_str(ii00019_planunit_v0_0_0())
 
     # THEN
-    print(f"{br00019_headers=}")
+    print(f"{ii00019_headers=}")
     expected_plan_headers_str = f"{kw.moment_rope},{kw.person_name},{kw.plan_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want}"
-    assert br00019_headers == expected_plan_headers_str
+    assert ii00019_headers == expected_plan_headers_str
 
 
 def check_sorted_headers_exist(brick_format_filename: str, x_headers: dict):
@@ -141,9 +141,9 @@ def test__generate_brick_dataframe_ReturnsObj():
     # ESTABLISH
     empty_d2 = []
     # WHEN
-    x_df = _generate_brick_dataframe(empty_d2, br00021_person_contactunit_v0_0_0())
+    x_df = _generate_brick_dataframe(empty_d2, ii00021_person_contactunit_v0_0_0())
     # THEN
-    headers_list = _get_headers_list(br00021_person_contactunit_v0_0_0())
+    headers_list = _get_headers_list(ii00021_person_contactunit_v0_0_0())
     assert list(x_df.columns) == headers_list
 
 
@@ -161,9 +161,9 @@ def test_idea_FilesExist():
     assert len(brick_filenames) == len(get_brick_format_filenames())
 
 
-def test_get_brickref_obj_HasAttrs_br00021_person_contactunit_v0_0_0():
+def test_get_brickref_obj_HasAttrs_ii00021_person_contactunit_v0_0_0():
     # ESTABLISH
-    brick_name = br00021_person_contactunit_v0_0_0()
+    brick_name = ii00021_person_contactunit_v0_0_0()
 
     # WHEN
     format_00001_brickref = get_brickref_obj(brick_name)
@@ -190,9 +190,9 @@ def test_get_brickref_obj_HasAttrs_br00021_person_contactunit_v0_0_0():
     assert headers_list[6] == kw.contact_debt_lumen
 
 
-def test_get_brickref_obj_HasAttrs_br00020_person_contact_membership_v0_0_0():
+def test_get_brickref_obj_HasAttrs_ii00020_person_contact_membership_v0_0_0():
     # ESTABLISH
-    brick_name = br00020_person_contact_membership_v0_0_0()
+    brick_name = ii00020_person_contact_membership_v0_0_0()
 
     # WHEN
     format_00020_brickref = get_brickref_obj(brick_name)
@@ -211,9 +211,9 @@ def test_get_brickref_obj_HasAttrs_br00020_person_contact_membership_v0_0_0():
     assert headers_list[8] == kw.knot
 
 
-def test_get_brickref_obj_HasAttrs_br00013_planunit_v0_0_0():
+def test_get_brickref_obj_HasAttrs_ii00013_planunit_v0_0_0():
     # ESTABLISH
-    brick_name = br00013_planunit_v0_0_0()
+    brick_name = ii00013_planunit_v0_0_0()
 
     # WHEN
     format_00003_brickref = get_brickref_obj(brick_name)
@@ -230,9 +230,9 @@ def test_get_brickref_obj_HasAttrs_br00013_planunit_v0_0_0():
     assert headers_list[6] == kw.pledge
 
 
-def test_get_brickref_obj_HasAttrs_br00019_planunit_v0_0_0():
+def test_get_brickref_obj_HasAttrs_ii00019_planunit_v0_0_0():
     # ESTABLISH
-    brick_name = br00019_planunit_v0_0_0()
+    brick_name = ii00019_planunit_v0_0_0()
 
     # WHEN
     format_00019_brickref = get_brickref_obj(brick_name)
