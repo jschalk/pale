@@ -1,4 +1,4 @@
-from openpyxl import Workbook as openpyxl_Workbook, load_workbook
+from openpyxl import load_workbook
 from os import listdir as os_listdir
 from os.path import join as os_path_join
 from pandas import (
@@ -8,6 +8,8 @@ from pandas import (
     to_numeric as pandas_to_numeric,
 )
 from pathlib import Path
+from src.ch00_py.dict_toolbox import get_0_if_None
+from src.ch00_py.file_toolbox import delete_dir, set_dir
 from src.ch17_idea.brick_db_tool import save_sheet
 from src.ch17_idea.idea_config import get_brick_types
 from typing import List, Tuple
@@ -188,11 +190,10 @@ def get_validated_bele_src_brick_type_sheets(
     """
     bele_br_sheets = get_sheets_with_brick_types(bele_src_dir)
     idea_br_sheets = get_sheets_with_brick_types(idea_src_dir)
+    bele_br_sheets_set = set(bele_br_sheets)
+    idea_br_sheets_set = set(idea_br_sheets)
 
-    bele_sheet_names = {sheet_name for _, sheet_name in bele_br_sheets}
-    idea_sheet_names = {sheet_name for _, sheet_name in idea_br_sheets}
-
-    if overlapping := bele_sheet_names & idea_sheet_names:
+    if overlapping := idea_br_sheets_set.intersection(bele_br_sheets_set):
         raise ValueError(
             f"BR sheets found in both bele_src_dir and idea_src_dir: "
             f"{sorted(overlapping)}"
@@ -202,8 +203,7 @@ def get_validated_bele_src_brick_type_sheets(
 
 
 def beliefs_sheets_to_idea_sheets(
-    bele_src_dir: str,
-    idea_src_dir: str,
+    bele_src_dir: str, idea_src_dir: str, db_max_spark_num: int = None
 ) -> List[Tuple[str, str]]:
     """
     Copies all BR sheets from bele_src_dir into idea_src_dir.
@@ -221,19 +221,16 @@ def beliefs_sheets_to_idea_sheets(
         ValueError: (propagated from get_bele_br_sheets_validated) if any BR
                     sheet name exists in both directories before the copy.
     """
-    # TODO get max_spark_num from idea_src_dir
-    # TODO get face_sparks from bele_src_dir
-    # TODO create spark_num, face_spark tuples
-    # TODO when being copied over, add spark_num to dataframe
     bele_spark_faces = get_spark_faces_from_files(bele_src_dir)
-    idea_max_spark_num = get_max_spark_num_from_files(idea_src_dir)
+    idea_max_spark_num = get_0_if_None(get_max_spark_num_from_files(idea_src_dir))
+    general_max_spark_num = max(idea_max_spark_num, get_0_if_None(db_max_spark_num))
     spark_face_spark_nums = create_spark_face_spark_nums(
-        bele_spark_faces, idea_max_spark_num
+        bele_spark_faces, general_max_spark_num
     )
+
     bele_br_sheets = get_validated_bele_src_brick_type_sheets(
         bele_src_dir, idea_src_dir
     )
-
     # Group sheet names by their source file
     file_to_sheets: dict[str, List[str]] = {}
     for filename, sheet_name in bele_br_sheets:
@@ -250,9 +247,12 @@ def beliefs_sheets_to_idea_sheets(
             save_sheet(dst_path, sheet_name, br_df, False)
             copied.append((dst_path, sheet_name))
 
+    delete_dir(bele_src_dir)
+    set_dir(bele_src_dir)
     return sorted(copied)
 
 
+# TODO deprecate this
 def update_spark_num_in_excel_file(filepath: str, max_spark_num):
     # Read all sheets
     sheets = pandas_read_excel(filepath, sheet_name=None)
@@ -269,6 +269,7 @@ def update_spark_num_in_excel_file(filepath: str, max_spark_num):
             df.to_excel(writer, sheet_name=sheet_name, index=False)
 
 
+# TODO deprecate this
 def update_spark_num_in_belief_files(directory: str, max_spark_num: int) -> None:
     """
     Adds or updates the 'spark_num' column with a given value
