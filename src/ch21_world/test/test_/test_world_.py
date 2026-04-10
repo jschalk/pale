@@ -28,7 +28,7 @@ def test_WorldDir_Exists():
         "worlds_dir",
         "output_dir",
         "world_dir",
-        kw.bele_src_dir,
+        f"{kw.bele_src}_dir",
         kw.i_src_dir,
         "brick_dir",
         "db_path",
@@ -41,7 +41,7 @@ def test_WorldDir_set_i_src_dir_SetsDirsAndFiles(temp3_fs):
     fay_wdir = WorldDir("Fay")
     x_example_dir = create_path(str(temp3_fs), "example_dir")
     x_i_src_dir = create_path(x_example_dir, "i_src")
-    x_bele_src_dir = create_path(x_example_dir, "bele_src")
+    x_bele_src_dir = create_path(x_example_dir, kw.bele_src)
     assert not fay_wdir.world_dir
     assert not fay_wdir.i_src_dir
     assert not fay_wdir.bele_src_dir
