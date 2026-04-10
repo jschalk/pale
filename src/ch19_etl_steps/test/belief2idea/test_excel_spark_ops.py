@@ -15,10 +15,10 @@ from src.ch19_etl_steps.belief2idea import (  # move_b_src_sheets_to_i_src,
     create_spark_face_spark_nums,
     get_excel_sheet_tuples,
     get_max_spark_num_from_files,
-    get_sheets_with_idea_numbers,
+    get_sheets_with_brick_types,
     get_spark_faces_from_df,
     get_spark_faces_from_files,
-    get_validated_bele_src_idea_number_sheets,
+    get_validated_bele_src_brick_type_sheets,
     update_spark_num_in_belief_files,
     update_spark_num_in_excel_file,
 )
@@ -281,10 +281,10 @@ def br_excel_dir(tmp_path):
     return tmp_path
 
 
-def test_get_sheets_with_idea_numbers_ReturnsObj_Scenario0_MatchingTuples(br_excel_dir):
+def test_get_sheets_with_brick_types_ReturnsObj_Scenario0_MatchingTuples(br_excel_dir):
     """Only tuples whose sheet_name contains a br_string are returned."""
     # ESTABLISH / WHEN
-    result = get_sheets_with_idea_numbers(str(br_excel_dir))
+    result = get_sheets_with_brick_types(str(br_excel_dir))
     # THEN
     assert ("x300reports.xlsx", "br00002_Sales") in result
     assert ("x300reports.xlsx", "Costs_BR00005") in result
@@ -335,12 +335,12 @@ def idea_dir_with_overlap(tmp_path):
     return d
 
 
-def test_get_validated_bele_src_idea_number_sheets_ReturnsBeleBrSheets(
+def test_get_validated_bele_src_brick_type_sheets_ReturnsBeleBrSheets(
     bele_dir, idea_dir_no_overlap
 ):
     """Returns only BR sheet tuples from bele_src_dir when there is no overlap."""
     # ESTABLISH / WHEN
-    result = get_validated_bele_src_idea_number_sheets(
+    result = get_validated_bele_src_brick_type_sheets(
         str(bele_dir), str(idea_dir_no_overlap)
     )
     # THEN
@@ -349,18 +349,18 @@ def test_get_validated_bele_src_idea_number_sheets_ReturnsBeleBrSheets(
     assert ("x300reports.xlsx", "Revenue") not in result
 
 
-def test_get_validated_bele_src_idea_number_sheets_RaisesOnOverlap(
+def test_get_validated_bele_src_brick_type_sheets_RaisesOnOverlap(
     bele_dir, idea_dir_with_overlap
 ):
     """Raises ValueError when a BR sheet name exists in both directories."""
     # ESTABLISH / WHEN / THEN
     with pytest_raises(ValueError, match="BR00005_Sales"):
-        get_validated_bele_src_idea_number_sheets(
+        get_validated_bele_src_brick_type_sheets(
             str(bele_dir), str(idea_dir_with_overlap)
         )
 
 
-def test_get_validated_bele_src_idea_number_sheets_ReturnsEmptyWhenNoBeleBrSheets(
+def test_get_validated_bele_src_brick_type_sheets_ReturnsEmptyWhenNoBeleBrSheets(
     idea_dir_no_overlap, tmp_path
 ):
     """Returns an empty list when bele_src_dir has no BR sheets."""
@@ -373,7 +373,7 @@ def test_get_validated_bele_src_idea_number_sheets_ReturnsEmptyWhenNoBeleBrSheet
     wb.active.title = "Summary"
     wb.save(empty_bele / "plain.xlsx")
     # WHEN
-    result = get_validated_bele_src_idea_number_sheets(
+    result = get_validated_bele_src_brick_type_sheets(
         str(empty_bele), str(idea_dir_no_overlap)
     )
     # THEN

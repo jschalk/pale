@@ -511,5 +511,5 @@ def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # THEN
     assert table_sqlstr
     print(table_sqlstr)
-    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_put_s_raw (idea_number TEXT, spark_num INTEGER, spark_face TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
+    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_put_s_raw (brick_type TEXT, spark_num INTEGER, spark_face TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
     assert table_sqlstr == expected_sqlstr

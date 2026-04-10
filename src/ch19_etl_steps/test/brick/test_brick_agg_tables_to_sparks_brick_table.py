@@ -57,7 +57,7 @@ VALUES
     assert db_table_exists(cursor0, brick_sparks_tablename)
     brick_sparks_table_cols = set(get_table_columns(cursor0, brick_sparks_tablename))
     assert len(brick_sparks_table_cols) == 4
-    assert kw.idea_number in brick_sparks_table_cols
+    assert kw.brick_type in brick_sparks_table_cols
     assert kw.spark_face in brick_sparks_table_cols
     assert kw.spark_num in brick_sparks_table_cols
     assert kw.error_message in brick_sparks_table_cols
@@ -156,14 +156,14 @@ def test_etl_sparks_brick_agg_table_to_sparks_brick_valid_table_PopulatesTables_
     spark9 = 9
     agg_sparks_tablename = kw.sparks_brick_agg
     agg_sparks_columns = [
-        kw.idea_number,
+        kw.brick_type,
         kw.spark_num,
         kw.spark_face,
         kw.error_message,
     ]
     create_idea_sorted_table(cursor0, agg_sparks_tablename, agg_sparks_columns)
     insert_into_clause = f"""INSERT INTO {agg_sparks_tablename} (
-  {kw.idea_number}
+  {kw.brick_type}
 , {kw.spark_num}
 , {kw.spark_face}
 , {kw.error_message}

@@ -17,7 +17,7 @@ from src.ch09_person_lesson.delta import (
 from src.ch13_time.epoch_main import epochunit_shop
 from src.ch14_moment.moment_main import MomentUnit, momentunit_shop
 from src.ch17_idea._ref.ch17_semantic_types import MomentRope, PersonName
-from src.ch17_idea.idea_config import get_idea_format_headers, get_idearef_from_file
+from src.ch17_idea.idea_config import get_brick_format_headers, get_brickref_from_file
 from src.ch17_idea.idea_db_tool import (
     get_default_sorted_list,
     if_nan_return_None,
@@ -26,8 +26,8 @@ from src.ch17_idea.idea_db_tool import (
 
 
 @dataclass
-class IdeaRef:
-    idea_name: str = None
+class BrickRef:
+    brick_name: str = None
     dimens: list[str] = None
     attributes: dict[str, dict[str, bool]] = None
 
@@ -54,49 +54,49 @@ class IdeaRef:
         return get_default_sorted_list(x_set)
 
 
-def idearef_shop(x_idea_name: str, x_dimens: list[str]) -> IdeaRef:
-    return IdeaRef(idea_name=x_idea_name, dimens=x_dimens, attributes={})
+def brickref_shop(x_brick_name: str, x_dimens: list[str]) -> BrickRef:
+    return BrickRef(brick_name=x_brick_name, dimens=x_dimens, attributes={})
 
 
-def get_idearef_obj(idea_name: str) -> IdeaRef:
-    idearef_dict = get_idearef_from_file(idea_name)
-    x_idearef = idearef_shop(idea_name, idearef_dict.get("dimens"))
-    x_idearef.attributes = idearef_dict.get("attributes")
-    return x_idearef
+def get_brickref_obj(brick_name: str) -> BrickRef:
+    brickref_dict = get_brickref_from_file(brick_name)
+    x_brickref = brickref_shop(brick_name, brickref_dict.get("dimens"))
+    x_brickref.attributes = brickref_dict.get("attributes")
+    return x_brickref
 
 
 def get_ascending_bools(sorting_attributes: list[str]) -> list[bool]:
     return [True for _ in sorting_attributes]
 
 
-def _get_headers_list(idea_name: str) -> list[str]:
-    return get_idearef_obj(idea_name).get_headers_list()
+def _get_headers_list(brick_name: str) -> list[str]:
+    return get_brickref_obj(brick_name).get_headers_list()
 
 
-def _generate_idea_dataframe(d2_list: list[list[str]], idea_name: str) -> DataFrame:
-    return DataFrame(d2_list, columns=_get_headers_list(idea_name))
+def _generate_idea_dataframe(d2_list: list[list[str]], brick_name: str) -> DataFrame:
+    return DataFrame(d2_list, columns=_get_headers_list(brick_name))
 
 
-def create_idea_df(x_personunit: PersonUnit, idea_name: str) -> DataFrame:
+def create_idea_df(x_personunit: PersonUnit, brick_name: str) -> DataFrame:
     x_persondelta = persondelta_shop()
     x_persondelta.add_all_personatoms(x_personunit)
-    x_idearef = get_idearef_obj(idea_name)
+    x_brickref = get_brickref_obj(brick_name)
     x_moment_rope = x_personunit.planroot.get_plan_rope()
     x_person_name = x_personunit.person_name
-    sorted_personatoms = _get_sorted_insert_str_personatoms(x_persondelta, x_idearef)
+    sorted_personatoms = _get_sorted_insert_str_personatoms(x_persondelta, x_brickref)
     d2_list = _create_d2_list(
-        sorted_personatoms, x_idearef, x_moment_rope, x_person_name
+        sorted_personatoms, x_brickref, x_moment_rope, x_person_name
     )
-    d2_list = _delta_all_pledge_values(d2_list, x_idearef)
-    x_idea = _generate_idea_dataframe(d2_list, idea_name)
-    sorting_columns = x_idearef.get_headers_list()
+    d2_list = _delta_all_pledge_values(d2_list, x_brickref)
+    x_idea = _generate_idea_dataframe(d2_list, brick_name)
+    sorting_columns = x_brickref.get_headers_list()
     return _sort_dataframe(x_idea, sorting_columns)
 
 
 def _get_sorted_insert_str_personatoms(
-    x_persondelta: PersonDelta, x_idearef: IdeaRef
+    x_persondelta: PersonDelta, x_brickref: BrickRef
 ) -> list[PersonAtom]:
-    dimen_set = set(x_idearef.dimens)
+    dimen_set = set(x_brickref.dimens)
     curd_set = {"INSERT"}
     limited_delta = get_dimens_cruds_persondelta(x_persondelta, dimen_set, curd_set)
     return limited_delta.get_dimen_sorted_personatoms_list()
@@ -104,14 +104,14 @@ def _get_sorted_insert_str_personatoms(
 
 def _create_d2_list(
     sorted_personatoms: list[PersonAtom],
-    x_idearef: IdeaRef,
+    x_brickref: BrickRef,
     x_moment_rope: MomentRope,
     x_person_name: PersonName,
 ):
     d2_list = []
     for x_personatom in sorted_personatoms:
         d1_list = []
-        for x_attribute in x_idearef.get_headers_list():
+        for x_attribute in x_brickref.get_headers_list():
             if x_attribute == "moment_rope":
                 d1_list.append(x_moment_rope)
             elif x_attribute == "person_name":
@@ -122,9 +122,9 @@ def _create_d2_list(
     return d2_list
 
 
-def _delta_all_pledge_values(d2_list: list[list], x_idearef: IdeaRef) -> list[list]:
-    if "pledge" in x_idearef.attributes:
-        for x_count, x_header in enumerate(x_idearef.get_headers_list()):
+def _delta_all_pledge_values(d2_list: list[list], x_brickref: BrickRef) -> list[list]:
+    if "pledge" in x_brickref.attributes:
+        for x_count, x_header in enumerate(x_brickref.get_headers_list()):
             if x_header == "pledge":
                 pledge_column_number = x_count
         for x_row in d2_list:
@@ -150,38 +150,38 @@ def save_idea_csv(
     save_dataframe_to_csv(x_dataframe, x_dir, x_filename)
 
 
-def get_csv_idearef(header_row: list[str]) -> IdeaRef:
+def get_csv_brickref(header_row: list[str]) -> BrickRef:
     header_row = get_default_sorted_list(set(header_row))
     headers_str = "".join(f",{x_header}" for x_header in header_row)
     headers_str = headers_str[1:]
     headers_str = headers_str.replace("spark_face,", "")
     headers_str = headers_str.replace("spark_num,", "")
-    x_ideaname = get_idea_format_headers().get(headers_str)
-    return get_idearef_obj(x_ideaname)
+    x_ideaname = get_brick_format_headers().get(headers_str)
+    return get_brickref_obj(x_ideaname)
 
 
-def _remove_non_person_dimens_from_idearef(x_idearef: IdeaRef) -> IdeaRef:
+def _remove_non_person_dimens_from_brickref(x_brickref: BrickRef) -> BrickRef:
     to_delete_dimen_set = {
-        dimen for dimen in x_idearef.dimens if not dimen.startswith("person")
+        dimen for dimen in x_brickref.dimens if not dimen.startswith("person")
     }
-    dimens_set = set(x_idearef.dimens)
+    dimens_set = set(x_brickref.dimens)
     for to_delete_dimen in to_delete_dimen_set:
         if to_delete_dimen in dimens_set:
             dimens_set.remove(to_delete_dimen)
-    x_idearef.dimens = list(dimens_set)
-    return x_idearef
+    x_brickref.dimens = list(dimens_set)
+    return x_brickref
 
 
 def make_persondelta(x_csv: str) -> PersonDelta:
     header_row, headerless_csv = extract_csv_headers(x_csv)
-    x_idearef = get_csv_idearef(header_row)
-    _remove_non_person_dimens_from_idearef(x_idearef)
+    x_brickref = get_csv_brickref(header_row)
+    _remove_non_person_dimens_from_brickref(x_brickref)
     x_reader = csv_reader(headerless_csv.splitlines(), delimiter=",")
     x_dict = get_positional_dict(header_row)
     x_persondelta = persondelta_shop()
 
     for row in x_reader:
-        x_atomrow = atomrow_shop(x_idearef.dimens, "INSERT")
+        x_atomrow = atomrow_shop(x_brickref.dimens, "INSERT")
         for x_header in header_row:
             if header_index := x_dict.get(x_header):
                 x_atomrow.__dict__[x_header] = row[header_index]

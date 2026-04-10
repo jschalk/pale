@@ -4,12 +4,15 @@ from src.ch07_person_logic.person_main import PersonUnit
 from src.ch09_person_lesson.lesson_main import LessonUnit
 from src.ch14_moment.moment_main import MomentUnit
 from src.ch17_idea._ref.ch17_semantic_types import FaceName, KnotTerm, MomentRope
-from src.ch17_idea.idea_config import get_idea_format_filename, get_idea_format_headers
+from src.ch17_idea.idea_config import (
+    get_brick_format_filename,
+    get_brick_format_headers,
+)
 
 
 def create_init_belief_idea_csv_strs() -> dict[str, str]:
     """Returns strings of csv headers with comma delimiter"""
-    belief_idea_numbers = [
+    belief_brick_types = [
         "br00000",
         "br00001",
         "br00002",
@@ -32,14 +35,14 @@ def create_init_belief_idea_csv_strs() -> dict[str, str]:
         "br00044",
         "br00045",
     ]
-    idea_format_headers = get_idea_format_headers()
+    brick_format_headers = get_brick_format_headers()
 
     moment_csv_strs = {}
-    for idea_number in belief_idea_numbers:
-        idea_format_filename = get_idea_format_filename(idea_number)
-        for idea_columns, idea_filename in idea_format_headers.items():
-            if idea_filename == idea_format_filename:
-                moment_csv_strs[idea_number] = f"spark_num,spark_face,{idea_columns}\n"
+    for brick_type in belief_brick_types:
+        brick_format_filename = get_brick_format_filename(brick_type)
+        for idea_columns, idea_filename in brick_format_headers.items():
+            if idea_filename == brick_format_filename:
+                moment_csv_strs[brick_type] = f"spark_num,spark_face,{idea_columns}\n"
     return moment_csv_strs
 
 

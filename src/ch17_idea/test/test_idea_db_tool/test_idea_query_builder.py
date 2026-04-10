@@ -12,7 +12,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_plan_laboruni
     cursor0: Cursor,
 ):
     # ESTABLISH
-    idea_number = "br000XX"
+    brick_type = "br000XX"
     idea_cols = [
         kw.spark_num,
         kw.spark_face,
@@ -23,7 +23,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_plan_laboruni
         kw.amount,
     ]
     prnlabo_cat = "person_plan_laborunit"
-    src_table = f"{idea_number}_raw"
+    src_table = f"{brick_type}_raw"
     dst_table = f"{prnlabo_cat}_raw"
     idea_config = get_idea_config_dict()
     prnlabo_config = idea_config.get(prnlabo_cat)
@@ -40,14 +40,14 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario0_person_plan_laboruni
 
     # WHEN
     gen_sqlstr = get_idea_into_dimen_raw_query(
-        cursor0, idea_number, prnlabo_cat, prnlabo_jkeys
+        cursor0, brick_type, prnlabo_cat, prnlabo_jkeys
     )
 
     # THEN
     columns_str = f"{kw.spark_num}, {kw.spark_face}, {kw.person_name}, {kw.plan_rope}, {kw.labor_title}"
-    expected_sqlstr = f"""INSERT INTO {prnlabo_cat}_raw ({kw.idea_number}, {columns_str})
-SELECT '{idea_number}' as {kw.idea_number}, {columns_str}
-FROM {idea_number}_raw
+    expected_sqlstr = f"""INSERT INTO {prnlabo_cat}_raw ({kw.brick_type}, {columns_str})
+SELECT '{brick_type}' as {kw.brick_type}, {columns_str}
+FROM {brick_type}_raw
 WHERE {kw.spark_num} IS NOT NULL AND {kw.spark_face} IS NOT NULL AND {kw.person_name} IS NOT NULL AND {kw.plan_rope} IS NOT NULL AND {kw.labor_title} IS NOT NULL
 GROUP BY {columns_str}
 ;
@@ -62,7 +62,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_person_contactunit(
     cursor0: Cursor,
 ):
     # ESTABLISH
-    idea_number = "br000XX"
+    brick_type = "br000XX"
     idea_cols = [
         kw.spark_num,
         kw.spark_face,
@@ -75,7 +75,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_person_contactunit(
         kw.contact_debt_lumen,
         kw.amount,
     ]
-    src_table = f"{idea_number}_raw"
+    src_table = f"{brick_type}_raw"
     prncont_table = f"{kw.person_contactunit}_raw"
     idea_config = get_idea_config_dict()
     prncont_config = idea_config.get(kw.person_contactunit)
@@ -89,14 +89,14 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario1_person_contactunit(
 
     # WHEN
     gen_sqlstr = get_idea_into_dimen_raw_query(
-        cursor0, idea_number, kw.person_contactunit, prncont_jkeys
+        cursor0, brick_type, kw.person_contactunit, prncont_jkeys
     )
 
     # THEN
     columns_str = "spark_num, spark_face, moment_rope, person_name, contact_name, contact_cred_lumen, contact_debt_lumen"
-    expected_sqlstr = f"""INSERT INTO {kw.person_contactunit}_raw (idea_number, {columns_str})
-SELECT '{idea_number}' as idea_number, {columns_str}
-FROM {idea_number}_raw
+    expected_sqlstr = f"""INSERT INTO {kw.person_contactunit}_raw (brick_type, {columns_str})
+SELECT '{brick_type}' as brick_type, {columns_str}
+FROM {brick_type}_raw
 WHERE spark_num IS NOT NULL AND spark_face IS NOT NULL AND moment_rope IS NOT NULL AND person_name IS NOT NULL AND contact_name IS NOT NULL
 GROUP BY {columns_str}
 ;
@@ -112,7 +112,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_person_contactunit(
     cursor0: Cursor,
 ):
     # ESTABLISH
-    idea_number = "br000XX"
+    brick_type = "br000XX"
     idea_cols = [
         kw.spark_num,
         kw.spark_face,
@@ -123,7 +123,7 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_person_contactunit(
         kw.contact_cred_lumen,
         kw.amount,
     ]
-    src_table = f"{idea_number}_raw"
+    src_table = f"{brick_type}_raw"
     prncont_table = f"{kw.person_contactunit}_raw"
     idea_config = get_idea_config_dict()
     prncont_config = idea_config.get(kw.person_contactunit)
@@ -137,14 +137,14 @@ def test_get_idea_into_dimen_raw_query_ReturnsObj_Scenario2_person_contactunit(
 
     # WHEN
     gen_sqlstr = get_idea_into_dimen_raw_query(
-        cursor0, idea_number, kw.person_contactunit, prncont_jkeys
+        cursor0, brick_type, kw.person_contactunit, prncont_jkeys
     )
 
     # THEN
     columns_str = "spark_num, spark_face, person_name, contact_name, contact_cred_lumen"
-    expected_sqlstr = f"""INSERT INTO {kw.person_contactunit}_raw (idea_number, {columns_str})
-SELECT '{idea_number}' as idea_number, {columns_str}
-FROM {idea_number}_raw
+    expected_sqlstr = f"""INSERT INTO {kw.person_contactunit}_raw (brick_type, {columns_str})
+SELECT '{brick_type}' as brick_type, {columns_str}
+FROM {brick_type}_raw
 WHERE spark_num IS NOT NULL AND spark_face IS NOT NULL AND moment_rope IS NOT NULL AND person_name IS NOT NULL AND contact_name IS NOT NULL
 GROUP BY {columns_str}
 ;
