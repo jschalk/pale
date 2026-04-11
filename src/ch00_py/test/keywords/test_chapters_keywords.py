@@ -10,7 +10,7 @@ from src.ch00_py.keyword_class_builder import (
     create_examplestrs_class_str,
     create_keywords_enum_class_file_str,
     get_chapter_descs,
-    get_cumlative_ch_keywords_dict,
+    get_cumlative_keywords_main_dict,
     get_example_strs_config,
     get_keywords_by_chapter,
     get_keywords_src_config,
@@ -167,7 +167,7 @@ def test_create_all_enum_keyword_classes_str_ReturnsObj():
 
     # THEN
     keywords_by_chapter = get_keywords_by_chapter(get_keywords_src_config())
-    cumlative_keywords = get_cumlative_ch_keywords_dict(keywords_by_chapter)
+    cumlative_keywords = get_cumlative_keywords_main_dict(keywords_by_chapter)
     expected_classes_str = f"""from enum import Enum
 
 
@@ -175,8 +175,8 @@ def test_create_all_enum_keyword_classes_str_ReturnsObj():
 """
     for chapter_desc, chapter_dir in get_chapter_descs().items():
         ch_prefix = get_chapter_desc_prefix(chapter_desc)
-        ch_keywords = cumlative_keywords.get(ch_prefix)
-        enum_class_str = create_keywords_enum_class_file_str(ch_prefix, ch_keywords)
+        keywords_main = cumlative_keywords.get(ch_prefix)
+        enum_class_str = create_keywords_enum_class_file_str(ch_prefix, keywords_main)
         expected_classes_str += enum_class_str
     assert expected_classes_str == classes_str
     two_line_spacing_str = f"""from enum import Enum

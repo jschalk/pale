@@ -72,25 +72,24 @@ from src.ch16_translate.translate_config import (
     translateable_class_types,
 )
 from src.ch16_translate.translate_main import default_unknown_str_if_None
-from src.ch17_idea.brick_db_tool import (
+from src.ch17_idea.idea_config import (
+    get_idea_dimen_ref,
+    get_idea_format_filename,
+    get_idea_sqlite_types,
+    get_idea_types,
+    get_idearef_from_file,
+)
+from src.ch17_idea.idea_db_tool import (
     create_idea_sorted_table,
     get_default_sorted_list,
     split_excel_into_dirs,
 )
-from src.ch17_idea.brick_main import get_brickref_obj
-from src.ch17_idea.idea_config import (
-    get_brick_format_filename,
-    get_brick_types,
-    get_brickref_from_file,
-    get_idea_dimen_ref,
-    get_idea_sqlite_types,
-)
+from src.ch17_idea.idea_main import get_idearef_obj
 from src.ch18_etl_config._ref.ch18_path import (
     create_last_run_metrics_path,
     create_moment_ote1_csv_path,
     create_moment_ote1_json_path,
 )
-from src.ch18_etl_config.brick_collector import BrickFileRef, get_all_brick_dataframes
 from src.ch18_etl_config.etl_csv import save_to_split_csvs
 from src.ch18_etl_config.etl_sqlstr import (
     CREATE_MOMENT_OTE1_AGG_SQLSTR,
@@ -121,15 +120,16 @@ from src.ch18_etl_config.etl_sqlstr import (
     get_person_heard_vld_tablenames,
     update_heard_agg_timenum_columns,
 )
+from src.ch18_etl_config.idea_collector import IdeaFileRef, get_all_idea_dataframes
 from src.ch19_etl_steps._ref.ch19_semantic_types import FaceName, SparkInt
 from src.ch19_etl_steps.obj2db_moment import get_moment_dict_from_heard_tables
 from src.ch19_etl_steps.obj2db_person import insert_job_obj
 
 
-def etl_brick_dfs_to_brick_raw_tables(cursor: sqlite3_Cursor, i_src_dir: str):
+def etl_idea_dfs_to_ideax_raw_tables(cursor: sqlite3_Cursor, i_src_dir: str):
     idea_sqlite_types = get_idea_sqlite_types()
 
-    for ref in get_all_brick_dataframes(i_src_dir):
+    for ref in get_all_idea_dataframes(i_src_dir):
         x_file_path = create_path(ref.file_dir, ref.filename)
         df = pandas_read_excel(x_file_path, ref.sheet_name)
         idea_sorting_columns = get_default_sorted_list(set(df.columns))
@@ -140,7 +140,7 @@ def etl_brick_dfs_to_brick_raw_tables(cursor: sqlite3_Cursor, i_src_dir: str):
         df.insert(0, "file_dir", ref.file_dir)
         df.insert(1, "filename", ref.filename)
         df.insert(2, "sheet_name", ref.sheet_name)
-        x_tablename = f"{ref.brick_type}_brick_raw"
+        x_tablename = f"{ref.idea_type}_ideax_raw"
         column_names = list(df.columns)
         column_names.append("error_message")
         create_table_sqlstr = get_create_table_sqlstr(
@@ -173,48 +173,48 @@ def etl_brick_dfs_to_brick_raw_tables(cursor: sqlite3_Cursor, i_src_dir: str):
             cursor.execute(insert_sqlstr)
 
 
-def get_max_brick_agg_spark_num(cursor: sqlite3_Cursor) -> int:
-    agg_tables = get_db_tables(cursor, "brick_agg")
-    brick_aggs_max_spark_num = 0
+def get_max_ideax_agg_spark_num(cursor: sqlite3_Cursor) -> int:
+    agg_tables = get_db_tables(cursor, "ideax_agg")
+    ideax_aggs_max_spark_num = 0
     for agg_table in agg_tables:
-        if agg_table.startswith("br") and agg_table.endswith("brick_agg"):
+        if agg_table.startswith("ii") and agg_table.endswith("ideax_agg"):
             sqlstr = f"SELECT MAX(spark_num) FROM {agg_table}"
             table_max_spark_num = cursor.execute(sqlstr).fetchone()[0] or 1
-            if table_max_spark_num > brick_aggs_max_spark_num:
-                brick_aggs_max_spark_num = table_max_spark_num
-    return brick_aggs_max_spark_num
+            if table_max_spark_num > ideax_aggs_max_spark_num:
+                ideax_aggs_max_spark_num = table_max_spark_num
+    return ideax_aggs_max_spark_num
 
 
-def get_existing_excel_brick_file_refs(x_dir: str) -> list[BrickFileRef]:
-    existing_excel_brick_filepaths = []
-    for brick_type in sorted(get_brick_types()):
-        brick_filename = f"{brick_type}.xlsx"
-        x_brick_path = create_path(x_dir, brick_filename)
-        if os_path_exists(x_brick_path):
-            x_fileref = BrickFileRef(x_dir, brick_filename, brick_type=brick_type)
-            existing_excel_brick_filepaths.append(x_fileref)
-    return existing_excel_brick_filepaths
+def get_existing_excel_idea_file_refs(x_dir: str) -> list[IdeaFileRef]:
+    existing_excel_idea_filepaths = []
+    for idea_type in sorted(get_idea_types()):
+        idea_filename = f"{idea_type}.xlsx"
+        x_idea_path = create_path(x_dir, idea_filename)
+        if os_path_exists(x_idea_path):
+            x_fileref = IdeaFileRef(x_dir, idea_filename, idea_type=idea_type)
+            existing_excel_idea_filepaths.append(x_fileref)
+    return existing_excel_idea_filepaths
 
 
-def etl_brick_raw_tables_to_brick_agg_tables(conn_or_cursor: sqlite3_Connection):
-    brick_raw_dict = {f"{brick}_brick_raw": brick for brick in get_brick_types()}
-    brick_raw_tables = set(brick_raw_dict.keys())
+def etl_ideax_raw_tables_to_ideax_agg_tables(conn_or_cursor: sqlite3_Connection):
+    ideax_raw_dict = {f"{idea}_ideax_raw": idea for idea in get_idea_types()}
+    ideax_raw_tables = set(ideax_raw_dict.keys())
     for x_tablename in get_db_tables(conn_or_cursor):
-        if x_tablename in brick_raw_tables:
-            brick_type = brick_raw_dict.get(x_tablename)
-            brick_filename = get_brick_format_filename(brick_type)
-            brickref = get_brickref_obj(brick_filename)
-            key_columns_set = set(brickref.get_otx_keys_list())
-            brick_columns_set = set(brickref.attributes.keys())
-            value_columns_set = brick_columns_set.difference(key_columns_set)
-            brick_columns = get_default_sorted_list(brick_columns_set)
-            key_columns_list = get_default_sorted_list(key_columns_set, brick_columns)
+        if x_tablename in ideax_raw_tables:
+            idea_type = ideax_raw_dict.get(x_tablename)
+            idea_filename = get_idea_format_filename(idea_type)
+            idearef = get_idearef_obj(idea_filename)
+            key_columns_set = set(idearef.get_otx_keys_list())
+            idea_columns_set = set(idearef.attributes.keys())
+            value_columns_set = idea_columns_set.difference(key_columns_set)
+            idea_columns = get_default_sorted_list(idea_columns_set)
+            key_columns_list = get_default_sorted_list(key_columns_set, idea_columns)
             value_columns_list = get_default_sorted_list(
-                value_columns_set, brick_columns
+                value_columns_set, idea_columns
             )
-            agg_tablename = f"{brick_type}_brick_agg"
+            agg_tablename = f"{idea_type}_ideax_agg"
             if not db_table_exists(conn_or_cursor, agg_tablename):
-                create_idea_sorted_table(conn_or_cursor, agg_tablename, brick_columns)
+                create_idea_sorted_table(conn_or_cursor, agg_tablename, idea_columns)
             select_sqlstr = get_grouping_with_all_values_equal_sql_query(
                 x_table=x_tablename,
                 groupby_columns=key_columns_list,
@@ -224,7 +224,7 @@ def etl_brick_raw_tables_to_brick_agg_tables(conn_or_cursor: sqlite3_Connection)
             insert_clause_sqlstr = create_insert_into_clause_str(
                 conn_or_cursor,
                 agg_tablename,
-                columns_set=set(brickref.attributes.keys()),
+                columns_set=set(idearef.attributes.keys()),
             )
             insert_from_select_sqlstr = f"""
 {insert_clause_sqlstr}
@@ -232,14 +232,14 @@ def etl_brick_raw_tables_to_brick_agg_tables(conn_or_cursor: sqlite3_Connection)
             conn_or_cursor.execute(insert_from_select_sqlstr)
 
 
-def etl_brick_agg_tables_to_brick_vld_tables(conn_or_cursor: sqlite3_Connection):
+def etl_ideax_agg_tables_to_ideax_vld_tables(conn_or_cursor: sqlite3_Connection):
     idea_sqlite_types = get_idea_sqlite_types()
-    brick_agg_dict = {f"{brick}_brick_agg": brick for brick in get_brick_types()}
-    brick_agg_tables = set(brick_agg_dict.keys())
+    ideax_agg_dict = {f"{idea}_ideax_agg": idea for idea in get_idea_types()}
+    ideax_agg_tables = set(ideax_agg_dict.keys())
     for x_tablename in get_db_tables(conn_or_cursor):
-        if x_tablename in brick_agg_tables:
-            brick_type = brick_agg_dict.get(x_tablename)
-            valid_tablename = f"{brick_type}_brick_vld"
+        if x_tablename in ideax_agg_tables:
+            idea_type = ideax_agg_dict.get(x_tablename)
+            valid_tablename = f"{idea_type}_ideax_vld"
             agg_columns = get_table_columns(conn_or_cursor, x_tablename)
             create_table_from_columns(
                 conn_or_cursor,
@@ -257,7 +257,7 @@ def etl_brick_agg_tables_to_brick_vld_tables(conn_or_cursor: sqlite3_Connection)
             select_sqlstr = select_sqlstr.replace("spark_num", "agg.spark_num")
             select_sqlstr = select_sqlstr.replace("spark_face", "agg.spark_face")
             select_sqlstr = select_sqlstr.replace(x_tablename, f"{x_tablename} agg")
-            join_clause_str = """JOIN sparks_brick_vld valid_sparks ON valid_sparks.spark_num = agg.spark_num"""
+            join_clause_str = """JOIN sparks_ideax_vld valid_sparks ON valid_sparks.spark_num = agg.spark_num"""
             insert_select_into_sqlstr = f"""
 {insert_clause_str}
 {select_sqlstr}{join_clause_str}
@@ -265,26 +265,26 @@ def etl_brick_agg_tables_to_brick_vld_tables(conn_or_cursor: sqlite3_Connection)
             conn_or_cursor.execute(insert_select_into_sqlstr)
 
 
-def etl_brick_agg_tables_to_sparks_brick_agg_table(conn_or_cursor: sqlite3_Cursor):
-    brick_sparks_tablename = "sparks_brick_agg"
-    if not db_table_exists(conn_or_cursor, brick_sparks_tablename):
-        brick_sparks_columns = [
-            "brick_type",
+def etl_ideax_agg_tables_to_sparks_ideax_agg_table(conn_or_cursor: sqlite3_Cursor):
+    idea_sparks_tablename = "sparks_ideax_agg"
+    if not db_table_exists(conn_or_cursor, idea_sparks_tablename):
+        idea_sparks_columns = [
+            "idea_type",
             "spark_face",
             "spark_num",
             "error_message",
         ]
         create_idea_sorted_table(
-            conn_or_cursor, brick_sparks_tablename, brick_sparks_columns
+            conn_or_cursor, idea_sparks_tablename, idea_sparks_columns
         )
 
-    brick_agg_tables = {f"{brick}_brick_agg": brick for brick in get_brick_types()}
+    ideax_agg_tables = {f"{idea}_ideax_agg": idea for idea in get_idea_types()}
     for agg_tablename in get_db_tables(conn_or_cursor):
-        if agg_tablename in brick_agg_tables:
-            brick_type = brick_agg_tables.get(agg_tablename)
+        if agg_tablename in ideax_agg_tables:
+            idea_type = ideax_agg_tables.get(agg_tablename)
             insert_from_select_sqlstr = f"""
-INSERT INTO {brick_sparks_tablename} (brick_type, spark_num, spark_face)
-SELECT '{brick_type}', spark_num, spark_face 
+INSERT INTO {idea_sparks_tablename} (idea_type, spark_num, spark_face)
+SELECT '{idea_type}', spark_num, spark_face 
 FROM {agg_tablename}
 GROUP BY spark_num, spark_face
 ;
@@ -292,11 +292,11 @@ GROUP BY spark_num, spark_face
             conn_or_cursor.execute(insert_from_select_sqlstr)
 
     update_error_message_sqlstr = f"""
-UPDATE {brick_sparks_tablename}
+UPDATE {idea_sparks_tablename}
 SET error_message = 'invalid because of conflicting spark_num'
 WHERE spark_num IN (
     SELECT spark_num 
-    FROM {brick_sparks_tablename} 
+    FROM {idea_sparks_tablename} 
     GROUP BY spark_num 
     HAVING MAX(spark_face) <> MIN(spark_face)
 )
@@ -305,74 +305,72 @@ WHERE spark_num IN (
     conn_or_cursor.execute(update_error_message_sqlstr)
 
 
-def etl_sparks_brick_agg_table_to_sparks_brick_vld_table(
+def etl_sparks_ideax_agg_table_to_sparks_ideax_vld_table(
     conn_or_cursor: sqlite3_Cursor,
 ):
-    valid_sparks_tablename = "sparks_brick_vld"
+    valid_sparks_tablename = "sparks_ideax_vld"
     if not db_table_exists(conn_or_cursor, valid_sparks_tablename):
-        brick_sparks_columns = ["spark_num", "spark_face"]
+        idea_sparks_columns = ["spark_num", "spark_face"]
         create_idea_sorted_table(
-            conn_or_cursor, valid_sparks_tablename, brick_sparks_columns
+            conn_or_cursor, valid_sparks_tablename, idea_sparks_columns
         )
     insert_select_sqlstr = f"""
 INSERT INTO {valid_sparks_tablename} (spark_num, spark_face)
 SELECT spark_num, spark_face 
-FROM sparks_brick_agg
+FROM sparks_ideax_agg
 WHERE error_message IS NULL
 ;
 """
     conn_or_cursor.execute(insert_select_sqlstr)
 
 
-def etl_sparks_brick_agg_db_to_spark_dict(
+def etl_sparks_ideax_agg_db_to_spark_dict(
     conn_or_cursor: sqlite3_Cursor,
 ) -> dict[SparkInt, FaceName]:
     select_sqlstr = """
 SELECT spark_num, spark_face 
-FROM sparks_brick_vld
+FROM sparks_ideax_vld
 ;
 """
     conn_or_cursor.execute(select_sqlstr)
     return {int(row[0]): row[1] for row in conn_or_cursor.fetchall()}
 
 
-def get_brick_vld_tables(cursor: sqlite3_Cursor) -> dict[str, str]:
-    possible_brick_vld_tables = {
-        f"brick_vld_{brick}": brick for brick in get_brick_types()
-    }
+def get_ideax_vld_tables(cursor: sqlite3_Cursor) -> dict[str, str]:
+    possible_ideax_vld_tables = {f"ideax_vld_{idea}": idea for idea in get_idea_types()}
     active_tables = get_db_tables(cursor)
     return {
-        active_table: possible_brick_vld_tables.get(active_table)
+        active_table: possible_ideax_vld_tables.get(active_table)
         for active_table in active_tables
-        if active_table in possible_brick_vld_tables
+        if active_table in possible_ideax_vld_tables
     }
 
 
-def brick_vld_tables_to_translate_prime_raw_tables(cursor: sqlite3_Cursor):
-    brick_vld_tables = get_brick_vld_tables(cursor)
+def ideax_vld_tables_to_translate_prime_raw_tables(cursor: sqlite3_Cursor):
+    ideax_vld_tables = get_ideax_vld_tables(cursor)
     idea_dimen_ref = {
-        translate_dimen: brick_types
-        for translate_dimen, brick_types in get_idea_dimen_ref().items()
+        translate_dimen: idea_types
+        for translate_dimen, idea_types in get_idea_dimen_ref().items()
         if translate_dimen[:6] == "translate"
     }
     translate_raw_tables = {}
     for translate_dimen in idea_dimen_ref:
-        brick_types = idea_dimen_ref.get(translate_dimen)
+        idea_types = idea_dimen_ref.get(translate_dimen)
         raw_tablename = f"{translate_dimen}_raw"
-        translate_raw_tables[raw_tablename] = brick_types
+        translate_raw_tables[raw_tablename] = idea_types
 
-    for brick_vld_table, brick_type in brick_vld_tables.items():
-        for raw_tablename, brick_types in translate_raw_tables.items():
-            if brick_type in brick_types:
-                etl_brick_vld_table_into_old_prime_table(
-                    cursor, brick_vld_table, raw_tablename, brick_type
+    for ideax_vld_table, idea_type in ideax_vld_tables.items():
+        for raw_tablename, idea_types in translate_raw_tables.items():
+            if idea_type in idea_types:
+                etl_ideax_vld_table_into_old_prime_table(
+                    cursor, ideax_vld_table, raw_tablename, idea_type
                 )
 
 
 def get_sound_raw_tablenames(
-    cursor: sqlite3_Cursor, dimens: list[str], brick_vld_tablename: str
+    cursor: sqlite3_Cursor, dimens: list[str], ideax_vld_tablename: str
 ) -> set[str]:
-    valid_columns = set(get_table_columns(cursor, brick_vld_tablename))
+    valid_columns = set(get_table_columns(cursor, ideax_vld_tablename))
     s_raw_tables = set()
     for dimen in dimens:
         if dimen.lower().startswith("person"):
@@ -388,18 +386,18 @@ def get_sound_raw_tablenames(
     return s_raw_tables
 
 
-def etl_brick_vld_tables_to_sound_raw_tables(cursor: sqlite3_Cursor):
+def etl_ideax_vld_tables_to_sound_raw_tables(cursor: sqlite3_Cursor):
     create_sound_and_heard_tables(cursor)
-    brick_vld_tablenames = get_db_tables(cursor, "_brick_vld", "br")
-    for brick_vld_tablename in brick_vld_tablenames:
-        brick_type = brick_vld_tablename[:7]
-        brickref_filename = get_brick_format_filename(brick_type)
-        brickref = get_brickref_from_file(brickref_filename)
-        dimens = brickref.get("dimens")
-        s_raw_tables = get_sound_raw_tablenames(cursor, dimens, brick_vld_tablename)
+    ideax_vld_tablenames = get_db_tables(cursor, "_ideax_vld", "ii")
+    for ideax_vld_tablename in ideax_vld_tablenames:
+        idea_type = ideax_vld_tablename[:7]
+        idearef_filename = get_idea_format_filename(idea_type)
+        idearef = get_idearef_from_file(idearef_filename)
+        dimens = idearef.get("dimens")
+        s_raw_tables = get_sound_raw_tablenames(cursor, dimens, ideax_vld_tablename)
         for sound_raw_table in s_raw_tables:
-            etl_brick_vld_table_into_prime_table(
-                cursor, brick_vld_tablename, sound_raw_table, brick_type
+            etl_ideax_vld_table_into_prime_table(
+                cursor, ideax_vld_tablename, sound_raw_table, idea_type
             )
 
 
@@ -626,20 +624,20 @@ def etl_heard_vld_tables_to_moment_jsons(cursor: sqlite3_Cursor, moment_mstr_dir
         save_json(moment_json_path, None, moment_dict)
 
 
-def etl_brick_vld_table_into_prime_table(
+def etl_ideax_vld_table_into_prime_table(
     cursor: sqlite3_Cursor,
-    brick_vld_table: str,
+    ideax_vld_table: str,
     raw_tablename: str,
-    brick_type: str,
+    idea_type: str,
 ):
     lab_columns = set(get_table_columns(cursor, raw_tablename))
-    valid_columns = set(get_table_columns(cursor, brick_vld_table))
+    valid_columns = set(get_table_columns(cursor, ideax_vld_table))
     common_cols = lab_columns & (valid_columns)
     common_cols = get_default_sorted_list(common_cols)
-    select_str = create_select_query(cursor, brick_vld_table, common_cols)
-    select_str = select_str.replace("SELECT", f"SELECT '{brick_type}',")
+    select_str = create_select_query(cursor, ideax_vld_table, common_cols)
+    select_str = select_str.replace("SELECT", f"SELECT '{idea_type}',")
     common_cols = set(common_cols)
-    common_cols.add("brick_type")
+    common_cols.add("idea_type")
     common_cols = get_default_sorted_list(common_cols)
     c_cols = set(common_cols)
     insert_clause_str = create_insert_into_clause_str(cursor, raw_tablename, c_cols)
@@ -647,21 +645,21 @@ def etl_brick_vld_table_into_prime_table(
     cursor.execute(insert_select_sqlstr)
 
 
-def etl_brick_vld_table_into_old_prime_table(
+def etl_ideax_vld_table_into_old_prime_table(
     cursor: sqlite3_Cursor,
-    brick_vld_table: str,
+    ideax_vld_table: str,
     raw_tablename: str,
-    brick_type: str,
+    idea_type: str,
 ):
     lab_columns = set(get_table_columns(cursor, raw_tablename))
-    valid_columns = set(get_table_columns(cursor, brick_vld_table))
+    valid_columns = set(get_table_columns(cursor, ideax_vld_table))
     common_cols = lab_columns & (valid_columns)
     common_cols = get_default_sorted_list(common_cols)
-    select_str = create_select_query(cursor, brick_vld_table, common_cols)
-    select_str = select_str.replace("SELECT", f"SELECT '{brick_type}',")
+    select_str = create_select_query(cursor, ideax_vld_table, common_cols)
+    select_str = select_str.replace("SELECT", f"SELECT '{idea_type}',")
     group_by_clause_str = _get_grouping_groupby_clause(common_cols)
     # tension
-    common_cols.append("brick_type")
+    common_cols.append("idea_type")
     common_cols = get_default_sorted_list(common_cols)
     x_dict = {common_col: None for common_col in common_cols}
     insert_clause_str = create_insert_into_clause_str(cursor, raw_tablename, x_dict)
@@ -999,9 +997,9 @@ def etl_moment_json_contact_nets_to_moment_contact_nets_table(
 
 
 def create_last_run_metrics_json(cursor: sqlite3_Cursor, moment_mstr_dir: str):
-    max_brick_agg_spark_num = get_max_brick_agg_spark_num(cursor)
+    max_ideax_agg_spark_num = get_max_ideax_agg_spark_num(cursor)
     last_run_metrics_path = create_last_run_metrics_path(moment_mstr_dir)
-    last_run_metrics_dict = {"max_brick_agg_spark_num": max_brick_agg_spark_num}
+    last_run_metrics_dict = {"max_ideax_agg_spark_num": max_ideax_agg_spark_num}
     save_json(last_run_metrics_path, None, last_run_metrics_dict)
 
 

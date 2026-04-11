@@ -3,7 +3,7 @@ from pandas import DataFrame, read_excel as pandas_read_excel
 from pandas.testing import assert_frame_equal
 from shutil import copy2 as shutil_copy2
 from src.ch00_py.file_toolbox import create_path, set_dir
-from src.ch17_idea.brick_db_tool import get_sheet_names, save_sheet
+from src.ch17_idea.idea_db_tool import get_sheet_names, save_sheet
 from src.ch18_etl_config._ref.ch18_path import (
     create_belief0001_path,
     create_beliefs_dir_path,
@@ -41,17 +41,17 @@ def test_create_beliefs_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
     fay_wdir = worlddir_shop(fay_str, str(temp3_fs), output_dir)
     spark2 = 2
     ex_filename = "Faybob.xlsx"
-    i_src_dir_file_path = create_path(fay_wdir.i_src_dir, ex_filename)
-    br00011_columns = [
+    i_src_dir_file_path = create_path(fay_wdir.ideas_src_dir, ex_filename)
+    ii00011_columns = [
         kw.spark_num,
         kw.spark_face,
         kw.moment_rope,
         kw.person_name,
         kw.contact_name,
     ]
-    br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
-    br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    save_sheet(i_src_dir_file_path, "br00011_ex3", br00011_df)
+    ii00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
+    ii00011_df = DataFrame(ii00011_rows, columns=ii00011_columns)
+    save_sheet(i_src_dir_file_path, "ii00011_ex3", ii00011_df)
     idea_sheets_to_lynx_mstr(fay_wdir)
     fay_belief0001_path = create_belief0001_path(fay_wdir.output_dir)
     assert os_path_exists(fay_belief0001_path) is False
@@ -68,9 +68,9 @@ def test_create_beliefs_CreatesFile_Senario1_SingleSmallSpark(temp3_fs):
     # THEN
     assert os_path_exists(fay_belief0001_path)
     print(get_sheet_names(fay_belief0001_path))
-    br00021_sheet_df = pandas_read_excel(fay_belief0001_path, "br00021")
-    print(f"{br00021_sheet_df=}")
-    assert br00021_sheet_df.iloc[0][kw.spark_face] == "Fay"
+    ii00021_sheet_df = pandas_read_excel(fay_belief0001_path, "ii00021")
+    print(f"{ii00021_sheet_df=}")
+    assert ii00021_sheet_df.iloc[0][kw.spark_face] == "Fay"
 
 
 def test_create_beliefs_CreatesFile_Senario2_CreatedBeliefCanBeIdeasForOtherWorldDir(
@@ -83,17 +83,17 @@ def test_create_beliefs_CreatesFile_Senario2_CreatedBeliefCanBeIdeasForOtherWorl
     fay_wdir = worlddir_shop(fay_str, str(temp3_fs), fay_output_dir)
     spark2 = 2
     ex_filename = "Faybob.xlsx"
-    i_src_dir_file_path = create_path(fay_wdir.i_src_dir, ex_filename)
-    br00011_columns = [
+    i_src_dir_file_path = create_path(fay_wdir.ideas_src_dir, ex_filename)
+    ii00011_columns = [
         kw.spark_num,
         kw.spark_face,
         kw.moment_rope,
         kw.person_name,
         kw.contact_name,
     ]
-    br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
-    br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    save_sheet(i_src_dir_file_path, "br00011_ex3", br00011_df)
+    ii00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
+    ii00011_df = DataFrame(ii00011_rows, columns=ii00011_columns)
+    save_sheet(i_src_dir_file_path, "ii00011_ex3", ii00011_df)
     idea_sheets_to_lynx_mstr(fay_wdir)
     fay_belief0001_path = create_belief0001_path(fay_wdir.output_dir)
     create_beliefs(
@@ -134,7 +134,7 @@ def test_create_beliefs_CreatesFile_Senario2_CreatedBeliefCanBeIdeasForOtherWorl
         print(f"comparing {sheetname=}...")
         fay_sheet_df = pandas_read_excel(fay_belief0001_path, sheetname)
         bob_sheet_df = pandas_read_excel(fay_belief0001_path, sheetname)
-        # if sheetname == "br00021":
+        # if sheetname == "ii00021":
         #     print(f"{fay_sheet_df=}")
         #     print(f"{bob_sheet_df=}")
         assert_frame_equal(fay_sheet_df, bob_sheet_df)
@@ -149,17 +149,17 @@ def test_create_beliefs_CreatesFile_Senario3_Create_calendar_markdown(
     fay_wdir = worlddir_shop(fay_str, str(temp3_fs), output_dir)
     spark2 = 2
     ex_filename = "Faybob.xlsx"
-    i_src_dir_file_path = create_path(fay_wdir.i_src_dir, ex_filename)
-    br00011_columns = [
+    i_src_dir_file_path = create_path(fay_wdir.ideas_src_dir, ex_filename)
+    ii00011_columns = [
         kw.spark_num,
         kw.spark_face,
         kw.moment_rope,
         kw.person_name,
         kw.contact_name,
     ]
-    br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
-    br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-    save_sheet(i_src_dir_file_path, "br00011_ex3", br00011_df)
+    ii00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
+    ii00011_df = DataFrame(ii00011_rows, columns=ii00011_columns)
+    save_sheet(i_src_dir_file_path, "ii00011_ex3", ii00011_df)
     idea_sheets_to_lynx_mstr(fay_wdir)
     a23_calendar_md_path = create_path(output_dir, "Amy23_calendar.md")
     print(f"      {a23_calendar_md_path=}")
@@ -190,15 +190,15 @@ def test_create_beliefs_CreatesFile_Senario3_Create_calendar_markdown(
 #     hour6am = "6am"
 #     hour7am = "7am"
 #     ex_filename = "Faybob.xlsx"
-#     i_src_dir_file_path = create_path(fay_wdir.i_src_dir, ex_filename)
-#     br00003_columns = [
+#     i_src_dir_file_path = create_path(fay_wdir.ideas_src_dir, ex_filename)
+#     ii00003_columns = [
 #         kw.spark_face,
 #         kw.spark_num,
 #         kw.cumulative_minute,
 #         kw.moment_rope,
 #         kw.hour_label,
 #     ]
-#     br00001_columns = [
+#     ii00001_columns = [
 #         kw.spark_face,
 #         kw.spark_num,
 #         kw.moment_rope,
@@ -211,30 +211,30 @@ def test_create_beliefs_CreatesFile_Senario3_Create_calendar_markdown(
 #     tp37 = 37
 #     sue_quota = 235
 #     sue_celldepth = 3
-#     br1row0 = [spark2, exx.sue, exx.a23, exx.sue, tp37, sue_quota, sue_celldepth]
-#     br00001_1df = DataFrame([br1row0], columns=br00001_columns)
-#     br00001_ex0_str = "example0_br00001"
-#     save_sheet(i_src_dir_file_path, br00001_ex0_str, br00001_1df)
+#     ii1row0 = [spark2, exx.sue, exx.a23, exx.sue, tp37, sue_quota, sue_celldepth]
+#     ii00001_1df = DataFrame([ii1row0], columns=ii00001_columns)
+#     ii00001_ex0_str = "example0_ii00001"
+#     save_sheet(i_src_dir_file_path, ii00001_ex0_str, ii00001_1df)
 
-#     br3row0 = [spark1, exx.sue,  minute_360, exx.a23, hour6am]
-#     br3row1 = [spark1, exx.sue,  minute_420, exx.a23, hour7am]
-#     br3row2 = [spark2, exx.sue, minute_420, exx.a23, hour7am]
-#     br00003_1df = DataFrame([br3row0, br3row1], columns=br00003_columns)
-#     br00003_3df = DataFrame([br3row1, br3row0, br3row2], columns=br00003_columns)
-#     br00003_ex1_str = "example1_br00003"
-#     br00003_ex3_str = "example3_br00003"
-#     save_sheet(i_src_dir_file_path, br00003_ex1_str, br00003_1df)
-#     save_sheet(i_src_dir_file_path, br00003_ex3_str, br00003_3df)
-#     br00011_columns = [
+#     ii3row0 = [spark1, exx.sue,  minute_360, exx.a23, hour6am]
+#     ii3row1 = [spark1, exx.sue,  minute_420, exx.a23, hour7am]
+#     ii3row2 = [spark2, exx.sue, minute_420, exx.a23, hour7am]
+#     ii00003_1df = DataFrame([ii3row0, ii3row1], columns=ii00003_columns)
+#     ii00003_3df = DataFrame([ii3row1, ii3row0, ii3row2], columns=ii00003_columns)
+#     ii00003_ex1_str = "example1_ii00003"
+#     ii00003_ex3_str = "example3_ii00003"
+#     save_sheet(i_src_dir_file_path, ii00003_ex1_str, ii00003_1df)
+#     save_sheet(i_src_dir_file_path, ii00003_ex3_str, ii00003_3df)
+#     ii00011_columns = [
 #         kw.spark_face,
 #         kw.spark_num,
 #         kw.moment_rope,
 #         kw.person_name,
 #         kw.contact_name,
 #     ]
-#     br00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
-#     br00011_df = DataFrame(br00011_rows, columns=br00011_columns)
-#     save_sheet(i_src_dir_file_path, "br00011_ex3", br00011_df)
+#     ii00011_rows = [[spark2, exx.sue, exx.a23, exx.sue, exx.sue]]
+#     ii00011_df = DataFrame(ii00011_rows, columns=ii00011_columns)
+#     save_sheet(i_src_dir_file_path, "ii00011_ex3", ii00011_df)
 #     mstr_dir = fay_wdir.moment_mstr_dir
 #     wrong_a23_moment_dir = create_path(mstr_dir, exx.a23)
 #     assert os_path_exists(wrong_a23_moment_dir) is False
@@ -252,15 +252,15 @@ def test_create_beliefs_CreatesFile_Senario3_Create_calendar_markdown(
 #     # WHEN
 # idea_sheets_to_lynx_mstr(
 #     world_db_path=fay_wdir.get_world_db_path(),
-#     i_src_dir=fay_wdir.i_src_dir,
+#     i_src_dir=fay_wdir.ideas_src_dir,
 #     moment_mstr_dir=fay_wdir.moment_mstr_dir,
 # )
 
 #     # THEN
 #     assert os_path_exists(wrong_a23_moment_dir) is False
-#     brick_file_path = create_path(fay_wdir.brick_dir, "br00003.xlsx")
+#     i_src_file_path = create_path(fay_wdir.ideas_src_dir, "ii00003.xlsx")
 #     assert os_path_exists(i_src_dir_file_path)
-#     assert os_path_exists(brick_file_path)
+#     assert os_path_exists(idea_file_path)
 #     assert os_path_exists(a23_json_path)
 #     assert os_path_exists(a23_sue_gut_path)
 #     assert os_path_exists(a23_sue_job_path)

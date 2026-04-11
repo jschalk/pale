@@ -20,9 +20,9 @@ def main():
         print("Error: directory does not exist.")
         return
 
-    if string_exists_in_filepaths(src_dir, replace_str):
-        print(f"❌ The new string '{replace_str}' already exists in file paths.")
-        return
+    # if string_exists_in_filepaths(src_dir, replace_str):
+    #     print(f"❌ The new string '{replace_str}' already exists in file paths.")
+    #     return
 
     rename_files_and_dirs_4times(src_dir, find_str, replace_str)
     print("✅ Replacement complete.")

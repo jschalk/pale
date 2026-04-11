@@ -3,7 +3,7 @@ from datetime import datetime
 from os.path import exists as os_path_exists
 from sqlite3 import Cursor as sqlite3_Cursor, connect as sqlite3_connect
 from src.ch00_py.file_toolbox import create_path, delete_dir, set_dir
-from src.ch17_idea.brick_db_tool import export_db_to_excel
+from src.ch17_idea.idea_db_tool import export_db_to_excel
 from src.ch18_etl_config._ref.ch18_path import (
     create_moment_mstr_path,
     create_world_db_path,
@@ -14,16 +14,16 @@ from src.ch19_etl_steps.etl_main import (
     add_moment_epoch_to_guts,
     calc_moment_bud_contact_mandate_net_ledgers,
     create_last_run_metrics_json,
-    etl_brick_agg_tables_to_brick_vld_tables,
-    etl_brick_agg_tables_to_sparks_brick_agg_table,
-    etl_brick_dfs_to_brick_raw_tables,
-    etl_brick_raw_tables_to_brick_agg_tables,
-    etl_brick_vld_tables_to_sound_raw_tables,
     etl_heard_agg_tables_to_heard_vld_tables,
     etl_heard_raw_tables_to_heard_agg_tables,
     etl_heard_raw_tables_to_moment_ote1_agg,
     etl_heard_vld_tables_to_moment_jsons,
     etl_heard_vld_to_spark_person_csvs,
+    etl_idea_dfs_to_ideax_raw_tables,
+    etl_ideax_agg_tables_to_ideax_vld_tables,
+    etl_ideax_agg_tables_to_sparks_ideax_agg_table,
+    etl_ideax_raw_tables_to_ideax_agg_tables,
+    etl_ideax_vld_tables_to_sound_raw_tables,
     etl_moment_guts_to_moment_jobs,
     etl_moment_job_jsons_to_job_tables,
     etl_moment_json_contact_nets_to_moment_contact_nets_table,
@@ -35,9 +35,9 @@ from src.ch19_etl_steps.etl_main import (
     etl_spark_inherited_personunits_to_moment_gut,
     etl_spark_lesson_json_to_spark_inherited_personunits,
     etl_spark_person_csvs_to_lesson_json,
-    etl_sparks_brick_agg_table_to_sparks_brick_vld_table,
+    etl_sparks_ideax_agg_table_to_sparks_ideax_vld_table,
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables,
-    get_max_brick_agg_spark_num,
+    get_max_ideax_agg_spark_num,
 )
 from src.ch20_kpi.gcalendar import (
     copy_person_day_punches_to_dst_dir,
@@ -59,19 +59,19 @@ def create_beliefs(
 
 
 def idea_sheets_to_lynx_with_cursor(
-    cursor: sqlite3_Cursor, i_src_dir: str, moment_mstr_dir: str
+    cursor: sqlite3_Cursor, ideas_src_dir: str, moment_mstr_dir: str
 ):
     delete_dir(moment_mstr_dir)
     set_dir(moment_mstr_dir)
 
     # collect excel file data into central location
-    etl_brick_dfs_to_brick_raw_tables(cursor, i_src_dir)
-    # brick raw to sound raw, check by spark_nums
-    etl_brick_raw_tables_to_brick_agg_tables(cursor)
-    etl_brick_agg_tables_to_sparks_brick_agg_table(cursor)
-    etl_sparks_brick_agg_table_to_sparks_brick_vld_table(cursor)
-    etl_brick_agg_tables_to_brick_vld_tables(cursor)
-    etl_brick_vld_tables_to_sound_raw_tables(cursor)
+    etl_idea_dfs_to_ideax_raw_tables(cursor, ideas_src_dir)
+    # idea raw to sound raw, check by spark_nums
+    etl_ideax_raw_tables_to_ideax_agg_tables(cursor)
+    etl_ideax_agg_tables_to_sparks_ideax_agg_table(cursor)
+    etl_sparks_ideax_agg_table_to_sparks_ideax_vld_table(cursor)
+    etl_ideax_agg_tables_to_ideax_vld_tables(cursor)
+    etl_ideax_vld_tables_to_sound_raw_tables(cursor)
     # sound raw to heard raw, filter through translates
     etl_sound_raw_tables_to_sound_agg_tables(cursor)
     etl_translate_sound_agg_tables_to_translate_sound_vld_tables(cursor)
@@ -103,12 +103,11 @@ class WorldDir:
     world_name: WorldName = None
     worlds_dir: str = None
     output_dir: str = None
-    i_src_dir: str = None
-    bele_src_dir: str = None
+    ideas_src_dir: str = None
+    beliefs_src_dir: str = None
     # calculated dirs
     world_dir: str = None
     db_path: str = None
-    brick_dir: str = None
     moment_mstr_dir: str = None
 
     def get_world_db_path(self) -> str:
@@ -118,20 +117,18 @@ class WorldDir:
     def delete_world_db(self):
         delete_dir(self.get_world_db_path())
 
-    def set_i_src_dir(self, x_dir: str):
-        self.i_src_dir = x_dir
-        set_dir(self.i_src_dir)
+    def set_ideas_src_dir(self, x_dir: str):
+        self.ideas_src_dir = x_dir
+        set_dir(self.ideas_src_dir)
 
-    def set_bele_src_dir(self, x_dir: str):
-        self.bele_src_dir = x_dir
-        set_dir(self.bele_src_dir)
+    def set_beliefs_src_dir(self, x_dir: str):
+        self.beliefs_src_dir = x_dir
+        set_dir(self.beliefs_src_dir)
 
     def _set_world_dirs(self):
         self.world_dir = create_path(self.worlds_dir, self.world_name)
-        self.brick_dir = create_path(self.world_dir, "brick")
         self.moment_mstr_dir = create_moment_mstr_path(self.world_dir)
         set_dir(self.world_dir)
-        set_dir(self.brick_dir)
         set_dir(self.moment_mstr_dir)
 
 
@@ -139,22 +136,22 @@ def worlddir_shop(
     world_name: WorldName,
     worlds_dir: str,
     output_dir: str = None,
-    i_src_dir: str = None,
-    bele_src_dir: str = None,
+    ideas_src_dir: str = None,
+    beliefs_src_dir: str = None,
 ) -> WorldDir:
     x_worlddir = WorldDir(
         world_name=world_name,
         worlds_dir=worlds_dir,
         output_dir=output_dir,
-        i_src_dir=i_src_dir,
-        bele_src_dir=bele_src_dir,
+        ideas_src_dir=ideas_src_dir,
+        beliefs_src_dir=beliefs_src_dir,
     )
     x_worlddir._set_world_dirs()
     x_worlddir.db_path = x_worlddir.get_world_db_path()
-    if not x_worlddir.i_src_dir:
-        x_worlddir.set_i_src_dir(create_path(x_worlddir.world_dir, "i_src"))
-    if not x_worlddir.bele_src_dir:
-        x_worlddir.set_bele_src_dir(create_path(x_worlddir.world_dir, "bele_src"))
+    if not x_worlddir.ideas_src_dir:
+        x_worlddir.set_ideas_src_dir(create_path(x_worlddir.world_dir, "i_src"))
+    if not x_worlddir.beliefs_src_dir:
+        x_worlddir.set_beliefs_src_dir(create_path(x_worlddir.world_dir, "b_src"))
     return x_worlddir
 
 
@@ -162,7 +159,7 @@ def idea_sheets_to_lynx_mstr(worlddir: WorldDir, export_db: bool = False):
     with sqlite3_connect(worlddir.db_path) as db_conn:
         cursor = db_conn.cursor()
         idea_sheets_to_lynx_with_cursor(
-            cursor, worlddir.i_src_dir, worlddir.moment_mstr_dir
+            cursor, worlddir.ideas_src_dir, worlddir.moment_mstr_dir
         )
         if export_db and worlddir.output_dir:
             excel_path = create_path(worlddir.output_dir, "db_export.xlsx")
@@ -173,14 +170,14 @@ def idea_sheets_to_lynx_mstr(worlddir: WorldDir, export_db: bool = False):
 
 
 def belief_sheets_to_lynx_mstr(worlddir: WorldDir):
-    max_brick_agg_spark_num = 0
+    max_ideax_agg_spark_num = 0
     if os_path_exists(worlddir.db_path):
         with sqlite3_connect(worlddir.db_path) as db_conn0:
             cursor0 = db_conn0.cursor()
-            max_brick_agg_spark_num = get_max_brick_agg_spark_num(cursor0)
+            max_ideax_agg_spark_num = get_max_ideax_agg_spark_num(cursor0)
         db_conn0.close()
-    migrated_sheets = beliefs_sheets_to_idea_sheets(
-        worlddir.bele_src_dir, worlddir.i_src_dir, max_brick_agg_spark_num
+    beliefs_sheets_to_idea_sheets(
+        worlddir.beliefs_src_dir, worlddir.ideas_src_dir, max_ideax_agg_spark_num
     )
     idea_sheets_to_lynx_mstr(worlddir)
 
@@ -202,7 +199,7 @@ def idea_sheets_to_gcal_day_punchs(
 
 def create_today_punchs(
     working_dir: str,
-    i_src_dir: str,
+    ideas_src_dir: str,
     output_dir: str,
     person_name: PersonName,
     focus_group_title: GroupTitle = None,
@@ -210,7 +207,7 @@ def create_today_punchs(
     worlddir = worlddir_shop(
         world_name="world01",
         worlds_dir=working_dir,
-        i_src_dir=i_src_dir,
+        ideas_src_dir=ideas_src_dir,
         output_dir=output_dir,
     )
     idea_sheets_to_gcal_day_punchs(

@@ -1,43 +1,43 @@
 # Idea Manifest
 
-- [`br00000`](brick_formats\br00000.md): spark_num, spark_face, moment_rope, epoch_label, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations
-- [`br00001`](brick_formats\br00001.md): spark_num, spark_face, moment_rope, person_name, bud_time, knot, quota, celldepth
-- [`br00002`](brick_formats\br00002.md): spark_num, spark_face, moment_rope, person_name, contact_name, tran_time, amount, knot
-- [`br00003`](brick_formats\br00003.md): spark_num, spark_face, moment_rope, cumulative_minute, hour_label, knot
-- [`br00004`](brick_formats\br00004.md): spark_num, spark_face, moment_rope, cumulative_day, month_label, knot
-- [`br00005`](brick_formats\br00005.md): spark_num, spark_face, moment_rope, weekday_order, weekday_label, knot
-- [`br00006`](brick_formats\br00006.md): spark_num, spark_face, moment_rope, offi_time, knot
-- [`br00011`](brick_formats\br00011.md): spark_num, spark_face, moment_rope, person_name, contact_name
-- [`br00012`](brick_formats\br00012.md): spark_num, spark_face, moment_rope, person_name, contact_name, group_title
-- [`br00013`](brick_formats\br00013.md): spark_num, spark_face, moment_rope, person_name, plan_rope, star, pledge
-- [`br00019`](brick_formats\br00019.md): spark_num, spark_face, moment_rope, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want
-- [`br00020`](brick_formats\br00020.md): spark_num, spark_face, moment_rope, person_name, contact_name, group_title, group_cred_lumen, group_debt_lumen, knot
-- [`br00021`](brick_formats\br00021.md): spark_num, spark_face, moment_rope, person_name, contact_name, contact_cred_lumen, contact_debt_lumen, knot
-- [`br00022`](brick_formats\br00022.md): spark_num, spark_face, person_name, plan_rope, awardee_title, give_force, take_force, knot
-- [`br00023`](brick_formats\br00023.md): spark_num, spark_face, person_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper, knot
-- [`br00024`](brick_formats\br00024.md): spark_num, spark_face, person_name, plan_rope, labor_title, solo, knot
-- [`br00025`](brick_formats\br00025.md): spark_num, spark_face, person_name, plan_rope, healer_name, knot
-- [`br00026`](brick_formats\br00026.md): spark_num, spark_face, person_name, plan_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor, knot
-- [`br00027`](brick_formats\br00027.md): spark_num, spark_face, person_name, plan_rope, reason_context, active_requisite, knot
-- [`br00028`](brick_formats\br00028.md): spark_num, spark_face, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, knot
-- [`br00029`](brick_formats\br00029.md): spark_num, spark_face, moment_rope, person_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, fund_grain, mana_grain, respect_grain, knot
-- [`br00036`](brick_formats\br00036.md): spark_num, spark_face, moment_rope, person_name, plan_rope, healer_name, problem_bool
-- [`br00042`](brick_formats\br00042.md): spark_num, spark_face, otx_title, inx_title, otx_knot, inx_knot, unknown_str
-- [`br00043`](brick_formats\br00043.md): spark_num, spark_face, otx_name, inx_name, otx_knot, inx_knot, unknown_str
-- [`br00044`](brick_formats\br00044.md): spark_num, spark_face, otx_label, inx_label, otx_knot, inx_knot, unknown_str
-- [`br00045`](brick_formats\br00045.md): spark_num, spark_face, otx_rope, inx_rope, otx_knot, inx_knot, unknown_str
-- [`br00050`](brick_formats\br00050.md): spark_num, spark_face, moment_rope, person_name, contact_name, group_title_ERASE
-- [`br00051`](brick_formats\br00051.md): spark_num, spark_face, moment_rope, person_name, contact_name_ERASE
-- [`br00052`](brick_formats\br00052.md): spark_num, spark_face, person_name, plan_rope, awardee_title_ERASE
-- [`br00053`](brick_formats\br00053.md): spark_num, spark_face, person_name, plan_rope, fact_context_ERASE
-- [`br00054`](brick_formats\br00054.md): spark_num, spark_face, person_name, plan_rope, labor_title_ERASE
-- [`br00055`](brick_formats\br00055.md): spark_num, spark_face, person_name, plan_rope, healer_name_ERASE
-- [`br00056`](brick_formats\br00056.md): spark_num, spark_face, person_name, plan_rope, reason_context, reason_state_ERASE
-- [`br00057`](brick_formats\br00057.md): spark_num, spark_face, person_name, plan_rope, reason_context_ERASE
-- [`br00058`](brick_formats\br00058.md): spark_num, spark_face, person_name, plan_rope_ERASE
-- [`br00059`](brick_formats\br00059.md): spark_num, spark_face, moment_rope, person_name_ERASE
-- [`br00070`](brick_formats\br00070.md): spark_num, spark_face, moment_rope, otx_time, inx_time
-- [`br00113`](brick_formats\br00113.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_name, inx_name
-- [`br00115`](brick_formats\br00115.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_title, inx_title
-- [`br00116`](brick_formats\br00116.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_label, inx_label
-- [`br00117`](brick_formats\br00117.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_rope, inx_rope
+- [`ii00000`](brick_formats\ii00000.md): spark_num, spark_face, moment_rope, epoch_label, c400_number, yr1_jan1_offset, monthday_index, fund_grain, mana_grain, respect_grain, knot, job_listen_rotations
+- [`ii00001`](brick_formats\ii00001.md): spark_num, spark_face, moment_rope, person_name, bud_time, knot, quota, celldepth
+- [`ii00002`](brick_formats\ii00002.md): spark_num, spark_face, moment_rope, person_name, contact_name, tran_time, amount, knot
+- [`ii00003`](brick_formats\ii00003.md): spark_num, spark_face, moment_rope, cumulative_minute, hour_label, knot
+- [`ii00004`](brick_formats\ii00004.md): spark_num, spark_face, moment_rope, cumulative_day, month_label, knot
+- [`ii00005`](brick_formats\ii00005.md): spark_num, spark_face, moment_rope, weekday_order, weekday_label, knot
+- [`ii00006`](brick_formats\ii00006.md): spark_num, spark_face, moment_rope, offi_time, knot
+- [`ii00011`](brick_formats\ii00011.md): spark_num, spark_face, moment_rope, person_name, contact_name
+- [`ii00012`](brick_formats\ii00012.md): spark_num, spark_face, moment_rope, person_name, contact_name, group_title
+- [`ii00013`](brick_formats\ii00013.md): spark_num, spark_face, moment_rope, person_name, plan_rope, star, pledge
+- [`ii00019`](brick_formats\ii00019.md): spark_num, spark_face, moment_rope, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want
+- [`ii00020`](brick_formats\ii00020.md): spark_num, spark_face, moment_rope, person_name, contact_name, group_title, group_cred_lumen, group_debt_lumen, knot
+- [`ii00021`](brick_formats\ii00021.md): spark_num, spark_face, moment_rope, person_name, contact_name, contact_cred_lumen, contact_debt_lumen, knot
+- [`ii00022`](brick_formats\ii00022.md): spark_num, spark_face, person_name, plan_rope, awardee_title, give_force, take_force, knot
+- [`ii00023`](brick_formats\ii00023.md): spark_num, spark_face, person_name, plan_rope, fact_context, fact_state, fact_lower, fact_upper, knot
+- [`ii00024`](brick_formats\ii00024.md): spark_num, spark_face, person_name, plan_rope, labor_title, solo, knot
+- [`ii00025`](brick_formats\ii00025.md): spark_num, spark_face, person_name, plan_rope, healer_name, knot
+- [`ii00026`](brick_formats\ii00026.md): spark_num, spark_face, person_name, plan_rope, reason_context, reason_state, reason_lower, reason_upper, reason_divisor, knot
+- [`ii00027`](brick_formats\ii00027.md): spark_num, spark_face, person_name, plan_rope, reason_context, active_requisite, knot
+- [`ii00028`](brick_formats\ii00028.md): spark_num, spark_face, person_name, plan_rope, begin, close, addin, numor, denom, morph, gogo_want, stop_want, star, pledge, problem_bool, knot
+- [`ii00029`](brick_formats\ii00029.md): spark_num, spark_face, moment_rope, person_name, credor_respect, debtor_respect, fund_pool, max_tree_traverse, fund_grain, mana_grain, respect_grain, knot
+- [`ii00036`](brick_formats\ii00036.md): spark_num, spark_face, moment_rope, person_name, plan_rope, healer_name, problem_bool
+- [`ii00042`](brick_formats\ii00042.md): spark_num, spark_face, otx_title, inx_title, otx_knot, inx_knot, unknown_str
+- [`ii00043`](brick_formats\ii00043.md): spark_num, spark_face, otx_name, inx_name, otx_knot, inx_knot, unknown_str
+- [`ii00044`](brick_formats\ii00044.md): spark_num, spark_face, otx_label, inx_label, otx_knot, inx_knot, unknown_str
+- [`ii00045`](brick_formats\ii00045.md): spark_num, spark_face, otx_rope, inx_rope, otx_knot, inx_knot, unknown_str
+- [`ii00050`](brick_formats\ii00050.md): spark_num, spark_face, moment_rope, person_name, contact_name, group_title_ERASE
+- [`ii00051`](brick_formats\ii00051.md): spark_num, spark_face, moment_rope, person_name, contact_name_ERASE
+- [`ii00052`](brick_formats\ii00052.md): spark_num, spark_face, person_name, plan_rope, awardee_title_ERASE
+- [`ii00053`](brick_formats\ii00053.md): spark_num, spark_face, person_name, plan_rope, fact_context_ERASE
+- [`ii00054`](brick_formats\ii00054.md): spark_num, spark_face, person_name, plan_rope, labor_title_ERASE
+- [`ii00055`](brick_formats\ii00055.md): spark_num, spark_face, person_name, plan_rope, healer_name_ERASE
+- [`ii00056`](brick_formats\ii00056.md): spark_num, spark_face, person_name, plan_rope, reason_context, reason_state_ERASE
+- [`ii00057`](brick_formats\ii00057.md): spark_num, spark_face, person_name, plan_rope, reason_context_ERASE
+- [`ii00058`](brick_formats\ii00058.md): spark_num, spark_face, person_name, plan_rope_ERASE
+- [`ii00059`](brick_formats\ii00059.md): spark_num, spark_face, moment_rope, person_name_ERASE
+- [`ii00070`](brick_formats\ii00070.md): spark_num, spark_face, moment_rope, otx_time, inx_time
+- [`ii00113`](brick_formats\ii00113.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_name, inx_name
+- [`ii00115`](brick_formats\ii00115.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_title, inx_title
+- [`ii00116`](brick_formats\ii00116.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_label, inx_label
+- [`ii00117`](brick_formats\ii00117.md): spark_num, spark_face, moment_rope, person_name, contact_name, otx_rope, inx_rope

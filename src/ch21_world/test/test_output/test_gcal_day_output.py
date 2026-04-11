@@ -10,9 +10,9 @@ from src.ch10_person_listen._ref.ch10_path import create_job_path
 from src.ch10_person_listen.keep_tool import open_job_file, save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
 from src.ch14_moment.moment_main import momentunit_shop, save_moment_file
-from src.ch17_idea.brick_db_tool import save_sheet
+from src.ch17_idea.idea_db_tool import save_sheet
 from src.ch20_kpi._ref.ch20_path import create_day_punch_txt_path as day_punch_path
-from src.ch21_world.test._util.ch21_examples import br00013_example
+from src.ch21_world.test._util.ch21_examples import ii00013_example
 from src.ch21_world.world import idea_sheets_to_gcal_day_punchs, worlddir_shop
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
@@ -50,29 +50,29 @@ def test_idea_sheets_to_gcal_day_punchs_SavesFiles_Scenario1_PopulatedSueReport(
     hb_brush = init_rope(["herenow_blu", "family", exx.casa, exx.clean, "brush"])
     spark0, spark2, spark3, spark4 = (0, 2, 3, 4)
     # create connections between sue and yao and themselves
-    br00011_data = [
+    ii00011_data = [
         (spark0, exx.bob, exx.hn_blu, exx.sue, exx.sue),
         (spark0, exx.bob, exx.hn_blu, exx.sue, exx.yao),
         (spark0, exx.bob, exx.hn_blu, exx.yao, exx.yao),
         (spark0, exx.bob, exx.hn_blu, exx.yao, exx.sue),
     ]
-    br00011_cols = [
+    ii00011_cols = [
         kw.spark_num,
         kw.spark_face,
         kw.moment_rope,
         kw.person_name,
         kw.contact_name,
     ]
-    br00011_df = pandas_DataFrame(br00011_data, columns=br00011_cols)
+    ii00011_df = pandas_DataFrame(ii00011_data, columns=ii00011_cols)
     # create tasks for sue, yao, others
-    br00013_data = [
+    ii00013_data = [
         (spark0, exx.bob, exx.zia, exx.hn_red, hr_mop, 1, True),
         (spark0, exx.bob, exx.yao, exx.hn_red, hr_tools, 2, True),
         (spark2, exx.bob, exx.sue, exx.hn_blu, hb_mop, 8, True),
         (spark3, exx.bob, exx.sue, exx.hn_blu, hb_sweep, 3, True),
         (spark4, exx.bob, exx.xio, exx.hn_blu, hb_brush, 1, True),
     ]
-    br00013_cols = [
+    ii00013_cols = [
         kw.spark_num,
         kw.spark_face,
         kw.person_name,
@@ -81,16 +81,16 @@ def test_idea_sheets_to_gcal_day_punchs_SavesFiles_Scenario1_PopulatedSueReport(
         kw.star,
         kw.pledge,
     ]
-    br00013_df = pandas_DataFrame(br00013_data, columns=br00013_cols)
+    ii00013_df = pandas_DataFrame(ii00013_data, columns=ii00013_cols)
     here_wdir = worlddir_shop("HereNow", str(temp3_fs))
-    bricks01_path = create_path(here_wdir.i_src_dir, "example.xlsx")
+    ideas01_path = create_path(here_wdir.ideas_src_dir, "example.xlsx")
     # unrelated to this test
-    # br00013_export_dir = create_path("C:\dev\_temp_working_dir", "br00013_example.xlsx")
-    # br00011_export_dir = create_path("C:\dev\_temp_working_dir", "br00011_example.xlsx")
-    # br00013_df.to_excel(br00013_export_dir, sheet_name="br00013_ex1", index=False)
-    # br00011_df.to_excel(br00011_export_dir, sheet_name="br00011_ex1", index=False)
-    save_sheet(bricks01_path, "br00013_ex1", br00013_df)
-    save_sheet(bricks01_path, "br00011_ex1", br00011_df)
+    # ii00013_export_dir = create_path("C:\dev\_temp_working_dir", "ii00013_example.xlsx")
+    # ii00011_export_dir = create_path("C:\dev\_temp_working_dir", "ii00011_example.xlsx")
+    # ii00013_df.to_excel(ii00013_export_dir, sheet_name="ii00013_ex1", index=False)
+    # ii00011_df.to_excel(ii00011_export_dir, sheet_name="ii00011_ex1", index=False)
+    save_sheet(ideas01_path, "ii00013_ex1", ii00013_df)
+    save_sheet(ideas01_path, "ii00011_ex1", ii00011_df)
     mmt_dir = here_wdir.moment_mstr_dir
     hn_red_lasso = lassounit_shop(exx.hn_red)
     hn_blu_lasso = lassounit_shop(exx.hn_blu)

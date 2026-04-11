@@ -19,8 +19,8 @@ def test_WorldDir_Exists():
     assert not x_wdir.worlds_dir
     assert not x_wdir.output_dir
     assert not x_wdir.world_dir
-    assert not x_wdir.i_src_dir
-    assert not x_wdir.brick_dir
+    assert not x_wdir.ideas_src_dir
+    assert not x_wdir.beliefs_src_dir
     assert not x_wdir.db_path
     assert not x_wdir.moment_mstr_dir
     assert set(x_wdir.__dict__.keys()) == {
@@ -28,64 +28,58 @@ def test_WorldDir_Exists():
         "worlds_dir",
         "output_dir",
         "world_dir",
-        kw.bele_src_dir,
-        kw.i_src_dir,
-        "brick_dir",
+        "beliefs_src_dir",
+        "ideas_src_dir",
         "db_path",
         kw.moment_mstr_dir,
     }
 
 
-def test_WorldDir_set_i_src_dir_SetsDirsAndFiles(temp3_fs):
+def test_WorldDir_set_ideas_src_dir_SetsDirsAndFiles(temp3_fs):
     # ESTABLISH
     fay_wdir = WorldDir("Fay")
     x_example_dir = create_path(str(temp3_fs), "example_dir")
-    x_i_src_dir = create_path(x_example_dir, "i_src")
-    x_bele_src_dir = create_path(x_example_dir, "bele_src")
+    x_ideas_src_dir = create_path(x_example_dir, kw.i_src)
     assert not fay_wdir.world_dir
-    assert not fay_wdir.i_src_dir
-    assert not fay_wdir.bele_src_dir
+    assert not fay_wdir.ideas_src_dir
+    assert not fay_wdir.beliefs_src_dir
     assert not fay_wdir.db_path
-    assert not fay_wdir.brick_dir
     assert not fay_wdir.moment_mstr_dir
-    assert os_path_exists(x_i_src_dir) is False
+    assert os_path_exists(x_ideas_src_dir) is False
 
     # WHEN
-    fay_wdir.set_i_src_dir(x_i_src_dir)
+    fay_wdir.set_ideas_src_dir(x_ideas_src_dir)
 
     # THEN
     assert not fay_wdir.world_dir
-    assert fay_wdir.i_src_dir == x_i_src_dir
-    assert not fay_wdir.bele_src_dir
-    assert not fay_wdir.brick_dir
+    assert fay_wdir.ideas_src_dir == x_ideas_src_dir
+    assert not fay_wdir.beliefs_src_dir
     assert not fay_wdir.db_path
     assert not fay_wdir.moment_mstr_dir
-    assert os_path_exists(x_i_src_dir)
+    assert os_path_exists(x_ideas_src_dir)
 
 
-def test_WorldDir_set_bele_src_dir_SetsDirsAndFiles(temp3_fs):
+def test_WorldDir_set_beliefs_src_dir_SetsDirsAndFiles(temp3_fs):
     # ESTABLISH
     fay_wdir = WorldDir("Fay")
     x_example_dir = create_path(str(temp3_fs), "example_dir")
-    x_i_src_dir = create_path(x_example_dir, "i_src")
-    x_bele_src_dir = create_path(x_example_dir, "bele_src")
+    x_ideas_src_dir = create_path(x_example_dir, kw.i_src)
+    x_beliefs_src_dir = create_path(x_example_dir, kw.b_src)
     assert not fay_wdir.world_dir
-    assert not fay_wdir.i_src_dir
-    assert not fay_wdir.bele_src_dir
-    assert not fay_wdir.brick_dir
+    assert not fay_wdir.ideas_src_dir
+    assert not fay_wdir.beliefs_src_dir
     assert not fay_wdir.moment_mstr_dir
-    assert os_path_exists(x_i_src_dir) is False
+    assert os_path_exists(x_ideas_src_dir) is False
 
     # WHEN
-    fay_wdir.set_bele_src_dir(x_bele_src_dir)
+    fay_wdir.set_beliefs_src_dir(x_beliefs_src_dir)
 
     # THEN
     assert not fay_wdir.world_dir
-    assert not fay_wdir.i_src_dir
-    assert fay_wdir.bele_src_dir == x_bele_src_dir
-    assert not fay_wdir.brick_dir
+    assert not fay_wdir.ideas_src_dir
+    assert fay_wdir.beliefs_src_dir == x_beliefs_src_dir
     assert not fay_wdir.moment_mstr_dir
-    assert os_path_exists(x_bele_src_dir)
+    assert os_path_exists(x_beliefs_src_dir)
 
 
 def test_WorldDir_set_world_dirs_SetsDirsAndFiles(temp3_fs):
@@ -93,20 +87,17 @@ def test_WorldDir_set_world_dirs_SetsDirsAndFiles(temp3_fs):
     fay_str = "Fay"
     fay_wdir = WorldDir(world_name=fay_str, worlds_dir=str(temp3_fs))
     x_world_dir = create_path(str(temp3_fs), fay_str)
-    x_i_src_dir = create_path(x_world_dir, "i_src")
-    x_bele_src_dir = create_path(x_world_dir, "bele_src")
-    x_brick_dir = create_path(x_world_dir, "brick")
+    x_ideas_src_dir = create_path(x_world_dir, kw.i_src)
+    x_beliefs_src_dir = create_path(x_world_dir, kw.b_src)
     x_moment_mstr_dir = create_path(x_world_dir, "moment_mstr")
 
     assert not fay_wdir.world_dir
-    assert not fay_wdir.i_src_dir
-    assert not fay_wdir.bele_src_dir
-    assert not fay_wdir.brick_dir
+    assert not fay_wdir.ideas_src_dir
+    assert not fay_wdir.beliefs_src_dir
     assert not fay_wdir.moment_mstr_dir
     assert os_path_exists(x_world_dir) is False
-    assert os_path_exists(x_i_src_dir) is False
-    assert os_path_exists(x_bele_src_dir) is False
-    assert os_path_exists(x_brick_dir) is False
+    assert os_path_exists(x_ideas_src_dir) is False
+    assert os_path_exists(x_beliefs_src_dir) is False
     assert os_path_exists(x_moment_mstr_dir) is False
 
     # WHEN
@@ -114,20 +105,18 @@ def test_WorldDir_set_world_dirs_SetsDirsAndFiles(temp3_fs):
 
     # THEN
     assert fay_wdir.world_dir == x_world_dir
-    assert not fay_wdir.i_src_dir
-    assert fay_wdir.brick_dir == x_brick_dir
+    assert not fay_wdir.ideas_src_dir
     assert os_path_exists(x_world_dir)
-    assert os_path_exists(x_i_src_dir) is False
-    assert os_path_exists(x_bele_src_dir) is False
-    assert os_path_exists(x_brick_dir)
+    assert os_path_exists(x_ideas_src_dir) is False
+    assert os_path_exists(x_beliefs_src_dir) is False
     assert os_path_exists(x_moment_mstr_dir)
 
 
 def test_worlddir_shop_ReturnsObj_Scenario0_WithParameters(temp3_fs):
     # ESTABLISH
     worlds2_dir = create_path(str(temp3_fs), "worlds2")
-    example_i_src_dir = create_path(str(temp3_fs), "example_i_src_dir")
-    example_bele_src_dir = create_path(str(temp3_fs), "example_bele_src_dir")
+    example_ideas_src_dir = create_path(str(temp3_fs), "example_ideas_src_dir")
+    example_beliefs_src_dir = create_path(str(temp3_fs), "example_beliefs_src_dir")
     output_dir = create_path(str(temp3_fs), "output")
     five_world_name = "five"
 
@@ -136,16 +125,16 @@ def test_worlddir_shop_ReturnsObj_Scenario0_WithParameters(temp3_fs):
         world_name=five_world_name,
         worlds_dir=worlds2_dir,
         output_dir=output_dir,
-        i_src_dir=example_i_src_dir,
-        bele_src_dir=example_bele_src_dir,
+        ideas_src_dir=example_ideas_src_dir,
+        beliefs_src_dir=example_beliefs_src_dir,
     )
 
     # THEN
     assert x_wdir.world_name == five_world_name
     assert x_wdir.worlds_dir == worlds2_dir
     assert x_wdir.output_dir == output_dir
-    assert x_wdir.i_src_dir == example_i_src_dir
-    assert x_wdir.bele_src_dir == example_bele_src_dir
+    assert x_wdir.ideas_src_dir == example_ideas_src_dir
+    assert x_wdir.beliefs_src_dir == example_beliefs_src_dir
     world_db_path = create_path(x_wdir.world_dir, "world.db")
     assert x_wdir.db_path == world_db_path
 
@@ -160,8 +149,8 @@ def test_worlddir_shop_ReturnsObj_Scenario1_WithoutParameters(temp3_fs):
     assert x_wdir.world_name == exx.a23
     assert x_wdir.worlds_dir == str(temp3_fs)
     assert not x_wdir.output_dir
-    assert x_wdir.i_src_dir == create_path(x_wdir.world_dir, "i_src")
-    assert x_wdir.bele_src_dir == create_path(x_wdir.world_dir, "bele_src")
+    assert x_wdir.ideas_src_dir == create_path(x_wdir.world_dir, kw.i_src)
+    assert x_wdir.beliefs_src_dir == create_path(x_wdir.world_dir, kw.b_src)
     assert x_wdir.db_path == create_path(x_wdir.world_dir, "world.db")
 
 

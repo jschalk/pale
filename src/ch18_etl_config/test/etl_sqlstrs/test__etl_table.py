@@ -87,8 +87,8 @@ def test_get_stages_order_general_ReturnsObj():
     # THEN
     assert stages_order_general
     assert stages_order_general == [
-        kw.brick_raw,
-        kw.brick_agg,
+        kw.ideax_raw,
+        kw.ideax_agg,
         kw.sound_raw,
         kw.sound_agg,
         kw.sound_vld,
@@ -100,8 +100,8 @@ def test_get_stages_order_general_ReturnsObj():
 
 def test_get_stage_abbv5_ReturnsObj():
     # ESTABLISH / WHEN / THEN
-    assert get_stage_abbv5(kw.brick_raw) == kw.brick_raw
-    assert get_stage_abbv5(kw.brick_agg) == kw.brick_agg
+    assert get_stage_abbv5(kw.ideax_raw) == kw.ideax_raw
+    assert get_stage_abbv5(kw.ideax_agg) == kw.ideax_agg
     assert get_stage_abbv5(kw.sound_raw) == kw.s_raw
     assert get_stage_abbv5(kw.sound_agg) == kw.s_agg
     assert get_stage_abbv5(kw.sound_vld) == kw.s_vld
@@ -226,12 +226,12 @@ def test_get_etl_stage_types_config_dict_ReturnsObj_Scenario0_IsFullyPopulated()
         kw.s_agg,
         kw.s_raw,
         kw.s_vld,
-        kw.br_agg,
-        kw.br_raw,
-        kw.br_vld,
-        kw.bele_src,
-        kw.beli_dst,
-        kw.idea_src,
+        kw.i_agg,
+        kw.i_raw,
+        kw.i_vld,
+        kw.b_src,
+        kw.b_dst,
+        kw.i_src,
         kw.lynx,
     }
     expected_abbv9_stage_types = {
@@ -241,12 +241,12 @@ def test_get_etl_stage_types_config_dict_ReturnsObj_Scenario0_IsFullyPopulated()
         kw.sound_agg,
         kw.sound_raw,
         kw.sound_vld,
-        kw.brick_agg,
-        kw.brick_raw,
-        kw.brick_vld,
+        kw.ideax_agg,
+        kw.ideax_raw,
+        kw.ideax_vld,
         kw.belve_dst,
         kw.belve_src,
-        kw.ideaa_src,
+        kw.ideax_src,
         kw.lynxx_mst,
     }
     track_stage_type_orders = {}
@@ -261,6 +261,7 @@ def test_get_etl_stage_types_config_dict_ReturnsObj_Scenario0_IsFullyPopulated()
         abbv9_str = stage_type_dict.get("abbv9")
         general_order_int = stage_type_dict.get("stage_type_order")
         assert abbv9_str in expected_abbv9_stage_types
+        print(abbv9_str)
         assert abbv9_str[5:6] == "_"
         assert general_order_int > 0, stage_type
         track_stage_type_orders[general_order_int] = stage_type
@@ -276,11 +277,11 @@ def test_get_ordered_stage_types_ReturnsObj():
     assert ordered_stage_types
     print(ordered_stage_types)
     expected_ordered_stage_types = [
-        kw.bele_src,
-        kw.idea_src,
-        kw.br_raw,
-        kw.br_agg,
-        kw.br_vld,
+        kw.b_src,
+        kw.i_src,
+        kw.i_raw,
+        kw.i_agg,
+        kw.i_vld,
         kw.s_raw,
         kw.s_agg,
         kw.s_vld,
@@ -288,7 +289,7 @@ def test_get_ordered_stage_types_ReturnsObj():
         kw.h_agg,
         kw.h_vld,
         kw.lynx,
-        kw.beli_dst,
+        kw.b_dst,
     ]
     print(expected_ordered_stage_types)
     assert ordered_stage_types == expected_ordered_stage_types
@@ -510,5 +511,5 @@ def test_create_prime_table_sqlstr_ReturnsObj_Scenario0_CaseUnit():
     # THEN
     assert table_sqlstr
     print(table_sqlstr)
-    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_put_s_raw (brick_type TEXT, spark_num INTEGER, spark_face TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
+    expected_sqlstr = "CREATE TABLE IF NOT EXISTS person_plan_reason_caseunit_put_s_raw (idea_type TEXT, spark_num INTEGER, spark_face TEXT, person_name TEXT, plan_rope TEXT, reason_context TEXT, reason_state TEXT, reason_lower REAL, reason_upper REAL, reason_divisor INTEGER, knot TEXT, error_message TEXT)"
     assert table_sqlstr == expected_sqlstr
