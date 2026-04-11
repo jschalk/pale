@@ -349,8 +349,8 @@ def get_del_dimen_columns_set(x_dimen: str) -> set[str]:
 
 def get_stages_order_general() -> list[str]:
     return [
-        "brick_raw",
-        "brick_agg",
+        "ideax_raw",
+        "ideax_agg",
         "sound_raw",
         "sound_agg",
         "sound_vld",

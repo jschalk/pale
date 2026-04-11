@@ -9,17 +9,17 @@ from pandas import (
 from pathlib import Path
 from pytest import fixture as pytest_fixture, raises as pytest_raises
 from src.ch00_py.file_toolbox import count_dirs_files, create_path
-from src.ch17_idea.brick_db_tool import sheet_exists
+from src.ch17_idea.idea_db_tool import sheet_exists
 from src.ch19_etl_steps.belief2idea import (  # move_b_src_sheets_to_i_src,
     add_spark_num_column,
     beliefs_sheets_to_idea_sheets,
     create_spark_face_spark_nums,
     get_excel_sheet_tuples,
     get_max_spark_num_from_files,
-    get_sheets_with_brick_types,
+    get_sheets_with_idea_types,
     get_spark_faces_from_df,
     get_spark_faces_from_files,
-    get_validated_bele_src_brick_type_sheets,
+    get_validated_bele_src_idea_type_sheets,
 )
 from src.ref.keywords import Ch19Keywords as kw, ExampleStrs as exx
 
@@ -259,7 +259,7 @@ def test_get_excel_sheet_tuples_ReturnsObj_Scenario2_EmptyListForNoExcelFiles(
     assert result == []
 
 
-def test_get_sheets_with_brick_types_ReturnsObj_Scenario0_MatchingTuples(
+def test_get_sheets_with_idea_types_ReturnsObj_Scenario0_MatchingTuples(
     tmp_path: Path,
 ):  # sourcery skip: extract-duplicate-method
     """Only tuples whose sheet_name contains a br_string are returned."""
@@ -278,7 +278,7 @@ def test_get_sheets_with_brick_types_ReturnsObj_Scenario0_MatchingTuples(
     wb2.save(br_excel_dir / "report.xlsx")
 
     # WHEN
-    result = get_sheets_with_brick_types(br_excel_dir)
+    result = get_sheets_with_idea_types(br_excel_dir)
 
     # THEN
     assert ("x300reports.xlsx", "ii00002_Sales") in result
@@ -288,7 +288,7 @@ def test_get_sheets_with_brick_types_ReturnsObj_Scenario0_MatchingTuples(
     assert ("report.xlsx", "Summary") not in result
 
 
-def test_get_validated_bele_src_brick_type_sheets_ReturnsObj_Scenario0_BeleBrSheets(
+def test_get_validated_bele_src_idea_type_sheets_ReturnsObj_Scenario0_BeleBrSheets(
     tmp_path,
 ):
     """Returns only BR sheet tuples from bele_src_dir when there is no overlap."""
@@ -304,14 +304,14 @@ def test_get_validated_bele_src_brick_type_sheets_ReturnsObj_Scenario0_BeleBrShe
     wb.save(bele_dir / "x300reports.xlsx")
 
     # WHEN
-    result = get_validated_bele_src_brick_type_sheets(bele_dir, i_src_dir)
+    result = get_validated_bele_src_idea_type_sheets(bele_dir, i_src_dir)
     # THEN
     assert ("x300reports.xlsx", "ii00005_Sales") in result
     assert ("x300reports.xlsx", "ii00042_Costs") in result
     assert ("x300reports.xlsx", "Revenue") not in result
 
 
-def test_get_validated_bele_src_brick_type_sheets_Scenario1_RaisesOnOverlap(
+def test_get_validated_bele_src_idea_type_sheets_Scenario1_RaisesOnOverlap(
     tmp_path: Path,
 ):
     """Raises ValueError when a BR sheet name exists in both directories."""
@@ -333,10 +333,10 @@ def test_get_validated_bele_src_brick_type_sheets_Scenario1_RaisesOnOverlap(
 
     # WHEN / THEN
     with pytest_raises(ValueError, match="ii00005_Sales"):
-        get_validated_bele_src_brick_type_sheets(bele_dir, i_src_dir)
+        get_validated_bele_src_idea_type_sheets(bele_dir, i_src_dir)
 
 
-def test_get_validated_bele_src_brick_type_sheets_Scenario2_DoesNotRaiseError(
+def test_get_validated_bele_src_idea_type_sheets_Scenario2_DoesNotRaiseError(
     tmp_path: Path,
 ):
     """Raises ValueError when a BR sheet name exists in both directories."""
@@ -360,14 +360,14 @@ def test_get_validated_bele_src_brick_type_sheets_Scenario2_DoesNotRaiseError(
     idea_wb.save(i_src_dir / x4_filename)
 
     # WHEN
-    sheet_tuples = get_validated_bele_src_brick_type_sheets(bele_dir, i_src_dir)
+    sheet_tuples = get_validated_bele_src_idea_type_sheets(bele_dir, i_src_dir)
     # THEN
     print(f"{(x3_filename, br42_sheetname)=}")
     print(f"{sheet_tuples=}")
     assert (x3_filename, br42_sheetname) in sheet_tuples
 
 
-def test_get_validated_bele_src_brick_type_sheets_ReturnsObj_Scenario2_EmptyWhenNoBeleBrSheets(
+def test_get_validated_bele_src_idea_type_sheets_ReturnsObj_Scenario2_EmptyWhenNoBeleBrSheets(
     tmp_path,
 ):
     """Returns an empty list when bele_src_dir has no BR sheets."""
@@ -385,7 +385,7 @@ def test_get_validated_bele_src_brick_type_sheets_ReturnsObj_Scenario2_EmptyWhen
     wb.active.title = "Summary"
     wb.save(empty_bele / "plain.xlsx")
     # WHEN
-    result = get_validated_bele_src_brick_type_sheets(empty_bele, i_src_dir)
+    result = get_validated_bele_src_idea_type_sheets(empty_bele, i_src_dir)
     # THEN
     assert result == []
 

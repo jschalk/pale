@@ -10,7 +10,7 @@ from src.ch10_person_listen._ref.ch10_path import create_job_path
 from src.ch10_person_listen.keep_tool import open_job_file, save_job_file
 from src.ch13_time.epoch_main import add_epoch_planunit, get_default_epoch_config_dict
 from src.ch14_moment.moment_main import momentunit_shop, save_moment_file
-from src.ch17_idea.brick_db_tool import save_sheet
+from src.ch17_idea.idea_db_tool import save_sheet
 from src.ch20_kpi._ref.ch20_path import create_day_punch_txt_path as day_punch_path
 from src.ch21_world.test._util.ch21_examples import ii00013_example
 from src.ch21_world.world import idea_sheets_to_gcal_day_punchs, worlddir_shop
@@ -83,14 +83,14 @@ def test_idea_sheets_to_gcal_day_punchs_SavesFiles_Scenario1_PopulatedSueReport(
     ]
     ii00013_df = pandas_DataFrame(ii00013_data, columns=ii00013_cols)
     here_wdir = worlddir_shop("HereNow", str(temp3_fs))
-    bricks01_path = create_path(here_wdir.i_src_dir, "example.xlsx")
+    ideas01_path = create_path(here_wdir.i_src_dir, "example.xlsx")
     # unrelated to this test
     # ii00013_export_dir = create_path("C:\dev\_temp_working_dir", "ii00013_example.xlsx")
     # ii00011_export_dir = create_path("C:\dev\_temp_working_dir", "ii00011_example.xlsx")
     # ii00013_df.to_excel(ii00013_export_dir, sheet_name="ii00013_ex1", index=False)
     # ii00011_df.to_excel(ii00011_export_dir, sheet_name="ii00011_ex1", index=False)
-    save_sheet(bricks01_path, "ii00013_ex1", ii00013_df)
-    save_sheet(bricks01_path, "ii00011_ex1", ii00011_df)
+    save_sheet(ideas01_path, "ii00013_ex1", ii00013_df)
+    save_sheet(ideas01_path, "ii00011_ex1", ii00011_df)
     mmt_dir = here_wdir.moment_mstr_dir
     hn_red_lasso = lassounit_shop(exx.hn_red)
     hn_blu_lasso = lassounit_shop(exx.hn_blu)

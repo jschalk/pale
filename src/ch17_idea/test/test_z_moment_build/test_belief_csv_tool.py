@@ -5,7 +5,7 @@ from src.ch04_rope.rope import to_rope
 from src.ch07_person_logic.person_main import personunit_shop
 from src.ch09_person_lesson.delta import persondelta_shop
 from src.ch09_person_lesson.lesson_main import lessonunit_shop
-from src.ch17_idea.brick_belief_csv import (
+from src.ch17_idea.idea_belief_csv import (
     add_momentunit_to_belief_csv_strs,
     add_momentunits_to_belief_csv_strs,
     add_person_to_ii00020_csv,
@@ -19,10 +19,10 @@ from src.ch17_idea.brick_belief_csv import (
     add_person_to_ii00028_csv,
     add_person_to_ii00029_csv,
     add_personunit_to_belief_csv_strs,
-    create_init_belief_brick_csv_strs,
+    create_init_belief_idea_csv_strs,
 )
-from src.ch17_idea.brick_db_tool import get_ordered_csv
-from src.ch17_idea.brick_main import moment_build_from_df
+from src.ch17_idea.idea_db_tool import get_ordered_csv
+from src.ch17_idea.idea_main import moment_build_from_df
 from src.ch17_idea.test._util.ch17_examples import (  # get_ex2_ii00006_df,
     J45_ROPE,
     get_ex2_ii00000_df,
@@ -35,14 +35,14 @@ from src.ch17_idea.test._util.ch17_examples import (  # get_ex2_ii00006_df,
 from src.ref.keywords import ExampleStrs as exx
 
 
-def test_create_init_belief_brick_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
+def test_create_init_belief_idea_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
     temp3_fs,
 ):
     # ESTABLISH
     csv_delimiter = ","
 
     # WHEN
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
 
     # THEN
     expected_belief_csv_strs = {
@@ -92,30 +92,30 @@ def test_create_init_belief_brick_csv_strs_ReturnsObj_Scenario0_EmptyMomentUnit(
     print(f"{expected_ii00001_csv=}")
 
     face_spark_str = "spark_num,spark_face,"
-    assert x_bricks.get("ii00000") == f"{face_spark_str}{expected_ii00000_csv}"
-    assert x_bricks.get("ii00001") == f"{face_spark_str}{expected_ii00001_csv}"
-    assert x_bricks.get("ii00002") == f"{face_spark_str}{expected_ii00002_csv}"
-    assert x_bricks.get("ii00003") == f"{face_spark_str}{expected_ii00003_csv}"
-    assert x_bricks.get("ii00004") == f"{face_spark_str}{expected_ii00004_csv}"
-    assert x_bricks.get("ii00005") == f"{face_spark_str}{expected_ii00005_csv}"
-    # assert x_bricks.get("ii00006") == f"{face_spark_str}{expected_ii00006_csv}"
+    assert x_ideas.get("ii00000") == f"{face_spark_str}{expected_ii00000_csv}"
+    assert x_ideas.get("ii00001") == f"{face_spark_str}{expected_ii00001_csv}"
+    assert x_ideas.get("ii00002") == f"{face_spark_str}{expected_ii00002_csv}"
+    assert x_ideas.get("ii00003") == f"{face_spark_str}{expected_ii00003_csv}"
+    assert x_ideas.get("ii00004") == f"{face_spark_str}{expected_ii00004_csv}"
+    assert x_ideas.get("ii00005") == f"{face_spark_str}{expected_ii00005_csv}"
+    # assert x_ideas.get("ii00006") == f"{face_spark_str}{expected_ii00006_csv}"
     print(f"{expected_ii00020_csv=}")
-    print(x_bricks.get("ii00020"))
-    assert x_bricks.get("ii00020") == f"{face_spark_str}{expected_ii00020_csv}"
-    assert x_bricks.get("ii00021") == f"{face_spark_str}{expected_ii00021_csv}"
-    assert x_bricks.get("ii00022") == f"{face_spark_str}{expected_ii00022_csv}"
-    assert x_bricks.get("ii00023") == f"{face_spark_str}{expected_ii00023_csv}"
-    assert x_bricks.get("ii00024") == f"{face_spark_str}{expected_ii00024_csv}"
-    assert x_bricks.get("ii00025") == f"{face_spark_str}{expected_ii00025_csv}"
-    assert x_bricks.get("ii00026") == f"{face_spark_str}{expected_ii00026_csv}"
-    assert x_bricks.get("ii00027") == f"{face_spark_str}{expected_ii00027_csv}"
-    assert x_bricks.get("ii00028") == f"{face_spark_str}{expected_ii00028_csv}"
-    assert x_bricks.get("ii00029") == f"{face_spark_str}{expected_ii00029_csv}"
-    assert x_bricks.get("ii00042") == f"{face_spark_str}{expected_ii00042_csv}"
-    assert x_bricks.get("ii00043") == f"{face_spark_str}{expected_ii00043_csv}"
-    assert x_bricks.get("ii00044") == f"{face_spark_str}{expected_ii00044_csv}"
-    assert x_bricks.get("ii00045") == f"{face_spark_str}{expected_ii00045_csv}"
-    assert len(x_bricks) == 20
+    print(x_ideas.get("ii00020"))
+    assert x_ideas.get("ii00020") == f"{face_spark_str}{expected_ii00020_csv}"
+    assert x_ideas.get("ii00021") == f"{face_spark_str}{expected_ii00021_csv}"
+    assert x_ideas.get("ii00022") == f"{face_spark_str}{expected_ii00022_csv}"
+    assert x_ideas.get("ii00023") == f"{face_spark_str}{expected_ii00023_csv}"
+    assert x_ideas.get("ii00024") == f"{face_spark_str}{expected_ii00024_csv}"
+    assert x_ideas.get("ii00025") == f"{face_spark_str}{expected_ii00025_csv}"
+    assert x_ideas.get("ii00026") == f"{face_spark_str}{expected_ii00026_csv}"
+    assert x_ideas.get("ii00027") == f"{face_spark_str}{expected_ii00027_csv}"
+    assert x_ideas.get("ii00028") == f"{face_spark_str}{expected_ii00028_csv}"
+    assert x_ideas.get("ii00029") == f"{face_spark_str}{expected_ii00029_csv}"
+    assert x_ideas.get("ii00042") == f"{face_spark_str}{expected_ii00042_csv}"
+    assert x_ideas.get("ii00043") == f"{face_spark_str}{expected_ii00043_csv}"
+    assert x_ideas.get("ii00044") == f"{face_spark_str}{expected_ii00044_csv}"
+    assert x_ideas.get("ii00045") == f"{face_spark_str}{expected_ii00045_csv}"
+    assert len(x_ideas) == 20
 
 
 def test_add_momentunit_to_belief_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
@@ -147,7 +147,7 @@ def test_add_momentunit_to_belief_csv_strs_ReturnsObj_Scenario0_OneMomentUnit(
         x_moments_dir,
     )
     csv_delimiter = ","
-    x_csvs = create_init_belief_brick_csv_strs()
+    x_csvs = create_init_belief_idea_csv_strs()
     ii00_csv_header = x_csvs.get("ii00000")
     ii01_csv_header = x_csvs.get("ii00001")
     ii02_csv_header = x_csvs.get("ii00002")
@@ -217,10 +217,10 @@ def test_add_momentunits_to_belief_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
         x_moments_dir,
     )
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
 
     # WHEN
-    add_momentunits_to_belief_csv_strs(x_momentunits, x_bricks, csv_delimiter)
+    add_momentunits_to_belief_csv_strs(x_momentunits, x_ideas, csv_delimiter)
 
     # THEN
     expected_ii00000_csv = get_ordered_csv(get_ex2_ii00000_df())
@@ -249,13 +249,13 @@ def test_add_momentunits_to_belief_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
     expected_ii00004_csv = expected_ii00004_csv.replace(J45_ROPE, f",,{J45_ROPE}")
     expected_ii00005_csv = expected_ii00005_csv.replace(J45_ROPE, f",,{J45_ROPE}")
 
-    assert len(x_bricks) == 20
-    generated_ii00000_csv = x_bricks.get("ii00000")
-    generated_ii00001_csv = x_bricks.get("ii00001")
-    generated_ii00002_csv = x_bricks.get("ii00002")
-    generated_ii00003_csv = x_bricks.get("ii00003")
-    generated_ii00004_csv = x_bricks.get("ii00004")
-    generated_ii00005_csv = x_bricks.get("ii00005")
+    assert len(x_ideas) == 20
+    generated_ii00000_csv = x_ideas.get("ii00000")
+    generated_ii00001_csv = x_ideas.get("ii00001")
+    generated_ii00002_csv = x_ideas.get("ii00002")
+    generated_ii00003_csv = x_ideas.get("ii00003")
+    generated_ii00004_csv = x_ideas.get("ii00004")
+    generated_ii00005_csv = x_ideas.get("ii00005")
     print(f"{generated_ii00001_csv=}")
     print(f" {expected_ii00001_csv=}")
     assert generated_ii00000_csv == expected_ii00000_csv
@@ -269,13 +269,13 @@ def test_add_momentunits_to_belief_csv_strs_ReturnsObj_Scenario1_TwoMomentUnits(
 def test_add_person_to_ii00020_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     bob_person.add_contactunit(exx.yao)
     run_credit = 33
     run_debt = 55
     bob_person.get_contact(exx.yao).add_membership(exx.run, run_credit, run_debt)
-    csv_header = x_bricks.get("ii00020")
+    csv_header = x_ideas.get("ii00020")
 
     # WHEN
     x_csv = add_person_to_ii00020_csv(csv_header, bob_person, csv_delimiter)
@@ -293,12 +293,12 @@ def test_add_person_to_ii00020_csv_ReturnsObj():
 def test_add_person_to_ii00021_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     yao_credit = 33
     yao_debt = 55
     bob_person = personunit_shop(exx.bob, exx.a23)
     bob_person.add_contactunit(exx.yao, yao_credit, yao_debt)
-    csv_header = x_bricks.get("ii00021")
+    csv_header = x_ideas.get("ii00021")
 
     # WHEN
     x_csv = add_person_to_ii00021_csv(csv_header, bob_person, csv_delimiter)
@@ -311,7 +311,7 @@ def test_add_person_to_ii00021_csv_ReturnsObj():
 def test_add_person_to_ii00022_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
     yao_give_force = 55
@@ -319,7 +319,7 @@ def test_add_person_to_ii00022_csv_ReturnsObj():
     casa_awardunit = awardunit_shop(exx.yao, yao_give_force, yao_take_force)
     bob_person.add_plan(casa_rope)
     bob_person.edit_plan_attr(casa_rope, awardunit=casa_awardunit)
-    csv_header = x_bricks.get("ii00022")
+    csv_header = x_ideas.get("ii00022")
     print(f"{csv_header=}")
 
     # WHEN
@@ -334,7 +334,7 @@ def test_add_person_to_ii00022_csv_ReturnsObj():
 def test_add_person_to_ii00023_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
@@ -344,7 +344,7 @@ def test_add_person_to_ii00023_csv_ReturnsObj():
     bob_person.add_plan(casa_rope)
     bob_person.add_plan(clean_rope)
     bob_person.add_fact(casa_rope, clean_rope, clean_fact_lower, clean_fact_upper)
-    csv_header = x_bricks.get("ii00023")
+    csv_header = x_ideas.get("ii00023")
     print(f"{csv_header=}")
 
     # WHEN
@@ -358,14 +358,14 @@ def test_add_person_to_ii00023_csv_ReturnsObj():
 def test_add_person_to_ii00024_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
     bob_person.add_plan(casa_rope)
     casa_plan = bob_person.get_plan_obj(casa_rope)
     cleaners_str = "cleaners"
     casa_plan.workforceunit.add_labor(cleaners_str)
-    csv_header = x_bricks.get("ii00024")
+    csv_header = x_ideas.get("ii00024")
     print(f"{csv_header=}")
 
     # WHEN
@@ -380,14 +380,14 @@ def test_add_person_to_ii00024_csv_ReturnsObj():
 def test_add_person_to_ii00025_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     casa_rope = bob_person.make_l1_rope("casa")
     bob_person.add_plan(casa_rope)
     casa_plan = bob_person.get_plan_obj(casa_rope)
     cleaners_str = "cleaners"
     casa_plan.healerunit.set_healer_name(cleaners_str)
-    csv_header = x_bricks.get("ii00025")
+    csv_header = x_ideas.get("ii00025")
     print(f"{csv_header=}")
 
     # WHEN
@@ -402,7 +402,7 @@ def test_add_person_to_ii00025_csv_ReturnsObj():
 def test_add_person_to_ii00026_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     mop_rope = bob_person.make_l1_rope("mop")
     casa_rope = bob_person.make_l1_rope("casa")
@@ -421,7 +421,7 @@ def test_add_person_to_ii00026_csv_ReturnsObj():
         reason_upper=clean_reason_upper,
         reason_divisor=clean_reason_divisor,
     )
-    csv_header = x_bricks.get("ii00026")
+    csv_header = x_ideas.get("ii00026")
     print(f"{csv_header=}")
 
     # WHEN
@@ -436,7 +436,7 @@ def test_add_person_to_ii00026_csv_ReturnsObj():
 def test_add_person_to_ii00027_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     mop_rope = bob_person.make_l1_rope("mop")
     casa_rope = bob_person.make_l1_rope("casa")
@@ -447,7 +447,7 @@ def test_add_person_to_ii00027_csv_ReturnsObj():
         reason_context=casa_rope,
         reason_requisite_active=True,
     )
-    csv_header = x_bricks.get("ii00027")
+    csv_header = x_ideas.get("ii00027")
     print(f"{csv_header=}")
 
     # WHEN
@@ -462,7 +462,7 @@ def test_add_person_to_ii00027_csv_ReturnsObj():
 def test_add_person_to_ii00028_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     a23_rope = to_rope(exx.a23)
     bob_person = personunit_shop(exx.bob, exx.a23)
     mop_rope = bob_person.make_l1_rope("mop")
@@ -494,7 +494,7 @@ def test_add_person_to_ii00028_csv_ReturnsObj():
         pledge=casa_pledge,
         problem_bool=casa_problem_bool,
     )
-    csv_header = x_bricks.get("ii00028")
+    csv_header = x_ideas.get("ii00028")
     print(f"{csv_header=}")
 
     # WHEN
@@ -515,7 +515,7 @@ def test_add_person_to_ii00028_csv_ReturnsObj():
 def test_add_person_to_ii00029_csv_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     bob_person.credor_respect = 444
     bob_person.debtor_respect = 555
@@ -524,7 +524,7 @@ def test_add_person_to_ii00029_csv_ReturnsObj():
     bob_person.fund_grain = 12
     bob_person.mana_grain = 13
     bob_person.respect_grain = 15
-    csv_header = x_bricks.get("ii00029")
+    csv_header = x_ideas.get("ii00029")
     print(f"{csv_header=}")
 
     # WHEN
@@ -538,7 +538,7 @@ def test_add_person_to_ii00029_csv_ReturnsObj():
 def test_add_personunit_to_belief_csv_strs_ReturnsObj():
     # ESTABLISH
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
+    x_ideas = create_init_belief_idea_csv_strs()
     bob_person = personunit_shop(exx.bob, exx.a23)
     bob_person.add_contactunit(exx.yao)
     mop_rope = bob_person.make_l1_rope("mop")
@@ -554,29 +554,29 @@ def test_add_personunit_to_belief_csv_strs_ReturnsObj():
     bob_person.edit_plan_attr(casa_rope, awardunit=awardunit_shop(exx.yao))
     bob_person.add_fact(casa_rope, clean_rope)
 
-    ii00020_header = x_bricks.get("ii00020")
-    ii00021_header = x_bricks.get("ii00021")
-    ii00022_header = x_bricks.get("ii00022")
-    ii00023_header = x_bricks.get("ii00023")
-    ii00024_header = x_bricks.get("ii00024")
-    ii00025_header = x_bricks.get("ii00025")
-    ii00026_header = x_bricks.get("ii00026")
-    ii00027_header = x_bricks.get("ii00027")
-    ii00028_header = x_bricks.get("ii00028")
-    ii00029_header = x_bricks.get("ii00029")
+    ii00020_header = x_ideas.get("ii00020")
+    ii00021_header = x_ideas.get("ii00021")
+    ii00022_header = x_ideas.get("ii00022")
+    ii00023_header = x_ideas.get("ii00023")
+    ii00024_header = x_ideas.get("ii00024")
+    ii00025_header = x_ideas.get("ii00025")
+    ii00026_header = x_ideas.get("ii00026")
+    ii00027_header = x_ideas.get("ii00027")
+    ii00028_header = x_ideas.get("ii00028")
+    ii00029_header = x_ideas.get("ii00029")
 
     # WHEN
     bob_person.conpute()
-    add_personunit_to_belief_csv_strs(bob_person, x_bricks, csv_delimiter)
+    add_personunit_to_belief_csv_strs(bob_person, x_ideas, csv_delimiter)
 
     # THEN
-    assert x_bricks.get("ii00020") != ii00020_header
-    assert x_bricks.get("ii00021") != ii00021_header
-    assert x_bricks.get("ii00022") != ii00022_header
-    assert x_bricks.get("ii00023") != ii00023_header
-    # assert x_bricks.get("ii00024") != ii00024_header
-    # assert x_bricks.get("ii00025") != ii00025_header
-    assert x_bricks.get("ii00026") != ii00026_header
-    assert x_bricks.get("ii00027") != ii00027_header
-    assert x_bricks.get("ii00028") != ii00028_header
-    assert x_bricks.get("ii00029") != ii00029_header
+    assert x_ideas.get("ii00020") != ii00020_header
+    assert x_ideas.get("ii00021") != ii00021_header
+    assert x_ideas.get("ii00022") != ii00022_header
+    assert x_ideas.get("ii00023") != ii00023_header
+    # assert x_ideas.get("ii00024") != ii00024_header
+    # assert x_ideas.get("ii00025") != ii00025_header
+    assert x_ideas.get("ii00026") != ii00026_header
+    assert x_ideas.get("ii00027") != ii00027_header
+    assert x_ideas.get("ii00028") != ii00028_header
+    assert x_ideas.get("ii00029") != ii00029_header

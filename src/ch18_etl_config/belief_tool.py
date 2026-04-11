@@ -10,12 +10,12 @@ from src.ch09_person_lesson._ref.ch09_path import create_moments_dir_path
 from src.ch09_person_lesson.lasso import lassounit_shop
 from src.ch11_bud.bud_filehandler import open_person_file
 from src.ch14_moment.moment_main import open_moment_file
-from src.ch17_idea.brick_belief_csv import (
+from src.ch17_idea.idea_belief_csv import (
     add_momentunit_to_belief_csv_strs,
     add_personunit_to_belief_csv_strs,
-    create_init_belief_brick_csv_strs,
+    create_init_belief_idea_csv_strs,
 )
-from src.ch17_idea.brick_db_tool import csv_dict_to_excel, prettify_excel
+from src.ch17_idea.idea_db_tool import csv_dict_to_excel, prettify_excel
 from src.ch18_etl_config._ref.ch18_path import (
     create_belief0001_path,
     create_moment_mstr_path,
@@ -170,7 +170,7 @@ def add_translate_rows_to_belief_csv_strs(
 
 def collect_belief_csv_strs(world_dir: str) -> dict[str, str]:
     moment_mstr_dir = create_moment_mstr_path(world_dir)
-    x_csv_strs = create_init_belief_brick_csv_strs()
+    x_csv_strs = create_init_belief_idea_csv_strs()
     moments_dir = create_moments_dir_path(moment_mstr_dir)
     for moment_label in get_level1_dirs(moments_dir):
         x_knot = default_knot_if_None()

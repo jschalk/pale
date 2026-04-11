@@ -12,7 +12,7 @@ The design focuses on **traceability, auditability, and simplicity** — every s
 Data in this system originates from **Excel sources**.
 It goes through a series of **structured stages** that progressively clean, validate, and transform the data into consistent, meaningful tables.
 
-The process starts in **bricks** tables and ends in **Sound** and **Heard** tables, where the data is finalized and ready for analysis or downstream logic.
+The process starts in **ideas** tables and ends in **Sound** and **Heard** tables, where the data is finalized and ready for analysis or downstream logic.
 
 ---
 
@@ -33,7 +33,7 @@ flowchart LR
 
 At a high level:
 
-* **bricks** tables (`Idea Raw`, `Idea Agg`, `Idea Vld`) capture raw and aggregated source data.
+* **ideas** tables (`Idea Raw`, `Idea Agg`, `Idea Vld`) capture raw and aggregated source data.
 * **Sound** tables interpret and translate that data into structured, meaningful forms.
 * **Heard** tables finalize transformations involving numeric and time-based data.
 
@@ -84,7 +84,7 @@ Each dimension advances through a fixed set of stages (Sound and Heard) with cle
 
 ## 6. Section Roles
 
-### **bricks Section**
+### **ideas Section**
 
 * Receives Excel data directly.
 * Tables: `Idea Raw`, `Idea Agg`, `Idea Vld`.
@@ -92,7 +92,7 @@ Each dimension advances through a fixed set of stages (Sound and Heard) with cle
 
 ### **Sound Section**
 
-* Converts `bricks` outputs into structured, interpretable data.
+* Converts `ideas` outputs into structured, interpretable data.
 * Applies translation and text-based transformations.
 * Uses `translate` and `translate_core` data to update all **nabu**, **moment**, and **person** tables that require translatable content.
 
@@ -118,7 +118,7 @@ Each dimension advances through a fixed set of stages (Sound and Heard) with cle
 | Property                  | Description                                     |
 | ------------------------- | ----------------------------------------------- |
 | **Source**                | Excel workbooks                                 |
-| **Initial Landing Zone**  | bricks tables                              |
+| **Initial Landing Zone**  | ideas tables                              |
 | **Core Processing Zones** | Sound and Heard                                 |
 | **Auditable by**          | Any user with Excel/SQL skills                  |
 | **ETL Constraints**       | 1 insert + 1 update per table per run           |

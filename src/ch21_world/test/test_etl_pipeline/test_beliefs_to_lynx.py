@@ -4,9 +4,9 @@ from sqlite3 import connect as sqlite3_connect
 from src.ch00_py.db_toolbox import get_row_count
 from src.ch00_py.file_toolbox import create_path
 from src.ch04_rope.rope import create_rope
-from src.ch17_idea.brick_db_tool import create_idea_sorted_table, save_sheet
+from src.ch17_idea.idea_db_tool import create_idea_sorted_table, save_sheet
 from src.ch18_etl_config.etl_sqlstr import create_prime_tablename
-from src.ch19_etl_steps.etl_main import get_max_brick_agg_spark_num
+from src.ch19_etl_steps.etl_main import get_max_ideax_agg_spark_num
 from src.ch21_world.world import WorldDir, belief_sheets_to_lynx_mstr, worlddir_shop
 from src.ref.keywords import Ch21Keywords as kw, ExampleStrs as exx
 
@@ -67,10 +67,10 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
 
     assert os_path_exists(fay_db_path)
     with sqlite3_connect(fay_db_path) as db_conn:
-        ii00113_raw = f"{ii00113_str}_brick_raw"
-        ii00113_agg = f"{ii00113_str}_brick_agg"
-        ii00113_valid = f"{ii00113_str}_brick_vld"
-        sparks_brick_vld_tablename = kw.sparks_brick_vld
+        ii00113_raw = f"{ii00113_str}_ideax_raw"
+        ii00113_agg = f"{ii00113_str}_ideax_agg"
+        ii00113_valid = f"{ii00113_str}_ideax_vld"
+        sparks_ideax_vld_tablename = kw.sparks_ideax_vld
         trlname_sound_raw = create_prime_tablename("trlname", kw.s_raw)
         trlname_sound_agg = create_prime_tablename("trlname", "s_agg")
         trlname_sound_vld = create_prime_tablename("trlname", kw.s_vld)
@@ -93,8 +93,8 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
         cursor = db_conn.cursor()
         assert get_row_count(cursor, ii00113_raw) == 1
         assert get_row_count(cursor, ii00113_agg) == 1
-        assert get_row_count(cursor, kw.sparks_brick_agg) == 2
-        assert get_row_count(cursor, sparks_brick_vld_tablename) == 2
+        assert get_row_count(cursor, kw.sparks_ideax_agg) == 2
+        assert get_row_count(cursor, sparks_ideax_vld_tablename) == 2
         assert get_row_count(cursor, ii00113_valid) == 2
         assert get_row_count(cursor, trlname_sound_raw) == 2
         assert get_row_count(cursor, momentunit_sound_raw) == 4
@@ -118,10 +118,10 @@ def test_belief_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     db_conn.close()
 
 
-def create_brick_agg_record(wdir: WorldDir, spark_num: int):
+def create_ideax_agg_record(wdir: WorldDir, spark_num: int):
     minute_360 = 360
     hour6am = "6am"
-    agg_ii00003_tablename = f"ii00003_{kw.brick_agg}"
+    agg_ii00003_tablename = f"ii00003_{kw.ideax_agg}"
     agg_ii00003_columns = [
         kw.spark_num,
         kw.spark_face,
@@ -152,7 +152,7 @@ def test_belief_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     fay_rope = create_rope("Fay34")
     fay_wdir = worlddir_shop(fay_rope, str(temp3_fs))
     spark5 = 5
-    create_brick_agg_record(fay_wdir, spark5)
+    create_ideax_agg_record(fay_wdir, spark5)
     # delete_dir(fay_wdir.worlds_dir)
     sue_inx = "Suzy"
     ex_filename = "belief_Faybob.xlsx"
@@ -175,7 +175,7 @@ def test_belief_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     assert os_path_exists(fay_db_path)
     with sqlite3_connect(fay_db_path) as db_conn0:
         cursor0 = db_conn0.cursor()
-        assert get_max_brick_agg_spark_num(cursor0) == spark5
+        assert get_max_ideax_agg_spark_num(cursor0) == spark5
     db_conn0.close()
     assert os_path_exists(bele_src_dir_file_path)
     i_src_dir_file_path = create_path(fay_wdir.i_src_dir, ex_filename)
@@ -188,9 +188,9 @@ def test_belief_sheets_to_lynx_mstr_Scenario1_DatabaseFileExists(
     assert os_path_exists(fay_db_path)
     with sqlite3_connect(fay_db_path) as db_conn1:
         cursor1 = db_conn1.cursor()
-        assert get_max_brick_agg_spark_num(cursor1) != spark5
-        assert get_max_brick_agg_spark_num(cursor1) == spark5 + 1
-        select_sqlstr = f"SELECT * FROM {kw.sparks_brick_agg}"
+        assert get_max_ideax_agg_spark_num(cursor1) != spark5
+        assert get_max_ideax_agg_spark_num(cursor1) == spark5 + 1
+        select_sqlstr = f"SELECT * FROM {kw.sparks_ideax_agg}"
         cursor1.execute(select_sqlstr)
         rows = cursor1.fetchall()
         assert len(rows) == 2

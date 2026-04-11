@@ -10,8 +10,8 @@ from pandas import (
 from pathlib import Path
 from src.ch00_py.dict_toolbox import get_0_if_None
 from src.ch00_py.file_toolbox import delete_dir, set_dir
-from src.ch17_idea.brick_db_tool import save_sheet
-from src.ch17_idea.idea_config import get_brick_types
+from src.ch17_idea.idea_config import get_idea_types
+from src.ch17_idea.idea_db_tool import save_sheet
 from typing import List, Tuple
 
 
@@ -146,7 +146,7 @@ def get_excel_sheet_tuples(directory: str) -> List[Tuple[str, str]]:
     return sorted(result)
 
 
-def get_sheets_with_brick_types(directory: str) -> List[Tuple[str, str]]:
+def get_sheets_with_idea_types(directory: str) -> List[Tuple[str, str]]:
     """
     Returns all (filename, sheet_name) tuples where the sheet_name contains
     any of the provided br_strings.
@@ -159,16 +159,16 @@ def get_sheets_with_brick_types(directory: str) -> List[Tuple[str, str]]:
         Sorted list of (filename, sheet_name) tuples where sheet_name
         contains at least one br_string.
     """
-    brick_types = get_brick_types()
+    idea_types = get_idea_types()
     all_tuples = get_excel_sheet_tuples(directory)
     return [
         (filename, sheet_name)
         for filename, sheet_name in all_tuples
-        if any(br in sheet_name.lower() for br in brick_types)
+        if any(br in sheet_name.lower() for br in idea_types)
     ]
 
 
-def get_validated_bele_src_brick_type_sheets(
+def get_validated_bele_src_idea_type_sheets(
     bele_src_dir: str,
     idea_src_dir: str,
 ) -> List[Tuple[str, str]]:
@@ -188,8 +188,8 @@ def get_validated_bele_src_brick_type_sheets(
         ValueError: If any BR sheet found in bele_src_dir also exists
                     in idea_src_dir (matched on sheet_name alone).
     """
-    bele_br_sheets = get_sheets_with_brick_types(bele_src_dir)
-    idea_br_sheets = get_sheets_with_brick_types(idea_src_dir)
+    bele_br_sheets = get_sheets_with_idea_types(bele_src_dir)
+    idea_br_sheets = get_sheets_with_idea_types(idea_src_dir)
     bele_br_sheets_set = set(bele_br_sheets)
     idea_br_sheets_set = set(idea_br_sheets)
 
@@ -228,9 +228,7 @@ def beliefs_sheets_to_idea_sheets(
         bele_spark_faces, general_max_spark_num
     )
 
-    bele_br_sheets = get_validated_bele_src_brick_type_sheets(
-        bele_src_dir, idea_src_dir
-    )
+    bele_br_sheets = get_validated_bele_src_idea_type_sheets(bele_src_dir, idea_src_dir)
     # Group sheet names by their source file
     file_to_sheets: dict[str, List[str]] = {}
     for filename, sheet_name in bele_br_sheets:

@@ -37,17 +37,17 @@ def get_allowed_curds() -> set[str]:
     }
 
 
-def get_brick_formats_dir() -> str:
-    """src/ch17_idea/brick_formats"""
+def get_idea_formats_dir() -> str:
+    """src/ch17_idea/idea_formats"""
     ch_dir = create_path("src", "ch17_idea")
-    return create_path(ch_dir, "brick_formats")
+    return create_path(ch_dir, "idea_formats")
 
 
 def get_idea_elements_sort_order() -> list[str]:
     """Contains the standard sort order for all idea and person_calc columns"""
     return [
         "world_name",
-        "brick_type",
+        "idea_type",
         "source_dimen",
         "translate_spark_num",
         "spark_num",
@@ -264,7 +264,7 @@ def get_idea_sqlite_types() -> dict[str, str]:
 
     return {
         "world_name": "TEXT",
-        "brick_type": "TEXT",
+        "idea_type": "TEXT",
         "spark_face": "TEXT",
         "spark_face_otx": "TEXT",
         "spark_face_inx": "TEXT",
@@ -657,7 +657,7 @@ def ii00117_rope_map1_v0_0_0() -> str:
     return "ii00117_rope_map1_v0_0_0"
 
 
-def get_brick_format_filenames() -> set[str]:
+def get_idea_format_filenames() -> set[str]:
     return {
         ii00000_momentunit_v0_0_0(),
         ii00001_moment_budunit_v0_0_0(),
@@ -703,7 +703,7 @@ def get_brick_format_filenames() -> set[str]:
     }
 
 
-def get_brick_types() -> set[str]:
+def get_idea_types() -> set[str]:
     return {
         "ii00000",
         "ii00001",
@@ -749,14 +749,14 @@ def get_brick_types() -> set[str]:
     }
 
 
-def get_brick_format_filename(brick_type: str) -> str:
-    brick_type_substring = brick_type[2:]
-    for brick_format_filename in get_brick_format_filenames():
-        if brick_format_filename[2:7] == brick_type_substring:
-            return brick_format_filename
+def get_idea_format_filename(idea_type: str) -> str:
+    idea_type_substring = idea_type[2:]
+    for idea_format_filename in get_idea_format_filenames():
+        if idea_format_filename[2:7] == idea_type_substring:
+            return idea_format_filename
 
 
-def get_brick_format_headers() -> dict[str, list[str]]:
+def get_idea_format_headers() -> dict[str, list[str]]:
     return {
         "moment_rope,epoch_label,c400_number,yr1_jan1_offset,monthday_index,fund_grain,mana_grain,respect_grain,knot,job_listen_rotations": ii00000_momentunit_v0_0_0(),
         "moment_rope,person_name,bud_time,knot,quota,celldepth": ii00001_moment_budunit_v0_0_0(),
@@ -802,22 +802,22 @@ def get_brick_format_headers() -> dict[str, list[str]]:
     }
 
 
-def get_brickref_from_file(brick_format_filename: str) -> dict:
-    brickref_filename = get_json_filename(brick_format_filename)
-    return open_json(get_brick_formats_dir(), brickref_filename)
+def get_idearef_from_file(idea_format_filename: str) -> dict:
+    idearef_filename = get_json_filename(idea_format_filename)
+    return open_json(get_idea_formats_dir(), idearef_filename)
 
 
-def get_quick_bricks_column_ref() -> dict[str, set[str]]:
-    brick_type_dict = {}
-    for brick_format_filename in get_brick_format_filenames():
-        brickref_dict = get_brickref_from_file(brick_format_filename)
-        brick_type = brickref_dict.get("brick_type")
-        brick_type_dict[brick_type] = set(brickref_dict.get("attributes").keys())
-    return brick_type_dict
+def get_quick_ideas_column_ref() -> dict[str, set[str]]:
+    idea_type_dict = {}
+    for idea_format_filename in get_idea_format_filenames():
+        idearef_dict = get_idearef_from_file(idea_format_filename)
+        idea_type = idearef_dict.get("idea_type")
+        idea_type_dict[idea_type] = set(idearef_dict.get("attributes").keys())
+    return idea_type_dict
 
 
 def get_idea_dimen_ref() -> dict[str, set[str]]:
-    """dictionary with key=dimen and value=set of all brick_types with that dimen's data"""
+    """dictionary with key=dimen and value=set of all idea_types with that dimen's data"""
     return {
         "moment_budunit": {"ii00001"},
         "moment_epoch_hour": {"ii00003"},
@@ -926,7 +926,7 @@ def get_dimens_with_idea_element(x_arg: str) -> set[str]:
     return x_set
 
 
-def get_dimen_minimum_put_brick_names() -> dict[str, str]:
+def get_dimen_minimum_put_idea_names() -> dict[str, str]:
     """Returns all dimens and the idea format with only the args for that dimen."""
 
     return {
@@ -955,7 +955,7 @@ def get_dimen_minimum_put_brick_names() -> dict[str, str]:
     }
 
 
-def get_dimen_minimum_del_brick_names() -> dict[str, str]:
+def get_dimen_minimum_del_idea_names() -> dict[str, str]:
     """Returns all dimens and the idea format with only the args for that dimen."""
 
     return {

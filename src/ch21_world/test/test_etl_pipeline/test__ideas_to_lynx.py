@@ -23,7 +23,7 @@ from src.ch11_bud._ref.ch11_path import (
 from src.ch14_moment._ref.ch14_path import (
     create_bud_contact_mandate_ledger_path as bud_mandate,
 )
-from src.ch17_idea.brick_db_tool import save_sheet
+from src.ch17_idea.idea_db_tool import save_sheet
 from src.ch18_etl_config._ref.ch18_path import (
     create_last_run_metrics_path,
     create_moment_ote1_csv_path,
@@ -63,10 +63,10 @@ def test_idea_sheets_to_lynx_with_cursor_Scenario0_ii000113PopulatesTables(
     ii00113_df = DataFrame([ii00113row0], columns=ii00113_columns)
     ii00113_ex0_str = f"example0_{ii00113_str}"
     save_sheet(i_src_dir_file_path, ii00113_ex0_str, ii00113_df)
-    ii00113_raw = f"{ii00113_str}_brick_raw"
-    ii00113_agg = f"{ii00113_str}_brick_agg"
-    ii00113_valid = f"{ii00113_str}_brick_vld"
-    sparks_brick_vld_tablename = kw.sparks_brick_vld
+    ii00113_raw = f"{ii00113_str}_ideax_raw"
+    ii00113_agg = f"{ii00113_str}_ideax_agg"
+    ii00113_valid = f"{ii00113_str}_ideax_vld"
+    sparks_ideax_vld_tablename = kw.sparks_ideax_vld
     trlname_sound_raw = prime_tbl(kw.trlname, kw.s_raw)
     trlname_sound_agg = prime_tbl(kw.trlname, "s_agg")
     trlname_sound_vld = prime_tbl(kw.trlname, kw.s_vld)
@@ -103,8 +103,8 @@ def test_idea_sheets_to_lynx_with_cursor_Scenario0_ii000113PopulatesTables(
 
     assert not db_table_exists(cursor0, ii00113_raw)
     assert not db_table_exists(cursor0, ii00113_agg)
-    assert not db_table_exists(cursor0, kw.sparks_brick_agg)
-    assert not db_table_exists(cursor0, sparks_brick_vld_tablename)
+    assert not db_table_exists(cursor0, kw.sparks_ideax_agg)
+    assert not db_table_exists(cursor0, sparks_ideax_vld_tablename)
     assert not db_table_exists(cursor0, ii00113_valid)
     assert not db_table_exists(cursor0, trlname_sound_raw)
     assert not db_table_exists(cursor0, trlname_sound_agg)
@@ -161,8 +161,8 @@ def test_idea_sheets_to_lynx_with_cursor_Scenario0_ii000113PopulatesTables(
 
     assert get_row_count(cursor0, ii00113_raw) == 1
     assert get_row_count(cursor0, ii00113_agg) == 1
-    assert get_row_count(cursor0, kw.sparks_brick_agg) == 1
-    assert get_row_count(cursor0, sparks_brick_vld_tablename) == 1
+    assert get_row_count(cursor0, kw.sparks_ideax_agg) == 1
+    assert get_row_count(cursor0, sparks_ideax_vld_tablename) == 1
     assert get_row_count(cursor0, ii00113_valid) == 1
     assert get_row_count(cursor0, trlname_sound_raw) == 1
     assert get_row_count(cursor0, momentunit_sound_raw) == 1
@@ -249,10 +249,10 @@ def test_idea_sheets_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
     save_sheet(i_src_dir_file_path, ii00001_ex0_str, ii00001_1df)
 
     # Names of tables
-    ii00113_raw = f"{ii00113_str}_brick_raw"
-    ii00113_agg = f"{ii00113_str}_brick_agg"
-    ii00113_valid = f"{ii00113_str}_brick_vld"
-    sparks_brick_vld_tablename = kw.sparks_brick_vld
+    ii00113_raw = f"{ii00113_str}_ideax_raw"
+    ii00113_agg = f"{ii00113_str}_ideax_agg"
+    ii00113_valid = f"{ii00113_str}_ideax_vld"
+    sparks_ideax_vld_tablename = kw.sparks_ideax_vld
     trlname_sound_raw = prime_tbl(kw.trlname, kw.s_raw)
     trlname_sound_agg = prime_tbl(kw.trlname, "s_agg")
     trlname_sound_vld = prime_tbl(kw.trlname, kw.s_vld)
@@ -284,8 +284,8 @@ def test_idea_sheets_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
 
     assert not db_table_exists(cursor0, ii00113_raw)
     assert not db_table_exists(cursor0, ii00113_agg)
-    assert not db_table_exists(cursor0, kw.sparks_brick_agg)
-    assert not db_table_exists(cursor0, sparks_brick_vld_tablename)
+    assert not db_table_exists(cursor0, kw.sparks_ideax_agg)
+    assert not db_table_exists(cursor0, sparks_ideax_vld_tablename)
     assert not db_table_exists(cursor0, ii00113_valid)
     assert not db_table_exists(cursor0, trlname_sound_raw)
     assert not db_table_exists(cursor0, trlname_sound_agg)
@@ -330,9 +330,9 @@ def test_idea_sheets_to_lynx_with_cursor_Scenario1_PopulateBudPayRows(
     # THEN
     assert get_row_count(cursor0, ii00113_raw) == 1
     assert get_row_count(cursor0, ii00113_agg) == 1
-    print(cursor0.execute(f"SELECT * FROM {kw.sparks_brick_agg}").fetchall())
-    assert get_row_count(cursor0, kw.sparks_brick_agg) == 2
-    assert get_row_count(cursor0, sparks_brick_vld_tablename) == 2
+    print(cursor0.execute(f"SELECT * FROM {kw.sparks_ideax_agg}").fetchall())
+    assert get_row_count(cursor0, kw.sparks_ideax_agg) == 2
+    assert get_row_count(cursor0, sparks_ideax_vld_tablename) == 2
     assert get_row_count(cursor0, ii00113_valid) == 2
     assert get_row_count(cursor0, trlname_sound_raw) == 2
     assert get_row_count(cursor0, momentunit_sound_raw) == 4
@@ -609,10 +609,10 @@ def test_idea_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
     # THEN
     assert os_path_exists(fay_db_path)
     with sqlite3_connect(fay_db_path) as db_conn:
-        ii00113_raw = f"{ii00113_str}_brick_raw"
-        ii00113_agg = f"{ii00113_str}_brick_agg"
-        ii00113_valid = f"{ii00113_str}_brick_vld"
-        sparks_brick_vld_tablename = kw.sparks_brick_vld
+        ii00113_raw = f"{ii00113_str}_ideax_raw"
+        ii00113_agg = f"{ii00113_str}_ideax_agg"
+        ii00113_valid = f"{ii00113_str}_ideax_vld"
+        sparks_ideax_vld_tablename = kw.sparks_ideax_vld
         trlname_sound_raw = prime_tbl("trlname", kw.s_raw)
         trlname_sound_agg = prime_tbl("trlname", "s_agg")
         trlname_sound_vld = prime_tbl("TRLNAME", kw.s_vld)
@@ -635,8 +635,8 @@ def test_idea_sheets_to_lynx_mstr_Scenario0_CreatesDatabaseFile(
         cursor = db_conn.cursor()
         assert get_row_count(cursor, ii00113_raw) == 1
         assert get_row_count(cursor, ii00113_agg) == 1
-        assert get_row_count(cursor, kw.sparks_brick_agg) == 2
-        assert get_row_count(cursor, sparks_brick_vld_tablename) == 2
+        assert get_row_count(cursor, kw.sparks_ideax_agg) == 2
+        assert get_row_count(cursor, sparks_ideax_vld_tablename) == 2
         assert get_row_count(cursor, ii00113_valid) == 2
         assert get_row_count(cursor, trlname_sound_raw) == 2
         assert get_row_count(cursor, momentunit_sound_raw) == 4

@@ -1,5 +1,5 @@
 from sqlite3 import Cursor, connect as sqlite3_connect
-from src.ch17_idea.brick_belief_csv import create_init_belief_brick_csv_strs
+from src.ch17_idea.idea_belief_csv import create_init_belief_idea_csv_strs
 from src.ch18_etl_config.belief_tool import (
     add_to_ii00042_csv,
     add_to_ii00043_csv,
@@ -16,7 +16,7 @@ from src.ref.keywords import Ch18Keywords as kw, ExampleStrs as exx
 
 def test_add_to_ii00042_csv_ReturnsObj(cursor0: Cursor):
     # ESTABLISH database with translate data
-    # - [`ii00042`](bricks/ii00042.md): spark_num, spark_face, otx_title, inx_title, otx_knot, inx_knot, unknown_str
+    # - [`ii00042`](ideas/ii00042.md): spark_num, spark_face, otx_title, inx_title, otx_knot, inx_knot, unknown_str
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -54,8 +54,8 @@ def test_add_to_ii00042_csv_ReturnsObj(cursor0: Cursor):
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
-    header_only_csv = x_bricks.get("ii00042")
+    x_ideas = create_init_belief_idea_csv_strs()
+    header_only_csv = x_ideas.get("ii00042")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_title},{kw.inx_title},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
     assert header_only_csv == expected_header_only_csv
@@ -74,7 +74,7 @@ def test_add_to_ii00042_csv_ReturnsObj(cursor0: Cursor):
 
 def test_add_to_ii00043_csv_ReturnsObj(cursor0: Cursor):
     # ESTABLISH database with translate data
-    # - [`ii00043`](bricks/ii00043.md): spark_num, spark_face, otx_name, inx_name, otx_knot, inx_knot, unknown_str
+    # - [`ii00043`](ideas/ii00043.md): spark_num, spark_face, otx_name, inx_name, otx_knot, inx_knot, unknown_str
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -114,8 +114,8 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
-    header_only_csv = x_bricks.get("ii00043")
+    x_ideas = create_init_belief_idea_csv_strs()
+    header_only_csv = x_ideas.get("ii00043")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_name},{kw.inx_name},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
     assert header_only_csv == expected_header_only_csv
@@ -134,7 +134,7 @@ VALUES
 
 def test_add_to_ii00044_csv_ReturnsObj(cursor0: Cursor):
     # ESTABLISH database with translate data
-    # - [`ii00044`](bricks/ii00044.md): spark_num, spark_face, otx_label, inx_label, otx_knot, inx_knot, unknown_str
+    # - [`ii00044`](ideas/ii00044.md): spark_num, spark_face, otx_label, inx_label, otx_knot, inx_knot, unknown_str
     bob_otx_knot = ";"
     bob_inx_knot = "/"
     sue_otx_knot = "?"
@@ -174,8 +174,8 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
-    header_only_csv = x_bricks.get("ii00044")
+    x_ideas = create_init_belief_idea_csv_strs()
+    header_only_csv = x_ideas.get("ii00044")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_label},{kw.inx_label},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
     assert header_only_csv == expected_header_only_csv
@@ -194,7 +194,7 @@ VALUES
 
 def test_add_to_ii00045_csv_ReturnsObj(cursor0: Cursor):
     # ESTABLISH database with translate data
-    # - [`ii00045`](bricks/ii00045.md): spark_num, spark_face, otx_rope, inx_rope, otx_knot, inx_knot, unknown_str
+    # - [`ii00045`](ideas/ii00045.md): spark_num, spark_face, otx_rope, inx_rope, otx_knot, inx_knot, unknown_str
     bob_otx_knot = ";"
     bob_inx_knot = "/"
     sue_otx_knot = "?"
@@ -234,8 +234,8 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
-    header_only_csv = x_bricks.get("ii00045")
+    x_ideas = create_init_belief_idea_csv_strs()
+    header_only_csv = x_ideas.get("ii00045")
     print(f"{header_only_csv=}")
     expected_header_only_csv = f"{kw.spark_num},{kw.spark_face},{kw.otx_rope},{kw.inx_rope},{kw.otx_knot},{kw.inx_knot},{kw.unknown_str}\n"
     assert header_only_csv == expected_header_only_csv
@@ -254,7 +254,7 @@ VALUES
 
 def test_add_translate_rows_to_belief_csv_strs_ReturnsObj(cursor0: Cursor):
     # ESTABLISH database with translate data
-    # - [`ii00042`](bricks/ii00042.md): spark_num, spark_face, otx_title, inx_title, otx_knot, inx_knot, unknown_str
+    # - [`ii00042`](ideas/ii00042.md): spark_num, spark_face, otx_title, inx_title, otx_knot, inx_knot, unknown_str
     bob_otx = "Bob"
     bob_inx = "Bobby"
     sue_otx = "Sue"
@@ -342,17 +342,17 @@ VALUES
     cursor0.execute(insert_trlcore_sqlstr)
 
     csv_delimiter = ","
-    x_bricks = create_init_belief_brick_csv_strs()
-    ii00042_header = x_bricks.get("ii00042")
-    ii00043_header = x_bricks.get("ii00043")
-    ii00044_header = x_bricks.get("ii00044")
-    ii00045_header = x_bricks.get("ii00045")
+    x_ideas = create_init_belief_idea_csv_strs()
+    ii00042_header = x_ideas.get("ii00042")
+    ii00043_header = x_ideas.get("ii00043")
+    ii00044_header = x_ideas.get("ii00044")
+    ii00045_header = x_ideas.get("ii00045")
 
     # WHEN
-    add_translate_rows_to_belief_csv_strs(cursor0, x_bricks, csv_delimiter)
+    add_translate_rows_to_belief_csv_strs(cursor0, x_ideas, csv_delimiter)
 
     # THEN
-    assert x_bricks.get("ii00042") != ii00042_header
-    assert x_bricks.get("ii00043") != ii00043_header
-    assert x_bricks.get("ii00044") != ii00044_header
-    assert x_bricks.get("ii00045") != ii00045_header
+    assert x_ideas.get("ii00042") != ii00042_header
+    assert x_ideas.get("ii00043") != ii00043_header
+    assert x_ideas.get("ii00044") != ii00044_header
+    assert x_ideas.get("ii00045") != ii00045_header
