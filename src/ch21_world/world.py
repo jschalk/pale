@@ -169,7 +169,7 @@ def idea_sheets_to_lynx_mstr(worlddir: WorldDir, export_db: bool = False):
     db_conn.close()
 
 
-def belief_sheets_to_lynx_mstr(worlddir: WorldDir):
+def belief_sheets_to_lynx_mstr(worlddir: WorldDir, export_db: bool = False):
     max_ideax_agg_spark_num = 0
     if os_path_exists(worlddir.db_path):
         with sqlite3_connect(worlddir.db_path) as db_conn0:
@@ -179,7 +179,7 @@ def belief_sheets_to_lynx_mstr(worlddir: WorldDir):
     beliefs_sheets_to_idea_sheets(
         worlddir.beliefs_src_dir, worlddir.ideas_src_dir, max_ideax_agg_spark_num
     )
-    idea_sheets_to_lynx_mstr(worlddir)
+    idea_sheets_to_lynx_mstr(worlddir, export_db)
 
 
 def idea_sheets_to_gcal_day_punchs(
@@ -188,7 +188,7 @@ def idea_sheets_to_gcal_day_punchs(
     day: datetime,
     focus_group_title: GroupTitle = None,
 ):
-    idea_sheets_to_lynx_mstr(worlddir, export_db=True)
+    belief_sheets_to_lynx_mstr(worlddir, export_db=True)
     save_person_gcal_day_punchs(
         moment_mstr_dir=worlddir.moment_mstr_dir,
         person_name=person_name,
@@ -199,6 +199,7 @@ def idea_sheets_to_gcal_day_punchs(
 
 def create_today_punchs(
     working_dir: str,
+    beliefs_src_dir: str,
     ideas_src_dir: str,
     output_dir: str,
     person_name: PersonName,
@@ -207,8 +208,9 @@ def create_today_punchs(
     worlddir = worlddir_shop(
         world_name="world01",
         worlds_dir=working_dir,
-        ideas_src_dir=ideas_src_dir,
         output_dir=output_dir,
+        ideas_src_dir=ideas_src_dir,
+        beliefs_src_dir=beliefs_src_dir,
     )
     idea_sheets_to_gcal_day_punchs(
         worlddir=worlddir,

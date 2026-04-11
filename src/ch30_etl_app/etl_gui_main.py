@@ -159,22 +159,18 @@ class ETLApp(tk.Tk):
         card = tk.Frame(self, bg=BG_CARD, bd=0, padx=24, pady=20)
         card.pack(fill="x", padx=28, pady=(16, 0))
 
-        working_dir_tip = "Root directory for the ETL process"
-        self._dir_row(
-            card, 0, "WORKING DIR", self._working, required=True, tip=working_dir_tip
-        )
-        i_src_dir_tip = "Source Excel files  (optional)"
-        self._dir_row(
-            card, 1, "I_SRC_DIR  ", self._i_src_dir, required=False, tip=i_src_dir_tip
-        )
-        output_dir_tip = "Destination for results  (optional — opened on finish)"
-        self._dir_row(
-            card, 2, "OUTPUT DIR ", self._output, required=False, tip=output_dir_tip
-        )
+        w_title = "WORKING DIR"
+        i_title = "I_SRC_DIR  "
+        o_title = "OUTPUT DIR "
+        p_title = "PERSON NAME"
+        work_tip = "Root directory for the ETL process"
+        self._dir_row(card, 0, w_title, self._working, required=True, tip=work_tip)
+        ideas_tip = "Source Excel files  (optional)"
+        self._dir_row(card, 1, i_title, self._i_src_dir, required=False, tip=ideas_tip)
+        output_tip = "Destination for results  (optional — opened on finish)"
+        self._dir_row(card, 2, o_title, self._output, required=False, tip=output_tip)
         person_tip = "e.g. 'Big Steve'  (optional)"
-        self._text_row(
-            card, 3, "PERSON NAME", self._person, required=False, tip=person_tip
-        )
+        self._text_row(card, 3, p_title, self._person, required=False, tip=person_tip)
 
         # ── run button ──────────────────────────
         btn_frame = tk.Frame(self, bg=BG, pady=22)
