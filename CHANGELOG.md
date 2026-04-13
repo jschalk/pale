@@ -1,3 +1,10 @@
+## [0.83.5](https://github.com/jschalk/keg/compare/v0.83.4...v0.83.5) (2026-04-13)
+
+
+### Bug Fixes
+
+* [#1146](https://github.com/jschalk/keg/issues/1146), [#1147](https://github.com/jschalk/keg/issues/1147), small refactor etl_gui app ([15e958c](https://github.com/jschalk/keg/commit/15e958ce20543263d890c343e92269e9746f592a))
+
 ## [0.83.4](https://github.com/jschalk/keg/compare/v0.83.3...v0.83.4) (2026-04-10)
 
 
