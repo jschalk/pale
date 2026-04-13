@@ -1,3 +1,10 @@
+## [0.83.7](https://github.com/jschalk/keg/compare/v0.83.6...v0.83.7) (2026-04-13)
+
+
+### Bug Fixes
+
+* [#1128](https://github.com/jschalk/keg/issues/1128) potential hanging issue ([dedd174](https://github.com/jschalk/keg/commit/dedd1744e9faa87ba6b656bae07dda8cb9f14f6e))
+
 ## [0.83.6](https://github.com/jschalk/keg/compare/v0.83.5...v0.83.6) (2026-04-13)
 
 
