@@ -16,13 +16,12 @@ from platform import system as platform_system
 from src.ch21_world.world import create_today_punchs
 from src.ch30_etl_app.etl_gui_tool import (
     get_app_default_dir,
+    get_app_default_dirs,
     get_app_default_person_name,
-    get_app_default_world_name,
     get_app_glb_attrs,
     get_option_table_options,
-    get_workspace_dirs,
 )
-from subprocess import run as subprocess_run
+from subprocess import Popen as subprocess_Popen
 import tkinter as tk
 from tkinter import (
     filedialog as tkinter_filedialog,
@@ -32,10 +31,10 @@ from tkinter import (
 
 
 class OptionTable(tk.Frame):
-    def __init__(self, parent, options: dict, i_src_dir: str, **kwargs):
+    def __init__(self, parent, options: dict, b_src_dir: str, **kwargs):
         super().__init__(parent, **kwargs)
         self.options = options
-        self.i_src_dir = i_src_dir
+        self.b_src_dir = b_src_dir
         self._build()
 
     def _build(self):
@@ -54,7 +53,7 @@ class OptionTable(tk.Frame):
         )
         scrollbar.config(command=self.tree.yview)
 
-        self.tree.heading("action", text="Click to add Beliefs")
+        self.tree.heading("action", text="Click to add Beliefs to Beliefs Directory")
         self.tree.column("action", anchor=tk.W)
 
         for description in self.options:
@@ -72,20 +71,20 @@ class OptionTable(tk.Frame):
         description = self.tree.item(selected[0], "values")[0]
         fn = self.options.get(description)
         if callable(fn):
-            fn(self.i_src_dir())  # ← call it to get the current string value
+            fn(self.b_src_dir())  # ← call it to get the current string value
 
 
 def open_directory(path: str) -> None:
     system = platform_system()
 
     if system == "Windows":
-        subprocess_run(["explorer", path], check=False)
+        subprocess_Popen(["explorer", path])
 
     elif system == "Darwin":
-        subprocess_run(["open", path], check=False)
+        subprocess_Popen(["open", path])
 
     else:
-        subprocess_run(["xdg-open", path], check=False)
+        subprocess_Popen(["xdg-open", path])
 
 
 # ──────────────────────────────────────────────
@@ -101,12 +100,13 @@ class ETLApp(tk.Tk):
 
         # Set a reasonable minimum size and centre on screen
         self.update_idletasks()
-        app_width, app_height = 640, 500
+        app_width, app_height = 640, 540
         x = (self.winfo_screenwidth() - app_width) // 2
         y = (self.winfo_screenheight() - app_height) // 2
         self.geometry(f"{app_width}x{app_height+120}+{x}+{y}")
 
         # String vars ─ empty string = "not set" (optional dirs stay None)
+        self._world_name = tk.StringVar()
         self._person = tk.StringVar()
         self._working = tk.StringVar()
         self._b_src_dir = tk.StringVar()
@@ -119,17 +119,20 @@ class ETLApp(tk.Tk):
 
     def _set_defaults(self):
         vars_map = {
+            "world_name": self._world_name,
             "working": self._working,
             "beliefs_src": self._b_src_dir,
             "ideas_src": self._i_src_dir,
             "output": self._output,
             "person": self._person,
         }
-
-        defaults = get_workspace_dirs(get_app_default_dir())
+        defaults = get_app_default_dirs(get_app_default_dir())
+        defaults["person"] = get_app_default_person_name()
         defaults["person"] = get_app_default_person_name()
 
         for key, var in vars_map.items():
+            if defaults.get(key) is None:
+                raise Exception(f"Missing default {key=}")
             var.set(defaults[key])
 
     def _open_dir(self, var: tk.StringVar):
@@ -180,94 +183,13 @@ class ETLApp(tk.Tk):
             },
         }
 
-    def _build_ui(self):
-        # ── header bar ──────────────────────────
-        ax = get_app_glb_attrs()
-        header = tk.Frame(self, bg=ax.accent, height=4)
-        header.pack(fill="x")
-
-        title_frame = tk.Frame(self, bg=ax.bg, pady=18)
-        title_frame.pack(fill="x", padx=28)
-
-        tk.Label(
-            title_frame,
-            text="Keg Listening App#1",
-            font=ax.platform_font,
-            bg=ax.bg,
-            fg=ax.accent,
-            anchor="w",
-        ).pack(side="left")
-
-        tk.Label(
-            title_frame,
-            text="excel files → db → daily agendas",
-            font=ax.mono,
-            bg=ax.bg,
-            fg=ax.fg_dim,
-            anchor="e",
-        ).pack(side="right", pady=(4, 0))
-
-        # ── divider ─────────────────────────────
-        tk.Frame(self, bg=ax.border, height=1).pack(fill="x", padx=28)
-
-        # ── directory pickers ───────────────────
-        card = tk.Frame(self, bg=ax.bg_card, bd=0, padx=24, pady=20)
-        card.pack(fill="x", padx=28, pady=(16, 0))
-        self._create_dir_rows(card)
-
-        # ── run button ──────────────────────────
-        btn_frame = tk.Frame(self, bg=ax.bg, pady=22)
-        btn_frame.pack()
-
-        self._run_btn = tk.Button(
-            btn_frame,
-            text="▶  CREATE DAILY AGENDA",
-            font=ax.platform_font,
-            bg=ax.accent,
-            fg=ax.fg_black,
-            activebackground=ax.btn_active,
-            activeforeground=ax.fg_black,
-            relief="flat",
-            bd=0,
-            padx=28,
-            pady=10,
-            cursor="hand2",
-            command=self._run,
-        )
-        self._run_btn.pack()
-        options = get_option_table_options()
-        table = OptionTable(self, options, i_src_dir=self._i_src_dir.get)
-        table.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-        # hover effect
-        self._run_btn.bind(
-            "<Enter>", lambda _: self._run_btn.configure(bg=ax.btn_active)
-        )
-        self._run_btn.bind("<Leave>", lambda _: self._run_btn.configure(bg=ax.accent))
-
-        # ── status bar ──────────────────────────
-        self._status = tk.StringVar(value="Ready.")
-        status_bar = tk.Label(
-            self,
-            textvariable=self._status,
-            font=ax.mono,
-            bg=ax.bg,
-            fg=ax.fg_dim,
-            anchor="w",
-            padx=28,
-            pady=6,
-        )
-        status_bar.pack(fill="x", side="bottom")
-
-        tk.Frame(self, bg=ax.border, height=1).pack(fill="x", side="bottom")
-
     def _create_dir_rows(self, card):
         for row_number, row_dict in self.get_main_rows_config().items():
-            row_int = (int(row_number),)
-            title = (row_dict.get("title"),)
-            var = (row_dict.get("var"),)
-            req = (row_dict.get("required"),)
-            tip = (row_dict.get("tip"),)
+            row_int = int(row_number)
+            title = row_dict.get("title")
+            var = row_dict.get("var")
+            req = row_dict.get("required")
+            tip = row_dict.get("tip")
 
             if row_dict.get("row_type") == "text":
                 self._text_row(card, row_int, title, var, required=req, tip=tip)
@@ -376,6 +298,87 @@ class ETLApp(tk.Tk):
         if not required:
             self._placeholder(entry, var, tip)
 
+    def _build_ui(self):
+        # ── header bar ──────────────────────────
+        ax = get_app_glb_attrs()
+        header = tk.Frame(self, bg=ax.accent, height=4)
+        header.pack(fill="x")
+
+        title_frame = tk.Frame(self, bg=ax.bg, pady=18)
+        title_frame.pack(fill="x", padx=28)
+
+        tk.Label(
+            title_frame,
+            text="Keg Listening App#1",
+            font=ax.platform_font,
+            bg=ax.bg,
+            fg=ax.accent,
+            anchor="w",
+        ).pack(side="left")
+
+        tk.Label(
+            title_frame,
+            text="excel files → db → daily agendas",
+            font=ax.mono,
+            bg=ax.bg,
+            fg=ax.fg_dim,
+            anchor="e",
+        ).pack(side="right", pady=(4, 0))
+
+        # ── divider ─────────────────────────────
+        tk.Frame(self, bg=ax.border, height=1).pack(fill="x", padx=28)
+
+        # ── directory pickers ───────────────────
+        card = tk.Frame(self, bg=ax.bg_card, bd=0, padx=24, pady=20)
+        card.pack(fill="x", padx=28, pady=(16, 0))
+        self._create_dir_rows(card)
+
+        # ── run button ──────────────────────────
+        btn_frame = tk.Frame(self, bg=ax.bg, pady=22)
+        btn_frame.pack()
+
+        self._run_btn = tk.Button(
+            btn_frame,
+            text="▶  CREATE DAILY AGENDA",
+            font=ax.platform_font,
+            bg=ax.accent,
+            fg=ax.fg_black,
+            activebackground=ax.btn_active,
+            activeforeground=ax.fg_black,
+            relief="flat",
+            bd=0,
+            padx=28,
+            pady=10,
+            cursor="hand2",
+            command=self._run,
+        )
+        self._run_btn.pack()
+        options = get_option_table_options()
+        table = OptionTable(self, options, b_src_dir=self._b_src_dir.get)
+        table.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+
+        # hover effect
+        self._run_btn.bind(
+            "<Enter>", lambda _: self._run_btn.configure(bg=ax.btn_active)
+        )
+        self._run_btn.bind("<Leave>", lambda _: self._run_btn.configure(bg=ax.accent))
+
+        # ── status bar ──────────────────────────
+        self._status = tk.StringVar(value="Ready.")
+        status_bar = tk.Label(
+            self,
+            textvariable=self._status,
+            font=ax.mono,
+            bg=ax.bg,
+            fg=ax.fg_dim,
+            anchor="w",
+            padx=28,
+            pady=6,
+        )
+        status_bar.pack(fill="x", side="bottom")
+
+        tk.Frame(self, bg=ax.border, height=1).pack(fill="x", side="bottom")
+
     @staticmethod
     def _placeholder(entry, var, tip):
         """Light placeholder text for optional fields."""
@@ -427,12 +430,19 @@ class ETLApp(tk.Tk):
             return
 
         # Lock UI
-        self._run_btn.configure(state="disabled", text="⏳  Running…", bg=ax.accent_DIM)
+        self._run_btn.configure(state="disabled", text="⏳  Running…", bg=ax.accent_dim)
         self._status.set("Running ETL pipeline…")
         self.update_idletasks()
 
         try:
-            create_today_punchs(working, i_src_dir_, output, person)
+            create_today_punchs(
+                person_name=person,
+                world_name=self._world_name.get(),
+                worlds_dir=self._working.get(),
+                output_dir=self._output.get(),
+                ideas_src_dir=self._i_src_dir.get(),
+                beliefs_src_dir=self._b_src_dir.get(),
+            )
             self._status.set("✔  Pipeline completed successfully.")
             tkinter_messagebox.showinfo("Done", "ETL pipeline finished successfully.")
         except Exception as exc:  # noqa: BLE001
