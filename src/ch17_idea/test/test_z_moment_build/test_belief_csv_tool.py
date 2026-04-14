@@ -281,8 +281,10 @@ def test_add_person_to_ii00020_csv_ReturnsObj():
     x_csv = add_person_to_ii00020_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
-    yao_yao_row = f",,{exx.bob},{exx.yao},{exx.yao},1,1,;\n"
-    yao_run_row = f",,{exx.bob},{exx.yao},{exx.run},{run_credit},{run_debt},;\n"
+    yao_yao_row = f",,{exx.a23},{exx.bob},{exx.yao},{exx.yao},1,1,;\n"
+    yao_run_row = (
+        f",,{exx.a23},{exx.bob},{exx.yao},{exx.run},{run_credit},{run_debt},;\n"
+    )
     print(f"{x_csv=}")
     print(f"{yao_run_row=}")
     assert x_csv == f"{csv_header}{yao_yao_row}{yao_run_row}"
@@ -302,7 +304,7 @@ def test_add_person_to_ii00021_csv_ReturnsObj():
     x_csv = add_person_to_ii00021_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
-    yao_row = f",,{exx.bob},{exx.yao},{yao_credit},{yao_debt},;\n"
+    yao_row = f",,{exx.a23},{exx.bob},{exx.yao},{yao_credit},{yao_debt},;\n"
     assert x_csv == f"{csv_header}{yao_row}"
 
 
@@ -531,7 +533,7 @@ def test_add_person_to_ii00029_csv_ReturnsObj():
     x_csv = add_person_to_ii00029_csv(csv_header, bob_person, csv_delimiter)
 
     # THEN
-    person_row = f",,{exx.bob},{bob_person.credor_respect},{bob_person.debtor_respect},{bob_person.fund_pool},{bob_person.max_tree_traverse},{bob_person.fund_grain},{bob_person.mana_grain},{bob_person.respect_grain},;\n"
+    person_row = f",,{exx.a23},{exx.bob},{bob_person.credor_respect},{bob_person.debtor_respect},{bob_person.fund_pool},{bob_person.max_tree_traverse},{bob_person.fund_grain},{bob_person.mana_grain},{bob_person.respect_grain},;\n"
     assert x_csv == f"{csv_header}{person_row}"
 
 

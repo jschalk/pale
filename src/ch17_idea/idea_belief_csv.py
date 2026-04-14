@@ -237,6 +237,7 @@ def add_person_to_ii00020_csv(
             x_row = [
                 if_none_str(spark_num),
                 if_none_str(spark_face),
+                x_person.planroot.get_plan_rope(),
                 x_person.person_name,
                 contactunit.contact_name,
                 membership.group_title,
@@ -261,6 +262,7 @@ def add_person_to_ii00021_csv(
         x_row = [
             if_none_str(spark_num),
             if_none_str(spark_face),
+            x_person.planroot.get_plan_rope(),
             x_person.person_name,
             contactunit.contact_name,
             if_none_str(contactunit.contact_cred_lumen),
@@ -464,6 +466,7 @@ def add_person_to_ii00029_csv(
     x_row = [
         if_none_str(spark_num),
         if_none_str(spark_face),
+        x_person.planroot.get_plan_rope(),
         x_person.person_name,
         if_none_str(x_person.credor_respect),
         if_none_str(x_person.debtor_respect),
