@@ -29,6 +29,7 @@ from src.ch00_py.db_toolbox import (
 from src.ch00_py.dict_toolbox import set_in_nested_dict
 from src.ch00_py.file_toolbox import (
     create_path,
+    delete_dir,
     get_dir_file_strs,
     get_dir_filenames,
     open_json,
@@ -626,6 +627,7 @@ def export_db_to_excel(
         # Freeze the header row
         ws.freeze_panes = "A2"
 
+    delete_dir(dest_path)
     wb.save(dest_path)
     if no_empty_sheets:
         remove_empty_sheets(dest_path)

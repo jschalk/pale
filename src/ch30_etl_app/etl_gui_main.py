@@ -13,8 +13,10 @@ To integrate your CLI logic, replace the `create_today_punchs()` call inside
 
 from os.path import isdir as os_path_isdir
 from platform import system as platform_system
+from src.ch00_py.file_toolbox import delete_dir, set_dir
 from src.ch21_world.world import create_today_punchs
 from src.ch30_etl_app.etl_gui_tool import (
+    fill_spark_face_in_directory,
     get_app_default_dir,
     get_app_default_dirs,
     get_app_default_person_name,
@@ -31,10 +33,11 @@ from tkinter import (
 
 
 class OptionTable(tk.Frame):
-    def __init__(self, parent, options: dict, b_src_dir: str, **kwargs):
+    def __init__(self, parent, options: dict, b_src_dir: str, person_name, **kwargs):
         super().__init__(parent, **kwargs)
         self.options = options
         self.b_src_dir = b_src_dir
+        self.person_name = person_name
         self._build()
 
     def _build(self):
@@ -72,6 +75,7 @@ class OptionTable(tk.Frame):
         fn = self.options.get(description)
         if callable(fn):
             fn(self.b_src_dir())  # ← call it to get the current string value
+        fill_spark_face_in_directory(self.b_src_dir(), self.person_name())
 
 
 def open_directory(path: str) -> None:
@@ -264,8 +268,46 @@ class ETLApp(tk.Tk):
             cursor="hand2",
             command=lambda v=var: self._open_dir(v),
         ).grid(row=row, column=3, padx=(4, 0), pady=7)
+        tk.Button(
+            parent,
+            text="🗑",
+            font=ax.mono,
+            bg=ax.border,
+            fg=ax.fg,
+            activebackground="#ff5f57",
+            activeforeground=ax.fg_black,
+            relief="flat",
+            bd=0,
+            padx=10,
+            pady=4,
+            cursor="hand2",
+            command=lambda v=var: self._confirm_delete(v),
+        ).grid(row=row, column=4, padx=(4, 0), pady=7)
         parent.columnconfigure(1, weight=1)
         parent.columnconfigure(3, weight=0)
+
+    def _confirm_delete(self, var: tk.StringVar):
+        path = var.get().strip()
+        if not os_path_isdir(path):
+            tkinter_messagebox.showwarning(
+                "Invalid directory", f"Not a valid directory:\n{path}"
+            )
+            return
+        confirmed = tkinter_messagebox.askyesno(
+            "Confirm delete",
+            f"Delete all contents in:\n{path}\n\nThis cannot be undone.",
+        )
+        if confirmed:
+            delete_dir(path)
+            if len(self._working.get()) > 0:
+                set_dir(self._working.get())
+            if self._b_src_dir:
+                set_dir(self._b_src_dir.get())
+            if self._i_src_dir:
+                set_dir(self._i_src_dir.get())
+            if self._output:
+                set_dir(self._output.get())
+            self._status.set(f"✔  Deleted contents of {path}")
 
     def _text_row(self, parent, row, label, var, *, required, tip):
         """Render one label + plain text entry row (no browse button)."""
@@ -357,7 +399,9 @@ class ETLApp(tk.Tk):
         )
         self._run_btn.pack()
         options = get_option_table_options()
-        table = OptionTable(self, options, b_src_dir=self._b_src_dir.get)
+        table = OptionTable(
+            self, options, b_src_dir=self._b_src_dir.get, person_name=self._person.get
+        )
         table.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
         # hover effect

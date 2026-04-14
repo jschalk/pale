@@ -185,7 +185,7 @@ def belief_sheets_to_lynx_mstr(worlddir: WorldDir, export_db: bool = False):
     idea_sheets_to_lynx_mstr(worlddir, export_db)
 
 
-def idea_sheets_to_gcal_day_punchs(
+def belief_sheets_to_gcal_day_punchs(
     worlddir: WorldDir,
     person_name: PersonName,
     day: datetime,
@@ -216,7 +216,7 @@ def create_today_punchs(
         ideas_src_dir=ideas_src_dir,
         beliefs_src_dir=beliefs_src_dir,
     )
-    idea_sheets_to_gcal_day_punchs(
+    belief_sheets_to_gcal_day_punchs(
         worlddir=worlddir,
         person_name=person_name,
         day=datetime.now(),
