@@ -17,6 +17,8 @@ def create_day_punch_txt_path(
 def create_dst_person_punch_path(
     dst_dir: str, moment_lasso: LassoUnit, person_name: PersonName
 ) -> str:
-    """Returns path: dst_dir\\person_name\\moment_first_label.txt"""
+    """Returns path: dst_dir\\person_name\\moment_first_label_day_punch.txt"""
     person_punch_dir = create_path(dst_dir, person_name)
-    return create_path(person_punch_dir, f"{moment_lasso.get_first_label()}.txt")
+    return create_path(
+        person_punch_dir, f"{moment_lasso.get_first_label()}_day_punch.txt"
+    )

@@ -54,7 +54,7 @@ def test_create_dst_person_punch_path_ReturnsObj(temp3_dir):
 
     # THEN
     person_punch_dir = create_path(x_dst_dir, exx.bob)
-    expected_person_punch_path = create_path(person_punch_dir, "Amy23.txt")
+    expected_person_punch_path = create_path(person_punch_dir, "Amy23_day_punch.txt")
     assert gen_bob_day_punch_txt_path == expected_person_punch_path
 
 
