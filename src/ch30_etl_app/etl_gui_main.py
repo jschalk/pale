@@ -14,7 +14,7 @@ To integrate your CLI logic, replace the `create_today_punchs()` call inside
 from os.path import isdir as os_path_isdir
 from platform import system as platform_system
 from src.ch00_py.file_toolbox import delete_dir, set_dir
-from src.ch17_idea.idea_db_tool import prettify_excel_dir
+from src.ch17_idea.idea_db_tool import prettify_excel_files
 from src.ch20_kpi.gcalendar import lynx_to_person_gcal_day_punchs
 from src.ch21_world.world import create_today_punchs
 from src.ch30_etl_app.etl_gui_tool import (
@@ -80,7 +80,7 @@ class OptionTable(tk.Frame):
         if callable(fn):
             fn(self.b_src_dir())  # ← call it to get the current string value
         fill_spark_face_in_directory(self.b_src_dir(), self.me_personname())
-        # prettify_excel_dir(self.b_src_dir())
+        # prettify_excel_files(self.b_src_dir())
 
 
 def open_directory(path: str) -> None:
@@ -510,6 +510,7 @@ class ETLApp(tk.Tk):
                 beliefs_src_dir=self._b_src_dir.get(),
             )
             self._status.set("✔  Pipeline completed successfully.")
+            prettify_excel_files(self._i_src_dir.get())
             tkinter_messagebox.showinfo("Done", "ETL pipeline finished successfully.")
 
         except Exception as exc:  # noqa: BLE001

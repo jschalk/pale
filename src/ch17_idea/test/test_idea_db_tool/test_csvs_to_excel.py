@@ -11,8 +11,8 @@ from src.ch00_py.file_toolbox import create_path
 from src.ch17_idea.idea_db_tool import (
     csv_dict_to_excel,
     get_idea_sqlite_types,
-    prettify_excel_dir,
     prettify_excel_file,
+    prettify_excel_files,
     set_df_idea_column_types,
 )
 from src.ref.keywords import Ch17Keywords as kw
@@ -90,7 +90,7 @@ def test_prettify_excel_file_SetsAttrs(temp3_fs):
         )  # default width is ~8.43
 
 
-def test_prettify_excel_dir_SetsAttrs(temp3_fs):
+def test_prettify_excel_files_SetsAttrs(temp3_fs):
     # sourcery skip: no-loop-in-tests, no-conditionals-in-tests
     # ESTABLISH
     temp_dir = str(temp3_fs)
@@ -106,7 +106,7 @@ def test_prettify_excel_dir_SetsAttrs(temp3_fs):
     print(f"{type(temp_dir)=}")
 
     # WHEN
-    prettify_excel_dir(temp_dir)
+    prettify_excel_files(temp_dir)
 
     # THEN: Verify formatting changes
     wb = load_workbook(file_path)
