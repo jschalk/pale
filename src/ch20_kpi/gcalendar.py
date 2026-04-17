@@ -209,6 +209,8 @@ def create_contacts_only_list_str(contacts_list: list[ContactUnit], x_str: str) 
     for contact in contacts_list:
         give_left = contact.fund_agenda_ratio_give - contact.fund_agenda_ratio_take
         agenda_relative_give = gcal_readable_percent(give_left)
+        if agenda_relative_give == "0%":
+            agenda_relative_give += " (even give/take)"
         x_str += f"\n{agenda_relative_give} {contact.contact_name}"
     return x_str
 
@@ -243,7 +245,7 @@ def get_gcal_day_punch_from_personunit(
     x_dayevents = get_dayevents(x_person, epoch_label, day)
     x_str += f"\n{get_gcal_priorities_schedule_str(x_dayevents)}"
     x_str += f"\n{get_gcal_all_agenda_str(x_person, epoch_label, day)}"
-    x_str += f"\n{get_gcal_contacts_str(x_person)}"
+    x_str += f"\n\n{get_gcal_contacts_str(x_person)}"
     if group_title:
         x_str += f"\n{get_gcal_memberships_str(x_person, group_title)}"
     return x_str

@@ -3,7 +3,11 @@ from os.path import join as os_path_join
 from sqlite3 import Connection as sqlite3_Connection
 from src.ch00_py.db_toolbox import get_table_columns
 from src.ch00_py.file_toolbox import create_path, set_dir
-from src.ch04_rope.rope import get_all_rope_labels
+from src.ch04_rope.rope import (
+    create_rope,
+    get_all_rope_labels,
+    get_first_label_from_rope,
+)
 
 
 def save_to_split_csvs(
@@ -26,21 +30,28 @@ def save_to_split_csvs(
     column_names = get_table_columns(conn_or_cursor, tablename)
     query = f"SELECT * FROM {tablename}"
     rows = conn_or_cursor.execute(query).fetchall()
-
     # Find the indices of key columns
     key_indices = [column_names.index(key) for key in key_columns]
 
     # Organize rows by key values
     collectioned_rows = {}
     for row in rows:
+        key_list = []
+        for index in key_indices:
+            # replace plan_rope value with moment_rope value in keys
+            if column_names[index] == "plan_rope":
+                x_knot = row[index][:1]
+                root_label = get_first_label_from_rope(row[index], x_knot)
+                len1_root_rope = create_rope(None, root_label, x_knot)
+                key_list.append(len1_root_rope)
+            else:
+                key_list.append(row[index])
         # Create a tuple of key values
-        key_values = tuple(row[index] for index in key_indices)
-
+        key_values = tuple(key_list)
         if key_values not in collectioned_rows:
             collectioned_rows[key_values] = []
         collectioned_rows[key_values].append(row)
 
-    # Write collectioned rows to separate CSV files
     for key_values, collection in collectioned_rows.items():
         if col1_prefix:
             new_key_values = [key_values[0], col1_prefix]
@@ -60,9 +71,10 @@ def save_to_split_csvs(
         path_dirs = [path_dirs[0]]
         path_dirs.extend(key_values[1:])
         key_path = get_key_dir_part(path_dirs)
-        csv_path = create_path(dst_dir, key_path)
-        set_dir(csv_path)
-        dst_file = os_path_join(csv_path, f"{tablename}.csv")
+        csv_dir = create_path(dst_dir, key_path)
+        set_dir(csv_dir)
+        dst_file = os_path_join(csv_dir, f"{tablename}.csv")
+
         # Write to CSV
         with open(dst_file, mode="w", newline="", encoding="utf-8") as csv_file:
             writer = csv_writer(csv_file)

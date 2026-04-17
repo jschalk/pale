@@ -143,7 +143,7 @@ def fill_spark_face_in_directory(directory: str, face_name: str) -> None:
 TEAMFIVE = "TeamFive"
 
 
-def create_simple_tasks_belief_csvs() -> dict[str, str]:
+def create_simple_2p2pledges_belief_csvs() -> dict[str, str]:
     mmt01_rope = create_rope("mmt01")
     steve_name = "Steve"
     emman_name = "Emmanuel"
@@ -162,10 +162,48 @@ def create_simple_tasks_belief_csvs() -> dict[str, str]:
     emman_person.conpute()
     add_personunit_to_belief_csv_strs(steve_person, belief_csv_strs, ",")
     add_personunit_to_belief_csv_strs(emman_person, belief_csv_strs, ",")
+    return transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, mmt01_rope)
+
+
+def create_simple_2p5pledges_belief_csvs() -> dict[str, str]:
+    mmt01_rope = create_rope("mmt01")
+    steve_name = "Steve"
+    emman_name = "Emmanuel"
+    steve_person = personunit_shop(steve_name, mmt01_rope)
+    emman_person = personunit_shop(emman_name, mmt01_rope)
+    steve_person.add_contactunit(steve_name)
+    steve_person.add_contactunit(emman_name)
+    emman_person.add_contactunit(emman_name)
+    emman_person.add_contactunit(steve_name)
+    home_rope = emman_person.make_l1_rope("clean home")
+    dishes_rope = emman_person.make_rope(home_rope, "clean dishes with baking soda")
+    clothes_rope = emman_person.make_rope(home_rope, "clean clothes with baking soda")
+    counters_str = "clean kitchen counters with baking soda"
+    counters_rope = emman_person.make_rope(home_rope, counters_str)
+    handout_str = "give neighbor any baking soda they want"
+    handout_rope = emman_person.make_rope(home_rope, handout_str)
+    ask_rope = emman_person.make_rope(home_rope, "ask neighbor to use baking soda")
+    music_rope = emman_person.make_l1_rope("enjoy music")
+    steve_person.add_plan(music_rope, 1, True)
+    steve_person.add_plan(dishes_rope, 10, True)
+    steve_person.add_plan(clothes_rope, 12, True)
+    steve_person.add_plan(counters_rope, 5, True)
+    steve_person.add_plan(handout_rope, 20, True)
+    steve_person.add_plan(ask_rope, 3, True)
+    emman_person.add_plan(music_rope, 10, True)
+    belief_csv_strs = create_init_belief_idea_csv_strs()
+    steve_person.conpute()
+    emman_person.conpute()
+    add_personunit_to_belief_csv_strs(steve_person, belief_csv_strs, ",")
+    add_personunit_to_belief_csv_strs(emman_person, belief_csv_strs, ",")
+    return transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, mmt01_rope)
+
+
+def transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, moment_rope) -> dict:
     ii00013_csv = ""
     for sheetname_key, csv_str in belief_csv_strs.items():
         if sheetname_key == "ii00028":
-            ii00013_csv = transform_ii00029_into_ii00013_csv(csv_str, mmt01_rope)
+            ii00013_csv = transform_ii00029_into_ii00013_csv(csv_str, moment_rope)
     belief_csv_strs["ii00013"] = ii00013_csv
     return {
         sheetname_key: csv_str
@@ -265,9 +303,15 @@ def save_and_prettify_excel_file(
     prettify_excel_file(dest_file_path)
 
 
-def create_simple_tasks_belief_file(dest_dir: str):
-    dest_filename = "simple_task_example.xlsx"
-    belief_csvs = create_simple_tasks_belief_csvs()
+def create_simple_2p2pledges_belief_file(dest_dir: str):
+    dest_filename = "simple_2p2pledges_example.xlsx"
+    belief_csvs = create_simple_2p2pledges_belief_csvs()
+    save_and_prettify_excel_file(belief_csvs, dest_dir, dest_filename)
+
+
+def create_simple_2p5pledges_belief_file(dest_dir: str):
+    dest_filename = "simple_2p5pledges_example.xlsx"
+    belief_csvs = create_simple_2p5pledges_belief_csvs()
     save_and_prettify_excel_file(belief_csvs, dest_dir, dest_filename)
 
 
@@ -303,7 +347,8 @@ def create_example_moment_budget_file(file_path: str):
 
 def get_option_table_options() -> dict[str, Callable]:
     return {
-        "Simple Tasks Example": create_simple_tasks_belief_file,
+        "2 persons, 2 tasks example": create_simple_2p2pledges_belief_file,
+        "2 persons, 5 tasks example": create_simple_2p5pledges_belief_file,
         "Create TeamFive Moment with Five time": create_five_time_config_file,
         "Create El Paso Moment with standard time.": create_elpaso_time_config_file,
         "create_emmanuel_belief_file": create_emmanuel_belief_file,
