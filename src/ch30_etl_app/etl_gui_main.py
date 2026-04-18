@@ -113,7 +113,7 @@ class ETLApp(tk.Tk):
 
         # Set a reasonable minimum size and centre on screen
         self.update_idletasks()
-        app_width, app_height = 640, 540
+        app_width, app_height = 640, 640
         x = (self.winfo_screenwidth() - app_width) // 2
         y = (self.winfo_screenheight() - app_height) // 2
         self.geometry(f"{app_width}x{app_height+120}+{x}+{y}")
@@ -177,24 +177,24 @@ class ETLApp(tk.Tk):
             },
             "2": {
                 "row_type": "dir",
-                "title": "WORKING DIR",
-                "var": self._working,
-                "required": True,
-                "tip": "Root directory for the ETL process",
-            },
-            "3": {
-                "row_type": "dir",
                 "title": "BELIEFS_DIR",
                 "var": self._b_src_dir,
                 "required": True,
                 "tip": "Source of Beliefs. Non-sparked Ideas.",
             },
-            "4": {
+            "3": {
                 "row_type": "dir",
                 "title": "IDEAS_DIR  ",
                 "var": self._i_src_dir,
                 "required": True,
                 "tip": "Source of Ideas files. Beliefs that have been sparked.",
+            },
+            "4": {
+                "row_type": "dir",
+                "title": "WORKING DIR",
+                "var": self._working,
+                "required": True,
+                "tip": "Root directory for the ETL process",
             },
             "5": {
                 "row_type": "dir",
@@ -289,7 +289,7 @@ class ETLApp(tk.Tk):
             font=ax.mono,
             bg=ax.border,
             fg=ax.fg,
-            activebackground="#ff5f57",
+            activebackground=ax.bg_red,
             activeforeground=ax.fg_black,
             relief="flat",
             bd=0,
