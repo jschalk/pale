@@ -70,7 +70,6 @@ VALUES
     assert e7_put_csv == expected_e7_put_csv
 
 
-# Once this test passes add integration test to
 def test_etl_heard_vld_to_spark_person_csvs_CreatesCSVs_Scenario1_person_plan_reasonunit(
     temp3_fs, cursor0: Cursor
 ):
@@ -106,8 +105,9 @@ VALUES
 """
     # print(insert_raw_sqlstr)
     cursor0.execute(insert_raw_sqlstr)
-    # print(f"{a23_e3_prncont_put_path=}")
-    # print(f"{a23_e7_prncont_put_path=}")
+    print(f"0{x_dir=}")
+    print(f"{a23_e3_prncont_put_path=}")
+    print(f"{a23_e7_prncont_put_path=}")
     assert os_path_exists(a23_e3_prncont_put_path) is False
     assert os_path_exists(a23_e7_prncont_put_path) is False
 
@@ -130,3 +130,73 @@ VALUES
 """
     assert e3_put_csv == expected_e3_put_csv
     assert e7_put_csv == expected_e7_put_csv
+
+
+# Once this test passes add integration test to
+def test_etl_heard_vld_to_spark_person_csvs_CreatesCSVs_Scenario2_person_planunit(
+    temp3_fs, cursor0: Cursor
+):
+    # ESTABLISH
+    spark3 = 3
+    music_rope = f"{exx.a23}enjoy music;"
+    home_rope = f"{exx.a23}clean home;"
+    ask_rope = f"{exx.a23}clean home;ask neighbor to use baking soda;"
+    clothes_rope = f"{exx.a23}clean home;clean clothes with baking soda;"
+    dishes_rope = f"{exx.a23}clean home;clean dishes with baking soda;"
+    counters_rope = f"{exx.a23}clean home;clean kitchen counters with baking soda;"
+    neighbor_rope = f"{exx.a23}clean home;give neighbor any baking soda they want;"
+
+    put_agg_tablename = create_prime_tablename(kw.prnplan, kw.h_vld, "put")
+    put_agg_csv = f"{put_agg_tablename}.csv"
+    x_dir = str(temp3_fs)
+    a23_lasso = lassounit_shop(exx.a23)
+    a23_bob_e3_dir = create_person_spark_dir_path(x_dir, a23_lasso, exx.bob, spark3)
+    a23_e3_prnplan_put_path = create_path(a23_bob_e3_dir, put_agg_csv)
+
+    create_sound_and_heard_tables(cursor0)
+    insert_raw_sqlstr = f"""
+INSERT INTO {put_agg_tablename} ({kw.spark_num},{kw.spark_face},{kw.person_name},{kw.plan_rope},{kw.star},{kw.pledge})
+VALUES
+  ({spark3}, '{exx.sue}', '{exx.sue}', '{music_rope}', 10, 1)
+, ({spark3}, '{exx.sue}', '{exx.bob}', '{home_rope}', 1, 0)
+, ({spark3}, '{exx.sue}', '{exx.bob}', '{ask_rope}', 3, 1)
+, ({spark3}, '{exx.sue}', '{exx.bob}', '{clothes_rope}', 12, 1)
+, ({spark3}, '{exx.sue}', '{exx.bob}', '{dishes_rope}', 10, 1)
+, ({spark3}, '{exx.sue}', '{exx.bob}', '{counters_rope}', 5, 1)
+, ({spark3}, '{exx.sue}', '{exx.bob}', '{neighbor_rope}', 20, 1)
+, ({spark3}, '{exx.sue}', '{exx.bob}', '{music_rope}', 1, 1)
+;
+"""
+    # print(insert_raw_sqlstr)
+    cursor0.execute(insert_raw_sqlstr)
+    print(f"file_path {a23_e3_prnplan_put_path.replace(x_dir, '')}")
+    # print(f"{a23_e7_prnplan_put_path=}")
+    assert os_path_exists(a23_e3_prnplan_put_path) is False
+
+    # WHEN
+    etl_heard_vld_to_spark_person_csvs(cursor0, x_dir)
+
+    # THEN
+    assert os_path_exists(a23_e3_prnplan_put_path)
+    e3_put_csv = open_file(a23_e3_prnplan_put_path)
+    # print(f"{e3_put_csv=}")
+    print(f"{e3_put_csv=}")
+    assert music_rope in e3_put_csv
+    assert home_rope in e3_put_csv
+    assert ask_rope in e3_put_csv
+    assert clothes_rope in e3_put_csv
+    assert dishes_rope in e3_put_csv
+    assert counters_rope in e3_put_csv
+    assert neighbor_rope in e3_put_csv
+    assert music_rope in e3_put_csv
+
+    expected_e3_put_csv = f"""{kw.spark_num},{kw.spark_face},{kw.person_name},{kw.plan_rope},{kw.begin},{kw.close},{kw.addin},{kw.numor},{kw.denom},{kw.morph},{kw.gogo_want},{kw.stop_want},{kw.star},{kw.pledge},{kw.problem_bool},{kw.knot}
+{spark3},{exx.sue},{exx.bob},;Amy23;clean home;,,,,,,,,,1,0,,
+{spark3},{exx.sue},{exx.bob},;Amy23;clean home;ask neighbor to use baking soda;,,,,,,,,,3,1,,
+{spark3},{exx.sue},{exx.bob},;Amy23;clean home;clean clothes with baking soda;,,,,,,,,,12,1,,
+{spark3},{exx.sue},{exx.bob},;Amy23;clean home;clean dishes with baking soda;,,,,,,,,,10,1,,
+{spark3},{exx.sue},{exx.bob},;Amy23;clean home;clean kitchen counters with baking soda;,,,,,,,,,5,1,,
+{spark3},{exx.sue},{exx.bob},;Amy23;clean home;give neighbor any baking soda they want;,,,,,,,,,20,1,,
+{spark3},{exx.sue},{exx.bob},;Amy23;enjoy music;,,,,,,,,,1,1,,
+"""
+    assert e3_put_csv == expected_e3_put_csv

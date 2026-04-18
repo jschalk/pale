@@ -39,6 +39,7 @@ class ETLAppSettings:
     mono: str
     bg: str
     bg_card: str
+    bg_red: str
     border: str
     accent: str
     accent_dim: str
@@ -57,6 +58,7 @@ def get_app_glb_attrs() -> ETLAppSettings:
         mono=("Courier New", 9) if is_windows else ("Menlo", 10),
         bg="#1a1a1f",
         bg_card="#22222a",
+        bg_red="#ff5f57",
         border="#33333d",
         accent="#e8c547",
         accent_dim="#b89a2f",
@@ -83,7 +85,7 @@ def get_app_default_world_name() -> str:
 
 def get_app_default_dir(is_windows: bool | None = None) -> Path:
     if is_windows is None:
-        is_windows = platform.startswith("win")
+        is_windows = platform_system().lower().startswith("win")
     return Path("C:/keg/worlds") if is_windows else Path.home() / "keg" / "worlds"
 
 
@@ -140,10 +142,7 @@ def fill_spark_face_in_directory(directory: str, face_name: str) -> None:
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
 
 
-TEAMFIVE = "TeamFive"
-
-
-def create_simple_tasks_belief_csvs() -> dict[str, str]:
+def create_simple_1m2p2pledges_belief_csvs() -> dict[str, str]:
     mmt01_rope = create_rope("mmt01")
     steve_name = "Steve"
     emman_name = "Emmanuel"
@@ -162,10 +161,125 @@ def create_simple_tasks_belief_csvs() -> dict[str, str]:
     emman_person.conpute()
     add_personunit_to_belief_csv_strs(steve_person, belief_csv_strs, ",")
     add_personunit_to_belief_csv_strs(emman_person, belief_csv_strs, ",")
+    return transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, mmt01_rope)
+
+
+def create_simple_1m2p5pledges_belief_csvs() -> dict[str, str]:
+    mmt01_rope = create_rope("mmt01")
+    steve_name = "Steve"
+    emman_name = "Emmanuel"
+    steve_person = personunit_shop(steve_name, mmt01_rope)
+    emman_person = personunit_shop(emman_name, mmt01_rope)
+    steve_person.add_contactunit(steve_name)
+    steve_person.add_contactunit(emman_name)
+    emman_person.add_contactunit(emman_name)
+    emman_person.add_contactunit(steve_name)
+    home_rope = emman_person.make_l1_rope("clean home")
+    dishes_rope = emman_person.make_rope(home_rope, "clean dishes with baking soda")
+    clothes_rope = emman_person.make_rope(home_rope, "clean clothes with baking soda")
+    counters_str = "clean kitchen counters with baking soda"
+    counters_rope = emman_person.make_rope(home_rope, counters_str)
+    handout_str = "give neighbor any baking soda they want"
+    handout_rope = emman_person.make_rope(home_rope, handout_str)
+    ask_rope = emman_person.make_rope(home_rope, "ask neighbor to use baking soda")
+    music_rope = emman_person.make_l1_rope("enjoy music")
+    steve_person.add_plan(music_rope, 1, True)
+    steve_person.add_plan(dishes_rope, 10, True)
+    steve_person.add_plan(clothes_rope, 12, True)
+    steve_person.add_plan(counters_rope, 5, True)
+    steve_person.add_plan(handout_rope, 20, True)
+    steve_person.add_plan(ask_rope, 3, True)
+    emman_person.add_plan(music_rope, 10, True)
+    belief_csv_strs = create_init_belief_idea_csv_strs()
+    steve_person.conpute()
+    emman_person.conpute()
+    add_personunit_to_belief_csv_strs(steve_person, belief_csv_strs, ",")
+    add_personunit_to_belief_csv_strs(emman_person, belief_csv_strs, ",")
+    return transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, mmt01_rope)
+
+
+def create_simple_2m2p5pledges_belief_csvs() -> dict[str, str]:
+    # sourcery skip: extract-duplicate-method
+    mmt01_rope = create_rope("mmt01")
+    steve_name = "Steve"
+    emman_name = "Emmanuel"
+    m1_steve_person = personunit_shop(steve_name, mmt01_rope)
+    m1_emman_person = personunit_shop(emman_name, mmt01_rope)
+    m1_steve_person.add_contactunit(steve_name)
+    m1_steve_person.add_contactunit(emman_name)
+    m1_emman_person.add_contactunit(emman_name)
+    m1_emman_person.add_contactunit(steve_name)
+    home_rope = m1_emman_person.make_l1_rope("clean home")
+    dishes_rope = m1_emman_person.make_rope(home_rope, "clean dishes with baking soda")
+    clothes_rope = m1_emman_person.make_rope(
+        home_rope, "clean clothes with baking soda"
+    )
+    counters_str = "clean kitchen counters with baking soda"
+    counters_rope = m1_emman_person.make_rope(home_rope, counters_str)
+    handout_str = "give neighbor any baking soda they want"
+    handout_rope = m1_emman_person.make_rope(home_rope, handout_str)
+    ask_rope = m1_emman_person.make_rope(home_rope, "ask neighbor to use baking soda")
+    music_rope = m1_emman_person.make_l1_rope("enjoy music")
+    m1_steve_person.add_plan(music_rope, 1, True)
+    m1_steve_person.add_plan(dishes_rope, 10, True)
+    m1_steve_person.add_plan(clothes_rope, 12, True)
+    m1_steve_person.add_plan(counters_rope, 5, True)
+    m1_steve_person.add_plan(handout_rope, 20, True)
+    m1_steve_person.add_plan(ask_rope, 3, True)
+    m1_emman_person.add_plan(music_rope, 10, True)
+    belief_csv_strs = create_init_belief_idea_csv_strs()
+    m1_steve_person.conpute()
+    m1_emman_person.conpute()
+    add_personunit_to_belief_csv_strs(m1_steve_person, belief_csv_strs, ",")
+    add_personunit_to_belief_csv_strs(m1_emman_person, belief_csv_strs, ",")
+
+    # add heart moment
+    heart01_rope = create_rope("heart01")
+    steve_name = "Steve"
+    emman_name = "Emmanuel"
+    h1_steve_person = personunit_shop(steve_name, heart01_rope)
+    h1_emman_person = personunit_shop(emman_name, heart01_rope)
+    h1_steve_person.add_contactunit(steve_name)
+    h1_steve_person.add_contactunit(emman_name)
+    h1_emman_person.add_contactunit(emman_name)
+    h1_emman_person.add_contactunit(steve_name)
+    dance_rope = h1_emman_person.make_l1_rope("dance")
+    disco_rope = h1_emman_person.make_rope(dance_rope, "disco")
+    bebop_rope = h1_emman_person.make_rope(dance_rope, "bebop")
+    tango_rope = h1_emman_person.make_rope(dance_rope, "tango")
+    h1_emman_person.add_plan(disco_rope, 1, True)
+    h1_steve_person.add_plan(bebop_rope, 10, True)
+    h1_steve_person.add_plan(tango_rope, 3, True)
+    h1_steve_person.conpute()
+    h1_emman_person.conpute()
+    add_personunit_to_belief_csv_strs(h1_steve_person, belief_csv_strs, ",")
+    add_personunit_to_belief_csv_strs(h1_emman_person, belief_csv_strs, ",")
+    return transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, heart01_rope)
+
+
+def create_emmanuel_lovemaking_belief_csvs() -> dict[str, str]:
+    mlove01_rope = create_rope("loving moment")
+    emman_name = "Emmanuel"
+    mlove_name = "MyLove"
+    emman_person = personunit_shop(emman_name, mlove01_rope)
+    mlove_person = personunit_shop(mlove_name, mlove01_rope)
+    emman_person.add_contactunit(emman_name)
+    emman_person.add_contactunit(mlove_name)
+    mlove_person.add_contactunit(mlove_name)
+    mlove_person.add_contactunit(emman_name)
+    mlove_rope = emman_person.make_l1_rope("make love")
+    emman_person.add_plan(mlove_rope, 1, True)
+    belief_csv_strs = create_init_belief_idea_csv_strs()
+    emman_person.conpute()
+    add_personunit_to_belief_csv_strs(emman_person, belief_csv_strs, ",")
+    return transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, mlove01_rope)
+
+
+def transform_ii00029_into_ii00013_in_csvs(belief_csv_strs, moment_rope) -> dict:
     ii00013_csv = ""
     for sheetname_key, csv_str in belief_csv_strs.items():
         if sheetname_key == "ii00028":
-            ii00013_csv = transform_ii00029_into_ii00013_csv(csv_str, mmt01_rope)
+            ii00013_csv = transform_ii00029_into_ii00013_csv(csv_str, moment_rope)
     belief_csv_strs["ii00013"] = ii00013_csv
     return {
         sheetname_key: csv_str
@@ -205,7 +319,7 @@ def transform_ii00029_into_ii00013_csv(csv_str: str, moment_rope: str):
 
 
 def create_five_time_config_belief_csvs() -> dict[str, str]:
-    team_five_rope = create_rope(TEAMFIVE)
+    team_five_rope = create_rope("teamfive")
     five_epochunit = epochunit_shop(get_five_config())
     five_moment = momentunit_shop(team_five_rope, None, five_epochunit)
     moments = {five_moment.moment_rope: five_moment}
@@ -262,12 +376,30 @@ def save_and_prettify_excel_file(
     delete_dir(dest_file_path)
     csv_dict_to_excel(belief_csvs, dest_dir, dest_filename)
     remove_empty_sheets(dest_file_path)
-    # prettify_excel_file(dest_file_path)
+    prettify_excel_file(dest_file_path)
 
 
-def create_simple_tasks_belief_file(dest_dir: str):
-    dest_filename = "simple_task_example.xlsx"
-    belief_csvs = create_simple_tasks_belief_csvs()
+def create_simple_1m2p2pledges_belief_file(dest_dir: str):
+    dest_filename = "simple_2p2pledges_example.xlsx"
+    belief_csvs = create_simple_1m2p2pledges_belief_csvs()
+    save_and_prettify_excel_file(belief_csvs, dest_dir, dest_filename)
+
+
+def create_simple_1m2p5pledges_belief_file(dest_dir: str):
+    dest_filename = "simple_2p5pledges_example.xlsx"
+    belief_csvs = create_simple_1m2p5pledges_belief_csvs()
+    save_and_prettify_excel_file(belief_csvs, dest_dir, dest_filename)
+
+
+def create_simple_2m2p5pledges_belief_file(dest_dir: str):
+    dest_filename = "simple_2p5pledges_example.xlsx"
+    belief_csvs = create_simple_2m2p5pledges_belief_csvs()
+    save_and_prettify_excel_file(belief_csvs, dest_dir, dest_filename)
+
+
+def create_emmanuel_lovemaking_belief_file(dest_dir: str):
+    dest_filename = "emmanuel_lovemaking_example.xlsx"
+    belief_csvs = create_emmanuel_lovemaking_belief_csvs()
     save_and_prettify_excel_file(belief_csvs, dest_dir, dest_filename)
 
 
@@ -303,7 +435,10 @@ def create_example_moment_budget_file(file_path: str):
 
 def get_option_table_options() -> dict[str, Callable]:
     return {
-        "Simple Tasks Example": create_simple_tasks_belief_file,
+        "2 persons, 2 tasks example": create_simple_1m2p2pledges_belief_file,
+        "2 persons, 5 tasks example": create_simple_1m2p5pledges_belief_file,
+        "2 moments, 2 persons, 5 tasks example": create_simple_2m2p5pledges_belief_file,
+        "lovemaking example example": create_emmanuel_lovemaking_belief_file,
         "Create TeamFive Moment with Five time": create_five_time_config_file,
         "Create El Paso Moment with standard time.": create_elpaso_time_config_file,
         "create_emmanuel_belief_file": create_emmanuel_belief_file,
